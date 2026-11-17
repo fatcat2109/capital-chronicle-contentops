@@ -1,0 +1,154 @@
+{
+  "review": {
+    "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "started_at_utc": "2026-11-11T21:26:03.933080+00:00",
+    "points": {},
+    "reasons": {},
+    "prompt_sha256": "5b0a58f4174775391c9c622a4e80625c2401328776b8944e9bf67ab1d87b203d",
+    "output_schema_sha256": "874b3520b285d6936bc5d523209c8142bf0c0d07ef2e3d58b8a735b398a3bf29",
+    "returncode": 0,
+    "output_sha256": "5e0b72821405d5736bccdc58cf85d6148fbbebc0dcfaec0139fd44963e5aba21",
+    "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459",
+    "image_tools_observed": [
+      "read_file"
+    ],
+    "observed_conversation_id": "1112b36f-efd3-411e-a29f-545d369e5309",
+    "observed_usage": {
+      "input_tokens": 26866,
+      "output_tokens": 3022,
+      "thinking_tokens": 2649,
+      "cache_read_tokens": 39811,
+      "total_tokens": 29888
+    },
+    "observed_duration_seconds": 69.0211363,
+    "observed_num_turns": 1,
+    "status": "REVIEW_UNAVAILABLE",
+    "cause": "ValueError:AGY_IMAGE_PIXELS_NOT_OBSERVED",
+    "ended_at_utc": "2026-11-11T21:27:26.033559+00:00"
+  },
+  "diagnostic": {
+    "events": [
+      {
+        "event": "init",
+        "keys": [
+          "event",
+          "conversation_id",
+          "init"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "step_update",
+        "keys": [
+          "event",
+          "step_update"
+        ]
+      },
+      {
+        "event": "result",
+        "keys": [
+          "event",
+          "result"
+        ]
+      }
+    ],
+    "final_shapes": {
+      "conversation_id": "str",
+      "status": "str",
+      "response": "str",
+      "duration_seconds": "float",
+      "num_turns": "int",
+      "structured_output": "dict",
+      "json_schema": "dict",
+      "usage": "dict"
+    },
+    "response": "{\"image_seen\":false,\"points\":{\"1\":false,\"10\":false,\"2\":false,\"3\":false,\"4\":false,\"5\":false,\"6\":false,\"7\":false,\"8\":false,\"9\":false},\"reasons\":{\"1\":\"Image file not found at specified path; image viewing is unavailable.\",\"10\":\"Image file not found at specified path; image viewing is unavailable.\",\"2\":\"Image file not found at specified path; image viewing is unavailable.\",\"3\":\"Image file not found at specified path; image viewing is unavailable.\",\"4\":\"Image file not found at specified path; image viewing is unavailable.\",\"5\":\"Image file not found at specified path; image viewing is unavailable.\",\"6\":\"Image file not found at specified path; image viewing is unavailable.\",\"7\":\"Image file not found at specified path; image viewing is unavailable.\",\"8\":\"Image file not found at specified path; image viewing is unavailable.\",\"9\":\"Image file not found at specified path; image viewing is unavailable.\"}}\n",
+    "structured_output": {
+      "image_seen": false,
+      "points": {
+        "1": false,
+        "10": false,
+        "2": false,
+        "3": false,
+        "4": false,
+        "5": false,
+        "6": false,
+        "7": false,
+        "8": false,
+        "9": false
+      },
+      "reasons": {
+        "1": "Image file not found at specified path; image viewing is unavailable.",
+        "10": "Image file not found at specified path; image viewing is unavailable.",
+        "2": "Image file not found at specified path; image viewing is unavailable.",
+        "3": "Image file not found at specified path; image viewing is unavailable.",
+        "4": "Image file not found at specified path; image viewing is unavailable.",
+        "5": "Image file not found at specified path; image viewing is unavailable.",
+        "6": "Image file not found at specified path; image viewing is unavailable.",
+        "7": "Image file not found at specified path; image viewing is unavailable.",
+        "8": "Image file not found at specified path; image viewing is unavailable.",
+        "9": "Image file not found at specified path; image viewing is unavailable."
+      }
+    },
+    "status": "SUCCESS"
+  }
+}

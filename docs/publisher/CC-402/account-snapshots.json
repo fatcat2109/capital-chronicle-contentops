@@ -1,0 +1,50 @@
+{
+  "threads": {
+    "collected_at_utc": "2026-11-11T06:23:19.149852+00:00",
+    "limitations": [
+      "daily_account_snapshot_not_post_metric"
+    ],
+    "metrics": {
+      "followers_count": 3
+    },
+    "status": "COLLECTED"
+  },
+  "facebook_page": {
+    "collected_at_utc": "2026-11-11T06:23:20.110367+00:00",
+    "limitations": [
+      "daily_account_snapshot_not_post_metric"
+    ],
+    "metrics": {
+      "followers_count": 5191
+    },
+    "status": "COLLECTED"
+  },
+  "instagram_business": {
+    "collected_at_utc": "2026-11-11T06:23:21.085662+00:00",
+    "limitations": [
+      "daily_account_snapshot_not_post_metric"
+    ],
+    "metrics": {
+      "followers_count": 1192
+    },
+    "status": "COLLECTED"
+  },
+  "telegram": {
+    "collected_at_utc": "2026-11-11T06:31:09.751371+00:00",
+    "limitations": [],
+    "metrics": {
+      "members_count": 6
+    },
+    "status": "COLLECTED"
+  },
+  "discord": {
+    "collected_at_utc": "2026-11-11T06:35:52.312041+00:00",
+    "limitations": [
+      "official_discord_approximate_member_count_not_exact_new_members"
+    ],
+    "metrics": {
+      "approximate_members_count": 2
+    },
+    "status": "COLLECTED"
+  }
+}

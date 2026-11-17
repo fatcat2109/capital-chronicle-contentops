@@ -1,0 +1,61 @@
+{
+  "observed_at_utc": "2026-11-17T04:59:10.705290+00:00",
+  "retained_attempts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\agy_light_assist_v1.json",
+      "sha256": "eab974e9f2a79726a0dc39c42a772a510bdeefb0b22017ed13cbc605b8e2b0da",
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_TIMEOUT_120S",
+      "agy_version": "1.5.9",
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_utc": "2026-11-17T01:25:56.510816+00:00",
+      "ended_utc": "2026-11-17T01:27:57.047967+00:00",
+      "prompt_sha256": "73d564b1625673d6b7883e7583d9e55a061843d727ebbd3f0ec953a40e8406f1",
+      "output_sha256": "c33af70c1af82915afaa2c8a4c8a3880986743df0fc55fda94b82322f9f4b474",
+      "publisher_decisions": [],
+      "publisher_reviewed_utc": "2026-11-17T01:31:12.256695+00:00",
+      "use_alt_text": false,
+      "use_variants": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-536\\assist\\agy_light_assist_v1.json",
+      "sha256": "2bc4bf9c4635c5370af627da82634c85f7697a7c4a5c5253ad2f06eef01b4414",
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_TIMEOUT_120S",
+      "agy_version": "1.5.8",
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_utc": "2026-11-14T05:09:42.680824+00:00",
+      "ended_utc": "2026-11-14T05:11:47.450047+00:00",
+      "prompt_sha256": "c6b2dc2c6141994bd37f402ff0c0d5805d0bc98a993e0fed81f635d4b0e6f40d",
+      "output_sha256": "3a2a7cb83f1ddb58fc269b908e0d216f079140a18488a1599f1ac2afe4111d12",
+      "publisher_decisions": [],
+      "publisher_reviewed_utc": null,
+      "use_alt_text": null,
+      "use_variants": null
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-536\\piece-2\\assist\\agy_light_assist_v1.json",
+      "sha256": "9ce698f5175512a1a010ea9adb2ccb995fa4d572eabfcd36368c97c0f2e7a153",
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_VERSION_TIMEOUT_5S",
+      "agy_version": null,
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_utc": "2026-11-15T11:25:47.818398+00:00",
+      "ended_utc": "2026-11-15T11:25:53.534072+00:00",
+      "prompt_sha256": "d4312c364cb1c466fdd19bd6ce29ccbc11cf09803ff1788ef0085a537be5e805",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publisher_decisions": [],
+      "publisher_reviewed_utc": null,
+      "use_alt_text": null,
+      "use_variants": null
+    }
+  ],
+  "qualifying_pieces": 0,
+  "finding": "Every retained production/article assist is unavailable; published measured-odds pieces do not supply successful AGY alt/variant consumption and are separate CC-536 articles. The CC-124 Bitcoin preparation was not dispatched. Existing timeout/fallback records remain unchanged."
+}

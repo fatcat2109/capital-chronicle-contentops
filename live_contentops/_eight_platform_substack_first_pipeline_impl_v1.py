@@ -540,12 +540,16 @@ def build_native_derivative_payloads(
     media_asset_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
 ) -> dict[str, Any]:
     """Compile native packages and preserve the MAX editor's destination subsets."""
-    payloads = _build_native_derivative_payloads(
-        article=article,
-        selection=selection,
-        canonical_url=canonical_url,
-        media_asset_ids=media_asset_ids,
-    )
+    if article.get("measured_odds_series"):
+        from .measured_odds_series_v1 import compile_payloads
+        payloads = compile_payloads(article, canonical_url, media_asset_ids)
+    else:
+        payloads = _build_native_derivative_payloads(
+            article=article,
+            selection=selection,
+            canonical_url=canonical_url,
+            media_asset_ids=media_asset_ids,
+        )
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     payloads = {d: payloads[d] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d in payloads}
     from live_contentops.agy_editorial_assist_v1 import apply_variants
@@ -1365,15 +1369,17 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
                               require_media: bool = True) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
-    # A post with no link (a status post, decision 83) has an embed without a url.
-    embeds = [{"title": title, **({"url": canonical_url} if canonical_url else {})}]
+    # Text-only analysis replies already carry the canonical in their body.
+    # Discord rejects a url-only embed with an empty title (HTTP 400/50035).
+    embeds = ([{"title": title, **({"url": canonical_url} if canonical_url else {})}]
+              if title or image_url or image_path else [])
     if image_url:
         embeds[0]["image"] = {"url": image_url}
     raw = execute_discord_post(message=text, embeds=embeds, dry_run=False,
                                **({"image_path": image_path} if image_path else {}),
                                **({"thread_parent_id": thread_parent_id, "thread_name": thread_name,
                                    "reply_to_message_id": reply_to_message_id} if thread_parent_id else {}))
-    if raw.get("definite_no_write"):
+    if raw.get("status") != "SUCCESS":
         return raw
     response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
     message_id = str(raw.get("id") or response.get("id") or "")
@@ -4070,7 +4076,11 @@ def _prepare_cloudinary_delivery_media_for_plan(
         for row in (media.get("assets") or [])
         if isinstance(row, Mapping)
     ]
-    if context.get("accepted_evidence_sha256") and context.get("article", {}).get("substack_body_markdown"):
+    if plan.get("measured_odds_piece"):
+        from .measured_odds_series_v1 import delivery_snapshot_projection
+        article_assets = delivery_snapshot_projection(plan, article_assets)
+        delivery_only_assets = delivery_snapshot_projection(plan, delivery_only_assets)
+    elif context.get("accepted_evidence_sha256") and context.get("article", {}).get("substack_body_markdown"):
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
         selected = post_image_view({"article": context["article"], "media_assets": article_assets,
             "evidence": context.get("source_documents", []),
@@ -4086,6 +4096,26 @@ def _prepare_cloudinary_delivery_media_for_plan(
     delivery_only_assets = [{**a, "article_inclusion": False, "canonical_article_media": False}
         if a.get("modality") == "tradingview_chart_snapshot" else a for a in delivery_only_assets]
     article_assets = [a for a in article_assets if a.get("modality") != "tradingview_chart_snapshot"]
+    # Hosted-media destinations consume their reviewed asset selection, not
+    # every canonical photo. CC-425's unused 13 MB photo failed upload and
+    # stopped Instagram even though its selected gold chart was already ready.
+    preview_name = (plan.get("artifact_refs") or {}).get("native_derivative_previews")
+    hosted = [d["destination"] for d in plan.get("destinations", []) if d.get("delivery_media_required")]
+    if preview_name and hosted:
+        previews = _read_json(output_dir / preview_name).get("packages", {})
+        selected_ids = set()
+        explicit = True
+        for destination in hosted:
+            payload = previews.get(destination) or {}
+            ids = payload.get("media_asset_ids")
+            if not isinstance(ids, list) or not ids:
+                explicit = False
+                break
+            selected_ids.update(ids)
+        known = {a.get("asset_id") for a in [*article_assets, *delivery_only_assets]}
+        if explicit and selected_ids <= known:
+            article_assets = [a for a in article_assets if a.get("asset_id") in selected_ids]
+            delivery_only_assets = [a for a in delivery_only_assets if a.get("asset_id") in selected_ids]
     if not article_assets and not delivery_only_assets:
         # Simple's text-first qualified article intentionally has no in-body media. Reuse the
         # accepted deterministic delivery-only card seam so Instagram can receive media without
@@ -4149,12 +4179,15 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     output_dir = Path(str(intent.get("output_dir") or ""))
     if not output_dir.is_dir():
         raise RuntimeError("durable_intent_output_dir_unavailable")
-    if intent.get("plan_analysis_link") or intent.get("event_pack") or (intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids")):
+    if intent.get("plan_analysis_link") or intent.get("event_pack") or intent.get("heavy_news_quote") or (intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids")):
         destination = str(intent["destination_plan"]["destination"])
         frozen = intent["native_payload"]
         assets = intent.get("media_assets") or []
         article = _read_json(output_dir / "article_manifest_v1.json") if intent.get("event_pack") else {}
-        return {"output_dir":output_dir,"article":article,"selection":{},"media_assets":assets if intent.get("event_pack") else [],
+        if destination != "substack" and "media_asset_ids" in frozen:
+            by_id = {asset["asset_id"]: asset for asset in assets}
+            assets = [by_id[asset_id] for asset_id in frozen["media_asset_ids"] if asset_id in by_id]
+        return {"output_dir":output_dir,"article":article,"selection":{},"media_assets":assets if intent.get("event_pack") or frozen.get("media_asset_ids") else [],
             "delivery_only_assets":[],"payloads":{destination:frozen},
             "local_media":str(assets[0]["path"]) if frozen.get("media_asset_ids") and assets else "",
             "delivery_local_media":"","public_image_url":frozen.get("image_url", ""),
@@ -4178,6 +4211,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         and not [*(frozen_for_media.get("media_asset_ids") or []),
                  *(asset_id for post in frozen_for_media.get("posts") or []
                    if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])])
+    bounded_text = bool(article.get("tradingview_text_fallback")
+        and article.get("publication_image_contract") == "CC463_TRADINGVIEW_FIRST_V1")
     # Decision 61 floor: a copy with no image takes the run's first reviewed chart or
     # card (Capital Chronicle's own render, already on the canonical), so every
     # destination shows the same reviewed image. Only a run with none gets a new card.
@@ -4205,7 +4240,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             known = {row.get("asset_id") for row in media_assets}
             media_assets = [*media_assets, *(row for row in rebuilt_view["media_assets"]
                                              if row.get("asset_id") not in known)]
-    elif intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
+    elif not bounded_text and intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
         # Decision 61: a finalized copy with no selected image gets one here too.
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
         image_selection = post_image_view({"article": article, "media_assets": media_assets,
@@ -4231,7 +4266,9 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             decision["channel_media"] = {d: [i for i in ids if i in available] for d, ids in decision["channel_media"].items()}
     # CC-306: a plan-state post is not an article; it carries its validated copy per
     # destination (frozen below), so the article compiler has nothing to compile.
-    payloads = {} if intent.get("plan_status_post") or intent.get("sourced_reply") or intent.get("plan_analysis_page") else build_native_derivative_payloads(
+    payloads = {} if (intent.get("plan_status_post") or intent.get("sourced_reply")
+        or intent.get("plan_analysis_page") or media_destination == "substack"
+        or isinstance(frozen_for_media, Mapping)) else build_native_derivative_payloads(
         article=article,
         selection=selection,
         canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
@@ -4296,10 +4333,11 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         # The selected card/chart must reach both local-upload and URL transports.
         selected_payload = payloads.get(destination) or {}
         if "media_asset_ids" in selected_payload:
-            selected_ids = set(selected_payload["media_asset_ids"])
-            selected_ids.update(asset_id for post in selected_payload.get("posts") or []
-                for asset_id in post.get("media_asset_ids") or [])
-            media_assets = [asset for asset in media_assets if asset.get("asset_id") in selected_ids]
+            selected_ids = list(dict.fromkeys([*selected_payload["media_asset_ids"],
+                *(asset_id for post in selected_payload.get("posts") or []
+                  for asset_id in post.get("media_asset_ids") or [])]))
+            selected_by_id = {asset["asset_id"]: asset for asset in media_assets}
+            media_assets = [selected_by_id[asset_id] for asset_id in selected_ids if asset_id in selected_by_id]
         from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
         payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
             media_assets=media_assets, canonical_url=canonical_url)
@@ -4724,6 +4762,14 @@ def _publish_one_destination_from_durable_intent(
         from live_contentops.threads_adapter_v6 import (
             execute_threads_post, readback_threads_chain, readback_threads_post,
         )
+        package = payloads.get("threads") or {}
+        text = str(package.get("root_text") or text)
+        # A reviewed thread can carry the link in an own reply. The complete
+        # reply readback below verifies that exact text and canonical URL.
+        root_canonical = canonical_url
+        if canonical_url and canonical_url not in text and any(
+                canonical_url in str(reply) for reply in package.get("reply_texts") or []):
+            root_canonical = None
         root = execute_threads_post(
             text=text, image_url=(public_image_url or None) if image_path else None,
             dry_run=False,
@@ -4748,7 +4794,7 @@ def _publish_one_destination_from_durable_intent(
         try:
             root_readback = readback_threads_post(
                 post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
-                canonical_url=canonical_url, expected_media_local_path=image_path or None,
+                canonical_url=root_canonical, expected_media_local_path=image_path or None,
                 **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
             )
             expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
@@ -4869,11 +4915,24 @@ def _readback_one_destination_from_durable_intent(
                 "expected_parent_id": payloads[destination].get("reply_to_id")}
                if payloads[destination].get("discord_thread_parent_id") else {}),
         )
+    elif destination == "discord" and payloads[destination].get("discord_thread_parent_id"):
+        from live_contentops.discord_live_adapter_v6 import find_discord_thread_post
+        result = find_discord_thread_post(
+            thread_id=payloads[destination]["discord_thread_parent_id"], expected_text=text,
+            canonical_url=canonical_url, expected_parent_id=payloads[destination].get("reply_to_id"),
+            expected_image_sha256=(data["primary_media"] or {}).get("sha256"),
+            require_media=not (intent.get("plan_analysis_link") and not data["primary_media"]),
+        )
     elif destination == "threads" and public_object_id:
         from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
         package = payloads.get("threads") or {}
+        root_text = str(package.get("root_text") or text)
+        root_canonical = canonical_url
+        if canonical_url and canonical_url not in root_text and any(
+                canonical_url in str(reply) for reply in package.get("reply_texts") or []):
+            root_canonical = None
         result = readback_threads_post(
-            post_id=public_object_id, expected_text=str(package.get("root_text") or text), canonical_url=canonical_url,
+            post_id=public_object_id, expected_text=root_text, canonical_url=root_canonical,
             expected_media_local_path=image_path or None,
             **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
         )

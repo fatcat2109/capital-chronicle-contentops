@@ -1,0 +1,81 @@
+{
+  "role": "variants",
+  "test_forced_primary_failure": true,
+  "measurement_scope": "same light task, retained canonical article; not the missing original failed prompt",
+  "source_artifact": "docs\\publisher\\CC-466\\automatic-page-readback.json",
+  "status": "RETURNED",
+  "answered_by": "codex",
+  "basic_schema_and_limits_pass": true,
+  "record": {
+    "policy": "cc512-light-caller-v1",
+    "status": "RETURNED",
+    "started_at_utc": "2026-11-12T12:31:42.685982+00:00",
+    "prompt_sha256": "92cdf30879685d8569b9d1cff60688f68d6c1249d57245068b6d5e62aa0b0a34",
+    "prompt_bytes": 5129,
+    "attempts": [
+      {
+        "caller": "antigravity",
+        "started_at_utc": "2026-11-12T12:31:42.686067+00:00",
+        "status": "FAILED",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "image_tools_observed": [],
+        "returncode": 0,
+        "cause": "TEST_FORCED_AGY_EMPTY",
+        "ended_at_utc": "2026-11-12T12:31:42.688034+00:00",
+        "elapsed_seconds": 0.0019749999919440597,
+        "stdout_bytes": 34,
+        "stderr_bytes": 0,
+        "output_sha256": "5c6db7c14f005033dc7e9849f9041d68e786c05df7dd09222acb7948f3809b3d",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "caller": "codex",
+        "started_at_utc": "2026-11-12T12:31:42.691812+00:00",
+        "status": "RETURNED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "low",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "turn_completed_seconds": 33.28342419999535,
+        "observed_session_id": "01a1cfbe-1e89-7481-a419-987d80649332",
+        "observed_usage": {
+          "input_tokens": 15463,
+          "cached_input_tokens": 8832,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1220,
+          "reasoning_output_tokens": 29
+        },
+        "image_attached": false,
+        "returncode": 0,
+        "ended_at_utc": "2026-11-12T12:32:16.964260+00:00",
+        "elapsed_seconds": 34.27238439999928,
+        "stdout_bytes": 5244,
+        "stderr_bytes": 0,
+        "output_sha256": "e7aeb9b0bebf5552ccbcadf405e877824eea77d28d3fe424cf3b19e43d4964d8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "answered_by": "codex",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "answer_seconds": 34.27238439999928,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "low",
+    "observed_session_id": "01a1cfbe-1e89-7481-a419-987d80649332",
+    "observed_usage": {
+      "input_tokens": 15463,
+      "cached_input_tokens": 8832,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1220,
+      "reasoning_output_tokens": 29
+    },
+    "ended_at_utc": "2026-11-12T12:32:16.966469+00:00",
+    "elapsed_seconds": 34.280351100009284,
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc512-variants-measurement-1fwitb5w\\light-call.json",
+    "first_cause": "TEST_FORCED_AGY_EMPTY"
+  },
+  "public_write_performed": false,
+  "production_copy_acceptance": false
+}

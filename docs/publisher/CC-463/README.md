@@ -1,0 +1,32 @@
+17 November continuation: Neo is reachable. The completed 16 November production
+day has 12 TradingView-first market image records, and the live native 4:5
+Instagram chart is opened and visually verified. All 39 installed checks pass.
+The following seven-day observation ends on 24 November at 02:00 GMT+7; it is
+still incomplete. See the [current continuation](resume-20261117/README.md).
+The original build and earlier continuation retain their historical results.
+
+CC-463 implements Jim's decision 124 in the existing `DurablePublicationCoordinator` and `tradingview_snapshot_v1` service. Its base is the CC-459 operating HEAD, `3358a4252d6cc3b8dc21e2bfdc9c34c3534b499a`. Fresh market writes require a TradingView first image of the correct market and a quote-bound price-scale check. A refusal is recorded as a definite no-write before any destination probe. Existing ambiguous attempts and native returns retain their readback path.
+
+The initial maximum absolute differences, as percentages of Main's quote, are 0.15% for gold, S&P 500, EUR/USD and USD/JPY; 0.40% for WTI and Bitcoin. These are the starting values in the approved image spec, section 4. [Retained comparisons](held-price-pairs.json) show 0.1211%, 0.7034%, 0.0179%, 0.0283%, 1.0609% and 0.0245%, respectively. Those observations are 34–38 minutes apart, so they cannot calibrate a simultaneous feed basis or justify widening the starting limits. Publication uses a saved Main tick within 120 seconds of the comparison instant, with the quote known by capture time. The raw difference is checked before any WTI conversion; an excessive difference never becomes a conversion. WTI levels use the accepted additive difference, stated on the image. Other markets never borrow that conversion.
+
+Ops Product's 11 November 22:06 GMT+7 amendment is implemented: outside the S&P 500 cash session (09:30–16:00 ET, weekdays), the comparison uses the last 16:00 close. The other non-Bitcoin markets use Friday's 17:00 ET close during the common weekend closure, through Sunday 18:00 ET. Bitcoin continues to compare at capture. Both instants and the actual gap remain in the image metadata. Missing last-close evidence is named `TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE`; a moving overnight quote never certifies a frozen chart. Exchange-specific holidays and early closes are not inferred by this regular-session implementation.
+
+Instagram uses a native 4:5 chart download. A wide chart cannot be padded into that route. The existing service measures its download and resizes the chart viewport, preserving the chart header, axis and attribution. Targets use the exact supplied `target` or `target_level`; their absence is not filled. CC-471 owns adding Main's public target to its export.
+
+The [actual gold capture](media/gold-4x5/XAUUSD_2026-11-11_15-04-37.png) is 1088 × 1360 pixels. Its header, legend, axis and logo were opened and inspected; no bands were added. [The inspection](portrait-capture.json) also records that it was not admitted for publication: no contemporaneous saved Main quote was available. This proves the portrait capture and visual inspection, not a live Instagram post.
+
+The existing `published_images_v1.jsonl` now retains image type and scale-check metadata. Its daily read method counts observed image uses by type, excluding reservations and repeated readbacks. Historical records retain their bytes and report UNKNOWN when their image type was not recorded.
+
+Run `python scripts/audit_publication_images_cc463.py --register <existing published_images_v1.jsonl> --day YYYY-MM-DD` for a read-only daily count and first-image check. An unfinished day returns `OBSERVATION_PENDING`; an empty day cannot pass. Text fallbacks are counted explicitly. The existing two-article cap still counts those pieces. This adds no watcher, ledger or schedule.
+
+Native writer requests now require the exact `macro_chart_symbol` (`ECONOMICS:` or `FRED:`) for macro-data pieces. Structured event inputs accept that field or a source-bound original `fred_graph` asset. The series cannot be inferred from a title or an unlabelled headline number. The same chart service captures it; a locally drawn release card cannot replace it. Current event derivatives also use the already-restored eight-channel registry, including YouTube. Historical event packets keep their exact bytes.
+
+Launch configuration is `gpt-6.1-sol/max`, read from the active Ops-dispatched process arguments, labelled `CONFIGURED_NOT_OBSERVED`. No model call is inferred from those arguments. This run changes no schedule and sends no message to another chat.
+
+Build checks, integration, public readback and the required full live day plus seven-day observation are recorded separately below. Passing tests do not complete that observation period.
+
+The implementation is integrated in `A:\Capital Chronicle\ContentOps` at `e95964e0afe9df11282cac7aaa64433863c8b13d`. Remote readback confirms `contentops-live-20261111-cc463` at that commit and `contentops-rollback-20261111-cc463` at the preserved operating base. [Validation](validation.json) records 180 distinct passing targeted checks. The operating root passes 28 further contract checks and its actual export dry run renders 60 retained posts, queuing none. No full suite was run.
+
+[Installed evidence](integration.json) binds all 18 runtime/source files, their Git-normalized source equality, and eight unrelated dirty files with unchanged hashes. The existing `pythonw.exe` minute task still runs `scripts/plan_status_posts.py --publish` from the operating root. Its post-integration runs return OK, including 11 November 22:36 GMT+7. No task, schedule or user application was changed or restarted.
+
+The refreshed public Telegram page still ends at message 174. Main's latest distinct plan registration remains 11 November 13:31 GMT+7. [The installed daily audit](installed-image-day.json) reports `OBSERVATION_PENDING`: the retained 82 earlier image observations lack type metadata; they were not relabelled. There is no new CC-463 market image or live Instagram image to certify. Status is BLOCKED on `NEXT_MAIN_CARD_NOT_EXPORTED`, with the full live day and following seven-day period still unelapsed. The existing Main run supplies the next distinct card; the unchanged minute consumer then publishes it for Publisher's public-image readback and daily audit. No duplicate post was created to manufacture acceptance.

@@ -1,5 +1,58 @@
 # CC-406 Vietnamese morning gold note
 
+## 17 November continuation
+
+The installed producer delivered a 123-word Vietnamese note and one inspected
+BLS chart at 10:10 GMT+7. The normal installed desk refresh consumed the exact
+note and paired chart. Both printed CPI figures match their held official BLS
+spans; the exact final notice is present. The note uses Main's completed
+16 November synthesis and two verified public spans for its qualitative
+real-yield mechanism and countercase. No source code or schedule changed.
+
+The Ops-dispatched run started at 10:06 GMT+7, after the 07:30 deadline, and
+the dated note was absent at entry. The actual delivery is late and does not
+count toward acceptance. The 16 November on-time delivery remains recorded,
+but the required consecutive streak resets. The next possible three-morning
+sequence is 18, 19 and 20 November; each needs its real on-time desk observation.
+
+See [delivery and live consumer evidence](resume-20261117.json) and the
+[20 passing targeted checks](resume-20261117-targeted.xml). The existing request,
+earlier deliveries and unrelated worktree files retain their bytes.
+
+## 16 November continuation
+
+The producer now also reads Main's completed `analysis-native.json` synthesis.
+It selects by the original capture clock and uses the existing public-span
+adapter to verify the completion hash and exact six-market excerpts. This fixes
+the obsolete `owner-native.json` search that selected an 11 November view while
+the completed 13 November daily report was already held.
+
+`gold-note-refresh` revises the source of an unfinished dated note inside the
+same operation and outbox. The old request and any old return retain their
+exact bytes; a hash-bound source revision supplies the new request. Replaying
+the refresh reuses that request, and an already delivered note stays immutable.
+The targeted note and configured-provenance tests pass (29 checks; see
+[test results](resume-20261116-targeted.xml)).
+
+The 13 November operation retained only an unanswered request. It has no
+delivered note and cannot count as an on-time morning. The remaining acceptance
+must use real future desk observations, with no backdated replacement.
+
+The 16 November note was ready at 03:11 GMT+7: 120 words, the exact final
+notice and one inspected BLS chart. The normal installed desk refresh consumed
+the exact Markdown and chart; the saved readback was observed before 07:30.
+Its prose explicitly dates Main's last completed daily view and says that the
+forecast window has ended. See [delivery and live consumer evidence](resume-20261116.json).
+The implementation is integrated in the operating root with pushed live and
+rollback tags. Acceptance is 1/3 real mornings; the next two are 17 and 18
+November, each by 07:30 GMT+7. No schedule changed.
+
+```text
+python -B scripts/run_native_desktop_editorial.py gold-note-refresh --rollout config/native_desktop_rollout_v1.json --note-date YYYY-MM-DD
+```
+
+## Original 11 November delivery
+
 The installed Publisher CLI produced a 100-word Vietnamese note with one BLS
 chart for 11 November. The note was ready at 02:48 GMT+7. The installed CC-418
 reader consumed its exact bytes, the desk's normal refresh included it, and

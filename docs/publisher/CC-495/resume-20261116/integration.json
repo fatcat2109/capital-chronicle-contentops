@@ -1,0 +1,179 @@
+{
+  "item": "CC-495",
+  "observed_at_utc": "2026-11-15T21:16:10.299334+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head_at_read": "6ca28496037f0546a4d34191a5aee5d7878ae3da",
+  "source_commit": "6ca28496037f0546a4d34191a5aee5d7878ae3da",
+  "branch": "backlog/cc-495-real-draft-proof-20261116",
+  "rollback_tag": "contentops-rollback-20261116-cc495-acceptance",
+  "rollback_commit": "9170cf53a8c32f45c56836e4b17f91743afc8894",
+  "live_tag": "contentops-live-20261116-cc495-acceptance",
+  "integration": "Publisher fast-forward of its own delivered branch; no Ops review step on this item.",
+  "production_code_changed": false,
+  "test_change": "Isolate the added follow-up and plan-page consumers and Main export reader in the minute-entry fixture.",
+  "targeted_tests": {
+    "tests": "88",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "83.836"
+  },
+  "installed_entry_tests": {
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "2.294"
+  },
+  "installed_sources": {
+    "live_contentops/x_reply_bot_v1.py": {
+      "bytes": 47558,
+      "sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "bytes": 48518,
+      "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "bytes": 12396,
+      "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "bytes": 24112,
+      "sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "live_contentops/x_reply_topics_v1.py": {
+      "bytes": 7748,
+      "sha256": "fdad5f07a62bdd4734c2afa40c047785b9d00775b769b7bd2fff61816ea4b054",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "live_contentops/x_reply_trading_dates_v1.py": {
+      "bytes": 1525,
+      "sha256": "c20822b483fb4db77e1151263a32386590363c28404ec5c6e154530d281dec82",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "live_contentops/public_market_quote_v1.py": {
+      "bytes": 12154,
+      "sha256": "a479ad125dc460edbac6d42b42830ffd4c697f8be5935b2526ce7cd2e9660f47",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "scripts/plan_status_posts.py": {
+      "bytes": 14503,
+      "sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "matches_lane": true,
+      "unchanged_from_receipt_readback": true
+    },
+    "tests/test_x_reply_bot_entry_cc464.py": {
+      "installed_normalized_sha256": "3bfeb4e1d81bcc99891dea602deea24372fbec21a74eccce54f3ecf791d0e67a",
+      "lane_normalized_sha256": "3bfeb4e1d81bcc99891dea602deea24372fbec21a74eccce54f3ecf791d0e67a"
+    }
+  },
+  "post_integration_delivery_readback": [
+    {
+      "delivery_id": "xrb-2120872859266699313",
+      "telegram_message_id": 4,
+      "status": "DELIVERED",
+      "post_to_delivery_minutes": 8.5797,
+      "original_delivery_receipt_and_pack_hashes_match": true
+    },
+    {
+      "delivery_id": "xrb-2121235459187826884",
+      "telegram_message_id": 5,
+      "status": "DELIVERED",
+      "post_to_delivery_minutes": 8.3204,
+      "original_delivery_receipt_and_pack_hashes_match": true
+    },
+    {
+      "delivery_id": "xrb-2121238553342751113",
+      "telegram_message_id": 6,
+      "status": "DELIVERED",
+      "post_to_delivery_minutes": 5.592,
+      "original_delivery_receipt_and_pack_hashes_match": true
+    }
+  ],
+  "latest_live_consumer_run": {
+    "message_id": "x-reply-bot-b78faa8921c5d55f75a79e7ee3f800bce2c1f4a0e7d4ac1c18520bce7410f1e0",
+    "stored_at_utc": "2026-11-15T21:15:41.093319+00:00",
+    "payload_sha256": "1bf043bbbe5df616ef5bb3a677796d65fc6cb989f583783527fabc4974423ae8",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null,
+    "started_at_utc": "2026-11-15T21:15:29.566613+00:00",
+    "ended_at_utc": "2026-11-15T21:15:41.085719+00:00",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261115T211529-25b5bf52\\result.json"
+  },
+  "scheduled_consumer_artifact": "scheduled-consumer.json",
+  "preserved_wip": {
+    "lane": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "bytes": 992508,
+        "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "bytes": 10337,
+        "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "original_bytes_preserved": true
+      }
+    },
+    "operating_root": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+        "bytes": 3959,
+        "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+        "bytes": 19341,
+        "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+        "bytes": 39129,
+        "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+        "bytes": 6166,
+        "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "bytes": 1417783,
+        "sha256": "b6752fba1d01e315c5833ae95594729a85cddcd94b2d132920fa85b617475832",
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "bytes": 70897,
+        "sha256": "a73fdb12c2ed001eef5905abbe2929d7ef133d6cb1f70c5f101192689315f017",
+        "original_bytes_preserved": true
+      }
+    }
+  },
+  "launch": {
+    "pid": 34028,
+    "process_started_at_local": "2026-11-16T03:58:58+07:00",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process CommandLine readback: codex.exe exec --model gpt-6.1-sol -c model_reasoning_effort=max -C A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-exec",
+    "runtime_model": null,
+    "runtime_effort": null
+  },
+  "manual_consumer_ticks": 0,
+  "model_calls": 0,
+  "transport_calls": 0,
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "phone_open_observed": false,
+  "public_submit_actions": 0
+}

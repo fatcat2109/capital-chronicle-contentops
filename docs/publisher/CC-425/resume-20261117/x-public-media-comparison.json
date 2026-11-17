@@ -1,0 +1,15 @@
+{
+  "source_asset_sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+  "platform_sha256": "9b2839d79ee34463d7a9b593fbeff6ed0269067e3d1fe9cf625961b119bf8e2d",
+  "public_image_url": "https://pbs.twimg.com/media/HXUi97Xb0AAj7_w?format=jpg&name=orig",
+  "observed_image_url": "https://pbs.twimg.com/media/HXUi97Xb0AAj7_w?format=jpg&name=small",
+  "public_object_url": "https://x.com/Capitalnicle/status/2122641720060100824",
+  "pixels_inspected": true,
+  "source_pixels_match": true,
+  "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+  "rms": 1.2255,
+  "worst_tile_rms": 7.0217,
+  "max_luma_delta": 26,
+  "visual_review": "Both actual source and public JPEG inspected: same bars, signs, periods, legend, zero baseline, denominator, provenance and full uncropped source footer. JPEG compression only.",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\public-media\\cc425-public-x-image.jpg"
+}

@@ -560,6 +560,19 @@ class MainReportFeed:
                 event_id=self.pointer.get("preview_event_id") or self.pointer["review_event_id"], cutoff_utc=cutoff_utc,
                 article_type="EVENT_REVIEW" if self.pointer.get("review_event_id") else "EVENT_PREVIEW",
                 published_feed_path=self.pointer.get("published_feed_path"))
+            if self.pointer.get("review_event_id") and self.pointer.get("research_root"):
+                # A review keeps its frozen preview and adds the held outcome,
+                # reaction and score edition. Never replace the earlier facts.
+                from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+                edition = RetainedSourceResearch(self.pointer["research_root"], editions_root=self.pointer.get("research_editions_root"))
+                if set(edition.records) & set(self.retained_research.records):
+                    raise ValueError("SOURCE_EDITION_MUST_HAVE_NEW_IDENTITY")
+                for record in edition.records.values():
+                    record["supporting_headline_ids"] = list(dict.fromkeys([
+                        *record.get("supporting_headline_ids", []), *self.retained_research.records]))
+                self.retained_research.records.update(edition.records)
+                self.retained_research.gaps.extend(edition.gaps)
+                self.retained_research.revision = sha256_of([self.retained_research.revision, edition.revision])
         elif self.pointer.get("research_root") and not self.can_resume(run_id):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
@@ -664,9 +677,10 @@ class MainReportFeed:
                 frozen_input["input_known_at_cutoff_utc"] = known_at_cutoff_utc
             _persist(self.tracker.store, input_key, frozen_input, "internal:native-current-input")
         if self.retained_research and not pool:
-            from live_contentops.contentops_foundation_library_v1 import library_projection
+            from live_contentops.contentops_foundation_library_v1 import dependency_rows, library_projection
             from live_contentops.contentops_editorial_desk_v1 import read_reviews
-            desk = library_projection(self.tracker.store.list_outbox_messages(), read_reviews(self.tracker.store))
+            desk = library_projection(dependency_rows(self.tracker.store), read_reviews(self.tracker.store),
+                                      include_story_context=False)
             held = {p["brief_id"] for p in (desk or {}).get("packages", []) if p["review"]["state"] == "HOLD"}
             held_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] in held for i in b["source_item_ids"]}
             active_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] not in held for i in b["source_item_ids"]}

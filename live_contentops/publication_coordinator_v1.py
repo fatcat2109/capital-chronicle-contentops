@@ -368,6 +368,7 @@ def normalize_readback_result(
     normalized_checks = {key: checks[key] for key in (
         "text_match", "media_match", "thread_match", "account_match",
         "canonical_link_match", "public_url_match", "object_id_match",
+        "link_reply_gap",
     ) if type(checks.get(key)) is bool}
     if normalized_checks:
         normalized["content_binding_checks"] = normalized_checks
@@ -400,7 +401,32 @@ def normalize_readback_result(
 LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
     "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
     "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED",
+    "NEO_PUBLICATION_SURFACE_UNREGISTERED",
 })
+
+
+def _local_missing_threads_text(destination, detail):
+    # CC-536: the adapter validates its text before any HTTP request. Retain
+    # the failed dispatch, but do not mistake a repaired payload for an outage.
+    return (destination == "threads" and detail.get("status") == DEFINITE_NO_WRITE
+        and detail.get("safe_error_classification") == "missing:text")
+
+
+def _local_identity_refusal(detail):
+    # Every send still verifies identity. A refusal before a click cannot
+    # consume the entire day after a fresh identity observation and absence.
+    return (detail.get("status") == DEFINITE_NO_WRITE
+        and detail.get("safe_error_classification") == "NEO_SIGNED_IN_ACCOUNT_MISMATCH")
+
+
+def _local_instagram_validation_failure(destination, detail):
+    # The adapter checks the selected image before calling Meta. Preserve that
+    # failed attempt without treating a repairable image as a platform outage.
+    # The bounded code also recognizes incidents saved before this field existed.
+    codes = str(detail.get("safe_error_classification") or "").split(";")
+    return (destination == "instagram_business" and detail.get("status") == DEFINITE_NO_WRITE
+        and (detail.get("local_prewrite_validation") is True
+             or all(code.startswith("validation_failures:") for code in codes)))
 
 
 class DurablePublicationCoordinator:
@@ -911,7 +937,11 @@ class DurablePublicationCoordinator:
 
     def _effective_message(self, message):
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
-        row = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(message["message_id"]))
+        key = "native-reader-presentation-" + sha256_of(message["message_id"])
+        row = self.store.get_outbox_message(key)
+        reference = self.store.get_outbox_message(key + "-cc425-reference")
+        if reference and reference["status"] == "PRESENTATION_EDIT_CONFIRMED":
+            row = reference
         if not row or row["status"] not in {"PRESENTATION_EDIT_CONFIRMED", "PRESENTATION_MEDIA_BOUND"}:
             return self._dated_distribution_message(message)
         edit = json.loads(row["payload"])
@@ -1027,14 +1057,15 @@ class DurablePublicationCoordinator:
         from live_contentops.event_pack_v1 import require_mutable
         require_mutable(intent)
         dispatch = self.store.get_platform_dispatch(dispatch_id)
+        destination = dispatch['platform']
         authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
             "operating_mode": self._mode(), "work_item_id": intent["work_item_id"],
-            "destination": "substack", "payload_hash": intent["destination_plan"]["payload_hash"],
+            "destination": destination, "payload_hash": intent["destination_plan"]["payload_hash"],
             "dispatch_attempt_identity": dispatch_id, "action": "EDIT_EXISTING"}
-        raw = self.transport_runtime._neo_transport.amend_existing(destination="substack", intent=intent,
+        raw = self.transport_runtime._neo_transport.amend_existing(destination=destination, intent=intent,
             public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"],
             authorization_context=authorization)
-        observed = self.transport_runtime._neo_transport.readback(destination="substack", intent=intent,
+        observed = self.transport_runtime._neo_transport.readback(destination=destination, intent=intent,
             public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"])
         return {"edit": raw, "readback": observed, "new_post_calls": 0}
 
@@ -1053,6 +1084,19 @@ class DurablePublicationCoordinator:
         intent, revision, view, acceptance = self._reader_presentation_intent(message, review_reference)
         destination = message["destination"]
         key = "native-reader-presentation-" + sha256_of(message["message_id"])
+        from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+        if revision.get("policy") == LINK_POLICY:
+            previous = self.store.get_outbox_message(key)
+            if previous:
+                previous_note = json.loads(previous["payload"])
+                if (previous["status"] != "PRESENTATION_EDIT_CONFIRMED"
+                        or previous_note.get("article", {}).get("substack_body_markdown") != revision["body_before"]
+                        or previous_note.get("public_object_id") != dispatch["public_object_id"]
+                        or previous_note.get("public_object_url") != dispatch["public_object_url"]):
+                    raise ValueError("CPI_REFERENCE_PRIOR_EDIT_MUST_BE_CONFIRMED_AND_UNCHANGED")
+            # Preserve the completed earlier edit and its recovery bytes.
+            # This exact append is selected only after its own strict readback.
+            key += "-cc425-reference"
         canonical_id = revision["objects"]["substack"]["message_id"]
         if destination != "substack":
             canonical_edit = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(canonical_id)) or {}
@@ -2140,6 +2184,9 @@ class DurablePublicationCoordinator:
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
             raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
+        if plan.get("measured_odds_piece"):
+            from .measured_odds_series_v1 import validate_plan
+            validate_plan(self.store, work_item_id, plan)
         if plan.get("daily_digest"):
             from live_contentops.substack_daily_digest_v1 import validate_digest_plan
             validate_digest_plan(self.store, work_item_id, plan)
@@ -2256,6 +2303,8 @@ class DurablePublicationCoordinator:
                 previous = self.store.get_outbox_message(ids["message_id"])
                 if not previous or json.loads(previous["payload"]).get("published_content_export"):
                     intent["published_content_export"] = "contentops.published_content.v1"
+            if plan.get("measured_odds_piece"):
+                intent["measured_odds_piece"] = plan["measured_odds_piece"]
             if plan.get("daily_digest"):
                 from live_contentops.substack_daily_digest_v1 import validate_digest_plan
                 packet = validate_digest_plan(self.store, work_item_id, plan)
@@ -2278,6 +2327,10 @@ class DurablePublicationCoordinator:
                 packet = validate_link_plan(self.store, work_item_id, plan)
                 intent["plan_analysis_link"] = packet["link_id"]
                 intent["native_payload"] = packet["native_payload"]
+                if packet.get("kind") in {"daily_note", "daily_trend_board"}:
+                    intent["media_assets"] = packet["media_assets"]
+                if packet.get("kind") == "daily_trend_board":
+                    intent["daily_trend_board"] = packet["board_id"]
                 if packet.get("original_analysis_root"):
                     page = json.loads(self.store.get_outbox_message(packet["page_id"])["payload"])
                     intent["media_assets"] = page["media_assets"]
@@ -2304,6 +2357,12 @@ class DurablePublicationCoordinator:
                 from live_contentops.sourced_replies_v1 import validate_plan, payload as reply_payload
                 row = validate_plan(self.store, work_item_id, plan)
                 intent["sourced_reply"] = row["key"]
+                if row.get("heavy_news_quote"):
+                    from .heavy_news_quotes_v1 import quote_parent
+                    intent["heavy_news_quote"] = row["key"]
+                    intent["quote_parent"] = quote_parent(row)
+                    intent["market_asset"] = row["market"]
+                    intent["media_assets"] = [row["image"]]
                 if row.get("x_api_mention"):
                     intent["x_api_mention"] = row["x_api_mention"]
                 intent["native_payload"] = reply_payload(row)
@@ -2559,6 +2618,66 @@ class DurablePublicationCoordinator:
                                              "cause": type(image_error).__name__}))
         return status
 
+    def cancel_unclaimed_status_post(self, message_id, *, reason):
+        """Cancel an untouched status dispatch atomically; a claimed write needs readback."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        conn = self.store.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)).fetchone()
+            if not row or row["destination"].startswith("internal:"):
+                raise ValueError("EXACT_STATUS_POST_DISPATCH_REQUIRED")
+            intent = json.loads(row["payload"])
+            if not intent.get("plan_status_post") or intent["plan_status_post"] != row["work_item_id"]:
+                raise ValueError("EXACT_STATUS_POST_DISPATCH_REQUIRED")
+            ids = self._ids(row["work_item_id"], intent["plan_hash"], row["destination"])
+            if ids["message_id"] != message_id:
+                raise ValueError("EXACT_STATUS_POST_INTENT_REQUIRED")
+            readback_id = "cancel_unclaimed_" + ids["dispatch_id"]
+            prior = conn.execute("SELECT readback_data FROM readbacks WHERE readback_id=?", (readback_id,)).fetchone()
+            if prior and row["status"] in {DEFINITE_NO_WRITE, "PLAN_POST_SETTLED"}:
+                result = json.loads(prior["readback_data"])
+                if result.get("reason_code") != reason:
+                    raise ValueError("STATUS_POST_CANCELLATION_REASON_CHANGED")
+                conn.commit()
+                return result
+            dispatch = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (ids["dispatch_id"],)).fetchone()
+            if row["status"] != "READY" or dispatch is not None:
+                raise ValueError("STATUS_POST_ALREADY_CLAIMED_READBACK_REQUIRED")
+            requests = []
+            for native in conn.execute("SELECT * FROM outbox_messages WHERE destination='internal:native-neo-tool' AND work_item_id=?", (row["work_item_id"],)):
+                request = (json.loads(native["payload"]).get("request") or {})
+                if request.get("destination") != row["destination"] or request.get("action") != "PUBLISH":
+                    continue
+                if request.get("intent_sha256") != sha256_of(intent):
+                    raise ValueError("EXACT_STATUS_POST_INTENT_REQUIRED")
+                for kind in ("started", "response"):
+                    key = "native-neo-" + sha256_of([row["work_item_id"], request["request_sha256"], kind])
+                    if conn.execute("SELECT 1 FROM outbox_messages WHERE message_id=?", (key,)).fetchone():
+                        raise ValueError("STATUS_POST_ALREADY_CLAIMED_READBACK_REQUIRED")
+                requests.append(native["message_id"])
+            now = datetime.now(timezone.utc).isoformat()
+            for key in requests:
+                conn.execute("UPDATE outbox_messages SET status='NATIVE_NEO_SUPERSEDED' WHERE message_id=?", (key,))
+            conn.execute("UPDATE outbox_messages SET status=? WHERE message_id=?", (DEFINITE_NO_WRITE, message_id))
+            conn.execute("INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at) VALUES (?,?,?,?,?)",
+                         (ids["dispatch_id"], message_id, row["destination"], DEFINITE_NO_WRITE, now))
+            conn.execute("INSERT INTO reconciliations (reconciliation_id,work_item_id,status,reconciled_at) VALUES (?,?,?,?) "
+                         "ON CONFLICT(reconciliation_id) DO UPDATE SET status=excluded.status,reconciled_at=excluded.reconciled_at",
+                         (ids["reconciliation_id"], row["work_item_id"], reason, now))
+            result = {"message_id": message_id, "dispatch_id": ids["dispatch_id"], "destination": row["destination"],
+                      "status": DEFINITE_NO_WRITE, "reason_code": reason, "public_write_performed": False,
+                      "intent_sha256": sha256_of(intent)}
+            conn.execute("INSERT INTO readbacks (readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+                         (readback_id, ids["dispatch_id"], _canonical_json(result), now))
+            conn.commit()
+            return result
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
+
     def cancel_unclaimed_note(self, message_id, *, reason):
         """End an exact queued Note with zero write, preserving all request bytes."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -2624,7 +2743,9 @@ class DurablePublicationCoordinator:
                     (incident_id + "_local_prewrite_resolved",)).fetchone()
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
-                local = failure and (failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                    or _local_missing_threads_text(destination, failure) or _local_identity_refusal(failure)
+                    or _local_instagram_validation_failure(destination, failure))
                 if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
                         "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}:
                     local = failure.get("status") == DEFINITE_NO_WRITE
@@ -2635,14 +2756,25 @@ class DurablePublicationCoordinator:
                         (dispatch_id, destination)).fetchone()
                     reconciliation = conn.execute("SELECT status FROM reconciliations WHERE reconciliation_id=?",
                         ("reconciliation_" + dispatch_id.removeprefix("dispatch_"),)).fetchone()
+                    if ((failure.get("reason_code") or failure.get("safe_error_classification")) == "EVERY_POST_IMAGE_REQUIRED:" + destination
+                            and failure.get("status") == DEFINITE_NO_WRITE and dispatch
+                            and dispatch["status"] == DEFINITE_NO_WRITE
+                            and not dispatch["public_object_id"] and not dispatch["public_object_url"]):
+                        # The per-post image check refused before HTTP. It still
+                        # checks every new intent, but cannot bar a later valid
+                        # card as if the platform itself had failed.
+                        local = True
                     confirmed = bool(dispatch and dispatch["status"] == DISPATCH_CONFIRMED
                         and dispatch["public_object_id"] and dispatch["public_object_url"]
                         and reconciliation and reconciliation["status"] == RECONCILED_CONFIRMED)
                     if (dispatch and dispatch["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
                             and reconciliation and reconciliation["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
-                            and failure.get("safe_error_classification") == "ValueError"):
+                            and failure.get("safe_error_classification") in {
+                                "ValueError", "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN",
+                                "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"}):
                         # CC-453: fresh authenticated absence resolves the old
-                        # local validation exception; keep its exact retry budget.
+                        # local validation/return exception; keep its exact retry
+                        # budget. A still-unknown dispatch remains fenced above.
                         local = True
                 if not resolved and not local and not confirmed:
                     return incident_id, day, failure
@@ -2689,12 +2821,68 @@ class DurablePublicationCoordinator:
                 "dispatch_id":dispatch["dispatch_id"], "browser_write_request_issued":False,
                 "exact_dispatch_still_requires_readback":True}))
 
+    def resolve_reconciled_native_preclick_failure(self, destination, *, native_executor, request_hash):
+        """A bound pre-click refusal plus proven absence resolves its daily circuit.
+
+        Retain both original observations. This performs no retry and cannot
+        release a possibly sent object, missing return or platform restriction.
+        """
+        incident_id, _, failure = self._destination_failure_cursor(destination)
+        if not failure or failure.get("safe_error_classification") != "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH":
+            raise ValueError("NATIVE_PRECLICK_BINDING_FAILURE_REQUIRED")
+        dispatch = self.store.get_platform_dispatch(failure["dispatch_id"]) or {}
+        request = (native_executor._get(request_hash,"request") or {}).get("request",{})
+        response = native_executor._get(request_hash,"response") or {}
+        result = response.get("result") or {}
+        if (request.get("action") != "PUBLISH" or request.get("destination") != destination
+                or request.get("dispatch_attempt_identity") != dispatch.get("dispatch_id")
+                or result.get("request_sha256") != request_hash
+                or not result.get("native_tool_return_sha256")
+                or result.get("status") != "FAILED_BEFORE_WRITE"
+                or result.get("stage") != "BEFORE_PUBLISH_CLICK"
+                or result.get("definite_no_write") is not True or result.get("public_write_performed") is not False
+                or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+                or dispatch.get("public_object_id") or dispatch.get("public_object_url")
+                or dispatch.get("status") != RECONCILED_ABSENT_SAFE_TO_RETRY):
+            raise ValueError("EXACT_NATIVE_PRECLICK_AND_ABSENCE_REQUIRED")
+        return self.store.register_incident(incident_id=incident_id+"_local_prewrite_resolved",
+            work_item_id=request["work_item_id"],severity="RESOLVED_LOCAL_PREWRITE",
+            description=_canonical_json({"cause":"OBSERVED_NATIVE_PRECLICK_REFUSAL_AND_RECONCILED_ABSENCE",
+                "dispatch_id":dispatch["dispatch_id"],"request_hash":request_hash,
+                "public_write_performed":False,"retry_performed":False}))
+
+    def resolve_unregistered_quote_begin_failure(self, dispatch_id, *, native_executor):
+        """Release this local X circuit only after the existing absence owner settles it."""
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        failure = self._destination_day_failure("x") or {}
+        if (dispatch.get("status") != RECONCILED_ABSENT_SAFE_TO_RETRY
+                or failure.get("dispatch_id") != dispatch_id or failure.get("safe_error_classification") != "KeyError"):
+            raise ValueError("CC467_EXACT_LOCAL_BEGIN_FAILURE_AND_ABSENCE_REQUIRED")
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=message["work_item_id"]):
+            packet = json.loads(row["payload"])
+            request = packet.get("request") or {}
+            if (request.get("action") == "PUBLISH" and request.get("destination") == "x"
+                    and request.get("surface") == "X_QUOTE_POST" and request.get("quote_parent")
+                    and request.get("dispatch_attempt_identity") == dispatch_id):
+                key = request["request_sha256"]
+                if not native_executor._get(key,"started") or native_executor._get(key,"response"):
+                    raise ValueError("CC467_EXACT_INTERRUPTED_BEGIN_REQUIRED")
+                incident_id, _, _ = self._destination_failure_cursor("x")
+                return self.store.register_incident(incident_id=incident_id+"_local_prewrite_resolved",
+                    work_item_id=request["work_item_id"], severity="RESOLVED_LOCAL_PREWRITE",
+                    description=_canonical_json({"cause":"CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM",
+                        "dispatch_id":dispatch_id,"request_sha256":key,"reconciled_absent":True,
+                        "public_write_performed":False,"retry_performed":False}))
+        raise ValueError("CC467_EXACT_UNREGISTERED_SURFACE_REQUEST_REQUIRED")
+
     def _record_destination_day_failure(self, intent, destination, detail, instant=None):
         # CC-401: reuse the incident table as the daily circuit, with first cause
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
-        if (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+        if (_local_missing_threads_text(destination, detail) or _local_identity_refusal(detail)
+                or _local_instagram_validation_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                 and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
                      or detail.get("status") == DEFINITE_NO_WRITE)):
             return
@@ -2703,7 +2891,29 @@ class DurablePublicationCoordinator:
             work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
             description=_canonical_json({**detail, "destination": destination, "et_day": day}))
 
-    def _dispatch_message(
+    def _dispatch_message(self, message, *, canonical_url, explicit_reconciled_absent_retry=False,
+                          explicit_transport_correction_retry=False, recovery_public_object_url=None):
+        outcome = self._dispatch_message_once(message, canonical_url=canonical_url,
+            explicit_reconciled_absent_retry=explicit_reconciled_absent_retry,
+            explicit_transport_correction_retry=explicit_transport_correction_retry,
+            recovery_public_object_url=recovery_public_object_url)
+        if outcome.get("status") == DEFINITE_NO_WRITE:
+            # CC-515: a per-day first failure lost later attempts' causes. Keep
+            # each fixed cause in the existing exact-dispatch readback audit.
+            cause = outcome.get("reason_code") or outcome.get("safe_error_classification")
+            if cause:
+                dispatch_id = outcome.get("dispatch_id") or "dispatch_" + str(
+                    message["message_id"]).removeprefix("outbox_")
+                if self.store.get_platform_dispatch(dispatch_id):
+                    record = {"dispatch_id": dispatch_id, "destination": message["destination"],
+                        "status": DEFINITE_NO_WRITE, "reason_code": str(cause)[:200],
+                        "publish_called": bool(outcome.get("publish_called")), "public_write_performed": False}
+                    payload = _canonical_json(record)
+                    self.store.register_readback(readback_id="no-write-cause-" + _hash(payload)[:32],
+                        dispatch_id=dispatch_id, readback_data=payload)
+        return outcome
+
+    def _dispatch_message_once(
         self,
         message: Mapping[str, Any],
         *,
@@ -2721,6 +2931,22 @@ class DurablePublicationCoordinator:
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if existing is None:
+            from .audience_feedback_v1 import stopped_type_for_new_message
+            stopped = stopped_type_for_new_message(self.store, message, intent)
+            if stopped:
+                claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+                    message_id=ids["message_id"], platform=destination, expected_status=None)
+                if not claimed:
+                    actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                    return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
+                            "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
+                self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
+                self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"], status=stopped["reason_code"])
+                return {**stopped, "destination": destination, "dispatch_id": ids["dispatch_id"],
+                        "status": DEFINITE_NO_WRITE, "publish_called": False}
         restored_x_no_write = False
         restored_substack_no_write = False
         repaired_composer_no_write = False
@@ -2817,7 +3043,8 @@ class DurablePublicationCoordinator:
                 and not self._message_is_stale(message, intent) else None)
             repaired_composer_no_write = bool(repair_proof
                 and reconciliation_status in {None, "NEO_COMPOSER_PREPARATION_FAILED",
-                    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE"})
+                    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE", "NEO_CONTROL_COVERED_ACT",
+                    "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"})
             if repaired_composer_no_write and reconciliation_status is None:
                 # Older definite no-writes omitted a reconciliation row. Retain
                 # their immutable native return and record its actual pre-click
@@ -2929,6 +3156,40 @@ class DurablePublicationCoordinator:
         wrong_time = find_forbidden_public_time(*posted_values(intent, canonical_url), public_media_text(intent.get("media_assets")))
         if wrong_time:
             return {**refusal(destination, wrong_time), "status": TIME_REASON, "reason_code": TIME_REASON}
+        # Decision 124: one image contract for every fresh post, before any
+        # destination probe or adapter call. Existing in-flight returns and
+        # ambiguous writes still follow their original readback path.
+        if not native_pending_resume:
+            from .publication_image_contract_v1 import ImageContractError, validate_write
+            try:
+                validate_write(self, intent, destination)
+            except Exception as image_error:
+                reconciliation_reason = str(image_error)
+                if not isinstance(image_error, ImageContractError):
+                    details = {"exception_type": type(image_error).__name__,
+                               "first_cause": str(image_error)}
+                    if isinstance(image_error, OSError) and image_error.filename is not None:
+                        details["filename"] = str(image_error.filename)
+                    image_error = ImageContractError("PUBLICATION_IMAGE_CONTRACT_INVALID",
+                        **details)
+                    # The existing reconciliation is also the next run's
+                    # diagnosis: retain the exception and missing path there,
+                    # rather than only in this transient return value.
+                    reconciliation_reason = str(image_error) + ": " + _canonical_json(details)
+                claimed = self.store.claim_platform_dispatch_attempt(
+                    dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
+                    expected_status=existing.get("status") if existing else None)
+                if not claimed:
+                    actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                    return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
+                            "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
+                self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
+                self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"], status=reconciliation_reason)
+                return {"destination": destination, "status": DEFINITE_NO_WRITE, "publish_called": False,
+                        "reason_code": str(image_error), "image_contract_details": image_error.details,
+                        "dispatch_id": ids["dispatch_id"]}
         if intent.get("sourced_reply"):
             from live_contentops.sourced_replies_v1 import validate_intent, reserve, read_target
             row = validate_intent(self.store, intent)
@@ -2953,7 +3214,11 @@ class DurablePublicationCoordinator:
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
             metadata = article_metadata(intent)
-            check_publication_copy({"payload": intent.get("payload") or item.get("payload")},
+            public_copy = {"payload": intent.get("payload") or item.get("payload")}
+            if intent.get("measured_odds_piece"):
+                from .measured_odds_series_v1 import publication_check_copy
+                public_copy = publication_check_copy(public_copy, intent)
+            check_publication_copy(public_copy,
                 conditional_calls=metadata["conditional_calls"], require_notice=False, require_call_text=False)
             if self.published_content_path.exists():
                 read_records(self.published_content_path)
@@ -3145,7 +3410,17 @@ class DurablePublicationCoordinator:
             detail = {"dispatch_id": ids["dispatch_id"], "destination": destination,
                       "status": result["status"], "attempt_started_at_utc": dispatch_call_started_at,
                       "safe_error_classification": result.get("safe_error_classification"),
+                      "local_prewrite_validation": destination == "instagram_business"
+                          and result.get("provider_metadata", {}).get("source_status") == "VALIDATION_FAILED",
                       "write_outcome_certainty": result.get("write_outcome_certainty")}
+            # Recovery and Neo freshness already read this per-attempt outcome.
+            # A destination-day incident alone loses later validation results and
+            # incorrectly spends the single retry reserved for a possible write.
+            self.store.register_incident(
+                incident_id="incident_dispatch_outcome_" + _hash(ids["dispatch_id"])[:24]
+                    + "_" + _hash(dispatch_call_started_at)[:24],
+                work_item_id=intent["work_item_id"], severity="DISPATCH_OUTCOME",
+                description=_canonical_json(detail))
             self._record_destination_day_failure(intent, destination, detail)
         return {
             "destination": destination, "status": str(persisted.get("status") or result["status"]),
@@ -3167,8 +3442,16 @@ class DurablePublicationCoordinator:
             from live_contentops.sourced_replies_v1 import validate_intent
             validate_intent(self.store, reply_intent)
             return "READY"
+        if reply_intent.get("plan_analysis_link"):
+            from live_contentops.plan_analysis_pages_v1 import validate_link_intent
+            validate_link_intent(self.store, reply_intent)
+            if reply_intent.get("canonical_url") != canonical_url:
+                raise ValueError("PLAN_ANALYSIS_LINK_CANONICAL_CHANGED")
+            # Its confirmed canonical and complete reply were bound before the
+            # first attempt. Recovery validates those bytes without rewriting.
+            return "READY"
         intent = json.loads(str(message["payload"]))
-        if intent.get("canonical_url") == canonical_url and (
+        if (intent.get("canonical_url") or "") == (canonical_url or "") and (
                 intent.get("post_image_policy") or not intent.get("native_payload")
                 or _payload_media_ids(intent.get("native_payload"))):
             return "READY"
@@ -4006,9 +4289,22 @@ class DurablePublicationCoordinator:
             # Query before loading payloads: retained history can be very large.
             messages = self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
         else:
-            messages = self.store.list_outbox_messages()
+            # Native tool transcripts and editorial packets are not dispatch
+            # obligations. Filter through the existing destination index before
+            # loading payloads; CC-425 measured a gigabyte history scan here.
+            from live_contentops.destination_transport_registry_v1 import canonical_transport_registry
+            destinations = {"site", *(r["destination_key"] for r in canonical_transport_registry()["surfaces"])}
+            messages = [row for destination in sorted(destinations)
+                        for row in self.store.list_outbox_messages(destination=destination)]
+            messages.sort(key=lambda row: (row["created_at"], row["message_id"]))
         result = []
         for message in messages:
+            if (message["status"] == "PLAN_POST_SETTLED"
+                    and any(json.loads(message["payload"]).get(key)
+                            for key in ("plan_status_post", "plan_analysis_link"))):
+                # CC-515 closed this minute-work obligation. Original uncertain
+                # dispatches remain available to explicit exact-object readback.
+                continue
             if message["status"] == "UNSENT_MEDIA_SUPERSEDED":
                 dispatch = self.store.get_platform_dispatch("dispatch_" + str(message["message_id"]).removeprefix("outbox_"))
                 if not dispatch or (dispatch["status"] in {DEFINITE_NO_WRITE, RECONCILED_ABSENT_SAFE_TO_RETRY}
@@ -4186,12 +4482,13 @@ class DurablePublicationCoordinator:
                             if callable(preparer):
                                 work_item_intents = [
                                     json.loads(str(row["payload"]))
-                                    for row in self.store.list_outbox_messages()
+                                    for row in self.store.list_outbox_messages(work_item_id=work_item_id)
                                     if str(row.get("work_item_id") or "") == work_item_id
                                 ]
                                 recovery_plan = {
                                     "plan_hash": intent.get("plan_hash"),
                                     "output_dir": intent.get("output_dir"),
+                                    "artifact_refs": intent.get("artifact_refs") or {},
                                     "quality_probation_policy_id": intent.get(
                                         "quality_probation_policy_id"
                                     ),

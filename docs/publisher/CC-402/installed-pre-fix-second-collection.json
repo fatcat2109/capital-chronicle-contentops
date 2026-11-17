@@ -1,0 +1,252 @@
+{
+  "collection": {
+    "state": "COLLECTED",
+    "scheduled": 0,
+    "collected": 5,
+    "pending": 133,
+    "outcomes": [
+      {
+        "observation_id": "obs_0466af73729ecc4b7a72bf146a9e91b9",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_078d27bf7774d9e46ed926f4415fb63e",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_0de007d12ba3ef33577332234da2a920",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_2c73a9c6d7e0dc4bdbfe7670eb5828a5",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_129df4959edfa4a2cd1ee19635bf1317",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      }
+    ],
+    "excluded": {},
+    "model_calls": 0,
+    "public_write_performed": false
+  },
+  "model_usage": {
+    "imported": 0,
+    "native_returns_imported": 0,
+    "lane_runs_updated": 0,
+    "source": "retained_native_returns_and_lane_run_records",
+    "model_calls": 0
+  },
+  "observed_at_utc": "2026-11-11T19:25:16.435471+00:00",
+  "weekly_digest": {
+    "channels": 10,
+    "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly-engagement\\engagement.md",
+    "desk": "A:\\Capital Chronicle\\Runtime\\ContentOps\\audience-weekly\\latest.json",
+    "week_ending": "2026-11-12"
+  },
+  "piece": {
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "invocation_count": 7,
+    "cost_usd": null,
+    "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+    "lane_run_usage": [
+      {
+        "bound_piece_work_item_id": "cc338-cpi-preview-20261110-v1",
+        "cli_reported_tokens_used": 2368288,
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "piece_binding_method": "SINGLE_ITEM_SINGLE_DATED_BOUND_PIECE",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "source_counters": [
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume1.txt",
+            "reported_tokens_used": 1014799
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume2.txt",
+            "reported_tokens_used": 1350389
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume3.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume4.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume5.txt",
+            "reported_tokens_used": 2368288
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr.txt",
+            "reported_tokens_used": 365176
+          }
+        ],
+        "source_record_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\launch.json",
+        "stage": "lane-run",
+        "usage_scope": "CUMULATIVE_CLI_RUN_TOTAL",
+        "usage_state": "CLI_TOTAL_OBSERVED_INPUT_OUTPUT_SPLIT_NOT_EXPOSED"
+      }
+    ],
+    "invocations": [
+      {
+        "bound_piece_work_item_id": "cc338-cpi-preview-20261110-v1",
+        "cli_reported_tokens_used": 2368288,
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "piece_binding_method": "SINGLE_ITEM_SINGLE_DATED_BOUND_PIECE",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "source_counters": [
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume1.txt",
+            "reported_tokens_used": 1014799
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume2.txt",
+            "reported_tokens_used": 1350389
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume3.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume4.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume5.txt",
+            "reported_tokens_used": 2368288
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr.txt",
+            "reported_tokens_used": 365176
+          }
+        ],
+        "source_record_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\launch.json",
+        "stage": "lane-run",
+        "usage_scope": "CUMULATIVE_CLI_RUN_TOTAL",
+        "usage_state": "CLI_TOTAL_OBSERVED_INPUT_OUTPUT_SPLIT_NOT_EXPOSED"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_select_c4e8fb68cd6c",
+        "observation_source": "Supported native task context supplies canonical task identity; actual model and reasoning effort are not exposed in that context.",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "c4e8fb68cd6c035bd7151b13932826750e05320bec56e1e931655dd68a1ac5ae",
+        "source_record_id": "native-desktop-c4a9185d901c5fddcb14de635436a9dd5ed5844d0aa6cfd334b9ab878872bf89",
+        "stage": "select",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_select_c4e8fb68cd6c",
+        "observation_source": "Supported native canonical task context; actual model and effort not exposed.",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "9fb65dbd158a4ab734489fd021461e4354332c2efcb417e9fe38a6f5b3665d27",
+        "source_record_id": "native-desktop-1a1be3c12090fc417d527296ef61f026fc8dbc9a5e4e47978440071c1fca54be",
+        "stage": "media-plan",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported task context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "5c76aa987d12d924e0e3ec2f0889d256462a4abc6d2e834773b7e2a52c71dd8c",
+        "source_record_id": "native-desktop-dd567725f9193b9bc07a930685bc84b039473f73ff4c34e9d9c4dff52208e6c6",
+        "stage": "visual-edit",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "1a85fe247a127c337598e34b8597eddee1f621c5619ca51a98178a1cf1d7cec6",
+        "source_record_id": "native-desktop-13f9e72a46f01c0c8eaad5230dedfb40d1dc75e6bcf65b8604f8dc92a3488f73",
+        "stage": "write",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "563be5f0a2106ad335886755b94e1ddf37cbc3291b466932ce2f3de0efaae2a3",
+        "source_record_id": "native-desktop-cc6f2eb51169013fcb5fb1a809b26ee9c20c36ca863939fe6dd855b32c5a6abb",
+        "stage": "revise",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "87f214e95cc49ac440332492b0b39e963c38aeae47d76cd648e3776300792a0a",
+        "source_record_id": "native-desktop-18587237fdbfae8b63aedc4e795f488d1bc2f22f299c682241a84fd775dadad7",
+        "stage": "final-visual-2550e7490d54865f4eae03c919085a52046585ca8133ca5134a7e9818a1ab0fb",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      }
+    ]
+  }
+}

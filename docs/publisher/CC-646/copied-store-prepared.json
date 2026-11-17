@@ -1,0 +1,49 @@
+{
+  "item": "CC-646",
+  "phase": "prepare",
+  "store_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\local-evidence\\CC-646\\pre-cancellation-store.sqlite3",
+  "observed_at_utc": "2026-11-17T12:37:58.325707+00:00",
+  "result": {
+    "plan": {
+      "schema_version": "contentops.publication_plan.v1",
+      "plan_status_post": "cc646-usdjpy-result-correction-20261117",
+      "plan_hash": "aed0cefeaafd7510cd478c3e1ead36328c1baeccec56a4d6c10f4dd352608b01",
+      "story_identity": "cc646-usdjpy-result-correction-20261117",
+      "article_identity": "cc646-usdjpy-result-correction-20261117",
+      "package_identity": "cc646-usdjpy-result-correction-20261117",
+      "publication_window": {
+        "window_identity": "cc646-usdjpy-result-correction-20261117"
+      },
+      "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\local-evidence\\CC-646\\prepared-copy\\cc646-usdjpy-result-correction-20261117",
+      "status_post_card_id": "tradingview-plan-bfb517f1cd5760658a5c",
+      "transport_registry_version": "contentops.destination_transport_registry.v3",
+      "policy_mode_version": "AUTONOMOUS_DEFAULT:cc306.v1",
+      "destinations": [
+        {
+          "destination": "discord",
+          "platform": "discord",
+          "surface": "DISCORD_ANNOUNCEMENT",
+          "transport_type": "WEBHOOK_API",
+          "transport_registry_version": "contentops.destination_transport_registry.v3",
+          "payload": "USD/JPY: correction. Our 02:00 ET update said this plan was not triggered. That was wrong. Price traded inside the entry zone, 159.02–159.38, from 01:29 ET until the entry window closed at 02:00 ET, so the entry condition was met. A fault in our own entry system meant no position was opened. That was our failure, not the market's.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+          "payload_hash": "02093479680911b7482eb0e2ccd5da605e9154511dfa35ced28d52abe7d5ed13",
+          "canonical_url": null,
+          "expected_destination_identity": "discord_channel:1519311669216673802"
+        },
+        {
+          "destination": "telegram",
+          "platform": "telegram",
+          "surface": "TELEGRAM_CHANNEL_POST",
+          "transport_type": "BOT_API",
+          "transport_registry_version": "contentops.destination_transport_registry.v3",
+          "payload": "USD/JPY: correction. Our 02:00 ET update said this plan was not triggered. That was wrong. Price traded inside the entry zone, 159.02–159.38, from 01:29 ET until the entry window closed at 02:00 ET, so the entry condition was met. A fault in our own entry system meant no position was opened. That was our failure, not the market's.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+          "payload_hash": "02093479680911b7482eb0e2ccd5da605e9154511dfa35ced28d52abe7d5ed13",
+          "canonical_url": null,
+          "expected_destination_identity": "@CapitalChronicle"
+        }
+      ],
+      "continuations": []
+    },
+    "final_text": "USD/JPY: correction. Our 02:00 ET update said this plan was not triggered. That was wrong. Price traded inside the entry zone, 159.02–159.38, from 01:29 ET until the entry window closed at 02:00 ET, so the entry condition was met. A fault in our own entry system meant no position was opened. That was our failure, not the market's.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView"
+  }
+}

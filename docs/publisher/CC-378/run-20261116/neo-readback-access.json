@@ -1,0 +1,8 @@
+{
+  "observed_at_utc": "2026-11-15T21:37:14.602148+00:00",
+  "operation": "NeoMcpClient.initialize",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "browser_actions": false,
+  "status": "UNAVAILABLE",
+  "cause": "NEO_ENDPOINT_CONNECTIONERROR"
+}

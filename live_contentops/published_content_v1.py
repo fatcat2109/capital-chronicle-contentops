@@ -335,8 +335,12 @@ def article_metadata(plan, *, require_notice=True):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy
     if sha256(_public_copy(article).encode()).hexdigest() != plan.get("article_content_sha256"):
         raise PublishedContentError("EXACT_REVIEWED_ARTICLE_HASH_REQUIRED")
-    check_publication_copy({"title": article.get("title"), "standfirst": article.get("dek"),
-                            "body": article.get("substack_body_markdown")},
+    public_copy = {"title": article.get("title"), "standfirst": article.get("dek"),
+                   "body": article.get("substack_body_markdown")}
+    if plan.get("measured_odds_piece"):
+        from .measured_odds_series_v1 import publication_check_copy
+        public_copy = publication_check_copy(public_copy, plan)
+    check_publication_copy(public_copy,
                            conditional_calls=calls, require_notice=require_notice)
     kind = article.get("article_type") or event.get("article_type") or "ARTICLE"
     if kind not in TYPES:

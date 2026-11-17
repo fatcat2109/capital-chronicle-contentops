@@ -1,0 +1,52 @@
+[
+  {
+    "candidate": {
+      "call_id": "substack:224293572:core-cpi-gold",
+      "source_kind": "ARTICLE",
+      "symbol": "XAUUSD",
+      "terms": {
+        "condition": "October core CPI is 0.3% or higher",
+        "market": "Gold",
+        "direction": "bearish",
+        "horizon": "60 minutes after the release",
+        "invalidation": "gold falls less than 0.7% after 60 minutes"
+      },
+      "quote": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes",
+      "original_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+      "direction": "bearish",
+      "original_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+      "published_at_utc": "2026-11-10T12:09:49.251000+00:00",
+      "valid_until_utc": "2026-11-10T14:30:00+00:00",
+      "destinations": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "substack_notes",
+        "telegram",
+        "threads",
+        "x"
+      ],
+      "condition_met": true,
+      "condition_at_utc": "2026-11-10T13:30:00+00:00",
+      "condition_source_hash": "ca7ba43a835aeb7b25457a87cc514f5a2b2e0b7b0ec23e471b19a12650528670",
+      "actual_known_at_utc": "2026-11-10T13:31:45.074613Z",
+      "actual_core_mom_pct": "0.3",
+      "entry_condition_kind": "EVENT",
+      "reference_price": 4071.908,
+      "zone_low": 4071.908,
+      "zone_high": 4071.908,
+      "resolution_level": 4043.404644,
+      "resolution_test": "AT_DEADLINE",
+      "invalidation_test": "AT_DEADLINE",
+      "invalidation": {
+        "field": "close",
+        "side": "above",
+        "level": 4043.404644
+      }
+    },
+    "price_check": {
+      "eligible": false,
+      "cause": "CC603_NO_COMPLETE_MATCH_IN_HELD_PRICES"
+    }
+  }
+]

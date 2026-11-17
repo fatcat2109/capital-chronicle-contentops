@@ -1,0 +1,431 @@
+{
+  "schema_version": "contentops.final_editor_check.v1",
+  "operation_id": "cc107-nfp-dated-review-20261114-v1",
+  "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+  "package_revision": "6bf246caee2aefa856afcd6a50e8cc66333aec24deafe5569a872d917e1a4be9",
+  "package_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\final-review-package.json",
+  "package_file_sha256": "fca59e9e992aebf8b939358856c426025845c76532fe7bf49e60308c671b124a",
+  "reviewed_at_utc": "2026-11-14T15:03:47.093615Z",
+  "editor_invocation": "/root/native_write_a97e7232eeeb",
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_a97e7232eeeb",
+    "model": null,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Same supported native writer/editor task identity; actual model/effort telemetry is not exposed."
+  },
+  "decision": "ACCEPT",
+  "acceptance_scope": "The exact bound private article, corrected local images and eight compiled preview texts are accepted editorially under the single decision-53 editor check. This is not publication approval or evidence of a platform write.",
+  "reason": "The article has a first-person NFP thesis and a meaningful lesson. It separates frozen release conditions, measured intraday co-movements and the independent-purpose one-event categorical comparison. Corrected visual units, dates and public metric names are accurate; no remaining material visual defect requires a drop.",
+  "canonical_observations": [
+    "Read the full canonical reader article and the bound source-marker version. The November 14 writing date remains separate from the November 6 release and observation baseline.",
+    "The release facts retain exact card strings Payrolls: **+165K** and Unemployment rate: **4.1%**. Strong/Weak thresholds remain frozen and are not converted into probabilities.",
+    "The October wage fact and September revision are attributed to BLS; first-print history is not silently replaced with the revised September number.",
+    "The five-minute and sixty-minute responses remain reference-series co-movements, with no claim of causation or measured futures/ETF performance. FXE/FXY, GC, CL, ES and SPY names are distinguished from measured references.",
+    "The Brier comparison is a separate one-event categorical comparison: matrix 0.02 versus Investing consensus-only 0, lower better. It does not score the published Strong/Weak conditions or establish predictive skill.",
+    "The absent matched rates, sector-return and first-day observations limit those particular claims. Prediction-market-only performance remains unavailable. The countercase and So what line survive.",
+    "Both required notices are present. No account identifiers, positions, raw broker prices, sizes, entries, stops, targets or execution outcomes appear in reader copy."
+  ],
+  "asset_findings": [
+    {
+      "asset_id": "post-facts-e6558e383ca6d733554e",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\post-facts-e6558e383ca6d733554e.png",
+      "sha256": "c618194906d0c739f62b319c95252887e26cc2d0effefbc97c114bdedd136242",
+      "hash_matches_package": true,
+      "pixel_inspection": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "ACCEPT",
+      "findings": [
+        "Inspected the actual local PNG. Payrolls +165,000 is the deterministic display of the exact bound +165K fact; unemployment is 4.1%.",
+        "The lower caption now states the event date November 6, 2026 (ET), while the card writing date is November 14, 2026. The former November 9 generation-clock caption is gone.",
+        "Title and figures are legible, without overlap or clipped words. This is a release-resolution card, not a fresh market observation."
+      ],
+      "drop_recommended": false
+    },
+    {
+      "asset_id": "nfp_review_payroll_history_r2",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\nfp_review_payroll_history_r2.png",
+      "sha256": "5a4b6b72ea0b02cc56d96ab16de338aebe5b675ae13270048020f27dbdd5a2c2",
+      "hash_matches_package": true,
+      "pixel_inspection": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "ACCEPT",
+      "findings": [
+        "Inspected the actual local PNG. The endpoint is 29000 with no percent suffix; the axis is persons and the legend reads Payroll change.",
+        "The chart spans October 2024 through September 2026 and preserves the bound first-print sequence, including negative observations. It does not append revised September or the October release.",
+        "The repaired metric label and units resolve the original flaws. The source caption is visible."
+      ],
+      "drop_recommended": false
+    },
+    {
+      "asset_id": "nfp_review_unemployment_history_r2",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\nfp_review_unemployment_history_r2.png",
+      "sha256": "b32304962966968ce1c609319f60ef0650bb5b97e5da731178b731ee4c7b93db",
+      "hash_matches_package": true,
+      "pixel_inspection": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "ACCEPT",
+      "findings": [
+        "Inspected the actual local PNG. The legend reads Unemployment rate, the axis is percent and the final September point is 4.2%.",
+        "The missing October 2025 observation remains a break in the line, without interpolation. The 24-month calendar window is distinct from the October 2026 release.",
+        "The repaired reader label resolves the original finding; axes, period and source caption are visible."
+      ],
+      "drop_recommended": false
+    },
+    {
+      "asset_id": "nfp_review_october_industries",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\nfp_review_october_industries.png",
+      "sha256": "84b100bb831608ad84d1ff92f9e0560a52e4436d6b402d2f2876dfd6cfe980a8",
+      "hash_matches_package": true,
+      "pixel_inspection": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "ACCEPT",
+      "findings": [
+        "Inspected the unchanged local PNG. Mining and logging -1, construction -3, manufacturing 19 and private service-providing 144 match the admitted seasonally adjusted B-1 change column in thousands of jobs.",
+        "The selected groups are disjoint. The visible source caption says they are not a total; the article separately states that government and other categories are not represented.",
+        "Bar signs, baseline and units are correct. This image shows employment changes, not sector investment returns."
+      ],
+      "drop_recommended": false
+    },
+    {
+      "asset_id": "nfp_review_first_hour_reactions_r2",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\nfp_review_first_hour_reactions_r2.png",
+      "sha256": "70b38b99b4812c620c09e013bb9f48a3a1b5871123490196e139efd648c9dcd5",
+      "hash_matches_package": true,
+      "pixel_inspection": "LOCAL_PNG_VIEW_IMAGE",
+      "decision": "ACCEPT",
+      "findings": [
+        "Inspected the actual local PNG. The repaired category reads S&P 500 reference and the matching alt text uses the same public instrument description.",
+        "The grouped bars preserve the supplied five-minute and sixty-minute signed percentages for EUR/USD, USD/JPY, gold, the S&P 500 reference and oil reference.",
+        "The legend shows 08:35 ET and 09:30 ET, and the caption binds both to the November 6, 2026, 08:30 ET baseline. It carries Capital Chronicle model estimate and reference-series qualifications.",
+        "Oil is positive in the first observed window and negative in the later window. The image does not assert a futures/ETF return, first-day result, execution result or causal effect."
+      ],
+      "drop_recommended": false
+    }
+  ],
+  "preview_observations": [
+    {
+      "destination": "telegram",
+      "preview_id": "cc-preview-b9ef61e53d711ab4c031706f96833165d154304cf9053d043bc153a028900331",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "1af276b81d50ed1528c9990119b332d1311ded6be950eb550dc2cf876ce1c048",
+      "observations": [
+        "The brief carries the release-condition lesson and both scenario outcomes, dated retrospective status and both notices. Complete text fits its platform limit; the linked canonical is still a placeholder."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        884
+      ],
+      "platform_limit": 1024,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "x",
+      "preview_id": "cc-preview-255fb03f4c6a71de9d3d1c1981f302484abab88d39774fbf9ea6f2a7218776d3",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "430f37467eafa2ca15b406f6a1869411bdc99b5b56bcc865bb85889fc229abe3",
+      "observations": [
+        "Read the root and all three own-reply preview texts. The full sequence preserves the comparison caveat, retrospective date, two scenario outcomes and notices without slicing sentences. The root alone is not the complete sequence."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        273,
+        154,
+        255,
+        161
+      ],
+      "platform_limit": 280,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "discord",
+      "preview_id": "cc-preview-4a1158c5aa99238d30b934c36d25a4793be7656e8865a6a07d225d6940171511",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "632591bc10ff518944796f98520ce60c78c05d2fd8d742f17cc1a772a5aa8145",
+      "observations": [
+        "The brief explains the frozen hawkish mechanism and Weak countercase, without asserting a measured rate move. It retains the categorical-score caveat, date, scenarios and notices."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        977
+      ],
+      "platform_limit": 2000,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "linkedin",
+      "preview_id": "cc-preview-93a4ba4398f60208585dc1298338fcb2ca22f48f5ce71bfb4f5b64a1d70abc51",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "c05d961b28b695996fc60e7d6cc9fcd40c6bba4df7e64ff0c434c1a9b1e2789c",
+      "observations": [
+        "The professional brief foregrounds consistent co-movement and the absent matched-rates test. Its context preserves the frozen Strong/Weak mechanism and no causal or skill claim is added."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        1043
+      ],
+      "platform_limit": 3000,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "facebook_page",
+      "preview_id": "cc-preview-9c6c7208f9acd16280aba88353db20a7ae6b6060ca4acfc7f9e6272cfe743b24",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "181c88f94fb356f3085128ce477c4b0bcec576ebc463bb21accea12e74b4ad64",
+      "observations": [
+        "The page brief keeps the Strong-condition result, consensus-baseline caveat and explicit causation countercase. No raw prices, sizes or execution results are introduced."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        954
+      ],
+      "platform_limit": 63206,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "instagram_business",
+      "preview_id": "cc-preview-3a208964380751327448bae022c27b4e819b3d2a4a4ec9b92f313cd85cb1acb8",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "41dc7da6855ed48e6b0cdcdd3582492536693ad08f06f97fa6efff2856523d40",
+      "observations": [
+        "The caption preserves the dated retrospective framing, frozen mechanisms, scenario outcomes and notices. The two selected exact assets supply an image without inventing a photograph."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        967
+      ],
+      "platform_limit": 2200,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "threads",
+      "preview_id": "cc-preview-854f246d8ccaf055c703408c767baa0fc79309804a53500b4bfe343e42cc7754",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "e1fa84ca7d150824f8a233371c71ff78ddb3b729d3d0055d9d2e096e7c60695f",
+      "observations": [
+        "Read the root and both ordered continuation texts. The mechanism and Weak alternative remain distinct from observed returns; the complete sequence contains the retrospective date, scenario outcomes and notices."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        353,
+        419,
+        161
+      ],
+      "platform_limit": 500,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    },
+    {
+      "destination": "youtube",
+      "preview_id": "cc-preview-009799f27f06f3f959911c8e0d1bdedd48f440fb1938eec176c415dde1f589eb",
+      "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+      "decision": "ACCEPT_PRIVATE_PREVIEW",
+      "text_sha256": "acd01737dad4ea19e232a0a9a096af3e2fa1c3768569dbdc8ab23d5258206b87",
+      "observations": [
+        "The community brief retains the retrospective lesson and consensus comparison without claiming fresh news or skill. Complete text fits the stated limit and keeps both notices."
+      ],
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "post_character_counts": [
+        885
+      ],
+      "platform_limit": 1000,
+      "hard_truncation_used": false,
+      "pending_canonical_placeholder_present": true,
+      "public_source_markers_present": false,
+      "platform_rendering_inspected": false
+    }
+  ],
+  "original_four_visual_findings": [
+    {
+      "finding": "payroll_endpoint_percent_suffix",
+      "status": "RESOLVED",
+      "asset_id": "nfp_review_payroll_history_r2"
+    },
+    {
+      "finding": "internal_metric_legends",
+      "status": "RESOLVED",
+      "asset_ids": [
+        "nfp_review_payroll_history_r2",
+        "nfp_review_unemployment_history_r2"
+      ]
+    },
+    {
+      "finding": "card_generation_clock_caption",
+      "status": "RESOLVED",
+      "asset_id": "post-facts-e6558e383ca6d733554e"
+    },
+    {
+      "finding": "reaction_public_reference_name",
+      "status": "RESOLVED",
+      "asset_id": "nfp_review_first_hour_reactions_r2"
+    }
+  ],
+  "source_fact_rights_uncertainty_check": {
+    "decision": "PASS_WITH_STATED_LIMITS",
+    "source_count": 9,
+    "source_records": [
+      {
+        "source_id": "SOURCE_1",
+        "document_id": "cc107-nfp-dated-review-20261114",
+        "canonical_content_sha256": "bbe228d4fe3b0c74542ff44e73992ce6e585c3230275f147a7dd373d5abcda97",
+        "hash_match": true,
+        "source_authority_class": "governed_capital_chronicle_report_only",
+        "rights_scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+      },
+      {
+        "source_id": "SOURCE_2",
+        "document_id": "bls-october-release",
+        "canonical_content_sha256": "8e1305a4b44d53a5654eef08a664845dd1a7d7fae2cec7436cf3675ad528c155",
+        "hash_match": true,
+        "source_authority_class": "official_public_primary_source",
+        "rights_scope": "AGENCY_AUTHORED_TEXT_ONLY_EXCLUDES_LOGOS_PHOTOS_THIRD_PARTY"
+      },
+      {
+        "source_id": "SOURCE_3",
+        "document_id": "bls-october-sectors",
+        "canonical_content_sha256": "71ebf52557a862d4cc2da7b5761fc67b693d1b2abdf4a657a35a00658b9347b7",
+        "hash_match": true,
+        "source_authority_class": "official_public_primary_source",
+        "rights_scope": "AGENCY_AUTHORED_TEXT_ONLY_EXCLUDES_LOGOS_PHOTOS_THIRD_PARTY"
+      },
+      {
+        "source_id": "SOURCE_4",
+        "document_id": "preview-background-c6526a37c91d82c822730ab62766b2359b42b2f26503214e90a277dce7510b05",
+        "canonical_content_sha256": "45de4b911cc644fa06f7ab6dc3518a56ef42e6bff69aaf50901e6dd19815155b",
+        "hash_match": true,
+        "source_authority_class": "official_public_primary_source",
+        "rights_scope": "BLS_AGENCY_AUTHORED_PUBLIC_DOMAIN_TEXT_PREVIEW_BACKGROUND"
+      },
+      {
+        "source_id": "SOURCE_5",
+        "document_id": "preview-consensus-3c335bbf9b882ba00fd94e22629277e3abaca0297a2a0eca8d2b98f35a945d72",
+        "canonical_content_sha256": "dfd884d6a99cda7f10f1dbfed8715d9adbc19be35ff1ba9371eea769d85c7ceb",
+        "hash_match": true,
+        "source_authority_class": "reputable_secondary_source",
+        "rights_scope": "SINGLE_ATTRIBUTED_CONSENSUS_FACT_NO_TABLE_SERIES_OR_CHART"
+      },
+      {
+        "source_id": "SOURCE_6",
+        "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+        "canonical_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+        "hash_match": true,
+        "source_authority_class": "official_release_history_from_cc010",
+        "rights_scope": "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+      },
+      {
+        "source_id": "SOURCE_7",
+        "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+        "canonical_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+        "hash_match": true,
+        "source_authority_class": "official_release_history_from_cc010",
+        "rights_scope": "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+      },
+      {
+        "source_id": "SOURCE_8",
+        "document_id": "official-history-843f76a60b18948f30fd1775",
+        "canonical_content_sha256": "0c3440d34c489d32c2469a45061242bdb73af266e5bdfc4c3a758fa29be95608",
+        "hash_match": true,
+        "source_authority_class": "official_release_history_from_cc010",
+        "rights_scope": "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+      },
+      {
+        "source_id": "SOURCE_9",
+        "document_id": "cc124-bls-september-employment-original",
+        "canonical_content_sha256": "786e4868ee3bdb3ded8a6f5a3484c027781f77c07e9a21a033a8e33359cc1ee3",
+        "hash_match": true,
+        "source_authority_class": "official_public_primary_source",
+        "rights_scope": "AGENCY_AUTHORED_TEXT_ONLY_EXCLUDES_LOGOS_PHOTOS_THIRD_PARTY"
+      }
+    ],
+    "event_guard": {
+      "status": "PASS",
+      "public_copy_sha256": "892da990604e4db6ad7fc630f93186f56770c354ba46423cd0a3e91db219fff2",
+      "checked_surfaces": 16,
+      "numeric_bindings": 25,
+      "publication_authority": false,
+      "jim_approval_required": false,
+      "standing_approval": "JIM_DECISION_36",
+      "final_native_render_review_required": true
+    },
+    "reader_findings": [],
+    "charts": "All four existing chart packets passed the pure source/data validator against the exact package evidence; actual PNGs were separately inspected.",
+    "rights": "Images are original cards/charts from admitted official public-domain facts or Capital Chronicle computed outputs. No photograph, agency logo, raw restricted third-party table or third-party chart expression is included. No new rights were inferred.",
+    "uncertainty": "Official facts, Capital Chronicle computed estimates, frozen hypotheses and qualitative inference remain distinct. Missing odds and absent observation windows were not imputed."
+  },
+  "policy": "JIM_DECISION_53_WRITER_ONE_EDITOR_CHECK",
+  "editor_check_count": 1,
+  "media_repair_rounds_observed": 1,
+  "automated_image_check_status": "PASS_RECORDED_IN_PACKAGE",
+  "actual_local_pngs_inspected": 5,
+  "desktop_mobile_platform_screenshots_taken": false,
+  "data_cutoff_utc": null,
+  "publication_clock_check": "ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE",
+  "publication_disposition": "OPS_NAMED_ARTICLE_REVIEW_AND_PUBLICATION_DISPOSITION_PENDING",
+  "publication_authority_granted_by_this_check": false,
+  "public_write_performed": false,
+  "explicit_limits": [
+    "The original source data cutoff is null. Request, generation, writing, repair and review clocks do not replace it; the publication-clock result remains ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE.",
+    "Ops named article review and publication disposition remain pending. No Substack draft, upload, publish or derivative write was attempted by this editor.",
+    "All eight previews contain a pending-publication Substack URL. It is a private compiler placeholder, not a confirmed canonical object, and must not be sent as the final canonical URL.",
+    "X and Threads were reviewed as their full compiled ordered sequences. Their roots alone omit some notices/scenario text. This review grants no permission to send parked replies or to treat a root as a complete substitute.",
+    "Only local PNG pixels and canonical/preview text were inspected. No native desktop, browser screenshot, live platform layout or destination identity was inspected in this check.",
+    "The measured reaction ends at the supplied sixty-minute window. It provides no first-day, matched yield, sector-return, Bitcoin-return or pre-event-range-break result.",
+    "No numerical probability or full six-market mapping was supplied for the frozen two-condition scenario set. Nulls and empty fields remain, without inferred complements or invented invalidation rules.",
+    "No photograph was included: none was present in the exact lawful admitted asset plan. The release card and four source-bound charts carry this review.",
+    "Antigravity assistance was unavailable after AGY_TIMEOUT_120S and supplied no suggestions. The same native MAX writer/editor performed this check; actual model and effort remain unobserved."
+  ],
+  "drop_recommendations": [],
+  "new_repair_round_requested": false
+}

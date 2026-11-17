@@ -1,0 +1,14 @@
+{
+  "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+  "counts": {
+    "EXPIRED": 37,
+    "HIT": 0,
+    "NOT_TRIGGERED": 0,
+    "STOPPED": 5,
+    "scored": 6,
+    "total": 42
+  },
+  "url": "https://t.me/CapitalChronicle/134",
+  "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+  "observed_at_utc": "2026-11-15T18:50:16.971103+00:00"
+}

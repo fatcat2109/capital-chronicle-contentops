@@ -1,0 +1,40 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "started_at_utc": "2026-11-16T06:40:02Z",
+  "claimed_at_gmt7": "16 Nov 2026 13:43 GMT+7",
+  "branch": "backlog/cc-536-piece-2-resume-20261116",
+  "base_operating_head": "a68a252cd4f338137c0056bec54e1ffa13d0db8a",
+  "top_level_launch": {
+    "pid": 11044,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags inspected; no inference-time telemetry claimed."
+  },
+  "invocation_id": "01a1e315-b060-7c11-8ac3-f69983d593b3",
+  "preserved_uncommitted_paths": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  ],
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "desktop_automation": false,
+  "browser_group": "1C9688168B53001E87017517DB61CF39",
+  "resumed_launch": {
+    "pid": 42704,
+    "started_at_gmt7": "16 Nov 2026 14:39:25 GMT+7",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags inspected after the account-switch resume; no inference-time telemetry claimed."
+  }
+}

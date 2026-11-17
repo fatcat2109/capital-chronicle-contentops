@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-14T10:16:11.559125+00:00",
+  "completed_source_count": 42,
+  "eligible_completed_sources": 0,
+  "changed_native_outputs_since_prior": 2,
+  "latest_original_capture_utc": "2026-11-14T09:08:55.826015Z",
+  "classification": "NO_CURRENT_MAIN_SOURCE",
+  "next_action": "End the standing check without filler."
+}

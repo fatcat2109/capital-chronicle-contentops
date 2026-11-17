@@ -1,0 +1,117 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "installed_at_utc": "2026-11-16T07:07:19.748915+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "branch": "backlog/cc-536-piece-2-resume-20261116",
+  "previous_head": "a68a252cd4f338137c0056bec54e1ffa13d0db8a",
+  "installed_commit": "f5b0e428d240c2db464fde10bfeaa2938cb22f3e",
+  "rollback_tag": "contentops/cc-536-piece2-resume-rollback-20261116T070717Z",
+  "live_tag": "contentops/cc-536-piece2-final-live-20261116T082757Z",
+  "merge": "fast-forward",
+  "preserved_dirty_paths": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "bytes": 3959
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "bytes": 19341
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "bytes": 39129
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "bytes": 6166
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "6a032ebf6c5da2cf0e3861b6f29aa22bb07d39cc75efb6de5ff99f29c54adc2f",
+      "bytes": 1424909
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "924ce633412a2445b8c6018ac2fc6dd385b829ef0eab86ec7046a10b091c8e2a",
+      "bytes": 71570
+    }
+  ],
+  "application_restart": false,
+  "initial_installed_commit": "1321aed871ef6bc332df3a3f4dde05f02b2ae700",
+  "initial_live_tag": "contentops/cc-536-piece2-resume-live-20261116T070717Z",
+  "final_applied_at_utc": "2026-11-16T08:28:03.712393+00:00",
+  "passing_substeps": [
+    "24 measured-odds tests after destination routing repair",
+    "16 method-link transport tests",
+    "5 endpoint/SSE and publication recovery tests",
+    "29 bound historical metrics tests",
+    "3 coordinator regression tests",
+    "19 native paragraph-row transport tests",
+    "2 exact unsent draft recovery tests"
+  ],
+  "source_repairs_merged": [
+    "95022db4",
+    "6ed3095e",
+    "c634f157",
+    "2eee919a",
+    "baff0460",
+    "8d04973d"
+  ],
+  "dirty_path_readback_after_publication": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "initial_bytes_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "initial_bytes_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "initial_bytes_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "initial_bytes_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 1437965,
+      "sha256": "be579d4645be594ce7b0f7538c87268c70fa2cf393c2b843583943a6dc0cc851",
+      "initial_bytes_sha256": "6a032ebf6c5da2cf0e3861b6f29aa22bb07d39cc75efb6de5ff99f29c54adc2f",
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 72161,
+      "sha256": "40a73d831f097fe58a5f968d56127c2abaf1305640ff145ca1e1595007a9f244",
+      "initial_bytes_sha256": "924ce633412a2445b8c6018ac2fc6dd385b829ef0eab86ec7046a10b091c8e2a",
+      "initial_bytes_unchanged": true
+    }
+  ],
+  "preservation": "All pre-merge dirty bytes were verified unchanged at integration. Runtime telemetry/dispatch files may receive their ordinary publication updates; they remain outside these commits.",
+  "additional_passing_substeps": [
+    "1 actual snapshot-to-hosted-media consumer test",
+    "2 snapshot attribution/hosting regression tests",
+    "3 LinkedIn reader tests",
+    "1 source-preserving market projection test",
+    "1 canonical store claim regression test"
+  ]
+}

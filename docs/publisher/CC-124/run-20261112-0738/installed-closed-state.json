@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-11-12T00:56:42.458290+00:00",
+  "operating_commit": "42ad99d3366c78b5ed62202b0ddb018af11e9827",
+  "contract_version": "2.0.0",
+  "source_export_hash": "cd35a5c2da439c3072c2e31cc2fee67dbde02887c728daa32c131544aae4af7e",
+  "plan_count": 83,
+  "transition_count": 151,
+  "closed_plans": 5,
+  "closed_rows_consumed": 5,
+  "closed_ids_absent_from_active_recoveries": true,
+  "closed_is_terminal_in_card_consumer": true,
+  "plan_status_counts": {
+    "VIEW_CHANGED": 17,
+    "null": 27,
+    "EXPIRED": 23,
+    "CLOSED": 5,
+    "INVALIDATED": 7,
+    "CANCELLED": 4
+  },
+  "module_evidence": {
+    "live_contentops.plan_status_posts_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+      "sha256": "3934278ae5198cc3c314632a6b68f3bf4fabbfb827cb947b27c344b10da9a7c5"
+    },
+    "live_contentops.plan_status_export_contract_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_export_contract_v1.py",
+      "sha256": "343e128fdfe850a9c84dfbb719089dcd37a32c4c8b839b17b4751274f10f7147"
+    },
+    "live_contentops.plan_call_cards_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_call_cards_v1.py",
+      "sha256": "28599af5ce8413f0fa41e8e8b962c3b224ce6fe9a2391b005c1118183bb793ce"
+    }
+  },
+  "writes": 0,
+  "limit": "Read-only consumption through installed modules. No queue, publish, platform readback or scheduled-run success asserted."
+}

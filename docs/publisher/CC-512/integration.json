@@ -1,0 +1,97 @@
+{
+  "item": "CC-512",
+  "recorded_at_utc": "2026-11-12T13:55:38.723556+00:00",
+  "stage": "INTEGRATED_LIVE_ACCEPTANCE_PASSED",
+  "operating_base": "71633590d8647ba1bee8fc3df5db582e04f37cac",
+  "incoming": "cecf4f4741752f8f35d0601b84f3d7e416698daa",
+  "branch": "backlog/cc-512-light-caller-integrate",
+  "launch": {
+    "pid": 19908,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observed_arguments": "--model gpt-6.1-sol -c model_reasoning_effort=max"
+  },
+  "checks": [
+    {
+      "artifact": "integration-caller-tests.xml",
+      "passed": 21,
+      "seconds": 4.69
+    },
+    {
+      "artifact": "integration-consumer-tests.xml",
+      "passed": 91,
+      "seconds": 36.95
+    }
+  ],
+  "choice": "Integrate the existing second-stream delivery onto the current operating HEAD, preserving CC-511 and all unrelated WIP. No Ops review is required by the item.",
+  "preserved_wip": "integration-preserved-wip.json",
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "desktop_automation_performed": false,
+  "resumed_launch": {
+    "pid": 4644,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observed_arguments": "exec resume --model gpt-6.1-sol -c model_reasoning_effort=max"
+  },
+  "interruption": {
+    "prior_native_image_attempt": "Runtime/ContentOps/daily_app_outputs/owner-manual/cc512-light-caller-integration/media/cc465-retained-cpi-layout-event-2-T.vision/20261112T133846803758Z",
+    "outcome": "No completion artifact survived the turn interruption; original prompt and schema retained; no answer or timeout inferred."
+  },
+  "installed_source_commit": "b86b26251da5b61e2e4d495235ae8f7f6a8dcf0b",
+  "integration_commit": "030bd1c0dcdaa311324a87ca4571d92eb52929eb",
+  "installed_checks": [
+    {
+      "artifact": "installed-caller-tests.xml",
+      "passed": 21,
+      "reported_seconds": 3.77
+    },
+    {
+      "artifact": "installed-image-consumer-tests.xml",
+      "passed": 4,
+      "reported_seconds": 1.34
+    },
+    {
+      "artifact": "installed-final-caller-tests.xml",
+      "passed": 25,
+      "reported_seconds": 4.35
+    }
+  ],
+  "parser_fix": {
+    "commit": "b86b26251da5b61e2e4d495235ae8f7f6a8dcf0b",
+    "tests": "fenced-response-consumer-tests.xml",
+    "passed": 71,
+    "reported_seconds": 28.33,
+    "observed_failure": "scheduled-fenced-response-diagnosis.json",
+    "installed_replay": "installed-fenced-response-readback.json"
+  },
+  "live_calls": {
+    "image": {
+      "artifact": "installed-image-call.json",
+      "status": "REVIEWED",
+      "answered_by": "codex",
+      "answer_seconds": 11.860292800003663,
+      "AGY_seconds": 65.32555340000545,
+      "image_score": 1,
+      "out_of": 10,
+      "image_publication_accepted": false
+    },
+    "variants": {
+      "artifact": "installed-variants-call.json",
+      "status": "PREPARED",
+      "answered_by": "codex",
+      "answer_seconds": 17.57130560000951,
+      "AGY_seconds": 65.34807160000491,
+      "reader_checks_passed": 7
+    },
+    "ranking": {
+      "artifact": "scheduled-consumer-readback.json",
+      "observed_in_existing_schedule": true,
+      "both_actual_callers_observed": true
+    }
+  },
+  "daily_call_inventory": "installed-calls-20261112.json",
+  "preserved_wip_verified": true
+}

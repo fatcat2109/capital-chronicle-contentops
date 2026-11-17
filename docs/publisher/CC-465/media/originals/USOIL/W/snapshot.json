@@ -1,0 +1,91 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USOIL\\W\\CL1!_2026-11-11_16-43-58.png",
+  "sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5",
+  "width": 1600,
+  "height": 700,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1524,
+      612
+    ],
+    "axis_origin": [
+      1524,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -22.68086152922609,
+    "intercept": 2466.3915171532894,
+    "max_label_error_px": 0.3749386467898148,
+    "grid_checks": [
+      {
+        "price": 94.0,
+        "page_y_in_download": 334.35488364519176,
+        "grid_y": 335,
+        "error_px": 0.6451163548082377
+      },
+      {
+        "price": 98.0,
+        "page_y_in_download": 243.6490570227379,
+        "grid_y": 244,
+        "error_px": 0.35094297726209334
+      },
+      {
+        "price": 100.0,
+        "page_y_in_download": 198.29614371151104,
+        "grid_y": 199,
+        "error_px": 0.7038562884889643
+      },
+      {
+        "price": 102.0,
+        "page_y_in_download": 152.9432304002841,
+        "grid_y": 153,
+        "error_px": 0.05676959971589213
+      },
+      {
+        "price": 104.0,
+        "page_y_in_download": 107.59031708905724,
+        "grid_y": 108,
+        "error_px": 0.4096829109427631
+      },
+      {
+        "price": 106.0,
+        "page_y_in_download": 62.23740377783031,
+        "grid_y": 63,
+        "error_px": 0.7625962221696909
+      }
+    ],
+    "source_sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1986,
+    "height": 694
+  },
+  "tv_symbol": "NYMEX:CL1!",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "CL1! 88.26 \u25b2 +2.58%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+  "suggested_filename": "CL1!_2026-11-11_16-43-58.png",
+  "captured_at_utc": "2026-11-11T16:43:58.490582+00:00",
+  "seconds": 10.4,
+  "template_chart_size": [
+    1600,
+    700
+  ],
+  "price_scale_check": {
+    "policy": "CC463_TRADINGVIEW_FIRST_V1",
+    "market": "USOIL",
+    "tv_symbol": "NYMEX:CL1!",
+    "chart_sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5",
+    "captured_at_utc": "2026-11-11T16:43:58.490582+00:00",
+    "comparison_basis": "NOT_COMPARED",
+    "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+    "level_offset": 0.0
+  }
+}

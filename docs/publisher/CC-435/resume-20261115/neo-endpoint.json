@@ -1,0 +1,13 @@
+{
+  "state": "UNAVAILABLE",
+  "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "item": "CC-435",
+  "observed_at_utc": "2026-11-15T12:48:59.251444+00:00",
+  "finished_at_utc": "2026-11-15T12:49:01.316437+00:00",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "operation": "initialize",
+  "browser_tabs_opened": 0,
+  "public_write_performed": false,
+  "application_actions": 0,
+  "next_action": "Ops Product restores the existing Neo MCP listener; Publisher then reads back the exact Note before any send."
+}

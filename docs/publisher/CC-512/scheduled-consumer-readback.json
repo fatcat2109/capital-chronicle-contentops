@@ -1,0 +1,267 @@
+{
+  "snapshot_at_utc": "2026-11-12T13:54:23.911929+00:00",
+  "scope": "Existing scheduled consumer, observed calls after CC-512 installation; no job triggered or schedule changed.",
+  "calls": [
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134126-d2aff1b3\\editorial\\rank\\call.json",
+      "started_at_utc": "2026-11-12T13:41:34.285721+00:00",
+      "status": "RETURNED",
+      "cause": null,
+      "answered_by": "antigravity",
+      "light_call": {
+        "policy": "cc512-light-caller-v1",
+        "status": "RETURNED",
+        "started_at_utc": "2026-11-12T13:41:34.296362+00:00",
+        "prompt_sha256": "c644fe3bf59a36d8bf537b35ebb8c59254bd8126f3fdf8a8fcd36be8728591d4",
+        "prompt_bytes": 7163,
+        "attempts": [
+          {
+            "caller": "antigravity",
+            "started_at_utc": "2026-11-12T13:41:34.296426+00:00",
+            "status": "RETURNED",
+            "configured_model": "gemini-3.8-flash-high",
+            "configured_effort": "high",
+            "configuration_status": "CONFIGURED_NOT_OBSERVED",
+            "timeout_seconds": 65,
+            "image_tools_observed": [],
+            "observed_conversation_id": "73802d82-7f53-4355-a0d4-de4f98459ab4",
+            "observed_usage": {
+              "input_tokens": 16350,
+              "output_tokens": 4053,
+              "thinking_tokens": 3619,
+              "cache_read_tokens": 0,
+              "total_tokens": 20403
+            },
+            "observed_duration_seconds": 33.5981238,
+            "observed_num_turns": 1,
+            "returncode": 0,
+            "ended_at_utc": "2026-11-12T13:42:11.491202+00:00",
+            "elapsed_seconds": 37.194708800001536,
+            "stdout_bytes": 14475,
+            "stderr_bytes": 0,
+            "output_sha256": "8cdb4a8c1c64fb728976e99b1f44b948a54dfd41349327ae496d2c7f8395352e",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "answered_by": "antigravity",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "answer_seconds": 37.194708800001536,
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "image_tools_observed": [],
+        "observed_conversation_id": "73802d82-7f53-4355-a0d4-de4f98459ab4",
+        "observed_usage": {
+          "input_tokens": 16350,
+          "output_tokens": 4053,
+          "thinking_tokens": 3619,
+          "cache_read_tokens": 0,
+          "total_tokens": 20403
+        },
+        "observed_duration_seconds": 33.5981238,
+        "observed_num_turns": 1,
+        "ended_at_utc": "2026-11-12T13:42:11.495497+00:00",
+        "elapsed_seconds": 37.19901710000704,
+        "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134126-d2aff1b3\\editorial\\rank\\light\\light-call.json"
+      }
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134526-e265758e\\editorial\\rank\\call.json",
+      "started_at_utc": "2026-11-12T13:45:42.456313+00:00",
+      "status": "FAILED",
+      "cause": "Expecting value: line 1 column 1 (char 0)",
+      "answered_by": "antigravity",
+      "light_call": {
+        "policy": "cc512-light-caller-v1",
+        "status": "RETURNED",
+        "started_at_utc": "2026-11-12T13:45:42.457868+00:00",
+        "prompt_sha256": "d3ce1b38070cd76699b831f80bbefdcb197ead0f9008b2bd1b2ae861a1f82a60",
+        "prompt_bytes": 13721,
+        "attempts": [
+          {
+            "caller": "antigravity",
+            "started_at_utc": "2026-11-12T13:45:42.457963+00:00",
+            "status": "RETURNED",
+            "configured_model": "gemini-3.8-flash-high",
+            "configured_effort": "high",
+            "configuration_status": "CONFIGURED_NOT_OBSERVED",
+            "timeout_seconds": 65,
+            "image_tools_observed": [],
+            "observed_conversation_id": "bdcbcbbc-cadd-42a3-9ade-f1ee39c633fb",
+            "observed_usage": {
+              "input_tokens": 18923,
+              "output_tokens": 5672,
+              "thinking_tokens": 4804,
+              "cache_read_tokens": 0,
+              "total_tokens": 24595
+            },
+            "observed_duration_seconds": 41.5528886,
+            "observed_num_turns": 1,
+            "returncode": 0,
+            "ended_at_utc": "2026-11-12T13:46:26.956431+00:00",
+            "elapsed_seconds": 44.49838790000649,
+            "stdout_bytes": 27639,
+            "stderr_bytes": 0,
+            "output_sha256": "bde239db60f3293f7cd96a451256059c81cfbf32df172bc067d0a33a6aeaa0a3",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "answered_by": "antigravity",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "answer_seconds": 44.49838790000649,
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "image_tools_observed": [],
+        "observed_conversation_id": "bdcbcbbc-cadd-42a3-9ade-f1ee39c633fb",
+        "observed_usage": {
+          "input_tokens": 18923,
+          "output_tokens": 5672,
+          "thinking_tokens": 4804,
+          "cache_read_tokens": 0,
+          "total_tokens": 24595
+        },
+        "observed_duration_seconds": 41.5528886,
+        "observed_num_turns": 1,
+        "ended_at_utc": "2026-11-12T13:46:26.981314+00:00",
+        "elapsed_seconds": 44.52328169999237,
+        "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134526-e265758e\\editorial\\rank\\light\\light-call.json"
+      }
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\call.json",
+      "started_at_utc": "2026-11-12T13:48:44.119287+00:00",
+      "status": "RETURNED",
+      "cause": null,
+      "answered_by": "antigravity",
+      "light_call": {
+        "policy": "cc512-light-caller-v1",
+        "status": "RETURNED",
+        "started_at_utc": "2026-11-12T13:48:44.121092+00:00",
+        "prompt_sha256": "5483ba41d3f3a97a7b2defa306c44b4502181cb44c7384ca92fceb00b42b7a2d",
+        "prompt_bytes": 16165,
+        "attempts": [
+          {
+            "caller": "antigravity",
+            "started_at_utc": "2026-11-12T13:48:44.121136+00:00",
+            "status": "RETURNED",
+            "configured_model": "gemini-3.8-flash-high",
+            "configured_effort": "high",
+            "configuration_status": "CONFIGURED_NOT_OBSERVED",
+            "timeout_seconds": 65,
+            "image_tools_observed": [],
+            "observed_conversation_id": "b67a88a2-f2f2-4c14-b632-16d7f80cf189",
+            "observed_usage": {
+              "input_tokens": 19934,
+              "output_tokens": 6429,
+              "thinking_tokens": 5469,
+              "cache_read_tokens": 0,
+              "total_tokens": 26363
+            },
+            "observed_duration_seconds": 48.7965203,
+            "observed_num_turns": 1,
+            "returncode": 0,
+            "ended_at_utc": "2026-11-12T13:49:36.462463+00:00",
+            "elapsed_seconds": 52.3412313000008,
+            "stdout_bytes": 29377,
+            "stderr_bytes": 0,
+            "output_sha256": "adad2b3a230496199c688178f13e4f4af25e8f3497f1234193d8ad9b3c62d9f5",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "answered_by": "antigravity",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "answer_seconds": 52.3412313000008,
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "image_tools_observed": [],
+        "observed_conversation_id": "b67a88a2-f2f2-4c14-b632-16d7f80cf189",
+        "observed_usage": {
+          "input_tokens": 19934,
+          "output_tokens": 6429,
+          "thinking_tokens": 5469,
+          "cache_read_tokens": 0,
+          "total_tokens": 26363
+        },
+        "observed_duration_seconds": 48.7965203,
+        "observed_num_turns": 1,
+        "ended_at_utc": "2026-11-12T13:49:36.463238+00:00",
+        "elapsed_seconds": 52.34200740000233,
+        "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\light\\light-call.json"
+      }
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T135126-e48377e9\\editorial\\rank\\call.json",
+      "started_at_utc": "2026-11-12T13:51:39.084014+00:00",
+      "status": "RETURNED",
+      "cause": null,
+      "answered_by": "codex",
+      "light_call": {
+        "policy": "cc512-light-caller-v1",
+        "status": "RETURNED",
+        "started_at_utc": "2026-11-12T13:51:39.085314+00:00",
+        "prompt_sha256": "8f859a3ee71614c31349d41aa61162cdc4fa4b39f381da8de34221ba3f4bb45a",
+        "prompt_bytes": 16280,
+        "attempts": [
+          {
+            "caller": "antigravity",
+            "started_at_utc": "2026-11-12T13:51:39.085383+00:00",
+            "status": "TIMEOUT",
+            "configured_model": "gemini-3.8-flash-high",
+            "configured_effort": "high",
+            "configuration_status": "CONFIGURED_NOT_OBSERVED",
+            "timeout_seconds": 65,
+            "cause": "AGY_RANK_TIMEOUT_90S",
+            "ended_at_utc": "2026-11-12T13:52:44.403892+00:00",
+            "elapsed_seconds": 65.31839110000874,
+            "stdout_bytes": 17115,
+            "stderr_bytes": 0,
+            "output_sha256": "9482a4155112d5412bfcdfb81ed4dbe165b7cf17a0a6febdfb9f95f8b778ab19",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "caller": "codex",
+            "started_at_utc": "2026-11-12T13:52:44.405267+00:00",
+            "status": "RETURNED",
+            "configured_model": "gpt-6.1-sol",
+            "configured_effort": "low",
+            "configuration_status": "CONFIGURED_NOT_OBSERVED",
+            "timeout_seconds": 65,
+            "turn_completed_seconds": 25.27406539999356,
+            "observed_session_id": "01a1d008-4a60-7803-b2e6-5042fb4e152c",
+            "observed_usage": {
+              "input_tokens": 19697,
+              "cached_input_tokens": 8832,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 658,
+              "reasoning_output_tokens": 0
+            },
+            "image_attached": false,
+            "returncode": 0,
+            "ended_at_utc": "2026-11-12T13:53:10.660231+00:00",
+            "elapsed_seconds": 26.25491060000786,
+            "stdout_bytes": 3575,
+            "stderr_bytes": 0,
+            "output_sha256": "0eefad7b23757a2d9ef04cffc0670f6a60aedcf5563843bc4b09c6608f0e4e08",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "answered_by": "codex",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "answer_seconds": 26.25491060000786,
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "low",
+        "observed_session_id": "01a1d008-4a60-7803-b2e6-5042fb4e152c",
+        "observed_usage": {
+          "input_tokens": 19697,
+          "cached_input_tokens": 8832,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 658,
+          "reasoning_output_tokens": 0
+        },
+        "ended_at_utc": "2026-11-12T13:53:10.660912+00:00",
+        "elapsed_seconds": 91.57535649999045,
+        "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T135126-e48377e9\\editorial\\rank\\light\\light-call.json",
+        "first_cause": "AGY_RANK_TIMEOUT_90S"
+      }
+    }
+  ]
+}

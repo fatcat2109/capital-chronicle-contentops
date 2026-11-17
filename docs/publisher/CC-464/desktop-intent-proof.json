@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-11T16:11:01.288354+00:00",
+  "requested_path": "https://x.com/intent/tweet",
+  "observed_redirect_path": "https://x.com/intent/post",
+  "target_post_id": "2120544187602903463",
+  "observed_target_author": "zerohedge",
+  "target_author_and_text_match": true,
+  "exact_draft_prefilled": true,
+  "x_appends_one_trailing_space": true,
+  "reply_button_present": true,
+  "public_submit_actions": 0,
+  "own_test_tab_closed": true,
+  "phone_app_open_observed": false,
+  "limit": "Desktop Neo composer verified; Jim must verify the actual phone app from the first bot push."
+}

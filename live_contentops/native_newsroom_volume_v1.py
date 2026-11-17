@@ -90,7 +90,7 @@ def permitted_photo_less_skip(plan):
 def permitted_derivative_skips(plan):
     """Skips a plan may list without failing its structural check (unchanged)."""
     from live_contentops.native_text_first_v1 import permitted_skips
-    if plan.get("image_optional_policy") in {"JIM_DECISION_39", "CC-172"}:
+    if plan.get("image_optional_policy") in {"JIM_DECISION_39", "CC-172", "JIM_DECISION_124"}:
         skipped = plan.get("skipped_derivative_destinations") or []
         if (len(skipped) == 1 and skipped[0].get("destination") == "instagram_business"
                 and skipped[0].get("status") == "SKIPPED_IMAGE_REQUIRED"):
@@ -107,6 +107,8 @@ def registration_skips(plan):
     Frozen plan-time skips remain historical evidence. Finalization supplies
     the reviewed image or the post's owned card before each destination sends.
     """
+    if plan.get("image_optional_policy") == "JIM_DECISION_124":
+        return permitted_derivative_skips(plan)
     return set()
 
 

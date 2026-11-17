@@ -1,0 +1,37 @@
+{
+  "request_sha256": "f5f29c5b13f4ad364fe10ce0b7fb88aa26ef2b7e202ae7605379aee2095f50eb",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A conditional PPI preview explaining why Main's bound assessment favours standing aside before the print, rather than treating last month's inflation release as fresh news.",
+        "article_mode": "WEEK_AHEAD_OR_WATCH",
+        "candidate_id": "simple-story-76c477aec2c3e215e63d0f57",
+        "evidence_plan": "Resolve the held Main US_PPI_20261113 dossier and exact public-safe native synthesis through the existing source owners, preserving document IDs, source spans and original data cutoff 2026-11-13T09:32:50.340914Z. The candidate packet itself contains only the dated calendar projection, not the new synthesis, so bind the held dossier before attributing its call, hawkish rates/dollar backdrop, countercase or conditional reassessment levels. Use one exact Main scenario set, including only supplied probabilities, confirmation, six-market implications and invalidation; never infer complementary odds. Resolve the admitted BLS September archive as historical context and official PPI history for source-bound charts, never today's outcome. Verify the event time from the official calendar. Keep raw prediction odds, vendor tables and account execution state out of copy. Identify gold as lead market for the existing media owner's fresh snapshot, with a fresh release/reaction card first. Name a permitted futures or ETF instrument for each covered market without copying spot levels onto another instrument. Preserve any absence of a public freeze record without inventing a hash. Code owns arithmetic and ET conversion. Retain preparation but attempt no publication after the fixed deadline 2026-11-13T10:32:50.340914Z; generation, retrieval and media work cannot extend it.",
+        "primary_reader_question": "Why does the bound Main assessment favour waiting before PPI, and what evidence would change that assessment?",
+        "research_queries": [
+          "BLS November 13 2026 Producer Price Index release calendar",
+          "BLS September 2026 producer prices final demand October 15 release",
+          "Capital Chronicle US_PPI_20261113 public-safe synthesis scenarios confirmation invalidation"
+        ],
+        "selection_rationale": "The explicitly requested PPI event preview answers a timely decision question and can use the newly held Main dossier through existing source resolution. Select only this preparation target; the October BLS release is historical context, and old asset recirculations are not substitutes. Selection does not certify unseen dossier claims or reset the source clock."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one PPI preview for bounded preparation. Bind and inspect the held Main dossier before using its analytical claims; preserve the original cutoff and fixed publication deadline. No filler, second wrap or old-news substitute.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_f5f29c5b13f4",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "Parent role assignment and exact native request requested_model/requested_reasoning_effort; no actual model or effort runtime telemetry is exposed to this role.",
+    "observation_source": "Supported collaboration.spawn_agent return and the native final result from /root/native_select_f5f29c5b13f4; actual model and effort remain unobserved."
+  }
+}

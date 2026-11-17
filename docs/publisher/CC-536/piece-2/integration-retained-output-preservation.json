@@ -1,0 +1,58 @@
+{
+  "installed_commit": "8ffbd20d8c753c82c09d6b26fc0908534d13acc0",
+  "moved_item_outputs": [
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\installed-resume-20261116-transport-tests.xml",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\installed-resume-20261116-transport-tests.xml",
+      "sha256": "161d9162bfeedd9d2a00c664662cf29dea368bf79b877e146a0deb1f5f4a0d5d"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\publication-repaired-resume-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\publication-repaired-resume-20261116.json",
+      "sha256": "551a977a9a40c19376d94346c45b21b3bf5dc0b891d4d3c40ac75de3b6688cb1"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\publication-retained-draft-resume-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\publication-retained-draft-resume-20261116.json",
+      "sha256": "98aa9d6eb950b12eb3898c25dac5a2b6a8099c1d9f1428945862193bf3b96ac6"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\registered-resume-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\registered-resume-20261116.json",
+      "sha256": "9ce3b953a1aed3295da6b71c964822d112b2755ef1e9ddd8610a1850fdcdf190"
+    }
+  ],
+  "reason": "Preserve the operating run outputs before Git materializes the committed copies at the same paths.",
+  "final_publication_outputs_retained": [
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\final-status-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\final-publication\\final-status-20261116.json",
+      "sha256": "b59d71deb833123149999e34980bc8a4a670307888ba6c7287f812e8ab6604d7"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\publication-exact-draft-repaired-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\final-publication\\publication-exact-draft-repaired-20261116.json",
+      "sha256": "962e60e290effd474066a0e6fbde15d2611b45131705395ed126fbd616a5f4f0"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\distribution-resume-media-fixed-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\final-publication\\distribution-resume-media-fixed-20261116.json",
+      "sha256": "f95bd61bda4da6a306d5d296fb9b2e9554eeca040e8b352eec9da8fb14845dff"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\company-native-confirmed-final.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\final-publication\\company-native-confirmed-final.json",
+      "sha256": "e3379f65e83a0e81ade7d3c361f5127606c6be57af1d179270fb7883f7b483bc"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\company-native-final-submitted.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\final-publication\\company-native-final-submitted.json",
+      "sha256": "03400a54b970b57ae9b7df2f7053fcc80d630bbfa523e2914aa4c22b35b89e33"
+    },
+    {
+      "from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\linkedin-member-reconciled-retry-20261116.json",
+      "retained_at": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-536\\piece-2\\retained-pre-integration-20261116\\final-publication\\linkedin-member-reconciled-retry-20261116.json",
+      "sha256": "df3bcf0ee949447530b6db4db2a67d8bf8a637d72b56184a34442d846a7ef168"
+    }
+  ]
+}

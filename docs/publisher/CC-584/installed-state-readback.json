@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-11-16T23:34:56.399194+00:00",
+  "operating_commit": "cb4d86f2e98cb9645880a998c25a93817868dd1d",
+  "export_generated_at_utc": "2026-11-16T23:34:01.476727Z",
+  "export_sha256": "7c4eb11a27ef5bda11440cb8c0d4bcf1c453487b4e5333740ecced921b888380",
+  "plan_count": 89,
+  "latest_registered_at_utc": "2026-11-12T17:40:00.360572Z",
+  "next_plan_registered": false,
+  "current_consumer_refusals": {
+    "CURRENT_OR_DATED_OWED": 36,
+    "SUPERSEDED_NOT_POSTED": 32,
+    "STALE_NOT_POSTED": 13
+  },
+  "audited_gold_row": [
+    {
+      "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "stored_status": "SUPERSEDED_NOT_POSTED",
+      "refusal": [
+        "SUPERSEDED_NOT_POSTED",
+        "PLAN_POST_SUPERSEDED_NOT_POSTED"
+      ]
+    }
+  ],
+  "publishing_task": {
+    "name": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "executable": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish"
+  },
+  "store_open_mode": "ro",
+  "public_writes_performed": false
+}

@@ -19,6 +19,7 @@ from typing import Any, Mapping
 from .secret_store_v1 import read_secret
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_DISCORD_AND_TELEGRAM_V0"
+BOT_USER_AGENT = "DiscordBot (https://capitalchronicle.substack.com, 1.0)"
 
 
 def _get_default_webhook_url() -> str:
@@ -90,7 +91,9 @@ def execute_discord_post(
     payload: dict[str, Any] = {"content": message}
     if thread_parent_id:
         payload["allowed_mentions"] = {"parse": []}
-        if reply_to_message_id:
+        # A thread's starter is in its parent channel. Sending into the thread
+        # already replies under it; a message_reference to it is invalid there.
+        if reply_to_message_id and str(reply_to_message_id) != str(thread_parent_id):
             payload["message_reference"] = {"message_id": str(reply_to_message_id),
                                              "channel_id": str(thread_parent_id), "fail_if_not_exists": True}
     if embeds:
@@ -129,7 +132,9 @@ def execute_discord_post(
     req.add_header("Content-Type", content_type)
     if bot_token:
         req.add_header("Authorization", "Bot " + bot_token)
-    req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
+    # Discord's HTTP API requires the bot's client-library identity and version.
+    req.add_header("User-Agent", BOT_USER_AGENT if bot_token else
+                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 
     try:
         with urllib.request.urlopen(req, timeout=15) as response:
@@ -186,7 +191,7 @@ def _ensure_call_thread(webhook, parent_id, name, token):
         req = urllib.request.Request(url, data=json.dumps(data).encode() if data else None,
                                      method=method or ("POST" if data else "GET"))
         req.add_header("Content-Type", "application/json")
-        req.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        req.add_header("User-Agent", "CapitalChronicleContentOps/1.0" if url.startswith(webhook) else BOT_USER_AGENT)
         if not url.startswith(webhook):
             req.add_header("Authorization", "Bot " + token)
         with urllib.request.urlopen(req, timeout=15) as response:
@@ -221,6 +226,13 @@ def _ensure_call_thread(webhook, parent_id, name, token):
                 "reason_code": "DISCORD_CALL_THREAD_UNAVAILABLE", "safe_error_classification": type(exc).__name__}
 
 
+def _reply_parent_matches(payload, thread_id, expected_parent_id):
+    parent = str((payload.get("message_reference") or {}).get("message_id") or "")
+    return (not expected_parent_id or parent == str(expected_parent_id)
+            or (str(thread_id) == str(expected_parent_id) and not parent
+                and str(payload.get("channel_id")) == str(thread_id)))
+
+
 def readback_discord_post(
     *,
     message_id: str,
@@ -245,7 +257,7 @@ def readback_discord_post(
     request = urllib.request.Request(url, method="GET")
     if token:
         request.add_header("Authorization", "Bot " + token)
-    request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+    request.add_header("User-Agent", BOT_USER_AGENT if token else "CapitalChronicleContentOps/1.0")
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
             payload = json.loads(response.read().decode("utf-8"))
@@ -262,6 +274,25 @@ def readback_discord_post(
     embeds = payload.get("embeds") if isinstance(payload.get("embeds"), list) else []
     channel_id = str(payload.get("channel_id") or "")
     guild_id = str(payload.get("guild_id") or "")
+    if thread_id and not guild_id:
+        # Discord's GET-message response normally omits guild_id. Read the
+        # registered thread metadata so its public permalink stays verifiable.
+        metadata_request = urllib.request.Request(
+            "https://discord.com/api/v10/channels/" + str(thread_id), method="GET")
+        metadata_request.add_header("Authorization", "Bot " + token)
+        metadata_request.add_header("User-Agent", BOT_USER_AGENT)
+        try:
+            with urllib.request.urlopen(metadata_request, timeout=15) as response:
+                thread = json.loads(response.read().decode("utf-8"))
+            from .destination_transport_registry_v1 import registration_for_destination
+            if (str(thread.get("id")) != str(thread_id)
+                    or str(thread.get("parent_id")) != registration_for_destination("discord").expected_stable_id
+                    or thread.get("type") not in {10, 11, 12}
+                    or not str(thread.get("guild_id") or "").isdigit()):
+                return {"status": "READBACK_UNAVAILABLE", "verified": False, "write_exists": True}
+            guild_id = str(thread["guild_id"])
+        except (OSError, ValueError, KeyError, TypeError):
+            return {"status": "READBACK_UNAVAILABLE", "verified": False, "write_exists": True}
     exact_identity = observed_id == str(message_id)
     text_verified = bool(expected_text and expected_text in content)
     canonical_verified = canonical_url in content
@@ -295,7 +326,7 @@ def readback_discord_post(
                 continue
         media_verified = image_hash_match
     thread_verified = not thread_id or channel_id == str(thread_id)
-    parent_verified = not expected_parent_id or str((payload.get("message_reference") or {}).get("message_id")) == str(expected_parent_id)
+    parent_verified = _reply_parent_matches(payload, thread_id, expected_parent_id)
     verified = bool(exact_identity and text_verified and canonical_verified
                     and (media_verified or (not require_media and not expected_image_sha256))
                     and thread_verified and parent_verified)
@@ -320,6 +351,69 @@ def readback_discord_post(
         "image_sha256_match": image_hash_match,
         "thread_verified": thread_verified, "reply_parent_verified": parent_verified,
     }
+
+
+def find_discord_thread_post(*, thread_id, expected_text, canonical_url,
+                            expected_parent_id=None, expected_image_sha256=None,
+                            require_media=True):
+    """Recover a lost bot-message id by reading its exact registered thread.
+
+    A full 100-message page is incomplete evidence of absence. A wrong thread,
+    foreign author, changed body or multiple exact matches stays uncertain.
+    This operation sends only GET requests and never creates/unarchives a thread.
+    """
+    unavailable = {"status": "READBACK_UNAVAILABLE", "verified": False, "write_absent": False}
+    token = read_secret("DISCORD_BOT_TOKEN")
+    if not token or not str(thread_id or "").isdigit() or not expected_text:
+        return unavailable
+
+    def get(path):
+        request = urllib.request.Request("https://discord.com/api/v10/" + path, method="GET")
+        request.add_header("Authorization", "Bot " + token)
+        request.add_header("User-Agent", BOT_USER_AGENT)
+        with urllib.request.urlopen(request, timeout=15) as response:
+            return json.loads(response.read().decode("utf-8"))
+
+    try:
+        from .destination_transport_registry_v1 import registration_for_destination
+        channel = get("channels/" + str(thread_id))
+        if (str(channel.get("id")) != str(thread_id)
+                or str(channel.get("parent_id")) != registration_for_destination("discord").expected_stable_id
+                or channel.get("type") not in {10, 11, 12}):
+            return {**unavailable, "cause": "DISCORD_CALL_THREAD_IDENTITY_MISMATCH"}
+        author = get("users/@me")
+        if not author.get("bot") or not str(author.get("id") or "").isdigit():
+            return {**unavailable, "cause": "DISCORD_BOT_IDENTITY_UNAVAILABLE"}
+        messages = get("channels/" + str(thread_id) + "/messages?limit=100")
+        if (not isinstance(messages, list)
+                or any(not isinstance(m, dict) or str(m.get("channel_id")) != str(thread_id)
+                       or not str(m.get("id") or "").isdigit() for m in messages)):
+            return {**unavailable, "cause": "DISCORD_THREAD_HISTORY_IDENTITY_MISMATCH"}
+        matches, uncertain = [], False
+        for message in messages:
+            content = str(message.get("content") or "")
+            own = str((message.get("author") or {}).get("id")) == str(author["id"])
+            if content == expected_text:
+                if own and _reply_parent_matches(message, thread_id, expected_parent_id):
+                    matches.append(message)
+                else:
+                    uncertain = True
+            elif own and ((canonical_url and canonical_url in content)
+                          or content.startswith(expected_text.splitlines()[0])):
+                uncertain = True
+        if uncertain or len(matches) > 1:
+            return {**unavailable, "cause": "DISCORD_THREAD_MATCH_AMBIGUOUS", "messages_read": len(messages)}
+        if not matches:
+            complete = len(messages) < 100
+            return {"status": "NOT_FOUND" if complete else "READBACK_UNAVAILABLE", "verified": False,
+                    "write_absent": complete, "messages_read": len(messages), "thread_id": str(thread_id),
+                    "absence_basis": "COMPLETE_REGISTERED_DISCORD_THREAD_HISTORY" if complete else None}
+        result = readback_discord_post(message_id=matches[0]["id"], expected_text=expected_text,
+            canonical_url=canonical_url or "", thread_id=str(thread_id), expected_parent_id=expected_parent_id,
+            expected_image_sha256=expected_image_sha256, require_media=require_media)
+        return {**result, "id": matches[0]["id"], "messages_read": len(messages)}
+    except (OSError, ValueError, KeyError, TypeError):
+        return unavailable
 
 
 def execute_discord_comment(

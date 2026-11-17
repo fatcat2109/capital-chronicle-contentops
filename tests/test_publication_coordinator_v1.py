@@ -8,6 +8,17 @@ from pathlib import Path
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def coordinator_transport_fixture_without_article_media(monkeypatch):
+    """These transport fixtures have no article/media files.
+
+    Exercise image validation with its real assets in test_publication_image_contract_cc463;
+    keep this file focused on the coordinator's dispatch and recovery behavior.
+    """
+    from live_contentops import publication_image_contract_v1
+    monkeypatch.setattr(publication_image_contract_v1, "validate_write", lambda *args: None)
+
+
 @pytest.fixture
 def cc401_copied_store(tmp_path):
     import sqlite3
@@ -107,11 +118,47 @@ def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, m
     assert c._dispatch_message(second, canonical_url=None)["status"] == UNKNOWN_WRITE
     conn = store.get_connection()
     try:
-        rows = [json.loads(r[0]) for r in conn.execute("SELECT description FROM incidents")]
+        rows = [json.loads(r[0]) for r in conn.execute(
+            "SELECT description FROM incidents WHERE severity='DISPATCH_FAILURE'")]
     finally:
         conn.close()
     assert [(r["destination"], r["et_day"]) for r in rows] == [
         ("discord", "2026-11-09"), ("threads", "2026-11-09"), ("discord", "2026-11-10")]
+
+
+@pytest.mark.parametrize("status,local", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
+@pytest.mark.parametrize("destination,cause", [("threads", "missing:text"), ("youtube", "NEO_SIGNED_IN_ACCOUNT_MISMATCH")])
+def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_failure(cc401_copied_store, status, local, destination, cause):
+    store = cc401_copied_store
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    detail = {"status": status, "safe_error_classification": cause}
+    coordinator._record_destination_day_failure({"work_item_id": "work-1"}, destination, detail)
+    assert (coordinator._destination_day_failure(destination) is None) is local
+    if local:
+        # Old persisted local failures also stop consuming the day circuit.
+        incident, _ = coordinator._destination_failure_key(destination)
+        store.register_incident(incident_id=incident, work_item_id="work-1", severity="DISPATCH_FAILURE",
+            description=json.dumps(detail))
+        assert coordinator._destination_day_failure(destination) is None
+        with store.get_read_only_connection() as conn:
+            assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident,)).fetchone()
+
+
+@pytest.mark.parametrize("dispatch_status,reconciliation_status,released", [
+    ("UNKNOWN_WRITE", "RECONCILIATION_PENDING", False),
+    ("RECONCILED_ABSENT_SAFE_TO_RETRY", "RECONCILIATION_PENDING", False),
+    ("RECONCILED_ABSENT_SAFE_TO_RETRY", "RECONCILED_ABSENT_SAFE_TO_RETRY", True)])
+@pytest.mark.parametrize("cause", ["NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN"])
+def test_cc536_native_return_failure_releases_only_exact_reconciled_absence(cc401_copied_store, dispatch_status, reconciliation_status, released, cause):
+    store=cc401_copied_store
+    coordinator=DurablePublicationCoordinator(store=store,transport_runtime=FixtureTransport())
+    row=coordinator.register_plan("work-1",_plan("x"))["registered"][0]
+    store.register_platform_dispatch(dispatch_id=row["dispatch_id"],message_id=row["message_id"],platform="x",status=dispatch_status)
+    store.register_reconciliation(reconciliation_id=row["reconciliation_id"],work_item_id="work-1",status=reconciliation_status)
+    incident,_=coordinator._destination_failure_key("x")
+    store.register_incident(incident_id=incident,work_item_id="work-1",severity="DISPATCH_FAILURE",
+        description=json.dumps({"status":"UNKNOWN_WRITE","safe_error_classification":cause,"dispatch_id":row["dispatch_id"]}))
+    assert (coordinator._destination_day_failure("x") is None) is released
 
 
 @pytest.mark.parametrize("claimed", [False, True])
@@ -638,9 +685,11 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
         def __init__(self):
             super().__init__()
             self.prepare_calls = 0
+            self.preparation_plans = []
 
         def prepare_delivery_media(self, **_kwargs):
             self.prepare_calls += 1
+            self.preparation_plans.append(_kwargs["plan"])
             if self.prepare_calls > 1:
                 return {
                     "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
@@ -658,6 +707,7 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
     )
 
     plan = _quality_plan()
+    plan["artifact_refs"] = {"native_derivative_previews": "controlled-reviewed-previews.json"}
     for row in plan["destinations"]:
         if row["destination"] == "instagram_business":
             row["delivery_media_required"] = True
@@ -683,6 +733,7 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
         DISPATCH_CONFIRMED
     )
     assert transport.publish_calls.count("instagram_business") == 1
+    assert transport.preparation_plans[-1]["artifact_refs"] == plan["artifact_refs"]
 
 
 def test_quality_probation_full_nine_surface_confirmation(tmp_path):

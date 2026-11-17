@@ -1,0 +1,42 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc378-main-reaction-20261117",
+      "headline_id": "cc378-main-reaction-20261117",
+      "headline_text": "Main finds no accepted market reaction to the latest headline burst",
+      "known_at_utc": "2026-11-17T04:29:03.723805Z",
+      "revision_at_utc": "2026-11-17T04:57:43.646338+00:00",
+      "candidate_catalyst_tags": [
+        "MAIN_REPORT",
+        "MARKET_REACTION"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T041041Z\\analysis-native.json",
+          "source_sha256": "d10cb1dc05a69d3e131f6ef8a6682280071c963816e5044bcc18812479fc3166",
+          "source_json_pointer": "/native_synthesis/summary/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 197
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T041041Z\\analysis-native.json",
+          "source_sha256": "d10cb1dc05a69d3e131f6ef8a6682280071c963816e5044bcc18812479fc3166",
+          "source_json_pointer": "/native_synthesis/summary/2/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 158
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

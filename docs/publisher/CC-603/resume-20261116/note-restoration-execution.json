@@ -1,0 +1,28 @@
+{
+  "request_sha256": "fbca061573ac1d5b9382b90aec9217b82eaa56c0349931907dd812d6b3f301cc",
+  "claim": {
+    "begun_at_utc": "2026-11-16T00:46:48.139558+00:00",
+    "native_invocation_id": "neo-endpoint:4f1d4bd904764ec89ed9a6137e281f55",
+    "required_tool": "mcp__browseros_neo__run",
+    "tool_request_sha256": "30d531784333812d916793d030ad62435ec90901746147f996cc1d8007efe75c"
+  },
+  "prior_readback": {
+    "status": "READBACK_UNAVAILABLE",
+    "verified": false,
+    "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+    "observed_identity": "@capitalchronicle"
+  },
+  "error": "NeoEndpointError:NEO_EXPECTED_MENUITEM_MISSING",
+  "tool_error": null,
+  "submission": {
+    "request_sha256": "fbca061573ac1d5b9382b90aec9217b82eaa56c0349931907dd812d6b3f301cc",
+    "tool_return_sha256": "4d814e3f56fbff2ff14b354da75e6c9c403de16ec2455edb8201327c2e641d5a"
+  },
+  "phases": [
+    "readback",
+    "readback",
+    "note_exact_options"
+  ],
+  "save_phase_entered": false,
+  "observed_at_utc": "2026-11-16T00:51:13.205210+00:00"
+}

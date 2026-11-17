@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-11-16T07:05:41.371073+00:00",
+  "article_sha256": "aee9dacb4b0d0a4be88b24c42ad3e46ac04efd9e2affae38b1757ea2225194ae",
+  "piece_sha256": "8bf92d86082b664d3d659d6f7ae5a525488a6a1e6a18e9e62c9682fea6fd4c47",
+  "writer": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 11044,
+    "invocation_id": "01a1e315-b060-7c11-8ac3-f69983d593b3",
+    "operation": "publisher-cc-536-piece2-resume-20261116",
+    "role": "final assembly, source and rendered-media review completed"
+  },
+  "media_sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+  "render_manifest": "renders/manifest.json",
+  "renders_inspected": 18,
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "browser_group": "1C9688168B53001E87017517DB61CF39",
+  "canonical_renderer": "plan_substack_neo_v1.body_html, including its two tables, method anchor, code fingerprint and original chart; local responsive frame",
+  "channel_renderer": "retained ReportEditorialWorkspace with the exact eight compiler payloads",
+  "findings": [
+    "Canonical desktop and phone: readable complete counts, periods, side labels, benchmark caveats, minus signs and notices.",
+    "Native TradingView chart has exactly the enabled 20/50-session simple mean lines and intact attribution; caption separates current illustration from historical tests.",
+    "All eight social payloads retain the authored counts, sample limits and notices; X and Threads retain the complete linked own thread.",
+    "Mobile canonical has document scrollWidth=clientWidth=375; both table bounds stay within the 347-pixel content width.",
+    "Final canonical table cells and the method link use the public transport formatter; the older workspace renders pipe tables as paragraphs, so it was not used to judge canonical table layout."
+  ],
+  "repair": "Preserved authored prose and numerical claims; repaired HTTPS link/code formatting in the existing Substack transport.",
+  "decision": "ACCEPT",
+  "remaining": null,
+  "text_approved_at_utc": "2026-11-16T07:05:41.371073+00:00",
+  "main_snapshot": {
+    "live_tag": "live-20261114-cc598-154637",
+    "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+    "blobs_verified": 7
+  },
+  "numbers_verified": 58
+}

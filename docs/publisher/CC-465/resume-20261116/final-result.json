@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-11-15T22:57:35.575948+00:00",
+  "source_commit": "6ac025144b5bf71488e742c8e4f1fb6c1a98f486",
+  "gallery_images": 34,
+  "code_passed": 30,
+  "held_map_images": 4,
+  "render_failures": 0,
+  "actual_final_vision_samples": 6,
+  "actual_samples_10_of_10": 6,
+  "initial_template_acceptance_observed": false,
+  "published_week_observed": 0,
+  "published_week_required": 20,
+  "public_writes_in_this_run": 0,
+  "next_owner": "Ops Product: complete source-complete initial acceptance; Main supplies the map daily move/state projection; the existing publication consumer provides the twenty-image observed week without a replacement post or schedule."
+}

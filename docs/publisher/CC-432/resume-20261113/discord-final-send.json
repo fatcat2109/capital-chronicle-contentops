@@ -1,0 +1,11 @@
+{
+ "destination": "discord",
+ "status": "DISPATCH_CONFIRMED",
+ "publish_called": true,
+ "public_object_id": "1570672638332772352",
+ "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+ "reconciliation_status": "RECONCILED_CONFIRMED",
+ "safe_error_classification": null,
+ "correction_id": "cc432-discord-thread-starter-reference-v1",
+ "pending_requests": []
+}

@@ -1,0 +1,325 @@
+{
+  "collection": {
+    "state": "COLLECTED",
+    "scheduled": 0,
+    "collected": 55,
+    "pending": 43,
+    "outcomes": [
+      {
+        "observation_id": "obs_23eb3c7199b1d3fd2d06785e59188174",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_242197bcff2028d9e708f53621563671",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_4f411c83414923e99a70e5c5f0c833ad",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_377091f7ee0791c86e5573032a9638aa",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_3ceed71107e468c8329c3b998e135bb5",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_25321e1a3f0d64f4babe7e30b4e27ac1",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_26dd196c84b2d0e04541946e2bfb603e",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_562e6e61d83e3699b078dc3bbfc36850",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_460a53b7f451fd25e0c6a33cd683e5c8",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_46c22a81d78a9c7bad95918395c0e3a3",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_25a04bda4cfaeae8b9702db62429cfed",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_30f4c29750a73abdfe6f97465372dc3b",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_5b72cca468a9012e93153e0ced39e936",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_5ef1254e12a7b899f15f051564289aca",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_486e23233db134f0d7192789bf9ca185",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_a6fd26981b03d77b2c23749e8c877060",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_474e78720ba1acbfb1779afe3a1c666b",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_6281fbb5314089e3d784fcfea8eb7dea",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_5fd91fd2cf5ef5e9025b8a5cf294d506",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_48ec21342092361600320bb0f395f3d7",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_bc9232504649936639b591a4858b5a1a",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_4dd39e1f55bcb59aec55a02be5ade776",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_6f16c4d42299941851942a1b29e997fd",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_654963d3b3eee15f805f81607bd3a5c3",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_4aed7328655e91b0cd0845a98f098b9c",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_c4626c65417a2299d25b72721e489d20",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_64b3564ef8001cddbed13191d6950a88",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_885b59602d244c5a8b1a931c6a62b26f",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_6ec52dfdd2f20ee1f5166eee6b35f7b9",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_4df8d89e1254e8f8cd83ecdb87eee769",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e64f088edaee90aabc243e0346588bc3",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_73429500771e323bf336698e719744da",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_92ab5baed7c53f3664bbb1c65566116a",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_9fd7f3aac729e43c6e31e38849a85671",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_4e82ac3344d72a0d67164f83017f1eaf",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_eda271ce7d839d8b8354f4b7ee34a0fb",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_785b18186af17de9b252f714dd2b3854",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_930b6d9aa95b655b1365d569ce19231c",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_a2557388e22d9dd5aef3d5512e54fca0",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_5513f7fa04b18bfc35410e89fe2c9272",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_f1ae14544890be22e3535e787860f1cf",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_8dfd5b65ee3b72186eb194798d30a96b",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_b5f6c9c4d1851d286fa5d8e321be9b0b",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_a32c1fc11f74301d6627b822e8f7c6fc",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_600d944ed23948993e0b8150194c1a24",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_f429046d4d2c6a9ffcb7a47dc56361c0",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_9b829917be95081b990deaf6469b6595",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_cf05d5ad30d22a6a3e6cdc8451235c72",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_b8f63a44d619e7d77c10815fd8cfcb45",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_62bcfc69d9fb6bcac068a2452a5243d9",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_f7aacd5fb0bebb820afdacafcf6b9178",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_bf97a578d2584c413115dd5dfff98884",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_cfaeeb5d21b46675c681b0e889501f86",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e340e5b5b3e1cb84678fd30cf4c60689",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_63b1e3a6ff8b0c5bbaf45727f57778b0",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      }
+    ],
+    "excluded": {
+      "dispatch_c9e9ccf48f3b72df2e4ed68e2277448a": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_bfcc9f97a40f28b4cea994e72388aed4": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_e3956545fbd2fb5e65c640add4bba811": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_5b6ea73675c8b3508c8b6ac0ae16e246": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_5d7178d0e9a0cf590db76eb906cc92dd": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_22670d7abf07c333b7023ae4bdd4fc34": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_bd010e48521ed79f525ee83c65c299e4": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_99771956553ca6fe67ed77d8a6e03554": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_2b9aa639cf319c50c4c17fa9fcd09159": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_d4c1f968eac477b1440f6a8676739d43": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_b5dc5ae4bd52b0c6c541ecc5d8cad9ca": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_ec75b4443c9c5884b3b5e4a25be06476": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_f174af6279b63a5f5e79e3a6017a5e79": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_fd3ce5355c518141aa259f1fb5df6b9a": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_052c62f9e8454aa148f1165504c00d8a": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_ecb8af361d5a8bff979b6b3b2c08790a": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_7cbec28fd015154894bf3d34fb186b17": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_b3c5e2db23d042b42909f163308c7695": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_960a127a54a6dfea6f7b8be2aa81c1c3": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_f94dbbf8315a37b02b074d00d9d5a411": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_a4214a60047b793ac0641eec1f7e84dd": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_521baa69b97c8a431bc2fda8fb6ece5c": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_7dd6327551b4fd3cfa0cc8b88879f939": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_af4efc37704dafec0975a36b98cc2778": "EXACT_CONFIRMED_READBACK_NOT_RECORDED",
+      "dispatch_3a01ab1417e6225d3cd980823cd3b29e": "EXACT_CONFIRMED_READBACK_NOT_RECORDED"
+    },
+    "model_calls": 0,
+    "public_write_performed": false
+  },
+  "model_usage": {
+    "imported": 0,
+    "source": "retained_native_run_returns",
+    "model_calls": 0
+  },
+  "observed_at_utc": "2026-11-11T06:25:20.926333+00:00",
+  "weekly_digest": {
+    "channels": 10,
+    "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly-engagement\\engagement.md",
+    "week_ending": "2026-11-11"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "checked_at_utc": "2026-11-14T06:50:16.480601+00:00",
+  "code_commit": "5b99199c95814d41d7376e42c3dd5ea4036c7305",
+  "operating_head": "59c3e826596e5d06f162684bbf73ebe5a3ec97c6",
+  "installed_source": [
+    {
+      "path": "live_contentops/x_reply_bot_v1.py",
+      "same_sha256": true
+    },
+    {
+      "path": "tests/test_x_reply_bot_cc464.py",
+      "same_sha256": true
+    }
+  ],
+  "preserved_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "original_bytes_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "original_bytes_preserved": true,
+      "same_size": true
+    }
+  ],
+  "schedule_changed": false,
+  "application_restarted": false,
+  "tags": [
+    "contentops-rollback-20261114-cc464-telegram-diagnostics",
+    "contentops-live-20261114-cc464-telegram-diagnostics"
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "submitted": {
+    "stage": "final-visual-756c8d7033a1ebc1e9512054c5512fb7e83de5a36bd7afa4553bb98533d2736d",
+    "response_sha256": "e77c93af746cd851ea0b982576c12523731db7ea79d241fffc1201c184f6b6a6",
+    "public_write_performed": false
+  },
+  "acceptance": {
+    "stage": "final-visual-756c8d7033a1ebc1e9512054c5512fb7e83de5a36bd7afa4553bb98533d2736d",
+    "request_sha256": "610c96d819886277c4532d8e07426a136bd867f4ebea5d6050dc88b2a9c36099",
+    "response_sha256": "e77c93af746cd851ea0b982576c12523731db7ea79d241fffc1201c184f6b6a6",
+    "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\cpi-crosslink-review",
+    "article_revision": "2a175591160e4603ca283168fd15298b00ba4eea485565366122e8a23b1d1a24",
+    "render_binding_sha256": "756c8d7033a1ebc1e9512054c5512fb7e83de5a36bd7afa4553bb98533d2736d",
+    "invocation_observation": {
+      "configuration_state": "CONFIGURED_NOT_OBSERVED",
+      "invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Current Codex exec MAX editorial pass; configured launch readback, runtime model telemetry unavailable",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "surface": "CODEX_DESKTOP_CONVERSATION"
+    },
+    "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+    "pixels_inspected": false,
+    "automated_media_check": {
+      "blocks_publication": false,
+      "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+      "failures_logged_no_repair_loop": 0,
+      "findings": [
+        {
+          "asset_id": "cc338-cpi-monthly-baseline",
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "height": 1040,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+          "status": "PASS",
+          "width": 1440
+        },
+        {
+          "asset_id": "cc338-cpi-components",
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "height": 1040,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+          "status": "PASS",
+          "width": 1440
+        },
+        {
+          "asset_id": "cc338-usda-milk-shopping-archive",
+          "expected_dimensions": [
+            5472,
+            3648
+          ],
+          "height": 3648,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd",
+          "status": "PASS",
+          "width": 5472
+        },
+        {
+          "asset_id": "tradingview-snapshot-0815a2466f617958b9e0",
+          "expected_dimensions": [
+            2461,
+            1384
+          ],
+          "height": 1384,
+          "loads": true,
+          "pixels_inspected": false,
+          "right_size": true,
+          "sha256": "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+          "status": "PASS",
+          "width": 2461
+        }
+      ],
+      "policy": "JIM_DECISION_53"
+    }
+  },
+  "review_reference": {
+    "stage": "final-visual-756c8d7033a1ebc1e9512054c5512fb7e83de5a36bd7afa4553bb98533d2736d",
+    "request_sha256": "610c96d819886277c4532d8e07426a136bd867f4ebea5d6050dc88b2a9c36099",
+    "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\cpi-crosslink-review"
+  }
+}

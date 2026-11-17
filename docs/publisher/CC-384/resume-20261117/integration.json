@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-17T02:35:52.477833+00:00",
+  "base": "944f53d36c1ccbdda1e34ffa1e15515cbdfb864b",
+  "delivery": "add007c2763e85d587eb85b8321bf30fcc75f25f",
+  "operating_head": "add007c2763e85d587eb85b8321bf30fcc75f25f",
+  "integration": "FAST_FORWARD_EVIDENCE_ONLY",
+  "source_changes": 0,
+  "public_writes": 0,
+  "rollback_tag": "contentops-rollback-20261117-cc384-readback",
+  "live_tag": "contentops-live-20261117-cc384-readback",
+  "inherited_dirty_hashes_preserved": true,
+  "live_consumer": "existing minute plan-status publisher; exact Telegram/Discord/Threads posts read back",
+  "status": "DONE"
+}

@@ -1,0 +1,112 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
+  "sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
+  "width": 1600,
+  "height": 700,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1524,
+      612
+    ],
+    "axis_origin": [
+      1524,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -10097.859932410587,
+    "intercept": 11754.68036429742,
+    "max_label_error_px": 0.7893591161828226,
+    "grid_checks": [
+      {
+        "price": 1.11,
+        "page_y_in_download": 545.875497443591,
+        "grid_y": 546,
+        "error_px": 0.12450255640897012
+      },
+      {
+        "price": 1.115,
+        "page_y_in_download": 495.4116559930335,
+        "grid_y": 496,
+        "error_px": 0.5883440069665085
+      },
+      {
+        "price": 1.12,
+        "page_y_in_download": 444.9478145424759,
+        "grid_y": 445,
+        "error_px": 0.05218545752410364
+      },
+      {
+        "price": 1.125,
+        "page_y_in_download": 394.4839730919183,
+        "grid_y": 395,
+        "error_px": 0.5160269080816988
+      },
+      {
+        "price": 1.13,
+        "page_y_in_download": 344.0201316413608,
+        "grid_y": 344,
+        "error_px": 0.020131641360819685
+      },
+      {
+        "price": 1.135,
+        "page_y_in_download": 293.5562901908032,
+        "grid_y": 294,
+        "error_px": 0.4437098091967755
+      },
+      {
+        "price": 1.14,
+        "page_y_in_download": 243.0924487402457,
+        "grid_y": 243,
+        "error_px": 0.09244874024568617
+      },
+      {
+        "price": 1.145,
+        "page_y_in_download": 192.62860728968815,
+        "grid_y": 193,
+        "error_px": 0.37139271031185217
+      },
+      {
+        "price": 1.15,
+        "page_y_in_download": 142.1647658391306,
+        "grid_y": 143,
+        "error_px": 0.8352341608693905
+      },
+      {
+        "price": 1.155,
+        "page_y_in_download": 91.70092438857307,
+        "grid_y": 92,
+        "error_px": 0.29907561142692884
+      },
+      {
+        "price": 1.16,
+        "page_y_in_download": 41.23708293801553,
+        "grid_y": 42,
+        "error_px": 0.7629170619844672
+      }
+    ],
+    "source_sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1986,
+    "height": 694
+  },
+  "tv_symbol": "FX_IDC:EURUSD",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "EURUSD 1.10941 ▼ −0.6%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+  "suggested_filename": "EURUSD_2026-11-11_16-43-20.png",
+  "captured_at_utc": "2026-11-11T16:43:20.335642+00:00",
+  "seconds": 7.1,
+  "template_chart_size": [
+    1600,
+    700
+  ],
+  "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+}

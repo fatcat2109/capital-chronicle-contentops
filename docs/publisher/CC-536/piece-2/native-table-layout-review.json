@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-11-16T07:33:45.929364+00:00",
+  "identity": "cc536-measured-odds-2",
+  "draft_url": "https://capitalchronicle.substack.com/publish/post/225143229",
+  "first_cause": "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH",
+  "measured_failure": "The native editor dropped table-cell boundaries and concatenated values; publication stopped before the first click.",
+  "repair": "Native paragraph rows preserve every cell in source order, with bold row labels and whitespace separators. Repair only the retained, exact-title draft whose complete body differs by whitespace alone and whose media binding matches. The normal exact-text check must pass again before publication.",
+  "decision": "ACCEPT_REPRESENTATION_REPAIR",
+  "public_copy_changed": false,
+  "issued_piece_and_plan_changed": false,
+  "text_approved_at_utc": "2026-11-16T07:05:41.371073+00:00",
+  "approval_clock_restarted": false,
+  "reviewer": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "invocation_id": "01a1e315-b060-7c11-8ac3-f69983d593b3"
+  },
+  "renders": [
+    {
+      "path": "renders/desktop-canonical-native-rows.jpg",
+      "sha256": "bc20667e5d2f8b2df9b7f3e879c8173ed93b1b4f3ffc7d14d92f98f2883c83cc"
+    },
+    {
+      "path": "renders/mobile-canonical-native-rows.jpg",
+      "sha256": "774a76d53db6aca67e966b5095f3c0213c13e3b14ad3410b8c8dab91c9bdf086"
+    }
+  ],
+  "tests": "native-table-row-tests.xml: 19 PASS; Neo async script syntax PASS",
+  "publication_latency": "Original approval retained; 15-minute target missed while repairing the source-bound privacy false positive and the native editor cell-loss defect."
+}

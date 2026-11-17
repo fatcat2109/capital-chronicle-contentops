@@ -1,0 +1,13 @@
+{
+  "read_at_utc": "2026-11-11T19:34:26.036262+00:00",
+  "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+  "observed_state": "Running",
+  "execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+  "arguments": "-B scripts\\plan_status_posts.py --publish",
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "observed_process_id": 12816,
+  "observed_process_started_at_utc": "2026-11-11T19:32:26.471638Z",
+  "source_integration_is_live": true,
+  "completed_post_integration_scheduled_result_observed": false,
+  "schedule_changes": 0
+}

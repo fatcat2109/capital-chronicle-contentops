@@ -1,0 +1,36 @@
+{
+  "item": "CC-465",
+  "started_at_utc": "2026-11-15T21:50:09.282841+00:00",
+  "branch": "backlog/cc-465-templates-final-proof-20261116",
+  "base": "4d9f44ee031db42a89407115a855e7efbabedc0c",
+  "launch": {
+    "process_id": 24364,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "first_substep": {
+    "change": "Remove all profit-target lines and prices from the five shared templates under decisions 40 and 82; keep exact source values in metadata.",
+    "tests": "target-removal-tests.xml",
+    "result": "121 passed in 55.08s; one pytest process, no workers",
+    "consumer": "The actual coordinator delivers a source with a target while the generated PNG has the same pixels as that source with the target absent; altered attribution and clipped text remain refused."
+  },
+  "existing_wip": "Two modified telemetry JSONL files remain outside all staged paths.",
+  "second_substep": {
+    "tests": "final-consumer-tests.xml",
+    "result": "139 passed in 68.43s",
+    "changes": [
+      "Role-specific vision questions and observed code facts",
+      "Retain and reconsider an old false refusal once",
+      "Use exported weekly R with optional original probabilities omitted",
+      "Larger chart labels and wide footer; balanced, complete weekly phone pagination"
+    ],
+    "choice": "Fix the measured phone readability failure by enlarging text and paging rows; preserve frame geometry, exact sources and TradingView attribution."
+  },
+  "resume": {
+    "pushed_and_installed_before": "c599f5150534cd75e59cea508bb1d6e8c232f368",
+    "backlog_status": "IN_PROGRESS",
+    "tests": "97 passed in 63.24s",
+    "choice": "Keep verified identical-pixel reviews with their original clocks; use larger text and complete pagination for measured phone failures."
+  }
+}

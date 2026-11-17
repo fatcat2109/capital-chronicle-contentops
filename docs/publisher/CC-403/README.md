@@ -1,8 +1,10 @@
 # CC-403 — reader copy, daily notes and the data clock
 
-The implementation is pushed and integrated into `A:\Capital Chronicle\ContentOps` at `a7aca972f0dc4320464fab088511a21ae0c99592`. **91 operating-root tests pass in 14.17 seconds**, and all twelve changed source/contract files match their committed blobs. The nine inherited modified files retain their original hashes. See [integration evidence](integration.json). No runtime restart, public write, chat message or schedule change was performed.
+**CC-403 remains blocked on a current completed Main analysis for its public daily-note acceptance.** At **10:02 GMT+7 on 17 November**, the newest completed usable single-pass Main report retained its **07:37:43 GMT+7** data cutoff and **08:37:43 GMT+7** publication deadline. The installed clock consumer returned `ARTICLE_DATA_CUTOFF_EXPIRED:8678s`. Two exact Main passages enter the actual writer source pack with their original capture clocks. [Current continuation](run-20261117-0954/README.md).
 
-CC-403 remains **BLOCKED until the next eligible daily note**: decision 98 bars a second wrap on 10 November, whose CPI preview is already published. The next pre-US daily note is **11 November, 18:30 GMT+7**. Its existing CC-124 operation must supply the clean-title Substack readback and the observed publication within 60 minutes of its real data cutoff. Code and controlled readback tests do not substitute for that acceptance.
+**114 targeted tests pass.** This continuation corrects a daily-note test fixture whose claim text still included internal source markers. The existing integration case now proves that all claim bindings survive current source validation and the article body stays exact. Production validation is unchanged. Both the initial 66-pass/one-failure run and the corrected three-file run are retained. The [verification](run-20261117-0954/verification.json) confirms all eight inspected production owners match the tested source and all eight inherited modified files remain exact.
+
+The source search now includes Main's current `analysis-native.json` reports and shocks, superseding the older assumption that only 11 November's `owner-native.json` reports were available. Today's article count is 0/2. The existing CC-124 request remains invalidated and is not retried. Ops Live supplies a current completed Main analysis; Publisher then continues the existing daily-note path and records its clean-title Substack readback and actual publication within 60 minutes of its original cutoff. No new operation, public write, application restart, chat message, Claude invocation or schedule change was made.
 
 The existing native writer and sole publication coordinator now consume the
 reader contract. New requests lead with our call in first person, use clean
@@ -83,8 +85,8 @@ remote master predates the installed Publisher work.
 
 The full public acceptance remains the next eligible daily note's clean-title
 Substack readback and publication within 60 minutes of its actual data cutoff.
-Today's CPI preview already serves as the 10 November wrap under decision 98;
-that decision bars a second wrap. The existing dated evidence is
-[CC-124's source check](../CC-124/run-20261110-2014/README.md). The article cap is
-not the cause. The next ordinary daily note is 11 November's pre-US wrap. This
-item changes no schedule and sends no chat message.
+The 10 November CPI preview served as that day's wrap under decision 98; its
+no-second-wrap restriction was the earlier hold, not the current cause.
+The 11 November source check finds zero daily article slots used; the source's
+expired data clock is the cause. A fresh completed Main analysis is the next
+required input. This item changes no schedule and sends no chat message.

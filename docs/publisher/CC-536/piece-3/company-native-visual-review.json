@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-11-17T12:07:57.133510+00:00",
+  "public_object_id": "urn:li:activity:7528425620956098561",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528425620956098561/",
+  "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-3\\media\\BTCUSD_2026-11-17_18-17-43.png",
+  "source_sha256": "69d94169f97bd7aa47a14dc0760539be6804766af7bda102b619edf201c07219",
+  "delivered_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-536\\piece-3\\media\\linkedin-published.jpg",
+  "platform_sha256": "a4780c7f027416f26290e9053837d6ded56e2fbd3ba45274b5f635e3f3cc7f2d",
+  "inspection_tool": "functions.view_image detail=original, original and exact delivered image",
+  "reviewer_invocation": "exec-pid39072-20261117T111128Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "findings": [
+    "Same Bitcoin daily Bitstamp candles, August-November window, volume and two native simple averages.",
+    "Same average labels 73417 and 78982, latest close 64314 and displayed OHLC.",
+    "Same November 17 06:17 UTC-5 source header; full TradingView footer and axes preserved.",
+    "LinkedIn resized and recompressed the original; no changed number, omitted element, crop or altered chart geometry observed."
+  ],
+  "source_pixels_match": true,
+  "exact_bytes_match": false,
+  "comparison_method": "NATIVE_VIEW_IMAGE_SOURCE_PAIR_V1",
+  "automatic_comparisons_preserved": "company-compared-observation.json"
+}

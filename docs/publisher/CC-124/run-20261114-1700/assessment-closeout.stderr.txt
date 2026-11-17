@@ -1,0 +1,2 @@
+warning: in the working copy of 'docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md', LF will be replaced by CRLF the next time Git touches it

@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "store_copy": "local-evidence/CC-646/pre-cancellation-store.sqlite3",
+  "originals_unchanged": true,
+  "repeat_cancellation_identical": true,
+  "later_claim_refused": true,
+  "results": [
+    {
+      "message_id": "outbox_b0412d722deb90461f2444cc1b4baa45",
+      "dispatch_id": "dispatch_b0412d722deb90461f2444cc1b4baa45",
+      "destination": "facebook_page",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC646_WRONG_RESULT_CANCELLED_UNCLAIMED",
+      "public_write_performed": false,
+      "intent_sha256": "d87769e5d965a553f6f1cdaf9b2bfc00f142ad5da12e7fa52256cbfcfb9decb4"
+    },
+    {
+      "message_id": "outbox_946c1bec34a0404f6aceef5d5bb4653c",
+      "dispatch_id": "dispatch_946c1bec34a0404f6aceef5d5bb4653c",
+      "destination": "instagram_business",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC646_WRONG_RESULT_CANCELLED_UNCLAIMED",
+      "public_write_performed": false,
+      "intent_sha256": "1647d2aa120421360a76eef006ca85fcf79a73847326b1e9eb4b9a87f72ebed2"
+    },
+    {
+      "message_id": "outbox_12ea82f6e386fcef210372ff7f0489db",
+      "dispatch_id": "dispatch_12ea82f6e386fcef210372ff7f0489db",
+      "destination": "threads",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC646_WRONG_RESULT_CANCELLED_UNCLAIMED",
+      "public_write_performed": false,
+      "intent_sha256": "4e06c6b27386525360d9971fa86ea85eac11cbf921c11e8c47de82293153a86e"
+    },
+    {
+      "message_id": "outbox_6145c8101fc4e158e1e4cbd01e59e9de",
+      "dispatch_id": "dispatch_6145c8101fc4e158e1e4cbd01e59e9de",
+      "destination": "x",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC646_WRONG_RESULT_CANCELLED_UNCLAIMED",
+      "public_write_performed": false,
+      "intent_sha256": "e96cce1efe1472b3462593845105f473ab8ff0eb81981580428d354345e09e04"
+    }
+  ]
+}

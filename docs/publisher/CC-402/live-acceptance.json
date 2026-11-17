@@ -1,0 +1,373 @@
+{
+  "recorded_at_utc": "2026-11-11T19:29:39.970440+00:00",
+  "operating_source_head": "76a3beccf9adc4e1df7a51f172ada71ecb8991cb",
+  "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "day_gmt7": "2026-11-10",
+  "day_coverage": [
+    {
+      "route": "threads",
+      "confirmed_dispatches": 42,
+      "distinct_objects": 42,
+      "dispatches_with_collected_observation": 42,
+      "dispatches_with_call_link": 41
+    },
+    {
+      "route": "facebook_page",
+      "confirmed_dispatches": 20,
+      "distinct_objects": 20,
+      "dispatches_with_collected_observation": 20,
+      "dispatches_with_call_link": 19
+    },
+    {
+      "route": "instagram_business",
+      "confirmed_dispatches": 20,
+      "distinct_objects": 9,
+      "dispatches_with_collected_observation": 20,
+      "dispatches_with_call_link": 19
+    },
+    {
+      "route": "discord",
+      "confirmed_dispatches": 18,
+      "distinct_objects": 18,
+      "dispatches_with_collected_observation": 18,
+      "dispatches_with_call_link": 17
+    },
+    {
+      "route": "telegram",
+      "confirmed_dispatches": 43,
+      "distinct_objects": 43,
+      "dispatches_with_collected_observation": 43,
+      "dispatches_with_call_link": 42
+    }
+  ],
+  "all_day_dispatches_observed": true,
+  "fresh_source_batch": [
+    {
+      "route": "threads",
+      "observation_id": "obs_08440779d5fd7bedc9f3fb224b0da0b4",
+      "status": "COLLECTED",
+      "collected_at_utc": "2026-11-11T19:25:46.420477Z",
+      "source_observed_at_utc": "2026-11-11T19:25:45.942869+00:00",
+      "provider_requests": 2
+    },
+    {
+      "route": "facebook_page",
+      "observation_id": "obs_1eb60c303a87b7ae1eb939ca6fa3da61",
+      "status": "COLLECTED",
+      "collected_at_utc": "2026-11-11T19:25:47.235260Z",
+      "source_observed_at_utc": "2026-11-11T19:25:46.893400+00:00",
+      "provider_requests": 1
+    },
+    {
+      "route": "instagram_business",
+      "observation_id": "obs_24f8aa0a684c288ea2b7b056246b48f7",
+      "status": "COLLECTED",
+      "collected_at_utc": "2026-11-11T19:25:48.370387Z",
+      "source_observed_at_utc": "2026-11-11T19:25:47.846240+00:00",
+      "provider_requests": 1
+    },
+    {
+      "route": "discord",
+      "observation_id": "obs_31d1f2b79e46c8d006417fd953151536",
+      "status": "COLLECTED",
+      "collected_at_utc": "2026-11-11T19:25:49.835876Z",
+      "source_observed_at_utc": "2026-11-11T19:25:48.789391+00:00",
+      "provider_requests": 1
+    },
+    {
+      "route": "telegram",
+      "observation_id": "obs_1d5239f0caa19f6120e85d9807e5f378",
+      "status": "COLLECTED",
+      "collected_at_utc": "2026-11-11T19:25:55.889509Z",
+      "source_observed_at_utc": "2026-11-11T19:25:55.889454+00:00",
+      "provider_requests": 0
+    }
+  ],
+  "weekly_desk_source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\audience-weekly\\latest.json",
+  "weekly_platform_lines": [
+    "substack: posts 18; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "x: posts 14; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "youtube: posts 7; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "linkedin: posts 6; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "linkedin_company: posts 8; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "telegram: posts 91; views 117; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "discord: posts 48; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "facebook_page: posts 44; views/reach unavailable; replies 8; new followers/members unavailable (no comparable account baseline).",
+    "instagram_business: posts 24; views/reach unavailable; comments 8; new followers/members unavailable (no comparable account baseline).",
+    "threads: posts 83; views 600; replies 33; new followers/members unavailable (no comparable account baseline)."
+  ],
+  "desk_type_platform_rows": 35,
+  "desk_hour_buckets": 17,
+  "post_type_policy": {
+    "Article": {
+      "state": "CONTINUE",
+      "reason": "THREE_COMPLETE_WEEKS_OF_MEASURED_ZERO_READERS_NOT_OBSERVED",
+      "window_start_utc": "2026-10-21T17:00:00+00:00",
+      "window_end_utc": "2026-11-11T17:00:00+00:00",
+      "weekly_objects": [
+        10,
+        34,
+        157
+      ]
+    },
+    "Call": {
+      "state": "CONTINUE",
+      "reason": "THREE_COMPLETE_WEEKS_OF_MEASURED_ZERO_READERS_NOT_OBSERVED",
+      "window_start_utc": "2026-10-21T17:00:00+00:00",
+      "window_end_utc": "2026-11-11T17:00:00+00:00",
+      "weekly_objects": [
+        0,
+        0,
+        153
+      ]
+    },
+    "Call analysis": {
+      "state": "CONTINUE",
+      "reason": "THREE_COMPLETE_WEEKS_OF_MEASURED_ZERO_READERS_NOT_OBSERVED",
+      "window_start_utc": "2026-10-21T17:00:00+00:00",
+      "window_end_utc": "2026-11-11T17:00:00+00:00",
+      "weekly_objects": [
+        0,
+        0,
+        5
+      ]
+    },
+    "Digest": {
+      "state": "CONTINUE",
+      "reason": "THREE_COMPLETE_WEEKS_OF_MEASURED_ZERO_READERS_NOT_OBSERVED",
+      "window_start_utc": "2026-10-21T17:00:00+00:00",
+      "window_end_utc": "2026-11-11T17:00:00+00:00",
+      "weekly_objects": [
+        0,
+        1,
+        6
+      ]
+    },
+    "Result": {
+      "state": "CONTINUE",
+      "reason": "THREE_COMPLETE_WEEKS_OF_MEASURED_ZERO_READERS_NOT_OBSERVED",
+      "window_start_utc": "2026-10-21T17:00:00+00:00",
+      "window_end_utc": "2026-11-11T17:00:00+00:00",
+      "weekly_objects": [
+        0,
+        0,
+        61
+      ]
+    },
+    "Update": {
+      "state": "CONTINUE",
+      "reason": "THREE_COMPLETE_WEEKS_OF_MEASURED_ZERO_READERS_NOT_OBSERVED",
+      "window_start_utc": "2026-10-21T17:00:00+00:00",
+      "window_end_utc": "2026-11-11T17:00:00+00:00",
+      "weekly_objects": [
+        0,
+        0,
+        32
+      ]
+    }
+  },
+  "model_invocations": 301,
+  "piece_usage": {
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "invocation_count": 7,
+    "cost_usd": null,
+    "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+    "lane_run_usage": [
+      {
+        "bound_piece_work_item_id": "cc338-cpi-preview-20261110-v1",
+        "cli_reported_tokens_used": 2368288,
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "piece_binding_method": "SINGLE_ITEM_SINGLE_DATED_BOUND_PIECE",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "source_counters": [
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume1.txt",
+            "reported_tokens_used": 1014799
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume2.txt",
+            "reported_tokens_used": 1350389
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume3.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume4.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume5.txt",
+            "reported_tokens_used": 2368288
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr.txt",
+            "reported_tokens_used": 365176
+          }
+        ],
+        "source_record_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\launch.json",
+        "stage": "lane-run",
+        "usage_scope": "CUMULATIVE_CLI_RUN_TOTAL",
+        "usage_state": "CLI_TOTAL_OBSERVED_INPUT_OUTPUT_SPLIT_NOT_EXPOSED"
+      }
+    ],
+    "invocations": [
+      {
+        "bound_piece_work_item_id": "cc338-cpi-preview-20261110-v1",
+        "cli_reported_tokens_used": 2368288,
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "piece_binding_method": "SINGLE_ITEM_SINGLE_DATED_BOUND_PIECE",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "source_counters": [
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume1.txt",
+            "reported_tokens_used": 1014799
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume2.txt",
+            "reported_tokens_used": 1350389
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume3.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume4.txt",
+            "reported_tokens_used": 1774920
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr-resume5.txt",
+            "reported_tokens_used": 2368288
+          },
+          {
+            "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\stderr.txt",
+            "reported_tokens_used": 365176
+          }
+        ],
+        "source_record_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-338-20261110T1015\\launch.json",
+        "stage": "lane-run",
+        "usage_scope": "CUMULATIVE_CLI_RUN_TOTAL",
+        "usage_state": "CLI_TOTAL_OBSERVED_INPUT_OUTPUT_SPLIT_NOT_EXPOSED"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_select_c4e8fb68cd6c",
+        "observation_source": "Supported native task context supplies canonical task identity; actual model and reasoning effort are not exposed in that context.",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "c4e8fb68cd6c035bd7151b13932826750e05320bec56e1e931655dd68a1ac5ae",
+        "source_record_id": "native-desktop-c4a9185d901c5fddcb14de635436a9dd5ed5844d0aa6cfd334b9ab878872bf89",
+        "stage": "select",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_select_c4e8fb68cd6c",
+        "observation_source": "Supported native canonical task context; actual model and effort not exposed.",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "9fb65dbd158a4ab734489fd021461e4354332c2efcb417e9fe38a6f5b3665d27",
+        "source_record_id": "native-desktop-1a1be3c12090fc417d527296ef61f026fc8dbc9a5e4e47978440071c1fca54be",
+        "stage": "media-plan",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported task context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "5c76aa987d12d924e0e3ec2f0889d256462a4abc6d2e834773b7e2a52c71dd8c",
+        "source_record_id": "native-desktop-dd567725f9193b9bc07a930685bc84b039473f73ff4c34e9d9c4dff52208e6c6",
+        "stage": "visual-edit",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "1a85fe247a127c337598e34b8597eddee1f621c5619ca51a98178a1cf1d7cec6",
+        "source_record_id": "native-desktop-13f9e72a46f01c0c8eaad5230dedfb40d1dc75e6bcf65b8604f8dc92a3488f73",
+        "stage": "write",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "563be5f0a2106ad335886755b94e1ddf37cbc3291b466932ce2f3de0efaae2a3",
+        "source_record_id": "native-desktop-cc6f2eb51169013fcb5fb1a809b26ee9c20c36ca863939fe6dd855b32c5a6abb",
+        "stage": "revise",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "87f214e95cc49ac440332492b0b39e963c38aeae47d76cd648e3776300792a0a",
+        "source_record_id": "native-desktop-18587237fdbfae8b63aedc4e795f488d1bc2f22f299c682241a84fd775dadad7",
+        "stage": "final-visual-2550e7490d54865f4eae03c919085a52046585ca8133ca5134a7e9818a1ab0fb",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      }
+    ]
+  },
+  "usd_cost_limit": "Native subscription run records contain no per-piece USD charge. Use the observed token total as the piece resource cost; do not infer an API tariff.",
+  "public_write_performed": false,
+  "schedule_changes": 0
+}

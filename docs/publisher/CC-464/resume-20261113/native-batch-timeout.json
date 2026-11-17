@@ -1,0 +1,37 @@
+{
+  "replay_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\replay-cc464-20261112T184213",
+  "status": "TIMEOUT",
+  "cause": "CODEX_DRAFT_TIMEOUT_90S",
+  "call": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "runtime_model": null,
+    "runtime_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "started_at_utc": "2026-11-12T18:42:13.292930+00:00",
+    "public_submit_actions": 0,
+    "status": "TIMEOUT",
+    "ended_at_utc": "2026-11-12T18:43:44.704176+00:00",
+    "elapsed_seconds": 91.41106579999905
+  },
+  "events": [
+    {
+      "type": "thread.started",
+      "item_type": null,
+      "text_bytes": 0,
+      "error": null,
+      "usage": null
+    },
+    {
+      "type": "turn.started",
+      "item_type": null,
+      "text_bytes": 0,
+      "error": null,
+      "usage": null
+    }
+  ],
+  "stderr_bytes": 0,
+  "telegram_send_actions": 0,
+  "x_submit_actions": 0,
+  "live_delivery_proof": false
+}

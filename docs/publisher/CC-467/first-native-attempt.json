@@ -1,0 +1,90 @@
+{
+  "frozen_quotes": 0,
+  "dispatches": [],
+  "native_calls": [
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-655fa9fae48dbf42\\filter\\call.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6-luna",
+      "configured_effort": "max",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:38:28.446184+00:00",
+      "ended_at_utc": "2026-11-17T13:38:42.253107+00:00",
+      "elapsed_seconds": 13.806873900000937,
+      "cause": null
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-81767e7ae1df43cc\\filter\\call.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6-luna",
+      "configured_effort": "max",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:35:28.427663+00:00",
+      "ended_at_utc": "2026-11-17T13:35:41.267815+00:00",
+      "elapsed_seconds": 12.840101200010395,
+      "cause": null
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-81767e7ae1df43cc\\prepare\\call.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "low",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:35:41.889659+00:00",
+      "ended_at_utc": "2026-11-17T13:35:52.355756+00:00",
+      "elapsed_seconds": 10.46606609999435,
+      "cause": null
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-81767e7ae1df43cc\\write\\call.json",
+      "status": "FAILED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:35:52.417297+00:00",
+      "ended_at_utc": "2026-11-17T13:37:02.245599+00:00",
+      "elapsed_seconds": 69.82805529999314,
+      "cause": "ValueError"
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-b5c1a3987a45aaa2\\filter\\call.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6-luna",
+      "configured_effort": "max",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:34:16.812220+00:00",
+      "ended_at_utc": "2026-11-17T13:34:34.965168+00:00",
+      "elapsed_seconds": 18.152882399997907,
+      "cause": null
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-b5c1a3987a45aaa2\\prepare\\call.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "low",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:34:35.744152+00:00",
+      "ended_at_utc": "2026-11-17T13:34:48.250623+00:00",
+      "elapsed_seconds": 12.506425700004911,
+      "cause": null
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\editorial-b5c1a3987a45aaa2\\write\\call.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-17T13:34:48.385666+00:00",
+      "ended_at_utc": "2026-11-17T13:36:07.580206+00:00",
+      "elapsed_seconds": 79.19425780000165,
+      "cause": null
+    }
+  ]
+}

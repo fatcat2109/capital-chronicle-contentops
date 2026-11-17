@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-11-17T12:45:03.261371+00:00",
+  "operation": "first publish preflight",
+  "cause": "CC646_ORIGINAL_PENDING_WRITES_MUST_BE_SETTLED",
+  "correction_provider_calls": 0,
+  "correction_dispatch_intents": 0,
+  "original_rows": [
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1572145031173906523"
+    },
+    {
+      "destination": "facebook_page",
+      "status": "PLAN_POST_SETTLED",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null
+    },
+    {
+      "destination": "instagram_business",
+      "status": "PLAN_POST_SETTLED",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "189"
+    },
+    {
+      "destination": "threads",
+      "status": "PLAN_POST_SETTLED",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null
+    },
+    {
+      "destination": "x",
+      "status": "PLAN_POST_SETTLED",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null
+    }
+  ],
+  "fix": "Trust terminal DEFINITE_NO_WRITE dispatch; accept the existing consumer PLAN_POST_SETTLED outbox projection."
+}

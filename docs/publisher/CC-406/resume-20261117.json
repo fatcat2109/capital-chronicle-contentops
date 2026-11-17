@@ -1,0 +1,259 @@
+{
+  "item": "CC-406",
+  "observed_at_utc": "2026-11-17T03:12:20.578879+00:00",
+  "base_sha": "a8991a107f9844131a5a38dab792e21a71f31871",
+  "base_choice": "Existing Publisher operating-root HEAD, continuing the already integrated CC-406 implementation; origin/master lacks this implementation. No source-code change.",
+  "remote_default_sha": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_root_head_before": "a8991a107f9844131a5a38dab792e21a71f31871",
+  "launch": {
+    "pid": 11328,
+    "started_utc": "2026-11-17T03:06:05Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "source": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-406-20261117T0306\\launch.json"
+  },
+  "targeted_tests": {
+    "passed": 20,
+    "seconds": 5.79,
+    "artifact": "resume-20261117-targeted.xml",
+    "command": "python -B -m pytest -q tests/test_vietnamese_gold_note_cc406.py --junitxml=docs/publisher/CC-406/resume-20261117-targeted.xml"
+  },
+  "source_choice": "Newest completed Main synthesis, original 16 November capture, frozen request reused. Two exact public Main spans support qualitative real-yield pressure and the floor-holds countercase. Held BLS CPI observations supply both printed figures and the chart.",
+  "supplemental_main_bindings": {
+    "spec": {
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:gold-note:2331690b2b122e775293a77bd684b220c6c9f0309d9d8bc6e52d2a91b5c08bff",
+      "headline_id": "cc406-main-2331690b2b122e775293a77bd684b220c6c9f0309d9d8bc6e52d2a91b5c08bff",
+      "headline_text": "Main daily gold mechanism and countercase",
+      "known_at_utc": "2026-11-16T16:09:39.067765+00:00",
+      "revision_at_utc": "2026-11-17T03:10:14.653618+00:00",
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-4d1a616c796e650c\\analysis-native.json",
+          "source_sha256": "2331690b2b122e775293a77bd684b220c6c9f0309d9d8bc6e52d2a91b5c08bff",
+          "source_json_pointer": "/native_synthesis/candidates/4/rationale",
+          "fragments": [
+            {
+              "start": 71,
+              "end": 245
+            },
+            {
+              "start": 1339,
+              "end": 1416
+            }
+          ]
+        }
+      ]
+    },
+    "verified_projection_sha256": "391bb11e869823ed2665a6f7f451c8cb321e8e5a34d1d0b5fba467dc4ba795ae",
+    "note_use": "Qualitative real-yield pressure and the countercase only; no source numbers reproduced."
+  },
+  "public_write_performed": false,
+  "schedule_changes": 0,
+  "implementation_changed": false,
+  "delivery": {
+    "acceptance_morning": true,
+    "chart_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-17.png",
+    "chart_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+    "data_cutoff_utc": "2026-11-16T15:14:53.993245+00:00",
+    "day": "2026-11-17",
+    "deadline_utc": "2026-11-17T00:30:00+00:00",
+    "invocation_observation": {
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root",
+      "model": null,
+      "observation_source": "This active Codex exec /root authored the exact note from the frozen Main/BLS packet and two verified qualitative Main spans. PID 11328 launch arguments configure gpt-6.1-sol/max; supported runtime model/effort telemetry is unavailable.",
+      "observed_at_utc": "2026-11-17T03:10:14.784499+00:00",
+      "reasoning_effort": null,
+      "surface": "CODEX_EXEC"
+    },
+    "main_source": {
+      "capture_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-4d1a616c796e650c\\capture.json",
+      "capture_sha256": "e9372f585358236db1907a84d3776d4fa11f1139cf34c46c3cb0f3ae5c1bb66f",
+      "known_at_utc": "2026-11-16T16:09:39.067765+00:00",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-4d1a616c796e650c\\analysis-native.json",
+      "projection_sha256": "3f759fcf47bff9d4d37381a9e3233d57fd24f3993641ddfd36b5e29095bd69a7",
+      "sha256": "2331690b2b122e775293a77bd684b220c6c9f0309d9d8bc6e52d2a91b5c08bff"
+    },
+    "native_request_sha256": "203f269742c8035c031102a79f3dfe9ea8975a9be69f0cc6dd72816fbb34f3f2",
+    "native_return_sha256": "84e6eebdd42227ee694e9324ac1c6f70a489a78c2a9f253e286ed7473d07bfd4",
+    "official_evidence": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-4d1a616c796e650c\\role-evidence.json",
+      "sha256": "5f4be4fad22e4e599ccecd9592f0f1aeab985fe22a38dc57c668c3b1c5328584"
+    },
+    "official_facts": [
+      {
+        "display": "0.4%",
+        "fact_id": "headline",
+        "known_at_utc": "2026-11-10T13:30:29.854000Z",
+        "label": "CPI chung",
+        "official_text_sha256": "1185247b3966672a4243099c833d3bcead3fe28517fdcdb0861650f82f71af18",
+        "period": "2026-M10",
+        "publisher": "U.S. Bureau of Labor Statistics (BLS)",
+        "rights_class": "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED",
+        "source_excerpt": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent",
+        "source_row_key": "bls-cpi-2026-m10-e086d7ed3b85",
+        "source_span": [
+          683,
+          761
+        ],
+        "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "unit": "percent_month_on_month_seasonally_adjusted",
+        "value": 0.4
+      },
+      {
+        "display": "0.3%",
+        "fact_id": "core",
+        "known_at_utc": "2026-11-10T13:30:29.854000Z",
+        "label": "CPI lõi",
+        "official_text_sha256": "1185247b3966672a4243099c833d3bcead3fe28517fdcdb0861650f82f71af18",
+        "period": "2026-M10",
+        "publisher": "U.S. Bureau of Labor Statistics (BLS)",
+        "rights_class": "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED",
+        "source_excerpt": "The index for all items less food and energy rose 0.3 percent",
+        "source_row_key": "bls-cpi-2026-m10-e086d7ed3b85",
+        "source_span": [
+          1278,
+          1339
+        ],
+        "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "unit": "percent_month_on_month_seasonally_adjusted",
+        "value": 0.3
+      }
+    ],
+    "prepared_at_utc": "2026-11-17T03:10:44.976056+00:00",
+    "public_write_performed": false,
+    "ready_by_0730": false,
+    "review": {
+      "accepted": true,
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "chart_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "findings": "Inspected the exact 1500x900 PNG with view_image and the authored 123-word Vietnamese text. The BLS October 2026 headline 0.4% and core 0.3% monthly seasonally adjusted observations match the bound official spans; bars start at zero, heights, labels, units, period and attribution are correct and readable. Text follows the 16 November Main weak at-or-below gold forecast and reads all six market views. Real-yield pressure and the floor-holds countercase trace to two separately verified public Main spans. No private source number is reproduced. The source date, uncertainty, brand separation and exact final notice are preserved. Today is late and will not count as an on-time morning.",
+      "reviewed_at_utc": "2026-11-17T03:10:43.946926+00:00",
+      "reviewer_invocation_id": "/root",
+      "text_sha256": "7f050d2ec280c9e07ea22db414f1cefd55dc287c1ba64a2d3e1b1d680ada46c6"
+    },
+    "schema_version": "contentops.vietnamese_gold_note.v1",
+    "six_market_table": [
+      {
+        "asset": "XAUUSD",
+        "source_json_pointer": "/native_synthesis/candidates/4/rationale",
+        "view": "Base case (52%): GOLD is at or below 3872.429 at 2026-11-17T15:18:54Z."
+      },
+      {
+        "asset": "US500",
+        "source_json_pointer": "/native_synthesis/candidates/6/rationale",
+        "view": "Base case (51%): SPX is at or below 7478.03 at 2026-11-17T15:18:54Z; no usable lean."
+      },
+      {
+        "asset": "EURUSD",
+        "source_json_pointer": "/native_synthesis/candidates/2/rationale",
+        "view": "Base case (50%): EURUSD is at or below 1.10105 at 2026-11-17T15:18:54Z; no lean."
+      },
+      {
+        "asset": "USDJPY",
+        "source_json_pointer": "/native_synthesis/candidates/8/rationale",
+        "view": "Base case (53%): USDJPY is at or below 159.525 at 2026-11-17T15:18:54Z."
+      },
+      {
+        "asset": "USOIL",
+        "source_json_pointer": "/native_synthesis/candidates/9/rationale",
+        "view": "Base case (51%): WTI is at or below 85.504 at 2026-11-17T15:18:54Z; no usable lean."
+      },
+      {
+        "asset": "BTCUSD",
+        "source_json_pointer": "/native_synthesis/candidates/1/rationale",
+        "view": "Base case (52%): BTCUSD is at or below 64318.95 at 2026-11-17T15:18:54Z."
+      }
+    ],
+    "source_age_seconds_at_delivery": 42950.982811,
+    "source_pack_sha256": "ee3e6f18444c8c2ce5cd511f718ccc4e662fc4e85e41cf8bd22398d1204d0adc",
+    "text_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-17.md",
+    "text_sha256": "7f050d2ec280c9e07ea22db414f1cefd55dc287c1ba64a2d3e1b1d680ada46c6",
+    "word_count": 123
+  },
+  "desk_readback": {
+    "observed_at_utc": "2026-11-17T03:14:18.206259+00:00",
+    "cache_path": "A:\\Capital Chronicle\\PrivateApp\\data\\jim-page.private.json",
+    "cache_sha256": "39144f2193bce8d5c6eec06a20b0ba634ffcc12cdd6e5829feebe03581c95c8d",
+    "cache_mtime_utc": "2026-11-17T03:11:47.099007+00:00",
+    "consumer_path": "A:\\Capital Chronicle\\PrivateApp\\builder\\tools\\product\\private_desk_overview_v1.py",
+    "consumer_sha256": "8ace53af10ba8bc36f0111451e1d27ef3826e63501c9f654316c83cfd77d5033",
+    "note_state": "READ",
+    "note_date": "2026-11-17",
+    "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-17.md",
+    "source": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-17.md",
+      "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-17.md"
+    },
+    "exact_dated_note_text": true,
+    "exact_chart_path_and_hash": true,
+    "chart": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-17.png",
+      "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-17.png"
+    },
+    "desk_observed_before_0730": false,
+    "refresh": "Observed existing installed desk refresh; no manual build, cache write or consumer change.",
+    "read_at_utc": "2026-11-17T03:11:36.553795Z"
+  },
+  "acceptance": {
+    "required_consecutive_mornings": 3,
+    "on_time_mornings_observed": [
+      "2026-11-16"
+    ],
+    "late_morning": "2026-11-17",
+    "late_morning_counts": false,
+    "current_consecutive_on_time_mornings": 0,
+    "missed_morning": "2026-11-13",
+    "cause": "07:30 GMT+7 deadline had passed before this Ops-dispatched run started; no dated 17 November note existed at entry. Actual delivery and readback remain late.",
+    "remaining": "Three real on-time trading-morning desk deliveries, next possible sequence 18, 19 and 20 November. No backfill and no schedule change.",
+    "next_due_utc": "2026-11-17T17:00:00Z"
+  },
+  "preserved_wip": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b",
+      "unchanged": true
+    }
+  ],
+  "integration": {
+    "state": "INTEGRATED",
+    "observed_at_utc": "2026-11-17T03:13:46.932246+00:00",
+    "implementation_and_delivery_evidence_sha": "120033e5092d8860638585ccb20ef8801b376f8e",
+    "operating_root_head_after": "120033e5092d8860638585ccb20ef8801b376f8e",
+    "rollback_tag": "contentops/cc-406-note-rollback-20261117T031343Z",
+    "live_tag": "contentops/cc-406-note-live-20261117T031343Z",
+    "merge": "FAST_FORWARD",
+    "runtime_restart_performed": false,
+    "source_code_changed": false
+  },
+  "idempotent_installed_cli": {
+    "state": "GOLD_NOTE_READY_ON_DESK_INPUT",
+    "first_delivery_clock_preserved": true,
+    "first_prepared_at_utc": "2026-11-17T03:10:44.976056+00:00"
+  },
+  "final_wip_verification_utc": "2026-11-17T03:14:18.210494+00:00"
+}

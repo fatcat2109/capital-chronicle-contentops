@@ -1,0 +1,104 @@
+{
+  "scope": "Targeted checks across the delivery revisions; not a full suite. Reports overlap and counts are not additive.",
+  "reports": [
+    {
+      "path": "docs/publisher/CC-467/absence-circuit-recovery.xml",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 11.687
+    },
+    {
+      "path": "docs/publisher/CC-467/browser-regressions.xml",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 4.148
+    },
+    {
+      "path": "docs/publisher/CC-467/build-tests.xml",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 9.603
+    },
+    {
+      "path": "docs/publisher/CC-467/coordinator-regressions.xml",
+      "tests": 139,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 124.682
+    },
+    {
+      "path": "docs/publisher/CC-467/final-feature-tests.xml",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 13.541
+    },
+    {
+      "path": "docs/publisher/CC-467/installed-metadata-fix.xml",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 2.466
+    },
+    {
+      "path": "docs/publisher/CC-467/installed-native-fixes.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 2.874
+    },
+    {
+      "path": "docs/publisher/CC-467/installed-surface-recovery.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 12.994
+    },
+    {
+      "path": "docs/publisher/CC-467/installed-tests.xml",
+      "tests": 26,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 13.412
+    },
+    {
+      "path": "docs/publisher/CC-467/metadata-observation-fix.xml",
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 6.341
+    },
+    {
+      "path": "docs/publisher/CC-467/native-failure-fixes.xml",
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 24.859
+    },
+    {
+      "path": "docs/publisher/CC-467/native-surface-recovery.xml",
+      "tests": 143,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 86.229
+    },
+    {
+      "path": "docs/publisher/CC-467/public-names-test.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 1.041
+    },
+    {
+      "path": "docs/publisher/CC-467/transport-tests.xml",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 3.192
+    }
+  ],
+  "all_saved_reports_pass": true
+}

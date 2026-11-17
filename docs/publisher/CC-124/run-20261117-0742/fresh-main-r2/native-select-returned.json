@@ -1,0 +1,37 @@
+{
+  "output": {
+    "selection_summary": "Select one analysis from the distinct new Main source, preserving its own capture, deadline and 54/46 set. Preserve the expired operation unchanged and admit no unrelated fallback.",
+    "public_write_attempted": false,
+    "status": "SELECT_CANDIDATE_PLAN",
+    "ordered_candidate_plan": [
+      {
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "evidence_plan": "Resolve only the exact bound public spans of NEW Main analysis cc124-btc-range-20261117-r2 through existing source owners. Preserve capture 2026-11-17T00:37:43.684818Z and deadline 2026-11-17T01:37:43.684818Z; completion and media clocks do not extend them. Prepare its explicit 54% at or below 64451.95 and 46% above at 2026-11-18T00:37:44Z as uncalibrated model estimates, not win rates. Bind exact confirmation and invalidation, distinguishing the reference outcome threshold from the 63829.52-65637.9 two-day range. Code owns arithmetic and ET conversion. Use own-data spot reference scale without assigning it to futures or ETFs. Existing media owner binds a new source-bound card and fresh reviewed Coinbase Bitcoin TradingView snapshot with separate clocks. MAX owns article and social prose. Omit unsupported headline details, allegations and private account/execution/cost/performance fields; other markets are dated context, not another scenario set. No values from the expired operation. Preserve current ledger/budget and stop stale sends at the original deadline.",
+        "primary_reader_question": "Why does a weak bearish Bitcoin estimate still support standing aside inside the range, and what completed one-hour close would change that reading?",
+        "research_queries": [
+          "Bitcoin two-day range November 17 2026 broader selloff",
+          "Bitcoin November 16 2026 equity selloff range consolidation"
+        ],
+        "candidate_id": "simple-story-a5de4fb4766faff7ac2d579d",
+        "selection_rationale": "The newly completed Main analysis supplies a distinct bounded reader question and explicit current range evidence. It can explain uncertainty rather than turn a weak model edge into a trade claim. Unrelated historical releases and calendar-only entries do not merit fallback filler.",
+        "angle": "Bitcoin remains inside its two-day range after the wider selloff: explain why a weak directional estimate does not establish a fresh setup and what a completed one-hour close outside the range would change."
+      }
+    ],
+    "schema_version": "contentops.v1_simple_gemini_selection.v2"
+  },
+  "request_sha256": "0afac908cb28bdd037608b750b030c8f80d11a94c6687e5154d58b4856bb94c3",
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_29585ed1cc00",
+    "observation_source": "Supported native followup delivered to canonical task /root/native_select_29585ed1cc00 for this exact new-operation selection request.",
+    "actual_configuration_unavailable": true,
+    "reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_reasoning_effort": "low",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "model": null,
+    "configuration_source": "supported spawn request",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  }
+}

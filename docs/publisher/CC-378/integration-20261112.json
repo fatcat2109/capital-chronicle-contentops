@@ -1,0 +1,135 @@
+{
+  "scope": "CC-378 decision 114 Publisher self-integration; decision 120",
+  "recorded_utc": "2026-11-12T12:41:33.414831+00:00",
+  "base": "e16ddb8caf45cd859d6584c82425a1425967b86d",
+  "delivery_branch": "backlog/cc-378-record-validation-squashed",
+  "implementation_commit": "cbd97553b3f552de87c3c746d30dd8c414689700",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "cbd97553b3f552de87c3c746d30dd8c414689700",
+  "integration": "FAST_FORWARD_APPLIED",
+  "rollback_tag": "contentops-rollback-20261112-cc378-r114",
+  "live_tag": "contentops-live-20261112-cc378-r114",
+  "top_level_configuration": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "source": "Active codex.exe PID 9952 launch arguments; created 2026-11-12T12:36:15.646351Z"
+  },
+  "checks": [
+    {
+      "artifact": "integration-tests-20261112.xml",
+      "result": "40 passed in 6.65s",
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec"
+    },
+    {
+      "artifact": "operating-tests-20261112.xml",
+      "result": "40 passed in 5.91s",
+      "root": "A:\\Capital Chronicle\\ContentOps"
+    }
+  ],
+  "consumer_path": [
+    "scripts/run_native_desktop_editorial.py: submit write/revise -> prepare_assist; agy-review -> review_assist",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py: native preparation -> consume_assist",
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py: derivative compiler -> apply_variants"
+  ],
+  "preserved_uncommitted_paths": [
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  ],
+  "remaining_acceptance": "Next two CC-124 pieces: saved claim/alt/variant output, Publisher flag decisions and exact published alt/copy readback; no qualifying pair established.",
+  "runtime_probe": {
+    "scope": "CC-378 fresh operating-root runtime call; controlled packet, no publication",
+    "module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\agy_editorial_assist_v1.py",
+    "module_sha256": "361aec70430b3c30b3667e73a23fb5d9c39efd947590baf2f2e364eca0d9d06d",
+    "status": "AGY_UNAVAILABLE",
+    "cause": "AGY_TIMEOUT_120S",
+    "agy_version": "1.5.6",
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "started_utc": "2026-11-12T12:39:30.642578+00:00",
+    "ended_utc": "2026-11-12T12:41:31.825892+00:00",
+    "prompt_sha256": "71d514ebe9be5d19b01e81bf4b6b7f711e7b9d637be520c17726d8b4992dafda",
+    "output_sha256": "27edd9999fc46390360ace1265cd63d07192d95c3a8ed2c3af86e6b1352490ed",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc378-live-integration-20261112\\agy-light-assist\\71d514ebe9be5d19b01e81bf4b6b7f711e7b9d637be520c17726d8b4992dafda\\agy_light_assist_v1.json",
+    "record_validation_version": 2,
+    "flags": []
+  },
+  "installed_consumer": {
+    "module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\agy_editorial_assist_v1.py",
+    "module_sha256": "361aec70430b3c30b3667e73a23fb5d9c39efd947590baf2f2e364eca0d9d06d",
+    "actual_status": "AGY_UNAVAILABLE",
+    "fallback_body_unchanged": true,
+    "fallback_media_unchanged": true,
+    "compiler_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "telegram",
+      "threads",
+      "x",
+      "youtube"
+    ],
+    "compiler_payload_sha256": {
+      "telegram": "448581f3bfdec8c456f4f952d6662a5d58c4a8f5d18ad404a65225c921fa6cac",
+      "x": "43e8b78a14073f6433d931718392b98579bf9fd89022d627f3d447acb6ab7316",
+      "discord": "327e519b6ddb87f0874fcc80c802c113e947bb40089a40e9fa060d635f645f57",
+      "linkedin": "3e369c9a28e1b51d6b7224ed05609746831b89b08a18900a883920185fbea068",
+      "facebook_page": "825dd8ee1eb536e5d5808487f358022e23c51aba9daadcb0c94005f11d916c0a",
+      "instagram_business": "7848fe257793676b06df6c5df5c19afb848aebb0b6c1fce5f282669f16d4513b",
+      "threads": "1e06130e5fb8b4a9d71fbcbb006dc4a7e638033e9cfb3f235446673b563c59b3",
+      "youtube": "694aeedb24f3795be752e92eb35f1d84017e35956043200e45994b67f3792424"
+    },
+    "public_write_performed": false,
+    "meaning": "Fresh installed consumer used the real timed-out assist record and successfully compiled fallback copy."
+  },
+  "retained_publication_search": {
+    "roots": [
+      "A:\\Capital Chronicle\\Runtime\\ContentOps",
+      "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124",
+      "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124"
+    ],
+    "result": "Only the historical controlled probe and timed-out CPI-preview assist were retained; no two qualifying CC-124 published assist/readback records found."
+  },
+  "acceptance_status": "BLOCKED: AGY_TIMEOUT_120S; two successful CC-124 publication readbacks pending",
+  "next_action": "Existing CC-124 production runs retain Antigravity output, Publisher flag decisions and exact published alt/copy readback for the next two eligible pieces; resume CC-378 acceptance from those records. A failed call continues the article with existing copy."
+}

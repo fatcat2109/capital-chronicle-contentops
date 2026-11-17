@@ -49,7 +49,20 @@ def validate_snapshot_asset(asset, *, market=None, now=None):
     """Validate the original download and its uncropped padding, never chart data."""
     from PIL import Image, ImageChops
     from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops.tradingview_plan_overlay_v1 import target_drawn
     snapshot = asset.get("tradingview_snapshot") or {}
+    # CC-583 / decision 82: the raw snapshot's target_drawn describes the plain download;
+    # what the plan overlay drew is read from the overlay itself.
+    if target_drawn(asset):
+        raise ImagePolicyError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
+    if snapshot.get("price_scale_check") or str(snapshot.get("tv_symbol") or "").startswith(("ECONOMICS:", "FRED:")):
+        tv.validate_snapshot_asset(asset)
+        if market and snapshot.get("price_scale_check"):
+            from .publication_image_contract_v1 import validate_scale
+            validate_scale(market, snapshot)
+        if now is not None and not timedelta(0) <= now - tv._utc(snapshot["captured_at_utc"]) <= SNAPSHOT_MAX_AGE:
+            raise ImagePolicyError("TRADINGVIEW_SNAPSHOT_STALE")
+        return
     market = market or snapshot.get("market") or next((key for key, symbol in tv.SYMBOLS.items()
                                                       if symbol == snapshot.get("tv_symbol")), None)
     original, framed = Path(str(snapshot.get("path") or "")), Path(str(asset.get("path") or ""))
@@ -85,6 +98,9 @@ def validate_snapshot_asset(asset, *, market=None, now=None):
 def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=None):
     """Wire CC-316 before review/registration, so media identities freeze once."""
     from live_contentops import tradingview_snapshot_v1 as tv
+    from .publication_image_contract_v1 import EFFECTIVE_FROM
+    if (now or datetime.now(timezone.utc)) >= EFFECTIVE_FROM:
+        return tv.prepare_contract_article(article, assets, output_dir=output_dir, snapshot=capture)
     market = article.get("market_asset")
     if market not in tv.SYMBOLS:
         return article, assets
@@ -137,6 +153,12 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
 def before_article_write(coordinator, intent, destination):
     if not applies(coordinator, intent):
         return None
+    if intent.get("measured_odds_piece"):
+        # CC-536 commissions dated method/count pieces. Their exact table/side
+        # checks replace current-market scenarios, never manufacture forecasts
+        # or relabel an old sample as a fresh market observation.
+        from .measured_odds_series_v1 import before_write
+        return before_write(coordinator, intent, destination)
     if intent.get("plan_analysis_page"):
         # Decision 113 defines a per-plan record, with its own exact-run
         # scenarios and levels. It is web-only and does not spend the ordinary
@@ -145,10 +167,14 @@ def before_article_write(coordinator, intent, destination):
         packet = validate_intent(coordinator.store, intent)
         assets = packet.get("media_assets") or []
         if not assets:
+            from .publication_image_contract_v1 import validate_write
+            if (validate_write(coordinator, intent, destination) or {}).get("text_fallback"):
+                return None
             raise ImagePolicyError("IMAGE_MISSING")
-        assets = [{**a, "owned_diagram_data_sha256":sha256(json.dumps({"asset":packet["source_plan"]["asset_id"],
+        assets = [{**a, **({"owned_diagram_data_sha256":sha256(json.dumps({"asset":packet["source_plan"]["asset_id"],
             "legs":{key:{k:v for k,v in leg.items() if k != "structure"}
                     for key,leg in a["chart_spec"]["legs"].items()}},sort_keys=True).encode()).hexdigest()}
+                    if a.get("chart_spec") else {})}
                   for a in assets]
         return image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=assets,
             lead_asset_id=assets[0]["asset_id"], now=coordinator._clock(),
@@ -178,6 +204,19 @@ def before_article_write(coordinator, intent, destination):
               and a.get("canonical_article_media") is not False]
     for asset in assets:
         validate_payload(article, asset)
+    if not assets and article.get("tradingview_text_fallback"):
+        from .publication_image_contract_v1 import validate_write
+        fallback = validate_write(coordinator, intent, destination) or {}
+        if not fallback.get("text_fallback"):
+            raise ImagePolicyError("TRADINGVIEW_FIRST_IMAGE_REQUIRED")
+        validate_article_scenarios(article, documents)
+        if destination != "substack":
+            validate_social_scenarios(article, payload)
+            validate_payload(article, payload)
+        return image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=[],
+            lead_asset_id=None, now=coordinator._clock(), canonical_url=intent.get("canonical_url"),
+            enforce_cap=destination == "substack", text_fallback=fallback,
+            market=article.get("market_asset"), image_contract=article.get("publication_image_contract"))
     if not assets:
         raise ImagePolicyError("IMAGE_MISSING")
     lead = article.get("lead_image_asset_id") or assets[0]["asset_id"]
@@ -188,10 +227,12 @@ def before_article_write(coordinator, intent, destination):
              or article.get("release_analysis") is True or any(
                  (d.get("source_reuse_constraints") or {}).get("article_types") in
                  (["EVENT_PREVIEW"], ["EVENT_REVIEW"]) for d in documents))
-    required_market = event or article.get("six_market_piece") is True or str(intent["work_item_id"]).startswith(("cc124-", "cc107-"))
+    from .publication_image_contract_v1 import EFFECTIVE_FROM
+    legacy_images = coordinator._clock() < EFFECTIVE_FROM
+    required_market = legacy_images and (event or article.get("six_market_piece") is True or str(intent["work_item_id"]).startswith(("cc124-", "cc107-")))
     if required_market and not market:
         raise ImagePolicyError("TRADINGVIEW_SNAPSHOT_MARKET_REQUIRED")
-    if market:
+    if market and legacy_images:
         from live_contentops.tradingview_snapshot_v1 import SYMBOLS
         if market not in SYMBOLS:
             raise ImagePolicyError("TRADINGVIEW_SNAPSHOT_MARKET_REQUIRED")
@@ -219,6 +260,7 @@ def before_article_write(coordinator, intent, destination):
                 raise ImagePolicyError("TRADINGVIEW_ATTRIBUTION_REQUIRED")
     return image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=assets,
         lead_asset_id=lead, now=coordinator._clock(), canonical_url=intent.get("canonical_url"),
+        market=article.get("market_asset"), image_contract=article.get("publication_image_contract"),
         enforce_cap=destination == "substack")
 
 
@@ -236,15 +278,21 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
     """Register delivered status/digest images too, without changing their contracts."""
     if coordinator.published_content_path is None or coordinator._clock() < EFFECTIVE_FROM:
         return
-    _, assets, _ = article_inputs(intent)
+    article, assets, _ = article_inputs(intent)
     payload = intent.get("native_payload") or {}
     selected = list(payload.get("media_asset_ids") or []) if isinstance(payload, dict) else []
     if isinstance(payload, dict):
         selected += [i for p in payload.get("posts") or [] if isinstance(p, dict) for i in p.get("media_asset_ids") or []]
     if dispatch["platform"] != "substack" and selected:
-        assets = [a for a in assets if a.get("asset_id") in selected]
+        by_id = {a.get("asset_id"): a for a in assets}
+        assets = [by_id[i] for i in dict.fromkeys(selected) if i in by_id]
+    from .publication_image_contract_v1 import POLICY as IMAGE_CONTRACT, validate_write, scope
+    markets, _ = scope(coordinator.store, intent, article)
+    text_fallback = None
     if not assets:
-        return
+        text_fallback = validate_write(coordinator, intent, dispatch["platform"])
+        if not text_fallback or not text_fallback.get("text_fallback"):
+            return
     # The canonical reservation already binds its fingerprints and uncertain
     # clock interval. Extra observations must not erase that clock distinction.
     edited = bool(intent.get("reader_presentation_review"))
@@ -255,7 +303,10 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
         reference += ":edit:" + sha256(json.dumps(intent["reader_presentation_review"], sort_keys=True).encode()).hexdigest()
     image_register(coordinator).seed(piece_id=piece_id(coordinator.store, intent),
         canonical_url=observed_url if dispatch["platform"] == "substack" else intent.get("canonical_url"),
-        images=[{"asset_id": a["asset_id"], "path": a.get("path") or a.get("absolute_local_source_path")} for a in assets],
+        images=[{**a, "path": a.get("path") or a.get("absolute_local_source_path")} for a in assets],
         published_at=published_at_utc or dispatch["dispatched_at"], observation_ref=reference,
+        destination=dispatch["platform"], market=article.get("market_asset") or (sorted(markets) if markets else None),
+        image_contract=article.get("publication_image_contract") or (IMAGE_CONTRACT if text_fallback else None),
+        text_fallback=text_fallback,
         counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if edited else
         "OBSERVED_PUBLICATION_CLOCK" if published_at_utc else "RETAINED_COORDINATOR_DISPATCH_CLOCK")

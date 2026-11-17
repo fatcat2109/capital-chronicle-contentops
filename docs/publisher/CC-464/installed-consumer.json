@@ -1,0 +1,35 @@
+{
+  "recorded_at_utc": "2026-11-11T16:28:51.680927+00:00",
+  "module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+  "operating_head": "4334924ca6b6fce034567f41a9e912d6b21c6f3a",
+  "private_chat_bound": true,
+  "bot_enabled": true,
+  "neo_tab_control": {
+    "enabled": false,
+    "interval_seconds": 7200,
+    "consumer": "scripts/plan_status_posts.py --publish",
+    "schedule_changed": false,
+    "first_refresh_message_id": "x-reply-tabs-24a1d3fbe349a0ebd8f8acdbd3cf799cff6485f8ffccc0dd79619876b81a357d",
+    "enabled_at_utc": "2026-11-11T03:40:01.884151+00:00",
+    "parked_by": "CC-464",
+    "parked_at_utc": "2026-11-11T16:28:17+00:00",
+    "cause": "FIRST_PRIVATE_BOT_DRAFT_CONFIRMED"
+  },
+  "parked_file": "A:\\Capital Chronicle\\Runtime\\ContentOps\\control\\PARKED.md",
+  "parked_file_exists": true,
+  "deliveries": [
+    {
+      "key": "xrb-2120543011537097030",
+      "status": "DELIVERED"
+    }
+  ],
+  "scheduled_run_ids": [
+    "x-reply-bot-ddee89bc1fde18579a70d0f47abaa4dd9965424029e1345b06e030156c3baa1a",
+    "x-reply-bot-b20fd37da9c3018461c12920ceb3fd656cbf431f83f60dbd255e9b2fcada7384",
+    "x-reply-bot-2f8a2a4fa2fc4eb147218b5ebeb30ce4a4ddb7c68f6d86e33fc561cbc40f7050",
+    "x-reply-bot-86b3e2319d317714b3b2561770e2d26fbfd9046f9e87e90aa4c1656873b31d99"
+  ],
+  "manual_reply_count": 0,
+  "public_submit_actions": 0,
+  "schedule_changed": false
+}

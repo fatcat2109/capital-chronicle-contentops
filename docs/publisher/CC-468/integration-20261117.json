@@ -1,0 +1,95 @@
+{
+  "item": "CC-468",
+  "source_delivery": "59aae3580532d7fd61506241612886b65bee65f8",
+  "operating_base": "cf69859a696ca3a89a072edbc9771bd864b395bd",
+  "runs": [
+    {
+      "artifact": "docs/publisher/CC-468/integration-20261117-integration-tests.xml",
+      "passed": 48,
+      "seconds": "41.408"
+    },
+    {
+      "artifact": "docs/publisher/CC-468/integration-20261117-minute-consumer-tests.xml",
+      "passed": 3,
+      "seconds": "11.985"
+    },
+    {
+      "artifact": "docs/publisher/CC-468/integration-20261117-coordinator-recovery-tests.xml",
+      "passed": 5,
+      "seconds": "3.764"
+    }
+  ],
+  "distinct_passed_cases": 56,
+  "choice": "Retain the existing minute entry and coordinator; run Notes independently of unrelated status-export freshness. Each Note still checks its own original source cutoff.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "runtime_model": null,
+  "runtime_effort": null,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "live_integration": "INSTALLED_AND_READ_BACK",
+  "operational_acceptance": "BLOCKED_BY_SOURCE_CLOCKS; zero confirmed daily Notes and zero public reaction pages; seven daily readbacks and fourteen-day acquisition comparison remain pending.",
+  "installed_at_utc": "2026-11-17T06:27:07.914350+00:00",
+  "operating_head": "8e2e84695fb614311c28014d114281c7d5092615",
+  "live_tag": "contentops-live-20261117-cc468",
+  "rollback_tag": "contentops-rollback-20261117-cc468",
+  "preserved_operating_dirty_sha256": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "c50e9f193e1ebe446712cc040d00d348b5edead1615eaab9a4d53956df0b7aa7",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "cb2983ae225ee9fee7859faec2a8a7bbc5265ac27cebc8e70f5dd06bc16dc627"
+  },
+  "run_record": "The existing pythonw minute log retains the daily Note source causes and coordinator outcome without public copy or media.",
+  "additional_validation": {
+    "artifact": "integration-20261117-run-record-tests.xml",
+    "passed": 5,
+    "scope": "3 existing minute consumer tests plus 2 new run-record cases"
+  },
+  "distinct_cc468_and_recovery_passed_cases": 58,
+  "canonical_status_regression": {
+    "passed": 19,
+    "failed": 1,
+    "existing_failure": "test_a_refused_export_is_named_and_queues_nothing: actual AttributeError cause vs expected PUBLIC_PLAN_STATUS_SCHEMA_INVALID",
+    "baseline_commit": "cf69859a696ca3a89a072edbc9771bd864b395bd",
+    "baseline_reproduced_same_failure": true,
+    "artifact": "integration-20261117-status-consumer-regressions.xml",
+    "baseline_artifact": "integration-20261117-baseline-refused-export.xml"
+  },
+  "installed_consumer": "integration-20261117-installed-note-consumer.json",
+  "reaction_source_consumer": "integration-20261117-current-source-readback.json",
+  "publication_clock_readback": "integration-20261117-publication-clock-readback.json",
+  "notes_confirmed": 0,
+  "swap_prepared_messages": 10,
+  "public_reaction_pages_published": 0,
+  "source_table_sha256": "8d02a6aeccc3b0a25d5b896f36798cfcecde039e8b3e79205c9bbb1b0de2796d",
+  "reaction_six_market_observations": {
+    "NFP": 527,
+    "FOMC": 160,
+    "PPI": 521
+  },
+  "browser_review": {
+    "group_id": "90D17AA4686D915A9130DEB6BCCADEAC",
+    "installed_shortlist_page": 120,
+    "source_preview_pages": {
+      "NFP": 125,
+      "FOMC": 126,
+      "PPI": 127
+    },
+    "growth_baseline_page": 121,
+    "shortlist_rendered_inspected": true,
+    "source_tables_read_back": true,
+    "messages_sent": 0
+  },
+  "first_causes": [
+    "NOTE_SOURCE_CAPTURE_CHANGED for five 10 Nov pages",
+    "NOTE_DATA_CUTOFF_EXPIRED_OR_FUTURE for the two later pages",
+    "ARTICLE_DATA_CUTOFF_EXPIRED for all three reaction sources; cutoff 2026-11-17T04:13:47.164560Z"
+  ],
+  "next_action": "Main supplies an eligible source-bound analysis and Data supplies a source edition within the root CC-403 60-minute publication rule; Publisher resumes existing Note/page preparation and coordinator. Then observe seven Note dates and fourteen subscriber-source days. Only Jim sends the ten prepared recommendation messages.",
+  "installed_entry_test_artifact": "integration-20261117-installed-consumer-tests.xml",
+  "live_readback_tag": "contentops-live-20261117-cc468-readback",
+  "live_readback_tag_code_state": "same installed code as 8e2e8469; tag includes the final source readbacks"
+}

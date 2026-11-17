@@ -192,6 +192,9 @@ def desk_evidence(records, request):
     for doc, record in zip(docs, selected):
         if projection := record_projection(record):
             doc["cpi_reaction_page"] = projection
+            if projection.get("data_cutoff_utc"):
+                doc["data_cutoff_utc"] = projection["data_cutoff_utc"]
+                doc["data_clock_binding"] = projection["data_clock_binding"]
     return {"status": "PASS", "blockers": [], "evidence_documents": docs,
         "epistemic_state": {"schema_version": "contentops.v1_simple_epistemic_state.v1",
             "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT", "event_confirmation_state": "UNCONFIRMED",
@@ -345,8 +348,8 @@ def validate_chart_inputs(packet, documents):
                 binding = doc.get("desk_record_binding")
                 if not binding:
                     continue
-                from live_contentops.cpi_reaction_page_v1 import RECORD_ID, validate_chart_cell
-                if binding.get("record_id") == RECORD_ID:
+                from live_contentops.cpi_reaction_page_v1 import event_family, validate_chart_cell
+                if event_family(binding.get("record_id")):
                     validate_chart_cell(packet, point, operand, doc)
                     continue
                 info = binding.get("series")

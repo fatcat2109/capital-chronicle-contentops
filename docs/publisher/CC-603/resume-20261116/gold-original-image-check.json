@@ -1,0 +1,216 @@
+{
+  "content_verified": true,
+  "links": [
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "text": "",
+      "url": "https://substack.com/@capitalchronicle?utm_source=substack-feed-item"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "text": "Capital Chronicle",
+      "url": "https://substack.com/@capitalchronicle"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": "Nov 16, 2026, 6:39 AM",
+      "text": "16m",
+      "url": "https://substack.com/@capitalchronicle/note/c-388463042"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "text": "@capitalchronicle",
+      "url": "https://substack.com/@capitalchronicle"
+    },
+    {
+      "card_visible": true,
+      "expanded_url": null,
+      "text": "CAPITAL CHRONICLE\nGold: Our bearish plan, 3954\u20133964 entry, 4004 invalidation.\nWe look for a rebound into resistance during gold's repricing within its recent range.\nAt a glance, We are bearish through Fri 13 Nov, 8:15 AM ET.",
+      "url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "text": "View stats",
+      "url": "https://substack.com/@capitalchronicle/note/c-388463042/stats"
+    }
+  ],
+  "media_comparisons": [
+    {
+      "source_asset_sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+      "platform_sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+      "public_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/f5661d90-7e72-419a-b1cc-1d70b921590e_1524x858.png",
+      "observed_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/f5661d90-7e72-419a-b1cc-1d70b921590e_1524x858.png",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "pixels_inspected": true,
+      "source_pixels_match": true,
+      "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+      "rms": 0.0,
+      "worst_tile_rms": 0.0,
+      "max_luma_delta": 0
+    },
+    {
+      "source_asset_sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+      "platform_sha256": "1b1be27c3f751401ab5c0fb1d618d2f5075969cea78692533e466e89f2226af2",
+      "public_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/c466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+      "observed_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/c466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "pixels_inspected": true,
+      "source_pixels_match": false,
+      "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+      "rms": 12.5749,
+      "worst_tile_rms": 72.2204,
+      "max_luma_delta": 179
+    },
+    {
+      "source_asset_sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+      "platform_sha256": "1b1be27c3f751401ab5c0fb1d618d2f5075969cea78692533e466e89f2226af2",
+      "public_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/c466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+      "observed_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/c466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "pixels_inspected": true,
+      "source_pixels_match": false,
+      "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+      "rms": 12.5749,
+      "worst_tile_rms": 72.2204,
+      "max_luma_delta": 179
+    }
+  ],
+  "native_tool_observation": {
+    "native_invocation_id": "neo-endpoint:24a409d2037944069ece493c01f36dfc",
+    "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+    "observed_at_utc": "2026-11-15T23:55:49.317720+00:00",
+    "surface": "NEO_ENDPOINT_EXECUTOR",
+    "tool_name": "browseros-neo/run"
+  },
+  "native_tool_return_sha256": "8d23ac86de9b2e7b015894b1d9a50bbdd19e58474dba42d98d8941f632338111",
+  "neo_executor_revision": "8108d5814d6b0bcdd897661b9f30f1ada299b189cf333b9e29c3bb2a8093a6bf",
+  "observed_identity": "@capitalchronicle",
+  "observed_link_resolutions": [
+    {
+      "displayed_text": "CAPITAL CHRONICLE\nGold: Our bearish plan, 3954\u20133964 entry, 4004 invalidation.\nWe look for a rebound into resistance during gold's repricing within its recent range.\nAt a glance, We are bearish through Fri 13 Nov, 8:15 AM ET.",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "short_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "target_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "target_verified": true
+    }
+  ],
+  "observed_links": [
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "text": "",
+      "url": "https://substack.com/@capitalchronicle?utm_source=substack-feed-item"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "text": "Capital Chronicle",
+      "url": "https://substack.com/@capitalchronicle"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": "Nov 16, 2026, 6:39 AM",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "text": "16m",
+      "url": "https://substack.com/@capitalchronicle/note/c-388463042"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "text": "@capitalchronicle",
+      "url": "https://substack.com/@capitalchronicle"
+    },
+    {
+      "card_visible": true,
+      "expanded_url": null,
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "text": "CAPITAL CHRONICLE\nGold: Our bearish plan, 3954\u20133964 entry, 4004 invalidation.\nWe look for a rebound into resistance during gold's repricing within its recent range.\nAt a glance, We are bearish through Fri 13 Nov, 8:15 AM ET.",
+      "url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+    },
+    {
+      "card_visible": false,
+      "expanded_url": null,
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "text": "View stats",
+      "url": "https://substack.com/@capitalchronicle/note/c-388463042/stats"
+    }
+  ],
+  "observed_media_sha256": [
+    "61705ea9f6527e0ef1b450cbabd87f9210092babbde1788d3e4110da5e17fa67",
+    "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+    "1b1be27c3f751401ab5c0fb1d618d2f5075969cea78692533e466e89f2226af2",
+    "1b1be27c3f751401ab5c0fb1d618d2f5075969cea78692533e466e89f2226af2",
+    "fb59cef8cac8f93246486e7887617ad0ecd67dda66fe85703f28c9762e6e4158"
+  ],
+  "observed_text": "Correction: our 12 Nov gold analysis and later status post were published after the fall they described. They were late, and we will not cite them as a call made before the move. The status post should not have presented the 3,954\u20133,964 entry zone as a fresh opportunity.\n\nOriginal analysis:\n\nChart: TradingView\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+  "observed_thread": [
+    {
+      "links": [
+        {
+          "card_visible": false,
+          "expanded_url": null,
+          "text": "",
+          "url": "https://substack.com/@capitalchronicle?utm_source=substack-feed-item"
+        },
+        {
+          "card_visible": false,
+          "expanded_url": null,
+          "text": "Capital Chronicle",
+          "url": "https://substack.com/@capitalchronicle"
+        },
+        {
+          "card_visible": false,
+          "expanded_url": "Nov 16, 2026, 6:39 AM",
+          "text": "16m",
+          "url": "https://substack.com/@capitalchronicle/note/c-388463042"
+        },
+        {
+          "card_visible": false,
+          "expanded_url": null,
+          "text": "@capitalchronicle",
+          "url": "https://substack.com/@capitalchronicle"
+        },
+        {
+          "card_visible": true,
+          "expanded_url": null,
+          "text": "CAPITAL CHRONICLE\nGold: Our bearish plan, 3954\u20133964 entry, 4004 invalidation.\nWe look for a rebound into resistance during gold's repricing within its recent range.\nAt a glance, We are bearish through Fri 13 Nov, 8:15 AM ET.",
+          "url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+        },
+        {
+          "card_visible": false,
+          "expanded_url": null,
+          "text": "View stats",
+          "url": "https://substack.com/@capitalchronicle/note/c-388463042/stats"
+        }
+      ],
+      "observed_text": "Correction: our 12 Nov gold analysis and later status post were published after the fall they described. They were late, and we will not cite them as a call made before the move. The status post should not have presented the 3,954\u20133,964 entry zone as a fresh opportunity.\n\nOriginal analysis:\n\nChart: TradingView\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "public_image_urls": [
+        "https://substackcdn.com/image/fetch/$s_!iKBy!,w_36,h_36,c_fill,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F04cbd7b0-a045-4e65-b1ad-2ccd89cb110b_2500x2500.png",
+        "https://substackcdn.com/image/fetch/$s_!tAl0!,w_800,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff5661d90-7e72-419a-b1cc-1d70b921590e_1524x858.png",
+        "https://substackcdn.com/image/fetch/$s_!mlom!,w_520,h_272,c_fill,f_webp,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+        "https://substackcdn.com/image/fetch/$s_!mlom!,w_520,h_272,c_fill,f_webp,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+        "https://substackcdn.com/image/fetch/$s_!Q9ek!,w_20,h_20,c_fill,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F605afaf7-517e-4cfd-a674-610cbda1af3a_144x144.png"
+      ],
+      "public_object_id": "c-388463042",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042"
+    }
+  ],
+  "public_image_urls": [
+    "https://substack-post-media.s3.amazonaws.com/public/images/04cbd7b0-a045-4e65-b1ad-2ccd89cb110b_2500x2500.png",
+    "https://substack-post-media.s3.amazonaws.com/public/images/f5661d90-7e72-419a-b1cc-1d70b921590e_1524x858.png",
+    "https://substack-post-media.s3.amazonaws.com/public/images/c466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+    "https://substack-post-media.s3.amazonaws.com/public/images/c466c3ca-ae68-46ed-8b72-83bb5b588965_1524x858.png",
+    "https://substack-post-media.s3.amazonaws.com/public/images/605afaf7-517e-4cfd-a674-610cbda1af3a_144x144.png"
+  ],
+  "public_object_id": "c-388463042",
+  "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+  "request_sha256": "b09511baf34d29c3ef6b8c3f5334c303c2df478d601a75a38bb3eedaa7765eaa",
+  "status": "SUCCESS"
+}

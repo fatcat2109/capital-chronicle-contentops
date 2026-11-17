@@ -1,0 +1,8 @@
+{
+  "message_id": "native-story-preparation-26a6c2d2f14f5e9232bf36d03d8ec8fb01047c3ed7f0f44549e9852142fad7e3",
+  "event_id": "bls-ppi-20261113",
+  "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW",
+  "previous_preparation_message_id": "native-story-preparation-aed9ded4ae9497d6065cf55ac45ccae843009d3cb14a194dfa7c2039a5c155a2",
+  "classification": "CURRENT_CONSENSUS_FACT_RETAINED",
+  "source_known_at_utc": "2026-11-05T04:41:54.347876Z"
+}

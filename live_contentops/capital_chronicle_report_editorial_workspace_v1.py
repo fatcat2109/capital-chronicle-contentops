@@ -22,7 +22,7 @@ from live_contentops.llm_operator_control_v1 import (
     llm_operator_pause_active,
     LLMOperatorPausedError,
 )
-from live_contentops.contentops_foundation_library_v1 import library_projection
+from live_contentops.contentops_foundation_library_v1 import dependency_rows, library_projection
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 
 STAGE = "internal:cc-report-editorial-stage"
@@ -291,7 +291,7 @@ def run_report_editorial_cycle(
     if previous and previous.get("qualified_article_count"):
         if any(r["destination"] == "internal:cc-report-withdrawal"
                and json.loads(r["payload"]).get("source_report_sha256") == previous.get("source_report_sha256")
-               for r in tracker.store.list_outbox_messages()):
+               for r in tracker.store.list_outbox_messages(destination="internal:cc-report-withdrawal")):
             return {**previous, "classification": "DRAFT_WITHDRAWN", "draft_count": 0, "preview_count": 0, "previews": [], "article": None}
         newer = [
             r
@@ -380,7 +380,10 @@ def run_report_editorial_cycle(
             args["capital_chronicle_context"]["desk_record_sources"] = list(desk_records)
             from live_contentops.capital_chronicle_desk_record_source_v1 import story_context
             from live_contentops.contentops_editorial_desk_v1 import read_reviews, selection_story_context
-            desk_stories = story_context(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+            history_rows = [r for destination in ("internal:cc-report-feed", "internal:cc-report-simple-result")
+                            for r in tracker.store.list_outbox_messages(destination=destination)]
+            history_rows.sort(key=lambda r: (r["created_at"], r["message_id"]))
+            desk_stories = story_context(history_rows, read_reviews(tracker.store))
             args["capital_chronicle_context"]["desk_record_story_memory"] = desk_stories
             for source in desk_records:
                 binding = source["binding"]
@@ -413,7 +416,8 @@ def run_report_editorial_cycle(
                         "publication_state": "UNPUBLISHED_RESEARCH", "removed_main_claim_ids": review["removed_main_claim_ids"]}
                     headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), context]}
         from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
-        library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+        library = library_projection(dependency_rows(tracker.store, include_story_context=True),
+                                     read_reviews(tracker.store))
         if library:
             stories = publication_story_context(library["stories"], args["published_memory"], cutoff_utc=cutoff_utc)
             for headline in args["rolling_input"].get("headlines", []):
@@ -549,7 +553,7 @@ def run_report_editorial_cycle(
                 .get("request_count_for_call")
                 or 0
             )
-            for r in tracker.store.list_outbox_messages()
+            for r in tracker.store.list_outbox_messages(destination=STAGE, work_item_id=stages.work)
             if r["destination"] == STAGE
             and r["work_item_id"] == stages.work
             and str(json.loads(r["payload"]).get("stage", "")).startswith("source:")
@@ -778,7 +782,8 @@ def run_report_editorial_cycle(
             result.pop("logical_model_invocation_count", None)
             if result.get("qualified_article_count"):
                 from live_contentops.contentops_editorial_desk_v1 import read_reviews
-                desk = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+                desk = library_projection(dependency_rows(tracker.store), read_reviews(tracker.store),
+                                          include_story_context=False)
                 brief_ids = {s.get("brief_id") for s in simple.get("selected_candidate", {}).get("evolving_story_context", [])}
                 supported_urls = {d["url"] for d in result.get("evidence", [])}
                 for d in result.get("evidence", []):

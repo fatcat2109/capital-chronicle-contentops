@@ -1,0 +1,15 @@
+{
+  "command": "python -X utf8 scripts/plan_status_posts.py --dry-run",
+  "contract_version": "2.0.0",
+  "export_age_seconds": 219.6,
+  "export_generated_at_utc": "2026-11-12T21:52:50.045531Z",
+  "max_export_age_minutes": 10,
+  "model_calls": 0,
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "public_write_performed": false,
+  "rendered_count": 78,
+  "returncode": 0,
+  "source_content_hash": "64d4684c38b644a3443418e2d891248a6bd193b5a5e44f56efd4965ab94e6e19",
+  "status": "OK",
+  "validation": "PASS"
+}

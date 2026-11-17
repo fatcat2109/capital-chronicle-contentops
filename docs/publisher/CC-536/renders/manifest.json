@@ -1,0 +1,132 @@
+{
+  "page": 240,
+  "checked_at_utc": "2026-11-14T05:32:50.036872+00:00",
+  "renders": [
+    {
+      "viewport": "desktop",
+      "channel": "canonical",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-canonical.jpg",
+      "sha256": "ac1949bae4500d45ce06e5f3631351bf04f60832eba8db7b63307f627fc9cbae",
+      "bytes": 130394
+    },
+    {
+      "viewport": "desktop",
+      "channel": "telegram",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-telegram.jpg",
+      "sha256": "4b09c55654888fe92b80ca3b0371daafbb3b9b7fa110707fccb02200f19db047",
+      "bytes": 108057
+    },
+    {
+      "viewport": "desktop",
+      "channel": "discord",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-discord.jpg",
+      "sha256": "1908b72eecc11abb6f9bd24bc75db6e08dc6d2f1278d4d40887c763d1f9a825d",
+      "bytes": 107817
+    },
+    {
+      "viewport": "desktop",
+      "channel": "x",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-x.jpg",
+      "sha256": "540c323fded77f33670c18bfd4703ba93ea10dbdc9b62cf94bb54900d42946e6",
+      "bytes": 92881
+    },
+    {
+      "viewport": "desktop",
+      "channel": "linkedin",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-linkedin.jpg",
+      "sha256": "43c3633c8f936e7dda7103dd85731add13f8820498b3a0622d79b8f61cf95b98",
+      "bytes": 107944
+    },
+    {
+      "viewport": "desktop",
+      "channel": "facebook_page",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-facebook_page.jpg",
+      "sha256": "babc558cfe05b68c9d14c5ab4d23409ceaaf2a6c3d20d05359322f886ca80402",
+      "bytes": 108943
+    },
+    {
+      "viewport": "desktop",
+      "channel": "instagram_business",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-instagram_business.jpg",
+      "sha256": "0762fc3e3df1257119a24f59a3ea653bf11f35b5d8ad93ce541e40c6d01a68ff",
+      "bytes": 109611
+    },
+    {
+      "viewport": "desktop",
+      "channel": "threads",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-threads.jpg",
+      "sha256": "33ba28f7ae856568f1a5d0b8ce5e3389052ec5723670f9cf90b2fffdff600de0",
+      "bytes": 93912
+    },
+    {
+      "viewport": "desktop",
+      "channel": "youtube",
+      "path": "docs\\publisher\\CC-536\\renders\\desktop-youtube.jpg",
+      "sha256": "1a49425c0982b5ca29bb70f40087a0f06133de31ad6a195c18e7507a967b997d",
+      "bytes": 109839
+    },
+    {
+      "viewport": "mobile",
+      "channel": "canonical",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-canonical.jpg",
+      "sha256": "c50a1dcbb348a3735f2194326546bd1a91f83c324b86673cd23ee57fbe6b8fb9",
+      "bytes": 67233
+    },
+    {
+      "viewport": "mobile",
+      "channel": "telegram",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-telegram.jpg",
+      "sha256": "b564b9504e813069eff20ef956a601ed4fa3c701a623899ed4e7a4b305aed1ec",
+      "bytes": 58009
+    },
+    {
+      "viewport": "mobile",
+      "channel": "discord",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-discord.jpg",
+      "sha256": "5d3eed81674641c2eaafc863b907d05d48b61d51667d234bd3b75b241217dc76",
+      "bytes": 57756
+    },
+    {
+      "viewport": "mobile",
+      "channel": "x",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-x.jpg",
+      "sha256": "c07dfb42cd5b71f579e5b3504b3672b04fdb67da0c17c2d4c13328e0fad4e29a",
+      "bytes": 46471
+    },
+    {
+      "viewport": "mobile",
+      "channel": "linkedin",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-linkedin.jpg",
+      "sha256": "80bf6d35599491194e0dcab6176bf66f1b9f2d6ca2b570746404ef3a0d94cddc",
+      "bytes": 57849
+    },
+    {
+      "viewport": "mobile",
+      "channel": "facebook_page",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-facebook_page.jpg",
+      "sha256": "0adfe4f2c5919d9e3b0e1058304dc181ce5c29d195bd8a63b2a714e627e56059",
+      "bytes": 58721
+    },
+    {
+      "viewport": "mobile",
+      "channel": "instagram_business",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-instagram_business.jpg",
+      "sha256": "6828bf0034ec3cdc85966ccdf90872f4352a5319d307dad64ac6182267d29bb1",
+      "bytes": 59174
+    },
+    {
+      "viewport": "mobile",
+      "channel": "threads",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-threads.jpg",
+      "sha256": "0750ca365f53ec73dd5131d6694ed5ed14ad7ebf3369f348c0a06394255f4dce",
+      "bytes": 47257
+    },
+    {
+      "viewport": "mobile",
+      "channel": "youtube",
+      "path": "docs\\publisher\\CC-536\\renders\\mobile-youtube.jpg",
+      "sha256": "6b9f0169d2b3ecef0d1c8db3380572c607804b04b692b3509ece45e1aa649f23",
+      "bytes": 59357
+    }
+  ]
+}

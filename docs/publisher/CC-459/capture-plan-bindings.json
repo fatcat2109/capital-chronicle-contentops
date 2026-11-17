@@ -1,0 +1,109 @@
+{
+  "export_path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+  "generated_at_utc": "2026-11-11T04:08:16.037096Z",
+  "export_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+  "rows": {
+    "BTCUSD": {
+      "key": "cc459-capture-plan_5fb1fd296a3ef7bf4b22636b",
+      "plan_id": "plan_5fb1fd296a3ef7bf4b22636b",
+      "symbol": "BTCUSD",
+      "kind": "setup",
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+      "levels": {
+        "zone_low": 76000.0,
+        "zone_high": 76700.0,
+        "invalidation_level": 78900.0,
+        "target": null,
+        "tick_size": null,
+        "valid_until_utc": "2026-11-18T02:00:00Z",
+        "direction": "bearish"
+      }
+    },
+    "US500": {
+      "key": "cc459-capture-plan_a11a3108089c7d75cc6b1522",
+      "plan_id": "plan_a11a3108089c7d75cc6b1522",
+      "symbol": "US500",
+      "kind": "setup",
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+      "levels": {
+        "zone_low": 7680.0,
+        "zone_high": 7710.0,
+        "invalidation_level": 7858.0,
+        "target": null,
+        "tick_size": null,
+        "valid_until_utc": "2026-11-18T02:00:00Z",
+        "direction": "bearish"
+      }
+    },
+    "EURUSD": {
+      "key": "cc459-capture-plan_5e5cf20917286ebd8cb8d945",
+      "plan_id": "plan_5e5cf20917286ebd8cb8d945",
+      "symbol": "EURUSD",
+      "kind": "setup",
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+      "levels": {
+        "zone_low": 1.1225,
+        "zone_high": 1.1245,
+        "invalidation_level": 1.1282,
+        "target": null,
+        "tick_size": null,
+        "valid_until_utc": "2026-11-18T02:00:00Z",
+        "direction": "bearish"
+      }
+    },
+    "USOIL": {
+      "key": "cc459-capture-plan_4a68fd77e5609b19cd258ac1",
+      "plan_id": "plan_4a68fd77e5609b19cd258ac1",
+      "symbol": "USOIL",
+      "kind": "setup",
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+      "levels": {
+        "zone_low": 88.4,
+        "zone_high": 89.6,
+        "invalidation_level": 92.1,
+        "target": null,
+        "tick_size": null,
+        "valid_until_utc": "2026-11-18T02:00:00Z",
+        "direction": "bearish"
+      }
+    },
+    "USDJPY": {
+      "key": "cc459-capture-plan_6af844208892f3705eee4de5",
+      "plan_id": "plan_6af844208892f3705eee4de5",
+      "symbol": "USDJPY",
+      "kind": "setup",
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+      "levels": {
+        "zone_low": 158.0,
+        "zone_high": 158.3,
+        "invalidation_level": 157.15,
+        "target": null,
+        "tick_size": null,
+        "valid_until_utc": "2026-11-18T02:00:00Z",
+        "direction": "bullish"
+      }
+    },
+    "XAUUSD": {
+      "key": "cc459-capture-plan_e53c7c0aa6230ec191762925",
+      "plan_id": "plan_e53c7c0aa6230ec191762925",
+      "symbol": "XAUUSD",
+      "kind": "setup",
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+      "levels": {
+        "zone_low": 4128.0,
+        "zone_high": 4144.0,
+        "invalidation_level": 4232.0,
+        "target": null,
+        "tick_size": null,
+        "valid_until_utc": "2026-11-18T02:00:00Z",
+        "direction": "bearish"
+      }
+    }
+  }
+}

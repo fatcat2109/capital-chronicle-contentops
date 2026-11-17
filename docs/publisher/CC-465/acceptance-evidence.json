@@ -1,0 +1,546 @@
+{
+  "recorded_at_utc": "2026-11-11T17:27:02.764262+00:00",
+  "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+  "spec_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\fork_overhaul_plan_20261111\\20_IMAGE_TEMPLATES_SPEC_EN.md",
+  "spec_sha256": "50e2600a107d16479321c6d21e181e76d628acce6c924a301c9d1e20347a675b",
+  "gallery_images": 32,
+  "returned_for_revision": [],
+  "source_cutoff_policy": "Retained historical plans on later real charts are private layout previews, never retrospective public depictions.",
+  "observed_owner_acceptance": false,
+  "observed_weekly_twenty": {
+    "required": 20,
+    "observed": 0,
+    "passed": false,
+    "images": []
+  },
+  "live_step_performed": false,
+  "operating_base": "0628a86bc474fdc2839e38ba0cc6eabd44f67bf1",
+  "launch_model": "gpt-6.1-sol",
+  "launch_effort": "max",
+  "launch_configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "checks": [
+    {
+      "template": "call",
+      "master": "W",
+      "market": "XAUUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-call-1-W.png",
+      "sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "T",
+      "market": "XAUUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-call-1-T.png",
+      "sha256": "e3a164d4c824251f832c30efb48353f110b52b0312c5c782f38b2b22a1ee5321",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "W",
+      "market": "XAUUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-expiry-result-1-W.png",
+      "sha256": "20dbc3e39dfe26a8a3280c3abfa0f113a2106ef14cb023a37a17e484c8bdaa58",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "T",
+      "market": "XAUUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-expiry-result-1-T.png",
+      "sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "W",
+      "market": "US500",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-call-1-W.png",
+      "sha256": "4e4677f3921b44f2a9cd0ba3273ec1631c201054f8b79749b7aecadd89263531",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "T",
+      "market": "US500",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-call-1-T.png",
+      "sha256": "485c1a4fd75e4dcaa0934b576e7b46f04723b3e607a44fde5bffb78d27c52300",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "W",
+      "market": "US500",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-expiry-result-1-W.png",
+      "sha256": "275e3174de993866fb764b03e124bd56bf4d908cd945e01bc4e2c71f89f2a9c4",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "T",
+      "market": "US500",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-expiry-result-1-T.png",
+      "sha256": "8a8323c4b234097f2cf108aeac2cbd644eaa09629da73bdb403d78cce4ea7564",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "W",
+      "market": "EURUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-call-1-W.png",
+      "sha256": "765d2701af750da511635b1efe2de446fb910419e86479c41b5ddf60b9970f87",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "T",
+      "market": "EURUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-call-1-T.png",
+      "sha256": "b32f584f68b50f5daefa9f6c224eccfc8d592f9ef6bdf8785497379b26530382",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "W",
+      "market": "EURUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-expiry-result-1-W.png",
+      "sha256": "12054f1b2a3abcf5143c868ea2f24fea6a9890627b5b0893651b0505b456d061",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "T",
+      "market": "EURUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-expiry-result-1-T.png",
+      "sha256": "7f838e8c722c970a81688db70367b3fa07a81316aec21e8ec7c556cf5e9c8f7f",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "W",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-W.png",
+      "sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "T",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-T.png",
+      "sha256": "f1eb07623abd36a7fc34a4a317ec9ebebdf168a45e5aa38de9a8e822a0524004",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "W",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-expiry-result-1-W.png",
+      "sha256": "3bd215a4f53cf5e1b73b2d01357ef927aa7262ca71aa73cb5880d2707fd46a6f",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "T",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-expiry-result-1-T.png",
+      "sha256": "a8cd3c4b220df0b3288f53f8c748e5b7667095b1c0fd0096bfcc96bbbe2850d0",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "W",
+      "market": "USOIL",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usoil-call-1-W.png",
+      "sha256": "f54283f2582df621f08c003d86c8792340c18d65387957b068107f253982e7cf",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "T",
+      "market": "USOIL",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usoil-call-1-T.png",
+      "sha256": "964cfcaa19d26965953bff303fad92b5a182ca8279184f1fde50ef7b26ef7b86",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "W",
+      "market": "BTCUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-call-1-W.png",
+      "sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "call",
+      "master": "T",
+      "market": "BTCUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-call-1-T.png",
+      "sha256": "46744804364e13e68959277418d1bdc27312f349f289552d12f6cb1ad861740c",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "W",
+      "market": "BTCUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-expiry-result-1-W.png",
+      "sha256": "6bde373a6c16152ab30328cbcd39bbec177b3dc27b3d62b4faa5f1ab7ecb6522",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "result",
+      "master": "T",
+      "market": "BTCUSD",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-expiry-result-1-T.png",
+      "sha256": "1fb1229115c8da6564da2d4398afb3f4bbb8bebeebc70c2f1d2a11c2637d22fa",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "event",
+      "master": "W",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-1-W.png",
+      "sha256": "cd0917bb355ca5a5595f7a4404eb0a0c7dfc06c25fcab7b9c40e762230cfe790",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "event",
+      "master": "W",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-W.png",
+      "sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
+      "code_score": 10,
+      "code_passed": true,
+      "causes": [],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "event",
+      "master": "T",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-1-T.png",
+      "sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "event",
+      "master": "T",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.png",
+      "sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+      "code_score": 10,
+      "code_passed": true,
+      "causes": [],
+      "vision_status": "REVIEW_UNAVAILABLE",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "weekly",
+      "master": "W",
+      "market": null,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-weekly-weekly-1-W.png",
+      "sha256": "eaa24b6132eb04b819795f1e15fc2d5a05b5c8eca69913a248a46cece4a440a4",
+      "code_score": 8,
+      "code_passed": false,
+      "causes": [
+        "IMAGE_EMPTY_BAND_TOO_TALL",
+        "WEEK_R_RESULT_NOT_EXPORTED",
+        "WEEK_PROBABILITY_NOT_EXPORTED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "weekly",
+      "master": "T",
+      "market": null,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-weekly-weekly-1-T.png",
+      "sha256": "8825e14ecd50c43e745a03e5a60888aa026ed1a4986539f6552ffe2505a0e9e3",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "WEEK_R_RESULT_NOT_EXPORTED",
+        "WEEK_PROBABILITY_NOT_EXPORTED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "map",
+      "master": "W",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-map-map-1-W.png",
+      "sha256": "bd2d4ab2237315ac605a40783a26900a7976bc05fef704ab91adb32029eb3905",
+      "code_score": 8,
+      "code_passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED",
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "map",
+      "master": "W",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-map-map-2-W.png",
+      "sha256": "1720a6018ad32468c2e6b0673c0bd0d2dec64540fd885bf8c7aecaf348563a0e",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED",
+        "MORNING_MAP_STATE_NOT_EXPORTED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "map",
+      "master": "T",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-map-map-1-T.png",
+      "sha256": "3e28557452203f750ad56b85d7df83582c57e947539f6df67fdb508c96329a09",
+      "code_score": 8,
+      "code_passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED",
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    },
+    {
+      "template": "map",
+      "master": "T",
+      "market": "USDJPY",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-map-map-2-T.png",
+      "sha256": "80ec092e836e590660355e412bf26acb8bd2689c58049ad7cd9f9d52a0475af3",
+      "code_score": 9,
+      "code_passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED",
+        "MORNING_MAP_STATE_NOT_EXPORTED"
+      ],
+      "vision_status": "NOT_RUN",
+      "combined_passed": false,
+      "template_accepted": false,
+      "write_ready": false
+    }
+  ],
+  "remaining": [
+    "First Publisher stream integration and native consumer readback",
+    "Twelve valid real reviews per template and owner acceptance",
+    "Fresh valid Antigravity event return",
+    "Current Main quote bindings; exported R and daily-map fields",
+    "A real twenty-image weekly sample"
+  ],
+  "stable_across_fresh_processes": true
+}

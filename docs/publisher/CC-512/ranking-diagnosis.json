@@ -1,0 +1,11 @@
+{
+  "saved_calls": 65,
+  "returned": 48,
+  "timed_out": 17,
+  "answered_call_p90_seconds": 64.57391840000491,
+  "answered_within_65_seconds": 45,
+  "timeout_zero_stdout": 17,
+  "initial_guard_present": 0,
+  "first_started_at_utc": "2026-11-11T16:00:52.141791+00:00",
+  "last_started_at_utc": "2026-11-12T11:56:40.966063+00:00"
+}

@@ -248,7 +248,15 @@ def register_pack(store, packet, stage, *, root=PACK_ROOT, now=None):
         "modality": "data_card", "rights_status": "CC_OWN_ANALYSIS", "caption": "Capital Chronicle model estimate",
         "alt_text": " ".join(text for _,text in facts), "source_sha256": view["record"]["sha256"],
         "card_facts": [{"label": label, "text": text} for label,text in facts], "source_bindings": view["source_specs"]}
-    (folder / "run_context_v1.json").write_bytes(canonical_bytes({"article": article, "selection": {}, "media": {"assets": [asset]}}))
+    assets = [asset]
+    from .publication_image_contract_v1 import EFFECTIVE_FROM
+    if (now or datetime.now(timezone.utc)) >= EFFECTIVE_FROM:
+        from .tradingview_snapshot_v1 import prepare_contract_article
+        article.update(macro_data_post=True,
+            **({"macro_chart_symbol": packet["macro_chart_symbol"]} if packet.get("macro_chart_symbol") else {}))
+        article, assets = prepare_contract_article(article, packet.get("macro_chart_assets") or [], output_dir=folder)
+        (folder / "article_manifest_v1.json").write_bytes(canonical_bytes(article))
+    (folder / "run_context_v1.json").write_bytes(canonical_bytes({"article": article, "selection": {}, "media": {"assets": assets}}))
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     from .v1_simple_gemini_newsroom_v1 import _public_copy
     registration = registration_for_destination("substack")
@@ -264,7 +272,7 @@ def register_pack(store, packet, stage, *, root=PACK_ROOT, now=None):
     value = {"identity": identity, "input_identity": input_identity, "inputs": packet, "stage": stage,
         "assembled_at_utc": (now or datetime.now(timezone.utc)).isoformat(),
         "native_payload": {k:view[k] for k in ("title", "subtitle", "body_markdown")},
-        "source_specs": view["source_specs"], "media_assets": [asset], "plan": plan}
+        "source_specs": view["source_specs"], "media_assets": assets, "plan": plan}
     store.create_work_item(story_id=identity, work_item_id=identity, title=view["title"], target_surface="SUBSTACK_ARTICLE")
     store.register_outbox_message(message_id=identity, work_item_id=identity, destination=DESTINATION,
         payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
@@ -349,12 +357,12 @@ def derivative_payloads(parent, canonical_url, image_url):
     notices = PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
     body = body.replace("\n\n"+PUBLIC_NOTICE+"\n\n"+CONFLICTS_NOTICE, "").strip()
     body += "\n\n" + canonical_url
-    card = parent["media_assets"][0]["asset_id"]
+    card = parent["media_assets"][0]["asset_id"] if parent["media_assets"] else None
     values = {}
     # These are the existing registered routes and text limits. Every part is
     # sourced from the same structured piece and keeps the canonical link.
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "facebook_page": 60000,
-              "instagram_business": 2200, "linkedin": 3000, "x": 280}
+              "instagram_business": 2200, "linkedin": 3000, "x": 280, "youtube": 1000}
     for dest, limit in limits.items():
         parts = _x_pack(body+"\n\n"+notices, limit) if dest == "x" else _text_parts(body, notices, limit)
         if dest in {"linkedin", "facebook_page", "instagram_business"} and len(parts) > 1:
@@ -362,9 +370,13 @@ def derivative_payloads(parent, canonical_url, image_url):
             # canonical rather than silently dropping part of the public map.
             lead = parent["native_payload"]["title"] + "\nSHA-256: " + parent["inputs"]["frozen_public_record"]["sha256"]
             parts = [lead+"\n"+canonical_url+"\n\n"+notices]
-        posts = [{"text": t, "media_asset_ids": [card] if i == 0 else [],
+        posts = [{"text": t, "media_asset_ids": [card] if i == 0 and card else [],
                   **({"image_url": image_url} if i == 0 else {})} for i,t in enumerate(parts)]
-        value = {"text": parts[0], "full_text": "\n\n".join(parts), "media_asset_ids": [card], "image_url": image_url}
+        selected = [card] if card else []
+        if dest == "instagram_business":
+            selected = [a["asset_id"] for a in parent["media_assets"]
+                if (a.get("tradingview_snapshot") or {}).get("capture_ratio") == "4:5"] or selected
+        value = {"text": parts[0], "full_text": "\n\n".join(parts), "media_asset_ids": selected, "image_url": image_url}
         if len(posts) > 1:
             value["posts"] = posts
         if dest == "x":
@@ -385,16 +397,21 @@ def register_derivatives(store, parent):
     if previous:
         return json.loads(previous["payload"])
     image_url = None
+    primary = parent["media_assets"][0] if parent["media_assets"] else None
     for row in store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=parent["identity"]):
         result = json.loads(row["payload"]).get("result", {})
-        if (result.get("public_object_url") == canonical and parent["media_assets"][0]["sha256"] in result.get("observed_media_sha256", [])
+        if (primary and result.get("public_object_url") == canonical and primary["sha256"] in result.get("observed_media_sha256", [])
                 and result.get("public_image_urls")):
             image_url = result["public_image_urls"][0]
-    if not image_url:
+    if primary and not image_url:
         return {"status": "EVENT_PACK_CANONICAL_IMAGE_NOT_OBSERVED"}
     payloads = derivative_payloads(parent, canonical, image_url)
     rows = []
+    from .article_publication_quality_v1 import article_inputs
+    article, _, _ = article_inputs({"output_dir": parent["plan"]["output_dir"]})
     for dest in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
+        if dest == "instagram_business" and article.get("tradingview_instagram_skip"):
+            continue
         registration = registration_for_destination(dest)
         text = payloads[dest]["full_text"]
         rows.append({"destination": dest, "surface": registration.surface, "transport_type": registration.transport_type,

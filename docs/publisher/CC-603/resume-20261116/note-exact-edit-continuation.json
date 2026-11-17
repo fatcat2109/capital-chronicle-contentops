@@ -1,0 +1,6 @@
+{
+  "observed_at_utc": "2026-11-16T00:42:55.291467+00:00",
+  "request_sha256": "e17b1441ad3bafe1b7e9fff99bcf82cd680aa28bdbf3b61f68c53c456bbd9733",
+  "error": "NeoEndpointError:NEO_EXPECTED_MENUITEM_MISSING",
+  "tool_error": null
+}

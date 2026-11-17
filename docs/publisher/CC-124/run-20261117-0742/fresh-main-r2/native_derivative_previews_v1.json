@@ -1,0 +1,238 @@
+{
+  "article_identity": "00c3e40d81597124314e5b4f4a51ce36493de45ce05cebc6c4f63784d5aa576a",
+  "audience_learning_binding": {
+    "policy_version": "policy_c3e1de30fca9eace0112b384",
+    "preference_only": true,
+    "snapshot_sha256": "63ccd9539cee9b797e1ada73d4052749c0ccb3b6f36fc1936e67485e4125652e"
+  },
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "6792940cb22338bfa3ac89f7b4db87792f71141b04a9bd2e004690f6fef6f3c2",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The retained Main report records dated analysis and market observations.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "cc124-btc-range-20261117-r2",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+    "report_proposition": "Bitcoin remains inside its range after the broader selloff",
+    "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc124-btc-range-20261117-r2"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "7ab5fc228fbe8807c17face541088aae2fed9c77d9819ade2a3acfcc87d4d9c8",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Bitcoin's selloff still leaves a range, not a fresh setup**\n\nBitcoin has already sold off.\n\n**Context:** Any implications remain conditional on verification.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "platform_limit": 63206,
+      "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nWhy it matters: The report has not been independently confirmed.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-ff714eab7018e69f1837"
+      ],
+      "platform_limit": 2200,
+      "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nIn focus: Any implications remain conditional on verification.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\n#CapitalChronicle\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "platform_limit": 3000,
+      "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nWhy it matters: The report has not been independently confirmed.\n\nContext: Any implications remain conditional on verification.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nBitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nWhat to watch: Independent confirmation or denial is the next watch point.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nWhat to watch: Independent confirmation or denial is the next watch point.\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "tradingview-snapshot-711c89fd5ab9037d9405"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Independent confirmation or denial is the next watch point.\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Base case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "content_reply_count": 2,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "notice_reply_count": 0,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.378,
+          0.59,
+          0.646
+        ],
+        "post_character_counts": [
+          189,
+          295,
+          323
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.585,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Independent confirmation or denial is the next watch point.\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.",
+        "Base case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "root_text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124",
+      "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nWatch: Independent confirmation or denial is the next watch point.\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "tradingview-snapshot-711c89fd5ab9037d9405"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: Independent confirmation or denial is the next watch point.\n\nChart: TradingView."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 3,
+          "role": "reply",
+          "text": "Base case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 4,
+          "publication_notice_only": true,
+          "role": "reply",
+          "text": "Capital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "content_reply_count": 3,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "notice_reply_count": 1,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.593,
+          0.311,
+          0.707,
+          0.925,
+          0.221
+        ],
+        "post_character_counts": [
+          166,
+          87,
+          198,
+          259,
+          62
+        ],
+        "reply_count": 4,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.336,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: Independent confirmation or denial is the next watch point.\n\nChart: TradingView.",
+        "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.",
+        "Base case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.",
+        "Capital Chronicle may hold positions in the markets it covers."
+      ],
+      "root_text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124",
+      "text": "Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "tradingview-snapshot-711c89fd5ab9037d9405"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: Bitcoin's selloff still leaves a range, not a fresh setup\n\nBitcoin has already sold off.\n\nWhat to watch: Independent confirmation or denial is the next watch point.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-00c3e40d81597124\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside.\nAlternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.\n\nCapital Chronicle may hold positions in the markets it covers."
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

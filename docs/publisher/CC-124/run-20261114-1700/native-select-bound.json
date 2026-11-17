@@ -1,0 +1,28 @@
+{
+  "request_sha256": "48b8c6a8f7dbec1f4f1dcc919d2a9baa02288be908fa45026fada10752f8b7b4",
+  "output": {
+    "ordered_candidate_plan": [],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "No timely Main-derived article remains in this exact operation. The original proposed source remains frozen with its public-directional-copy gap. A separate exact public excerpt was admitted by the installed consumer as SOURCE_1, canonical SHA256 398540093db9379615cd5598124457114f403d5a275076a9c45a2756bd360dcf, but preserves capture 2026-11-14T09:08:55.826015Z and deadline 2026-11-14T10:08:55.826015Z. Installed evidence at 2026-11-14T10:10:59.092907+00:00 reports ARTICLE_DATA_CUTOFF_EXPIRED:3723s. Retain the source and accepted preparation without a new send; source admission, report generation and retrieval do not reset capture time. Other retained candidates are context rather than a fresh lead under this bound owner request. Do not repeat the PPI HOLD or substitute filler. No source retrieval or public write was performed by this selection role.",
+    "status": "ABSTAIN"
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_48b8c6a8f7db",
+    "native_assignment_id": "cc124-btc-weekend-20261114:select",
+    "expected_return": "select:48b8c6a8f7dbec1f4f1dcc919d2a9baa02288be908fa45026fada10752f8b7b4",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "this supported task request",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Parent collected the collaboration.spawn_agent final return for /root/native_select_48b8c6a8f7db; supported task identity is observed. Model/effort are configured, not runtime observed."
+  }
+}

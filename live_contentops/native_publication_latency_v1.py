@@ -13,6 +13,11 @@ POLICY = "CC-172"
 MAX_VISUAL_REPAIRS = 1
 DISPATCH_MINUTES = 15
 FINISHED_PIECE_MINUTES = 30
+# CC-199's current sample starts with Ops Product's 16 November reopening.
+# Only this named suspension is exempt; other route failures still need proof.
+FINISHED_PIECE_YOUTUBE_EXCEPTION_AT = "2026-11-15T18:25:00+00:00"
+FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+FINISHED_PIECE_YOUTUBE_EXCEPTION_AUTHORITY = "CC-199_OPS_PRODUCT_20261116_0125_GMT7"
 SPEED_POLICY = "JIM_DECISION_53"
 TIME_SENSITIVE_MODES = {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE", "STANDARD_NEWS_ANALYSIS", "DATA_OR_DOCUMENT_LENS"}
 LONG_FORM_MODES = {"EVERGREEN_EXPLAINER", "CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING", "WEEK_AHEAD_OR_WATCH"}
@@ -356,7 +361,11 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "status": response.get("status", "PENDING_NATIVE_RETURN"),
             "timing_basis": "NATIVE_ACTION_OBSERVED" if observation.get("dispatched_at_utc") else "NATIVE_RETURN_OBSERVED_UPPER_BOUND"})
     from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+    from live_contentops.neo_destination_handoff_v1 import suspended_routes
     barred = barred_browser_destinations()
+    youtube_exception = bool(approved
+        and _utc(approved) >= _utc(FINISHED_PIECE_YOUTUBE_EXCEPTION_AT)
+        and suspended_routes().get("youtube") == FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE)
     channels = []
     for entry in destinations:
         actual = [v for v in observations if v["destination"] == entry["destination"]
@@ -381,6 +390,7 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         finished = bool(confirmed and elapsed is not None and 0 <= elapsed <= FINISHED_PIECE_MINUTES * 60
             and image_elapsed is not None and 0 <= image_elapsed <= FINISHED_PIECE_MINUTES * 60)
         policy_no_write = entry["status"] == "DEFINITE_NO_WRITE" and entry["destination"] in barred
+        sample_exception = youtube_exception and entry["destination"] == "youtube"
         channels.append({"destination": entry["destination"], "status": entry["status"],
             "attempted_at_utc": chosen.get("attempted_at_utc"), "dispatched_at_utc": clock,
             "timing_basis": "VERIFIED_READBACK_UPPER_BOUND" if upper_bound else chosen.get("timing_basis"),
@@ -389,9 +399,19 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "readback_seconds_after_text_approval": readback_elapsed,
             "image_verified_readback_at_utc": image_readback.isoformat() if image_readback else None,
             "finished_piece_within_30_minutes": finished,
+            "finished_piece_required": not (policy_no_write or sample_exception),
+            **({"finished_piece_excluded_due_to": FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE,
+                "finished_piece_exclusion_authority": FINISHED_PIECE_YOUTUBE_EXCEPTION_AUTHORITY}
+               if sample_exception else {}),
             "skipped": entry["status"].startswith("SKIPPED_") or policy_no_write,
             **({"excluded_from_timing_due_to": barred[entry["destination"]]} if policy_no_write else {})})
     required = [c for c in channels if not c["skipped"]]
+    # A typed media/channel skip is a truthful dispatch outcome, not evidence
+    # that an authorized destination received an image (CC-199). Only an
+    # explicit platform prohibition or the dated CC-199 YouTube exception
+    # removes a destination from this acceptance reading. Dispatch/recovery
+    # states remain intact; this view adds no publication gate.
+    finished_required = [c for c in channels if c["finished_piece_required"]]
     complete = bool(required) and all(c["within_target"] is True for c in required)
     overdue = bool(deadline and (now or datetime.now(timezone.utc)) > deadline and not complete)
     data_timing = {}
@@ -425,7 +445,12 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         "dispatch_deadline_utc": deadline.isoformat() if deadline else None,
         "channels": channels, "all_channels_dispatched_within_target": complete,
         "finished_piece_acceptance": {"item": "CC-199", "target_minutes": FINISHED_PIECE_MINUTES,
-            "all_destinations_with_image_readbacks_within_target": bool(required)
-                and all(c["finished_piece_within_30_minutes"] for c in required)},
+            "required_destinations": [c["destination"] for c in finished_required],
+            "excluded_destinations": [{"destination": c["destination"],
+                "cause": c.get("finished_piece_excluded_due_to", c.get("excluded_from_timing_due_to")),
+                "authority": c.get("finished_piece_exclusion_authority")}
+                for c in channels if not c["finished_piece_required"]],
+            "all_destinations_with_image_readbacks_within_target": bool(finished_required)
+                and all(c["finished_piece_within_30_minutes"] for c in finished_required)},
         "state": "WITHIN_15_MINUTES" if complete else "OVERDUE_CONTINUE_PUBLICATION" if overdue
             else "DISPATCH_NOW" if approved else "TEXT_APPROVAL_NOT_OBSERVED"}

@@ -13,7 +13,7 @@ from io import BytesIO
 from pathlib import Path
 import re
 from uuid import uuid4
-from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, unquote
 import requests
 
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, expected_posts
@@ -31,11 +31,14 @@ class NeoEndpointError(RuntimeError):
 
 
 class NeoMcpClient:
-    def __init__(self, endpoint="http://127.0.0.1:9010/mcp", *, session=None):
+    def __init__(self, endpoint="http://127.0.0.1:9010/mcp", *, session=None,
+                 task_name="cc436 automatic posts", group_title=GROUP):
         parsed = urlsplit(endpoint)
         if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost", "::1"}:
             raise ValueError("NEO_LOCAL_ENDPOINT_REQUIRED")
         self.endpoint = endpoint
+        self.task_name=task_name
+        self.group_title=group_title
         self.http = session or requests.Session()
         self.http.headers.update({"Accept": "application/json, text/event-stream"})
         self.sequence = 0
@@ -59,7 +62,10 @@ class NeoMcpClient:
                     # SSE may remain open after the reply, and keepalive frames
                     # prevent a socket read timeout. Stop at our exact JSON-RPC
                     # reply; never wait for the connection itself to close.
-                    for line in response.iter_lines(chunk_size=1,decode_unicode=True):
+                    # Images can make one SSE line hundreds of kilobytes long.
+                    # Buffering it a byte at a time repeatedly copies the whole
+                    # partial line and stalls the browser review for minutes.
+                    for line in response.iter_lines(chunk_size=8192,decode_unicode=True):
                         if time.monotonic()>deadline:
                             raise NeoEndpointError("NEO_RPC_DEADLINE_EXCEEDED")
                         if line.startswith("data:") and line[5:].strip():
@@ -227,10 +233,10 @@ class NeoMcpClient:
     def open(self, destination, url):
         if not hasattr(self, "pages"):
             self.pages = {}
-            self.call("name_session", {"name": "cc436 automatic posts", "category": "social-media"})
+            self.call("name_session", {"name": self.task_name, "category": "social-media"})
             listing = self.text(self.call("tabs", {"action": "list"}))
             groups = self.text(self.call("tab_groups", {"action": "list"}))
-            group = re.search(r'^\[([^]]+)\] "' + re.escape(GROUP) + r'"[^\n]*pages: ([\d, ]+)', groups, re.M)
+            group = re.search(r'^\[([^]]+)\] "' + re.escape(self.group_title) + r'"[^\n]*pages: ([\d, ]+)', groups, re.M)
             self.group = group[1] if group else None
             # Reuse only this executor's explicitly named group, never another task's tabs.
             if group:
@@ -243,8 +249,8 @@ class NeoMcpClient:
                         if host == "substack.com": self.pages.setdefault("substack_notes", int(match[1]))
                         if host == "www.linkedin.com": self.pages.setdefault("linkedin_company", int(match[1]))
                         if host == "www.youtube.com": self.pages.setdefault("youtube", int(match[1]))
-                        if host in {"t.co","capitalchronicle.substack.com"}:
-                            self.pages.setdefault("link-verification",int(match[1]))
+                        if host in {"t.co","lnkd.in","capitalchronicle.substack.com"}:
+                            self.pages.setdefault("plan-substack" if self.group_title=="codex/cc466-plan-pages" else "link-verification",int(match[1]))
         if destination in self.pages:
             page = self.pages[destination]
             self.call("navigate", {"page": page, "url": url})
@@ -257,7 +263,7 @@ class NeoMcpClient:
             page = self.pages[destination] = int(match[1])
             if not self.group:
                 groups = self.text(self.call("tab_groups", {"action": "list"}))
-                match = re.search(r'^\[([^]]+)\] "' + re.escape(GROUP) + '"', groups, re.M)
+                match = re.search(r'^\[([^]]+)\] "' + re.escape(self.group_title) + '"', groups, re.M)
                 self.group = match[1] if match else None
         return page
 
@@ -275,8 +281,23 @@ class NeoMcpClient:
             return False
         cache=getattr(self,"verified_links",{})
         if short_url not in cache:
+            if urlsplit(canonical).hostname=='t.me':
+                # Resolve only the public redirect header. Telegram content is
+                # read on /s/CapitalChronicle; never open a signed-in client.
+                response=requests.head(short_url,allow_redirects=False,timeout=(3,8))
+                cache[short_url]=response.headers.get('Location','') if response.status_code in {301,302,303,307,308} else ''
+                self.verified_links=cache
+                return cache[short_url]==canonical
             page=self.open("link-verification",short_url)
-            observed=self.snapshot(page)["url"]
+            snapshot=self.snapshot(page)
+            observed=snapshot["url"]
+            if (short_url.startswith("https://lnkd.in/") and observed == short_url
+                    and "This link will take you to a page" in snapshot.get("text", "")):
+                link=next((r for r in snapshot["refs"] if r["role"]=="link" and r["name"]==canonical
+                    and f'[ref={r["ref"]}] [url="{canonical}"]' in snapshot["text"]),None)
+                if link:
+                    self.act(page,"click",ref=link["ref"])
+                    observed=self.snapshot(page)["url"]
             cache[short_url]=observed.split("?",1)[0].split("#",1)[0]
             self.verified_links=cache
         return cache[short_url] == canonical
@@ -293,7 +314,7 @@ def compare_public_images(request, observed, *, http=None):
         parsed = urlsplit(url)
         host = parsed.hostname or ""
         allowed = (request["destination"] == "x" and host == "pbs.twimg.com" and parsed.path.startswith("/media/")) or (
-            request["destination"] == "substack_notes" and (
+            request["destination"] in {"substack_notes", "substack"} and (
                 host == "substack-post-media.s3.amazonaws.com" or host == "substackcdn.com" or host.endswith(".substackcdn.com"))) or (
             request["destination"] == "linkedin_company" and host == "media.licdn.com") or (
             request["destination"] == "youtube" and host == "yt3.ggpht.com")
@@ -307,6 +328,18 @@ def compare_public_images(request, observed, *, http=None):
                 # resolution; PNG often remains byte-identical to our upload.
                 query=dict(parse_qsl(parsed.query));query["name"]="orig"
                 retrieved_url=urlunsplit((parsed.scheme,parsed.netloc,parsed.path,urlencode(query),""))
+            elif request['destination'] in {'substack_notes','substack'} and host.endswith('substackcdn.com'):
+                # The rendered CDN URL embeds its public upload's exact path.
+                # Compare that PNG at full resolution; the small WebP variant
+                # can lose thin chart labels without changing the source image.
+                decoded = unquote(parsed.path)
+                if '/https://' in decoded:
+                    original = decoded.rsplit('/https://', 1)[1]
+                    candidate = urlsplit('https://'+original)
+                    if (candidate.hostname == 'substack-post-media.s3.amazonaws.com'
+                            and candidate.path.startswith('/public/images/') and not candidate.query
+                            and not candidate.fragment and not candidate.username and candidate.port is None):
+                        retrieved_url = candidate.geturl()
             response = session.get(retrieved_url, timeout=(3, 12), stream=True, allow_redirects=False)
             response.raise_for_status()
             if 300 <= response.status_code < 400: continue
@@ -366,10 +399,17 @@ class NeoBrowserDriver:
             r"tài khoản của bạn (?:đã bị|bị) (?:hạn chế|tạm ngưng)|xác minh danh tính)[^\n]*",
         )
         wording = next((m.group(0).strip() for p in patterns if (m := re.search(p, text, re.I))), None)
+        external_verification = None
+        if request["destination"] == "youtube":
+            external_verification = self.client.run(page, "article_restriction")
+            if external_verification.get("verification_required"):
+                wording = external_verification["platform_wording"]
         checkpoint = bool(re.search(r"/(?:checkpoint|challenge|verify)(?:/|\?|$)", url, re.I))
         if not wording and not checkpoint:
             return None
-        cause = ("LINKEDIN" if request["destination"] == "linkedin_company" else "YOUTUBE") + "_PLATFORM_RESTRICTION"
+        cause = {"linkedin_company":"LINKEDIN", "youtube":"YOUTUBE", "x":"X"}[request["destination"]] + "_PLATFORM_RESTRICTION"
+        if external_verification and external_verification.get("verification_required"):
+            cause = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
         from .neo_destination_handoff_v1 import suspend_route
         suspend_route(request["destination"], cause)
         return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
@@ -382,9 +422,26 @@ class NeoBrowserDriver:
         refused = self.article_guard(request, page)
         if refused:
             return {**refused, "status": "READBACK_UNAVAILABLE", "verified": False}
+        texts = posts or expected_posts(request)
+        if request["destination"] == "linkedin_company":
+            # The admin shell can settle before its post bodies hydrate.
+            # Observe the target text before interpreting the loaded feed.
+            self.client.wait(page, '.update-components-text, [data-testid="expandable-text-box"]')
+            if texts:
+                try:
+                    self.client.wait_text(page, texts[0].splitlines()[0][:60])
+                except NeoEndpointError:
+                    # A loaded feed may genuinely lack this attempted post.
+                    # Continue into the existing identity/feed/age checks;
+                    # a missing target alone still never permits a resend.
+                    pass
         data = self.client.run(page, "article_readback", destination=request["destination"])
         candidates = data["posts"]
+        from .neo_destination_handoff_v1 import _text
+        prefix = _text(texts[0].splitlines()[0])[:60] if texts else ""
         for post in candidates:
+            if prefix and prefix not in _text(post.get("observed_text")):
+                continue  # An unrelated article's short links cannot prove this one.
             resolutions = []
             for link in post.get("links") or []:
                 if (request.get("canonical_url") and request["destination"] == "linkedin_company"
@@ -394,8 +451,6 @@ class NeoBrowserDriver:
                     resolutions.append({"displayed_url": link["url"], "target_url": request["canonical_url"],
                         "target_verified": True, "public_object_url": post["public_object_url"]})
             post["observed_link_resolutions"] = resolutions
-        texts = posts or expected_posts(request)
-        from .neo_destination_handoff_v1 import _text
         def matches(post):
             if post.get("observed_identity") != request["expected_identity"]:
                 return False
@@ -407,6 +462,23 @@ class NeoBrowserDriver:
         matches_found = [p for p in candidates if matches(p) and (
             not request.get("public_object_url") or p["public_object_url"] == request["public_object_url"])]
         if len(matches_found) != 1:
+            # Feed absence is a readback observation, never a retry. The native
+            # handoff still requires ten minutes since the exact last attempt.
+            # Keep a partial target, empty feed, wrong account or known object
+            # unresolved rather than converting any of them into absence.
+            if (not matches_found and not request.get("public_object_id") and not request.get("public_object_url")
+                    and candidates and prefix and all(p.get("observed_text") for p in candidates)
+                    and not any(prefix in _text(p["observed_text"]) for p in candidates)):
+                identity = self.client.run(page, "article_identity", destination=request["destination"],
+                    expected_identity=request["expected_identity"])
+                current_url = self.client.snapshot(page).get("url")
+                if (identity.get("authenticated") is True and identity.get("observed_identity") == request["expected_identity"]
+                        and current_url == request.get("entry_url")):
+                    return {"status":"READBACK_COMPLETE", "verified":False, "target_post_absent":True,
+                        "authenticated":True, "activity_feed_loaded":True, "observed_profile_url":current_url,
+                        "observed_identity":identity["observed_identity"],
+                        "observed_text":"\n\n".join(p["observed_text"] for p in candidates),
+                        "observed_feed_post_ids":[p["public_object_id"] for p in candidates]}
             return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "observed_identity": request["expected_identity"]}
         post = matches_found[0]
@@ -426,6 +498,19 @@ class NeoBrowserDriver:
             return {"result": refused, "identity": identity}
         if request["action"] == "READBACK":
             return {"result": self.article_readback(request, page), "identity": identity}
+        if destination == "youtube":
+            try:
+                # The channel can settle before its signed-in owner controls
+                # hydrate. Wait on the observed owner link, then still verify
+                # the exact channel and Posts tab in article_identity.
+                self.client.wait(page, 'a[href^="https://studio.youtube.com/channel/"][href$="/editing"]')
+            except NeoEndpointError:
+                pass  # The normal identity check below refuses a real mismatch.
+        elif destination == "linkedin_company":
+            try:
+                self.client.wait_text(page, "Start a post")
+            except NeoEndpointError:
+                pass  # Still require the exact company admin identity below.
         identity = self.client.run(page, "article_identity", destination=destination,
             expected_identity=request["expected_identity"])
         if request["action"] == "VERIFY_IDENTITY":
@@ -442,15 +527,42 @@ class NeoBrowserDriver:
                 self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
                 ref = self._ref(page, "textbox", {"Text editor for creating content"}, last=True)
             else:
-                ref = self._ref(page, "button", {"Bật mí về video tiếp theo của bạn", "Share an upcoming video", "What's on your mind?"})
-                self.client.act(page, "click", ref=ref)
                 ready = self.client.run(page, "article_editor")
+                if not ready.get("ready"):
+                    # YouTube rotates this prompt. Bind the observed editor's
+                    # own label to its visible button instead of guessing it.
+                    if not ready.get("prompt"):
+                        raise NeoEndpointError("ARTICLE_EDITOR_PROMPT_UNAVAILABLE")
+                    ref = self._ref(page, "button", {ready["prompt"]})
+                    self.client.act(page, "click", ref=ref)
+                    ready = self.client.run(page, "article_editor")
                 if not ready.get("ready"):
                     raise NeoEndpointError("ARTICLE_EDITOR_UNAVAILABLE")
                 ref = self._ref(page, "textbox", {"CC454 article text"})
-            self.client.act(page, "fill", ref=ref, value=posts[0])
+            try:
+                self.client.act(page, "fill", ref=ref, value=posts[0])
+            except NeoEndpointError as exc:
+                if str(exc) != "NEO_FIELD_NORMALIZED_OR_REJECTED_ACT":
+                    raise
+                refused = self.article_guard(request, page)
+                if refused:
+                    return {"result": refused, "identity": identity}
+                actual = self.client.run(page, "article_composer", destination=destination).get("texts")
+                if not isinstance(actual, list) or len(actual) != 1 or " ".join(actual[0].split()) != " ".join(posts[0].split()):
+                    raise
+                # Rich text editors add blank lines. The words, punctuation and
+                # numbers match; article_publish still verifies them at click.
             media = (request.get("content_binding") or {}).get("media_manifest") or []
             if media:
+                if destination == "linkedin_company":
+                    snapshot = self.client.snapshot(page)
+                    preview = any(r["role"] == "link" and r["name"].startswith("Open article:") for r in snapshot["refs"])
+                    remove = next((r for r in snapshot["refs"] if r["role"] == "button" and r["name"] == "Remove media"), None)
+                    if preview and remove:
+                        # This composer auto-attaches the canonical link card.
+                        # Replace that draft preview with the bound chart through
+                        # the normal intercepted upload, before any public click.
+                        self.client.act(page, "click", ref=remove["ref"])
                 ready = self.client.run(page, "article_intercept_upload", destination=destination)
                 if not ready.get("installed"):
                     raise NeoEndpointError("ARTICLE_FILE_CHOOSER_INTERCEPTION_UNAVAILABLE")
@@ -481,24 +593,32 @@ class NeoBrowserDriver:
 
     @staticmethod
     def _links(request, post):
+        from .neo_destination_handoff_v1 import _bound_link_targets
         canonical = request.get("canonical_url")
-        return [{"displayed_text":link["text"],"short_url":link["url"],"target_url":canonical,
+        targets = _bound_link_targets(request.get('content_binding') or {}) | ({canonical} if canonical else set())
+        return [{"displayed_text":link["text"],"short_url":link["url"],"target_url":target,
             "target_verified":True,"public_object_url":post["public_object_url"]}
-            for link in post.get("links") or []
-            if canonical and canonical in {link.get("url"),link.get("expanded_url")}]
+            for link in post.get("links") or [] for target in targets
+            if target in {link.get("url"),link.get("expanded_url")}]
 
     @classmethod
     def _matches(cls, request, text, post):
-        from live_contentops.neo_destination_handoff_v1 import _text, _x_reader_text, _note_rendered_text
+        from live_contentops.neo_destination_handoff_v1 import (
+            _text, _x_reader_text, _note_rendered_text, _note_bound_text, _bound_link_targets,
+        )
         observed = post["observed_text"]
         if request["destination"] == "x":
-            observed = _x_reader_text(observed,cls._links(request,post),post["public_object_url"],request.get("canonical_url") or "")
+            observed = _x_reader_text(observed,cls._links(request,post),post["public_object_url"],request.get("canonical_url") or "",
+                                      bound_urls=_bound_link_targets(request.get('content_binding') or {}))
             return _text(text) in observed
         card = (request.get("content_binding") or {}).get("expected_link_card_url")
         if card and any(link.get("url")==card and link.get("card_visible") is True for link in post.get("links") or []):
             return _note_rendered_text(text,card,post.get("links") or [],post["public_object_url"]) in _note_rendered_text(
                 observed,card,post.get("links") or [],post["public_object_url"])
-        return _text(text) in _text(observed)
+        links = [{**link, 'public_object_url':post['public_object_url']} for link in post.get('links') or []]
+        binding = request.get('content_binding') or {}
+        return _note_bound_text(text,binding,links,post['public_object_url']) in _note_bound_text(
+            observed,binding,links,post['public_object_url'])
 
     def readback(self, request, page, *, posts=None):
         destination = request["destination"]
@@ -506,9 +626,9 @@ class NeoBrowserDriver:
         if url:
             self.client.call("navigate", {"page": page, "url": url})
         else:
-            root = ROOTS["x"] + "/with_replies" if destination == "x" else request["entry_url"]
+            root = (ROOTS["x"] if request.get("quote_parent") else ROOTS["x"] + "/with_replies") if destination == "x" else request["entry_url"]
             self.client.call("navigate", {"page": page, "url": root})
-        selector = 'article[data-testid="tweet"]' if destination == "x" else 'main .FeedProseMirror'
+        selector = 'article[data-testid="tweet"]' if destination == "x" else '.FeedProseMirror'
         self.client.wait(page, selector)
         data = self.client.run(page, "readback", expected_identity=request["expected_identity"])
         candidates = data["tweets" if destination == "x" else "notes"]
@@ -516,9 +636,43 @@ class NeoBrowserDriver:
         texts = posts or expected_posts(request)
         from live_contentops.neo_destination_handoff_v1 import _text
         matches = [p for p in candidates if (not url or p["public_object_url"] == url)
-            and texts and (self._matches(request,texts[0],p) or (
+            and texts and ((bool(url) and p['public_object_url']==url) or self._matches(request,texts[0],p) or (
                 not url and _text(texts[0])[:100] in _text(p["observed_text"]))) ]
+        missing_link_reply = False
+        parent = request.get("reply_parent") or {}
+        if not matches and not url and destination == "substack_notes" and parent:
+            from .neo_destination_handoff_v1 import _note_missing_link_reply_text
+            # The known failure removed both URLs. Identify only a unique reply
+            # rendered under this exact parent, then verify its canonical author.
+            matches = [p for p in candidates
+                if data.get("url") == parent.get("public_object_url")
+                and p.get("reply_parent_url") == parent.get("public_object_url")
+                and p.get("reply_parent_id") == parent.get("public_object_id")
+                and p.get("public_object_id") != parent.get("public_object_id")
+                and _note_missing_link_reply_text(request, p.get("observed_text"))]
+            missing_link_reply = bool(matches)
         if len(matches) != 1:
+            if destination == "x" and request.get("quote_parent") and not url and candidates and texts:
+                # Quote-posts are own-account roots. A freshly loaded own Posts
+                # feed whose newest post predates the attempt can prove absence;
+                # the existing owner still enforces its ten-minute wait.
+                attempt = request.get("latest_dispatch_attempt_at_utc")
+                clocks = [p.get("published_at_utc") for p in candidates]
+                from .native_neo_executor_v1 import _post_texts
+                absent = (attempt and all(clocks) and all(p.get("observed_text") for p in candidates)
+                    and not any(_post_texts([texts[0]])[0] in _post_texts([p["observed_text"]])[0] for p in candidates)
+                    and max(datetime.fromisoformat(t.replace("Z", "+00:00")) for t in clocks)
+                        < datetime.fromisoformat(attempt.replace("Z", "+00:00")))
+                if absent:
+                    identity = self.client.run(page, "identity", destination="x", expected_identity=request["expected_identity"])
+                    current = self.client.snapshot(page)
+                    if identity.get("authenticated") and current.get("url") == request["entry_url"]:
+                        return {"status":"READBACK_COMPLETE", "verified":False, "target_post_absent":True,
+                            "authenticated":True, "activity_feed_loaded":True, "observed_profile_url":current["url"],
+                            "observed_identity":identity["observed_identity"],
+                            "observed_text":"\n\n".join(p["observed_text"] for p in candidates),
+                            "observed_feed_post_ids":[p["public_object_id"] for p in candidates],
+                            "newest_feed_post_at_utc":max(clocks)}
             return {"status":"READBACK_UNAVAILABLE", "verified":False,
                 "reason_code":"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "observed_identity":request["expected_identity"]}
         root = matches[0]
@@ -541,6 +695,18 @@ class NeoBrowserDriver:
                         "reason_code":"NEO_NOTE_AUTHOR_NOT_VERIFIED"}
             else:
                 root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
+        if missing_link_reply:
+            from .neo_destination_handoff_v1 import _note_missing_link_reply_text
+            if not _note_missing_link_reply_text(request, root.get("observed_text")):
+                return {"status":"READBACK_UNAVAILABLE", "verified":False,
+                    "reason_code":"NEO_NOTE_REPLY_CONTENT_CHANGED"}
+            return {**root, "status":"SUCCESS", "request_sha256":request["request_sha256"],
+                "observed_identity":request["expected_identity"], "content_verified":False,
+                "reason_code":"NEO_NOTE_REPLY_LINKS_DROPPED",
+                "observed_reply_parent_id":parent["public_object_id"],
+                "observed_reply_parent_url":parent["public_object_url"],
+                "observed_links":[{**link,"public_object_url":root["public_object_url"]}
+                                  for link in root.get("links") or []]}
         if len(texts)>1:
             # X delivers replies after the root. Wait for the expected final
             # post, rather than accepting the root-only loading snapshot.
@@ -553,18 +719,41 @@ class NeoBrowserDriver:
         for text in texts:
             found = [r for r in candidates if self._matches(request,text,r)]
             if len(found) != 1:
-                return {"status":"READBACK_UNAVAILABLE","verified":False,"reason_code":"NEO_THREAD_READBACK_INCOMPLETE"}
+                observed_parent = (request.get("reply_parent") or {})
+                parent_visible = any(r["public_object_url"] == observed_parent.get("public_object_url")
+                                     for r in candidates)
+                return compare_public_images(request, {**root, 'status':'SUCCESS', 'content_verified':False,
+                    'observed_identity':request['expected_identity'], 'reason_code':'NEO_THREAD_READBACK_INCOMPLETE',
+                    'request_sha256':request['request_sha256'],
+                    **({'observed_reply_parent_id':observed_parent['public_object_id'],
+                        'observed_reply_parent_url':observed_parent['public_object_url']} if parent_visible else {}),
+                    'observed_links':[{**link,'public_object_url':root['public_object_url']} for link in root.get('links') or []]},
+                    http=getattr(self.client,'image_http',None))
             thread.append(found[0])
+        root = thread[0]
         result = {**root,"status":"SUCCESS","request_sha256":request["request_sha256"],
             "observed_identity":request["expected_identity"],"observed_text":"\n\n".join(r["observed_text"] for r in thread),
             "content_verified":True,"observed_thread":thread}
+        if request.get("quote_parent"):
+            edge = self.client.run(page, "quote_card", quote_parent=request["quote_parent"], public_url=root["public_object_url"])
+            if edge.get("matches") and not edge.get("public_object_url"):
+                # X's quote card is a visible button without an href. Follow
+                # that exact card and observe the actual source permalink.
+                self.client.act(page, "click", ref=self._ref(page, edge.get("role") or "button", {"CC467 observed quote source"}))
+                self.client.wait(page, 'article[data-testid="tweet"]')
+                edge = self.client.run(page, "quote_source", quote_parent=request["quote_parent"])
+                self.client.call("navigate", {"page":page, "url":root["public_object_url"]})
+            if edge.get("matches"):
+                result.update(observed_quote_parent_id=edge.get("public_object_id"),
+                              observed_quote_parent_url=edge.get("public_object_url"))
         # A reply's parent must actually occur on the exact rendered thread.
         parent = request.get("reply_parent")
         if parent and any(r["public_object_url"] == parent["public_object_url"] for r in candidates):
             result.update(observed_reply_parent_id=parent["public_object_id"],
                           observed_reply_parent_url=parent["public_object_url"])
         card = (request.get("content_binding") or {}).get("expected_link_card_url")
-        result["observed_links"] = root.get("links") or []
+        result["observed_links"] = [{**link, 'public_object_url':root['public_object_url']}
+                                    for link in root.get('links') or []]
         result["observed_link_resolutions"] = [link for post in thread for link in self._links(request,post)]
         if card:
             result["observed_link_cards"] = [{"url":link["url"],"card_visible":True,
@@ -573,22 +762,33 @@ class NeoBrowserDriver:
         return compare_public_images(request, result, http=getattr(self.client,"image_http",None))
 
     def _resolve_links(self, request, candidates):
+        from .neo_destination_handoff_v1 import _bound_link_targets
         canonical=request.get("canonical_url")
-        if request["destination"] != "x" or not canonical:
+        targets=_bound_link_targets(request.get('content_binding') or {})|({canonical} if canonical else set())
+        if request["destination"] != "x" or not targets:
             return
         for post in candidates:
             for link in post.get("links") or []:
-                if (canonical not in {link.get("url"),link.get("expanded_url")}
-                        and re.fullmatch(r"https://t\.co/[A-Za-z0-9]+",str(link.get("url") or ""))
-                        and self.client.verify_link(link["url"],canonical)):
-                    link["expanded_url"]=canonical
+                if re.fullmatch(r"https://t\.co/[A-Za-z0-9]+",str(link.get('url') or '')):
+                    for target in targets:
+                        if target in {link.get('url'),link.get('expanded_url')} or self.client.verify_link(link['url'],target):
+                            link['expanded_url']=target
+                            break
 
     def prepare(self, request, page):
         """Prepare exact approved copy/media; this method never publishes."""
         destination = request["destination"]
         parent = request.get("reply_parent")
         if destination == "x":
-            self.client.call("navigate",{"page":page,"url": parent["public_object_url"] if parent else "https://x.com/compose/post"})
+            quote = request.get("quote_parent")
+            self.client.call("navigate",{"page":page,"url": (quote or parent)["public_object_url"] if quote or parent else "https://x.com/compose/post"})
+            if quote:
+                self.client.wait(page, 'article[data-testid="tweet"]')
+                observed = self.client.run(page, "quote_source", quote_parent=quote)
+                if observed.get("matches") is not True:
+                    raise NeoEndpointError("CC467_VISIBLE_SOURCE_CHANGED")
+                self.client.act(page, "click", ref=self._ref(page, "button", {"CC467 source quote menu"}))
+                self.client.act(page, "click", ref=self._ref(page, "menuitem", {"Quote"}))
             editor='[data-testid="tweetTextarea_0"][contenteditable="true"][role="textbox"]'
             self.client.wait(page,editor if parent else '[role="dialog"] '+editor)
         else:
@@ -648,6 +848,11 @@ class NeoBrowserDriver:
                     else:
                         self.client.act(page,"fill",ref=refs[index]["ref"],value=text)
             # The lead card belongs to the first post, including a thread.
+            if destination=='substack_notes' and 'cc603-' in str(request.get('work_item_id','')):
+                self.client.act(page,'focus',ref=ref)
+                self.client.act(page,'press',key='Control+a')
+                self.client.act(page,'press',key='Backspace')
+                self.client.run(page,'note_inline_copy',text=text)
             if media and index == 0:
                 if destination == "substack_notes":
                     self.client.run(page,"expose_note_upload")
@@ -658,6 +863,36 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
+        if destination=='substack_notes' and request.get('action')=='EDIT_EXISTING' and request.get('approved_presentation_restore'):
+            page=self.client.open('substack_notes',request['public_object_url'])
+            self.client.wait(page,'.FeedProseMirror')
+            observed=self.client.run(page,'readback',expected_identity=request['expected_identity'])
+            exact=next((n for n in observed.get('notes',[]) if n['public_object_url']==request['public_object_url']),None)
+            if exact is None:raise NeoEndpointError('NEO_EXACT_NOTE_TO_RESTORE_NOT_FOUND')
+            identity={'authenticated':True,'observed_identity':request['expected_identity'],
+                      'observed_at_utc':datetime.now(timezone.utc).isoformat()}
+            scoped=self.client.run(page,'note_exact_options',public_url=request['public_object_url'])
+            if not scoped.get('marked'):raise NeoEndpointError('NEO_EXACT_NOTE_OPTIONS_MISSING')
+            self.client.act(page,'click',ref=self._ref(page,'button',{'CC603 exact note options'}))
+            self.client.wait(page,'[role="menu"] [role="menuitem"]')
+            self.client.wait_text(page,'Edit')
+            self.client.act(page,'click',ref=self._ref(page,'menuitem',{'Edit'}))
+            self.client.wait(page,'[contenteditable="true"][role="textbox"]')
+            posts=expected_posts(request)
+            editor=self._ref(page,'textbox',{"What's on your mind?"})
+            self.client.act(page,'focus',ref=editor)
+            self.client.act(page,'press',key='Control+a')
+            self.client.act(page,'press',key='Backspace')
+            self.client.run(page,'note_inline_copy',text=posts[0])
+            result=self.client.run(page,'publish',destination=destination,posts=posts,edit_existing=True)
+            if result['status']!='CLICKED':return {'result':result,'identity':identity}
+            readback=self.readback(request,page,posts=posts)
+            return {'result':{**readback,'status':'SUCCESS','stage':'PUBLISH_CLICK_ATTEMPTED'},
+                    'identity':identity,'pre_click_posts':result['pre_click_posts'],'readback':readback}
+        from .plan_substack_neo_v1 import supports_operation
+        if destination == "substack" and supports_operation(packet.get("operation_id", "")):
+            from .plan_substack_neo_v1 import perform
+            return perform(self.client, packet)
         if destination in ARTICLE_ROUTES:
             return self.article_perform(packet)
         profile = request["entry_url"] if request["action"] == "READBACK" else ROOTS[destination]
@@ -667,6 +902,10 @@ class NeoBrowserDriver:
             page = self.client.open(destination, profile)
             if request["action"] == "READBACK":
                 return {"result":self.readback(request,page),"identity":identity}
+            if request.get("quote_parent"):
+                refused = self.article_guard(request, page)
+                if refused:
+                    return {"result":refused, "identity":identity}
             self.client.wait_text(page,"Edit profile")
             identity = self.client.run(page,"identity",destination=destination,expected_identity=request["expected_identity"])
         except NeoEndpointError as exc:
@@ -685,7 +924,8 @@ class NeoBrowserDriver:
                 "stage":"BEFORE_PUBLISH_CLICK","reason_code":"NEO_COMPOSER_PREPARATION_FAILED",
                 "safe_error_classification":str(exc)},"identity":identity}
         parent=request.get("reply_parent")
-        result=self.client.run(page,"publish",destination=destination,posts=posts,reply_parent=parent)
+        result=self.client.run(page,"publish",destination=destination,posts=posts,reply_parent=parent,
+                               **({"quote_parent": request["quote_parent"]} if request.get("quote_parent") else {}))
         if result["status"] != "CLICKED":
             return {"result":result,"identity":identity}
         readback=self.readback(request,page,posts=posts)
@@ -706,7 +946,7 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
     code revision cannot release the existing exactly-once dispatch fence.
     """
     if (dispatch.get("status") != "DEFINITE_NO_WRITE" or dispatch.get("public_object_id")
-            or dispatch.get("public_object_url") or dispatch.get("platform") not in {"x","substack_notes"}):
+            or dispatch.get("public_object_url") or dispatch.get("platform") not in {"x","substack_notes","substack"}):
         return None
     message=store.get_outbox_message(dispatch["message_id"])
     if not message:
@@ -723,10 +963,16 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
         key="native-neo-"+sha256_of([packet["operation_id"],request["request_sha256"],"response"])
         response=store.get_outbox_message(key)
         result=json.loads(response["payload"]).get("result",{}) if response else {}
+        allowed_causes={"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH",
+                        "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+        if dispatch["platform"]=="substack":
+            from .plan_substack_neo_v1 import supports_operation
+            if not supports_operation(packet["operation_id"]):
+                return None
+            allowed_causes={"NEO_CONTROL_COVERED_ACT", "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"}
         if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
                 or result.get("public_write_performed") is not False or result.get("stage") != "BEFORE_PUBLISH_CLICK"
-                or result.get("reason_code") not in {"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH",
-                    "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+                or result.get("reason_code") not in allowed_causes
                 or not result.get("native_tool_return_sha256")
                 or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
                 or result.get("neo_executor_revision") == revision):
@@ -745,13 +991,26 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         if automatic_destinations is None:
             kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
-        self.client=client or endpoint_client()
+        self.client=client or (NeoMcpClient(task_name="cc467 news quotes",group_title="codex/cc467-news-quotes")
+            if self.operation_id.startswith("heavy-quote-") else
+            NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
+            if self.operation_id.startswith("plan-analysis-") else endpoint_client())
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})
-        self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+        self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()
+            +Path(__file__).with_name("plan_substack_neo_v1.py").read_bytes()).hexdigest()
 
     def repaired_prewrite_request(self, dispatch):
         return repaired_prewrite_request(self.store,dispatch,executor_revision=self.executor_revision)
+
+    def fresh_readback_request(self, request):
+        # A repaired reader must observe the exact object again, even inside
+        # the old cache interval. Issued observations keep their original bytes.
+        revised = {**request, 'readback_transport_revision':self.executor_revision}
+        revised = super().fresh_readback_request(revised) or revised
+        from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+        revised['request_sha256'] = sha256_of({k:v for k,v in revised.items() if k != 'request_sha256'})
+        return revised
 
     def fresh_publish_request(self, request):
         """A repaired transport can supersede its proven pre-click refusal once.
@@ -762,14 +1021,42 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         from .capital_chronicle_latest_report_consumer_v1 import sha256_of
         refreshed = dict(request)
         while True:
-            previous = self._get(sha256_of(refreshed), "response") or {}
+            key = sha256_of(refreshed)
+            previous = self._get(key, "response") or {}
+            claim = self._get(key, "started")
+            uncertain = not previous or previous.get("result", {}).get("status") == "UNKNOWN_WRITE"
+            if (uncertain and claim and request.get("destination") in self.automatic_destinations
+                    and request.get("intent_sha256")
+                    and not any(previous.get("result", {}).get(k) for k in ("public_object_id", "public_object_url"))):
+                from .native_neo_executor_v1 import _readback_absence_evidence
+                observed = []
+                bindings = ("destination", "work_item_id", "intent_sha256", "package_identity", "payload_hash", "expected_identity", "canonical_url")
+                for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=request["work_item_id"]):
+                    packet = json.loads(row["payload"])
+                    read = packet.get("request") or {}
+                    if read.get("action") != "READBACK" or any(read.get(k) != request.get(k) for k in bindings):
+                        continue
+                    response = self._get(read.get("request_sha256"), "response") or {}
+                    result = response.get("result") or {}
+                    if not result.get("native_tool_return_sha256") or not _readback_absence_evidence(read, result):
+                        continue
+                    at = result["native_tool_observation"]["observed_at_utc"]
+                    if datetime.fromisoformat(at.replace("Z", "+00:00")) > datetime.fromisoformat(claim["begun_at_utc"]):
+                        observed.append((at, result["native_tool_return_sha256"]))
+                if observed:
+                    # The coordinator has separately claimed the reconciled
+                    # retry. Bind its new native claim to actual later absence;
+                    # a lost return alone still never creates a second click.
+                    refreshed["supersedes_reconciled_absent_claim_sha256"] = sha256_of([claim, max(observed)[1]])
+                    continue
             result = previous.get("result") or {}
             if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
                     or result.get("public_write_performed") is not False
                     or result.get("stage") != "BEFORE_PUBLISH_CLICK"
                     or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
                     or not result.get("native_tool_return_sha256")
-                    or result.get("neo_executor_revision") == self.executor_revision):
+                    or (result.get("neo_executor_revision") == self.executor_revision
+                        and request.get('action') != 'EDIT_EXISTING')):
                 break
             refreshed["supersedes_prewrite_no_write_sha256"] = sha256_of(previous)
         return refreshed if refreshed != request else None
@@ -778,7 +1065,12 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         try:
             return super().__call__(request)
         except NativeNeoInputRequired as waiting:
-            if request.get("destination") not in self.automatic_destinations or request.get("action") == "EDIT_EXISTING":
+            from .plan_substack_neo_v1 import supports_operation
+            plan_page = request.get("destination") == "substack" and supports_operation(self.operation_id)
+            approved_note_restore=(request.get('action')=='EDIT_EXISTING' and request.get('destination')=='substack_notes'
+                                   and request.get('approved_presentation_restore'))
+            if (request.get("destination") not in self.automatic_destinations and not plan_page) or (
+                    request.get("action") == "EDIT_EXISTING" and not approved_note_restore):
                 raise
             pending=waiting
         # Connect before claiming: an unavailable endpoint has made no public attempt.
@@ -852,8 +1144,26 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         if not source or source["destination"] not in {posts.DESTINATION,"internal:plan-analysis-page"}:
             continue
         source_payload=json.loads(source["payload"])
+        source_payload.setdefault("key", operation)
+        if source["destination"] == posts.DESTINATION:
+            from .plan_call_cards_v1 import SETTLED_POST, settled_destinations, settle_pending
+            if source["status"] in {SETTLED_POST, posts.STALE, posts.SUPERSEDED}:
+                continue
+            # Legacy API-complete rows used PUBLISHED before their browser
+            # copies reconciled. Their old readbacks obey the same late limit.
+            if source_payload.get("at_utc") and posts._age_minutes(source_payload,
+                    datetime.now(timezone.utc)) > posts.LATE_STATE_HOURS * 60:
+                closed = settle_pending(store, source, source_payload, now=datetime.now(timezone.utc))
+                if closed:
+                    continue
+            if request["destination"] in settled_destinations(store, source_payload):
+                continue
         if source["destination"]=="internal:plan-analysis-page" and source_payload.get("link_id")!=operation:
             continue
+        if source["destination"] == "internal:plan-analysis-page":
+            from .plan_analysis_pages_v1 import settle_late_link
+            if settle_late_link(store, source_payload):
+                continue
         response_key="native-neo-"+sha256_of([operation,request["request_sha256"],"response"])
         if store.get_outbox_message(response_key):
             continue
@@ -864,7 +1174,8 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
     started=time.monotonic()
     outcomes=[]
     processed=0
-    for (operation,destination),(packet,source) in chosen.items():
+    for (operation,destination),(packet,source) in sorted(chosen.items(), key=lambda item:
+            item[1][1].get("at_utc") or item[1][0].get("created_at") or "", reverse=True):
         if processed>=limit or time.monotonic()-started>=budget_seconds:
             break
         request=packet["request"]

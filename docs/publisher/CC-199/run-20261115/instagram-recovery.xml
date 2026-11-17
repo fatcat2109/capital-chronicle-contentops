@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="9.120" timestamp="2026-11-15T17:35:06.112453+07:00" hostname="J-P"><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_posts" time="4.785"><failure message="AssertionError: assert 'RECONCILED_A...SAFE_TO_RETRY' == 'RECONCILED_CONFIRMED'&#10;  &#10;  - RECONCILED_CONFIRMED&#10;  + RECONCILED_ABSENT_SAFE_TO_RETRY">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4011/test_repaired_validation_failu0')
+
+    def test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_posts(tmp_path):
+        class ValidationThenSuccess(FixtureTransport):
+            failures = 3
+            def publish(self, *, destination, **kwargs):
+                if destination == "instagram_business" and self.failures:
+                    self.failures -= 1
+                    self.publish_calls.append(destination)
+                    return {"status": "VALIDATION_FAILED", "validation_failures": ["image_url_unreachable"]}
+                return super().publish(destination=destination, **kwargs)
+        store, transport, coordinator = _coordinator(tmp_path, runtime=ValidationThenSuccess())
+        plan = _quality_plan()
+        coordinator.execute_plan("work-1", plan)
+        for _ in range(3):
+            coordinator.recover_pending()
+        state = coordinator.publication_state("work-1", plan)
+&gt;       assert state["per_destination"]["instagram_business"]["reconciliation_status"] == RECONCILED_CONFIRMED
+E       AssertionError: assert 'RECONCILED_A...SAFE_TO_RETRY' == 'RECONCILED_CONFIRMED'
+E         
+E         - RECONCILED_CONFIRMED
+E         + RECONCILED_ABSENT_SAFE_TO_RETRY
+
+tests\test_finished_piece_dispatch_v1.py:86: AssertionError</failure></testcase></testsuite></testsuites>

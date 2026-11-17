@@ -1,0 +1,11 @@
+{
+  "item": "CC-435",
+  "observed_at_utc": "2026-11-17T02:18:59.980648+00:00",
+  "endpoint": "https://api.linkedin.com/v2/userinfo",
+  "authenticated": false,
+  "public_write_performed": false,
+  "client": "Windows curl",
+  "exit_code": 35,
+  "status_line": null,
+  "error": "curl: (35) Recv failure: Connection was reset\n"
+}

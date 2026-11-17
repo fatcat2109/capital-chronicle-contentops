@@ -98,26 +98,96 @@ def main(argv=None) -> int:
             python=child_python(), dry_run=args.dry_run)}
         result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
-        from live_contentops.instagram_adapter_v6 import readback_analysis_profile_link
+        # CC-543: the plan's API alerts precede every model/browser operation.
+        # The existing task has a five-minute lifetime; a previous slow slice
+        # therefore cannot consume this plan's entire ten-minute deadline.
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run,
-                             instagram_profile_reader=readback_analysis_profile_link if args.publish and not args.dry_run else None,
-                             main_root=args.main_root, python=child_python())
+                             render_all=args.dry_run, main_root=args.main_root, python=child_python())
+        if args.publish and not args.dry_run and result["status"] == "OK":
+            result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
+                active_recoveries=result.get("active_recoveries"), immediate_only=True)
+            # pythonw has no stdout and later editorial work may outlive the
+            # task. Save the actual API result in its existing run record now.
+            posts.record_run({**result, "phase": "IMMEDIATE_ALERTS", "publication": result["immediate_publication"]},
+                             args.store.parent / posts.RUN_RECORD_FOLDER)
+        # Decision 124's private delivery still precedes the slow editorial and
+        # browser phase, through this same minute entry and existing schedule.
+        reply_bot = None
+        if args.publish and not args.dry_run:
+            # CC-467's source-to-post deadline is five minutes. Its single
+            # bounded slice precedes slower reply/page work in this same task.
+            from live_contentops.heavy_news_quotes_v1 import refresh_due as quotes_due
+            try:
+                result["heavy_news_quotes"] = quotes_due(store,
+                    feed_path=args.store.parent / "x_list_feed/x_list_feed_v1.json",
+                    root=args.store.parent / "daily_app_outputs/heavy_news_quotes")
+            except Exception as exc:
+                result["heavy_news_quotes"] = {"status": "QUOTE_NOT_COMPLETED", "cause": str(exc)[:160]
+                    if isinstance(exc, ValueError) else type(exc).__name__}
+            from live_contentops.x_reply_bot_v1 import refresh_due as bot_refresh
+            try:
+                reply_bot = bot_refresh(store, binding_path=args.store.parent / "control/x_reply_bot_binding.json")
+            except Exception as exc:
+                reply_bot = {"status": "REPLY_BOT_FAILED", "cause": type(exc).__name__, "public_submit_actions": 0}
+        if args.publish and not args.dry_run:
+            # CC-537 follows immediate/private delivery and precedes slow page
+            # writing. Its board remains independent of plan-export freshness.
+            from live_contentops.daily_trend_board_v1 import run_due as trend_board
+            result["daily_trend_board"] = trend_board(store,
+                output_root=args.store.parent / "daily_app_outputs/daily-trend-board", automatic_neo=True)
+        plan_pages = None
+        if args.publish and not args.dry_run:
+            # CC-603's corrections are owed even while Main's export is stale.
+            # Keep the immediate alerts and private delivery ahead of browser work.
+            from live_contentops.call_followups_v1 import minute_due as followups_due
+            try:
+                result["call_followups"] = followups_due(store, lambda: posts.read_export(
+                    args.export_dir, main_root=args.main_root, python=child_python()))
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                result["call_followups"] = {"status": "NOT_COMPLETED", "cause": str(exc)[:200]}
+        if args.publish and not args.dry_run:
+            from live_contentops.plan_reader_editorial_v1 import run_due
+            try:
+                page_export = posts.read_export(args.export_dir, main_root=args.main_root, python=child_python())
+                rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
+                plan_pages = run_due(store, page_export, root=args.store.parent / "daily_app_outputs/plan_analysis",
+                    rollout=rollout, now=datetime.now(timezone.utc))
+            except Exception as exc:
+                plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
+        if reply_bot is not None:
+            result["reply_bot"] = reply_bot
+        if plan_pages is not None:
+            result["plan_pages"] = plan_pages
         if args.dry_run:
             result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"
         if args.publish and not args.dry_run and result["status"] == "OK":
             from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
-            result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
-                                                  python=child_python())
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                                                        active_recoveries=result.get("active_recoveries"), automatic_neo=True)
+            result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
+                                                  python=child_python())
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
             from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
             result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
+        if args.publish and not args.dry_run:
+            # CC-468 reads confirmed pages already in the store and checks their
+            # original capture clocks. An unrelated stale status export must
+            # not withhold a fresh daily Note or its exact-object recovery.
+            from live_contentops.substack_daily_note_v1 import run_due as daily_note
+            result["substack_daily_note"] = daily_note(store,
+                output_root=args.store.parent / "daily_app_outputs/substack-daily-notes", automatic_neo=True)
         if not args.dry_run:
             if args.publish:
+                # The own-reply observation survives parking the old draft tabs.
+                from live_contentops.x_reply_bot_v1 import observe_due
+                try:
+                    result["reply_bot_readback"] = observe_due(store,
+                        output_root=args.store.parent / "daily_app_outputs/x_reply_pack")
+                except Exception as exc:
+                    result["reply_bot_readback"] = {"status": "MANUAL_READBACK_UNAVAILABLE",
+                                                   "cause": type(exc).__name__, "public_submit_actions": 0}
                 # Decision 123: reuse this minute entry with a two-hour gate.
                 # Reply drafts do not depend on Main's status-export freshness.
                 from live_contentops.x_reply_tabs_v1 import refresh_due
@@ -138,11 +208,29 @@ def main(argv=None) -> int:
                 result["event_timestamp"] = {"status": "STAMP_ERROR", "cause": type(exc).__name__}
             from live_contentops.event_pack_v1 import run_due_packs
             result["event_packs"] = run_due_packs(store, publish=args.publish)
-            # pythonw has no stdout: each run's status, the export's age and any refusal go to the run record.
-            try:
-                result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))
-            except OSError as exc:
-                result["run_record_error"] = type(exc).__name__
+    if args.publish and not args.dry_run:
+        # A stale Main export must not stop observations of already published posts.
+        # CC-402 reuses this existing minute consumer, without publication or models.
+        from live_contentops.audience_collection_v1 import run_collection
+        from live_contentops.model_invocation_usage_v1 import import_native_invocations
+        try:
+            result["audience_collection"] = run_collection(store, limit=4)
+            result["model_usage"] = import_native_invocations(store)
+            if result["audience_collection"].get("collected"):
+                from scripts.export_contentops_weekly_engagement import export_weekly_engagement
+                from zoneinfo import ZoneInfo
+                ending = datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Bangkok")).date().isoformat()
+                result["weekly_audience"] = export_weekly_engagement(args.store, ending,
+                    args.store.parent / "daily_app_outputs" / "weekly-engagement")
+        except (OSError, ValueError) as exc:
+            result["audience_collection"] = {"state": "COLLECTION_ERROR", "cause": type(exc).__name__}
+    if not args.dry_run:
+        # Preserve non-publishing run records too. Include metrics and stale
+        # export outcomes after this run's actual collection finishes.
+        try:
+            result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))
+        except OSError as exc:
+            result["run_record_error"] = type(exc).__name__
     if sys.stdout is not None:
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stdout.write(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=1) + "\n")

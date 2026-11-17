@@ -1,0 +1,45 @@
+{
+  "item": "CC-468",
+  "test_scope": "targeted files, one pytest process at a time, no -n or parallel shards",
+  "distinct_passed_test_cases": 97,
+  "runs": [
+    {
+      "path": "daily-note-tests.xml",
+      "passed": 41,
+      "seconds": "36.436",
+      "failures": 0
+    },
+    {
+      "path": "event-source-tests.xml",
+      "passed": 28,
+      "seconds": "10.738",
+      "failures": 0
+    },
+    {
+      "path": "coordinator-regressions.xml",
+      "passed": 21,
+      "seconds": "111.663",
+      "failures": 0
+    },
+    {
+      "path": "note-growth-tests.xml",
+      "passed": 20,
+      "seconds": "92.585",
+      "failures": 0
+    },
+    {
+      "path": "daily-note-dispatch-tests.xml",
+      "passed": 3,
+      "seconds": "16.303",
+      "failures": 0
+    }
+  ],
+  "full_suite_run": false,
+  "ruff_select_F": "PASS",
+  "git_diff_check": "PASS",
+  "read_only_report_cli": "PASS on an isolated temporary store; SQLite query_only prevents writes",
+  "public_writes": 0,
+  "live_steps": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0
+}

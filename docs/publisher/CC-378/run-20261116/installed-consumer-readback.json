@@ -1,0 +1,37 @@
+{
+  "observed_at_utc": "2026-11-15T21:42:04.532979+00:00",
+  "module_path": "A:\\Capital Chronicle/ContentOps\\live_contentops\\agy_editorial_assist_v1.py",
+  "module_sha256": "1f967e706f61a610b5932e1c02f17147186f1028e38a49d74c0b8a1286b795a8",
+  "runtime_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc378-resume-20261116\\before\\agy_light_assist_v1.json",
+  "status": "AGY_AVAILABLE",
+  "claim_count": 2,
+  "flags": [],
+  "publisher_review": {
+    "prompt_sha256": "71d514ebe9be5d19b01e81bf4b6b7f711e7b9d637be520c17726d8b4992dafda",
+    "decisions": [],
+    "use_alt_text": true,
+    "use_variants": true
+  },
+  "alt_asset_ids": [
+    "sample-chart"
+  ],
+  "variant_destinations": [
+    "discord",
+    "telegram",
+    "threads",
+    "x"
+  ],
+  "compiler_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "compiler_copy_matches_return": true,
+  "public_write_performed": false,
+  "scope": "Actual saved AGY return through installed review, media and derivative consumers; controlled packet, not CC-124 publication acceptance."
+}

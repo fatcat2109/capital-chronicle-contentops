@@ -1,0 +1,27 @@
+{
+  "article": {
+    "body_characters": 53269,
+    "body_matches": true,
+    "images": [
+      {
+        "height": 511,
+        "loaded": true,
+        "width": 768
+      },
+      {
+        "height": 523,
+        "loaded": true,
+        "width": 726
+      }
+    ],
+    "observed_at_utc": "2026-11-17T11:10:27.226Z",
+    "published_at_utc": "2026-11-17T10:06:46.417Z",
+    "title": "What gold, the euro and the S&P did after each CPI since 2024",
+    "url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and"
+  },
+  "cpi_link": {
+    "observed_at_utc": "2026-11-17T11:10:27.428Z",
+    "reference_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+    "url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+  }
+}

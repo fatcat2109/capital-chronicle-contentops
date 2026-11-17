@@ -115,6 +115,39 @@ class PublishedImages:
     def records(self):
         return _read(self.path.read_bytes()) if self.path.is_file() else []
 
+    def daily_image_counts(self, day):
+        """Count observed image uses by type; old rows stay explicitly UNKNOWN.
+
+        Reservations and repeated readbacks are not additional publications.
+        This reads the existing register; it creates no schedule or new ledger.
+        """
+        latest = {row["record_id"]: row for row in self.records()}
+        counts = {}
+        posts = []
+        for row in latest.values():
+            if row["state"] != "PUBLISHED" or row["day"] != day:
+                continue
+            for item in row["images"]:
+                kind = item.get("image_type", "UNKNOWN")
+                counts[kind] = counts.get(kind, 0) + 1
+            lead = next((i for i in row["images"] if i["asset_id"] == row["lead_asset_id"]), None)
+            posts.append({"record_id": row["record_id"], "piece_id": row["piece_id"],
+                "destination": row.get("destination"), "market": row.get("market") or next((
+                    i.get("price_scale_check", {}).get("market") for i in row["images"]
+                    if i.get("price_scale_check")), None),
+                "canonical_url": row.get("canonical_url"),
+                "published_at_utc": row.get("published_at_utc"),
+                "publication_clock_basis": row.get("publication_clock_basis"),
+                "lead_image": {key: lead.get(key) for key in (
+                    "asset_id", "image_type", "sha256", "width", "height")} if lead else None,
+                "lead_image_type": next((i.get("image_type", "UNKNOWN") for i in row["images"]
+                    if i["asset_id"] == row["lead_asset_id"]), None),
+                "image_contract": row.get("image_contract") or next((
+                    i.get("price_scale_check", {}).get("policy") for i in row["images"]
+                    if i.get("price_scale_check")), None),
+                "text_fallback": row.get("text_fallback"), "observation_ref": row.get("observation_ref")})
+        return {"day": day, "counts_by_type": counts, "observed_posts": posts}
+
     def _daily_pieces(self, rows, now):
         day = day_of(now)
         pieces = {row.get("canonical_url") or row["piece_id"] for row in _active(rows)
@@ -126,17 +159,23 @@ class PublishedImages:
                           if day_of(row["published_at_utc"]) == day)
         return pieces
 
-    def reserve(self, *, piece_id, assets, lead_asset_id, now, canonical_url=None, enforce_cap=True):
-        if not assets or lead_asset_id not in {a.get("asset_id") for a in assets}:
+    def reserve(self, *, piece_id, assets, lead_asset_id, now, canonical_url=None, enforce_cap=True,
+                text_fallback=None, market=None, image_contract=None):
+        if ((not assets and not text_fallback) or (assets and lead_asset_id not in {a.get("asset_id") for a in assets})):
             raise ImagePolicyError("IMAGE_MISSING")
         images = []
         for asset in assets:
             item = fingerprint(asset.get("path") or asset.get("absolute_local_source_path") or "")
             if asset.get("sha256") and item["sha256"] != asset["sha256"]:
                 raise ImagePolicyError("IMAGE_BYTES_CHANGED")
-            images.append({"asset_id": asset["asset_id"], **item})
+            from .publication_image_contract_v1 import image_type
+            images.append({"asset_id": asset["asset_id"], "image_type": image_type(asset), **item})
+            if (asset.get("tradingview_snapshot") or {}).get("price_scale_check"):
+                images[-1]["price_scale_check"] = asset["tradingview_snapshot"]["price_scale_check"]
             if asset.get("owned_diagram_data_sha256"):
                 images[-1]["owned_diagram_data_sha256"] = asset["owned_diagram_data_sha256"]
+            if asset.get("image_quality"):
+                images[-1]["image_quality"] = asset["image_quality"]
         with _locked_feed(self.path) as handle:
             rows = _read(handle.read())
             active = _active(rows)
@@ -163,7 +202,8 @@ class PublishedImages:
             row = {"record_id": record_id, "piece_id": piece_id, "state": "RESERVED",
                    "day": day_of(now), "recorded_at_utc": now.astimezone(timezone.utc).isoformat(),
                    "canonical_url": canonical_url, "counts_as_article": enforce_cap,
-                   "lead_asset_id": lead_asset_id, "images": images}
+                   "lead_asset_id": lead_asset_id, "images": images, "market": market,
+                   "image_contract": image_contract, "text_fallback": text_fallback}
             _append(handle, row)
             return row
 
@@ -187,11 +227,17 @@ class PublishedImages:
                     "recorded_at_utc": now.astimezone(timezone.utc).isoformat()})
 
     def seed(self, *, piece_id, canonical_url, images, published_at, observation_ref,
-             counts_as_article=True, clock_basis="OBSERVED_PUBLICATION_CLOCK"):
+             counts_as_article=True, clock_basis="OBSERVED_PUBLICATION_CLOCK", destination=None,
+             market=None, image_contract=None, text_fallback=None):
         """Admit exact retained send bytes or bytes from an observed public image URL."""
-        if not images or not observation_ref:
+        if (not images and not text_fallback) or not observation_ref:
             raise ImagePolicyError("PUBLISHED_IMAGE_OBSERVATION_REQUIRED")
-        bound = [{"asset_id": str(i.get("asset_id") or index), **fingerprint(i["path"])}
+        from .publication_image_contract_v1 import image_type
+        bound = [{"asset_id": str(i.get("asset_id") or index), "image_type": image_type(i),
+                  **({"image_quality": i["image_quality"]} if i.get("image_quality") else {}),
+                  **({"price_scale_check": i["tradingview_snapshot"]["price_scale_check"]}
+                     if (i.get("tradingview_snapshot") or {}).get("price_scale_check") else {}),
+                  **fingerprint(i["path"])}
                  for index, i in enumerate(images)]
         record_id = sha256(canonical([piece_id, observation_ref, [i["sha256"] for i in bound]])).hexdigest()
         row = {"record_id": record_id, "piece_id": piece_id, "state": "PUBLISHED",
@@ -199,8 +245,10 @@ class PublishedImages:
                "published_at_utc": published_at,
                "publication_clock_basis": clock_basis,
                "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
-               "counts_as_article": counts_as_article, "lead_asset_id": bound[0]["asset_id"],
-               "images": bound, "observation_ref": observation_ref}
+               "counts_as_article": counts_as_article, "lead_asset_id": bound[0]["asset_id"] if bound else None,
+               "images": bound, "observation_ref": observation_ref,
+               "destination": destination, "market": market, "image_contract": image_contract,
+               "text_fallback": text_fallback}
         with _locked_feed(self.path) as handle:
             prior = [r for r in _read(handle.read()) if r["record_id"] == record_id]
             if prior and all(prior[-1].get(k) == row.get(k) for k in row if k != "recorded_at_utc"):

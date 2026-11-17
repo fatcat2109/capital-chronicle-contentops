@@ -1,5 +1,83 @@
 # CC-378 — Antigravity light text and claim check
 
+## Resume — 17 November 2026
+
+The installed assistance passed all 31 tests in each root. Neo is available, and
+one timely Main report was consumed by the existing newsroom. Native selection
+returned NO_STORY / NO_MATERIAL_NEWS; no qualifying article or public write
+resulted. The earlier missing-source and Neo-outage causes no longer describe
+this run. Two successful CC-124 assistance/publication readbacks remain required.
+[Current result](run-20261117/README.md) preserves the exact operation, evidence
+and next consumer action.
+
+## Resume — 16 November 2026
+
+The version-probe failure no longer prevents the article prompt. The fix is
+live as `0cea3d7f`; all 31 assist tests pass in both roots. A real agy 1.5.9 return
+feeds the installed alt-text and four-variant compiler consumers. The two-piece
+publication acceptance remains BLOCKED: no current Main source and
+`NEO_ENDPOINT_CONNECTIONERROR`. [Current result](run-20261116/README.md) gives
+the installed readback, source assessment, baseline test failure and next action.
+
+## Live integration — 12 November 2026
+
+Decision 120 removes the earlier Ops-review wait. Publisher squashed the two
+record-validation commits onto operating HEAD `e16ddb8c`, pushed
+`backlog/cc-378-record-validation-squashed`, and fast-forwarded the operating
+root to `cbd97553`. The article submit, preparation and derivative compiler use
+the installed module. Rollback is `contentops-rollback-20261112-cc378-r114`.
+
+All 40 targeted tests passed in the delivery worktree and again in the operating
+root. Recorded Antigravity output reaches the actual compiler; forced failures
+keep publication moving with the existing copy. Existing uncommitted files were
+preserved. The live source and runtime evidence are recorded in
+[integration-20261112.json](integration-20261112.json).
+
+The fresh operating-root agy 1.5.6 call returned `AGY_TIMEOUT_120S` after its
+120-second limit. The installed consumer read that real `AGY_UNAVAILABLE` record
+and compiled fallback payloads for all eight current destinations, preserving the
+original article and alt text. No retry or public write was made.
+
+Full publication acceptance remains blocked on that missing completed return and
+the next two CC-124 pieces: their
+claim lists, Publisher flag decisions, alt text, social variants and exact public
+readbacks. Integration and a controlled runtime call do not establish those
+publications. No historical request or public article is rewritten to supply them.
+
+
+## Decision 114 delivery — 11 November 2026
+
+The reopened delivery checks claims and light copy against the retained record.
+An exact quote now has to contain the claim's numerical value, sign and unit,
+and any named date. Attribution spans are checked against their referenced lines.
+Coverage checks flag omitted numbers, named dates and the source's named publisher.
+Identifiers, URLs, hashes and retrieval metadata cannot supply numerical evidence.
+
+Selected social variants are checked against both the article and the numbered
+source record before the existing compiler consumes them. Alt text is checked
+against its admitted asset specification. A bad suggestion keeps the existing
+copy for that output; valid suggestions for other outputs still reach the compiler.
+Publisher continues to decide each claim flag. These checks establish exact
+record matches; Publisher still judges meaning and context.
+
+The first live runtime probe succeeded with agy 1.5.5, configured as
+`gemini-3.8-flash-high` / high (`CONFIGURED_NOT_OBSERVED`). The retained runtime
+artifact and exact hashes are in [validation-decision114.json](validation-decision114.json).
+Forty focused tests passed in 11.72 seconds, including recorded output through
+the actual compiler, forced failure, wrong quotes, omitted claims and selective
+fallback. No test used a live store or made a public write.
+
+The branch starts at the current Publisher operating-root HEAD. The remote
+default branch is 910 commits behind it and lacks the active article consumer.
+This new delivery remains unmerged for the Ops review requested by this run;
+the earlier integration below describes the original decision-105 version.
+Two CC-124 pieces with saved flag decisions and exact published alt/copy
+readbacks remain acceptance work. The saved CPI-preview assist timed out after
+120 seconds and continued without suggestions; it is not successful-use evidence.
+No historical article is edited or new publication created to manufacture it.
+
+## Original decision 105 implementation
+
 Decision 105 is wired into the existing native article `submit` path. Publisher
 still writes and edits. Nothing calls a model for a plan-status post. No schedule
 changes are included.

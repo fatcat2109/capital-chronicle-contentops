@@ -1,0 +1,17 @@
+{
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+  "sha256": "59b7db3dda8b815f82005cb48b8ec37761657c0d628d302f548570969952823c",
+  "generated_at_utc": "2026-11-11T21:44:20.673837Z",
+  "search_fields": [
+    "result_r",
+    "realized_r",
+    "r_multiple",
+    "r",
+    "change_1d_pct",
+    "state_word"
+  ],
+  "populated_fields": [],
+  "cross_lane_context": "CC-466 current BACKLOG reports MAIN_PUBLIC_RESULT_R_ABSENT; public export and bound weekly/map inputs rechecked",
+  "scope": "Only this exact public export and retained gallery inputs; no claim that the whole private research archive lacks market data.",
+  "rights": "Private broker bars and execution details are not reproduced in public images under host rule 7; explicit Main R remains required."
+}

@@ -1,0 +1,72 @@
+{
+  "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+  "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\reviewed_chart.json",
+  "asset": {
+    "asset_id": "tradingview-snapshot-43f8102ee09086a61b18",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\tradingview-d297a541bbd145bd-16x9.png",
+    "sha256": "43f8102ee09086a61b182409a4b11e798fc016bef1ec0e454f0bb5a91224e625",
+    "width": 1524,
+    "height": 858,
+    "mime_type": "image/png",
+    "modality": "tradingview_chart_snapshot",
+    "card_kind": "TRADINGVIEW_SNAPSHOT",
+    "media_role": "delivery_only",
+    "role": "market_chart",
+    "delivery_only": true,
+    "article_inclusion": false,
+    "canonical_article_media": false,
+    "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+    "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+    "attribution": "TradingView",
+    "credit": "Chart: TradingView",
+    "caption": "Bitcoin / US dollar (Coinbase), 15-minute bars through 12 Nov 2026, 19:45 ET. Chart: TradingView.",
+    "alt_text": "Coinbase spot Bitcoin / US dollar, 15-minute candles from 10 Nov 13:00 ET through 12 Nov 19:45 ET, showing the decline after the original conditional view. TradingView snapshot captured 15 Nov 2026, 18:43 ET.",
+    "source_page_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+    "tradingview_snapshot": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\BTCUSD_2026-11-15_23-43-59.png",
+      "sha256": "d297a541bbd145bdc51ec2bddf32f291044175e5af4b8c20b3c64f52bc41d2b9",
+      "suggested_filename": "BTCUSD_2026-11-15_23-43-59.png",
+      "interval": "15",
+      "interval_label": "15m",
+      "tv_symbol": "COINBASE:BTCUSD",
+      "legend": "Bitcoin / U.S. Dollar 15m Coinbase",
+      "width": 1524,
+      "height": 856,
+      "captured_at_utc": "2026-11-15T23:44:01.776485+00:00",
+      "capture_viewport": {
+        "width": 1910,
+        "height": 850
+      },
+      "requested_visible_range": {
+        "from_utc": "2026-11-10T18:00:00Z",
+        "to_utc": "2026-11-13T00:45:00Z"
+      },
+      "method": "existing guest TradingView Download image; Custom range UI; current-quote status values hidden through chart settings; source pixels unchanged",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+      "framing": {
+        "ratio": "16:9",
+        "width": 1524,
+        "height": 858,
+        "original_box": [
+          0,
+          1,
+          1524,
+          857
+        ]
+      },
+      "policy": "contentops.tradingview_snapshot.v1",
+      "levels_drawn": [],
+      "target_drawn": false
+    },
+    "publication_authority": false
+  },
+  "visible_from_utc": "2026-11-10T18:00:00Z",
+  "visible_to_utc": "2026-11-13T00:45:00Z",
+  "review": {
+    "inspected_at_utc": "2026-11-15T23:47:58.189598+00:00",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "finding": "PASS: exact guest TradingView Download image. COINBASE:BTCUSD 15-minute bars through the resolution interval; no subsequent bars, target line or live quote status values; full attribution and source pixels retained. Held plan price series supplies the numerical check, Coinbase spot illustrates the move."
+  }
+}

@@ -1,6 +1,6 @@
 """Confirmed plan pages reach the existing run and transport consumers."""
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 import json
 
@@ -48,7 +48,8 @@ def test_installed_status_run_distributes_all_eight_and_resumes_without_duplicat
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     runtime = FixtureTransport()
     coordinator = Coordinator(store=store, transport_runtime=runtime,
-        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED"})
+        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: datetime(2026, 11, 10, 2, tzinfo=timezone.utc))
     coordinator.allow_prior_confirmed_distribution = True
 
     def publish(value_store, value):
@@ -105,6 +106,104 @@ def test_x_reply_thread_keeps_all_sections_links_and_weighted_limits(ready):
     assert packet["summary"]["macro"] in payload["full_text"]
     assert value["plan"]["destinations"][0]["payload"] == payload["full_text"]
     assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
+
+
+def test_cc536_new_plan_post_durable_consumer_carries_confirmed_method_page(ready, tmp_path):
+    from test_measured_odds_series_cc536 import confirm_method
+    store, packet, original = ready
+    reference = confirm_method(store, tmp_path)
+    value = pages.register_link(store, packet, original_key=original, destination="x")
+    assert value["method_page_reference"] == reference
+    assert reference["canonical_url"] in value["native_payload"]["reply_texts"][-1]
+    assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
+    co = Coordinator(store=store, transport_runtime=None)
+    co.register_plan(value["link_id"], value["plan"])
+    durable = store.get_outbox_message(Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], "x")["message_id"])
+    intent = json.loads(durable["payload"])
+    assert reference["canonical_url"] in intent["native_payload"]["full_text"]
+    assert value["parent"]["public_object_id"] == "parent-x"
+
+
+@pytest.mark.parametrize("destination", ["telegram", "discord", "threads", "x", "substack_notes"])
+def test_new_reader_links_use_held_layers_without_legacy_section_requirements(source, tmp_path, destination):
+    root, _, plan, old = source
+    manuscript = {**old, "reader_contract": "CC466_V1", "title": "Rates shape the euro.",
+        "sections": {key: deepcopy(old["sections"]["macro"]) for key, _ in pages.READER_SECTIONS}}
+    labels = dict(pages.READER_SECTIONS)
+    for key, label in labels.items():
+        manuscript["sections"][key]["summary"] = "The " + label.lower() + " matters."
+    manuscript["sections"]["scenarios"]["summary"] = "Main (55%): conditions hold. Alternative (35%): conditions change."
+    store = ContentOpsDurableStore(tmp_path / "reader.sqlite3")
+    packet = pages.register_page(store, pages.render(plan, manuscript, run_root=root, output_dir=tmp_path / "reader"))
+    confirm(store, packet["page_id"], packet["plan"]["plan_hash"], "substack", "123",
+            "https://capitalchronicle.substack.com/p/full-original-plan")
+    original = "original-call"
+    store.create_work_item(story_id=original, work_item_id=original, title="Original call", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id=original, work_item_id=original, destination=posts.DESTINATION,
+        payload=json.dumps({"key": original, "plan_id": packet["plan_id"], "kind": "setup", "state": "WAITING"}),
+        status="PUBLISHED")
+    confirm(store, original, sha256(("plan-status-post:" + original).encode()).hexdigest(), destination,
+            "parent-" + destination, "https://example.test/" + destination + "/parent")
+    value = pages.register_link(store, packet, original_key=original, destination=destination)
+    text = value["native_payload"]["full_text"]
+    assert "Fundamental:" not in text and "Geopolitical:" not in text and "Desk review:" not in text
+    assert "Main (55%):" in text and "Alternative (35%):" in text
+    forces = [line for line in text.splitlines() if any(line.startswith(label + ":")
+        for label in ("Macro", "Priced in", "Positioning", "Fear", "Story", "Structure"))]
+    assert 0 < len(forces) <= (3 if destination in {"x", "threads"} else 5)
+    assert all(line.split(": ", 1)[1] in packet["summary"].values() for line in forces)
+    assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
+    before = store.get_outbox_message(value["link_id"])["payload"]
+    packet["summary"]["macro"] = "A later revision must not replace this issued link."
+    assert pages.register_link(store, packet, original_key=original, destination=destination) == value
+    assert store.get_outbox_message(value["link_id"])["payload"] == before
+
+
+@pytest.mark.parametrize("hours,closed", [(1, False), (25, True)])
+def test_late_analysis_link_leaves_automatic_work_but_preserves_unknown_readback(ready, tmp_path, monkeypatch, hours, closed):
+    from live_contentops import neo_endpoint_executor_v1 as neo
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, SCHEMA, DESTINATION
+    store, packet, original = ready
+    value = pages.register_link(store, packet, original_key=original, destination="substack_notes")
+    parent = json.loads(store.get_outbox_message(original)["payload"])
+    parent["at_utc"] = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+    with store.get_connection() as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?", (json.dumps(parent), original))
+    ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], "substack_notes")
+    coordinator = Coordinator(store=store, transport_runtime=object())
+    coordinator.register_plan(value["link_id"], value["plan"])
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack_notes", status="UNKNOWN_WRITE")
+    dispatch_before = store.get_platform_dispatch(ids["dispatch_id"])
+    payload_before = store.get_outbox_message(value["link_id"])["payload"]
+    result = pages.settle_late_link(store, value)
+    assert bool(result) is closed
+    assert store.get_platform_dispatch(ids["dispatch_id"]) == dispatch_before
+    assert store.get_outbox_message(value["link_id"])["payload"] == payload_before
+    recovery_ids = {r["message_id"] for r in coordinator._recovery_messages()}
+    assert (ids["message_id"] not in recovery_ids) is closed
+    if closed:
+        assert result["status"] == "SETTLED"
+        assert store.get_outbox_message(ids["message_id"])["status"] == "PLAN_POST_SETTLED"
+        assert pages._resume_link(store, value, True)["status"] == "SETTLED"
+        path = posts.record_run({"status": "OK", "publication": {"analysis_distribution": {"links": [
+            {"link_id": value["link_id"], "destination": "substack_notes", "outcome": result}]}}}, tmp_path / "runs")
+        assert json.loads(path.read_text())["analysis_links"][0]["cause"] == result["cause"]
+        executor = NativeNeoExecutor(store, operation_id=value["link_id"], output_dir=tmp_path,
+                                     native_invocation_id="fixture")
+        request = {"action": "READBACK", "destination": "substack_notes", "request_sha256": "b" * 64,
+                   "work_item_id": value["link_id"], "dispatch_attempt_identity": ids["dispatch_id"]}
+        store.register_outbox_message(message_id=executor._key(request["request_sha256"], "request"),
+            work_item_id=value["link_id"], destination=DESTINATION, status="NATIVE_NEO_INTERNAL",
+            payload=json.dumps({"schema_version": SCHEMA, "operation_id": value["link_id"], "request": request}))
+        monkeypatch.setattr(__import__("live_contentops.native_neo_executor_v1", fromlist=["bind_native_neo_coordinator"]),
+            "bind_native_neo_coordinator", lambda *a, **kw: pytest.fail("settled link cannot bind browser"))
+        assert neo.resume_stored_requests(store)["requests"] == []
+        observed = []
+        monkeypatch.setattr(coordinator, "_reconcile", lambda dispatch, intent:
+            observed.append(dispatch["dispatch_id"]) or "RECONCILIATION_PENDING")
+        assert coordinator.readback_existing_dispatch(ids["dispatch_id"])["publish_called"] is False
+        assert observed == [ids["dispatch_id"]]
 
 
 @pytest.mark.parametrize("parent", ["correct", "wrong", "missing"])
@@ -302,6 +401,31 @@ def test_minute_record_keeps_exact_analysis_link_and_first_transport_failure(tmp
     assert saved["link_id"] == "exact-index"
     assert saved["destination_causes"]["linkedin"] == "DESTINATION_FAILED_ET_DAY_SKIP"
     assert saved["first_failures"]["linkedin"]["safe_error_classification"] == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+
+
+@pytest.mark.parametrize("reconciliation,confirmed", [
+    ("RECONCILED_CONFIRMED", True),
+    ("RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE", False),
+])
+def test_minute_consumer_records_exact_analysis_readback(ready, tmp_path, reconciliation, confirmed):
+    store, packet, original = ready
+    link = pages.register_link(store, packet, original_key=original, destination="substack_notes")
+    url = "https://substack.com/@capitalchronicle/note/c-12345"
+    confirm(store, link["link_id"], link["plan"]["plan_hash"], "substack_notes", "c-12345", url)
+    ids = Coordinator._ids(link["link_id"], link["plan"]["plan_hash"], "substack_notes")
+    store.set_reconciliation_status(ids["reconciliation_id"], reconciliation)
+    distribution = pages.distribute_links(store, publish=False)
+    path = posts.record_run({"status": "OK", "publication": {"status": "OK",
+        "analysis_distribution": distribution}}, tmp_path / "minute-runs")
+    saved = next(row for row in json.loads(path.read_text(encoding="utf-8"))["analysis_links"]
+                 if row["destination"] == "substack_notes")
+    assert saved["status"] == "DISPATCH_CONFIRMED"
+    assert saved["confirmed"] is confirmed
+    assert saved["reconciliation_status"] == reconciliation
+    assert saved["reconciled_at_utc"]
+    assert saved["dispatch_id"] == ids["dispatch_id"]
+    assert saved["public_object_id"] == "c-12345"
+    assert saved["public_object_url"] == url
 
 
 def test_link_resume_returns_the_already_queued_native_request(ready, monkeypatch):

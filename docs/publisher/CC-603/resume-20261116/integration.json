@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-15T23:25:37.201196+00:00",
+  "commit": "f1b16fdd581c2a3449e14fce6c0cbffe71beefb0",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "source_hashes": {
+    "live_contentops/neo_endpoint_executor_v1.py": {
+      "delivery": "058a5d5037e6c585623ae78f62d56c8bb8551074be01581e2dc44856e8c54796",
+      "operating": "058a5d5037e6c585623ae78f62d56c8bb8551074be01581e2dc44856e8c54796"
+    },
+    "live_contentops/neo_endpoint_steps_v1.js": {
+      "delivery": "b66cc0460a5c2314502aaa9ebfdbe13fd61a02ba5f58f964b5f4d37423bc7076",
+      "operating": "b66cc0460a5c2314502aaa9ebfdbe13fd61a02ba5f58f964b5f4d37423bc7076"
+    },
+    "tests/test_neo_endpoint_executor_cc436.py": {
+      "delivery": "3595b71a1fefdc8745a80b236b38d7818452286b5ecc7813d963cfcd65eb2a5c",
+      "operating": "3595b71a1fefdc8745a80b236b38d7818452286b5ecc7813d963cfcd65eb2a5c"
+    }
+  },
+  "consumer": "CapitalChronicle-PlanStatusPosts-V1; pythonw.exe -B scripts/plan_status_posts.py --publish; working directory A:\\Capital Chronicle\\ContentOps",
+  "installed_checks": 16,
+  "live_tag": "contentops-live-20261116-cc603-resume",
+  "rollback_tag": "contentops-rollback-20261116-cc603-resume"
+}

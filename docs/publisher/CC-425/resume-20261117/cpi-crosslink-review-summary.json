@@ -1,0 +1,72 @@
+{
+  "stage": "final-visual-756c8d7033a1ebc1e9512054c5512fb7e83de5a36bd7afa4553bb98533d2736d",
+  "request_sha256": "610c96d819886277c4532d8e07426a136bd867f4ebea5d6050dc88b2a9c36099",
+  "output_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\cpi-crosslink-review",
+  "reference_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+  "original_post": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "review_policy": "JIM_DECISION_53",
+  "automated_media_check": {
+    "policy": "JIM_DECISION_53",
+    "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+    "findings": [
+      {
+        "asset_id": "cc338-cpi-monthly-baseline",
+        "sha256": "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "cc338-cpi-components",
+        "sha256": "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "cc338-usda-milk-shopping-archive",
+        "sha256": "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 5472,
+        "height": 3648,
+        "expected_dimensions": [
+          5472,
+          3648
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "tradingview-snapshot-0815a2466f617958b9e0",
+        "sha256": "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 2461,
+        "height": 1384,
+        "expected_dimensions": [
+          2461,
+          1384
+        ],
+        "right_size": true,
+        "status": "PASS"
+      }
+    ],
+    "failures_logged_no_repair_loop": 0,
+    "blocks_publication": false
+  }
+}

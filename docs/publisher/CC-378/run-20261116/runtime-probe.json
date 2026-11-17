@@ -1,0 +1,25 @@
+{
+  "status": "AGY_AVAILABLE",
+  "cause": null,
+  "agy": "C:\\Users\\bullw\\.gemini\\bin\\agy.exe",
+  "agy_version": "1.5.9",
+  "model": "gemini-3.8-flash-high",
+  "effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "started_utc": "2026-11-15T21:34:56.290159+00:00",
+  "ended_utc": "2026-11-15T21:35:48.480540+00:00",
+  "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc378-resume-20261116\\before\\agy-light-assist\\71d514ebe9be5d19b01e81bf4b6b7f711e7b9d637be520c17726d8b4992dafda\\agy_light_assist_v1.json",
+  "prompt_sha256": "71d514ebe9be5d19b01e81bf4b6b7f711e7b9d637be520c17726d8b4992dafda",
+  "output_sha256": "7a655f1ca1bdfc7c8d0497a369f0123060843c5185dcb1bf728b9686c20b8f17",
+  "input_sha256": "c693a7121f16feabf39c727def87ecfc86b5bccd363f0ce37ae645d4d1489e41",
+  "kind": "controlled runtime call, not a published CC-124 piece",
+  "flags": [],
+  "claim_count": 2,
+  "alt_count": 1,
+  "variant_destinations": [
+    "discord",
+    "telegram",
+    "threads",
+    "x"
+  ]
+}

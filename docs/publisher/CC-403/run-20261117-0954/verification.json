@@ -1,0 +1,103 @@
+{
+  "observed_at_utc": "2026-11-17T03:03:49.920156+00:00",
+  "modified_files": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "relative_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "relative_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b",
+      "unchanged": true
+    }
+  ],
+  "production_owners": [
+    {
+      "relative_path": "live_contentops/reader_article_contract_v1.py",
+      "sha256": "d489cf2562b3497ad3d89a3babbfdac68fc1f16f9d07d3b88f380c41da07fe38",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/daily_note_first_draft_v1.py",
+      "sha256": "3cc7c9a28a11fc0d35ddb1d7123603dd9352a537f2376c6c6432ed18ff43773c",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/main_report_projection_source_v1.py",
+      "sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/native_desktop_editorial_v1.py",
+      "sha256": "af6f69ec801815f0a3c6f38a2f52109bc58e1ced169bfe64c4444d27f5a58833",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "sha256": "ffb872f161e35b978952efefeef13d8baf2b63925025b301c4917e559801c45a",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/article_publication_quality_v1.py",
+      "sha256": "e3e77ac4cbe8a7c5ef326e907c7c885518550950454ab6b011ac7c6c2924315a",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/native_publication_latency_v1.py",
+      "sha256": "fb6d6944d34f65ba9803fb6cbb4a7a6360a76a0291c4d37905dc9f7477ad2e54",
+      "operating_root_matches_tested_source": true
+    },
+    {
+      "relative_path": "live_contentops/weekly_scored_calls_v1.py",
+      "sha256": "a28b147b333d1153177b2cea0cef6e664b1baa92f2b168bb3dbb0f6db6731cc0",
+      "operating_root_matches_tested_source": true
+    }
+  ],
+  "test_counts": {
+    "tests": 114,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "exact_public_main_probes": 2,
+  "original_data_clock_consumed": true
+}

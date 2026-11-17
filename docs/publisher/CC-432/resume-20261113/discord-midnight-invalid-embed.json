@@ -1,0 +1,27 @@
+{
+  "event_id": "tel_f298942f983c46d8926b45538981f3b8",
+  "timestamp": "2026-11-13T05:00:37.247976+00:00",
+  "platform_id": "discord",
+  "action": "post",
+  "http_status": 400,
+  "latency_ms": 1086.2659999984317,
+  "payload_size_bytes": 1263,
+  "error_response": {
+    "message": "Invalid Form Body",
+    "code": 50035,
+    "errors": {
+      "embeds": {
+        "0": {
+          "description": {
+            "_errors": [
+              {
+                "code": "BASE_TYPE_REQUIRED",
+                "message": "This field is required"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

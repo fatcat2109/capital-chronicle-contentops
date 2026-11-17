@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-11-11T16:28:13.708868+00:00",
+  "source": "retained exact scheduled writer return",
+  "public_text_changed": false,
+  "public_submit_actions": 0,
+  "binding": {
+    "status": "BOUND",
+    "bound_now": false,
+    "updates_processed": 0,
+    "skipped": 0,
+    "causes": {},
+    "public_submit_actions": 0
+  },
+  "pack": {
+    "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162126-a9b1e0a0\\dated-positioning-reconciled\\reply-pack-20261111.json",
+    "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162126-a9b1e0a0\\dated-positioning-reconciled\\reply-pack-20261111.html",
+    "store_message_id": "x-reply-pack-28d490c131bfb03f5b859e3287df3bf072d955d14ada0d8c3f08493a57c58d76",
+    "item_count": 1,
+    "none_reason": null,
+    "short_reason": "1 target replies: no padding. Fewer eligible authored additions in this build.",
+    "public_write_performed": false
+  },
+  "delivery": {
+    "status": "DELIVERED",
+    "delivered": [
+      {
+        "kind": "private_draft_delivered",
+        "delivery_id": "xrb-2120543011537097030",
+        "post_id": "2120543011537097030",
+        "message_id": 3,
+        "delivered_at_utc": "2026-11-11T16:28:17+00:00",
+        "post_to_delivery_minutes": 44.510149999999996,
+        "post_to_draft_minutes": 39.499201183333334,
+        "public_submit_actions": 0
+      }
+    ],
+    "causes": {},
+    "public_submit_actions": 0
+  },
+  "status": "DELIVERED",
+  "finished_at_utc": "2026-11-11T16:28:17.616562+00:00"
+}

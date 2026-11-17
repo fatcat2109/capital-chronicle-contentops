@@ -1,0 +1,63 @@
+{
+  "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134526-e265758e\\editorial\\rank\\call.json",
+  "started_at_utc": "2026-11-12T13:45:42.456313+00:00",
+  "consumer_status": "FAILED",
+  "consumer_cause": "Expecting value: line 1 column 1 (char 0)",
+  "light_call": {
+    "policy": "cc512-light-caller-v1",
+    "status": "RETURNED",
+    "started_at_utc": "2026-11-12T13:45:42.457868+00:00",
+    "prompt_sha256": "d3ce1b38070cd76699b831f80bbefdcb197ead0f9008b2bd1b2ae861a1f82a60",
+    "prompt_bytes": 13721,
+    "attempts": [
+      {
+        "caller": "antigravity",
+        "started_at_utc": "2026-11-12T13:45:42.457963+00:00",
+        "status": "RETURNED",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "image_tools_observed": [],
+        "observed_conversation_id": "bdcbcbbc-cadd-42a3-9ade-f1ee39c633fb",
+        "observed_usage": {
+          "input_tokens": 18923,
+          "output_tokens": 5672,
+          "thinking_tokens": 4804,
+          "cache_read_tokens": 0,
+          "total_tokens": 24595
+        },
+        "observed_duration_seconds": 41.5528886,
+        "observed_num_turns": 1,
+        "returncode": 0,
+        "ended_at_utc": "2026-11-12T13:46:26.956431+00:00",
+        "elapsed_seconds": 44.49838790000649,
+        "stdout_bytes": 27639,
+        "stderr_bytes": 0,
+        "output_sha256": "bde239db60f3293f7cd96a451256059c81cfbf32df172bc067d0a33a6aeaa0a3",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "answered_by": "antigravity",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "answer_seconds": 44.49838790000649,
+    "configured_model": "gemini-3.8-flash-high",
+    "configured_effort": "high",
+    "image_tools_observed": [],
+    "observed_conversation_id": "bdcbcbbc-cadd-42a3-9ade-f1ee39c633fb",
+    "observed_usage": {
+      "input_tokens": 18923,
+      "output_tokens": 5672,
+      "thinking_tokens": 4804,
+      "cache_read_tokens": 0,
+      "total_tokens": 24595
+    },
+    "observed_duration_seconds": 41.5528886,
+    "observed_num_turns": 1,
+    "ended_at_utc": "2026-11-12T13:46:26.981314+00:00",
+    "elapsed_seconds": 44.52328169999237,
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134526-e265758e\\editorial\\rank\\light\\light-call.json"
+  },
+  "response_chars": 2761,
+  "finding": "Shared caller returned a valid fenced JSON object; consumer attempted json.loads before removing its fence. The envelope-based parser previously stripped the fence only inside an envelope."
+}

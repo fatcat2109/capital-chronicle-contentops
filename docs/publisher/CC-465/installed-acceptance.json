@@ -1,0 +1,1118 @@
+{
+  "observed_at_utc": "2026-11-11T21:45:57.824274+00:00",
+  "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+  "gallery_assets": 32,
+  "code_passed": 26,
+  "checks": [
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "XAUUSD",
+      "file": "cc465-xauusd-call-1-W.png",
+      "capture_at_utc": "2026-11-11T16:42:45.822096+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "e3a164d4c824251f832c30efb48353f110b52b0312c5c782f38b2b22a1ee5321",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "XAUUSD",
+      "file": "cc465-xauusd-call-1-T.png",
+      "capture_at_utc": "2026-11-11T16:42:54.345977+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "20dbc3e39dfe26a8a3280c3abfa0f113a2106ef14cb023a37a17e484c8bdaa58",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "XAUUSD",
+      "file": "cc465-xauusd-expiry-result-1-W.png",
+      "capture_at_utc": "2026-11-11T16:42:45.822096+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "XAUUSD",
+      "file": "cc465-xauusd-expiry-result-1-T.png",
+      "capture_at_utc": "2026-11-11T16:42:54.345977+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "4e4677f3921b44f2a9cd0ba3273ec1631c201054f8b79749b7aecadd89263531",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "US500",
+      "file": "cc465-us500-call-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:03.417102+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "485c1a4fd75e4dcaa0934b576e7b46f04723b3e607a44fde5bffb78d27c52300",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "US500",
+      "file": "cc465-us500-call-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:12.118131+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "275e3174de993866fb764b03e124bd56bf4d908cd945e01bc4e2c71f89f2a9c4",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "US500",
+      "file": "cc465-us500-expiry-result-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:03.417102+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "8a8323c4b234097f2cf108aeac2cbd644eaa09629da73bdb403d78cce4ea7564",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "US500",
+      "file": "cc465-us500-expiry-result-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:12.118131+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "765d2701af750da511635b1efe2de446fb910419e86479c41b5ddf60b9970f87",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "EURUSD",
+      "file": "cc465-eurusd-call-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:20.335642+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "b32f584f68b50f5daefa9f6c224eccfc8d592f9ef6bdf8785497379b26530382",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "EURUSD",
+      "file": "cc465-eurusd-call-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:28.339073+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "12054f1b2a3abcf5143c868ea2f24fea6a9890627b5b0893651b0505b456d061",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "EURUSD",
+      "file": "cc465-eurusd-expiry-result-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:20.335642+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "7f838e8c722c970a81688db70367b3fa07a81316aec21e8ec7c556cf5e9c8f7f",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "EURUSD",
+      "file": "cc465-eurusd-expiry-result-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:28.339073+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-usdjpy-call-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:36.072542+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "f1eb07623abd36a7fc34a4a317ec9ebebdf168a45e5aa38de9a8e822a0524004",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-usdjpy-call-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:46.646065+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "3bd215a4f53cf5e1b73b2d01357ef927aa7262ca71aa73cb5880d2707fd46a6f",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-usdjpy-expiry-result-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:36.072542+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "a8cd3c4b220df0b3288f53f8c748e5b7667095b1c0fd0096bfcc96bbbe2850d0",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-usdjpy-expiry-result-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:46.646065+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "f54283f2582df621f08c003d86c8792340c18d65387957b068107f253982e7cf",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USOIL",
+      "file": "cc465-usoil-call-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:58.490582+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "964cfcaa19d26965953bff303fad92b5a182ca8279184f1fde50ef7b26ef7b86",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USOIL",
+      "file": "cc465-usoil-call-1-T.png",
+      "capture_at_utc": "2026-11-11T16:44:07.980670+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "BTCUSD",
+      "file": "cc465-btcusd-call-1-W.png",
+      "capture_at_utc": "2026-11-11T16:45:23.834513+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "46744804364e13e68959277418d1bdc27312f349f289552d12f6cb1ad861740c",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "BTCUSD",
+      "file": "cc465-btcusd-call-1-T.png",
+      "capture_at_utc": "2026-11-11T16:45:34.141076+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "6bde373a6c16152ab30328cbcd39bbec177b3dc27b3d62b4faa5f1ab7ecb6522",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "BTCUSD",
+      "file": "cc465-btcusd-expiry-result-1-W.png",
+      "capture_at_utc": "2026-11-11T16:45:23.834513+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "1fb1229115c8da6564da2d4398afb3f4bbb8bebeebc70c2f1d2a11c2637d22fa",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "result",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "BTCUSD",
+      "file": "cc465-btcusd-expiry-result-1-T.png",
+      "capture_at_utc": "2026-11-11T16:45:34.141076+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "cd0917bb355ca5a5595f7a4404eb0a0c7dfc06c25fcab7b9c40e762230cfe790",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "event",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-retained-cpi-layout-event-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:36.072542+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "event",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-retained-cpi-layout-event-2-W.png",
+      "capture_at_utc": null
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "event",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-retained-cpi-layout-event-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:46.646065+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "event",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": [],
+      "market": "USDJPY",
+      "file": "cc465-retained-cpi-layout-event-2-T.png",
+      "capture_at_utc": null
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "eb4f87124815007fb76f14728887e1cd48ad9a00835119d79b9d677c4c4602bd",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "weekly",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": false,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "WEEK_R_RESULT_NOT_EXPORTED",
+        "WEEK_PROBABILITY_NOT_EXPORTED"
+      ],
+      "market": null,
+      "file": "cc465-held-weekly-weekly-1-W.png",
+      "capture_at_utc": null
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "3b3a47f3a1087f3483c1cf0d7d9e91ae550505a503627b1e037d44a7df345886",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "weekly",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": false,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "WEEK_R_RESULT_NOT_EXPORTED",
+        "WEEK_PROBABILITY_NOT_EXPORTED"
+      ],
+      "market": null,
+      "file": "cc465-held-weekly-weekly-1-T.png",
+      "capture_at_utc": null
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "bd2d4ab2237315ac605a40783a26900a7976bc05fef704ab91adb32029eb3905",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "map",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": false,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED"
+      ],
+      "market": "USDJPY",
+      "file": "cc465-held-map-map-1-W.png",
+      "capture_at_utc": "2026-11-11T16:43:36.072542+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "1720a6018ad32468c2e6b0673c0bd0d2dec64540fd885bf8c7aecaf348563a0e",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "map",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": false,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED",
+        "MORNING_MAP_STATE_NOT_EXPORTED"
+      ],
+      "market": "USDJPY",
+      "file": "cc465-held-map-map-2-W.png",
+      "capture_at_utc": null
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "3e28557452203f750ad56b85d7df83582c57e947539f6df67fdb508c96329a09",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "map",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": false,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED"
+      ],
+      "market": "USDJPY",
+      "file": "cc465-held-map-map-1-T.png",
+      "capture_at_utc": "2026-11-11T16:43:46.646065+00:00"
+    },
+    {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "80ec092e836e590660355e412bf26acb8bd2689c58049ad7cd9f9d52a0475af3",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "template": "map",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": false,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "MORNING_MAP_CHANGE_NOT_EXPORTED",
+        "MORNING_MAP_STATE_NOT_EXPORTED"
+      ],
+      "market": "USDJPY",
+      "file": "cc465-held-map-map-2-T.png",
+      "capture_at_utc": null
+    }
+  ],
+  "acceptance": {
+    "call": {
+      "template": "call",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "required": 12,
+      "observed": 0,
+      "passed": false,
+      "missing": [
+        {
+          "market": "BTCUSD",
+          "master": "T"
+        },
+        {
+          "market": "BTCUSD",
+          "master": "W"
+        },
+        {
+          "market": "EURUSD",
+          "master": "T"
+        },
+        {
+          "market": "EURUSD",
+          "master": "W"
+        },
+        {
+          "market": "US500",
+          "master": "T"
+        },
+        {
+          "market": "US500",
+          "master": "W"
+        },
+        {
+          "market": "USDJPY",
+          "master": "T"
+        },
+        {
+          "market": "USDJPY",
+          "master": "W"
+        },
+        {
+          "market": "USOIL",
+          "master": "T"
+        },
+        {
+          "market": "USOIL",
+          "master": "W"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "T"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "W"
+        }
+      ]
+    },
+    "event": {
+      "template": "event",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "required": 12,
+      "observed": 0,
+      "passed": false,
+      "missing": [
+        {
+          "market": "BTCUSD",
+          "master": "T"
+        },
+        {
+          "market": "BTCUSD",
+          "master": "W"
+        },
+        {
+          "market": "EURUSD",
+          "master": "T"
+        },
+        {
+          "market": "EURUSD",
+          "master": "W"
+        },
+        {
+          "market": "US500",
+          "master": "T"
+        },
+        {
+          "market": "US500",
+          "master": "W"
+        },
+        {
+          "market": "USDJPY",
+          "master": "T"
+        },
+        {
+          "market": "USDJPY",
+          "master": "W"
+        },
+        {
+          "market": "USOIL",
+          "master": "T"
+        },
+        {
+          "market": "USOIL",
+          "master": "W"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "T"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "W"
+        }
+      ]
+    },
+    "result": {
+      "template": "result",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "required": 12,
+      "observed": 0,
+      "passed": false,
+      "missing": [
+        {
+          "market": "BTCUSD",
+          "master": "T"
+        },
+        {
+          "market": "BTCUSD",
+          "master": "W"
+        },
+        {
+          "market": "EURUSD",
+          "master": "T"
+        },
+        {
+          "market": "EURUSD",
+          "master": "W"
+        },
+        {
+          "market": "US500",
+          "master": "T"
+        },
+        {
+          "market": "US500",
+          "master": "W"
+        },
+        {
+          "market": "USDJPY",
+          "master": "T"
+        },
+        {
+          "market": "USDJPY",
+          "master": "W"
+        },
+        {
+          "market": "USOIL",
+          "master": "T"
+        },
+        {
+          "market": "USOIL",
+          "master": "W"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "T"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "W"
+        }
+      ]
+    },
+    "weekly": {
+      "template": "weekly",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "required": 12,
+      "observed": 0,
+      "passed": false,
+      "missing": [
+        {
+          "market": "BTCUSD",
+          "master": "T"
+        },
+        {
+          "market": "BTCUSD",
+          "master": "W"
+        },
+        {
+          "market": "EURUSD",
+          "master": "T"
+        },
+        {
+          "market": "EURUSD",
+          "master": "W"
+        },
+        {
+          "market": "US500",
+          "master": "T"
+        },
+        {
+          "market": "US500",
+          "master": "W"
+        },
+        {
+          "market": "USDJPY",
+          "master": "T"
+        },
+        {
+          "market": "USDJPY",
+          "master": "W"
+        },
+        {
+          "market": "USOIL",
+          "master": "T"
+        },
+        {
+          "market": "USOIL",
+          "master": "W"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "T"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "W"
+        }
+      ]
+    },
+    "map": {
+      "template": "map",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+      "required": 12,
+      "observed": 0,
+      "passed": false,
+      "missing": [
+        {
+          "market": "BTCUSD",
+          "master": "T"
+        },
+        {
+          "market": "BTCUSD",
+          "master": "W"
+        },
+        {
+          "market": "EURUSD",
+          "master": "T"
+        },
+        {
+          "market": "EURUSD",
+          "master": "W"
+        },
+        {
+          "market": "US500",
+          "master": "T"
+        },
+        {
+          "market": "US500",
+          "master": "W"
+        },
+        {
+          "market": "USDJPY",
+          "master": "T"
+        },
+        {
+          "market": "USDJPY",
+          "master": "W"
+        },
+        {
+          "market": "USOIL",
+          "master": "T"
+        },
+        {
+          "market": "USOIL",
+          "master": "W"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "T"
+        },
+        {
+          "market": "XAUUSD",
+          "master": "W"
+        }
+      ]
+    }
+  },
+  "existing_control_present": false,
+  "weekly_observation": "installed-observed-week.json",
+  "actual_vision": "local-event-vision.json",
+  "outcome": "INTEGRATED_ACCEPTANCE_PENDING",
+  "first_cause": "AGY_VISION_TIMEOUT_125S",
+  "source_limit": "MAIN_PUBLIC_RESULT_R_ABSENT; retained morning-map daily move and state fields absent",
+  "next_action": "Complete the spec section 7 real W/T reviews and Ops Product acceptance when source-complete inputs and valid vision returns are available; observe twenty published sample images through the unchanged consumer."
+}

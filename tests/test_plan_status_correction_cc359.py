@@ -34,9 +34,11 @@ def test_correction_reaches_live_consumer_once_and_preserves_originals(tmp_path)
     intents = {m["destination"]: json.loads(m["payload"]) for m in store.list_outbox_messages()
                if m["work_item_id"] == correction.KEY and m["destination"] in posts.POST_DESTINATIONS}
     assert set(intents) == set(posts.POST_DESTINATIONS)
+    expected_text = (correction.BODY + "\n\n" + posts.CHART_CREDIT + "\n\n"
+                     + posts.PUBLIC_NOTICE + " " + posts.CONFLICTS_NOTICE)
     for d, intent in intents.items():
         data = _durable_intent_inputs(intent)
-        assert data["payloads"][d]["full_text"] == correction.TEXT
+        assert data["payloads"][d]["full_text"] == expected_text
         assert data["payloads"][d] == intent["native_payload"]
         assert "https://" not in data["payloads"][d]["text"]
         if d in {"threads", "telegram"}:

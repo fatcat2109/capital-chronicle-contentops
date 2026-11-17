@@ -1,0 +1,10 @@
+{
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "classification": "CONFIGURED_NOT_OBSERVED",
+  "process_id": 20928,
+  "process_started": "2026-11-15T18:26:59.0493890Z",
+  "base": "ea9cd48e2b61592882fa1b99976e6c381ec98893",
+  "branch": "backlog/cc-603-call-followups",
+  "editorial_model_api_calls": 0
+}

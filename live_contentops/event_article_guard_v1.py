@@ -112,7 +112,7 @@ _PRIVATE_KEY = re.compile(
 # while "a lot of" or "lots of" in ordinary prose is not a size.
 _PRIVATE_TEXT = re.compile(
     r"\b(?:demo|mt[45]|mt5\s*trial\d*|exness[\w-]*|metatrader\s*\d?|stop[ -]?loss|take[ -]?profit|entry price|"
-    r"entry level|model[\s-]+positions?|position siz(?:e|ing)|account (?:id|number|balance|equity)|"
+    r"entry level|model[\s-]+positions?|model[\s-]+calls?|position siz(?:e|ing)|account (?:id|number|balance|equity)|"
     r"portfolio (?:positions?|results?|returns?)|our (?:positions?|holdings?)|"
     r"p\s*&\s*l|lot\s+sizes?)\b|"
     r"(?<![\w.])(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half\s+a|a\s+single)\s*"
@@ -194,6 +194,9 @@ class PublicOutputError(ValueError):
 
 def public_execution_copy_forbidden(text: str) -> bool:
     """Keep position calls private while allowing a central bank's policy target."""
+    # CC-466: an explicitly sourced result in R is public; cash, size and
+    # account identifiers remain private. Only the signed result grammar is exempt.
+    text = re.sub(r"\bResult: [+−-]\d+\.\dR\.", "Result: recorded.", text)
     if _PRIVATE_TEXT.search(text):
         return True
     for match in _INSTRUCTION.finditer(text):
@@ -215,6 +218,18 @@ def reader_conditional_call_text(call: Mapping[str, Any]) -> str:
     """The same five bound fields in decision 98's first-person reader form."""
     return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
             f"Our horizon is {call['horizon']}. Our view is invalidated if {call['invalidation']}.")
+
+
+def compact_reader_conditional_call_text(call: Mapping[str, Any]) -> str:
+    """CC-466: the same bound condition, direction, horizon and invalidation."""
+    return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
+            f"Wrong {call['invalidation']}. Ends {call['horizon']}.")
+
+
+def thread_reader_conditional_call_text(call: Mapping[str, Any]) -> str:
+    """CC-549 names the close condition, instrument stop and each clock."""
+    return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
+            f"{call['invalidation']}. {call['horizon']}.")
 
 
 def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
@@ -261,9 +276,11 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
             _fail("CALL_CONDITION_OR_INVALIDATION_INVALID", "conditional_calls")
         wording = conditional_call_text(call)
         reader_wording = reader_conditional_call_text(call)
-        if require_call_text and not any(w in combined for w in (wording, reader_wording)):
+        compact_wording = compact_reader_conditional_call_text(call)
+        thread_wording = thread_reader_conditional_call_text(call)
+        if require_call_text and not any(w in combined for w in (wording, reader_wording, compact_wording, thread_wording)):
             _fail("CONDITIONAL_CALL_NOT_IN_AUTHORED_COPY", "conditional_calls")
-        remainder = remainder.replace(wording, "").replace(reader_wording, "")
+        remainder = remainder.replace(wording, "").replace(reader_wording, "").replace(compact_wording, "").replace(thread_wording, "")
     if calls and CONFLICTS_NOTICE not in combined:
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     # CC-379 / decision 106: a dated, resolved call is a record of the original
@@ -271,21 +288,25 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
     # grammar is exempt; source/number binding and private-copy checks still apply.
     remainder = re.sub(
         r"(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{1,2} [A-Z][a-z]{2} ET: [^;\n]{1,80}; "
-        r"original direction was (?:bullish|bearish); entry zone "
-        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; "
+        r"original direction was (?:bullish|bearish); (?:entry zone "
+        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; )?"
         r"(?:hit|stopped|closed at the end of its window|not triggered|expired without entry; not scored)\.",
         "", remainder)
     # CC-394 / decision 109: the same resolved record in the pinned scorecard.
     # Only this complete dated result line is historical; free directional prose
-    # still requires decision 40's condition, horizon and invalidation.
+    # still requires decision 40's condition, horizon and invalidation. CC-583: a
+    # line without plan levels prints no price at all.
     remainder = re.sub(
         r"(?m)^\d{4}-\d{2}-\d{2} ET \| [^|\n]{1,140} \| "
-        r"original direction was (?:bullish|bearish) \| entry zone "
-        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))? \| "
+        r"original direction was (?:bullish|bearish) \| (?:entry zone "
+        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))? \| )?"
         r"(?:HIT|STOPPED|EXPIRED|NOT TRIGGERED)(?: \(untriggered; not scored\))?"
         r"(?: \(correction\))?(?: \| end direction: (?:bullish|bearish|flat))?$",
         "", remainder)
-    if re.search(r"\b(?:bullish|bearish)\b", remainder, re.I):
+    # CC-432: a canonical link's path is an identifier, not a fresh call.
+    # Keep visible link labels and every source/privacy check in scope.
+    directional_prose = re.sub(r"https?://[^\s<>\"'()\[\]]+", "", remainder, flags=re.I)
+    if re.search(r"\b(?:bullish|bearish)\b", directional_prose, re.I):
         _fail("UNCONDITIONAL_CALL_FORBIDDEN", "copy")
     for call in calls:
         collect({k: v for k, v in call.items() if k != "direction"})

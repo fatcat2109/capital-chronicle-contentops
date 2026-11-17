@@ -1,0 +1,2188 @@
+[
+  {
+    "field": "substack_body_markdown",
+    "public_span": "230; 0.109",
+    "number": "230",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      230,
+      0.51,
+      0.109,
+      1.6,
+      0.05,
+      0.15,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "230; 0.109",
+    "number": "0.109",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      230,
+      0.51,
+      0.109,
+      1.6,
+      0.05,
+      0.15,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; -0.055",
+    "number": "119",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      119,
+      0.45,
+      -0.055,
+      -0.6,
+      -0.05,
+      -0.06,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; -0.055",
+    "number": "-0.055",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      119,
+      0.45,
+      -0.055,
+      -0.6,
+      -0.05,
+      -0.06,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; -0.013",
+    "number": "119",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      119,
+      0.44,
+      -0.013,
+      -0.1,
+      -0.1,
+      0.09,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; -0.013",
+    "number": "-0.013",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      119,
+      0.44,
+      -0.013,
+      -0.1,
+      -0.1,
+      0.09,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "230; -0.154",
+    "number": "230",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      230,
+      0.38,
+      -0.154,
+      -2.0,
+      -0.11,
+      -0.19,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "230; -0.154",
+    "number": "-0.154",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      230,
+      0.38,
+      -0.154,
+      -2.0,
+      -0.11,
+      -0.19,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "476; 0.087",
+    "number": "476",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.51,
+      0.087,
+      1.9,
+      0.06,
+      0.11,
+      "PAID"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "476; 0.087",
+    "number": "0.087",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.51,
+      0.087,
+      1.9,
+      0.06,
+      0.11,
+      "PAID"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "180; 0.115",
+    "number": "180",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      180,
+      0.54,
+      0.115,
+      1.7,
+      0.14,
+      0.08,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "180; 0.115",
+    "number": "0.115",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      180,
+      0.54,
+      0.115,
+      1.7,
+      0.14,
+      0.08,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "153; -0.092",
+    "number": "153",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      153,
+      0.43,
+      -0.092,
+      -1.2,
+      -0.02,
+      -0.13,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "153; -0.092",
+    "number": "-0.092",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      153,
+      0.43,
+      -0.092,
+      -1.2,
+      -0.02,
+      -0.13,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "153; 0.013",
+    "number": "153",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      153,
+      0.44,
+      0.013,
+      0.1,
+      -0.02,
+      0.03,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "153; 0.013",
+    "number": "0.013",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      153,
+      0.44,
+      0.013,
+      0.1,
+      -0.02,
+      0.03,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "180; -0.265",
+    "number": "180",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      180,
+      0.32,
+      -0.265,
+      -3.3,
+      -0.3,
+      -0.2,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "180; -0.265",
+    "number": "-0.265",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      180,
+      0.32,
+      -0.265,
+      -3.3,
+      -0.3,
+      -0.2,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "476; 0.001",
+    "number": "476",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.48,
+      0.001,
+      0.0,
+      0.04,
+      -0.04,
+      "FLAT"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "476; 0.001",
+    "number": "0.001",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.48,
+      0.001,
+      0.0,
+      0.04,
+      -0.04,
+      "FLAT"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "301; 0.032",
+    "number": "301",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      301,
+      0.52,
+      0.032,
+      0.6,
+      0.12,
+      -0.06,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "301; 0.032",
+    "number": "0.032",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      301,
+      0.52,
+      0.032,
+      0.6,
+      0.12,
+      -0.06,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "77; -0.155",
+    "number": "77",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      77,
+      0.42,
+      -0.155,
+      -1.4,
+      -0.29,
+      -0.08,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "77; -0.155",
+    "number": "-0.155",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      77,
+      0.42,
+      -0.155,
+      -1.4,
+      -0.29,
+      -0.08,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "77; 0.015",
+    "number": "77",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      77,
+      0.42,
+      0.015,
+      0.1,
+      0.22,
+      -0.1,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "77; 0.015",
+    "number": "0.015",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      77,
+      0.42,
+      0.015,
+      0.1,
+      0.22,
+      -0.1,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "301; -0.143",
+    "number": "301",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      301,
+      0.34,
+      -0.143,
+      -2.2,
+      -0.28,
+      0.01,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "301; -0.143",
+    "number": "-0.143",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      301,
+      0.34,
+      -0.143,
+      -2.2,
+      -0.28,
+      0.01,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "476; 0.093",
+    "number": "476",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.55,
+      0.093,
+      2.3,
+      0.17,
+      0.02,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "476; 0.093",
+    "number": "0.093",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.55,
+      0.093,
+      2.3,
+      0.17,
+      0.02,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "281; 0.197",
+    "number": "281",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      281,
+      0.5,
+      0.197,
+      3.0,
+      0.32,
+      0.05,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "281; 0.197",
+    "number": "0.197",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      281,
+      0.5,
+      0.197,
+      3.0,
+      0.32,
+      0.05,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "218; -0.048",
+    "number": "218",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      218,
+      0.42,
+      -0.048,
+      -0.8,
+      0.01,
+      -0.09,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "218; -0.048",
+    "number": "-0.048",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      218,
+      0.42,
+      -0.048,
+      -0.8,
+      0.01,
+      -0.09,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "218; 0.04",
+    "number": "218",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      218,
+      0.45,
+      0.04,
+      0.5,
+      -0.04,
+      0.09,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "218; 0.04",
+    "number": "0.04",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      218,
+      0.45,
+      0.04,
+      0.5,
+      -0.04,
+      0.09,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "281; -0.169",
+    "number": "281",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      281,
+      0.35,
+      -0.169,
+      -2.5,
+      -0.25,
+      -0.08,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "281; -0.169",
+    "number": "-0.169",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      281,
+      0.35,
+      -0.169,
+      -2.5,
+      -0.25,
+      -0.08,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "704; 0.086",
+    "number": "704",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      704,
+      0.5,
+      0.086,
+      2.3,
+      0.17,
+      0.01,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "704; 0.086",
+    "number": "0.086",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      704,
+      0.5,
+      0.086,
+      2.3,
+      0.17,
+      0.01,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "162; -0.026",
+    "number": "162",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      162,
+      0.46,
+      -0.026,
+      -0.4,
+      -0.02,
+      -0.04,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "162; -0.026",
+    "number": "-0.026",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      162,
+      0.46,
+      -0.026,
+      -0.4,
+      -0.02,
+      -0.04,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "185; -0.079",
+    "number": "185",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      185,
+      0.42,
+      -0.079,
+      -1.2,
+      -0.1,
+      -0.06,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "185; -0.079",
+    "number": "-0.079",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      185,
+      0.42,
+      -0.079,
+      -1.2,
+      -0.1,
+      -0.06,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "185; 0.017",
+    "number": "185",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      185,
+      0.45,
+      0.017,
+      0.2,
+      -0.01,
+      0.04,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "185; 0.017",
+    "number": "0.017",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      185,
+      0.45,
+      0.017,
+      0.2,
+      -0.01,
+      0.04,
+      "FLAT"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "162; -0.094",
+    "number": "162",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      162,
+      0.37,
+      -0.094,
+      -1.1,
+      -0.09,
+      -0.1,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "162; -0.094",
+    "number": "-0.094",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      162,
+      0.37,
+      -0.094,
+      -1.1,
+      -0.09,
+      -0.1,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "480; -0.035",
+    "number": "480",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      480,
+      0.46,
+      -0.035,
+      -0.8,
+      -0.03,
+      -0.04,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "480; -0.035",
+    "number": "-0.035",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      480,
+      0.46,
+      -0.035,
+      -0.8,
+      -0.03,
+      -0.04,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "214; 0.032",
+    "number": "214",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      214,
+      0.5,
+      0.032,
+      0.5,
+      -0.09,
+      0.11,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "214; 0.032",
+    "number": "0.032",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      214,
+      0.5,
+      0.032,
+      0.5,
+      -0.09,
+      0.11,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; -0.099",
+    "number": "119",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      119,
+      0.38,
+      -0.099,
+      -1.1,
+      -0.08,
+      -0.13,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; -0.099",
+    "number": "-0.099",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      119,
+      0.38,
+      -0.099,
+      -1.1,
+      -0.08,
+      -0.13,
+      "LOST_BOTH_HALVES"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; 0.068",
+    "number": "119",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      119,
+      0.49,
+      0.068,
+      0.6,
+      -0.03,
+      0.21,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "119; 0.068",
+    "number": "0.068",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG",
+    "table_value": [
+      119,
+      0.49,
+      0.068,
+      0.6,
+      -0.03,
+      0.21,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "214; -0.112",
+    "number": "214",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      214,
+      0.37,
+      -0.112,
+      -1.4,
+      0.04,
+      -0.2,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "214; -0.112",
+    "number": "-0.112",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT",
+    "table_value": [
+      214,
+      0.37,
+      -0.112,
+      -1.4,
+      0.04,
+      -0.2,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "461; 0.03",
+    "number": "461",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      461,
+      0.52,
+      0.03,
+      0.7,
+      -0.05,
+      0.1,
+      "FLAT"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "461; 0.03",
+    "number": "0.03",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      461,
+      0.52,
+      0.03,
+      0.7,
+      -0.05,
+      0.1,
+      "FLAT"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "For both rules, the maximum holding period is 5 sessions.",
+    "number": "5",
+    "file": "desk_odds_v1.json",
+    "pointer": "/behaviours/WITH_YARDSTICK_5",
+    "table_value": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The with-trend stop is 1.5 normal days",
+    "number": "1.5",
+    "file": "desk_odds_v1.json",
+    "pointer": "/behaviours/WITH_YARDSTICK_5",
+    "table_value": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "the against-trend stop is 1 normal day.",
+    "number": "1",
+    "file": "desk_odds_v1.json",
+    "pointer": "/behaviours/AGAINST_YARDSTICK_5",
+    "table_value": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Both target 2R and enter at the next open after the signal.",
+    "number": "2",
+    "file": "desk_odds_v1.json",
+    "pointer": "/behaviours/WITH_YARDSTICK_5",
+    "table_value": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "A normal day uses the average true daily range over 14 sessions.",
+    "number": "14",
+    "file": "desk_odds_v1.json",
+    "pointer": "/how_measured",
+    "table_value": "Daily bars; R is the stop distance; cost 0.05 of a normal day (D1 ATR14) per round trip; a decision at a close is entered at the next open; inside one bar the stop is taken before the target; one trade at a time per market and behaviour. t is the mean over its standard error using sample standard deviation (nominal IID, not a dependence-adjusted significance claim). Halves split at the fixed midpoint of the calendar window, not the median trade. BTC sessions include weekends; futures are unadjusted continuous proxies with roll risk. Signed oil prices are retained; pending entries use decision-close ATR and include the fill bar.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The assumed round-trip cost is 0.05 normal day.",
+    "number": "0.05",
+    "file": "desk_odds_v1.json",
+    "pointer": "/how_measured",
+    "table_value": "Daily bars; R is the stop distance; cost 0.05 of a normal day (D1 ATR14) per round trip; a decision at a close is entered at the next open; inside one bar the stop is taken before the target; one trade at a time per market and behaviour. t is the mean over its standard error using sample standard deviation (nominal IID, not a dependence-adjusted significance claim). Halves split at the fixed midpoint of the calendar window, not the median trade. BTC sessions include weekends; futures are unadjusted continuous proxies with roll risk. Signed oil prices are retained; pending entries use decision-close ATR and include the fill bar.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The halves split at the fixed calendar midpoint, 2021-11-10.",
+    "number": "2021",
+    "file": "desk_odds_v1.json",
+    "pointer": "/half_split_date",
+    "table_value": "2021-11-10",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The halves split at the fixed calendar midpoint, 2021-11-10.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/half_split_date",
+    "table_value": "2021-11-10",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The halves split at the fixed calendar midpoint, 2021-11-10.",
+    "number": "10",
+    "file": "desk_odds_v1.json",
+    "pointer": "/half_split_date",
+    "table_value": "2021-11-10",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+    "number": "14",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+    "number": "10",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/USDJPY",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+      "bars": 2437,
+      "from": "2016-11-11",
+      "through": "2026-11-09",
+      "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+      "known_epoch": 1794415959.568039,
+      "exchange_timezone": "Europe/London",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0,
+      "close_check": {
+        "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+        "applied": true,
+        "threshold": 0.25,
+        "flat_close_share_before": 0.6877,
+        "flat_close_share_after": 0.0252,
+        "rows_changed": 2431,
+        "last_row_dropped": "2026-11-10",
+        "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+      },
+      "close_basis": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/USDJPY",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+      "bars": 2437,
+      "from": "2016-11-11",
+      "through": "2026-11-09",
+      "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+      "known_epoch": 1794415959.568039,
+      "exchange_timezone": "Europe/London",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0,
+      "close_check": {
+        "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+        "applied": true,
+        "threshold": 0.25,
+        "flat_close_share_before": 0.6877,
+        "flat_close_share_after": 0.0252,
+        "rows_changed": 2431,
+        "last_row_dropped": "2026-11-10",
+        "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+      },
+      "close_basis": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/USDJPY",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+      "bars": 2437,
+      "from": "2016-11-11",
+      "through": "2026-11-09",
+      "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+      "known_epoch": 1794415959.568039,
+      "exchange_timezone": "Europe/London",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0,
+      "close_check": {
+        "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+        "applied": true,
+        "threshold": 0.25,
+        "flat_close_share_before": 0.6877,
+        "flat_close_share_after": 0.0252,
+        "rows_changed": 2431,
+        "last_row_dropped": "2026-11-10",
+        "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+      },
+      "close_basis": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/USDJPY",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+      "bars": 2437,
+      "from": "2016-11-11",
+      "through": "2026-11-09",
+      "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+      "known_epoch": 1794415959.568039,
+      "exchange_timezone": "Europe/London",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0,
+      "close_check": {
+        "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+        "applied": true,
+        "threshold": 0.25,
+        "flat_close_share_before": 0.6877,
+        "flat_close_share_after": 0.0252,
+        "rows_changed": 2431,
+        "last_row_dropped": "2026-11-10",
+        "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+      },
+      "close_basis": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/USDJPY",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+      "bars": 2437,
+      "from": "2016-11-11",
+      "through": "2026-11-09",
+      "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+      "known_epoch": 1794415959.568039,
+      "exchange_timezone": "Europe/London",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0,
+      "close_check": {
+        "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+        "applied": true,
+        "threshold": 0.25,
+        "flat_close_share_before": 0.6877,
+        "flat_close_share_after": 0.0252,
+        "rows_changed": 2431,
+        "last_row_dropped": "2026-11-10",
+        "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+      },
+      "close_basis": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+    "number": "09",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/USDJPY",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+      "bars": 2437,
+      "from": "2016-11-11",
+      "through": "2026-11-09",
+      "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+      "known_epoch": 1794415959.568039,
+      "exchange_timezone": "Europe/London",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0,
+      "close_check": {
+        "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+        "applied": true,
+        "threshold": 0.25,
+        "flat_close_share_before": 0.6877,
+        "flat_close_share_after": 0.0252,
+        "rows_changed": 2431,
+        "last_row_dropped": "2026-11-10",
+        "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+      },
+      "close_basis": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+    "number": "12",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+    "number": "10",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The audited table examined 54 market-and-behaviour rows.",
+    "number": "54",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "These six-market daily-bar base rates include asset drift: in the audited November 2016 to November 2026 sample a zero-net-mean 2,000-draw 60-calendar-day block test produced 1.12 PAID_BOTH_HALVES rows out of 54 by chance on average (95% range 0 to 4), versus 5 observed. Choosing rows on the first five years and starting flat on the last five selected 3 rows: 2 stayed positive over 363 test trades at +0.098R per trade, a retrospective dependent sample at a uniform cost of 0.05 normal day with futures roll risk and D1 path uncertainty, not a prospective probability. EURUSD and USDJPY closes are the next session's open, because Yahoo's daily currency bar carries the day's open as its close.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The rising yardstick requires price above its levels 20 and 60 sessions earlier.",
+    "number": "20",
+    "file": "README.md",
+    "pointer": "/",
+    "table_value": "`close[i]-close[i-20]`, `close[i]-close[i-60]`",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The rising yardstick requires price above its levels 20 and 60 sessions earlier.",
+    "number": "60",
+    "file": "README.md",
+    "pointer": "/",
+    "table_value": "`close[i]-close[i-20]`, `close[i]-close[i-60]`",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "It also requires price above its 20-session and 50-session simple averages; falling signals reverse those conditions.",
+    "number": "20",
+    "file": "desk_odds_v1.py",
+    "pointer": "/",
+    "table_value": "            \"price_vs_mean_20_pct\": round(100 * (c / _mean(closes[i - 19:]) - 1), 2),\n            \"price_vs_mean_50_pct\": round(100 * (c / _mean(closes[i - 49:]) - 1), 2),",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "It also requires price above its 20-session and 50-session simple averages; falling signals reverse those conditions.",
+    "number": "50",
+    "file": "desk_odds_v1.py",
+    "pointer": "/",
+    "table_value": "            \"price_vs_mean_20_pct\": round(100 * (c / _mean(closes[i - 19:]) - 1), 2),\n            \"price_vs_mean_50_pct\": round(100 * (c / _mean(closes[i - 49:]) - 1), 2),",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin's trend-long mean was 0.32R in the first half and 0.05R in the later half.",
+    "number": "0.32",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      281,
+      0.5,
+      0.197,
+      3.0,
+      0.32,
+      0.05,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Bitcoin's trend-long mean was 0.32R in the first half and 0.05R in the later half.",
+    "number": "0.05",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      281,
+      0.5,
+      0.197,
+      3.0,
+      0.32,
+      0.05,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Its trend-short mean changed from 0.01R to -0.09R.",
+    "number": "0.01",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      218,
+      0.42,
+      -0.048,
+      -0.8,
+      0.01,
+      -0.09,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Its trend-short mean changed from 0.01R to -0.09R.",
+    "number": "-0.09",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      218,
+      0.42,
+      -0.048,
+      -0.8,
+      0.01,
+      -0.09,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The S&P trend-long mean fell to -0.06R in the later half.",
+    "number": "-0.06",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      301,
+      0.52,
+      0.032,
+      0.6,
+      0.12,
+      -0.06,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin trend-long: 281 trades, 0.197R per trade",
+    "number": "281",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      281,
+      0.5,
+      0.197,
+      3.0,
+      0.32,
+      0.05,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin trend-long: 281 trades, 0.197R per trade",
+    "number": "0.197",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      281,
+      0.5,
+      0.197,
+      3.0,
+      0.32,
+      0.05,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Trend-short: 218 trades, -0.048R.",
+    "number": "218",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      218,
+      0.42,
+      -0.048,
+      -0.8,
+      0.01,
+      -0.09,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Trend-short: 218 trades, -0.048R.",
+    "number": "-0.048",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+    "table_value": [
+      218,
+      0.42,
+      -0.048,
+      -0.8,
+      0.01,
+      -0.09,
+      "LOST"
+    ],
+    "side": "SHORT",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Gold trend-long: 230 trades, 0.109R",
+    "number": "230",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      230,
+      0.51,
+      0.109,
+      1.6,
+      0.05,
+      0.15,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Gold trend-long: 230 trades, 0.109R",
+    "number": "0.109",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG",
+    "table_value": [
+      230,
+      0.51,
+      0.109,
+      1.6,
+      0.05,
+      0.15,
+      "PAID"
+    ],
+    "side": "LONG",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "always long: 704 trades, 0.086R",
+    "number": "704",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      704,
+      0.5,
+      0.086,
+      2.3,
+      0.17,
+      0.01,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "always long: 704 trades, 0.086R",
+    "number": "0.086",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      704,
+      0.5,
+      0.086,
+      2.3,
+      0.17,
+      0.01,
+      "PAID_BOTH_HALVES"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "always long: 476 trades, 0.087R",
+    "number": "476",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.51,
+      0.087,
+      1.9,
+      0.06,
+      0.11,
+      "PAID"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "always long: 476 trades, 0.087R",
+    "number": "0.087",
+    "file": "desk_odds_sides_v1.json",
+    "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG",
+    "table_value": [
+      476,
+      0.51,
+      0.087,
+      1.9,
+      0.06,
+      0.11,
+      "PAID"
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The gold sample spans 2016-11-14 to 2026-11-10",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The gold sample spans 2016-11-14 to 2026-11-10",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The gold sample spans 2016-11-14 to 2026-11-10",
+    "number": "14",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The gold sample spans 2016-11-14 to 2026-11-10",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The gold sample spans 2016-11-14 to 2026-11-10",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The gold sample spans 2016-11-14 to 2026-11-10",
+    "number": "10",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/XAUUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+      "bars": 2513,
+      "from": "2016-11-14",
+      "through": "2026-11-10",
+      "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+      "known_epoch": 1794456063.406985,
+      "exchange_timezone": "America/New_York",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+    "number": "12",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+    "number": "11",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+    "number": "10",
+    "file": "desk_odds_v1.json",
+    "pointer": "/markets/BTCUSD",
+    "table_value": {
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+      "bars": 3651,
+      "from": "2016-11-12",
+      "through": "2026-11-10",
+      "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+      "known_epoch": 1794456065.954216,
+      "exchange_timezone": "UTC",
+      "sunday_stubs_removed": 0,
+      "signed_price_bars": 0
+    },
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "observed_at_utc": "2026-11-17T02:51:40.689248+00:00",
+  "status": "ACCEPTANCE_PASSED",
+  "implementation_already_live": true,
+  "live_consumer": "scripts/plan_status_posts.py --publish -> DurablePublicationCoordinator.update_pinned_result_scorecard",
+  "source": "Main outcome rows through result_rows_from_export",
+  "public_message_id": "134",
+  "bot_api_exact_readback": true,
+  "public_page_exact_readback": true,
+  "public_pin_notice_observed": true,
+  "public_text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+  "utf16_units": 3947,
+  "limit": 4096,
+  "counts": {
+    "HIT": 0,
+    "STOPPED": 5,
+    "EXPIRED": 37,
+    "NOT_TRIGGERED": 0,
+    "total": 42,
+    "scored": 6
+  },
+  "first_new_scored_result": {
+    "plan_id": "plan_795515a9284ce4344425e7f5",
+    "outcome_id": "outcome_bd6a2fbc1c270ece6bbea043961b496f",
+    "score_hash": "feaa374afccac1cf7bf68065e1084cb4ab0b757b3de1566fcde7685faca5a590",
+    "result": "STOPPED",
+    "symbol": "XAUUSD",
+    "resolved_at_utc": "2026-11-10T10:20:05.506000Z",
+    "scored_at_utc": "2026-11-10T10:51:08.701630Z",
+    "first_bot_observed_at_utc": "2026-11-10T10:51:32.867103+00:00",
+    "latency_from_main_score_seconds": 24.165473,
+    "within_60_minutes": true,
+    "message_id": "134",
+    "revision": "pinned-result-scorecard-v1-56542241d42aacf16a58755db9555ed44c95c45a6813649e97b601f5cc3e7ab5",
+    "visible_in_first_pinned_text": true,
+    "visible_in_current_text": false
+  },
+  "newest_score_deadline_met": false,
+  "newest_score_latency_seconds": 9805.300383,
+  "historical_missed_deadline_cause": "PLAN_EXPORT_STALE",
+  "historical_delay_evidence": "../resume-20261115/live-consumer.json",
+  "scorecard_run_records": 4149,
+  "bootstrap_messages": 1,
+  "extra_result_feed_posts": 0,
+  "targeted_tests": {
+    "passed": 5,
+    "deselected": 25,
+    "artifact": "targeted-tests.xml"
+  },
+  "production_code_changes": 0,
+  "test_isolation_fix": true,
+  "live_public_writes_this_run": 0,
+  "schedule_changes": 0,
+  "choice": "Reuse the installed consumer and exact pinned object; isolate the stale integration test; retain the historical upstream export delay.",
+  "installed_tests": {
+    "passed": 5,
+    "deselected": 25,
+    "artifact": "installed-targeted-tests.xml"
+  },
+  "interrupted_test_attempts": 2
+}

@@ -1,0 +1,23 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-13T06:00:02.007057+00:00",
+  "new_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:45909s",
+  "standing_status": "OPEN",
+  "choice": "Use all held completed Main analyses and exported plans in selection; issue no filler because none has an unexpired original data cutoff. Decision 89 and the root CC-403 deadline apply.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "next_due_gmt7": "13 Nov 2026 17:15 GMT+7",
+  "next_due_reason": "Prepare the PPI preview at 17:15 GMT+7 to meet decision 98's 18:30 deadline; no host schedule change.",
+  "next_action": "Consume any new completed Main analysis at the next standing opportunity. The PPI preview is 13 November's wrap (decision 98).",
+  "next_actor": "Codex Publisher; Ops Live owns Main analysis production.",
+  "acceptance": "Installed consumers executed successfully. No new publication/readback acceptance claimed.",
+  "changed_main_sources": 0,
+  "completed_main_sources": 37,
+  "source_inventory_count": 38,
+  "latest_main_stop_reason": "PROTECTION_NOT_HEALTHY"
+}

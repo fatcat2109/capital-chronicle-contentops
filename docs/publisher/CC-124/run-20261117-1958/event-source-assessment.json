@@ -1,0 +1,38 @@
+{
+  "observed_at_utc": "2026-11-17T13:03:49.137042+00:00",
+  "run": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-0930-dossier-retail\\run.json",
+    "bytes": 9634,
+    "sha256": "7d0e83f55f02a6914b367e353fb58cf64203fe2982eca7181c3796064487742a"
+  },
+  "dossier": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-0930-dossier-retail\\dossier.json",
+    "bytes": 795,
+    "sha256": "d57f755a1c9423f126e48ef0a7abaac438e31b0e802e9508d29a315e1bc6bc5a"
+  },
+  "analysis": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-0930-dossier-retail\\analysis-branches.json",
+    "bytes": 35340,
+    "sha256": "4b9093caa3c6d98213452c0be76b144b1e7d216a397ca8a4990044ef7338a204"
+  },
+  "main_status": "DOSSIER_COMPLETE",
+  "scheduled_utc": "2026-11-17T09:30:00Z",
+  "analysis_completed_utc": "2026-11-17T10:04:00Z",
+  "actual_end_utc": "2026-11-17T10:04:57Z",
+  "source_data_cutoff_utc": "2026-11-17T05:13:57Z",
+  "source_clock_field": "analysis-branches.json /bars_known_at_utc",
+  "run_planned_cutoff_utc": "2026-11-17T12:05:00Z",
+  "release_at_utc": "2026-11-17T13:30:00Z",
+  "reader_contract": {
+    "policy": "CC403_READER_ARTICLE_V1",
+    "format": "ARTICLE",
+    "source_pack_sha256": "f28ef69ee218d23e74b376dca3b34ca435e5fc89f0de77979cf890ecd944ab91",
+    "primary_document_id": "retail-dossier-20261117",
+    "data_cutoff_utc": "2026-11-17T05:13:57+00:00",
+    "max_sentence_words": 35,
+    "daily_prose_words": 350,
+    "publication_target_minutes": 60
+  },
+  "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:28192s",
+  "clock_use": "The bars-known-at clock supplied by Main is distinct from the later dossier preparation and planned event cutoff. No generation, planned cutoff or release clock refreshes the market data."
+}

@@ -1,0 +1,229 @@
+{
+  "observed_at_utc": "2026-11-13T18:13:24.224982+00:00",
+  "markets": {
+    "XAUUSD": {
+      "status": "AVAILABLE",
+      "quote": {
+        "market": "XAUUSD",
+        "instrument": "XAUUSD",
+        "quoted_at_utc": "2026-11-13T18:12:43.590000+00:00",
+        "known_at_utc": "2026-11-13T18:13:21.972405+00:00",
+        "comparison_basis": "AT_CAPTURE",
+        "comparison_at_utc": "2026-11-13T18:13:24.224982+00:00",
+        "age_seconds": 40.634982,
+        "capture_age_seconds": 40.634982,
+        "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source": "CNBC",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\e9c262945323c6cb38367e4599b101d56bee31a1e89baca3835e85f5d29818f8.json",
+        "source_sha256": "e9c262945323c6cb38367e4599b101d56bee31a1e89baca3835e85f5d29818f8",
+        "source_url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+        "source_symbol": "XAU=",
+        "instrument_name": "Gold spot",
+        "instrument_type": "INDEX",
+        "price_basis": "public_index",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T18:07:38.426154+00:00",
+            "age_seconds": 86745.798828
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114744.224982
+          }
+        ]
+      }
+    },
+    "US500": {
+      "status": "AVAILABLE",
+      "quote": {
+        "market": "US500",
+        "instrument": "US500",
+        "quoted_at_utc": "2026-11-13T18:13:21+00:00",
+        "known_at_utc": "2026-11-13T18:13:22.580792+00:00",
+        "comparison_basis": "AT_CAPTURE",
+        "comparison_at_utc": "2026-11-13T18:13:24.224982+00:00",
+        "age_seconds": 3.224982,
+        "capture_age_seconds": 3.224982,
+        "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source": "Yahoo Finance",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\b6317c180889c816542f9ef9daf96a8fb2fd962d77cf98b324f39d8799a4300f.json",
+        "source_sha256": "b6317c180889c816542f9ef9daf96a8fb2fd962d77cf98b324f39d8799a4300f",
+        "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=1d&interval=1m",
+        "source_symbol": "^GSPC",
+        "instrument_name": "S&P 500 cash index",
+        "instrument_type": "INDEX",
+        "price_basis": "public_index",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-11T16:30:56.318000+00:00",
+            "age_seconds": 178947.906982
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114744.224982
+          }
+        ]
+      }
+    },
+    "EURUSD": {
+      "status": "AVAILABLE",
+      "quote": {
+        "market": "EURUSD",
+        "instrument": "EURUSD",
+        "quoted_at_utc": "2026-11-13T18:12:33+00:00",
+        "known_at_utc": "2026-11-13T18:13:23.030829+00:00",
+        "comparison_basis": "AT_CAPTURE",
+        "comparison_at_utc": "2026-11-13T18:13:24.224982+00:00",
+        "age_seconds": 51.224982,
+        "capture_age_seconds": 51.224982,
+        "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source": "Yahoo Finance",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\c114690a50ef986ac8552ee78d8dddf473ad8994a1a1223084d59b8c8478d689.json",
+        "source_sha256": "c114690a50ef986ac8552ee78d8dddf473ad8994a1a1223084d59b8c8478d689",
+        "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/EURUSD%3DX?range=1d&interval=1m",
+        "source_symbol": "EURUSD=X",
+        "instrument_name": "EUR/USD spot",
+        "instrument_type": "CURRENCY",
+        "price_basis": "public_currency",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T06:32:36.924487+00:00",
+            "age_seconds": 128447.300495
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114744.224982
+          }
+        ]
+      }
+    },
+    "USDJPY": {
+      "status": "NOT_COMPARED",
+      "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "market": "USDJPY",
+      "source_attempts": [
+        {
+          "source_kind": "PLAN_STATUS_EXPORT",
+          "cause": "CHART_REFERENCE_STALE",
+          "price_at_utc": "2026-11-11T06:45:35.593000+00:00",
+          "age_seconds": 214068.631982
+        },
+        {
+          "source_kind": "BAR_STORE_M1_CLOSE",
+          "cause": "CHART_REFERENCE_STALE",
+          "price_at_utc": "2026-11-12T10:21:00+00:00",
+          "age_seconds": 114744.224982
+        },
+        {
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "cause": "PUBLIC_QUOTE_SYMBOL_MISMATCH",
+          "fetch_seconds": 0.0,
+          "cache_hit": true,
+          "rate_limited": false,
+          "retry_after_seconds": 58.868339
+        },
+        {
+          "source_kind": "MAIN_SAVED_TICK",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USDJPY",
+          "maximum_clock_skew_seconds": 120
+        }
+      ]
+    },
+    "USOIL": {
+      "status": "NOT_COMPARED",
+      "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "market": "USOIL",
+      "source_attempts": [
+        {
+          "source_kind": "PLAN_STATUS_EXPORT",
+          "cause": "CHART_REFERENCE_STALE",
+          "price_at_utc": "2026-11-12T18:08:37.783850+00:00",
+          "age_seconds": 86686.441132
+        },
+        {
+          "source_kind": "BAR_STORE_M1_CLOSE",
+          "cause": "CHART_REFERENCE_STALE",
+          "price_at_utc": "2026-11-12T10:21:00+00:00",
+          "age_seconds": 114744.224982
+        },
+        {
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "cause": "PUBLIC_QUOTE_STALE",
+          "age_seconds": 604.224982,
+          "observed_at_utc": "2026-11-13T18:03:20+00:00",
+          "source": "Yahoo Finance",
+          "fetch_seconds": 0.0,
+          "cache_hit": true,
+          "rate_limited": false,
+          "retry_after_seconds": 59.221305
+        },
+        {
+          "source_kind": "MAIN_SAVED_TICK",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USOIL",
+          "maximum_clock_skew_seconds": 120
+        }
+      ]
+    },
+    "BTCUSD": {
+      "status": "AVAILABLE",
+      "quote": {
+        "market": "BTCUSD",
+        "instrument": "BTCUSD",
+        "quoted_at_utc": "2026-11-13T18:13:19+00:00",
+        "known_at_utc": "2026-11-13T18:13:24.200215+00:00",
+        "comparison_basis": "AT_CAPTURE",
+        "comparison_at_utc": "2026-11-13T18:13:24.224982+00:00",
+        "age_seconds": 5.224982,
+        "capture_age_seconds": 5.224982,
+        "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source": "Yahoo Finance",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\b442fddc363076068764cb110d6fa7b6c90a162f5df6f3bcf2ad6b09815f29f5.json",
+        "source_sha256": "b442fddc363076068764cb110d6fa7b6c90a162f5df6f3bcf2ad6b09815f29f5",
+        "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1d&interval=1m",
+        "source_symbol": "BTC-USD",
+        "instrument_name": "Bitcoin spot",
+        "instrument_type": "CRYPTOCURRENCY",
+        "price_basis": "public_cryptocurrency",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_NOT_KNOWN_AT_CAPTURE"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114744.224982
+          }
+        ]
+      }
+    }
+  },
+  "started_at_utc": "2026-11-13T18:13:20.791639+00:00",
+  "prepare_seconds": {
+    "XAUUSD": 1.294,
+    "US500": 0.5,
+    "EURUSD": 0.508,
+    "USDJPY": 0.353,
+    "USOIL": 0.45,
+    "BTCUSD": 0.328
+  }
+}

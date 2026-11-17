@@ -1,0 +1,24 @@
+{
+  "tool_request_sha256": "5bc6352d2f3d912bef8228bd479d1c72749e32b19453f098c1c135d7f8b3d439",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+    "observation_source": "BrowserOS Neo page 148 web-only confirmation then /publish/posts/detail/225323477/share-center and exact Copy link textbox; no email code requested",
+    "dispatched_at_utc": "2026-11-17T10:06:43.951Z",
+    "observed_at_utc": "2026-11-17T10:06:49.875Z"
+  },
+  "result": {
+    "request_sha256": "feb4ec5286f0a8232ee06c37f98db40e21f68ded284bc657cb2aa1b97b6c8abe",
+    "status": "PUBLISHED",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "225323477",
+    "public_object_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "BrowserOS Neo page 148: unchecked email/schedule controls, then Publish on web only; share centre reached"
+    },
+    "public_write_performed": true
+  }
+}

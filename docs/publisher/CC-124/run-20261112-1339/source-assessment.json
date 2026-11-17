@@ -1,0 +1,710 @@
+{
+  "observed_at_utc": "2026-11-12T06:45:15.603877+00:00",
+  "previous_observation": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261112-0738\\source-assessment.json",
+    "bytes": 29957,
+    "sha256": "a16db3dc1c928b2bce35251ddc6946ae35f900b769b1013f5ecf0e205c9060d3",
+    "modified_at_utc": "2026-11-12T00:55:38.132159+00:00"
+  },
+  "retained_reports": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\owner-native.json",
+      "bytes": 111659,
+      "sha256": "1789437d4b786a30d4846c94d50e9377d729bd5d85966fc38b6ede912644774d",
+      "modified_at_utc": "2026-11-11T16:19:18.730948+00:00",
+      "capture_known_at_utc": "2026-11-11T15:05:22.469181Z",
+      "age_seconds": 56393.134696,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-a24fbc75cf8c5c6c\\owner-native.json",
+      "bytes": 86472,
+      "sha256": "7f0b807970a952537b422630d564a56c8f89fc493de982c0c2eaa288a713bc98",
+      "modified_at_utc": "2026-11-11T06:30:15.025115+00:00",
+      "capture_known_at_utc": "2026-11-11T05:13:31.505049Z",
+      "age_seconds": 91904.098828,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-research-mid-279805139\\requests\\request-d14441f1a7f5bd59\\owner-native.json",
+      "bytes": 102305,
+      "sha256": "5329ba6227f744c0b0473147714bb6603024056a4b8fa38a50f977857e52ac7e",
+      "modified_at_utc": "2026-11-11T03:18:17.727315+00:00",
+      "capture_known_at_utc": "2026-11-11T02:04:30.024267Z",
+      "age_seconds": 103245.57961,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-9f7c39e808aef09c\\owner-native.json",
+      "bytes": 103816,
+      "sha256": "bd8e89e4b814cf9597e5a42b75624137ffe72bc2a6fbc5bf4883c3aaff5fa2a8",
+      "modified_at_utc": "2026-11-10T16:17:41.480434+00:00",
+      "capture_known_at_utc": "2026-11-10T15:05:09.411694Z",
+      "age_seconds": 142806.192183,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261110-cpi\\dossier-20261110T093056Z\\owner-native.json",
+      "bytes": 68463,
+      "sha256": "8d25e61544520b04ea95766db8c0ed6454aede662fdc74df924ec93d8f0aba11",
+      "modified_at_utc": "2026-11-10T10:25:20.991775+00:00",
+      "capture_known_at_utc": "2026-11-10T09:31:05.318039Z",
+      "age_seconds": 162850.285838,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-caddf8cbb6c3311b\\owner-native.json",
+      "bytes": 62479,
+      "sha256": "4b0f2d8a56e9773ee7a7858d3c8dedba317e84078dfb71868c1fd23c85af1bca",
+      "modified_at_utc": "2026-11-10T06:22:59.562286+00:00",
+      "capture_known_at_utc": "2026-11-10T05:11:13.970589Z",
+      "age_seconds": 178441.633288,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\owner-native.json",
+      "bytes": 100563,
+      "sha256": "b13888558ba9d9dcc298ed1ee558ebfc73641151271936462c30cd173c21a458",
+      "modified_at_utc": "2026-11-10T01:33:53.285659+00:00",
+      "capture_known_at_utc": "2026-11-10T00:24:18.044184Z",
+      "age_seconds": 195657.559693,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+      "bytes": 65198,
+      "sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+      "modified_at_utc": "2026-11-09T09:10:57.375677+00:00",
+      "capture_known_at_utc": "2026-11-09T08:18:07.657913Z",
+      "age_seconds": 253627.945964,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\owner-native.json",
+      "bytes": 27039,
+      "sha256": "a56d2c52ba4ed163ee6ff75d594eae2cc07d46d3806877d99c77256fb97291cc",
+      "modified_at_utc": "2026-11-06T10:03:03.723281+00:00",
+      "capture_known_at_utc": "2026-11-06T09:31:46.503192Z",
+      "age_seconds": 508409.100685,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "bytes": 40752,
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "modified_at_utc": "2026-11-06T08:18:47.782128+00:00",
+      "capture_known_at_utc": "2026-11-06T07:34:43.562164Z",
+      "age_seconds": 515432.041713,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "bytes": 50392,
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "modified_at_utc": "2026-11-06T06:03:38.600291+00:00",
+      "capture_known_at_utc": "2026-11-06T05:14:53.871730Z",
+      "age_seconds": 523821.732147,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "bytes": 43780,
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "modified_at_utc": "2026-11-05T16:54:50.041907+00:00",
+      "capture_known_at_utc": "2026-11-05T16:09:37.190557Z",
+      "age_seconds": 570938.41332,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "bytes": 50926,
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "modified_at_utc": "2026-11-05T16:21:56.958702+00:00",
+      "capture_known_at_utc": "2026-11-05T15:07:15.013511Z",
+      "age_seconds": 574680.590366,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261105T150045Z\\synthesis-attempt-2\\owner-native.json",
+      "bytes": 58709,
+      "sha256": "24a8814188e38749a009ec78dad8bb585340e999f8e9d06912a5c50e1d6db114",
+      "modified_at_utc": "2026-11-05T16:11:52.819399+00:00",
+      "capture_known_at_utc": null,
+      "age_seconds": null,
+      "within_60_minutes": null
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261105T150045Z\\synthesis-attempt-1\\owner-native.json",
+      "bytes": 62462,
+      "sha256": "dbd8c4e7e93db150658b7e19b475391c42c22f9bdf6c199b30df7750f2c447d1",
+      "modified_at_utc": "2026-11-05T16:00:17.041226+00:00",
+      "capture_known_at_utc": null,
+      "age_seconds": null,
+      "within_60_minutes": null
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "bytes": 49228,
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "modified_at_utc": "2026-11-05T11:12:27.155965+00:00",
+      "capture_known_at_utc": "2026-11-05T10:28:41.752610Z",
+      "age_seconds": 591393.851267,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "bytes": 39672,
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "modified_at_utc": "2026-11-05T08:56:59.538917+00:00",
+      "capture_known_at_utc": "2026-11-05T08:17:38.852393Z",
+      "age_seconds": 599256.751484,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-2cb47ca5fa1d0dd4\\owner-native.json",
+      "bytes": 44401,
+      "sha256": "d20d1953c33b40e0f0ccdf47f379d6bc4be25fed5c40502e3d484a25b7db7f7c",
+      "modified_at_utc": "2026-11-05T05:52:03.876255+00:00",
+      "capture_known_at_utc": "2026-11-05T05:15:33.005106Z",
+      "age_seconds": 610182.598771,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e9ea28a3f2bd2bfa\\owner-native.json",
+      "bytes": 44178,
+      "sha256": "afa968ddba9827552c1a37313e799056644b71cbbf603dc195f1485593d30fb8",
+      "modified_at_utc": "2026-11-05T01:44:44.180025+00:00",
+      "capture_known_at_utc": "2026-11-05T00:51:31.148440Z",
+      "age_seconds": 626024.455437,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-51273dc20d4c181e\\owner-native.json",
+      "bytes": 48858,
+      "sha256": "353561201c8f33500077cfd91dcae2a9f7b21a7b8e5579447940881f30b45b13",
+      "modified_at_utc": "2026-11-04T23:50:48.074826+00:00",
+      "capture_known_at_utc": "2026-11-04T23:10:38.821663Z",
+      "age_seconds": 632076.782214,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d76f8099aa98eb40\\owner-native.json",
+      "bytes": 50187,
+      "sha256": "98c22420685bf51201cc1998d420579b968c19d4cebb104585f382696c59f879",
+      "modified_at_utc": "2026-11-04T21:03:53.576707+00:00",
+      "capture_known_at_utc": "2026-11-04T20:07:45.018680Z",
+      "age_seconds": 643050.585197,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b685c54776119d2a\\owner-native.json",
+      "bytes": 50575,
+      "sha256": "c24e486c857f774fc51b5f2b0bf44951a99bbf7961d79b8c594237d887ed4ebf",
+      "modified_at_utc": "2026-11-04T17:36:23.939322+00:00",
+      "capture_known_at_utc": "2026-11-04T16:55:23.746862Z",
+      "age_seconds": 654591.857015,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-ca1d8e92cdca3250\\owner-native.json",
+      "bytes": 31698,
+      "sha256": "af5251fc6b215738465d3ecfe6b5dfc4f3adc59aca8af2d3b1a5b0a321e45e9f",
+      "modified_at_utc": "2026-11-04T16:00:56.447072+00:00",
+      "capture_known_at_utc": "2026-11-04T15:07:18.720725Z",
+      "age_seconds": 661076.883152,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-3de3b71343111c7b\\owner-native.json",
+      "bytes": 33196,
+      "sha256": "40f79dad5e50cc4d9b589bd524a58907c32c0d7a7bed3b46bd6bc6db149173f0",
+      "modified_at_utc": "2026-11-03T06:26:01.435925+00:00",
+      "capture_known_at_utc": "2026-11-03T05:12:52.433809Z",
+      "age_seconds": 783143.170068,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f178a4640c2aa3de\\owner-native.json",
+      "bytes": 35261,
+      "sha256": "443d431fb4a48cb3c58e85198414ea28ef476efcd9b23a76060dfb2d2f93126f",
+      "modified_at_utc": "2026-11-02T06:34:43.926204+00:00",
+      "capture_known_at_utc": "2026-11-02T05:09:50.677724Z",
+      "age_seconds": 869724.926153,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-6d24a481c7c3783a\\owner-native.json",
+      "bytes": 30446,
+      "sha256": "4d8088fcec492b1b54e101467aac7c66a537ac4a873cecd06c0a262a09ff5be2",
+      "modified_at_utc": "2026-10-31T11:19:55.046611+00:00",
+      "capture_known_at_utc": "2026-10-29T16:11:26.183993Z",
+      "age_seconds": 1175629.419884,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261030-eci\\arrival-20261030T1222Z\\owner-native.json",
+      "bytes": 40909,
+      "sha256": "ff0f8419dd157bd4c593116d3d143a4bbc8b86409083f7603e1031529fd827ba",
+      "modified_at_utc": "2026-10-30T13:51:18.941371+00:00",
+      "capture_known_at_utc": "2026-10-30T12:31:26.266411Z",
+      "age_seconds": 1102429.337466,
+      "within_60_minutes": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74753dcb175dba34\\owner-native.json",
+      "bytes": 27997,
+      "sha256": "fc111ddfc1026236ac26b2792f46bb489365d670ef1e653552c4007e4d0831c8",
+      "modified_at_utc": "2026-10-29T18:02:58.373203+00:00",
+      "capture_known_at_utc": "2026-10-29T16:11:26.183993Z",
+      "age_seconds": 1175629.419884,
+      "within_60_minutes": false
+    }
+  ],
+  "new_or_changed_completed_native_reports": [],
+  "installed_projection": {
+    "spec": {
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc124-main-20261112-1339",
+      "headline_id": "cc124-main-20261112-1339",
+      "headline_text": "Main's latest six-market review",
+      "known_at_utc": "2026-11-11T16:19:18.730948+00:00",
+      "revision_at_utc": "2026-11-12T06:45:15.603877+00:00",
+      "candidate_catalyst_tags": [
+        "MAIN_REPORT"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\owner-native.json",
+          "source_sha256": "1789437d4b786a30d4846c94d50e9377d729bd5d85966fc38b6ede912644774d",
+          "source_json_pointer": "/summary/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 871
+            }
+          ]
+        }
+      ]
+    },
+    "reader_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "ARTICLE",
+      "source_pack_sha256": "5108bc42778ae2299614672f2398d8f5540eb7a6feca7a5e1c6985c3a687d631",
+      "primary_document_id": "cc124-main-20261112-1339",
+      "data_cutoff_utc": "2026-11-11T15:05:22.469181+00:00",
+      "max_sentence_words": 35,
+      "daily_prose_words": 350,
+      "publication_target_minutes": 60
+    },
+    "public_passage_sha256": "f99e55906dca62ca5fdd522f39a296287914895dbf192046a56769aecaed0e7b"
+  },
+  "source_clock_checks": [
+    {
+      "source": "latest_native_report",
+      "reader_contract": {
+        "policy": "CC403_READER_ARTICLE_V1",
+        "format": "ARTICLE",
+        "source_pack_sha256": "5108bc42778ae2299614672f2398d8f5540eb7a6feca7a5e1c6985c3a687d631",
+        "primary_document_id": "cc124-main-20261112-1339",
+        "data_cutoff_utc": "2026-11-11T15:05:22.469181+00:00",
+        "max_sentence_words": 35,
+        "daily_prose_words": 350,
+        "publication_target_minutes": 60
+      },
+      "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:56393s",
+      "publication_deadline_utc": "2026-11-11T16:05:22.469181+00:00"
+    },
+    {
+      "source": "latest_t2_ranking",
+      "reader_contract": {
+        "policy": "CC403_READER_ARTICLE_V1",
+        "format": "ARTICLE",
+        "source_pack_sha256": "8ef9d4ebf42b2827804aa38fdb724140747409174eff24cd0e7a59d0c176d0e4",
+        "primary_document_id": "latest-main-t2-ranking",
+        "data_cutoff_utc": "2026-11-12T04:46:43.000191+00:00",
+        "max_sentence_words": 35,
+        "daily_prose_words": 350,
+        "publication_target_minutes": 60
+      },
+      "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:7112s",
+      "publication_deadline_utc": "2026-11-12T05:46:43.000191+00:00"
+    }
+  ],
+  "latest_t2_selection": {
+    "run": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261112T044504Z\\run.json",
+      "bytes": 5037,
+      "sha256": "959dee0163b027f9328dd51b538f1db0bcfe3ed0bcccd741b9011abb19e937a2",
+      "modified_at_utc": "2026-11-12T04:59:29.768848+00:00"
+    },
+    "output": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261112T044504Z\\t2-output.json",
+      "bytes": 6875,
+      "sha256": "9f2874da400a8571182b6dd50eef1f513775d6c94e75eb9a16ab6ff20d4ab3e3",
+      "modified_at_utc": "2026-11-12T04:58:33.802096+00:00"
+    },
+    "original_capture": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261112T044504Z\\request\\capture.json",
+      "bytes": 9423016,
+      "sha256": "90d62f1282d23c7badaa14a4fa53c6c2265ecc2f1bd4fbf03b49e878defdae7d",
+      "modified_at_utc": "2026-11-12T04:46:44.342828+00:00",
+      "known_at_utc": "2026-11-12T04:46:43.000191Z"
+    },
+    "output_cutoff_utc": "2026-11-12T04:47:13Z",
+    "decision_at_utc": "2026-11-12T05:08:00Z",
+    "changed_since_previous_assessment": true,
+    "thesis_count": 13,
+    "selected_instruments": [
+      "GBPUSD",
+      "USDCAD",
+      "USDJPY",
+      "EURUSD",
+      "XAUUSD"
+    ],
+    "use": "Used for candidate selection with held Main reports and plans. Original capture, output cutoff and decision clocks remain separate; the new ranking's publication deadline has elapsed."
+  },
+  "latest_shock_attempt": {
+    "source": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-12\\20261112T041500Z-jim-makeup\\start-result.json",
+      "bytes": 871,
+      "sha256": "b362e5796822b80a4320155aaa043881c9231a62edd8fdab02787a12a84d86e4",
+      "modified_at_utc": "2026-11-12T05:07:15.629489+00:00"
+    },
+    "finished_at_utc": "2026-11-12T05:07:15Z",
+    "results": [
+      {
+        "cause": "FALLBACK_PROTECTION_NOT_HEALTHY",
+        "exit_code": 1,
+        "output": null,
+        "incidents": [
+          "P1 CLAUDE_TIMEOUT: killed after 3000.213 s (limit 3000 s)",
+          "P1 FALLBACK_NO_ANALYSIS: FALLBACK_PROTECTION_NOT_HEALTHY: protection or reconciliation block: LATEST_GUARDIAN_ATTEMPT_NOT_SUCCESSFUL"
+        ],
+        "run_record": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-12\\20261112T041500Z-jim-makeup\\shock\\headless-run.json"
+      }
+    ],
+    "use": "The latest return has no analytical output; its process cause does not become a new market call."
+  },
+  "additional_held_outputs": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-runs",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-runs\\run-20261111T020122Z\\run.json",
+          "bytes": 20586,
+          "sha256": "e753a7e41c31abf1992a82318cebcbb055914da163ead3e3e27df376c06f6978",
+          "modified_at_utc": "2026-11-11T03:22:20.660051+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-runs\\run-20261111T020122Z\\STATUS.md",
+          "bytes": 9351,
+          "sha256": "20802a42f9c5ba0e8403587c7f654f7fb788665a3430c4ebd44f2c612960e9d9",
+          "modified_at_utc": "2026-11-11T03:21:43.751120+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-runs\\run-20261111T020122Z\\options-review.txt",
+          "bytes": 35,
+          "sha256": "dd4078bc915202b4c96779c879c39118b0aebdaaa1995237759f274799778ee5",
+          "modified_at_utc": "2026-11-11T03:20:44.770568+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\state.json",
+          "bytes": 41637,
+          "sha256": "780c5283c7a90bcb84f35542cfcd95bf5a990024acbcb63fb8d6e3c9880f4f6f",
+          "modified_at_utc": "2026-11-12T05:11:18.103079+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-12\\20261112T051042Z\\decision.json",
+          "bytes": 13940,
+          "sha256": "f607b8611bf2c07d6cc09784d4dce7085f1a33c5d43de4c1952c5cfd8ef81412",
+          "modified_at_utc": "2026-11-12T05:11:18.102081+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-12\\20261112T051042Z\\feed-filter.json",
+          "bytes": 1649,
+          "sha256": "65bed43f2c234f4a3b3b6a8080e00b3792f2e40f68ebf7a77aa85032d3f4a451",
+          "modified_at_utc": "2026-11-12T05:11:06.210308+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\run.json",
+          "bytes": 7087,
+          "sha256": "07a0cf88af502e08d51c6e84b61b3527fe3693225049820e39a703a75c473914",
+          "modified_at_utc": "2026-11-10T13:33:10.311507+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\RESULT.md",
+          "bytes": 3946,
+          "sha256": "6341cf224dc483aec12d2bd1fdc16442b340ae0da5da9caa8f7bd2ceb1c2ba2d",
+          "modified_at_utc": "2026-11-10T13:32:50.055831+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\event-post-release.json",
+          "bytes": 1996,
+          "sha256": "2caf10298586932e1f24ca86607c651ced58f6c3e9a73660735c7e9e764af0d1",
+          "modified_at_utc": "2026-11-10T13:32:23.149659+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\PARKED.md",
+          "bytes": 6038,
+          "sha256": "c0e41131d07a82a4b97088e0bfbce4bddca7337f83867fa0412f22b38c95fed5",
+          "modified_at_utc": "2026-11-11T02:03:44.868375+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\notes\\AUDIENCE_BASELINE.md",
+          "bytes": 4479,
+          "sha256": "45bf165ac5595867caf41efc078c93c8ba5aad8bc37b3a42709edc65f887a029",
+          "modified_at_utc": "2026-11-09T19:16:04.066935+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\GROWTH_AND_PRODUCTS.md",
+          "bytes": 11758,
+          "sha256": "a876b430f4a049ac7059d4c9805e4cd68439a13f7ec625bebf7019dcd7bd7d64",
+          "modified_at_utc": "2026-11-09T18:33:55.759482+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\validation.json",
+          "bytes": 2668,
+          "sha256": "62b65b6e71bf27f165f875ba4ef438997830331e8af99517c5c39354b16da106",
+          "modified_at_utc": "2026-11-07T08:45:56.229296+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\README.md",
+          "bytes": 1720,
+          "sha256": "adbf1c632a2ce2ab834eff538fd76391b1a79836f23daaf4d164ab62569b3578",
+          "modified_at_utc": "2026-11-07T08:45:26.980611+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\held-input-search.json",
+          "bytes": 9339,
+          "sha256": "608eb24ac7aee4f97e47cf6ac92557a0ca902664ae97cc98ecbb6dc7a5fe92f1",
+          "modified_at_utc": "2026-11-07T08:44:31.907643+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false,
+      "latest_files": []
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false,
+      "latest_files": []
+    }
+  ],
+  "backlog_archive_search": [
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+      "bytes": 1337082,
+      "sha256": "59a3c8fa407ee2c6bc44691ebf48df2364c4a4962bb3bf45f89400844d98b476",
+      "modified_at_utc": "2026-11-12T06:41:11.409562+00:00",
+      "matching_lines": [
+        62,
+        253,
+        294,
+        295,
+        296,
+        526,
+        560,
+        573,
+        780,
+        804,
+        818,
+        965,
+        966,
+        978,
+        980,
+        983,
+        1002,
+        1003,
+        1023,
+        1030,
+        1080,
+        1111,
+        1144,
+        1146,
+        1152,
+        1154,
+        1157,
+        1158,
+        1159,
+        1160,
+        1163,
+        1365,
+        1401,
+        1459,
+        1513,
+        1584,
+        1611,
+        1725,
+        1815,
+        1823,
+        1825,
+        1828,
+        1830,
+        1831,
+        1838,
+        1839,
+        1840,
+        1841,
+        1842,
+        1903,
+        1906,
+        1937,
+        1943,
+        1952,
+        1955,
+        1973,
+        1975,
+        1987,
+        1996,
+        1998,
+        2001,
+        2194,
+        2195,
+        2293,
+        2377,
+        2380,
+        2385,
+        2396,
+        2433,
+        2455,
+        2503,
+        2670,
+        2677,
+        2681,
+        2688,
+        3328,
+        3851,
+        3853,
+        3854,
+        3857,
+        3901,
+        3999,
+        4000,
+        4002,
+        4007,
+        4074,
+        4092,
+        4426,
+        4716,
+        4727,
+        4730,
+        4733,
+        4809,
+        4822,
+        5021,
+        5163,
+        5164,
+        5183,
+        5238,
+        5252,
+        5360,
+        5364,
+        5372,
+        5386,
+        5421,
+        5428,
+        5528,
+        5566,
+        5641,
+        5727,
+        5728,
+        5739,
+        5787,
+        6350,
+        6367,
+        6368,
+        6375,
+        6377,
+        6380,
+        6435,
+        6517,
+        6585,
+        6587,
+        6588,
+        6739,
+        6740,
+        6741,
+        6742,
+        6744,
+        6776
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG_ARCHIVE.md",
+      "bytes": 390932,
+      "sha256": "161a4857ca67a5b567226ee0d71dbe7beda77cded15090465049888cfd61e509",
+      "modified_at_utc": "2026-11-04T03:59:37.195361+00:00",
+      "matching_lines": [
+        133,
+        375,
+        521,
+        726,
+        1191,
+        1192,
+        1213,
+        1215,
+        1216,
+        1290,
+        1372,
+        1386,
+        1512
+      ]
+    }
+  ],
+  "configured_public_main_feed": {
+    "binding": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\config\\native_desktop_operator_main_feed_binding_v1.json",
+      "bytes": 1022,
+      "sha256": "29ffd1cc832b289e641a42935c89b1e5f23306eafd073a2a1b1fee3a42fcb8b8",
+      "modified_at_utc": "2026-11-04T19:16:15.957354+00:00"
+    },
+    "root": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\main_public_handoff\\public-handoff",
+    "latest_files": [
+      {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\main_public_handoff\\public-handoff\\schemas\\1.1.0\\envelope.json",
+        "bytes": 12588,
+        "sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+        "modified_at_utc": "2026-10-20T23:08:29.122458+00:00"
+      },
+      {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\main_public_handoff\\public-handoff\\schemas\\1.0.0\\envelope.json",
+        "bytes": 12176,
+        "sha256": "ebcc59ea082549d01dacae464e886b0f35d155dcbd214cfcdcaf1a836067d483",
+        "modified_at_utc": "2026-10-20T23:08:29.073382+00:00"
+      },
+      {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal29\\main_public_handoff\\public-handoff\\outbox\\f3e28576f5cff5ee9ae1e65d48f63c73edbfb699a54329fca171cb245e829b9d\\public-report.json",
+        "bytes": 62283,
+        "sha256": "fa5359b0df46fe8503cf815f6634b859077f955672c29f3e833593567e2ecfde",
+        "modified_at_utc": "2026-10-20T23:08:29.023972+00:00"
+      }
+    ]
+  }
+}

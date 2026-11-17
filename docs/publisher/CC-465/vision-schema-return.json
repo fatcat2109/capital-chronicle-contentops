@@ -1,0 +1,35 @@
+{
+  "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+  "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+  "vision": {
+    "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "started_at_utc": "2026-11-11T17:24:06.023718+00:00",
+    "points": {},
+    "reasons": {},
+    "prompt_sha256": "5b0a58f4174775391c9c622a4e80625c2401328776b8944e9bf67ab1d87b203d",
+    "output_schema_sha256": "874b3520b285d6936bc5d523209c8142bf0c0d07ef2e3d58b8a735b398a3bf29",
+    "returncode": 0,
+    "output_sha256": "b52bf4803f7662039b0c7fffbc6d2a399e390c76c412be074ef4bf9c2ac146ed",
+    "stderr_sha256": "f90cb97a75e698819102157af12e14b3316550bb32c125e214603e998c0b3765",
+    "image_tools_observed": [
+      "read_file"
+    ],
+    "observed_conversation_id": "24a07dee-d6a5-4190-8135-8429c0f6b29e",
+    "observed_usage": {
+      "input_tokens": 21473,
+      "output_tokens": 782,
+      "thinking_tokens": 716,
+      "cache_read_tokens": 0,
+      "total_tokens": 22255
+    },
+    "observed_duration_seconds": 7.7116736,
+    "observed_num_turns": 1,
+    "status": "REVIEW_UNAVAILABLE",
+    "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+    "ended_at_utc": "2026-11-11T17:26:08.986325+00:00"
+  }
+}

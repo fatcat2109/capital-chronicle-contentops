@@ -248,6 +248,10 @@ class NativeNeoExecutor:
                     message = self.store.get_outbox_message(dispatch["message_id"])
                     effective = coordinator._effective_message(message)
                     intent = json.loads(effective["payload"])
+                    from .publication_image_contract_v1 import validate_write
+                    validate_write(coordinator, {**intent,
+                        **({"native_payload": request["native_payload"]} if request.get("native_payload") else {})},
+                        request["destination"])
                     before_article_write(coordinator, {**intent,
                         **({"native_payload": request["native_payload"]} if request.get("native_payload") else {})},
                         request["destination"])
@@ -255,8 +259,8 @@ class NativeNeoExecutor:
                 from live_contentops.approved_presentation_restore_v1 import restore_intent
                 from live_contentops.neo_destination_handoff_v1 import _payload_binding
                 expected = restore_intent(self.store, request["dispatch_attempt_identity"])
-                payload, content = _payload_binding(expected, "substack")
-                if (request["destination"] != "substack"
+                payload, content = _payload_binding(expected, request['destination'])
+                if (request["destination"] not in {"substack", "substack_notes"}
                         or request["approved_presentation_restore"] != expected["approved_presentation_restore"]
                         or any(request.get(k) != dispatch.get(k) for k in ("public_object_id", "public_object_url"))
                         or request.get("native_payload") != payload or request.get("content_binding") != content
@@ -284,6 +288,15 @@ class NativeNeoExecutor:
                 if message:
                     effective = DurablePublicationCoordinator(store=self.store, transport_runtime=None)._effective_message(message)
                     intent = json.loads(effective["payload"])
+                    # CC-584: a saved request may outlive its plan. Reuse the
+                    # canonical fresh-write checks before claiming any browser
+                    # action; readback and already claimed writes keep recovery.
+                    if intent.get("plan_status_post"):
+                        from .plan_status_posts_v1 import validate_status_post_intent
+                        validate_status_post_intent(self.store, intent)
+                    elif intent.get("plan_analysis_page"):
+                        from .plan_analysis_pages_v1 import validate_intent
+                        validate_intent(self.store, intent)
                     if intent.get("reader_presentation_review"):
                         expected_payload, expected_content = _payload_binding(intent, request["destination"])
                         if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
@@ -309,6 +322,10 @@ class NativeNeoExecutor:
                 path = Path(str(artifact.get("path") or ""))
                 if not artifact.get("sha256") or not path.is_file() or sha256(path.read_bytes()).hexdigest() != artifact["sha256"]:
                     raise ValueError("NATIVE_NEO_PAYLOAD_OR_MEDIA_BYTES_CHANGED")
+        if self._composed(request):
+            from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+            if request["surface"] not in SURFACE_REGISTRY:
+                raise ValueError("NEO_PUBLICATION_SURFACE_UNREGISTERED")
         claim = {"tool_request_sha256": packet["tool_request_sha256"],
                  "native_invocation_id": self.native_invocation_id,
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
@@ -626,7 +643,8 @@ class NativeNeoExecutor:
                     artifact.pop("sha256", None)
             return clean
         expected = public_binding(request)
-        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
+        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION,
+                work_item_id=request.get("work_item_id"))):
             packet = json.loads(row["payload"])
             prior = packet.get("request") or {}
             if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
@@ -636,9 +654,22 @@ class NativeNeoExecutor:
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
             absent = _readback_absence_evidence(request, result)
+            try:
+                observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            except (KeyError, ValueError, TypeError, AttributeError):
+                continue
             if (prior.get("latest_dispatch_attempt_at_utc") != request.get("latest_dispatch_attempt_at_utc")
                     and not absent):
-                continue
+                # A resumed UNKNOWN_WRITE can update its outcome clock after
+                # the readback request was issued. The actual returned
+                # observation still proves this exact object if it follows
+                # that latest clock. Evidence from before a retry cannot.
+                try:
+                    attempted_at = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"].replace("Z", "+00:00"))
+                    if observed_at < attempted_at:
+                        continue
+                except (KeyError, ValueError, TypeError, AttributeError):
+                    continue
             if (result.get("status") != "SUCCESS" or (result.get("content_verified") is not True and not absent)
                     or _incomplete_readback_evidence(prior, result)
                     or result.get("observed_identity") != request.get("expected_identity")
@@ -646,7 +677,7 @@ class NativeNeoExecutor:
                     or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
                     or (request.get("public_object_url") and result["public_object_url"] != request["public_object_url"])):
                 continue
-            age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            age = self.clock() - observed_at
             if timedelta(0) <= age <= timedelta(minutes=10):
                 return dict(prior)
         # A deliberately partial post-click return is immutable. Once media
@@ -669,7 +700,8 @@ class NativeNeoExecutor:
         delivered = bool(request.get("public_object_id") and request.get("public_object_url"))
         binding_keys = ("destination", "intent_sha256", "work_item_id", "package_identity",
                         "payload_hash", "expected_identity", "canonical_url")
-        for row in self.store.list_outbox_messages(destination=DESTINATION):
+        for row in self.store.list_outbox_messages(destination=DESTINATION,
+                work_item_id=request.get("work_item_id")):
             packet = json.loads(row["payload"])
             prior = packet.get("request") or {}
             request_hash = prior.get("request_sha256")
@@ -737,10 +769,10 @@ class NativeNeoExecutor:
                 "native_invocation_id": observed.get("native_invocation_id"),
                 "observation_sha256": result.get("native_tool_return_sha256"), "proof_fresh": current}
 
-    def pending(self):
+    def pending(self, *, work_item_id=None):
         from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
         rows = []
-        for row in self.store.list_outbox_messages(destination=DESTINATION):
+        for row in self.store.list_outbox_messages(destination=DESTINATION,work_item_id=work_item_id):
             if row["destination"] != DESTINATION:
                 continue
             if row["status"] == "NATIVE_NEO_SUPERSEDED":

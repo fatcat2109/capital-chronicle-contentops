@@ -1,0 +1,5 @@
+{
+  "ProcessId": 22152,
+  "CreationDate": "2026-11-11T22:35:26.718933+07:00",
+  "CommandLine": "\"C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe\" -B scripts\\plan_status_posts.py --publish"
+}

@@ -1,0 +1,136 @@
+{
+  "item": "CC-510",
+  "read_at_utc": "2026-11-13T18:38:29.252182+00:00",
+  "since_utc": "2026-11-12T12:31:37.228267+00:00",
+  "database_access": "SQLite mode=ro; delivery/event rows and latest stored run only",
+  "operating_head_at_read": "34b38fe217c27df848d2a5b26c3845435b7e8f9a",
+  "deliveries_since_installation": [
+    {
+      "delivery_id": "xrb-2120872859266699313",
+      "status": "DELIVERED",
+      "created_at_utc": "2026-11-12T13:43:02.928229+00:00",
+      "pack_message_id": "x-reply-pack-e3679b4ffd4ebd554b8ca4679b49711c11b627f441d427eea9cba7cf2ba55af7"
+    },
+    {
+      "delivery_id": "xrb-2121235459187826884",
+      "status": "DELIVERED",
+      "created_at_utc": "2026-11-13T13:43:37.323919+00:00",
+      "pack_message_id": "x-reply-pack-c36f410095d7d15d55a346bb4096891223be4302d2c8c4cbead7547f529688d7"
+    },
+    {
+      "delivery_id": "xrb-2121238553342751113",
+      "status": "DELIVERED",
+      "created_at_utc": "2026-11-13T13:53:11.392586+00:00",
+      "pack_message_id": "x-reply-pack-1ab8a16115d2984901ae712360a2c06b223b7905194c09797486db3299aef992"
+    }
+  ],
+  "delivery_receipts": [
+    {
+      "event_id": "x-reply-bot-b9d2326edc2c996ffcc3c7d767cb3d644faa5cf08a065134b962809917e59a56",
+      "event_payload_sha256": "63e0139bfc0dd321bf157c6010db3a9831fff66f48741dc6d43d7494c67d93b4",
+      "delivery_id": "xrb-2120872859266699313",
+      "post_id": "2120872859266699313",
+      "message_id": 4,
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "fact_kind": "session",
+      "fact_markets": [
+        "BRENT"
+      ],
+      "count": null,
+      "sample_count": null,
+      "period_text": null,
+      "through_date": null
+    },
+    {
+      "event_id": "x-reply-bot-e22d348aca55b270c735244f6c44153fcc00dcc144189334b3f69f656c06d9c6",
+      "event_payload_sha256": "e03e7f055e0149fcea90b2c3c2d34b81abde6eab27508468a39582857b2c5ecf",
+      "delivery_id": "xrb-2121235459187826884",
+      "post_id": "2121235459187826884",
+      "message_id": 5,
+      "delivered_at_utc": "2026-11-13T13:43:38+00:00",
+      "fact_kind": "session",
+      "fact_markets": [
+        "DXY"
+      ],
+      "count": null,
+      "sample_count": null,
+      "period_text": null,
+      "through_date": null
+    },
+    {
+      "event_id": "x-reply-bot-a901fd4b00d199449e201436287e0d1754a66080876e0caa4f583fa7759ea7d2",
+      "event_payload_sha256": "163e319cca01d8a233731f8e3babfd65640f6ebeb4864d4ecc74cf558cfd9dca",
+      "delivery_id": "xrb-2121238553342751113",
+      "post_id": "2121238553342751113",
+      "message_id": 6,
+      "delivered_at_utc": "2026-11-13T13:53:12+00:00",
+      "fact_kind": "session",
+      "fact_markets": [
+        "WTI"
+      ],
+      "count": null,
+      "sample_count": null,
+      "period_text": null,
+      "through_date": null
+    }
+  ],
+  "base_rate_delivery_count": 0,
+  "latest_run": {
+    "message_id": "x-reply-bot-4b016673b69edc416511802e1ae25a6e4fba7bb457736d0ba09d5a8bafe9da79",
+    "stored_at_utc": "2026-11-13T18:36:50.790169+00:00",
+    "payload_sha256": "e994bf7eaa6eecbb9e43983dbcb21acb5b5fe14784db0d62cacee1e50a0014e6",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T183639-394a08d8\\result.json",
+    "started_at_utc": "2026-11-13T18:36:39.494031+00:00",
+    "ended_at_utc": "2026-11-13T18:36:50.782513+00:00",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null
+  },
+  "installed_sources": {
+    "x_reply_base_rates_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_base_rates_v1.py",
+        "bytes": 17800,
+        "sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6"
+      },
+      "worktree_sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6",
+      "matches_worktree": true
+    },
+    "x_reply_pack_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_pack_v1.py",
+        "bytes": 48518,
+        "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb"
+      },
+      "worktree_sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "matches_worktree": true
+    },
+    "x_reply_bot_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+        "bytes": 45976,
+        "sha256": "6be73fbc12f3e115df18419e6e499a8d11df32597131994fd6eafc5550e87593"
+      },
+      "worktree_sha256": "6be73fbc12f3e115df18419e6e499a8d11df32597131994fd6eafc5550e87593",
+      "matches_worktree": true
+    },
+    "x_reply_fact_policy_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_policy_v1.py",
+        "bytes": 12396,
+        "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c"
+      },
+      "worktree_sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "matches_worktree": true
+    }
+  },
+  "statistics_targets_in_actual_rank_inputs": 8,
+  "statistics_target_appearances": 41,
+  "statistics_ranked_above_floor_attempts": 3,
+  "phone_acceptance": "BASE_RATE_PHONE_PROOF_PENDING",
+  "continuation": "Read back the next natural base-rate delivery from the existing minute consumer.",
+  "manual_ticks": 0,
+  "model_calls": 0,
+  "transport_calls": 0,
+  "schedule_changed": false,
+  "applications_restarted": false
+}

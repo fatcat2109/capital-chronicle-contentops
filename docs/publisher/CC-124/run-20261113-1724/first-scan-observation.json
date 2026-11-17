@@ -1,0 +1,14 @@
+{
+  "observation_source": "Supported tool output from this run before the final assessment replaced source-assessment.json",
+  "observed_at_utc": "2026-11-13T10:28:15.491061+00:00",
+  "retained_output_count": 40,
+  "completed_output_count": 39,
+  "changed_completed_outputs_since_previous_run": 2,
+  "eligible_output": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261113-ppi\\dossier-20261113T093240Z\\analysis-native.json",
+    "original_data_cutoff_utc": "2026-11-13T09:32:50.340914Z",
+    "publication_deadline_utc": "2026-11-13T10:32:50.340914Z",
+    "publication_clock_cause": null
+  },
+  "action": "Continue the same native PPI preparation; source not discarded on age at the initial scan."
+}

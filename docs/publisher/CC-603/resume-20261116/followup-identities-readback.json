@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-11-16T00:33:59.459481+00:00",
+  "results": {
+    "substack_notes": {
+      "dispatch_id": "dispatch_61d5f6d1611ae436151598831e74cf61",
+      "destination": "substack_notes",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_write_performed": false,
+      "publish_called": false
+    },
+    "x": {
+      "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+      "destination": "x",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_write_performed": false,
+      "publish_called": false
+    }
+  }
+}

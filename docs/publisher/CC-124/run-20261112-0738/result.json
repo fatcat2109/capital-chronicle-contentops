@@ -1,0 +1,40 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-12T00:38:00.679198+00:00",
+  "observed_at_utc": "2026-11-12T00:55:25.923646+00:00",
+  "new_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:35403s",
+  "choice": "Use held Main reports, T2 ranking, public plans, dated scenarios and the fresh shock return. Repair Publisher's rejection of explicit Main CLOSED states in the existing contract and consumers, without reviving an old fill or inventing a result. No fresh completed market analysis is available: the shock return says analysis did not run; the latest analytical report's original capture exceeds CC-403's deadline. Decision 89 requires no filler. No edition is allocated.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "production_day": "2026-11-12",
+  "daily_article_limit": 2,
+  "standing_status": "OPEN",
+  "next_due_gmt7": "12 Nov 2026 13:38 GMT+7",
+  "pre_us_note_opportunity_gmt7": "12 Nov 2026 18:30 GMT+7",
+  "configured_launch": {
+    "process_id": 24912,
+    "parent_process_id": 27748,
+    "process_start_utc": "2026-11-12T00:38:00.6791980Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "classification": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Read back the live process launch arguments; runtime model/effort telemetry not independently observed."
+  },
+  "base_commit": "b78c03b07dc8e29102031905569e612e8aa8de8a",
+  "base_reason": "Current ContentOps operating HEAD; freshly fetched origin/master is its ancestor, 987 commits behind.",
+  "acceptance": "Installed source, clock, plan and production-day consumers observed. No published-article acceptance or channel readback claimed.",
+  "next_action": "At the next standing opportunity, consume any new completed Main analysis through the same source and publication owners; preserve the pre-US note opportunity.",
+  "next_actor": "Codex Publisher at the next due run; Ops Live owns Main analysis production.",
+  "compatibility_fix": {
+    "commit": "42ad99d3366c78b5ed62202b0ddb018af11e9827",
+    "pushed": true,
+    "installed_in_operating_root": true,
+    "targeted_tests_passed": 60,
+    "evidence": "installed-closed-state.json"
+  }
+}

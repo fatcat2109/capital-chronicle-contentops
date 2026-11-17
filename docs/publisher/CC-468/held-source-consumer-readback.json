@@ -1,0 +1,52 @@
+{
+  "prepared_at_utc": "2026-11-11T18:10:25.582165+00:00",
+  "producer_commit": "f1c6c2ef296a3ece6d00c846d2e55b18be554d09",
+  "source_projection_owner": "Codex Publisher presentation of CC-441 calculations",
+  "source_first_known_at_utc": null,
+  "results": [
+    {
+      "family": "NFP",
+      "tables": 7,
+      "source_data_cutoff_utc": "2026-11-10T11:30:00Z",
+      "preparation_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\nfp\\source-2199d1655964777c",
+      "publication_state": "NOT_DISPATCHED",
+      "market_rows": 204,
+      "observed_moves": 522,
+      "gaps": {
+        "EXACT_RELEASE_BASELINE_ABSENT": 630,
+        "EXACT_ENDPOINT_ABSENT": 40,
+        "M1_SIGNAL_NOT_HELD": 27,
+        "HORIZON_NOT_COMPLETED": 5
+      },
+      "source_sha256": "4338885f925c494b2abe62f8cb676b2dbbf85d5312b296a549c1485a1dd66ebf"
+    },
+    {
+      "family": "FOMC",
+      "tables": 13,
+      "source_data_cutoff_utc": "2026-11-10T11:30:00Z",
+      "preparation_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\fomc\\source-4d8c2418af301857",
+      "publication_state": "NOT_DISPATCHED",
+      "market_rows": 276,
+      "observed_moves": 0,
+      "gaps": {
+        "EXACT_RELEASE_CLOCK_NOT_HELD": 1656
+      },
+      "source_sha256": "4338885f925c494b2abe62f8cb676b2dbbf85d5312b296a549c1485a1dd66ebf"
+    },
+    {
+      "family": "PPI",
+      "tables": 7,
+      "source_data_cutoff_utc": "2026-11-10T11:30:00Z",
+      "preparation_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\ppi\\source-ffca543d254a69df",
+      "publication_state": "NOT_DISPATCHED",
+      "market_rows": 198,
+      "observed_moves": 496,
+      "gaps": {
+        "EXACT_ENDPOINT_ABSENT": 59,
+        "EXACT_RELEASE_BASELINE_ABSENT": 618,
+        "M1_SIGNAL_NOT_HELD": 15
+      },
+      "source_sha256": "4338885f925c494b2abe62f8cb676b2dbbf85d5312b296a549c1485a1dd66ebf"
+    }
+  ]
+}

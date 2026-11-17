@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-17T02:34:02.774163+00:00",
+  "reader": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+  "generated_at_utc": "2026-11-17T02:34:00.079624Z",
+  "plans": 89,
+  "with_public_instrument": 75,
+  "with_entries": 51,
+  "dual_entry_plans": 0,
+  "retained_post_entry_counts": {
+    "0": 133,
+    "1": 8
+  },
+  "store_read_only": true
+}

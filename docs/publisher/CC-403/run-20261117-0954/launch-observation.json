@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-17T03:00:18.7999759Z",
+  "process_id": 37124,
+  "process_started_at_utc": "2026-11-17T02:53:30.2445030Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "editorial_role_calls": 0,
+  "note": "Launch arguments observed; actual model and effort not independently observed."
+}

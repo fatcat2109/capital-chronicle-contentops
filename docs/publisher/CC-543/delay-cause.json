@@ -1,0 +1,106 @@
+{
+  "cause": "The first plan-page writer failed on the usage limit at 13:24:09Z. text_call cached this failed return; run_due did not request retry_failed. prepare_social_row then kept the alert behind its unconfirmed canonical. Overall runner availability did not establish availability for this writer.",
+  "observed_ticks": [
+    {
+      "at_utc": "2026-11-12T13:22:20.241821Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:25:13.691269Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:28:50.984888Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:36:32.003845Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:40:40.265618Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:44:27.755748Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:47:31.187857Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:50:45.347123Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T13:59:06.439158Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:01:44.068457Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:05:26.698594Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:08:43.668543Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:12:28.174799Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:21:55.877821Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:23:58.433170Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:25:39.045657Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    },
+    {
+      "at_utc": "2026-11-12T14:27:43.338972Z",
+      "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+      "status": "CANONICAL_PENDING"
+    }
+  ],
+  "source_result_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\page-writer\\71c414ef84764de1203b8f9c2ed3851f09da58be1f69e337e8af1b4059f01eae\\result.json",
+  "source_result_sha256": "9d50a861ee88e9849035ff942980e6126d14c04b422cc36a252553c56168bd8f",
+  "status_run_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261112.jsonl",
+  "stderr_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\page-writer\\71c414ef84764de1203b8f9c2ed3851f09da58be1f69e337e8af1b4059f01eae\\stderr.txt",
+  "stderr_sha256": "d9c12d3e209d4155116c2524cf23561ce9a356e2ebe563bedb057c56d14dbf7e",
+  "usage_limit_message": "ERROR: You’ve hit your usage limit.",
+  "usage_limit_observed": true,
+  "writer": {
+    "cause": "ValueError:TEXT_CLI_EXIT_1",
+    "configured_effort": "max",
+    "configured_model": "gpt-6.1-sol",
+    "ended_at_utc": "2026-11-12T13:24:09.492094+00:00",
+    "returncode": 1,
+    "started_at_utc": "2026-11-12T13:24:06.458449+00:00",
+    "status": "FAILED"
+  }
+}

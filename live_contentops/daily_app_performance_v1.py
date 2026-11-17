@@ -491,6 +491,7 @@ def collect_observation(
         Callable[[Sequence[Mapping[str, Any]]], Mapping[str, Any]]
     ] = None,
     now: datetime,
+    collection_clock: Optional[Callable[[], datetime]] = None,
 ) -> Dict[str, Any]:
     """Run one bounded READ-ONLY collection for a scheduled observation and persist it.
 
@@ -550,7 +551,7 @@ def collect_observation(
     return store.mark_performance_observation_collected(
         observation_id=observation_id,
         collection_status=collection_status,
-        collected_at_utc=_iso_utc(now),
+        collected_at_utc=_iso_utc(collection_clock() if collection_clock else now),
         metrics_native_json=json.dumps(metrics, sort_keys=True),
         metric_availability_json=json.dumps(availability, sort_keys=True),
         source_identity=source_identity,
@@ -1358,13 +1359,13 @@ def current_metrics_capability_matrix() -> list[dict[str, Any]]:
             "open_rate", "delivery_rate", "likes", "comments", "shares", "restacks",
             "subscriber_conversions",
         ], "NOT_EXPOSED"),
-        "facebook_page": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["likes", "comments", "shares"], "AVAILABLE_IF_AUTHORIZED"),
-        "instagram_business": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["likes", "comments"], "AVAILABLE_IF_AUTHORIZED"),
-        "threads": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["replies"], "AVAILABLE_IF_AUTHORIZED"),
+        "facebook_page": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["likes", "comments", "shares", "views", "reach"], "AVAILABLE_IF_AUTHORIZED"),
+        "instagram_business": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["likes", "comments", "views", "reach", "saves", "shares"], "AVAILABLE_IF_AUTHORIZED"),
+        "threads": ("AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ", ["views", "likes", "replies", "reposts", "quotes"], "AVAILABLE_IF_AUTHORIZED"),
         "discord": ("AVAILABLE_IF_CURRENT_WEBHOOK_BINDING_AUTHORIZES_EXACT_READ", ["reactions"], "NOT_EXPOSED"),
         "linkedin": ("PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ", ["likes", "comments"], "PERMISSION_REQUIRED"),
         "linkedin_company": ("NATIVE_NEO_EXACT_COMPANY_POST_OBSERVATION_REQUIRED", ["likes", "comments", "reposts", "impressions"], "NOT_EXPOSED"),
-        "telegram": ("NOT_EXPOSED_BY_CURRENT_BOT_BINDING", [], "NOT_EXPOSED"),
+        "telegram": ("PUBLIC_CHANNEL_PAGE_NEO_READ_ONLY", ["views"], "NOT_EXPOSED"),
         "x": ("NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING", [], "NOT_EXPOSED"),
         "youtube": ("NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING", [], "NOT_EXPOSED"),
     }
@@ -1377,7 +1378,7 @@ def current_metrics_capability_matrix() -> list[dict[str, Any]]:
             "search_console_channel": "OPERATOR_SETUP_REQUIRED",
             "unavailable_is_zero": False,
             "additional_scope_granted": False,
-            "max_provider_requests_per_observation": 1,
+            "max_provider_requests_per_observation": 3 if destination in {"facebook_page", "instagram_business", "threads", "discord"} else 1,
             "native_read_only_observation": "EXISTING_AUDIENCE_OBSERVE_EXACT_OBJECT_WHEN_VISIBLE",
         }
         for destination in (

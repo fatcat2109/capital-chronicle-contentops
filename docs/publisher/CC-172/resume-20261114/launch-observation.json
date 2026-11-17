@@ -1,0 +1,7 @@
+{
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "observation": "Win32_Process launch flags read back for PID 21924, parent 27748, start 14 Nov 2026 02:45:29 GMT+7; runtime model/effort not exposed.",
+  "editorial_role_calls": 0
+}

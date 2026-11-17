@@ -68,7 +68,7 @@ def suspended_routes():
 
 def suspend_route(destination, cause):
     """Decision 121: persist a platform objection on this destination only."""
-    if destination not in {"linkedin_company", "youtube"}:
+    if destination not in {"linkedin_company", "youtube", "x"}:
         raise ValueError("ARTICLE_ROUTE_REQUIRED")
     routes = suspended_routes()
     routes[destination] = str(cause)
@@ -172,16 +172,83 @@ def _note_rendered_text(value, canonical, links, public_url):
     return _text(value)
 
 
-def _x_reader_text(value, links, public_object_url, canonical):
+def _bound_link_targets(binding):
+    """Exact public record/original links already present in the frozen copy."""
+    urls = re.findall(r'https://[^\s<>"\u201c\u201d]+', '\n'.join(binding.get('expected_text_segments') or []))
+    return {url for url in urls if _canonical(url) or _public_url('telegram', url)
+            or _public_url('substack_notes', url)}
+
+
+def _note_bound_text(value, binding, links, public_url):
+    value = str(value)
+    labels = {}
+    for text in binding.get('expected_text_segments') or []:
+        for prefix, label in (('Original', 'Open original call'), ('Record', 'Open pinned scorecard')):
+            for url in re.findall(r'^' + prefix + r': (https://\S+)\s*$', text, re.M):
+                if url in _bound_link_targets(binding):
+                    labels[url] = label
+    for link in links:
+        if (link.get('url') in labels and link.get('text') == labels[link['url']]
+                and link.get('inline_visible') is True and link.get('public_object_url') == public_url):
+            value = value.replace(labels[link['url']], link['url'])
+        if (link.get('url') in _bound_link_targets(binding) and link.get('card_visible') is True
+                and link.get('public_object_url') == public_url):
+            value = value.replace(link['url'], '')
+    return _text(value)
+
+
+def _note_missing_link_reply_text(request, observed):
+    """Recognize only CC-603's two-link reply with every other word retained."""
+    binding = request.get("content_binding") or {}
+    segments = binding.get("expected_text_segments") or []
+    if (request.get("destination") != "substack_notes"
+            or not re.fullmatch(r"cc603-followup-[a-f0-9]{32}-missing-links", str(request.get("work_item_id") or ""))
+            or len(segments) != 1 or binding.get("media_manifest") or not request.get("reply_parent")):
+        return False
+    expected = segments[0]
+    urls = re.findall(r"^(?:Original|Record): (https://\S+)\s*$", expected, re.M)
+    if len(urls) != 2 or len(set(urls)) != 2 or set(urls) != _bound_link_targets(binding):
+        return False
+    actual = str(observed or "")
+    for url in urls:
+        expected = expected.replace(url, "")
+        actual = actual.replace(url, "")
+    return _text(actual) == _text(expected)
+
+
+def _note_incomplete_link_reply(request, result):
+    """Exact author, parent and remaining copy establish existence, never success."""
+    parent = request.get("reply_parent") or {}
+    return bool(request.get("action") == "READBACK"
+        and result.get("request_sha256") == request.get("request_sha256")
+        and result.get("observed_identity") == request.get("expected_identity")
+        and result.get("public_object_id")
+        and result.get("public_object_id") != parent.get("public_object_id")
+        and (not request.get("public_object_id") or result.get("public_object_id") == request["public_object_id"])
+        and (not request.get("public_object_url") or result.get("public_object_url") == request["public_object_url"])
+        and _public_url("substack_notes", result.get("public_object_url"), result.get("public_object_id"),
+                        expected_identity=request.get("expected_identity"))
+        and result.get("observed_reply_parent_id") == parent.get("public_object_id")
+        and result.get("observed_reply_parent_url") == parent.get("public_object_url")
+        and _note_missing_link_reply_text(request, result.get("observed_text")))
+
+
+def _x_reader_text(value, links, public_object_url, canonical, *, bound_urls=()):
     text = _text(value)
+    substitutions = []
     for link in links:
         displayed = _text(link.get("displayed_text"))
         if (displayed and displayed in text
                 and re.fullmatch(r"https://t\.co/[A-Za-z0-9]+", str(link.get("short_url") or ""))
                 and link.get("target_verified") is True
                 and link.get("public_object_url") == public_object_url
-                and link.get("target_url") == canonical and _social_canonical(canonical)):
-            text = text.replace(displayed, _text(canonical))
+                and ((link.get("target_url") == canonical and _social_canonical(canonical))
+                     or link.get("target_url") in bound_urls)):
+            marker = '\x00cc-link-'+str(len(substitutions))+'\x00'
+            text = text.replace(displayed, marker, 1)
+            substitutions.append((marker,_text(link['target_url'])))
+    for marker,target in substitutions:
+        text = text.replace(marker,target)
     return text
 
 
@@ -195,7 +262,8 @@ def _x_thread_matches(binding, thread, links, canonical):
     # word-boundary reflow retains the entire exact copy; no claim, number or
     # paragraph may disappear or change. Reader metadata around the unchanged
     # root is handled as in the existing post-by-post comparison below.
-    observed = [_x_reader_text(p.get("observed_text"), links, p.get("public_object_url"), canonical) for p in thread]
+    observed = [_x_reader_text(p.get("observed_text"), links, p.get("public_object_url"), canonical,
+                              bound_urls=_bound_link_targets(binding)) for p in thread]
     if expected and _text(expected[0]) in observed[0]:
         observed[0] = _text(expected[0])
         if _text(" ".join(expected)) == _text(" ".join(observed)):
@@ -403,13 +471,18 @@ class NeoDestinationHandoff:
             valid_canonical = (_social_canonical(intent.get("canonical_url"))
                 if intent.get("distribution_policy") == "SITE_FIRST_V1" else _canonical(intent.get("canonical_url")))
             if destination != "substack" and not valid_canonical and not (
-                    intent.get("plan_status_post") and not intent.get("canonical_url")):
+                    (intent.get("plan_status_post") or intent.get("heavy_news_quote")) and not intent.get("canonical_url")):
                 raise ValueError("RECONCILED_CANONICAL_URL_REQUIRED")
+            if intent.get("heavy_news_quote"):
+                from .sourced_replies_v1 import validate_intent
+                if destination != "x" or self.store is None:
+                    raise ValueError("CC467_X_QUOTE_STORE_REQUIRED")
+                validate_intent(self.store, intent)
             from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link, posted_values
             if find_forbidden_link(*posted_values(intent)):
                 raise ValueError(REASON)
         if action == "EDIT_EXISTING" and (not (intent.get("reader_presentation_review")
-                or (destination == "substack" and intent.get("approved_presentation_restore")))
+                or (destination in {"substack", "substack_notes"} and intent.get("approved_presentation_restore")))
                 or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
@@ -457,6 +530,14 @@ class NeoDestinationHandoff:
             # No signed-in view at all: the public channel page is the only Telegram surface.
             value["steps"][1] = "read " + TELEGRAM_PUBLIC_FEED + " with no sign-in; match the channel name @CapitalChronicle"
             value["forbidden"] = value["forbidden"] + ["web.telegram.org", "signed_in_telegram_view"]
+        if intent.get("heavy_news_quote"):
+            from .sourced_replies_v1 import validate_intent
+            validate_intent(self.store, intent)
+            value["quote_parent"] = intent["quote_parent"]
+            value["surface"] = "X_POST"
+            value["steps"].insert(3, "Quote the exact visible quote_parent source through its Quote composer; "
+                "attach the bound chart. Recheck its deadline before the single Post click. Read back the "
+                "quoted source id and URL inside our exact own-account post, never infer a quote from a text link.")
         if (destination == "substack_notes" or destination == "x" and intent.get("plan_analysis_link")) \
                 and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
             parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
@@ -501,6 +582,8 @@ class NeoDestinationHandoff:
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = ("DIGEST_EDITOR_SUBTITLE_CAPTION_V2" if intent.get("daily_digest")
                                                    else "MARKDOWN_WHITESPACE_SMART_QUOTES_V1")
+            if destination == "linkedin_company" and content_binding.get("media_manifest"):
+                value["reader_media_normalization"] = "LINKEDIN_DECLARED_SRCSET_FULL_RES_V1"
             # A failed observation is immutable, but the same native turn may
             # obtain the later readback required after the ten-minute interval.
             clock = getattr(self.native_executor, "clock", None)
@@ -536,7 +619,13 @@ class NeoDestinationHandoff:
             value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox or enter a code. If still on the code screen, report unverified and continue other destinations in other task tabs without waiting. Continue exact Substack readback only after this tab reaches /publish/posts/detail/.../share-center."]
         if destination == "substack" and action == "READBACK":
             from live_contentops.substack_draft_inventory_v1 import readback_scope, store_draft_ids
-            value["draft_readback_scope"] = readback_scope(store_draft_ids(self.store) if self.store else set())
+            exact_ids = ({str(public_object_id)} if str(public_object_id or "").isdigit()
+                         and _public_url(destination, public_object_url, public_object_id) else None)
+            # An exact confirmed object needs only its own fallback identity.
+            # Scanning every retained native request held CC-536's readback for
+            # minutes before a browser request could be issued.
+            value["draft_readback_scope"] = readback_scope(exact_ids if exact_ids is not None
+                else store_draft_ids(self.store) if self.store else set())
             value["steps"].append(value["draft_readback_scope"]["instructions"])
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
@@ -557,7 +646,7 @@ class NeoDestinationHandoff:
                 previous = fresh_readback(value)
                 if previous:
                     return previous
-        if action == "PUBLISH":
+        if action in {"PUBLISH", "EDIT_EXISTING"}:
             fresh_publish = getattr(self.native_executor, "fresh_publish_request", None)
             if callable(fresh_publish):
                 value = fresh_publish(value) or value
@@ -606,6 +695,16 @@ class NeoDestinationHandoff:
                     "reason_code": "NEO_NATIVE_EXECUTOR_NOT_BOUND", "request": request,
                     "public_write_performed": False}
         result = dict(self.native_executor(request))
+        if (result.get("request_sha256") == request["request_sha256"]
+                and result.get("native_tool_return_sha256")
+                and result.get("status") == "FAILED_BEFORE_WRITE"
+                and result.get("stage") == "BEFORE_PUBLISH_CLICK"
+                and result.get("definite_no_write") is True and result.get("public_write_performed") is False
+                and not result.get("public_object_id") and not result.get("public_object_url")
+                and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")):
+            # No click needs no signed-in identity. Preserve the observed local
+            # refusal instead of turning a missing identity into UNKNOWN_WRITE.
+            return result
         if (result.get("request_sha256") == request["request_sha256"] and result.get("composed_identity") is not None
                 and result.get("definite_no_write") is True and str(result.get("status")) == "FAILED_BEFORE_WRITE"
                 and result.get("public_write_performed") is False
@@ -617,6 +716,11 @@ class NeoDestinationHandoff:
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
         parent = request.get("reply_parent")
+        quote = request.get("quote_parent")
+        if quote and (result.get("observed_quote_parent_id") != quote["public_object_id"]
+                      or result.get("observed_quote_parent_url") != quote["public_object_url"]):
+            return {**result, "status": "UNKNOWN_WRITE", "reason_code": "X_QUOTE_PARENT_UNVERIFIED",
+                    "retry_permitted": False}
         if parent and (result.get("observed_reply_parent_id") != parent["public_object_id"]
                        or result.get("observed_reply_parent_url") != parent["public_object_url"]):
             return {**result, "status": "UNKNOWN_WRITE", "reason_code": (
@@ -674,6 +778,8 @@ class NeoDestinationHandoff:
         if (not public_object_id and not public_object_url
                 and result.get("observed_identity") == request["expected_identity"]
                 and result.get("public_object_id")
+                and (not re.fullmatch(r"cc603-followup-[a-f0-9]{32}-missing-links", str(request.get("work_item_id") or ""))
+                     or _note_incomplete_link_reply(request, result))
                 and _public_url(destination, result.get("public_object_url"), result["public_object_id"], expected_identity=request["expected_identity"])):
             public_object_id = result["public_object_id"]
             public_object_url = result["public_object_url"]
@@ -703,7 +809,15 @@ class NeoDestinationHandoff:
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
         if destination == "x":
             comparison_text = _x_reader_text(observed_text, result.get("observed_link_resolutions") or [],
-                public_object_url, str(intent.get("canonical_url") or ""))
+                public_object_url, str(intent.get("canonical_url") or ""), bound_urls=_bound_link_targets(binding))
+            thread = result.get("observed_thread") or result.get("thread_posts") or []
+            if binding["thread_post_count"] > 1 and _x_thread_matches(binding, thread,
+                    result.get("observed_link_resolutions") or [], str(intent.get("canonical_url") or "")):
+                # The canonical link lives in our own reply. Its verified redirect
+                # belongs to that reply's exact URL, not to the root's URL.
+                comparison_text = _text(" ".join(_x_reader_text(post.get("observed_text"),
+                    result.get("observed_link_resolutions") or [], post.get("public_object_url"),
+                    str(intent.get("canonical_url") or ""), bound_urls=_bound_link_targets(binding)) for post in thread))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack":
@@ -780,6 +894,13 @@ class NeoDestinationHandoff:
                 _note_rendered_text(s, canonical, links, result.get("public_object_url")) in comparison for s in segments) \
                 and all(_note_rendered_text(s, canonical, links, result.get("public_object_url")) not in comparison
                         for s in binding.get("excluded_text_segments", []))
+        elif destination == 'substack_notes':
+            links = result.get('observed_links') or []
+            comparison = _note_bound_text(observed_text, binding, links, public_object_url)
+            text_match = bool(segments) and all(
+                _note_bound_text(s, binding, links, public_object_url) in comparison for s in segments) and all(
+                _note_bound_text(s, binding, links, public_object_url) not in comparison
+                for s in binding.get('excluded_text_segments', []))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == request["expected_identity"]
             and (not public_object_id or result.get("public_object_id") == public_object_id)
@@ -790,12 +911,18 @@ class NeoDestinationHandoff:
         if parent:
             verified = verified and result.get("observed_reply_parent_id") == parent["public_object_id"] \
                 and result.get("observed_reply_parent_url") == parent["public_object_url"]
+        quote = request.get("quote_parent")
+        if quote:
+            verified = verified and result.get("observed_quote_parent_id") == quote["public_object_id"] \
+                and result.get("observed_quote_parent_url") == quote["public_object_url"]
         identity_exists = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == request["expected_identity"]
             and bool(public_object_id) and result.get("public_object_id") == public_object_id
             and result.get("public_object_url") == public_object_url
             and _public_url(destination, public_object_url, public_object_id, expected_identity=request["expected_identity"])
             and bool(observed_text))
+        link_reply_gap = not verified and _note_incomplete_link_reply(request, result)
+        identity_exists = identity_exists or link_reply_gap
         # Publication and exact copy equality are separate observations. A
         # later credit/caption edit cannot unpublish an otherwise identified
         # canonical or invalidate unchanged derivative copies (CC-199 CLD-C7).
@@ -835,9 +962,9 @@ class NeoDestinationHandoff:
         if callable(complete_readback):
             if absent:
                 complete_readback(request, write_absent=True)
-            elif verified or canonical_present:
-                complete_readback({**request, "public_object_id": public_object_id,
-                                   "public_object_url": public_object_url})
+            elif verified or canonical_present or link_reply_gap:
+                complete_readback({**request, "public_object_id": result.get("public_object_id"),
+                                   "public_object_url": result.get("public_object_url")})
             elif (identity_exists and text_match and not media_match
                     and result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"
                     and result.get("missing_required_media_observed") is True
@@ -848,6 +975,7 @@ class NeoDestinationHandoff:
                 "meaningful_media_visible": bool(expected_media and media_match),
                 "canonical_publication_verified": canonical_present,
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match,
+                    **({"link_reply_gap": True} if link_reply_gap else {}),
                     **({"link_card_match": bool(link_card_match)} if binding.get("expected_link_card_url") else {})}}
 
 

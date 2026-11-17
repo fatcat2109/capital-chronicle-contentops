@@ -126,6 +126,27 @@ def persist_research_package(tracker, package, *, research_revision, reconcile=T
         reconcile_affected_work(tracker)
 
 
+def dependency_rows(store, *, include_story_context=False):
+    """Read the library's review dependencies without unrelated public payloads."""
+    rows = [row for destination in (LIBRARY, PACKAGE, "internal:cc-report-receipt",
+                                   "internal:cc-report-withdrawal")
+            for row in store.list_outbox_messages(destination=destination)]
+    if include_story_context:
+        # library_projection uses only the latest nonempty frozen args for its
+        # publication memory. Earlier stage payloads add no library context.
+        with store.get_read_only_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM outbox_messages WHERE destination=? "
+                "AND json_type(payload,'$.args')='object' "
+                "AND length(json_extract(payload,'$.args'))>2 "
+                "ORDER BY created_at DESC,message_id DESC LIMIT 1",
+                ("internal:cc-report-editorial-stage",),
+            ).fetchone()
+        if row:
+            rows.append(dict(row))
+    return sorted(rows, key=lambda row: (row["created_at"], row["message_id"]))
+
+
 def reconcile_affected_work(tracker):
     """Register only changed/revision-requested dependencies in the existing internal outbox.
 
@@ -137,10 +158,7 @@ def reconcile_affected_work(tracker):
     # Dependency reconciliation needs the library, packages and Main lineage.
     # Avoid loading unrelated retained media and editorial-stage payloads on every
     # package refresh; the full reader still includes its story context.
-    rows = [row for destination in (LIBRARY, PACKAGE, "internal:cc-report-receipt",
-                                   "internal:cc-report-withdrawal")
-            for row in tracker.store.list_outbox_messages(destination=destination)]
-    rows.sort(key=lambda row: (row["created_at"], row["message_id"]))
+    rows = dependency_rows(tracker.store)
     projection = library_projection(rows, read_reviews(tracker.store), include_story_context=False)
     if not projection:
         return

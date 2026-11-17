@@ -1,0 +1,21 @@
+CC-107: BUILT_UNMERGED (Ops review pending).
+
+The dated NFP retrospective is qualified in the existing newsroom store, with nine verified source records, four charts, a release card and eight compiled derivative previews. The same MAX writer accepted the exact corrected package. No new public object was created.
+
+The implementation is pushed on `backlog/cc-107-dated-event-review-20261114` and fast-forwarded into `A:\Capital Chronicle\ContentOps`. Code commit: `56c1794bbf1ab014284a3687821ab84e0d10b17c`; package delivery: `b48dab2642972ba8581ff8c37fbd27269bd957d4`. Rollback: `contentops-rollback-20261114-cc107-source` (`5fe6814affa9d75ccd3c71b629981c885798e126`). The final live tag is `contentops-live-20261114-cc107-dated-review`.
+
+Held Main reaction and forecast-score outputs now feed the installed source consumer and original charts. The review retains the frozen release conditions, official first-print history, latest-month components and original source hashes. It separates the Strong release condition from the one-event categorical score and from observed market co-movements. Raw broker prices and restricted third-party tables are excluded from public copy under their redistribution terms.
+
+The newsroom fixes retain preview/background sources, reuse sealed consensus evidence for a retrospective, recover accepted history when a scratch archive is absent, hash the exact writer excerpts, recognise the house name and qualified first-person view, and bind corrected chart images without changing their data or the writer's choices. Original requests, returns and image bytes remain available. One media repair round resolved the four reported defects.
+
+Validation: 591 distinct targeted cases pass, four skip, none fail in their latest recorded outcomes. One pytest process ran at a time; no full suite ran. Three skips enforce decision 83's preview-site prohibition; one UI test needs the checkout's absent node_modules. The installed consumer readback proves use of the held computations, BLS release and backgrounds. All five final images load at their declared dimensions; the same writer inspected their PNG pixels and all eight preview texts. These checks do not claim a platform layout or public readback for the new review.
+
+The existing NFP preview and CPI preview were verified and retained, avoiding duplicate publication. The NFP preview's earlier digest verification remains in `run-20261106/RESULT.md`; the CPI preview is already published under CC-338. The earlier YouTube image gap remains destination-local; no duplicate post was made to repair it.
+
+The remaining step is Ops' article review and publication disposition under decision 36. The bound original data cutoff is null; `ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE` remains recorded under the current decision-98 clock policy. Writing, retrieval, score generation and media repair never replace that clock. The canonical URL in private derivative previews is a pending-publication placeholder and must be resolved by the sole coordinator before a send. X/Threads preview sequences preserve their exact reply limits. No KEEP/publication-prepare or dispatch was issued while Ops' review remains pending.
+
+Review files: `article-review.md`, `derivative-previews.json`, `final-editor-check.json`, `review-package-readback.json`, `operating-consumer-readback.json`, `targeted-validation-summary.json` and `delivery-artifacts.json` in this directory. The resumable private binding is `C:\Users\bullw\AppData\Local\CapitalChronicle\ContentOps\editorial-previews\cc107-nfp-dated-review-20261114-v1\binding.json`.
+
+Launch: gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED. Native selection/preparation: gpt-6.1-sol/low CONFIGURED_NOT_OBSERVED. Writing, revision and final editor check: the same native invocation `/root/native_write_a97e7232eeeb`, gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED; actual model/effort telemetry was unavailable. Antigravity timed out after 120 seconds and supplied no suggestions; the approved native path continued.
+
+No chat messages, schedules, Main files, Guardian state or user applications were changed. The two unrelated JSONL modifications and the operating root's prior work remain outside this delivery.

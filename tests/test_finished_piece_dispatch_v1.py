@@ -87,10 +87,58 @@ def test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_po
     assert transport.publish_calls.count("instagram_business") == 4
     assert state["unknown_write_count"] == 0
     with store.get_read_only_connection() as conn:
-        descriptions = [r[0] for r in conn.execute("SELECT description FROM incidents WHERE severity='DISPATCH_FAILURE'")]
+        descriptions = [r[0] for r in conn.execute("SELECT description FROM incidents WHERE severity='DISPATCH_OUTCOME'")]
+        assert not conn.execute("SELECT 1 FROM incidents WHERE severity='DISPATCH_FAILURE'").fetchone()
     assert len(descriptions) == 3
     assert all("image_url_unreachable" in value for value in descriptions)
     assert coordinator.recover_pending()["publish_calls"] == 0
+
+
+@pytest.mark.parametrize("status,cause,recovered", [
+    (DEFINITE_NO_WRITE, "validation_failures:image_url_unreachable", True),
+    (UNKNOWN_WRITE, "validation_failures:image_url_unreachable", False),
+    (DEFINITE_NO_WRITE, "provider_code:190", False),
+])
+def test_persisted_instagram_validation_repair_never_releases_an_ambiguous_write(tmp_path, status, cause, recovered):
+    store, transport, coordinator = _coordinator(tmp_path)
+    incident_id, _ = coordinator._destination_failure_key("instagram_business")
+    store.register_incident(incident_id=incident_id, work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"status": status, "safe_error_classification": cause}))
+    # Replay a saved pre-field incident through the actual dispatch consumer.
+    state = coordinator.execute_plan("work-1", _quality_plan())
+    assert ("instagram_business" in transport.publish_calls) is recovered
+    assert state["per_destination"]["substack"]["reconciliation_status"] == RECONCILED_CONFIRMED
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
+
+
+def test_unknown_retry_cannot_reuse_an_earlier_validation_no_write(tmp_path):
+    class ValidationThenUnknown(FixtureTransport):
+        def publish(self, *, destination, **kwargs):
+            if destination == "instagram_business":
+                previous = self.publish_calls.count(destination)
+                self.publish_calls.append(destination)
+                if not previous:
+                    return {"status": "VALIDATION_FAILED", "validation_failures": ["image_url_unreachable"]}
+                raise TimeoutError("response lost after sending")
+            return super().publish(destination=destination, **kwargs)
+
+        def readback(self, *, destination, **kwargs):
+            if destination == "instagram_business":
+                self.readback_calls.append(destination)
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(destination=destination, **kwargs)
+
+    store, transport, coordinator = _coordinator(tmp_path, runtime=ValidationThenUnknown())
+    plan = _quality_plan()
+    coordinator.execute_plan("work-1", plan)
+    coordinator.recover_pending()
+    coordinator.recover_pending()
+    state = coordinator.publication_state("work-1", plan)
+    assert transport.publish_calls.count("instagram_business") == 2
+    assert state["per_destination"]["instagram_business"]["status"] == UNKNOWN_WRITE
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "instagram_business")
+    assert coordinator._retry_already_attempted(dispatch["dispatch_id"]) is True
 
 
 def test_text_first_piece_reaches_all_destinations_despite_frozen_channel_skips(tmp_path):

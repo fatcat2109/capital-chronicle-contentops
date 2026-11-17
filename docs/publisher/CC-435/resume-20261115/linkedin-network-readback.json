@@ -1,0 +1,9 @@
+{
+  "state": "MEMBER_IDENTITY_READ_FAILED",
+  "cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+  "http_status": null,
+  "observed_at_utc": "2026-11-15T12:52:44.693383+00:00",
+  "ended_at_utc": "2026-11-15T12:52:44.848773+00:00",
+  "public_write_performed": false,
+  "endpoint_kind": "OFFICIAL_USERINFO_GET"
+}

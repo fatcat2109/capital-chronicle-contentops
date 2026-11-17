@@ -1,0 +1,7 @@
+{
+  "observed_at_utc": "2026-11-14T08:57:31.807529+00:00",
+  "observed_status": "READBACK_COMPLETE",
+  "absent": true,
+  "error_class": "ValueError",
+  "error_code": "NATIVE_NEO_ACTUAL_TOOL_OBSERVATION_REQUIRED"
+}

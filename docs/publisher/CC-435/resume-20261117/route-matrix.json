@@ -1,0 +1,171 @@
+{
+  "item": "CC-435",
+  "observed_at_utc": "2026-11-17T02:23:28.992908+00:00",
+  "scope": "Latest retained confirmed plan page; no new plan/run or publication claimed.",
+  "plan_id": "plan_230a9464a193ca7a377d0c41",
+  "run_id": "shock-20261112T123542Z",
+  "page": {
+    "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+    "plan_id": "plan_230a9464a193ca7a377d0c41",
+    "confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+    "dispatch": {
+      "dispatch_id": "dispatch_0f71e132c94187d4e9c1835990c41f44",
+      "message_id": "outbox_0f71e132c94187d4e9c1835990c41f44",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T16:32:05.276158+00:00",
+      "public_object_id": "224627730",
+      "public_object_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "public_object_url_hash": "dbc511106685951a6388db3773f9b902d53437ebc905e56ee7fc5c4aabe6b571"
+    },
+    "reconciliation": {
+      "reconciliation_id": "reconciliation_0f71e132c94187d4e9c1835990c41f44",
+      "work_item_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-12T17:02:54.128727+00:00"
+    }
+  },
+  "routes": [
+    {
+      "destination": "telegram",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_192b7ee231b687c54c42b3c213ed2aeb",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T18:00:15.313710+00:00",
+      "public_object_id": "182",
+      "public_object_url": "https://t.me/CapitalChronicle/182",
+      "actual_latest_readback": {
+        "read_at_utc": "2026-11-12T18:00:15.289863+00:00",
+        "identity_match": true,
+        "meaningful_media_visible": false,
+        "observed_public_object_id": "182",
+        "observed_public_object_url": "https://t.me/CapitalChronicle/182",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      },
+      "current_public_readback_evidence": "telegram-public-readback.json"
+    },
+    {
+      "destination": "discord",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T18:00:21.378519+00:00",
+      "public_object_id": "1570672638332772352",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+      "actual_latest_readback": {
+        "read_at_utc": "2026-11-13T05:33:09.284132+00:00",
+        "identity_match": true,
+        "meaningful_media_visible": false,
+        "observed_public_object_id": "1570672638332772352",
+        "observed_public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": true
+      }
+    },
+    {
+      "destination": "threads",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T18:02:07.217716+00:00",
+      "public_object_id": "18346683595249062",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4",
+      "actual_latest_readback": {
+        "read_at_utc": "2026-11-12T18:02:07.184477+00:00",
+        "content_binding_checks": {
+          "account_match": true,
+          "canonical_link_match": true,
+          "media_match": true,
+          "object_id_match": true,
+          "public_url_match": true,
+          "text_match": true
+        },
+        "identity_match": true,
+        "meaningful_media_visible": false,
+        "observed_public_object_id": "18346683595249062",
+        "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": true
+      }
+    },
+    {
+      "destination": "facebook_page",
+      "link_id": null,
+      "confirmed": false,
+      "cause": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+    },
+    {
+      "destination": "instagram_business",
+      "link_id": null,
+      "confirmed": false,
+      "cause": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED",
+      "profile_link_cause": "INSTAGRAM_PROFILE_ANALYSIS_LINK_MISSING"
+    },
+    {
+      "destination": "x",
+      "link_id": null,
+      "confirmed": false,
+      "cause": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T17:06:23.198397+00:00",
+      "public_object_id": "c-385656965",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+      "actual_latest_readback": {
+        "read_at_utc": "2026-11-17T02:18:20.079633+00:00",
+        "content_binding_checks": {
+          "media_match": true,
+          "text_match": true,
+          "thread_match": true
+        },
+        "identity_match": true,
+        "meaningful_media_visible": false,
+        "observed_at_utc": "2026-11-17T02:18:20.034670+00:00",
+        "observed_public_object_id": "c-385656965",
+        "observed_public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": true
+      }
+    },
+    {
+      "destination": "linkedin",
+      "link_id": "plan-analysis-run-c40fb590ba9a4076ec36e533beaf0cfe-linkedin",
+      "confirmed": false,
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_id": "dispatch_b050e614c3c56a4fd3661a348a58ed8c",
+      "reconciliation_status": null,
+      "reconciled_at_utc": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "actual_latest_readback": {
+        "read_at_utc": "2026-11-13T05:00:41.785840+00:00"
+      },
+      "cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+      "current_probe_evidence": "linkedin-network-readback.json"
+    }
+  ],
+  "public_write_performed": false,
+  "acceptance_complete": false
+}

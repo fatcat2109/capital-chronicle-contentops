@@ -1,0 +1,25 @@
+{
+  "post_id": "225323477",
+  "canonical_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+  "published_at_utc": "2026-11-17T10:06:46.417Z",
+  "observed_at_utc": "2026-11-17T10:13:21.279Z",
+  "public_body_matches": true,
+  "normalized_body_characters": 53269,
+  "media": [
+    {
+      "observed_at_utc": "2026-11-17T10:13:14.892Z",
+      "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+      "size_bytes": 73994,
+      "status": 200,
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/f39c98e5-f984-4b8b-b35e-103550d2d199_1440x1040.png"
+    },
+    {
+      "observed_at_utc": "2026-11-17T10:13:21.279Z",
+      "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08",
+      "size_bytes": 13226368,
+      "status": 200,
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/13f8c3b7-5768-4bf1-80cb-ba48d84a579d_5472x3648.jpeg"
+    }
+  ],
+  "alt_text_and_captions_present": true
+}

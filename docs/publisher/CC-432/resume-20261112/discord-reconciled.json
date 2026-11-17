@@ -1,0 +1,70 @@
+{
+  "observed_at_utc": "2026-11-12T16:27:04.302548+00:00",
+  "method": "Installed sole coordinator.readback_existing_dispatch -> official Discord GET API",
+  "public_writes": 0,
+  "publish_called": false,
+  "results": [
+    {
+      "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+      "result": {
+        "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+        "destination": "discord",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_write_performed": false,
+        "publish_called": false
+      },
+      "before": {
+        "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+        "message_id": "outbox_25d42756d00c4019ff070863aa6b10e1",
+        "platform": "discord",
+        "status": "UNKNOWN_WRITE",
+        "dispatched_at": "2026-11-11T03:26:10.945605+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      "after": {
+        "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+        "message_id": "outbox_25d42756d00c4019ff070863aa6b10e1",
+        "platform": "discord",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "dispatched_at": "2026-11-11T03:26:10.945605+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      "exact_intent_payload_unchanged": true
+    },
+    {
+      "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+      "result": {
+        "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+        "destination": "discord",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_write_performed": false,
+        "publish_called": false
+      },
+      "before": {
+        "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+        "message_id": "outbox_f97bd60d404a2849c413cc8aafaacbf9",
+        "platform": "discord",
+        "status": "UNKNOWN_WRITE",
+        "dispatched_at": "2026-11-11T05:02:00.667201+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      "after": {
+        "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+        "message_id": "outbox_f97bd60d404a2849c413cc8aafaacbf9",
+        "platform": "discord",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "dispatched_at": "2026-11-11T05:02:00.667201+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      "exact_intent_payload_unchanged": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="123.100" timestamp="2026-11-13T03:55:04.080079+07:00" hostname="J-P"><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_queues_a_complete_alert_without_page_or_variants" time="8.307"><failure message="AssertionError: The first alert cannot wait for a page or a model.&#10;assert ''">replay = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x00000204BD5EA7B0&gt;, WindowsPath('C:/U...ons': [], 'cancel_kind': None, ...}, datetime.datetime(2026, 11, 12, 13, 20, 23, 123369, tzinfo=datetime.timezone.utc))
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2879/test_gold_replay_queues_a_comp0/main')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000204BD5F4180&gt;
+
+    def test_gold_replay_queues_a_complete_alert_without_page_or_variants(replay, main_root, monkeypatch):
+        store, folder, raw, now = replay
+        def forbidden(*a, **k):
+            raise AssertionError("MODEL_OR_BROWSER_UNAVAILABLE")
+        monkeypatch.setattr(editorial, "prepare_social_row", forbidden)
+        monkeypatch.setattr(editorial, "text_call", forbidden)
+        monkeypatch.setattr(pages, "continue_page", forbidden)
+        queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        assert queued["status"] == "OK", queued
+        row, = rows(store)
+&gt;       assert row["text"], "The first alert cannot wait for a page or a model."
+E       AssertionError: The first alert cannot wait for a page or a model.
+E       assert ''
+
+tests\test_plan_state_alerts_cc543.py:54: AssertionError</failure></testcase></testsuite></testsuites>

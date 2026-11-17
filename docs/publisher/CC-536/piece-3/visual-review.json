@@ -1,0 +1,66 @@
+{
+  "checked_at_utc": "2026-11-17T11:42:01.449878+00:00",
+  "article_sha256": "233922e78aad749acd8b1f67ac778c75b630ecc278e17b63e7987570d047c044",
+  "piece_sha256": "82a444d6fcb377d85ef341dc37a5a2a9dffb4730806d2d1c80184dd228041013",
+  "writer": {
+    "pid": 39072,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags read; inference-time telemetry unavailable.",
+    "launch_pid": 39072,
+    "operation": "publisher-cc-536-piece3-20261117",
+    "invocation_id": "exec-pid39072-20261117T111128Z",
+    "role": "source-bound writing, editing and final rendered review completed",
+    "preparation_role": {
+      "task": "/root/piece3_light_preparation",
+      "model": "gpt-6.1-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "artifact": "preparation.json"
+    },
+    "light_assist": {
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_TIMEOUT_120S",
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "prompt_sha256": "95a5c0871b7ce04562aca94813694d55c473d3e34cc04b7ac3a4d1947b640652",
+      "artifact": "assist/agy_light_assist_v1.json",
+      "choice": "Retained the complete Publisher-authored summary and inspected chart alt text after one bounded AGY timeout; no second call."
+    },
+    "final_review_completed_at_utc": "2026-11-17T11:42:01.449878+00:00"
+  },
+  "media_sha256": "69d94169f97bd7aa47a14dc0760539be6804766af7bda102b619edf201c07219",
+  "render_manifest": "renders/manifest.json",
+  "renders_inspected": 18,
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "findings": [
+    "Canonical desktop/phone: complete counts and signs, exact sample dates, fixed-half date, notices, source fingerprint and working method anchor.",
+    "All eight desktop/phone native compiler views: full summary or complete own thread, first reply canonical and notices, original source-bound chart and intact attribution.",
+    "Exactly two native TradingView simple averages; chart is expressly a current method illustration separate from the historical sample.",
+    "Repaired the wider phone table into explicit market-and-rule rows; each long, short and always-long record keeps its own count and mean.",
+    "Repaired FX rows have the current table hash and matching side split; the next-open close proxy is disclosed.",
+    "Both rules use different stop widths; no claim that this isolates direction or proves five sessions always fail."
+  ],
+  "repair_rounds": 1,
+  "decision": "ACCEPT",
+  "text_approved_at_utc": "2026-11-17T11:42:01.449878+00:00",
+  "main_snapshot": {
+    "live_tag": "live-20261117-cc651-173754",
+    "commit": "c75564df26b15258576d12f1fed5ee258706656a",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "blobs_verified": 7
+  },
+  "numbers_verified": 119,
+  "editorial_calls": "Configured model/effort recorded; no inference-time telemetry claimed."
+}

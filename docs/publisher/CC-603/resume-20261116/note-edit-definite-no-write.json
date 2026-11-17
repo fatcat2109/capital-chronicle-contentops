@@ -1,0 +1,32 @@
+{
+  "response": {
+    "tool_request_sha256": "b43aea72963e358f05fb57509417420b048a3c279835aa3e88df84a307d08d70",
+    "tool_observation": {
+      "tool_name": "browseros-neo/run",
+      "surface": "NEO_ENDPOINT_EXECUTOR",
+      "native_invocation_id": "neo-endpoint:740fae72a31e4cbabf5aa0d4bbff288a",
+      "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT_EXACT_EDIT_CONTINUATION_AFTER_READBACK",
+      "observed_at_utc": "2026-11-16T00:42:55.291467+00:00"
+    },
+    "result": {
+      "request_sha256": "e17b1441ad3bafe1b7e9fff99bcf82cd680aa28bdbf3b61f68c53c456bbd9733",
+      "status": "FAILED_BEFORE_WRITE",
+      "definite_no_write": true,
+      "public_write_performed": false,
+      "stage": "BEFORE_PUBLISH_CLICK",
+      "reason_code": "NEO_EXPECTED_MENUITEM_MISSING",
+      "neo_executor_revision": "4a43b25475b9081afe27e2fd1c52d37767bf86cff33a448b19d12a409e516d19"
+    },
+    "composed": {
+      "identity": {
+        "authenticated": false,
+        "observed_identity": null,
+        "observed_at_utc": "2026-11-16T00:42:55.291467+00:00"
+      }
+    }
+  },
+  "submission": {
+    "request_sha256": "e17b1441ad3bafe1b7e9fff99bcf82cd680aa28bdbf3b61f68c53c456bbd9733",
+    "tool_return_sha256": "2272fc2f08fc8a0e954f99101f335e7e4f4af4ca7e1020a47755296bfac98588"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "process_id": 32524,
+  "parent_process_id": 3328,
+  "process_start_utc": "2026-11-11T11:54:06.5733550Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "telemetry": "CONFIGURED_NOT_OBSERVED"
+}

@@ -1,0 +1,43 @@
+{
+  "recorded_at_utc": "2026-11-15T15:34:18.818925+00:00",
+  "status": "BLOCKED",
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "operation": "initialize existing Neo MCP endpoint for public Telegram scorecard readback",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "next_action": "Ops Product restores the existing Neo connection; Publisher reads https://t.me/s/CapitalChronicle/134.",
+  "implementation_already_live": true,
+  "source_changes": 0,
+  "tests": {
+    "file": "tests/test_pinned_result_scorecard_cc394.py",
+    "passed": 5,
+    "failures": 0,
+    "errors": 0,
+    "artifact": "targeted-tests.xml",
+    "earlier_full_file_attempt": "INTERRUPTED_NO_TERMINAL_RESULT"
+  },
+  "bot_api_exact_readback": true,
+  "public_page_readback": false,
+  "public_message_id": "134",
+  "current_counts": {
+    "total": 42,
+    "scored": 6,
+    "STOPPED": 5,
+    "EXPIRED": 37,
+    "HIT": 0,
+    "NOT_TRIGGERED": 0
+  },
+  "first_new_score_after_initial_checkpoint_latency_seconds": 24.165473,
+  "newest_score_latency_seconds": 9805.300383,
+  "newest_score_deadline_met": false,
+  "newest_score_delay_cause": "PLAN_EXPORT_STALE",
+  "first_fresh_export_to_bot_seconds": 24.06803,
+  "scorecard_run_records": 3378,
+  "bootstrap_messages": 1,
+  "extra_result_feed_post_records": 0,
+  "public_writes_this_run": 0,
+  "schedules_changed": 0,
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "telemetry_state": "CONFIGURED_NOT_OBSERVED",
+  "choice": "Reuse installed scorecard and exact object; record the missed upstream deadline and missing public-page observation without reposting."
+}

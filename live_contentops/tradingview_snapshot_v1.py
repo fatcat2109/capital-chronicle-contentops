@@ -9,22 +9,25 @@ attribution stays clearly visible: the snapshot's own "Created with TradingView.
 logo are never cropped (framing only pads), and each post says "Chart: TradingView". Section 3 bars
 machine processing of TradingView content: one snapshot per post, displayed only, no data read.
 
-A failed snapshot never stops the post: the caller falls back to a fact card with the plan's own
-numbers (decision 42), and every outcome is counted in OUTCOMES.
+CC-459: plan posts share one capture per market for 15 minutes. Two capture attempts fit within
+a five-minute wait; the run budget defers capture, never substitutes a drawn levels picture.
+After failure, text-capable destinations use text and image-required destinations are skipped.
 
-Drawings: TradingView's guest chart refuses programmatic and hotkey drawings (5 Nov probe:
-"Cannot create shape" for horizontal_line and rectangle, Alt+H draws nothing), so no level is
-drawn; the post's text carries the zone and invalidation. A target is never drawn (decision 40).
+TradingView's guest chart refuses native drawings ("Cannot create shape"). CC-459 instead
+places Capital Chronicle's supplied public plan levels on a copy of the download, against
+the chart's visible axis and checked pane geometry. The original download stays unchanged.
+Axis labels serve this displayed annotation only; they never become an analytical price feed.
 """
 from __future__ import annotations
 
 import hashlib
+import base64
 import json
 import os
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -42,11 +45,12 @@ NAMES = {"XAUUSD": "Gold spot / US dollar (ICE)", "US500": "S&P 500 index",
          "USOIL": "WTI light crude oil futures, front month (NYMEX)", "BTCUSD": "Bitcoin / US dollar (Coinbase spot)"}
 REVIEWED_MAP = Path(r"A:\Capital Chronicle\Worktrees\codex-web-cc254-clean\ui\src\product\public-desk"
                     r"\reviewed-tradingview-symbols.json")
-INTERVAL_LABELS = {"60": "1h", "240": "4h", "D": "1D"}
+INTERVAL_LABELS = {"15": "15m", "60": "1h", "240": "4h", "D": "1D"}
 # Ops Product, 5 Nov: 16:9 for X, Threads, Telegram, Discord, LinkedIn and Facebook; 4:5 for Instagram.
 RATIOS = {"16:9": (16, 9), "4:5": (4, 5)}
 # A 1910x850 page gives a snapshot of about 1524x856, already close to 16:9.
 VIEWPORT = {"width": 1910, "height": 850}
+PORTRAIT_VIEWPORT = {"width": 1472, "height": 1350}
 TIMEOUT_SECONDS = 60
 PLAYWRIGHT_PYTHON = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v1-runtime\venv\Scripts\python.exe")
 OUTCOMES = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\tradingview_snapshot_outcomes_v1.jsonl")
@@ -57,6 +61,127 @@ RIGHTS_BASIS = ("TradingView Terms of Use section 4 (checked 5 Nov 2026): chart 
 
 class SnapshotError(RuntimeError):
     pass
+
+
+class SnapshotPending(ValueError):
+    """The existing minute consumer resumes the same capture, without a new job."""
+
+
+PLAN_CACHE_SECONDS = 15 * 60
+PLAN_WAIT_SECONDS = 5 * 60
+PLAN_ATTEMPTS = 2
+
+
+def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
+                  now: datetime | None = None, ratio: str = "16:9", image_input=None,
+                  source_snapshot=None) -> dict | None:
+    """CC-459's bounded capture/cache owner. A None result means text after two failures.
+
+    Only image artifacts are cached; this is not another scheduler or publication store.
+    The market, source download hash, capture clock and first failure stay bound.
+    """
+    now = now or datetime.now(timezone.utc)
+    folder = Path(folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    media = folder / "media_assets"
+    market = row["symbol"]
+    tv_symbol = SYMBOLS.get(market, market)
+    title = row.get("instrument_title") or NAMES.get(market, market)
+    interval = interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
+    if market.startswith(("ECONOMICS:", "FRED:")):
+        interval = "D"
+    suffix = "" if ratio == "16:9" else "_" + ratio.replace(":", "x")
+    if image_input:
+        suffix += "_cc465"
+    def image_asset(taken):
+        if image_input:
+            from .image_quality_v1 import prepare_asset
+            return prepare_asset(image_input,"W" if ratio=="16:9" else "T",media,taken)
+        return snapshot_asset(market,title,taken,media,ratio)
+    state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {
+        "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0}
+    if state.get("key") != row["key"] or state.get("market") != market:
+        raise ValueError("TRADINGVIEW_PLAN_CAPTURE_BINDING_CHANGED")
+
+    def save():
+        state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+
+    cache_file = folder.parent / "tradingview_cache" / (market.replace(":", "-") + suffix + ".json")
+    taken = None
+    try:
+        cached = json.loads(cache_file.read_text(encoding="utf-8"))
+        captured = _utc(cached.get("captured_at_utc"))
+        if (captured and 0 <= (now - captured).total_seconds() < PLAN_CACHE_SECONDS
+                and cached.get("tv_symbol") == tv_symbol
+                and Path(cached["path"]).is_file() and _sha256(Path(cached["path"])) == cached["sha256"]):
+            taken = cached
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    if not taken and source_snapshot:
+        source_time = _utc(source_snapshot.get("captured_at_utc"))
+        if (source_snapshot.get("tv_symbol") != tv_symbol or source_snapshot.get("interval") != interval
+                or source_snapshot.get("capture_ratio", "16:9") != ratio or source_time is None or source_time > now
+                or _sha256(Path(source_snapshot["path"])) != source_snapshot.get("sha256")):
+            raise SnapshotError("TRADINGVIEW_SOURCE_PAGE_SNAPSHOT_BINDING_CHANGED")
+        # The confirmed article's own image feeds its social card. Keep its
+        # actual capture clock and prior failures; this is no new observation.
+        taken = dict(source_snapshot)
+    # Preserve this exact post's successful image even when it resumes after the cache expires.
+    if not taken and state.get("snapshot"):
+        prior = state["snapshot"]
+        if prior.get("tv_symbol") == tv_symbol and _sha256(Path(prior["path"])) == prior["sha256"]:
+            taken = prior
+    if taken:
+        asset = image_asset(taken)
+        validate_snapshot_asset(asset)
+        if state.get("status") != "CAPTURED":
+            state.update(status="CAPTURED", snapshot=taken, cache_hit=True)
+            save()
+            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+        return asset
+    if state.get("status") == "TEXT_ONLY":
+        if image_input:
+            raise SnapshotPending(state.get("cause") or "IMAGE_TRADINGVIEW_CAPTURE_REQUIRED")
+        return None
+    deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
+    while state["attempts"] < PLAN_ATTEMPTS and datetime.now(timezone.utc) < deadline:
+        if snapshot_allowed is not None and not snapshot_allowed():
+            state.update(status="DEFERRED", cause="TRADINGVIEW_CAPTURE_DEFERRED_RUN_TIME_BUDGET")
+            save()
+            record_outcome(state)
+            raise SnapshotPending(state["cause"])
+        state["attempts"] += 1
+        save()
+        try:
+            if snapshot:
+                taken = (snapshot(market, interval, media) if ratio == "16:9" else
+                         snapshot(market, interval, media / "4x5", ratio=ratio))
+            else:
+                remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
+                taken = capture(market, interval, media / "4x5" if suffix else media,
+                    timeout=min(TIMEOUT_SECONDS, max(1, remaining)), ratio=ratio,
+                    **({"chart_size":(1600,700) if ratio=="16:9" else (1080,850)} if image_input else {}))
+            asset = image_asset(taken)
+            validate_snapshot_asset(asset)
+            state.update(status="CAPTURED", snapshot=taken, cache_hit=False)
+            save()
+            cache_file.parent.mkdir(parents=True, exist_ok=True)
+            cache_file.write_text(json.dumps(taken, sort_keys=True), encoding="utf-8")
+            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+            return asset
+        except Exception as exc:
+            state.setdefault("first_cause", str(exc)[:200])
+            state["cause"] = str(exc)[:200]
+            save()
+    state.update(status="TEXT_ONLY", cause=state.get("first_cause") or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED")
+    if image_input:
+        state["status"] = "IMAGE_HELD"
+    save()
+    record_outcome(state)
+    if image_input:
+        raise SnapshotPending(state["cause"])
+    return None
 
 
 # Jim decision 87 (CC-316): memory measurements never gate capture.
@@ -102,6 +227,13 @@ def frame(source: Path, target: Path, ratio: str = "16:9") -> dict:
     with Image.open(source) as image:
         image = image.convert("RGB")
         width, height = image.size
+        if ratio == "4:5":
+            if abs(width / height - .8) > .003:
+                raise SnapshotError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            image.save(target, format="PNG", optimize=True)
+            return {"ratio": ratio, "mode": "NATIVE_VIEWPORT", "width": width, "height": height,
+                    "original_box": [0, 0, width, height]}
         if width * rh >= height * rw:
             out_w, out_h = width, -(-width * rh // rw)
         else:
@@ -134,7 +266,8 @@ def failure_count(path: Path | None = None) -> int:
     if not path.is_file():
         return 0
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines()
-               if line.strip() and json.loads(line).get("status") != "CAPTURED")
+               if line.strip() and json.loads(line).get("status") in {
+                   "FAILED", "TEXT_ONLY", "SKIPPED_RUN_TIME_BUDGET"})
 
 
 def _kill_tree(pid: int) -> None:
@@ -164,14 +297,24 @@ def _run_worker(args: dict, *, timeout: float, python: str | None) -> dict:
 
 
 def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEOUT_SECONDS,
-            worker=None, python: str | None = None) -> dict:
+            worker=None, python: str | None = None, ratio: str = "16:9", quote_provider=None,
+            chart_size: tuple[int, int] | None = None) -> dict:
     """One TradingView Download image of the market at the interval, checked before use."""
-    if market not in SYMBOLS or interval not in INTERVAL_LABELS:
+    economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(market)))
+    if (market not in SYMBOLS and not economic) or interval not in INTERVAL_LABELS or ratio not in RATIOS:
         raise SnapshotError("TRADINGVIEW_SNAPSHOT_MARKET_OR_INTERVAL_UNSUPPORTED")
-    tv_symbol = SYMBOLS[market]
+    tv_symbol = market if economic else SYMBOLS[market]
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
-    args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir), "budget_ms": int(timeout * 1000) - 8000}
+    if not economic and worker is None and quote_provider is None:
+        from .chart_price_reference_v1 import prepare_chart_quote
+        prepare_chart_quote(market)
+    args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir),
+            "budget_ms": int(timeout * 1000) - 8000, "ratio": ratio}
+    if chart_size is not None:
+        if tuple(chart_size) not in {(1600, 700), (1080, 850)}:
+            raise SnapshotError("IMAGE_CHART_CAPTURE_SIZE_UNSUPPORTED")
+        args["chart_size"] = list(chart_size)
     result = (worker or (lambda a: _run_worker(a, timeout=timeout, python=python)))(args)
     path = Path(str(result.get("path") or ""))
     ticker = tv_symbol.split(":", 1)[1]
@@ -191,11 +334,40 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
         if image.format != "PNG" or min(image.size) < 400:
             raise SnapshotError("TRADINGVIEW_SNAPSHOT_IMAGE_INVALID")
         size = image.size
-    return {"path": str(path), "sha256": _sha256(path), "width": size[0], "height": size[1],
+    scale = {}
+    if result.get("geometry_probe"):
+        from live_contentops.tradingview_plan_overlay_v1 import geometry
+        try:
+            scale = {"chart_geometry": geometry(result)}
+        except (ValueError, KeyError, OSError, StopIteration, ZeroDivisionError) as exc:
+            scale = {"chart_geometry_cause": str(exc) or "TRADINGVIEW_PRICE_SCALE_NOT_USABLE"}
+    if chart_size and (min(size[0]/chart_size[0], size[1]/chart_size[1]) < .97
+            or abs(size[0]/size[1]/(chart_size[0]/chart_size[1])-1) > .03):
+        raise SnapshotError("IMAGE_CHART_CAPTURE_SHAPE")
+    if not chart_size and ratio == "4:5" and abs(size[0] / size[1] - .8) > .003:
+        raise SnapshotError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
+    taken = {"path": str(path), "sha256": _sha256(path), "width": size[0], "height": size[1], **scale,
+            "capture_ratio": ratio, "capture_viewport": result.get("capture_viewport"),
             "tv_symbol": tv_symbol, "interval": interval, "interval_label": INTERVAL_LABELS[interval],
             "legend": legend, "page_title": result.get("page_title"), "chart_url": args["url"],
             "suggested_filename": result.get("suggested_filename"),
             "captured_at_utc": result.get("captured_at_utc"), "seconds": result.get("seconds")}
+    if chart_size:
+        taken["template_chart_size"] = list(chart_size)
+    if not economic and (worker is None or quote_provider is not None):
+        from .publication_image_contract_v1 import ImageContractError, bind_scale
+        try:
+            taken = bind_scale(market, taken,
+                quote=quote_provider(market, taken["captured_at_utc"]) if quote_provider else None)
+        except ImageContractError as error:
+            record_outcome({"status": "PRICE_SCALE_REFUSED", "market": market,
+                "cause": str(error), "captured_at_utc": taken["captured_at_utc"],
+                "price_scale_check": error.details, "chart_sha256": taken["sha256"]})
+            raise
+        record_outcome({"status": "PRICE_SCALE_CHECKED", "market": market,
+            "captured_at_utc": taken["captured_at_utc"],
+            "price_scale_check": taken["price_scale_check"], "chart_sha256": taken["sha256"]})
+    return taken
 
 
 def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir: Path,
@@ -209,6 +381,7 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
     captured = _utc(snapshot.get("captured_at_utc")) or datetime.now(timezone.utc)
     from live_contentops.public_time_v1 import public_timestamp
     when = public_timestamp(captured)
+    name = NAMES.get(market, market.split(":")[-1])
     return {"asset_id": "tradingview-snapshot-" + digest[:20], "path": str(framed_path), "sha256": digest,
             "width": framing["width"], "height": framing["height"], "mime_type": "image/png",
             "modality": "tradingview_chart_snapshot", "card_kind": "TRADINGVIEW_SNAPSHOT",
@@ -216,8 +389,8 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
             "article_inclusion": False, "canonical_article_media": False,
             "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE", "rights_basis": RIGHTS_BASIS,
             "attribution": "TradingView", "credit": CREDIT,
-            "caption": f"{title}: {label} chart of {NAMES[market]}. {CREDIT}.",
-            "alt_text": f"TradingView {label} candlestick chart of {NAMES[market]}, "
+            "caption": f"{title}: {label} chart of {name}. {CREDIT}.",
+            "alt_text": f"TradingView {label} chart of {name}, "
                         f"captured {when}.",
             "source_page_url": snapshot["chart_url"],
             "tradingview_snapshot": {**dict(snapshot), "framing": framing, "policy": POLICY,
@@ -228,17 +401,30 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
 def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any] | None = None) -> None:
     """Validate the exact download and uncropped pixels; never treat it as a data series."""
     from PIL import Image, ImageChops
+    if asset.get("image_template"):
+        from .image_quality_v1 import validate_asset
+        validate_asset(asset, require_vision=False)
+        return
     snap = asset["tradingview_snapshot"]
     market = (article or {}).get("market_asset")
+    from live_contentops.tradingview_plan_overlay_v1 import target_drawn
+    if target_drawn(asset):
+        # CC-583 / decision 82: snap["target_drawn"] describes the plain download only.
+        raise ValueError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
     if ((article or {}).get("paid") or (article or {}).get("paywall")
             or (article or {}).get("audience") in {"paid", "paid_subscribers"}):
         raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
+    economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(snap.get("tv_symbol") or "")))
+    # CC-536's bound method illustration uses its retained Bitstamp download.
+    # A plan still requires the reviewed instrument's exact price scale below.
+    measured_method = (not market and (article or {}).get("measured_odds_series") == "CC536_MEASURED_ODDS_SERIES_V1"
+                       and snap.get("tv_symbol") == "BITSTAMP:BTCUSD")
     if (snap.get("policy") != POLICY or asset.get("credit") != CREDIT
             or asset.get("provenance_status") != "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE"
             or not asset.get("rights_basis") or snap.get("levels_drawn") != []
             or snap.get("target_drawn") is not False
-            or snap.get("tv_symbol") not in SYMBOLS.values()
-            or (market and SYMBOLS.get(market) != snap.get("tv_symbol"))
+            or (snap.get("tv_symbol") not in SYMBOLS.values() and not economic and not measured_method)
+            or (market and not economic and SYMBOLS.get(market) != snap.get("tv_symbol"))
             or snap.get("chart_url") != chart_url(snap["tv_symbol"], snap["interval"])
             or snap.get("interval") not in INTERVAL_LABELS):
         raise ValueError("TRADINGVIEW_SNAPSHOT_BINDING_INVALID")
@@ -249,8 +435,12 @@ def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any]
         if (original.format != "PNG" or min(original.size) < 400
                 or (box[2] - box[0], box[3] - box[1]) != original.size
                 or framed.size != (asset["width"], asset["height"])
-                or ImageChops.difference(original.convert("RGB"), framed.convert("RGB").crop(box)).getbbox()):
+                or (not asset.get("plan_overlay") and
+                    ImageChops.difference(original.convert("RGB"), framed.convert("RGB").crop(box)).getbbox())):
             raise ValueError("TRADINGVIEW_SNAPSHOT_ATTRIBUTION_CROPPED_OR_CHANGED")
+        if asset.get("plan_overlay"):
+            from live_contentops.tradingview_plan_overlay_v1 import validate
+            validate(asset)
         top = asset.get("preceding_card")
         if top:
             if _sha256(Path(top["path"])) != top["sha256"]:
@@ -293,6 +483,10 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
     The writer names the discussed market. A single structured candidate asset can
     supply it too. We never pick an arbitrary market from a multi-market release.
     """
+    from .publication_image_contract_v1 import EFFECTIVE_FROM
+    if datetime.now(timezone.utc) >= EFFECTIVE_FROM:
+        return prepare_contract_article(article, assets, output_dir=output_dir,
+                                        selected_candidate=selected_candidate)
     from copy import deepcopy
     article, assets = deepcopy(article), deepcopy(assets)
     candidate = selected_candidate or {}
@@ -395,6 +589,76 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
     return article, assets
 
 
+def prepare_contract_article(article, assets, *, output_dir, selected_candidate=None, snapshot=None):
+    """Decision 124 using the existing bounded capture and image owner."""
+    from copy import deepcopy
+    if article.get("image_input_v1"):
+        from .image_quality_v1 import prepare_article_media
+        return prepare_article_media(article, assets, output_dir=output_dir, snapshot=snapshot)
+    from .publication_image_contract_v1 import POLICY as CONTRACT, _macro, image_type
+    article, assets = deepcopy(article), deepcopy(assets)
+    aliases = {"GOLD": "XAUUSD", **{m: m for m in SYMBOLS}}
+    value = article.get("market_asset")
+    if not value:
+        ids = (selected_candidate or {}).get("asset_ids") or []
+        ids = [ids] if isinstance(ids, str) else ids
+        markets = {aliases[str(v).upper()] for v in ids if str(v).upper() in aliases}
+        value = next(iter(markets)) if len(markets) == 1 else None
+    market = aliases.get(str(value).upper())
+    macro = _macro(article, {})
+    if not market and not macro:
+        return article, assets
+    if market:
+        article["market_asset"] = market
+    # Retrospectives must use an event-bound retained chart, never today's
+    # capture. Rights and historical objects retain their existing restrictions.
+    if article.get("retrospective") or "Retrospective analysis, written on" in str(article.get("substack_body_markdown")):
+        return article, assets
+    if article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"}:
+        raise SnapshotError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
+    article["publication_image_contract"] = CONTRACT
+    first = next((a for a in assets if image_type(a) == "FRED_GRAPH"), None) if macro else None
+    symbol = article.get("macro_chart_symbol") if macro else market
+    if macro and not first and not re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(symbol or "")):
+        raise ValueError("MACRO_SOURCE_SERIES_SYMBOL_REQUIRED")
+    folder = Path(output_dir) / "media" / "tradingview"
+    key = hashlib.sha256(json.dumps([symbol, article.get("title"), article.get("substack_body_markdown")],
+        sort_keys=True).encode()).hexdigest()[:24]
+    row = {"key": key, "symbol": symbol, "instrument_title": article["title"],
+           "at_utc": datetime.now(timezone.utc).isoformat(), "levels": {}}
+    if not first:
+        first = plan_snapshot(row, folder, snapshot=snapshot)
+        article.update(tradingview_capture_state_path=str((folder / "tradingview_capture_v1.json").resolve()),
+                       tradingview_capture_key=key)
+    from .destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    if first is None:
+        article.update(tradingview_text_fallback=True, lead_image_asset_id=None,
+            tradingview_instagram_skip="TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
+        choices = {d: [] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+        article.update(native_destination_media=choices, post_visual_destination_media=choices)
+        return article, []
+    first.update(article_inclusion=True, canonical_article_media=True, placement_after="introduction")
+    # No locally drawn headline card leads a new market or macro article.
+    rest = [a for a in assets if a["asset_id"] != first["asset_id"] and not a.get("post_card_binding")]
+    assets = [first, *rest]
+    portrait = None
+    if first.get("modality") == "tradingview_chart_snapshot":
+        portrait = plan_snapshot(row, folder, snapshot=snapshot, ratio="4:5")
+        if portrait:
+            portrait.update(derivative_only=True, article_inclusion=False, canonical_article_media=False)
+            assets.append(portrait)
+    if not portrait:
+        article["tradingview_instagram_skip"] = "TRADINGVIEW_PORTRAIT_CAPTURE_FAILED_IMAGE_REQUIRED"
+    choices = {d: [first["asset_id"]] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    choices["instagram_business"] = [portrait["asset_id"]] if portrait else []
+    article.update(lead_image_asset_id=first["asset_id"], tradingview_snapshot_asset_ids=[first["asset_id"]],
+                   native_destination_media=choices, post_visual_destination_media=choices)
+    if article.get("visual_editorial_decision"):
+        article["visual_editorial_decision"].update(channel_media=choices,
+            tradingview_snapshot_asset_ids=[first["asset_id"]] if first.get("tradingview_snapshot") else [])
+    return article, assets
+
+
 def fallback_card(*, title: str, facts: list[tuple[str, str]], dated_line: str, out_dir: Path,
                   kicker: str = "Plan status") -> dict:
     """CC-290's fact card with the plan's own numbers, as a delivery-only post image."""
@@ -426,13 +690,40 @@ def _worker(args: dict) -> dict:
     started = time.time()
     budget = max(15000, int(args.get("budget_ms") or 50000))
     out_dir = Path(args["out_dir"])
+    viewport = dict(PORTRAIT_VIEWPORT if args.get("ratio") == "4:5" else VIEWPORT)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True, channel="chromium")
         try:
             # A new context is a fresh, empty profile: guest chart, nothing saved, nothing shared.
-            context = browser.new_context(viewport=VIEWPORT, accept_downloads=True, locale="en-US",
+            context = browser.new_context(viewport=viewport, accept_downloads=True, locale="en-US",
                                           timezone_id="UTC", color_scheme="light")
             page = context.new_page()
+            if args.get("probe_geometry", True):
+                page.add_init_script("""(() => {
+                    const fill = CanvasRenderingContext2D.prototype.fillText;
+                    const seen = new WeakMap();
+                    window.__cc459Labels = seen;
+                    for (const name of ['clearRect', 'fillRect']) {
+                        const original = CanvasRenderingContext2D.prototype[name];
+                        CanvasRenderingContext2D.prototype[name] = function(x,y,w,h,...rest) {
+                            if (x <= 0 && y <= 0 && w >= this.canvas.width-1 && h >= this.canvas.height-1)
+                                seen.delete(this.canvas);
+                            return original.call(this,x,y,w,h,...rest);
+                        };
+                    }
+                    CanvasRenderingContext2D.prototype.fillText = function(text, x, y, ...rest) {
+                        if (/^-?[\\d,.]+$/.test(String(text))) {
+                            let labels = seen.get(this.canvas);
+                            if (!labels) seen.set(this.canvas, labels = new Map());
+                            const t = this.getTransform();
+                            const m = this.measureText(String(text));
+                            labels.set(String(text), {text: String(text), x: t.a*x+t.e, y: t.d*y+t.f,
+                                baseline: this.textBaseline, font: this.font,
+                                ascent: m.actualBoundingBoxAscent, descent: m.actualBoundingBoxDescent});
+                        }
+                        return fill.call(this, text, x, y, ...rest);
+                    };
+                })();""")
             page.goto(args["url"], wait_until="domcontentloaded", timeout=budget // 2)
             page.wait_for_selector("canvas", timeout=budget // 3)
             page.wait_for_function(
@@ -443,14 +734,50 @@ def _worker(args: dict) -> dict:
                 return [...q('[data-name="legend-source-title"]'), ...q('[data-qa-id="legend-source-title"]'),
                         ...q('#header-toolbar-intervals button[aria-checked="true"]'),
                         ...q('#header-toolbar-intervals')].join(' · '); }""")
-            page.mouse.move(VIEWPORT["width"] // 3, VIEWPORT["height"] // 2)
-            with page.expect_download(timeout=20000) as download:
-                page.keyboard.press("Control+Alt+KeyS")
-            name = download.value.suggested_filename
-            target = out_dir / name
-            download.value.save_as(str(target))
-            return {"path": str(target), "suggested_filename": name, "legend": legend, "page_title": page.title(),
-                    "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1)}
+            # TradingView's download excludes page chrome. Resize the *chart*
+            # viewport against its measured download dimensions; never pad or
+            # crop a wide chart into a portrait. At most two geometry repairs.
+            for shape_attempt in range(3):
+                page.mouse.move(viewport["width"] // 3, viewport["height"] // 2)
+                geometry_probe = page.evaluate("""() => [...document.querySelectorAll('canvas')].map(c => {
+                    const r = c.getBoundingClientRect();
+                    return {width: c.width, height: c.height, rect: [r.x,r.y,r.width,r.height],
+                        parents: [c.parentElement, c.parentElement?.parentElement].map(e =>
+                            ({name:e?.getAttribute('data-name'), cls:e?.className})),
+                        labels: [...(window.__cc459Labels?.get(c)?.values() || [])]};
+                })""") if args.get("probe_geometry", True) else None
+                if args.get("probe_geometry", True):
+                    axis_png = page.locator('[data-name="price-axis-A"] canvas').first.evaluate("c => c.toDataURL('image/png').split(',')[1]")
+                    axis_file = out_dir / "price-axis.png"
+                    axis_file.write_bytes(base64.b64decode(axis_png))
+                with page.expect_download(timeout=20000) as download:
+                    page.keyboard.press("Control+Alt+KeyS")
+                name = download.value.suggested_filename
+                target = out_dir / name
+                download.value.save_as(str(target))
+                from PIL import Image
+                with Image.open(target) as image:
+                    width, height = image.size
+                wanted = args.get("chart_size")
+                if wanted and (width, height) == tuple(wanted):
+                    break
+                if not wanted and (args.get("ratio") != "4:5" or width * 5 == height * 4):
+                    break
+                if shape_attempt == 2:
+                    raise SnapshotError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
+                target_height = wanted[1] if wanted else -(-height // 5) * 5
+                target_width = wanted[0] if wanted else target_height * 4 // 5
+                viewport = {"width": viewport["width"] + target_width - width,
+                            "height": viewport["height"] + target_height - height}
+                page.set_viewport_size(viewport)
+                page.wait_for_timeout(500)  # bounded canvas repaint after resize
+            result = {"path": str(target), "suggested_filename": name, "legend": legend, "page_title": page.title(),
+                    "capture_ratio": args.get("ratio", "16:9"), "capture_viewport": viewport,
+                    "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1),
+                    **({"geometry_probe": geometry_probe, "axis_path": str(axis_file)} if geometry_probe else {})}
+            if geometry_probe:
+                (out_dir / "visible-axis-geometry.json").write_text(json.dumps(result,sort_keys=True),encoding="utf-8")
+            return result
         finally:
             browser.close()
 

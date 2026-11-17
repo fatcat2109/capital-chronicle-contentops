@@ -1,0 +1,37 @@
+{
+  "safe_resumes": 1,
+  "safely_attempted": 1,
+  "stale_expired": 0,
+  "marked_unknown": 0,
+  "readbacks": 0,
+  "publish_calls": 0,
+  "readiness_probe_performed": false,
+  "per_destination": {
+    "substack_notes": {
+      "destination": "substack_notes",
+      "status": "DESTINATION_FAILED_ET_DAY_SKIP",
+      "publish_called": false,
+      "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
+      "first_failure": {
+        "attempt_started_at_utc": "2026-11-15T21:51:36.942070+00:00",
+        "destination": "substack_notes",
+        "dispatch_id": "dispatch_796db3424675b9656112164e7a908724",
+        "et_day": "2026-11-15",
+        "local_prewrite_validation": false,
+        "safe_error_classification": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+        "status": "UNKNOWN_WRITE",
+        "write_outcome_certainty": "AMBIGUOUS"
+      }
+    }
+  },
+  "recovery_attempt_budget": 9,
+  "backlog_remaining": 1,
+  "legacy_noncanonical_rows_skipped": 79,
+  "backlog_remaining_by_destination": [
+    "substack_notes"
+  ],
+  "backlog_remaining_obligations": [],
+  "recovery_quarantined_obligations": [],
+  "recovery_quarantined_obligation_count": 0,
+  "backlog_blocking_new_publication": true
+}

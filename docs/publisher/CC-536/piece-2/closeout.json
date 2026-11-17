@@ -1,0 +1,77 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "observed_at_utc": "2026-11-15T11:32:20.406352+00:00",
+  "outcome": "BLOCKED",
+  "stage": "fresh authentic TradingView chart capture before final assembly/review and coordinator registration",
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "choice": "Complete and install the source-bound article and remove the side-row validator defect; preserve the issued piece-1 objects and wait only for the actual Neo outage.",
+  "branch": "backlog/cc-536-piece-2-trend-twenty",
+  "installed_commit": "93d3465865ada6178d4638163be6c00173676a92",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "rollback_tag": "contentops/cc-536-piece2-rollback-20261115T112852Z",
+  "live_tag": "contentops/cc-536-piece2-live-20261115T112852Z",
+  "main_source": {
+    "live_tag": "live-20261114-cc598-154637",
+    "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+    "blobs_verified": 7
+  },
+  "tests": [
+    {
+      "artifact": "consumer-tests.xml",
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "time_seconds": 36.553
+    },
+    {
+      "artifact": "installed-consumer-tests.xml",
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "time_seconds": 23.113
+    }
+  ],
+  "number_check": {
+    "artifact": "installed-number-report.json",
+    "status": "PASS",
+    "numeric_occurrences": 58,
+    "publisher_computations": false
+  },
+  "publication": {
+    "piece_1": "Existing reconciled canonical identity read from the production store; no new public readback claimed.",
+    "piece_2_registered": false,
+    "piece_2_published": false,
+    "fresh_chart_bound": false,
+    "text_approval_clock_created": false
+  },
+  "held_media_search": {
+    "metadata_files_checked": 282,
+    "matches": [
+      "../piece-1.json",
+      "../registered-piece-1.json"
+    ],
+    "matching_chart_sha256": "3fbe2b0b5c767661b00cf2fd4e6096485ff36f0fe32e890d4141347786c79150",
+    "restriction": "JIM_DECISION_93: that chart is already published in piece 1; JIM_DECISION_82: use a real native TradingView chart, never a drawn chart."
+  },
+  "live_acceptance_remaining": [
+    "Piece 2 Substack and X exact readbacks with its unused native TradingView chart",
+    "First daily-board and next plan public links to the confirmed method page",
+    "Later daily series pieces; euro/yen require the repaired table and side split on Main live tag"
+  ],
+  "next_action": "Open BrowserOS Neo with its existing profile and restore its configured local MCP endpoint; Publisher resumes the same prepared piece.",
+  "next_actor": "BrowserOS operator",
+  "next_check_utc": "2026-11-15T12:00:00Z",
+  "next_check_gmt7": "15 Nov 2026 19:00 GMT+7",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "light_assist": "AGY_VERSION_TIMEOUT_5S; retained complete authored summary; no retry",
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "preserved_uncommitted_paths": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
+  ]
+}

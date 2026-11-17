@@ -1,0 +1,336 @@
+{
+  "backlog_item": "CC-124",
+  "observed_at_utc": "2026-11-17T01:42:04.717171+00:00",
+  "actual_start_utc": "2026-11-17T00:42:33.8397600Z",
+  "published_articles": 0,
+  "prepared_articles": 1,
+  "prepared_derivative_previews": 8,
+  "first_terminal_operation": "cc124-asia-risk-20261117",
+  "first_terminal_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "current_operation_id": "cc124-btc-range-20261117-r2",
+  "current_article": {
+    "identity": "00c3e40d81597124314e5b4f4a51ce36493de45ce05cebc6c4f63784d5aa576a",
+    "title": "Bitcoin's selloff still leaves a range, not a fresh setup",
+    "source_cutoff_utc": "2026-11-17T00:37:43.684818+00:00",
+    "publication_deadline_utc": "2026-11-17T01:37:43.684818Z",
+    "current_publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3861s",
+    "state": "PREPARED; REVIEW_REQUIRED_NO_DISPATCH; source deadline expired",
+    "artifact": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\article_manifest_v1.json",
+      "bytes": 19255,
+      "sha256": "108ffdbc57e226c8913f5d1660fd34abeb0e6e28da864432ec9b54ec17253216"
+    },
+    "eight_previews": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\native_derivative_previews_v1.json",
+      "bytes": 17323,
+      "sha256": "09cde4687fcc5304bd58f3c0947955e0bc938d4ee2bc1add80ecd79a8e10a255"
+    }
+  },
+  "operation_dispatch_verification": [
+    {
+      "operation_id": "cc124-asia-risk-20261117",
+      "platform_dispatches": []
+    },
+    {
+      "operation_id": "cc124-btc-range-20261117-r2",
+      "platform_dispatches": []
+    }
+  ],
+  "public_writes": 0,
+  "new_public_object_identities": [],
+  "publication_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979",
+    "unchanged_from_start": true
+  },
+  "production_day": "2026-11-17",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "owner_ref": "cc466-a8e75492ea6f45be97a00c47c16c6486",
+      "expires_at": "2026-11-17T02:01:59.676152+00:00"
+    }
+  ],
+  "native_roles": [
+    {
+      "operation_id": "cc124-asia-risk-20261117",
+      "stage": "select",
+      "response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-asia-risk-20261117\\desktop_response_select.json",
+        "bytes": 3228,
+        "sha256": "cfce46236a2496ae697ca0e7cf38d48d77da29e51e0b0d97ec63268f8352d677"
+      },
+      "request_sha256": "29585ed1cc00cfe1ce6ef3364727f7a2513160f2843cad1066dba7a34d9f15e9",
+      "invocation_observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_29585ed1cc00",
+        "speed": "standard",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request"
+      }
+    },
+    {
+      "operation_id": "cc124-asia-risk-20261117",
+      "stage": "media-plan",
+      "response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-asia-risk-20261117\\desktop_response_media-plan.json",
+        "bytes": 3457,
+        "sha256": "ce71f9a7030110d1090cca9a0c10f4ba3181ecb55a244be556fb575303adeb33"
+      },
+      "request_sha256": "fc8077e875bab28195a81b10ec1ef1af7c4efe401502ee1e9b0aeed1c90cc3e7",
+      "invocation_observation": {
+        "configured_model": "gpt-6.1-sol",
+        "reasoning_effort": null,
+        "model": null,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "observation_source": "Supported native followup task delivered to canonical task /root/native_select_29585ed1cc00 for the exact media-plan request.",
+        "actual_configuration_unavailable": true,
+        "speed": "standard",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "invocation_id": "/root/native_select_29585ed1cc00",
+        "configured_reasoning_effort": "low",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "configuration_source": "supported spawn request"
+      }
+    },
+    {
+      "operation_id": "cc124-asia-risk-20261117",
+      "stage": "write",
+      "response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-asia-risk-20261117\\desktop_response_write.json",
+        "bytes": 1817,
+        "sha256": "f252513cfb7901733092a02d7c52998e39b2ae0f0abf10827f1defc7506376ea"
+      },
+      "request_sha256": "aa378278ad51b0ab15a621c82bbf117f725f49b35e7d3ad1414b2697fa9b5b28",
+      "invocation_observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_write_aa378278ad51",
+        "model": null,
+        "reasoning_effort": null,
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "speed": "standard",
+        "observation_source": "Supported native canonical task context identifies /root/native_write_aa378278ad51 and assignment cc124-asia-risk-20261117:write. The supported spawn task names configured model and effort; actual runtime model and effort telemetry are unavailable.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "actual_configuration_unavailable": true,
+        "configuration_source": "supported spawn request"
+      }
+    },
+    {
+      "operation_id": "cc124-btc-range-20261117-r2",
+      "stage": "select",
+      "response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\desktop_response_select.json",
+        "bytes": 3358,
+        "sha256": "8813d7adceaf3c861854b7dd685b3267da2c5912e5156e8ca25ff85953785cdf"
+      },
+      "request_sha256": "0afac908cb28bdd037608b750b030c8f80d11a94c6687e5154d58b4856bb94c3",
+      "invocation_observation": {
+        "invocation_id": "/root/native_select_29585ed1cc00",
+        "observation_source": "Supported native followup delivered to canonical task /root/native_select_29585ed1cc00 for this exact new-operation selection request.",
+        "actual_configuration_unavailable": true,
+        "reasoning_effort": null,
+        "configured_model": "gpt-6.1-sol",
+        "speed": "standard",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_reasoning_effort": "low",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "model": null,
+        "configuration_source": "supported spawn request",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    },
+    {
+      "operation_id": "cc124-btc-range-20261117-r2",
+      "stage": "media-plan",
+      "response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\desktop_response_media-plan.json",
+        "bytes": 3348,
+        "sha256": "97da29e26f0f0725f7244505aa14db50bf7ac56e1b49e5eacea426f70544ae67"
+      },
+      "request_sha256": "403a0f057583a6547cc1f115c7dad035380aa490030d51349730fe4527491e74",
+      "invocation_observation": {
+        "configured_reasoning_effort": "low",
+        "model": null,
+        "configuration_source": "supported spawn request",
+        "speed": "standard",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "invocation_id": "/root/native_select_29585ed1cc00",
+        "actual_configuration_unavailable": true,
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "reasoning_effort": null,
+        "configured_model": "gpt-6.1-sol",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "observation_source": "Supported native followup delivered to canonical task /root/native_select_29585ed1cc00 for the exact cc124-btc-range-20261117-r2 media-plan request."
+      }
+    },
+    {
+      "operation_id": "cc124-btc-range-20261117-r2",
+      "stage": "write",
+      "response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\desktop_response_write.json",
+        "bytes": 25953,
+        "sha256": "24ff20c2bdc853667f89b1c15b32090f0e7ea9a8ed012f58ad86b1ae0256dbf7"
+      },
+      "request_sha256": "9df40823ece1c678e1ac9f7a141b205f99e4ecc99bbc2afb799dba4f61ab4b5f",
+      "invocation_observation": {
+        "actual_configuration_unavailable": true,
+        "assignment_id": "cc124-btc-range-20261117-r2:write",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "SUPPORTED_SPAWN_REQUEST",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "expected_return": "write:9df40823ece1c678e1ac9f7a141b205f99e4ecc99bbc2afb799dba4f61ab4b5f",
+        "invocation_id": "/root/native_write_9df40823ece1",
+        "model": null,
+        "observation_source": "SUPPORTED_NATIVE_SUBAGENT_TASK_CONTEXT",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "task_identity": "/root/native_write_9df40823ece1"
+      }
+    }
+  ],
+  "filter_calls": 0,
+  "source_requests": 0,
+  "antigravity": {
+    "status": "AGY_UNAVAILABLE",
+    "cause": "AGY_TIMEOUT_120S",
+    "configured_model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "publisher_reviewed_utc": "2026-11-17T01:31:12.256695+00:00"
+  },
+  "checks": {
+    "installed_modules": [
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_finished_publication_v1.py",
+        "bytes": 17422,
+        "sha256": "9124601d1da2c842f71e8a1e292b59d06167bc76704a008ff31ac5fc52c5eab1"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_foundation_library_v1.py",
+        "bytes": 20235,
+        "sha256": "2acd0dd4a03578a802b5a346c71a1f17385f35f73a50081244c346d0da12c379"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\capital_chronicle_report_feed_v1.py",
+        "bytes": 40196,
+        "sha256": "acd6f5b1e597349c0a14561c0ffa0d16502b606bb222bfaaaecafd9050079dc0"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\capital_chronicle_report_editorial_workspace_v1.py",
+        "bytes": 69577,
+        "sha256": "3da0f931da088ad62e301a7389a5ecc40fcc545cc773f9111be84c36ba7d56b8"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\scripts\\run_native_desktop_editorial.py",
+        "bytes": 73878,
+        "sha256": "fae6f1caeb50a747d11b626064776583d8894b57932f70ef9918a814390ca869"
+      }
+    ],
+    "targeted_pytest_runs": [
+      {
+        "passed": 7,
+        "seconds": 22.56,
+        "artifact": "preparation-lease-fixed-tests.xml"
+      },
+      {
+        "passed": 25,
+        "seconds": 59.94,
+        "artifact": "scoped-library-tests.xml"
+      },
+      {
+        "passed": 3,
+        "seconds": 2.43,
+        "artifact": "assist-review-lease-tests.xml"
+      }
+    ],
+    "full_suite_run": false,
+    "real_source_consumer": "fresh-main-r2/installed-writer-source-consumer.json",
+    "inherited_work": [
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+        "before_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "after_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+        "before_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "after_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+        "before_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "after_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+        "before_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "after_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+        "before_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "after_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+        "before_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "after_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+        "before_sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+        "after_sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+        "exact_bytes_unchanged": true
+      },
+      {
+        "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+        "before_sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b",
+        "after_sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b",
+        "exact_bytes_unchanged": true
+      }
+    ]
+  },
+  "browser": {
+    "window_id": 1698405211,
+    "task_group_id": "3362F6AD6DDE854DFF6E991D0150272F",
+    "page_id": 93,
+    "tab_created": 1,
+    "public_write_attempts": 0,
+    "uploads": 0,
+    "native_desktop_control_actions": 0,
+    "note": "Opened own chart reference tab, then navigated it to public Coinbase symbol page. No image captured through Neo. Installed media owner supplied separate guest snapshots."
+  },
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "status_after_run": "OPEN",
+  "next_due_utc": "2026-11-17T06:43:00+00:00",
+  "next_due_gmt7": "17 Nov 2026 13:43 GMT+7",
+  "next_actor": "Existing Publisher lane runner",
+  "next_action": "At the next due check, consume a new timely Main source; preserve these exact operations, copy, snapshots and recovery objects. Do not refresh an old cutoff or retry the expired article.",
+  "choice": "End this bounded run after its fresh-source attempts: code repairs are integrated, the second article is retained, and CC403 original-cutoff expiry prevents a stale public post. Transient interruption occurred before final assembly."
+}

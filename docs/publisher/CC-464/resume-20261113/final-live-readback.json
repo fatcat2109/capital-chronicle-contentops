@@ -1,0 +1,70 @@
+{
+  "observed_at_utc": "2026-11-12T19:01:10.117374+00:00",
+  "operating_code_commit": "0a6a79a6a3bd84758fe4ed19eeee90c2e8dcf2e6",
+  "live_tag": "contentops-live-20261113-cc464-driver-relations",
+  "current_consumer": {
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T202330-72811b51\\result.json",
+    "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T202330-72811b51\\reply-pack-request-5140116012dc8e29.json",
+    "draft_limit": 2,
+    "started_at_utc": "2026-11-12T20:23:30.377250+00:00",
+    "ended_at_utc": "2026-11-12T20:25:06.880171+00:00",
+    "status": "NO_FRESH_UNSENT_DRAFTS",
+    "first_cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+    "ranking_input_count": 4,
+    "ranked_above_floor_count": 0,
+    "stage_seconds": {
+      "ranking": 48.72231519999332,
+      "drafting": 0.0,
+      "checks": 0.3683095000014873,
+      "filter": 21.950225000007777,
+      "whole_tick": 94.06501360000402
+    }
+  },
+  "acceptance": {
+    "non_private_destination_tests": "PASS",
+    "neo_tab_gate_off": true,
+    "neo_tab_parked_by": "CC-464",
+    "five_minute_confirmed_deliveries": 0,
+    "confirmed_private_delivery_minutes": [
+      44.510149999999996,
+      8.5797
+    ],
+    "phone_open_observed": false,
+    "manual_reply_readback_rows": 0
+  },
+  "preserved_original_wip_prefixes": {
+    "worktree": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    }
+  },
+  "installed_tests": {
+    "initial_bot_pack_caller": 87,
+    "changed_writer": 9,
+    "changed_fact_driver": 73
+  },
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "x_submit_actions_this_run": 0,
+  "telegram_send_actions_this_run": 0,
+  "remaining_person_action": "On the next unexpired private bot draft: Open reply on X, review the target and text, press Reply once. Decisions 122-124 reserve this send for Jim.",
+  "refreshed_at_utc": "2026-11-12T20:29:19.042288+00:00",
+  "installed_source_hash_matches": {
+    "live_contentops/x_reply_bot_v1.py": true,
+    "live_contentops/x_reply_pack_v1.py": true,
+    "live_contentops/x_reply_fact_policy_v1.py": true
+  },
+  "remaining_acceptance": [
+    "Five-minute delivery of a naturally eligible new target remains unobserved.",
+    "Jim opens the reply intent on his phone and sends a chosen unexpired reply (decisions 122-124).",
+    "The existing reader imports that exact reply edge and its two delays."
+  ]
+}

@@ -14,7 +14,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report",
                                        "tabs-refresh", "tabs-status", "tabs-enable",
-                                       "api-poll", "api-publish", "api-status"])
+                                       "bot-refresh", "bot-bind", "bot-status", "bot-observe",
+                                       "api-poll", "api-publish", "api-status", "quote-refresh", "quote-status"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
     p.add_argument(
@@ -35,7 +36,25 @@ def main():
     p.add_argument("--x-approval-ref")
     args = p.parse_args()
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command.startswith("tabs-"):
+    if args.command.startswith("quote-"):
+        from live_contentops import heavy_news_quotes_v1 as quotes
+        result = (quotes.audience_review(store) if args.command == "quote-status" else quotes.refresh_due(store,
+            feed_path=args.feed, root=args.output_root or Path(args.store).parent / "daily_app_outputs/heavy_news_quotes"))
+    elif args.command.startswith("bot-"):
+        from live_contentops import x_reply_bot_v1 as bot
+        control = Path(args.store).parent / "control/x_reply_bot_binding.json"
+        if args.command == "bot-refresh":
+            result = bot.refresh_due(store, binding_path=control, feed_path=args.feed,
+                                     output_root=args.output_root)
+        elif args.command == "bot-bind":
+            result = bot.process_updates(store, binding_path=control)
+        elif args.command == "bot-observe":
+            result = bot.observe_due(store, **({"output_root": args.output_root} if args.output_root else {}))
+        else:
+            binding = bot.packs.read_json(control) if control.is_file() else {}
+            result = {"configured": control.is_file(), "private_chat_bound": bool(binding.get("bound_chat_id")),
+                      "enabled": binding.get("enabled", True), "public_submit_actions": 0}
+    elif args.command.startswith("tabs-"):
         from live_contentops import x_reply_tabs_v1 as tabs
         control = Path(args.store).parent / "control/x_reply_tabs.json"
         if args.command == "tabs-refresh":

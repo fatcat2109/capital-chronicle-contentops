@@ -1,5 +1,11 @@
 # CC-199: finished pieces reach every destination
 
+Latest continuation: [17 November installed acceptance reading](run-20261117/README.md).
+The reopened sample remains 0/3. The installed reader retains Ops Product's dated
+YouTube exception; 22 installed checks pass. The held Main outputs exceed the
+CC-403 publication deadline. Earlier repairs and readings below retain their
+original scope and clocks.
+
 The remaining dispatch fixes extend the existing coordinator, compiler, native
 executor and published feed. The current ContentOps operating HEAD was the base;
 it already contains the V1 lane's destination isolation and image repairs.

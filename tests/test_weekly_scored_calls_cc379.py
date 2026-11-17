@@ -50,7 +50,7 @@ def test_whole_record_ignores_selective_feed_and_uses_et_resolution_week():
     assert record["counts"] == {"scored_calls": 4, "hits": 1, "stops": 2}
     assert record["export_scored_call_count"] == 7  # Cumulative is never presented as this week's count.
     assert "closed at the end of its window" in record["text"]
-    assert "entry zone 4,070.00–4,085.00" in record["text"]
+    assert "entry zone 4,070–4,085;" in record["text"]  # CC-583: on the plan's tick
     assert "9 Nov–13 Nov 2026 ET" in record["text"]
     for forbidden in ("win rate", "lots", "money", "alpha", "123456", "r_multiple", "99"):
         assert forbidden not in record["text"]
@@ -62,7 +62,7 @@ def test_empty_week_is_explicit_without_invented_results():
     data["status"].update(plans=[], scored_call_count=0)
     record = weekly.project(data, cutoff_utc=CUTOFF)
     assert record["counts"] == {"scored_calls": 0, "hits": 0, "stops": 0}
-    assert "No conditional model calls were scored" in record["text"]
+    assert "No conditional calls were scored" in record["text"]
 
 
 def test_cc394_weekly_overflow_keeps_main_scored_not_triggered():
@@ -152,7 +152,7 @@ def test_native_source_packet_and_writer_use_retained_record_on_restart(tmp_path
 
 
 def article_for(doc):
-    sentence = "Results refer to resolved conditional model calls."
+    sentence = "Results refer to resolved conditional calls."
     body = "\n\n".join(p + " [[SOURCE:SOURCE_1]]" for p in doc["canonical_content_text"].split("\n\n"))
     article = {k: sentence for k in ("title", "dek", "search_title", "meta_description", "social_hook")}
     article["substack_body_markdown"] = body

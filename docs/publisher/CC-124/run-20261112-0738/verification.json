@@ -1,0 +1,40 @@
+{
+  "installed_modules": {
+    "live_contentops.main_report_projection_source_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+    "live_contentops.reader_article_contract_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+    "live_contentops.plan_status_posts_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+    "live_contentops.published_images_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py"
+  },
+  "exact_public_main_passage_admitted": true,
+  "original_capture_clock_consumed": true,
+  "new_completed_native_reports": 0,
+  "fresh_native_reports": 0,
+  "fresh_shock_process_return_assessed": true,
+  "validated_main_plan_export_consumed": true,
+  "publication_feed_before": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 26786,
+    "sha256": "dc496116b2ac40ff8160ae731210efd2826c2fc60a7e51520725fca139093e2b",
+    "modified_at_utc": "2026-11-10T12:43:48.763522+00:00"
+  },
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 26786,
+    "sha256": "dc496116b2ac40ff8160ae731210efd2826c2fc60a7e51520725fca139093e2b",
+    "modified_at_utc": "2026-11-10T12:43:48.763522+00:00"
+  },
+  "inherited_work_unchanged": true,
+  "new_operations": 0,
+  "editorial_model_calls": 0,
+  "public_writes": 0,
+  "pytest_processes_started_by_assessment": 0,
+  "targeted_test_evidence": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261112-0738\\tests.json",
+    "bytes": 838,
+    "sha256": "fb0c7d1cc34265adfb74803923dbe27d9d3163b85e602a3e1b2fb8bd212a2a5b",
+    "modified_at_utc": "2026-11-12T00:54:38.812567+00:00"
+  },
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "publication_feed_unchanged": true
+}

@@ -1,0 +1,59 @@
+{
+  "observed_at_utc": "2026-11-16T23:41:38.557791+00:00",
+  "links": [
+    {
+      "dispatch_id": "dispatch_98dc91e50fedafc7f3c9034027166ba8",
+      "message_id": "outbox_98dc91e50fedafc7f3c9034027166ba8",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T14:33:58.532737+00:00",
+      "public_object_id": "187",
+      "public_object_url": "https://t.me/CapitalChronicle/187",
+      "public_object_url_hash": "2de3eddafcfd4d0df45ed13e948755d725a329c65417d384567bf6b2ec8da360",
+      "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-telegram",
+      "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+      "original_intent_sha256": "127343def2a548f93306368ce80ea0260ae9450e20b2b5d2f2256b7d93fcef38",
+      "original_intent_unchanged": true
+    },
+    {
+      "dispatch_id": "dispatch_52b74856711d9922bcacceba907a1974",
+      "message_id": "outbox_52b74856711d9922bcacceba907a1974",
+      "platform": "substack_notes",
+      "status": "UNKNOWN_WRITE",
+      "dispatched_at": "2026-11-12T14:33:59.745472+00:00",
+      "public_object_id": null,
+      "public_object_url": null,
+      "public_object_url_hash": null,
+      "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+      "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+      "original_intent_sha256": "0790b1681199fe19fab24cff5599ae6d061b3185e1bf477564508dd63e0059ea",
+      "original_intent_unchanged": true
+    }
+  ],
+  "telegram_public_readback": {
+    "url": "https://t.me/s/CapitalChronicle?after=186",
+    "public_object_url": "https://t.me/CapitalChronicle/187",
+    "original_parent_url": "https://t.me/CapitalChronicle/176",
+    "canonical_link_visible": true
+  },
+  "notes_observation": {
+    "request_sha256": "672f72585feee681031ec0f5557f02db40a2c7ec9ff22c11d9671aba257c6219",
+    "native_invocation_id": "neo-endpoint:fb6b88e61852418b82ff447e46c0af15",
+    "action_clock_utc": "2026-11-16T23:34:25.277Z",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "outcome": "UNKNOWN_WRITE",
+    "first_readback_cause": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+    "fresh_profile_url": "https://substack.com/@capitalchronicle",
+    "fresh_bounded_profile_identified_copy": false,
+    "absence_not_proven": true,
+    "next_action": "Read back and reconcile dispatch_52b74856711d9922bcacceba907a1974; do not publish another copy."
+  },
+  "configured_launch": {
+    "pid": 18624,
+    "started_at_utc": "2026-11-16T23:15:07.968430Z",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "remaining_acceptance": "NEXT_MAIN_PLAN_NOT_REGISTERED"
+}

@@ -88,7 +88,7 @@ def request_role_assignment(request):
 
 
 def native_role(stage):
-    if stage == "gold-note":
+    if re.fullmatch(r"gold-note(?:-[a-f0-9]{64})?", stage):
         return "write"
     if re.fullmatch(r"final-visual-[a-f0-9]{64}", stage):
         return "final-visual"
@@ -1023,7 +1023,11 @@ class NativeDesktopTurn:
                 "article section heading), data_spec (exact source series/units/periods/transform/chart form). "
                 "Only a short news brief may be text-only. An ANALYSIS that is not about a data release or a policy decision "
                 "(a house view, an explainer, market commentary) sets analysis_scope OTHER_ANALYSIS with a one-line "
-                "analysis_scope_reason and may use the charts that serve its argument, or none. A missing optional contextual photo never holds analysis; "
+                "analysis_scope_reason and may use the charts that serve its argument, or none. "
+                "Decision 124: a market post leads with the existing TradingView service's chart; "
+                "a macro-data post sets macro_chart_symbol to its exact admitted ECONOMICS: or FRED: series, "
+                "or supplies an original, source-bound FRED graph. Never substitute a drawn headline/bar card. "
+                "A missing optional contextual photo never holds analysis; "
                 "use a relevant public-domain or licensed image when available. Missing analysis charts require source recovery; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
                 "media subsets for all six keys telegram,discord,linkedin,facebook_page,instagram_business,"
@@ -1414,7 +1418,7 @@ class NativeDesktopTurn:
                 and response["output"].get("story_kind") not in {"NEWS", "POLICY"}):
             raise ValueError("BRIEF_WINDOW_CANNOT_ADMIT_ANALYSIS")
         role = native_role(stage)
-        if stage == "gold-note":
+        if re.fullmatch(r"gold-note(?:-[a-f0-9]{64})?", stage):
             from live_contentops.vietnamese_gold_note_v1 import validate_note
             validate_note(response["output"], request["governed_input"])
             ok, reason = True, None
@@ -1572,7 +1576,7 @@ def publication_dispatch_locks_media(store, run_id, work_item_id):
 
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
                          final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False,
-                         completed_revision_request_sha256=None):
+                         completed_revision_request_sha256=None, event_media_revisions=None):
     """Seal relevant inspected media before review using the existing final outbox.
 
     Earlier bytes stay history. A reviewed correction needs its exact revision and
@@ -1623,6 +1627,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             raise ValueError("EXACT_COMPLETED_NATIVE_REVISION_REQUIRED")
         corrected_worker_output = response["output"]
     corrected_article = result["article"]
+    if event_media_revisions:
+        if result.get("event_media_revisions"):
+            raise ValueError("EVENT_MEDIA_REPAIR_ROUND_ALREADY_USED")
+        from live_contentops.native_publication_latency_v1 import uses_short_path
+        if not uses_short_path(store, run_id=run_id, result=result):
+            raise ValueError("EVENT_MEDIA_REPAIR_SHORT_PATH_REQUIRED")
+        corrected_article = rebind_event_visual_media(result["article"], result.get("media_assets", []),
+            assets, event_media_revisions)
     if corrected_worker_output is not None:
         if final_visual_repair is None and not completed_revision_request_sha256:
             raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
@@ -1649,7 +1661,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                if final_visual_repair.get("channel_media_after_drop") else {}),
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
-    if corrected_article.get("market_asset"):
+    from .publication_image_contract_v1 import _macro as macro_image_scope
+    if corrected_article.get("market_asset") or macro_image_scope(corrected_article, {}):
         from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
         registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
         operation = json.loads(registered["payload"]) if registered else {}
@@ -1662,7 +1675,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
     reader_first = corrected_article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-    minimum_assets = 0 if drop_failed_visuals or photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1
+    minimum_assets = 0 if (drop_failed_visuals or corrected_article.get("tradingview_text_fallback")
+        or photo_less_brief({**result, "article": corrected_article, "media_assets": assets})) else 1
     if not minimum_assets <= len(assets) <= (8 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form
@@ -1691,6 +1705,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             # rights and rendered bytes provide the source binding instead.
             from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
             validate_source_value_chart(asset, result.get("evidence", []))
+            if not asset.get("caption") or not asset.get("alt_text"):
+                raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
+            continue
+        if asset.get("editorial_data_packet"):
+            # This validator binds generated public source links to exact held
+            # source packets, including our own report's private provenance URN.
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_editorial_data_chart
+            validate_editorial_data_chart(asset, result.get("evidence", []))
             if not asset.get("caption") or not asset.get("alt_text"):
                 raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
             continue
@@ -1728,6 +1750,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
             payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
     updated = {**result, "article": article, "article_identity": article_identity, "media_assets": assets, "previews": previews,
+        **({"event_media_revisions": event_media_revisions} if event_media_revisions else {}),
         **({"visual_editorial_decision": article["visual_editorial_decision"]} if article.get("visual_editorial_decision") else {}),
         **({"visual_repair_disposition": disposition} if disposition else {}),
         **({"visual_editorial_decision": article["visual_editorial_decision"]} if drop_failed_visuals and article.get("visual_editorial_decision") else {}),
@@ -1772,6 +1795,86 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             status="EDITORIAL_INTERNAL")
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
+
+
+def rebind_event_visual_media(article, old_assets, assets, revisions):
+    """Retain an event writer's choices while replacing corrected image bytes."""
+    from copy import deepcopy
+    if article.get("article_type") != "EVENT_REVIEW":
+        raise ValueError("EVENT_REVIEW_MEDIA_REPAIR_REQUIRED")
+    old = {a["asset_id"]: a for a in old_assets}
+    new = {a["asset_id"]: a for a in assets}
+    mapping = {r["old_asset_id"]: r["new_asset_id"] for r in revisions}
+    if (len(mapping) != len(revisions) or len(set(mapping.values())) != len(mapping)
+            or set(mapping) != set(old) - set(new)
+            or set(mapping.values()) != set(new) - set(old)):
+        raise ValueError("EVENT_MEDIA_EXACT_REPLACEMENTS_REQUIRED")
+    for previous, replacement in mapping.items():
+        before, after = old[previous], new[replacement]
+        _final_visual_file(before)
+        _final_visual_file(after)
+        if (before.get("modality") != after.get("modality")
+                or before.get("placement_after") != after.get("placement_after")
+                or before.get("computed_values") != after.get("computed_values")
+                or before.get("data_card_packet", {}).get("facts") != after.get("data_card_packet", {}).get("facts")
+                or before.get("editorial_data_packet", {}).get("unit") != after.get("editorial_data_packet", {}).get("unit")):
+            raise ValueError("EVENT_MEDIA_REPAIR_DATA_CHANGED")
+    result = deepcopy(article)
+    decision = result["visual_editorial_decision"]
+    for selected in decision["charts"]:
+        if selected["asset_id"] in mapping:
+            selected["asset_id"] = mapping[selected["asset_id"]]
+            packet = new[selected["asset_id"]]["editorial_data_packet"]
+            if selected["question"] != packet["question"]:
+                raise ValueError("EVENT_MEDIA_REPAIR_ARGUMENT_CHANGED")
+            selected["data_spec"] = packet
+    for key in ("data_card_asset_ids", "canonical_media"):
+        if key in decision:
+            decision[key] = [mapping.get(i, i) for i in decision[key]]
+    for key in ("channel_media",):
+        decision[key] = {d: [mapping.get(i, i) for i in ids] for d, ids in decision[key].items()}
+    for key in ("lead_media",):
+        if key in decision:
+            decision[key] = mapping.get(decision[key], decision[key])
+    if result.get("lead_image_asset_id"):
+        result["lead_image_asset_id"] = mapping.get(result["lead_image_asset_id"], result["lead_image_asset_id"])
+    if result.get("post_visual_destination_media"):
+        result["post_visual_destination_media"] = {d: [mapping.get(i, i) for i in ids]
+            for d, ids in result["post_visual_destination_media"].items()}
+    validate_visual_decision(decision)
+    return result
+
+
+def bind_inline_event_visual_decision(article, assets, *, publication_speed):
+    """Expand the short-path writer's choices with the already-bound chart specs.
+
+    Decision 53 has no separate pre-writer MAX visual role. A writer may name
+    its exact charts, placements and reasons inline instead of copying their
+    complete source packets. This changes representation, never its choices.
+    """
+    choice = article.get("visual_editorial_decision") or {}
+    if (not publication_speed or article.get("article_type") != "EVENT_REVIEW"
+            or choice.get("article_type") != "EVENT_REVIEW"
+            or choice.get("reader_first_version")):
+        return article
+    by_id = {a["asset_id"]: a for a in assets}
+    charts = []
+    for selected in choice.get("charts", []):
+        asset = by_id.get(selected.get("asset_id"), {})
+        packet = asset.get("editorial_data_packet") or {}
+        if (not packet or not selected.get("reason")
+                or selected.get("placement_after") != asset.get("placement_after")):
+            raise ValueError("INLINE_EVENT_CHART_CHOICE_UNBOUND")
+        charts.append({**selected, "question": packet["question"],
+            "why_useful": selected["reason"], "data_spec": packet})
+    decision = {**choice, "reader_first_version": "DATA_JOURNALISM_V1",
+        "story_kind": "ANALYSIS", "analysis_scope": "RELEASE_OR_POLICY",
+        "editorial_thesis": article.get("primary_reader_question") or article.get("dek"),
+        "charts": charts,
+        "data_card_asset_ids": [a["asset_id"] for a in assets if a.get("modality") == "source_bound_data_card"],
+        "contextual_photo_ids": [a["asset_id"] for a in assets if a.get("modality") == "documentary_photo"]}
+    validate_visual_decision(decision)
+    return {**article, "inline_visual_decision": choice, "visual_editorial_decision": decision}
 
 
 def validate_release_media(result, *, require_pixel_review=True, prewriter=False):
@@ -2073,6 +2176,14 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY, reference_link_revision
+    if proposal.get("policy") == LINK_POLICY:
+        revision = {**proposal, "owner_authority_ref": owner_authority_ref,
+            "base_result_sha256": sha256_of(result), "source_sha256": sha256_of(result.get("evidence", [])),
+            "prior_revision": native_review_revision(result), "article_identity": result["article_identity"],
+            "body_before": result["article"]["substack_body_markdown"], "payloads": {}}
+        reference_link_revision(store, run_id=run_id, proposal=revision, result=result)
+        return revision
     from live_contentops.event_media_order_repair_v1 import POLICY as ORDER_POLICY, build as order_revision
     if proposal.get("policy") == ORDER_POLICY:
         return order_revision(store, run_id=run_id, result=result, owner_authority_ref=owner_authority_ref,
@@ -2129,6 +2240,9 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 
 
 def reader_presentation_revision_view(store, *, run_id, result, revision):
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY, reference_link_revision
+    if revision.get("policy") == LINK_POLICY:
+        return reference_link_revision(store, run_id=run_id, proposal=revision, result=result)
     from live_contentops.event_media_order_repair_v1 import POLICY as ORDER_POLICY, revision_view as order_view
     if revision.get("policy") == ORDER_POLICY:
         return order_view(store, run_id=run_id, result=result, revision=revision)
@@ -2195,9 +2309,12 @@ def final_visual_binding(result, *, renders, destinations=None, verify_render_so
     by_id = {a["asset_id"]: a for a in assets}
     previews = {p["destination"]: p["payload"] for p in result.get("previews", [])}
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    if set(previews) not in (FINAL_VISUAL_CHANNELS - {"substack"}, set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
-        raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     scope = ({"substack", *previews} if destinations is None else set(destinations))
+    # A canonical-only amendment preserves its historical derivative epoch.
+    # CC-338 has seven frozen copies from the YouTube prohibition period.
+    if scope != {"substack"} and set(previews) not in (
+            FINAL_VISUAL_CHANNELS - {"substack"}, set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
+        raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     if destinations is not None and scope not in (
             DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
             {"substack"}, FINAL_VISUAL_CHANNELS,
@@ -2284,8 +2401,10 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import uses_short_path
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+    reference_link = (reader_presentation_revision or {}).get("policy") == LINK_POLICY
     media_only_repair = (reader_presentation_revision or {}).get("policy") in {
-        "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}
+        "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER", LINK_POLICY}
     agent = getattr(turn, "editorial_agent", "codex")
     # CC-300: the reviewer is named by its own family's label, never another's.
     editor = role_assignment("final-visual", agent)
@@ -2300,8 +2419,10 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None:
             governed["reader_presentation_revision"] = reader_presentation_revision
         return turn(logical_invocation_id=turn.run_id + ":" + stage,
-            prompt="You are this run's native " + editor_label + " editor. Review the exact dated social copy against the admitted "
-                "article, source facts, uncertainty, account, canonical link and selected images. No historical "
+            prompt="You are this run's native " + editor_label + " editor. " +
+                ("Review the exact appended CPI reference link and its confirmed canonical target; the original body and media remain byte-bound. "
+                 if reference_link else "Review the exact dated social copy. ") +
+                "Check the admitted article, source facts, uncertainty, account, canonical link and selected images. No historical "
                 "named writer is required. Decision 53 uses one editor check and the bound automated image "
                 "load/dimension check, without new screenshots. Return JSON {decision: ACCEPT or REPAIR_REQUIRED, "
                 "rationale: substantive findings}. Never claim pixel inspection. GOVERNED_INPUT:\n" + canonical_bytes(governed).decode(),
@@ -2369,9 +2490,9 @@ def validate_final_visual_return(turn, request, response):
     assignment = role_assignment("final-visual", agent)
     validate_native_configuration(observation, assignment)
     recovery = request["governed_input"].get("distribution_recovery")
-    if (recovery is None and
-            (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"])):
-        raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
+    # Decisions 60/86: the original writer identity stays provenance. A current
+    # reviewer records its actual invocation and checks the exact same bytes;
+    # matching the historical writer's invocation is not a publication gate.
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if recovery is not None:
@@ -2382,8 +2503,10 @@ def validate_final_visual_return(turn, request, response):
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
-    if (recovery is not None or (revision or {}).get("policy") in {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}) and binding.get("review_policy") == SPEED_POLICY:
-        if (((revision or {}).get("policy") not in {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"} and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+    bounded_repairs = {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER", LINK_POLICY}
+    if (recovery is not None or (revision or {}).get("policy") in bounded_repairs) and binding.get("review_policy") == SPEED_POLICY:
+        if (((revision or {}).get("policy") not in bounded_repairs and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
                 or _distribution_editor_check_binding(result, scope, agent=agent) != binding):
             raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
         if (output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED"}
@@ -2531,14 +2654,16 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     assets = image_view["media_assets"]
     # A renderer-only acceptance may advance after a public send. Reuse the exact
     # frozen dispatch package and plan; a new plan would duplicate existing objects.
-    rows = store.list_outbox_messages()
+    rows = store.list_outbox_messages(work_item_id=row["work_item_id"],
+                                      destination="internal:native-publication-binding")
     bindings = [json.loads(r["payload"]) for r in rows
         if r["destination"] == "internal:native-publication-binding"
         and json.loads(r["payload"]).get("run_id") == run_id]
     if bindings and publication_dispatch_locks_media(store, run_id, row["work_item_id"]):
         from hashlib import sha256
         binding = bindings[-1]
-        prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+        prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages(
+            work_item_id=row["work_item_id"], destination="internal:native-prepared-handoff")
             if r["destination"] == "internal:native-prepared-handoff"
             and json.loads(r["payload"]).get("run_id") == run_id]
         prior = prepared[-1] if prepared else {}

@@ -1,0 +1,9 @@
+{
+  "TaskName": "CapitalChronicle-PlanStatusPosts-V1",
+  "State": 4,
+  "Actions": {
+    "Execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+    "Arguments": "-B scripts\\plan_status_posts.py --publish",
+    "WorkingDirectory": "A:\\Capital Chronicle\\ContentOps"
+  }
+}

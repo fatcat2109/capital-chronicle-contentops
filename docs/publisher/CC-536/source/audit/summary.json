@@ -1,0 +1,24 @@
+{
+ "item": "CC-521",
+ "what_this_is": "These six-market daily-bar base rates include asset drift: in the audited November 2016 to November 2026 sample a zero-net-mean 2,000-draw 60-calendar-day block test produced 0.98 PAID_BOTH_HALVES rows out of 54 by chance on average (95% range 0 to 3), versus 5 observed. Choosing rows on the first five years and starting flat on the last five selected 3 rows: 2 stayed positive over 362 test trades at +0.100R per trade, a retrospective dependent sample at a uniform cost of 0.05 normal day with futures roll risk and D1 path uncertainty, not a prospective probability.",
+ "audited_source_ids": {
+  "EURUSD": "5a4b571939266fc1f934a34ed7085d9add478db7b25b7e1cb29d24e50d6b6c66",
+  "USDJPY": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+  "XAUUSD": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+  "USOIL": "bb14a61fc7890c725ca3989ad5498d6196d0aab7e2c27f50492bca2993981662",
+  "US500": "a831a4c8e6502e35ec7851864b8efa09aea07866e4609162b8b3eb6f6d6deea7",
+  "BTCUSD": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0"
+ },
+ "half_split_date": "2021-11-11",
+ "chance_draws": 2000,
+ "chance_expected_paid_rows": 0.978,
+ "chance_count_interval_95": [
+  0.0,
+  3.0
+ ],
+ "walk_forward_selected_rows": 3,
+ "walk_forward_positive_rows": 2,
+ "walk_forward_test_mean_r": 0.099917,
+ "audit_path": "data/research/desk-odds/AUDIT.md",
+ "attacks_sha256": "cf107c3dd919bd1ef6c72a637d5e87b492b7cffa95d4098bb3f145ce1bf09bd5"
+}

@@ -1,0 +1,27 @@
+{
+  "item": "CC-495",
+  "observed_at_utc": "2026-11-11T20:01:00.903876+00:00",
+  "post_id": "2120543011537097030",
+  "post_at_utc": "2026-11-11T15:43:46.391000+00:00",
+  "tick_at_utc": "2026-11-11T16:21:26.574717+00:00",
+  "draft_at_utc": "2026-11-11T16:23:16.343071+00:00",
+  "delivered_at_utc": "2026-11-11T16:28:17+00:00",
+  "post_to_first_tick_minutes": 37.66972861666667,
+  "stage_seconds": {
+    "filter": 3.878143,
+    "ranking": 43.147423,
+    "drafting": 62.728973,
+    "initial_checks": 0.966619,
+    "post_writer_to_reconciled_delivery": 300.656929
+  },
+  "post_to_draft_minutes": 39.499201183333334,
+  "post_to_delivery_minutes": 44.510149999999996,
+  "classification": "FIRST_DELIVERY_STARTUP_AND_RECONCILIATION_CASE",
+  "basis": "The original run returned zero deliveries; CC-464 then reconciled that exact retained writer return for the first private delivery. The target was already 37.67 minutes old before filtering began. This does not establish steady-state timing.",
+  "artifacts": [
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162126-a9b1e0a0\\result.json",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162126-a9b1e0a0\\editorial\\rank\\call.json",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162126-a9b1e0a0\\editorial\\writer\\call.json",
+    "docs/publisher/CC-464/first-private-push.json"
+  ]
+}

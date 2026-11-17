@@ -15,6 +15,31 @@ from test_plan_status_posts_cc306 import main_root, plan, event  # noqa: F401
 NOW = datetime(2026, 11, 10, 8, tzinfo=timezone.utc)
 
 
+@pytest.fixture(autouse=True)
+def controlled_tradingview(monkeypatch, tmp_path):
+    """Test the real media consumer without a browser or provider request."""
+    from PIL import Image, ImageDraw
+    from live_contentops import tradingview_snapshot_v1 as tv
+    capture = tv.capture
+    def snapshot(market, interval, folder, **kwargs):
+        from live_contentops import publication_image_contract_v1 as contract
+        def worker(args):
+            path = Path(args["out_dir"]) / (tv.SYMBOLS[market].split(":")[1] + "_2026-11-11_00-00-00.png")
+            image = Image.new("RGB", (640, 800) if kwargs.get("ratio") == "4:5" else (800, 450), "white")
+            ImageDraw.Draw(image).text((20, 20), "CONTROLLED MEDIA FIXTURE / " + market, fill="black")
+            image.save(path)
+            return {"path": str(path), "suggested_filename": path.name, "page_title": market+" 100",
+                    "legend": tv.INTERVAL_LABELS[interval], "captured_at_utc": datetime.now(timezone.utc).isoformat()}
+        taken=capture(market, interval, folder, worker=worker, ratio=kwargs.get("ratio", "16:9"))
+        at=taken['captured_at_utc']
+        comparison_at, _ = contract.comparison_clock(market, at)
+        return contract.bind_scale(market,taken,quote={"market":market,"instrument":market,"price":100,
+            "quoted_at_utc":comparison_at.isoformat(),"known_at_utc":at,"source_path":"controlled-fixture.json",
+            "source_sha256":"a"*64,"price_basis":"plan_feed"})
+    monkeypatch.setattr(tv, "capture", snapshot)
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+
+
 def call(pid, asset="EURUSD", **changes):
     value = plan(pid, asset, "BULLISH", 1.12017, 1.12054, invalid=1.11824,
                  deadline="2026-11-10T15:00:00Z")
@@ -67,6 +92,10 @@ def five(tmp_path, main_root, monkeypatch):
     plans = [call(f"id{i:07}") for i in range(5)]
     events = [event(p["plan_id"], "WAITING", p["registered_at_utc"]) for p in plans]
     folder = write(tmp_path / "export", plans, events)
+    def current_public_plan(pid, **options):
+        view = json.loads((folder / "plan-status.public.json").read_bytes())
+        return next(p for p in view["plans"] if p["plan_id"] == pid)
+    monkeypatch.setattr(posts, "current_public_plan", current_public_plan)
     return store, folder, plans, events
 
 
@@ -82,6 +111,25 @@ def test_five_plans_make_one_run_and_five_cards_once(five, main_root):
     assert all(r["parent_key"] == run["key"] for r in calls)
     assert queue(store, folder, main_root)["queued"] == []
     assert len(rows(store)) == 6
+
+
+def test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy(five,main_root):
+    store,folder,plans,events=five
+    now=datetime(2026,11,12,1,tzinfo=timezone.utc)
+    for p in plans:
+        p['registered_at_utc']='2026-11-12T00:55:00Z'
+        p['time_exit_utc']='2026-11-12T15:00:00Z'
+        p['entry_deadline_utc']='2026-11-12T13:00:00Z'
+    events=[event(p['plan_id'],'WAITING',p['registered_at_utc']) for p in plans]
+    write(folder,plans,events,generated_at_utc=now.isoformat())
+    result=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable)
+    queued=rows(store)
+    assert len(queued)==5 and all(r['kind']=='setup' and r['reader_contract']=='CC466_V1' for r in queued)
+    assert all(not r.get('parent_key') and r.get('text') and r['state_alert_contract']=='CC543_V1' for r in queued)
+    dry=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable,
+                          dry_run=True,render_all=True)
+    assert all(r['destinations'] for r in dry['rendered_posts'])
+    assert all('run:' not in r['text'] for r in dry['rendered_posts'])
 
 
 def test_upgrade_reuses_legacy_shared_work_item_genesis(five, main_root):
@@ -149,6 +197,49 @@ def test_unfilled_ending_is_owed_only_for_a_posted_setup(five, main_root):
     endings = [r for r in rows(store) if r["kind"] == "result"]
     assert len(endings) == 1 and "not triggered" in endings[0]["text"]
     assert "our way" not in endings[0]["text"]  # not supplied by Main
+
+
+@pytest.mark.parametrize("status", ["SETTLED", "SUPERSEDED_NOT_POSTED"])
+@pytest.mark.parametrize("confirmed", [True, False])
+def test_ending_uses_confirmed_card_after_queue_closure(five, main_root, tmp_path, status, confirmed):
+    from hashlib import sha256
+    from test_plan_analysis_distribution_cc435 import confirm
+    from test_plan_status_publication_cc306 import fake_host
+
+    store, folder, plans, events = five
+    queue(store, folder, main_root)
+    original = next(r for r in rows(store) if r["kind"] == "setup")
+    original_bytes = store.get_outbox_message(original["key"])["payload"]
+    if confirmed:
+        for key, public_id in [(original["run_key"], "600"), (original["key"], "700")]:
+            store.create_work_item(story_id=key, work_item_id=key, title="Existing card", target_surface="MULTI_PLATFORM")
+            confirm(store, key, sha256(("plan-status-post:" + key).encode()).hexdigest(),
+                    "discord", public_id, "https://discord.com/channels/42/1519311669216673802/" + public_id)
+    store.set_outbox_status(original["key"], status)
+    raw = next(p for p in plans if p["plan_id"] == original["plan_id"])
+    raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-10T07:59:00Z"))
+    write(folder, plans, events)
+
+    queued = queue(store, folder, main_root)
+    endings = [r for r in rows(store) if r["kind"] == "result"]
+    assert store.get_outbox_message(original["key"])["payload"] == original_bytes
+    assert store.get_outbox_message(original["key"])["status"] == status
+    assert len([r for r in rows(store) if r["kind"] == "setup"]) == 5
+    if not confirmed:
+        assert not endings
+        assert any(r["cause"] == "PLAN_NEVER_ANNOUNCED" for r in queued["not_posted"])
+        return
+    assert len(endings) == 1 and "not triggered" in endings[0]["text"]
+    assert endings[0]["parent_key"] == original["key"]
+    prepared = posts.prepare_post(store, endings[0]["key"], root=tmp_path / "posts", host=fake_host,
+                                  destinations=("discord", "telegram"))
+    assert [d["destination"] for d in prepared["destinations"]] == ["discord"]
+    payload = cards.destination_payloads(endings[0], card_id=None,
+        parents={"discord": {"public_object_id": "700", "thread_parent_id": "600"}})["discord"]
+    assert payload["reply_to_id"] == "700" and payload["discord_thread_parent_id"] == "600"
+    queue(store, folder, main_root)
+    assert len([r for r in rows(store) if r["kind"] == "result"]) == 1
 
 
 def test_main_scorer_supplies_untriggered_direction_without_publisher_inference():
@@ -228,16 +319,18 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     runtime = Recorded()
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
-        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d == "substack_notes" else "READY_NON_BROWSER_BINDING"})
+        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d == "substack_notes" else "READY_NON_BROWSER_BINDING"},
+        clock=lambda: NOW)
     queued = queue(store, folder, main_root)
     result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"],
         root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
     assert len(result["posts"]) == 6, result
-    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
-    first_count = len(cards.DESTINATIONS) + 5 * (len(cards.DESTINATIONS) - 1)
+    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), json.dumps(result,indent=2)
+    first_count = 6 * (len(cards.DESTINATIONS) - 1)
     assert len(runtime.intents) == first_count
-    assert [i["work_item_id"] for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"] == [
-        next(r["key"] for r in rows(store) if r["kind"] == "run")]
+    # A count-only run root cannot go to a destination where none of its
+    # child calls has a posting route (CC-584).
+    assert not [i for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"]
     instagram_card_ids = {cards._reference(store, c["key"], "instagram_business")["public_object_id"]
                           for c in rows(store) if c["kind"] == "setup"}
     assert len(instagram_card_ids) == 1  # all five verified slots belong to one published run object
@@ -309,6 +402,9 @@ def test_discord_threads_use_official_bot_route_and_exact_card_reference(monkeyp
     assert result["id"] == "67890"
     post = requests[-1]
     assert post.full_url == "https://discord.com/api/v10/channels/12345/messages"
+    assert post.get_header("User-agent") == adapter.BOT_USER_AGENT
+    assert post.get_header("User-agent").startswith("DiscordBot (")
+    assert post.get_header("Authorization") == "Bot test-token"
     assert json.loads(post.data)["message_reference"]["message_id"] == "98765"
     assert len([r for r in requests if r.get_method() == "POST"]) == 1
 
@@ -348,6 +444,7 @@ def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypat
         if url == webhook:
             return Response({"channel_id": channel})
         assert req.get_header("Authorization") == "Bot fixture-bot"
+        assert req.get_header("User-agent") == adapter.BOT_USER_AGENT
         if method == "GET" and url == f"https://discord.com/api/v10/channels/{run}":
             if not thread_exists:
                 raise HTTPError(url, 404, "Not Found", {}, None)
@@ -361,7 +458,9 @@ def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypat
             return Response(thread)
         assert method == "POST" and url == f"https://discord.com/api/v10/channels/{run}/messages"
         body = json.loads(req.data)
-        assert body["message_reference"]["message_id"] == run
+        # CC-432: the starter lives in the parent channel. Posting inside its
+        # thread already replies under it; referencing it here is invalid.
+        assert "message_reference" not in body
         messages.append(body)
         return Response({"id": str(67890 + len(messages)), "channel_id": run})
 

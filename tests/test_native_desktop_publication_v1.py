@@ -424,6 +424,22 @@ def test_real_packet_preparation_manual_isolation_and_seals(tmp_path, monkeypatc
         operation.validate()
 
 
+def test_prepared_handoff_never_reads_unrelated_outbox_history(tmp_path, monkeypatch):
+    store, binding, _, _, _ = seeded(tmp_path, monkeypatch, manual=True)
+    original = store.list_outbox_messages
+    calls = []
+    def bounded(**kwargs):
+        assert kwargs, "Preparing one article must not load every tool transcript"
+        calls.append(kwargs)
+        return original(**kwargs)
+    monkeypatch.setattr(store, "list_outbox_messages", bounded)
+    prepared = prepare_native_publication(store, binding)
+    assert prepared["classification"] == "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH"
+    assert any(q.get("destination") == "internal:native-publication-binding"
+               and q.get("work_item_id") for q in calls)
+    assert not store.list_platform_dispatches()
+
+
 def test_renderer_only_review_reuses_dispatched_plan_and_immutable_artifacts(tmp_path, monkeypatch):
     from native_final_visual_fixture_v1 import visual_request_fixture
     store, binding, _, result, review = seeded(tmp_path, monkeypatch, manual=True)

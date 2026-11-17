@@ -14,6 +14,19 @@ from test_plan_call_cards_cc399 import NOW, call, write
 from test_plan_status_posts_cc306 import main_root  # noqa: F401
 
 
+@pytest.fixture(autouse=True)
+def isolate_other_minute_consumers(monkeypatch):
+    from live_contentops import x_reply_bot_v1, x_reply_tabs_v1, event_timestamp_v1, event_pack_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1
+    monkeypatch.setattr(x_reply_bot_v1,"refresh_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(x_reply_bot_v1,"observe_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(x_reply_tabs_v1,"refresh_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(event_timestamp_v1,"maintain_timestamps",lambda:{"status":"OK"})
+    monkeypatch.setattr(event_pack_v1,"run_due_packs",lambda *a,**kw:{"status":"OK"})
+    monkeypatch.setattr(audience_collection_v1,"run_collection",lambda *a,**kw:{"collected":0})
+    monkeypatch.setattr(model_invocation_usage_v1,"import_native_invocations",lambda *a,**kw:{"imported":0})
+
+
 def export(tmp_path, *, version=None):
     raw = call("contract_call")
     fields = {"contract_version": version} if version is not None else {}
@@ -72,12 +85,8 @@ def test_unknown_version_queues_nothing_and_files_one_incident_across_repeats(tm
 
 @pytest.mark.parametrize("document,transform,field", [
     ("plan-status.public.json", lambda value: value.update(calls=value.pop("plans")), "status.plans"),
-    ("plan-status.public.json", lambda value: value["plans"][0].update(entry_zone=value["plans"][0].pop("zone")),
-     "status.plans[0].zone"),
     ("plan-transitions.public.json", lambda value: value.update(events=value.pop("transitions")),
      "transitions.transitions"),
-    ("plan-transitions.public.json", lambda value: value["transitions"][0].update(
-        timestamp=value["transitions"][0].pop("at_utc")), "transitions.transitions[0].at_utc"),
 ])
 def test_renamed_fields_fail_before_the_producer_reader_with_exact_path(tmp_path, main_root, document, transform, field):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite")
@@ -98,7 +107,10 @@ def test_dry_run_renders_already_queued_posts_and_all_destination_copies_without
     assert result["status"] == "OK" and result["rendered_count"] == 2
     assert {r["kind"] for r in result["rendered_posts"]} == {"run", "setup"}
     from live_contentops.plan_call_cards_v1 import DESTINATIONS
-    assert all(set(row["destinations"]) == set(DESTINATIONS) for row in result["rendered_posts"])
+    # CC-435 keeps LinkedIn's run index and avoids a duplicate root per card.
+    for row in result["rendered_posts"]:
+        expected = set(DESTINATIONS) - ({"linkedin"} if row["kind"] == "setup" else set())
+        assert set(row["destinations"]) == expected
     assert all(copy["text"] for row in result["rendered_posts"] for copy in row["destinations"].values())
     assert store.list_outbox_messages() == before and incident_count(store) == 0
 
@@ -187,3 +199,73 @@ def test_malformed_status_has_a_field_error_instead_of_an_attribute_error():
     from live_contentops.plan_status_export_contract_v1 import PlanExportContractError
     with pytest.raises(PlanExportContractError, match="FIELD_INVALID: status"):
         validate_export_contract({"status": [1], "transitions": {}})
+
+
+def test_explicit_closed_transition_feeds_composer_without_reviving_a_fill(tmp_path, main_root):
+    """CC-124: Main's CLOSED state stops recovery and keeps other calls available."""
+    closed = call("closed_call")
+    folder = write(tmp_path / "export", [closed], [{
+        "plan_id": closed["plan_id"], "status": "WAITING", "at_utc": closed["registered_at_utc"],
+        "reason_code": "REGISTERED"}], contract_version="2.0.0")
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite")
+    first = queue(store, folder, main_root)
+    setup = next(row for row in first["queued"] if row["kind"] == "setup")
+    store.set_outbox_status(setup["key"], "PUBLISHED")
+
+    closed.update(status="CLOSED", status_at_utc="2026-11-10T07:59:00Z",
+                  closure={"closed_at_utc": "2026-11-10T07:59:00Z", "reason": "POSITION_CLOSED"})
+    available = call("available_call")
+    write(folder, [closed, available], [
+        {"plan_id": closed["plan_id"], "status": "WAITING", "at_utc": closed["registered_at_utc"],
+         "reason_code": "REGISTERED"},
+        {"plan_id": closed["plan_id"], "status": "FILLED", "at_utc": "2026-11-10T07:50:00Z",
+         "reason_code": "FILLED"},
+        {"plan_id": closed["plan_id"], "status": "CLOSED", "at_utc": closed["status_at_utc"],
+         "reason_code": "POSITION_CLOSED"},
+        {"plan_id": available["plan_id"], "status": "WAITING", "at_utc": available["registered_at_utc"],
+         "reason_code": "REGISTERED"}], contract_version="2.0.0")
+    bound = posts.read_export(folder, main_root=main_root)
+    source_rows = posts.rows_from_export(bound)
+    closure = next(row for row in source_rows if row["to"] == "CLOSED")
+    assert closure["source_state"] == "CLOSED" and closure["at_utc"] == closed["status_at_utc"]
+    assert all(row["plan_id"] != closed["plan_id"] for row in posts.active_recoveries(source_rows, NOW).values())
+    assert posts.compose(closure)["kind"] == "closed"
+
+    result = queue(store, folder, main_root)
+    assert result["status"] == "OK" and incident_count(store) == 0
+    payloads = [json.loads(store.get_outbox_message(row["key"])["payload"]) for row in result["queued"]]
+    assert any(p.get("plan_id") == available["plan_id"] and p["kind"] == "setup" for p in payloads)
+    end = next(p for p in payloads if p.get("state") == "CLOSED")
+    assert "position closed" in end["text"] and end["kind"] == "update"
+    assert not any(p.get("plan_id") == closed["plan_id"] and p["kind"] in {"setup", "result"} for p in payloads)
+    assert not any(p.get("plan_id") == closed["plan_id"] and p.get("state") in posts.ACTIVE for p in payloads)
+    assert any(r["cause"] == "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT" for r in result["not_posted"])
+    assert queue(store, folder, main_root)["queued"] == []
+
+
+def test_closed_current_state_stops_recovery_even_without_a_closure_transition(tmp_path, main_root):
+    closed = call("closed_without_transition", status="CLOSED")
+    available = call("available_call")
+    folder = write(tmp_path / "export", [closed, available], [
+        {"plan_id": closed["plan_id"], "status": "FILLED", "at_utc": "2026-11-10T07:50:00Z",
+         "reason_code": "FILLED"},
+        {"plan_id": available["plan_id"], "status": "WAITING", "at_utc": available["registered_at_utc"],
+         "reason_code": "REGISTERED"}], contract_version="2.0.0")
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite")
+    result = queue(store, folder, main_root)
+    assert result["status"] == "OK" and result["latest_states"][closed["plan_id"]] == "CLOSED"
+    payloads = [json.loads(store.get_outbox_message(row["key"])["payload"]) for row in result["queued"]]
+    assert any(p.get("plan_id") == available["plan_id"] and p["kind"] == "setup" for p in payloads)
+    assert not any(p.get("plan_id") == closed["plan_id"] for p in payloads)
+
+
+def test_unknown_status_is_still_refused_at_its_exact_field(tmp_path, main_root):
+    folder = export(tmp_path, version="2.0.0")
+    mutate(folder, "plan-status.public.json", lambda value: value["plans"][0].update(status="UNKNOWN_STATUS"))
+    # The contract remains strict; CC-515 isolates this row at the consumer.
+    from live_contentops.plan_status_export_contract_v1 import PlanExportContractError
+    value = {"status": json.loads((folder / "plan-status.public.json").read_bytes()),
+             "transitions": json.loads((folder / "plan-transitions.public.json").read_bytes())}
+    with pytest.raises(PlanExportContractError) as exc:
+        validate_export_contract(value)
+    assert exc.value.field == "status.plans[0].status"

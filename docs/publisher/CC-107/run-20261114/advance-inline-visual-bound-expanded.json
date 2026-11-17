@@ -1,0 +1,152 @@
+{
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "qualified_article_count": 1,
+  "derivative_intent_count": 8,
+  "exact_next_blocker": null,
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\article_manifest_v1.json",
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\native_derivative_previews_v1.json",
+  "publication_handoff_state": "REVIEW_REQUIRED_NO_DISPATCH",
+  "editorial_execution": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "visual-edit": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "final-visual": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [],
+    "observed_efforts": [],
+    "configured_not_observed_count": 4,
+    "configured_not_observed_roles": [
+      {
+        "stage": "select",
+        "role": "select",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low"
+      },
+      {
+        "stage": "media-plan",
+        "role": "select",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low"
+      },
+      {
+        "stage": "write",
+        "role": "write",
+        "invocation_id": "/root/native_write_a97e7232eeeb",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "revise",
+        "role": "revise",
+        "invocation_id": "/root/native_write_a97e7232eeeb",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max"
+      }
+    ],
+    "native_invocation_count_observed": 2,
+    "native_invocation_identity_unknown_count": 0,
+    "semantic_response_count": 4,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": [
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact desktop_request_select.json requested_model and requested_reasoning_effort, and parent native assignment.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "model": null,
+        "observation_source": "Supported native task context supplies canonical task identity; actual model and reasoning effort are not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "select",
+        "role": "select"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact desktop_request_media-plan.json and supported parent assignment configure the Sol Light role.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "model": null,
+        "observation_source": "Supported native continuation task identity; actual model/effort telemetry is not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "media-plan",
+        "role": "select"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "assignment_id": "cc107-nfp-dated-review-20261114-v1:write",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "expected_return_id": "write:a97e7232eeeb5c393df30b18bbfcd55ff0cb079c3bbbbc5e8a90acd1fdfcca18",
+        "invocation_id": "/root/native_write_a97e7232eeeb",
+        "model": null,
+        "observation_source": "Supported native task identity. Actual model and effort telemetry are not exposed; no environment, process arguments, sessions or secrets were probed.",
+        "observed_at_utc": "2026-11-14T11:49:04.037209Z",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "write",
+        "role": "write"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "assignment_id": "cc107-nfp-dated-review-20261114-v1:revise",
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "expected_return_id": "revise:39fe6c28188ef619d8ec1320aed806e8f89dcc9d95183d6dd47240d2577f082c",
+        "invocation_id": "/root/native_write_a97e7232eeeb",
+        "model": null,
+        "observation_source": "Supported native task identity. Actual model and effort telemetry are not exposed; no environment, process arguments, sessions or secrets were probed.",
+        "observed_at_utc": "2026-11-14T12:31:08.338710Z",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "revise",
+        "role": "revise"
+      }
+    ]
+  },
+  "pending_publication_recovery_dispatch_ids": []
+}

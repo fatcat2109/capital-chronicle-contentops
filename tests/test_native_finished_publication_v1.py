@@ -89,6 +89,25 @@ def test_live_piece_reuses_binding_and_never_imports_or_rewrites_attempts(ready,
     assert target.list_platform_dispatches() == dispatches
 
 
+def test_interrupted_import_reuses_exact_written_binding_and_release_clock(ready, monkeypatch):
+    _, target, binding, path, rollout = ready
+    create = ContentOpsDurableStore.create_work_item
+    def interrupted(store, **kwargs):
+        if store.db_path == target.db_path:
+            raise ConnectionError("controlled interruption after binding write")
+        return create(store, **kwargs)
+    monkeypatch.setattr(ContentOpsDurableStore, "create_work_item", interrupted)
+    with pytest.raises(ConnectionError, match="controlled interruption"):
+        release_finished_piece(path, rollout)
+    live_path = Path(rollout["editorial_output_root"]) / "owner-manual" / binding["run_id"] / "binding.json"
+    written = live_path.read_bytes()
+    monkeypatch.setattr(ContentOpsDurableStore, "create_work_item", create)
+    released = release_finished_piece(path, rollout)
+    assert released["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
+    assert canonical_bytes(released["binding"]) == written == live_path.read_bytes()
+    assert target.list_platform_dispatches() == []
+
+
 def test_daily_digest_does_not_consume_standing_original_article_target(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)
@@ -168,6 +187,38 @@ def test_newsroom_lease_is_shared_and_never_steals_a_window(ready):
         with pytest.raises(LeaseConflictError):
             with newsroom_lease(target):
                 pytest.fail("second operation entered")
+
+
+def test_standing_entry_prepares_with_an_unrelated_plan_page_worker(ready):
+    _, target, _, _, rollout = ready
+    lease = target.acquire_lease("cc466-plan-page-editorial", "controlled-plan-page", ttl_seconds=1200)
+    profile = {"schema_version": "contentops.native_desktop_operator_profile.v1"}
+    try:
+        path, binding = standing_binding(profile, rollout, operation_id="standing-during-plan-page",
+            resolver=resolve_owner_operation, request="Prepare the latest Main article.", report_only=True)
+        assert json.loads(path.read_bytes()) == binding
+        assert binding["store_path"] == str(target.db_path)
+        assert binding["standing_operation"] and binding["owner_manual_live"]
+        assert Path(binding["rolling_input_path"]).name == "native_desktop_report_only_input_v1.json"
+        with target.get_read_only_connection() as conn:
+            assert conn.execute("SELECT status FROM leases WHERE lease_id=?", (lease["lease_id"],)).fetchone()[0] == "ACTIVE"
+        with pytest.raises(ValueError, match="NEWSROOM_LEASE_ACTIVE:cc466-plan-page-editorial"):
+            with newsroom_lease(target):
+                pytest.fail("public dispatch entered alongside another public worker")
+    finally:
+        target.release_lease(lease["lease_id"], "controlled-plan-page", lease["fencing_token"])
+
+
+@pytest.mark.parametrize("key", ["internal:native-editorial:window", "internal:native-window:current"])
+def test_standing_entry_still_defers_to_a_newsroom_window(ready, key):
+    _, target, _, _, rollout = ready
+    lease = target.acquire_lease(key, "controlled-window", ttl_seconds=900)
+    try:
+        with pytest.raises(ValueError, match="NEWSROOM_LEASE_ACTIVE"):
+            standing_binding({}, rollout, operation_id="standing-during-window",
+                resolver=lambda *a, **k: pytest.fail("overlapping standing entry admitted"))
+    finally:
+        target.release_lease(lease["lease_id"], "controlled-window", lease["fencing_token"])
 
 
 def test_finished_piece_is_due_without_spacing_and_keeps_original_canonical_clock(ready, monkeypatch):
@@ -396,3 +447,18 @@ def test_finished_writer_model_and_effort_labels_are_recorded_not_gates(ready, m
     assert result["status"] == "PASS"
     assert result["writer_observation"]["model"] == "recorded-model"
     assert result["writer_observation"]["reasoning_effort"] == "recorded-effort"
+
+
+def test_reply_tab_refresh_does_not_block_finished_article_import(ready):
+    _, target, _, path, rollout = ready
+    lease = target.acquire_lease("x-reply-tabs-refresh", owner_ref="CONTROLLED-tab-refresh", ttl_seconds=600)
+    released = release_finished_piece(path, rollout)
+    assert released["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
+    assert released["binding"]["store_path"] == str(target.db_path)
+    assert target.list_platform_dispatches() == []
+    with target.get_read_only_connection() as conn:
+        row = conn.execute("SELECT status FROM leases WHERE lease_id=?", (lease["lease_id"],)).fetchone()
+    assert row["status"] == "ACTIVE"
+    target.acquire_lease("internal:native-editorial:CONTROLLED-active-article", owner_ref="CONTROLLED-writer", ttl_seconds=600)
+    with pytest.raises(ValueError, match="NEWSROOM_LEASE_ACTIVE:internal:native-editorial"):
+        release_finished_piece(path, rollout)

@@ -1,0 +1,23 @@
+{
+  "state": "READ",
+  "item": "CC-402",
+  "source": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\audience-weekly\\latest.json",
+    "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/audience-weekly/latest.json"
+  },
+  "digest_lines": [
+    "substack: posts 18; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "x: posts 14; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "youtube: posts 7; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "linkedin: posts 6; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "linkedin_company: posts 8; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "telegram: posts 91; views 117; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "discord: posts 48; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "facebook_page: posts 44; views/reach unavailable; replies 8; new followers/members unavailable (no comparable account baseline).",
+    "instagram_business: posts 24; views/reach unavailable; comments 8; new followers/members unavailable (no comparable account baseline).",
+    "threads: posts 83; views 600; replies 33; new followers/members unavailable (no comparable account baseline)."
+  ],
+  "post_type_platform_rows": 35,
+  "hour_buckets": 17,
+  "as_of_utc": "2026-11-11T19:27:26.333548+00:00"
+}

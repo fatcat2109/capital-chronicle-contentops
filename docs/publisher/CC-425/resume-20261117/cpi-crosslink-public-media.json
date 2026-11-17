@@ -1,0 +1,37 @@
+[
+  {
+    "observed_at_utc": "2026-11-17T10:37:29.594Z",
+    "sha256": "7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94",
+    "size_bytes": 112480,
+    "status": 200,
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/6ed59edf-41da-49c9-a915-c1c8bb304825_1080x1350.png"
+  },
+  {
+    "observed_at_utc": "2026-11-17T10:37:32.473Z",
+    "sha256": "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+    "size_bytes": 73201,
+    "status": 200,
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/b163c0aa-922d-40f7-8d68-ad889568bcb8_2461x1384.png"
+  },
+  {
+    "observed_at_utc": "2026-11-17T10:37:35.161Z",
+    "sha256": "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+    "size_bytes": 119522,
+    "status": 200,
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/d610df6a-7ae5-42b5-9386-850ad18e04aa_1440x1040.png"
+  },
+  {
+    "observed_at_utc": "2026-11-17T10:37:37.822Z",
+    "sha256": "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+    "size_bytes": 68890,
+    "status": 200,
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/f58dd185-6a1c-49df-a122-1f1a4da99df1_1440x1040.png"
+  },
+  {
+    "observed_at_utc": "2026-11-17T10:37:47.383Z",
+    "sha256": "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd",
+    "size_bytes": 9455424,
+    "status": 200,
+    "url": "https://substack-post-media.s3.amazonaws.com/public/images/31748ddc-1576-4a81-8382-ea4f860527f3_5472x3648.jpeg"
+  }
+]

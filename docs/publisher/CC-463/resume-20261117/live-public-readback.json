@@ -1,0 +1,43 @@
+{
+  "method": "BrowserOS Neo in its existing window; exact public objects, read-only",
+  "instagram": {
+    "public_object_id": "18110206477946626",
+    "public_object_url": "https://www.instagram.com/p/DfyFNdaktf3/",
+    "account_observed": "official.capitalchronicle",
+    "caption_identity": "Original Bitcoin call of 10 Nov 2026 22:27 ET; retrospective entry-zone update",
+    "public_image_natural_size": [
+      1080,
+      1350
+    ],
+    "public_image_rendered_size": [
+      378,
+      472.5
+    ],
+    "original_asset_size": [
+      1088,
+      1360
+    ],
+    "asset_sha256": "92a6d6925c83d66c41a51e1dd7edff59712c2ad6f8a548116bd8c43fa517ad58",
+    "raw_capture_sha256": "626df1bb87f99a335838fe614181a20d6f4d1d8bd2d01acac2d8f37c48a76128",
+    "original_pixels_equal_native_download": true,
+    "public_screenshot_visually_inspected": true,
+    "local_original_visually_inspected": true,
+    "finding": "Full 4:5 Bitcoin / U.S. Dollar, Coinbase, 15-minute chart. Candles, volume, price/time axes, header and TradingView attribution are visible. No added padding bands or drawn replacement card.",
+    "live_native_4x5_proof": true
+  },
+  "telegram": {
+    "public_object_url": "https://t.me/CapitalChronicle/185",
+    "readback_surface": "https://t.me/s/CapitalChronicle",
+    "post_selector": "[data-post=CapitalChronicle/185]",
+    "caption_identity_matches_instagram": true,
+    "chart_credit_observed": "Chart: TradingView",
+    "status": "PUBLIC_POST_PRESENT"
+  },
+  "readback_clock_is_not_publication_clock": true,
+  "public_write_performed": false,
+  "new_public_objects_created": 0,
+  "schedule_changed": false,
+  "native_desktop_control_used": false,
+  "recorded_at_utc": "2026-11-17T04:48:16.142970+00:00",
+  "readback_clock_basis": "BrowserOS tool calls in this turn; recorded_at_utc is the evidence write clock, not publication time"
+}

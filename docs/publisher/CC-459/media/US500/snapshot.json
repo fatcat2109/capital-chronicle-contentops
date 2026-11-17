@@ -1,0 +1,150 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\SPX_2026-11-11_04-10-20.png",
+  "sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b",
+  "width": 1524,
+  "height": 856,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1448,
+      768
+    ],
+    "axis_origin": [
+      1448,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -0.9999370730897084,
+    "intercept": 7945.164449099497,
+    "max_label_error_px": 0.7922820130834225,
+    "grid_checks": [
+      {
+        "price": 7200.0,
+        "page_y_in_download": 745.5668805116459,
+        "grid_y": 746,
+        "error_px": 0.43311948835412295
+      },
+      {
+        "price": 7240.0,
+        "page_y_in_download": 705.5701771968289,
+        "grid_y": 706,
+        "error_px": 0.4298228031710778
+      },
+      {
+        "price": 7280.0,
+        "page_y_in_download": 665.573473882012,
+        "grid_y": 666,
+        "error_px": 0.42652611798803264
+      },
+      {
+        "price": 7320.0,
+        "page_y_in_download": 625.5767705671951,
+        "grid_y": 626,
+        "error_px": 0.4232294328048738
+      },
+      {
+        "price": 7360.0,
+        "page_y_in_download": 585.5800672523781,
+        "grid_y": 586,
+        "error_px": 0.4199327476219423
+      },
+      {
+        "price": 7400.0,
+        "page_y_in_download": 545.5833639375612,
+        "grid_y": 546,
+        "error_px": 0.4166360624387835
+      },
+      {
+        "price": 7440.0,
+        "page_y_in_download": 505.58666062274426,
+        "grid_y": 506,
+        "error_px": 0.4133393772557383
+      },
+      {
+        "price": 7480.0,
+        "page_y_in_download": 465.58995730792725,
+        "grid_y": 466,
+        "error_px": 0.41004269207275
+      },
+      {
+        "price": 7520.0,
+        "page_y_in_download": 425.59325399311035,
+        "grid_y": 426,
+        "error_px": 0.406746006889648
+      },
+      {
+        "price": 7560.0,
+        "page_y_in_download": 385.5965506782934,
+        "grid_y": 386,
+        "error_px": 0.40344932170660286
+      },
+      {
+        "price": 7600.0,
+        "page_y_in_download": 345.59984736347644,
+        "grid_y": 346,
+        "error_px": 0.4001526365235577
+      },
+      {
+        "price": 7640.0,
+        "page_y_in_download": 305.6031440486595,
+        "grid_y": 306,
+        "error_px": 0.39685595134051255
+      },
+      {
+        "price": 7680.0,
+        "page_y_in_download": 265.60644073384253,
+        "grid_y": 266,
+        "error_px": 0.3935592661574674
+      },
+      {
+        "price": 7720.0,
+        "page_y_in_download": 225.60973741902558,
+        "grid_y": 226,
+        "error_px": 0.39026258097442224
+      },
+      {
+        "price": 7760.0,
+        "page_y_in_download": 185.61303410420862,
+        "grid_y": 186,
+        "error_px": 0.3869658957913771
+      },
+      {
+        "price": 7800.0,
+        "page_y_in_download": 145.61633078939167,
+        "grid_y": 146,
+        "error_px": 0.3836692106083319
+      },
+      {
+        "price": 7840.0,
+        "page_y_in_download": 105.61962747457483,
+        "grid_y": 106,
+        "error_px": 0.3803725254251731
+      },
+      {
+        "price": 7880.0,
+        "page_y_in_download": 65.62292415975787,
+        "grid_y": 66,
+        "error_px": 0.3770758402421279
+      },
+      {
+        "price": 7520.93,
+        "page_y_in_download": 425.5,
+        "grid_y": 426,
+        "error_px": 0.5
+      }
+    ],
+    "source_sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b"
+  },
+  "tv_symbol": "SP:SPX",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "SPX 7,520.93 \u25bc \u22120.38%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+  "suggested_filename": "SPX_2026-11-11_04-10-20.png",
+  "captured_at_utc": "2026-11-11T04:10:21.323857+00:00",
+  "seconds": 18.6
+}

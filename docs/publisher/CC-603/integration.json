@@ -1,0 +1,55 @@
+{
+  "observed_at_utc": "2026-11-15T19:37:50.306998+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "integrated_code_commit": "98eea144c7e99b3031bc92ce17b89f8fd3cd9a09",
+  "base_commit": "ea9cd48e2b61592882fa1b99976e6c381ec98893",
+  "branch": "backlog/cc-603-call-followups",
+  "live_tag": "contentops-live-20261116-cc603",
+  "rollback_tag": "contentops-rollback-20261116-cc603",
+  "distinct_passing_targeted_checks": 23,
+  "source_hashes": {
+    "live_contentops/call_followups_v1.py": {
+      "delivery_sha256": "cb8dfa4e1fe0a77c7e41d86d735ae9271f393ebda973f54273b6866edd34d8ea",
+      "operating_sha256": "1860110428ac2eb00019e89989cdf1e2cd3e54bb54e4174d44d2e8d1a125c585",
+      "newline_normalized_match": true,
+      "raw_difference_only_line_endings": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "delivery_sha256": "47b5ec2c28b1896527188c5c07e7796e5415feb63ebaa4cf6940c82f55d305cf",
+      "operating_sha256": "47b5ec2c28b1896527188c5c07e7796e5415feb63ebaa4cf6940c82f55d305cf",
+      "newline_normalized_match": true,
+      "raw_difference_only_line_endings": false
+    },
+    "scripts/plan_status_posts.py": {
+      "delivery_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "operating_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "newline_normalized_match": true,
+      "raw_difference_only_line_endings": false
+    },
+    "tests/test_call_followups_cc603.py": {
+      "delivery_sha256": "a5b477271f323c5f0957daa1456f73387642582b0eb9793422e6d917690dd411",
+      "operating_sha256": "7bdd3cc683ad622f9f3215c3c4b7e4f9efd297d69da4d129fd8f2676797d5c2b",
+      "newline_normalized_match": true,
+      "raw_difference_only_line_endings": true
+    }
+  },
+  "all_source_hashes_match": false,
+  "preserved_delivery_changes": [
+    " M docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    " M docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
+  ],
+  "preserved_operating_changes": [
+    " M docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+    " M docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+    " M docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+    " M docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+    " M docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    " M docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
+  ],
+  "existing_minute_run_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261115.jsonl",
+  "latest_observed_cc603_run": null,
+  "public_acceptance": "BLOCKED",
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "no_followup_publication_claim": true,
+  "all_sources_match_after_line_ending_normalization": true
+}

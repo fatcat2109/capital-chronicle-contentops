@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-12T13:22:55.108242+00:00",
+  "cause": "Legacy transport CLI test did not isolate the newer plan-page consumer.",
+  "completed_editorial_returns": [
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-JP\\pytest-2579\\test_cli_publish_passes_automa0\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_71f0701d5f0d78b138829a4d\\page-writer\\bbf7aab91d66035d690c9cd13c8abd8384a36e820b8403b0823286db2a61154a\\result.json",
+      "status": "RETURNED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "started_at_utc": "2026-11-12T13:09:16.471032+00:00",
+      "returncode": 0,
+      "cause": null
+    }
+  ],
+  "interrupted_child": {
+    "pid": 19920,
+    "parent_pytest_pid": 27628,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "status": "stopped after parent test was stopped"
+  },
+  "disposition": "Test/child results are excluded from product and validation evidence; dependencies now stubbed.",
+  "source_workspace": "isolated pytest store/output; test read the real Main public export",
+  "live_root_writes_by_test": false,
+  "claimed_public_post": false
+}

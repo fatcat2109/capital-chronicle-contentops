@@ -1,0 +1,128 @@
+{
+  "item": "CC-537",
+  "recorded_at_utc": "2026-11-17T14:33:13.289452+00:00",
+  "status": "BLOCKED",
+  "cause": "CC528_PUBLIC_BOARD_MISSING_MEAN_LEVELS_AND_SAMPLE_PERIODS",
+  "choice": "Use only the public board for every public number; retain exact absent fields instead of inferring means or sample dates from other files.",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_code_head": "fcd70528a9512baa89fdb983dbec7c040ca52911",
+  "build_commits": [
+    "702fc302af4a2324b13068826d1d1f5150a2ee61",
+    "7bee9535428d4e8db451076820915bb13266f152"
+  ],
+  "live_tag": "contentops-live-20261117-cc537",
+  "rollback_tag": "contentops-rollback-20261117-cc537",
+  "rollback_head": "676de9c76e2d1e698f3342ea5f34897379a43c56",
+  "launch": {
+    "pid": 28616,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "editorial_model_calls": 0,
+  "tests": {
+    "tests.xml": {
+      "tests": "22",
+      "failures": "0",
+      "errors": "0",
+      "time": "10.854"
+    },
+    "link-regressions.xml": {
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "time": "8.407"
+    },
+    "coordinator-regression.xml": {
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "time": "0.866"
+    },
+    "installed-tests.xml": {
+      "tests": "22",
+      "failures": "0",
+      "errors": "0",
+      "time": "11.437"
+    }
+  },
+  "minute_entry": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "schedule_changed": false,
+    "application_restart": false
+  },
+  "installed_readback": {
+    "observed_at_utc": "2026-11-17T14:31:20.300985+00:00",
+    "operating_head": "fcd70528a9512baa89fdb983dbec7c040ca52911",
+    "installed_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\daily_trend_board_v1.py",
+    "source_sha256": "3893bc572bdb4595c89e4e10aee78e2c3e0e069155ad545561d867ae1428627b",
+    "result": {
+      "state": "BOARD_SOURCE_UNAVAILABLE",
+      "cause": "BOARD_PUBLIC_FIELDS_ABSENT",
+      "missing_fields": [
+        "/markets/XAUUSD/yardstick/mean_close_20",
+        "/markets/XAUUSD/yardstick/mean_close_50",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/1/sample_period",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/2/sample_period",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/3/sample_period",
+        "/markets/US500/yardstick/mean_close_20",
+        "/markets/US500/yardstick/mean_close_50",
+        "/markets/US500/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/US500/rows_whose_condition_holds_now/1/sample_period",
+        "/markets/US500/rows_whose_condition_holds_now/2/sample_period",
+        "/markets/EURUSD/yardstick/mean_close_20",
+        "/markets/EURUSD/yardstick/mean_close_50",
+        "/markets/EURUSD/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/EURUSD/rows_whose_condition_holds_now/1/sample_period",
+        "/markets/EURUSD/rows_whose_condition_holds_now/2/sample_period",
+        "/markets/EURUSD/rows_whose_condition_holds_now/3/sample_period",
+        "/markets/USDJPY/yardstick/mean_close_20",
+        "/markets/USDJPY/yardstick/mean_close_50",
+        "/markets/USDJPY/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/USDJPY/rows_whose_condition_holds_now/1/sample_period",
+        "/markets/USDJPY/rows_whose_condition_holds_now/2/sample_period",
+        "/markets/USOIL/yardstick/mean_close_20",
+        "/markets/USOIL/yardstick/mean_close_50",
+        "/markets/USOIL/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/USOIL/rows_whose_condition_holds_now/1/sample_period",
+        "/markets/USOIL/rows_whose_condition_holds_now/2/sample_period",
+        "/markets/USOIL/rows_whose_condition_holds_now/3/sample_period",
+        "/markets/BTCUSD/yardstick/mean_close_20",
+        "/markets/BTCUSD/yardstick/mean_close_50",
+        "/markets/BTCUSD/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/BTCUSD/rows_whose_condition_holds_now/1/sample_period",
+        "/markets/BTCUSD/rows_whose_condition_holds_now/2/sample_period"
+      ],
+      "as_of_utc": "2026-11-17T14:30:52.216540Z",
+      "day_et": "2026-11-16",
+      "age_seconds": 28.058913,
+      "outcomes": []
+    },
+    "acceptance": {
+      "required_consecutive_trading_days": 3,
+      "observed_consecutive_trading_days": 0,
+      "passed": false,
+      "days": []
+    },
+    "board_outbox_rows": 0,
+    "board_dispatches": 0
+  },
+  "tracked_wip_preserved": true,
+  "visual_inspection": {
+    "artifact": "controlled temporary six-market fact card",
+    "result": "Read all six states, both mean levels and ET date; no clipping. Fixture values, not live publication evidence."
+  },
+  "next_action": {
+    "owner": "Codex Main / CC-528",
+    "action": "Include mean_close_20 and mean_close_50 in each public yardstick and exact sample_period.start/end in each measured row (or an applicable market/table period). The existing minute consumer then resumes automatically. Observe three consecutive trading days with matching X, Substack Notes and Discord readbacks."
+  },
+  "acceptance_limits": [
+    "The live source omits 12 mean levels and 21 row sample periods.",
+    "No daily board has been published. Three controlled fixture days verify mechanics only.",
+    "The successful Neo chart-download path awaits a complete live source; bounded failure to a source-bound fact card is covered."
+  ]
+}

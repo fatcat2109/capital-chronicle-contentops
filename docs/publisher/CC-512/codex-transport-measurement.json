@@ -1,0 +1,54 @@
+{
+  "role": "transport_diagnostic",
+  "forced_primary": true,
+  "root": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc512-live-diagnostic-igm18fgu",
+  "record": {
+    "policy": "cc512-light-caller-v1",
+    "status": "FAILED",
+    "started_at_utc": "2026-11-12T12:14:30.122221+00:00",
+    "prompt_sha256": "dd5a680202cae53286a7963c2d2b6512ff324b1fecaf838ed302a0e8ce3ca051",
+    "prompt_bytes": 52,
+    "attempts": [
+      {
+        "caller": "antigravity",
+        "started_at_utc": "2026-11-12T12:14:30.122294+00:00",
+        "status": "TIMEOUT",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "cause": "TEST_FORCED_AGY_TIMEOUT",
+        "ended_at_utc": "2026-11-12T12:14:30.123399+00:00",
+        "elapsed_seconds": 0.0011071000044466928,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "caller": "codex",
+        "started_at_utc": "2026-11-12T12:14:30.126925+00:00",
+        "status": "TIMEOUT",
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "low",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "cause": "CODEX_LIGHT_TIMEOUT_65S",
+        "ended_at_utc": "2026-11-12T12:15:47.091981+00:00",
+        "elapsed_seconds": 77.00228519999655,
+        "stdout_bytes": 355,
+        "stderr_bytes": 0,
+        "output_sha256": "f7883f55748268dfbe311a610e1383ccb3f94be73914f5324c62208a0d713d9b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "answered_by": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "cause": "TEST_FORCED_AGY_TIMEOUT",
+    "fallback_cause": "CODEX_LIGHT_TIMEOUT_65S",
+    "ended_at_utc": "2026-11-12T12:15:47.704121+00:00",
+    "elapsed_seconds": 77.58171610000136,
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc512-live-diagnostic-igm18fgu\\light-call.json"
+  },
+  "answer_bytes": 0
+}

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="13.453" timestamp="2026-11-14T13:11:55.071511+07:00" hostname="J-P"><testcase classname="tests.test_measured_odds_series_cc536" name="test_exact_public_readback_skips_the_global_draft_inventory" time="4.319" /></testsuite></testsuites>

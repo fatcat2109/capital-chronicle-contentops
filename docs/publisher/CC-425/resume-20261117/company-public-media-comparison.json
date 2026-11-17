@@ -1,0 +1,14 @@
+{
+  "source_asset_sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+  "platform_sha256": "48c4ec921aba2c6c7fce6fe592ad2f3a4c7d6b0d12b3d100090f9b02dfc967e2",
+  "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG_j2G_s7A0vQ/feedshare-image-high-res/B56aHpB9RwJEAQ-/0/1794910967159?e=1796256000&v=beta&t=O5L98OWBpjtcc453dFyiUxQll0MfMwJ25FgAa20VJoc",
+  "observed_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG_j2G_s7A0vQ/feedshare-shrink_800/B56aHpB9RwJEAg-/0/1794910967159?e=1796256000&v=beta&t=owHUjg4a1zquAoZrfPhgXXtjw8YM-pxrknm-J3fLIBw",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528407905289732096",
+  "pixels_inspected": true,
+  "source_pixels_match": true,
+  "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+  "rms": 1.3618,
+  "worst_tile_rms": 6.9316,
+  "max_luma_delta": 38,
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\public-media\\cc425-public-company-image.jpg"
+}

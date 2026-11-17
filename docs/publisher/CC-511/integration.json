@@ -1,0 +1,115 @@
+{
+  "item": "CC-511",
+  "installed_at_utc": "2026-11-12T13:20:22.834185+00:00",
+  "previous_operating_head": "9321c370cba1932cbc9ef2c6298a64f1a84add4d",
+  "installed_head": "97d8d9aa928914d8a121297a7b251ced2fea2115",
+  "source_branch": "backlog/cc-511-reply-topic-drivers",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "rollback_tag": "contentops-rollback-20261112-cc511",
+  "live_tag": "contentops-live-20261112-cc511-driver-link",
+  "files": [
+    "docs/publisher/CC-511/README.md",
+    "docs/publisher/CC-511/final-feature-tests.xml",
+    "docs/publisher/CC-511/final-policy-tests.xml",
+    "docs/publisher/CC-511/funnel-bot-tests.xml",
+    "docs/publisher/CC-511/run-context.json",
+    "docs/publisher/CC-511/session_funnel.py",
+    "docs/publisher/CC-511/topic-cases.json",
+    "docs/publisher/CC-511/topic-consumer-tests.xml",
+    "live_contentops/x_reply_bot_v1.py",
+    "live_contentops/x_reply_fact_policy_v1.py",
+    "live_contentops/x_reply_fact_sources_v1.py",
+    "live_contentops/x_reply_pack_v1.py",
+    "live_contentops/x_reply_topics_v1.py",
+    "tests/test_x_reply_funnel_cc511.py",
+    "tests/test_x_reply_topics_cc511.py"
+  ],
+  "source_hashes": {
+    "live_contentops/x_reply_bot_v1.py": {
+      "build_sha256": "4836d085246ccab3a14e529d6a4f93e27db75bdad08a0bc0f7d5530c54246b59",
+      "installed_sha256": "4836d085246ccab3a14e529d6a4f93e27db75bdad08a0bc0f7d5530c54246b59",
+      "build_lf_sha256": "99c46e686fcfa24cb4abe2afde7e3b32d59a501dc6b516047ffe9bd00a645ae8",
+      "installed_lf_sha256": "99c46e686fcfa24cb4abe2afde7e3b32d59a501dc6b516047ffe9bd00a645ae8",
+      "expected_git_blob": "febade061dd15694911dbf2b14229c1336e8655e",
+      "installed_git_blob": "febade061dd15694911dbf2b14229c1336e8655e"
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "build_sha256": "e39e6c7b6f6f4c2b2c79863c9b3b2c91daa00a1440270d98cfd2ae497fd0765d",
+      "installed_sha256": "e39e6c7b6f6f4c2b2c79863c9b3b2c91daa00a1440270d98cfd2ae497fd0765d",
+      "build_lf_sha256": "3c38d11f6d4676ecfc8c36808ecb3c441ab39fc43787a3dfcbc8abca5185b442",
+      "installed_lf_sha256": "3c38d11f6d4676ecfc8c36808ecb3c441ab39fc43787a3dfcbc8abca5185b442",
+      "expected_git_blob": "321808aec1c6bfbe107a1e3aafc7697d5c7476ed",
+      "installed_git_blob": "321808aec1c6bfbe107a1e3aafc7697d5c7476ed"
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "build_sha256": "8d453ea22207509c94ab65f8718a1af563727f13a653aecb62b13a9662bc97c2",
+      "installed_sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4",
+      "build_lf_sha256": "8d453ea22207509c94ab65f8718a1af563727f13a653aecb62b13a9662bc97c2",
+      "installed_lf_sha256": "8d453ea22207509c94ab65f8718a1af563727f13a653aecb62b13a9662bc97c2",
+      "expected_git_blob": "6e10e50c92c18e3c35b4a3726a7bac64d1a3fb4a",
+      "installed_git_blob": "6e10e50c92c18e3c35b4a3726a7bac64d1a3fb4a"
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "build_sha256": "9120d3ab61b95da7ad5c26e16b8c20bdf7dddcf6555112eab6c87fa7195fb096",
+      "installed_sha256": "9120d3ab61b95da7ad5c26e16b8c20bdf7dddcf6555112eab6c87fa7195fb096",
+      "build_lf_sha256": "9e5adae95b6852f3a0d8bb060045a7e75aab37b47d20dc329a907ca2bb70d93c",
+      "installed_lf_sha256": "9e5adae95b6852f3a0d8bb060045a7e75aab37b47d20dc329a907ca2bb70d93c",
+      "expected_git_blob": "eb8472cfacc6010a433ca2fcd42afcdc56852517",
+      "installed_git_blob": "eb8472cfacc6010a433ca2fcd42afcdc56852517"
+    },
+    "live_contentops/x_reply_topics_v1.py": {
+      "build_sha256": "d0556fa2b4266b588bbdbf59fecddf85ddc0250317956982e9e3125b10deb8de",
+      "installed_sha256": "fdad5f07a62bdd4734c2afa40c047785b9d00775b769b7bd2fff61816ea4b054",
+      "build_lf_sha256": "d0556fa2b4266b588bbdbf59fecddf85ddc0250317956982e9e3125b10deb8de",
+      "installed_lf_sha256": "d0556fa2b4266b588bbdbf59fecddf85ddc0250317956982e9e3125b10deb8de",
+      "expected_git_blob": "f93b07d54905d2ff6adfc172eb78f2fdf0aee4c0",
+      "installed_git_blob": "f93b07d54905d2ff6adfc172eb78f2fdf0aee4c0"
+    }
+  },
+  "all_installed_hashes_match": false,
+  "prior_dirty_file_sha256": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+  },
+  "after_merge_dirty_file_sha256": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+  },
+  "dirty_bytes_preserved": true,
+  "manual_ticks": 0,
+  "schedule_changed": false,
+  "application_restarted": false,
+  "public_submit_actions": 0,
+  "all_installed_source_matches_after_git_line_ending_normalization": true,
+  "all_installed_git_blobs_match": true,
+  "raw_hash_difference_reason": "Git checkout CRLF conversion; normalized source hashes and committed Git blobs are compared separately.",
+  "installed_tests": {
+    "artifact": "docs/publisher/CC-511/installed-consumer-tests.xml",
+    "passed": 100,
+    "seconds": 53.54,
+    "processes": 1,
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "code_head": "4a106a6ae19bf952e2294040d7754555e4d212da"
+  },
+  "initial_installed_head": "4a106a6ae19bf952e2294040d7754555e4d212da",
+  "last_code_install_observed_at_utc": "2026-11-12T13:29:17.831929+00:00",
+  "initial_live_tag": "contentops-live-20261112-cc511",
+  "installed_final_tests": {
+    "artifact": "docs/publisher/CC-511/installed-final-policy-tests.xml",
+    "passed": 76,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 18.622,
+    "processes": 1,
+    "code_head": "97d8d9aa928914d8a121297a7b251ced2fea2115",
+    "root": "A:\\Capital Chronicle\\ContentOps"
+  }
+}

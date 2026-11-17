@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-11-14T08:55:36.084753+00:00",
+  "identity": {
+    "authenticated": true,
+    "observed_at_utc": "2026-11-14T08:55:36.277Z",
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922"
+  },
+  "count": 4,
+  "feed_posts": [
+    {
+      "id": "urn:li:activity:7525535662729699328",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+      "text_sha256": "745b43b1f916f533835d9fc4d362a4b40fd0c39267584dff6a9679a6894d2541"
+    },
+    {
+      "id": "urn:li:activity:7525472297776889856",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525472297776889856/",
+      "text_sha256": "36ebf1876cc062585e80855007753beb97ed9c233d9e5f5499e07e40c74eccaa"
+    },
+    {
+      "id": "urn:li:activity:7524462065680285696",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+      "text_sha256": "13f1b2ff42b944116b7521e15c824e17ab25a95f145252990d498a8e2f0b565c"
+    },
+    {
+      "id": "urn:li:activity:7524425901736964096",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/",
+      "text_sha256": "ae47101da505e55389e65d1b7c8a09f74bb82ff88f4bea78850e5fb9d26a193e"
+    }
+  ]
+}

@@ -73,3 +73,6 @@ tests/evidence/cc-043/** -text whitespace=cr-at-eol
 
 # CC-378 binds prompt/output hashes to exact CLI bytes on Windows.
 docs/publisher/CC-378/** -text whitespace=cr-at-eol
+
+# CC-536 quotes Main's exact live-tag bytes and fingerprints on Windows.
+docs/publisher/CC-536/source/** -text whitespace=cr-at-eol

@@ -1,0 +1,35 @@
+{
+  "observed_at_utc": null,
+  "source_url": "https://capitalchronicle.substack.com/publish/growth/subscribers",
+  "visible_period": "90 days",
+  "metric_label": "New subscribers",
+  "reported_rows": [
+    {
+      "source": "Substack",
+      "category": "Network",
+      "count": 1,
+      "display": "1(50%)",
+      "overlap": "parent row of Notes"
+    },
+    {
+      "source": "Notes",
+      "category": "Network",
+      "count": 1,
+      "display": "1",
+      "overlap": "child row of Substack; do not add parent and child"
+    },
+    {
+      "source": "Import",
+      "category": "Other",
+      "count": 1,
+      "display": "1(50%)"
+    }
+  ],
+  "use": "Baseline observed after installation and before any CC-468 daily Note was confirmed. The visible metric is new subscribers, not separately observed new free subscribers; no fourteen-day attribution or keep/drop result is asserted.",
+  "retained_visible_text_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\substack-growth-baseline-visible.txt",
+  "retained_visible_text_sha256": "083e8f243037603be075f7050c2bc0f6f18a68afeaebb2d425a2d7adc079395a",
+  "free_subscriber_source_counts": null,
+  "free_count_cause": "FREE_STATUS_AND_EXACT_PERIOD_BOUNDS_NOT_EXPOSED_IN_THIS_OBSERVATION",
+  "observation_clock_cause": "Browser readback supplied no independent observation clock.",
+  "retained_at_utc": "2026-11-17T06:36:33.590756+00:00"
+}

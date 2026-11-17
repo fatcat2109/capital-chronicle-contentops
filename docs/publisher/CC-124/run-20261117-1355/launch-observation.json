@@ -1,0 +1,10 @@
+{
+  "process_id": 31356,
+  "parent_process_id": 27704,
+  "created_at_utc": "2026-11-17T06:55:06.667996+00:00",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "observation_source": "Current Win32_Process launch arguments read in this run; runtime model/effort telemetry is unavailable.",
+  "new_editorial_role_calls": 0
+}

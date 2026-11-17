@@ -1,0 +1,142 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\T\\SPX_2026-11-11_16-43-11.png",
+  "sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a",
+  "width": 1080,
+  "height": 850,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1004,
+      762
+    ],
+    "axis_origin": [
+      1004,
+      27
+    ],
+    "axis_pixel_match": 0.9846743295019157,
+    "mode": "linear",
+    "slope": -1.1339592627488073,
+    "intercept": 8996.061540879791,
+    "max_label_error_px": 0.7075784930657392,
+    "grid_checks": [
+      {
+        "price": 7280.0,
+        "page_y_in_download": 740.8058794289484,
+        "grid_y": 741,
+        "error_px": 0.19412057105159874
+      },
+      {
+        "price": 7320.0,
+        "page_y_in_download": 695.4459095834904,
+        "grid_y": 695,
+        "error_px": 0.4459095834904474
+      },
+      {
+        "price": 7360.0,
+        "page_y_in_download": 650.0859397380325,
+        "grid_y": 650,
+        "error_px": 0.08593973803249355
+      },
+      {
+        "price": 7400.0,
+        "page_y_in_download": 604.7259698925745,
+        "grid_y": 605,
+        "error_px": 0.2740301074254603
+      },
+      {
+        "price": 7440.0,
+        "page_y_in_download": 559.3660000471166,
+        "grid_y": 559,
+        "error_px": 0.36600004711658585
+      },
+      {
+        "price": 7480.0,
+        "page_y_in_download": 514.0060302016586,
+        "grid_y": 514,
+        "error_px": 0.006030201658631995
+      },
+      {
+        "price": 7520.0,
+        "page_y_in_download": 468.64606035620073,
+        "grid_y": 469,
+        "error_px": 0.353939643799265
+      },
+      {
+        "price": 7560.0,
+        "page_y_in_download": 423.2860905107428,
+        "grid_y": 423,
+        "error_px": 0.28609051074278113
+      },
+      {
+        "price": 7600.0,
+        "page_y_in_download": 377.9261206652848,
+        "grid_y": 378,
+        "error_px": 0.07387933471517272
+      },
+      {
+        "price": 7640.0,
+        "page_y_in_download": 332.5661508198269,
+        "grid_y": 332,
+        "error_px": 0.5661508198268734
+      },
+      {
+        "price": 7680.0,
+        "page_y_in_download": 287.206180974369,
+        "grid_y": 287,
+        "error_px": 0.20618097436897642
+      },
+      {
+        "price": 7720.0,
+        "page_y_in_download": 241.84621112891102,
+        "grid_y": 242,
+        "error_px": 0.15378887108897743
+      },
+      {
+        "price": 7760.0,
+        "page_y_in_download": 196.48624128345318,
+        "grid_y": 196,
+        "error_px": 0.4862412834531824
+      },
+      {
+        "price": 7800.0,
+        "page_y_in_download": 151.12627143799523,
+        "grid_y": 151,
+        "error_px": 0.12627143799522855
+      },
+      {
+        "price": 7840.0,
+        "page_y_in_download": 105.76630159253727,
+        "grid_y": 106,
+        "error_px": 0.2336984074627253
+      },
+      {
+        "price": 7880.0,
+        "page_y_in_download": 60.40633174707921,
+        "grid_y": 60,
+        "error_px": 0.40633174707920716
+      }
+    ],
+    "source_sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1466,
+    "height": 844
+  },
+  "tv_symbol": "SP:SPX",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "SPX 7,610.72 ▲ +1.19%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+  "suggested_filename": "SPX_2026-11-11_16-43-11.png",
+  "captured_at_utc": "2026-11-11T16:43:12.118131+00:00",
+  "seconds": 7.5,
+  "template_chart_size": [
+    1080,
+    850
+  ],
+  "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+}

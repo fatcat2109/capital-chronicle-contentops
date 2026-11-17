@@ -1,0 +1,52 @@
+{
+  "consumer_source_bindings": [
+    {
+      "matches": true,
+      "operating_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "path": "scripts/plan_status_posts.py",
+      "worktree_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690"
+    },
+    {
+      "matches": true,
+      "operating_sha256": "f7b9cdbc1a90a1134315d348c81abec1ae4d7741fda61ea064bacfdd7ac0f290",
+      "path": "live_contentops/neo_endpoint_executor_v1.py",
+      "worktree_sha256": "f7b9cdbc1a90a1134315d348c81abec1ae4d7741fda61ea064bacfdd7ac0f290"
+    },
+    {
+      "matches": true,
+      "operating_sha256": "456e1b56f625bb2e48b6a607e0b0f97abb316a2d6abc60145c3b5dea8c9e4dc2",
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "worktree_sha256": "456e1b56f625bb2e48b6a607e0b0f97abb316a2d6abc60145c3b5dea8c9e4dc2"
+    }
+  ],
+  "launch": {
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_effort": "max",
+    "configured_model": "gpt-6.1-sol",
+    "max_argument_observed": true,
+    "model_argument_observed": true,
+    "pid": 8464,
+    "runtime_effort": null,
+    "runtime_model": null,
+    "started_at_utc": "2026-11-15T20:20:12.5352330Z"
+  },
+  "neo_listener_9010_count": 0,
+  "observed_at_utc": "2026-11-15T20:29:31.9541007Z",
+  "task": {
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+    "last_run_utc": "2026-11-15T20:29:26.0000000Z",
+    "multiple_instances": "IgnoreNew",
+    "name": "CapitalChronicle-PlanStatusPosts-V1",
+    "state": "Running",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps"
+  },
+  "workers": [
+    {
+      "CommandLine": "\"C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe\" -B scripts\\plan_status_posts.py --publish",
+      "CreationDate": "2026-11-16T03:28:26.565637+07:00",
+      "ParentProcessId": 2084,
+      "ProcessId": 35652
+    }
+  ]
+}

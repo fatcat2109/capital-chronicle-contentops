@@ -1,0 +1,14 @@
+{
+  "before": {
+    "public_object_url": "https://x.com/Capitalnicle/status/2120389158862831949",
+    "observed_at_utc": "2026-11-11T17:53:38.846Z",
+    "public_views": 499,
+    "unique_reach": null,
+    "likes": 0,
+    "reposts": 0,
+    "replies": 1,
+    "cohort": "PRE_CC466_RETAINED_POST"
+  },
+  "after": null,
+  "limitation": "X exposes public views here, not unique reach. No new CC-466 X post is claimed while AGY returned no variants; no before/after effect can yet be estimated."
+}

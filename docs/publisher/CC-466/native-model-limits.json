@@ -1,0 +1,14 @@
+{
+  "configured_model": "gemini-3.8-flash-high",
+  "configured_effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "provider_model_list_contains_configured_model": true,
+  "failed_operations": [
+    "stream text request 60s",
+    "stream text request 120s",
+    "direct text request 120s"
+  ],
+  "first_cause": "AGY_VARIANTS_TIMEOUT_60S",
+  "latest_cause": "AGY_VARIANTS_TIMEOUT_120S",
+  "public_write_performed": false
+}

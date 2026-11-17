@@ -1,0 +1,112 @@
+{
+  "item": "CC-199",
+  "verified_at_utc": "2026-11-17T02:09:20.258247+00:00",
+  "installed_test_counts": {
+    "tests": 22,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "installed_module_hashes": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+      "sha256": "78d4036ea69f03bad897a259efdccbfeeeccfd4f8806b11da0644529c1a67a87",
+      "builder_matches": true,
+      "installed_still_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_publication_latency_v1.py",
+      "sha256": "fb6d6944d34f65ba9803fb6cbb4a7a6360a76a0291c4d37905dc9f7477ad2e54",
+      "builder_matches": true,
+      "installed_still_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+      "sha256": "d489cf2562b3497ad3d89a3babbfdac68fc1f16f9d07d3b88f380c41da07fe38",
+      "builder_matches": true,
+      "installed_still_matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "sha256": "e3df8e20bbdb0b857dce53015562e2d1e782a1950ae3765e00b29489eaf8c0f7",
+      "builder_matches": true,
+      "installed_still_matches": true
+    }
+  ],
+  "preserved_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "relative_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "relative_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 1442302,
+      "sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 72613,
+      "sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b",
+      "preserved": true
+    }
+  ],
+  "publication_feed_unchanged": true,
+  "publication_feed_before": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979"
+  },
+  "reviewed_pieces_since_reopening": 0,
+  "passing_pieces": 0,
+  "required_pieces": 3,
+  "outside_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "latest_completed_source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-native.json",
+  "latest_original_capture_utc": "2026-11-17T00:37:43.684818Z",
+  "latest_publication_deadline_utc": "2026-11-17T01:37:43.684818+00:00",
+  "restriction_basis": "Jim decision 98 / CC-403: source cutoff plus 60 minutes; no backdating or retrieval-clock refresh",
+  "public_writes": 0,
+  "production_store_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0
+}

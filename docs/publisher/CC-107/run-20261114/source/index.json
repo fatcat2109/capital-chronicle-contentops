@@ -1,0 +1,175 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "headline_id": "cc107-nfp-dated-review-20261114",
+      "headline_text": "Capital Chronicle NFP review: the Strong branch and the measured market response",
+      "source_url": "urn:cc-public-report:cc107:nfp-review:20261114",
+      "known_at_utc": "2026-11-09T09:15:37.302916Z",
+      "revision_at_utc": "2026-11-09T09:15:37.302916Z",
+      "candidate_catalyst_tags": [
+        "EVENT_REVIEW",
+        "bls-emsit-20261106",
+        "NFP"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+          "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+          "fragments": [
+            {
+              "start": 358,
+              "end": 448
+            },
+            {
+              "start": 506,
+              "end": 553
+            },
+            {
+              "start": 864,
+              "end": 1005
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 2762,
+              "end": 2878
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 2881,
+              "end": 2995
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 3868,
+              "end": 3948
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 4205,
+              "end": 4298
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 4797,
+              "end": 4883
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+          "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+          "fragments": [
+            {
+              "start": 4362,
+              "end": 4414
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables\\20261109T091537Z\\US_NFP_20261106\\20261106T133000Z.json",
+          "source_sha256": "0ede493f009391423686afed79fad8e59ccea7d75b811301966315b19669073f",
+          "source_json_pointer": "/intraday_reaction/markets/EURUSD/returns_pct",
+          "event_id": "US_NFP_20261106",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 265
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables\\20261109T091537Z\\US_NFP_20261106\\20261106T133000Z.json",
+          "source_sha256": "0ede493f009391423686afed79fad8e59ccea7d75b811301966315b19669073f",
+          "source_json_pointer": "/intraday_reaction/markets/USDJPY/returns_pct",
+          "event_id": "US_NFP_20261106",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 262
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables\\20261109T091537Z\\US_NFP_20261106\\20261106T133000Z.json",
+          "source_sha256": "0ede493f009391423686afed79fad8e59ccea7d75b811301966315b19669073f",
+          "source_json_pointer": "/intraday_reaction/markets/XAUUSD/returns_pct",
+          "event_id": "US_NFP_20261106",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 266
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables\\20261109T091537Z\\US_NFP_20261106\\20261106T133000Z.json",
+          "source_sha256": "0ede493f009391423686afed79fad8e59ccea7d75b811301966315b19669073f",
+          "source_json_pointer": "/intraday_reaction/markets/US500/returns_pct",
+          "event_id": "US_NFP_20261106",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 265
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables\\20261109T091537Z\\US_NFP_20261106\\20261106T133000Z.json",
+          "source_sha256": "0ede493f009391423686afed79fad8e59ccea7d75b811301966315b19669073f",
+          "source_json_pointer": "/intraday_reaction/markets/USOIL/returns_pct",
+          "event_id": "US_NFP_20261106",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 261
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\main-event-forecast-scores\\event-scores-US_NFP_20261106-20261109T091537Z.json",
+          "source_sha256": "97f878d3f3437a90730eb94919846f125643b17b230acc74f43b75aea80767c5",
+          "source_json_pointer": "/scores/36",
+          "event_id": "US_NFP_20261106",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 595
+            }
+          ]
+        }
+      ],
+      "supporting_headline_ids": [
+        "bls-october-release",
+        "bls-october-sectors"
+      ]
+    }
+  ]
+}

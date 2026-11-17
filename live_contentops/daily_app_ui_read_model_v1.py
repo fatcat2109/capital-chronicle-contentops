@@ -652,7 +652,7 @@ def build_daily_app_snapshot(
             work_items = _rows(conn, "SELECT * FROM work_items ORDER BY updated_at DESC, work_item_id")
             transitions = _rows(conn, "SELECT event_id,work_item_id,event_kind,event_seq,from_state,to_state,reason_code,policy_version,model_version,timestamp_utc,event_hash FROM transition_events ORDER BY timestamp_utc DESC,event_id DESC")
             heartbeats = _rows(conn, "SELECT heartbeat_id,worker_id,last_seen_at,status FROM heartbeats ORDER BY last_seen_at DESC")
-            invocations = _rows(conn, "SELECT invocation_id,work_item_id,model_id,prompt_tokens,completion_tokens,invoked_at FROM model_invocations ORDER BY invoked_at DESC")
+            invocations = _rows(conn, "SELECT * FROM model_invocations ORDER BY invoked_at DESC")
             outbox = {row["message_id"]: row for row in _rows(conn, "SELECT message_id,work_item_id,destination,status,payload,created_at FROM outbox_messages")}
             dispatch_rows = _rows(conn, "SELECT * FROM platform_dispatches ORDER BY dispatched_at DESC,dispatch_id DESC")
             readbacks = _rows(conn, "SELECT readback_id,dispatch_id,readback_data,read_at FROM readbacks ORDER BY read_at DESC")
@@ -1100,8 +1100,13 @@ def build_daily_app_snapshot(
         _iso(datetime.fromtimestamp(float(epoch["metric_value"]), tz=timezone.utc)) if epoch else None
     )
     latest_transition = transitions[0] if transitions else None
-    prompt_tokens = sum(int(row.get("prompt_tokens") or 0) for row in invocations)
-    completion_tokens = sum(int(row.get("completion_tokens") or 0) for row in invocations)
+    usage_records = [_json(row.get("usage_metadata_json"), {}) or {
+        "prompt_tokens": row.get("prompt_tokens"), "completion_tokens": row.get("completion_tokens"),
+        "cost_usd": None} for row in invocations]
+    prompt_tokens = (sum(row["prompt_tokens"] for row in usage_records)
+                     if all(row.get("prompt_tokens") is not None for row in usage_records) else None)
+    completion_tokens = (sum(row["completion_tokens"] for row in usage_records)
+                         if all(row.get("completion_tokens") is not None for row in usage_records) else None)
 
     headline_ingestion_state = {
         "lane_state": "UNAVAILABLE",
@@ -1666,7 +1671,13 @@ def build_daily_app_snapshot(
             "provider_invocation_count": len(invocations),
             "prompt_tokens": prompt_tokens,
             "completion_tokens": completion_tokens,
-            "cost_metadata": "COST_METADATA_UNAVAILABLE",
+            "cost_metadata": ("OBSERVED_RUN_COST" if usage_records and all(row.get("cost_usd") is not None for row in usage_records)
+                              else "PARTIAL_COST_METADATA" if any(row.get("cost_usd") is not None for row in usage_records)
+                              else "COST_METADATA_UNAVAILABLE"),
+            "cost_usd": (sum(row["cost_usd"] for row in usage_records)
+                         if usage_records and all(row.get("cost_usd") is not None for row in usage_records) else None),
+            "piece_usage": [{"work_item_id": row["work_item_id"], "invocation_id": row["invocation_id"], **usage}
+                            for row, usage in zip(invocations, usage_records)],
             "operator_cockpit": cockpit,
         },
         "today": {

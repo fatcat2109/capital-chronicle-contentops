@@ -89,6 +89,15 @@ def test_first_sentence_contains_our_call(opening):
     assert "FIRST_SENTENCE_OUR_CALL_REQUIRED" in check_article(article, docs)
 
 
+def test_event_review_writing_date_notice_precedes_the_actual_first_person_call():
+    article, docs = daily()
+    article["article_type"] = "EVENT_REVIEW"
+    article["substack_body_markdown"] = "Retrospective analysis, written on 14 November 2026 (ET)\n\n" + article["substack_body_markdown"]
+    assert "FIRST_SENTENCE_OUR_CALL_REQUIRED" not in check_article(article, docs)
+    article["substack_body_markdown"] = article["substack_body_markdown"].replace("We think lower", "The report shows lower", 1)
+    assert "FIRST_SENTENCE_OUR_CALL_REQUIRED" in check_article(article, docs)
+
+
 def test_second_scenario_heading_or_repeated_probability_set_is_refused():
     article, docs = daily()
     article["substack_body_markdown"] += "\n\n## Earlier scenarios\n\nA second set."
@@ -300,13 +309,21 @@ def test_existing_publication_status_separates_exact_clock_from_readback_upper_b
         assert timing["seconds_from_data"] is None
 
 
-@pytest.mark.parametrize("status,excluded", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
-def test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target(status, excluded):
+@pytest.mark.parametrize("status", ["DEFINITE_NO_WRITE", "UNKNOWN_WRITE"])
+@pytest.mark.parametrize("barred", [False, True])
+def test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target(status, barred, monkeypatch):
+    from live_contentops import destination_transport_registry_v1 as registry
     from live_contentops.native_publication_latency_v1 import publication_timing as status_timing
+    # Decision 121 reopened YouTube; exercise both policy epochs explicitly.
+    cause = "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
+    monkeypatch.setattr(registry, "barred_browser_destinations", lambda: {"youtube": cause} if barred else {})
     entry = {"destination": "youtube", "status": status, "dispatch_id": "attempt", "public_object_id": None}
     result = status_timing([], [], run_id="note", destinations=[entry])
-    assert result["channels"][0]["status"] == status
-    assert result["channels"][0]["skipped"] is excluded
+    channel = result["channels"][0]
+    assert channel["status"] == status
+    excluded = barred and status == "DEFINITE_NO_WRITE"
+    assert channel["skipped"] is excluded
+    assert channel.get("excluded_from_timing_due_to") == (cause if excluded else None)
 
 
 @pytest.mark.parametrize("fault", [None, "internal_title", "missing_error"])

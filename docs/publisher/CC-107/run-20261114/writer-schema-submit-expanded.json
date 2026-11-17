@@ -1,0 +1,13 @@
+{
+  "stage": "write",
+  "response_sha256": "7302fea8577ca22d2a7dab22b06ab622b2fed84e83e5c6b9a8a2159b06b72828",
+  "public_write_performed": false,
+  "agy_light_assist": {
+    "status": "AGY_UNAVAILABLE",
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\agy-light-assist\\d9720999a9112465f107bc7fb19d4f28bbad8327a182888a9a6fed790f52273a\\agy_light_assist_v1.json",
+    "prompt_sha256": "d9720999a9112465f107bc7fb19d4f28bbad8327a182888a9a6fed790f52273a",
+    "flags": [],
+    "cause": "AGY_TIMEOUT_120S"
+  },
+  "agy_next_action": "Read the saved suggestions; agy-review records each flag decision and chosen outputs before advance. A failure never holds the article."
+}

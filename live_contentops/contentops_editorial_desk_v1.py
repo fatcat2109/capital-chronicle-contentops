@@ -269,7 +269,11 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
             "permitted_source_text": text, "supporting_headline_ids": [],
             "research_metadata": {"event_id": event_id, "article_type": article_type,
                 "preparation_message_id": message_id}}
-    if consensus := packet.get("single_consensus_fact"):
+    consensus = packet.get("single_consensus_fact")
+    # A review may reuse the originally sealed fact. It must not reopen a mutable
+    # consensus index and mistake today's projection for the pre-event vintage.
+    # Main's scored comparisons and the rest of the held review remain usable.
+    if consensus and (article_type == "EVENT_PREVIEW" or consensus.get("retained_record")):
         consensus = _retain_consensus_fact(consensus, cutoff_utc=cutoff_utc,
                                          event_time_utc=packet["planned_release_utc"])
         row = consensus["retained_record"]

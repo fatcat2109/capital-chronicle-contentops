@@ -1,0 +1,96 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\CL1!_2026-11-11_04-11-14.png",
+  "sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57",
+  "width": 1524,
+  "height": 856,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1448,
+      768
+    ],
+    "axis_origin": [
+      1448,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -28.748596849653442,
+    "intercept": 3119.3725155353895,
+    "max_label_error_px": 0.7559716445985032,
+    "grid_checks": [
+      {
+        "price": 86.0,
+        "page_y_in_download": 646.7993747039317,
+        "grid_y": 647,
+        "error_px": 0.20062529606832413
+      },
+      {
+        "price": 88.0,
+        "page_y_in_download": 589.327086688773,
+        "grid_y": 589,
+        "error_px": 0.3270866887729653
+      },
+      {
+        "price": 92.0,
+        "page_y_in_download": 474.38251065845554,
+        "grid_y": 474,
+        "error_px": 0.3825106584555442
+      },
+      {
+        "price": 94.0,
+        "page_y_in_download": 416.91022264329683,
+        "grid_y": 417,
+        "error_px": 0.08977735670316633
+      },
+      {
+        "price": 96.0,
+        "page_y_in_download": 359.4379346281381,
+        "grid_y": 359,
+        "error_px": 0.4379346281381231
+      },
+      {
+        "price": 98.0,
+        "page_y_in_download": 301.9656466129795,
+        "grid_y": 302,
+        "error_px": 0.03435338702047375
+      },
+      {
+        "price": 100.0,
+        "page_y_in_download": 244.49335859782082,
+        "grid_y": 244,
+        "error_px": 0.4933585978208157
+      },
+      {
+        "price": 102.0,
+        "page_y_in_download": 187.0210705826621,
+        "grid_y": 187,
+        "error_px": 0.021070582662105153
+      },
+      {
+        "price": 104.0,
+        "page_y_in_download": 129.5487825675035,
+        "grid_y": 130,
+        "error_px": 0.4512174324964917
+      },
+      {
+        "price": 106.0,
+        "page_y_in_download": 72.07649455234468,
+        "grid_y": 72,
+        "error_px": 0.07649455234468405
+      }
+    ],
+    "source_sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57"
+  },
+  "tv_symbol": "NYMEX:CL1!",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "CL1! 86.59 \u25b2 +0.64%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+  "suggested_filename": "CL1!_2026-11-11_04-11-14.png",
+  "captured_at_utc": "2026-11-11T04:11:14.882611+00:00",
+  "seconds": 16.6
+}

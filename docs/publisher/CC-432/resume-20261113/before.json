@@ -1,0 +1,43 @@
+{
+  "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+  "link_outbox_status": "EDITORIAL_INTERNAL",
+  "link_status": {
+    "confirmed": false,
+    "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+    "public_object_id": null,
+    "public_object_url": null
+  },
+  "page_status": {
+    "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+    "plan_id": "plan_230a9464a193ca7a377d0c41",
+    "confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+    "dispatch": {
+      "dispatch_id": "dispatch_0f71e132c94187d4e9c1835990c41f44",
+      "message_id": "outbox_0f71e132c94187d4e9c1835990c41f44",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T16:32:05.276158+00:00",
+      "public_object_id": "224627730",
+      "public_object_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "public_object_url_hash": "dbc511106685951a6388db3773f9b902d53437ebc905e56ee7fc5c4aabe6b571"
+    },
+    "reconciliation": {
+      "reconciliation_id": "reconciliation_0f71e132c94187d4e9c1835990c41f44",
+      "work_item_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-12T17:02:54.128727+00:00"
+    }
+  },
+  "parent": {
+    "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+    "public_object_id": "1570498124391125187",
+    "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187"
+  },
+  "discord_thread_parent_id": "1570498124391125187",
+  "original_key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+  "payload_sha256": "7e1b35df186d4b43912c0eb7728fa258bf19668966d010a2373c84486e507c98",
+  "link_plan_hash": "b752e59ab08258f89ff96c3105b33d30c2ae2642ca38200216ab7154f07abea3",
+  "native_payload_text": "Gold: Our bearish plan, 3954\u20133964 entry, 4004 invalidation.\nMacro: We account for euro area growth during the window and finish before United States producer inflation.\nPriced in: We see repricing already underway, tempered by the extent of the decline and unresolved talks.\nPositioning: We retain buying by investors closing bearish bets as a reversal mechanism without claiming those holdings are crowded.\nFear: We see failed talks and buying by bearish investors as reasons gold could rebound.\nStory: We retain the bearish explanation while acknowledging that the supplied historical review did not establish a dependable advantage.\nScenarios: We retain Main at 55% and leave the supplied rebound alternative unquantified.\nFull analysis: https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+  "source_time": "2026-11-12T18:00:10.913228+00:00"
+}

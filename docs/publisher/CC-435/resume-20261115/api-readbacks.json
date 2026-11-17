@@ -1,0 +1,67 @@
+{
+  "item": "CC-435",
+  "routes": [
+    {
+      "destination": "discord",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+      "started_at_utc": "2026-11-15T12:46:07.656377+00:00",
+      "ended_at_utc": "2026-11-15T12:46:12.645750+00:00",
+      "before": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:00:21.378519+00:00",
+        "public_object_id": "1570672638332772352",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352"
+      },
+      "result": {
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "destination": "discord",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_write_performed": false,
+        "publish_called": false
+      },
+      "after": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:00:21.378519+00:00",
+        "public_object_id": "1570672638332772352",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352"
+      }
+    },
+    {
+      "destination": "threads",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+      "started_at_utc": "2026-11-15T12:46:12.830912+00:00",
+      "ended_at_utc": "2026-11-15T12:46:14.940141+00:00",
+      "before": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:02:07.217716+00:00",
+        "public_object_id": "18346683595249062",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4"
+      },
+      "result": {
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "destination": "threads",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_write_performed": false,
+        "publish_called": false
+      },
+      "after": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:02:07.217716+00:00",
+        "public_object_id": "18346683595249062",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4"
+      }
+    }
+  ]
+}

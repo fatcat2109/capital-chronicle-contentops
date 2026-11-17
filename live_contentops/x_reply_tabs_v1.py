@@ -348,11 +348,18 @@ class NeoReplyTabs:
             return "READY_FOR_JIM"
         return "DRAFT_NOT_RETAINED"
 
-    def capture_inputs(self, store, root):
+    def capture_inputs(self, store, root, *, include_mentions=True, max_details=MAX_TABS,
+                       group_title=None):
         """Reuse the held observer with bounded visible own-reply and mention rows."""
-        page = self._open("https://x.com/Capitalnicle/with_replies")
-        self.client.call("tab_groups", {"action": "create", "pages": [page],
-                                         "title": "codex/cc458-reply-readback"})
+        group = None
+        if group_title:
+            groups = self.client.text(self.client.call("tab_groups", {"action": "list"}))
+            match = re.search(r'^\[([^]]+)\] "' + re.escape(group_title) + r'"', groups, re.M)
+            group = match[1] if match else None
+        page = self._open("https://x.com/Capitalnicle/with_replies", group)
+        if not group:
+            self.client.call("tab_groups", {"action": "create", "pages": [page],
+                                             "title": group_title or "codex/cc458-reply-readback"})
         try:
             self.wait_ready(page, 'article[data-testid="tweet"], [data-testid="emptyState"], a[href="/login"]')
             profile = self.inspect(page)
@@ -373,7 +380,7 @@ class NeoReplyTabs:
             for row in [*due, *own]:
                 if row["tweet_id"] in visited:
                     continue
-                if len(visited) >= MAX_TABS:
+                if len(visited) >= max_details:
                     break
                 visited.add(row["tweet_id"])
                 self.client.call("navigate", {"page": page, "url": row["url"]})
@@ -381,9 +388,11 @@ class NeoReplyTabs:
                 detail = self.inspect(page)
                 replies.extend(r for r in detail["rows"] if r["tweet_id"] == row["tweet_id"]
                                and r.get("in_reply_to_status_id") in targets)
-            self.client.call("navigate", {"page": page, "url": "https://x.com/notifications/mentions"})
-            self.wait_ready(page, 'article[data-testid="tweet"], [data-testid="emptyState"], a[href="/login"]')
-            mentions = self.inspect(page)["rows"]
+            mentions = []
+            if include_mentions:
+                self.client.call("navigate", {"page": page, "url": "https://x.com/notifications/mentions"})
+                self.wait_ready(page, 'article[data-testid="tweet"], [data-testid="emptyState"], a[href="/login"]')
+                mentions = self.inspect(page)["rows"]
             reply_path, mention_path = Path(root) / "neo-replies.json", Path(root) / "neo-mentions.json"
             packs.save_json(reply_path, {"generated_at_utc": now.isoformat(), "rows": replies})
             packs.save_json(mention_path, {"generated_at_utc": now.isoformat(), "rows": mentions})

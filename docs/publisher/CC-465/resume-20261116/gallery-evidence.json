@@ -1,0 +1,1052 @@
+{
+  "recorded_at_utc": "2026-11-15T22:56:52.504221+00:00",
+  "public_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "sha256": "c8e41b54800932e197fbb0458d25b04cf85ab3ba4306e21d55a82f59d2b5720a",
+    "generated_at_utc": "2026-11-15T22:55:52.836457Z"
+  },
+  "weekly": {
+    "calls_closed": 6,
+    "hit_rate_pct": 16.7,
+    "total_r": -3.495787166422587,
+    "avg_r": -0.5826311944037644,
+    "start": "2026-11-06",
+    "end": "2026-11-12",
+    "rows": 6,
+    "original_probability_absent": 2
+  },
+  "images": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-xauusd-call-1-W.png",
+      "sha256": "82600bfea91cbaab052a3a86fb8dbdd2a2bba6a848694d895ec90df8a7a7daa5",
+      "bytes": 116339,
+      "template": "call",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "82600bfea91cbaab052a3a86fb8dbdd2a2bba6a848694d895ec90df8a7a7daa5",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-xauusd-call-1-T.png",
+      "sha256": "02a391d4c6f08fff8077033d7457931d55c19639f0534e1b3a0e5baf1eae76d8",
+      "bytes": 109391,
+      "template": "call",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "02a391d4c6f08fff8077033d7457931d55c19639f0534e1b3a0e5baf1eae76d8",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-xauusd-expiry-result-1-W.png",
+      "sha256": "25745e7b4719a28d9494f089fb59b8d9d2636fb2d1f70b378d07dba56360dcab",
+      "bytes": 102801,
+      "template": "result",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "25745e7b4719a28d9494f089fb59b8d9d2636fb2d1f70b378d07dba56360dcab",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-xauusd-expiry-result-1-T.png",
+      "sha256": "4cad51066532a8569027f5774f8b2910448f1517d72554acb1a5176bfc6acf9b",
+      "bytes": 100521,
+      "template": "result",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "4cad51066532a8569027f5774f8b2910448f1517d72554acb1a5176bfc6acf9b",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-us500-call-1-W.png",
+      "sha256": "a55a6b024f17b637e285e44e8fb845ae9f481bf2c0b0553afb0a06c4dd98635e",
+      "bytes": 122158,
+      "template": "call",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "a55a6b024f17b637e285e44e8fb845ae9f481bf2c0b0553afb0a06c4dd98635e",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-us500-call-1-T.png",
+      "sha256": "8de554c193bd11a7027dded90c5471b12e7fccbf04d4dc77da690ba4d727f3e7",
+      "bytes": 106596,
+      "template": "call",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "8de554c193bd11a7027dded90c5471b12e7fccbf04d4dc77da690ba4d727f3e7",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-us500-expiry-result-1-W.png",
+      "sha256": "332856d8d95c778f937fd6b12eb2f97c43555d4280ca776c07016fd5ca25360d",
+      "bytes": 107138,
+      "template": "result",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "332856d8d95c778f937fd6b12eb2f97c43555d4280ca776c07016fd5ca25360d",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-us500-expiry-result-1-T.png",
+      "sha256": "60e54fe8ee45986822440dc7941169caa2ce7f92cd65ee58f9abfd4813d84dd3",
+      "bytes": 97110,
+      "template": "result",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "60e54fe8ee45986822440dc7941169caa2ce7f92cd65ee58f9abfd4813d84dd3",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-eurusd-call-1-W.png",
+      "sha256": "f00ea64ec01be4f4ae905fc198647f1a3ec8066e7974cb52214358915cae3cd7",
+      "bytes": 105408,
+      "template": "call",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "f00ea64ec01be4f4ae905fc198647f1a3ec8066e7974cb52214358915cae3cd7",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-eurusd-call-1-T.png",
+      "sha256": "e4099a21916298df7021f83286d569e5f7166c811305a1f8126a67143c5be566",
+      "bytes": 104843,
+      "template": "call",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "e4099a21916298df7021f83286d569e5f7166c811305a1f8126a67143c5be566",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-eurusd-expiry-result-1-W.png",
+      "sha256": "424e0ee2ae7b765a6d5aa56abb431c3d228fea44494f374ac36807222f059231",
+      "bytes": 93418,
+      "template": "result",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "424e0ee2ae7b765a6d5aa56abb431c3d228fea44494f374ac36807222f059231",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-eurusd-expiry-result-1-T.png",
+      "sha256": "ebf1f0a0ee83325e16ddbe073b8ae6ed50e0098cb5fd65cec55ce15ec90298d5",
+      "bytes": 97293,
+      "template": "result",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "ebf1f0a0ee83325e16ddbe073b8ae6ed50e0098cb5fd65cec55ce15ec90298d5",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-usdjpy-call-1-W.png",
+      "sha256": "496ad6ba92bfb97a36b21eb9c2396c6b2b6fde853a344f56e12bc62b8e43f4c7",
+      "bytes": 113147,
+      "template": "call",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "496ad6ba92bfb97a36b21eb9c2396c6b2b6fde853a344f56e12bc62b8e43f4c7",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-usdjpy-call-1-T.png",
+      "sha256": "ad3199d93f6c5b176e8588ebdeb75efd20d8ba3af8784867f58ff8ce1744e66a",
+      "bytes": 111829,
+      "template": "call",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "ad3199d93f6c5b176e8588ebdeb75efd20d8ba3af8784867f58ff8ce1744e66a",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-usdjpy-expiry-result-1-W.png",
+      "sha256": "da99de748ad3d03a209c40c345046aa748d49ebec7d3dd64436691c04257eba8",
+      "bytes": 99903,
+      "template": "result",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "da99de748ad3d03a209c40c345046aa748d49ebec7d3dd64436691c04257eba8",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-usdjpy-expiry-result-1-T.png",
+      "sha256": "ff774ef34d963add7369cd1ecbe1ab7fe3b271c011b678653948b82b11e1136a",
+      "bytes": 102647,
+      "template": "result",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "ff774ef34d963add7369cd1ecbe1ab7fe3b271c011b678653948b82b11e1136a",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-usoil-call-1-W.png",
+      "sha256": "d63d575024007b2c188986d6384887a7348bf04260224e57bc1ad06837bb694e",
+      "bytes": 119156,
+      "template": "call",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "d63d575024007b2c188986d6384887a7348bf04260224e57bc1ad06837bb694e",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-usoil-call-1-T.png",
+      "sha256": "b33c99267e0655192cdf25d13781852c0912bff3b384e2f1e8f389dd816b09b7",
+      "bytes": 104009,
+      "template": "call",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "b33c99267e0655192cdf25d13781852c0912bff3b384e2f1e8f389dd816b09b7",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-btcusd-call-1-W.png",
+      "sha256": "2b766c4640daf7db0e666d5708aa63a54b8114ec4472d1b7e9b035c031fd8b9a",
+      "bytes": 114736,
+      "template": "call",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "2b766c4640daf7db0e666d5708aa63a54b8114ec4472d1b7e9b035c031fd8b9a",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-btcusd-call-1-T.png",
+      "sha256": "7f642670779102eb7915a4bcc4c8c0768f4624383ccba307f16be61ff916b866",
+      "bytes": 99594,
+      "template": "call",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "7f642670779102eb7915a4bcc4c8c0768f4624383ccba307f16be61ff916b866",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "call",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-btcusd-expiry-result-1-W.png",
+      "sha256": "b18f9adab8ee8a520add202c0cf248eaf41792b7ec723ec031ad6c743f75282a",
+      "bytes": 101590,
+      "template": "result",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "b18f9adab8ee8a520add202c0cf248eaf41792b7ec723ec031ad6c743f75282a",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-btcusd-expiry-result-1-T.png",
+      "sha256": "ade67901973c1cb7e627d9e4b55639ca99b8e607a5cce99e4457d6ddc8281b70",
+      "bytes": 91417,
+      "template": "result",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "ade67901973c1cb7e627d9e4b55639ca99b8e607a5cce99e4457d6ddc8281b70",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "result",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-retained-cpi-layout-event-1-W.png",
+      "sha256": "845388bf50851affbe13bbfc58849a7b74bc18b55a02fd9e6467daed0702fe8f",
+      "bytes": 77143,
+      "template": "event",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "845388bf50851affbe13bbfc58849a7b74bc18b55a02fd9e6467daed0702fe8f",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "event",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-retained-cpi-layout-event-2-W.png",
+      "sha256": "73eb130ca84eafb6073ecffef5678c174a8d290c1229c8523a507783f718d45f",
+      "bytes": 98028,
+      "template": "event",
+      "master": "W",
+      "image_number": 2,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "73eb130ca84eafb6073ecffef5678c174a8d290c1229c8523a507783f718d45f",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "event",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-retained-cpi-layout-event-1-T.png",
+      "sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+      "bytes": 86764,
+      "template": "event",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "event",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.png",
+      "sha256": "2e5715589e4f45831faf6438618cb6c97342293a1106368af89837e29340d0a3",
+      "bytes": 93715,
+      "template": "event",
+      "master": "T",
+      "image_number": 2,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "2e5715589e4f45831faf6438618cb6c97342293a1106368af89837e29340d0a3",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "event",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-exported-weekly-20261112-weekly-1-W.png",
+      "sha256": "7d8967db7ab2eef1a95c7cb605a053bb407506f8252fa2bf8d14aef695982054",
+      "bytes": 127813,
+      "template": "weekly",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "7d8967db7ab2eef1a95c7cb605a053bb407506f8252fa2bf8d14aef695982054",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "weekly",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-exported-weekly-20261112-weekly-2-W.png",
+      "sha256": "e60f7f45b26ae5fd1d68af7fd4f6b0c70da572fc845911d68453156afec6d9a9",
+      "bytes": 118645,
+      "template": "weekly",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "e60f7f45b26ae5fd1d68af7fd4f6b0c70da572fc845911d68453156afec6d9a9",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "weekly",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-exported-weekly-20261112-weekly-1-T.png",
+      "sha256": "6daad4134a9bf7be246b5cc7abc644a31a6e6facffb1c57329a4f35bc16ebf84",
+      "bytes": 138621,
+      "template": "weekly",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "6daad4134a9bf7be246b5cc7abc644a31a6e6facffb1c57329a4f35bc16ebf84",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "weekly",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-exported-weekly-20261112-weekly-2-T.png",
+      "sha256": "2f495d868b6c60fed3eff7b536df1ab5dec38b20ae12c0b7b51bc7864d207796",
+      "bytes": 124709,
+      "template": "weekly",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "2f495d868b6c60fed3eff7b536df1ab5dec38b20ae12c0b7b51bc7864d207796",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "weekly",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "score": 10,
+        "passed": true,
+        "causes": []
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-held-map-map-1-W.png",
+      "sha256": "3234e8b658df9e116bff801d52261e2c79314f28ea1fc03b6c7b7284f47db277",
+      "bytes": 71451,
+      "template": "map",
+      "master": "W",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "3234e8b658df9e116bff801d52261e2c79314f28ea1fc03b6c7b7284f47db277",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "map",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": false,
+          "10": true
+        },
+        "score": 9,
+        "passed": false,
+        "causes": [
+          "MORNING_MAP_CHANGE_NOT_EXPORTED"
+        ]
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-held-map-map-2-W.png",
+      "sha256": "d5a36e05d1865354e599b0bdc63e5c3583c6b12a967fb791d1a6b7b52e59a261",
+      "bytes": 96858,
+      "template": "map",
+      "master": "W",
+      "image_number": 2,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "d5a36e05d1865354e599b0bdc63e5c3583c6b12a967fb791d1a6b7b52e59a261",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "map",
+        "master": "W",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": false,
+          "10": true
+        },
+        "score": 9,
+        "passed": false,
+        "causes": [
+          "MORNING_MAP_CHANGE_NOT_EXPORTED",
+          "MORNING_MAP_STATE_NOT_EXPORTED"
+        ]
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-held-map-map-1-T.png",
+      "sha256": "3e28557452203f750ad56b85d7df83582c57e947539f6df67fdb508c96329a09",
+      "bytes": 87237,
+      "template": "map",
+      "master": "T",
+      "image_number": 1,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "3e28557452203f750ad56b85d7df83582c57e947539f6df67fdb508c96329a09",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "map",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": false,
+          "10": true
+        },
+        "score": 9,
+        "passed": false,
+        "causes": [
+          "MORNING_MAP_CHANGE_NOT_EXPORTED"
+        ]
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-held-map-map-2-T.png",
+      "sha256": "80ec092e836e590660355e412bf26acb8bd2689c58049ad7cd9f9d52a0475af3",
+      "bytes": 96093,
+      "template": "map",
+      "master": "T",
+      "image_number": 2,
+      "code": {
+        "policy": "CC465_IMAGE_TEMPLATES_V1",
+        "image_sha256": "80ec092e836e590660355e412bf26acb8bd2689c58049ad7cd9f9d52a0475af3",
+        "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+        "template": "map",
+        "master": "T",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": false,
+          "10": true
+        },
+        "score": 9,
+        "passed": false,
+        "causes": [
+          "MORNING_MAP_CHANGE_NOT_EXPORTED",
+          "MORNING_MAP_STATE_NOT_EXPORTED"
+        ]
+      }
+    }
+  ],
+  "render_failures": [],
+  "limit": "Held original snapshots and original plan/event inputs retain their clocks. They show layout; this is neither a fresh market report nor a historical entry/exit chart. Missing morning-map inputs remain held. No template acceptance or publication is recorded."
+}

@@ -1,0 +1,92 @@
+{
+  "item": "CC-646",
+  "phase": "status",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "observed_at_utc": "2026-11-17T12:46:49.125625+00:00",
+  "result": {
+    "original": [
+      {
+        "dispatch_id": "dispatch_12ea82f6e386fcef210372ff7f0489db",
+        "message_id": "outbox_12ea82f6e386fcef210372ff7f0489db",
+        "platform": "threads",
+        "status": "DEFINITE_NO_WRITE",
+        "dispatched_at": "2026-11-17T12:43:33.376578+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      {
+        "dispatch_id": "dispatch_6145c8101fc4e158e1e4cbd01e59e9de",
+        "message_id": "outbox_6145c8101fc4e158e1e4cbd01e59e9de",
+        "platform": "x",
+        "status": "DEFINITE_NO_WRITE",
+        "dispatched_at": "2026-11-17T12:43:33.386551+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      {
+        "dispatch_id": "dispatch_898f92143aa08dc4ec9e4d2ce007ef53",
+        "message_id": "outbox_898f92143aa08dc4ec9e4d2ce007ef53",
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-17T07:03:01.709560+00:00",
+        "public_object_id": "1572145031173906523",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572145031173906523",
+        "public_object_url_hash": "ac17255ecdd463fdba3e5a35a245f3b0f75fdb2d173de539237ac9d828f4ce2e"
+      },
+      {
+        "dispatch_id": "dispatch_946c1bec34a0404f6aceef5d5bb4653c",
+        "message_id": "outbox_946c1bec34a0404f6aceef5d5bb4653c",
+        "platform": "instagram_business",
+        "status": "DEFINITE_NO_WRITE",
+        "dispatched_at": "2026-11-17T12:43:33.362393+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      {
+        "dispatch_id": "dispatch_b0412d722deb90461f2444cc1b4baa45",
+        "message_id": "outbox_b0412d722deb90461f2444cc1b4baa45",
+        "platform": "facebook_page",
+        "status": "DEFINITE_NO_WRITE",
+        "dispatched_at": "2026-11-17T12:43:33.349502+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      {
+        "dispatch_id": "dispatch_c9b78a917d4d8cefa0f4e48cdcba42d0",
+        "message_id": "outbox_c9b78a917d4d8cefa0f4e48cdcba42d0",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-17T07:03:09.371289+00:00",
+        "public_object_id": "189",
+        "public_object_url": "https://t.me/CapitalChronicle/189",
+        "public_object_url_hash": "0d8d1f66629ac258a97785fdce95079094dc8bf819d7f4ad4c75410555b8ce3e"
+      }
+    ],
+    "correction": [
+      {
+        "dispatch_id": "dispatch_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+        "message_id": "outbox_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-17T12:46:12.029074+00:00",
+        "public_object_id": "192",
+        "public_object_url": "https://t.me/CapitalChronicle/192",
+        "public_object_url_hash": "9c0ee869bcd3c934b475314b1b380023c6f8a76a2d3d5fe6859896015d7b49bc"
+      },
+      {
+        "dispatch_id": "dispatch_71f22afb4456f294101dc454a21e5a7c",
+        "message_id": "outbox_71f22afb4456f294101dc454a21e5a7c",
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-17T12:46:04.398770+00:00",
+        "public_object_id": "1572231357072015371",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572231357072015371",
+        "public_object_url_hash": "a4acfe3c80b52d8ec9dc63847ead1514278fd8cdf46befcc157b2351716f5370"
+      }
+    ]
+  }
+}

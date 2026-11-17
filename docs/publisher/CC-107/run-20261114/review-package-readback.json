@@ -1,0 +1,159 @@
+{
+  "operation_id": "cc107-nfp-dated-review-20261114-v1",
+  "observed_at_utc": "2026-11-14T14:03:54.025735+00:00",
+  "installed_root": "A:\\Capital Chronicle\\ContentOps",
+  "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+  "package_revision": "6bf246caee2aefa856afcd6a50e8cc66333aec24deafe5569a872d917e1a4be9",
+  "source_count": 9,
+  "source_hashes_match": true,
+  "reader_findings": [],
+  "media": {
+    "standard": "DATA_JOURNALISM_V1",
+    "photo_count": 0,
+    "chart_count": 4,
+    "fact_card_count": 0,
+    "data_card_count": 1
+  },
+  "automated_image_check": {
+    "policy": "JIM_DECISION_53",
+    "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+    "findings": [
+      {
+        "asset_id": "post-facts-e6558e383ca6d733554e",
+        "sha256": "c618194906d0c739f62b319c95252887e26cc2d0effefbc97c114bdedd136242",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1080,
+        "height": 1350,
+        "expected_dimensions": [
+          1080,
+          1350
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "nfp_review_payroll_history_r2",
+        "sha256": "5a4b6b72ea0b02cc56d96ab16de338aebe5b675ae13270048020f27dbdd5a2c2",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "nfp_review_unemployment_history_r2",
+        "sha256": "b32304962966968ce1c609319f60ef0650bb5b97e5da731178b731ee4c7b93db",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "nfp_review_october_industries",
+        "sha256": "84b100bb831608ad84d1ff92f9e0560a52e4436d6b402d2f2876dfd6cfe980a8",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      },
+      {
+        "asset_id": "nfp_review_first_hour_reactions_r2",
+        "sha256": "70b38b99b4812c620c09e013bb9f48a3a1b5871123490196e139efd648c9dcd5",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1440,
+        "height": 1040,
+        "expected_dimensions": [
+          1440,
+          1040
+        ],
+        "right_size": true,
+        "status": "PASS"
+      }
+    ],
+    "failures_logged_no_repair_loop": 0,
+    "blocks_publication": false
+  },
+  "data_cutoff_utc": null,
+  "publication_clock_check": "ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE",
+  "media_repair_rounds": 1,
+  "derivative_preview_count": 8,
+  "media_assets": [
+    {
+      "asset_id": "post-facts-e6558e383ca6d733554e",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\post-facts-e6558e383ca6d733554e.png",
+      "sha256": "c618194906d0c739f62b319c95252887e26cc2d0effefbc97c114bdedd136242",
+      "width": 1080,
+      "height": 1350,
+      "caption": "Key facts from the article.",
+      "alt_text": "Payrolls: **+165K** Unemployment rate: **4.1%**",
+      "source_page_url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+      "attribution": "Source: Capital Chronicle"
+    },
+    {
+      "asset_id": "nfp_review_payroll_history_r2",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\nfp_review_payroll_history_r2.png",
+      "sha256": "5a4b6b72ea0b02cc56d96ab16de338aebe5b675ae13270048020f27dbdd5a2c2",
+      "width": 1440,
+      "height": 1040,
+      "caption": "BLS dated first releases, October 2024\u2013September 2026. October's new result is separate; gaps remain gaps.",
+      "alt_text": "The payroll baseline before October. Twenty-four calendar months of first-print BLS observations, with missing periods left as gaps.",
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "attribution": "Source: BLS dated first releases (CC-010 archive). Missing months are gaps; no interpolation."
+    },
+    {
+      "asset_id": "nfp_review_unemployment_history_r2",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\nfp_review_unemployment_history_r2.png",
+      "sha256": "b32304962966968ce1c609319f60ef0650bb5b97e5da731178b731ee4c7b93db",
+      "width": 1440,
+      "height": 1040,
+      "caption": "BLS dated first releases, October 2024\u2013September 2026. October's new result is separate; gaps remain gaps.",
+      "alt_text": "The unemployment baseline before October. Twenty-four calendar months of first-print BLS observations, with missing periods left as gaps.",
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "attribution": "Source: BLS dated first releases (CC-010 archive). Missing months are gaps; no interpolation."
+    },
+    {
+      "asset_id": "nfp_review_october_industries",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\nfp_review_october_industries.png",
+      "sha256": "84b100bb831608ad84d1ff92f9e0560a52e4436d6b402d2f2876dfd6cfe980a8",
+      "width": 1440,
+      "height": 1040,
+      "caption": "October 2026 seasonally adjusted change, in thousands of jobs. Government and other categories are not shown; bars do not form a complete total.",
+      "alt_text": "October jobs changes: mining and logging minus one thousand, construction minus three thousand, manufacturing plus nineteen thousand and private services plus one hundred forty-four thousand.",
+      "source_page_url": "https://www.bls.gov/news.release/empsit.t17.htm",
+      "attribution": "Source: BLS October 2026 employment report, Table B-1. Selected disjoint groups; not a total."
+    },
+    {
+      "asset_id": "nfp_review_first_hour_reactions_r2",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\repair-1\\media_assets\\nfp_review_first_hour_reactions_r2.png",
+      "sha256": "70b38b99b4812c620c09e013bb9f48a3a1b5871123490196e139efd648c9dcd5",
+      "width": 1440,
+      "height": 1040,
+      "caption": "Capital Chronicle model estimate: computed reference-series changes from the November 6, 2026 release baseline. Co-movement does not establish causation. No first-day observation is implied.",
+      "alt_text": "Capital Chronicle model estimate compares five-minute and sixty-minute changes: the euro, gold and the S&P 500 reference were lower; dollar-yen was higher; oil reversed its initial rise.",
+      "source_page_url": "https://capitalchronicle.substack.com/",
+      "attribution": "Capital Chronicle model estimate. Changes from November 6, 2026, 08:30 ET; reference series, not execution returns."
+    }
+  ],
+  "public_write_performed": false,
+  "new_review_published": false,
+  "schedules_changed": false
+}

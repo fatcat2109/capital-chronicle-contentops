@@ -1,0 +1,36 @@
+{
+  "item": "CC-536",
+  "piece": 3,
+  "started_at_utc": "2026-11-17T11:14:57.257007+00:00",
+  "branch": "backlog/cc-536-piece-3-five-sessions",
+  "base_operating_head": "f0d083f095ff12d6f88276801b34d84b054c416a",
+  "fresh_remote_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "top_level_launch": {
+    "pid": 39072,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags read; inference-time telemetry unavailable."
+  },
+  "local_invocation_id": "exec-pid39072-20261117T111128Z",
+  "preserved_uncommitted_paths": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  ],
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "desktop_automation": false,
+  "backlog_claim_correction": {
+    "corrected_at_utc": "2026-11-17T12:18:46.026476+00:00",
+    "cause": "Initial edit matched the quoted Status example, leaving the actual Owner status unchanged.",
+    "repair": "Restored the exact cadence instruction and updated only the actual Owner status; no backdated claim."
+  }
+}

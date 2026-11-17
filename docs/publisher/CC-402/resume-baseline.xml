@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="23" time="29.619" timestamp="2026-11-12T01:50:17.724152+07:00" hostname="J-P"><testcase classname="tests.test_audience_collection_cc402" name="test_existing_consumer_collects_every_post_once_with_call_and_true_collection_clock" time="1.772" /><testcase classname="tests.test_audience_collection_cc402" name="test_unknown_write_never_earns_an_observation" time="1.572" /><testcase classname="tests.test_audience_collection_cc402" name="test_insights_are_collected_without_turning_a_reply_sample_into_total" time="0.005" /><testcase classname="tests.test_audience_collection_cc402" name="test_invocation_import_uses_retained_cost_and_does_not_price_unknown_usage" time="4.208" /><testcase classname="tests.test_audience_collection_cc402" name="test_comment_uses_its_own_counters_without_a_futile_media_insights_call" time="0.007" /><testcase classname="tests.test_audience_collection_cc402" name="test_weekly_digest_and_call_totals_use_store_observations_without_duplicating_carousel" time="1.799"><failure message="TypeError: 'NoneType' object is not subscriptable">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2157/test_weekly_digest_and_call_to0')
+
+    def test_weekly_digest_and_call_totals_use_store_observations_without_duplicating_carousel(tmp_path):
+        store = seed(tmp_path, ("threads", "telegram"))
+        run_collection(store, now=NOW, collector=lambda **_: {"status": "COLLECTED", "metrics": {"views": 2, "replies": 0},
+            "availability": {"views": "AVAILABLE", "replies": "AVAILABLE"}}, account_collector=lambda _: {"metrics": {"followers_count": 3}, "status": "COLLECTED"})
+        with store.get_read_only_connection() as conn:
+            rows = lambda table: [dict(r) for r in conn.execute("SELECT * FROM " + table)]
+            result = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
+                readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending="2026-11-11")
+        threads = next(r for r in result["channels"] if r["channel"] == "threads")
+        assert threads["posts_in_week"] == 1
+        assert threads["net_new_followers_or_members"] is None
+&gt;       assert threads["account_snapshot"]["metrics"]["followers_count"] == 3
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests\test_audience_collection_cc402.py:103: TypeError</failure></testcase><testcase classname="tests.test_audience_collection_cc402" name="test_identity_verified_damaged_post_is_observed_without_claiming_content_success" time="1.262"><failure message="TypeError: 'NoneType' object is not subscriptable">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2157/test_identity_verified_damaged0')
+
+    def test_identity_verified_damaged_post_is_observed_without_claiming_content_success(tmp_path):
+        store = seed(tmp_path, ("threads",))
+        with store.get_connection() as conn:
+            conn.execute("UPDATE reconciliations SET status='RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE'")
+            conn.execute("UPDATE readbacks SET readback_data=?", (json.dumps({"dispatch_id": "dispatch_threads", "destination": "threads",
+                "readback": {"verified": False, "identity_match": True, "observed_public_object_id": "100", "observed_public_object_url": "https://example.test/threads"}}),))
+        result = run_collection(store, now=NOW, collector=lambda **_: {"status": "COLLECTED", "metrics": {"views": 2},
+            "availability": {"views": "AVAILABLE"}}, account_collector=lambda _: {"metrics": {}, "status": "NOT_EXPOSED"})
+        assert result["collected"] == 1
+        assert store.list_performance_observations()[0]["learning_eligible"] == 0
+        with store.get_read_only_connection() as conn:
+            rows = lambda table: [dict(r) for r in conn.execute("SELECT * FROM " + table)]
+            report = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
+                readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending="2026-11-11")
+        assert report["content_incomplete_objects_included"] == 1
+&gt;       assert next(r for r in report["channels"] if r["channel"] == "threads")["native_counter_sums"]["views"] == 2
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests\test_audience_collection_cc402.py:124: TypeError</failure></testcase><testcase classname="tests.test_audience_collection_cc402" name="test_minute_consumer_still_collects_when_main_export_is_stale" time="6.795" /><testcase classname="tests.test_audience_collection_cc402" name="test_shared_carousel_keeps_both_call_links_but_counts_one_public_object" time="2.219"><failure message="TypeError: 'NoneType' object is not subscriptable">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2157/test_shared_carousel_keeps_bot0')
+
+    def test_shared_carousel_keeps_both_call_links_but_counts_one_public_object(tmp_path):
+        store = seed(tmp_path, ("instagram_business",))
+        store.register_outbox_message(message_id="card-two", work_item_id="work-instagram_business", destination="internal:plan-status-post",
+            payload=json.dumps({"plan_id": "plan-two", "short_id": "ef012345"}))
+        store.register_outbox_message(message_id="message-two", work_item_id="work-instagram_business", destination="instagram_business",
+            payload=json.dumps({"plan_status_post": "card-two", "native_payload": {"reuse_run_carousel": True}}))
+        with store.get_connection() as conn:
+            conn.execute("INSERT INTO platform_dispatches SELECT 'dispatch_two','message-two',platform,status,dispatched_at,public_object_id,public_object_url,public_object_url_hash FROM platform_dispatches LIMIT 1")
+            conn.execute("INSERT INTO readbacks VALUES ('read-two','dispatch_two','{\"verified\":true}','2026-11-10T06:01:00Z')")
+        store.register_reconciliation(reconciliation_id="reconciliation_two", work_item_id="work-instagram_business", status="RECONCILED_CONFIRMED")
+        calls = []
+        def collect(**kwargs):
+            calls.append(kwargs)
+            return {"status": "COLLECTED", "metrics": {"views": 6}, "availability": {"views": "AVAILABLE"}}
+        run_collection(store, now=NOW, collector=collect, account_collector=lambda _: {"metrics": {}, "status": "NOT_EXPOSED"})
+        assert len(calls) == 1
+        with store.get_read_only_connection() as conn:
+            rows = lambda table: [dict(r) for r in conn.execute("SELECT * FROM " + table)]
+            report = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
+                readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending="2026-11-11")
+        channel = next(r for r in report["channels"] if r["channel"] == "instagram_business")
+&gt;       assert channel["posts_in_week"] == 1 and channel["native_counter_sums"]["views"] == 6
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests\test_audience_collection_cc402.py:163: TypeError</failure></testcase><testcase classname="tests.test_audience_collection_cc402" name="test_reported_permission_error_keeps_its_safe_native_cause" time="0.008" /><testcase classname="tests.test_audience_collection_cc402" name="test_telegram_reads_exact_public_counter_and_account_without_page_script" time="0.005" /><testcase classname="tests.test_audience_collection_cc402" name="test_run_post_is_bound_to_its_actual_cards_and_export_uses_that_join" time="2.747"><failure message="IndexError: list index out of range">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2157/test_run_post_is_bound_to_its_0')
+
+    def test_run_post_is_bound_to_its_actual_cards_and_export_uses_that_join(tmp_path):
+        from live_contentops.audience_collection_v1 import dispatch_call_ids
+        from scripts.export_contentops_weekly_engagement import export_weekly_engagement
+        store = seed(tmp_path, ("threads",))
+        store.register_outbox_message(message_id="run-card", work_item_id="work-threads", destination="internal:plan-status-post",
+            payload=json.dumps({"kind": "run", "plan_id": "plan-run-post-example", "card_keys": ["card-threads"]}))
+        with store.get_connection() as conn:
+            conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id='message-threads'", (json.dumps({"plan_status_post": "run-card"}),))
+        dispatch = store.get_platform_dispatch("dispatch_threads")
+        links = dispatch_call_ids(store, dispatch)
+        assert links[0]["plan_id"] == "plan-one" and links[0]["call_id"] == "abcd1234"
+        assert links[0]["run_record_id"] == "run-card"
+        run_collection(store, now=NOW, collector=lambda **_: {"status": "COLLECTED", "metrics": {"views": 2}, "availability": {"views": "AVAILABLE"}},
+            account_collector=lambda _: {"metrics": {}, "status": "NOT_EXPOSED"})
+        export_weekly_engagement(store.db_path, "2026-11-11", tmp_path / "weekly")
+        report = json.loads((tmp_path / "weekly" / "engagement.json").read_bytes())
+&gt;       assert report["calls"][0]["call_id"] == "abcd1234"
+               ^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests\test_audience_collection_cc402.py:209: IndexError</failure></testcase><testcase classname="tests.test_channel_engagement_v1" name="test_all_ten_channels_named_when_no_metric_exists" time="0.042" /><testcase classname="tests.test_channel_engagement_v1" name="test_weekly_digest_uses_latest_cumulative_snapshot_once_and_preserves_real_zero" time="0.027" /><testcase classname="tests.test_channel_engagement_v1" name="test_linkedin_member_company_and_rates_remain_separate" time="0.027" /><testcase classname="tests.test_channel_engagement_v1" name="test_unavailable_latest_value_never_inherits_an_older_counter_or_fills_zero" time="0.005" /><testcase classname="tests.test_channel_engagement_v1" name="test_unknown_public_write_and_invalid_counter_are_excluded" time="0.026" /><testcase classname="tests.test_channel_engagement_v1" name="test_missing_provider_fields_are_not_manufactured_as_zero" time="0.017" /><testcase classname="tests.test_channel_engagement_v1" name="test_threads_reply_page_is_a_sample_not_an_invented_total" time="0.025" /><testcase classname="tests.test_channel_engagement_v1" name="test_rejected_provider_read_is_one_actual_request_not_a_missing_binding" time="0.049" /><testcase classname="tests.test_destination_performance_observer_v1" name="test_current_binding_missing_is_auth_required_and_never_zero_filled" time="0.004" /><testcase classname="tests.test_destination_performance_observer_v1" name="test_facebook_exact_object_read_returns_bounded_metrics_and_interactions" time="0.010" /><testcase classname="tests.test_destination_performance_observer_v1" name="test_current_non_metrics_bindings_are_truthfully_not_exposed" time="0.016" /></testsuite></testsuites>

@@ -1,0 +1,25 @@
+{
+  "request_sha256": "fc8077e875bab28195a81b10ec1ef1af7c4efe401502ee1e9b0aeed1c90cc3e7",
+  "output": {
+    "story_plan": {
+      "source_requests": [],
+      "thesis": "The admitted Main analysis supports standing aside: continuation of Monday's selloff is a plausible reading, while six markets do not establish a common new shock. No visual should imply that coincident moves prove a catalyst.",
+      "photo_plan": "Use the existing media owner to discover an unused authentic photograph of Tokyo financial-market context or a neutral Bitcoin subject, only if exact source, creator, licence, depicted date and lawful reuse are verified. Caption as contextual/archive imagery, never an image of the omitted allegation or proof of an event. Preserve exact bytes, source identity and full canonical attribution; check publication hash/perceptual reuse memory. Prefer the source-bound data visual below when a suitable lawful photo is unavailable. Do not reuse Fed or Capitol photos. No acquisition is performed in this role.",
+      "chart_plan": "OTHER_ANALYSIS: no official-release 24-month/component-chart obligation. Propose one fresh source-bound Bitcoin analytical data card rather than inventing a time series from endpoints. Bind SOURCE_1, document cc124-asia-risk-20261117, canonical content SHA256 dacb9171d3fea2e6ca6b566972b91245158c090581af0bcf5c66af4bad3b36cd. Show the two explicitly supplied Main model-estimate scenarios, 55% at or below 64647.11 and 45% above 64647.11, with horizon 2026-11-18T00:07:58Z converted to ET. Keep confirmation (completed H1 close below 63941.57) and invalidation (completed H1 close above 65476.48) distinct from the horizon outcome threshold. H1 means a completed one-hour bar. Label levels as Main's retained Bitcoin reference, never futures or ETF quotes; identify spot Bitcoin and optionally MBT futures or IBIT ETF without assigning the reference price to them. Keep exact units/source basis; do not invent a five-day path, volume, positioning or returns. Positioning was not observed. A source-bound six-market qualitative signal panel is optional if MAX judges useful, with no combined probability and no causal arrows. The existing media owner may bind a fresh decision-107 Bitcoin TradingView snapshot, preserving its full header/attribution and capture clock; do not mix later snapshot prices into the retained analysis or extend source freshness. MAX chooses final form/count/placement and reviews the bound image. Original data capture remains 2026-11-17T00:07:57.072144Z and publication deadline remains 2026-11-17T01:07:57.072144Z. Media/retrieval/completion clocks cannot extend it. Source packet is sufficient for the proposed analytical card; no external factual series request is needed."
+    }
+  },
+  "invocation_observation": {
+    "configured_model": "gpt-6.1-sol",
+    "reasoning_effort": null,
+    "model": null,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "observation_source": "Supported native followup task delivered to canonical task /root/native_select_29585ed1cc00 for the exact media-plan request.",
+    "actual_configuration_unavailable": true,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "invocation_id": "/root/native_select_29585ed1cc00",
+    "configured_reasoning_effort": "low",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "configuration_source": "supported spawn request"
+  }
+}

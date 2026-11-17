@@ -1,0 +1,16 @@
+{
+  "first_run": {
+    "command": "python -m pytest tests/test_plan_status_contract_cc400.py -q --tb=short",
+    "result": "19 passed in 38.15s",
+    "exit_code": 0,
+    "scope": "Before the additional closed-fill suppression coverage."
+  },
+  "final_run": {
+    "command": "python -m pytest tests/test_plan_status_contract_cc400.py tests/test_plan_status_touch_cc331.py tests/test_plan_call_cards_cc399.py -q --tb=short",
+    "result": "60 passed in 150.53s (0:02:30)",
+    "exit_code": 0,
+    "pytest_processes_at_once": 1,
+    "parallel_shards": false
+  },
+  "meaning": "Existing composer consumes explicit CLOSED plans and transitions, keeps another eligible plan available, suppresses stale fill announcements, and preserves exact field errors for unknown states. Isolated fixture stores only; no platform writes."
+}

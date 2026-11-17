@@ -1,0 +1,26 @@
+[
+  {
+    "family": "NFP",
+    "preview_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\editorial-preparation\\nfp\\source-0707b6f45b692236\\source-preview.html",
+    "sha256": "664dbaa6b51f13c706adb9d5309b3346e35600bb3ed95836f3c293d7e3e21725",
+    "tables": 7,
+    "source_cutoff_et": "2026-11-16T23:13:47.164560-05:00",
+    "public_dispatch_attempted": false
+  },
+  {
+    "family": "FOMC",
+    "preview_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\editorial-preparation\\fomc\\source-ee6760de164023eb\\source-preview.html",
+    "sha256": "eccee0134ce6a0cee94a03141dc5b1ef9852982914610fb801c251eb8339bf81",
+    "tables": 13,
+    "source_cutoff_et": "2026-11-16T23:13:47.164560-05:00",
+    "public_dispatch_attempted": false
+  },
+  {
+    "family": "PPI",
+    "preview_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\editorial-preparation\\ppi\\source-4b46b3f7b3354fac\\source-preview.html",
+    "sha256": "07b1f278e86b6efd7f0e2453ed39984a4e20d06228bd0d28754a2723ad5c5569",
+    "tables": 7,
+    "source_cutoff_et": "2026-11-16T23:13:47.164560-05:00",
+    "public_dispatch_attempted": false
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-17T00:36:25.712269+00:00",
+  "scope": "Readback of existing failure only, needed to release CC603 link reply; no new post or edit",
+  "readback": {
+    "dispatch_id": "dispatch_52b74856711d9922bcacceba907a1974",
+    "destination": "substack_notes",
+    "reconciliation_status": "RECONCILIATION_PENDING",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "remaining_destination_failure": {
+    "attempt_started_at_utc": "2026-11-16T23:36:12.168095+00:00",
+    "destination": "substack_notes",
+    "dispatch_id": "dispatch_52b74856711d9922bcacceba907a1974",
+    "et_day": "2026-11-16",
+    "local_prewrite_validation": false,
+    "safe_error_classification": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+    "status": "UNKNOWN_WRITE",
+    "write_outcome_certainty": "AMBIGUOUS"
+  },
+  "public_write_performed": false
+}

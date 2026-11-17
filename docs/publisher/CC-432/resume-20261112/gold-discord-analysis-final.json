@@ -1,0 +1,91 @@
+{
+  "observed_at_utc": "2026-11-12T18:15:25.261831+00:00",
+  "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+  "parent": {
+    "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+    "public_object_id": "1570498124391125187",
+    "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187"
+  },
+  "discord_thread_parent_id": "1570498124391125187",
+  "result": {
+    "plan_hash": "b752e59ab08258f89ff96c3105b33d30c2ae2642ca38200216ab7154f07abea3",
+    "registered": [],
+    "outbox_count": 0,
+    "per_destination": {
+      "discord": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "dispatch_recorded": true,
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "canonical_article_status": "NOT_CONFIRMED",
+    "canonical_article_real_published": false,
+    "canonical_url": null,
+    "canonical_publication_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+    "distribution_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+    "recovery_preflight": {
+      "safe_resumes": 1,
+      "safely_attempted": 1,
+      "stale_expired": 0,
+      "marked_unknown": 0,
+      "readbacks": 0,
+      "publish_calls": 0,
+      "readiness_probe_performed": false,
+      "per_destination": {
+        "discord": {
+          "destination": "discord",
+          "status": "DESTINATION_FAILED_ET_DAY_SKIP",
+          "publish_called": false,
+          "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
+          "first_failure": {
+            "attempt_started_at_utc": "2026-11-12T18:00:17.601168+00:00",
+            "destination": "discord",
+            "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+            "et_day": "2026-11-12",
+            "safe_error_classification": null,
+            "status": "UNKNOWN_WRITE",
+            "write_outcome_certainty": "AMBIGUOUS"
+          }
+        }
+      },
+      "recovery_attempt_budget": 9,
+      "backlog_remaining": 1,
+      "legacy_noncanonical_rows_skipped": 1,
+      "backlog_remaining_by_destination": [
+        "discord"
+      ],
+      "backlog_remaining_obligations": [],
+      "recovery_quarantined_obligations": [],
+      "recovery_quarantined_obligation_count": 0,
+      "backlog_blocking_new_publication": true,
+      "backlog_blocking_current_article": true
+    },
+    "public_write_performed": false,
+    "unknown_write_detected": false,
+    "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+    "derivative_confirmed_count": 0,
+    "derivative_attempted_count": 1,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [],
+    "readback_limitation_destinations": [],
+    "retired_browser_unknown_count": 0,
+    "retired_x_unknown_count": 0,
+    "unknown_write_count": 0,
+    "closed_no_write_destinations": [],
+    "pending_requests": []
+  },
+  "status": {
+    "confirmed": false,
+    "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+    "public_object_id": null,
+    "public_object_url": null
+  }
+}

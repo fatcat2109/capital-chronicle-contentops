@@ -1,0 +1,332 @@
+{
+  "agy_light_assist": {
+    "alt_asset_ids": [],
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\agy-light-assist\\73d564b1625673d6b7883e7583d9e55a061843d727ebbd3f0ec953a40e8406f1\\agy_light_assist_v1.json",
+    "prompt_sha256": "73d564b1625673d6b7883e7583d9e55a061843d727ebbd3f0ec953a40e8406f1",
+    "publisher_decisions": [],
+    "rejected_suggestions": [],
+    "status": "AGY_UNAVAILABLE",
+    "variant_destinations": []
+  },
+  "analysis_scope": "OTHER_ANALYSIS",
+  "analysis_scope_reason": "This is a source-bound Bitcoin range assessment, not a macroeconomic data-release analysis. One range-and-scenario card explains the distinction without inventing historical observations.",
+  "audience_learning_binding": {
+    "policy_version": "policy_c3e1de30fca9eace0112b384",
+    "preference_only": true,
+    "snapshot_sha256": "63ccd9539cee9b797e1ada73d4052749c0ccb3b6f36fc1936e67485e4125652e"
+  },
+  "canonical_slug_candidate": "bitcoin-range-stand-aside-after-selloff",
+  "dek": "We remain on the sidelines in Bitcoin: our modest bearish estimate does not replace a completed break of its two-day range.",
+  "editorial_media_direction": {
+    "asset_created_by_writer": false,
+    "decision": "ONE_SOURCE_BOUND_RANGE_CARD_PLUS_FRESH_EXISTING_OWNER_TRADINGVIEW_SNAPSHOT",
+    "final_render_review_performed": false,
+    "placement": "Lead with the fresh contextual snapshot; place the range card before Scenarios.",
+    "range_card": {
+      "add_entry_or_target": false,
+      "alternative": "46% above the reference",
+      "base_case": "54% at or below the reference",
+      "confirmation": "none observed",
+      "data_cutoff_utc": "2026-11-17T00:37:43.684818Z",
+      "derive_from_article": true,
+      "draw_historical_path": false,
+      "headline": "A reference is not a range break",
+      "horizon_et": "2026-11-17T19:37:44-05:00",
+      "horizon_utc": "2026-11-18T00:37:44Z",
+      "lower": 63829.52,
+      "lower_condition": "A completed one-hour close below 63829.52 makes a short a candidate for the next review.",
+      "positioning": "not observed",
+      "probability_caption": "Uncalibrated Capital Chronicle model estimates; not trade win rates.",
+      "publication_deadline_utc": "2026-11-17T01:37:43.684818Z",
+      "purpose": "Explain the written article: the outcome reference is inside the range; it is not the review trigger.",
+      "reference": 64451.95,
+      "source_content_sha256": "6ddaf312d32d2ee8d083b8443568b974a9b4fd742e9edc0f479e6dab990ded10",
+      "source_document_id": "cc124-btc-range-20261117-r2",
+      "source_excerpts": [
+        "Base case (54%): estimate, BTCUSD is at or below the reference 64451.95 at 2026-11-18T00:37:44Z.",
+        "Priced: The fall from 73986.7 to the 15 Nov low 61940.88 and two days inside 63829.52 to 65637.9. Positioning: not observed. Zone reason: none; no entry zone is frozen.",
+        "Invalidation: A completed H1 bar closes below 63829.52 or above 65637.9. A completed H1 bar that closes below 63829.52 makes a short a candidate for the next pass. A completed H1 bar that closes above 65637.9 removes the short lean. Opposite mechanism: a squeeze through 65637.9 after two days of failed selling.",
+        "Main alternative (46%): estimate, BTCUSD is above 64451.95 at 2026-11-18T00:37:44Z."
+      ],
+      "unit": "US dollars per Bitcoin on Main own-data spot reference scale",
+      "upper": 65637.9,
+      "upper_condition": "A completed one-hour close above 65637.9 removes the short lean."
+    },
+    "snapshot": "Use the existing media owner for a fresh Coinbase BTCUSD TradingView snapshot; retain full attribution/header and a separate display clock. Snapshot prices do not replace the article levels or refresh its cutoff."
+  },
+  "entities": [
+    "Bitcoin",
+    "Capital Chronicle",
+    "IBIT"
+  ],
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The retained Main report records dated analysis and market observations.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "cc124-btc-range-20261117-r2",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+    "report_proposition": "Bitcoin remains inside its range after the broader selloff",
+    "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc124-btc-range-20261117-r2"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "internal_link_candidates": [],
+  "lead_image_asset_id": "tradingview-snapshot-711c89fd5ab9037d9405",
+  "market_asset": "BTCUSD",
+  "meta_description": "Our Bitcoin analysis separates a weak directional estimate from a completed range break. A completed one-hour close would change the next review.",
+  "native_destination_media": {
+    "discord": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "facebook_page": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "instagram_business": [
+      "tradingview-snapshot-ff714eab7018e69f1837"
+    ],
+    "linkedin": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "telegram": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "threads": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "x": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "youtube": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ]
+  },
+  "photo_less_brief_eligible": false,
+  "post_visual_destination_media": {
+    "discord": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "facebook_page": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "instagram_business": [
+      "tradingview-snapshot-ff714eab7018e69f1837"
+    ],
+    "linkedin": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "telegram": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "threads": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "x": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ],
+    "youtube": [
+      "tradingview-snapshot-711c89fd5ab9037d9405"
+    ]
+  },
+  "primary_reader_question": "Why does a weak bearish Bitcoin estimate still support standing aside inside the range, and what completed one-hour close would change that reading?",
+  "public_instrument_policy": "JIM_DECISION_107",
+  "public_source_bindings": [
+    {
+      "published_at_utc": "2026-11-17T00:55:54.955049Z",
+      "publisher": "Capital Chronicle",
+      "source_id": "SOURCE_1",
+      "url": "urn:cc-public-report:main-retained:6fb237503217d861c560bead0f3f4aa2b660f0a69c6b9ada5caa226b7a0eb63c"
+    }
+  ],
+  "public_write_performed": false,
+  "publication_image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+  "reader_article_contract": {
+    "daily_prose_words": 350,
+    "data_cutoff_utc": "2026-11-17T00:37:43.684818+00:00",
+    "format": "ARTICLE",
+    "max_sentence_words": 35,
+    "policy": "CC403_READER_ARTICLE_V1",
+    "primary_document_id": "cc124-btc-range-20261117-r2",
+    "publication_target_minutes": 60,
+    "source_pack_sha256": "2617a6350740e667aa2657f80e2fcd612f1b35e86b4081590e826dec481052a8"
+  },
+  "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "scenario_analysis": [
+    {
+      "confirmation": "none observed",
+      "horizon_et": "2026-11-17T19:37:44-05:00",
+      "horizon_utc": "2026-11-18T00:37:44Z",
+      "invalidation": "below 63829.52 or above 65637.9",
+      "market_moves": {
+        "BTCUSD": "at or below the reference 64451.95",
+        "EURUSD": "stand-asides",
+        "US500": "stand-asides",
+        "USDJPY": "stand-asides",
+        "USOIL": "stand-asides",
+        "XAUUSD": "stand-asides"
+      },
+      "name": "Base case",
+      "other_market_context": "The other markets are dated stand-asides, not conditional outcomes assigned these Bitcoin probabilities.",
+      "probability": "54%",
+      "probability_status": "UNCALIBRATED_CAPITAL_CHRONICLE_MODEL_ESTIMATE_NOT_TRADE_WIN_RATE",
+      "role": "base_case",
+      "source_bindings": {
+        "confirmation": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Confirmations: none observed."
+        },
+        "horizon_utc": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Base case (54%): estimate, BTCUSD is at or below the reference 64451.95 at 2026-11-18T00:37:44Z."
+        },
+        "invalidation": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Invalidation: A completed H1 bar closes below 63829.52 or above 65637.9. A completed H1 bar that closes below 63829.52 makes a short a candidate for the next pass. A completed H1 bar that closes above 65637.9 removes the short lean. Opposite mechanism: a squeeze through 65637.9 after two days of failed selling."
+        },
+        "market_moves.BTCUSD": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Base case (54%): estimate, BTCUSD is at or below the reference 64451.95 at 2026-11-18T00:37:44Z."
+        },
+        "market_moves.EURUSD": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.US500": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.USDJPY": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.USOIL": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.XAUUSD": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "probability": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Base case (54%): estimate, BTCUSD is at or below the reference 64451.95 at 2026-11-18T00:37:44Z."
+        }
+      }
+    },
+    {
+      "confirmation": "none observed",
+      "horizon_et": "2026-11-17T19:37:44-05:00",
+      "horizon_utc": "2026-11-18T00:37:44Z",
+      "invalidation": "below 63829.52 or above 65637.9",
+      "market_moves": {
+        "BTCUSD": "above 64451.95",
+        "EURUSD": "stand-asides",
+        "US500": "stand-asides",
+        "USDJPY": "stand-asides",
+        "USOIL": "stand-asides",
+        "XAUUSD": "stand-asides"
+      },
+      "name": "Alternative",
+      "other_market_context": "The other markets are dated stand-asides, not conditional outcomes assigned these Bitcoin probabilities.",
+      "probability": "46%",
+      "probability_status": "UNCALIBRATED_CAPITAL_CHRONICLE_MODEL_ESTIMATE_NOT_TRADE_WIN_RATE",
+      "role": "alternative",
+      "source_bindings": {
+        "confirmation": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Confirmations: none observed."
+        },
+        "horizon_utc": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Main alternative (46%): estimate, BTCUSD is above 64451.95 at 2026-11-18T00:37:44Z."
+        },
+        "invalidation": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Invalidation: A completed H1 bar closes below 63829.52 or above 65637.9. A completed H1 bar that closes below 63829.52 makes a short a candidate for the next pass. A completed H1 bar that closes above 65637.9 removes the short lean. Opposite mechanism: a squeeze through 65637.9 after two days of failed selling."
+        },
+        "market_moves.BTCUSD": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Main alternative (46%): estimate, BTCUSD is above 64451.95 at 2026-11-18T00:37:44Z."
+        },
+        "market_moves.EURUSD": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.US500": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.USDJPY": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.USOIL": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "market_moves.XAUUSD": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "No shock direction exists; all six rows are stand-asides with named H1 levels."
+        },
+        "probability": {
+          "document_id": "cc124-btc-range-20261117-r2",
+          "support_excerpt": "Main alternative (46%): estimate, BTCUSD is above 64451.95 at 2026-11-18T00:37:44Z."
+        }
+      }
+    }
+  ],
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_freshness_class": "TIME_SENSITIVE_MARKET_ANALYSIS",
+  "search_title": "Bitcoin range: why we are standing aside after the selloff",
+  "secondary_reader_questions": [
+    "How does an outcome estimate differ from an entry setup?",
+    "What would a completed one-hour close beyond the range change?"
+  ],
+  "social_hook": "Bitcoin has already sold off. We still need a completed break of its two-day range before reconsidering our stand-aside call.",
+  "social_mechanism_summary": "The weak directional lean therefore leaves the stand-aside call intact.",
+  "social_scenarios": {
+    "alternative": "Alternative: 46% uncalibrated model estimate above 64451.95 at that horizon; a completed close above 65637.9 removes the short lean.",
+    "base_case": "Base case: 54% uncalibrated model estimate at or below 64451.95 at the stated horizon; confirmation absent, so we stand aside."
+  },
+  "source_date_notice": "Source date: 2026-11-17. Interpretation remains analysis.",
+  "source_document_ids": [
+    "cc124-btc-range-20261117-r2"
+  ],
+  "story_identity": "simple-story-a5de4fb4766faff7ac2d579d",
+  "substack_body_markdown": "We remain on the sidelines in Bitcoin while it stays inside its two-day range after the broader selloff. Our analysis offers a weak bearish lean, without an established entry setup. [[SOURCE:SOURCE_1]]\n\nOn our spot reference scale, the two-day band runs from 63829.52 to 65637.9 US dollars per Bitcoin. The scenario reference is 64451.95, inside that band. Readers following Bitcoin through the IBIT ETF should keep these spot levels separate from the ETF price. [[SOURCE:SOURCE_1]]\n\nThat range follows the fall from 73986.7 to the November 15 low of 61940.88. We have not observed positioning or a confirming break in this assessment. [[SOURCE:SOURCE_1]]\n\n## An estimate is not an entry setup\n\nA forecast describes where price may be at a stated time. A setup also needs an observable condition that changes the view. Our assessment has no frozen entry zone. The weak directional lean therefore leaves the stand-aside call intact. [[SOURCE:SOURCE_1]]\n\n## Scenarios\n\nThe horizon is November seventeenth at seven thirty-seven p.m. ET, forty-four seconds into that minute. Both estimates concern that same instant on our Bitcoin spot reference scale. [[SOURCE:SOURCE_1]]\n\n**Base case — 54% Capital Chronicle model estimate, uncalibrated.** Bitcoin is at or below the reference 64451.95 at that horizon. Confirmations: none observed. [[SOURCE:SOURCE_1]]\n\n**Alternative — 46% Capital Chronicle model estimate, uncalibrated.** Bitcoin is above 64451.95 at the same horizon. A squeeze through 65637.9 after two days of failed selling is the opposing mechanism. [[SOURCE:SOURCE_1]]\n\nIn either scenario, the range assessment changes if a completed one-hour bar closes below 63829.52 or above 65637.9. A lower close makes a short a candidate for the next review. An upper close removes the short lean. Neither condition is an automatic trade. [[SOURCE:SOURCE_1]]\n\nThese are outcome estimates, not trade win rates or probabilities of an entry becoming valid. Across the wider assessment, the other markets remain stand-asides. Those are dated context; these Bitcoin estimates assign them no joint outcome. [[SOURCE:SOURCE_1]]\n\n## What changes the view\n\nSo what: watch a completed one-hour close beyond the band before reconsidering the range assessment. A move below the reference alone does not establish the lower-band break. A move above the reference can still leave Bitcoin inside its range. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+  "title": "Bitcoin's selloff still leaves a range, not a fresh setup",
+  "topics": [
+    "Bitcoin",
+    "Market structure",
+    "Scenario analysis"
+  ],
+  "tradingview_capture_key": "d8046e066ebebf52b1097c2c",
+  "tradingview_capture_state_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\media\\tradingview\\tradingview_capture_v1.json",
+  "tradingview_snapshot_asset_ids": [
+    "tradingview-snapshot-711c89fd5ab9037d9405"
+  ],
+  "update_chain_identity": "simple-story-a5de4fb4766faff7ac2d579d",
+  "volume_policy": {
+    "brief_only": false,
+    "effective_production_date": "2026-10-31",
+    "max_admitted_candidates": 6,
+    "max_articles": 2,
+    "non_chargeable_only": true,
+    "photo_less_news_policy": true,
+    "policy_id": "CC-047-20261030",
+    "source_request_limit": 20,
+    "source_resolvability_first": true
+  },
+  "volume_policy_cutoff_utc": "2026-11-17T01:12:43.566314Z"
+}

@@ -1,0 +1,17 @@
+Updating 51daa2b7..4662828b
+Fast-forward
+ docs/publisher/CC-515/README.md                    |   13 +
+ .../CC-515/installed-source-readback.json          |   13 +-
+ docs/publisher/CC-515/integration.json             |   52 +-
+ docs/publisher/CC-515/late-link-install.txt        |   18 +
+ .../publisher/CC-515/late-link-recovery-record.txt |    2 +
+ .../publisher/CC-515/late-link-recovery-record.xml |    1 +
+ docs/publisher/CC-515/live-final-readback.json     | 5253 ++++++++++++++++++++
+ live_contentops/plan_status_posts_v1.py            |    1 +
+ live_contentops/publication_coordinator_v1.py      |    3 +-
+ tests/test_plan_analysis_distribution_cc435.py     |    5 +
+ 10 files changed, 5354 insertions(+), 7 deletions(-)
+ create mode 100644 docs/publisher/CC-515/late-link-install.txt
+ create mode 100644 docs/publisher/CC-515/late-link-recovery-record.txt
+ create mode 100644 docs/publisher/CC-515/late-link-recovery-record.xml
+ create mode 100644 docs/publisher/CC-515/live-final-readback.json

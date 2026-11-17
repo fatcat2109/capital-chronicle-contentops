@@ -1,0 +1,3375 @@
+{
+  "status": "NO_FRESH_UNSENT_DRAFTS",
+  "started_at_utc": "2026-11-11T20:52:24.250082+00:00",
+  "public_submit_actions": 0,
+  "schedule_changed": false,
+  "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T205224-d08658ed\\result.json",
+  "binding": {
+    "status": "BOUND",
+    "bound_now": false,
+    "updates_processed": 0,
+    "skipped": 0,
+    "causes": {},
+    "public_submit_actions": 0
+  },
+  "readback": {
+    "observed": [],
+    "causes": {},
+    "public_write_performed": false,
+    "reader_followup": {
+      "own_replies_url": "https://x.com/Capitalnicle/with_replies",
+      "mentions_url": "https://x.com/notifications/mentions",
+      "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts."
+    }
+  },
+  "dropped_candidates": [
+    {
+      "post_id": "2120619821100380609",
+      "cause": "RETWEET_NOT_ORIGINAL_TARGET"
+    },
+    {
+      "post_id": "2120618727192531359",
+      "cause": "NO_SIX_MARKET_OR_MACRO_TOPIC"
+    },
+    {
+      "post_id": "2120617923567817025",
+      "cause": "NO_SIX_MARKET_OR_MACRO_TOPIC"
+    },
+    {
+      "post_id": "2120616414083940792",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120613548111897002",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120613260915331282",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120612639453729224",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120612286909800841",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611627070554292",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611597076893857",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611455586496771",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611397495378011",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611353090306240",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611250346569767",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120611080523379033",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120609109955453233",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120608863825047635",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120607898237620720",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120607164905783353",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120605089744228425",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120604102904488068",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120604082213994737",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120604036777025955",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120603744941318555",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120603331189993669",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120601313121566856",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600758467117176",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600444838052165",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600444028256539",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600303091482781",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600268098384184",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600237572264267",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600235441537323",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600233227018721",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120600232870519044",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599806032683318",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599789033435320",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599492861014471",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599479917367315",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599209577742752",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599186181660829",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120599108339511343",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120597734365524047",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120597690455294402",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120597068117160432",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120596703178850785",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120596571561873894",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120596541161300067",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120596091771015383",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120596012414734645",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120594839314268332",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120593901950222422",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120593764762689643",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120593564413702461",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120590578635473075",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120589989079613600",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120589410764824855",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120589277843333493",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120587149246652701",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120586623419363590",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120586546155806817",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120586362021707829",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120586304886858009",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120586213815881990",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120586064801005726",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120585094565884297",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120584865661829193",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120584723701670393",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120583976599564392",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120583550768419012",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120583452412313803",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120582564284879152",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120582489991184811",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120582440401912046",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120582307920695361",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120582235778588934",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120581670692884783",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120581397991903328",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120581319189270544",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120580945061220620",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120580249771495865",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120580023530979329",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120579992258310374",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120579786791596360",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120579349942555045",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120579336659140744",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120579321081520163",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120579267230875694",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120578686823141387",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120578665259909516",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120578481050333402",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120577305294823658",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120576680620347657",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120574895725674842",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120573371880452394",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120571114992587048",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120569358925619296",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120568811405414575",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120567339796054031",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120564878205219118",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120564722101633384",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120563566319182024",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120559789872713980",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120558310428754294",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120558291248201731",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120558095713943883",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120558069906395362",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120557708893921578",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120557418417733876",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120556504613020045",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120556018740420883",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120555948251267075",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120555026074747217",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120554970541854793",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120554915512651854",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120553229716947353",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120553195000787194",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120552923880956335",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120552592971554985",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120552394048131268",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120552240171610491",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120550801496322454",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120550540945830334",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120550525947224243",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120550468216889449",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120550308862439544",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120550116226457836",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120549790366761412",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120549404402663506",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120549227549864370",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120547793618301032",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120547588671983778",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120547305128366497",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120545856588005417",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120545585434374460",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120545068801290509",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120544187602903463",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120543903342645695",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120543432930115762",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120543011537097030",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120541499259498613",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120541202135359955",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120540559160872972",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120540162807480642",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120539533271879789",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120539463571120625",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120538835276956039",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120536624505163929",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120536444909539773",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120536407521513973",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120535882088259622",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120535465044459708",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120535410627752004",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120535094104629730",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120534606692896898",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120534250307096596",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120534015019004390",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533853118792000",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533818280993196",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533676639334590",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533427912917424",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533353992757256",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533244550795267",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533144365391989",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120533003533209899",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120532840651637036",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120532737656594823",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120532138034373060",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120532114563010660",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120531973999411246",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120531702535598260",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120530734125613283",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120530322198532572",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120529942031348057",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120529688628212148",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120529007452332139",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120528883476799544",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120528336006820158",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120528205329150274",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120527862646157670",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120527675538259990",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120527355844415925",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120527331844616436",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120527304720093372",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120527052667269347",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525691657838950",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525656035319904",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525600276234387",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525480117911638",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525338060976433",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525314782597576",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120525110251544917",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524934007202168",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524815128014917",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524711918506310",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524561179463957",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524415960297647",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524354580848651",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120524122010669226",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120523995602940250",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120523963575214462",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120523851444502734",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120523025749619195",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120522907017257467",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120522765090308314",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120522527965680003",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120522239556862001",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120522205587210664",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120522043414257982",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120521697753247779",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120519808890401015",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120519667739484617",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120518930297209163",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120518525185835267",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120518486782824563",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517825286848958",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517805871378554",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517395324583981",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517345252983288",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517275858129147",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517258979971224",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120517151131848886",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120516064425705925",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120516004614901941",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120515986222924004",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120515634811338992",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120515267336028576",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120514699137794380",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120514634071318664",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120514046147305589",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120513238366400828",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120512811780759779",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120512118382305765",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120511565892137422",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120509712084918302",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120509531533009381",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120509514646446229",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120509479397585406",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120509013775315339",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120507497966448924",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120507445944430837",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120507322846060880",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120507071913460047",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120507044189151584",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120507017337229516",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120506961120657486",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120506561328275591",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120506504423846070",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120506469636555263",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120506204023820322",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505900977000858",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505871109402634",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505854164144197",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505831074710014",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505686421336555",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505575922340131",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505557304127955",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505244463628770",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120505011285397669",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120504244226990114",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120504152921178507",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120503324328030595",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120503301762592941",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120502772399473007",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120502155014709365",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120502094792642686",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120502061553062010",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120502025712468253",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120501969911705623",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120501914404032786",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120499751799947693",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120499532232323180",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120499380109316502",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120499158465327420",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120498986817855726",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120498553449755059",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120498503533330933",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120498273978859827",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120498134744744029",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120497016035848255",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120496886004265361",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120496779733164502",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120496271148683626",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120495218814582971",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120495130893328490",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120495049725055459",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120494713967186095",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120494501332467891",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120493872052666537",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120493243561324769",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120493102439813563",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120492723895718053",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120492614180872615",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120492433591185902",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120491982434783235",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120491401201021020",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120491355801575680",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120490726446281036",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120490096986136987",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120489468071198759",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120489423272063157",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120489150596182061",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488996220403967",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488909603746249",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488676933398831",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488283696463941",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488268407926847",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488210014888174",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120488069262459059",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487941428654352",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487907702267931",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487877411004881",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487841566433336",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487769164439770",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487580986675537",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487112831328543",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120487062067654767",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486951660749302",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486920790970765",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486886443769871",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486851022659803",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486817736863967",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486804021469497",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120486208015155387",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120485725607281058",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120485697895202907",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120485217995538492",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120485097375678511",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120484631053214150",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120484620097438087",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120484144933433702",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120483701872291951",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120483033979494897",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120482684569039234",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120481711352103415",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120481230827495442",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120480936802304446",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120480371578126580",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120480154233315797",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479458645938455",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479345202602159",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479338416238906",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479283668029541",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479261563977919",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479227695022095",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479225949880672",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479149878137285",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479093124682026",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120479057502408926",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120478253009850699",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120477187304558675",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120477167213834282",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475713723920417",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475622426440091",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475583255839046",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475562187911402",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475558689886715",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475525609291851",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475409976590491",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120475234759540737",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120474374910206127",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120474362331697221",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120474234489286795",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120474072467525713",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473993555628155",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473981643903238",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473968540803333",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473889813713389",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473834872865007",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473693810032683",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473660347846976",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473625471893555",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473592013967436",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473580077228527",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473545373532248",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473531477885174",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473494815178862",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473481544409349",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473449009406405",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473435637952755",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473400376201609",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473387705196924",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473333833847101",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473319384182866",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473307313045987",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473274744520824",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473260814958710",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473247711949275",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473235603226965",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473199800430691",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120473166594326679",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120472748816581083",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120472586194932224",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120472337569214765",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120472024883544541",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471840543969528",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471828481323280",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471814476313014",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471802380210236",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471768087580852",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471754128675177",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471740828598328",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471727725543729",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471716535439838",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471710981915052",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471468475892118",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471347503800707",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120471225122087351",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120470186616848467",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120469933088030958",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120469340743209448",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120468366486118816",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120467739953537115",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120465144715104521",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120465132635791441",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120462498889658433",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120461643847028990",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120461298047840561",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120461261963927689",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120460601038131531",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120460370766594139",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120460311274950836",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120460273794613406",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120460173797924964",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120460069334904973",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120459286140878955",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120459249025433670",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120459212987965887",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458333786361999",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458302186541306",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458268938244529",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458237468451093",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458210650001842",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458184817336375",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120458159869591865",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120451576993042724",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120449354129387584",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120448570038116723",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120448541835591706",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120448504271409345",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120448479470473679",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120448135898304983",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120447845060800759",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120447830234136741",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120447815130517657",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120446049622032763",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120446026373075024",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120445194508128419",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120444723550932999",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120444523486810322",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443439716372751",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443413099352157",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443387145023806",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443333587906794",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443294710907368",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443258556076081",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443204789211310",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120443167745167843",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120441659221807128",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120441511393341713",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120436927052825064",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120436831481414083",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120436226276651267",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120435120708714509",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120432238118818149",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120431810715033830",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120431542015078724",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120431504253960429",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120431445688684822",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120431370971627772",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120431141236961335",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120430895228432569",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120430725933724074",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120430574385123660",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120430497730048150",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120428679381791100",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120427419832328671",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120427080626426100",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120426663116968205",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120421379572953259",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120419788640100446",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120419646449066009",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120419305959707057",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120419244345332209",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120419175676146146",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120416961465315443",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120416325512446113",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120414921603395799",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120414390709276835",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120414075100569842",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120412686286827703",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411690881945679",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411676529000531",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411662528414179",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411646908908005",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411631037624366",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411617032859664",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411600972812774",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411376929894504",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411363046756656",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411346865111388",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411331467882539",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120411315730567601",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120409561819644177",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120409094557511822",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120408273602138544",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120407335609012538",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120405274167214310",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120404819412389909",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120404782892605713",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120404753280839853",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120404724646400168",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120403945411711213",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120402240985001985",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120399906418680090",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120399637404389592",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120399606022541487",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120399574070391128",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120399533758976456",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120399370038456539",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120397552810164326",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120397412825280805",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120396906476245019",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120396850847191312",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120396664846582143",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120396500509319536",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120394143713398804",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120393664174428456",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120393479704674734",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120393437493268569",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120393278256480636",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120393253279388075",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120393078859354114",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120392892372095367",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120392024960696604",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120391367843361267",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120389968527020092",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120389818165477425",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120387714659111284",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120387302312878395",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120385444299080170",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120384493257159157",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120382879289246102",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120382560597659902",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120381261105803391",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120379666502713395",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120379428417245651",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120376721497268566",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120372535728775526",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120372310209151481",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120370381848813800",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120368988106702954",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120368587596873966",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120366626314780687",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120366083219526117",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120366013703196927",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120365636417437786",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120364355757994133",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120362099201487105",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120360994731905102",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120360941854638290",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120360840822227093",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120359525819859415",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120357061099986992",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120356892774162566",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120355946383765942",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120354247959281771",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120354161036521651",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120354087724335503",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120353648488128686",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120353571002827038",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120353271516901482",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120352462523474314",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120351807058698569",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120351665740226778",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120350925185229255",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120350913642561640",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120350910656479517",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120350718767022471",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120349781612736665",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120349630911095194",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120348585984491685",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120346643749040528",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120345986291888376",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120345884361740788",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120345019584508152",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120342765884334341",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120342617334726696",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120340848902631480",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120337926857134393",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120336563066548512",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120336405654335885",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120336328143655142",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120335814810833116",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120335641250849056",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120335032095216092",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120334548651458941",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120333167882322344",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120333163780018301",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120332837622890692",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120332806689530259",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120332445530894380",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120331268768641121",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120331136542855661",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120330836449087555",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120330788801802657",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120330781381857349",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120330427542237693",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120329902251729009",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120329824048992724",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120328381799759907",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120328189226676597",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120326705869156574",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120326037397516592",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120325748363772057",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120325516121260271",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120325299426763062",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120324972946379015",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120324806482768033",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120324087851737438",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120323897602285576",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120323810759147779",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120322332757766263",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120322214453236061",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120322159406887239",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120321047127879867",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120320875513958535",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120320717086429470",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120320443580367135",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120320316752921005",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120318295303758074",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120317093115527660",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120315752741769484",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120315699583426781",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120315682734604312",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120315569987592470",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120315388856832023",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120315131217252731",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313868987838602",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313850738397415",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313821814526108",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313506788725174",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313241742311764",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313206111670505",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313193004138776",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313178072420558",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120313142597095662",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120312883125121131",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120311622036013152",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310973701730423",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310649058202045",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310273940791335",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310250964238505",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310150695362840",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310086749028690",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120310007027712310",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120309841466163659",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120309532257644983",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120308859155910786",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120308677030883723",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120308218287231385",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120307983259255040",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120307660188995961",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120307628437811496",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120306111958135181",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305662743707905",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305650588901661",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305634826764492",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305620901568535",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305616832823404",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305037796876451",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120305027801825713",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120304606584693240",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120304589807472732",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120304570199118056",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120304392960414192",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120304010343387348",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303996837736671",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303979926270124",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303309496226224",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303295864709615",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303274679259604",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303254563344486",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303229695410600",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120303206786023928",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302727775269255",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302650411413685",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302418420510976",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302338640605390",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302239214408153",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302141294452805",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120302106943140027",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301984158793780",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301878844207239",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301673084277165",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301446176600547",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301411892379649",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301355760058425",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120301191838269832",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120300856822100452",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120300583152181668",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298241145377107",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298205439238498",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298191933551073",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298178213986573",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298163386863754",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298151026557067",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298138200105370",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298126338646086",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298114481262647",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298101541859591",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298090175619415",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120298074220437622",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120296196321206341",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120296012493557851",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120295550331363545",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120294474882392078",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120292926408278202",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120292146028937501",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120291277912547366",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290583638086064",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290568978809255",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290556941365340",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290543473176678",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290516180853012",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290509298204841",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120290449906606469",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120286883078873434",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120286013922910456",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120285538242773102",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120285483921965441",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120285468235575788",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120285230376308888",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120284023528509776",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120282564518637817",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120281142817403333",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280841658184097",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280772804583501",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280745730253239",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280706182254695",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280648644804677",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280545984942517",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280450006446474",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120280392683151793",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120279369235243433",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120279337945731129",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120279333998600509",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120277290508517847",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120276631545893181",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120276338049528011",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120276214229475757",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275861374971939",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275820891840613",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275616289403167",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275559015964823",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275537012891921",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275418527793192",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120275203909378119",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120274923440521574",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120274592254349705",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120272679232279026",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120272643949469831",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120272609375859188",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120272571136696529",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120271784222020011",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120270886515150859",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120270382804418785",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120267632150810897",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120267507248366025",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120265573024039036",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120265351648649515",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120265019028033660",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264993065300469",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264983665893847",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264957938004381",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264931316802008",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264707223470479",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264092820922599",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120264024378024194",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120263928773038249",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120263926957142129",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120263905222197476",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120263532856115332",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120263006118629442",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262994097737930",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262633681219662",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262458648531296",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262283763048646",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262223322865690",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262193404891236",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120262014182535184",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120261969139650743",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120261923203858502",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120261726104952895",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120261724746248674",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120261190853255606",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120261166744383787",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260991443218916",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260754725347346",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260718943740331",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260679491887121",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260658037928371",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260637075149208",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260516719530472",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260495311524278",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260317150158946",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260311391564086",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120260155409682620",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120259858746511857",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120259610246365403",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120259162290475273",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120258771716833426",
+      "cause": "TARGET_OVER_15_MINUTES_AT_SEND"
+    },
+    {
+      "post_id": "2120620323934499204",
+      "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"
+    }
+  ],
+  "source_gaps": [
+    {
+      "cause": "SAME_SESSION_PRICED_IN_PATH_NOT_HELD",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+      "held_families": [
+        "direct_rates",
+        "rates",
+        "rates_proxy",
+        "volatility"
+      ]
+    },
+    {
+      "market": "NDX",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "NASDAQ",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "BTCUSD",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "DXY",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "EURUSD",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "SPX",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "US10Y",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "US2Y",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "USDJPY",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "WTI",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "XAUUSD",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    }
+  ],
+  "selection_causes": {
+    "RETWEET_NOT_ORIGINAL_TARGET": 1,
+    "NO_SIX_MARKET_OR_MACRO_TOPIC": 2,
+    "TARGET_OVER_15_MINUTES_AT_SEND": 809
+  },
+  "pack": {
+    "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261112.json",
+    "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261112.html",
+    "store_message_id": "x-reply-pack-0e444d0bd773972f73c070b2e80525bda4b4d483b968ac5e486e3b2f48a304b2",
+    "item_count": 0,
+    "none_reason": "No source-bound native draft was usable. NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+    "short_reason": "0 target replies: no padding. NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+    "public_write_performed": false
+  },
+  "delivery": {
+    "status": "NO_FRESH_UNSENT_DRAFTS",
+    "delivered": [],
+    "causes": {},
+    "dropped_candidates": [],
+    "public_submit_actions": 0
+  },
+  "ended_at_utc": "2026-11-11T20:53:03.750774+00:00",
+  "stage_seconds": {
+    "ranking": 30.667221200001222,
+    "drafting": 0.0,
+    "checks": 0.13581630000044242,
+    "filter": 5.531653000001825,
+    "whole_tick": 39.46253590000197
+  }
+}

@@ -451,6 +451,14 @@ class ContentOpsDurableStore:
         now = self._now_fn() if self._now_fn else datetime.now(timezone.utc)
         return now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
     def _get_now_iso(self) -> str: return self._get_now().isoformat()
+    def ensure_model_usage_column(self) -> None:
+        """Compatible nullable telemetry on the existing table; no lineage rewrite."""
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            columns = {row["name"] for row in conn.execute("PRAGMA table_info(model_invocations)")}
+            if "usage_metadata_json" not in columns:
+                conn.execute("ALTER TABLE model_invocations ADD COLUMN usage_metadata_json TEXT")
+
     def ensure_outbox_read_indexes(self) -> None:
         """Optional read indexes; leave payloads, identities and schema lineage unchanged."""
         with self.get_connection() as conn:
@@ -507,10 +515,11 @@ class ContentOpsDurableStore:
                 conn.execute(statement)
     def query_pragmas(self) -> Dict[str, Any]:
         with self.get_connection() as c: return {"journal_mode": str(c.execute("PRAGMA journal_mode").fetchone()[0]).upper(), "foreign_keys": int(c.execute("PRAGMA foreign_keys").fetchone()[0]), "busy_timeout_ms": int(c.execute("PRAGMA busy_timeout").fetchone()[0])}
-    def verify_schema_integrity(self) -> bool:
+    def verify_schema_integrity(self, *, physical_check: bool = True) -> bool:
         with self.get_connection() as c:
-            result = c.execute("PRAGMA integrity_check").fetchone()[0]
-            if str(result).lower() != "ok": raise DurableStateCorruptionError(str(result))
+            if physical_check:
+                result = c.execute("PRAGMA integrity_check").fetchone()[0]
+                if str(result).lower() != "ok": raise DurableStateCorruptionError(str(result))
             current_row = c.execute(
                 "SELECT MAX(version) FROM schema_migrations"
             ).fetchone() if c.execute(
@@ -1354,7 +1363,8 @@ class ContentOpsDurableStore:
             restorable_causes = {
                 "x": {"X_NON_API_AUTOMATION_PROHIBITED", "NEO_COMPOSER_PREPARATION_FAILED", "NEO_COMPOSER_PAYLOAD_MISMATCH",
                     "NEO_REGISTERED_PROFILE_UNAVAILABLE"},
-                "substack": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"},
+                "substack": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION",
+                    "NEO_CONTROL_COVERED_ACT", "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"},
                 "substack_notes": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION",
                     "NEO_COMPOSER_PREPARATION_FAILED", "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE"},
             }

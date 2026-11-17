@@ -1,0 +1,41 @@
+{
+  "observed_at_utc": "2026-11-15T11:48:25.204797+00:00",
+  "database_access": "SQLITE_MODE_RO",
+  "public_write_performed": false,
+  "records": [
+    {
+      "dispatch_id": "dispatch_2704c810355edb38f779637795ce85b0",
+      "platform": "linkedin",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524207127058427904",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207127058427904/",
+      "run_id": "cc124-next-article-20261105-a",
+      "official_api_readback": {
+        "status": "READBACK_CAPABILITY_LIMITED",
+        "reason_code": "LINKEDIN_MEMBER_READ_SCOPE_NOT_GRANTED",
+        "verified": false,
+        "write_exists": true,
+        "public_object_id": "urn:li:activity:7524207127058427904",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207127058427904/",
+        "readback_source": "RETAINED_PUBLIC_OBJECT_IDENTITY"
+      }
+    },
+    {
+      "dispatch_id": "dispatch_a749b509ef031d009fea961c23f3333d",
+      "platform": "linkedin",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524207612276486144",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207612276486144/",
+      "run_id": "cc124-next-article-20261105-b",
+      "official_api_readback": {
+        "status": "READBACK_CAPABILITY_LIMITED",
+        "reason_code": "LINKEDIN_MEMBER_READ_SCOPE_NOT_GRANTED",
+        "verified": false,
+        "write_exists": true,
+        "public_object_id": "urn:li:activity:7524207612276486144",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524207612276486144/",
+        "readback_source": "RETAINED_PUBLIC_OBJECT_IDENTITY"
+      }
+    }
+  ]
+}

@@ -6,7 +6,6 @@ Only Main's explicit outcomes are used. No prices, scores or performance are com
 from __future__ import annotations
 
 from datetime import datetime, time, timedelta
-from decimal import Decimal, InvalidOperation
 import hashlib
 import json
 import re
@@ -25,7 +24,7 @@ WRITER_GUIDANCE = (
     "Include its canonical_content_text exactly once as a section of substack_body_markdown, "
     "adding the usual SOURCE markers to bind each paragraph and call line. "
     "Retain every call, including stops and window-end closes, and the weekly counts. Bind claims to this "
-    "source as usual. These are resolved conditional model calls, not new trade instructions. "
+    "source as usual. These are resolved conditional calls, not new trade instructions. "
     "Do not claim a track record, alpha, returns, win rate, R, money, size, account details or performance. "
     "The usual Main-sourced scenarios and editorial roles still apply.\n"
 )
@@ -47,15 +46,15 @@ def week_window(cutoff_utc):
             datetime.combine(saturday, time(), ET))
 
 
-def _level(value):
+def _zone(symbol, low, high, source):
+    """CC-583 (decision 40), as in the pinned scorecard: only the plan's own zone, on the
+    plan's tick; a one-price zone or a row without plan levels prints no price."""
+    from live_contentops.pinned_result_scorecard_v1 import plan_zone
     try:
-        number = Decimal(str(value))
-    except InvalidOperation as exc:
-        raise ValueError("WEEKLY_CALL_ZONE_INVALID") from exc
-    if not number.is_finite():
-        raise ValueError("WEEKLY_CALL_ZONE_INVALID")
-    # Preserve the source's decimal precision, including trailing zeroes.
-    return format(number, ",f")
+        zone = plan_zone(symbol, {"zone_low": low, "zone_high": high}, source)
+    except ValueError:
+        raise ValueError("WEEKLY_CALL_ZONE_INVALID") from None
+    return f"entry zone {zone[0]}–{zone[1]}; " if zone else ""
 
 
 def project(export, *, cutoff_utc):
@@ -87,13 +86,11 @@ def project(export, *, cutoff_utc):
         if not direction or not re.fullmatch(r"[A-Z][A-Z0-9]{1,14}", symbol):
             raise ValueError("WEEKLY_CALL_MARKET_OR_DIRECTION_INVALID")
         zone = plan.get("zone") or {}
-        low, high = _level(zone.get("minimum")), _level(zone.get("maximum"))
-        if Decimal(str(zone["minimum"])) > Decimal(str(zone["maximum"])):
-            raise ValueError("WEEKLY_CALL_ZONE_INVALID")
+        levels = _zone(symbol, zone.get("minimum"), zone.get("maximum"), plan)
         local = resolved.astimezone(ET)
         day = f"{local:%a} {local.day} {local:%b}"
         line = (f"- {day} ET: {TITLES.get(symbol, symbol)}; original direction was {direction}; "
-                f"entry zone {low}–{high}; {RESULTS[result]}.")
+                f"{levels}{RESULTS[result]}.")
         rows.append({"plan_id": plan["plan_id"], "outcome_id": outcome["outcome_id"],
                      "source_plan_hash": score.get("source_plan_hash"), "score_hash": score.get("content_hash"),
                      "resolved_at_utc": score["resolved_at_utc"], "scored_at_utc": score["scored_at_utc"],
@@ -102,6 +99,7 @@ def project(export, *, cutoff_utc):
     # CC-394's pinned message overflows into this same complete weekly record.
     # Preserve the reader's explicit legacy expiries as unscored, until Main
     # supplies scored NOT_TRIGGERED outcomes. Never count them as scored calls.
+    sources = {p.get("plan_id"): p for p in status.get("plans", [])}
     for row in result_rows_from_export(export, include_not_triggered=True):
         if row["scored"]:
             continue
@@ -112,9 +110,9 @@ def project(export, *, cutoff_utc):
         if plan.get("direction") not in {"bullish", "bearish"}:
             raise ValueError("WEEKLY_CALL_MARKET_OR_DIRECTION_INVALID")
         local = resolved.astimezone(ET)
+        levels = _zone(row["symbol"], plan["zone_low"], plan["zone_high"], sources.get(row["plan_id"]) or {})
         line = (f"- {local:%a} {local.day} {local:%b} ET: {TITLES[row['symbol']]}; "
-                f"original direction was {plan['direction']}; entry zone "
-                f"{_level(plan['zone_low'])}–{_level(plan['zone_high'])}; expired without entry; not scored.")
+                f"original direction was {plan['direction']}; {levels}expired without entry; not scored.")
         rows.append({"plan_id": row["plan_id"], "outcome_id": None, "score_hash": None,
             "resolved_at_utc": row["at_utc"], "scored_at_utc": None, "market": row["symbol"],
             "direction": plan["direction"], "zone": {"minimum": plan["zone_low"], "maximum": plan["zone_high"]},
@@ -130,8 +128,8 @@ def project(export, *, cutoff_utc):
     text = (f"## The week's call results ({period})\n\n"
             f"Scored calls: {counts['scored_calls']}. Hits: {counts['hits']}. Stops: {counts['stops']}."
             + (f" Unscored expiries: {unscored}." if unscored else "") + "\n\n"
-            + ("\n".join(r["line"] for r in rows) if rows else "No conditional model calls were scored for this week.")
-            + f"\n\nResults refer to resolved conditional model calls.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")
+            + ("\n".join(r["line"] for r in rows) if rows else "No conditional calls were scored for this week.")
+            + f"\n\nResults refer to resolved conditional calls.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")
     check_publication_copy({"body": text})
     return {"schema_version": SCHEMA, "cutoff_utc": cutoff_utc,
             "week_start_et": start.isoformat(), "week_end_exclusive_et": end.isoformat(),

@@ -29,7 +29,7 @@ class ArticleBrowser:
         if self.fault == "checkpoint":
             self.url = "https://www.linkedin.com/checkpoint/challenge/"
             wording = "Confirm your identity"
-        return {"url": self.url, "text": wording, "refs": [
+        result = {"url": self.url, "text": wording, "refs": [
             {"role": "button", "name": "Start a post", "ref": "start"},
             {"role": "textbox", "name": "Text editor for creating content", "ref": "editor"},
             {"role": "button", "name": "Bật mí về video tiếp theo của bạn", "ref": "youtube-editor"},
@@ -38,16 +38,29 @@ class ArticleBrowser:
             {"role": "button", "name": "Thêm hình ảnh", "ref": "add-image"},
             {"role": "button", "name": "Next", "ref": "next"},
             {"role": "button", "name": "CC454 article image", "ref": "image"}]}
+        if self.fault == "link_preview" and self.composer and not getattr(self, "preview_removed", False):
+            result["refs"] = [r for r in result["refs"] if r["ref"] != "add-media"] + [
+                {"role":"link", "name":"Open article: the canonical piece", "ref":"canonical-preview"},
+                {"role":"button", "name":"Remove media", "ref":"remove-preview"}]
+        return result
 
     def act(self, page, kind, **kwargs):
         self.calls.append((kind, kwargs))
         if kind == "click" and kwargs.get("ref") in {"add-media", "add-image"}:
             assert getattr(self, "intercepting", False), "A native file chooser must never be opened"
+        if kind == "click" and kwargs.get("ref") == "remove-preview":
+            self.preview_removed = True
         if kind == "fill":
             self.composer = [kwargs["value"]]
+            if self.fault in {"normalized_fill", "changed_fill"}:
+                self.composer = [kwargs["value"].replace(" ", "\n\n") + (" changed" if self.fault == "changed_fill" else "")]
+                raise endpoint.NeoEndpointError("NEO_FIELD_NORMALIZED_OR_REJECTED_ACT")
 
     def wait(self, page, selector):
         pass
+
+    def wait_text(self, page, text):
+        self.owner_controls_ready = text == "Start a post"
 
     def call(self, name, args):
         self.calls.append((name, args))
@@ -61,12 +74,17 @@ class ArticleBrowser:
 
     def run(self, page, phase, **kwargs):
         self.calls.append(phase)
+        if phase == "article_restriction":
+            return {"verification_required": self.fault == "external_links",
+                "platform_wording": "Complete one-time verification to make external links clickable"}
         if phase == "article_identity":
-            correct = self.fault != "account"
+            correct = self.fault != "account" and (self.fault != "delayed_owner" or getattr(self, "owner_controls_ready", False))
             return {"authenticated": correct, "observed_identity": handoff.IDENTITIES[self.destination] if correct else None,
                 "observed_stable_id": "143198922", "observed_at_utc": datetime.now(timezone.utc).isoformat()}
         if phase == "article_editor":
             return {"ready": True}
+        if phase == "article_composer":
+            return {"texts": self.composer}
         if phase == "article_intercept_upload":
             self.intercepting = self.fault != "interception"
             return {"installed": self.fault != "interception"}
@@ -77,7 +95,7 @@ class ArticleBrowser:
             if self.fault == "composer":
                 return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PAYLOAD_MISMATCH"}
-            assert kwargs["posts"] == self.composer
+            assert [" ".join(t.split()) for t in kwargs["posts"]] == [" ".join(t.split()) for t in self.composer]
             company = self.destination == "linkedin_company"
             self.posts = [{"public_object_id": "urn:li:activity:123" if company else "UgArticle",
                 "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:123/" if company else "https://www.youtube.com/post/UgArticle",
@@ -190,6 +208,129 @@ def test_refusal_never_clicks_and_platform_objection_suspends_only_that_route(tm
         assert routes == {}
     assert handoff._prohibited_write("x") is None
     assert handoff._prohibited_write("substack") is None
+
+
+def test_cc536_youtube_existing_editor_does_not_depend_on_rotating_prompt(tmp_path, monkeypatch):
+    store, c, executor, browser, message, row = article(tmp_path, "youtube")
+    snapshot = browser.snapshot
+    def rotated(page):
+        value = snapshot(page)
+        value["refs"] = [r for r in value["refs"] if r["ref"] != "youtube-editor"]
+        return value
+    monkeypatch.setattr(browser, "snapshot", rotated)
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert browser.calls.count("article_publish") == 1
+
+
+def test_cc536_company_identity_waits_for_its_hydrated_owner_controls(tmp_path):
+    store, c, executor, browser, message, row = article(tmp_path, "linkedin_company", "delayed_owner")
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert browser.calls.count("article_publish") == 1
+
+
+def test_cc536_company_bound_chart_replaces_only_its_draft_link_preview(tmp_path, monkeypatch):
+    store, c, executor, browser, message, row = article(tmp_path, "linkedin_company", "link_preview")
+    intent = json.loads(message["payload"])
+    intent["media_assets"] = [{"path":str(tmp_path / "media/chart.png"), "asset_id":"bound-chart", "sha256":"fixture"}]
+    message = {**message, "payload":json.dumps(intent)}
+    # Exercise the driver with the request's already-bound media rather than
+    # changing any durable/public production package.
+    request = {"destination":"linkedin_company", "expected_identity":"linkedin:company:143198922", "action":"PUBLISH",
+        "native_payload":{"text":"The approved text."}, "content_binding":{"media_manifest":intent["media_assets"]}}
+    driver = endpoint.NeoBrowserDriver(browser)
+    monkeypatch.setattr(driver, "article_readback", lambda *args, **kwargs: {"public_object_id":"observed-post"})
+    driver.perform({"request":request})
+    assert browser.preview_removed
+    assert any(isinstance(call,tuple) and call[0] == "upload" for call in browser.calls)
+    assert browser.calls.count("article_publish") == 1
+
+
+@pytest.mark.parametrize("case,absent", [("loaded", True), ("empty", False), ("partial", False), ("wrong_account", False)])
+def test_cc536_company_absence_requires_loaded_own_feed_without_a_partial_target(case, absent):
+    browser = ArticleBrowser("linkedin_company", "account" if case == "wrong_account" else None)
+    url = "https://www.linkedin.com/company/143198922/admin/page-posts/published/"
+    browser.open("linkedin_company", url)
+    text = "The complete approved article starts with its bound research call and all its limits.\n\nMore exact copy."
+    browser.posts = [] if case == "empty" else [{"public_object_id":"urn:li:activity:old", "public_object_url":"https://www.linkedin.com/feed/update/urn:li:activity:old/",
+        "observed_identity":"linkedin:company:143198922", "observed_text":text[:70] if case == "partial" else "An older unrelated article.", "links":[]}]
+    result = endpoint.NeoBrowserDriver(browser).article_readback({"destination":"linkedin_company",
+        "expected_identity":"linkedin:company:143198922", "entry_url":url, "native_payload":{"text":text}}, 1)
+    assert bool(result.get("target_post_absent")) is absent
+    assert "article_publish" not in browser.calls
+
+
+def test_cc536_youtube_external_link_verification_stops_only_its_route(tmp_path):
+    store, c, executor, browser, message, row = article(tmp_path, "youtube", "external_links")
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["status"] in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
+    assert "article_publish" not in browser.calls
+    assert handoff.suspended_routes() == {"youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"}
+    response = next(json.loads(r["payload"])["result"] for r in store.list_outbox_messages(destination="internal:native-neo-tool")
+        if "result" in json.loads(r["payload"]))
+    assert response["platform_wording"] == "Complete one-time verification to make external links clickable"
+
+
+@pytest.mark.parametrize("fault,confirmed", [("normalized_fill", True), ("changed_fill", False)])
+@pytest.mark.parametrize("destination", ["youtube", "linkedin_company"])
+def test_cc536_youtube_fill_accepts_only_observed_whitespace_changes(tmp_path, fault, confirmed, destination):
+    store, c, executor, browser, message, row = article(tmp_path, destination, fault)
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert (result.get("reconciliation_status") == "RECONCILED_CONFIRMED") is confirmed
+    assert bool(browser.posts) is confirmed
+    assert browser.calls.count("article_publish") == int(confirmed)
+
+
+@pytest.mark.parametrize("visible", [False, True])
+def test_cc536_youtube_dom_editor_excludes_hidden_composer(visible):
+    import subprocess
+    from pathlib import Path
+    source = (Path(endpoint.__file__).with_name("neo_endpoint_steps_v1.js")).read_text(encoding="utf-8")
+    script = """
+const visible=JSON.parse(process.argv[1]);
+const field={getClientRects:()=>visible?[{}]:[],setAttribute:()=>{},getAttribute:()=> 'A rotating prompt'};
+global.document={querySelector:()=>field,querySelectorAll:()=>[field]};
+global.getComputedStyle=()=>({visibility:'visible'});
+const page={evaluateInPage:async fn=>({value:fn()})};
+const source=JSON.parse(process.argv[2]);
+(async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
+console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
+"""
+    raw = subprocess.check_output(["node", "-e", script, json.dumps(visible), json.dumps(source)], text=True, timeout=5)
+    result = json.loads(raw)
+    assert result["ready"] is visible
+    if not visible:
+        assert result["prompt"] == "A rotating prompt"
+
+
+@pytest.mark.parametrize("correct_author", [False,True])
+def test_cc536_company_permalink_reads_its_exact_id_body_and_visible_short_link(correct_author):
+    import subprocess
+    from pathlib import Path
+    source=Path(endpoint.__file__).with_name('neo_endpoint_steps_v1.js').read_text(encoding='utf-8')
+    script="""
+const correct=JSON.parse(process.argv[1]);
+global.location={href:'https://www.linkedin.com/feed/update/urn:li:activity:123/'};
+const body={innerText:'Our exact call. https://lnkd.in/bound',closest:()=>root};
+const author={href:correct?'https://www.linkedin.com/company/capitalchronicle/':'https://www.linkedin.com/company/other/',innerText:'Author'};
+const img={getClientRects:()=>[{}],currentSrc:'https://media.licdn.com/chart-small',getAttribute:()=> 'https://media.licdn.com/chart-small 800w, https://media.licdn.com/chart-full 1400w'};
+const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author]:s==='img'?[img]:[]};
+global.document={querySelectorAll:s=>s.startsWith('main ')?[body]:[]};
+const page={evaluateInPage:async(fn,input)=>({value:fn(input)})};
+const source=JSON.parse(process.argv[2]);
+(async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
+console.log(JSON.stringify(await fn(page,{phase:'article_readback',destination:'linkedin_company'})));})();
+"""
+    result=json.loads(subprocess.check_output(['node','-e',script,json.dumps(correct_author),json.dumps(source)],text=True,timeout=5))
+    if not correct_author:
+        assert result['posts']==[]
+    else:
+        post=result['posts'][0]
+        assert post['public_object_id']=='urn:li:activity:123'
+        assert post['observed_text']=='Our exact call. https://lnkd.in/bound'
+        assert any(link['url']=='https://lnkd.in/bound' for link in post['links'])
+        assert post['public_image_urls']==['https://media.licdn.com/chart-small','https://media.licdn.com/chart-full']
 
 
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])

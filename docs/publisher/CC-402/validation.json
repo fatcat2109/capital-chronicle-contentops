@@ -1,0 +1,57 @@
+{
+  "targeted_only": true,
+  "parallel_pytest": false,
+  "checks": [
+    {
+      "artifact": "docs\\publisher\\CC-402\\store-checks.xml",
+      "cases": 65,
+      "failures": 0
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\card-checks.xml",
+      "cases": 29,
+      "failures": 0
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\ui-learning-checks.xml",
+      "cases": 67,
+      "failures": 1
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\final-collector-checks.xml",
+      "cases": 23,
+      "failures": 0
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\delivery-regression.xml",
+      "cases": 43,
+      "failures": 0
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\nullable-ui-check.xml",
+      "cases": 1,
+      "failures": 0
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\final-binding-checks.xml",
+      "cases": 23,
+      "failures": 0
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\minute-consumer-checks.xml",
+      "cases": 28,
+      "failures": 2
+    },
+    {
+      "artifact": "docs\\publisher\\CC-402\\minute-record-correction.xml",
+      "cases": 3,
+      "failures": 0
+    }
+  ],
+  "distinct_cases": 205,
+  "final_distinct_passes": 205,
+  "unresolved_failures": [],
+  "corrected_failure": "Existing capability-matrix assertion expected one request; it now matches the tested interaction + insights + daily account GET budget.",
+  "earlier_time_limited_run": "The initial combined store/UI check was stopped at 55 seconds inside the decision-run window. Both canonical files subsequently completed as targeted checks after 13:30 GMT+7.",
+  "corrected_minute_regression": "Moving the run record after collection had dropped records for non-publishing calls. The original non-dry-run recording behavior is restored; both failed cases and the stale-export collection consumer pass."
+}

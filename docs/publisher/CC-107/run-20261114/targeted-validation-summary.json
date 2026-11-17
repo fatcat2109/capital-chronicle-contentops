@@ -1,0 +1,127 @@
+{
+  "tests_run": "TARGETED_ONLY_ONE_PYTEST_PROCESS_AT_A_TIME",
+  "unique_cases": 595,
+  "latest_outcomes": {
+    "PASS": 591,
+    "FAIL": 0,
+    "SKIP": 4
+  },
+  "runs": [
+    {
+      "path": "source-consumer-tests.xml",
+      "tests": 63,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "review-edition-tests.xml",
+      "tests": 72,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "final-source-tests.xml",
+      "tests": 45,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "legacy-review-consensus-tests.xml",
+      "tests": 26,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "retained-history-tests.xml",
+      "tests": 25,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "main-reaction-chart-tests.xml",
+      "tests": 11,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "source-text-hash-tests.xml",
+      "tests": 74,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "prewriter-source-hash-tests.xml",
+      "tests": 22,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "main-chart-credit-tests.xml",
+      "tests": 13,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "event-acceptance-tests.xml",
+      "tests": 145,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "history-unit-tests.xml",
+      "tests": 29,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "retrospective-reader-tests.xml",
+      "tests": 60,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "final-dateline-tests.xml",
+      "tests": 70,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "reader-interpretation-tests.xml",
+      "tests": 118,
+      "failures": 0,
+      "skips": 0
+    },
+    {
+      "path": "inline-visual-tests.xml",
+      "tests": 112,
+      "failures": 0,
+      "skips": 4
+    },
+    {
+      "path": "event-media-rebinding-tests.xml",
+      "tests": 61,
+      "failures": 0,
+      "skips": 0
+    }
+  ],
+  "total_executions": 946,
+  "skipped": [
+    {
+      "test": "test_site_readback_before_first_dispatch_requires_exact_reviewed_plan[change0]",
+      "reason": "Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain."
+    },
+    {
+      "test": "test_site_readback_before_first_dispatch_requires_exact_reviewed_plan[change1]",
+      "reason": "Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain."
+    },
+    {
+      "test": "test_site_readback_before_first_dispatch_requires_exact_reviewed_plan[change2]",
+      "reason": "Jim's decision 83 (5 Nov): no social or Substack post links the preview site until Capital Chronicle owns its domain; site-first linking is off (SITE_LINKS_ALLOWED=False). Re-enable against the owned domain."
+    },
+    {
+      "test": "test_channel_photo_preview_keeps_archive_context_without_dropping_unknown_rights",
+      "reason": "ui/contentops_v5/node_modules is not installed in this checkout (npm ci there)"
+    }
+  ],
+  "full_suite_run": false
+}

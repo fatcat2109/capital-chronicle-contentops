@@ -1,0 +1,15 @@
+{
+  "item": "CC-512",
+  "branch": "backlog/cc-512-light-caller-fallback",
+  "operating_base": "05586a4aeac7d3dad1cb992607e22fb1ae01b9ea",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_evidence": "Observed codex.exe PID 35464 started 12 Nov 2026 18:42:49 GMT+7 with --model gpt-6.1-sol and model_reasoning_effort=max; no runtime telemetry inferred.",
+  "initial_worktree": "clean at 72cb1b12 on backlog/cc-510-reply-base-rates; preserved branch, cut this branch from operating HEAD",
+  "recorded_at_utc": "2026-11-12T12:12:36.111577+00:00",
+  "integration_performed": false,
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "desktop_automation_performed": false
+}

@@ -1,0 +1,251 @@
+{
+  "item": "CC-425",
+  "reviewed_at_utc": "2026-11-17T08:29:56.838285+00:00",
+  "operation_id": "cc425-cpi-reaction-history-20261111-v1",
+  "article_identity": "08d670ac572144224b951de4d57e5b29f572a7ddf1872df9a5f9d8de125ff18d",
+  "package_revision": "664040f7515fc249782876aeff3f2f30a6154ab28580d2d7fd99920706d7ad64",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+  "decision": "KEEP",
+  "pixels_inspected": true,
+  "renders": [
+    {
+      "render_id": "discord-desktop-20261117",
+      "destination": "discord",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-discord-desktop.png",
+      "sha256": "08735712134189824adfa50b1ce7d677063ba04ce915cccba3981d93f48d8a21",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\discord.html",
+        "sha256": "406b169bf6031bf01da39fd910ccb656fe161650844aae5c12ef4d708537ac2e"
+      },
+      "variant_sha256": "b223b4c4b64d712e16feaa6dda17bf7045e00738be573287385a79d214b29495"
+    },
+    {
+      "render_id": "discord-mobile-20261117",
+      "destination": "discord",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-discord-mobile.png",
+      "sha256": "6070852e91d6689c9cdf5f02a843150923392316ea7906e35b831090ae90706b",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\discord.html",
+        "sha256": "406b169bf6031bf01da39fd910ccb656fe161650844aae5c12ef4d708537ac2e"
+      },
+      "variant_sha256": "b223b4c4b64d712e16feaa6dda17bf7045e00738be573287385a79d214b29495"
+    },
+    {
+      "render_id": "facebook_page-desktop-20261117",
+      "destination": "facebook_page",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-facebook_page-desktop.png",
+      "sha256": "bee93840e2dbb6c789cca5ad135d1feee25ec2730163e6d250a0461c8e24f094",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\facebook_page.html",
+        "sha256": "23bc67ff688be08ad0095fadadbe557c60aaa2b1d3df38e1670369ed6a1f1847"
+      },
+      "variant_sha256": "f4b0486cad0d7bc7a80490957e0b034a69045a3be90746340677989813c7c9e1"
+    },
+    {
+      "render_id": "facebook_page-mobile-20261117",
+      "destination": "facebook_page",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-facebook_page-mobile.png",
+      "sha256": "b641d5a7c2f67f52f056a20de74448268079a7cf9b70d275f440103e1793e74e",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\facebook_page.html",
+        "sha256": "23bc67ff688be08ad0095fadadbe557c60aaa2b1d3df38e1670369ed6a1f1847"
+      },
+      "variant_sha256": "f4b0486cad0d7bc7a80490957e0b034a69045a3be90746340677989813c7c9e1"
+    },
+    {
+      "render_id": "instagram_business-desktop-20261117",
+      "destination": "instagram_business",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-instagram_business-desktop.png",
+      "sha256": "134f0ed73bcacbf2b66ba9ff5a7e60260439270a0b00a0f06f49e711250270b1",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\instagram_business.html",
+        "sha256": "d0680eacdeb8530fa5008b47ea6f2d10a550008784a52068059e15ff0fdc1eb4"
+      },
+      "variant_sha256": "9cc7f8799e9a9fab219ccfca9ac088ef16ce539d80f4cfabc53820f6e5cf83fa"
+    },
+    {
+      "render_id": "instagram_business-mobile-20261117",
+      "destination": "instagram_business",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-instagram_business-mobile.png",
+      "sha256": "11327d8b0ee8ac08665ac0d4bd380804b64a56ea436e4c7c0e0a7fb93b3bf346",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\instagram_business.html",
+        "sha256": "d0680eacdeb8530fa5008b47ea6f2d10a550008784a52068059e15ff0fdc1eb4"
+      },
+      "variant_sha256": "9cc7f8799e9a9fab219ccfca9ac088ef16ce539d80f4cfabc53820f6e5cf83fa"
+    },
+    {
+      "render_id": "linkedin-desktop-20261117",
+      "destination": "linkedin",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-linkedin-desktop.png",
+      "sha256": "eddc001d1e1472321674f30f27cd0a61458d93ce34e3aad1dcf1b142841bfe2d",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\linkedin.html",
+        "sha256": "8644bb4800fa3c03280cd20805c96daa077fb7f918d13ae49180b753cdcb7692"
+      },
+      "variant_sha256": "08cd88ca382c219da172ec4874a69ed33ba6046c4c57122deb4182c642e56121"
+    },
+    {
+      "render_id": "linkedin-mobile-20261117",
+      "destination": "linkedin",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-linkedin-mobile.png",
+      "sha256": "ebd98b77664fdef7625ab71ce21e2edf932501e7840723fa0011075419d79756",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\linkedin.html",
+        "sha256": "8644bb4800fa3c03280cd20805c96daa077fb7f918d13ae49180b753cdcb7692"
+      },
+      "variant_sha256": "08cd88ca382c219da172ec4874a69ed33ba6046c4c57122deb4182c642e56121"
+    },
+    {
+      "render_id": "substack-desktop-20261117",
+      "destination": "substack",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-substack-desktop.png",
+      "sha256": "27e952e9c335e5b0c834b92d100aa80a04a9d8948fdf9a97092149276e6e3514",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\substack.html",
+        "sha256": "c140d3d822a9e22ff8eb3cdf1fb94ed32ee82939b8c30ab2289b9c38700678ef"
+      },
+      "variant_sha256": "1d88e22d02b0418ad662c77a40b887ea8c179dcaa009e8d47d71c20bde7ef1b4"
+    },
+    {
+      "render_id": "substack-mobile-20261117",
+      "destination": "substack",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-substack-mobile-top.png",
+      "sha256": "a90f1da695463d9c6de58909f73d7fc4796678cb8bf9bed9b60b2f1e63c4cfbd",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\substack.html",
+        "sha256": "c140d3d822a9e22ff8eb3cdf1fb94ed32ee82939b8c30ab2289b9c38700678ef"
+      },
+      "variant_sha256": "1d88e22d02b0418ad662c77a40b887ea8c179dcaa009e8d47d71c20bde7ef1b4"
+    },
+    {
+      "render_id": "telegram-desktop-20261117",
+      "destination": "telegram",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-telegram-desktop.png",
+      "sha256": "898deda055c42e1850f6e87095cb52402ecf96c2dbbf346f030f4d9ceeefb316",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\telegram.html",
+        "sha256": "6475886ebbd6b6ab9b8646d4fc76a2ce892a0388c5735fb36f855535bddbca5a"
+      },
+      "variant_sha256": "55368258616d1ded0cc5f218320fc253474c99d38be60953e6175ffeb81b044e"
+    },
+    {
+      "render_id": "telegram-mobile-20261117",
+      "destination": "telegram",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-telegram-mobile.png",
+      "sha256": "6a0a3f5c178adfbdcff87e00d25139d16a62902a22483729941f3fe3e327630c",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\telegram.html",
+        "sha256": "6475886ebbd6b6ab9b8646d4fc76a2ce892a0388c5735fb36f855535bddbca5a"
+      },
+      "variant_sha256": "55368258616d1ded0cc5f218320fc253474c99d38be60953e6175ffeb81b044e"
+    },
+    {
+      "render_id": "threads-desktop-20261117",
+      "destination": "threads",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-threads-desktop.png",
+      "sha256": "b688bf952f85f612e2ab2e2bf545f41f8ec0042bbdbb81bcc8ad5c1cea7fb234",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\threads.html",
+        "sha256": "349f1b08948db1406038b2c49f0a65c3e6162ec97e51371160c5ec27c823a3b9"
+      },
+      "variant_sha256": "77b0f8d1c9a23491ec799c4c80abc5e8b3847d99e951979e437e2d80ec21bd29"
+    },
+    {
+      "render_id": "threads-mobile-20261117",
+      "destination": "threads",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-threads-mobile.png",
+      "sha256": "0c7e9c667691018d2a914b7e1741efe4c23d6cb76d3a84e71f5462c198079c24",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\threads.html",
+        "sha256": "349f1b08948db1406038b2c49f0a65c3e6162ec97e51371160c5ec27c823a3b9"
+      },
+      "variant_sha256": "77b0f8d1c9a23491ec799c4c80abc5e8b3847d99e951979e437e2d80ec21bd29"
+    },
+    {
+      "render_id": "x-desktop-20261117",
+      "destination": "x",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-x-desktop.png",
+      "sha256": "759c775ef97e4ee24bf3879768c877adddd354b0d824730a887a00ed3a4cf7fc",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\x.html",
+        "sha256": "a05d78543469d0b3b8763f02b60b9686c7012ea8740d6189870d9c10b4c2a558"
+      },
+      "variant_sha256": "f6d80246e4427813e8ca32a20aea609dd0808883a9f4bbeaf0cafaa6beaee583"
+    },
+    {
+      "render_id": "x-mobile-20261117",
+      "destination": "x",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-x-mobile.png",
+      "sha256": "bfdc594b6301e9eb430a41b5252bd8f16a1da082d2f137b1fb81555abed9d9db",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\x.html",
+        "sha256": "a05d78543469d0b3b8763f02b60b9686c7012ea8740d6189870d9c10b4c2a558"
+      },
+      "variant_sha256": "f6d80246e4427813e8ca32a20aea609dd0808883a9f4bbeaf0cafaa6beaee583"
+    },
+    {
+      "render_id": "youtube-desktop-20261117",
+      "destination": "youtube",
+      "viewport": "desktop",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-youtube-desktop.png",
+      "sha256": "f2014c8a54ebdc8badb2ab47befd4b290fe27aeec01b91a6c3d1e5c0e3188870",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\youtube.html",
+        "sha256": "8a6c617765cd17c15d57b57e5f2732932309786e41dba9f3eb0c3ba17c5234b0"
+      },
+      "variant_sha256": "c1d188992ce5ff70568c1236f8e6121e2242ed9afe9d19d5c04c7296221be8bf"
+    },
+    {
+      "render_id": "youtube-mobile-20261117",
+      "destination": "youtube",
+      "viewport": "mobile",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\cc425-final-youtube-mobile.png",
+      "sha256": "2aefd93dd696880d4be6f5ca8f39caceda41de0dd9d9f39a0094c5da6edccf6d",
+      "render_source": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\renders\\youtube.html",
+        "sha256": "8a6c617765cd17c15d57b57e5f2732932309786e41dba9f3eb0c3ba17c5234b0"
+      },
+      "variant_sha256": "c1d188992ce5ff70568c1236f8e6121e2242ed9afe9d19d5c04c7296221be8bf"
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "cpi-gold-horizons-5aec0a3da914-v1",
+      "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44"
+    },
+    {
+      "asset_id": "cc425-usda-grocery-20230622",
+      "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08"
+    }
+  ],
+  "findings": [
+    "Canonical first-person call, October coverage limit and absent November data are visible; publication does not relabel the original source clock.",
+    "Bound chart has a visible zero baseline and correct signs/magnitudes for hot/cool means; observed/eligible counts and next-close differences are retained. Chart embedded labels are small on mobile; the adjacent readable caption and original image carry the full source/sample scope.",
+    "Archival grocery photo is unchanged, relevant to consumer prices, and explicitly credited to USDAgov/Wikimedia Commons, public domain, June 2023.",
+    "All five canonical grid starts and representative rows were inspected in Neo, including coverage and first prints, forecast timing, and summary right-side values on mobile. The grids scroll inside their containers. This is representative visual review; all cells are checked deterministically against the bound tables.",
+    "Eight social desktop/mobile variants use the original writer framing and retain notices and source/sample limits. The pending-publication URL is a preparation placeholder and must be replaced by the exact confirmed canonical before dispatch."
+  ],
+  "public_write_performed": false,
+  "unknown_write_count": 0,
+  "review_path": "Existing native article KEEP and publication validation; CLI classifies its release check as WRITER_ONE_EDITOR_CHECK_PUBLISH."
+}

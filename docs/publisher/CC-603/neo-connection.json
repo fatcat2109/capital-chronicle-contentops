@@ -1,0 +1,7 @@
+{
+  "status": "BLOCKED",
+  "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "no_browser_action": true,
+  "observed_at_utc": "2026-11-15T18:30:49.032862+00:00"
+}

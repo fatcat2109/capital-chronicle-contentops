@@ -1,0 +1,187 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\T\\USDJPY_2026-11-11_16-43-46.png",
+  "sha256": "0180a788958f764e784294e5d79afcbb9f9939b30b3e409b4a910d7bffadee3b",
+  "width": 1080,
+  "height": 850,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1004,
+      762
+    ],
+    "axis_origin": [
+      1004,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -157.1981504165766,
+    "intercept": 25236.04441821277,
+    "max_label_error_px": 0.5931610190818901,
+    "grid_checks": [
+      {
+        "price": 156.0,
+        "page_y_in_download": 713.1608235889333,
+        "grid_y": 714,
+        "error_px": 0.83917641106666
+      },
+      {
+        "price": 156.2,
+        "page_y_in_download": 681.7158275084543,
+        "grid_y": 682,
+        "error_px": 0.2841724915457462
+      },
+      {
+        "price": 156.4,
+        "page_y_in_download": 650.2708314279753,
+        "grid_y": 651,
+        "error_px": 0.7291685720247187
+      },
+      {
+        "price": 156.6,
+        "page_y_in_download": 618.8258353474962,
+        "grid_y": 619,
+        "error_px": 0.17416465250380497
+      },
+      {
+        "price": 156.8,
+        "page_y_in_download": 587.3808392670172,
+        "grid_y": 588,
+        "error_px": 0.6191607329827775
+      },
+      {
+        "price": 157.0,
+        "page_y_in_download": 555.9358431865381,
+        "grid_y": 556,
+        "error_px": 0.06415681346186375
+      },
+      {
+        "price": 157.2,
+        "page_y_in_download": 524.4908471060592,
+        "grid_y": 525,
+        "error_px": 0.5091528939408363
+      },
+      {
+        "price": 157.4,
+        "page_y_in_download": 493.04585102558013,
+        "grid_y": 493,
+        "error_px": 0.04585102558013432
+      },
+      {
+        "price": 157.6,
+        "page_y_in_download": 461.6008549451011,
+        "grid_y": 462,
+        "error_px": 0.39914505489889507
+      },
+      {
+        "price": 157.8,
+        "page_y_in_download": 430.1558588646221,
+        "grid_y": 431,
+        "error_px": 0.8441411353779245
+      },
+      {
+        "price": 158.0,
+        "page_y_in_download": 398.71086278414305,
+        "grid_y": 399,
+        "error_px": 0.28913721585695384
+      },
+      {
+        "price": 158.2,
+        "page_y_in_download": 367.265866703664,
+        "grid_y": 368,
+        "error_px": 0.7341332963359832
+      },
+      {
+        "price": 158.4,
+        "page_y_in_download": 335.820870623185,
+        "grid_y": 336,
+        "error_px": 0.17912937681501262
+      },
+      {
+        "price": 158.6,
+        "page_y_in_download": 304.37587454270596,
+        "grid_y": 305,
+        "error_px": 0.624125457294042
+      },
+      {
+        "price": 158.8,
+        "page_y_in_download": 272.930878462227,
+        "grid_y": 273,
+        "error_px": 0.06912153777301455
+      },
+      {
+        "price": 159.0,
+        "page_y_in_download": 241.48588238174796,
+        "grid_y": 242,
+        "error_px": 0.5141176182520439
+      },
+      {
+        "price": 159.2,
+        "page_y_in_download": 210.04088630126887,
+        "grid_y": 210,
+        "error_px": 0.04088630126886983
+      },
+      {
+        "price": 159.4,
+        "page_y_in_download": 178.5958902207899,
+        "grid_y": 179,
+        "error_px": 0.4041097792101027
+      },
+      {
+        "price": 159.6,
+        "page_y_in_download": 147.15089414031092,
+        "grid_y": 148,
+        "error_px": 0.8491058596890753
+      },
+      {
+        "price": 159.8,
+        "page_y_in_download": 115.70589805983195,
+        "grid_y": 116,
+        "error_px": 0.2941019401680478
+      },
+      {
+        "price": 160.0,
+        "page_y_in_download": 84.26090197935287,
+        "grid_y": 85,
+        "error_px": 0.739098020647134
+      },
+      {
+        "price": 160.2,
+        "page_y_in_download": 52.81590589887378,
+        "grid_y": 53,
+        "error_px": 0.18409410112622027
+      }
+    ],
+    "source_sha256": "0180a788958f764e784294e5d79afcbb9f9939b30b3e409b4a910d7bffadee3b"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1466,
+    "height": 844
+  },
+  "tv_symbol": "FX_IDC:USDJPY",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "USDJPY 159.831 \u25b2 +0.71%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+  "suggested_filename": "USDJPY_2026-11-11_16-43-46.png",
+  "captured_at_utc": "2026-11-11T16:43:46.646065+00:00",
+  "seconds": 9.5,
+  "template_chart_size": [
+    1080,
+    850
+  ],
+  "price_scale_check": {
+    "policy": "CC463_TRADINGVIEW_FIRST_V1",
+    "market": "USDJPY",
+    "tv_symbol": "FX_IDC:USDJPY",
+    "chart_sha256": "0180a788958f764e784294e5d79afcbb9f9939b30b3e409b4a910d7bffadee3b",
+    "captured_at_utc": "2026-11-11T16:43:46.646065+00:00",
+    "comparison_basis": "NOT_COMPARED",
+    "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+    "level_offset": 0.0
+  }
+}

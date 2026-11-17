@@ -1,0 +1,24 @@
+{
+  "request_sha256": "7477a3fe86e31fb276812a06e5e6007f5335db006637887c837757729ea599f2",
+  "output": {
+    "ordered_candidate_plan": [],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "NO_STORY: NO_MATERIAL_NEWS. The two exact admitted Main public spans report no accepted market reaction: no completed post-trigger bar, capture quotes within noise of the prior M15 close, and mixed/ambiguous acceptance across all six markets. Six stand-asides and two conditional short leans do not establish a new catalyst or reaction. This supplies no material reader question beyond the retained stand-aside article. The remaining frozen candidates are dated historical releases, unchanged research recirculation, calendar labels or generic explainers; none supplies an independently useful current update for this exact Main-reaction continuation. Use the held Main finding in the editorial decision; do not repackage it as a second article solely to meet CC-378 acceptance. No external source requests, media work or public writes were performed by this role; existing ledger usage and the frozen cutoff remain unchanged.",
+    "status": "ABSTAIN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_7477a3fe86e3",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native subagent task context provides canonical task identity; actual model and reasoning effort telemetry are unavailable.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "supported spawn request"
+  }
+}

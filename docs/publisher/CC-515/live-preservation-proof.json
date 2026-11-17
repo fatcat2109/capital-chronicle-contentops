@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-11-12T14:22:34.031829+00:00",
+  "before_pending": 87,
+  "after_pending": 14,
+  "before_pending_older_than_24_hours": 72,
+  "after_pending_older_than_24_hours": 0,
+  "all_original_roots_retained": true,
+  "all_original_payloads_identical": true,
+  "all_original_dispatch_states_and_public_identities_retained": true,
+  "missing_roots": [],
+  "changed_payload_roots": [],
+  "dispatch_changes": [],
+  "prior_fresh_roots": 15,
+  "prior_fresh_roots_retained": true,
+  "fresh_root_statuses": {
+    "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3": "SETTLED",
+    "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd": "PUBLISHING",
+    "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5": "PUBLISHING",
+    "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947": "PUBLISHING",
+    "plan-status-post-6b1d1b45c769342760ceb96f57b0c775": "PUBLISHING",
+    "plan-status-post-3c8732ac99de4e1e2b742da1bf615116": "PUBLISHING",
+    "plan-result-post-aa4f00432677c019741a6c12a9717f81": "READY_FOR_PUBLISHER",
+    "plan-result-post-b707b375fdd37affb2da55bb492a55c3": "READY_FOR_PUBLISHER",
+    "plan-result-post-eaa40a7af035752e0eb902af20f598be": "READY_FOR_PUBLISHER",
+    "plan-result-post-45a70abda9ff5b927fb1c035e663003e": "READY_FOR_PUBLISHER",
+    "plan-result-post-0ec52097d82976d8bf83eff21f231287": "READY_FOR_PUBLISHER",
+    "plan-result-post-5ee23a334e28ad555df3f156f2fbd9e0": "READY_FOR_PUBLISHER",
+    "plan-result-post-ae66a2cbf57b4458b6bcd4f0ee9169f2": "READY_FOR_PUBLISHER",
+    "plan-result-post-07b268e76b668684acc3ae66d69ae7e7": "READY_FOR_PUBLISHER",
+    "plan-status-post-37f4a7ca63df69d5864655fbe2494bae": "READY_FOR_PUBLISHER"
+  },
+  "minute_record_at_utc": "2026-11-12T14:21:55.877821Z",
+  "minute_queue_health": {
+    "older_than_24_hours": 0,
+    "oldest_age_minutes": 1321.242,
+    "pending": 14
+  },
+  "minute_posts_by_status": {
+    "CANONICAL_PENDING": 1,
+    "NOT_STARTED": 5,
+    "SETTLED": 73,
+    "SOURCE_FIELD_ABSENT": 8
+  },
+  "minute_stored_browser_requests": 0,
+  "request_packets_since_install": 1,
+  "request_packets_today": 675,
+  "full_day_below_200": "NOT_OBSERVED; first full post-install GMT+7 day ends 2026-11-13T17:00:00Z"
+}

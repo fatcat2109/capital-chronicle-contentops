@@ -1,0 +1,109 @@
+{
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_base": "f474de677e4ac35bac26ccb9d0cf4e8c623ccf30",
+  "code_head": "c0dc8be499fd0f6f632c52770eea774fc46ac26d",
+  "applied_at_utc": "2026-11-13T18:17:58.487547+00:00",
+  "rollback_tag": "contentops-rollback-20261114-cc489",
+  "source_verification": [
+    {
+      "path": "scripts/audit_chart_prices_cc489.py",
+      "matches": true,
+      "blob": "5a310740d21f7faa47b5aa5e5673d69e1caa0131"
+    },
+    {
+      "path": "live_contentops/public_market_quote_v1.py",
+      "matches": true,
+      "blob": "99096e18a1a31b6cbb820835043ac41ef95b837e"
+    },
+    {
+      "path": "tests/test_chart_price_audit_cc489.py",
+      "matches": true,
+      "blob": "e877ed4e7b0ad2ce46241cb80b6c856f33dc9310"
+    },
+    {
+      "path": "tests/test_public_market_quote_cc509.py",
+      "matches": true,
+      "blob": "d3b311d5ebb9ba2f56594577fcb73571ad3c8c29"
+    }
+  ],
+  "verified_at_utc": "2026-11-13T18:23:05.844067+00:00",
+  "live_tag": "contentops-live-20261114-cc489",
+  "tag_commits": {
+    "contentops-live-20261114-cc489": "c0dc8be499fd0f6f632c52770eea774fc46ac26d",
+    "contentops-rollback-20261114-cc489": "f474de677e4ac35bac26ccb9d0cf4e8c623ccf30"
+  },
+  "installed_tests": {
+    "path": "docs/publisher/CC-489/resume-20261114/installed-tests.xml",
+    "suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "81",
+        "time": "22.167",
+        "timestamp": "2026-11-13T18:18:36.084051+00:00"
+      }
+    ]
+  },
+  "installed_consumer": "docs/publisher/CC-489/resume-20261114/installed-consumer-run.json",
+  "installed_audit": "docs/publisher/CC-489/resume-20261114/installed-live-audit.json",
+  "preserved_files": {
+    "worktree": [
+      {
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "before_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "after_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "before_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "after_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "unchanged": true
+      }
+    ],
+    "operating": [
+      {
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+        "before_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "after_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+        "before_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "after_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+        "before_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "after_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+        "before_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "after_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "before_sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5",
+        "after_sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "before_sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34",
+        "after_sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34",
+        "unchanged": true
+      }
+    ]
+  },
+  "remaining_cause": "THREE_DAY_COMPARISON_SAMPLE_ABSENT",
+  "source_limit": "WTI_PUBLIC_QUOTE_STALE; held Main/native M1 references also stale",
+  "schedule_changed": false,
+  "public_write_performed": false
+}

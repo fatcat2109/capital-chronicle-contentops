@@ -1,0 +1,122 @@
+[
+  {
+    "artifact": "docs\\publisher\\CC-465\\integration-vision-probe.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 82.100479,
+    "reported_model_seconds": 69.0211363,
+    "cause": "ValueError:AGY_IMAGE_PIXELS_NOT_OBSERVED",
+    "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\local-event-vision.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 125.816625,
+    "reported_model_seconds": null,
+    "cause": "TimeoutExpired:Command '['C:\\\\Users\\\\bullw\\\\.gemini\\\\bin\\\\agy.exe', '--model', 'gemini-3.8-flash-high', '--effort', 'high', '--disable-slash-commands', '--mode', 'plan', '--add-dir', 'A:\\\\Capital Chronicle\\\\Worktrees\\\\ContentOps\\\\codex-publisher-exec\\\\docs\\\\publish",
+    "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-final-retry.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 123.696082,
+    "reported_model_seconds": 6.9554655,
+    "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+    "image_sha256": "8dc9bb5dc2274c861e5ab4367d13e7ac57f8d37c4961edf866064bf520a24d6b"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-final-retry.json",
+    "status": "REVIEWED",
+    "wall_seconds": 35.07559,
+    "reported_model_seconds": 31.6118091,
+    "cause": null,
+    "image_sha256": "16d1f72ffdf4d8ce2206ea5822c0910816d5457e18073e6acd3ea237ad1f3070"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-first-pass.json",
+    "status": "REVIEWED",
+    "wall_seconds": 37.821291,
+    "reported_model_seconds": 34.0663745,
+    "cause": null,
+    "image_sha256": "3cdb23bab957efce77ff6bd8652f3a434659f8265ee3b3c9735b75bc0d3a43af"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-first-pass.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 125.333261,
+    "reported_model_seconds": null,
+    "cause": "TimeoutExpired:Command '['C:\\\\Users\\\\bullw\\\\.gemini\\\\bin\\\\agy.exe', '--model', 'gemini-3.8-flash-high', '--effort', 'high', '--disable-slash-commands', '--mode', 'plan', '--add-dir', 'A:\\\\Capital Chronicle\\\\Worktrees\\\\ContentOps\\\\publisher-b-exec\\\\docs\\\\publisher\\\\",
+    "image_sha256": "dded521a7325ad983a5cd24473dd60948f69658ac53ad080a28a83e341bd6e31"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-first-pass.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 123.791885,
+    "reported_model_seconds": 7.1539831,
+    "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+    "image_sha256": "cc2e66bb84b8c8dd96e4157231f2520b2cc2fd4ef9360fff8690806b45ed2870"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-first-pass.json",
+    "status": "REVIEWED",
+    "wall_seconds": 52.800488,
+    "reported_model_seconds": 49.3526387,
+    "cause": null,
+    "image_sha256": "a4ac349a81e2da07159c3158f9b4c46be89cc4d0f4ebc39e58c57eb5c44a8bb6"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-first-pass.json",
+    "status": "REVIEWED",
+    "wall_seconds": 61.44103,
+    "reported_model_seconds": 58.0541827,
+    "cause": null,
+    "image_sha256": "74e25c28ab8799e0a85c9fd73477521ab219bf5f0c56d9ed6d031c85f2540f93"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-reviews.json",
+    "status": "REVIEWED",
+    "wall_seconds": 37.821291,
+    "reported_model_seconds": 34.0663745,
+    "cause": null,
+    "image_sha256": "3cdb23bab957efce77ff6bd8652f3a434659f8265ee3b3c9735b75bc0d3a43af"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-reviews.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 125.333261,
+    "reported_model_seconds": null,
+    "cause": "TimeoutExpired:Command '['C:\\\\Users\\\\bullw\\\\.gemini\\\\bin\\\\agy.exe', '--model', 'gemini-3.8-flash-high', '--effort', 'high', '--disable-slash-commands', '--mode', 'plan', '--add-dir', 'A:\\\\Capital Chronicle\\\\Worktrees\\\\ContentOps\\\\publisher-b-exec\\\\docs\\\\publisher\\\\",
+    "image_sha256": "dded521a7325ad983a5cd24473dd60948f69658ac53ad080a28a83e341bd6e31"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-reviews.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 123.791885,
+    "reported_model_seconds": 7.1539831,
+    "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+    "image_sha256": "cc2e66bb84b8c8dd96e4157231f2520b2cc2fd4ef9360fff8690806b45ed2870"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-reviews.json",
+    "status": "REVIEWED",
+    "wall_seconds": 52.800488,
+    "reported_model_seconds": 49.3526387,
+    "cause": null,
+    "image_sha256": "a4ac349a81e2da07159c3158f9b4c46be89cc4d0f4ebc39e58c57eb5c44a8bb6"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-reviews.json",
+    "status": "REVIEWED",
+    "wall_seconds": 61.44103,
+    "reported_model_seconds": 58.0541827,
+    "cause": null,
+    "image_sha256": "74e25c28ab8799e0a85c9fd73477521ab219bf5f0c56d9ed6d031c85f2540f93"
+  },
+  {
+    "artifact": "docs\\publisher\\CC-465\\vision-schema-return.json",
+    "status": "REVIEW_UNAVAILABLE",
+    "wall_seconds": 122.962607,
+    "reported_model_seconds": 7.7116736,
+    "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+    "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb"
+  }
+]

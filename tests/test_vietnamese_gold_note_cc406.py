@@ -115,6 +115,49 @@ def test_held_release_is_used_when_the_latest_report_does_not_repeat_it(tmp_path
     assert [fact["display"] for fact in context["official_facts"]] == ["0.4%", "0.3%"]
 
 
+def combined_report(root, monkeypatch):
+    from live_contentops import main_report_projection_source_v1 as projection
+    monkeypatch.setattr(projection, "NATIVE_MAIN_ANALYSIS_ROOT", root.parent)
+    folder = root / "request-combined"
+    folder.mkdir()
+    owner = json.loads((root / "request-current/owner-native.json").read_bytes())
+    owner["candidates"][0]["rationale"] = "Base case: gold pauses while rates remain a headwind.\nPlan: private detail."
+    path = folder / "analysis-native.json"
+    document = {"native_synthesis": owner, "primary_analysis": {"private": "excluded"}}
+    path.write_bytes(canonical_bytes(document))
+    digest = sha256(json.dumps(document, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    (folder / "analysis-end.json").write_bytes(canonical_bytes({"output_sha256": digest, "schema_errors": []}))
+    (folder / "capture.json").write_bytes(canonical_bytes({"known_at_utc": "2026-11-12T23:00:00Z"}))
+    os.utime(path, (NOW.timestamp() - 1800, NOW.timestamp() - 1800))
+    return path
+
+
+def test_latest_combined_main_synthesis_feeds_the_note_with_original_clock_and_exact_spans(tmp_path, monkeypatch):
+    _, root = fixture_context(tmp_path, monkeypatch)
+    path = combined_report(root, monkeypatch)
+    context = gold.source_context(now=NOW, report_root=root)
+    assert context["main_source"]["path"] == str(path)
+    assert context["data_cutoff_utc"] == "2026-11-12T23:00:00+00:00"
+    assert context["source_age_seconds"] == 3600
+    assert len(context["six_market_table"]) == 6
+    assert context["gold_view"]["view"] == "Base case: gold pauses while rates remain a headwind."
+    assert context["gold_view"]["source_json_pointer"] == "/native_synthesis/candidates/0/rationale"
+    assert "private detail" not in json.dumps(context) and "primary_analysis" not in context
+
+
+def test_unfinished_combined_report_keeps_completed_main_but_changed_proof_is_reported(tmp_path, monkeypatch):
+    _, root = fixture_context(tmp_path, monkeypatch)
+    path = combined_report(root, monkeypatch)
+    proof = path.with_name("analysis-end.json")
+    value = json.loads(proof.read_bytes())
+    proof.unlink()
+    assert gold.source_context(now=NOW, report_root=root)["main_source"]["path"].endswith("owner-native.json")
+    value["output_sha256"] = "0" * 64
+    proof.write_bytes(canonical_bytes(value))
+    with pytest.raises(ValueError, match="MAIN_REPORT_ANALYSIS_COMPLETION_MISMATCH"):
+        gold.source_context(now=NOW, report_root=root)
+
+
 @pytest.mark.parametrize("change,cause", [
     (lambda x: x.update(text="word " * 151 + gold.NOTICE), "150_WORD"),
     (lambda x: x.update(text=x["text"].replace(gold.NOTICE, "")), "FINAL_NOTICE"),
@@ -185,6 +228,39 @@ def test_native_note_replays_exact_input_and_installs_both_desk_files_after_revi
     path.write_text("changed", encoding="utf-8")
     with pytest.raises(ValueError, match="BYTES_CHANGED"):
         gold.status(notes_root=args["notes_root"], day=NOW.date())
+
+
+def test_source_revision_preserves_issued_bytes_and_delivers_newest_main_to_desk_files(tmp_path, monkeypatch):
+    source_context = gold.source_context
+    store, args, _, original, response = native_note(tmp_path, monkeypatch)
+    turn = gold._turn(store, args["output_root"], NOW.astimezone(gold.LOCAL).date())
+    original_path = turn.root / "desktop_request_gold-note.json"
+    original_bytes = original_path.read_bytes()
+    path = combined_report(args["report_root"], monkeypatch)
+    monkeypatch.setattr(gold, "source_context", source_context)
+    pending = gold.prepare(store, **args, refresh=True)
+    assert pending["stage"].startswith("gold-note-")
+    revised = turn.frozen_request(pending["stage"])
+    assert revised["governed_input"]["main_source"]["path"] == str(path)
+    assert revised["governed_input"]["supersedes_request_sha256"] == original["request_sha256"]
+    assert original_path.read_bytes() == original_bytes
+    assert turn._get("gold-note", "response")["output"] == response["output"]
+    replay = gold.prepare(store, **args, refresh=True)
+    assert replay["request_sha256"] == pending["request_sha256"]
+    assert gold._active_stage(turn) == pending["stage"]
+    turn.submit(pending["stage"], {**response, "request_sha256": revised["request_sha256"]})
+    preview = gold.prepare(store, **args)
+    review = {"text_sha256": preview["text_sha256"], "chart_sha256": preview["chart_sha256"],
+              "accepted": True, "findings": "Controlled fixture: exact revised Main source and BLS bars."}
+    ready = gold.accept(store, output_root=args["output_root"], review=review, now=NOW,
+                        notes_root=args["notes_root"])
+    metadata = Path(ready["text_path"]).with_suffix(".json")
+    delivered = metadata.read_bytes()
+    assert json.loads(delivered)["native_request_sha256"] == revised["request_sha256"]
+    assert Path(ready["text_path"]).read_text(encoding="utf-8").strip() == TEXT
+    monkeypatch.setattr(gold, "source_context", lambda **kw: pytest.fail("delivered files are immutable"))
+    assert gold.prepare(store, **args, refresh=True) == ready
+    assert metadata.read_bytes() == delivered
 
 
 def test_a_review_must_bind_the_exact_text_and_png_before_desk_delivery(tmp_path, monkeypatch):

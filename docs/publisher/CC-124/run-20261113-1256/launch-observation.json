@@ -1,0 +1,13 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-13T05:59:31.1780079Z",
+  "process_id": 28588,
+  "actual_entry_utc": "2026-11-13T05:56:06.8881540Z",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "max",
+  "provenance": "CONFIGURED_NOT_OBSERVED",
+  "evidence": "Current codex.exe launch arguments explicitly name --model gpt-6.1-sol and model_reasoning_effort=max; supported runtime model telemetry not available.",
+  "base": "f27328f120a34020b15d8de07f4d0671d5d4b116",
+  "fresh_origin_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Current ContentOps operating HEAD; fresh remote master is an older ancestor."
+}

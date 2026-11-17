@@ -1,0 +1,25 @@
+Updating 33f5ad09..77300b62
+Fast-forward
+ docs/publisher/CC-515/README.md                    |    6 +
+ docs/publisher/CC-515/installed-queue.txt          |    2 +
+ docs/publisher/CC-515/installed-queue.xml          |    1 +
+ .../CC-515/installed-source-readback.json          |   76 +
+ docs/publisher/CC-515/integration.json             |   27 +-
+ docs/publisher/CC-515/live-after-integration.json  | 9324 ++++++++++++++++++++
+ docs/publisher/CC-515/live-preservation-proof.json |   48 +
+ docs/publisher/CC-515/reader-link-consumers.txt    |    2 +
+ docs/publisher/CC-515/reader-link-consumers.xml    |    1 +
+ docs/publisher/CC-515/requests-after-install.json  |   10 +
+ .../CC-515/retained-reader-link-replay.json        |   16 +
+ live_contentops/plan_analysis_pages_v1.py          |   20 +-
+ tests/test_plan_analysis_distribution_cc435.py     |   35 +
+ 13 files changed, 9565 insertions(+), 3 deletions(-)
+ create mode 100644 docs/publisher/CC-515/installed-queue.txt
+ create mode 100644 docs/publisher/CC-515/installed-queue.xml
+ create mode 100644 docs/publisher/CC-515/installed-source-readback.json
+ create mode 100644 docs/publisher/CC-515/live-after-integration.json
+ create mode 100644 docs/publisher/CC-515/live-preservation-proof.json
+ create mode 100644 docs/publisher/CC-515/reader-link-consumers.txt
+ create mode 100644 docs/publisher/CC-515/reader-link-consumers.xml
+ create mode 100644 docs/publisher/CC-515/requests-after-install.json
+ create mode 100644 docs/publisher/CC-515/retained-reader-link-replay.json

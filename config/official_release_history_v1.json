@@ -2,6 +2,13 @@
   "schema_version": "contentops.official_release_history_configuration.v1",
   "cc010_archive_root": "C:/Users/bullw/.codex/scratch/w941-internal-research-release/integration/local-evidence/work-packets/w1091-event-desk-data",
   "owner": "MAIN_CC010_FIRST_PRINT_ARCHIVE",
+  "retained_histories": {
+    "empsit": {
+      "path": "docs/publisher/CC-216/held-inputs/empsit-history.json",
+      "canonical_sha256": "8b720baf9818b6dd4867e07359b5d9643c797641d81297847f3c2bb40aa1f9d9",
+      "accepted_owner": "CC-216_REVIEWED_BLS_BACKGROUND"
+    }
+  },
   "minimum_calendar_months": 24,
   "missing_values": "KEEP_MISSING_NEVER_INTERPOLATE",
   "official_source_hosts": [

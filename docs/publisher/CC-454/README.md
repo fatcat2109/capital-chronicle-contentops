@@ -25,3 +25,82 @@ Final focused checks: `article-executor-tests.xml` has 21 passes, including a re
 Installed source: `356c9dbbe65e9f992494b66dc8efe7aaf6894646` was fast-forwarded into `A:\Capital Chronicle\ContentOps` on its existing operating branch. `integration.json` records all six earlier dirty live files unchanged and exact normalized source hashes; Git converted the executor and JS source to CRLF in the operating checkout. `installed-consumer.json` was produced by a fresh Python import from that live root: the native consumer selects the article-only endpoint, the required set is eight, only the member LinkedIn/Instagram Neo bars remain, and no route is suspended. No application was restarted.
 
 Live tag: `contentops-live-20261111-cc454`; rollback tag: `contentops-rollback-20261111-cc454`. The source is installed, but the item's real-post acceptance remains pending. The final read-only store inspection still finds the CPI preview as the latest article, with both affected routes closed as `DEFINITE_NO_WRITE`. Both platform composers are available; neither showed a restriction. Under decision 121 those old intents stay closed. The next existing newsroom article must supply the company LinkedIn and YouTube public-URL confirmations; no extra article, cadence or status/card post was created for a canary.
+
+## 15 November acceptance continuation
+
+The company LinkedIn acceptance is now supported by the next article,
+`cc536-measured-odds-1`. The live coordinator retains `DISPATCH_CONFIRMED` and
+[the exact company post](https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/).
+The same article has confirmed Substack, Telegram, Discord, X, Facebook Page,
+Instagram Business and Threads objects. Member LinkedIn remains
+`RECONCILED_ABSENT_SAFE_TO_RETRY`; its API result is separate from this item's
+company browser route. No additional post was sent by this continuation.
+
+YouTube remains incomplete. Its retained page observation at 14 November 2026
+15:02:59 GMT+7 says, exactly:
+
+> Để giúp người dùng có thể nhấp vào đường liên kết ngoài, hãy hoàn tất quy trình xác minh một lần
+> Xác minh
+
+The cause is `YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED`. The current
+`suspended_routes.json` contains only that YouTube suspension. The existing
+article's YouTube dispatch is `RECONCILED_ABSENT_SAFE_TO_RETRY`; the suspension
+still prevents a new write. The six prior CPI company/YouTube no-writes remain
+closed under decision 121. No verification control was clicked or route cleared.
+
+The BrowserOS Neo skill's existing CC-436 local MCP route was used for one
+connection check. Initialization at `http://127.0.0.1:9010/mcp` returned
+`NEO_ENDPOINT_CONNECTIONERROR`, before any browser action. This run therefore
+claims no fresh page observation. The original platform wording and its capture
+clock remain distinct from this run's current coordinator and control-file reads.
+See [live-route-evidence.json](run-20261115/live-route-evidence.json) for exact
+dispatch identities, public URLs, native-return record hashes and source hashes.
+
+The resume branch starts at the current Publisher operating HEAD,
+`1c3a03ed8674f4755899c8d6b080fb0cb3f20584`, which already contains CC-454 and the
+subsequent article transport fixes. The observed launch configuration is
+`gpt-6.1-sol/max`, `CONFIGURED_NOT_OBSERVED` for runtime model telemetry.
+[launch-and-preserved-work.json](run-20261115/launch-and-preserved-work.json)
+records the existing tracked modifications; they remain outside this delivery.
+The six current publication modules match the operating root after normalizing
+Git's line endings; the current native consumer still selects the article
+executor. See [installed-source-check.json](run-20261115/installed-source-check.json).
+
+The initial three-file installed check recorded 210 passes and one failure in
+exact readback recovery after a review change. Its complete result remains in
+`run-20261115/installed-publication-tests.xml`; the isolated reproduction remains
+in `readback-before-fix.xml`. The interrupted follow-up produced no final result
+and is not counted as passing.
+
+The coordinator can record a later `UNKNOWN_WRITE` outcome after it issues a
+readback request. The executor previously rejected the completed observation
+solely because that attempt field changed. The fix in `201623c9` compares the
+actual observation clock with the latest attempt instead. It reuses only exact,
+fresh object/content/media evidence observed after that attempt. A newer retry,
+wrong account, changed copy or media, or an expired observation still requires
+fresh evidence. It changes neither the attempt records nor any public object.
+
+The isolated recovery case now passes. `readback-regression-tests.xml` records
+20 passing freshness/recovery checks. After fast-forward integration,
+`installed-recovery-tests.xml` records four passes from the operating root,
+including the formerly failing real-coordinator recovery case. Every resumed
+test command was capped at 55 seconds and ran as the only pytest process for
+this run. The initial installed check had already passed all 47 reopened-route
+and 128 coordinator cases; no full-suite result is claimed.
+
+Live source/evidence commit: `e8c1b636a5d7fcd1d7269565ef00a014c3f6fc93`.
+Live tag: `contentops-live-20261115-cc454-readback`; rollback tag:
+`contentops-rollback-20261115-cc454-readback`. The latter preserves the prior
+operating HEAD. The six earlier dirty operating files and the lane telemetry
+edits retain their original hashes. No application was restarted or schedule
+changed. Neo initialization on resume still returned
+`NEO_ENDPOINT_CONNECTIONERROR`; see
+[resume-neo-access.json](run-20261115/resume-neo-access.json).
+[integration.json](run-20261115/integration.json) records the actual tag targets,
+installed checks, current coordinator states and preserved work hashes.
+
+Next action: Ops Product prepares Jim's one-time channel verification and
+restores Neo access. After verification, its owner clears only the YouTube
+suspension and resumes this article's existing coordinator dispatch and exact
+public-URL readback. Preserve the confirmed company post and closed policy
+no-writes. CC-454 stays incomplete until the YouTube acceptance is satisfied.

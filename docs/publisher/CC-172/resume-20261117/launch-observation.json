@@ -1,0 +1,10 @@
+[
+  {
+    "configured_effort": "high",
+    "pid": 31136,
+    "parent_pid": 8796,
+    "created_utc": "2026-11-17T01:44:41.5033770Z",
+    "configured_model": "gpt-6.1-sol",
+    "telemetry_status": "CONFIGURED_NOT_OBSERVED"
+  }
+]

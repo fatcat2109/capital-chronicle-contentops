@@ -1,0 +1,14 @@
+{
+  "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+  "state": "Running",
+  "last_run_utc": "2026-11-11T14:35:26.0000000Z",
+  "last_result": 267009,
+  "actions": [
+    {
+      "executable": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+      "arguments": "-B scripts\\plan_status_posts.py --publish",
+      "working_directory": "A:\\Capital Chronicle\\ContentOps"
+    }
+  ],
+  "schedule_changed": false
+}

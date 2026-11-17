@@ -1,0 +1,23 @@
+[
+  {
+    "family": "NFP",
+    "source_data_cutoff_utc": "2026-11-17T04:13:47.164560Z",
+    "operation": "validate_publication_clock on the source-bound clock",
+    "cause": "ARTICLE_DATA_CUTOFF_EXPIRED:8417s",
+    "public_dispatch_attempted": false
+  },
+  {
+    "family": "FOMC",
+    "source_data_cutoff_utc": "2026-11-17T04:13:47.164560Z",
+    "operation": "validate_publication_clock on the source-bound clock",
+    "cause": "ARTICLE_DATA_CUTOFF_EXPIRED:8417s",
+    "public_dispatch_attempted": false
+  },
+  {
+    "family": "PPI",
+    "source_data_cutoff_utc": "2026-11-17T04:13:47.164560Z",
+    "operation": "validate_publication_clock on the source-bound clock",
+    "cause": "ARTICLE_DATA_CUTOFF_EXPIRED:8417s",
+    "public_dispatch_attempted": false
+  }
+]

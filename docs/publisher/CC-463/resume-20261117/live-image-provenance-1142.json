@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-17T04:41:56.736481+00:00",
+  "installed_head": "6f6572897f5a8077d7303505ba07cbf1d9b86f51",
+  "register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "register_sha256_before": "ca72c79d63e640256dc4593947db5a2956bad17352c11c64c9f4b2a650dedea7",
+  "register_sha256_after": "ca72c79d63e640256dc4593947db5a2956bad17352c11c64c9f4b2a650dedea7",
+  "register_size": 997213,
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "register_unchanged": true
+}

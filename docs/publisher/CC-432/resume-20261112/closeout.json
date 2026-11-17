@@ -1,0 +1,347 @@
+{
+  "item": "CC-432",
+  "recorded_at_utc": "2026-11-12T18:18:56.316909+00:00",
+  "status": "BLOCKED: DISCORD_HTTP_403_40333",
+  "outside_cause": {
+    "http_status": 403,
+    "provider_code": 40333,
+    "provider_message": "internal network error",
+    "observed_at_utc": "2026-11-12T18:00:19.817342Z",
+    "acceptance_pending": "Exact full-analysis reply confirmed in the current gold Discord thread",
+    "day_rule": "CC-401: real platform failure skips that destination for the rest of its ET day",
+    "earliest_retry_utc": "2026-11-13T05:00:00Z",
+    "earliest_retry_gmt7": "13 Nov 2026 12:00 GMT+7",
+    "reply_status": {
+      "confirmed": false,
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    "retry_budget_remains": true
+  },
+  "installed_code_head": "81c99ae90936f89c2613fc2c55117420775731ae",
+  "branch": "backlog/cc-432-current-discord-readback",
+  "live_page": {
+    "exact_public_body": true,
+    "body_characters": 4906,
+    "expected_characters": 4867,
+    "image_alt_exact": true,
+    "image_caption_exact": true,
+    "published_at_utc": "2026-11-12T16:46:41.567Z",
+    "observed_at_utc": "2026-11-12T17:00:35.861Z",
+    "public_object_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+    "plan_id": "plan_230a9464a193ca7a377d0c41",
+    "run_id": "shock-20261112T123542Z",
+    "frozen_at_utc": "2026-11-12T13:17:54.290828Z",
+    "freeze_to_public_minutes": 208.79,
+    "email_sent": false,
+    "word_count": 672,
+    "paragraphs": 23,
+    "current_page_confirmed": true
+  },
+  "live_records": [
+    {
+      "work_item_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "dispatch": {
+        "dispatch_id": "dispatch_3bc58b96507073819237909680b0759e",
+        "message_id": "outbox_3bc58b96507073819237909680b0759e",
+        "platform": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T17:59:00.798611+00:00",
+        "public_object_id": "17936667282142729",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppdRlE6Vk",
+        "public_object_url_hash": "aa4f61a394f69e36dc6fd35de311b37b880cad77edf29dd15b13b24859ec8399"
+      },
+      "latest_readback": {
+        "destination": "threads",
+        "dispatch_id": "dispatch_3bc58b96507073819237909680b0759e",
+        "readback": {
+          "content_binding_checks": {
+            "account_match": true,
+            "canonical_link_match": true,
+            "media_match": true,
+            "object_id_match": true,
+            "public_url_match": true,
+            "text_match": true
+          },
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "17936667282142729",
+          "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppdRlE6Vk",
+          "source_status": "SUCCESS",
+          "verified": true,
+          "write_absent": false,
+          "write_exists": false
+        }
+      },
+      "read_at_utc": "2026-11-12T17:59:27.408122+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "dispatch": {
+        "dispatch_id": "dispatch_808ea2f21503084e9f2b9f2d4e60ce97",
+        "message_id": "outbox_808ea2f21503084e9f2b9f2d4e60ce97",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T17:58:56.428526+00:00",
+        "public_object_id": "181",
+        "public_object_url": "https://t.me/CapitalChronicle/181",
+        "public_object_url_hash": "697adb852e0a8fc20dbdcaaa66fac8155d0248873fdc502cdc29d184dbaaf21e"
+      },
+      "latest_readback": {
+        "destination": "telegram",
+        "dispatch_id": "dispatch_808ea2f21503084e9f2b9f2d4e60ce97",
+        "readback": {
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "181",
+          "observed_public_object_url": "https://t.me/CapitalChronicle/181",
+          "source_status": "SUCCESS",
+          "verified": true,
+          "write_absent": false,
+          "write_exists": false
+        }
+      },
+      "read_at_utc": "2026-11-12T17:58:57.999218+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "dispatch": {
+        "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+        "message_id": "outbox_dd4c798cfc789d2135d31be409cb8aca",
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T17:58:50.748256+00:00",
+        "public_object_id": "1570498124391125187",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187",
+        "public_object_url_hash": "a43dfda97831bf1dcfebf7991492fe4fbea43313e834beaea57db4b2531e648c"
+      },
+      "latest_readback": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+        "readback": {
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "1570498124391125187",
+          "observed_public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187",
+          "source_status": "SUCCESS",
+          "verified": true,
+          "write_absent": false,
+          "write_exists": true
+        }
+      },
+      "read_at_utc": "2026-11-12T17:58:53.056932+00:00"
+    },
+    {
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "dispatch": {
+        "dispatch_id": "dispatch_192b7ee231b687c54c42b3c213ed2aeb",
+        "message_id": "outbox_192b7ee231b687c54c42b3c213ed2aeb",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T18:00:13.650039+00:00",
+        "public_object_id": "182",
+        "public_object_url": "https://t.me/CapitalChronicle/182",
+        "public_object_url_hash": "e9f5ae4722319ce6b2c06451963e1d55dfcec619fdb88184f0d519f09b5cc154"
+      },
+      "latest_readback": {
+        "destination": "telegram",
+        "dispatch_id": "dispatch_192b7ee231b687c54c42b3c213ed2aeb",
+        "readback": {
+          "identity_match": true,
+          "meaningful_media_visible": false,
+          "observed_public_object_id": "182",
+          "observed_public_object_url": "https://t.me/CapitalChronicle/182",
+          "source_status": "SUCCESS",
+          "verified": true,
+          "write_absent": false,
+          "write_exists": false
+        }
+      },
+      "read_at_utc": "2026-11-12T18:00:15.289863+00:00"
+    },
+    {
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+      "dispatch": {
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "message_id": "outbox_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "platform": "discord",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "dispatched_at": "2026-11-12T18:00:17.567071+00:00",
+        "public_object_id": null,
+        "public_object_url": null,
+        "public_object_url_hash": null
+      },
+      "latest_readback": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "readback": {
+          "identity_match": false,
+          "observed_public_object_id": null,
+          "observed_public_object_url": null,
+          "source_status": "NOT_FOUND",
+          "verified": false,
+          "write_absent": true,
+          "write_exists": false
+        }
+      },
+      "read_at_utc": "2026-11-12T18:00:21.257275+00:00"
+    },
+    {
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+      "dispatch": {
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "message_id": "outbox_a3e0be1438cb894fca7577e91641718a",
+        "platform": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T18:01:52.137421+00:00",
+        "public_object_id": "18346683595249062",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4",
+        "public_object_url_hash": "a95fe83b01411b1bfb20cc6da2a18ae38b5b092d797b13bf8abdab2592da323d"
+      },
+      "latest_readback": {
+        "destination": "threads",
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "readback": {
+          "content_binding_checks": {
+            "account_match": true,
+            "canonical_link_match": true,
+            "media_match": true,
+            "object_id_match": true,
+            "public_url_match": true,
+            "text_match": true
+          },
+          "identity_match": true,
+          "meaningful_media_visible": false,
+          "observed_public_object_id": "18346683595249062",
+          "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4",
+          "source_status": "SUCCESS",
+          "verified": true,
+          "write_absent": false,
+          "write_exists": true
+        }
+      },
+      "read_at_utc": "2026-11-12T18:02:07.184477+00:00"
+    }
+  ],
+  "source_files": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": {
+      "worktree_sha256": "de0eb958dc925a1cd25107a0eea79401378683719691fa943462eaab8fb5d5e4",
+      "installed_sha256": "de0eb958dc925a1cd25107a0eea79401378683719691fa943462eaab8fb5d5e4",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/discord_live_adapter_v6.py": {
+      "worktree_sha256": "1e3d51cd708829bf112c5f52bfee41fdb7e3acf775a8828a0aee3d6a842e0601",
+      "installed_sha256": "1e3d51cd708829bf112c5f52bfee41fdb7e3acf775a8828a0aee3d6a842e0601",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/event_article_guard_v1.py": {
+      "worktree_sha256": "defea74e1e08cfab0c4e700d40b85a2463e6ac042ff5e283adf987ebec770bed",
+      "installed_sha256": "defea74e1e08cfab0c4e700d40b85a2463e6ac042ff5e283adf987ebec770bed",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/plan_analysis_pages_v1.py": {
+      "worktree_sha256": "bbcd676496a4f9de9141250fcd2fc228bb30e70be36fc1f41610abaafe093d3a",
+      "installed_sha256": "bbcd676496a4f9de9141250fcd2fc228bb30e70be36fc1f41610abaafe093d3a",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/plan_call_cards_v1.py": {
+      "worktree_sha256": "9a3eca3272f28e05294d46fe0ecce6aa8bdb4634a625d653d1c99be903bf0c47",
+      "installed_sha256": "9a3eca3272f28e05294d46fe0ecce6aa8bdb4634a625d653d1c99be903bf0c47",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/plan_reader_copy_v1.py": {
+      "worktree_sha256": "dc5d857eef4e32edda529a0618a56ddd2b181525a8767dc25098623c1a45ef23",
+      "installed_sha256": "8dc5940fcdec292415e2cd7e3921a60fdb918ed353bd8cf28449444f0e80a75e",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/plan_reader_editorial_v1.py": {
+      "worktree_sha256": "8b6b9d468b15ceab2d7aded626933a3ba117463957d5562a909e6c2714f4b1f2",
+      "installed_sha256": "8b6b9d468b15ceab2d7aded626933a3ba117463957d5562a909e6c2714f4b1f2",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "worktree_sha256": "a14102effa735676f7e22ed09cfc9d9246e01b7f226d0b1f2887fdb382cac6c1",
+      "installed_sha256": "a14102effa735676f7e22ed09cfc9d9246e01b7f226d0b1f2887fdb382cac6c1",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "worktree_sha256": "c60d2458dd3b0c5ae048094bd8a351a7261af647e30e1a2fd609ddb2dfd97778",
+      "installed_sha256": "c60d2458dd3b0c5ae048094bd8a351a7261af647e30e1a2fd609ddb2dfd97778",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/publication_image_contract_v1.py": {
+      "worktree_sha256": "0013479fb10f4707444a602b2792a733d762770e4efccb717c387eaeb370c7d1",
+      "installed_sha256": "0013479fb10f4707444a602b2792a733d762770e4efccb717c387eaeb370c7d1",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/tradingview_plan_overlay_v1.py": {
+      "worktree_sha256": "9e62072ac1177192fa4260ebb0af7461ec9abab01603fd758be2377aa2e01bd8",
+      "installed_sha256": "9e62072ac1177192fa4260ebb0af7461ec9abab01603fd758be2377aa2e01bd8",
+      "same_after_git_line_endings": true
+    },
+    "live_contentops/tradingview_snapshot_v1.py": {
+      "worktree_sha256": "995545b9ef6c801ee284a0a98448bbcf2b04b1df16ed60288cac9b842c003dcf",
+      "installed_sha256": "995545b9ef6c801ee284a0a98448bbcf2b04b1df16ed60288cac9b842c003dcf",
+      "same_after_git_line_endings": true
+    },
+    "scripts/plan_analysis_pages.py": {
+      "worktree_sha256": "b6b34249c78f7e5eba4e8ad517411ed0cfec2b9a27b4792ba395c87076d61c4f",
+      "installed_sha256": "b6b34249c78f7e5eba4e8ad517411ed0cfec2b9a27b4792ba395c87076d61c4f",
+      "same_after_git_line_endings": true
+    }
+  },
+  "checks": [
+    {
+      "file": "canonical-link-copy-tests.xml",
+      "tests": 146,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "file": "discord-bot-client-tests.xml",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "file": "exact-link-recovery-tests.xml",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "file": "coordinator-link-recovery-tests.xml",
+      "tests": 118,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "file": "installed-canonical-link-tests.xml",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "file": "installed-bot-client-tests.xml",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "file": "installed-exact-link-recovery-tests.xml",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "next_action": {
+    "cwd": "A:\\Capital Chronicle\\ContentOps",
+    "command": "python scripts/plan_analysis_pages.py link-resume --link-id plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord --native-invocation-id \"<actual native invocation id>\"",
+    "condition": "At or after the existing ET-day rule resets; use the preserved intent and read back, never create a new root or link identity."
+  },
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "historical_expired_intents_retried": false,
+  "runtime_api_key_values_recorded": false
+}

@@ -1,0 +1,40 @@
+{
+  "item": "CC-468",
+  "event_family": "PPI",
+  "observed_at_utc": "2026-11-11T18:10:25.582165+00:00",
+  "preparation_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\ppi\\source-ffca543d254a69df",
+  "source_known_at_utc": "2026-11-11T18:02:48.550409Z",
+  "source_data_cutoff_utc": "2026-11-10T11:30:00Z",
+  "source_export_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\event-sources\\source-4338885f925c494b\\presentation-e03dbfb7bac6ecc5\\ppi\\desk-export.json",
+  "source_export_sha256": "ffca543d254a69dfa02b5d5f9232b8ae04c313774a5ff9752df55f57ba31634b",
+  "source_record_id": "report:cc-ppi-reactions-since-2024",
+  "title": "What gold, the euro and the S&P did after each PPI release",
+  "consumer": "read_export -> desk_evidence -> _source_pack -> bind_tables",
+  "writer_source_chars": 20881,
+  "full_source_preserved": true,
+  "tables": 7,
+  "table_sha256": [
+    "02d9f39ef05c50dd5b9ee50499d9c96402b1758c5b66cb8497a37c4da7ec628f",
+    "daf4b55622311ab9cd17bc5254dd036be5b77a09789d08c43f95558b5fcc109f",
+    "a80d898e4c553c3c04f963d81acd08758ad41d854dbb74fbf41f5f1fd11640d3",
+    "52ac9a48a9ed2bdd64c5a2742fb8a878c37a9cc958840524dd5047f2bb84b1d4",
+    "811b229670e352558ef5e9f8e4c8d315803a8307035ed9e76f24abf896b9c1f6",
+    "e09b45af1c61e4b23f290f95a11e4db238c6fe31c497f9364f3693f349b3fc68",
+    "713cd8991404973e54d007388c689960d98e96ad1d09428ba6653126c7421ff8"
+  ],
+  "source_table_sha256": [
+    "02d9f39ef05c50dd5b9ee50499d9c96402b1758c5b66cb8497a37c4da7ec628f",
+    "daf4b55622311ab9cd17bc5254dd036be5b77a09789d08c43f95558b5fcc109f",
+    "a80d898e4c553c3c04f963d81acd08758ad41d854dbb74fbf41f5f1fd11640d3",
+    "52ac9a48a9ed2bdd64c5a2742fb8a878c37a9cc958840524dd5047f2bb84b1d4",
+    "811b229670e352558ef5e9f8e4c8d315803a8307035ed9e76f24abf896b9c1f6",
+    "e09b45af1c61e4b23f290f95a11e4db238c6fe31c497f9364f3693f349b3fc68",
+    "713cd8991404973e54d007388c689960d98e96ad1d09428ba6653126c7421ff8"
+  ],
+  "publication_state": "NOT_DISPATCHED",
+  "remaining": [
+    "Native final article and source-bound media/review",
+    "Existing coordinator publication and exact public readback",
+    "Reference the confirmed canonical page in the relevant event review"
+  ]
+}

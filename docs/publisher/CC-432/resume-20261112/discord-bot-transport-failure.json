@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-11-12T18:13:25.438925+00:00",
+  "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+  "observed_http_status": 403,
+  "provider_code": 40333,
+  "provider_message": "internal network error",
+  "previous_body_bytes": 1263,
+  "following_readback_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "confirmed_card_id": "1570498124391125187",
+  "same_link_id_retained": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+  "documentation_url": "https://docs.discord.com/developers/reference#user-agent",
+  "required_client_identifier": "DiscordBot ($url, $versionNumber)",
+  "installed_client_identifier": "DiscordBot (https://capitalchronicle.substack.com, 1.0)",
+  "interpretation": "Request identity corrected to the documented bot format before the exact absent dispatch is retried; original response and absence remain separate evidence."
+}

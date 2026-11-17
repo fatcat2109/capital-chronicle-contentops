@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="33.709" timestamp="2026-11-15T20:20:12.225236+07:00" hostname="J-P"><testcase classname="tests.test_native_desktop_publication_v1" name="test_exact_readback_survives_changed_review_while_new_send_stays_blocked" time="25.840"><failure message="AssertionError: ({'destination': 'substack', 'dispatch_id': 'dispatch_6ffe595f61ea5c11e5d584dbe8fab98b', 'public_write_performed': False, 'publish_called': False, ...}, [['latest_dispatch_attempt_at_utc', 'request_sha256']])&#10;assert 'RECONCILIATION_PENDING' == 'RECONCILED_CONFIRMED'&#10;  &#10;  - RECONCILED_CONFIRMED&#10;  + RECONCILIATION_PENDING">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4058/test_exact_readback_survives_c0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001B2840CF950&gt;
+
+    def test_exact_readback_survives_changed_review_while_new_send_stays_blocked(tmp_path, monkeypatch):
+        store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+        operation, executor, transport = composed(store, binding, rollout, monkeypatch)
+        operation.resume()
+        publish = executor.pending()[0]
+        operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+        operation.resume()
+        readback = next(p for p in executor.pending() if p["request"]["action"] == "READBACK")
+        _, root = operation.validate()
+        manifest = root / "article_manifest_v1.json"
+        manifest.write_bytes(manifest.read_bytes() + b" ")
+        with pytest.raises(ValueError, match="NATIVE_PUBLICATION_REVIEW_OR_PACKET_CHANGED_PREPARE_AGAIN"):
+            operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+        calls = list(transport.calls)
+        operation.tool("begin", request_hash=readback["request"]["request_sha256"])
+        operation.tool("submit", request_hash=readback["request"]["request_sha256"], response=observed(readback))
+        outcome = operation.coordinator.readback_existing_dispatch(publish["request"]["dispatch_attempt_identity"])
+        pending_readbacks = [p["request"] for p in executor.pending()
+                             if p["request"]["action"] == "READBACK"]
+        changed_fields = [sorted(k for k in request if request.get(k) != readback["request"].get(k))
+                          for request in pending_readbacks]
+&gt;       assert outcome["reconciliation_status"] == "RECONCILED_CONFIRMED", (outcome, changed_fields)
+E       AssertionError: ({'destination': 'substack', 'dispatch_id': 'dispatch_6ffe595f61ea5c11e5d584dbe8fab98b', 'public_write_performed': False, 'publish_called': False, ...}, [['latest_dispatch_attempt_at_utc', 'request_sha256']])
+E       assert 'RECONCILIATION_PENDING' == 'RECONCILED_CONFIRMED'
+E         
+E         - RECONCILED_CONFIRMED
+E         + RECONCILIATION_PENDING
+
+tests\test_native_desktop_publication_v1.py:647: AssertionError</failure></testcase></testsuite></testsuites>

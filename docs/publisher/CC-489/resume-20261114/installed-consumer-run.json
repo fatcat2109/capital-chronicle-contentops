@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-13T18:19:48.405559+00:00",
+  "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261113.jsonl",
+  "record_sha256": "2428a96d860bda35c32784b84fddccd3ca9851b29b3c442f89532ec05a42f30f",
+  "run": {
+    "status": "OK",
+    "cause": null,
+    "at_utc": "2026-11-13T18:18:30.288222Z",
+    "export_generated_at_utc": "2026-11-13T18:18:01.659229Z",
+    "export_age_seconds": 26.2,
+    "queued": 0
+  }
+}

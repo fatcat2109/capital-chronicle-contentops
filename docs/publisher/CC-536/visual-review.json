@@ -1,0 +1,52 @@
+{
+  "checked_at_utc": "2026-11-14T05:40:25.607648+00:00",
+  "article_sha256": "e1d86d4f025795908fe7c51579ee9368e89be085e525c7f0ae63cc45b3528464",
+  "writer": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 29952,
+    "operation": "publisher-cc-536-20261114T0448",
+    "role": "commissioned method writing, editing and final review",
+    "light_assist": {
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_TIMEOUT_120S",
+      "artifact": "assist/agy_light_assist_v1.json",
+      "choice": "Retained the authored full summary and inspected alt text; the bounded assist is not retried."
+    }
+  },
+  "browser_group": "82AADD07D1501BB470B403297C1B5C07",
+  "browser_page": 239,
+  "renderer": "ReportEditorialWorkspace --owner-review; local file image permission only",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "observed": [
+    "desktop article typography and source method",
+    "desktop native chart with both mean lines and full TradingView attribution",
+    "mobile article wrapping",
+    "mobile X root and complete linked own replies"
+  ],
+  "repair": "Moved the chart from the end of the page to the trend-yardstick section. Original pixels unchanged.",
+  "remaining": null,
+  "transport_choice": "Reuse the existing WEB_ONLY Substack Neo editor/upload/readback for the exact cc536-measured-odds-1..7 identities; retain ordinary article accounting.",
+  "git_maintenance": "Git triggered automatic pack on the second commit; its exact task-owned pack helper was stopped to honor the no-gc rule. Commit ee19f8d6 was pushed; no worktree or shared Git config changed.",
+  "decision": "ACCEPT",
+  "render_manifest": "renders/manifest.json",
+  "renders_inspected": 18,
+  "findings": [
+    "All eight social views inspected at desktop and mobile. Complete summaries and notice lines retained.",
+    "Canonical article wraps at mobile width; full chart pixels and TradingView credit preserved.",
+    "No raw series or desk trade results in public copy.",
+    "Only copy-markup cleanup followed the render capture; printed words and chart bytes are unchanged."
+  ]
+}

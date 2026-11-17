@@ -11,12 +11,19 @@ NOW = "2026-10-18T17:00:00Z"
 
 
 def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic sweep. Equities and Bitcoin rose.", *, native=False):
-    report = tmp_path / "Main" / ("owner-native.json" if native else "DOSSIER.md")
-    report.parent.mkdir()
-    report.write_text(json.dumps({"summary": [{"text": text}], "candidates": [{"entry": 123, "rationale": text}]})
+    single_pass = native == "single_pass"
+    report = (tmp_path / "Main/shocks/shock-one/analysis-native.json" if single_pass else
+              tmp_path / "Main" / ("owner-native.json" if native else "DOSSIER.md"))
+    report.parent.mkdir(parents=True)
+    synthesis = {"summary": [{"text": text}], "candidates": [{"entry": 123, "rationale": text}]}
+    report.write_text(json.dumps({"native_synthesis": synthesis} if single_pass else synthesis)
                       if native else text, encoding="utf-8")
+    if single_pass:
+        digest = sha256(json.dumps(json.loads(report.read_bytes()), sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        (report.parent / "analysis-end.json").write_text(json.dumps({"output_sha256": digest, "schema_errors": []}), encoding="utf-8")
     monkeypatch.setattr(projection, "REPORT_ROOTS", (report.parent,))
     monkeypatch.setattr(projection, "NATIVE_MAIN_REPORT_ROOT", report.parent)
+    monkeypatch.setattr(projection, "NATIVE_MAIN_ANALYSIS_ROOT", tmp_path / "Main")
     root = tmp_path / "sources"
     root.mkdir()
     spec = {"authorship_class": projection.AUTHORSHIP, "authority_ref": "JIM_DECISION_89",
@@ -25,13 +32,13 @@ def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic swee
         "revision_at_utc": "2026-10-18T16:00:00Z", "passages": [{"source_path": str(report),
             "source_sha256": sha256(report.read_bytes()).hexdigest(), "fragments": [{"start": 0, "end": len(text)}]}]}
     if native:
-        spec["passages"][0]["source_json_pointer"] = "/summary/0/text"
+        spec["passages"][0]["source_json_pointer"] = ("/native_synthesis" if single_pass else "") + "/summary/0/text"
     (root / "index.json").write_text(json.dumps({"schema_version": "contentops.retained_source_research.v1",
         "records": [spec]}), encoding="utf-8")
     return root, report, spec
 
 
-@pytest.mark.parametrize("native", [False, True])
+@pytest.mark.parametrize("native", [False, True, "single_pass"])
 def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeypatch, native):
     root, report, spec = retained(tmp_path, monkeypatch, native=native)
     research = RetainedSourceResearch(root)
@@ -62,7 +69,8 @@ def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeyp
         workspace = result.get("report_workspace_result", {})
         pytest.fail(str({k: workspace.get(k) for k in ("classification", "exact_next_blocker", "simple_result")}))
     assert len(seen) == 1
-    expected = json.loads(report.read_bytes())["summary"][0]["text"] if native else report.read_text(encoding="utf-8")
+    document = json.loads(report.read_bytes()) if native else {}
+    expected = document.get("native_synthesis", document)["summary"][0]["text"] if native else report.read_text(encoding="utf-8")
     assert seen[0]["canonical_content_text"] == expected
     assert seen[0]["source_authority_class"] == "governed_capital_chronicle_report_only"
     assert seen[0]["report_truth_only"] is True
@@ -73,7 +81,7 @@ def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeyp
     ("Kalshi priced the sweep at 74%.", "MAIN_REPORT_RAW_OR_PREDICTION_NUMBERS_FORBIDDEN"),
     ("The DEMO account balance rose.", "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"),
 ])
-@pytest.mark.parametrize("native", [False, True])
+@pytest.mark.parametrize("native", [False, True, "single_pass"])
 def test_private_rows_and_prediction_numbers_stay_out(tmp_path, monkeypatch, text, cause, native):
     root, _, _ = retained(tmp_path, monkeypatch, text, native=native)
     research = RetainedSourceResearch(root)
@@ -89,10 +97,11 @@ def test_changed_main_bytes_cannot_replace_frozen_evidence(tmp_path, monkeypatch
     assert research.gaps[0]["state"] == "MAIN_REPORT_SOURCE_BYTES_CHANGED"
 
 
-def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_path, monkeypatch):
+@pytest.mark.parametrize("native", [True, "single_pass"])
+def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_path, monkeypatch, native):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
     from live_contentops.reader_article_contract_v1 import contract_for
-    root, report, spec = retained(tmp_path, monkeypatch, native=True)
+    root, report, spec = retained(tmp_path, monkeypatch, native=native)
     capture = report.parent / "capture.json"
     capture.write_text(json.dumps({"known_at_utc": "2026-10-18T14:00:00Z", "private_value": "never projected"}), encoding="utf-8")
     research = RetainedSourceResearch(root)
@@ -102,6 +111,28 @@ def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_pat
     assert docs[0]["published_at_utc"] == "2026-10-18T15:00:00Z"
     assert docs[0]["data_clock_binding"][0]["sha256"] == sha256(capture.read_bytes()).hexdigest()
     assert "private_value" not in json.dumps(docs) and "never projected" not in json.dumps(docs)
+
+
+@pytest.mark.parametrize("failure", ["missing", "changed", "schema_errors"])
+def test_single_pass_requires_completed_exact_main_output(tmp_path, monkeypatch, failure):
+    _, report, spec = retained(tmp_path, monkeypatch, native="single_pass")
+    proof = report.parent / "analysis-end.json"
+    if failure == "missing":
+        proof.unlink()
+    else:
+        record = json.loads(proof.read_bytes())
+        record["output_sha256" if failure == "changed" else "schema_errors"] = "bad"
+        proof.write_text(json.dumps(record), encoding="utf-8")
+    with pytest.raises(ValueError, match="MAIN_REPORT_ANALYSIS_COMPLETION_"):
+        projection.verify_projection(spec)
+
+
+@pytest.mark.parametrize("pointer", ["/native_synthesis/candidates/0/entry", "/primary_analysis/summary/0/text", "/summary/0/text"])
+def test_single_pass_projects_only_synthesis_prose(tmp_path, monkeypatch, pointer):
+    _, _, spec = retained(tmp_path, monkeypatch, native="single_pass")
+    spec["passages"][0]["source_json_pointer"] = pointer
+    with pytest.raises(ValueError, match="MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID"):
+        projection.verify_projection(spec)
 
 
 def test_dated_main_context_keeps_its_clock_without_replacing_the_lead_cutoff(tmp_path, monkeypatch):

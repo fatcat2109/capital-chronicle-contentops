@@ -1,0 +1,11 @@
+{
+  "desk_record_exports": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\fomc\\source-4d8c2418af301857\\desk-export.json",
+      "sha256": "4d8c2418af3018570ea8cdc1e993092228285a2101e76d858e1b43c9f8c7bf56"
+    }
+  ],
+  "producer_commit": "f1c6c2ef296a3ece6d00c846d2e55b18be554d09",
+  "producer_repository": "https://github.com/fatcat2109/capital-chronicle-contentops",
+  "schema_version": "contentops.main_report_feed_pointer.v1"
+}

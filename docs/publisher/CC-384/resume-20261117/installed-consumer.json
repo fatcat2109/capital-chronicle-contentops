@@ -1,0 +1,59 @@
+{
+  "observed_at_utc": "2026-11-17T02:34:04.496408+00:00",
+  "operating_head": "944f53d36c1ccbdda1e34ffa1e15515cbdfb864b",
+  "branch_base": "944f53d36c1ccbdda1e34ffa1e15515cbdfb864b",
+  "branch_base_reason": "Continue the integrated operating HEAD; remote master predates installed consumer changes.",
+  "delivery_00eebb_ancestor": true,
+  "files": {
+    "live_contentops/plan_status_posts_v1.py": {
+      "sha256": "e996c0bcb120ecdfe41c850325de88df854a7353cce871f64db624dc19cfa44f",
+      "builder_bytes_match": false,
+      "builder_text_matches_installed": true,
+      "installed_matches_committed": true
+    },
+    "live_contentops/plan_call_cards_v1.py": {
+      "sha256": "3c60813f559c5f06de8efb3776143d97fd840260039de480949dfd9e5c8fc428",
+      "builder_bytes_match": true,
+      "builder_text_matches_installed": true,
+      "installed_matches_committed": true
+    },
+    "live_contentops/plan_reader_copy_v1.py": {
+      "sha256": "54d47536e444f15a8cf62b3fc422797016aed2481daf175019c7ecae801d700e",
+      "builder_bytes_match": true,
+      "builder_text_matches_installed": true,
+      "installed_matches_committed": true
+    },
+    "live_contentops/plan_state_alerts_v1.py": {
+      "sha256": "aa95ce0c1618e1d84cbcd1210ec00c138e9540009d7e9b8c204c2973af9f380d",
+      "builder_bytes_match": true,
+      "builder_text_matches_installed": true,
+      "installed_matches_committed": true
+    },
+    "scripts/plan_status_posts.py": {
+      "sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "builder_bytes_match": true,
+      "builder_text_matches_installed": true,
+      "installed_matches_committed": true
+    },
+    "tests/test_plan_status_instruments_cc384.py": {
+      "sha256": "3ea4aaf28cf004adecf37aff505012994bce495d1c930242906855b0fff181d5",
+      "builder_bytes_match": true,
+      "builder_text_matches_installed": true,
+      "installed_matches_committed": true
+    }
+  },
+  "preserved_dirty": {
+    "builder": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b"
+    }
+  }
+}

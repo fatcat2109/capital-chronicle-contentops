@@ -1,0 +1,14 @@
+{
+  "TaskName": "CapitalChronicle-PlanStatusPosts-V1",
+  "State": "Running",
+  "Actions": [
+    {
+      "Execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+      "Arguments": "-B scripts\\plan_status_posts.py --publish",
+      "WorkingDirectory": "A:\\Capital Chronicle\\ContentOps"
+    }
+  ],
+  "LastRunTimeGMT7": "2026-11-12 05:09:26",
+  "LastTaskResult": 2147946720,
+  "NextRunTimeGMT7": "2026-11-12 05:10:25"
+}

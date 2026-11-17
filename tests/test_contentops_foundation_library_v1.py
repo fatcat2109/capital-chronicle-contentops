@@ -68,6 +68,31 @@ def test_source_missing_and_future_research_do_not_create_supported_briefs():
     assert len(library["gaps"]) == 7
 
 
+def test_scoped_library_retains_exact_story_and_publication_context(tmp_path):
+    from live_contentops.contentops_foundation_library_v1 import dependency_rows, library_projection
+    tracker = LatestReportDeliveryTracker(ContentOpsDurableStore(tmp_path / "isolated.sqlite"))
+    research = RetainedSourceResearch(ROOT / "retained_research")
+    briefs = json.loads((ROOT / "editorial_briefs.json").read_bytes())["briefs"]
+    persist_library(tracker, research, cutoff_utc=CUTOFF, briefs=briefs)
+    work = tracker.store.list_outbox_messages()[0]["work_item_id"]
+    for identity, destination, payload in (
+        ("older-pool", "internal:cc-report-editorial-stage", {"args": {"cutoff_utc": CUTOFF, "published_memory": []}}),
+        ("latest-pool", "internal:cc-report-editorial-stage", {"args": {"cutoff_utc": "2026-10-20T12:00:00Z", "published_memory": []}}),
+        ("later-result", "internal:cc-report-editorial-stage", {"result": {"qualified_article_count": 0}}),
+        ("unrelated-replies", "internal:x-reply-bot-run", {"text": "unrelated historical payload" * 1000}),
+    ):
+        tracker.store.register_outbox_message(message_id=identity, work_item_id=work,
+            destination=destination, payload=json.dumps(payload), status="EDITORIAL_INTERNAL")
+    all_rows = tracker.store.list_outbox_messages()
+    scoped = dependency_rows(tracker.store, include_story_context=True)
+    assert library_projection(scoped) == library_projection(all_rows)
+    assert library_projection(scoped)["counts"]["briefs"] == 7
+    assert library_projection(scoped)["publication_memory"]["observed_at_utc"] == "2026-10-20T12:00:00Z"
+    assert {r["message_id"] for r in scoped} == {
+        r["message_id"] for r in all_rows if r["destination"] == "internal:cc-foundation-library"
+    } | {"latest-pool"}
+
+
 def test_same_revision_persists_once_in_existing_store_and_reaches_daily_workspace(tmp_path):
     tracker = LatestReportDeliveryTracker(ContentOpsDurableStore(tmp_path / "isolated.sqlite"))
     research = RetainedSourceResearch(ROOT / "retained_research")

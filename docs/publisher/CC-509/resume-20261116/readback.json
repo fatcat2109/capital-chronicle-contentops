@@ -1,0 +1,1011 @@
+{
+  "item": "CC-509",
+  "read_at_utc": "2026-11-15T21:27:07.493529+00:00",
+  "original_final_installation_at_utc": "2026-11-12T11:48:34.290020+00:00",
+  "acceptance": "PASS_LIVE_REPLY_QUOTE_AND_POSTED_COMPARED_CHART",
+  "database_access": "SQLite mode=ro and query_only=ON, one read transaction.",
+  "executed_source_root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "operating_head_at_read": "fa7533c6bacbc7c4816de8e9a0da9d8a1193857f",
+  "next_three_natural_deliveries": [
+    {
+      "delivery_id": "xrb-2120872859266699313",
+      "delivery_payload_sha256": "9fbe5015cca7c8a8311b1aec63a8e66e45c6dffef1a0a61b82d008ddf24ff5d6",
+      "receipt_id": "x-reply-bot-b9d2326edc2c996ffcc3c7d767cb3d644faa5cf08a065134b962809917e59a56",
+      "receipt_payload_sha256": "63e0139bfc0dd321bf157c6010db3a9831fff66f48741dc6d43d7494c67d93b4",
+      "pack_message_id": "x-reply-pack-e3679b4ffd4ebd554b8ca4679b49711c11b627f441d427eea9cba7cf2ba55af7",
+      "pack_payload_sha256": "982a3fc8c132a9b4a7410871d6fae52224cc66b009ee9c17dae77e795ca03bd6",
+      "telegram_message_id": 4,
+      "post_id": "2120872859266699313",
+      "target_text_sha256": "17c57a765d751d58b17a665b9cc0186dfbdbb38efc5b04d029747646b8d9b76c",
+      "draft_text_sha256": "75c09b9972faad4dd93fd001d7dd7777c867774152aff7e5229bf50e7d39dc25",
+      "posted_at_utc": "2026-11-12T13:34:28.218000+00:00",
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "post_to_delivery_minutes": 8.5797,
+      "fact_age_seconds_at_delivery": 697.0,
+      "age_line_formatter_replay": "Fact age: today, 8:31 AM ET (11 min old)",
+      "age_evidence": "Original send-time binding and production formatter; no Telegram body or phone-screen read.",
+      "source_observation": {
+        "change_unit": "USD per barrel",
+        "day_change": 1.06,
+        "day_change_pct": 1.1427339370418284,
+        "day_change_text": "1.06",
+        "fetch_seconds": 0.2560999000124866,
+        "instrument_name": "Brent crude oil futures",
+        "instrument_type": "FUTURE",
+        "known_at_utc": "2026-11-12T13:41:31.636795+00:00",
+        "market": "BRENT",
+        "observed_at_utc": "2026-11-12T13:31:26+00:00",
+        "prior_close": 92.76,
+        "response_sha256": "8963038268b50067d800da4cc9fc1227721e94bf1b1c7f8413b4a70c852c0dde",
+        "schema": "contentops.public_quote.v1",
+        "source": "Yahoo Finance",
+        "source_exchange": "NYM",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source_symbol": "BZ=F",
+        "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/BZ%3DF?range=1d&interval=1m",
+        "unit": "USD per barrel",
+        "value": 93.82,
+        "value_text": "93.82",
+        "artifact": {
+          "kind": "quote_observation",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\8d1a195712ac854bc1157615fec9a5531c3ef69e3ba31a2e199e3b77c141194e.json",
+          "sha256": "8d1a195712ac854bc1157615fec9a5531c3ef69e3ba31a2e199e3b77c141194e"
+        }
+      },
+      "source_hash_and_production_fact_recheck": "PASS",
+      "run_id": "x-reply-bot-0660f180a957223343057e96e558fcf690b39577242ff2c4244b2830dce74e13",
+      "run_payload_sha256": "2570fbf9ec5cb213d307578978f17665cb22d62d6c5fd98bbd4c614aa224a49b",
+      "run_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134126-d2aff1b3\\result.json",
+      "fetch_seconds_per_symbol": [
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "US10Y",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "US10Y",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.3171368000039365,
+          "market": "US10Y",
+          "observed_at_utc": "2026-11-12T13:41:27+00:00",
+          "source": "CNBC / Tradeweb",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "US10Y",
+          "status": "USED"
+        },
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "BRENT",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "BRENT",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.2560999000124866,
+          "market": "BRENT",
+          "observed_at_utc": "2026-11-12T13:31:26+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "BZ=F",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USOIL",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USOIL",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.1987652999960119,
+          "market": "USOIL",
+          "observed_at_utc": "2026-11-12T13:31:28+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "CL=F",
+          "status": "USED"
+        },
+        {
+          "fetch_seconds": 0.0,
+          "market": "XAUUSD",
+          "source_kind": "PLAN_STATUS_EXPORT",
+          "status": "USED"
+        },
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "NDX",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "NDX",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "age_seconds": 55533.677061,
+          "cause": "PUBLIC_QUOTE_STALE",
+          "fetch_seconds": 0.6090876999951433,
+          "market": "NDX",
+          "observed_at_utc": "2026-11-11T22:15:59+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "^NDX"
+        },
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "DXY",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "DXY",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.3037938000052236,
+          "market": "DXY",
+          "observed_at_utc": "2026-11-12T13:41:32+00:00",
+          "source": "CNBC",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": ".DXY",
+          "status": "USED"
+        }
+      ],
+      "stage_seconds": {
+        "checks": 0.22036600000865292,
+        "drafting": 50.17092460001004,
+        "filter": 4.777249899998424,
+        "ranking": 37.22941890000948,
+        "telegram_send": 0.8785262000019429
+      },
+      "editorial_calls": {
+        "ranker": {
+          "status": "RETURNED",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 37.226202600009856,
+          "started_at_utc": "2026-11-12T13:41:34.285721+00:00",
+          "ended_at_utc": "2026-11-12T13:42:11.511995+00:00",
+          "observed_session_id": null
+        },
+        "writer": {
+          "status": "RETURNED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "max",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 50.16750749999483,
+          "started_at_utc": "2026-11-12T13:42:11.528994+00:00",
+          "ended_at_utc": "2026-11-12T13:43:01.696602+00:00",
+          "observed_session_id": null
+        }
+      }
+    },
+    {
+      "delivery_id": "xrb-2121235459187826884",
+      "delivery_payload_sha256": "e72df6bf376f73d995de6fc1e9d9fb1fec148333ee6aea2b3c881f5ce18cf0da",
+      "receipt_id": "x-reply-bot-e22d348aca55b270c735244f6c44153fcc00dcc144189334b3f69f656c06d9c6",
+      "receipt_payload_sha256": "e03e7f055e0149fcea90b2c3c2d34b81abde6eab27508468a39582857b2c5ecf",
+      "pack_message_id": "x-reply-pack-c36f410095d7d15d55a346bb4096891223be4302d2c8c4cbead7547f529688d7",
+      "pack_payload_sha256": "ec9e7d4644ac1f0a641be631a0ecbf5809604a431f1b92d1f8fc8ab5fb64e678",
+      "telegram_message_id": 5,
+      "post_id": "2121235459187826884",
+      "target_text_sha256": "9d9c12313422aa7424df15a8e09c3ed59addb95302c93f0453a8eb5e3f93a8f7",
+      "draft_text_sha256": "1ec4872da477b7193023ff06f0f83eac0d512c86f2a2875d83afb4439205f7e2",
+      "posted_at_utc": "2026-11-13T13:35:18.776000+00:00",
+      "delivered_at_utc": "2026-11-13T13:43:38+00:00",
+      "post_to_delivery_minutes": 8.3204,
+      "fact_age_seconds_at_delivery": 187.0,
+      "age_line_formatter_replay": "Fact age: today, 8:40 AM ET (3 min old)",
+      "age_evidence": "Original send-time binding and production formatter; no Telegram body or phone-screen read.",
+      "source_observation": {
+        "change_unit": "points",
+        "day_change": -0.034,
+        "day_change_pct": -0.03295435821387378,
+        "day_change_text": "-0.034",
+        "fetch_seconds": 0.8288614999910351,
+        "instrument_name": "US dollar index",
+        "instrument_type": "INDEX",
+        "known_at_utc": "2026-11-13T13:40:31.981649+00:00",
+        "market": "DXY",
+        "observed_at_utc": "2026-11-13T13:40:31+00:00",
+        "prior_close": 103.173,
+        "response_sha256": "c9c71b2e7e31c611b45771a6227c38530db46e974e93a34670b4c9adebe5c3b1",
+        "schema": "contentops.public_quote.v1",
+        "source": "CNBC",
+        "source_exchange": "Exchange",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source_symbol": ".DXY",
+        "source_url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=.DXY&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+        "unit": "points",
+        "value": 103.139,
+        "value_text": "103.139",
+        "artifact": {
+          "kind": "quote_observation",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\faacb7cc27bf18cf4d59c92d3de1bb886bb75de7096c23a142893f53acf143ea.json",
+          "sha256": "faacb7cc27bf18cf4d59c92d3de1bb886bb75de7096c23a142893f53acf143ea"
+        }
+      },
+      "source_hash_and_production_fact_recheck": "PASS",
+      "run_id": "x-reply-bot-314cb5765b1216962b7970c4bbaab213c46b69bac2770d2d4440caa8791a2075",
+      "run_payload_sha256": "609addea6cbe0a7bed6095a76998ab2ebd77f54edc578eb92c51eacaa0476fb0",
+      "run_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T134027-5ccfaf10\\result.json",
+      "fetch_seconds_per_symbol": [
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "DXY",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "DXY",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.8288614999910351,
+          "market": "DXY",
+          "observed_at_utc": "2026-11-13T13:40:31+00:00",
+          "source": "CNBC",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": ".DXY",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "EURUSD",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "EURUSD",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.2188713000214193,
+          "market": "EURUSD",
+          "observed_at_utc": "2026-11-13T13:39:32+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "EURUSD=X",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USDJPY",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USDJPY",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.21389739998267032,
+          "market": "USDJPY",
+          "observed_at_utc": "2026-11-13T13:40:31+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "JPY=X",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "XAUUSD",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "XAUUSD",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.3698251000023447,
+          "market": "XAUUSD",
+          "observed_at_utc": "2026-11-13T13:39:43.477000+00:00",
+          "source": "CNBC",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "XAU=",
+          "status": "USED"
+        }
+      ],
+      "stage_seconds": {
+        "checks": 0.2627945000131149,
+        "drafting": 117.78408650000347,
+        "filter": 9.18630969998776,
+        "ranking": 58.63056400002097,
+        "telegram_send": 0.9224020000256132
+      },
+      "editorial_calls": {
+        "ranker": {
+          "status": "RETURNED",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 58.62854229999357,
+          "started_at_utc": "2026-11-13T13:40:39.567419+00:00",
+          "ended_at_utc": "2026-11-13T13:41:38.196098+00:00",
+          "observed_session_id": null
+        },
+        "writer": {
+          "status": "RETURNED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "max",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 117.78236289997585,
+          "started_at_utc": "2026-11-13T13:41:38.198414+00:00",
+          "ended_at_utc": "2026-11-13T13:43:35.981067+00:00",
+          "observed_session_id": "01a1d524-7491-7f53-bd05-22164c947d28"
+        }
+      }
+    },
+    {
+      "delivery_id": "xrb-2121238553342751113",
+      "delivery_payload_sha256": "9afe7d01bdb1f6b32d3f026f19f0dc844742ef35fae17a46bd36af09dfadc704",
+      "receipt_id": "x-reply-bot-a901fd4b00d199449e201436287e0d1754a66080876e0caa4f583fa7759ea7d2",
+      "receipt_payload_sha256": "163e319cca01d8a233731f8e3babfd65640f6ebeb4864d4ecc74cf558cfd9dca",
+      "pack_message_id": "x-reply-pack-1ab8a16115d2984901ae712360a2c06b223b7905194c09797486db3299aef992",
+      "pack_payload_sha256": "d58d813ad24eed4a0fe0e5784def265dbf069feeecb99d0644e6a286e64edfda",
+      "telegram_message_id": 6,
+      "post_id": "2121238553342751113",
+      "target_text_sha256": "0ffd944f76d66123d95731b66ceb543fbf1adb3523a7ee0574125d159ca1eda0",
+      "draft_text_sha256": "c75c5c1fc9ea9fd7135c2f26810222da099f6afe92b3bac4b44bb1b746c6bd4c",
+      "posted_at_utc": "2026-11-13T13:47:36.480000+00:00",
+      "delivered_at_utc": "2026-11-13T13:53:12+00:00",
+      "post_to_delivery_minutes": 5.592,
+      "fact_age_seconds_at_delivery": 756.0,
+      "age_line_formatter_replay": "Fact age: today, 8:40 AM ET (12 min old)",
+      "age_evidence": "Original send-time binding and production formatter; no Telegram body or phone-screen read.",
+      "source_observation": {
+        "change_unit": "USD per barrel",
+        "day_change": -0.08,
+        "day_change_pct": -0.09015100292990759,
+        "day_change_text": "-0.08",
+        "fetch_seconds": 0.15489219999290071,
+        "instrument_name": "WTI crude oil futures",
+        "instrument_type": "FUTURE",
+        "known_at_utc": "2026-11-13T13:50:37.633365+00:00",
+        "market": "USOIL",
+        "observed_at_utc": "2026-11-13T13:40:36+00:00",
+        "prior_close": 88.74,
+        "response_sha256": "76ee962cf30f84a0a7678af2a1b09c16cd9079ecf201e4acd9201bea71b4ffae",
+        "schema": "contentops.public_quote.v1",
+        "source": "Yahoo Finance",
+        "source_exchange": "NYM",
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source_symbol": "CL=F",
+        "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/CL%3DF?range=1d&interval=1m",
+        "unit": "USD per barrel",
+        "value": 88.66,
+        "value_text": "88.66",
+        "artifact": {
+          "kind": "quote_observation",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\06853bf526858af58f66d2621d08857062385e77dff73298a20e1b5bc3365b61.json",
+          "sha256": "06853bf526858af58f66d2621d08857062385e77dff73298a20e1b5bc3365b61"
+        }
+      },
+      "source_hash_and_production_fact_recheck": "PASS",
+      "run_id": "x-reply-bot-ec1ef6dc9691da6e7453c2334667a43d952fcc5190b1889c60f5907adf4d1241",
+      "run_payload_sha256": "ed5bb1d4c1ca5e12ae488d9344f084fcb50c9440491c941665c985e4054563d6",
+      "run_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T135028-a3934240\\result.json",
+      "fetch_seconds_per_symbol": [
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "DXY",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "DXY",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.3013179000117816,
+          "market": "DXY",
+          "observed_at_utc": "2026-11-13T13:50:35+00:00",
+          "source": "CNBC",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": ".DXY",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "EURUSD",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "EURUSD",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.19514429999981076,
+          "market": "EURUSD",
+          "observed_at_utc": "2026-11-13T13:50:32+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "EURUSD=X",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USDJPY",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USDJPY",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.1756632000033278,
+          "market": "USDJPY",
+          "observed_at_utc": "2026-11-13T13:50:35+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "JPY=X",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "XAUUSD",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "XAUUSD",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.319613700004993,
+          "market": "XAUUSD",
+          "observed_at_utc": "2026-11-13T13:49:42.763000+00:00",
+          "source": "CNBC",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "XAU=",
+          "status": "USED"
+        },
+        {
+          "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+          "fetch_seconds": 0.0,
+          "market": "BRENT",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+          "fetch_seconds": 0.0,
+          "market": "BRENT",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.20679300001938827,
+          "market": "BRENT",
+          "observed_at_utc": "2026-11-13T13:40:08+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "BZ=F",
+          "status": "USED"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USOIL",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "cause": "CHART_REFERENCE_STALE",
+          "fetch_seconds": 0.0,
+          "market": "USOIL",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        },
+        {
+          "cache_hit": false,
+          "fetch_seconds": 0.15489219999290071,
+          "market": "USOIL",
+          "observed_at_utc": "2026-11-13T13:40:36+00:00",
+          "source": "Yahoo Finance",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source_symbol": "CL=F",
+          "status": "USED"
+        }
+      ],
+      "stage_seconds": {
+        "checks": 0.36070670004119165,
+        "drafting": 94.36154670000542,
+        "filter": 10.324984999984736,
+        "ranking": 51.99728410001262,
+        "telegram_send": 0.9592751000018325
+      },
+      "editorial_calls": {
+        "ranker": {
+          "status": "RETURNED",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 51.98778900000616,
+          "started_at_utc": "2026-11-13T13:50:43.536851+00:00",
+          "ended_at_utc": "2026-11-13T13:51:35.524777+00:00",
+          "observed_session_id": null
+        },
+        "writer": {
+          "status": "RETURNED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "max",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 94.35901649997686,
+          "started_at_utc": "2026-11-13T13:51:35.527163+00:00",
+          "ended_at_utc": "2026-11-13T13:53:09.886419+00:00",
+          "observed_session_id": "01a1d52d-9353-7380-8b3a-d0898e3a30b4"
+        }
+      }
+    }
+  ],
+  "posted_chart": {
+    "first_published_chart_record": "ed27dda3aa9f2a8644021449686e23a5cf00c8e6029f1274036ed0955c4daacf",
+    "capture_metadata": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\tradingview_capture_v1.json",
+      "bytes": 5049,
+      "sha256": "6302b80208dc49fffdea3644173a7b0dc76d10a2757dd651a20ef0ca88bdbaef"
+    },
+    "original_image": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\media_assets\\XAUUSD_2026-11-12_16-28-28.png",
+      "bytes": 93662,
+      "sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081"
+    },
+    "published_lead_image_sha256": "1b1be27c3f751401ab5c0fb1d618d2f5075969cea78692533e466e89f2226af2",
+    "price_scale_check": {
+      "captured_at_utc": "2026-11-12T16:28:30.085830+00:00",
+      "chart_price": 3875.13,
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "clock_skew_seconds": 47.40083,
+      "comparison_at_utc": "2026-11-12T16:28:30.085830+00:00",
+      "comparison_basis": "AT_CAPTURE",
+      "difference": 1.900000000000091,
+      "difference_pct": 0.04905466496954973,
+      "level_offset": 0.0,
+      "market": "XAUUSD",
+      "maximum_difference_pct": 0.15,
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "quote": {
+        "age_seconds": 47.40083,
+        "capture_age_seconds": 47.40083,
+        "comparison_at_utc": "2026-11-12T16:28:30.085830+00:00",
+        "comparison_basis": "AT_CAPTURE",
+        "instrument": "XAUUSD",
+        "instrument_name": "Gold spot",
+        "instrument_type": "INDEX",
+        "known_at_utc": "2026-11-12T16:28:09.293865+00:00",
+        "market": "XAUUSD",
+        "price": 3873.23,
+        "price_basis": "public_index",
+        "quoted_at_utc": "2026-11-12T16:27:42.685000+00:00",
+        "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+        "source": "CNBC",
+        "source_attempts": [
+          {
+            "age_seconds": 10618.338183,
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T13:31:31.747647+00:00",
+            "source_kind": "PLAN_STATUS_EXPORT"
+          },
+          {
+            "age_seconds": 22050.08583,
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "source_kind": "BAR_STORE_M1_CLOSE"
+          }
+        ],
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\fa849cc3c048d57fbd6b457c711abbd598a44b2cb5c4d6725c48b99b84ad632f.json",
+        "source_sha256": "fa849cc3c048d57fbd6b457c711abbd598a44b2cb5c4d6725c48b99b84ad632f",
+        "source_symbol": "XAU=",
+        "source_url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json"
+      },
+      "tv_symbol": "FX_IDC:XAUUSD"
+    },
+    "source_observation": {
+      "change_unit": "USD per troy ounce",
+      "day_change": -114.06,
+      "day_change_pct": -2.86058952321,
+      "day_change_text": "-114.06",
+      "fetch_seconds": 0.4162436000042362,
+      "instrument_name": "Gold spot",
+      "instrument_type": "INDEX",
+      "known_at_utc": "2026-11-12T16:28:09.293865+00:00",
+      "market": "XAUUSD",
+      "observed_at_utc": "2026-11-12T16:27:42.685000+00:00",
+      "prior_close": 3987.29,
+      "response_sha256": "bf7bfd0ba3d67ad789fb20ec67d0c56a00b8fe713115d3e183cfe0821ba2cb03",
+      "schema": "contentops.public_quote.v1",
+      "source": "CNBC",
+      "source_exchange": "Exchange",
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "source_symbol": "XAU=",
+      "source_url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+      "unit": "USD per troy ounce",
+      "value": 3873.23,
+      "value_text": "3873.23"
+    },
+    "comparison_and_immutable_source_recheck": "PASS",
+    "publication_records": [
+      {
+        "record_id": "ed27dda3aa9f2a8644021449686e23a5cf00c8e6029f1274036ed0955c4daacf",
+        "piece_id": "3ce0bfe396047b575e7e4a9ef26cd170dbdb9908d6383ffcbf3b4c72995c2ee6",
+        "state": "PUBLISHED",
+        "destination": null,
+        "published_at_utc": "2026-11-12T16:46:41.567000+00:00",
+        "recorded_at_utc": "2026-11-12T17:02:54.147595+00:00",
+        "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+      },
+      {
+        "record_id": "8a295e6e65e73008974dec0b71fcaf1be923d7464b65c959b786c7d4ae447708",
+        "piece_id": "98025ff7d809879cbcd3795a0c772658c8ae40d3e07a938c8c7f55554831d671",
+        "state": "PUBLISHED",
+        "destination": "substack_notes",
+        "published_at_utc": "2026-11-12T17:06:01.985944+00:00",
+        "recorded_at_utc": "2026-11-12T17:06:23.245740+00:00",
+        "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+      },
+      {
+        "record_id": "b59d3e03373520e545ab6896d8abb15511c8bf7aa82573c0aa494af0338c612a",
+        "piece_id": "a7354f1868b181bb2617f76dcbd2b0340f2a384d214cbd5796484c61afec12a3",
+        "state": "PUBLISHED",
+        "destination": "discord",
+        "published_at_utc": "2026-11-12T17:58:50.748256+00:00",
+        "recorded_at_utc": "2026-11-12T17:58:53.262312+00:00",
+        "canonical_url": ""
+      },
+      {
+        "record_id": "b4026b86e236443c2fcd306f7f4ab37b666606471ca6c5f7b1e09832d805ff44",
+        "piece_id": "a7354f1868b181bb2617f76dcbd2b0340f2a384d214cbd5796484c61afec12a3",
+        "state": "PUBLISHED",
+        "destination": "telegram",
+        "published_at_utc": "2026-11-12T17:58:56.428526+00:00",
+        "recorded_at_utc": "2026-11-12T17:58:58.218557+00:00",
+        "canonical_url": ""
+      },
+      {
+        "record_id": "3228d121f7dbd6f80fc5968ec67c786784e687eda353faae574ffb3a44912a34",
+        "piece_id": "a7354f1868b181bb2617f76dcbd2b0340f2a384d214cbd5796484c61afec12a3",
+        "state": "PUBLISHED",
+        "destination": "threads",
+        "published_at_utc": "2026-11-12T17:59:00.798611+00:00",
+        "recorded_at_utc": "2026-11-12T17:59:27.561822+00:00",
+        "canonical_url": ""
+      },
+      {
+        "record_id": "669c9c614b0bde63c6e5ce726fcb58d7bc601d40eebdded69db4158f5a503523",
+        "piece_id": "44e797f7f9e2be2469dbd65bbfcb3b43ef3c36fd75d9c5ddf8149b134ba294b2",
+        "state": "PUBLISHED",
+        "destination": "telegram",
+        "published_at_utc": "2026-11-12T18:00:13.650039+00:00",
+        "recorded_at_utc": "2026-11-12T18:00:15.401592+00:00",
+        "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+      },
+      {
+        "record_id": "daf018e2b95115bcd08a2f0ebd44645692dee8d222d8cf2cedad0a94dd9dc475",
+        "piece_id": "0d37d041dce3ad6a53058b8f03a88fc66d91ea8e818822dc59e4d10019971dc9",
+        "state": "PUBLISHED",
+        "destination": "discord",
+        "published_at_utc": "2026-11-12T18:00:17.567071+00:00",
+        "recorded_at_utc": "2026-11-13T05:32:20.244290+00:00",
+        "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+      },
+      {
+        "record_id": "0b4d0c3bcb42d7379cbd2baef80ff41d97732c2f57cd01a7ff8a63debb932f98",
+        "piece_id": "85d075837e81019870e00e3d56627c829fb9e474cee68529d15544c4a64752d9",
+        "state": "PUBLISHED",
+        "destination": "threads",
+        "published_at_utc": "2026-11-12T18:01:52.137421+00:00",
+        "recorded_at_utc": "2026-11-12T18:02:07.281833+00:00",
+        "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
+      },
+      {
+        "record_id": "aea9bee0cf5ab3c29eef7444e261ccd527b55542cd10c9db704c8967fba85fce",
+        "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+        "state": "PUBLISHED",
+        "destination": "discord",
+        "published_at_utc": "2026-11-15T19:17:25.019559+00:00",
+        "recorded_at_utc": "2026-11-15T19:17:27.313419+00:00",
+        "canonical_url": null
+      },
+      {
+        "record_id": "aab97805aeb971920816ea2af77acea8e9837b9603e95ade0157dc6aa92aba1d",
+        "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+        "state": "PUBLISHED",
+        "destination": "telegram",
+        "published_at_utc": "2026-11-15T19:18:00.008964+00:00",
+        "recorded_at_utc": "2026-11-15T19:18:02.483530+00:00",
+        "canonical_url": null
+      },
+      {
+        "record_id": "b49d50060c9a7d8fe244882e24ca93cf64c15058dcd62ebc20bdc5b051cf8574",
+        "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+        "state": "PUBLISHED",
+        "destination": "threads",
+        "published_at_utc": "2026-11-15T19:18:03.413661+00:00",
+        "recorded_at_utc": "2026-11-15T19:18:16.255023+00:00",
+        "canonical_url": null
+      },
+      {
+        "record_id": "9c6cc73faf2adf8e077e2253ed5de29551d3dc3e3dd187c58684efdc97089584",
+        "piece_id": "909dfe6e2b39a803e79b150f47c9dab2621780cd40fb9ece56eefeae302c77ee",
+        "state": "PUBLISHED",
+        "destination": "threads",
+        "published_at_utc": "2026-11-15T19:30:36.050603+00:00",
+        "recorded_at_utc": "2026-11-15T19:30:48.200952+00:00",
+        "canonical_url": null
+      }
+    ],
+    "confirmed_dispatches": [
+      {
+        "dispatch_id": "dispatch_0f71e132c94187d4e9c1835990c41f44",
+        "message_id": "outbox_0f71e132c94187d4e9c1835990c41f44",
+        "platform": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T16:32:05.276158+00:00",
+        "public_object_id": "224627730",
+        "public_object_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+        "public_object_url_hash": "dbc511106685951a6388db3773f9b902d53437ebc905e56ee7fc5c4aabe6b571",
+        "work_item_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "outbox_payload_sha256": "81a3c263010b0df00ac74a4476fb08d51c2cb555db15be350d482b2c13b87509",
+        "selected_media_asset_ids": [],
+        "readbacks": [
+          {
+            "id": "readback_76e3efd49c94ab294de215b1d79ff197",
+            "read_at_utc": "2026-11-12T17:02:54.113791+00:00",
+            "payload_sha256": "76e3efd49c94ab294de215b1d79ff1974545fa150e908d2f40b4730b9a9198b1"
+          }
+        ]
+      },
+      {
+        "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+        "message_id": "outbox_dd4c798cfc789d2135d31be409cb8aca",
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T17:58:50.748256+00:00",
+        "public_object_id": "1570498124391125187",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187",
+        "public_object_url_hash": "a43dfda97831bf1dcfebf7991492fe4fbea43313e834beaea57db4b2531e648c",
+        "work_item_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+        "outbox_payload_sha256": "8874a476ff7253683b125a27ac75d6adad393bb72aefafe9b923c3128872bf81",
+        "selected_media_asset_ids": [
+          "tradingview-plan-b07d6b3f52077e6cc4ec"
+        ],
+        "readbacks": [
+          {
+            "id": "readback_1962803c589adf2631597d6fc888e2b5",
+            "read_at_utc": "2026-11-12T17:58:53.056932+00:00",
+            "payload_sha256": "1962803c589adf2631597d6fc888e2b554fdfe717e713c65c8d41d1e0fdf7e04"
+          }
+        ]
+      },
+      {
+        "dispatch_id": "dispatch_808ea2f21503084e9f2b9f2d4e60ce97",
+        "message_id": "outbox_808ea2f21503084e9f2b9f2d4e60ce97",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T17:58:56.428526+00:00",
+        "public_object_id": "181",
+        "public_object_url": "https://t.me/CapitalChronicle/181",
+        "public_object_url_hash": "697adb852e0a8fc20dbdcaaa66fac8155d0248873fdc502cdc29d184dbaaf21e",
+        "work_item_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+        "outbox_payload_sha256": "0dccd7f9624b02e3538a13903db0a1ec1a731a5ff22ec20364ce23526183037f",
+        "selected_media_asset_ids": [
+          "tradingview-plan-b07d6b3f52077e6cc4ec"
+        ],
+        "readbacks": [
+          {
+            "id": "readback_763427769672612724a7c6042b77151b",
+            "read_at_utc": "2026-11-12T17:58:57.999218+00:00",
+            "payload_sha256": "763427769672612724a7c6042b77151baae04d329667c2ade71641402a29b7e8"
+          }
+        ]
+      },
+      {
+        "dispatch_id": "dispatch_3bc58b96507073819237909680b0759e",
+        "message_id": "outbox_3bc58b96507073819237909680b0759e",
+        "platform": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T17:59:00.798611+00:00",
+        "public_object_id": "17936667282142729",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppdRlE6Vk",
+        "public_object_url_hash": "aa4f61a394f69e36dc6fd35de311b37b880cad77edf29dd15b13b24859ec8399",
+        "work_item_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+        "outbox_payload_sha256": "36a099cc1df7dd827949a4a54b07bae2c42b43cbc6abe31a25c5e9835d13447e",
+        "selected_media_asset_ids": [
+          "tradingview-plan-b07d6b3f52077e6cc4ec"
+        ],
+        "readbacks": [
+          {
+            "id": "readback_691f487006158b5de8613ab5da08c37c",
+            "read_at_utc": "2026-11-12T17:59:27.408122+00:00",
+            "payload_sha256": "691f487006158b5de8613ab5da08c37c7a6ee4039e642e89198cfb75034be137"
+          }
+        ]
+      }
+    ],
+    "distinct_original_captures": 1,
+    "record_count_note": "Repeated registrations and destinations of this capture count once.",
+    "register_snapshot": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+      "bytes": 967900,
+      "sha256": "ff75102119310888501b2189cf4e06e0bf70fd60fbbd92caadb8c388061857e6"
+    }
+  },
+  "latest_bot_run": {
+    "message_id": "x-reply-bot-2bbc30b62e33a7756b480ae7c4e5f104e2681a4478718d6f55ef4b97b75da322",
+    "payload_sha256": "3d45cd4793d9223fa6089ebf908e6ba92a3a34d327d09fdc3d46277489367042",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null,
+    "started_at_utc": "2026-11-15T21:25:30.754716+00:00",
+    "ended_at_utc": "2026-11-15T21:25:45.562671+00:00",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261115T212530-2382dd0e\\result.json"
+  },
+  "installed_sources": {
+    "live_contentops/public_market_quote_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\public_market_quote_v1.py",
+        "bytes": 12154,
+        "sha256": "a479ad125dc460edbac6d42b42830ffd4c697f8be5935b2526ce7cd2e9660f47"
+      },
+      "worktree_sha256": "a479ad125dc460edbac6d42b42830ffd4c697f8be5935b2526ce7cd2e9660f47",
+      "matches": true
+    },
+    "live_contentops/chart_price_reference_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\chart_price_reference_v1.py",
+        "bytes": 12530,
+        "sha256": "92380cd8e7755aa036fa17876f099ef8d4634092a25da92f4f02f275b3b8deb9"
+      },
+      "worktree_sha256": "92380cd8e7755aa036fa17876f099ef8d4634092a25da92f4f02f275b3b8deb9",
+      "matches": true
+    },
+    "live_contentops/tradingview_snapshot_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\tradingview_snapshot_v1.py",
+        "bytes": 46543,
+        "sha256": "c63544d7edc3627fd865c00130a6304a0b21d9149c852e3193b30afc8650dcc0"
+      },
+      "worktree_sha256": "c63544d7edc3627fd865c00130a6304a0b21d9149c852e3193b30afc8650dcc0",
+      "matches": true
+    },
+    "live_contentops/publication_image_contract_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_image_contract_v1.py",
+        "bytes": 24648,
+        "sha256": "31bff01c1fe47efb3771549e62b366199c9244f5369909c170cb1b24e508ba6f"
+      },
+      "worktree_sha256": "31bff01c1fe47efb3771549e62b366199c9244f5369909c170cb1b24e508ba6f",
+      "matches": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+        "bytes": 320284,
+        "sha256": "3a96f9de018e0fa381326dbc26b743e3418fb555e310ddc7686454c94d736107"
+      },
+      "worktree_sha256": "3a96f9de018e0fa381326dbc26b743e3418fb555e310ddc7686454c94d736107",
+      "matches": true
+    },
+    "live_contentops/published_images_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py",
+        "bytes": 14248,
+        "sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677"
+      },
+      "worktree_sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677",
+      "matches": true
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_sources_v1.py",
+        "bytes": 24112,
+        "sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4"
+      },
+      "worktree_sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4",
+      "matches": true
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_policy_v1.py",
+        "bytes": 12396,
+        "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c"
+      },
+      "worktree_sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "matches": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_pack_v1.py",
+        "bytes": 48518,
+        "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb"
+      },
+      "worktree_sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "matches": true
+    },
+    "live_contentops/x_reply_bot_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+        "bytes": 47558,
+        "sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a"
+      },
+      "worktree_sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a",
+      "matches": true
+    },
+    "scripts/plan_status_posts.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\scripts\\plan_status_posts.py",
+        "bytes": 14503,
+        "sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690"
+      },
+      "worktree_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "matches": true
+    }
+  },
+  "phone_open_observed": false,
+  "public_or_private_messages_sent_by_this_readback": 0,
+  "source_fetches_by_this_readback": 0,
+  "model_calls_by_this_readback": 0,
+  "schedule_changed": false,
+  "limits": "Bot API confirms private delivery, not phone viewing or Jim sending an X reply. Existing chart limits remain; CC-489 owns three-day calibration."
+}

@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-11-12T00:55:25.923646+00:00",
+  "production_day": "2026-11-12",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-12T01:15:36.571194+00:00"
+    }
+  ],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-12T00:54:30.757537Z",
+    "content_hash": "627568c08fdd4dcd70580b13d9be86503bf57c273863460e101fb57aa0c5c290",
+    "plan_count": 83,
+    "latest_plan_registration_utc": "2026-11-11T16:20:07.062029Z",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 35.0
+      }
+    ],
+    "clock_use": "Generation and registration are observed separately; neither replaces a bound source capture."
+  },
+  "publication_status_cli": "Not invoked: no new article source or publication operation. No current channel readback or global unknown-write count claimed."
+}

@@ -56,6 +56,9 @@ def _row(store, key):
 
 
 def validate(row, *, store=None):
+    if row.get("heavy_news_quote"):
+        from .heavy_news_quotes_v1 import validate as validate_quote
+        return validate_quote(row, store=store)
     if row.get("x_api_mention"):
         from live_contentops.x_mention_responder_v1 import validate_row
         return validate_row(row, store=store)
@@ -170,6 +173,9 @@ def stage(store, candidate, *, feed, now=None):
 
 
 def payload(row):
+    if row.get("heavy_news_quote"):
+        from .heavy_news_quotes_v1 import payload as quote_payload
+        return quote_payload(row)
     return {
         "destination": row["platform"],
         "text": row["text"],
@@ -189,7 +195,7 @@ def plan_for(store, key, *, root=ROOT):
     row = validate(_row(store, key), store=store)
     folder = Path(root) / key
     folder.mkdir(parents=True, exist_ok=True)
-    if row.get("image"):
+    if row.get("image") and not row.get("heavy_news_quote"):
         manifest = row["image"]["delivery_manifest"]
         # Manifest was produced by the existing media owner; exact bytes are copied, not rehosted.
         raw = Path(manifest["path"]).read_bytes()
@@ -199,7 +205,7 @@ def plan_for(store, key, *, root=ROOT):
     (folder / "run_context_v1.json").write_text(
         json.dumps(
             {
-                "article": {},
+                "article": {"market_asset": row["market"]} if row.get("heavy_news_quote") else {},
                 "selection": {},
                 "media": {"assets": [row["image"]] if row.get("image") else []},
             }
@@ -239,6 +245,8 @@ def plan_for(store, key, *, root=ROOT):
 
     if row.get("x_api_mention"):
         plan["x_api_mention"] = row["x_api_mention"]
+    if row.get("heavy_news_quote"):
+        plan["heavy_news_quote"] = row["key"]
     return plan
 
 
@@ -252,6 +260,11 @@ def validate_plan(store, work_item_id, plan):
 
 def validate_intent(store, intent):
     row = validate(_row(store, intent["sourced_reply"]), store=store)
+    if row.get("heavy_news_quote"):
+        from .heavy_news_quotes_v1 import quote_parent
+        if (intent.get("heavy_news_quote") != row["key"] or intent.get("quote_parent") != quote_parent(row)
+                or intent.get("market_asset") != row["market"] or intent.get("media_assets") != [row["image"]]):
+            raise ValueError("CC467_QUOTE_INTENT_CHANGED")
     if (
         intent["work_item_id"] != row["key"]
         or intent["native_payload"] != payload(row)
@@ -264,6 +277,9 @@ def validate_intent(store, intent):
 
 def reserve(store, row, now):
     """Count attempted replies as well as confirmed ones, under the existing store lease."""
+    if row.get("heavy_news_quote"):
+        from .heavy_news_quotes_v1 import reserve as reserve_quote
+        return reserve_quote(store, row, now)
     if row.get("x_api_mention"):
         from live_contentops.x_mention_responder_v1 import require_publishable
         require_publishable(store, row, now)
@@ -306,6 +322,12 @@ def reserve(store, row, now):
 
 def read_target(row, *, store=None):
     """Provider identity, permalink and claim must match before any new reply write."""
+    if row.get("heavy_news_quote"):
+        # Neo re-reads the exact visible source and quoted card before its one
+        # submit. This is an own-account quote under CC-467, never a reply.
+        from .heavy_news_quotes_v1 import check_deadline
+        check_deadline(row, datetime.now(timezone.utc))
+        return
     if row.get("x_api_mention"):
         return validate(row, store=store)  # Official adapter re-reads the target before POST.
     if row["platform"] == "x":
@@ -366,7 +388,9 @@ def publish(store, key, *, coordinator, root=ROOT, now=None):
             "reply": report_one(store, row),
         }
     plan = plan_for(store, key, root=root)
-    if row.get("x_api_mention"):
+    if row.get("heavy_news_quote") and store.get_dispatches_for_work_item(key):
+        pass  # Expiry forbids a fresh click; it never prevents exact readback recovery.
+    elif row.get("x_api_mention"):
         from live_contentops.x_mention_responder_v1 import interaction_status
         if not interaction_status(store, row["target_id"]):
             reserve(store, row, now or datetime.now(timezone.utc))

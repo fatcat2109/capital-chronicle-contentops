@@ -1,0 +1,40 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-13T10:33:56.131129+00:00",
+  "new_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "standing_status": "OPEN",
+  "choice": "Select the new Main PPI dossier in the existing native operation; retain its exact cutoff and close the pre-writer stage on expiry instead of issuing stale public copy. Decisions 89 and 98 and the root CC-403 deadline apply.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "next_due_gmt7": "13 Nov 2026 18:15 GMT+7",
+  "next_due_reason": "Recheck the Main feed at 18:15 GMT+7 before decision 98's 18:30 preview deadline; no host schedule change.",
+  "next_action": "Consume any new completed Main analysis at the next standing opportunity. The PPI preview is 13 November's wrap (decision 98).",
+  "next_actor": "Codex Publisher; Ops Live owns Main analysis production.",
+  "acceptance": "Existing live native consumer accepted the Main-clock-based terminal HOLD. No new canonical or derivative publication/readback acceptance.",
+  "native_operation_id": "cc124-ppi-preview-20261113",
+  "terminal_operation_classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+  "terminal_outcome": "HOLD",
+  "terminal_cause": "LATE_OR_STALE",
+  "source_request_count": 0,
+  "source_request_limit": 20,
+  "data_cutoff_utc": "2026-11-13T09:32:50.340914Z",
+  "publication_deadline_utc": "2026-11-13T10:32:50.340914Z",
+  "native_role_calls": 2,
+  "channel_states": {
+    "substack": "NO_WRITE_THIS_RUN",
+    "telegram": "NO_WRITE_THIS_RUN",
+    "discord": "NO_WRITE_THIS_RUN",
+    "x": "NO_WRITE_THIS_RUN",
+    "linkedin": "NO_WRITE_THIS_RUN",
+    "linkedin_company": "NO_WRITE_THIS_RUN",
+    "facebook": "NO_WRITE_THIS_RUN",
+    "instagram": "NO_WRITE_THIS_RUN",
+    "threads": "NO_WRITE_THIS_RUN",
+    "youtube": "NO_WRITE_THIS_RUN"
+  }
+}

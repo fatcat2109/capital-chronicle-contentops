@@ -179,6 +179,7 @@ def _request_json(
     *,
     timeout_seconds: float,
     opener: Callable[..., Any] = urllib.request.urlopen,
+    parse_response_json: bool = True,
 ) -> tuple[int, dict[str, Any], Mapping[str, str]]:
     try:
         with opener(request, timeout=timeout_seconds) as response:
@@ -208,6 +209,10 @@ def _request_json(
         raise LinkedInOfficialApiError(
             "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE" if handshake_failed else "TRANSPORT_UNAVAILABLE",
                                        definite_no_write=before_request) from exc
+    if not parse_response_json:
+        # Upload acknowledgements and create identities are defined by status
+        # and headers. Their response body is not a JSON contract.
+        return status, {}, headers
     try:
         payload = json.loads(raw.decode("utf-8")) if raw else {}
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
@@ -511,6 +516,7 @@ class LinkedInOfficialMemberApiTransportV1:
             raise LinkedInOfficialApiError("LINKEDIN_IMAGE_FILE_INVALID") from exc
         headers = {"Authorization": "Bearer " + access_token, "X-Restli-Protocol-Version": "2.0.0"}
         registration = {"registerUploadRequest": {"recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
+            "supportedUploadMechanism": ["SYNCHRONOUS_UPLOAD"],
             "owner": person_urn, "serviceRelationships": [{"relationshipType": "OWNER",
                                                           "identifier": "urn:li:userGeneratedContent"}]}}
         request = urllib.request.Request("https://api.linkedin.com/v2/assets?action=registerUpload",
@@ -520,12 +526,21 @@ class LinkedInOfficialMemberApiTransportV1:
         upload_url = value.get("uploadMechanism", {}).get("com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest", {}).get("uploadUrl", "")
         parsed = urllib.parse.urlsplit(upload_url)
         asset = str(value.get("asset") or "")
-        if (status not in {200, 201} or parsed.scheme != "https" or parsed.hostname != "api.linkedin.com"
-                or not parsed.path.startswith("/mediaUpload/") or not asset.startswith("urn:li:digitalmediaAsset:")):
+        official_upload = (
+            parsed.hostname == "api.linkedin.com" and parsed.path.startswith("/mediaUpload/")
+        ) or (
+            parsed.hostname == "www.linkedin.com" and parsed.path.startswith("/dms-uploads/")
+        )
+        if (status not in {200, 201} or parsed.scheme != "https" or not official_upload
+                or parsed.username or parsed.password or parsed.port not in {None, 443} or parsed.fragment
+                or not asset.startswith("urn:li:digitalmediaAsset:")):
             raise LinkedInOfficialApiError("LINKEDIN_IMAGE_UPLOAD_REGISTRATION_INVALID")
-        upload = urllib.request.Request(upload_url, data=binary, method="POST", headers={**headers, "Content-Type": mime})
-        status, _, _ = _request_json(upload, timeout_seconds=30, opener=self.opener)
-        if status not in {200, 201, 202}:
+        upload = urllib.request.Request(upload_url, data=binary,
+            method="PUT" if parsed.hostname == "www.linkedin.com" else "POST",
+            headers={**headers, "Content-Type": mime})
+        status, _, _ = _request_json(upload, timeout_seconds=30, opener=self.opener,
+                                    parse_response_json=False)
+        if status not in {200, 201}:
             raise LinkedInOfficialApiError("LINKEDIN_IMAGE_UPLOAD_FAILED", http_status=status)
         return asset
 
@@ -572,7 +587,8 @@ class LinkedInOfficialMemberApiTransportV1:
                     "reason_code": exc.classification if isinstance(exc, LinkedInOfficialApiError)
                     else type(exc).__name__, "adapter_version": TRANSPORT_VERSION}
         try:
-            status, _body, headers = _request_json(request, timeout_seconds=20.0, opener=self.opener)
+            status, _body, headers = _request_json(request, timeout_seconds=20.0, opener=self.opener,
+                                                  parse_response_json=False)
         except LinkedInOfficialApiError as exc:
             if exc.definite_no_write or exc.http_status in {400, 401, 403, 404, 422, 429}:
                 return {
@@ -617,11 +633,12 @@ class LinkedInOfficialMemberApiTransportV1:
         if READ_SCOPE not in set(metadata.get("granted_scopes") or []):
             return {
                 "status": "READBACK_CAPABILITY_LIMITED",
+                "reason_code": "LINKEDIN_MEMBER_READ_SCOPE_NOT_GRANTED",
                 "verified": False,
                 "write_exists": True,
                 "public_object_id": public_object_id,
                 "public_object_url": public_object_url,
-                "readback_source": "OFFICIAL_CREATE_RESPONSE_IDENTITY",
+                "readback_source": "RETAINED_PUBLIC_OBJECT_IDENTITY",
             }
         encoded = urllib.parse.quote(public_object_id, safe="")
         request = urllib.request.Request(
@@ -640,9 +657,8 @@ class LinkedInOfficialMemberApiTransportV1:
                 return {"status": "ABSENT_SAFE_TO_RETRY", "verified": False, "write_absent": True}
             if exc.http_status == 403:
                 return {"status": "READBACK_CAPABILITY_LIMITED", "verified": False}
-            if exc.classification in {
-                "AUTH_EXPIRED_OR_REAUTH_REQUIRED", "TRANSPORT_UNAVAILABLE",
-            }:
+            if (exc.classification == "AUTH_EXPIRED_OR_REAUTH_REQUIRED"
+                    or exc.classification.startswith("TRANSPORT_")):
                 return {"status": exc.classification, "verified": False}
             return {"status": "UNKNOWN_WRITE", "verified": False}
         observed = str(payload.get("id") or "") if status == 200 else ""

@@ -1,0 +1,30 @@
+{
+  "started_at_utc": "2026-11-13T17:18:51.012021+00:00",
+  "completed_at_utc": "2026-11-13T17:18:59.093467+00:00",
+  "returncode": 0,
+  "status": "OK",
+  "validation": "PASS",
+  "cause": null,
+  "export_generated_at_utc": "2026-11-13T17:18:50.589363Z",
+  "rendered_count": 78,
+  "raw_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\evidence\\CC-549\\installed-read-only-render.json",
+  "raw_bytes": 795109,
+  "raw_sha256": "522514542e058b550f7f3a22f2dfedd3887aeb5f00c0e10a0c883c79a04a0162",
+  "stderr_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\evidence\\CC-549\\installed-read-only-render.stderr.txt",
+  "stderr_bytes": 0,
+  "public_write": false,
+  "model_call": false,
+  "production_store_mode": "read-only",
+  "contract_version": "2.0.0",
+  "would_queue_count": 0,
+  "rendered_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "substack_notes",
+    "telegram",
+    "threads",
+    "x"
+  ]
+}

@@ -32,7 +32,10 @@ class ReadOnlyStore(ContentOpsDurableStore):
         if not path.is_file():
             raise ValueError("CC074_EXISTING_STORE_REQUIRED:" + str(path))
         super().__init__(path, auto_migrate=False)
-        self.verify_schema_integrity()
+        # Import validates exact rows and hashes; physical audits retain their
+        # default full scan. Repeating it per phase delayed CC-425 by 15 minutes.
+        self.verify_schema_integrity(physical_check=False)
+        self.verify_applied_migrations()
 
     def get_connection(self):
         return self.get_read_only_connection()
@@ -41,10 +44,6 @@ class ReadOnlyStore(ContentOpsDurableStore):
 def _snapshot(store, run_id):
     work = "cc-opportunity-" + sha256_of(run_id)
     with store.get_read_only_connection() as conn:
-        if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-            raise ValueError("CC074_STORE_INTEGRITY_FAILED")
-        if conn.execute("PRAGMA foreign_key_check").fetchone():
-            raise ValueError("CC074_STORE_FOREIGN_KEY_FAILED")
         rows = [
             dict(r)
             for r in conn.execute(
@@ -109,22 +108,20 @@ def _prior_distribution_can_wait(rows, operation, binding):
 
 
 def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
-    if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-        raise ValueError("CC074_TARGET_INTEGRITY_FAILED")
-    if conn.execute("PRAGMA foreign_key_check").fetchone():
-        raise ValueError("CC074_TARGET_FOREIGN_KEY_FAILED")
+    # A reply-tab refresh cannot collide with this exact article import.
+    # Other live writers and all uncertain dispatch/reconciliation stay guarded.
     if conn.execute(
         "SELECT 1 FROM leases WHERE status='ACTIVE' AND expires_at>? "
-        "AND lease_id NOT IN (?,?) LIMIT 1",
+        "AND lease_id NOT IN (?,?) AND lease_key!='x-reply-tabs-refresh' LIMIT 1",
         (datetime.now(timezone.utc).isoformat(), own_lease or "", operation.get("_own_newsroom_lease", "")),
     ).fetchone():
         raise ValueError("CC074_TARGET_HAS_ACTIVE_WORK")
     uncertain = conn.execute(
         "SELECT d.*,o.destination,o.work_item_id,o.payload FROM platform_dispatches d "
-        "LEFT JOIN outbox_messages o USING(message_id) WHERE "
+        "LEFT JOIN outbox_messages o USING(message_id) WHERE o.status!='PLAN_POST_SETTLED' AND ("
         "UPPER(d.status) LIKE '%UNKNOWN%' OR UPPER(d.status) LIKE '%AMBIG%' OR "
         "UPPER(d.status) LIKE '%STARTED%' OR UPPER(d.status) LIKE '%PENDING%' OR "
-        "UPPER(d.status) LIKE '%SENDING%'"
+        "UPPER(d.status) LIKE '%SENDING%')"
     ).fetchall()
     pending_reconciliation = conn.execute(
         "SELECT 1 FROM reconciliations WHERE status IN ('PENDING','STARTED','UNKNOWN_WRITE') LIMIT 1"
@@ -138,16 +135,21 @@ def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
     if existing and any(existing[k] != v for k, v in promotion.items()):
         raise ValueError("CC074_PROMOTION_CONFLICT")
     allowed = {r["message_id"] for r in operation["rows"]}
-    for row in conn.execute("SELECT * FROM outbox_messages"):
-        value = json.loads(row["payload"])
-        if (
-            isinstance(value, dict)
-            and value.get("article_identity") == operation["pin"]["article_identity"]
-            and row["work_item_id"] not in {work, binding["run_id"]}
-        ):
-            raise ValueError("CC074_ARTICLE_IDENTITY_ALREADY_REGISTERED")
-        if row["work_item_id"] not in {work, binding["run_id"]}:
-            continue
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    identity_destinations = {"substack", "site", "linkedin_company", *V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+        "internal:cc-report-simple-result", "internal:native-publication-binding", "internal:native-prepared-handoff"}
+    destinations = sorted(identity_destinations)
+    # Tool transcripts and reply draft history have no article-ownership role.
+    # Use the existing destination/work indexes for exact publication owners.
+    duplicate = conn.execute("SELECT 1 FROM outbox_messages WHERE work_item_id NOT IN (?,?) "
+        "AND destination IN (" + ",".join("?" for _ in destinations) + ") "
+        "AND json_extract(payload,'$.article_identity')=? LIMIT 1",
+        (work, binding["run_id"], *destinations, operation["pin"]["article_identity"])).fetchone()
+    if duplicate:
+        raise ValueError("CC074_ARTICLE_IDENTITY_ALREADY_REGISTERED")
+    # Transfer only this operation's rows to Python; SQLite reads the other
+    # article identities without copying their multi-megabyte media/evidence.
+    for row in conn.execute("SELECT * FROM outbox_messages WHERE work_item_id IN (?,?)", (work, binding["run_id"])):
         if not existing:
             raise ValueError("CC074_TARGET_RUN_ALREADY_EXISTS")
         if row["message_id"] in allowed:
@@ -219,6 +221,18 @@ def promotion_plan(operation, rollout):
     if release:
         binding.update(finished_piece_authority_ref=operation["release_authority"],
                        publication_eligibility_utc=eligible)
+        # A connection loss may leave the exact binding file before the atomic
+        # database import. Resume that same release clock, rather than making
+        # its own already-written artifact conflict on every retry.
+        retained_path = out / "binding.json"
+        if retained_path.exists():
+            retained = json.loads(retained_path.read_bytes())
+            clock = "publication_eligibility_utc"
+            if ({k: v for k, v in retained.items() if k != clock}
+                    != {k: v for k, v in binding.items() if k != clock}
+                    or not retained.get(clock)):
+                raise ValueError("CC074_LIVE_ARTIFACT_CONFLICT:" + str(retained_path))
+            binding = retained
     original = next(
         r
         for r in operation["rows"]

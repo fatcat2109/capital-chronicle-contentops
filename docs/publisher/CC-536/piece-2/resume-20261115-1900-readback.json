@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-11-15T12:26:15.071263+00:00",
+  "main_snapshot": {
+    "live_tag": "live-20261114-cc598-154637",
+    "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+    "blobs_verified": 7
+  },
+  "numbers_status": "PASS",
+  "numeric_occurrences": 58,
+  "confirmed_method_page": {
+    "identity": "cc536-measured-odds-1",
+    "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+    "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+  },
+  "piece_2_registered": false,
+  "publication": "No piece-2 registration or public action by this run; production store opened mode=ro/query_only.",
+  "worktree_commit": "694ef9648d812a8506a52c00fe5a501693c8a8cb",
+  "checks": {
+    "live_contentops/measured_odds_series_v1.py": {
+      "working_sha256": "d05def6ad0296a6b0992278077b040fc803c9c20b410e5ff48ad83557a98f0e3",
+      "installed_sha256": "7cd9c52b8b73a346043e72989a1f51f21a4636c5cc5a7d784fce84047df33d18",
+      "normalized_line_endings_equal": true,
+      "working_git_blob": "f1decc3049867388d14c9adf91cd68e67bea188d",
+      "installed_git_blob": "f1decc3049867388d14c9adf91cd68e67bea188d"
+    },
+    "docs/publisher/CC-536/piece-2/piece-2.json": {
+      "working_sha256": "7603b4c93fc156beb190468a128baff30fa60e1d97570c98f978b0ee24cec736",
+      "installed_sha256": "c631f964b3a6572a7ec7035ab026272bd08d9063561a9e6c197c00fe22eb12c9",
+      "normalized_line_endings_equal": true,
+      "working_git_blob": "d8e53efa41f008df815becce3b794e80be756d09",
+      "installed_git_blob": "d8e53efa41f008df815becce3b794e80be756d09"
+    },
+    "docs/publisher/CC-536/piece-2/article.md": {
+      "working_sha256": "a2267cc056a27c9e9b20e6ae218998e5aea6d2cfceea89d7b6fb2fcaea7151f2",
+      "installed_sha256": "a2267cc056a27c9e9b20e6ae218998e5aea6d2cfceea89d7b6fb2fcaea7151f2",
+      "normalized_line_endings_equal": true,
+      "working_git_blob": "65988afa8b4a4ea08abc9792e7f2138dc17927e9",
+      "installed_git_blob": "65988afa8b4a4ea08abc9792e7f2138dc17927e9"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "item": "CC-435",
+  "public_write_requested": false,
+  "routes": [
+    {
+      "destination": "discord",
+      "started_at_utc": "2026-11-17T02:20:19.927644+00:00",
+      "before": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:00:21.378519+00:00",
+        "public_object_id": "1570672638332772352",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352"
+      },
+      "result": {
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "destination": "discord",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_write_performed": false,
+        "publish_called": false,
+        "pending_requests": []
+      },
+      "ended_at_utc": "2026-11-17T02:20:21.336751+00:00",
+      "after": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:00:21.378519+00:00",
+        "public_object_id": "1570672638332772352",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352"
+      }
+    },
+    {
+      "destination": "threads",
+      "started_at_utc": "2026-11-17T02:20:21.339976+00:00",
+      "before": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:02:07.217716+00:00",
+        "public_object_id": "18346683595249062",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4"
+      },
+      "result": {
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "destination": "threads",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_write_performed": false,
+        "publish_called": false,
+        "pending_requests": []
+      },
+      "ended_at_utc": "2026-11-17T02:20:23.423113+00:00",
+      "after": {
+        "confirmed": true,
+        "status": "DISPATCH_CONFIRMED",
+        "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reconciled_at_utc": "2026-11-12T18:02:07.217716+00:00",
+        "public_object_id": "18346683595249062",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4"
+      }
+    }
+  ]
+}

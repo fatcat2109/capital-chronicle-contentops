@@ -1,0 +1,12 @@
+{
+  "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\cc464-native-proof\\reply-pack-request-4b7968c00a4ccf69.json",
+  "request_sha256": "4b7968c00a4ccf69594ada24fe37060853974eb337afe40749ea666d771c1b23",
+  "candidate_count": 7,
+  "source_count": 113,
+  "selection_causes": {
+    "NO_SIX_MARKET_OR_MACRO_TOPIC": 26,
+    "RETWEET_NOT_ORIGINAL_TARGET": 2,
+    "POST_OUTSIDE_60_MINUTE_WINDOW": 883
+  },
+  "public_write_performed": false
+}

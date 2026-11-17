@@ -1,0 +1,37 @@
+{
+  "request_sha256": "3053edcf176a63602b8846fb54471c062c320ec6018fd2ab1c5ae0109c1a6bee",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A dated November 14 retrospective: the frozen Strong release condition held, while the observed intraday co-movement and a separate one-event categorical score teach different lessons.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-cfb7ad006474467e5aef8aa8",
+        "evidence_plan": "Use the existing source-resolution owner to bind the held Main frozen Strong/Weak conditions, exact arrival outcome, event-resolution frame and unchanged article.event_article_packet. Resolve the retained November 6 official BLS release, prior official 24-month histories and latest-month components through existing source owners without treating rolling current URLs as proof of vintage. Bind the existing computed first-observed five-minute and sixty-minute reaction timeline; preserve observation windows and ET presentation. Main and deterministic code own all arithmetic. Keep CC-106 historical-frequency IN_LINE classification and its one-event Brier comparison separate from the preview conditions: supplied matrix 0.02 versus consensus-only 0, lower better; prediction-market-only comparison is unavailable. Label computed outputs Capital Chronicle model estimate. Do not infer first-day, rates, sector, range-break, causal, execution or profit claims from missing measurements. Prepare only supplied scenarios, confirmations and invalidations, without inferred odds. Preserve cutoff 2026-11-14T11:04:18.352247Z, existing source ledger and limit 20. The MAX writer chooses official-history/component charts and public instruments; fresh piece-specific media goes through the existing media owner, with exact source lineage and rights. Existing previews remain unchanged.",
+        "primary_reader_question": "What did the November 6 jobs release actually resolve in our frozen conditions, what accompanied it in the measured intraday windows, and what can one separate categorical score tell us?",
+        "research_queries": [
+          "BLS November 6 2026 October Employment Situation release payroll unemployment earnings official history",
+          "Capital Chronicle November 6 NFP frozen Strong Weak arrival reaction timeline CC-107 CC-106"
+        ],
+        "selection_rationale": "This is the exact owner-requested dated review, identified by headline_id cc107-nfp-dated-review-20261114. It adds an outcome and measured-window lesson to existing previews without rewriting or reposting them. The supplied held official and computed records provide a bounded route; their exact qualification remains with source resolution. Selecting a separate arrival recap would duplicate this operation."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select only the requested CC-107 dated NFP retrospective. Keep the frozen release conditions, measured co-movement and separate one-event scoring comparison distinct; no unrelated fallback or fresh edition is needed.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_3053edcf176a",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context supplies canonical task identity; actual model and reasoning effort are not exposed.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact desktop_request_select.json requested_model and requested_reasoning_effort, and parent native assignment."
+  }
+}

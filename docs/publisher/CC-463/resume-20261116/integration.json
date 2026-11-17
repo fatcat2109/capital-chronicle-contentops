@@ -1,0 +1,131 @@
+{
+  "recorded_at_utc": "2026-11-15T20:54:02.260467+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head_before": "5d9bb06c068f7df84ee3c9b62779f1684744d729",
+  "delivered_commit": "cc353b60304dcf9136565c4981401c4845fe9293",
+  "unrelated_dirty_files_before": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "b6752fba1d01e315c5833ae95594729a85cddcd94b2d132920fa85b617475832"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "a73fdb12c2ed001eef5905abbe2929d7ef133d6cb1f70c5f101192689315f017"
+    }
+  ],
+  "live_tag": "contentops-live-20261116-cc463-audit",
+  "rollback_tag": "contentops-rollback-20261116-cc463-audit",
+  "schedule_changed": false,
+  "user_application_restarted": false,
+  "operating_head_after": "cc353b60304dcf9136565c4981401c4845fe9293",
+  "installed_source": [
+    {
+      "path": "live_contentops/published_images_v1.py",
+      "source_text_equal": true,
+      "installed_sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677"
+    },
+    {
+      "path": "scripts/audit_publication_images_cc463.py",
+      "source_text_equal": true,
+      "installed_sha256": "a110e6c4eecf10af1bfd4698cdaa97935d18235fe0fd4776973b94f0f7fc53f5"
+    },
+    {
+      "path": "tests/test_publication_image_audit_cc463.py",
+      "source_text_equal": true,
+      "installed_sha256": "c6573b2b506e20beed3a5fe3967ef784a8f2e793f210f04a631c561ed835b1b5"
+    },
+    {
+      "path": "tests/test_publication_image_contract_cc463.py",
+      "source_text_equal": true,
+      "installed_sha256": "d8128580ad78942c7035369352f1be4575d47ef23a1c91f80a70068453ca105c"
+    }
+  ],
+  "unrelated_dirty_files_after": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "sha256_after": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "sha256_after": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "sha256_after": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "sha256_after": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "b6752fba1d01e315c5833ae95594729a85cddcd94b2d132920fa85b617475832",
+      "sha256_after": "b6752fba1d01e315c5833ae95594729a85cddcd94b2d132920fa85b617475832",
+      "unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "a73fdb12c2ed001eef5905abbe2929d7ef133d6cb1f70c5f101192689315f017",
+      "sha256_after": "a73fdb12c2ed001eef5905abbe2929d7ef133d6cb1f70c5f101192689315f017",
+      "unchanged": true
+    }
+  ],
+  "installed_cli_observation": {
+    "observed_at_utc": "2026-11-15T20:55:12.315337+00:00",
+    "status": "OBSERVATION_PENDING",
+    "window_end_utc": "2026-11-23T19:00:00+00:00",
+    "image_counts": {
+      "TRADINGVIEW_MARKET_CHART": 4
+    },
+    "market_posts": 4,
+    "market_charts": 4,
+    "instagram_4x5_candidates": 0
+  },
+  "installed_tests": {
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "junit_seconds": 6.961,
+    "console_elapsed_seconds": 8.38,
+    "artifact": "installed-consumer-tests.xml",
+    "real_production_store_used_by_tests": false
+  },
+  "remote_tag_readback": {
+    "observed_at_utc": "2026-11-15T20:56:31.816883+00:00",
+    "contentops-live-20261116-cc463-audit": "cc353b60304dcf9136565c4981401c4845fe9293",
+    "contentops-rollback-20261116-cc463-audit": "5d9bb06c068f7df84ee3c9b62779f1684744d729"
+  },
+  "minute_consumer_observation": "minute-consumer.json retains the running process, its original start time, task IgnoreNew and exact last result 2147946720. This is process presence, not proof that the observed process loaded the post-install module or that a new public post succeeded.",
+  "terminal_limit": {
+    "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+    "other_unfinished_acceptance": [
+      "No live native 4:5 market Instagram image in the retained register",
+      "16 November baseline day not yet ended; following seven-day period not elapsed"
+    ],
+    "next_owner_action": "Ops Product restores the existing Neo endpoint; Publisher reads back exact existing objects and the next live native 4:5 market image, then runs the unchanged register audit after the actual window elapses."
+  }
+}

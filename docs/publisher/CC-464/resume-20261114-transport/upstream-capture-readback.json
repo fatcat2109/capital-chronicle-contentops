@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-14T06:55:43.566762+00:00",
+  "capture": {
+    "state": "CAPTURE_FAILED",
+    "attempted_utc": "2026-11-14T06:55:09.909Z",
+    "responses": 0,
+    "new_rows": 0,
+    "detail": "MINUTE_CAPTURE_TIMEOUT:WebSocketTimeoutException",
+    "duration_seconds": 10.01
+  },
+  "newest_posted_utc": "2026-11-13T18:23:00.340Z",
+  "feed_generated_at_utc": "2026-11-14T06:55:19.923Z",
+  "browser_process_restarted": false,
+  "page_navigated": false,
+  "schedule_changed": false,
+  "cdp_discovery": "REACHABLE",
+  "matching_list_targets": 1,
+  "frame_tree_read": {
+    "status": "FAILED",
+    "exception_class": "WebSocketTimeoutException",
+    "elapsed_seconds": 5.136069200001657
+  }
+}

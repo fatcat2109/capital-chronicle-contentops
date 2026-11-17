@@ -1,5 +1,16 @@
 # CC-436 — automatic Neo transport
 
+## 16 November 2026 continuation
+
+The installed executor and copied-store acceptance still pass. The CLI
+regression now accounts for CC-543's immediate API-alert phase before automatic
+Neo delivery: six focused checks passed in 17.39 seconds. Current live
+verification is blocked by `NEO_ENDPOINT_CONNECTIONERROR`, corroborated by the
+minute worker's `NEO_ENDPOINT_UNAVAILABLE` and no local port-9010 listener.
+The retained store has one timely Notes pair and zero timely X pairs; the
+newer 12 November browser confirmations were over twelve hours late.
+See [the current evidence and next action](resume-20261116/README.md).
+
 The existing minute status-post consumer now selects an endpoint-backed
 `NativeNeoExecutor` for X and Substack Notes. The coordinator, outbox, request
 hashes, action claims, media bindings and readback/reconciliation remain the

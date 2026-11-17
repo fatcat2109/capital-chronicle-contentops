@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-17T04:59:11.4069376Z",
+  "observation": "Selected model and effort arguments only; actual runtime telemetry unavailable.",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_arguments_selected_fields": [
+    {
+      "name": "codex.exe",
+      "pid": 38720,
+      "configured_effort": "high",
+      "configured_model": "gpt-6.1-sol"
+    }
+  ]
+}

@@ -1,0 +1,479 @@
+{
+  "policy": "CC536_MEASURED_ODDS_SERIES_V1",
+  "piece": 3,
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "article": {
+    "title": "Five sessions did not settle the trend question",
+    "subtitle": "The long side looked stronger, but the benchmark and later-half results still matter.",
+    "dek": "The long side looked stronger, but the benchmark and later-half results still matter.",
+    "social_hook": "Five sessions with the trend hid a split: buying strength and shorting weakness had different records across six markets.",
+    "social_summary": "Bitcoin trend-long: 281 trades, 0.197R per trade; always long: 704 trades, 0.086R. Trend-short: 218 trades, -0.048R.\n\nGold trend-long: 230 trades, 0.109R; always long: 476 trades, 0.087R.\n\nThe gold sample spans 2016-11-14 to 2026-11-10; Bitcoin spans 2016-11-12 to 2026-11-10.\n\nWith and against use different stop widths. Rising markets, repeated tests and weaker halves limit the claim.\n\nThese are hypothetical historical tests, rather than our trade results. No current entry signal follows.",
+    "substack_body_markdown": "We find a stronger historical record for buying rising markets than for shorting falling ones, even over a short holding period.\nThat does not make five sessions a general recipe: the always-long comparison and later-half results still matter.\n\nThe euro and yen are now included after a repair to the currency feed's daily closes.\nTheir close uses the next session's open, a proxy rather than an independently observed closing quote.\nThe [method page](https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before) explains the original test and its limits.\nThese are hypothetical historical tests, rather than our trade results.\n\n## Same horizon, different rules\n\nFor both rules, the maximum holding period is 5 sessions.\nThe with-trend stop is 1.5 normal days; the against-trend stop is 1 normal day.\nBoth target 2R and enter at the next open after the signal.\nDifferent stop widths mean this comparison changes more than direction.\n\nThe rising yardstick requires price above its levels 20 and 60 sessions earlier.\nIt also requires price above its 20-session and 50-session simple averages; falling signals reverse those conditions.\nMixed signals produce no entry.\nA normal day uses the average true daily range over 14 sessions.\nThe assumed round-trip cost is 0.05 normal day.\nR means each trade's initial stop distance; means include the assumed cost.\n\n## Following the trend, with the benchmark beside it\n\nEach cell gives that rule's trade count, then its mean net R per trade.\nAlways long enters whenever free, with the trend rule's stop, target and holding period.\nIts entry dates and denominator differ from the conditional rules.\n\n| Market and rule | Trades; mean net R |\n|---|---:|\n| Gold futures — trend long | 230; 0.109 |\n| Gold futures — trend short | 119; -0.055 |\n| Gold futures — always long | 476; 0.087 |\n| Oil futures — trend long | 180; 0.115 |\n| Oil futures — trend short | 153; -0.092 |\n| Oil futures — always long | 476; 0.001 |\n| S&P 500 futures — trend long | 301; 0.032 |\n| S&P 500 futures — trend short | 77; -0.155 |\n| S&P 500 futures — always long | 476; 0.093 |\n| Bitcoin — trend long | 281; 0.197 |\n| Bitcoin — trend short | 218; -0.048 |\n| Bitcoin — always long | 704; 0.086 |\n| Euro / US dollar — trend long | 162; -0.026 |\n| Euro / US dollar — trend short | 185; -0.079 |\n| Euro / US dollar — always long | 480; -0.035 |\n| US dollar / yen — trend long | 214; 0.032 |\n| US dollar / yen — trend short | 119; -0.099 |\n| US dollar / yen — always long | 461; 0.03 |\n\nBitcoin's trend-long mean was 0.32R in the first half and 0.05R in the later half.\nIts trend-short mean changed from 0.01R to -0.09R.\nThe halves split at the fixed calendar midpoint, 2021-11-10.\nGold and oil trend-long means were also positive in both halves.\nThe S&P trend-long mean fell to -0.06R in the later half.\n\nGold's always-long result was positive too, and the S&P always-long mean exceeded the trend-long mean.\nBeing long at all paid in those rising markets; a trend filter gets no automatic credit for that drift.\n\n## Going against the yardstick\n\nThese are separate side records, with the tighter stop described above.\nEach cell again gives trades, then mean net R per trade.\n\n| Market and rule | Trades; mean net R |\n|---|---:|\n| Gold futures — long against trend | 119; -0.013 |\n| Gold futures — short against trend | 230; -0.154 |\n| Oil futures — long against trend | 153; 0.013 |\n| Oil futures — short against trend | 180; -0.265 |\n| S&P 500 futures — long against trend | 77; 0.015 |\n| S&P 500 futures — short against trend | 301; -0.143 |\n| Bitcoin — long against trend | 218; 0.04 |\n| Bitcoin — short against trend | 281; -0.169 |\n| Euro / US dollar — long against trend | 185; 0.017 |\n| Euro / US dollar — short against trend | 162; -0.094 |\n| US dollar / yen — long against trend | 119; 0.068 |\n| US dollar / yen — short against trend | 214; -0.112 |\n\nThe short side lost on average in every market under both rules.\nThe positive full-period against-trend long means were negative in the earlier half, except for the S&P, which lost later.\nNone supplies a clean argument that fading the trend worked everywhere.\n\n## The denominator and the limits\n\nGold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.\nThe yen sample spans 2016-11-11 through 2026-11-09.\nBitcoin spans 2016-11-12 through 2026-11-10, including weekends.\nEach table cell belongs to its own count and that market's period.\n\nThe audited table examined 54 market-and-behaviour rows.\nLooking across many rows makes attractive results possible by chance.\nThe decade favoured rising gold, shares and Bitcoin, while repeated market conditions make trades dependent.\nDaily bars leave intraday order uncertain; continuous futures also carry contract-roll risk.\nThe uniform cost assumption is not a record of actual fills.\n\nSo what: five sessions did not turn the trend into a universal edge.\nKeep each side's count, its benchmark and its weaker half beside the attractive average.\nThese results are historical comparisons, not a probability for the next trade or a current entry signal.\n\nTable fingerprint: `4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41`.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "article_type": "ARTICLE",
+    "resolved_article_mode": "EVERGREEN_EXPLAINER",
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_article_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "MEASURED_ODDS_SERIES",
+      "source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+      "source_sample_periods": {
+        "EURUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USDJPY": {
+          "from": "2016-11-11",
+          "through": "2026-11-09"
+        },
+        "XAUUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USOIL": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "US500": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "BTCUSD": {
+          "from": "2016-11-12",
+          "through": "2026-11-10"
+        }
+      },
+      "authority_ref": "BACKLOG_CC536_DATED_METHOD_SERIES"
+    },
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "paid": false,
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1",
+    "social_bullets": [
+      "Bitcoin trend-long: 281 trades, 0.197R per trade; always long: 704 trades, 0.086R. Trend-short: 218 trades, -0.048R.",
+      "Gold trend-long: 230 trades, 0.109R; always long: 476 trades, 0.087R.",
+      "The gold sample spans 2016-11-14 to 2026-11-10; Bitcoin spans 2016-11-12 to 2026-11-10.",
+      "With and against use different stop widths. Rising markets, repeated tests and weaker halves limit the claim.",
+      "These are hypothetical historical tests, rather than our trade results. No current entry signal follows."
+    ],
+    "text_approved_at_utc": "2026-11-17T11:42:01.449878+00:00"
+  },
+  "number_bindings": [
+    {
+      "field": "substack_body_markdown",
+      "span": "230; 0.109",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "119; -0.055",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "119; -0.013",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "230; -0.154",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "476; 0.087",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "180; 0.115",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "153; -0.092",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "153; 0.013",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "180; -0.265",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "476; 0.001",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "301; 0.032",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "77; -0.155",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "77; 0.015",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "301; -0.143",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "476; 0.093",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "281; 0.197",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "218; -0.048",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "218; 0.04",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "281; -0.169",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "704; 0.086",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "162; -0.026",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "185; -0.079",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "185; 0.017",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "162; -0.094",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "480; -0.035",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "214; 0.032",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "119; -0.099",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "119; 0.068",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "214; -0.112",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "461; 0.03",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "For both rules, the maximum holding period is 5 sessions.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/behaviours/WITH_YARDSTICK_5"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The with-trend stop is 1.5 normal days",
+      "file": "desk_odds_v1.json",
+      "pointer": "/behaviours/WITH_YARDSTICK_5"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "the against-trend stop is 1 normal day.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/behaviours/AGAINST_YARDSTICK_5"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Both target 2R and enter at the next open after the signal.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/behaviours/WITH_YARDSTICK_5"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "A normal day uses the average true daily range over 14 sessions.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The assumed round-trip cost is 0.05 normal day.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The halves split at the fixed calendar midpoint, 2021-11-10.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/half_split_date"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Gold, oil, S&P and euro samples span 2016-11-14 through 2026-11-10.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/XAUUSD"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The yen sample spans 2016-11-11 through 2026-11-09.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/USDJPY"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Bitcoin spans 2016-11-12 through 2026-11-10, including weekends.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/BTCUSD"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The audited table examined 54 market-and-behaviour rows.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The rising yardstick requires price above its levels 20 and 60 sessions earlier.",
+      "file": "README.md",
+      "pointer": "/",
+      "source_excerpt": "`close[i]-close[i-20]`, `close[i]-close[i-60]`"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "It also requires price above its 20-session and 50-session simple averages; falling signals reverse those conditions.",
+      "file": "desk_odds_v1.py",
+      "pointer": "/",
+      "source_excerpt": "            \"price_vs_mean_20_pct\": round(100 * (c / _mean(closes[i - 19:]) - 1), 2),\n            \"price_vs_mean_50_pct\": round(100 * (c / _mean(closes[i - 49:]) - 1), 2),"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Bitcoin's trend-long mean was 0.32R in the first half and 0.05R in the later half.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Its trend-short mean changed from 0.01R to -0.09R.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The S&P trend-long mean fell to -0.06R in the later half.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "Bitcoin trend-long: 281 trades, 0.197R per trade",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "Trend-short: 218 trades, -0.048R.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "social_summary",
+      "span": "Gold trend-long: 230 trades, 0.109R",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "always long: 704 trades, 0.086R",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "always long: 476 trades, 0.087R",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/always/WITH_YARDSTICK_5/ALWAYS_LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "The gold sample spans 2016-11-14 to 2026-11-10",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/XAUUSD"
+    },
+    {
+      "field": "social_summary",
+      "span": "Bitcoin spans 2016-11-12 to 2026-11-10.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/BTCUSD"
+    }
+  ],
+  "media_assets": [
+    {
+      "asset_id": "cc536-piece3-btc-native-20-50",
+      "path": "media/BTCUSD_2026-11-17_18-17-43.png",
+      "sha256": "69d94169f97bd7aa47a14dc0760539be6804766af7bda102b619edf201c07219",
+      "width": 922,
+      "height": 870,
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "role": "context_chart",
+      "article_inclusion": true,
+      "canonical_article_media": true,
+      "placement_after": "Following the trend, with the benchmark beside it",
+      "attribution": "Chart created with TradingView",
+      "caption": "Bitcoin daily chart with native simple averages over twenty and fifty sessions. Bitstamp via TradingView. Captured November 17, 2026 ET as a separate method illustration; not the historical test or a current entry signal.",
+      "alt_text": "Bitcoin daily candles and two native simple average lines. The current method illustration is separate from the historical test results.",
+      "rights_basis": "TradingView snapshot with full original attribution on a free public page; Jim decision 82.",
+      "source_url": "https://www.tradingview.com/widgetembed/?symbol=BITSTAMP%3ABTCUSD&interval=D",
+      "source_links": [
+        "https://www.tradingview.com/"
+      ],
+      "native_study": {
+        "name": "MA ribbon",
+        "type": "SMA",
+        "enabled_lengths": [
+          20,
+          50
+        ],
+        "disabled_lengths": [
+          100,
+          200
+        ]
+      },
+      "captured_at_utc": "2026-11-17T11:17:43Z",
+      "inspected_pixels": true
+    }
+  ],
+  "editorial_call": {
+    "pid": 39072,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags read; inference-time telemetry unavailable.",
+    "launch_pid": 39072,
+    "operation": "publisher-cc-536-piece3-20261117",
+    "invocation_id": "exec-pid39072-20261117T111128Z",
+    "role": "source-bound writing, editing and final rendered review completed",
+    "preparation_role": {
+      "task": "/root/piece3_light_preparation",
+      "model": "gpt-6.1-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "artifact": "preparation.json"
+    },
+    "light_assist": {
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_TIMEOUT_120S",
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "prompt_sha256": "95a5c0871b7ce04562aca94813694d55c473d3e34cc04b7ac3a4d1947b640652",
+      "artifact": "assist/agy_light_assist_v1.json",
+      "choice": "Retained the complete Publisher-authored summary and inspected chart alt text after one bounded AGY timeout; no second call."
+    },
+    "final_review_completed_at_utc": "2026-11-17T11:42:01.449878+00:00"
+  }
+}

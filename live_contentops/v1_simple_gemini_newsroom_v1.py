@@ -1218,6 +1218,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "source_capture_sha256": document["source_capture_sha256"],
                 "scope": "VERIFIED_GOVERNMENT_PUBLIC_DOMAIN_SOURCE_ADMISSION"}
         source_id = f"SOURCE_{len(pack) + 1}"
+        visible_text = (text if (public_record_metadata or cpi_reaction or prop_challenge_metadata) else text[:48_000]
+            if constraints.get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+            else text[:MAX_SOURCE_TEXT_CHARS])
         pack.append(
             {
                 "source_id": source_id,
@@ -1248,10 +1251,10 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                     document.get("secondary_listing_only")
                 ),
                 "report_truth_only": bool(document.get("report_truth_only")),
-                "canonical_content_sha256": str(
-                    document.get("canonical_content_sha256") or _text_hash(text)
-                ),
-                "canonical_content_text": text if (public_record_metadata or cpi_reaction or prop_challenge_metadata) else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                "canonical_content_sha256": _text_hash(visible_text),
+                "canonical_content_text": visible_text,
+                **({"source_document_content_sha256": document.get("canonical_content_sha256") or _text_hash(text),
+                    "source_document_text_truncated": True} if visible_text != text else {}),
                 **({"cpi_reaction_page": cpi_reaction} if cpi_reaction else {}),
                 **({"prop_challenge_binding": prop_challenge_metadata} if prop_challenge_metadata else {}),
                 **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
@@ -1400,7 +1403,39 @@ def _public_copy(article: Mapping[str, Any]) -> str:
     )
     social = article.get("social_scenarios") or {}
     lines = [str(social[k]) for k in ("base_case", "alternative") if social.get(k)]
-    return text + ("\n" + "\n".join(lines) if lines else "")
+    return _SOURCE_MARKER_RE.sub("", text + ("\n" + "\n".join(lines) if lines else ""))
+
+
+def _preserve_compact_source_hash_correction(root, evidence, turn):
+    """Repair pre-writer hash metadata while retaining every issued request."""
+    path = root / "simple_gemini_evidence_v1.json"
+    if not path.is_file() or not turn or turn.frozen_request("write"):
+        return
+    previous = json.loads(path.read_bytes())
+    old, new = previous.get("selected_source_pack", []), evidence.get("selected_source_pack", [])
+    metadata = {"canonical_content_sha256", "source_document_content_sha256", "source_document_text_truncated"}
+    strip = lambda d: {k: v for k, v in d.items() if k not in metadata}
+    if (not old or len(old) != len(new) or [strip(d) for d in old] != [strip(d) for d in new]
+            or old == new):
+        return
+    for a, b in zip(old, new):
+        if a == b:
+            continue
+        if (b.get("canonical_content_sha256") != _text_hash(b["canonical_content_text"])
+                or b.get("source_document_content_sha256") != a.get("canonical_content_sha256")
+                or b.get("source_document_text_truncated") is not True):
+            return
+    archive = root / "source-recovery-history" / ("compact-source-hash-" + _text_hash(path.read_text(encoding="utf-8"))[:20])
+    archive.mkdir(parents=True, exist_ok=True)
+    for name in ("simple_gemini_evidence_v1.json", "editorial_media_plan_required.json"):
+        source, target = root / name, archive / name
+        if source.exists():
+            if target.exists():
+                if target.read_bytes() != source.read_bytes():
+                    raise SimpleGeminiNewsroomError("source_hash_correction_history_conflict", [name])
+                source.unlink()
+            else:
+                source.rename(target)
 
 
 def _normalize_relay_attribution(
@@ -1474,6 +1509,8 @@ def _paragraph_marker_blockers(body: str, valid_source_ids: set[str]) -> list[st
     for index, paragraph in enumerate(paragraphs, start=1):
         if all(line.lstrip().startswith("#") for line in paragraph.splitlines() if line.strip()):
             continue
+        if index == 1 and re.fullmatch(r"Retrospective analysis, written on \d{1,2} [A-Za-z]+ \d{4} \(ET\)", paragraph):
+            continue  # The required writing-clock notice is not a source-fact claim.
         markers = set(_SOURCE_MARKER_RE.findall(paragraph))
         if not markers:
             blockers.append(f"unbound_body_paragraph:{index}")
@@ -1512,7 +1549,9 @@ def _selected_news_peg_blockers(
     lead = " ".join(
         str(article.get(field) or "") for field in ("title", "dek")
     )
-    headline_terms = _peg_terms(headline)
+    # Our publisher name is attribution, not a financing news peg. Keep any
+    # substantive "capital" elsewhere in the headline subject to the same check.
+    headline_terms = _peg_terms(re.sub(r"\bCapital Chronicle\b", "", headline, flags=re.I))
     lead_terms = _peg_terms(lead)
     # A primary document may have a short title such as "Q3 2026 Update".
     # Requiring two shared words is impossible for its one substantive token.
@@ -1733,6 +1772,8 @@ def _epistemic_copy_blockers(
                 clean,
                 re.IGNORECASE,
             )
+            own_interpretation = own_reader_voice and re.search(
+                r"\b(?:we think|we expect|our view|our interpretation)\b", clean, re.I)
             # CC-124: the opening already names the dated Main review. Natural
             # references to that same document retain attribution without forcing
             # the publisher's full name into every paragraph. Exact source/claim
@@ -1743,7 +1784,7 @@ def _epistemic_copy_blockers(
                               r"(?:says|records|describes|notes|finds|takes|weighs|names|treats)\b",
                               clean, re.IGNORECASE)
             )
-            if conditional is None and not report_reference and not any(
+            if conditional is None and not own_interpretation and not report_reference and not any(
                 token in _normal(clean) for token in attribution_tokens
             ):
                 blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")
@@ -2102,7 +2143,8 @@ def _reader_safe_native_article(
     # are internal metadata, just like source markers, never reader-facing copy.
     body = re.sub(r"\[\[VISUAL:[A-Za-z0-9_.:-]+\]\]", "", body)
     body = re.sub(r"\n[ \t]*\n(?:[ \t]*\n)+", "\n\n", body).strip()
-    if not reader_first and not article.get("scenario_analysis") and not article.get("cpi_reaction_page"):
+    if (not reader_first and not article.get("scenario_analysis") and not article.get("cpi_reaction_page")
+            and not article.get("measured_odds_series")):
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
@@ -2142,7 +2184,8 @@ def _reader_safe_native_article(
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
                 "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls",
-                "public_instrument_policy", "reader_article_contract", "cpi_reaction_page"):
+                "public_instrument_policy", "reader_article_contract", "cpi_reaction_page",
+                "measured_odds_series", "social_summary"):
         if key in article:
             result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
@@ -2186,7 +2229,17 @@ def _reader_safe_native_article(
         if short_name:
             result["native_source_attribution"] = {"publisher": publisher, "display_name": short_name,
                 "source_url": bound["url"]}
-    if ((epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
+    if article.get("cpi_reaction_page"):
+        # A bound statistical reference is not an unconfirmed news report.
+        # Carry the writer's exact hook, coverage and reader takeaway; the
+        # compiler must not invent a report-confirmation watch for this page.
+        takeaway = next((p.strip() for p in body.split("\n\n")
+                         if p.strip().startswith("So what:")), "")
+        result.update(social_mechanism_summary=str(article.get("social_hook") or ""),
+                      social_policy_summary=str(article.get("dek") or ""),
+                      social_cross_asset_summary=takeaway)
+    if (not article.get("cpi_reaction_page")
+            and (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
             and not all(article.get(k) for k in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"))):
         result.update(
             {
@@ -2335,6 +2388,9 @@ def _native_preview_bundle(
         canonical_url=pending_url,
         media_asset_ids=media_asset_ids,
     )
+    if article.get("tradingview_instagram_skip"):
+        payloads["instagram_business"].update(media_asset_ids=[], delivery_state="SKIPPED_IMAGE_REQUIRED",
+            skip_reason=article["tradingview_instagram_skip"])
     publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
     attribution_names = [publisher.casefold()] if publisher else []
     bound_publisher = next((s for s in article.get("public_source_bindings", [])
@@ -2602,7 +2658,8 @@ def _build_simple_publication_lifecycle_plan(
         "accepted_evidence_ids": list(context["accepted_evidence_ids"]),
         "accepted_evidence_sha256": context["accepted_evidence_sha256"],
         "source_provenance_binding_preserved": True,
-        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") or article.get("text_first") else {}),
+        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") or article.get("text_first")
+            or article.get("publication_image_contract") else {}),
         "epistemic_state": dict(epistemic_state or {}),
         "publication_window": {"window_identity": run_id},
         "package_identity": package_identity,
@@ -2633,7 +2690,8 @@ def _build_simple_publication_lifecycle_plan(
                     "reason": "Instagram requires an admitted image; other destinations can proceed.",
                     "disposition": "SKIPPED_IMAGE_REQUIRED", "status": "SKIPPED_IMAGE_REQUIRED"}]
                 if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else []),
-        **({"image_optional_policy": "CC-172" if article.get("visual_repair_disposition", {}).get("policy") == "CC-172" else "JIM_DECISION_39"}
+        **({"image_optional_policy": "JIM_DECISION_124" if article.get("publication_image_contract") else
+            "CC-172" if article.get("visual_repair_disposition", {}).get("policy") == "CC-172" else "JIM_DECISION_39"}
             if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else {}),
         **({"text_first": article["text_first"]} if article.get("text_first") else {}),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],
@@ -3132,6 +3190,7 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
         "updated_source_route_health": _updated_source_route_health(loader),
     }
+    _preserve_compact_source_hash_correction(root, evidence_artifact, llm_invoke if native else None)
     persist(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
         if native and getattr(llm_invoke, "scheduled_window", False):
@@ -3487,12 +3546,14 @@ def run_v1_simple_gemini_newsroom(
     admitted_media = []
     if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1":
         admitted_media = llm_invoke.admitted_editorial_media()
+        from live_contentops.native_desktop_editorial_v1 import bind_inline_event_visual_decision
+        publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
+        article = bind_inline_event_visual_decision(article, admitted_media, publication_speed=publication_speed)
         from live_contentops.post_visuals_v1 import complete_post_visuals
         article, admitted_media = complete_post_visuals(article, worker_output["material_claim_bindings"],
             source_pack, admitted_media, output_dir=root)
         article_manifest.update({k: article[k] for k in ("post_visual_policy", "post_visual_destination_media")})
         from live_contentops.native_desktop_editorial_v1 import validate_release_media
-        publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack},
             require_pixel_review=not bool(publication_speed))
     if native:

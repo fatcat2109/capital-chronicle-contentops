@@ -1,0 +1,39 @@
+{
+  "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T114734-f7efbb74\\result.json",
+  "read_at_utc": "2026-11-12T11:53:09.4121781Z",
+  "status": "NO_NEW_ELIGIBLE_TARGETS",
+  "started_at_utc": "2026-11-12T11:47:34.041685+00:00",
+  "ended_at_utc": "2026-11-12T11:48:45.552505+00:00",
+  "cause": null,
+  "selection_causes": {
+    "NO_SIX_MARKET_OR_MACRO_TOPIC": 2,
+    "TARGET_OVER_15_MINUTES_AT_SEND": 804,
+    "NO_USABLE_FACT": 2
+  },
+  "quote_fetches": [],
+  "stage_seconds": {
+    "ranking": 0.0,
+    "drafting": 0.0,
+    "checks": 0.0,
+    "filter": 10.183073699998204,
+    "whole_tick": 46.183660800001235
+  },
+  "dropped_candidates": [
+    {
+      "post_id": "2120843908276228461",
+      "cause": "NO_USABLE_FACT",
+      "fact_refusals": {
+        "FACT_MARKET_UNIDENTIFIED": 416
+      },
+      "markets": []
+    },
+    {
+      "post_id": "2120843780631007270",
+      "cause": "NO_USABLE_FACT",
+      "fact_refusals": {
+        "FACT_MARKET_UNIDENTIFIED": 416
+      },
+      "markets": []
+    }
+  ]
+}

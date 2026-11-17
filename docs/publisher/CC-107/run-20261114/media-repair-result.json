@@ -1,0 +1,40 @@
+{
+  "operation_id": "cc107-nfp-dated-review-20261114-v1",
+  "repair_rounds": 1,
+  "findings_owner": "/root/native_write_a97e7232eeeb",
+  "changes": [
+    {
+      "old_asset_id": "post-facts-7de7d631bd33720ee21a",
+      "old_sha256": "0856d734fe1ef7d968e6eb1b8ca7dd983e7615f92dff9616607f1a401840a63e",
+      "new_asset_id": "post-facts-e6558e383ca6d733554e",
+      "new_sha256": "c618194906d0c739f62b319c95252887e26cc2d0effefbc97c114bdedd136242",
+      "old_bytes_preserved": true
+    },
+    {
+      "old_asset_id": "nfp_review_payroll_history",
+      "old_sha256": "51e67944640f2d0ba96e767a68d98248838a9c2eb17adccfde581d52905215c4",
+      "new_asset_id": "nfp_review_payroll_history_r2",
+      "new_sha256": "5a4b6b72ea0b02cc56d96ab16de338aebe5b675ae13270048020f27dbdd5a2c2",
+      "old_bytes_preserved": true
+    },
+    {
+      "old_asset_id": "nfp_review_unemployment_history",
+      "old_sha256": "34322495de65d6409b629ceed71e5e8981dee895ebd74aeed3643e80abc6621b",
+      "new_asset_id": "nfp_review_unemployment_history_r2",
+      "new_sha256": "b32304962966968ce1c609319f60ef0650bb5b97e5da731178b731ee4c7b93db",
+      "old_bytes_preserved": true
+    },
+    {
+      "old_asset_id": "nfp_review_first_hour_reactions",
+      "old_sha256": "dfd9dd59c8e30c6ca8bd1c5e8667df57c4c01ff17d752fc5b32e54e9f9c8ece4",
+      "new_asset_id": "nfp_review_first_hour_reactions_r2",
+      "new_sha256": "70b38b99b4812c620c09e013bb9f48a3a1b5871123490196e139efd648c9dcd5",
+      "old_bytes_preserved": true
+    }
+  ],
+  "unchanged_asset": "nfp_review_october_industries",
+  "asset_manifest": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\repaired-assets.json",
+  "data_values_unchanged": true,
+  "max_reinspection_pending": true,
+  "public_write_performed": false
+}

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="53" time="84.188" timestamp="2026-11-14T00:09:35.894598+07:00" hostname="J-P"><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_gold_alert_reply_and_page_share_exact_levels_clocks_and_voice" time="0.209" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_each_public_level_and_clock_has_its_own_export_field" time="0.007" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[I watch gold's inflation repricing.]" time="0.004" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[I'm watching gold.]" time="0.004" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[My view is conditional.]" time="0.005" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[The supplied historical review did not establish a dependable advantage.]" time="0.003" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[We leave the provided rebound alternative unquantified.]" time="0.075" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[The pack points to a rebound.]" time="0.003" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_observed_voice_and_process_defects_are_refused[The review given points to a rebound.]" time="0.004" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_empty_force_summary_is_omitted_from_actual_reply[We track the CPI repricing.]" time="0.009" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_empty_force_summary_is_omitted_from_actual_reply[We watch for short covering.]" time="0.009" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_unmapped_prices_name_gold_and_never_name_mgc" time="0.091" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_expired_update_distinguishes_entry_window_from_position_horizon" time="0.007" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_existing_issued_alert_and_page_keep_their_original_composer" time="0.009" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_live_queue_freezes_thread_terms_for_later_page_and_state" time="4.013" /><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_later_exported_result_reaches_the_frozen_thread" time="4.581" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_queues_a_complete_alert_without_page_or_variants" time="3.919" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes" time="5.197" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_missing_chart_sends_nothing_and_source_changes_fail" time="1.911" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_later_states_use_the_same_api_consumer_without_editorial" time="6.832" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_actual_minute_entry_sends_alerts_before_models_and_browser[False]" time="1.166" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_actual_minute_entry_sends_alerts_before_models_and_browser[True]" time="0.013" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_unknown_api_acceptance_is_read_back_without_republishing" time="2.441" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_five_plans_make_one_run_and_five_cards_once" time="2.067" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy" time="2.209" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_upgrade_reuses_legacy_shared_work_item_genesis" time="1.607" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_card_uses_target_tick_real_time_exit_chance_and_three_short_reasons" time="2.363" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_fill_and_winning_time_exit_keep_their_own_card_parent" time="3.592" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_unfilled_ending_is_owed_only_for_a_posted_setup" time="3.408" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_main_scorer_supplies_untriggered_direction_without_publisher_inference" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_missing_fields_do_not_hide_available_inputs" time="1.603" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_mapped_instrument_does_not_borrow_book_target_or_tick" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_bad_reason_number_or_length_yields_no_reasons" time="0.007" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_reasons_use_three_source_lines_and_fixed_glossary_without_a_model" time="0.006" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_rendered_chart_is_bound_to_exact_call_levels_and_source" time="2.073" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_copied_store_five_cards_fill_and_ending_use_sole_coordinator" time="22.106" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_unconfirmed_parent_defers_only_its_destination" time="1.755" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_discord_threads_use_official_bot_route_and_exact_card_reference" time="0.092" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_missing_discord_bot_token_is_definite_no_write" time="0.006" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_first_bot_run_creates_one_thread_and_recovers_its_lost_return[False]" time="0.057"><failure message="AssertionError: assert 'FAILED' == 'SUCCESS'&#10;  &#10;  - SUCCESS&#10;  + FAILED">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000211E09F7380&gt;
+lost_create_return = False
+
+    @pytest.mark.parametrize("lost_create_return", [False, True])
+    def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypatch, lost_create_return):
+        from urllib.error import HTTPError, URLError
+        from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6
+    
+        channel, run = "1519311669216673802", "12345"
+        webhook = "https://discord.test/webhook"
+        requests, messages = [], []
+        thread_exists = False
+    
+        class Response:
+            def __init__(self, value): self.value = value
+            def __enter__(self): return self
+            def __exit__(self, *_): return None
+            def read(self): return json.dumps(self.value).encode()
+    
+        def send(req, **kwargs):
+            nonlocal thread_exists
+            method, url = req.get_method(), req.full_url
+            requests.append((method, url))
+            thread = {"id": run, "parent_id": channel, "type": 11,
+                      "thread_metadata": {"archived": False}}
+            if url == webhook:
+                return Response({"channel_id": channel})
+            assert req.get_header("Authorization") == "Bot fixture-bot"
+            assert req.get_header("User-agent") == adapter.BOT_USER_AGENT
+            if method == "GET" and url == f"https://discord.com/api/v10/channels/{run}":
+                if not thread_exists:
+                    raise HTTPError(url, 404, "Not Found", {}, None)
+                return Response(thread)
+            if url == f"https://discord.com/api/v10/channels/{channel}/messages/{run}/threads":
+                assert method == "POST" and not thread_exists
+                assert json.loads(req.data)["name"] == "Calls"
+                thread_exists = True
+                if lost_create_return:
+                    raise URLError("thread created; response lost")
+                return Response(thread)
+            assert method == "POST" and url == f"https://discord.com/api/v10/channels/{run}/messages"
+            body = json.loads(req.data)
+            assert body["message_reference"]["message_id"] == run
+            messages.append(body)
+            return Response({"id": str(67890 + len(messages)), "channel_id": run})
+    
+        monkeypatch.setattr(adapter, "read_secret", lambda name: "fixture-bot")
+        monkeypatch.setattr(adapter.urllib.request, "urlopen", send)
+        monkeypatch.setattr(live_telemetry_v6, "classify_and_record_dispatch", lambda **kw: None)
+        first = adapter.execute_discord_post("first card", webhook_url=webhook,
+            thread_parent_id=run, thread_name="Calls", reply_to_message_id=run)
+        if lost_create_return:
+            assert first["definite_no_write"] and not messages
+        else:
+&gt;           assert first["status"] == "SUCCESS"
+E           AssertionError: assert 'FAILED' == 'SUCCESS'
+E             
+E             - SUCCESS
+E             + FAILED
+
+tests\test_plan_call_cards_cc399.py:423: AssertionError</failure></testcase><testcase classname="tests.test_plan_call_cards_cc399" name="test_first_bot_run_creates_one_thread_and_recovers_its_lost_return[True]" time="0.007"><failure message="AssertionError: assert 'FAILED' == 'SUCCESS'&#10;  &#10;  - SUCCESS&#10;  + FAILED">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000211E4D62890&gt;
+lost_create_return = True
+
+    @pytest.mark.parametrize("lost_create_return", [False, True])
+    def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypatch, lost_create_return):
+        from urllib.error import HTTPError, URLError
+        from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6
+    
+        channel, run = "1519311669216673802", "12345"
+        webhook = "https://discord.test/webhook"
+        requests, messages = [], []
+        thread_exists = False
+    
+        class Response:
+            def __init__(self, value): self.value = value
+            def __enter__(self): return self
+            def __exit__(self, *_): return None
+            def read(self): return json.dumps(self.value).encode()
+    
+        def send(req, **kwargs):
+            nonlocal thread_exists
+            method, url = req.get_method(), req.full_url
+            requests.append((method, url))
+            thread = {"id": run, "parent_id": channel, "type": 11,
+                      "thread_metadata": {"archived": False}}
+            if url == webhook:
+                return Response({"channel_id": channel})
+            assert req.get_header("Authorization") == "Bot fixture-bot"
+            assert req.get_header("User-agent") == adapter.BOT_USER_AGENT
+            if method == "GET" and url == f"https://discord.com/api/v10/channels/{run}":
+                if not thread_exists:
+                    raise HTTPError(url, 404, "Not Found", {}, None)
+                return Response(thread)
+            if url == f"https://discord.com/api/v10/channels/{channel}/messages/{run}/threads":
+                assert method == "POST" and not thread_exists
+                assert json.loads(req.data)["name"] == "Calls"
+                thread_exists = True
+                if lost_create_return:
+                    raise URLError("thread created; response lost")
+                return Response(thread)
+            assert method == "POST" and url == f"https://discord.com/api/v10/channels/{run}/messages"
+            body = json.loads(req.data)
+            assert body["message_reference"]["message_id"] == run
+            messages.append(body)
+            return Response({"id": str(67890 + len(messages)), "channel_id": run})
+    
+        monkeypatch.setattr(adapter, "read_secret", lambda name: "fixture-bot")
+        monkeypatch.setattr(adapter.urllib.request, "urlopen", send)
+        monkeypatch.setattr(live_telemetry_v6, "classify_and_record_dispatch", lambda **kw: None)
+        first = adapter.execute_discord_post("first card", webhook_url=webhook,
+            thread_parent_id=run, thread_name="Calls", reply_to_message_id=run)
+        if lost_create_return:
+            assert first["definite_no_write"] and not messages
+        else:
+            assert first["status"] == "SUCCESS"
+        second = adapter.execute_discord_post("next card", webhook_url=webhook,
+            thread_parent_id=run, thread_name="Calls", reply_to_message_id=run)
+&gt;       assert second["status"] == "SUCCESS"
+E       AssertionError: assert 'FAILED' == 'SUCCESS'
+E         
+E         - SUCCESS
+E         + FAILED
+
+tests\test_plan_call_cards_cc399.py:426: AssertionError</failure></testcase><testcase classname="tests.test_plan_call_cards_cc399" name="test_own_card_comments_read_back_from_their_exact_parent[facebook_page-message]" time="0.075" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_own_card_comments_read_back_from_their_exact_parent[instagram_business-text]" time="0.006" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_note_request_opens_exact_parent_and_never_creates_an_unrelated_note" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_instagram_run_creates_one_carousel_and_cards_do_not_publish_again" time="0.007" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_carousel_card_readback_checks_own_identity_exact_slot_and_pixels" time="0.006" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_watch_ending_does_not_claim_an_open_trade_closed" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_hit_at_time_exit_uses_time_exit_words_not_a_target_claim" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_announced_results_only_pending_unpublished_setup_gets_no_ending" time="3.071" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_summary_and_confirmed_page_replace_short_reasons" time="5.137" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary[identity-CC432_PLAN_BINDING_MISMATCH]" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary[preview-CC432_CONFIRMED_ANALYSIS_URL_REQUIRED]" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary[private-CC432_PUBLIC_SUMMARY_FILTER_FAILED]" time="0.005" /></testsuite></testsuites>

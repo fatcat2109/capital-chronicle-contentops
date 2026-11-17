@@ -1,0 +1,614 @@
+{
+  "schema_version": "contentops.weekly_scored_calls.v1",
+  "cutoff_utc": "2026-11-17T07:10:55.317815+00:00",
+  "week_start_et": "2026-11-09T00:00:00-05:00",
+  "week_end_exclusive_et": "2026-11-14T00:00:00-05:00",
+  "export_content_hash": "d2492998df0efb2f0d060208c2c72c90c463937ace1031cbf15ebe3cbdad1191",
+  "export_generated_at_utc": "2026-11-17T07:10:02.932449Z",
+  "export_scored_call_count": 6,
+  "counts": {
+    "scored_calls": 4,
+    "hits": 0,
+    "stops": 4,
+    "unscored_expiries": 33
+  },
+  "rows": [
+    {
+      "plan_id": "plan_26cb1eb8c72cbb8b45ce1396",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-09T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 90.2,
+        "maximum": 90.45
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Mon 9 Nov ET: US crude oil; original direction was bearish; entry zone 90.2\u201390.45; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_56cc8d7cf7887df00014e859",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-09T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "USDJPY",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 158.2,
+        "maximum": 158.3
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Mon 9 Nov ET: USD/JPY; original direction was bearish; entry zone 158.2\u2013158.3; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_6ce7b6d137920d09843f61db",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-09T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 1.1166,
+        "maximum": 1.117
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Mon 9 Nov ET: EUR/USD; original direction was bullish; entry zone 1.1166\u20131.117; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_795515a9284ce4344425e7f5",
+      "outcome_id": "outcome_bd6a2fbc1c270ece6bbea043961b496f",
+      "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+      "score_hash": "feaa374afccac1cf7bf68065e1084cb4ab0b757b3de1566fcde7685faca5a590",
+      "resolved_at_utc": "2026-11-10T10:20:05.506000Z",
+      "scored_at_utc": "2026-11-10T10:51:08.701630Z",
+      "market": "XAUUSD",
+      "direction": "bullish",
+      "zone": {
+        "maximum": 4104.0,
+        "minimum": 4100.0
+      },
+      "result": "STOPPED",
+      "scored": true,
+      "line": "- Tue 10 Nov ET: Gold; original direction was bullish; entry zone 4,100\u20134,104; stopped."
+    },
+    {
+      "plan_id": "plan_6bb2866a1c81fd03600e8553",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T10:30:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 84.85,
+        "maximum": 85.2
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 84.85\u201385.2; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_9edb25c11821e26c2bdce16f",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:00:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 1.12165,
+        "maximum": 1.12195
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: EUR/USD; original direction was bullish; entry zone 1.12165\u20131.12195; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_9efa90f940d37e632b24126c",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:00:00Z",
+      "scored_at_utc": null,
+      "market": "US500",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 7522.0,
+        "maximum": 7528.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: S&P 500; original direction was bullish; entry zone 7,522\u20137,528; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_12955d4b3962415396e851cc",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 85.9,
+        "maximum": 86.05
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 85.9\u201386.05; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "BTCUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 75150.0,
+        "maximum": 75300.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: Bitcoin; original direction was bearish; entry zone 75,150\u201375,300; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_7676aac16455086193912626",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "US500",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 7520.0,
+        "maximum": 7530.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: S&P 500; original direction was bullish; entry zone 7,520\u20137,530; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "US500",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 7500.0,
+        "maximum": 7506.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: S&P 500; original direction was bullish; entry zone 7,500\u20137,506; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 85.95,
+        "maximum": 86.05
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 85.95\u201386.05; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "BTCUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 75250.0,
+        "maximum": 75340.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: Bitcoin; original direction was bearish; entry zone 75,250\u201375,340; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 1.1201,
+        "maximum": 1.1205
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: EUR/USD; original direction was bullish; entry zone 1.1201\u20131.1205; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_b249fe5400f1c040d11a58f2",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 86.3,
+        "maximum": 86.7
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 86.3\u201386.7; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_e51226117aef037a534579e0",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 4104.0,
+        "maximum": 4110.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: Gold; original direction was bullish; entry zone 4,104\u20134,110; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T13:30:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 4101.0,
+        "maximum": 4104.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: Gold; original direction was bullish; entry zone 4,101\u20134,104; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_fd2cd4630839022f15ebca85",
+      "outcome_id": "outcome_5d144bd437d79aff7ee8c0a6c863ae95",
+      "source_plan_hash": "17972524ada0b24d00df760d1d92364a117970a4f2b76582cd54dfc3afb85934",
+      "score_hash": "df7982daad79741cf648c2fb315455c0dffdad480caeed62d7f743590f05f93d",
+      "resolved_at_utc": "2026-11-10T13:30:01.589000Z",
+      "scored_at_utc": "2026-11-10T13:31:06.891137Z",
+      "market": "EURUSD",
+      "direction": "bullish",
+      "zone": {
+        "maximum": 1.12215,
+        "minimum": 1.12175
+      },
+      "result": "STOPPED",
+      "scored": true,
+      "line": "- Tue 10 Nov ET: EUR/USD; original direction was bullish; entry zone 1.12175\u20131.12215; stopped."
+    },
+    {
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T18:30:00Z",
+      "scored_at_utc": null,
+      "market": "USDJPY",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 158.3,
+        "maximum": 158.38
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: USD/JPY; original direction was bullish; entry zone 158.3\u2013158.38; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T18:30:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 1.1188,
+        "maximum": 1.1194
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1188\u20131.1194; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T18:30:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 4062.0,
+        "maximum": 4070.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: Gold; original direction was bearish; entry zone 4,062\u20134,070; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_1c84765c96ff32077bba92dc",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-10T18:30:37.055955Z",
+      "scored_at_utc": null,
+      "market": "USDJPY",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 158.08,
+        "maximum": 158.16
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Tue 10 Nov ET: USD/JPY; original direction was bullish; entry zone 158.08\u2013158.16; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+      "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+      "score_hash": "19c444c68c82b9e69345b7eadb49a89766cd4c1e8f72bfd120cc83176e6473d5",
+      "resolved_at_utc": "2026-11-11T10:09:16.180000Z",
+      "scored_at_utc": "2026-11-11T10:11:10.476241Z",
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "maximum": 85.5,
+        "minimum": 85.25
+      },
+      "result": "STOPPED",
+      "scored": true,
+      "line": "- Wed 11 Nov ET: US crude oil; original direction was bearish; entry zone 85.25\u201385.5; stopped."
+    },
+    {
+      "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 1.1101,
+        "maximum": 1.1108
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1101\u20131.1108; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_25f72703bd52500d440e9080",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 87.5,
+        "maximum": 87.8
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: US crude oil; original direction was bearish; entry zone 87.5\u201387.8; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_2e66e8e8a4e3605f81f5470f",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "US500",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 7548.0,
+        "maximum": 7552.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: S&P 500; original direction was bullish; entry zone 7,548\u20137,552; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_6465a91a64f564ec3198d4a8",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 4068.0,
+        "maximum": 4078.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: Gold; original direction was bearish; entry zone 4,068\u20134,078; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_71c24e00afe1c6a495d36468",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 4048.0,
+        "maximum": 4052.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: Gold; original direction was bearish; entry zone 4,048\u20134,052; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_7be77d05f616bb239254de75",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "BTCUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 74650.0,
+        "maximum": 74900.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: Bitcoin; original direction was bearish; entry zone 74,650\u201374,900; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_7ce981a4fdf322a422c90c4d",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "USDJPY",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 158.35,
+        "maximum": 158.45
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: USD/JPY; original direction was bullish; entry zone 158.35\u2013158.45; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_f13d70a61474060ff249abbd",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-11T23:50:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 1.1192,
+        "maximum": 1.1202
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Wed 11 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1192\u20131.1202; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_45bec31221424f5b47b02ac3",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-12T07:00:00Z",
+      "scored_at_utc": null,
+      "market": "EURUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 1.1088,
+        "maximum": 1.1094
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Thu 12 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1088\u20131.1094; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_aef82bda0ae8503b4cc91456",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-12T07:00:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 3986.0,
+        "maximum": 3990.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Thu 12 Nov ET: Gold; original direction was bearish; entry zone 3,986\u20133,990; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_36f7532de32e34c1ce6455b3",
+      "outcome_id": "outcome_88dfe6385cc54f4b5bc373eff55ff098",
+      "source_plan_hash": "b2867dbf8401f9d0418a95f28a6ae9b89022af5fc139405d7ec66729ccfe3393",
+      "score_hash": "57461fd6e80beb9603f72b1f765d242fbd9d9238298de46d0cdbf49b31f85dca",
+      "resolved_at_utc": "2026-11-12T08:29:02.578000Z",
+      "scored_at_utc": "2026-11-12T08:30:12.062741Z",
+      "market": "USOIL",
+      "direction": "bearish",
+      "zone": {
+        "maximum": 85.45,
+        "minimum": 85.15
+      },
+      "result": "STOPPED",
+      "scored": true,
+      "line": "- Thu 12 Nov ET: US crude oil; original direction was bearish; entry zone 85.15\u201385.45; stopped."
+    },
+    {
+      "plan_id": "plan_208ff18176c47f7d5de7ca37",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-12T23:00:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 3888.0,
+        "maximum": 3900.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Thu 12 Nov ET: Gold; original direction was bearish; entry zone 3,888\u20133,900; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_230a9464a193ca7a377d0c41",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-12T23:00:00Z",
+      "scored_at_utc": null,
+      "market": "XAUUSD",
+      "direction": "bearish",
+      "zone": {
+        "minimum": 3954.0,
+        "maximum": 3964.0
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Thu 12 Nov ET: Gold; original direction was bearish; entry zone 3,954\u20133,964; expired without entry; not scored."
+    },
+    {
+      "plan_id": "plan_5556d93fba0baaf67f944e2d",
+      "outcome_id": null,
+      "score_hash": null,
+      "resolved_at_utc": "2026-11-12T23:00:00Z",
+      "scored_at_utc": null,
+      "market": "USOIL",
+      "direction": "bullish",
+      "zone": {
+        "minimum": 85.75,
+        "maximum": 86.05
+      },
+      "result": "EXPIRED",
+      "scored": false,
+      "line": "- Thu 12 Nov ET: US crude oil; original direction was bullish; entry zone 85.75\u201386.05; expired without entry; not scored."
+    }
+  ],
+  "text": "## The week's call results (9 Nov\u201313 Nov 2026 ET)\n\nScored calls: 4. Hits: 0. Stops: 4. Unscored expiries: 33.\n\n- Mon 9 Nov ET: US crude oil; original direction was bearish; entry zone 90.2\u201390.45; expired without entry; not scored.\n- Mon 9 Nov ET: USD/JPY; original direction was bearish; entry zone 158.2\u2013158.3; expired without entry; not scored.\n- Mon 9 Nov ET: EUR/USD; original direction was bullish; entry zone 1.1166\u20131.117; expired without entry; not scored.\n- Tue 10 Nov ET: Gold; original direction was bullish; entry zone 4,100\u20134,104; stopped.\n- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 84.85\u201385.2; expired without entry; not scored.\n- Tue 10 Nov ET: EUR/USD; original direction was bullish; entry zone 1.12165\u20131.12195; expired without entry; not scored.\n- Tue 10 Nov ET: S&P 500; original direction was bullish; entry zone 7,522\u20137,528; expired without entry; not scored.\n- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 85.9\u201386.05; expired without entry; not scored.\n- Tue 10 Nov ET: Bitcoin; original direction was bearish; entry zone 75,150\u201375,300; expired without entry; not scored.\n- Tue 10 Nov ET: S&P 500; original direction was bullish; entry zone 7,520\u20137,530; expired without entry; not scored.\n- Tue 10 Nov ET: S&P 500; original direction was bullish; entry zone 7,500\u20137,506; expired without entry; not scored.\n- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 85.95\u201386.05; expired without entry; not scored.\n- Tue 10 Nov ET: Bitcoin; original direction was bearish; entry zone 75,250\u201375,340; expired without entry; not scored.\n- Tue 10 Nov ET: EUR/USD; original direction was bullish; entry zone 1.1201\u20131.1205; expired without entry; not scored.\n- Tue 10 Nov ET: US crude oil; original direction was bearish; entry zone 86.3\u201386.7; expired without entry; not scored.\n- Tue 10 Nov ET: Gold; original direction was bullish; entry zone 4,104\u20134,110; expired without entry; not scored.\n- Tue 10 Nov ET: Gold; original direction was bullish; entry zone 4,101\u20134,104; expired without entry; not scored.\n- Tue 10 Nov ET: EUR/USD; original direction was bullish; entry zone 1.12175\u20131.12215; stopped.\n- Tue 10 Nov ET: USD/JPY; original direction was bullish; entry zone 158.3\u2013158.38; expired without entry; not scored.\n- Tue 10 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1188\u20131.1194; expired without entry; not scored.\n- Tue 10 Nov ET: Gold; original direction was bearish; entry zone 4,062\u20134,070; expired without entry; not scored.\n- Tue 10 Nov ET: USD/JPY; original direction was bullish; entry zone 158.08\u2013158.16; expired without entry; not scored.\n- Wed 11 Nov ET: US crude oil; original direction was bearish; entry zone 85.25\u201385.5; stopped.\n- Wed 11 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1101\u20131.1108; expired without entry; not scored.\n- Wed 11 Nov ET: US crude oil; original direction was bearish; entry zone 87.5\u201387.8; expired without entry; not scored.\n- Wed 11 Nov ET: S&P 500; original direction was bullish; entry zone 7,548\u20137,552; expired without entry; not scored.\n- Wed 11 Nov ET: Gold; original direction was bearish; entry zone 4,068\u20134,078; expired without entry; not scored.\n- Wed 11 Nov ET: Gold; original direction was bearish; entry zone 4,048\u20134,052; expired without entry; not scored.\n- Wed 11 Nov ET: Bitcoin; original direction was bearish; entry zone 74,650\u201374,900; expired without entry; not scored.\n- Wed 11 Nov ET: USD/JPY; original direction was bullish; entry zone 158.35\u2013158.45; expired without entry; not scored.\n- Wed 11 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1192\u20131.1202; expired without entry; not scored.\n- Thu 12 Nov ET: EUR/USD; original direction was bearish; entry zone 1.1088\u20131.1094; expired without entry; not scored.\n- Thu 12 Nov ET: Gold; original direction was bearish; entry zone 3,986\u20133,990; expired without entry; not scored.\n- Thu 12 Nov ET: US crude oil; original direction was bearish; entry zone 85.15\u201385.45; stopped.\n- Thu 12 Nov ET: Gold; original direction was bearish; entry zone 3,888\u20133,900; expired without entry; not scored.\n- Thu 12 Nov ET: Gold; original direction was bearish; entry zone 3,954\u20133,964; expired without entry; not scored.\n- Thu 12 Nov ET: US crude oil; original direction was bullish; entry zone 85.75\u201386.05; expired without entry; not scored.\n\nResults refer to resolved conditional calls.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+}

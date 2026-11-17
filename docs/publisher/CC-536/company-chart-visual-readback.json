@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-14T09:56:26.338101+00:00",
+  "public_object_id": "urn:li:activity:7527295698816585728",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/",
+  "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-1\\media\\BTCUSD_2026-11-14_11-57-57.png",
+  "source_sha256": "3fbe2b0b5c767661b00cf2fd4e6096485ff36f0fe32e890d4141347786c79150",
+  "delivered_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-1\\media\\linkedin-published-full-resolution.png",
+  "platform_sha256": "13a218114d6b14192d6bef965c52afec287c2311f92fff3fd45d6e7cc7ed41da",
+  "inspection_tool": "functions.view_image detail=original, both files",
+  "reviewer_invocation": "codex-exec-pid44920-20261114T095405Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "findings": [
+    "Same Bitcoin daily Bitstamp chart and visible time range.",
+    "Same candlestick geometry and two native average lines.",
+    "Same 75947, 80199 and 67092 labels, OHLC and chart timestamp.",
+    "TradingView source attribution, footer and all axes preserved.",
+    "JPEG compression alters colors and edges; no changed value, missing element or crop observed."
+  ],
+  "source_pixels_match": true,
+  "comparison_method": "NATIVE_VIEW_IMAGE_SOURCE_PAIR_V1"
+}

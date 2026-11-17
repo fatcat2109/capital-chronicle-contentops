@@ -1,0 +1,34 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "started_at_utc": "2026-11-15T11:06:35Z",
+  "branch": "backlog/cc-536-piece-2-trend-twenty",
+  "base_commit": "66ed6a4b20fc27e3e956d9c91c5b819c80fb4f05",
+  "top_level_launch": {
+    "pid": 37988,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Parent codex.exe launch arguments inspected through Win32_Process; model/effort flags extracted, no full command line retained."
+  },
+  "preparation_role": {
+    "task": "/root/cc536_source_preparation",
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "result": "Supported native final collected in parent; source rows, side pointers, period and method checked; no calculations or file edits."
+  },
+  "publication_access": {
+    "observed_at_utc": "2026-11-15T11:15:10.357499+00:00",
+    "configured_neo_endpoint": "http://127.0.0.1:9010/mcp",
+    "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+    "process_readback": "No browseros/neo process and no listener for port 9010 observed.",
+    "choice": "Finish source-bound copy and checks; retain the existing piece identity without registration or fresh public writes until the required chart can be captured through Neo."
+  },
+  "preserved_uncommitted_paths": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
+  ],
+  "schedule_changes": false,
+  "other_chat_messages": false
+}

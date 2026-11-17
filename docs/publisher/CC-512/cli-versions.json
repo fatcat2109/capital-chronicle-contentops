@@ -1,0 +1,13 @@
+{
+  "antigravity": {
+    "cause": "VERSION_TIMEOUT_10S",
+    "executable_sha256": "1db38dca719bc26743853d28c03b5acd99e617d0bd513ad3956b571756f0f3a9",
+    "bytes": 242141336,
+    "saved_call_version": "1.5.5",
+    "saved_version_source": "docs/publisher/CC-466/README.md"
+  },
+  "codex": {
+    "version": "codex-cli 0.167.0-alpha.3.2",
+    "returncode": 0
+  }
+}

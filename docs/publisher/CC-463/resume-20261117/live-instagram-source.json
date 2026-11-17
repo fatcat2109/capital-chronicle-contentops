@@ -1,0 +1,82 @@
+{
+  "run_context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\portrait\\6e8509dfda01a5656bd829696557a9b51455a53d7a39007063e9fa66b5849f3c\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\run_context_v1.json",
+  "run_context_sha256": "4d6b230f4d59a82f1d7c654bff81aa019db503eb42304081a22c35fcf178faa2",
+  "work_item_id": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+  "assets": [
+    {
+      "asset_id": "tradingview-snapshot-92a6d6925c83d66c41a5",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\portrait\\tradingview-626df1bb87f99a33-4x5.png",
+      "sha256": "92a6d6925c83d66c41a51e1dd7edff59712c2ad6f8a548116bd8c43fa517ad58",
+      "modality": "tradingview_chart_snapshot",
+      "width": 1088,
+      "height": 1360,
+      "tradingview_snapshot": {
+        "capture_ratio": "4:5",
+        "capture_viewport": {
+          "height": 1354,
+          "width": 1474
+        },
+        "captured_at_utc": "2026-11-16T00:24:47.477288+00:00",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+        "framing": {
+          "height": 1360,
+          "mode": "NATIVE_VIEWPORT",
+          "original_box": [
+            0,
+            0,
+            1088,
+            1360
+          ],
+          "ratio": "4:5",
+          "width": 1088
+        },
+        "height": 1360,
+        "interval": "15",
+        "interval_label": "15m",
+        "last_bar_open_utc": "2026-11-13T00:30:00Z",
+        "legend": "Bitcoin / U.S. Dollar 15m Coinbase",
+        "levels_drawn": [],
+        "method": "guest Download image at native 4:5 chart viewport; same historical custom range; no image crop or added candle",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\portrait\\BTCUSD_2026-11-16_00-24-47.png",
+        "policy": "contentops.tradingview_snapshot.v1",
+        "price_scale_check": {
+          "captured_at_utc": "2026-11-16T00:24:47.477288+00:00",
+          "chart_price": 70873.29,
+          "chart_sha256": "626df1bb87f99a335838fe614181a20d6f4d1d8bd2d01acac2d8f37c48a76128",
+          "clock_skew_seconds": 0.0,
+          "comparison_at_utc": "2026-11-13T00:45:00+00:00",
+          "comparison_basis": "VISIBLE_WINDOW_CLOSE",
+          "difference": -8.010000000009313,
+          "difference_pct": 0.011300582805351077,
+          "level_offset": 0.0,
+          "market": "BTCUSD",
+          "maximum_difference_pct": 0.4,
+          "policy": "CC463_TRADINGVIEW_FIRST_V1",
+          "quote": {
+            "instrument": "BTCUSD",
+            "known_at_utc": "2026-11-14T03:37:03.417067+00:00",
+            "market": "BTCUSD",
+            "price": 70881.3,
+            "price_basis": "plan_bar_close",
+            "quoted_at_utc": "2026-11-13T00:45:00Z",
+            "source_kind": "HELD_M15_RESOLUTION_CLOSE",
+            "source_path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+            "source_record_sha256": "632153ae59c25f6b0c7fe01d6ab354804c51990c3d04c4b6733492c2b318900d",
+            "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+          },
+          "tv_symbol": "COINBASE:BTCUSD",
+          "visible_from_utc": "2026-11-10T18:00:00+00:00",
+          "visible_to_utc": "2026-11-13T00:45:00+00:00"
+        },
+        "sha256": "626df1bb87f99a335838fe614181a20d6f4d1d8bd2d01acac2d8f37c48a76128",
+        "suggested_filename": "BTCUSD_2026-11-16_00-24-47.png",
+        "target_drawn": false,
+        "tv_symbol": "COINBASE:BTCUSD",
+        "visible_from_utc": "2026-11-10T18:00:00Z",
+        "visible_last_price": 70873.29,
+        "visible_to_utc": "2026-11-13T00:45:00Z",
+        "width": 1088
+      }
+    }
+  ]
+}

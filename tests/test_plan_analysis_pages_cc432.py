@@ -118,6 +118,23 @@ def test_page_is_wired_to_real_coordinator_and_confirmed_summary_consumer(source
     assert len(store.list_outbox_messages(destination='substack')) == 1
 
 
+def test_new_plan_link_consumes_confirmed_measured_odds_method(source, tmp_path):
+    from test_measured_odds_series_cc536 import confirm_method
+    store = ContentOpsDurableStore(tmp_path / 'store.sqlite3')
+    method = confirm_method(store, tmp_path)
+    packet = pages.register_page(store, rendered(source, tmp_path))
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(packet['page_id'], packet['plan'])
+    ids = coordinator._ids(packet['page_id'], packet['plan']['plan_hash'], 'substack')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'], message_id=ids['message_id'], platform='substack',
+        status='DISPATCH_CONFIRMED', public_object_id='123', public_object_url='https://capitalchronicle.substack.com/p/eur-analysis')
+    store.register_reconciliation(reconciliation_id=ids['reconciliation_id'], work_item_id=packet['page_id'], status='RECONCILED_CONFIRMED')
+    link = pages.register_link(store,packet,original_key='the-plan',destination='substack_notes')
+    assert link['method_page_reference'] == method
+    assert method['canonical_url'] in link['native_payload']['full_text']
+    assert pages.validate_link_plan(store,link['link_id'],link['plan']) == link
+
+
 def test_mutated_source_and_mutated_intent_cannot_reach_write(source, tmp_path):
     _, folder, _, _ = source
     store = ContentOpsDurableStore(tmp_path / 'store.sqlite3')

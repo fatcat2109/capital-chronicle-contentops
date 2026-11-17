@@ -1,0 +1,42 @@
+{
+  "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+  "request_sha256": "672f72585feee681031ec0f5557f02db40a2c7ec9ff22c11d9671aba257c6219",
+  "result": {
+    "composed_identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-16T23:34:17.161Z",
+      "observed_identity": "@capitalchronicle"
+    },
+    "native_tool_observation": {
+      "dispatched_at_utc": "2026-11-16T23:34:25.277Z",
+      "native_invocation_id": "neo-endpoint:fb6b88e61852418b82ff447e46c0af15",
+      "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+      "observed_at_utc": "2026-11-16T23:34:28.382450+00:00",
+      "surface": "NEO_ENDPOINT_EXECUTOR",
+      "tool_name": "browseros-neo/run"
+    },
+    "native_tool_return_sha256": "53c2eb2e9b24b35a77270d7022045841c302a7e9379170ea73f95593791a48a5",
+    "neo_executor_revision": "2e88b4b485ec634cb5a6a5568fd504bfaa8e37e153a45a0f662f4c2bec129647",
+    "observed_identity": "@capitalchronicle",
+    "pre_click_verification": "MATCHED",
+    "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+    "request_sha256": "672f72585feee681031ec0f5557f02db40a2c7ec9ff22c11d9671aba257c6219",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "status": "UNKNOWN_WRITE",
+    "verified": false
+  },
+  "outcome": {
+    "status": "UNKNOWN_WRITE",
+    "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+    "retry_permitted": false
+  },
+  "status": {
+    "confirmed": false,
+    "status": "NATIVE_NEO_TOOL_PENDING",
+    "dispatch_id": "dispatch_52b74856711d9922bcacceba907a1974",
+    "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+    "reconciled_at_utc": "2026-11-12T14:33:59.774977+00:00",
+    "public_object_id": null,
+    "public_object_url": null
+  }
+}

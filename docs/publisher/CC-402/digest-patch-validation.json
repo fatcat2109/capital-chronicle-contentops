@@ -1,0 +1,12 @@
+{
+  "main_source_read_only": true,
+  "production_digest_changed": false,
+  "state": "PATCHED_SECTION_PREVIEW",
+  "platform_lines": 10,
+  "source_commit": "dc0b39230edc52bd1ca1749158e58f693a69c699",
+  "files": {
+    "tools/product/contentops_digest_v1.py": "8feb593918ee75c7a832cc195ea6a252caa12cee957bf16f7c6ba36385753061",
+    "tools/product/main_daily_digest_v1.py": "78671fdb42b271745058c52a843c5b5d959a4b793ee2dea2506e69bf9dc9af1b"
+  },
+  "preview": "docs/publisher/CC-402/digest-section-preview.md"
+}

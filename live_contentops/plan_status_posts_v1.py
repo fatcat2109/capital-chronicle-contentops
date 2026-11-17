@@ -20,7 +20,7 @@ import unicodedata
 from typing import Any, Mapping
 
 from .plan_status_export_contract_v1 import (
-    PlanExportContractError, rejected_export, validate_export_contract,
+    PlanExportContractError, export_row_failures, record_row_failures, rejected_export, validate_export_contract,
 )
 
 from live_contentops.event_article_guard_v1 import (
@@ -40,7 +40,7 @@ MARKETS = {
 TITLES = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
-         "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
+         "CLOSED": "closed", "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
 # Decisions 106 and 117 permit confirming a position; account, exact fill price, size and P&L stay private.
 # Section 4.4: none of these may reach a reader.
 INTERNAL = re.compile(
@@ -86,19 +86,85 @@ events = read_public_transitions(folder + "/plan-transitions.public.json", statu
 sys.stdout.write(json.dumps({"status": status, "transitions": events}))
 """
 
+# An in-memory consumer projection. Original seals are checked BEFORE removing
+# any row; Main's schemas and semantic reader still validate everything used.
+# No file in Main or the export directory is changed.
+_ROW_READER = """import datetime as dt, json, sys, tempfile
+from pathlib import Path
+from jsonschema import Draft202012Validator, FormatChecker
+from tools.product import plan_status_export_v1 as owner
+packet = json.load(sys.stdin)
+export, failures = packet['export'], packet['failures']
+status, events = owner._seal(export['status']), owner._seal(export['transitions'])
+if (events['status_content_hash'] != status['content_hash']
+        or events['generated_at_utc'] != status['generated_at_utc']):
+    raise owner.PlanStatusError('PUBLIC_PLAN_SNAPSHOT_MISMATCH')
+ids = [p.get('plan_id') for p in status['plans'] if isinstance(p, dict) and isinstance(p.get('plan_id'), str)]
+if len(set(ids)) != len(ids):
+    raise owner.PlanStatusError('PUBLIC_PLAN_ID_DUPLICATE')
+schema_root = Path(owner.__file__).resolve().parents[2] / 'schemas/publication'
+for document, field, name in [('status', 'plans', 'CapitalChroniclePlanStatusV1'),
+                               ('transitions', 'transitions', 'CapitalChroniclePlanTransitionsV1')]:
+    schema = json.loads((schema_root / (name + '.schema.json')).read_bytes())
+    for error in Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(export[document]):
+        path = list(error.absolute_path)
+        if len(path) < 2 or path[0] != field or not isinstance(path[1], int):
+            raise owner.PlanStatusError('PUBLIC_PLAN_ENVELOPE_SCHEMA_INVALID')
+        if any(r['document'] == document and r['index'] == path[1] for r in failures):
+            continue
+        row = export[document][field][path[1]]
+        failures.append({'document': document, 'index': path[1],
+            'plan_id': row.get('plan_id') if isinstance(row, dict) else None,
+            'field': document + '.' + ''.join('[' + str(p) + ']' if isinstance(p, int)
+                else ('.' if i else '') + p for i,p in enumerate(path)),
+            'detail': 'invalid producer ' + error.validator,
+            'contract_version': packet['contract_version']})
+bad_ids = {r['plan_id'] for r in failures if isinstance(r.get('plan_id'), str)}
+def kept(document, field):
+    bad = {r['index'] for r in failures if r['document'] == document}
+    return [row for i, row in enumerate(export[document][field])
+            if i not in bad and row.get('plan_id') not in bad_ids]
+view = {**status, 'plans': kept('status', 'plans')}
+view['content_hash'] = owner.sha256({k:v for k,v in view.items() if k != 'content_hash'})
+view = owner.validate_public_status(view, as_of=dt.datetime.now(dt.timezone.utc).isoformat())
+joined = {**events, 'transitions': kept('transitions', 'transitions'), 'status_content_hash': view['content_hash']}
+joined['content_hash'] = owner.sha256({k:v for k,v in joined.items() if k != 'content_hash'})
+with tempfile.TemporaryDirectory(prefix='cc515-public-projection-') as folder:
+    path = Path(folder) / 'transitions.json'
+    path.write_text(json.dumps(joined, allow_nan=False), encoding='utf-8')
+    joined = owner.read_public_transitions(path, status=view)
+projection = {'status_content_hash':view['content_hash'], 'transitions_content_hash':joined['content_hash'],
+    'source_status_content_hash':status['content_hash'], 'source_transitions_content_hash':events['content_hash']}
+view['content_hash'] = status['content_hash']
+joined['content_hash'] = events['content_hash']
+joined['status_content_hash'] = events['status_content_hash']
+sys.stdout.write(json.dumps({'status':view, 'transitions':joined, 'quarantined_rows':failures,
+    'consumer_projection':projection}, allow_nan=False))
+"""
+
 
 def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, python: str | None = None) -> dict:
     """Both export documents, validated and joined by CC-307's own read_public_transitions."""
     import subprocess
     import sys
-    # Diagnose consumer field/version changes before the producer's generic
-    # schema/hash refusal. Validate the actual returned snapshot again below.
-    validate_export_contract({"status": json.loads((Path(export_dir) / "plan-status.public.json").read_bytes()),
-                              "transitions": json.loads((Path(export_dir) / "plan-transitions.public.json").read_bytes())})
     flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
     for attempt in (1, 2):
-        done = subprocess.run([python or sys.executable, "-B", "-c", _READER, str(export_dir)], cwd=str(main_root),
-                              capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        snapshot = {"status": json.loads((Path(export_dir) / "plan-status.public.json").read_bytes()),
+                    "transitions": json.loads((Path(export_dir) / "plan-transitions.public.json").read_bytes())}
+        failures = export_row_failures(snapshot)
+        def run_rows():
+            return subprocess.run([python or sys.executable, "-B", "-c", _ROW_READER], cwd=str(main_root),
+                input=json.dumps({"export": snapshot, "failures": failures,
+                                  "contract_version": validate_export_contract({
+                                      "status": {**snapshot['status'], 'plans': []},
+                                      "transitions": {**snapshot['transitions'], 'transitions': []}})}),
+                capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        done = run_rows() if failures else subprocess.run(
+            [python or sys.executable, "-B", "-c", _READER, str(export_dir)], cwd=str(main_root),
+            capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        if done.returncode and not failures and any(cause in done.stderr for cause in (
+                "PUBLIC_PLAN_STATUS_SCHEMA_INVALID", "PUBLIC_PLAN_TRANSITIONS_SCHEMA_INVALID")):
+            done = run_rows()
         if done.returncode == 0:
             export = json.loads(done.stdout)
             validate_export_contract(export)
@@ -219,6 +285,8 @@ def read_transitions(export_dir: Path = EXPORT_DIR, *, now: datetime | None = No
     if not (Path(export_dir) / "plan-status.public.json").is_file():
         return []
     export = read_export(export_dir, **kwargs)
+    if freshness is not None:
+        freshness["quarantined_rows"] = export.get("quarantined_rows") or []
     if max_age_minutes is not None or freshness is not None:
         info = export_freshness(export, now)
         if freshness is not None:
@@ -549,6 +617,8 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
             lines = [lines[0], conditional_call_text(call)]
+    elif to == "CLOSED":
+        lines = [f"{title}: Capital Chronicle's position closed at {_when(row['at_utc'])}."]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
@@ -703,6 +773,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
             return {"status": "EXPORT_STALE", "cause": cause, **freshness, "max_export_age_minutes": limit}
         return {"status": "EXPORT_UNREADABLE", "cause": cause}
     freshness["max_export_age_minutes"] = limit
+    freshness["quarantined_rows"] = record_row_failures(store, freshness, dry_run=dry_run)
     oldest = now.timestamp() - window_minutes * 60
     queued, existing, skipped, too_old = [], [], [], 0
     rationale_causes = {}
@@ -870,21 +941,48 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             "cause": result.get("cause"),
             "contract_version": result.get("contract_version"), "failed_field": result.get("failed_field"),
             "incident_id": result.get("incident_id"),
+            "quarantined_rows": result.get("quarantined_rows") or [],
             "export_generated_at_utc": result.get("export_generated_at_utc"),
             "export_age_seconds": result.get("export_age_seconds"),
             "max_export_age_minutes": result.get("max_export_age_minutes"),
             "queued": len(result.get("queued") or []), "not_posted": len(result.get("not_posted") or []),
             "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published,
+            "pending_post_queue": (result.get("publication") or {}).get("pending_post_queue"),
             # CC-437: pythonw has no stdout. Counts hid the exact cards that
             # repeatedly failed preparation or waited behind a parent/limit.
             "posts": [{k: post[k] for k in ("key", "status", "cause", "per_destination",
                 "destination_causes", "deferred_destinations") if k in post} for post in posts],
             "not_posted_details": [{k: row[k] for k in ("key", "plan_id", "cause") if k in row}
                                    for row in result.get("not_posted") or []]}
+    if result.get("phase"):
+        line["phase"] = result["phase"]
+    if result.get("plan_pages") is not None:
+        line["plan_pages"] = result["plan_pages"]
+    if "substack_daily_note" in result:
+        # CC-468: pythonw has no stdout. Keep the Note's first source cause or
+        # coordinator result in this existing run record, without copy/media.
+        note = result["substack_daily_note"]
+        outcome = note.get("outcome") or {}
+        per = outcome.get("per_destination") or {}
+        line["substack_daily_note"] = {
+            **{k: note[k] for k in ("state", "day_et", "note_id", "cause", "source_causes", "call_path") if k in note},
+            **({"publication_state": outcome.get("state") or outcome.get("status") or outcome.get("distribution_status"),
+                "per_destination": {d: {k: value[k] for k in ("status", "cause", "public_object_id", "public_object_url")
+                                            if k in value} for d, value in per.items()}}
+               if outcome else {})}
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
+    if "call_followups" in result:
+        from .call_followups_v1 import run_record as followup_record
+        line["call_followups"] = followup_record(result["call_followups"])
     if "event_timestamp" in result:
         line["event_timestamp"] = result["event_timestamp"]
+    if "audience_collection" in result:
+        line["audience_collection"] = {k: v for k, v in result["audience_collection"].items()
+            if k in {"state", "scheduled", "collected", "pending", "cause", "outcomes", "public_write_performed", "model_calls"}}
+    for name in ("model_usage", "weekly_audience"):
+        if name in result:
+            line[name] = result[name]
     if "event_packs" in result:
         line["event_packs"] = {"status": result["event_packs"].get("status"), "events": []}
         for event in result["event_packs"].get("events") or []:
@@ -909,8 +1007,14 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             per = outcome.get("per_destination") or (outcome.get("recovery_preflight") or {}).get("per_destination") or {}
             line["analysis_links"].append({
                 **{k: row[k] for k in ("page_id", "destination", "link_id", "state", "cause") if k in row},
+                **({"cause": outcome["cause"]} if outcome.get("cause") and not row.get("cause") else {}),
                 "status": (outcome.get("state") or outcome.get("status")
                            or outcome.get("distribution_status") or row.get("state")),
+                # A transport-confirmed object can still have incomplete copy.
+                # Keep the exact reconciliation and identity in pythonw's record.
+                **{k: v for k, v in (row.get("readback") or outcome).items() if k in
+                    ("confirmed", "dispatch_id", "reconciliation_status", "reconciled_at_utc",
+                     "public_object_id", "public_object_url")},
                 "per_destination": {d: v.get("status") for d, v in per.items()},
                 "destination_causes": destination_causes({"per_destination": per}),
                 "first_failures": {d: v["first_failure"] for d, v in per.items() if v.get("first_failure")}})
@@ -1105,11 +1209,16 @@ def _x_pack(text: str, limit: int, *, preserve_lines: bool = False) -> list[str]
 
 
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
-    """The exact copy per destination: the post and the notices, no link (decision 83). With a
-    TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
+    """Exact destination copy, with the mandatory credit for a retained chart."""
+    if row.get("correction_reply_contract"):
+        from .plan_result_correction_cc646 import destination_payloads as correction_payloads
+        return correction_payloads(row, card_id=card_id)
+    if row.get("cc603_contract"):
+        from .call_followups_v1 import destination_payloads as followup_payloads
+        return followup_payloads(row, card_id=card_id, chart_credit=chart_credit)
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
-        return card_payloads(row, card_id=card_id)
+        return card_payloads(row, card_id=card_id, chart_credit=chart_credit)
     body, notices = _split(row["text"])
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
@@ -1148,22 +1257,22 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             chunks.append(notices)
             if any(_x_length(c) > LIMITS["x"] for c in chunks):
                 raise PlanPostError("PLAN_STATUS_POST_TOO_LONG_FOR_X")
-            posts = [{"text": c, "media_asset_ids": [card_id] if i == 0 else [], "order": i,
+            posts = [{"text": c, "media_asset_ids": [card_id] if card_id else [] if i == 0 and card_id else [], "order": i,
                       "role": "root" if i == 0 else "reply"} for i, c in enumerate(chunks)]
             payloads[destination] = {"destination": destination, "text": chunks[0], "posts": posts,
                                      "root_text": chunks[0], "reply_texts": chunks[1:],
-                                     "full_text": "\n\n".join(chunks), "media_asset_ids": [card_id]}
+                                     "full_text": "\n\n".join(chunks), "media_asset_ids": [card_id] if card_id else []}
             continue
         if (_x_length(text) if destination == "x" else len(text)) > LIMITS[destination]:
             if row.get("why") and destination in {"telegram", "discord", "substack_notes"}:
                 parts = _text_parts(body, notices, LIMITS[destination], link, lines=v2,
                                     rest_limit=REST_LIMITS.get(destination) if v2 else None)
                 payloads[destination] = {"destination": destination, "text": text, "full_text": text,
-                                         "media_asset_ids": [card_id], "parts": parts}
+                                         "media_asset_ids": [card_id] if card_id else [], "parts": parts}
                 continue
             raise PlanPostError("PLAN_STATUS_POST_TOO_LONG:" + destination)
         payloads[destination] = {"destination": destination, "text": text, "full_text": text,
-                                 "media_asset_ids": [card_id]}
+                                 "media_asset_ids": [card_id] if card_id else []}
     if row.get("correction_of"):
         for destination, payload in payloads.items():
             originals = row["correction_of"].get(destination) or []
@@ -1174,7 +1283,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
     return payloads
 
 
-def _part_payloads(payloads: dict, part: int = 0) -> dict:
+def _part_payloads(payloads: dict, part: int = 0, *, repeat_media: bool = False) -> dict:
     result = {}
     for destination, payload in payloads.items():
         if not payload.get("parts"):
@@ -1186,12 +1295,20 @@ def _part_payloads(payloads: dict, part: int = 0) -> dict:
             continue
         result[destination] = {k: v for k, v in payload.items() if k != "parts"}
         result[destination].update(text=parts[part], full_text=parts[part],
-                                   media_asset_ids=payload["media_asset_ids"] if part == 0 else [])
+                                   media_asset_ids=payload["media_asset_ids"] if part == 0 or repeat_media else [])
     return result
 
 
 def card_article(row: Mapping[str, Any]) -> dict:
     at = _utc(row["at_utc"])
+    if row.get("correction_reply_contract"):
+        return {"title": row["title"], "dek": _split(row["text"])[0],
+                "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
+                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
+    if row.get("cc603_contract"):
+        return {"title": row["title"], "dek": _split(row["text"])[0],
+                "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
+                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     if row.get("kind") == "result":
         return {"title": f"{TITLES[row['symbol']]}: plan result — {row['result'].lower()}",
                 "dek": _split(row["text"])[0], "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
@@ -1207,7 +1324,7 @@ def card_article(row: Mapping[str, Any]) -> dict:
 
 
 CHART_CREDIT = "Chart: TradingView"
-SNAPSHOT_RUN_BUDGET_SECONDS = 150  # the minute task has 5 minutes; later posts in a busy tick use the card
+SNAPSHOT_RUN_BUDGET_SECONDS = 150  # later captures wait for the next existing minute tick
 
 
 def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
@@ -1239,51 +1356,31 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
     return facts
 
 
-def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None) -> tuple[dict, bool]:
-    """CC-314 (decision 82): TradingView's snapshot of the market, or, if that fails, CC-290's
-    fact card with the plan's numbers. Taken once per post: a resumed post reuses its image."""
+def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
+                ratio: str = "16:9", source_snapshot=None) -> tuple[dict | None, bool]:
+    """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
-    context_path = folder / "run_context_v1.json"
-    if context_path.is_file():
-        prior = json.loads(context_path.read_bytes())
-        assets = (prior.get("media") or {}).get("assets") or []
-        if assets and Path(assets[0]["path"]).is_file() \
-                and hashlib.sha256(Path(assets[0]["path"]).read_bytes()).hexdigest() == assets[0]["sha256"]:
-            return assets[0], bool(prior.get("chart_credit"))
-    if row.get("correction_of"):
-        return tv.fallback_card(title="Correction: both plans were waiting",
-            facts=[("EUR/USD zone", "1.1166–1.117"), ("US crude oil zone", "90.2–90.45"),
-                   ("At 04:16 / 04:18 ET", "Price had not reached either zone")],
-            dated_line="November 9, 2026", out_dir=folder / "media_assets"), False
-    if row.get("kind") == "result":
-        # Decision 19b: a new snapshot would include bars after this historical outcome.
-        # CC-314's existing fact-card fallback shows the exact result, count and plan levels.
-        at = _utc(row["at_utc"]).astimezone(PUBLIC_TZ)
-        return tv.fallback_card(title=f"{TITLES[row['symbol']]}: {row['result'].lower()}",
-            facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}",
-            out_dir=folder / "media_assets"), False
-    market = row["symbol"]
-    interval = tv.interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
-    media_dir = folder / "media_assets"
-    outcome = {"key": row["key"], "market": market, "interval": interval}
-    if snapshot_allowed is None or snapshot_allowed():
+    image_input = None
+    # CC-543 uses the existing CC-463 chart/scale/attribution checks. Its plain
+    # TradingView image must not wait for CC-465's model-reviewed template.
+    if (not source_snapshot and not row.get("state_alert_contract")
+            and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}):
+        from .image_template_inputs_v1 import from_plan, from_result
+        image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
+    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
+                             **({"image_input": image_input} if image_input else {}),
+                             **({"source_snapshot": source_snapshot} if source_snapshot else {}))
+    if image_input:
+        return asset, asset is not None
+    if asset:
+        from live_contentops import tradingview_plan_overlay_v1 as overlay
         try:
-            taken = (snapshot or tv.capture)(market, interval, media_dir)
-            asset = tv.snapshot_asset(market, TITLES[market], taken, media_dir)
-            tv.record_outcome({**outcome, "status": "CAPTURED", "asset_id": asset["asset_id"],
-                               "seconds": taken.get("seconds")})
-            return asset, True
-        except Exception as exc:  # noqa: BLE001 - a failed snapshot never stops the post
-            tv.record_outcome({**outcome, "status": "FAILED",
+            asset = overlay.apply(asset, row)
+        except (ValueError, KeyError, OSError) as exc:
+            tv.record_outcome({"key": row["key"], "market": row["symbol"], "status": "PLAIN_SNAPSHOT",
                                "cause": str(exc)[:200]})
-    else:
-        tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
-    at = _utc(row["at_utc"])
-    words = (f"plan result — {row['result'].lower()}" if row.get("kind") == "result" else
-             "why this plan" if row.get("kind") == "why" else STATE_WORDS.get(row.get("state"), "status update"))
-    card = tv.fallback_card(title=f"{TITLES[market]}: {words}",
-                            facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}", out_dir=media_dir)
-    return card, False
+    return asset, asset is not None
+
 
 
 def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
@@ -1301,7 +1398,8 @@ def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
 
 
 def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
-                 destinations: tuple = POST_DESTINATIONS, snapshot=None, snapshot_allowed=None) -> dict:
+                 destinations: tuple = POST_DESTINATIONS, snapshot=None, snapshot_allowed=None,
+                 cc603_asset=None) -> dict:
     """The post's package (its image, hosted copy, run context) and its coordinator plan."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
@@ -1310,7 +1408,8 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         from .plan_call_cards_v1 import prepare_post as card_post, DESTINATIONS as card_destinations
         if destinations == POST_DESTINATIONS:
             destinations = card_destinations
-        return card_post(store, key, root=root, host=host, destinations=destinations)
+        return card_post(store, key, root=root, host=host, destinations=destinations,
+                         snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if row.get("kind") == "result":
         if any(d not in API_DESTINATIONS for d in destinations):
             if destinations != POST_DESTINATIONS:
@@ -1318,11 +1417,32 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
             destinations = API_DESTINATIONS
     folder = Path(root) / key
     article = card_article(row)
-    card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+    context_path = folder / "run_context_v1.json"
+    prior_context = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
+    frozen_context = bool(prior_context and store.get_dispatches_for_work_item(key))
+    if frozen_context:
+        prior_assets = (prior_context.get("media") or {}).get("assets") or []
+        card = prior_assets[0] if prior_assets else None
+        chart_credit = bool(prior_context.get("chart_credit"))
+    elif row.get("correction_reply_contract"):
+        # Reuse the issued pre-event chart, retaining its source clock and credit.
+        from .plan_result_correction_cc646 import validate
+        validate(store, row)
+        card, chart_credit = row["retained_chart"], True
+        folder.mkdir(parents=True, exist_ok=True)
+    elif row.get("cc603_contract"):
+        from .tradingview_snapshot_v1 import validate_snapshot_asset
+        card = cc603_asset
+        if card is not None:
+            validate_snapshot_asset(card, {"market_asset": row["symbol"]})
+        chart_credit = card is not None
+        folder.mkdir(parents=True, exist_ok=True)
+    else:
+        card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if host is None:
         from live_contentops.cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
     manifest_path = folder / "delivery_media_manifest_v1.json"
-    if not _hosted(manifest_path, card):
+    if card and not _hosted(manifest_path, card):
         existing = json.loads(manifest_path.read_bytes()) if manifest_path.is_file() else None
         # The snapshot and the plan card are post images only (never on a site page). An older
         # package's title card keeps its article-asset route.
@@ -1333,16 +1453,15 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
             raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
         manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
-    full_payloads = destination_payloads(row, card_id=card["asset_id"], chart_credit=chart_credit)
+    full_payloads = destination_payloads(row, card_id=card["asset_id"] if card else None, chart_credit=chart_credit)
     payloads = _part_payloads(full_payloads)
-    context_path = folder / "run_context_v1.json"
-    prior_context = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
-               "selection": {}, "media": {"assets": [card]}, "plan_status_post": key,
+               "selection": {}, "media": {"assets": [card] if card else []}, "plan_status_post": key,
                "chart_credit": chart_credit,
                **({"status_post_continuations": prior_context["status_post_continuations"]}
                   if prior_context.get("status_post_continuations") else {})}
-    (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
+    if not frozen_context:
+        (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     rows = []
     for destination in destinations:
         registration = registration_for_destination(destination)
@@ -1356,11 +1475,11 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
             "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
             "story_identity": key, "article_identity": key, "package_identity": key,
             "publication_window": {"window_identity": key}, "output_dir": str(folder.resolve()),
-            "status_post_card_id": card["asset_id"], "transport_registry_version": REGISTRY_VERSION,
+            "status_post_card_id": card["asset_id"] if card else None, "transport_registry_version": REGISTRY_VERSION,
             "policy_mode_version": "AUTONOMOUS_DEFAULT:cc306.v1", "destinations": rows}
     continuations = []
     for part in range(1, max(len(p.get("parts") or [p]) for p in full_payloads.values())):
-        chosen = _part_payloads(full_payloads, part)
+        chosen = _part_payloads(full_payloads, part, repeat_media=bool(row.get("cc603_contract")))
         child = f"{key}-part-{part}"
         child_rows = [{**r, "payload": chosen[r["destination"]]["full_text"],
                        "payload_hash": hashlib.sha256(chosen[r["destination"]]["full_text"].encode()).hexdigest()}
@@ -1368,9 +1487,12 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         if child_rows:
             continuations.append({**plan, "plan_status_part": part, "work_item_id": child,
                 "story_identity": child, "article_identity": child, "package_identity": child,
-                "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+                # A formerly text-only CC-603 part was a definite no-write.
+                # Preserve that intent and give its image repair a new dispatch.
+                "plan_hash": hashlib.sha256(("plan-status-post:" + child +
+                    (":cc603-image:" + card["asset_id"] if row.get("cc603_contract") and card else "")).encode()).hexdigest(),
                 "destinations": child_rows})
-    if set(destinations) == set(API_DESTINATIONS):
+    if set(destinations) == set(API_DESTINATIONS) and not frozen_context:
         context["status_post_continuations"] = continuations
         (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     return {**plan, "continuations": continuations}
@@ -1381,13 +1503,17 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     context = json.loads((Path(output_dir) / "run_context_v1.json").read_bytes())
     if context.get("plan_status_post") != key:
         raise PlanPostError("PLAN_STATUS_POST_PACKAGE_MISMATCH")
-    card_id = context["media"]["assets"][0]["asset_id"]
+    card_id = (context["media"]["assets"][0]["asset_id"] if context["media"]["assets"] else None)
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
-                                 carousel=context.get("status_post_instagram_carousel"))
+                                 carousel=context.get("status_post_instagram_carousel"),
+                                  portrait_id=context.get("status_post_threads_image"),
+                                 chart_credit=bool(context.get("chart_credit")),
+                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
-                              chart_credit=bool(context.get("chart_credit"))), part)
+                              chart_credit=bool(context.get("chart_credit"))), part,
+                              repeat_media=bool(row.get("cc603_contract")))
 
 
 def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any]) -> dict:
@@ -1396,6 +1522,11 @@ def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any])
     if not isinstance(part, int) or part < 0 or work_item_id != (f"{key}-part-{part}" if part else key):
         raise PlanPostError("PLAN_STATUS_POST_WORK_ITEM_MISMATCH")
     row, payloads = _expected(store, key, str(plan.get("output_dir") or ""), part)
+    context = json.loads((Path(plan["output_dir"]) / "run_context_v1.json").read_bytes())
+    from .tradingview_plan_overlay_v1 import validate as validate_overlay
+    for asset in (context.get("media") or {}).get("assets") or []:
+        if asset.get("plan_overlay"):
+            validate_overlay(asset, _row_payload(store, asset["plan_overlay"]["source"]["key"]))
     for item in plan.get("destinations") or []:
         destination = item.get("destination")
         if (destination not in payloads or item.get("payload") != payloads[destination]["full_text"]
@@ -1409,12 +1540,24 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    if row.get("correction_reply_contract"):
+        from .plan_result_correction_cc646 import validate
+        validate(store, row)
+    # Decision 82 / CC-459: exact readback remains available for old objects,
+    # while a fresh write can never send the parked drawn levels picture.
+    context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
+    assets = (context.get("media") or {}).get("assets") or []
+    if ((row.get("state_alert_contract") and not assets)
+            or any(a.get("modality") != "tradingview_chart_snapshot" for a in assets)):
+        raise PlanPostError("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     if row.get("format") == 4:
         # Frozen copy is the authority. A later formatter or disclosure change
         # cannot rewrite it or make an exact historical intent fail comparison.
         # The intent/parent equality and current public-copy checks below stay.
         from .plan_call_cards_v1 import validate_parent_intent
         validate_parent_intent(store, row, intent)
+        if not assets:
+            raise PlanPostError("EVERY_POST_IMAGE_REQUIRED:" + str(row.get("kind")))
     elif row.get("kind") == "result":
         expected = compose_result({**row, "plan": row["levels"]})["text"]
         if row["text"] != expected:
@@ -1424,7 +1567,12 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
             or intent.get("native_payload") != payloads.get(destination)):
         raise PlanPostError("PLAN_STATUS_POST_INTENT_COPY_CHANGED")
     check_publication_copy({"post": payloads[destination]["full_text"]},
-                           conditional_calls=(row.get("conditional_calls") or []) if not part else [])
+                           conditional_calls=(row.get("conditional_calls") or []) if not part else [],
+                           require_call_text=not (row.get("cc603_contract") and
+                               (row.get("candidate") or {}).get("source_kind") == "ARTICLE"))
+    if row.get("cc603_contract"):
+        from .call_followups_v1 import validate_intent
+        validate_intent(store, row, intent)
 
 
 FRESHNESS_MINUTES = 60
@@ -1434,8 +1582,12 @@ STALE = "STALE_NOT_POSTED"
 def freshness_limit_minutes(payload) -> int:
     """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS. A why follow-up
     stays postable while its plan is valid, up to LATE_STATE_HOURS; a change of the plan's state supersedes it."""
+    if payload.get("cc603_contract") and payload.get("kind") == "correction":
+        return float("inf")  # Dated corrections remain owed, including their retained Neo request.
     if payload.get("format") == 4 and payload.get("kind") in {"result", "update"}:
         return float("inf")  # An announced call's dated updates and ending remain owed.
+    if payload.get("format") == 4:
+        return FRESHNESS_MINUTES  # CC-584: cards and run roots share the state clock.
     if payload.get("kind") == "result":
         return float("inf")  # Dated results remain owed; age never turns them into a fresh call.
     if payload.get("why_follow_up"):
@@ -1449,6 +1601,51 @@ SUPERSEDED = "SUPERSEDED_NOT_POSTED"
 
 def _age_minutes(payload, now):
     return (now - _utc(payload["at_utc"])).total_seconds() / 60
+
+
+def publication_refusal(store, payload, *, now=None, latest_states=None):
+    """One freshness rule for queued cards and their final fresh-write check.
+
+    This never rewrites an issued payload or settles an uncertain dispatch.
+    Exact-object readback remains the coordinator's responsibility.
+    """
+    now = now or datetime.now(timezone.utc)
+    held = store.get_outbox_message(payload["key"]) or {}
+    for state in (held.get("status", ""), payload.get("state", "")):
+        if str(state).startswith(("STALE", "SUPERSEDED")):
+            return (STALE if str(state).startswith("STALE") else SUPERSEDED, "PLAN_POST_" + str(state))
+    current = (latest_states or {}).get(payload.get("plan_id"))
+    if current and (str(current).startswith(("STALE", "SUPERSEDED"))
+                    or (payload.get("kind") == "setup" and current != payload.get("state"))):
+        return SUPERSEDED, "PLAN_ALREADY_" + str(current)
+    if payload.get("kind") == "update" and payload.get("state") in ACTIVE:
+        from .plan_call_cards_v1 import TERMINAL
+        if current in TERMINAL | {"RESULT"}:
+            return SUPERSEDED, "PLAN_UPDATE_SUPERSEDED_BY_" + str(current)
+    if _age_minutes(payload, now) > freshness_limit_minutes(payload):
+        return STALE, "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT"
+    if payload.get("kind") == "setup" and payload.get("time_exit_utc") and now >= _utc(payload["time_exit_utc"]):
+        return SUPERSEDED, "PLAN_ALREADY_ENDED"
+    return None
+
+
+def current_public_plan(plan_id, *, registration_hash=None, now=None):
+    """Read Main's existing public observation; never start Main or a price job."""
+    now = now or datetime.now(timezone.utc)
+    try:
+        view = read_export(EXPORT_DIR)["status"]
+        age = (now - _utc(view["generated_at_utc"])).total_seconds()
+        if not 0 <= age <= EXPORT_MAX_AGE_MINUTES * 60:
+            raise PlanPostError("PLAN_PUBLIC_STATE_EXPORT_STALE")
+        matches = [p for p in view["plans"] if p.get("plan_id") == plan_id]
+        if len(matches) != 1:
+            raise PlanPostError("PLAN_PUBLIC_STATE_EXACT_PLAN_REQUIRED")
+        plan = matches[0]
+        if registration_hash and plan.get("registration_hash") != registration_hash:
+            raise PlanPostError("PLAN_PUBLIC_STATE_REGISTRATION_CHANGED")
+        return plan
+    except (OSError, KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise PlanPostError("PLAN_PUBLIC_STATE_UNREADABLE:" + type(exc).__name__) from exc
 
 
 def scope_to_post(coordinator, key: str, plan: Mapping[str, Any]) -> None:
@@ -1478,7 +1675,8 @@ def _api_confirmed(store, key: str, *, root: Path = POST_ROOT) -> bool:
 
 
 def publish_ready(store, *, latest_states=None, active_recoveries=None, now: datetime | None = None, coordinator_for=None,
-                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False) -> dict:
+                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False,
+                  immediate_only=False) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
@@ -1489,6 +1687,15 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     retry); a row with all three confirmed is done, so an idle run touches nothing.
     """
     now = now or datetime.now(timezone.utc)
+    if immediate_only:
+        import time
+        from .plan_call_cards_v1 import publish_ready as publish_cards
+        from .plan_state_alerts_v1 import IMMEDIATE_DESTINATIONS
+        started = time.monotonic()
+        return publish_cards(store, now=now, latest_states=latest_states, root=root, host=host,
+            coordinator_for=coordinator_for, limit=limit, automatic_neo=False,
+            destinations=IMMEDIATE_DESTINATIONS, snapshot=snapshot,
+            snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
@@ -1504,6 +1711,11 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         payload = json.loads(row["payload"])
         if payload.get("format") == 4:
             continue  # CC-399 uses run -> card -> later-post dependency ordering below.
+        from .plan_call_cards_v1 import settle_pending
+        settled = settle_pending(store, row, payload, now=now, root=root)
+        if settled:
+            results.append(settled)
+            continue
         recovered = _recoverable(payload, active_recoveries, now)
         freshness = LATE_STATE_HOURS * 60 if recovered else freshness_limit_minutes(payload)
         if row["status"] == READY:
@@ -1573,10 +1785,18 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                         "destination_causes": causes})
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
-                                 host=host, coordinator_for=coordinator_for, limit=limit)
+                                 host=host, coordinator_for=coordinator_for, limit=limit, automatic_neo=automatic_neo,
+                                 snapshot=snapshot, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     from .plan_analysis_pages_v1 import distribute_links
     links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
-    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links}
+    pending_ages = [_age_minutes(json.loads(row["payload"]), now)
+        for row in store.list_outbox_messages(destination=DESTINATION)
+        if row["status"] in {READY, "PUBLISHING"}]
+    queue_health = {"pending": len(pending_ages),
+        "older_than_24_hours": sum(age > LATE_STATE_HOURS * 60 for age in pending_ages),
+        "oldest_age_minutes": round(max(pending_ages), 3) if pending_ages else None}
+    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links,
+            "pending_post_queue": queue_health}
 
 
 def destination_causes(outcome: Mapping[str, Any]) -> dict:
@@ -1627,6 +1847,9 @@ def pending_x(store, *, now: datetime | None = None, destination: str = "x") -> 
                                      allow_publish=True, identity_at_action=True)
         for packet in executor.pending():
             request = packet["request"]
+            from .plan_call_cards_v1 import settled_destinations
+            if request.get("destination") in settled_destinations(store, payload):
+                continue
             if request.get("destination") == destination:
                 pending.append({"key": row["message_id"], "request_sha256": request["request_sha256"],
                                 "action": request["action"], "age_minutes": round(_age_minutes(payload, now), 1),

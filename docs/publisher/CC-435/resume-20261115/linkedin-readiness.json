@@ -1,0 +1,9 @@
+{
+  "state": "READY_OFFICIAL_MEMBER_API",
+  "authenticated": true,
+  "expiry_at_utc": "2026-12-19T12:31:13.032712Z",
+  "days_remaining": 33,
+  "readback_capability": "READBACK_CAPABILITY_LIMITED",
+  "observed_at_utc": "2026-11-15T12:49:47.563433+00:00",
+  "network_probe_performed": false
+}

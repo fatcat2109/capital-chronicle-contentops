@@ -1,0 +1,148 @@
+{
+  "observed_at_utc": "2026-11-15T12:19:42.600363+00:00",
+  "installed_head": "c18d4e967ab78803dac71a5ecbe19595bbbab5c3",
+  "scheduled_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "interpreter": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "schedule_changed": false
+  },
+  "first_recovered_consumer_result": {
+    "at_utc": "2026-11-15T12:17:29.204641Z",
+    "status": "OK",
+    "cause": null,
+    "phase": "IMMEDIATE_ALERTS",
+    "export_generated_at_utc": "2026-11-15T12:17:25.227033Z",
+    "export_age_seconds": 2.0,
+    "queued": 2,
+    "publication": "OK",
+    "posts_by_status": {
+      "SETTLED": 2
+    },
+    "pending_post_queue": null,
+    "recovered_endings": [
+      {
+        "cause": "LATE_STATE_LIMIT_24_HOURS",
+        "destination_causes": {
+          "discord": "LATE_STATE_LIMIT_24_HOURS",
+          "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+          "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+          "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+          "telegram": "LATE_STATE_LIMIT_24_HOURS",
+          "threads": "LATE_STATE_LIMIT_24_HOURS",
+          "x": "CARD_PARENT_NOT_CONFIRMED"
+        },
+        "key": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9",
+        "per_destination": {
+          "discord": "SETTLED",
+          "facebook_page": "SETTLED",
+          "instagram_business": "SETTLED",
+          "substack_notes": "SETTLED",
+          "telegram": "SETTLED",
+          "threads": "SETTLED",
+          "x": "SETTLED"
+        },
+        "status": "SETTLED"
+      },
+      {
+        "cause": "LATE_STATE_LIMIT_24_HOURS",
+        "destination_causes": {
+          "discord": "LATE_STATE_LIMIT_24_HOURS",
+          "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+          "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+          "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+          "telegram": "LATE_STATE_LIMIT_24_HOURS",
+          "threads": "CARD_PARENT_NOT_CONFIRMED",
+          "x": "CARD_PARENT_NOT_CONFIRMED"
+        },
+        "key": "plan-result-post-3146555dc07bb4e02af912e48e610ea8",
+        "per_destination": {
+          "discord": "SETTLED",
+          "facebook_page": "SETTLED",
+          "instagram_business": "SETTLED",
+          "substack_notes": "SETTLED",
+          "telegram": "SETTLED",
+          "threads": "SETTLED",
+          "x": "SETTLED"
+        },
+        "status": "SETTLED"
+      }
+    ],
+    "other_post_result_count": 0
+  },
+  "latest_completed_consumer_result": {
+    "at_utc": "2026-11-15T12:18:34.543224Z",
+    "status": "OK",
+    "cause": null,
+    "export_generated_at_utc": "2026-11-15T12:17:25.227033Z",
+    "export_age_seconds": 2.0,
+    "queued": 2,
+    "publication": "OK",
+    "posts_by_status": {},
+    "pending_post_queue": {
+      "older_than_24_hours": 0,
+      "oldest_age_minutes": null,
+      "pending": 0
+    },
+    "recovered_endings": [],
+    "other_post_result_count": 0
+  },
+  "recovered_endings": [
+    {
+      "key": "plan-result-post-3146555dc07bb4e02af912e48e610ea8",
+      "status": "SETTLED",
+      "created_at_utc": "2026-11-15T12:17:28.835118+00:00",
+      "source_event_utc": "2026-11-10T13:30:00Z",
+      "parent_key": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+      "source_plan_registration": "aa9226e644a051df385a1c91f9b6840d0bba02b7e081f5109b21e8291e6e50fd",
+      "payload_sha256": "8efa1edc41b490ba03462dd2b25e75953d1c1149ef0a05d9154887926ae8d032",
+      "settled_destination_causes": {
+        "threads": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED",
+        "discord": "LATE_STATE_LIMIT_24_HOURS",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "LATE_STATE_LIMIT_24_HOURS"
+      },
+      "confirmed_destinations": []
+    },
+    {
+      "key": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9",
+      "status": "SETTLED",
+      "created_at_utc": "2026-11-15T12:17:28.860271+00:00",
+      "source_event_utc": "2026-11-12T23:00:00Z",
+      "parent_key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "source_plan_registration": "2e9a7170c25e5a90935cc4b02a88ace95af9ec63344785ce7074b5af42e2dece",
+      "payload_sha256": "2d5597cdab071a62cb57cc842bfdc1459f7870ca7b4f98a1e6c6f55d83dcd8b9",
+      "settled_destination_causes": {
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "discord": "LATE_STATE_LIMIT_24_HOURS",
+        "threads": "LATE_STATE_LIMIT_24_HOURS",
+        "telegram": "LATE_STATE_LIMIT_24_HOURS",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "confirmed_destinations": []
+    }
+  ],
+  "main_export": {
+    "generated_at_utc": "2026-11-15T12:17:25.227033Z",
+    "plan_count": 89,
+    "latest_registration_utc": "2026-11-12T17:40:00.360572Z"
+  },
+  "remaining": {
+    "cause": "NEXT_MAIN_PLAN_NOT_REGISTERED",
+    "checked_at_utc": "2026-11-15T12:18:25.480544+00:00",
+    "owner": "Existing Main producer, then existing Publisher minute consumer",
+    "next_action": "Consume the next actual Main plan through the installed card route and read back its Discord thread, analysis link and later ending.",
+    "why_existing_endings_cannot_prove_next_live_ending": "The recovered 10/12 November events are beyond the unchanged 24-hour late-state limit (CC-306/CC-515); the normal minute owner records their settlement without posting an old state as current.",
+    "new_count_post_required": false,
+    "new_count_post_superseded_by": "CC-466"
+  },
+  "public_submits_by_this_run": 0,
+  "synthetic_plans_created": 0,
+  "historical_payloads_edited": 0
+}

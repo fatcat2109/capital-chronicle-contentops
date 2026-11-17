@@ -1,0 +1,8 @@
+{
+  "observed_at_utc": "2026-11-15T11:01:21.244638+00:00",
+  "consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "installed_sha256": "3a96f9de018e0fa381326dbc26b743e3418fb555e310ddc7686454c94d736107",
+  "tested_builder_sha256": "3a96f9de018e0fa381326dbc26b743e3418fb555e310ddc7686454c94d736107",
+  "new_process_import": true,
+  "live_store_mutated": false
+}

@@ -27,12 +27,12 @@ AUTHORITY = "JIM_DECISIONS_20261030_DECISION_39"
 
 
 @contextmanager
-def newsroom_lease(store):
+def newsroom_lease(store, *, preparation_only=False):
     """Serialize live CLI steps using the existing lease table, including windows."""
     owner = "native-newsroom-" + uuid4().hex
     lease = store.acquire_lease("internal:native-editorial:newsroom", owner, ttl_seconds=900)
     try:
-        assert_newsroom_idle(store, own_lease=lease["lease_id"])
+        assert_newsroom_idle(store, own_lease=lease["lease_id"], preparation_only=preparation_only)
         yield lease
     finally:
         store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
@@ -45,11 +45,18 @@ def utc(value):
     return result.astimezone(timezone.utc)
 
 
-def assert_newsroom_idle(store, *, own_lease=None):
+def assert_newsroom_idle(store, *, own_lease=None, preparation_only=False):
+    # Other public workers serialize dispatch, not source-bound preparation.
+    # Newsroom windows and editorial operations still exclude a standing entry.
+    scope = ("AND (lease_key LIKE 'internal:native-editorial:%' "
+             "OR lease_key LIKE 'internal:native-window:%') " if preparation_only else "")
+    # Reply-tab refresh owns different drafts. It does not own the article
+    # import; the existing coordinator still serializes actual dispatches.
     with store.get_read_only_connection() as conn:
         active = conn.execute(
             "SELECT lease_key FROM leases WHERE status='ACTIVE' AND expires_at>? "
-            "AND lease_id!=? LIMIT 1", (store._get_now_iso(), own_lease or ""),
+            "AND lease_id!=? AND lease_key!='x-reply-tabs-refresh' " + scope + "LIMIT 1",
+            (store._get_now_iso(), own_lease or ""),
         ).fetchone()
     if active:
         raise ValueError("NEWSROOM_LEASE_ACTIVE:" + active[0])
@@ -114,7 +121,7 @@ def standing_binding(profile, rollout, *, operation_id, resolver, request=None, 
     live_publication_policy(rollout)
     store = ContentOpsDurableStore(rollout["store_path"], auto_migrate=False)
     now = now or datetime.now(timezone.utc)
-    with newsroom_lease(store):
+    with newsroom_lease(store, preparation_only=True):
         published = list(confirmed_canonicals(store))
         completed = {p["run_id"] for p in published}
         day = newsroom_production_day_id(now)
@@ -128,7 +135,7 @@ def standing_binding(profile, rollout, *, operation_id, resolver, request=None, 
 
 def check_finished_piece(store, binding):
     """Recheck the exact writer return, facts, clocks, public text and chart lineage."""
-    from live_contentops.event_article_guard_v1 import check_publication_copy, check_public_event_article
+    from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE, check_publication_copy, check_public_event_article
     from live_contentops.v1_simple_gemini_newsroom_v1 import (
         _normalize_relay_attribution, _public_copy, _validate_article_against_source_pack,
     )
@@ -177,7 +184,8 @@ def check_finished_piece(store, binding):
             require_notice=False, require_call_text=False)
     if _private(result["article"]):
         raise ValueError("FINISHED_PIECE_PUBLIC_OUTPUT_GUARD")
-    if "analysis, not financial advice" not in surfaces[0].casefold():
+    if ("analysis, not financial advice" not in surfaces[0].casefold()
+            and PUBLIC_NOTICE.casefold() not in surfaces[0].casefold()):
         raise ValueError("FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED")
     event_packet = (response["output"].get("event_article")
                     or response["output"]["article"].get("event_article_packet"))

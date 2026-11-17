@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-17T07:07:20.930892+00:00",
+  "launches": [
+    {
+      "pid": 27744,
+      "parent_pid": 27704,
+      "started": "/Date(1794899007533)/",
+      "model": "gpt-6.1-sol",
+      "effort": "high",
+      "telemetry": "CONFIGURED_NOT_OBSERVED"
+    }
+  ]
+}

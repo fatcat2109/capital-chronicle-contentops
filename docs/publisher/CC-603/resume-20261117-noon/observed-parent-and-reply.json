@@ -1,0 +1,61 @@
+{
+  "chart_images": [
+    {
+      "height": 320,
+      "url": "https://substackcdn.com/image/fetch/$s_!DL96!,w_568,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5b9a1b4d-e285-46c1-8fc4-fba3ce823d34_1524x858.png",
+      "width": 568
+    }
+  ],
+  "notes": [
+    {
+      "is_parent": true,
+      "is_related": false,
+      "links": [
+        {
+          "text": "",
+          "url": "https://substack.com/@capitalchronicle?utm_source=substack-feed-item"
+        },
+        {
+          "text": "Capital Chronicle",
+          "url": "https://substack.com/@capitalchronicle"
+        },
+        {
+          "text": "1d",
+          "url": "https://substack.com/@capitalchronicle/note/c-388486151"
+        },
+        {
+          "text": "@capitalchronicle",
+          "url": "https://substack.com/@capitalchronicle"
+        },
+        {
+          "text": "t.me\n\nCapital Chronicle\n\nCapital Chronicle | Public call results Results: 42 | HIT: 0 | STOPPED: 5 | EXPIRED: 37 | NOT TRIGGERED: 0 Scored: 6; unscored expiries: 36. 2026-11-12 ET | Micro WTI crude oil (MCL futures, Jan 2027) | original direction was bullish | entry zone 85.75–86.05 (plan levels) | EXPIRED (untriggered; no…",
+          "url": "https://t.me/CapitalChronicle/134"
+        },
+        {
+          "text": "View stats",
+          "url": "https://substack.com/@capitalchronicle/note/c-388486151/stats"
+        }
+      ],
+      "main_contains": true,
+      "text": "Original, 10 Nov 2026 22:27 ET: “If price trades into 76,000–76,700, the desk is bearish on Bitcoin over the period to 1 Dec 21:07 ET. Invalidated if price moves above 78,900.”\n\nBy the 12 Nov 19:30 ET price bar, price reached 70,700. Our entry zone never traded; this was a directional view, with no trade.\n\nThe price check uses the original plan's prices; the TradingView chart shows the move in its own market feed.\n\nOriginal:\n\nPinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.\n\nRecord:\n\nChart: TradingView\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    {
+      "is_parent": false,
+      "is_related": false,
+      "links": [
+        {
+          "text": "Capital Chronicle",
+          "url": "https://substack.com/profile/356792394-capital-chronicle"
+        },
+        {
+          "text": "40m",
+          "url": "https://substack.com/profile/356792394-capital-chronicle/note/c-389505878"
+        }
+      ],
+      "main_contains": true,
+      "text": "Original:\n\nRecord:\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    }
+  ],
+  "observed_at_utc": "2026-11-17T05:42:26.713Z",
+  "url": "https://substack.com/@capitalchronicle/note/c-388486151"
+}

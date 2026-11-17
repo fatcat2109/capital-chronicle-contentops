@@ -1,0 +1,326 @@
+{
+  "since_utc": "2026-11-12T12:31:37.228267+00:00",
+  "latest_stored_run_at_utc": "2026-11-13T19:01:24.775643+00:00",
+  "counts": {
+    "rank_prompts_examined": 505,
+    "statistics_target_appearances": 41
+  },
+  "distinct_statistics_targets": 8,
+  "above_floor_attempts": [
+    {
+      "post_id": "2120868458460221542",
+      "run": "20261112T131926-c9a3a59a",
+      "quality_score": 84,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131926-c9a3a59a\\editorial\\rank\\prompt.txt",
+        "bytes": 7077,
+        "sha256": "c3c9382d399f74ea6560e95fc5e4d370df49fad00953ccc0c17a47ddce556eec"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131926-c9a3a59a\\editorial\\rank\\response.json",
+        "bytes": 1481,
+        "sha256": "d2f73c389c8fe18793c9eed113216f533ec86490b540be10b8b7cf4b9b6694b3"
+      },
+      "ranker_reason_sha256": "2664e66c3bff111ff29004436e0d64acadf35b3ec8622989c14a60a35e50aa7c",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "WRITER_OMITTED_TARGET",
+      "facts": [
+        {
+          "text": "Bitcoin: 59 of 103 higher next-session closes after daily losses of at least 6.5%, 2016-11-10 to 2026-11-10 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 10 Nov 2026",
+          "sample_count": 103
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2120876066269171908",
+      "run": "20261112T134826-b6353160",
+      "quality_score": 85,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\prompt.txt",
+        "bytes": 16144,
+        "sha256": "4b073c09b5552bdb9ecea3b5c74bc1591c8a437e63fab5be3287191e7924fd61"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\response.json",
+        "bytes": 3150,
+        "sha256": "de34d3c813a474b7dbd8a64835ac9f22aacc1ce1f2b40aefb6813a268a9ff83c"
+      },
+      "ranker_reason_sha256": "b15c8f3a76da45a4c4e595f30d8f1a19ce85c3b826929f22ade4d26b494f4e46",
+      "run_status": "REPLY_BOT_FAILED",
+      "run_cause": "CODEX_EXIT_1",
+      "omission": null,
+      "facts": [
+        {
+          "text": "Gold futures: 649 of 1149 higher next-session closes after daily losses, 2016-11-14 to 2026-11-10 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 10 Nov 2026",
+          "sample_count": 1149
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121235459187826884",
+      "run": "20261113T134027-5ccfaf10",
+      "quality_score": 85,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T134027-5ccfaf10\\editorial\\rank\\prompt.txt",
+        "bytes": 10016,
+        "sha256": "5ee9e73e29b6683177402d7086e683740bb9fc025bc51e2002c0c989b71a702f"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T134027-5ccfaf10\\editorial\\rank\\response.json",
+        "bytes": 1767,
+        "sha256": "2b15348249b8f4947f58a752ff6f05d9bfcc1fb43d905bc495b9dd4cf51a0098"
+      },
+      "ranker_reason_sha256": "8834efcd27f0ff88dac773cc0ec65b5a08e842fb91ccfedeee1c663edf08a102",
+      "run_status": "DELIVERED",
+      "run_cause": null,
+      "omission": null,
+      "facts": [
+        {
+          "text": "Gold futures: 697 of 1349 higher next-session closes after daily gains, 2016-11-14 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 1349
+        }
+      ],
+      "authored_source_ids": [
+        "held-reply-fact-87459e02d63b561f2342589ce835fe4b91053f1670b297c78a1d2be24a12c9d2"
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "post_id": "2120876066269171908",
+      "run": "20261112T134826-b6353160",
+      "quality_score": 85,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\prompt.txt",
+        "bytes": 16144,
+        "sha256": "4b073c09b5552bdb9ecea3b5c74bc1591c8a437e63fab5be3287191e7924fd61"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\response.json",
+        "bytes": 3150,
+        "sha256": "de34d3c813a474b7dbd8a64835ac9f22aacc1ce1f2b40aefb6813a268a9ff83c"
+      },
+      "ranker_reason_sha256": "b15c8f3a76da45a4c4e595f30d8f1a19ce85c3b826929f22ade4d26b494f4e46",
+      "run_status": "REPLY_BOT_FAILED",
+      "run_cause": "CODEX_EXIT_1",
+      "omission": null,
+      "facts": [
+        {
+          "text": "Gold futures: 649 of 1149 higher next-session closes after daily losses, 2016-11-14 to 2026-11-10 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 10 Nov 2026",
+          "sample_count": 1149
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121235459187826884",
+      "run": "20261113T134027-5ccfaf10",
+      "quality_score": 85,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T134027-5ccfaf10\\editorial\\rank\\prompt.txt",
+        "bytes": 10016,
+        "sha256": "5ee9e73e29b6683177402d7086e683740bb9fc025bc51e2002c0c989b71a702f"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T134027-5ccfaf10\\editorial\\rank\\response.json",
+        "bytes": 1767,
+        "sha256": "2b15348249b8f4947f58a752ff6f05d9bfcc1fb43d905bc495b9dd4cf51a0098"
+      },
+      "ranker_reason_sha256": "8834efcd27f0ff88dac773cc0ec65b5a08e842fb91ccfedeee1c663edf08a102",
+      "run_status": "DELIVERED",
+      "run_cause": null,
+      "omission": null,
+      "facts": [
+        {
+          "text": "Gold futures: 697 of 1349 higher next-session closes after daily gains, 2016-11-14 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 1349
+        }
+      ],
+      "authored_source_ids": [
+        "held-reply-fact-87459e02d63b561f2342589ce835fe4b91053f1670b297c78a1d2be24a12c9d2"
+      ]
+    },
+    {
+      "post_id": "2120868458460221542",
+      "run": "20261112T131926-c9a3a59a",
+      "quality_score": 84,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131926-c9a3a59a\\editorial\\rank\\prompt.txt",
+        "bytes": 7077,
+        "sha256": "c3c9382d399f74ea6560e95fc5e4d370df49fad00953ccc0c17a47ddce556eec"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131926-c9a3a59a\\editorial\\rank\\response.json",
+        "bytes": 1481,
+        "sha256": "d2f73c389c8fe18793c9eed113216f533ec86490b540be10b8b7cf4b9b6694b3"
+      },
+      "ranker_reason_sha256": "2664e66c3bff111ff29004436e0d64acadf35b3ec8622989c14a60a35e50aa7c",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "WRITER_OMITTED_TARGET",
+      "facts": [
+        {
+          "text": "Bitcoin: 59 of 103 higher next-session closes after daily losses of at least 6.5%, 2016-11-10 to 2026-11-10 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 10 Nov 2026",
+          "sample_count": 103
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121270938926813587",
+      "run": "20261113T160638-9898b682",
+      "quality_score": 78,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T160638-9898b682\\editorial\\rank\\prompt.txt",
+        "bytes": 5672,
+        "sha256": "33cafa1963fc381df74c700fb50f241680eb5eaa18f5df0f49254aaf758c2097"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T160638-9898b682\\editorial\\rank\\response.json",
+        "bytes": 541,
+        "sha256": "cadc850cf1f29459f86fed8433e3e6ddfa52b017c810fb64417e9fa9e7249c12"
+      },
+      "ranker_reason_sha256": "bc2f99de07785a5212a0a7a93710b11804056b71226f3590bd93b239699f6979",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+      "facts": [
+        {
+          "text": "Bitcoin: 24 of 35 higher next-session closes after daily losses of at least 10%, 2016-11-10 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 35
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121117825033195898",
+      "run": "20261113T054828-3418ce29",
+      "quality_score": 76,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T054828-3418ce29\\editorial\\rank\\prompt.txt",
+        "bytes": 4934,
+        "sha256": "3303dadc6141c5c82d539ee19a93f909e24abe533c17e1b4a72c944a0d1e2ed9"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T054828-3418ce29\\editorial\\rank\\response.json",
+        "bytes": 672,
+        "sha256": "07e3518a2985442a3a23adddc37ca0b314706195298bdbd298055f698e9dc52c"
+      },
+      "ranker_reason_sha256": "9088b443621ba7e9f2df7ed16dbdb2dd9d2a09651e465f80e09922314c639ed7",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+      "facts": [
+        {
+          "text": "USD/JPY: 673 of 1305 higher next-session closes after daily gains, 2016-11-10 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 1305
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121206485170491815",
+      "run": "20261113T114528-ff82fedf",
+      "quality_score": 76,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T114528-ff82fedf\\editorial\\rank\\prompt.txt",
+        "bytes": 5825,
+        "sha256": "0ff3af81028339400635d7123c9da8b27550ebc277f87f2fac4d4bb50a92aeca"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T114528-ff82fedf\\editorial\\rank\\response.json",
+        "bytes": 1154,
+        "sha256": "7084f9364b2a14658011f52ec14e76e0afd8e2399baae74fbe66d2067736eb44"
+      },
+      "ranker_reason_sha256": "9d7f2322b308a3ff028eb60c84c259897e6acc9f296f13030fcc365e7e53de1b",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+      "facts": [
+        {
+          "text": "Bitcoin: 241 of 432 higher next-session closes after daily losses of at least 3%, 2016-11-10 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 432
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121122714538709332",
+      "run": "20261113T061328-2bfc978e",
+      "quality_score": 68,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T061328-2bfc978e\\editorial\\rank\\prompt.txt",
+        "bytes": 4086,
+        "sha256": "f04615abb2fac107b903747d7d66ae3428de73305c8c921159575f55f90d9ec6"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T061328-2bfc978e\\editorial\\rank\\response.json",
+        "bytes": 458,
+        "sha256": "5d6027a8751208e0fa15d90e565cac4cd6077c51caf9a4d59f70a07a6fa60c5d"
+      },
+      "ranker_reason_sha256": "fe5f78a2d1efe2bf94bcfdac7b2a7719454aade15485e770ec3d881506c28940",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+      "facts": [
+        {
+          "text": "USD/JPY: 629 of 1129 higher next-session closes after daily losses, 2016-11-10 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 1129
+        }
+      ],
+      "authored_source_ids": []
+    },
+    {
+      "post_id": "2121206306744725784",
+      "run": "20261113T114727-262b03f0",
+      "quality_score": 54,
+      "rank_prompt": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T114727-262b03f0\\editorial\\rank\\prompt.txt",
+        "bytes": 5825,
+        "sha256": "0bbb7235c090e6252e313879dd4ab9e3f9b7bf435a17e270cd85bad6233cc06d"
+      },
+      "rank_response": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T114727-262b03f0\\editorial\\rank\\response.json",
+        "bytes": 1076,
+        "sha256": "5202102ae79c82b70aa86e645618c13ef07be9771256ca94c79befb77490eb2b"
+      },
+      "ranker_reason_sha256": "fb32a94d8862671c233f41c2710f3d89416400ff4da9086371246afd42a47050",
+      "run_status": "NO_FRESH_UNSENT_DRAFTS",
+      "run_cause": null,
+      "omission": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+      "facts": [
+        {
+          "text": "Bitcoin: 241 of 432 higher next-session closes after daily losses of at least 3%, 2016-11-10 to 2026-11-11 (desk count).",
+          "kind": "base_rate",
+          "age": "historical count; last observation 11 Nov 2026",
+          "sample_count": 432
+        }
+      ],
+      "authored_source_ids": []
+    }
+  ],
+  "errors": []
+}

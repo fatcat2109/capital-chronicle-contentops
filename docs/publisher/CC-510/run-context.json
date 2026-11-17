@@ -1,0 +1,35 @@
+{
+  "item": "CC-510",
+  "branch": "backlog/cc-510-reply-base-rates",
+  "base": "5e115106f0bf79b56135cbd2023f17bd6237496b",
+  "base_reason": "CC-510 explicitly names the current ContentOps operating HEAD as its base.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_arguments_readback": true,
+  "launch_process_id": 31968,
+  "continuation_launch_process_id": 27900,
+  "continuation_launch_readback_at_utc": "2026-11-12T11:40:22Z",
+  "continuation_configured_model": "gpt-6.1-sol",
+  "continuation_configured_effort": "max",
+  "continuation_configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "initial_worktree_clean": true,
+  "interruption_check_at_utc": "2026-11-12T11:21:37Z",
+  "remote_branch_existed_at_interruption_check": false,
+  "live_step_performed": false,
+  "schedule_changed": false,
+  "targeted_validation": {
+    "consumer_regressions_passed": 122,
+    "consumer_regressions_seconds": 51.98,
+    "final_module_followup_passed": 39,
+    "parallel_pytest_workers": 0,
+    "full_suite_run": false
+  },
+  "replay": {
+    "distinct_targets": 109,
+    "with_base_rate_in_ranking_input": 3,
+    "editorial_model_calls": 0,
+    "telegram_sends": 0
+  },
+  "integration_owner": "Codex Publisher first stream; CC-510 integration line and decision 120"
+}

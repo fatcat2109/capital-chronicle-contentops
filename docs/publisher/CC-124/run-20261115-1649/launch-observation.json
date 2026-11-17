@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-15T09:53:08.8412181Z",
+  "pid": 26408,
+  "parent_pid": 3320,
+  "process_started_utc": "2026-11-15T09:49:11.4976480Z",
+  "command_prefix": "\"C:\\Users\\bullw\\AppData\\Local\\OpenAI\\Codex\\bin\\9e1da79431da526b\\codex.exe\" exec --model gpt-6.1-sol -c \"model_reasoning_effort=\\\"max\\\"\" -C \"A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\" --add-dir \"A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\" --add-dir \"A:\\Capital Chronicle\\ContentOps\" --add-dir \"A:\\Capital Chronicle\\Runtime\\ContentOps\" -o \"A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-124-20261115T0948\\last-message.txt\" \"",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "actual_model": null,
+  "actual_reasoning_effort": null
+}

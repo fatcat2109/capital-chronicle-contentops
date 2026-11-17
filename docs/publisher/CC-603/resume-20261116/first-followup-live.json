@@ -1,0 +1,230 @@
+{
+  "started_at_utc": "2026-11-16T00:03:43.262490+00:00",
+  "finished_at_utc": "2026-11-16T00:03:57.877873+00:00",
+  "result": {
+    "status": "OK",
+    "corrections_complete": true,
+    "posts": [
+      {
+        "status": "NOT_ELIGIBLE",
+        "cause": "CC603_NO_COMPLETE_MATCH_IN_HELD_PRICES"
+      },
+      {
+        "status": "NOT_ELIGIBLE",
+        "cause": "CC603_HELD_PRICE_GAP"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-f49e1e0410897667ef56618fcf0f8d00"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-35a552222e8a572fca26451a4c15858b"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-af988bdf8344f88829c6ecffa685fd7b"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-f260f6f4cfc6259accfef172c3e4ab93"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-813c70c1a6848bcf9f9556f648b6c781"
+      },
+      {
+        "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+        "publication": {
+          "plan_hash": "2a0b786f317c8fff4093974cb49001eff57baf20bc9f72dadc09bef3771eaea0",
+          "registered": [
+            {
+              "destination": "facebook_page",
+              "message_id": "outbox_fa5c4cf67c28bd728bfa70e40cd80e81",
+              "dispatch_id": "dispatch_fa5c4cf67c28bd728bfa70e40cd80e81",
+              "reconciliation_id": "reconciliation_fa5c4cf67c28bd728bfa70e40cd80e81"
+            },
+            {
+              "destination": "instagram_business",
+              "message_id": "outbox_5e9965ac276a530dcdf1fe880a090273",
+              "dispatch_id": "dispatch_5e9965ac276a530dcdf1fe880a090273",
+              "reconciliation_id": "reconciliation_5e9965ac276a530dcdf1fe880a090273"
+            },
+            {
+              "destination": "substack_notes",
+              "message_id": "outbox_c523c1889d10fc5e11029d748b754508",
+              "dispatch_id": "dispatch_c523c1889d10fc5e11029d748b754508",
+              "reconciliation_id": "reconciliation_c523c1889d10fc5e11029d748b754508"
+            },
+            {
+              "destination": "telegram",
+              "message_id": "outbox_27d66949208afd9eca16f37f80ffaefc",
+              "dispatch_id": "dispatch_27d66949208afd9eca16f37f80ffaefc",
+              "reconciliation_id": "reconciliation_27d66949208afd9eca16f37f80ffaefc"
+            },
+            {
+              "destination": "threads",
+              "message_id": "outbox_c7dc81ec9a4275ef9b5fc6360879e7fe",
+              "dispatch_id": "dispatch_c7dc81ec9a4275ef9b5fc6360879e7fe",
+              "reconciliation_id": "reconciliation_c7dc81ec9a4275ef9b5fc6360879e7fe"
+            },
+            {
+              "destination": "x",
+              "message_id": "outbox_ca82e7e43e11a595b7a5360b56b958c1",
+              "dispatch_id": "dispatch_ca82e7e43e11a595b7a5360b56b958c1",
+              "reconciliation_id": "reconciliation_ca82e7e43e11a595b7a5360b56b958c1"
+            }
+          ],
+          "outbox_count": 6,
+          "per_destination": {
+            "facebook_page": {
+              "destination": "facebook_page",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "image_contract_details": {},
+              "dispatch_id": "dispatch_fa5c4cf67c28bd728bfa70e40cd80e81",
+              "dispatch_recorded": true,
+              "reconciliation_status": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "public_object_id": null,
+              "public_object_url": null
+            },
+            "instagram_business": {
+              "destination": "instagram_business",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "image_contract_details": {},
+              "dispatch_id": "dispatch_5e9965ac276a530dcdf1fe880a090273",
+              "dispatch_recorded": true,
+              "reconciliation_status": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "public_object_id": null,
+              "public_object_url": null
+            },
+            "substack_notes": {
+              "destination": "substack_notes",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"
+            },
+            "telegram": {
+              "destination": "telegram",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "image_contract_details": {},
+              "dispatch_id": "dispatch_27d66949208afd9eca16f37f80ffaefc",
+              "dispatch_recorded": true,
+              "reconciliation_status": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "public_object_id": null,
+              "public_object_url": null
+            },
+            "threads": {
+              "destination": "threads",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED",
+              "dispatch_id": "dispatch_c7dc81ec9a4275ef9b5fc6360879e7fe",
+              "dispatch_recorded": true,
+              "reconciliation_status": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "public_object_id": null,
+              "public_object_url": null
+            },
+            "x": {
+              "destination": "x",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "image_contract_details": {},
+              "dispatch_id": "dispatch_ca82e7e43e11a595b7a5360b56b958c1",
+              "dispatch_recorded": true,
+              "reconciliation_status": "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED",
+              "public_object_id": null,
+              "public_object_url": null
+            }
+          },
+          "canonical_article_status": "NOT_CONFIRMED",
+          "canonical_article_real_published": false,
+          "canonical_url": null,
+          "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+          "distribution_status": "CANONICAL_NOT_CONFIRMED",
+          "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+          "quality_preflight": null,
+          "delivery_media_preparation": {
+            "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+            "provider_calls": 0,
+            "public_write_performed": false
+          },
+          "recovery_required_destinations": [],
+          "readback_limitation_destinations": [],
+          "metrics_availability_independent_from_publication_confirmation": true,
+          "derivative_attempted_count": 5,
+          "derivative_confirmed_count": 0,
+          "derivative_skipped_count": 6,
+          "derivative_failed_count": 6,
+          "derivative_unknown_count": 0,
+          "public_write_performed": false,
+          "retired_browser_unknown_count": 0,
+          "retired_x_unknown_count": 0,
+          "unknown_write_detected": false,
+          "derivative_absent_safe_to_retry_count": 0,
+          "derivative_never_attempted_count": 1,
+          "unknown_write_count": 0,
+          "closed_no_write_destinations": []
+        },
+        "continuations": []
+      }
+    ]
+  },
+  "record_before": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-16T00:03:42.422511+00:00"
+  },
+  "record_after": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-16T00:03:57.082576+00:00"
+  },
+  "first_key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+  "confirmed": [],
+  "complete": false
+}

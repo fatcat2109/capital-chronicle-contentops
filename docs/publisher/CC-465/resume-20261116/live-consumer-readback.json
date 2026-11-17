@@ -1,0 +1,11 @@
+{
+  "status": "OK",
+  "validation": "PASS",
+  "rendered_count": 80,
+  "transitions_read": 137,
+  "export_generated_at_utc": "2026-11-15T22:51:53.159115Z",
+  "export_age_seconds": 83.3,
+  "would_queue": 0,
+  "process_exit": 0,
+  "recorded_at_utc": "2026-11-15T22:53:23.455876+00:00"
+}

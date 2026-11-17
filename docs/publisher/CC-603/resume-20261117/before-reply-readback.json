@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-11-17T00:29:15.443066+00:00",
+  "readbacks": [
+    {
+      "dispatch_id": "dispatch_61d5f6d1611ae436151598831e74cf61",
+      "destination": "substack_notes",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_write_performed": false,
+      "publish_called": false
+    },
+    {
+      "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+      "destination": "x",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_write_performed": false,
+      "publish_called": false
+    }
+  ],
+  "record": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-17T00:29:14.569095+00:00"
+  },
+  "record_matches_issued_followup": true,
+  "corrections_complete": true,
+  "public_write_performed": false
+}

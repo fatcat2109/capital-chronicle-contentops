@@ -1,0 +1,144 @@
+{
+  "recorded_at_utc": "2026-11-11T19:32:25.616423+00:00",
+  "checks": [
+    {
+      "artifact": "resume-feedback-fixed.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "31",
+          "time": "39.823",
+          "timestamp": "2026-11-12T01:56:04.065761+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "resume-usage-fixed.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "24",
+          "time": "21.723",
+          "timestamp": "2026-11-12T02:02:08.304503+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "resume-coordinator.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "118",
+          "time": "260.263",
+          "timestamp": "2026-11-12T02:03:16.012348+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "resume-ui-learning-observer.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "33",
+          "time": "84.687",
+          "timestamp": "2026-11-12T02:08:31.344880+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "installed-targeted.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "32",
+          "time": "16.576",
+          "timestamp": "2026-11-12T02:16:06.831043+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "local-midnight-fix.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "14",
+          "time": "58.363",
+          "timestamp": "2026-11-12T02:20:13.297769+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "installed-final-consumer.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "12",
+          "time": "29.147",
+          "timestamp": "2026-11-12T02:26:04.817783+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "minute-record-live-fix.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "10.809",
+          "timestamp": "2026-11-12T02:27:54.850709+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    },
+    {
+      "artifact": "installed-minute-record.xml",
+      "suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "26.885",
+          "timestamp": "2026-11-12T02:31:03.284409+07:00",
+          "hostname": "J-P"
+        }
+      ]
+    }
+  ],
+  "full_suite_run": false,
+  "pytest_parallelism": 1,
+  "cost_basis": "Observed CLI cumulative tokens; USD not exposed",
+  "weekly_consumer": "Installed private desk under OV-P4; no Main digest integration dependency"
+}

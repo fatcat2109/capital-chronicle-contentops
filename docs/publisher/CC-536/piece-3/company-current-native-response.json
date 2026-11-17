@@ -1,0 +1,103 @@
+{
+  "tool_request_sha256": "596546ec53cb7444543e38ce5a26e434efdeb40980c31a6b415d615a08f8221e",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "surface": "CODEX_EXEC",
+    "native_invocation_id": "exec-pid39072-20261117T111128Z",
+    "observation_source": "Actual BrowserOS Neo run on exact public company permalink and canonical redirect; original/delivered binary pair inspected with functions.view_image detail=original.",
+    "observed_at_utc": "2026-11-17T12:11:04.216963+00:00"
+  },
+  "result": {
+    "links": [
+      {
+        "expanded_url": null,
+        "text": "Boost",
+        "url": "https://www.linkedin.com/campaignmanager/boost/campaigns/new/details/?origin=organizationPostDetails&content=urn%3Ali%3Ashare%3A7528425620075302912&isNileReferrer=true&organization=143198922"
+      },
+      {
+        "expanded_url": null,
+        "text": "",
+        "url": "https://www.linkedin.com/company/capitalchronicle/"
+      },
+      {
+        "expanded_url": null,
+        "text": "Capital Chronicle",
+        "url": "https://www.linkedin.com/company/capitalchronicle/"
+      },
+      {
+        "expanded_url": null,
+        "text": "",
+        "url": "https://www.linkedin.com/company/capitalchronicle/"
+      },
+      {
+        "expanded_url": null,
+        "text": "https://lnkd.in/gD_Zf64w",
+        "url": "https://www.linkedin.com/safety/go/?url=https%3A%2F%2Flnkd%2Ein%2FgD_Zf64w&urlhash=KGYb&mt=_Stanun8pt27RAeVwt_RcGJwcUddZKGekmx_I4Hu41g-SUM4gvpK_RmH7QIPlJM0WzpaapOg4O83d-orchP_uWNzCtUUoumQqkCHCBw_jmc-P3dTpsIqFYNOjC_E6fzquVg7IgwpYiBpgVSLiLDypjN0i6Azhf_y5TtLNhbNv9KGjKeIWK7fRQvwn1UWdao0fLM&isSdui=true"
+      },
+      {
+        "expanded_url": null,
+        "text": "",
+        "url": "https://www.linkedin.com/"
+      },
+      {
+        "expanded_url": null,
+        "text": "",
+        "url": "https://www.linkedin.com/"
+      },
+      {
+        "expanded_url": null,
+        "text": "\u200b",
+        "url": "https://www.linkedin.com/"
+      },
+      {
+        "url": "https://lnkd.in/gD_Zf64w",
+        "expanded_url": "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+        "text": "https://lnkd.in/gD_Zf64w"
+      }
+    ],
+    "observed_identity": "linkedin:company:143198922",
+    "observed_text": "Bitcoin trend-long: 281 trades, 0.197R per trade; always long: 704 trades, 0.086R. Trend-short: 218 trades, -0.048R.\n\nGold trend-long: 230 trades, 0.109R; always long: 476 trades, 0.087R.\n\nThe gold sample spans 2016-11-14 to 2026-11-10; Bitcoin spans 2016-11-12 to 2026-11-10.\n\nWith and against use different stop widths. Rising markets, repeated tests and weaker halves limit the claim.\n\nThese are hypothetical historical tests, rather than our trade results. No current entry signal follows.\n\nFull analysis: https://lnkd.in/gD_Zf64w\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\nCapital Chronicle may hold positions in the markets it covers.",
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME",
+      "https://media.licdn.com/dms/image/v2/D5622AQEZsOzQzUAzLQ/feedshare-shrink_800/B56aHpVEm7HUAg-/0/1794915977884?e=1796256000&v=beta&t=ItavlQliTFMbM3EhudUX_6yMFTxwXcnnfFa3rnd8-I0",
+      "https://media.licdn.com/dms/image/v2/D5603AQEivaD5r0JXyw/profile-displayphoto-scale_100_100/B56Z75t7CNGgAY-/0/1782306031827?e=1796256000&v=beta&t=Pw5HfoYY2h0xk3V0mz90kB90YVJpyehkhEvqZpe37Is"
+    ],
+    "public_object_id": "urn:li:activity:7528425620956098561",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528425620956098561/",
+    "status": "SUCCESS",
+    "content_verified": true,
+    "observed_stable_id": "143198922",
+    "request_sha256": "034699cd291c7ab11be239a60c787035376d37da7d621f4e6aafa7626ace34d4",
+    "observed_at_utc": "2026-11-17T12:10:21.858Z",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gD_Zf64w",
+        "target_url": "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528425620956098561/"
+      }
+    ],
+    "observed_media_sha256": [
+      "cd460afd829d1fd88f6b28eb9fbd87ab76dbc93513346d7dce1f9be6f6dff024",
+      "a4780c7f027416f26290e9053837d6ded56e2fbd3ba45274b5f635e3f3cc7f2d",
+      "d1074aaa3f7b3011774ac8cd616bedc0793f00cc716c4c631258a695a3ce5278"
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "69d94169f97bd7aa47a14dc0760539be6804766af7bda102b619edf201c07219",
+        "platform_sha256": "a4780c7f027416f26290e9053837d6ded56e2fbd3ba45274b5f635e3f3cc7f2d",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQEZsOzQzUAzLQ/feedshare-shrink_800/B56aHpVEm7HUAg-/0/1794915977884?e=1796256000&v=beta&t=ItavlQliTFMbM3EhudUX_6yMFTxwXcnnfFa3rnd8-I0",
+        "observed_image_url": "https://media.licdn.com/dms/image/v2/D5622AQEZsOzQzUAzLQ/feedshare-shrink_800/B56aHpVEm7HUAg-/0/1794915977884?e=1796256000&v=beta&t=ItavlQliTFMbM3EhudUX_6yMFTxwXcnnfFa3rnd8-I0",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528425620956098561/",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "comparison_method": "NATIVE_VIEW_IMAGE_SOURCE_PAIR_V1",
+        "rms": 4.6837,
+        "worst_tile_rms": 16.298,
+        "max_luma_delta": 75,
+        "exact_bytes_match": false,
+        "review_artifact_sha256": "cac4f1c08f7b21c7568362cd38a7e0b70ebc4f4bba5a7571c9c352b9c35c8e22"
+      }
+    ]
+  }
+}

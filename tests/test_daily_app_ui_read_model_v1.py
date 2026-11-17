@@ -33,6 +33,24 @@ def _store(tmp_path, name="daily.sqlite3"):
     return ContentOpsDurableStore(tmp_path / name, now_fn=lambda: NOW)
 
 
+def test_cc402_nullable_run_usage_reaches_snapshot_without_a_false_zero(tmp_path):
+    store = _store(tmp_path)
+    store.create_work_item(story_id="cost-story", title="Piece usage", target_surface="substack", work_item_id="cost-work")
+    store.ensure_model_usage_column()
+    with store.get_connection() as conn:
+        conn.execute("INSERT INTO model_invocations VALUES (?,?,?,?,?,?,?)", ("known-cost", "cost-work", "configured-model", 100, 20,
+            NOW.isoformat(), json.dumps({"prompt_tokens": 100, "completion_tokens": 20, "cost_usd": 0.02})))
+    runtime = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]
+    assert runtime["cost_metadata"] == "OBSERVED_RUN_COST" and runtime["cost_usd"] == 0.02
+    with store.get_connection() as conn:
+        conn.execute("INSERT INTO model_invocations VALUES (?,?,?,?,?,?,?)", ("unreported-cost", "cost-work", "configured-model", 0, 0,
+            NOW.isoformat(), json.dumps({"prompt_tokens": None, "completion_tokens": None, "cost_usd": None})))
+    runtime = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]
+    assert runtime["cost_metadata"] == "PARTIAL_COST_METADATA" and runtime["cost_usd"] is None
+    assert runtime["prompt_tokens"] is None and runtime["completion_tokens"] is None
+    assert len(runtime["piece_usage"]) == 2
+
+
 def _seed_dispatch(
     store, *, suffix, status, object_id=None, reconciliation=None, public_url=None,
     platform="substack",

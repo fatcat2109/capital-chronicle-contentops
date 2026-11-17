@@ -1,0 +1,11 @@
+{
+  "status": "AGY_UNAVAILABLE",
+  "cause": "AGY_TIMEOUT_120S",
+  "flags": [],
+  "prompt_sha256": "d9720999a9112465f107bc7fb19d4f28bbad8327a182888a9a6fed790f52273a",
+  "output_sha256": "4864b050c2c0ca1082c9d15ea4863368b69efc823a8cd8a515395be08c72def5",
+  "began_utc": null,
+  "ended_utc": "2026-11-14T12:28:20.348699+00:00",
+  "requested_model": null,
+  "requested_effort": null
+}

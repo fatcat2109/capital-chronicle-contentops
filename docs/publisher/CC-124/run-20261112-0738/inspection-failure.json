@@ -1,0 +1,9 @@
+{
+  "operation": "installed plan_status_posts_v1.read_export",
+  "cause": "PLAN_EXPORT_CONTRACT_FIELD_INVALID: status.plans[6].status: invalid enum; contract=2.0.0",
+  "measured_drift": "Main exports CLOSED plans and CLOSED transitions; Publisher STATES omitted CLOSED.",
+  "effect": "Publisher rejects all 83 plans before the producer reader runs.",
+  "action": "Extend the existing contract, preserve CLOSED through existing rows and card states, and prevent an older fill from being announced as open after explicit closure.",
+  "public_writes": 0,
+  "source_assessment_observed_at_utc": "2026-11-12T00:47:58.855060+00:00"
+}

@@ -1,0 +1,9 @@
+{
+  "classification": "CC425_PREPARATION_DUPLICATE_SCAN_STOPPED",
+  "pid": 26088,
+  "public_write_performed": false,
+  "live_operation_rows_at_last_read": 0,
+  "cause": "UNRELATED_TOOL_TRANSCRIPTS_READ_FOR_DUPLICATE_CHECK",
+  "action": "Stopped only this identified helper, released its exact lease, and replaced the whole outbox traversal with the existing article/publication destination indexes.",
+  "recorded_at_utc": "2026-11-17T08:51:48.506966+00:00"
+}

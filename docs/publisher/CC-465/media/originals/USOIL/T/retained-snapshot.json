@@ -1,0 +1,112 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USOIL\\T\\CL1!_2026-11-11_16-44-07.png",
+  "sha256": "a10d17b10753ed99c0e82a3e962255dee0310460c1d1b911a7b486f96952efba",
+  "width": 1080,
+  "height": 850,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1004,
+      762
+    ],
+    "axis_origin": [
+      1004,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -28.50661229197845,
+    "intercept": 3093.0454899322494,
+    "max_label_error_px": 0.4481109577686766,
+    "grid_checks": [
+      {
+        "price": 86.0,
+        "page_y_in_download": 641.414097288015,
+        "grid_y": 642,
+        "error_px": 0.5859027119849998
+      },
+      {
+        "price": 88.0,
+        "page_y_in_download": 584.4079390691613,
+        "grid_y": 585,
+        "error_px": 0.5920609308386702
+      },
+      {
+        "price": 90.0,
+        "page_y_in_download": 527.4017808503078,
+        "grid_y": 528,
+        "error_px": 0.5982191496922269
+      },
+      {
+        "price": 92.0,
+        "page_y_in_download": 470.39562263145416,
+        "grid_y": 471,
+        "error_px": 0.6043773685458405
+      },
+      {
+        "price": 94.0,
+        "page_y_in_download": 413.3894644126005,
+        "grid_y": 414,
+        "error_px": 0.6105355873995109
+      },
+      {
+        "price": 96.0,
+        "page_y_in_download": 356.3833061937469,
+        "grid_y": 357,
+        "error_px": 0.6166938062531244
+      },
+      {
+        "price": 98.0,
+        "page_y_in_download": 299.37714797489326,
+        "grid_y": 300,
+        "error_px": 0.622852025106738
+      },
+      {
+        "price": 100.0,
+        "page_y_in_download": 242.37098975603965,
+        "grid_y": 243,
+        "error_px": 0.6290102439603515
+      },
+      {
+        "price": 102.0,
+        "page_y_in_download": 185.36483153718598,
+        "grid_y": 186,
+        "error_px": 0.635168462814022
+      },
+      {
+        "price": 104.0,
+        "page_y_in_download": 128.35867331833242,
+        "grid_y": 129,
+        "error_px": 0.6413266816675787
+      },
+      {
+        "price": 106.0,
+        "page_y_in_download": 71.35251509947875,
+        "grid_y": 72,
+        "error_px": 0.6474849005212491
+      }
+    ],
+    "source_sha256": "a10d17b10753ed99c0e82a3e962255dee0310460c1d1b911a7b486f96952efba"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1466,
+    "height": 844
+  },
+  "tv_symbol": "NYMEX:CL1!",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "CL1! 88.25 ▲ +2.57%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+  "suggested_filename": "CL1!_2026-11-11_16-44-07.png",
+  "captured_at_utc": "2026-11-11T16:44:07.980670+00:00",
+  "seconds": 8.3,
+  "template_chart_size": [
+    1080,
+    850
+  ],
+  "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+}

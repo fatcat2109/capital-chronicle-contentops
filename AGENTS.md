@@ -1,5 +1,20 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Plan pages and social copy — CC-466, 11 November 2026
+
+New plan pages use the analyst's bound original output, in this order: priced in,
+positioning, fear, structure, story, macro, scenarios, plan and invalidation.
+Social copy leads with the market force. Long destinations carry up to five
+labelled force lines; X and Threads carry three, at most one technical. Omit a
+layer the analysis does not hold. Never cut a sentence or print internal labels.
+Keep explicit Main odds; include Alternative odds when supplied, never infer a
+complement. The X root carries the chart and scenarios; its first own reply has
+the canonical link and notices, its second the points. No count or running score
+post. Results use an explicitly exported signed R, never money, size or account.
+Antigravity drafts the variants and alt text; source and text checks judge them.
+A Substack page remains required. Unavailable entry status never means closed.
+Issued public objects and requests keep their exact bytes and recovery path.
+
 ## Reader copy — CC-403; decisions 98 and 114, 10 November 2026
 
 New native article requests carry `CC403_READER_ARTICLE_V1`. Lead the first sentence

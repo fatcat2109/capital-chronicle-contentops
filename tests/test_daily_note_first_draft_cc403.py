@@ -11,7 +11,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_o
 from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired
-from live_contentops.reader_article_contract_v1 import GUIDANCE, contract_for
+from live_contentops.reader_article_contract_v1 import GUIDANCE, MARKER, contract_for
 from live_contentops.v1_simple_gemini_newsroom_v1 import ARTICLE_SCHEMA_VERSION
 from test_reader_article_contract_cc403 import daily
 
@@ -25,7 +25,10 @@ def output():
     for i, paragraph in enumerate(article["substack_body_markdown"].split("\n\n")):
         if paragraph.startswith("#"):
             continue
-        claims.append({"claim_id": "p" + str(i), "claim_text": paragraph, "claim_kind": "FACT",
+        # Claim text is public prose; exact source markers remain in the body
+        # and source excerpt, rather than becoming words in a public claim.
+        claim_text = MARKER.sub("", paragraph).strip()
+        claims.append({"claim_id": "p" + str(i), "claim_text": claim_text, "claim_kind": "FACT",
                        "source_id": "SOURCE_1", "support_excerpt": paragraph, "attribution_required": True})
     return {"schema_version": ARTICLE_SCHEMA_VERSION, "article": article,
             "cited_sources": [{k: documents[0][k] for k in ("source_id", "url", "publisher", "published_at_utc")}],
@@ -182,3 +185,6 @@ def test_source_validator_accepts_the_edited_note_and_keeps_every_binding():
     article, validation = _validate_article_against_source_pack(value, docs, article_mode="STANDARD_NEWS_ANALYSIS")
     assert article["reader_article_contract"]["format"] == "DAILY_NOTE"
     assert validation["unsupported_material_claim_count"] == 0
+    assert {row["claim_id"] for row in validation["supported_material_claims"]} == {
+        row["claim_id"] for row in value["material_claim_bindings"]}
+    assert article["substack_body_markdown"] == value["article"]["substack_body_markdown"]

@@ -1,0 +1,644 @@
+{
+  "schema": "image_input_v1",
+  "post_id": "cc465-retained-cpi-layout",
+  "template": "event",
+  "market": "USDJPY",
+  "event": {
+    "name": "US CPI, October",
+    "time_et": "10 Nov, 8:30 AM ET",
+    "scenarios": [
+      {
+        "name": "In line",
+        "trigger": "Core at 0.2% m/m",
+        "reading": "Small relief; the detail decides.",
+        "probability_pct": 44.0,
+        "reactions": [
+          {
+            "market": "XAUUSD",
+            "direction": "up"
+          },
+          {
+            "market": "USDJPY",
+            "direction": "down"
+          }
+        ]
+      },
+      {
+        "name": "Hot",
+        "trigger": "Core at 0.3% m/m",
+        "reading": "Rates and the dollar rise; gold and equities fall.",
+        "probability_pct": 31.0,
+        "reactions": [
+          {
+            "market": "XAUUSD",
+            "direction": "down"
+          },
+          {
+            "market": "USDJPY",
+            "direction": "up"
+          }
+        ]
+      },
+      {
+        "name": "Soft",
+        "trigger": "Core at 0.1% m/m",
+        "reading": "Rates and the dollar fall; gold and equities rise.",
+        "probability_pct": 15.0,
+        "reactions": [
+          {
+            "market": "XAUUSD",
+            "direction": "up"
+          },
+          {
+            "market": "USDJPY",
+            "direction": "down"
+          }
+        ]
+      }
+    ]
+  },
+  "alt_text": "Real TradingView chart used to inspect the event template. Retained CPI probabilities are from the 10 November Main event record.",
+  "source_binding": {
+    "input_sha256": "997d9a1aaede5ab3839487dfb5b48a2c2e0888b862c74543de8df66cbbaa19ae",
+    "source_sha256": "30711f72f6152c794a7b1bb2057efd9f8445d3ade536b88d837d00b7ebb4dcc3",
+    "record": {
+      "article": {
+        "article_type": "EVENT_PREVIEW",
+        "desk_record_citations": [
+          {
+            "citation": "desk-record-export-v1-run#calendar:US_CPI_20261110/agency",
+            "display": "U.S. Bureau of Labor Statistics",
+            "field_path": "/agency",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "source_ids": [],
+            "use_label": "PUBLIC_FACT",
+            "value": "U.S. Bureau of Labor Statistics"
+          },
+          {
+            "citation": "desk-record-export-v1-run#calendar:US_CPI_20261110/name",
+            "display": "Consumer Price Index",
+            "field_path": "/name",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "source_ids": [],
+            "use_label": "PUBLIC_FACT",
+            "value": "Consumer Price Index"
+          },
+          {
+            "citation": "desk-record-export-v1-run#calendar:US_CPI_20261110/scheduled_at_utc",
+            "display": "2026-11-10T13:30:00Z",
+            "field_path": "/scheduled_at_utc",
+            "rights_class": "PUBLIC_FACT_IDENTITY",
+            "source_ids": [
+              "src:bls:schedule:cpi:2026-10"
+            ],
+            "use_label": "PUBLIC_FACT",
+            "value": "2026-11-10T13:30:00Z"
+          }
+        ],
+        "editorial_scope_notice": "Release schedule attributed to the U.S. Bureau of Labor Statistics (BLS). Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "effective_article_mode": "WEEK_AHEAD_OR_WATCH",
+        "lead_image_asset_id": "cc338-cpi-monthly-baseline",
+        "market_asset": "XAUUSD",
+        "native_brief_layout": true,
+        "native_destination_credits": {
+          "discord": "Chart: TradingView.",
+          "facebook_page": "Chart: TradingView.",
+          "instagram_business": "Chart: TradingView.",
+          "linkedin": "Chart: TradingView.",
+          "telegram": "Chart: TradingView.",
+          "threads": "Chart: TradingView.",
+          "x": "Chart: TradingView."
+        },
+        "native_destination_media": {
+          "discord": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ],
+          "facebook_page": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ],
+          "instagram_business": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ],
+          "linkedin": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ],
+          "telegram": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ],
+          "threads": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ],
+          "x": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ]
+        },
+        "native_media_sources": {
+          "cc338-cpi-components": [
+            {
+              "document_id": "official-components-b9f981390c08f4a530d83949",
+              "label": "U.S. Bureau of Labor Statistics · 14 Oct 2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6"
+            }
+          ],
+          "cc338-cpi-monthly-baseline": [
+            {
+              "document_id": "official-history-7e3f323984002c820283691b",
+              "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) · 14 Oct 2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            {
+              "document_id": "official-history-164e29b01080d44f13efe5ff",
+              "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) · 14 Oct 2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            }
+          ]
+        },
+        "post_visual_policy": "CC144_EVERY_POST_VISUAL_V1",
+        "public_instrument_policy": "JIM_DECISION_107",
+        "publication_quality_policy": "JIM_DECISION_93",
+        "reader_first_version": "DATA_JOURNALISM_V1",
+        "scenario_analysis": [
+          {
+            "confirmation": "Small relief, with the detail deciding",
+            "invalidation": "Any move larger than bin C's range that holds through +15 means the detail has dominated, so follow the 2-year.",
+            "market_moves": {
+              "BTCUSD": "flat to **up** 2%",
+              "EURUSD": "flat to **up** 0.3%",
+              "US500": "flat to **up** 0.7%",
+              "USDJPY": "flat to **down** 0.4%",
+              "USOIL": "Hormuz tanker headlines",
+              "XAUUSD": "flat to **up** 0.5%"
+            },
+            "name": "In line: core 0.2% m/m",
+            "probability": "44%",
+            "role": "base_case",
+            "source_bindings": {
+              "confirmation": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (in line) | Small relief, with the detail deciding | Unrounded 0.24 or higher with OER 0.33 or higher, or supercore 0.35 or higher: treat as \"D-lite\" (hawkish). Unrounded 0.16 or lower with soft supercore: treat as \"B-lite\". Any move larger than bin C's range that holds through +15 means the detail has dominated, so follow the 2-year. |"
+              },
+              "invalidation": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (in line) | Small relief, with the detail deciding | Unrounded 0.24 or higher with OER 0.33 or higher, or supercore 0.35 or higher: treat as \"D-lite\" (hawkish). Unrounded 0.16 or lower with soft supercore: treat as \"B-lite\". Any move larger than bin C's range that holds through +15 means the detail has dominated, so follow the 2-year. |"
+              },
+              "market_moves.BTCUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (0.2) | flat to **up** 0.5% (±$20) | flat to **down** 0.3% | flat to **up** 0.3% | flat to **down** 0.4% | flat to **up** 0.7% | flat to **up** 1.0% | flat to **down** 4 bp | flat to **up** 2% |"
+              },
+              "market_moves.EURUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (0.2) | flat to **up** 0.5% (±$20) | flat to **down** 0.3% | flat to **up** 0.3% | flat to **down** 0.4% | flat to **up** 0.7% | flat to **up** 1.0% | flat to **down** 4 bp | flat to **up** 2% |"
+              },
+              "market_moves.US500": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (0.2) | flat to **up** 0.5% (±$20) | flat to **down** 0.3% | flat to **up** 0.3% | flat to **down** 0.4% | flat to **up** 0.7% | flat to **up** 1.0% | flat to **down** 4 bp | flat to **up** 2% |"
+              },
+              "market_moves.USDJPY": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (0.2) | flat to **up** 0.5% (±$20) | flat to **down** 0.3% | flat to **up** 0.3% | flat to **down** 0.4% | flat to **up** 0.7% | flat to **up** 1.0% | flat to **down** 4 bp | flat to **up** 2% |"
+              },
+              "market_moves.USOIL": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "- **(e) Outside shocks.** Hormuz tanker headlines, more AI-stock stress, comments from Fed speakers, and Japanese intervention near 160."
+              },
+              "market_moves.XAUUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| C (0.2) | flat to **up** 0.5% (±$20) | flat to **down** 0.3% | flat to **up** 0.3% | flat to **down** 0.4% | flat to **up** 0.7% | flat to **up** 1.0% | flat to **down** 4 bp | flat to **up** 2% |"
+              },
+              "probability": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "Capital Chronicle model estimate: C: in line (core CPI 0.2% m/m), 44%."
+              }
+            }
+          },
+          {
+            "confirmation": "2-year up, USD up, gold down, equities down",
+            "invalidation": "The 2-year gives back its whole move by +15.",
+            "market_moves": {
+              "BTCUSD": "**down** 2-4%",
+              "EURUSD": "**down** 0.4-0.6%",
+              "US500": "**down** 0.7-1.3%",
+              "USDJPY": "**up** 0.4-0.7%",
+              "USOIL": "Hormuz tanker headlines",
+              "XAUUSD": "**down** 0.7-1.5%"
+            },
+            "name": "Hot: core 0.3% m/m",
+            "probability": "31%",
+            "role": "alternative",
+            "source_bindings": {
+              "confirmation": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D or E (hot) | 2-year up, USD up, gold down, equities down | The 2-year gives back its whole move by +15. Gold reclaims its 13:29Z level while DXY is still up (haven or geopolitics dominate). Lodging plus airfares explain the whole overshoot (about 0.08 pp or more of core) with OER at 0.25 or lower. For USDJPY: a spike to 159.5-160 that reverses by 1 yen or more within minutes is an intervention signal and voids the long-USDJPY leg. |"
+              },
+              "invalidation": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D or E (hot) | 2-year up, USD up, gold down, equities down | The 2-year gives back its whole move by +15. Gold reclaims its 13:29Z level while DXY is still up (haven or geopolitics dominate). Lodging plus airfares explain the whole overshoot (about 0.08 pp or more of core) with OER at 0.25 or lower. For USDJPY: a spike to 159.5-160 that reverses by 1 yen or more within minutes is an intervention signal and voids the long-USDJPY leg. |"
+              },
+              "market_moves.BTCUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D (0.3) | **down** 0.7-1.5% (-$30-60) | **up** 0.4-0.7% | **down** 0.4-0.6% (-45-70 pips; tests 1.1105) | **up** 0.4-0.7% (+60-110 pips; resistance 159-160) | **down** 0.7-1.3% (-50-95) | **down** 1.0-2.0% | **up** 4-8 bp | **down** 2-4% |"
+              },
+              "market_moves.EURUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D (0.3) | **down** 0.7-1.5% (-$30-60) | **up** 0.4-0.7% | **down** 0.4-0.6% (-45-70 pips; tests 1.1105) | **up** 0.4-0.7% (+60-110 pips; resistance 159-160) | **down** 0.7-1.3% (-50-95) | **down** 1.0-2.0% | **up** 4-8 bp | **down** 2-4% |"
+              },
+              "market_moves.US500": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D (0.3) | **down** 0.7-1.5% (-$30-60) | **up** 0.4-0.7% | **down** 0.4-0.6% (-45-70 pips; tests 1.1105) | **up** 0.4-0.7% (+60-110 pips; resistance 159-160) | **down** 0.7-1.3% (-50-95) | **down** 1.0-2.0% | **up** 4-8 bp | **down** 2-4% |"
+              },
+              "market_moves.USDJPY": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D (0.3) | **down** 0.7-1.5% (-$30-60) | **up** 0.4-0.7% | **down** 0.4-0.6% (-45-70 pips; tests 1.1105) | **up** 0.4-0.7% (+60-110 pips; resistance 159-160) | **down** 0.7-1.3% (-50-95) | **down** 1.0-2.0% | **up** 4-8 bp | **down** 2-4% |"
+              },
+              "market_moves.USOIL": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "- **(e) Outside shocks.** Hormuz tanker headlines, more AI-stock stress, comments from Fed speakers, and Japanese intervention near 160."
+              },
+              "market_moves.XAUUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| D (0.3) | **down** 0.7-1.5% (-$30-60) | **up** 0.4-0.7% | **down** 0.4-0.6% (-45-70 pips; tests 1.1105) | **up** 0.4-0.7% (+60-110 pips; resistance 159-160) | **down** 0.7-1.3% (-50-95) | **down** 1.0-2.0% | **up** 4-8 bp | **down** 2-4% |"
+              },
+              "probability": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "Capital Chronicle model estimate: D: consensus +0.1 (core CPI 0.3% m/m), 31%."
+              }
+            }
+          },
+          {
+            "confirmation": "2-year down, USD down, gold up, equities up",
+            "invalidation": "DXY recovers its pre-release level.",
+            "market_moves": {
+              "BTCUSD": "**up** 2-4%",
+              "EURUSD": "**up** 0.4-0.6%",
+              "US500": "**up** 0.6-1.2%",
+              "USDJPY": "**down** 0.5-0.9%",
+              "USOIL": "Hormuz tanker headlines",
+              "XAUUSD": "**up** 0.8-1.5%"
+            },
+            "name": "Soft: core 0.1% m/m",
+            "probability": "15%",
+            "role": "alternative",
+            "source_bindings": {
+              "confirmation": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| A or B (soft) | 2-year down, USD down, gold up, equities up | The 2-year has not fallen at least 3 bp by +5 min, or is back above its 13:29Z level by +15. DXY recovers its pre-release level. Soft for the wrong reasons: OER and rent 0.33 or higher and supercore 0.35 or higher while used cars, apparel or insurance carry the miss. |"
+              },
+              "invalidation": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| A or B (soft) | 2-year down, USD down, gold up, equities up | The 2-year has not fallen at least 3 bp by +5 min, or is back above its 13:29Z level by +15. DXY recovers its pre-release level. Soft for the wrong reasons: OER and rent 0.33 or higher and supercore 0.35 or higher while used cars, apparel or insurance carry the miss. |"
+              },
+              "market_moves.BTCUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| B (0.1) | **up** 0.8-1.5% (+$35-60) | **down** 0.4-0.7% | **up** 0.4-0.6% (+45-70 pips) | **down** 0.5-0.9% (-80-140 pips) | **up** 0.6-1.2% (+45-90) | **up** 0.9-1.8% | **down** 5-9 bp | **up** 2-4% |"
+              },
+              "market_moves.EURUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| B (0.1) | **up** 0.8-1.5% (+$35-60) | **down** 0.4-0.7% | **up** 0.4-0.6% (+45-70 pips) | **down** 0.5-0.9% (-80-140 pips) | **up** 0.6-1.2% (+45-90) | **up** 0.9-1.8% | **down** 5-9 bp | **up** 2-4% |"
+              },
+              "market_moves.US500": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| B (0.1) | **up** 0.8-1.5% (+$35-60) | **down** 0.4-0.7% | **up** 0.4-0.6% (+45-70 pips) | **down** 0.5-0.9% (-80-140 pips) | **up** 0.6-1.2% (+45-90) | **up** 0.9-1.8% | **down** 5-9 bp | **up** 2-4% |"
+              },
+              "market_moves.USDJPY": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| B (0.1) | **up** 0.8-1.5% (+$35-60) | **down** 0.4-0.7% | **up** 0.4-0.6% (+45-70 pips) | **down** 0.5-0.9% (-80-140 pips) | **up** 0.6-1.2% (+45-90) | **up** 0.9-1.8% | **down** 5-9 bp | **up** 2-4% |"
+              },
+              "market_moves.USOIL": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "- **(e) Outside shocks.** Hormuz tanker headlines, more AI-stock stress, comments from Fed speakers, and Japanese intervention near 160."
+              },
+              "market_moves.XAUUSD": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "| B (0.1) | **up** 0.8-1.5% (+$35-60) | **down** 0.4-0.7% | **up** 0.4-0.6% (+45-70 pips) | **down** 0.5-0.9% (-80-140 pips) | **up** 0.6-1.2% (+45-90) | **up** 0.9-1.8% | **down** 5-9 bp | **up** 2-4% |"
+              },
+              "probability": {
+                "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+                "support_excerpt": "Capital Chronicle model estimate: B: consensus -0.1 (core CPI 0.1% m/m), 15%."
+              }
+            }
+          }
+        ],
+        "social_cross_asset_summary": "The watch question across gold, currencies, equities and Bitcoin is whether the initial response survives the rates and dollar check. WTI remains exposed to the separate Hormuz risk, with no supplied CPI direction.",
+        "social_hook": "October CPI: a gold reaction map is only as useful as its rates, dollar and inflation-detail checks.",
+        "social_mechanism_summary": "Capital Chronicle's analysis starts with rates: a hot core reading would need a higher two-year Treasury yield and a stronger dollar to reinforce pressure on gold. A soft reading would need the opposite. A CPI surprise alone does not establish either market response.",
+        "social_policy_summary": "Capital Chronicle's competing explanation is concentration: an energy-led headline rise need not establish a broader core acceleration. But September's substantial core effect also challenges an energy-only account. The next test is whether shelter and other persistent services agree with the rounded core number.",
+        "social_scenarios": {
+          "alternative": "Alternative: Capital Chronicle model estimate 31% for the hot core CPI bin; gold weakness needs higher rates and a stronger dollar.",
+          "base_case": "Base case: Capital Chronicle model estimate 44% for the in-line core CPI bin; modest gold relief depends on the detail and rates."
+        },
+        "substack_body_markdown": "Capital Chronicle model estimate: if October core CPI rises 0.3% month on month or more, gold falls at least 0.7% within 60 minutes of the release; at 0.1% or less, it rises at least 0.7%. This is a conditional research estimate, not an observed reaction or an established hit rate.\n\nThe U.S. Bureau of Labor Statistics CPI release is scheduled for 10 November 2026 at 08:30 ET. October actuals are not yet part of this preview. Main's invalidation checks refer to the pre-release 08:29 ET level; the stated reaction horizon is 60 minutes after the release.\n\n## The conditional gold map\n\nCapital Chronicle's analysis starts with rates: a hot core reading would need a higher two-year Treasury yield and a stronger dollar to reinforce pressure on gold. A soft reading would need the opposite. A CPI surprise alone does not establish either market response.\n\nCapital Chronicle model estimate: the gold reaction horizon is 60 minutes after the release. The hot case needs rates and dollar confirmation; the soft case needs falling rates and a weaker dollar. The research's dated absolute prices are not current quotes.\n\n## What September leaves to test\n\nBLS reported that September headline CPI rose 0.6 percent on a seasonally adjusted monthly basis, after 0.4 percent in August. Core CPI rose 0.3 percent, unchanged from August. The acceleration in headline inflation therefore did not coincide with an acceleration in the rounded core monthly rate.\n\nThe chart follows headline and core monthly changes from October 2024 through September 2026, using the values in their dated first releases. October and November 2025 remain gaps in the held monthly archive. Monthly seasonally adjusted changes measure something different from annual unadjusted inflation; neither comparison should be substituted for the other.\n\n## Why the composition can overturn the headline\n\nBLS Table 6 reported September effects on all-items CPI of 0.377 percentage points from energy, 0.265 from core and 0.006 from food. These are seasonally adjusted effects on the aggregate, not the inflation rates of those categories. The displayed effects are not forced to equal the rounded headline.\n\nCapital Chronicle's competing explanation is concentration: an energy-led headline rise need not establish a broader core acceleration. But September's substantial core effect also challenges an energy-only account. The next test is whether shelter and other persistent services agree with the rounded core number.\n\n## What is expected\n\nInvesting.com's published forecast on 10 November 2026 is a 0.2% monthly increase in October core CPI. That is one attributed expectation, not the release result or a new Capital Chronicle forecast.\n\nNo pre-event price range is asserted here. The useful test is whether the inflation detail and the subsequent rates and dollar moves agree.\n\n## Scenarios\n\nCapital Chronicle model estimate: the in-line 0.2% bin carries 44%, the 0.3% bin 31%, and the 0.1% bin 15%. These are individual bins from the desk's dated research, not a complete distribution. No probability is assigned here to either entire tail, and no omitted probability is inferred. The retained excerpt supplies no independently validated forecasting record. Capital Chronicle may hold positions in the markets it covers.\n\n**In line: core 0.2% m/m — Capital Chronicle model estimate probability 44%.** Confirmation: Small relief, with the detail deciding. Main's estimated moves: spot gold flat to **up** 0.5%; S&P 500 flat to **up** 0.7%; EUR/USD flat to **up** 0.3%; USD/JPY flat to **down** 0.4%; Bitcoin flat to **up** 2%. WTI: no CPI direction is supplied; Hormuz tanker headlines is the named outside risk. Invalidation: Any move larger than bin C's range that holds through +15 means the detail has dominated, so follow the 2-year.\n\n**Hot: core 0.3% m/m — Capital Chronicle model estimate probability 31%.** Confirmation: 2-year up, USD up, gold down, equities down. Main's estimated moves: spot gold **down** 0.7-1.5%; S&P 500 **down** 0.7-1.3%; EUR/USD **down** 0.4-0.6%; USD/JPY **up** 0.4-0.7%; Bitcoin **down** 2-4%. WTI: no CPI direction is supplied; Hormuz tanker headlines is the named outside risk. Invalidation: The 2-year gives back its whole move by +15.\n\n**Soft: core 0.1% m/m — Capital Chronicle model estimate probability 15%.** Confirmation: 2-year down, USD down, gold up, equities up. Main's estimated moves: spot gold **up** 0.8-1.5%; S&P 500 **up** 0.6-1.2%; EUR/USD **up** 0.4-0.6%; USD/JPY **down** 0.5-0.9%; Bitcoin **up** 2-4%. WTI: no CPI direction is supplied; Hormuz tanker headlines is the named outside risk. Invalidation: DXY recovers its pre-release level.\n\nIn the scenario checks, +15 means fifteen minutes after the release. These ranges belong to Main's spot, index or research reference; they are not measured futures or ETF moves. They are conditional estimates, not price targets.\n\n## How the response would travel\n\nThe rates test is the two-year Treasury yield: a sustained rise would reinforce the hot branch; a reversal would challenge it.\n\nThe dollar is the next link. A recovery after a soft print would weaken the relief thesis for gold and other dollar-sensitive markets.\n\nThe gold estimates concern spot gold. GC futures and the GLD ETF are separate instruments; no futures or ETF price or measured move is assigned here.\n\nWTI has no supplied directional CPI estimate. CL futures and the USO ETF offer oil exposure, while Hormuz tanker headlines remain an outside risk.\n\nThe S&P 500 scenario concerns the index; ES futures and the SPY ETF are distinct instruments. Rates can support or challenge the proposed equity response, while AI-stock stress is a competing influence.\n\nThe retained research identifies AI-stock stress as a competing influence, without a sector-level forecast. EUR/USD can be followed alongside the FXE ETF, USD/JPY alongside the FXY ETF, and Bitcoin alongside the IBIT ETF; these instrument names supply no prices or measured moves. FXY expresses the yen against the dollar, so its direction should not be equated with USD/JPY.\n\n## What would change the interpretation\n\nThe serious countercase is a surprise that fails its composition or market checks. Main flags a soft core print with firm shelter and supercore as possible false relief. It also flags a hot reading driven by lodging and airfares as potentially fragile. Gold regaining its pre-release level while the dollar is still up would point to a haven or geopolitical channel dominating the simple rates story.\n\nThe watch question across gold, currencies, equities and Bitcoin is whether the initial response survives the rates and dollar check. WTI remains exposed to the separate Hormuz risk, with no supplied CPI direction.\n\nAccording to Capital Chronicle, no freeze record was made for this CPI event; the public hash record starts at PPI. This preview presents the conditional research and is not Main's frozen file. Scoring awaits the eventual outcomes; no benchmark result is claimed.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Positions we mention are model positions on a demo account.",
+        "subtitle": "Capital Chronicle's conditional gold map needs confirmation from rates and the dollar. Inflation composition is the strongest countercase to a simple hot-or-soft reading.",
+        "title": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+        "tradingview_snapshot_asset_ids": [
+          "tradingview-panel-d9330ff3ab92605b9f58"
+        ],
+        "visual_editorial_decision": {
+          "article_media_order": [
+            "cc338-cpi-reaction-card",
+            "tradingview-snapshot-f388a35794b11a34a58e",
+            "cc338-cpi-monthly-baseline",
+            "cc338-cpi-components",
+            "cc338-usda-milk-shopping-archive"
+          ],
+          "channel_media": {
+            "discord": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ],
+            "facebook_page": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ],
+            "instagram_business": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ],
+            "linkedin": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ],
+            "telegram": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ],
+            "threads": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ],
+            "x": [
+              "tradingview-panel-d9330ff3ab92605b9f58"
+            ]
+          },
+          "charts": [
+            {
+              "asset_id": "cc338-cpi-monthly-baseline",
+              "data_spec": {
+                "calendar_month_count": 24,
+                "caption": "Seasonally adjusted monthly changes, October 2024-September 2026. September: headline +0.6%, core +0.3%. Gaps mark unavailable first-print observations; they are not zeros. No October 2026 actual is included.",
+                "chart_form": "Two directly labelled lines with point markers, one percent-change axis and a visible zero reference. Do not connect either line across missing October and November 2025. Highlight the September 2026 endpoint without hiding prior variation.",
+                "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+                "document_ids": [
+                  "official-history-7e3f323984002c820283691b",
+                  "official-history-164e29b01080d44f13efe5ff"
+                ],
+                "missing_periods": [
+                  "2025-10",
+                  "2025-11"
+                ],
+                "missing_rendering": "Nulls create visible breaks at the true calendar positions. Caption: first-print archive; October-November 2025 monthly observations unavailable in the held series.",
+                "periods": [
+                  "2024-10",
+                  "2026-09"
+                ],
+                "seasonal_adjustment": "SA",
+                "series": [
+                  {
+                    "name": "Headline CPI",
+                    "official_series_id": "CUSR0000SA0",
+                    "source_id": "SOURCE_5",
+                    "source_series": "CPI_HEADLINE_MOM"
+                  },
+                  {
+                    "name": "Core CPI",
+                    "official_series_id": "CUSR0000SA0L1E",
+                    "source_id": "SOURCE_6",
+                    "source_series": "CPI_CORE_MOM"
+                  }
+                ],
+                "source_credit": "U.S. Bureau of Labor Statistics; CC-010 first-print archive.",
+                "source_ids": [
+                  "SOURCE_5",
+                  "SOURCE_6"
+                ],
+                "transform": "Identity: plot the archived first-reference-month release values exactly; no annualisation, smoothing, inferred levels, imputation or revision substitution.",
+                "type": "line",
+                "unit": "percent change from previous month",
+                "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+              },
+              "placement_after": "What September leaves to test",
+              "question": "Did the latest headline acceleration coincide with stronger core monthly inflation?",
+              "title": "Monthly CPI: headline and core, October 2024-September 2026",
+              "why_useful": "Shows the exact monthly measure used in the reaction map over a 24-month window. September headline is 0.6%, versus 0.4% in August; core is 0.3% in both months. Two series on one axis prevent an annual-rate comparison being mistaken for new monthly momentum."
+            },
+            {
+              "asset_id": "cc338-cpi-components",
+              "data_spec": {
+                "caption": "BLS-reported seasonally adjusted effects on September's all-items monthly change: energy 0.377, core 0.265 and food 0.006 percentage points. These are effects, not category inflation rates. The rounded headline rose 0.6%.",
+                "capture_sha256": "b9f981390c08f4a530d839495fce582124015b979bac0398bfcc35ffde0544e4",
+                "chart_form": "Three vertical bars with a zero baseline and exact value labels; order energy, core, food. Label the axis percentage points. Use the label Core (less food and energy), not an unexplained internal series id.",
+                "document_ids": [
+                  "official-components-b9f981390c08f4a530d83949"
+                ],
+                "period": "2026-09",
+                "seasonal_adjustment": "SA",
+                "series": [
+                  {
+                    "name": "Energy",
+                    "official_series_id": "CUSR0000SA0E",
+                    "value": 0.377
+                  },
+                  {
+                    "name": "Core (less food and energy)",
+                    "official_series_id": "CUSR0000SA0L1E",
+                    "value": 0.265
+                  },
+                  {
+                    "name": "Food",
+                    "official_series_id": "CUSR0000SAF1",
+                    "value": 0.006
+                  }
+                ],
+                "source_credit": "U.S. Bureau of Labor Statistics, September 2026 CPI release, Table 6.",
+                "source_ids": [
+                  "SOURCE_9"
+                ],
+                "source_table": "cpipress6",
+                "source_url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm#cpipress6",
+                "transform": "Identity: BLS Table 6 reported effects, disjoint food/energy/core categories. Do not calculate weights times rounded changes. Do not force the effects to equal the rounded +0.6% headline or display an invented residual.",
+                "type": "bar",
+                "unit": "percentage points of seasonally adjusted all-items monthly change"
+              },
+              "placement_after": "Why the composition can overturn the headline",
+              "question": "Was September's headline rise only an energy story?",
+              "title": "September CPI: reported effects on all items",
+              "why_useful": "BLS Table 6 assigns a larger reported effect to energy than core, while core remains substantial. This supports a composition test without deriving contributions from rounded weights or changes."
+            }
+          ],
+          "contextual_photo_ids": [
+            "cc338-usda-milk-shopping-archive"
+          ],
+          "contextual_photo_selection": {
+            "asset_id": "cc338-usda-milk-shopping-archive",
+            "asset_sha256": "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd",
+            "attribution": "USDAgov / U.S. Department of Agriculture, via Wikimedia Commons. Public domain (17 USC 105).",
+            "caption": "A shopper checks WIC eligibility for milk at Papaya Supermarket, Dearborn, Michigan, June 2023. Archive context, not an observation of October 2026 prices.",
+            "finding": "Inspected exact local pixels: shopper, phone WIC check and milk carton match the archive context. The photo supplies no evidence about October 2026 prices.",
+            "placement_after": "Why the composition can overturn the headline",
+            "rights_status": "PUBLIC_DOMAIN"
+          },
+          "countercase": "A core surprise can mislead when composition is narrow or the two-year yield and dollar fail to confirm. A soft print with firm shelter and supercore may not sustain relief; a hot print driven by lodging and airfares can fade. Gold reclaiming its pre-release level while the dollar remains up would challenge the rates channel. Hormuz tanker headlines are an outside risk, with no Main-supplied directional CPI implication for WTI.",
+          "editorial_thesis": "The useful CPI test is whether core inflation changes the rates-and-dollar path enough to validate Main's conditional gold reaction map. Core CPI of 0.3% m/m or higher maps to a gold decline of at least 0.7% within 60 minutes; 0.1% or lower maps to a rise of at least 0.7%. These are Capital Chronicle model estimates, not observed reactions. September's energy effect was larger than core's, but core contributed materially too: headline pressure alone does not settle underlying persistence.",
+          "essential_gaps": [
+            {
+              "fact": "Held first-print monthly series have null October and November 2025 observations.",
+              "scope": "Monthly history",
+              "treatment": "Keep the full 24-month calendar window with visible gaps; no interpolation. Available data remain fully usable."
+            },
+            {
+              "fact": "Parent reports no freeze record was issued by the authorized 05:50 ET deadline.",
+              "scope": "CPI freeze",
+              "treatment": "Public text: no freeze record was made for this event, and the hash record starts at PPI. This preview and the research note are not represented as Main's frozen file."
+            },
+            {
+              "fact": "October actuals are future at this preview cutoff.",
+              "scope": "October release",
+              "treatment": "Condition all reaction claims; retain September figures as dated background and quote only the current attributed +0.2% core monthly forecast."
+            },
+            {
+              "fact": "The actual frozen governed source pack contains the named CPI research, current forecast, BLS September background, four history series and Table 6 effects.",
+              "scope": "Source correction",
+              "treatment": "Light's old four-document mismatch is repaired; it does not hold this visual plan."
+            },
+            {
+              "fact": "No directional CPI implication is supplied in Main's WTI material.",
+              "scope": "WTI",
+              "treatment": "Name WTI futures or ETF instruments when covered, state that the direction is unspecified, and preserve Hormuz tanker headlines as an outside risk."
+            },
+            {
+              "fact": "The two new official charts and the new reaction card are specifications in this return.",
+              "scope": "Final image readiness",
+              "treatment": "Existing deterministic owner renders these exact choices and binds image hashes; final acceptance concerns the exact produced assets. No publication is performed by this role."
+            }
+          ],
+          "event_kind": "EVENT_PREVIEW",
+          "market_asset": "XAUUSD",
+          "public_copy_rules": [
+            "Use ET for every authored public date/time; retain TradingView's own supplied header.",
+            "Use public instrument names: spot gold with GC/MGC futures or GLD/IAU ETFs; S&P 500 with ES/MES futures or SPY/VOO ETFs; WTI with CL/MCL futures or USO ETF; EUR/USD with 6E futures or FXE ETF; USD/JPY with 6J futures or FXY ETF; Bitcoin with BTC/MBT futures or IBIT/FBTC ETFs. Name-only references never imply measured instrument moves. 6J and FXY move with the yen, not in the same direction as USD/JPY.",
+            "Carry the exact Main-sourced base and main alternative into two authored social_scenarios lines.",
+            "Include Capital Chronicle offers analysis only, not financial advice or recommendations. and Capital Chronicle may hold positions in the markets it covers."
+          ],
+          "public_write_performed": false,
+          "reader_first_version": "DATA_JOURNALISM_V1",
+          "rejected_visuals": [
+            {
+              "reason": "Jim decision 93 requires new image bytes; source data may be reused for new charts.",
+              "visual": "Old beans photograph, Fed/Capitol photographs and any previously published image bytes"
+            },
+            {
+              "reason": "Main supplies 44%, 31% and 15% for individual bins, with no complete distribution.",
+              "visual": "A probability pie or normalized three-bin distribution"
+            },
+            {
+              "reason": "This is a pre-release preview; no future actual is supplied.",
+              "visual": "An October 2026 actual or chart point"
+            },
+            {
+              "reason": "The reaction thresholds are m/m SA; annual NSA background is a different measure. The held annual series can support correctly labelled prose, with no extra panel needed.",
+              "visual": "An annual-rate chart on the monthly-reaction axis"
+            },
+            {
+              "reason": "Main supplies only the Hormuz tanker outside-risk phrase for WTI, not a CPI direction.",
+              "visual": "A directional WTI CPI arrow or inferred oil response"
+            },
+            {
+              "reason": "Decision 40 and the owner request restrict raw prediction odds; the research's dated levels are not current prices and instruments remain distinct.",
+              "visual": "Prediction-market odds, stale absolute market levels or copied spot levels for GC/GLD"
+            }
+          ],
+          "release_reaction_card": {
+            "asset_id": "cc338-cpi-reaction-card",
+            "binding_note": "Instruction for the compiler automatic source-bound post card after writing; this proposed card id is not an existing channel media binding. The compiler prepends the release/reaction card.",
+            "conditional_model_estimates": [
+              {
+                "condition": "Core CPI 0.3% m/m or higher",
+                "gold_reaction": "falls at least 0.7% within 60 minutes"
+              },
+              {
+                "condition": "Core CPI 0.1% m/m or lower",
+                "gold_reaction": "rises at least 0.7% within 60 minutes"
+              }
+            ],
+            "confirmation": "Check two-year Treasury yields and the dollar; the inflation print alone does not establish a market reaction.",
+            "design": "Use short conditional sentences and a 60-minute horizon; do not use a probability pie, a historical performance badge, stale absolute gold levels or absolute dollar move equivalents. Source-bound release facts remain distinct from model estimates.",
+            "document_ids": [
+              "cc-desk:a1f78fd9f9f442f67b68b6b037912d8ee8efd661c721d85d017957a5be889bef",
+              "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+              "preview-consensus-d312e148adb709cd1af7bfdd020132421d7e3b6e63fcc2a68a4775880db32346"
+            ],
+            "event_time_public": "10 November 2026, 08:30 ET",
+            "forecast": {
+              "attribution": "Investing.com forecast; observed 10 November 2026, 03:40 ET",
+              "measure": "October core CPI, seasonally adjusted m/m",
+              "render_as": "A single attributed text fact, not a consensus table or history.",
+              "unit": "percent",
+              "value": 0.2
+            },
+            "invalidation": "Hot case: two-year yield gives back its whole move by 08:45 ET, or gold reclaims its pre-release level while the dollar is still up. Soft case: two-year yield has not fallen at least 3 bp by 08:35 ET or is back above its 08:29 ET level by 08:45 ET; a dollar recovery also challenges relief.",
+            "kind": "source_bound_release_reaction_card",
+            "labels": [
+              "Capital Chronicle model estimates",
+              "Preview: October actual not yet released"
+            ],
+            "placement": "lead",
+            "placement_after": "The conditional gold map",
+            "probability_bins": [
+              {
+                "core_cpi_mom": 0.2,
+                "model_estimate_probability_percent": 44
+              },
+              {
+                "core_cpi_mom": 0.3,
+                "model_estimate_probability_percent": 31
+              },
+              {
+                "core_cpi_mom": 0.1,
+                "model_estimate_probability_percent": 15
+              }
+            ],
+            "probability_note": "Individual exact-print bins, not a complete distribution. Never attach the 31% bin to the whole 0.3%-or-higher tail or the 15% bin to the whole 0.1%-or-lower tail. Do not invent the other bins or a complement.",
+            "source_ids": [
+              "SOURCE_1",
+              "SOURCE_2",
+              "SOURCE_4"
+            ],
+            "title": "October CPI: the conditional gold map"
+          },
+          "schema_version": "DATA_JOURNALISM_V1",
+          "slug": "october-cpi-gold-conditional-reaction-map",
+          "story_kind": "ANALYSIS",
+          "supplemental_media": [
+            {
+              "article_inclusion_requested": true,
+              "asset_id": "tradingview-snapshot-f388a35794b11a34a58e",
+              "asset_sha256": "f388a35794b11a34a58ef73a4b2a85e019eec9ac83e86d81e9b1494c0143c0f4",
+              "attribution": "Chart: TradingView",
+              "binding_action": "Existing media owner binds this exact snapshot as a canonical article supplement; the present delivery_only flag is not claimed as completed inclusion.",
+              "canonical_article_media_requested": true,
+              "caption": "Spot gold / U.S. dollar, 4-hour chart captured 10 November 2026 at 05:31 ET. Chart: TradingView. A pre-release snapshot; it does not show a CPI reaction.",
+              "finding": "Inspected exact local pixels: Gold Spot / U.S. Dollar, 4h, ICE; full TradingView header and logo remain visible. Retain the original header. No spot level is relabelled as a futures or ETF price.",
+              "kind": "TRADINGVIEW_SNAPSHOT",
+              "placement_after": "The conditional gold map",
+              "role": "supplement_after_release_card"
+            }
+          ],
+          "tradingview_snapshot_asset_ids": [
+            "tradingview-panel-d9330ff3ab92605b9f58"
+          ]
+        },
+        "volume_policy": {
+          "brief_only": false,
+          "effective_production_date": "2026-10-31",
+          "max_admitted_candidates": 6,
+          "max_articles": 2,
+          "non_chargeable_only": true,
+          "photo_less_news_policy": true,
+          "policy_id": "CC-047-20261030",
+          "source_request_limit": 20,
+          "source_resolvability_first": true
+        },
+        "volume_policy_cutoff_utc": "2026-11-10T10:30:17.378725Z"
+      },
+      "probabilities": [
+        44.0,
+        31.0,
+        15.0
+      ],
+      "event_time": "2026-11-10T13:30:00Z"
+    }
+  }
+}

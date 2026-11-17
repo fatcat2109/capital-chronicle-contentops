@@ -1,0 +1,31 @@
+{
+  "request_sha256": "aa378278ad51b0ab15a621c82bbf117f725f49b35e7d3ad1414b2697fa9b5b28",
+  "output": {
+    "candidate_id": "simple-story-3dda85c65d18c7b00fbbb3a6",
+    "outcome": "SOURCE_BLOCKED",
+    "primary_cause": [
+      "LATE_OR_STALE"
+    ],
+    "public_write_attempted": false,
+    "reason": "ARTICLE_DATA_CUTOFF_EXPIRED: the original data cutoff 2026-11-17T00:07:57.072144Z and publication deadline 2026-11-17T01:07:57.072144Z are unchanged. Parent clock observation 2026-11-17T01:08:03Z confirms expiry before this native writer result. CC403_READER_ARTICLE_V1 and the exact owner request prohibit a stale public send. Accepted selection, admitted source, source budget and collected media plan are retained unchanged; no stale public article was authored and no public write was attempted.",
+    "schema_version": "contentops.native_pre_writer_outcome.v1",
+    "source_request_count": 0,
+    "source_request_limit": 20
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_aa378278ad51",
+    "model": null,
+    "reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native canonical task context identifies /root/native_write_aa378278ad51 and assignment cc124-asia-risk-20261117:write. The supported spawn task names configured model and effort; actual runtime model and effort telemetry are unavailable.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "supported spawn request"
+  }
+}

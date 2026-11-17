@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "unique_targeted_cases": 157,
+  "all_latest_case_results_pass": true,
+  "regression_run": {
+    "passed": 155,
+    "failed": 1,
+    "artifact": "targeted-tests.xml"
+  },
+  "preexisting_failure_reproduced_with_operating_base": "11eac1310fb9837f243a359e98b73478c4a43843",
+  "baseline_evidence": "baseline-credit-assertion.xml",
+  "resolved_assertion": "CC-359 expects unchanged correction body plus mandatory TradingView credit",
+  "final_affected_run": {
+    "passed": 13,
+    "failed": 0,
+    "artifact": "final-affected-tests.xml"
+  },
+  "production_code_after_full_regression": "Only the cancelled-to-settled projection fix followed; verified by the full CC-646 file and canonical claim/concurrency selection.",
+  "store_copy_replay": "copied-store-cancellation.json",
+  "copy_preparation": "copied-store-prepared.json",
+  "settled_consumer_run": {
+    "passed": 17,
+    "failed": 0,
+    "deselected": 121,
+    "artifact": "settled-consumer-tests.xml"
+  }
+}

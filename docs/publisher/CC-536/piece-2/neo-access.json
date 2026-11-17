@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-15T11:31:07.010772+00:00",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "purpose": "CC-536 piece 2 authentic native TradingView chart capture and existing canonical-first publication",
+  "status": "UNAVAILABLE",
+  "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "next_actor": "BrowserOS operator",
+  "next_action": "Open BrowserOS Neo with its existing profile and restore its configured local MCP endpoint; Publisher resumes the same prepared piece."
+}

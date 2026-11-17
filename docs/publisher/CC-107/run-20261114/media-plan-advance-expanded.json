@@ -1,0 +1,91 @@
+{
+  "classification": "NATIVE_VISUAL_PLAN_RETURNED_ASSETS_REQUIRED",
+  "output": {
+    "story_plan": {
+      "chart_plan": [
+        {
+          "constraints": "Copy only admitted exact values. Do not convert frozen thresholds into odds or include entries, stops, targets or performance.",
+          "id": "nfp-release-resolution",
+          "proposal": "Release card first, with official payroll and unemployment actuals alongside frozen Strong conditions. Distinguish the frozen scenario from the separate categorical score.",
+          "sources": [
+            "SOURCE_1",
+            "SOURCE_2"
+          ]
+        },
+        {
+          "constraints": "Use supplied numeric records and existing CC-145/CC-142 render owner. Break lines at gaps; preserve OBSERVED versus DERIVED status. First-print history must not be silently replaced with latest-revised values. The retained archive does not prove possession at the historical release. Apply event cutoff to every point and retain per-point original source hashes. Append October only from admitted release, never interpolate.",
+          "id": "official-labour-history",
+          "proposal": "Small multiples of headline payroll monthly change, unemployment rate and average-hourly-earnings monthly change. For a jobs release there is no invented core-payroll series; wages and unemployment give supporting labour context.",
+          "series": [
+            "CES0000000001 / NFP_PAYROLL_CHANGE / persons / seasonally adjusted",
+            "LNS14000000 / UNEMPLOYMENT_RATE / percent / seasonally adjusted",
+            "CES0500000003 / AHE_MOM / percent / seasonally adjusted"
+          ],
+          "sources": [
+            "SOURCE_6",
+            "SOURCE_7",
+            "SOURCE_8",
+            "SOURCE_2"
+          ],
+          "window": "Retained October 2024 through September 2026 first-print histories, with October 2026 latest release clearly distinguished if appended."
+        },
+        {
+          "constraints": "Native table unit is thousands of jobs; preserve it or let existing deterministic owner perform explicit validated scaling. No sector asset returns are supplied. Employment changes are not market sector returns. No residual components calculated by prose.",
+          "id": "latest-month-components",
+          "proposal": "Horizontal bars for October major-industry seasonally adjusted payroll changes from the exact B-1 change column, with the headline total separately identified. Highlight named contributors without double-counting their subindustries.",
+          "sources": [
+            "SOURCE_3",
+            "SOURCE_2"
+          ],
+          "window": "October 2026 monthly change"
+        },
+        {
+          "constraints": "Copy Main-computed percentages exactly. Preserve underlying proxy identity privately and disclose reference/proxy meaning accurately; never relabel measured broker/reference changes as futures or ETF returns. Futures/ETF names may identify coverage instruments without attaching these returns to them. No raw broker prices, account/execution details, invented Bitcoin result, bond-yield move, first-day measure, pre-event break or causal attribution.",
+          "id": "event-reaction-windows",
+          "proposal": "Compact paired-dot or grouped-bar figure for supplied five-minute and sixty-minute changes for EUR/USD, USD/JPY, gold, S&P 500 reference and WTI reference, labelled Capital Chronicle model estimate.",
+          "sources": [
+            "SOURCE_1"
+          ],
+          "window": "November 6, 2026 release baseline 08:30 ET; supplied five-minute and sixty-minute windows only, with actual observation stamps retained by the render owner."
+        },
+        {
+          "constraints": "Capital Chronicle model estimate; IN_LINE is the separate historical-frequency categorical outcome. Preserve PIT_CLEAN and RESEARCH_PREPARATION provenance privately. No numerical prediction-market odds, win rate, inferred second success or skill claim.",
+          "id": "separate-score-comparison",
+          "proposal": "Optional compact score card, visually separate from scenario resolution, for supplied matrix Brier 0.02 versus Investing consensus-only Brier 0. State lower is better, one event, and prediction-market-only unavailable.",
+          "sources": [
+            "SOURCE_1",
+            "SOURCE_5"
+          ]
+        }
+      ],
+      "limits": [
+        "The frozen packet is adequate for these data proposals; no additional factual-source request is needed. Preserve existing ledger count and limit 20.",
+        "MAX chooses useful chart count, forms and placement through the existing render/media owner; this proposal is not inspected media or final approval.",
+        "September first-print payroll context and November-release revised September values are distinct vintages; do not silently substitute either.",
+        "No current guidance or new probability inference. Keep computation-generation, data observation, release, writing and publication clocks distinct.",
+        "Public dates/times use ET. Preserve cutoff 2026-11-14T11:04:18.352247Z and both required notices. Keep source markers privately."
+      ],
+      "photo_plan": {
+        "fallback": "Use the original release card and admitted data charts if no lawful relevant photograph is found; do not invent a license or hold the supported review for an optional photograph.",
+        "freshness": "Use new piece-specific bytes and existing SHA256/perceptual-hash checks. Never reuse Fed-building or Capitol photos.",
+        "lead_market": "EURUSD internal binding; public EUR/USD spot or 6E futures named distinctly. A current TradingView snapshot must not appear as a November 6 event observation; event pieces keep release card first. Prefer the source-bound historical reaction figure for this retrospective.",
+        "owner": "Existing media discovery/binding owner",
+        "rights": "Inspect original asset page and exact creator, license, depicted date, attribution and reuse restrictions before use. A BLS text/data public-domain tag does not grant rights to a photo, logo or third-party asset.",
+        "subject": "Authentic US employment context, such as workers or a workplace photographed by a federal agency, with a precise archive caption; never imply the image depicts the October survey or November release."
+      },
+      "source_bindings": [
+        "SOURCE_1 cc107-nfp-dated-review-20261114",
+        "SOURCE_2 bls-october-release",
+        "SOURCE_3 bls-october-sectors",
+        "SOURCE_6 official-history-1660fee0f509bbb4afddb7d7",
+        "SOURCE_7 official-history-c3527e60cf6b66f4f7b44bd4",
+        "SOURCE_8 official-history-843f76a60b18948f30fd1775",
+        "SOURCE_9 cc124-bls-september-employment-original"
+      ],
+      "source_requests": [],
+      "thesis": "Prepare the dated NFP retrospective around the frozen Strong condition being met, the distinct observed intraday co-movement, and the lesson that a separate one-event categorical comparison does not establish predictive skill. Preserve the exact event-resolution packet and existing previews. MAX authors all public prose."
+    }
+  },
+  "request_sha256": "ae54a6a1780c4003374028c316629c69abf429caf638261c119d7d995391d864",
+  "public_write_performed": false
+}

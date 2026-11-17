@@ -1,0 +1,10 @@
+[
+  {
+    "record_id": "native-neo-edc671e47d266c86c47a32ab59df7b906089f18fca8010f55033139cec7afb39",
+    "created_at": "2026-11-12T14:21:32.654931+00:00",
+    "operation_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-substack_notes",
+    "action": "READBACK",
+    "destination": "substack_notes",
+    "request_sha256": "fc9fd4c32be60e94bcd1fec04e44d2397aaf3efe858a255d38ab4648db708c1f"
+  }
+]

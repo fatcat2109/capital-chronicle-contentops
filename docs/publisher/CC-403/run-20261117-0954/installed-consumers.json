@@ -1,0 +1,59 @@
+{
+  "observed_at_utc": "2026-11-17T03:02:22.002633+00:00",
+  "production_day": "2026-11-17",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "published_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979",
+    "modified_at_utc": "2026-11-16T07:51:45.660265+00:00"
+  },
+  "latest_public_articles": [
+    {
+      "content_id": "substack:224085585",
+      "title": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+      "type": "ARTICLE",
+      "published_at_utc": "2026-11-09T00:41:01.324000+00:00",
+      "recorded_at_utc": "2026-11-09T08:29:26.268883+00:00"
+    },
+    {
+      "content_id": "substack:224141856",
+      "title": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades",
+      "type": "ARTICLE",
+      "published_at_utc": "2026-11-09T12:17:45.237000+00:00",
+      "recorded_at_utc": "2026-11-09T12:39:18.951619+00:00"
+    },
+    {
+      "content_id": "substack:224293572",
+      "title": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+      "type": "EVENT_PREVIEW",
+      "published_at_utc": "2026-11-10T12:09:49.251000+00:00",
+      "recorded_at_utc": "2026-11-10T12:43:48.757027+00:00"
+    },
+    {
+      "content_id": "substack:224849463",
+      "title": "How we measure a trading rule before trusting it",
+      "type": "ARTICLE",
+      "published_at_utc": "2026-11-14T06:01:31.721000+00:00",
+      "recorded_at_utc": "2026-11-14T08:03:34.018801+00:00"
+    },
+    {
+      "content_id": "substack:225143229",
+      "title": "Following the trend worked unevenly",
+      "type": "ARTICLE",
+      "published_at_utc": "2026-11-16T07:44:03.233000+00:00",
+      "recorded_at_utc": "2026-11-16T07:51:43.682279+00:00"
+    }
+  ],
+  "publication_status_artifact": "publication-status.json",
+  "internal_label_probe": [
+    "INTERNAL_EDITORIAL_LABEL:DATED CAPITAL CHRONICLE REVIEW"
+  ],
+  "installed_modules": {
+    "live_contentops.main_report_projection_source_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+    "live_contentops.reader_article_contract_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+    "live_contentops.v1_simple_gemini_newsroom_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\v1_simple_gemini_newsroom_v1.py",
+    "live_contentops.published_images_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py"
+  }
+}

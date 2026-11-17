@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-11-13T05:17:03.668051+00:00",
+  "day_failure": {
+    "attempt_started_at_utc": "2026-11-13T05:00:36.126473+00:00",
+    "destination": "discord",
+    "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+    "et_day": "2026-11-13",
+    "safe_error_classification": null,
+    "status": "UNKNOWN_WRITE",
+    "write_outcome_certainty": "AMBIGUOUS"
+  },
+  "dispatch": {
+    "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+    "message_id": "outbox_7f8f257708434b2a48c2ffa84ed1ea1e",
+    "platform": "discord",
+    "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+    "dispatched_at": "2026-11-12T18:00:17.567071+00:00",
+    "public_object_id": null,
+    "public_object_url": null,
+    "public_object_url_hash": null
+  },
+  "readbacks": [
+    {
+      "readback_id": "readback_833d263c68ee6b44e028ee81c90724c0",
+      "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+      "readback_data": "{\"destination\":\"discord\",\"dispatch_id\":\"dispatch_7f8f257708434b2a48c2ffa84ed1ea1e\",\"readback\":{\"identity_match\":false,\"observed_public_object_id\":null,\"observed_public_object_url\":null,\"source_status\":\"NOT_FOUND\",\"verified\":false,\"write_absent\":true,\"write_exists\":false}}",
+      "read_at": "2026-11-12T18:00:21.257275+00:00"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-11-13T17:22:47.6621979Z",
+  "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+  "state": "Running",
+  "actions": [
+    {
+      "execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+      "arguments": "-B scripts\\plan_status_posts.py --publish",
+      "working_directory": "A:\\Capital Chronicle\\ContentOps"
+    }
+  ],
+  "last_run_time_utc": "2026-11-13T17:22:26.0000000Z",
+  "last_task_result": 2147946720,
+  "next_run_time_utc": "2026-11-13T17:23:25.0000000Z",
+  "processes": [
+    {
+      "pid": 40924,
+      "parent_pid": 2092,
+      "created_at_utc": "2026-11-13T17:19:26.0542220Z",
+      "name": "pythonw.exe",
+      "has_plan_status_entry": true
+    }
+  ],
+  "schedule_changed": false
+}

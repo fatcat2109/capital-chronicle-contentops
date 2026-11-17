@@ -1,0 +1,191 @@
+{
+  "files": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\cc509-chart-proof\\snapshot.json",
+      "sha256": "9384c61f678c88205b628ad26c61afbdbd2a722fb75399a09a1899ef1f5e57c5"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-0fee4b9450de5a81488e9d30f67d49cd\\tradingview_capture_v1.json",
+      "sha256": "d7f61a3527637afbf0f434df8e7bb84015ae3b16addd3e96b214a7f8660aa986"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-37f4a7ca63df69d5864655fbe2494bae\\tradingview_capture_4x5_cc465_v1.json",
+      "sha256": "f3ef795a0c6e14f9f635d8a9ec41da8a0621c034d74a824a2d5eb51c3e2338e2"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-37f4a7ca63df69d5864655fbe2494bae\\tradingview_capture_cc465_v1.json",
+      "sha256": "690e9bcbe57784e38921225b2e2549d33b891d00907e53d44c035019749b4811"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-37f4a7ca63df69d5864655fbe2494bae\\tradingview_capture_v1.json",
+      "sha256": "0776a36ed9f6483b6eebd71192bc25f2a4480351bed7215d91d4d7044331e95b"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-3c8732ac99de4e1e2b742da1bf615116\\tradingview_capture_v1.json",
+      "sha256": "51202b5c68017efc97dd1defedb43f2db48a090254a8acd2b465eba9a6c6692b"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-6b1d1b45c769342760ceb96f57b0c775\\tradingview_capture_v1.json",
+      "sha256": "56456dee9ddb1506ece1fc839b5b308b5c0dfa01aa1ae813d25ac6c6498ce987"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947\\tradingview_capture_v1.json",
+      "sha256": "623e6ee2e2bf9b8ea3785f4705ecd7cc9728b2ffbeea2ae2bfa2abba51ba4e50"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-a59b5a488656152d2df1ec1729ee3eb5\\tradingview_capture_v1.json",
+      "sha256": "0bc6fa55c383f61f10ad3ebf89e8c7e2f0bfba29b30b5db407c7139e15166593"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\tradingview_capture_v1.json",
+      "sha256": "6302b80208dc49fffdea3644173a7b0dc76d10a2757dd651a20ef0ca88bdbaef"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_posts\\plan-status-post-37f4a7ca63df69d5864655fbe2494bae\\tradingview_capture_cc465_v1.json",
+      "sha256": "bcbd0c4eeac6552b63bec95b32dda1a287eed5bc3bb5625426500c68de234d5e"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_posts\\plan-status-post-37f4a7ca63df69d5864655fbe2494bae\\tradingview_capture_v1.json",
+      "sha256": "77db3a1e0749548ad5f2393619233cb2434f77fea019d854523df700c3099a36"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\snapshot.json",
+      "sha256": "64df305450c0406f1febad2e86d1435f361a388af6b5b4cfcd2d8377d2318eb5"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\snapshot.json",
+      "sha256": "c69a7820db155c39902c43d0d8a0ea0bd283b846c4f507238c674773d7eed8be"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\snapshot.json",
+      "sha256": "39e1776903fc61ec290a379494a6bc4c2f543068083787e2f0fdc11023bb3c2c"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\snapshot.json",
+      "sha256": "eae7d2d9f439f4daa16ba8625dd5c6a9bf9c2847061a539f4f188e438744a348"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\snapshot.json",
+      "sha256": "f3490c0f95eeee52ea852b95d0f5785d9ecc9708c064930372671071b01219f9"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\snapshot.json",
+      "sha256": "443121113800b711ef83e2d8f1e0f955d25a89b50b02d9133f5e5c8624a876ac"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\T\\retained-snapshot.json",
+      "sha256": "e5f2dc7829ffa9be2eaa7c6433c9d1d5ac8860bafe99bf550b9bba5c356dd1b6"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\T\\snapshot.json",
+      "sha256": "dd8b6c39b2a6c26597b497ff59dc3a78e2b63c05e60cc77748b83e1656d8227c"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\W\\retained-snapshot.json",
+      "sha256": "b214305ca97a4776a3c1b1bade4b985567e34ef2e306e6d93e7c1c2318ff9d06"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\W\\snapshot.json",
+      "sha256": "41130faed3bf6d9a09bfe8a8dc5135c43c7d955d0421d748c81f98a25c4f0eb6"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\EURUSD\\T\\retained-snapshot.json",
+      "sha256": "0404369f4d6ac6dc3207e298c1e31441622eae953fabe7357803d266f743fdd3"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\EURUSD\\T\\snapshot.json",
+      "sha256": "53f1d7d5a607f9cc432fa941778c9f87a6ffe6489ee65e1f4511126f23f148c1"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\EURUSD\\W\\retained-snapshot.json",
+      "sha256": "935ecf06d9365113b8711dfe383993b2d715e1b327405035befe4548d03519a4"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\EURUSD\\W\\snapshot.json",
+      "sha256": "a53cfd8ef36e4e41e10605e05141b595264a6c9dd11e82353419a593ff4e6e1e"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\US500\\T\\retained-snapshot.json",
+      "sha256": "88640f4172dc9e151b3d8d3bed0490df8a44426d74983195c997001200887d40"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\US500\\T\\snapshot.json",
+      "sha256": "47e607c0f3c53a8d50cef9f7354ed59cc75d7ccd50671414f9f05d600a590faf"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\US500\\W\\retained-snapshot.json",
+      "sha256": "8d327f064e0e159385f23838f90c1af2ed3702263609af031d9ab136869f2236"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\US500\\W\\snapshot.json",
+      "sha256": "a7f8f2a058d2b3aeca06959d917127c6a291ff44db6c85f1cd1fb6cf5352f0a5"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\T\\retained-snapshot.json",
+      "sha256": "2d243a1faa01fec42a9d5c6804963bd59b9909eca9b520da2ec5f4e7a64c1612"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\T\\snapshot.json",
+      "sha256": "0134afa0e058c6885f158111366165ed16a9cd45e6fe2c6b1e12517a3940b351"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\W\\retained-snapshot.json",
+      "sha256": "01e485619dcc8691473c0846cddc00dc15d4c4afd771922532aeedf944d35fc0"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\W\\snapshot.json",
+      "sha256": "d2d276fe3ca86aa51e80962a0df0b4f2575119763397e35b1c9e2092849c508f"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USOIL\\T\\retained-snapshot.json",
+      "sha256": "abdbd88dc4b5fb89935ce1541780d9dd0a19b903513345c574aa5092712ad11b"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USOIL\\T\\snapshot.json",
+      "sha256": "a345bcd5220ed7e66760a879404f14707b666ba1cc8e4db9d6e440fa9eaa023f"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USOIL\\W\\retained-snapshot.json",
+      "sha256": "44d4bc975b943363d3217bc648b3f9926851aaf6b9be6436f76da685f985425f"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USOIL\\W\\snapshot.json",
+      "sha256": "582462541e47935ddd51d6dc0dca2e0a760d3043bd1e41231134baed688e1d65"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\T\\retained-snapshot.json",
+      "sha256": "90b94f1a7398288e926e822ba655f3e3a79dafebf773c26b2b4326748c02b554"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\T\\snapshot.json",
+      "sha256": "dd88457f60b3ded90389848c51e03b11c628f2ab9e6c0a080166727d1e9ac411"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\W\\retained-snapshot.json",
+      "sha256": "898686cc1574222cd594cf76aad8baba4274e7fb9db06080c9c533458cc7e71c"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\W\\snapshot.json",
+      "sha256": "75f0a1ce9533474db92b54bd443eff98a82e1bc6e627939d61d10cd04a12d5cf"
+    }
+  ],
+  "distinct_snapshots": 20,
+  "snapshot_utc_dates": {
+    "2026-11-12": 2,
+    "2026-11-11": 18
+  },
+  "recorded_checks": 14,
+  "measured": 2,
+  "measured_market_dates": [
+    {
+      "market": "EURUSD",
+      "capture_utc_date": "2026-11-12",
+      "count": 1
+    },
+    {
+      "market": "XAUUSD",
+      "capture_utc_date": "2026-11-12",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "day": "2026-11-12",
+  "status": "PASS",
+  "whole_live_day_elapsed": true,
+  "plan_charts": 6,
+  "compared_plan_charts": 6,
+  "compared_percent": 100.0,
+  "required_compared_percent": 95,
+  "not_compared": [],
+  "missing_quote_refusals": [],
+  "charts": [
+    {
+      "piece_id": "3ce0bfe396047b575e7e4a9ef26cd170dbdb9908d6383ffcbf3b4c72995c2ee6",
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "market": "XAUUSD",
+      "compared": true,
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "quote_age_seconds": 47.40083,
+      "comparison_basis": "AT_CAPTURE",
+      "cause": null,
+      "source_attempts": []
+    },
+    {
+      "piece_id": "98025ff7d809879cbcd3795a0c772658c8ae40d3e07a938c8c7f55554831d671",
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "market": "XAUUSD",
+      "compared": true,
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "quote_age_seconds": 47.40083,
+      "comparison_basis": "AT_CAPTURE",
+      "cause": null,
+      "source_attempts": []
+    },
+    {
+      "piece_id": "a7354f1868b181bb2617f76dcbd2b0340f2a384d214cbd5796484c61afec12a3",
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "market": "XAUUSD",
+      "compared": true,
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "quote_age_seconds": 47.40083,
+      "comparison_basis": "AT_CAPTURE",
+      "cause": null,
+      "source_attempts": []
+    },
+    {
+      "piece_id": "44e797f7f9e2be2469dbd65bbfcb3b43ef3c36fd75d9c5ddf8149b134ba294b2",
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "market": "XAUUSD",
+      "compared": true,
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "quote_age_seconds": 47.40083,
+      "comparison_basis": "AT_CAPTURE",
+      "cause": null,
+      "source_attempts": []
+    },
+    {
+      "piece_id": "85d075837e81019870e00e3d56627c829fb9e474cee68529d15544c4a64752d9",
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "market": "XAUUSD",
+      "compared": true,
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "quote_age_seconds": 47.40083,
+      "comparison_basis": "AT_CAPTURE",
+      "cause": null,
+      "source_attempts": []
+    },
+    {
+      "piece_id": "0d37d041dce3ad6a53058b8f03a88fc66d91ea8e818822dc59e4d10019971dc9",
+      "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+      "market": "XAUUSD",
+      "compared": true,
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "quote_age_seconds": 47.40083,
+      "comparison_basis": "AT_CAPTURE",
+      "cause": null,
+      "source_attempts": []
+    }
+  ],
+  "calibration": {
+    "from_utc": "2026-11-11T18:00:00+00:00",
+    "until_utc": "2026-11-14T18:00:00+00:00",
+    "whole_three_day_window_elapsed": false,
+    "markets": {
+      "XAUUSD": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 4,
+        "observed_et_dates": [
+          "2026-11-12"
+        ],
+        "maximum_observed_difference_pct": 0.04905466496954973,
+        "p95_difference_pct": 0.04905466496954973,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "US500": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "EURUSD": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 1,
+        "observed_et_dates": [
+          "2026-11-12"
+        ],
+        "maximum_observed_difference_pct": 0.022540798845918628,
+        "p95_difference_pct": 0.022540798845918628,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "USDJPY": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "USOIL": {
+        "limit_pct": 0.4,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "BTCUSD": {
+        "limit_pct": 0.4,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      }
+    }
+  },
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "source_readback": {
+    "observed_at_utc": "2026-11-13T18:07:49.108296+00:00",
+    "markets": {
+      "XAUUSD": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "XAUUSD",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T18:07:38.426154+00:00",
+            "age_seconds": 86410.682142
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114409.108296
+          },
+          {
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "cause": "PUBLIC_QUOTE_STALE",
+            "age_seconds": 306.640296,
+            "observed_at_utc": "2026-11-13T18:02:42.468000+00:00",
+            "source": "CNBC",
+            "fetch_seconds": 0.0,
+            "cache_hit": true,
+            "rate_limited": false,
+            "retry_after_seconds": 0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "XAUUSD",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "US500": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "US500",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-11T16:30:56.318000+00:00",
+            "age_seconds": 178612.790296
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114409.108296
+          },
+          {
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "cause": "PUBLIC_QUOTE_STALE",
+            "age_seconds": 3492.108296,
+            "observed_at_utc": "2026-11-13T17:09:37+00:00",
+            "source": "Yahoo Finance",
+            "fetch_seconds": 0.0,
+            "cache_hit": true,
+            "rate_limited": false,
+            "retry_after_seconds": 0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "US500",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "EURUSD": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "EURUSD",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T06:32:36.924487+00:00",
+            "age_seconds": 128112.183809
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114409.108296
+          },
+          {
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "cause": "PUBLIC_QUOTE_STALE",
+            "age_seconds": 317.108296,
+            "observed_at_utc": "2026-11-13T18:02:32+00:00",
+            "source": "Yahoo Finance",
+            "fetch_seconds": 0.0,
+            "cache_hit": true,
+            "rate_limited": false,
+            "retry_after_seconds": 0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "EURUSD",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "USDJPY": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "USDJPY",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-11T06:45:35.593000+00:00",
+            "age_seconds": 213733.515296
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114409.108296
+          },
+          {
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "cause": "PUBLIC_QUOTE_STALE",
+            "age_seconds": 282.108296,
+            "observed_at_utc": "2026-11-13T18:03:07+00:00",
+            "source": "Yahoo Finance",
+            "fetch_seconds": 0.0,
+            "cache_hit": true,
+            "rate_limited": false,
+            "retry_after_seconds": 0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "USDJPY",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "USOIL": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "USOIL",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T18:08:37.783850+00:00",
+            "age_seconds": 86351.324446
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114409.108296
+          },
+          {
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "cause": "PUBLIC_QUOTE_STALE",
+            "age_seconds": 3480.108296,
+            "observed_at_utc": "2026-11-13T17:09:49+00:00",
+            "source": "Yahoo Finance",
+            "fetch_seconds": 0.0,
+            "cache_hit": true,
+            "rate_limited": false,
+            "retry_after_seconds": 0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "USOIL",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "BTCUSD": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "BTCUSD",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "CHART_REFERENCE_NOT_KNOWN_AT_CAPTURE"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-12T10:21:00+00:00",
+            "age_seconds": 114409.108296
+          },
+          {
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "cause": "PUBLIC_QUOTE_STALE",
+            "age_seconds": 3857.108296,
+            "observed_at_utc": "2026-11-13T17:03:32+00:00",
+            "source": "Yahoo Finance",
+            "fetch_seconds": 0.0,
+            "cache_hit": true,
+            "rate_limited": false,
+            "retry_after_seconds": 0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "BTCUSD",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      }
+    }
+  }
+}

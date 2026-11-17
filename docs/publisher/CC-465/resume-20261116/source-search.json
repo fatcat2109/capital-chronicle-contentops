@@ -1,0 +1,78 @@
+{
+  "observed_at_utc": "2026-11-15T22:54:03.141017+00:00",
+  "searches": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+      "sha256": "33fe6e89f91a91889fdbb0073bfe637c238741be44caf91e6727316a4ff57f88",
+      "generated_at_utc": "2026-11-15T22:51:53.159115Z",
+      "searched_fields": [
+        "change_1d_pct",
+        "state_word",
+        "daily_change_pct",
+        "return_1d_pct"
+      ],
+      "found": 0,
+      "populated": 0
+    },
+    {
+      "path": "docs\\publisher\\CC-465\\inputs\\morning-map.json",
+      "sha256": "4e36e664b44366474a871930338bdcee37310641ee1f1644aa2d71e3bc15fe77",
+      "generated_at_utc": null,
+      "searched_fields": [
+        "change_1d_pct",
+        "state_word",
+        "daily_change_pct",
+        "return_1d_pct"
+      ],
+      "found": 12,
+      "populated": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1\\latest-manifest.json",
+      "sha256": "043809b6fe5c183a70398dc2a642ba16ba693f518e9cc1409c16571679f0e565",
+      "manifest_emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+      "assets": [
+        "UKOIL",
+        "USOIL",
+        "XNGUSD"
+      ],
+      "cause": "Held manifests predate the November gallery; they do not supply a source-complete six-market November daily move/state set."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\MainPublicReports\\latest-manifest.json",
+      "sha256": "557bffe3c7fc972e6b4f074f389a905654488bd33f3bbbf4516aeb3b63eb2c2e",
+      "manifest_emitted_at_utc": "2026-10-19T06:27:02.447000Z",
+      "assets": [
+        "USOIL"
+      ],
+      "cause": "Held manifests predate the November gallery; they do not supply a source-complete six-market November daily move/state set."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\owner-daily\\report-updates\\78290cc6023e495b249f786ffecb538ae299ca57d660ca860050f7b598488a4e.json",
+      "sha256": "1ab20d7273c043a0491451e64b5d89c0da797ee9742d2fb0bd79c48cdc2386ab",
+      "data_clock": "2026-10-20T15:27:29.653737Z",
+      "cause": "Held original data clock is October; do not present it as November morning-map moves."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\owner-daily\\daily-briefs\\234b42376bb5f6709c427ba1483128125a93dc1e22c852a47e65775324be2f01.json",
+      "sha256": "64e166863a17baaff484ff339d52daa42d064ec694a17917073bd2a3670133b5",
+      "data_clock": "2026-10-24T01:09:14.539512Z",
+      "cause": "Held original data clock is October; do not present it as November morning-map moves."
+    },
+    {
+      "backlog_item": "CC-471",
+      "result_lines": [
+        "- Owner: Codex Main (Ops Live integrates; unpinned export) \u00b7 Risk: content (public export) \u00b7 Order: second \u00b7 Effort: max (gpt-6.1-sol; Jim, 10 Nov) \u00b7 Due: Fri 13 Nov 2026 12:00 GMT+7 \u00b7 Status: BUILT_UNMERGED (live live-20261112-cc471-193249; consumer readback pending)",
+        "- Branch: backlog/cc-471-public-plan-fields-squashed \u00b7 Result: d73ad9833 pushed; 289 checks + 51 current-base checks PASS; 83 targets, 72/72 six-market timed prices, 6 closed R; chose optional fields and exact saved clocks; tests/evidence/cc-471/acceptance.json and README name desk/export/ContentOps package; Ops integration/card readback pending; gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED."
+      ]
+    },
+    {
+      "backlog_item": "CC-538",
+      "result_lines": [
+        "- Owner: Codex Publisher-B \u00b7 Effort: max (gpt-6.1-sol; Jim, 10 Nov) \u00b7 Risk: content (records and reopened items) \u00b7 Due: Sat 14 Nov 2026 18:00 GMT+7 \u00b7 Status: DONE (records read back: BACKLOG.md, 8 Publisher BLOCKED; docs/publisher/CC-538/README.md @ 7ef9146d767d982686498d951e43bf94ad1b9c11; 12 Nov 2026 21:17 GMT+7)",
+        "- Branch: backlog/cc-538-blocked-publisher-audit \u00b7 Result: 7ef9146d767d982686498d951e43bf94ad1b9c11 pushed; 39 audited: 21 reopened, 10 superseded, 8 outside blockers; record/22-link/whitespace checks PASS; README holds choices/evidence; records-only, no live merge; gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED."
+      ]
+    }
+  ],
+  "scope": "Exact public exports, retained gallery inputs and existing other-lane report outputs. Private raw broker data is not a public redistribution fallback under host rule 7; no terminal was accessed. This is a bounded search, not a claim that the private research archive contains no market data."
+}

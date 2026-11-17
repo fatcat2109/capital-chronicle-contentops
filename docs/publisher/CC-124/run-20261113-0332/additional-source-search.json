@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-11-12T20:38:43.642069+00:00",
+  "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup",
+  "latest_files": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup\\catchup-20261112T051607Z\\official-release-admission\\admission-readback.json",
+      "bytes": 6099,
+      "sha256": "032102c48180c917a5db715b7124576fa3ef6a84e01cfa5a7d7c98e870da34b3",
+      "file_modified_at_utc": "2026-11-12T05:16:10.316930+00:00",
+      "declared_top_level_clocks": {
+        "decision_cutoff_utc": "2026-11-12T05:16:07.688716Z"
+      }
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup\\catchup-20261112T051607Z\\official-release-admission\\daily-intelligence-selection.json",
+      "bytes": 313,
+      "sha256": "9116d97a1ec6a8fc2e0dbe0d6aad82379966024442a4ca703d34543e4947b0a1",
+      "file_modified_at_utc": "2026-11-12T05:16:10.304450+00:00",
+      "declared_top_level_clocks": {}
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup\\catchup-20261112T051607Z\\official-release-admission\\daily-handoff.json",
+      "bytes": 282354,
+      "sha256": "f44f68f23b6ef69460deeec9138681020cf96ea043154ae3f6b34ca6a0f57360",
+      "file_modified_at_utc": "2026-11-12T05:16:10.294270+00:00",
+      "declared_top_level_clocks": {
+        "decision_cutoff_utc": "2026-11-12T05:16:07.688716Z"
+      }
+    }
+  ],
+  "assessment": "Latest retained catch-up output is dated 12 November, before the latest completed shock analysis. No newer Main analysis was found in this additional output root. File modification is recorded as an observation, never substituted for source data cutoff."
+}

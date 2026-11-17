@@ -1,0 +1,42 @@
+{
+  "started_at_utc": "2026-11-11T16:03:10.028543+00:00",
+  "public_submit_actions": 0,
+  "prior_failure": "AGY_RANK_TIMEOUT_35S",
+  "editorial_call": {
+    "ranker": {
+      "configured_model": "gemini-3.8-flash-high",
+      "configured_effort": "high",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_at_utc": "2026-11-11T16:03:10.043083+00:00",
+      "public_submit_actions": 0,
+      "returncode": 0,
+      "status": "RETURNED",
+      "ended_at_utc": "2026-11-11T16:03:38.192517+00:00"
+    },
+    "writer": {
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_at_utc": "2026-11-11T16:03:38.200984+00:00",
+      "public_submit_actions": 0,
+      "returncode": 0,
+      "status": "RETURNED",
+      "ended_at_utc": "2026-11-11T16:04:47.264686+00:00"
+    }
+  },
+  "pack": {
+    "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\cc464-native-proof-60s\\reply-pack-20261111.json",
+    "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\cc464-native-proof-60s\\reply-pack-20261111.html",
+    "store_message_id": "x-reply-pack-c8b2ab17c13a7808e58564f109c7348738ffa277bdac43f71ca054887f98567a",
+    "item_count": 0,
+    "none_reason": "No source-bound native draft was usable. REPLY_ADDS_NOTHING_TO_TARGET",
+    "short_reason": "0 target replies: no padding. REPLY_ADDS_NOTHING_TO_TARGET",
+    "public_write_performed": false
+  },
+  "status": "NO_ADDED_FACT_DRAFT",
+  "ended_at_utc": "2026-11-11T16:04:47.382503+00:00"
+}

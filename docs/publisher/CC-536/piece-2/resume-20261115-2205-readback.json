@@ -1,0 +1,117 @@
+{
+  "observed_at_utc": "2026-11-15T15:08:57.701832+00:00",
+  "worktree_commit": "ea8811813ec75b0dd1ba747c3a2764ca1400928b",
+  "main_snapshot": {
+    "live_tag": "live-20261114-cc598-154637",
+    "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+    "blobs_verified": 7
+  },
+  "numbers_status": "PASS",
+  "numeric_occurrences": 58,
+  "confirmed_method_page": {
+    "identity": "cc536-measured-odds-1",
+    "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+    "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+  },
+  "piece_1_destination_states": [
+    {
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813"
+    },
+    {
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1454906993494383"
+    },
+    {
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://www.instagram.com/p/DftqP-ikncx/"
+    },
+    {
+      "platform": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_url": null
+    },
+    {
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/"
+    },
+    {
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+    },
+    {
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://t.me/CapitalChronicle/183"
+    },
+    {
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfttV9YEhzv"
+    },
+    {
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751"
+    },
+    {
+      "platform": "youtube",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_url": null
+    }
+  ],
+  "piece_2_identity": "cc536-measured-odds-2",
+  "piece_2_registered": false,
+  "piece_2_intents": 0,
+  "media_assets": 0,
+  "compiler_destination_count": 8,
+  "checks": {
+    "live_contentops/measured_odds_series_v1.py": {
+      "working_sha256": "d05def6ad0296a6b0992278077b040fc803c9c20b410e5ff48ad83557a98f0e3",
+      "installed_sha256": "7cd9c52b8b73a346043e72989a1f51f21a4636c5cc5a7d784fce84047df33d18",
+      "normalized_line_endings_equal": true
+    },
+    "live_contentops/plan_analysis_pages_v1.py": {
+      "working_sha256": "6ef75e3cca161b3b0f7b6c16085affc385fea42e986bd1626727fb817eeea827",
+      "installed_sha256": "6ef75e3cca161b3b0f7b6c16085affc385fea42e986bd1626727fb817eeea827",
+      "normalized_line_endings_equal": true
+    },
+    "docs/publisher/CC-536/piece-2/piece-2.json": {
+      "working_sha256": "7603b4c93fc156beb190468a128baff30fa60e1d97570c98f978b0ee24cec736",
+      "installed_sha256": "c631f964b3a6572a7ec7035ab026272bd08d9063561a9e6c197c00fe22eb12c9",
+      "normalized_line_endings_equal": true
+    },
+    "docs/publisher/CC-536/piece-2/article.md": {
+      "working_sha256": "a2267cc056a27c9e9b20e6ae218998e5aea6d2cfceea89d7b6fb2fcaea7151f2",
+      "installed_sha256": "a2267cc056a27c9e9b20e6ae218998e5aea6d2cfceea89d7b6fb2fcaea7151f2",
+      "normalized_line_endings_equal": true
+    }
+  },
+  "prior_installed_tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "24",
+    "time": "23.113",
+    "timestamp": "2026-11-15T18:30:23.567383+07:00",
+    "hostname": "J-P"
+  },
+  "new_pytest_run": false,
+  "reason": "No source, copy or test change; source verifier, numerical validator and compiler executed directly. Prior passing targeted tests remain applicable.",
+  "store_access": "SQLite mode=ro; PRAGMA query_only=ON",
+  "fresh_public_readback_claimed": false,
+  "publication_attempts_this_run": 0,
+  "method_link_live_consumer": {
+    "plan_packets_with_method_link": 0,
+    "packets": [],
+    "daily_board_status": "CC-537 awaits CC-528 live public board per its current BACKLOG line; no board publication claimed."
+  }
+}

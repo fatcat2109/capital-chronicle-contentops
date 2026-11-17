@@ -1,0 +1,109 @@
+{
+  "observed_at_utc": "2026-11-16T08:26:15.874481+00:00",
+  "identity": "cc536-measured-odds-2",
+  "destinations": [
+    {
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1571793081802559540",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571793081802559540",
+      "dispatched_at": "2026-11-16T07:44:32.598124+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1456899786628437",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1456899786628437",
+      "dispatched_at": "2026-11-16T07:44:35.926491+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18117761285605069",
+      "public_object_url": "https://www.instagram.com/p/Dfy5T3FEpSb/",
+      "dispatched_at": "2026-11-16T08:10:42.013091+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-16T07:45:42.326098+00:00",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7528000442874691584",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528000442874691584/",
+      "dispatched_at": "2026-11-16T07:45:47.624233+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "225143229",
+      "public_object_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+      "dispatched_at": "2026-11-16T07:19:38.172309+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "186",
+      "public_object_url": "https://t.me/CapitalChronicle/186",
+      "dispatched_at": "2026-11-16T07:46:25.968126+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18097596503669718",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfy2i0AE-Lb",
+      "dispatched_at": "2026-11-16T07:46:30.705459+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2122235588179079329",
+      "public_object_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+      "dispatched_at": "2026-11-16T07:48:37.836792+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "platform": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-16T07:50:08.056295+00:00",
+      "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+    }
+  ],
+  "substack_clocks": [
+    {
+      "status": "SUCCESS",
+      "published_at_utc": null,
+      "observed_published_at_utc": null,
+      "delivery_observation": {
+        "email_send_enabled": false,
+        "evidence_ref": "Neo unchecked email and web-only confirmation; same tab reached share-center.",
+        "web_publish_enabled": true
+      },
+      "observed_at_utc": "2026-11-16T07:44:06.514193+00:00",
+      "native_publish_click_at_utc": "2026-11-16T07:43:58.091Z"
+    },
+    {
+      "status": "SUCCESS",
+      "published_at_utc": "2026-11-16T07:44:03.233Z",
+      "observed_published_at_utc": null,
+      "delivery_observation": null,
+      "observed_at_utc": "2026-11-16T07:44:24.038537+00:00",
+      "native_publish_click_at_utc": null
+    }
+  ],
+  "access": "SQLite mode=ro; query_only=ON"
+}

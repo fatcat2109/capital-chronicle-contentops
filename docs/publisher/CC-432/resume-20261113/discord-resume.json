@@ -1,0 +1,53 @@
+{
+ "plan_hash": "b752e59ab08258f89ff96c3105b33d30c2ae2642ca38200216ab7154f07abea3",
+ "registered": [
+  {
+   "destination": "discord",
+   "message_id": "outbox_7f8f257708434b2a48c2ffa84ed1ea1e",
+   "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+   "reconciliation_id": "reconciliation_7f8f257708434b2a48c2ffa84ed1ea1e"
+  }
+ ],
+ "outbox_count": 1,
+ "per_destination": {
+  "discord": {
+   "destination": "discord",
+   "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+   "publish_called": false,
+   "public_object_id": null,
+   "public_object_url": null,
+   "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+   "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+   "dispatch_recorded": true
+  }
+ },
+ "canonical_article_status": "NOT_CONFIRMED",
+ "canonical_article_real_published": false,
+ "canonical_url": null,
+ "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+ "distribution_status": "CANONICAL_NOT_CONFIRMED",
+ "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+ "quality_preflight": null,
+ "delivery_media_preparation": {
+  "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+  "provider_calls": 0,
+  "public_write_performed": false
+ },
+ "recovery_required_destinations": [],
+ "readback_limitation_destinations": [],
+ "metrics_availability_independent_from_publication_confirmation": true,
+ "derivative_attempted_count": 1,
+ "derivative_confirmed_count": 0,
+ "derivative_skipped_count": 1,
+ "derivative_failed_count": 1,
+ "derivative_unknown_count": 0,
+ "public_write_performed": false,
+ "retired_browser_unknown_count": 0,
+ "retired_x_unknown_count": 0,
+ "unknown_write_detected": false,
+ "derivative_absent_safe_to_retry_count": 1,
+ "derivative_never_attempted_count": 0,
+ "unknown_write_count": 0,
+ "closed_no_write_destinations": [],
+ "pending_requests": []
+}

@@ -1,0 +1,84 @@
+{
+  "item": "CC-435",
+  "observed_at_utc": "2026-11-17T02:19:00.124566+00:00",
+  "pages": [
+    {
+      "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "run_id": "request-b52501d84c88f7bf",
+      "created_at_utc": "2026-11-10T07:03:22.692973+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+      "dispatch_id": "dispatch_e0fa87cefd6b1a8de728d4d45deac667"
+    },
+    {
+      "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "run_id": "shock-20261110T024042Z",
+      "created_at_utc": "2026-11-10T07:09:18.043841+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+      "dispatch_id": "dispatch_c5f47f80dfd3ec405c98d62c9b594ff2"
+    },
+    {
+      "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "run_id": "shock-20261110T024042Z",
+      "created_at_utc": "2026-11-10T07:19:06.352629+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+      "dispatch_id": "dispatch_05ba3e29ec281fb4eb8baff20ace3b0f"
+    },
+    {
+      "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "run_id": "shock-20261110T024042Z",
+      "created_at_utc": "2026-11-10T07:19:06.935108+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+      "dispatch_id": "dispatch_d0853d6a97c1bbed6f1bac55d6026274"
+    },
+    {
+      "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "run_id": "shock-20261110T024042Z",
+      "created_at_utc": "2026-11-10T07:19:07.518989+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+      "dispatch_id": "dispatch_af9553b2042ba3ac2fd5dcc79e51c78d"
+    },
+    {
+      "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+      "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+      "run_id": "request-f342a3cfaca32345",
+      "created_at_utc": "2026-11-11T17:12:36.707781+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+      "dispatch_id": "dispatch_a72883e2dbab96eb0334c056838f4d87"
+    },
+    {
+      "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+      "plan_id": "plan_230a9464a193ca7a377d0c41",
+      "run_id": "shock-20261112T123542Z",
+      "created_at_utc": "2026-11-12T16:30:15.097509+00:00",
+      "confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "dispatch_id": "dispatch_0f71e132c94187d4e9c1835990c41f44"
+    }
+  ],
+  "export": {
+    "generated_at_utc": "2026-11-17T02:21:00.307568Z",
+    "content_hash": "0aea0a6c4f3f4b14d6656a4e3273c4fa57db2304807239ec1314232ae2b9fd36",
+    "plan_count": 89,
+    "status_counts": {
+      "VIEW_CHANGED": 17,
+      "UNAVAILABLE": 16,
+      "EXPIRED": 39,
+      "CLOSED": 6,
+      "INVALIDATED": 7,
+      "CANCELLED": 4
+    },
+    "latest_registered_at_utc": "2026-11-12T17:40:00.360572Z",
+    "unknown_status_policy": "Unavailable status remains unavailable, never inferred closed."
+  }
+}

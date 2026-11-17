@@ -1,0 +1,110 @@
+# CC-536: measured-odds method series
+
+Piece 3 is [published on Substack](https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the) with its [X thread](https://x.com/Capitalnicle/status/2122658263015772508). Eight surfaces are strictly reconciled, including company LinkedIn, with zero unknown writes. All 119 printed numerical occurrences match Main's live table and side split. [The current result](piece-3/closeout.json) preserves exact identities, source and image evidence, tests, clocks and route limits.
+
+The code and evidence are pushed and integrated. Piece 4 is next on 18 November 2026 at 18:00 GMT+7 under the one-piece-per-day instruction. Member LinkedIn has its measured API TLS failure; YouTube requires external-link verification. Later pieces and the daily-board/next-plan method-link public readbacks remain in this item.
+
+## Earlier piece records
+
+Piece 2 is [published on Substack](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly) with its [X thread](https://x.com/Capitalnicle/status/2122235588179079329). Eight surfaces are strictly reconciled; member LinkedIn has an API TLS failure and YouTube requires external-link verification. All 58 numerical occurrences match the seven pinned Main blobs. The unused native TradingView chart and method link are present.
+
+The fixes are pushed and integrated. Piece 3 is next on 17 November 2026 at 18:00 GMT+7 under the one-piece-per-day instruction. [The current result](piece-2/resume-20261116.json) preserves exact clocks, objects, tests and remaining series acceptance.
+
+Piece 1 is published at
+https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before.
+It is reconciled on Substack, Telegram, X, Discord, Facebook, Instagram, Threads
+and the LinkedIn company page. `piece-1-closeout.json` records the final exact
+public identities and limits. Piece 2 is due on 15 November at 18:00 GMT+7 under
+the item's one-piece-per-day instruction. The seven-piece item is still open.
+
+`canonical-readback-03.json` records exact confirmed reconciliation; the native
+return verifies the text and original chart. Social results remain in the exact
+publication records. The series remains open until the later daily pieces and live
+link/readback acceptance are complete.
+
+The method page is bound to Main tag `live-20261114-cc573-105502`, commit
+`37c669c78dd11db72d4f56a8ad2c1af9070e7457`. Its table fingerprint is
+`ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add`.
+`source/manifest.json` binds the exact bytes and Git blobs of the table, side file,
+CC-521 audit and method. The original capture and table-generation clocks remain
+separate from the publication clock.
+
+`number-report.json` lists every printed numeral beside its exact source span or
+field. A one-sided figure requires that side in the side file for the same table
+hash. Two-sided rows and construction comparisons must name their pooling. Euro
+and yen results wait for the W3 repair under the item's explicit instruction.
+Private reference-book fields cannot become sources of public results.
+
+The chart is TradingView's original Bitcoin daily download with its native
+20-session and 50-session simple means. The other two ribbon means are disabled.
+The image is an explicitly separate method illustration. It is not a substitute
+for the historical source series. Original pixels, timestamp, attribution and
+binary SHA256 are preserved. Desktop/mobile review of the article and all eight
+social views is in `visual-review.json` and `renders/manifest.json`.
+
+The existing `DurablePublicationCoordinator` owns every write and readback. This
+piece uses its ordinary two-article daily budget, image register, identity checks,
+atomic dispatch claim and canonical-first social compilation. The dated method
+piece has historical sample clocks rather than invented current scenarios.
+`confirmed_method_page(store)` exposes only the reconciled Substack identity to
+new plan summaries and the CC-537 daily-board consumer. Issued historical
+packets stay unchanged. CC-537's own board publication remains in that item.
+
+The bounded Antigravity assist timed out after 120 seconds. Publisher retained
+the authored summary and inspected alt text. The exact failure and configured
+model/effort remain in `assist/agy_light_assist_v1.json`; it was not retried.
+The commissioned writer/editor launch is `gpt-6.1-sol/max`, recorded as
+`CONFIGURED_NOT_OBSERVED`.
+
+The first Substack attempt stopped before its public click with
+`NEO_CONTROL_COVERED_ACT`. Its exact saved draft is
+`https://capitalchronicle.substack.com/publish/post/224849463`. The repair waits
+for the saved state, checks the retained draft's title/body/image against the
+original request and resumes that draft. An unknown, clicked or missing return
+cannot use this recovery. All original requests and returns remain in the
+existing outbox.
+
+Focused checks exercise source tampering, numeral changes, wrong-side and
+wrong-table citations, the FX hold, pooled labels, actual coordinator
+registration and image accounting, confirmed method-link consumption, and the
+retained Substack draft. Existing article/scenario and coordinator regressions
+also passed. Exact run results and the installed check are linked from
+`integration.json`.
+
+No schedule or other chat was changed. Existing unrelated work is preserved.
+
+The final installed CC-536 test file passes all 17 tests (`installed-final-tests.xml`).
+Readback performance repairs scope the native request lookup and fallback draft
+identity to the exact item. Existing unknown-write and source/media bindings stay
+in force. Original failure causes and attempted operations remain in the outbox.
+
+The 14 November continuation confirmed Telegram post 183 and Instagram post
+17979008508135876. X root 2121503636216049751 carries the exact chart and the
+approved own-reply thread. Its initial coordinator readback retained a text
+mismatch while the native thread and image checks passed; the linked reply's
+verified redirect must be compared under that reply's exact public identity.
+The resume result files preserve each destination's original outcome.
+
+The final company post is
+https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/.
+Its exact text and outbound canonical link pass. LinkedIn compressed the chart;
+the automatic pixel comparison remains recorded as a mismatch. The native visual
+review inspected both original binary images and confirmed the same candles,
+two means, values, window and full TradingView attribution. That review is bound
+to both image hashes and this public object in
+`company-chart-visual-readback.json`; `linkedin-company-final-confirmed.json`
+records the coordinator's confirmed reconciliation. No comparison threshold
+was changed. The original uncertain attempt was read back and reconciled absent
+before the new native attempt; no unresolved write was retried.
+
+The LinkedIn member API still fails its HTTPS connection check. YouTube alone is
+suspended for its observed one-time external-link verification requirement; exact
+wording is in `youtube-verification-required.json`. The prepared person action is
+to complete that verification on the company channel's Posts page. Ops Product
+then clears only that route's suspension. No Notes publication is claimed.
+
+The confirmed method-page URL is used by the installed new-plan-link consumer,
+proved through its real durable intent. Its first public plan-link readback and
+CC-537's first public daily-board link remain pending. `integration.json` retains
+the original install and adds this continuation, focused installed checks and
+source verification. The two earlier telemetry files remain uncommitted.

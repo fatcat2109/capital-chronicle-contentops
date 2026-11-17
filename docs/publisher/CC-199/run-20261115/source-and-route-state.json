@@ -1,0 +1,83 @@
+{
+  "read_at_utc": "2026-11-15T10:46:23.397861+00:00",
+  "current_route_control": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\control\\suspended_routes.json",
+    "bytes": 66,
+    "sha256": "65cb54b3d6253378761e1a2f8783fbab40c3a1c43a2615d84231ac91bf31d5a3",
+    "suspended_routes": {
+      "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+    }
+  },
+  "last_exact_platform_refusal": {
+    "path": "docs\\publisher\\CC-536\\youtube-verification-required.json",
+    "bytes": 802,
+    "sha256": "aff96d4bf4a467d9f9e7cd7ac03fef0b2bc8be467b71999f44630a7411538769",
+    "observation": {
+      "observed_at_utc": "2026-11-14T08:02:59.390430+00:00",
+      "page_id": 261,
+      "observation": {
+        "status": "FAILED_BEFORE_WRITE",
+        "definite_no_write": true,
+        "public_write_performed": false,
+        "stage": "BEFORE_PUBLISH_CLICK",
+        "reason_code": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+        "platform_wording": "\u0110\u1ec3 gi\u00fap ng\u01b0\u1eddi d\u00f9ng c\u00f3 th\u1ec3 nh\u1ea5p v\u00e0o \u0111\u01b0\u1eddng li\u00ean k\u1ebft ngo\u00e0i, h\u00e3y ho\u00e0n t\u1ea5t quy tr\u00ecnh x\u00e1c minh m\u1ed9t l\u1ea7n\nX\u00e1c minh",
+        "page_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts"
+      },
+      "source": "existing Neo article guard; live visible external-links banner",
+      "person_action": "Complete YouTube one-time external-link verification on the retained channel draft; then Ops Product clears only the youtube suspension."
+    }
+  },
+  "new_main_source": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261115T095042Z\\analysis-native.json",
+    "bytes": 33644,
+    "sha256": "e4ff256a88c118d6a6389c6bf4884631fb18758ed852449b6d5bd319fa198f9c",
+    "capture_known_at_utc": "2026-11-15T09:54:47.477351Z",
+    "completed_output": true,
+    "acceptance_evidence": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261115T095042Z\\analysis-end.json",
+      "bytes": 1002,
+      "sha256": "473fe2a63bd75d6ab6ddea98688a281bf0ee989c23903f3805f4d736dbed76ef",
+      "completed_at_utc": "2026-11-15T10:30:20.382692Z",
+      "output_hash_matches": true,
+      "hash_basis": "Main proof hashes canonical JSON; source sha256 hashes exact file bytes.",
+      "canonical_output_sha256": "0a9f21c9fe899e64ab35a5343778a8f9182bdd416fe8c5fa622c3169b44655c8"
+    },
+    "changed_from_prior_native_inventory": true,
+    "summary_count": 1,
+    "summary_sha256": "764bcee52d6bfb14a9371ce7ddf7cf74af317e258fd61e5545b5d3ffba24ecb9",
+    "candidate_count": 2,
+    "reader_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "ARTICLE",
+      "source_pack_sha256": "9ecc72c1572c82342edcd26a5630f10955997521dce102291a63689aa835c391",
+      "primary_document_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261115T095042Z\\analysis-native.json",
+      "data_cutoff_utc": "2026-11-15T09:54:47.477351+00:00",
+      "max_sentence_words": 35,
+      "daily_prose_words": 350,
+      "publication_target_minutes": 60
+    },
+    "publication_clock_cause": null,
+    "publication_deadline_utc": "2026-11-15T10:54:47.477351+00:00",
+    "source_inventory": {
+      "observed_at_utc": "2026-11-15T10:33:00.159754+00:00",
+      "completed_source_count": 43,
+      "eligible_completed_sources": 1,
+      "changed_native_outputs_since_prior": 1,
+      "latest_original_capture_utc": "2026-11-15T09:54:47.477351Z",
+      "classification": "ELIGIBLE_MAIN_SOURCE_AVAILABLE",
+      "next_action": "Use the existing newsroom with original clocks."
+    }
+  },
+  "source_selection": "The new completed Main report is used by the installed source and publication-clock consumer. No editorial operation or publication is allocated by this delivery-verification item.",
+  "person_action": "Complete YouTube one-time external-link verification for @CapitalChronicleYouTube; Ops Product then clears only its youtube suspension.",
+  "retained_recovery_bindings": {
+    "path": "docs\\publisher\\CC-199\\run-20261106\\external-limits.json",
+    "bytes": 4872,
+    "sha256": "d0f6618d61d6a4c5ca26e262ce8ca26b5e37143417bd45a04b66c955eaacedab"
+  },
+  "public_write_performed": false,
+  "new_platform_observation": false,
+  "chat_messages_sent": false,
+  "schedules_changed": false
+}

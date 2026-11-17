@@ -1,0 +1,114 @@
+{
+  "root": "A:\\Capital Chronicle\\ContentOps",
+  "before_head": "5a512581c6ad3904f13a42498a1333aed268a366",
+  "installed_head": "323bc42763740a1b05e83b7ba672e3e44400007f",
+  "preexisting_wip_before": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+  },
+  "preexisting_wip_after": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+  },
+  "wip_preserved": true,
+  "source_hashes": {
+    "live_contentops/plan_reader_editorial_v1.py": "de749c49047cc0d841205b301080770942154a17c6dc9dc14c34d129ccccaf56",
+    "scripts/plan_analysis_pages.py": "b6b34249c78f7e5eba4e8ad517411ed0cfec2b9a27b4792ba395c87076d61c4f"
+  },
+  "link_fix": {
+    "installed_head": "9300507e16ca526ff4430c17bfc8f65406ae646b",
+    "wip_preserved": true,
+    "source_sha256": "0013479fb10f4707444a602b2792a733d762770e4efccb717c387eaeb370c7d1"
+  },
+  "lost_id_fix": {
+    "installed_head": "2dc3041cb16ef7b3010583114ec2e358dad5fcec",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/discord_live_adapter_v6.py": "360f520b34e54995343d77cedf4b1a0c31751511bce9e1141ac43d314b1282c0",
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "de0eb958dc925a1cd25107a0eea79401378683719691fa943462eaab8fb5d5e4"
+    }
+  },
+  "geometry_and_permalink_fix": {
+    "installed_head": "fe306b9804ab0d68e4d02164eae217d42bd05572",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/discord_live_adapter_v6.py": "579007c5ecc39b6ba1716cd9a61880deb4ee3bd80093136e0139b9141a346e32",
+      "live_contentops/tradingview_plan_overlay_v1.py": "9e62072ac1177192fa4260ebb0af7461ec9abab01603fd758be2377aa2e01bd8"
+    }
+  },
+  "original_odds_and_standalone_thread": {
+    "installed_head": "63acd74cb76288dac575b962a1bf1877167e649d",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/plan_analysis_pages_v1.py": "bbcd676496a4f9de9141250fcd2fc228bb30e70be36fc1f41610abaafe093d3a",
+      "live_contentops/plan_reader_copy_v1.py": "8dc5940fcdec292415e2cd7e3921a60fdb918ed353bd8cf28449444f0e80a75e",
+      "live_contentops/plan_reader_editorial_v1.py": "8b6b9d468b15ceab2d7aded626933a3ba117463957d5562a909e6c2714f4b1f2"
+    }
+  },
+  "confirmed_page_media_reuse": {
+    "installed_head": "1f1e35b93e4669f244994b9412e2207ea1b5153e",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/plan_call_cards_v1.py": "9a3eca3272f28e05294d46fe0ecce6aa8bdb4634a625d653d1c99be903bf0c47",
+      "live_contentops/plan_status_posts_v1.py": "b80a5289e07bb284ada1a0047f0a226e72852859b33e8e1d9646a6929e0a59a7",
+      "live_contentops/tradingview_snapshot_v1.py": "995545b9ef6c801ee284a0a98448bbcf2b04b1df16ed60288cac9b842c003dcf"
+    }
+  },
+  "shared_chart_geometry": {
+    "installed_head": "ef0367c535c23a3836a38f6e06a7e5db81a8589b",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/plan_status_posts_v1.py": "a14102effa735676f7e22ed09cfc9d9246e01b7f226d0b1f2887fdb382cac6c1",
+      "live_contentops/plan_call_cards_v1.py": "9a3eca3272f28e05294d46fe0ecce6aa8bdb4634a625d653d1c99be903bf0c47",
+      "live_contentops/tradingview_snapshot_v1.py": "995545b9ef6c801ee284a0a98448bbcf2b04b1df16ed60288cac9b842c003dcf"
+    }
+  },
+  "local_image_refusal": {
+    "installed_head": "1f7cfce00b39149ef95298068ecfc9b5c1ee8d4e",
+    "wip_preserved": true,
+    "source_sha256": "f77e33fea7691eb4535bb37e334b5bb87dff7f4be57b320d04b5a7caf893654e"
+  },
+  "canonical_link_copy": {
+    "before_head": "1f7cfce00b39149ef95298068ecfc9b5c1ee8d4e",
+    "installed_head": "48e72ce03b8ba86eada6c0c4b856bc0ef7406372",
+    "wip_preserved": true,
+    "source_sha256": "defea74e1e08cfab0c4e700d40b85a2463e6ac042ff5e283adf987ebec770bed"
+  },
+  "bot_client_identity": {
+    "before_head": "48e72ce03b8ba86eada6c0c4b856bc0ef7406372",
+    "installed_head": "ae6fadbd4e14dcbab4d54b810b72bba84bc6ed83",
+    "wip_preserved_during_integration": true,
+    "wip_hashes_before": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "ffc0def4f9e876fcd34587d3708d4a765f66d7c001ca446c73c4781414435c1f",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    },
+    "wip_hashes_after": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "ffc0def4f9e876fcd34587d3708d4a765f66d7c001ca446c73c4781414435c1f",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    },
+    "source_sha256": "1e3d51cd708829bf112c5f52bfee41fdb7e3acf775a8828a0aee3d6a842e0601",
+    "note": "Live dispatch appends to its existing telemetry and duplicate ledger; integration preserves their complete current bytes."
+  },
+  "immutable_link_recovery": {
+    "before_head": "ae6fadbd4e14dcbab4d54b810b72bba84bc6ed83",
+    "installed_head": "81c99ae90936f89c2613fc2c55117420775731ae",
+    "wip_preserved_during_integration": true,
+    "source_sha256": "c60d2458dd3b0c5ae048094bd8a351a7261af647e30e1a2fd609ddb2dfd97778"
+  }
+}

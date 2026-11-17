@@ -1,0 +1,79 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-17T06:55:06.667996+00:00",
+  "assessment_observed_at_utc": "2026-11-17T06:57:49.136896+00:00",
+  "finished_at_utc": "2026-11-17T07:01:12.617224+00:00",
+  "outcome": "NO_CURRENT_MAIN_SOURCE",
+  "published_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "completed_main_reports": 57,
+  "eligible_main_reports": 0,
+  "changed_native_outputs_since_previous": 4,
+  "latest_analysis": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-native.json",
+    "sha256": "8dc55c0d31f3448d01536b210f9d8369bc4e8ba04fa8e74a0b73b94c149fc2fe",
+    "capture_known_at_utc": "2026-11-17T05:13:30.999499Z",
+    "publication_deadline_utc": "2026-11-17T06:13:30.999499+00:00",
+    "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:6258s",
+    "acceptance_evidence": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-end.json",
+      "bytes": 1044,
+      "sha256": "c0fe14a4171b8a3eeddf61cfc2f10bac296149ab1f3fd847c15d1d71e25f312d",
+      "completed_at_utc": "2026-11-17T06:27:06.810557Z",
+      "output_hash_matches": true,
+      "hash_basis": "Main proof hashes canonical JSON; source sha256 hashes exact file bytes.",
+      "canonical_output_sha256": "4445f22ad0739830c676d47eddcc0e3f72abad70d5d97d6b4c7dcb097021d213"
+    }
+  },
+  "latest_analysis_expired_before_completion": true,
+  "latest_t2_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:7751s",
+  "live_consumers_used": [
+    "main_report_projection_source_v1.verify_projection",
+    "reader_article_contract_v1.contract_for",
+    "reader_article_contract_v1.validate_publication_clock",
+    "plan_status_posts_v1.read_export",
+    "published_images_v1.PublishedImages._daily_pieces"
+  ],
+  "production_day": "2026-11-17",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "operation_allocated": false,
+  "new_cc124_work_items_since_entry": [],
+  "new_editorial_role_calls": 0,
+  "publication_feed_before": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979"
+  },
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979"
+  },
+  "publication_feed_unchanged": true,
+  "channel_states": {
+    "substack": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "telegram": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "discord": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "linkedin": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "facebook": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "instagram": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "threads": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "x": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "youtube": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE",
+    "linkedin_company": "NOT_DISPATCHED_NO_TIMELY_MAIN_SOURCE"
+  },
+  "preserved_modified_files": 8,
+  "all_inherited_modifications_unchanged": true,
+  "source_budget_used": 0,
+  "public_write_performed": false,
+  "new_browser_actions": 0,
+  "test_runs": 0,
+  "validation": "Executed installed source, original-clock and production-day consumers; verified exact Main completion hash, expired-at-completion clock, unchanged feed and inherited bytes. No implementation change.",
+  "base_commit": "3e73c3151f8594191188573b3591c7c49b17677c",
+  "base_reason": "Fresh origin/master is an ancestor of the current operating root. The item branch advances to the current operating-root HEAD; it brings no unrelated implementation delta.",
+  "next_due_gmt7": "17 Nov 2026 19:00 GMT+7",
+  "next_action": "At the existing pre-US wrap check, consume a new timely Main report; preserve old operations and the expired Bitcoin preparation.",
+  "next_due_reason": "Decision 98 aligns this standing check with the trading-day pre-US wrap. No schedule changed.",
+  "decision": "End without filler or a stale send under decisions 89 and CC-403; report standing OPEN rather than DONE."
+}

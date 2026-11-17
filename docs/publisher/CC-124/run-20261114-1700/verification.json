@@ -1,0 +1,87 @@
+{
+  "observed_at_utc": "2026-11-14T10:17:58.046377+00:00",
+  "operation_id": "cc124-btc-weekend-20261114",
+  "operating_head": "32fa07d17302df42d9c990a32e8711f618d93bec",
+  "installed_module_matches_delivered_source": true,
+  "installed_source_consumer": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261114-1700\\installed-source-consumer.json",
+  "terminal_classification": "DRAFT_BLOCKED",
+  "selection": "ABSTAIN",
+  "source_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3723s",
+  "platform_dispatch_count_for_operation": 0,
+  "new_articles": 0,
+  "native_semantic_responses": 1,
+  "writer_calls": 0,
+  "filter_calls": 0,
+  "external_model_provider_attempts": 0,
+  "inherited_work": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "initial_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "current_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "initial_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "current_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "initial_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "current_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "initial_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "current_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "initial_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "current_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "initial_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "current_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "initial_sha256": "7217dd5faf5e5e0ac28b886b798be9af01ed6f624849fdf0fcfb396bb77a68b1",
+      "current_sha256": "7217dd5faf5e5e0ac28b886b798be9af01ed6f624849fdf0fcfb396bb77a68b1",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "initial_sha256": "8e0387518c6ff131268f7909233c6b673b4cc5761b9f31393c79cbc28b962315",
+      "current_sha256": "8e0387518c6ff131268f7909233c6b673b4cc5761b9f31393c79cbc28b962315",
+      "exact_bytes_unchanged": true,
+      "original_prefix_unchanged": true
+    }
+  ],
+  "pytest": {
+    "files": [
+      "tests/test_main_report_projection_source_v1.py"
+    ],
+    "passed": 47,
+    "seconds": 15.33,
+    "processes": 1
+  },
+  "browser_actions": 0,
+  "native_desktop_control_actions": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "note": "The standing operation completed its native selection and durable terminal advance. Existing recovery dispatches were preserved; no publication or readback acceptance is claimed."
+}

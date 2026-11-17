@@ -1,0 +1,67 @@
+{
+  "captured_at_utc": "2026-11-14T06:48:29.836794+00:00",
+  "item": "CC-464",
+  "branch": "backlog/cc-464-minute-bot-transport",
+  "base": "155cf551b9a1595bf2bff0c257d1d3a1ec7f42ca",
+  "base_reason": "Current ContentOps operating HEAD; item explicitly requires Publisher integration onto operating HEAD.",
+  "launch": {
+    "pid": 1640,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "source": "Win32_Process launch arguments; no actual runtime telemetry claimed"
+  },
+  "preserved_lane_wip": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "size": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "size": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  ],
+  "preserved_live_wip": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "size": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "size": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "size": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "size": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "size": 1400407,
+      "sha256": "efe567a9a2300b6c88116e30ff4564bf4d36e7772664c872a77dc88d0908794f"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "size": 69662,
+      "sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    }
+  ],
+  "initial_findings": {
+    "plain_and_pythonw_read_calls": "getMe/getWebhookInfo/getUpdates passed using existing stored offset; no updates returned or binding offset saved",
+    "token_source": "CREDENTIAL_MANAGER",
+    "token_shape": "Present, valid shape, no leading/trailing/internal whitespace; value never printed or saved",
+    "latest_opaque_failure_utc": "2026-11-14T05:36:29.912623+00:00",
+    "latest_opaque_failure_elapsed_seconds": 8.776158900000155,
+    "later_natural_ticks": "NO_NEW_ELIGIBLE_TARGETS; opaque error stopped before this code change",
+    "root_cause": "Historical exception class unavailable. Timing suggests an 8-second request timeout; inference only."
+  }
+}

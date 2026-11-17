@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-17T02:44:09.8169083Z",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "telemetry_state": "CONFIGURED_NOT_OBSERVED",
+  "process_id": 4840,
+  "process_created": "2026-11-17T02:36:50.0346390Z",
+  "observed_model_argument": "--model gpt-6.1-sol",
+  "observed_effort_argument": "model_reasoning_effort=\\\"max\\\"\" -C",
+  "branch": "backlog/cc-394-public-readback-20261117",
+  "deliberate_editorial_model_calls": 0,
+  "unintended_test_cli_attempts": [
+    {
+      "process_id": 36292,
+      "parent_pytest_process_id": 17472,
+      "created_at_utc": "2026-11-17T02:42:20.442874Z",
+      "status": "STOPPED_NO_SUPPORTED_RETURN",
+      "model": "NOT_OBSERVED",
+      "effort": "NOT_OBSERVED",
+      "cause": "Existing minute-consumer integration test did not isolate later editorial services; fixed before rerun."
+    },
+    {
+      "process_id": 41000,
+      "parent_pytest_process_id": 38028,
+      "created_at_utc": "2026-11-17T02:49:44.246661Z",
+      "status": "STOPPED_NO_SUPPORTED_RETURN",
+      "model": "NOT_OBSERVED",
+      "effort": "NOT_OBSERVED",
+      "cause": "Integration wrapper used operating cwd before merge; shell continued to old installed test after its preparation failed."
+    }
+  ],
+  "owned_test_process_cleanup": "NO_OWNED_TEST_OR_CHILD_REMAINS"
+}

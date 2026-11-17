@@ -1,0 +1,48 @@
+{
+  "execution_python": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+  "installed_modules": {
+    "live_contentops.main_report_projection_source_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+    "live_contentops.reader_article_contract_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+    "live_contentops.plan_status_posts_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+    "live_contentops.published_images_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py"
+  },
+  "latest_single_pass_analysis_assessed": true,
+  "completed_source_count": 39,
+  "eligible_completed_sources": 0,
+  "exact_public_excerpt_admitted": true,
+  "validated_plan_export_consumed": true,
+  "publication_feed_before": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 26786,
+    "sha256": "dc496116b2ac40ff8160ae731210efd2826c2fc60a7e51520725fca139093e2b"
+  },
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 26786,
+    "sha256": "dc496116b2ac40ff8160ae731210efd2826c2fc60a7e51520725fca139093e2b"
+  },
+  "inherited_work_unchanged": true,
+  "new_operations": 1,
+  "editorial_model_calls": 2,
+  "public_writes_by_this_run": 0,
+  "pytest_processes_started": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "publication_feed_unchanged_during_assessment": true,
+  "terminal_operation_classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+  "native_role_results_submitted": [
+    "select",
+    "media-plan"
+  ],
+  "native_role_model_effort_status": "CONFIGURED_NOT_OBSERVED",
+  "native_main_dossier_used_by_media_plan": true,
+  "terminal_outcome": "HOLD",
+  "terminal_cause": "LATE_OR_STALE",
+  "operation_binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-ppi-preview-20261113\\binding.json",
+  "publication_clock_deadline_utc": "2026-11-13T10:32:50.340914Z",
+  "terminal_record": {
+    "path": "docs\\publisher\\CC-124\\run-20261113-1724\\terminal-operation-confirmed.json",
+    "sha256": "f818c6f628c128c4a92490e6515549d0a06d3f945d86006019e66ebd6e82eff3"
+  },
+  "publication_acceptance": "No new article; acceptance remains unfulfilled for publication/readback."
+}

@@ -1,0 +1,62 @@
+{
+  "item": "CC-510",
+  "branch": "backlog/cc-510-base-rate-phone-readback-20261114",
+  "base": "34b38fe217c27df848d2a5b26c3845435b7e8f9a",
+  "base_reason": "Existing implementation; continue from the current ContentOps operating HEAD.",
+  "launch": {
+    "process_id": 25948,
+    "started_at_utc": "2026-11-13T18:28:07.9579220Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "runtime_model": null,
+    "runtime_effort": null,
+    "launch_arguments_read_back": true
+  },
+  "changes": "Saved-evidence readback only; no production source change.",
+  "pytest_runs": 0,
+  "new_model_calls": 0,
+  "public_submit_actions": 0,
+  "private_transport_calls": 0,
+  "manual_consumer_ticks": 0,
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "preserved_before_integration": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+      "bytes": 1397482,
+      "sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 69662,
+      "sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md": {
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json": {
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md": {
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md": {
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    }
+  },
+  "rollback_tag": "contentops-rollback-20261114-cc510-readback",
+  "live_tag": "contentops-live-20261114-cc510-readback",
+  "outcome_status": "OPEN",
+  "outcome_reason": "The source is integrated and reaches ranking. A natural phone delivery using a base rate has not occurred; this is an outstanding observation, not a new process block."
+}

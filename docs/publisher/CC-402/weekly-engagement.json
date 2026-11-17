@@ -1,0 +1,1890 @@
+{
+  "schema_version": "contentops.weekly_channel_engagement.v1",
+  "week_ending": "2026-11-11",
+  "timezone": "Asia/Bangkok",
+  "channels": [
+    {
+      "channel": "substack",
+      "status": "UNAVAILABLE",
+      "posts_in_week": 25,
+      "account_snapshot": null,
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 32,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+      },
+      "collection_path": "AVAILABLE_FIRST_PARTY_VISIBLE_POST_STATS",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "x",
+      "status": "OBSERVED",
+      "posts_in_week": 20,
+      "account_snapshot": null,
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 5,
+      "objects_with_observations": 5,
+      "eligible_objects_in_store": 25,
+      "native_counter_sums": {
+        "likes": 0,
+        "replies": 5,
+        "reposts": 0,
+        "views": 464
+      },
+      "support_per_metric": {
+        "likes": 5,
+        "replies": 5,
+        "reposts": 5,
+        "views": 5
+      },
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "UNSUPPORTED": 5
+      },
+      "collection_path": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "youtube",
+      "status": "UNAVAILABLE",
+      "posts_in_week": 14,
+      "account_snapshot": null,
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 17,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+      },
+      "collection_path": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "linkedin",
+      "status": "UNAVAILABLE",
+      "posts_in_week": 8,
+      "account_snapshot": null,
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 12,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+      },
+      "collection_path": "PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "linkedin_company",
+      "status": "UNAVAILABLE",
+      "posts_in_week": 15,
+      "account_snapshot": null,
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 0,
+      "objects_with_observations": 0,
+      "eligible_objects_in_store": 18,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "NO_COLLECTED_OBSERVATION_IN_WEEK": 1
+      },
+      "collection_path": "NATIVE_NEO_EXACT_COMPANY_POST_OBSERVATION_REQUIRED",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "telegram",
+      "status": "OBSERVED",
+      "posts_in_week": 94,
+      "account_snapshot": {
+        "collected_at_utc": "2026-11-11T06:31:09.751371+00:00",
+        "limitations": [],
+        "metrics": {
+          "members_count": 6
+        },
+        "status": "COLLECTED"
+      },
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 46,
+      "objects_with_observations": 46,
+      "eligible_objects_in_store": 99,
+      "native_counter_sums": {
+        "views": 117
+      },
+      "support_per_metric": {
+        "views": 46
+      },
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "UNSUPPORTED": 46
+      },
+      "collection_path": "PUBLIC_CHANNEL_PAGE_NEO_READ_ONLY",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "discord",
+      "status": "UNAVAILABLE",
+      "posts_in_week": 59,
+      "account_snapshot": {
+        "collected_at_utc": "2026-11-11T06:35:52.312041+00:00",
+        "limitations": [
+          "official_discord_approximate_member_count_not_exact_new_members"
+        ],
+        "metrics": {
+          "approximate_members_count": 2
+        },
+        "status": "COLLECTED"
+      },
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": true,
+      "objects_with_metrics": 0,
+      "objects_with_observations": 21,
+      "eligible_objects_in_store": 64,
+      "native_counter_sums": null,
+      "support_per_metric": {},
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "UNSUPPORTED": 422,
+        "NOT_EXPOSED": 21,
+        "COLLECTED": 21
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_WEBHOOK_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "facebook_page",
+      "status": "OBSERVED",
+      "posts_in_week": 49,
+      "account_snapshot": {
+        "collected_at_utc": "2026-11-11T06:23:20.110367+00:00",
+        "limitations": [
+          "daily_account_snapshot_not_post_metric"
+        ],
+        "metrics": {
+          "followers_count": 5191
+        },
+        "status": "COLLECTED"
+      },
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 23,
+      "objects_with_observations": 23,
+      "eligible_objects_in_store": 54,
+      "native_counter_sums": {
+        "comments": 11,
+        "likes": 0,
+        "replies": 8
+      },
+      "support_per_metric": {
+        "comments": 5,
+        "likes": 23,
+        "replies": 18
+      },
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "UNSUPPORTED": 388,
+        "NOT_EXPOSED": 51
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "instagram_business",
+      "status": "OBSERVED",
+      "posts_in_week": 29,
+      "account_snapshot": {
+        "collected_at_utc": "2026-11-11T06:23:21.085662+00:00",
+        "limitations": [
+          "daily_account_snapshot_not_post_metric"
+        ],
+        "metrics": {
+          "followers_count": 1192
+        },
+        "status": "COLLECTED"
+      },
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 10,
+      "objects_with_observations": 10,
+      "eligible_objects_in_store": 33,
+      "native_counter_sums": {
+        "comments": 8,
+        "likes": 0
+      },
+      "support_per_metric": {
+        "comments": 6,
+        "likes": 10
+      },
+      "non_additive_native_values": null,
+      "missing_causes": {
+        "UNSUPPORTED": 164,
+        "UNAVAILABLE": 24,
+        "NOT_EXPOSED": 12
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    },
+    {
+      "channel": "threads",
+      "status": "OBSERVED",
+      "posts_in_week": 93,
+      "account_snapshot": {
+        "collected_at_utc": "2026-11-11T06:23:19.149852+00:00",
+        "limitations": [
+          "daily_account_snapshot_not_post_metric"
+        ],
+        "metrics": {
+          "followers_count": 3
+        },
+        "status": "COLLECTED"
+      },
+      "net_new_followers_or_members": null,
+      "follower_change_state": "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+      "account_count_is_approximate": false,
+      "objects_with_metrics": 45,
+      "objects_with_observations": 45,
+      "eligible_objects_in_store": 97,
+      "native_counter_sums": {
+        "likes": 0,
+        "replies": 33,
+        "reply_sample_count": 33,
+        "reposts": 0,
+        "views": 600
+      },
+      "support_per_metric": {
+        "likes": 45,
+        "replies": 45,
+        "reply_sample_count": 45,
+        "reposts": 45,
+        "views": 45
+      },
+      "non_additive_native_values": {
+        "quotes": [
+          {
+            "public_object_id": "18109674764193148",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:25:02.450772Z"
+          },
+          {
+            "public_object_id": "18115572677141347",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:23:32.175869Z"
+          },
+          {
+            "public_object_id": "18124585340024294",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:31.698794Z"
+          },
+          {
+            "public_object_id": "18117394688464368",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:25:50.451002Z"
+          },
+          {
+            "public_object_id": "17969547744196235",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:23:26.235488Z"
+          },
+          {
+            "public_object_id": "18115764947139383",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:58.277650Z"
+          },
+          {
+            "public_object_id": "18196134214397838",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:54.046830Z"
+          },
+          {
+            "public_object_id": "18137014220494553",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:25:10.001991Z"
+          },
+          {
+            "public_object_id": "18635996629007906",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:23:37.620859Z"
+          },
+          {
+            "public_object_id": "18108307151366500",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:25:55.431196Z"
+          },
+          {
+            "public_object_id": "17929665075431215",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:23:19.149879Z"
+          },
+          {
+            "public_object_id": "18115739320872841",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:25:06.412902Z"
+          },
+          {
+            "public_object_id": "18154401742501167",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:25:13.962997Z"
+          },
+          {
+            "public_object_id": "18121628239769207",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:48.749994Z"
+          },
+          {
+            "public_object_id": "18189728134418285",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:36.341492Z"
+          },
+          {
+            "public_object_id": "18132675601830770",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:43.807294Z"
+          },
+          {
+            "public_object_id": "18100417460411659",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:24:40.420389Z"
+          },
+          {
+            "public_object_id": "18116671601172933",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:28:46.615363Z"
+          },
+          {
+            "public_object_id": "18197301238399341",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:04.081276Z"
+          },
+          {
+            "public_object_id": "18122493775956515",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:28:55.580594Z"
+          },
+          {
+            "public_object_id": "18014396693776035",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:11.223604Z"
+          },
+          {
+            "public_object_id": "18108804308458637",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:17.438498Z"
+          },
+          {
+            "public_object_id": "18094111103211937",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:15.300929Z"
+          },
+          {
+            "public_object_id": "18130748032886079",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:09.857737Z"
+          },
+          {
+            "public_object_id": "18574504969079791",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:10.559315Z"
+          },
+          {
+            "public_object_id": "18093440036680752",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:14.602455Z"
+          },
+          {
+            "public_object_id": "18016816988974858",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:09.205112Z"
+          },
+          {
+            "public_object_id": "18120416654047174",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:08.543185Z"
+          },
+          {
+            "public_object_id": "18026033078929852",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:28:52.767608Z"
+          },
+          {
+            "public_object_id": "18178373914453035",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:12.564568Z"
+          },
+          {
+            "public_object_id": "18098858387671167",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:28:58.295890Z"
+          },
+          {
+            "public_object_id": "18419238388085611",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:11.938491Z"
+          },
+          {
+            "public_object_id": "17963300511255228",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:13.208387Z"
+          },
+          {
+            "public_object_id": "18150103948562147",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:13.888469Z"
+          },
+          {
+            "public_object_id": "18143967022720116",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:07.224507Z"
+          },
+          {
+            "public_object_id": "17936431761142727",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:06.549119Z"
+          },
+          {
+            "public_object_id": "17990481072109496",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:01.439898Z"
+          },
+          {
+            "public_object_id": "18105690728321681",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:28:49.953913Z"
+          },
+          {
+            "public_object_id": "17922323481453915",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:07.890611Z"
+          },
+          {
+            "public_object_id": "18452479450127460",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:28:42.680219Z"
+          },
+          {
+            "public_object_id": "17977176222153319",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:16.774569Z"
+          },
+          {
+            "public_object_id": "18084548918344983",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:29:16.081247Z"
+          },
+          {
+            "public_object_id": "18127839070903684",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:35:50.664708Z"
+          },
+          {
+            "public_object_id": "17882828091546842",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:31:05.444897Z"
+          },
+          {
+            "public_object_id": "18098339879407822",
+            "value": 0,
+            "collected_at_utc": "2026-11-11T06:35:55.963161Z"
+          }
+        ]
+      },
+      "missing_causes": {
+        "UNSUPPORTED": 677
+      },
+      "collection_path": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"
+    }
+  ],
+  "calls": [
+    {
+      "channel": "telegram",
+      "call_id": "plan_7676aac16455086193912626",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_7676aac16455086193912626",
+      "source_record_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_a4e853272f83b1cca81ab1d1",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "source_record_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 6
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_b249fe5400f1c040d11a58f2",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_b249fe5400f1c040d11a58f2",
+      "source_record_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 3
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_e51226117aef037a534579e0",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_e51226117aef037a534579e0",
+      "source_record_id": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 4
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "source_record_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 6
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_829c6d5505eb74877d962853",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "source_record_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 7
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_8b7c1dd880206079033b6efe",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "source_record_id": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 7
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "plan_f45a45412d7fb675b4db238d",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "source_record_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 8
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "1396db9b",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_12955d4b3962415396e851cc",
+      "source_record_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 10
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "f6da00b4",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+      "source_record_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 11
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "bd31561c",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_795515a9284ce4344425e7f5",
+      "source_record_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "b7fd4247",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9edb25c11821e26c2bdce16f",
+      "source_record_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "6845d7ba",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9efa90f940d37e632b24126c",
+      "source_record_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 6
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "dee497de",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6bb2866a1c81fd03600e8553",
+      "source_record_id": "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "1e13cbf6",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fd2cd4630839022f15ebca85",
+      "source_record_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "35433fdd",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1c84765c96ff32077bba92dc",
+      "source_record_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "run_record_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 5
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "49dfdd72",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "source_record_id": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "ddf94be7",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6ce7b6d137920d09843f61db",
+      "source_record_id": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "5820e1f7",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_26cb1eb8c72cbb8b45ce1396",
+      "source_record_id": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "ceb3e6db",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "source_record_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "cb3fd1c5",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "source_record_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 5
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "2649b750",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "source_record_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "d5cc28ee",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "source_record_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "telegram",
+      "call_id": "15aa5643",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "source_record_id": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "5cb81ee5",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_e51226117aef037a534579e0",
+      "source_record_id": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "0bf2a58c",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "source_record_id": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "106875eb",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "source_record_id": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "c22010a3",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "source_record_id": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "2b6a5d3d",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_7676aac16455086193912626",
+      "source_record_id": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 3
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "3f18b186",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_b249fe5400f1c040d11a58f2",
+      "source_record_id": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 3
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "a477a02a",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_4a68fd77e5609b19cd258ac1",
+      "source_record_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 3
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "576f57e9",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5e5cf20917286ebd8cb8d945",
+      "source_record_id": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "telegram",
+      "call_id": "a0380280",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_e53c7c0aa6230ec191762925",
+      "source_record_id": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 5
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "1396db9b",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_12955d4b3962415396e851cc",
+      "source_record_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 3,
+      "native_counter_sums": {
+        "comments": 5,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "f6da00b4",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+      "source_record_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 3,
+      "native_counter_sums": {
+        "comments": 5,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "bd31561c",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_795515a9284ce4344425e7f5",
+      "source_record_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 5,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "b7fd4247",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9edb25c11821e26c2bdce16f",
+      "source_record_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 5,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "6845d7ba",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9efa90f940d37e632b24126c",
+      "source_record_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 5,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "dee497de",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6bb2866a1c81fd03600e8553",
+      "source_record_id": "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 1,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "1e13cbf6",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fd2cd4630839022f15ebca85",
+      "source_record_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 3,
+      "native_counter_sums": {
+        "comments": 1,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "35433fdd",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1c84765c96ff32077bba92dc",
+      "source_record_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "run_record_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "posts": 3,
+      "native_counter_sums": {
+        "comments": 1,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "ceb3e6db",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "source_record_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 3,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "cb3fd1c5",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "source_record_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 3,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "2649b750",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "source_record_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "d5cc28ee",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "source_record_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "facebook_page",
+      "call_id": "d7eddc84",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5fb1fd296a3ef7bf4b22636b",
+      "source_record_id": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "posts": 1,
+      "native_counter_sums": {
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "1396db9b",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_12955d4b3962415396e851cc",
+      "source_record_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 2,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "f6da00b4",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+      "source_record_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 2,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "bd31561c",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_795515a9284ce4344425e7f5",
+      "source_record_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 2,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "b7fd4247",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9edb25c11821e26c2bdce16f",
+      "source_record_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 2,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "6845d7ba",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9efa90f940d37e632b24126c",
+      "source_record_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 2,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "dee497de",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6bb2866a1c81fd03600e8553",
+      "source_record_id": "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 1,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "1e13cbf6",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fd2cd4630839022f15ebca85",
+      "source_record_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 1,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "35433fdd",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1c84765c96ff32077bba92dc",
+      "source_record_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 1,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "ceb3e6db",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "source_record_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "cb3fd1c5",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "source_record_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "posts": 2,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "2649b750",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "source_record_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "d5cc28ee",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "source_record_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 4,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "a477a02a",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_4a68fd77e5609b19cd258ac1",
+      "source_record_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 0,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "576f57e9",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5e5cf20917286ebd8cb8d945",
+      "source_record_id": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "run_record_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 0,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "d7eddc84",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5fb1fd296a3ef7bf4b22636b",
+      "source_record_id": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "run_record_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 0,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "f7b3cb9f",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6af844208892f3705eee4de5",
+      "source_record_id": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "run_record_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 0,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "57c20a3f",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a11a3108089c7d75cc6b1522",
+      "source_record_id": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "run_record_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 0,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "instagram_business",
+      "call_id": "a0380280",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_e53c7c0aa6230ec191762925",
+      "source_record_id": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "posts": 1,
+      "native_counter_sums": {
+        "comments": 0,
+        "likes": 0
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_7676aac16455086193912626",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_7676aac16455086193912626",
+      "source_record_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 11,
+        "reply_sample_count": 1,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_a4e853272f83b1cca81ab1d1",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "source_record_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 40,
+        "reply_sample_count": 2,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_b249fe5400f1c040d11a58f2",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_b249fe5400f1c040d11a58f2",
+      "source_record_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 10,
+        "reply_sample_count": 1,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "source_record_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 34,
+        "reply_sample_count": 2,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_829c6d5505eb74877d962853",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "source_record_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 66,
+        "reply_sample_count": 2,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_f45a45412d7fb675b4db238d",
+      "call_id_kind": "PLAN_ID",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "source_record_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 141,
+        "reply_sample_count": 2,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "1396db9b",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_12955d4b3962415396e851cc",
+      "source_record_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 34,
+        "reply_sample_count": 6,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "f6da00b4",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+      "source_record_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 29,
+        "reply_sample_count": 6,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "bd31561c",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_795515a9284ce4344425e7f5",
+      "source_record_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 25,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "b7fd4247",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9edb25c11821e26c2bdce16f",
+      "source_record_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 25,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "6845d7ba",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_9efa90f940d37e632b24126c",
+      "source_record_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "run_record_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 23,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 7
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "dee497de",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6bb2866a1c81fd03600e8553",
+      "source_record_id": "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 10,
+        "reply_sample_count": 1,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "1e13cbf6",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fd2cd4630839022f15ebca85",
+      "source_record_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "run_record_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 21,
+        "reply_sample_count": 2,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "source_record_id": "plan-analysis-root-plan_8b7c1dd880206079033b6efe-threads",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 19,
+        "reply_sample_count": 1,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 1
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "35433fdd",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1c84765c96ff32077bba92dc",
+      "source_record_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "run_record_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 3,
+        "reply_sample_count": 2,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 2
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "ceb3e6db",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "source_record_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 19,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 8
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "cb3fd1c5",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "source_record_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 3,
+      "native_counter_sums": {
+        "views": 17,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 8
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "2649b750",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "source_record_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 22,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 8
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "d5cc28ee",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "source_record_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "run_record_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "posts": 2,
+      "native_counter_sums": {
+        "views": 21,
+        "reply_sample_count": 5,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 8
+      },
+      "shared_object_metrics": true
+    },
+    {
+      "channel": "threads",
+      "call_id": "4a172316",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_09125dacd06e67f5030fcba6",
+      "source_record_id": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 0,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "49dfdd72",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "source_record_id": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "ddf94be7",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_6ce7b6d137920d09843f61db",
+      "source_record_id": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 5,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "5820e1f7",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_26cb1eb8c72cbb8b45ce1396",
+      "source_record_id": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "15aa5643",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "source_record_id": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 5,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "0bf2a58c",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "source_record_id": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "106875eb",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "source_record_id": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "c22010a3",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "source_record_id": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "2b6a5d3d",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_7676aac16455086193912626",
+      "source_record_id": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "3f18b186",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_b249fe5400f1c040d11a58f2",
+      "source_record_id": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 5,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "a477a02a",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_4a68fd77e5609b19cd258ac1",
+      "source_record_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 1,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    },
+    {
+      "channel": "threads",
+      "call_id": "57c20a3f",
+      "call_id_kind": "CC399_RETAINED_SHORT_ID",
+      "plan_id": "plan_a11a3108089c7d75cc6b1522",
+      "source_record_id": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "posts": 1,
+      "native_counter_sums": {
+        "views": 2,
+        "reply_sample_count": 0,
+        "reposts": 0,
+        "likes": 0,
+        "replies": 0
+      },
+      "shared_object_metrics": false
+    }
+  ],
+  "metric_basis": "Latest cumulative native snapshot per channel/public object collected in this week; not incremental weekly activity. Per-object reach can overlap. Rates are not summed or averaged.",
+  "content_incomplete_objects_included": 43,
+  "missing_is_zero": false,
+  "public_write_performed": false,
+  "model_calls": 0,
+  "recorded_at_utc": "2026-11-11T06:44:29.736684Z",
+  "input_store_read_only": true,
+  "digest_lines": [
+    "substack: posts 25; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "x: posts 20; views 464; replies 5; new followers/members unavailable (no comparable account baseline).",
+    "youtube: posts 14; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "linkedin: posts 8; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "linkedin_company: posts 15; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "telegram: posts 94; views 117; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "discord: posts 59; views/reach unavailable; replies unavailable; new followers/members unavailable (no comparable account baseline).",
+    "facebook_page: posts 49; views/reach unavailable; replies 8; new followers/members unavailable (no comparable account baseline).",
+    "instagram_business: posts 29; views/reach unavailable; comments 8; new followers/members unavailable (no comparable account baseline).",
+    "threads: posts 93; views 600; replies 33; new followers/members unavailable (no comparable account baseline)."
+  ]
+}

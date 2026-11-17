@@ -1,0 +1,58 @@
+{
+  "role": "ranking",
+  "test_forced_primary_failure": true,
+  "source_prompt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T094326-e07d2ecc\\editorial\\rank\\prompt.txt",
+  "status": "FAILED",
+  "answered_by": null,
+  "role_schema_pass": false,
+  "record": {
+    "policy": "cc512-light-caller-v1",
+    "status": "FAILED",
+    "started_at_utc": "2026-11-12T12:11:10.159520+00:00",
+    "prompt_sha256": "c2bf23838257a5c288785b9f51fb535b23605ca4f596a90588c43f3ef2d8167d",
+    "prompt_bytes": 3549,
+    "attempts": [
+      {
+        "caller": "antigravity",
+        "started_at_utc": "2026-11-12T12:11:10.159719+00:00",
+        "status": "TIMEOUT",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "cause": "TEST_FORCED_AGY_TIMEOUT",
+        "ended_at_utc": "2026-11-12T12:11:10.160684+00:00",
+        "elapsed_seconds": 0.0009655000030761585,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "caller": "codex",
+        "started_at_utc": "2026-11-12T12:11:10.190472+00:00",
+        "status": "FAILED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "low",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "cause": "PermissionError",
+        "ended_at_utc": "2026-11-12T12:12:21.341034+00:00",
+        "elapsed_seconds": 71.15038500000082,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "answered_by": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "cause": "TEST_FORCED_AGY_TIMEOUT",
+    "fallback_cause": "PermissionError",
+    "ended_at_utc": "2026-11-12T12:12:21.360002+00:00",
+    "elapsed_seconds": 71.20016350000515,
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc512-codex-ranking-x3ho4mmm\\light-call.json"
+  },
+  "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "public_write_performed": false
+}

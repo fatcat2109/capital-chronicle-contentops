@@ -1,0 +1,246 @@
+{
+  "reviews": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-T.json",
+      "template": "call",
+      "master": "T",
+      "image_sha256": "3cdb23bab957efce77ff6bd8652f3a434659f8265ee3b3c9735b75bc0d3a43af",
+      "code_score": 9,
+      "vision": {
+        "image_sha256": "3cdb23bab957efce77ff6bd8652f3a434659f8265ee3b3c9735b75bc0d3a43af",
+        "template_revision": "b69f7bdf447324a866c58266999937f58c7f1ac2c66b2a81c052ac0653e6b6b7",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:11:17.884379+00:00",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "reasons": {
+          "1": "Valid RGB PNG format matching standard portrait canvas dimensions under 5 MB.",
+          "2": "Displays USD/JPY 4h TradingView snapshot matching post input symbol and timeframe.",
+          "3": "Created with attribution line, OHLC legend, price/time scales, and TradingView logo are whole and visible.",
+          "4": "Only the specified entry band (158.30–158.38) and invalidation level (158.04) are marked in the plot.",
+          "5": "Entry band and invalidation levels match source values exactly with generous vertical clearance.",
+          "6": "Chart last price marker is displayed at 159.831, matching contemporaneous quote data.",
+          "7": "All titles, badges, chart labels, scale values, and card text are clean with no clipping or overlap.",
+          "8": "High-contrast text and prominent typography ensure clear readability when scaled to 375 px width.",
+          "9": "Contains clean public copy with ET timestamp, Main/Alt probability pair, and no internal identifiers.",
+          "10": "TradingView chart occupies ~63% of vertical canvas height with balanced spacing throughout."
+        },
+        "prompt_sha256": "0e14f1f46243de5e023f02e6f751518058acff25933cc2d3d4e2edce364ae396",
+        "returncode": 0,
+        "output_sha256": "262801afd94ce1e6887bd610a4745a199e50a7b50b643c51d1e01eb36e9b7320",
+        "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459",
+        "image_tools_observed": [
+          "read_file"
+        ],
+        "observed_conversation_id": "d6eb8f6b-37b8-4483-922f-cf3f0e5e5f83",
+        "observed_usage": {
+          "input_tokens": 4962,
+          "output_tokens": 3892,
+          "thinking_tokens": 3540,
+          "cache_read_tokens": 39284,
+          "total_tokens": 8854
+        },
+        "observed_duration_seconds": 34.0663745,
+        "observed_num_turns": 1,
+        "status": "REVIEWED",
+        "ended_at_utc": "2026-11-11T17:11:55.705670+00:00"
+      },
+      "combined": 9,
+      "passed": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.json",
+      "template": "event",
+      "master": "T",
+      "image_sha256": "dded521a7325ad983a5cd24473dd60948f69658ac53ad080a28a83e341bd6e31",
+      "code_score": 10,
+      "vision": {
+        "image_sha256": "dded521a7325ad983a5cd24473dd60948f69658ac53ad080a28a83e341bd6e31",
+        "template_revision": "b69f7bdf447324a866c58266999937f58c7f1ac2c66b2a81c052ac0653e6b6b7",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:11:55.904827+00:00",
+        "points": {},
+        "reasons": {},
+        "prompt_sha256": "5b0a58f4174775391c9c622a4e80625c2401328776b8944e9bf67ab1d87b203d",
+        "status": "REVIEW_UNAVAILABLE",
+        "cause": "TimeoutExpired:Command '['C:\\\\Users\\\\bullw\\\\.gemini\\\\bin\\\\agy.exe', '--model', 'gemini-3.8-flash-high', '--effort', 'high', '--disable-slash-commands', '--mode', 'plan', '--add-dir', 'A:\\\\Capital Chronicle\\\\Worktrees\\\\ContentOps\\\\publisher-b-exec\\\\docs\\\\publisher\\\\",
+        "ended_at_utc": "2026-11-11T17:14:01.238088+00:00"
+      },
+      "combined": 0,
+      "passed": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-expiry-result-1-T.json",
+      "template": "result",
+      "master": "T",
+      "image_sha256": "cc2e66bb84b8c8dd96e4157231f2520b2cc2fd4ef9360fff8690806b45ed2870",
+      "code_score": 9,
+      "vision": {
+        "image_sha256": "cc2e66bb84b8c8dd96e4157231f2520b2cc2fd4ef9360fff8690806b45ed2870",
+        "template_revision": "b69f7bdf447324a866c58266999937f58c7f1ac2c66b2a81c052ac0653e6b6b7",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:14:01.326193+00:00",
+        "points": {},
+        "reasons": {},
+        "prompt_sha256": "084211ca45ca7269908ad6fc7a28109a45d27b7fea0a252fb073cc039f969846",
+        "returncode": 0,
+        "output_sha256": "57469f5644ecf7c1661d2a76662a73c95655a805a4bb58094812b2d74b7b50c1",
+        "stderr_sha256": "f90cb97a75e698819102157af12e14b3316550bb32c125e214603e998c0b3765",
+        "image_tools_observed": [
+          "read_file"
+        ],
+        "observed_conversation_id": "8b6d3d6d-f219-4d19-a352-029d0688d54a",
+        "observed_usage": {
+          "input_tokens": 2147,
+          "output_tokens": 599,
+          "thinking_tokens": 535,
+          "cache_read_tokens": 19209,
+          "total_tokens": 2746
+        },
+        "observed_duration_seconds": 7.1539831,
+        "observed_num_turns": 1,
+        "status": "REVIEW_UNAVAILABLE",
+        "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+        "ended_at_utc": "2026-11-11T17:16:05.118078+00:00"
+      },
+      "combined": 0,
+      "passed": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-weekly-weekly-1-W.json",
+      "template": "weekly",
+      "master": "W",
+      "image_sha256": "a4ac349a81e2da07159c3158f9b4c46be89cc4d0f4ebc39e58c57eb5c44a8bb6",
+      "code_score": 8,
+      "vision": {
+        "image_sha256": "a4ac349a81e2da07159c3158f9b4c46be89cc4d0f4ebc39e58c57eb5c44a8bb6",
+        "template_revision": "b69f7bdf447324a866c58266999937f58c7f1ac2c66b2a81c052ac0653e6b6b7",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:16:05.218572+00:00",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "reasons": {
+          "1": "Exact platform RGB PNG canvas format under 5 MB.",
+          "2": "Weekly scorecard table exception applies in place of TradingView snapshot.",
+          "3": "Chart-only scales and TradingView logo requirements are not applicable to weekly table.",
+          "4": "Chart plot levels and entry/exit marks are not applicable to weekly table.",
+          "5": "Chart entry band and invalidation requirements are not applicable to weekly table.",
+          "6": "Chart last price quote scale tolerance is not applicable to weekly table.",
+          "7": "All text and labels are fully displayed with no clipping, truncation, overlapping, or ellipses.",
+          "8": "Typography maintains strong contrast exceeding 4.5:1 and remains clearly legible at 375 px width.",
+          "9": "Clean public market names and outcomes used with no internal terms, money, volume, or model identifiers.",
+          "10": "Chart fill requirement is not applicable to weekly table and layout contains no excessive empty bands."
+        },
+        "prompt_sha256": "4e72d86fb8bb00f01c742e0b61ead6e70ce634458a8fe1704a069a55a2286ade",
+        "returncode": 0,
+        "output_sha256": "c5d727b13b1665c034330966a632b8a8cc19d4067cd130be8a483037ef6cfdd3",
+        "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459",
+        "image_tools_observed": [
+          "read_file"
+        ],
+        "observed_conversation_id": "f1ce9e1a-63ee-4880-916c-83b7895048b0",
+        "observed_usage": {
+          "input_tokens": 24139,
+          "output_tokens": 6136,
+          "thinking_tokens": 5831,
+          "cache_read_tokens": 20075,
+          "total_tokens": 30275
+        },
+        "observed_duration_seconds": 49.3526387,
+        "observed_num_turns": 1,
+        "status": "REVIEWED",
+        "ended_at_utc": "2026-11-11T17:16:58.019060+00:00"
+      },
+      "combined": 8,
+      "passed": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-map-map-2-T.json",
+      "template": "map",
+      "master": "T",
+      "image_sha256": "74e25c28ab8799e0a85c9fd73477521ab219bf5f0c56d9ed6d031c85f2540f93",
+      "code_score": 8,
+      "vision": {
+        "image_sha256": "74e25c28ab8799e0a85c9fd73477521ab219bf5f0c56d9ed6d031c85f2540f93",
+        "template_revision": "b69f7bdf447324a866c58266999937f58c7f1ac2c66b2a81c052ac0653e6b6b7",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:16:58.153594+00:00",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "reasons": {
+          "1": "RGB PNG canvas under 5 MB with standard sRGB color profile.",
+          "2": "Table card without chart satisfies the weekly and table exception.",
+          "3": "Chart line, scales, and TradingView logo are not applicable to table cards and pass.",
+          "4": "Chart plot levels and entry/exit marks are not applicable to table cards and pass.",
+          "5": "Chart entry band is not applicable; all printed prices match the source input data.",
+          "6": "Chart quote scale tolerance is not applicable to table cards and passes.",
+          "7": "All text and table content are fully rendered without clipping, overlap, or ellipses.",
+          "8": "Clear typography exceeding 4.5:1 contrast and easily legible at 375 px mobile width.",
+          "9": "No internal identifiers, money, or volume present; clean public market names and ET date.",
+          "10": "Chart fill requirement is not applicable to table cards; layout is balanced without dead bands."
+        },
+        "prompt_sha256": "4380a42450bee5b5703907d514099318628ae0cd40cc007d493cfc4502fdbefd",
+        "returncode": 0,
+        "output_sha256": "7462d1c9e1d381f46ecd5f7d88ab8b00535d900bf4788a050a4fd47490bd82ca",
+        "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459",
+        "image_tools_observed": [
+          "read_file"
+        ],
+        "observed_conversation_id": "a66129b4-40f9-41b7-a069-feb365fd3cfa",
+        "observed_usage": {
+          "input_tokens": 23894,
+          "output_tokens": 7227,
+          "thinking_tokens": 6841,
+          "cache_read_tokens": 20072,
+          "total_tokens": 31121
+        },
+        "observed_duration_seconds": 58.0541827,
+        "observed_num_turns": 1,
+        "status": "REVIEWED",
+        "ended_at_utc": "2026-11-11T17:17:59.594624+00:00"
+      },
+      "combined": 8,
+      "passed": false
+    }
+  ]
+}

@@ -1,0 +1,4260 @@
+{
+  "dispatches": [
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_61b346963d0b1c570606ec427614883c",
+      "key": "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+      "public_object_id": "82",
+      "public_object_url": "https://t.me/CapitalChronicle/82",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_c20c5e15005fdacef08fec50ce15b3f9",
+      "key": "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+      "public_object_id": "1567857504162156667",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_81bbc70eb45b52d282eaadd5ad909d0a",
+      "key": "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+      "public_object_id": "18197436163394174",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfW4o6Hn-tc",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_7b7450f2047c9427a22419e4f09b0626",
+      "key": "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "UNKNOWN_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_c239964374306938de9e9a12c623f175",
+      "key": "plan-status-post-8f03278909eef336308a22926f653fa7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_2c4f84fc9b52cff8fa8ba6e4543d621f",
+      "key": "plan-status-post-8f03278909eef336308a22926f653fa7",
+      "public_object_id": "1567860031620390916",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_107af64384475e3ddacf8fe1ff13746f",
+      "key": "plan-status-post-8f03278909eef336308a22926f653fa7",
+      "public_object_id": "18202958050377647",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfW5yFbn-wF",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_139aebd046911ec4337fd74a5d9b4dc7",
+      "key": "plan-status-post-65c6f979d7f0c8f7e2df69b40482e539",
+      "public_object_id": "83",
+      "public_object_url": "https://t.me/CapitalChronicle/83",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_fdbbc5f1e4bc9430f73adeb2839887f1",
+      "key": "plan-status-post-65c6f979d7f0c8f7e2df69b40482e539",
+      "public_object_id": "1567860392472871036",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_0bfd63bf5e637e8cf5f1be77e98a1a4e",
+      "key": "plan-status-post-65c6f979d7f0c8f7e2df69b40482e539",
+      "public_object_id": "17945655780367326",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfW58ocn7Qv",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_aef5c25c228586e2bace20a5388ba8fb",
+      "key": "plan-status-post-8cbf9fb0b4cfc1bbbc886b71ba16cb52",
+      "public_object_id": "84",
+      "public_object_url": "https://t.me/CapitalChronicle/84",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_ec621355ab1ad65cb2ce625466c7e1e4",
+      "key": "plan-status-post-8cbf9fb0b4cfc1bbbc886b71ba16cb52",
+      "public_object_id": "1567879825849581629",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_91dcd53d85e6777c90833e07dfb931ed",
+      "key": "plan-status-post-8cbf9fb0b4cfc1bbbc886b71ba16cb52",
+      "public_object_id": "18108316415114572",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXCyqXn_QR",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_a955a8318cf5f51dfa8f966737e2348e",
+      "key": "plan-status-post-00dc5756ab6b43850cc3802558507a7f",
+      "public_object_id": "86",
+      "public_object_url": "https://t.me/CapitalChronicle/86",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_bced525434b4e14ee14ccfa5c86d5dd8",
+      "key": "plan-status-post-00dc5756ab6b43850cc3802558507a7f",
+      "public_object_id": "1567883496440205323",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_4d44df5481d29c555f006c627801dd93",
+      "key": "plan-status-post-00dc5756ab6b43850cc3802558507a7f",
+      "public_object_id": "18379080178213625",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfXEdQ0H2uN",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_0521283a74d917317db0781d4d1f1990",
+      "key": "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_019aa04131635408a5a415511f65a7d3",
+      "key": "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_e47b4bf4aee4593c4575f0f71e8b0517",
+      "key": "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_3d00a6dc0e34cb6ad4d6c81bb8d319d5",
+      "key": "plan-status-post-2a8b7bfb93a247763399c6d9a29f3f15",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_d1e1479f1c4dad243dc92a012dde5764",
+      "key": "plan-status-post-2a8b7bfb93a247763399c6d9a29f3f15",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_84ff1957cd9f6819d6826c3ceb6d8aa0",
+      "key": "plan-status-post-2a8b7bfb93a247763399c6d9a29f3f15",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_353cbd44fca92bd48bd6a02b5d1a31bf",
+      "key": "plan-status-post-eb86375e30461310fb15e19f298f1b75",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_0ffc343b07aec12faba4b33b715c613b",
+      "key": "plan-status-post-eb86375e30461310fb15e19f298f1b75",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_de28a9d63a240ccb90b40f2295c62746",
+      "key": "plan-status-post-eb86375e30461310fb15e19f298f1b75",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_3b77b0322a714c7900e26a65c0ac579e",
+      "key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_03b4aa59250aa78fd1323f3d42087086",
+      "key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_c706b0bb836d8a316e146e694d8145ca",
+      "key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_ed8eb8e600cdba9c7b15bae02ff90f80",
+      "key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_b5b03b4e81ce942cb406f8f0fa2f383d",
+      "key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_852dcb28e2e085aaf7d8649c342be80a",
+      "key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_cf96d59def856c6878d1e2467fd55fcf",
+      "key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_a4674970c4cf44f1581f78bea2b8d8ad",
+      "key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a0c2fd78b16169e0b37ffc5bfab7494c",
+      "key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_21d427d8f7c92eee009cd232f44ab67d",
+      "key": "plan-status-post-097f2d267b4765e14c0a251f43b2c07c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_cb84ac5dc414e424fbfddd89370d4c96",
+      "key": "plan-status-post-097f2d267b4765e14c0a251f43b2c07c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_ab21c28ae4c282579d6af3f99951bca3",
+      "key": "plan-status-post-097f2d267b4765e14c0a251f43b2c07c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_59da55d06efe7abd75ab774a98b27554",
+      "key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_dae40be4df59c41cf066c0d573d736c8",
+      "key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_ab145a48c7fcf4500feb3e330dd362a7",
+      "key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_ee135026e1d89007bee7cdbff41fd86a",
+      "key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_4e2ccd78ffa9875cd18a28d33abb6b8d",
+      "key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_33b0eb5c82ccb7c827bd2605948a11d4",
+      "key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_0f6a5549aa79d91933da51a3650ae2e9",
+      "key": "plan-status-post-470310cdd836c88ead28a9cd8d32a3ca",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_80bb0fedd9d7387286101ec8c8c0b49e",
+      "key": "plan-status-post-470310cdd836c88ead28a9cd8d32a3ca",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f1c88c6949e95f232a234708d857a317",
+      "key": "plan-status-post-470310cdd836c88ead28a9cd8d32a3ca",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_9c9b1ac7d7309f6722b0a8113ff42b7b",
+      "key": "plan-status-post-0d7a185d078ad1cb6f831e4701c48dcb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_8c138618e17d2bf2088c2e4b2d3e3174",
+      "key": "plan-status-post-0d7a185d078ad1cb6f831e4701c48dcb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_4d18fb0615e61ac3828e4af1e5bc0d39",
+      "key": "plan-status-post-0d7a185d078ad1cb6f831e4701c48dcb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_feaaffd891d2a6105343950b445be4f7",
+      "key": "plan-status-post-0a7bc078a0aae0982d8b3dfcce036eb7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_eec0966bfba8a443eea2b60a02c0c4c2",
+      "key": "plan-status-post-0a7bc078a0aae0982d8b3dfcce036eb7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_acfa006f246ad11a5ef70211087f9fe1",
+      "key": "plan-status-post-0a7bc078a0aae0982d8b3dfcce036eb7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_e1e03e92e2fdcc5c47ecadc5357c30f9",
+      "key": "plan-status-post-1bb78f2cd9b84d5c72a1805231eb8e29",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_085e2f9d741e57bb82f001b734d7ce92",
+      "key": "plan-status-post-1bb78f2cd9b84d5c72a1805231eb8e29",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_9d03f4de058434493ef4d50c0b29bc4b",
+      "key": "plan-status-post-1bb78f2cd9b84d5c72a1805231eb8e29",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_112e6a0e6ac0afb67a84f5c56f4797dd",
+      "key": "plan-status-post-2f6c36af8ff39e889a67de04ea6cfb44",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_29149f951e92126d8316fa474e876876",
+      "key": "plan-status-post-2f6c36af8ff39e889a67de04ea6cfb44",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_1d6137b4ea37d3ecd8495f7623e04180",
+      "key": "plan-status-post-2f6c36af8ff39e889a67de04ea6cfb44",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_6eed1ddbc97c8e936683198f4f462b36",
+      "key": "plan-status-post-8e15a61dadf995599a0c114fe3180f66",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_4f4a1d46336ee03ed84ac74675e2a571",
+      "key": "plan-status-post-8e15a61dadf995599a0c114fe3180f66",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_08d369424ae20f8b2af91c62d24501e9",
+      "key": "plan-status-post-8e15a61dadf995599a0c114fe3180f66",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_808f273074cc6135dc4fecda46590feb",
+      "key": "plan-status-post-b7455e9ba43fc44c6cfdb45059f5ca70",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_8dc5551a956fd82d3ea56fe6f5dfac9c",
+      "key": "plan-status-post-b7455e9ba43fc44c6cfdb45059f5ca70",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_044b960537c5937dab86d0dc3d83a275",
+      "key": "plan-status-post-b7455e9ba43fc44c6cfdb45059f5ca70",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_bfe169461d8b9b041b0e6e5ae7f9a36d",
+      "key": "plan-status-post-56513e3d3b357a07cb0ac55164ef974c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_7f23f469d22d482918c293283864449e",
+      "key": "plan-status-post-56513e3d3b357a07cb0ac55164ef974c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_350be5148178ac95485a67d22b2d72df",
+      "key": "plan-status-post-56513e3d3b357a07cb0ac55164ef974c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_cd3498d5d02969bfa3658b7f36860365",
+      "key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7",
+      "public_object_id": "91",
+      "public_object_url": "https://t.me/CapitalChronicle/91",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_0bab86aa0201651243759b8f7f869bdf",
+      "key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7",
+      "public_object_id": "1568178342648352848",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a6478f9c05772f9f5eedb65fa9744843",
+      "key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7",
+      "public_object_id": "17885654583522555",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZKiUeH44V",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_5efe54d161c85867957db7eea9a9983b",
+      "key": "plan-status-post-e3e8cad0e0976a7a06d323b70c295410",
+      "public_object_id": "92",
+      "public_object_url": "https://t.me/CapitalChronicle/92",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_2ac7b9e15482801e7edaf50f0f9315dc",
+      "key": "plan-status-post-e3e8cad0e0976a7a06d323b70c295410",
+      "public_object_id": "1568178578850324545",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_d8f1f7e608ac83b25da817fd97fae5a6",
+      "key": "plan-status-post-e3e8cad0e0976a7a06d323b70c295410",
+      "public_object_id": "18081521510743301",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZKpDnH-Nz",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_81e24a26b68ef757e837200ef76b057a",
+      "key": "plan-status-post-ed3f45470caf6a0a883c3f82378eb7bd",
+      "public_object_id": "93",
+      "public_object_url": "https://t.me/CapitalChronicle/93",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_f204571099eec3f3c91fbdcc61d935d0",
+      "key": "plan-status-post-ed3f45470caf6a0a883c3f82378eb7bd",
+      "public_object_id": "1568179043822735406",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_1fd1c55e0ced612c6b40d37cc2dd7f94",
+      "key": "plan-status-post-ed3f45470caf6a0a883c3f82378eb7bd",
+      "public_object_id": "18361438879222102",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZK2nDH9R9",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_219376a7a9f66aca51a1827c774584bb",
+      "key": "plan-status-post-5ca1030c60761cd2a2563f9fb003c868",
+      "public_object_id": "97",
+      "public_object_url": "https://t.me/CapitalChronicle/97",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_eb83d44d434e9333cda535130da2071e",
+      "key": "plan-status-post-5ca1030c60761cd2a2563f9fb003c868",
+      "public_object_id": "1568291852682141696",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_c961b94fe591f5ffa43f802bc11bd556",
+      "key": "plan-status-post-5ca1030c60761cd2a2563f9fb003c868",
+      "public_object_id": "18056704634817043",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZ-J6zH9hQ",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_5ebec7bca7d4005fb1700f2a5dd02620",
+      "key": "plan-status-post-d7acdc21b157dbaf1ff481e9a37c6889",
+      "public_object_id": "98",
+      "public_object_url": "https://t.me/CapitalChronicle/98",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_cc55936fa4072ebb61c1ce4f998e7d3d",
+      "key": "plan-status-post-d7acdc21b157dbaf1ff481e9a37c6889",
+      "public_object_id": "1568292131150499891",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_89c34dfa648095d372b135f8ea542958",
+      "key": "plan-status-post-d7acdc21b157dbaf1ff481e9a37c6889",
+      "public_object_id": "18397308037161511",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZ-SAaH80D",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_69ea6344fb026ec22d56e0c0e3d279f0",
+      "key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "public_object_id": "100",
+      "public_object_url": "https://t.me/CapitalChronicle/100",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_d044240839217df2929da81af7695547",
+      "key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "public_object_id": "1569278838687662136",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_11e326134c226bce60546cae9d58b520",
+      "key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "public_object_id": "17927088249430403",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfg-_H4FLZY",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_f8368098443e8c9f6c2358b8ea8fbbca",
+      "key": "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "public_object_id": "101",
+      "public_object_url": "https://t.me/CapitalChronicle/101",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_a8c30e5cb0173b4b74c12f46fb1be880",
+      "key": "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "public_object_id": "1569279134952325233",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_e07966330fa1755277a53a68f7476890",
+      "key": "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "public_object_id": "18114944162037163",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfg_Hb5FG-c",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_6b6c37bbbd8e3bfab20e947f60f935d2",
+      "key": "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "public_object_id": "102",
+      "public_object_url": "https://t.me/CapitalChronicle/102",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_0fbfa926fa2dacd7cbcb2fb88e067ea2",
+      "key": "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "public_object_id": "1569279455946473485",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a10b2e82bc09660abf3980bf71ebba16",
+      "key": "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "public_object_id": "18027061850938649",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfg_QxilAVn",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_32146ec24513568148ec0a43b7164e21",
+      "key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "public_object_id": "103",
+      "public_object_url": "https://t.me/CapitalChronicle/103",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_95c2c1e9c7bfb7cfb9b7e71d8c1fdb4d",
+      "key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "public_object_id": "1569279933870645281",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_476b99b611605f8e111c0a5750ab7987",
+      "key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "public_object_id": "18194949475400461",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfg_eq2lKxI",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_c33fbec937403676d42b9adfd1393bfb",
+      "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "public_object_id": "104",
+      "public_object_url": "https://t.me/CapitalChronicle/104",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_4d471d98b32a012dffd8528c2134f3c5",
+      "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "public_object_id": "1569281367596859512",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f53b9fa3f47d0ca8f5171bcac434a5c3",
+      "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "public_object_id": "18649780468040990",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhAIdVFN5l",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_b7c988afb0221ddee56dee17ac2525dd",
+      "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+      "public_object_id": "105",
+      "public_object_url": "https://t.me/CapitalChronicle/105",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_e6eef13eb19d32eac7c7c13b29bbbe3f",
+      "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+      "public_object_id": "1569281720644276278",
+      "public_object_url": null,
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_079ec9507e1da09fe79633ca30dfb668",
+      "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+      "public_object_id": "18037632212887186",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhASwvFHn0",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_4b9d0955b60922b91ff03abfab48c5f9",
+      "key": "cc359-zone-correction-20261109",
+      "public_object_id": "107",
+      "public_object_url": "https://t.me/CapitalChronicle/107",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_8e26c1dc01fa645152504b47e08a93c3",
+      "key": "cc359-zone-correction-20261109",
+      "public_object_id": "1569350151401639966",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569350151401639966",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_eb901dc382209e08af303ad2a06594ed",
+      "key": "cc359-zone-correction-20261109",
+      "public_object_id": "17915910789554425",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhfaevlDDY",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_e29d55b139e249d83ed06c054990d919",
+      "key": "cc359-zone-correction-20261109",
+      "public_object_id": "2119792055350337767",
+      "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_71fdae51a6d8073e2f2d583371d32fc4",
+      "key": "cc359-zone-correction-20261109",
+      "public_object_id": "c-382817690",
+      "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_c446b46e846aba66e0d536078fd36397",
+      "key": "plan-status-why-ccb1c6ca795ffbfc8a2b25994c350ae6",
+      "public_object_id": "108",
+      "public_object_url": "https://t.me/CapitalChronicle/108",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_478ba97dcf634420a28b4679fcf75d6f",
+      "key": "plan-status-why-ccb1c6ca795ffbfc8a2b25994c350ae6",
+      "public_object_id": "1569378563142975770",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569378563142975770",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_9e7b81cce3db8ec2ec8550a72c6f4f33",
+      "key": "plan-status-why-ccb1c6ca795ffbfc8a2b25994c350ae6",
+      "public_object_id": "18123886631035684",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhsVbzo9m7",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_b5a9a34d9c31295bccdf6fd6394e5a98",
+      "key": "plan-status-why-674384b914b1125797c3699771c9bc47",
+      "public_object_id": "109",
+      "public_object_url": "https://t.me/CapitalChronicle/109",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_fd3605640445e702eaa34ce20809d7c5",
+      "key": "plan-status-why-674384b914b1125797c3699771c9bc47",
+      "public_object_id": "1569379340678991942",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569379340678991942",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_02bb8a5f9d7bba1630e68927c6fde9b4",
+      "key": "plan-status-why-674384b914b1125797c3699771c9bc47",
+      "public_object_id": "17868649200676725",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfhsr5ZIwZT",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_7ae13bc6130fc677d92b4ad8656ff8ba",
+      "key": "plan-status-why-17358067572f1363fa248304efd97d41",
+      "public_object_id": "110",
+      "public_object_url": "https://t.me/CapitalChronicle/110",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_1057e10869b5833226fc443d1cb9c47b",
+      "key": "plan-status-why-17358067572f1363fa248304efd97d41",
+      "public_object_id": "1569381328560980204",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569381328560980204",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_93e02f3b03affd1624d6a673e4aa11dd",
+      "key": "plan-status-why-17358067572f1363fa248304efd97d41",
+      "public_object_id": "18090279851305557",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhtmTBI3jX",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_d39bf60eccf9aea07c15345b35338afd",
+      "key": "plan-status-why-9732684b6a18ba49a02355b3b64dc133",
+      "public_object_id": "111",
+      "public_object_url": "https://t.me/CapitalChronicle/111",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_cdfccafb9384dfde19dd2d05156be831",
+      "key": "plan-status-why-9732684b6a18ba49a02355b3b64dc133",
+      "public_object_id": "1569381579803992165",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569381579803992165",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a49561045d2cefa83f67db88f26905ff",
+      "key": "plan-status-why-9732684b6a18ba49a02355b3b64dc133",
+      "public_object_id": "17981981748129334",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhttKuI3tf",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_666df75a89b166489e9fff91900e7ee8",
+      "key": "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+      "public_object_id": "112",
+      "public_object_url": "https://t.me/CapitalChronicle/112",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_1f5edd37579e361845594b0d8ac1f356",
+      "key": "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+      "public_object_id": "1569385473137189106",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569385473137189106",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_87d187a5a49a92b42ce3ff989418d71a",
+      "key": "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+      "public_object_id": "18130495802311367",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhvefCo9WR",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_aadb10d580788a093093f9fbf10217b7",
+      "key": "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8",
+      "public_object_id": "113",
+      "public_object_url": "https://t.me/CapitalChronicle/113",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_d2cf9e38bf98ec5f1284066206a3408f",
+      "key": "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8",
+      "public_object_id": "1569385514925301791",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569385514925301791",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_4c0b2dc93b402d08851002123d57da4f",
+      "key": "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8",
+      "public_object_id": "17917971519541306",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhvfreI9zt",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_98c5dfff7513d80c534b09b84954e9f1",
+      "key": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "public_object_id": "114",
+      "public_object_url": "https://t.me/CapitalChronicle/114",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_0ec7ae26e962d0cdc0a4e70600d8ea75",
+      "key": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "public_object_id": "1569526675622985822",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569526675622985822",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_20d4b813b36c24eb694de7c5e81defa9",
+      "key": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "public_object_id": "18109674764193148",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfivsEtozIr",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_e76f7645c9e448c7b1d827435e1b65ff",
+      "key": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "public_object_id": "2120014234310541324",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120014234310541324",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_2e5a55e29f03ca70094eb5f39ea4496a",
+      "key": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_fd01d41a51cd1fab6b0f048076a571b9",
+      "key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "public_object_id": "115",
+      "public_object_url": "https://t.me/CapitalChronicle/115",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_9cfc52a70a079ebd71d85bf4c675d109",
+      "key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "public_object_id": "1569527291086766194",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527291086766194",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_1966d4b0b74a36f62590d6d28092594c",
+      "key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "public_object_id": "18115572677141347",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfiv-4wo9Up",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_d0ea1d54fecb4c60977fa06f4ce3cbc8",
+      "key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "public_object_id": "2120015650529964275",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120015650529964275",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_1e8b666c608b9df5feaf073366aaf47d",
+      "key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_2fba173a151159effc2da6b9b45f336d",
+      "key": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "public_object_id": "116",
+      "public_object_url": "https://t.me/CapitalChronicle/116",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_5bad5a767ec261f3d245bd10e89bb8ab",
+      "key": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "public_object_id": "1569527474344300726",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527474344300726",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_c7d9621db7f537e76d431269584ffb83",
+      "key": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "public_object_id": "18124585340024294",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfiwDPPI1Ag",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_b112bcee11331ab19440c923fb72aede",
+      "key": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "public_object_id": "2120031752936923332",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120031752936923332",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_76be49b9c3b261491b10d1b849a2cbe0",
+      "key": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_445d1ebd37e28bd2c79523e1f25dbc71",
+      "key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+      "public_object_id": "117",
+      "public_object_url": "https://t.me/CapitalChronicle/117",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_da7f506f1f4bc94d18499a30d160de1c",
+      "key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+      "public_object_id": "1569527594263646310",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527594263646310",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_7315523675ffd27d5d98ba6e43a5aba0",
+      "key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "UNKNOWN_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_64c87b663e6694e8441f38b31e85a1ff",
+      "key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "public_object_id": "118",
+      "public_object_url": "https://t.me/CapitalChronicle/118",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_d12587a7837c4953e50c9f68f4031bee",
+      "key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "public_object_id": "1569551436633866330",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551436633866330",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_7e1711e51a0a6729c8b070c7e5f0abbe",
+      "key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "public_object_id": "18117394688464368",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi68kMI-eR",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_d645c2a3d6da6f6135f43b510491b310",
+      "key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "NATIVE_NEO_TOOL_PENDING"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_928e1116526628f62f9adfc44e6f3854",
+      "key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "public_object_id": "119",
+      "public_object_url": "https://t.me/CapitalChronicle/119",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_ebfad4bf2e3b20d6e594afc39d69b6c4",
+      "key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "public_object_id": "1569551566317297685",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551566317297685",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_6ca16b3f1c187df324b15607f663f92a",
+      "key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "public_object_id": "17969547744196235",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7AT1I4pD",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_cc8948d4c65e60aad82a18e8d036a62e",
+      "key": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+      "public_object_id": "120",
+      "public_object_url": "https://t.me/CapitalChronicle/120",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_bcb9e62d427fd84bf171883298811769",
+      "key": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+      "public_object_id": "1569551689134899240",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551689134899240",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_41aa5fb68369db11611b7095af7f5b4f",
+      "key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+      "public_object_id": "121",
+      "public_object_url": "https://t.me/CapitalChronicle/121",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_1d792f304434916cb1696ab7f99d9b76",
+      "key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+      "public_object_id": "1569551758584315964",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551758584315964",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_d496b03b9626ff2205d3ecb6ecbe31de",
+      "key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+      "public_object_id": "18115764947139383",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7FyWow5n",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_3c4e250327010a53aefcdb639f1a254f",
+      "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_c9e9ccf48f3b72df2e4ed68e2277448a",
+      "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+      "public_object_id": "18116671601172933",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjAmYiFGhG",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_d96bc8a0554343792978effaddba03c5",
+      "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "public_object_id": "140",
+      "public_object_url": "https://t.me/CapitalChronicle/140",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_3fa8a7154c644618d7e437f95e9eacf1",
+      "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_2b9aa639cf319c50c4c17fa9fcd09159",
+      "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "public_object_id": "18093440036680752",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkT0Hoo9FX",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_12f0180081e8ba9d2b0830e1695c627e",
+      "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "public_object_id": "141",
+      "public_object_url": "https://t.me/CapitalChronicle/141",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_4f1f0fb1933f51532061167c838a5978",
+      "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_d4c1f968eac477b1440f6a8676739d43",
+      "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "public_object_id": "18016816988974858",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkT7MEI_L2",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_ca08e9763dd451b3844b8a90ba377143",
+      "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "public_object_id": "142",
+      "public_object_url": "https://t.me/CapitalChronicle/142",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_c48eedb7980c11d5b6740084f94138a1",
+      "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_b5dc5ae4bd52b0c6c541ecc5d8cad9ca",
+      "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "public_object_id": "18120416654047174",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkUCb6o_Yy",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_ff1d76a3b3cf09f798d9e1f26eddf623",
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "public_object_id": "122",
+      "public_object_url": "https://t.me/CapitalChronicle/122",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_2a7b37a724bc0e05d1b682b5d849ea7c",
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "public_object_id": "1569598929002176564",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569598929002176564",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_13910bfc6839f395923ffb63757635e2",
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "public_object_id": "18196134214397838",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjQpuRFDTc",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_1fcc1170e164b0ee51a8ef540a8ffdfd",
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_d29d1ad24731f32f4881877bf125a459",
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_30106b516cfe7e61bd811c88ebb69e88",
+      "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "public_object_id": "123",
+      "public_object_url": "https://t.me/CapitalChronicle/123",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_8488c1ee023346b322ed3a2969398498",
+      "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_bfcc9f97a40f28b4cea994e72388aed4",
+      "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "public_object_id": "18197301238399341",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjQsh2lGlU",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_bf6bcf7d1ee53a5faccff5dd0d03d52a",
+      "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "public_object_id": "124",
+      "public_object_url": "https://t.me/CapitalChronicle/124",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_4823c673a528ccf2857c55d8afc64232",
+      "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_e3956545fbd2fb5e65c640add4bba811",
+      "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "public_object_id": "18122493775956515",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjQvg1FCEw",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_5e81359e4f7e0a8854bb63be4a46d910",
+      "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "public_object_id": "125",
+      "public_object_url": "https://t.me/CapitalChronicle/125",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_f12d6e4d487e1bc499fb50abb689d20f",
+      "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_5b6ea73675c8b3508c8b6ac0ae16e246",
+      "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "public_object_id": "18014396693776035",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjQyjflORU",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_c13b5add6890fbb74381d886d34f11f2",
+      "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "public_object_id": "126",
+      "public_object_url": "https://t.me/CapitalChronicle/126",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_d148a76912d60e00c899c8f5ccdeccd5",
+      "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_5d7178d0e9a0cf590db76eb906cc92dd",
+      "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "public_object_id": "18108804308458637",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjQ1ylFHIA",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_98e19e42f77fd181038ab6baf68890b2",
+      "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "public_object_id": "127",
+      "public_object_url": "https://t.me/CapitalChronicle/127",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_62bf1328c28c3b425c97719a81620859",
+      "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_22670d7abf07c333b7023ae4bdd4fc34",
+      "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "public_object_id": "18094111103211937",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjQ5NYFP93",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_19c026474e254990d9ce3d97286104e4",
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "public_object_id": "128",
+      "public_object_url": "https://t.me/CapitalChronicle/128",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_c13e5a4faf22f99532b0d18d5e9b7343",
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "public_object_id": "1569703100032225312",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569703100032225312",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f48275989a425293615bd8ebf7f4519e",
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "public_object_id": "18137014220494553",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjTyL6FIn8",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_716fd6a3874b63452853c187c513c4e8",
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_b59a32210485e974a508c68a8eedbc91",
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_ad0692305272064497d68a9802724526",
+      "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "public_object_id": "138",
+      "public_object_url": "https://t.me/CapitalChronicle/138",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_b1088b90fafe7725f52b84141e87686c",
+      "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_bd010e48521ed79f525ee83c65c299e4",
+      "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "public_object_id": "18130748032886079",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkTlwJo5t_",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_cef289b68b164c9feaf41a75bb24efee",
+      "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "public_object_id": "148",
+      "public_object_url": "https://t.me/CapitalChronicle/148",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_8cfe311dbd3098af0d9d9f228b96a2a3",
+      "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_ecb8af361d5a8bff979b6b3b2c08790a",
+      "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "public_object_id": "17963300511255228",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVEYqIyvP",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_489b58378a9d6001b2094b8572a6954a",
+      "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "UNKNOWN_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_1f4d746d422f994e1b7eacd597001ea3",
+      "key": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+      "public_object_id": "149",
+      "public_object_url": "https://t.me/CapitalChronicle/149",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_d8842c518873000c4ba649c3778b06a0",
+      "key": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_d04a8fd7e897226933c0cb515cb4c455",
+      "key": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "public_object_id": "150",
+      "public_object_url": "https://t.me/CapitalChronicle/150",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_8ebfd9f6c680f953e0086629c7c7367c",
+      "key": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_7cbec28fd015154894bf3d34fb186b17",
+      "key": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "public_object_id": "18150103948562147",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVIciI0ID",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_b7dd55a065448278923ec46db123dd2b",
+      "key": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "public_object_id": "151",
+      "public_object_url": "https://t.me/CapitalChronicle/151",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_1fca55431092f5d31f03efcee9739a9a",
+      "key": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_b3c5e2db23d042b42909f163308c7695",
+      "key": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "public_object_id": "18143967022720116",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVLkto8-R",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_3aa0afcf42c7b69fb90c13a145885320",
+      "key": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "public_object_id": "152",
+      "public_object_url": "https://t.me/CapitalChronicle/152",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_1d37bcdb468e5127a4a8d182c6278aa6",
+      "key": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_960a127a54a6dfea6f7b8be2aa81c1c3",
+      "key": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "public_object_id": "17936431761142727",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVO5uoy09",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_5f919160004b26110b494d305da06ebc",
+      "key": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+      "public_object_id": "153",
+      "public_object_url": "https://t.me/CapitalChronicle/153",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f94dbbf8315a37b02b074d00d9d5a411",
+      "key": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+      "public_object_id": "17990481072109496",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVT2go7cz",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_00da48d1fdf3249c6992a0e5d0d55793",
+      "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "public_object_id": "154",
+      "public_object_url": "https://t.me/CapitalChronicle/154",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_58cdd90cddb919be90132fa7f339fd90",
+      "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a4214a60047b793ac0641eec1f7e84dd",
+      "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "public_object_id": "18105690728321681",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVXTKow7A",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_b8807cda44a5be651045faa478a4706e",
+      "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_7a2686efe8ec11a6b2ee1718d38d6878",
+      "key": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+      "public_object_id": "155",
+      "public_object_url": "https://t.me/CapitalChronicle/155",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_521baa69b97c8a431bc2fda8fb6ece5c",
+      "key": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+      "public_object_id": "17922323481453915",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVbYmo5xd",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_1bb09e73329b2c82e4c1e3e401c76185",
+      "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "public_object_id": "156",
+      "public_object_url": "https://t.me/CapitalChronicle/156",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_bceb8ea99d001518c788bd6a65270b67",
+      "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_7dd6327551b4fd3cfa0cc8b88879f939",
+      "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "public_object_id": "18452479450127460",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkVefSI_VV",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_fe41ead4a763c55d9fe1c2c97b960593",
+      "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_0d52415837f520ef7245f3737abba37b",
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "public_object_id": "137",
+      "public_object_url": "https://t.me/CapitalChronicle/137",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_4b43dacde0bfd6c779b0b4d764531fb5",
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "public_object_id": "1569706608089501787",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569706608089501787",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_0f56008401091c9978c33eb2732a5be1",
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "public_object_id": "18132675601830770",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkBjRflPto",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_8f929fba39ad5f3f269469e2f8651a8f",
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_63cdfa22db65e4c8391f3a985e3a59bb",
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_0fb01df51623dc4cb3de4de8504cc3f7",
+      "key": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "public_object_id": "139",
+      "public_object_url": "https://t.me/CapitalChronicle/139",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_3bbe00bd35f8fd64a43d28c3f2fe9c15",
+      "key": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_99771956553ca6fe67ed77d8a6e03554",
+      "key": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "public_object_id": "18574504969079791",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkTp17I881",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_81c598fc5c4db589c6a83e888b9622dd",
+      "key": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "public_object_id": "157",
+      "public_object_url": "https://t.me/CapitalChronicle/157",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_af4efc37704dafec0975a36b98cc2778",
+      "key": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "public_object_id": "17977176222153319",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkViWqox1_",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_9b2cf2a5274568cf0133f3fdbb91f175",
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "public_object_id": "143",
+      "public_object_url": "https://t.me/CapitalChronicle/143",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_18c14f792d6dc0fb6251571b41af2ffb",
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "public_object_id": "1569748420481122395",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748420481122395",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_6d8c80054b93face7346de8e2fdd76ef",
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "public_object_id": "18100417460411659",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkUnz1I6P_",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_14beeb9dc225efbc67ee63905a517e40",
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_90a275ffb1f5f6d221fd40f385ae3cbe",
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_30c29ea40c7ac2684d0eaf3cd42c7012",
+      "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "public_object_id": "144",
+      "public_object_url": "https://t.me/CapitalChronicle/144",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_55702fa11df77e66f53de38ebf44aaba",
+      "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "public_object_id": "1569748728376729611",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748728376729611",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_ec75b4443c9c5884b3b5e4a25be06476",
+      "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "public_object_id": "18026033078929852",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkUrebo92j",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_08ac9b4098ca76f267f1efcffac71a02",
+      "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "public_object_id": "145",
+      "public_object_url": "https://t.me/CapitalChronicle/145",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_ba6cc723cb940eb98764e98e426cd30a",
+      "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "public_object_id": "1569748871180189796",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748871180189796",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f174af6279b63a5f5e79e3a6017a5e79",
+      "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "public_object_id": "18178373914453035",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkUvq7I2Lm",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_7b954873bbe1fcbd565efc0a706ebecf",
+      "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "public_object_id": "146",
+      "public_object_url": "https://t.me/CapitalChronicle/146",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_ea04958b8d8aff9c4b939b77a33167df",
+      "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "public_object_id": "1569749009965256767",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749009965256767",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_fd3ce5355c518141aa259f1fb5df6b9a",
+      "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "public_object_id": "18098858387671167",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkUzrRIxn_",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_0c381826a0852353e5eb1338c0ade67c",
+      "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "public_object_id": "147",
+      "public_object_url": "https://t.me/CapitalChronicle/147",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_462815fdae29a62d8372227e8366c467",
+      "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "public_object_id": "1569749155533037619",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749155533037619",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_052c62f9e8454aa148f1165504c00d8a",
+      "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "public_object_id": "18419238388085611",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkU3zPo_JN",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_8d1150b8324e8dae1ca6236743dad3b8",
+      "key": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "public_object_id": "158",
+      "public_object_url": "https://t.me/CapitalChronicle/158",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_c2b53c51ab12cef2d0cc523cde9ae2f3",
+      "key": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "public_object_id": "1569753146874658928",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_3a01ab1417e6225d3cd980823cd3b29e",
+      "key": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "public_object_id": "18084548918344983",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_049ea16aaf71c6c049ef0653011c2ed6",
+      "key": "plan-result-post-91e77fbcc6dbe51fd170aebcfdf08ee6",
+      "public_object_id": "159",
+      "public_object_url": "https://t.me/CapitalChronicle/159",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_350ab0ae0ad5da04bc35573f82299e11",
+      "key": "plan-result-post-91e77fbcc6dbe51fd170aebcfdf08ee6",
+      "public_object_id": "1569813553852973087",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813553852973087",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_e3bbff72c3eff4fd74ba88c69a27ea50",
+      "key": "plan-result-post-91e77fbcc6dbe51fd170aebcfdf08ee6",
+      "public_object_id": "18119218373043318",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkyKdKE6hO",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_97ee5bfdd5faa7c6e5f07890a542bc35",
+      "key": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+      "public_object_id": "160",
+      "public_object_url": "https://t.me/CapitalChronicle/160",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_2c4caf1ee85b4ba12a6e5d153b2f0e42",
+      "key": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+      "public_object_id": "1569813719028990044",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813719028990044",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_cd4e419691ac45321bc4ae189061b809",
+      "key": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+      "public_object_id": "17912971674311392",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkyP1dE1q4",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_5d43b16a376b2ce40b74370efa2d5344",
+      "key": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+      "public_object_id": "161",
+      "public_object_url": "https://t.me/CapitalChronicle/161",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_be7ba481362cd3a2e148c751ff4ba369",
+      "key": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+      "public_object_id": "1569813881679912991",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813881679912991",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_3064ee5fcc29c8332ac7147cab70fa72",
+      "key": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+      "public_object_id": "18127839070903684",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkyTy1EyXU",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_53f5b087f713302b596db233c8f876c4",
+      "key": "plan-result-post-36f1c673b8ec94e7c56189bc6b0bddcb",
+      "public_object_id": "162",
+      "public_object_url": "https://t.me/CapitalChronicle/162",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_e0499c0aaaf1d8691acac36b4a189f7e",
+      "key": "plan-result-post-36f1c673b8ec94e7c56189bc6b0bddcb",
+      "public_object_id": "18345801475287687",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkyXVIk_vL",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_f82c7b8896853bb03eb28d0c3962ee5a",
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "public_object_id": "163",
+      "public_object_url": "https://t.me/CapitalChronicle/163",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_a50fddbfa3d4a23e58cbbe49d066bae7",
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "public_object_id": "1569915426341920872",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569915426341920872",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_917dcd5af19d82dabd4ec5f1227ccccc",
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "public_object_id": "18084343736385089",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dflgvrto4f3",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_173280bff1d92c660e1f896dddf233c9",
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "public_object_id": "2120388829182132310",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120388829182132310",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_62f15756ab2ddae2011415e0afe53e33",
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "public_object_id": "c-384300093",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384300093",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_4598e9f4d0a9b251ffc834bad461ddb4",
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_1135e2d58e75d3e5dba73449712216c2",
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "public_object_id": "164",
+      "public_object_url": "https://t.me/CapitalChronicle/164",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_f1ee34ca5eb10cc0986fed25df329a52",
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "public_object_id": "17882828091546842",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dflg1aHI6T9",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_478932297f67ea7dfabf30282223b47f",
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_5b055ab48781622679c7c737e35656a3",
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "public_object_id": "c-384344804",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384344804",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_920556bcf3b57fa765717ba300f35820",
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "public_object_id": "165",
+      "public_object_url": "https://t.me/CapitalChronicle/165",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a35227afb46f9fca4e4f973e4de4900e",
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "UNKNOWN_WRITE"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_7f9f09be6d45f275d0b8e6fa9091aaf1",
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_d83465bdf864cd6aa5e59b95afb3b580",
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "public_object_id": "c-384339008",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384339008",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_00c16dd5c04990c4051031994d69ff9e",
+      "key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "public_object_id": "166",
+      "public_object_url": "https://t.me/CapitalChronicle/166",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_28ad6055a9c4dd235bddcb6dc4739bbf",
+      "key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "public_object_id": "18060007844564825",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dflg9WLI1nh",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_b234934dfcf7f3ed0c714475f7fa6cf8",
+      "key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_6591322cf997c28575131ec772d5d167",
+      "key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "public_object_id": "c-384342640",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384342640",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_2e9e3f7b425f859d182ad643e9d7e0cc",
+      "key": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "public_object_id": "167",
+      "public_object_url": "https://t.me/CapitalChronicle/167",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_6c19cd1d6f34a3087b5fb401b5bbe103",
+      "key": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "public_object_id": "17878127349582714",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DflhA7co6G0",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_29eb59803216530bd6e7199922fc74d6",
+      "key": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_13455b23b5c204bbd2f6e2b52325b0ba",
+      "key": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "public_object_id": "c-384342971",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384342971",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_a6c658fa379cd6e9eccb0096ab9fcfe0",
+      "key": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "public_object_id": "168",
+      "public_object_url": "https://t.me/CapitalChronicle/168",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_9d6aaf15038189663a0b0aeb117ae655",
+      "key": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "public_object_id": "18098339879407822",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DflhEleI2bo",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_785293c62a56e121a3d46a31446e438b",
+      "key": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_6378227167726ccee1c33d0a657eba7c",
+      "key": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "public_object_id": "c-384343241",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384343241",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_d29449e00444fa2b3dc9f29c05f142ac",
+      "key": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "public_object_id": "169",
+      "public_object_url": "https://t.me/CapitalChronicle/169",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_8f2ef24eecefa75439c8c8fd8e43e1c1",
+      "key": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "public_object_id": "17907349104668723",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DflhICioy72",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_f907869bcdb47caae04c9ddf92fc52ea",
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "public_object_id": "170",
+      "public_object_url": "https://t.me/CapitalChronicle/170",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_086aeb35307769b705368faccc2acaaf",
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_086869fadd96777b1e49c5ed7b32976e",
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "public_object_id": "17973937818191875",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfl2QsOFMod",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_39c748f94e3a74da224f69b9046c80dc",
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_03df7502ff55b5c4cba39c9665f48b8b",
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "UNKNOWN_WRITE"
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_33c8914bb5e0d6cdd77d9491f0e7f32d",
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_a2ec885181664b0dff2a6bd1460e270c",
+      "key": "plan-status-post-57675bae0e3c7cd8830c56cddc9ab6c8",
+      "public_object_id": "171",
+      "public_object_url": "https://t.me/CapitalChronicle/171",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_a55f5ade6c428176f6bc7fc12e2c6f9c",
+      "key": "plan-status-post-57675bae0e3c7cd8830c56cddc9ab6c8",
+      "public_object_id": "18092048045259505",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfl2TLHlN1Y",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_b6cc27a4f8f043b25819678be67c740b",
+      "key": "plan-status-post-0173b6470476f294d3f422efec9cfbd3",
+      "public_object_id": "172",
+      "public_object_url": "https://t.me/CapitalChronicle/172",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_fd1bcd5a59131140a4418f1aa0b52922",
+      "key": "plan-status-post-0173b6470476f294d3f422efec9cfbd3",
+      "public_object_id": "17920193529463772",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfl2WD7FIgb",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_a3aee449e588324f141fb1b875bd6ff4",
+      "key": "plan-status-post-650d42c1bddb456acf57fb4939d5926d",
+      "public_object_id": "173",
+      "public_object_url": "https://t.me/CapitalChronicle/173",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_c062d08889f450485010ee86c68a3bda",
+      "key": "plan-status-post-650d42c1bddb456acf57fb4939d5926d",
+      "public_object_id": "18134798740739519",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfl2ZDkFJ2k",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_3a8107b7229bf3bf77863eea1edbe27a",
+      "key": "plan-result-post-a98210f44571bfb7516d03f07b4b1c3f",
+      "public_object_id": "174",
+      "public_object_url": "https://t.me/CapitalChronicle/174",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_cd1fa5e3e17c03058e8288fd40387ca0",
+      "key": "plan-result-post-a98210f44571bfb7516d03f07b4b1c3f",
+      "public_object_id": "18005467544800857",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfmPVfClPNs",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_d5cc7918faeaaec9802c8d277afd8232",
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "public_object_id": "175",
+      "public_object_url": "https://t.me/CapitalChronicle/175",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_900ed1c9ac43e68ed3da5652b377439d",
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_ac218aeb4b7b763d9c57993b0e069283",
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_fa6b738ce02a978b5b3853ee24559a10",
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "public_object_id": "2120744512545017962",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120744512545017962",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "dispatch_id": "dispatch_9fcea925640c86ebdc88502f91b2c96d",
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "public_object_id": "c-385240262",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-385240262",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_ca4ae91f74467997d458e63151ccd92d",
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_d10da73e0d3ba75f196c3c43ea364b2b",
+      "key": "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+      "public_object_id": "176",
+      "public_object_url": "https://t.me/CapitalChronicle/176",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_460c8a39ad6943ddd1e71ce259899902",
+      "key": "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5",
+      "public_object_id": "177",
+      "public_object_url": "https://t.me/CapitalChronicle/177",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_ad99f7ab90f3013398d34e56ddce7b10",
+      "key": "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947",
+      "public_object_id": "178",
+      "public_object_url": "https://t.me/CapitalChronicle/178",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_fd7f40a67e64634ca65eba0b4b324421",
+      "key": "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+      "public_object_id": "179",
+      "public_object_url": "https://t.me/CapitalChronicle/179",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_45aeab595975b6fad26839f7b4018623",
+      "key": "plan-status-post-3c8732ac99de4e1e2b742da1bf615116",
+      "public_object_id": "180",
+      "public_object_url": "https://t.me/CapitalChronicle/180",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_808ea2f21503084e9f2b9f2d4e60ce97",
+      "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "public_object_id": "181",
+      "public_object_url": "https://t.me/CapitalChronicle/181",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+      "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "public_object_id": "1570498124391125187",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187",
+      "status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_3bc58b96507073819237909680b0759e",
+      "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "public_object_id": "17936667282142729",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppdRlE6Vk",
+      "status": "DISPATCH_CONFIRMED"
+    }
+  ],
+  "last_minute_records": [
+    {
+      "at_utc": "2026-11-13T19:35:35.189397Z",
+      "cause": null,
+      "export_age_seconds": 548.4,
+      "export_generated_at_utc": "2026-11-13T19:26:22.019685Z",
+      "pending_post_queue": null,
+      "posts": [],
+      "posts_by_status": {},
+      "publication": "OK",
+      "quarantined_rows": [],
+      "queued": 0,
+      "record_sha256": "2d0aec90aa74e4ac92372fe920d0521c19fe86042d3e5ca8041664c3cc4e15ac",
+      "status": "OK"
+    },
+    {
+      "analysis_links": [
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-telegram",
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-discord",
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-threads",
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-x",
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "DEFINITE_NO_WRITE"
+        },
+        {
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-substack_notes",
+          "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-telegram",
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-discord",
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-threads",
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-substack_notes",
+          "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-telegram",
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-discord",
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-threads",
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-substack_notes",
+          "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-telegram",
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-discord",
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-threads",
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "cause": "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS",
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-substack_notes",
+          "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+          "per_destination": {},
+          "status": "SETTLED"
+        },
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-telegram",
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-discord",
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-threads",
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-substack_notes",
+          "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-telegram",
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "DEFINITE_NO_WRITE"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+          "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+          "per_destination": {},
+          "status": "DEFINITE_NO_WRITE"
+        },
+        {
+          "destination": "telegram",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "discord",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "threads",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "facebook_page",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "instagram_business",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "x",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": null,
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+        },
+        {
+          "destination": "substack_notes",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes",
+          "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+          "per_destination": {},
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "destination": "linkedin",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-run-b1fb50b21f47dcac1ebd0e047a0ecdc6-linkedin",
+          "per_destination": {},
+          "status": "DEFINITE_NO_WRITE"
+        },
+        {
+          "destination": "linkedin",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-run-bba3482d406c30ad8f1f6a52b90c8219-linkedin",
+          "per_destination": {},
+          "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+        },
+        {
+          "cause": "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS",
+          "destination": "linkedin",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-run-869a66f11a0b985282e0674efea9eeef-linkedin",
+          "per_destination": {},
+          "status": "SETTLED"
+        },
+        {
+          "destination": "linkedin",
+          "destination_causes": {},
+          "first_failures": {},
+          "link_id": "plan-analysis-run-c40fb590ba9a4076ec36e533beaf0cfe-linkedin",
+          "per_destination": {},
+          "status": "DEFINITE_NO_WRITE"
+        }
+      ],
+      "at_utc": "2026-11-13T19:40:24.019535Z",
+      "cause": null,
+      "export_age_seconds": 548.4,
+      "export_generated_at_utc": "2026-11-13T19:26:22.019685Z",
+      "neo_stored_requests": {
+        "requests": [],
+        "status": "OK"
+      },
+      "pending_post_queue": {
+        "older_than_24_hours": 0,
+        "oldest_age_minutes": null,
+        "pending": 0
+      },
+      "posts": [],
+      "posts_by_status": {},
+      "publication": "OK",
+      "quarantined_rows": [],
+      "queued": 0,
+      "record_sha256": "5c53896ad53b16dc257083ae0bf89fa854d723ac2b9bd13a4b76d0311f38171a",
+      "status": "OK"
+    },
+    {
+      "at_utc": "2026-11-13T19:40:40.956994Z",
+      "cause": null,
+      "export_age_seconds": 274.1,
+      "export_generated_at_utc": "2026-11-13T19:35:59.908675Z",
+      "pending_post_queue": null,
+      "posts": [],
+      "posts_by_status": {},
+      "publication": "OK",
+      "quarantined_rows": [],
+      "queued": 0,
+      "record_sha256": "82436a0133703d5470709fff523109c9c460dcb683694a0332982df15573e9cd",
+      "status": "OK"
+    }
+  ],
+  "minute_record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261113.jsonl",
+  "neo_internal_records_since_install": 0,
+  "neo_internal_records_today": 0,
+  "neo_request_actions_today": {},
+  "neo_request_packets": {},
+  "observed_at_gmt7": "2026-11-14T02:42:24.859774+07:00",
+  "observed_at_utc": "2026-11-13T19:42:24.859774+00:00",
+  "pending_older_than_24_hours": 0,
+  "pending_posts": 0,
+  "production_store_writes_by_observer": 0,
+  "public_write_performed_by_observer": false,
+  "recent_destination_dispatches": [
+    {
+      "dispatch_id": "dispatch_b050e614c3c56a4fd3661a348a58ed8c",
+      "dispatched_at": "2026-11-13T05:00:41.442419+00:00",
+      "platform": "linkedin",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    }
+  ],
+  "root_status_counts": {
+    "PUBLISHED": 23,
+    "SETTLED": 93,
+    "STALE_NOT_POSTED": 1,
+    "SUPERSEDED_NOT_POSTED": 10
+  },
+  "roots": [
+    {
+      "age_hours": 200.7005,
+      "at_utc": "2026-11-05T11:00:22.995305Z",
+      "format": null,
+      "key": "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+      "kind": "triggered",
+      "payload_sha256": "c0d91371d760a2d999d255a683a4bf2e0600c0673d6898d7ae0d6b2ff8e7aa19",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 200.4875,
+      "at_utc": "2026-11-05T11:13:10.023081Z",
+      "format": null,
+      "key": "plan-status-post-8f03278909eef336308a22926f653fa7",
+      "kind": "setup",
+      "payload_sha256": "25f2fc9670003a3da7991941a27ed4781135469859a13be6d80b50e6c9a6eb75",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 200.4875,
+      "at_utc": "2026-11-05T11:13:10.023081Z",
+      "format": null,
+      "key": "plan-status-post-65c6f979d7f0c8f7e2df69b40482e539",
+      "kind": "setup",
+      "payload_sha256": "212cd1c0ce39d91f69ff8633324324b64a871f983d5f80daf193902aae8d13a4",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 199.1933,
+      "at_utc": "2026-11-05T12:30:49.026000Z",
+      "format": null,
+      "key": "plan-status-post-8cbf9fb0b4cfc1bbbc886b71ba16cb52",
+      "kind": "triggered",
+      "payload_sha256": "b08edf2ba8fd76ad607bb8fc344e6d49dd150eba3d3cff7fe9294930affc615f",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 198.9493,
+      "at_utc": "2026-11-05T12:45:27.363584Z",
+      "format": null,
+      "key": "plan-status-post-00dc5756ab6b43850cc3802558507a7f",
+      "kind": "invalidated",
+      "payload_sha256": "918b750e16de2a846ad5c8e5ccb40a1b160e40ad1ff5788e69efc05ce9f59ae0",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 196.4499,
+      "at_utc": "2026-11-05T15:15:25.235703Z",
+      "format": null,
+      "key": "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+      "kind": "triggered",
+      "payload_sha256": "8d93f0511751dc22c65d07f32ec7a2e5aed7361616f7bdf2e9506c5a7dd2a0d8",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 196.1991,
+      "at_utc": "2026-11-05T15:30:28.107214Z",
+      "format": null,
+      "key": "plan-status-post-2a8b7bfb93a247763399c6d9a29f3f15",
+      "kind": "invalidated",
+      "payload_sha256": "0f44bb762989a8bc390860504cf944813c1d54d09ae6ecba9be2ef5dca9ecc0f",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 195.3285,
+      "at_utc": "2026-11-05T16:22:42.172268Z",
+      "format": null,
+      "key": "plan-status-post-eb86375e30461310fb15e19f298f1b75",
+      "kind": "setup",
+      "payload_sha256": "ef91a8d07e6376e28290257eddfff9e1c579b3e568d39986114c464c35987520",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 195.3285,
+      "at_utc": "2026-11-05T16:22:42.172268Z",
+      "format": null,
+      "key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb",
+      "kind": "setup",
+      "payload_sha256": "7b5066cd169880f330bb4b5e5f2ef3867fd9c593aea738338e1a4b11e3967061",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 195.3285,
+      "at_utc": "2026-11-05T16:22:42.172268Z",
+      "format": null,
+      "key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35",
+      "kind": "setup",
+      "payload_sha256": "0d67da3ad9f4b24a8503a14b49c307f1e9125c552c1e750946ce2262dce91fee",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 195.3285,
+      "at_utc": "2026-11-05T16:22:42.172268Z",
+      "format": null,
+      "key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3",
+      "kind": "setup",
+      "payload_sha256": "09c17f062d104a1f7a747a058bccca2e79dfe5df23ad61e3afe3eca6c155ef94",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 195.3184,
+      "at_utc": "2026-11-05T16:23:18.602579Z",
+      "format": null,
+      "key": "plan-status-post-097f2d267b4765e14c0a251f43b2c07c",
+      "kind": "view_changed",
+      "payload_sha256": "52aa9c16e49d85616c390c91c9602b74ec1d64126fa855f5c4f83a28d64f4fcf",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 194.7797,
+      "at_utc": "2026-11-05T16:55:38.049733Z",
+      "format": null,
+      "key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab",
+      "kind": "setup",
+      "payload_sha256": "96fbd52dfd611dfe35fd3e8ffdad155a7a11b7cd64042f6739108061849cd1c2",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 194.7797,
+      "at_utc": "2026-11-05T16:55:38.049733Z",
+      "format": null,
+      "key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f",
+      "kind": "setup",
+      "payload_sha256": "bb84aad227bdc41c1130d849dfa32ef570e859c5d89c6645a8f476a295b6b8f9",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 194.7677,
+      "at_utc": "2026-11-05T16:56:21.035971Z",
+      "format": null,
+      "key": "plan-status-post-470310cdd836c88ead28a9cd8d32a3ca",
+      "kind": "view_changed",
+      "payload_sha256": "cf225e5ebd20a0b1f4080cd2fd9c7976101e1eaaf27176f2036633cc1b5f617c",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 194.7677,
+      "at_utc": "2026-11-05T16:56:21.035971Z",
+      "format": null,
+      "key": "plan-status-post-0d7a185d078ad1cb6f831e4701c48dcb",
+      "kind": "view_changed",
+      "payload_sha256": "f41237ece1927aac73a9532d59a96bc5033f6035aae3093948b73f45b2dbc5da",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 193.6988,
+      "at_utc": "2026-11-05T18:00:29.285314Z",
+      "format": null,
+      "key": "plan-status-post-0a7bc078a0aae0982d8b3dfcce036eb7",
+      "kind": "invalidated",
+      "payload_sha256": "649abfcbcd9da3d57443e13f46bcfaf52928ef35d1b46fe790b5a9b7418fe768",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6313,
+      "at_utc": "2026-11-06T06:04:32.094304Z",
+      "format": null,
+      "key": "plan-status-post-1bb78f2cd9b84d5c72a1805231eb8e29",
+      "kind": "setup",
+      "payload_sha256": "153bd5b09529d75a184fea7155810f02ceca2f06246f91c5ff3bf079362f6d81",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6313,
+      "at_utc": "2026-11-06T06:04:32.094304Z",
+      "format": null,
+      "key": "plan-status-post-2f6c36af8ff39e889a67de04ea6cfb44",
+      "kind": "setup",
+      "payload_sha256": "3cc6be331d934b654738026d28375882e40d5f1edb4ab520d253bdae9b4ae156",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6313,
+      "at_utc": "2026-11-06T06:04:32.094304Z",
+      "format": null,
+      "key": "plan-status-post-8e15a61dadf995599a0c114fe3180f66",
+      "kind": "setup",
+      "payload_sha256": "6a2f9280ad2f1fa327b005255979ad80ff393ae95323c3b4cc8e9eb2988fc4e8",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6186,
+      "at_utc": "2026-11-06T06:05:17.984347Z",
+      "format": null,
+      "key": "plan-status-post-b7455e9ba43fc44c6cfdb45059f5ca70",
+      "kind": "view_changed",
+      "payload_sha256": "b5b8bfe40e24697ec5a07f2b2d99dfea9055630f2ab95dc53afdb561ff9fbb66",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6186,
+      "at_utc": "2026-11-06T06:05:17.984347Z",
+      "format": null,
+      "key": "plan-status-post-56513e3d3b357a07cb0ac55164ef974c",
+      "kind": "view_changed",
+      "payload_sha256": "1275bf4d93d8c7759eded14e8dca3ee915fd4ddde21c4063c6ed81710f63f004",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 179.3813,
+      "at_utc": "2026-11-06T08:19:32.351706Z",
+      "format": null,
+      "key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7",
+      "kind": "setup",
+      "payload_sha256": "09ad4b1d8a1b59e6a2db2dd89bdcd4b0c4885111b8cbc5a4f5344b2e852559d4",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 179.3813,
+      "at_utc": "2026-11-06T08:19:32.351706Z",
+      "format": null,
+      "key": "plan-status-post-e3e8cad0e0976a7a06d323b70c295410",
+      "kind": "setup",
+      "payload_sha256": "f574fa9e6fa159fa1341b3b45c24cb225400d2c94806d5f8c06e8928dd60b3de",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 179.3684,
+      "at_utc": "2026-11-06T08:20:18.529589Z",
+      "format": null,
+      "key": "plan-status-post-ed3f45470caf6a0a883c3f82378eb7bd",
+      "kind": "view_changed",
+      "payload_sha256": "417ea367fc297a8ba0131fd90bc9d02d8f42c76818935dcb6e87fc6577bd6815",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 178.9479,
+      "at_utc": "2026-11-06T08:45:32.500209Z",
+      "format": null,
+      "key": "plan-status-post-5ca1030c60761cd2a2563f9fb003c868",
+      "kind": "invalidated",
+      "payload_sha256": "adaa7796320626f3c7300b46f7527151d794a8d8a9d10eb37ac1e5af24ce1663",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 179.176,
+      "at_utc": "2026-11-06T08:31:51.192761Z",
+      "format": null,
+      "key": "plan-status-post-d7acdc21b157dbaf1ff481e9a37c6889",
+      "kind": "triggered",
+      "payload_sha256": "0bddb7246d7df14f1767bf556b4ed8d625855d085b35c03597939ff8ccf0c889",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 106.5069,
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "format": null,
+      "key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "kind": "setup",
+      "payload_sha256": "c62582b4dd051e7d662acb17005a9794998f202ab08b1130102a874b8af32b01",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 106.5069,
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "format": null,
+      "key": "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "kind": "setup",
+      "payload_sha256": "bc9b971e43ca2f94983aba3087e6e7cea8277c2e277062313f6cdaf004c80622",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 106.5069,
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "format": null,
+      "key": "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "kind": "setup",
+      "payload_sha256": "a842d567715ec2fbbdb24067641b737243a32670d11c8a07292cf00e69919b2e",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 106.5069,
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "format": null,
+      "key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "kind": "setup",
+      "payload_sha256": "e77d5168fef75dc354542263affe9250c93bd42e2ef1cde31296e25a9273f914",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 106.4241,
+      "at_utc": "2026-11-09T09:16:58.202425Z",
+      "format": null,
+      "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "kind": "triggered",
+      "payload_sha256": "3ceb2b7cd66c3e963749172f962326df4fb437319c6502aed5387ddb33b608bd",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 106.3906,
+      "at_utc": "2026-11-09T09:18:58.521365Z",
+      "format": null,
+      "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+      "kind": "triggered",
+      "payload_sha256": "413d75a66a6237a6016836aa99597d156415776ac6b9b55aa5efb8780b4f3a0e",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 101.7578,
+      "at_utc": "2026-11-09T13:56:56.711534Z",
+      "format": null,
+      "key": "cc359-zone-correction-20261109",
+      "kind": null,
+      "payload_sha256": "6c09b75359349eb0f119d9f1eabe91f706b5b9f7842d0f1586a89da58a8522c0",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 99.8826,
+      "at_utc": "2026-11-09T15:49:27.332066Z",
+      "format": 2,
+      "key": "plan-status-why-ccb1c6ca795ffbfc8a2b25994c350ae6",
+      "kind": "why",
+      "payload_sha256": "e8b01954802cdee6708a7d306ac3cda13cc5cc6f3af00642e954a092843a3320",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 99.8826,
+      "at_utc": "2026-11-09T15:49:27.332066Z",
+      "format": 2,
+      "key": "plan-status-why-674384b914b1125797c3699771c9bc47",
+      "kind": "why",
+      "payload_sha256": "470596982ff5edc6f2fe1bfe5cd837873208f4a2b4d02d88a963913d999199cb",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 99.8826,
+      "at_utc": "2026-11-09T15:49:27.332066Z",
+      "format": 2,
+      "key": "plan-status-why-17358067572f1363fa248304efd97d41",
+      "kind": "why",
+      "payload_sha256": "d45acd73234e588ca3cc1705f8aa7a7b07bc60419d774ef321feb01e1fc4ad53",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 99.8826,
+      "at_utc": "2026-11-09T15:49:27.332066Z",
+      "format": 2,
+      "key": "plan-status-why-9732684b6a18ba49a02355b3b64dc133",
+      "kind": "why",
+      "payload_sha256": "15ba374f90dd7dcfabb8fc3f78ca5cb0064a4004a9633934b4a9bc0b6a30cd00",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 174.4192,
+      "at_utc": "2026-11-06T13:17:15.917000Z",
+      "format": null,
+      "key": "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+      "kind": "result",
+      "payload_sha256": "00d9da27af6cf9e884939da48c48527f650390b6b038ba0105c8ae6cead5cf51",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 114.7053,
+      "at_utc": "2026-11-09T01:00:05.820000Z",
+      "format": null,
+      "key": "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8",
+      "kind": "result",
+      "payload_sha256": "ff261b3219a6c1c935b650167bf0df8c76eb26589c26aa12e32e05060c021987",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 90.1231,
+      "at_utc": "2026-11-10T01:35:01.740774Z",
+      "format": 3,
+      "key": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "kind": "setup",
+      "payload_sha256": "d50ef242d5132497e68f20d5a02f8fb472b5bdb8d6521d74b22384bdd01cfda8",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 90.1231,
+      "at_utc": "2026-11-10T01:35:01.740774Z",
+      "format": 3,
+      "key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "kind": "setup",
+      "payload_sha256": "f2f165cbe9198fb409b20ac589fa5ec8bfc413029024d55e81239c9b4f0ad02e",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 90.1231,
+      "at_utc": "2026-11-10T01:35:01.740774Z",
+      "format": 3,
+      "key": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "kind": "setup",
+      "payload_sha256": "e46b37ce4a9965dff9cdd56777b58ef17186c6b9be3b14df8e4bd56a4899ff30",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 90.1231,
+      "at_utc": "2026-11-10T01:35:01.740774Z",
+      "format": 3,
+      "key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+      "kind": "setup",
+      "payload_sha256": "1f679797100e791aa7fd2231196d8e9fbd7d76c7a6d2bfb6769fde37dcb58281",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 88.5706,
+      "at_utc": "2026-11-10T03:08:10.854757Z",
+      "format": 3,
+      "key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "kind": "setup",
+      "payload_sha256": "b83e15daab0e1a3705c077a919a84283c70732560dfd1853d62203ef556123d6",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 88.5706,
+      "at_utc": "2026-11-10T03:08:10.854757Z",
+      "format": 3,
+      "key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "kind": "setup",
+      "payload_sha256": "307feed5b93c9a9ffe229f4dad289dc1ee23d124aa225b47ffd8ae89bfd3db0c",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 88.5706,
+      "at_utc": "2026-11-10T03:08:10.854757Z",
+      "format": 3,
+      "key": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+      "kind": "setup",
+      "payload_sha256": "4d13505224058f0b128562541e3fa04694e6bace670c74607c34e972949c07a6",
+      "status": "STALE_NOT_POSTED"
+    },
+    {
+      "age_hours": 88.5706,
+      "at_utc": "2026-11-10T03:08:10.854757Z",
+      "format": 3,
+      "key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+      "kind": "setup",
+      "payload_sha256": "718b65bc983ea9ba43873f5f898350a5c037813fd8ce11bbd01bfb66bb66de3e",
+      "status": "PUBLISHED"
+    },
+    {
+      "age_hours": 195.3184,
+      "at_utc": "2026-11-05T16:23:18.602579Z",
+      "format": 4,
+      "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+      "kind": "result",
+      "payload_sha256": "093e6d4dcb75d4743ab8b4b9fad1339cf817b7e1792e683e225da78e64c3a4f3",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 194.7677,
+      "at_utc": "2026-11-05T16:56:21.035971Z",
+      "format": 4,
+      "key": "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+      "kind": "result",
+      "payload_sha256": "160c6d67cbac59363dd40dc896de350a6eedc68d344a99992e453414466fdac5",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 194.7677,
+      "at_utc": "2026-11-05T16:56:21.035971Z",
+      "format": 4,
+      "key": "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+      "kind": "result",
+      "payload_sha256": "3f7e076a1016a3fbc7492ef734edde1e56207eb4e2213d49d4898932b1856a18",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 193.6988,
+      "at_utc": "2026-11-05T18:00:29.285314Z",
+      "format": 4,
+      "key": "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+      "kind": "result",
+      "payload_sha256": "40bd58a8bf171621962b5705150b915525245d8ccc715d072dad9dbd5612e70a",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6186,
+      "at_utc": "2026-11-06T06:05:17.984347Z",
+      "format": 4,
+      "key": "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+      "kind": "result",
+      "payload_sha256": "da6ecf886d1164ed6d91bdd500bb3301af062d605ae687dc5afe26833d6d3874",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 181.6186,
+      "at_utc": "2026-11-06T06:05:17.984347Z",
+      "format": 4,
+      "key": "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+      "kind": "result",
+      "payload_sha256": "8bd2315722fac6021093e915f89e608afa45f1eb847e9c29fceb5642d4ca9d0e",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 179.3684,
+      "at_utc": "2026-11-06T08:20:18.529589Z",
+      "format": 4,
+      "key": "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+      "kind": "result",
+      "payload_sha256": "05c7e43ffb7f462334f532148dbd402d707eb3e316c20c5e11f4798945a715f1",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 178.9479,
+      "at_utc": "2026-11-06T08:45:32.500209Z",
+      "format": 4,
+      "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "kind": "result",
+      "payload_sha256": "ef0c2e75a06cb0c3eb35a7e4f4a6e4d988f76916dbf4623b9272806dc1de41ef",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 91.8736,
+      "at_utc": "2026-11-09T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "kind": "result",
+      "payload_sha256": "20c77def409494181eeab13ce7987b179e9dc6c71d489f8059a551e99f114c22",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 91.8736,
+      "at_utc": "2026-11-09T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "kind": "result",
+      "payload_sha256": "8f801e6b00e058e20b591302f009eacd7ceaab557c0d300c402718a0d18fac50",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 88.5706,
+      "at_utc": "2026-11-10T03:08:10.854757Z",
+      "format": 4,
+      "key": "plan-run-post-1cebfc0a2b5217a44da9ba14ebe678f5",
+      "kind": "run",
+      "payload_sha256": "6c4472e8b980392430f5717c910dfa882b3421f60da18b605b42134533523112",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 85.3078,
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "format": 4,
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "kind": "run",
+      "payload_sha256": "78f36931e83507e9bfb3dff9a9e8d8fea1329e6a1b244c9797866cb484a1465b",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 85.3078,
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "format": 4,
+      "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "kind": "setup",
+      "payload_sha256": "92f7be4a2c0485292b444c4eb6526a17bab63081389ac7123412ea51ebfe91c4",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 85.3078,
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "format": 4,
+      "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "kind": "setup",
+      "payload_sha256": "5177a79c4c2f8bba6c4d3adf8275905bc02de8eb8b858b5e1f311101ef9b7943",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 85.3078,
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "format": 4,
+      "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "kind": "setup",
+      "payload_sha256": "42616a09917fb20afe4b36f311b6b7761f05ec788b98a845aa7031459f533459",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 85.3078,
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "format": 4,
+      "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "kind": "setup",
+      "payload_sha256": "06f5a4d3879424548153e26623ba826480433554cdf2a4b0f51601ea355662bb",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 85.3078,
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "format": 4,
+      "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "kind": "setup",
+      "payload_sha256": "884d056ddef534544ac3f56de53751a0a7845325b30a244cfc61e5456b454dbe",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 84.8317,
+      "at_utc": "2026-11-10T06:52:30.899358Z",
+      "format": 4,
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "kind": "run",
+      "payload_sha256": "4549457c6e52d4d465563687c36105793af7a4334707a73630ca5662b4d59057",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 84.8317,
+      "at_utc": "2026-11-10T06:52:30.899358Z",
+      "format": 4,
+      "key": "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+      "kind": "setup",
+      "payload_sha256": "87d03c0f686ebd2525a0bf1ca4833a7b11bb4f975be3da439a1a39579c539bd7",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 84.8317,
+      "at_utc": "2026-11-10T06:52:30.899358Z",
+      "format": 4,
+      "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "kind": "setup",
+      "payload_sha256": "a1a8f77048c29c8f9b275fd8d2498e750041bc866b849ef9910ec98b7140e2dd",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 82.7036,
+      "at_utc": "2026-11-10T09:00:11.992000Z",
+      "format": 4,
+      "key": "plan-status-post-8b6c626e80328a3961f2f02e6e387303",
+      "kind": "update",
+      "payload_sha256": "9e1a9fd0980871f6a89f50f246a9ad09aba28cb52126c84189b81f009087f53c",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 81.5225,
+      "at_utc": "2026-11-10T10:11:03.766000Z",
+      "format": 4,
+      "key": "plan-status-post-c8c3b7a003f6ae8e0bc1306bc7f70e88",
+      "kind": "update",
+      "payload_sha256": "ba1755ad4fb2372a65f9217195cc2b573174b0efbaae8660ca36220acfaff2fb",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 81.372,
+      "at_utc": "2026-11-10T10:20:05.506000Z",
+      "format": 4,
+      "key": "plan-result-post-a5fee0faed5e7f55ee236c5727e3bea8",
+      "kind": "result",
+      "payload_sha256": "c671a56de518716534dc4b7d69d9111b2f032afd7394e586f40daf5507b865fb",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 78.7069,
+      "at_utc": "2026-11-10T13:00:00Z",
+      "format": 4,
+      "key": "plan-result-post-a4b8e66227e9925d234b084ddc861806",
+      "kind": "result",
+      "payload_sha256": "a2b9ae2cdcca97ab74170c2284a4e6de5b22a409dac3864b93a55b540830a0da",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 78.7069,
+      "at_utc": "2026-11-10T13:00:00Z",
+      "format": 4,
+      "key": "plan-result-post-7278e84cb183300adac6ba8761163207",
+      "kind": "result",
+      "payload_sha256": "eb08d71a7b0da49f4824fa53fd4a95c650d071ffc2b98bdfd32c4257a1c730bf",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 78.7069,
+      "at_utc": "2026-11-10T13:00:00Z",
+      "format": 4,
+      "key": "plan-status-post-f23f461097e007692ba1b10ec095b530",
+      "kind": "update",
+      "payload_sha256": "0f092211c67a64af904420b44dc9d38696eee2479fbe81b569d49afcf4c5090d",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 78.7069,
+      "at_utc": "2026-11-10T13:00:00Z",
+      "format": 4,
+      "key": "plan-status-post-bce9a4e5a6c0090f2b7182b43fbd379e",
+      "kind": "update",
+      "payload_sha256": "67f2faf858be8f890377c19031e80b892db5f5df3b14448567c742513b87f922",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "kind": "result",
+      "payload_sha256": "82420d026d4e9ac90c794f2413e034219f23e7a3a9b8cdf1756665bff5fe3f47",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+      "kind": "result",
+      "payload_sha256": "af1bc73f6b4ba8cae9f4cc12e969a08836faa03429f6d880f563643a47a9c889",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "kind": "result",
+      "payload_sha256": "457a25c5d0f1f26f5f83a1361f413189b051b121ec840892bf06e36867cab85d",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "kind": "result",
+      "payload_sha256": "1b03c5032cd122077332b8261efc7987fb17c908212ebe26f068a579a0a8b457",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "kind": "result",
+      "payload_sha256": "da30990e499c5bebd146a7626ee6052acafea991f246e5f0327bcd2b213b95cc",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+      "kind": "result",
+      "payload_sha256": "8f155db4a2595f2119f4918ffe8b35765a405b089528e0f2435ca23760b26fcd",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "kind": "result",
+      "payload_sha256": "14467a8792bc5eaae20dc568de10ca56938c85cc796231d9b30b617d7e33af94",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+      "kind": "result",
+      "payload_sha256": "af611655c5d7e67f46e542ee32741279faa6a02a91c496c9992bc1b9ad31d02d",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2069,
+      "at_utc": "2026-11-10T13:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "kind": "result",
+      "payload_sha256": "13f87d3f9f0dca8bba13befcf84c423e890251eea3df2e96adda971bdc8e60af",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.1724,
+      "at_utc": "2026-11-10T13:32:04.271797Z",
+      "format": 4,
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "kind": "run",
+      "payload_sha256": "3fb1dd102a199c2eb07d7abb3d103c4459bcb17c21466d93feacab3ab4d50d51",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.1724,
+      "at_utc": "2026-11-10T13:32:04.271797Z",
+      "format": 4,
+      "key": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "kind": "setup",
+      "payload_sha256": "9f4070be02a56d27c5f6ec91560022c19eb0bd16cf97bb78a611f67cb23b78f2",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 78.2065,
+      "at_utc": "2026-11-10T13:30:01.589000Z",
+      "format": 4,
+      "key": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "kind": "result",
+      "payload_sha256": "072a0f3c376198115065491455645f5dea15579fc1a7251ba34e34e1449075c3",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 75.3997,
+      "at_utc": "2026-11-10T16:18:25.849991Z",
+      "format": 4,
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "kind": "run",
+      "payload_sha256": "e86a00a63e0170968b8baf5d5fd4a00b10f7d52e17cf879bde07b236ade3c58a",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 75.3997,
+      "at_utc": "2026-11-10T16:18:25.849991Z",
+      "format": 4,
+      "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "kind": "setup",
+      "payload_sha256": "ec2d98609d3afc465a5821548b25690fff5bf104f115eb184e04e99742ce42f4",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 75.3997,
+      "at_utc": "2026-11-10T16:18:25.849991Z",
+      "format": 4,
+      "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "kind": "setup",
+      "payload_sha256": "d2bebe5c5a552b3e9e0e1b981b2a60752306a5fef2868a9649a4b6be5f1f2b71",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 75.3997,
+      "at_utc": "2026-11-10T16:18:25.849991Z",
+      "format": 4,
+      "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "kind": "setup",
+      "payload_sha256": "1260fad4fca10a7350bcb74e95ce921194bf56dd9f9e7d6060f5d3f77e5f4cda",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 75.3997,
+      "at_utc": "2026-11-10T16:18:25.849991Z",
+      "format": 4,
+      "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "kind": "setup",
+      "payload_sha256": "09e8eb59a6963c27403e752a661dc3879d3e47160bcf4a7845bd192e5a51c467",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 75.0727,
+      "at_utc": "2026-11-10T16:38:03.205197Z",
+      "format": 4,
+      "key": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "kind": "update",
+      "payload_sha256": "145c2062f1263b0977ec25bbd7ca89fd3340368d35afb4b10f2073fbb52d8d30",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 73.2069,
+      "at_utc": "2026-11-10T18:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-91e77fbcc6dbe51fd170aebcfdf08ee6",
+      "kind": "result",
+      "payload_sha256": "f6d9082784e37c65033b7eeaf721726dce4f26d87b76e49270140e537630816f",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 73.2069,
+      "at_utc": "2026-11-10T18:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+      "kind": "result",
+      "payload_sha256": "a7c620e54fa8d5819d1f71799c7fd5127d28f8dce949ebae7ce0f421fd9c1652",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 73.2069,
+      "at_utc": "2026-11-10T18:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+      "kind": "result",
+      "payload_sha256": "1ad40f0bc83f2e1135c6aae32be3c57a652f0d786be13a018f5c684b1da9a095",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 73.2069,
+      "at_utc": "2026-11-10T18:30:00Z",
+      "format": 4,
+      "key": "plan-result-post-36f1c673b8ec94e7c56189bc6b0bddcb",
+      "kind": "result",
+      "payload_sha256": "ea713e2ab7580921a2fcd58125133c2565d7d5fd9181ddeb06d9abbb06ebf9be",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "kind": "run",
+      "payload_sha256": "337d8e9f96c1407eae873246358521ed4d9d4fa28361be634a7f12e1e4903943",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "kind": "setup",
+      "payload_sha256": "169b6abddfb4f956152a56b2a7510792cf299734bf81b94ecb520e13a7d8ed45",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "kind": "setup",
+      "payload_sha256": "ad96ddd36405e7bee0d171a22ef7e6f1ffc02d155716fddbe7ed66fdf99896f3",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "kind": "setup",
+      "payload_sha256": "2864c8ed26f767accb56a57ac321185ef90bba7380a883333ca94095cf67c525",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "kind": "setup",
+      "payload_sha256": "5ede85056db6075345cd19e4502a037310058a48595e5a7d2fc526f25958b033",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "kind": "setup",
+      "payload_sha256": "01a6e4a502bf1620bbfb2d22ffe18c74f7b62d1050bab7b5d2421a031795fcc0",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 64.384,
+      "at_utc": "2026-11-11T03:19:22.635185Z",
+      "format": 4,
+      "key": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "kind": "setup",
+      "payload_sha256": "8f32df4886e0578c97a9e3e054b797ff950b7a3ada9821dbc0db1fe7cb3e7710",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 61.189,
+      "at_utc": "2026-11-11T06:31:04.626225Z",
+      "format": 4,
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "kind": "run",
+      "payload_sha256": "9e05532d858101aacd087d96eb26bab830fa8e207276ac12a555960e68291e30",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 61.189,
+      "at_utc": "2026-11-11T06:31:04.626225Z",
+      "format": 4,
+      "key": "plan-status-post-57675bae0e3c7cd8830c56cddc9ab6c8",
+      "kind": "setup",
+      "payload_sha256": "34b6862de5f78464667012ba2252552d3192996ce0164746917996874777ae02",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 61.189,
+      "at_utc": "2026-11-11T06:31:04.626225Z",
+      "format": 4,
+      "key": "plan-status-post-0173b6470476f294d3f422efec9cfbd3",
+      "kind": "setup",
+      "payload_sha256": "b1a7128ffa9dc2118793df6f10da3acf53af1d6018007c62febad6dc96f9c94e",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 61.189,
+      "at_utc": "2026-11-11T06:31:04.626225Z",
+      "format": 4,
+      "key": "plan-status-post-650d42c1bddb456acf57fb4939d5926d",
+      "kind": "setup",
+      "payload_sha256": "0e720949d0f2a380686f294245f52ce81a066ecde82311730d03988e77448728",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 57.5524,
+      "at_utc": "2026-11-11T10:09:16.180000Z",
+      "format": 4,
+      "key": "plan-result-post-a98210f44571bfb7516d03f07b4b1c3f",
+      "kind": "result",
+      "payload_sha256": "a1206804e1ca13b5d5fa4972b5e6fe8e7bb4e6f32acd2623e411f42400bc0e87",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 51.3716,
+      "at_utc": "2026-11-11T16:20:07.062029Z",
+      "format": 4,
+      "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "kind": "run",
+      "payload_sha256": "23da6143c5b223d3085b7724d034ebb2f391f00e71104198e111ef83755eebe6",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 51.3716,
+      "at_utc": "2026-11-11T16:20:07.062029Z",
+      "format": 4,
+      "key": "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+      "kind": "setup",
+      "payload_sha256": "27a5fa3f6c409513bfbfbf80395d65cb4b61bbace4aa543d1f66ff824041d418",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 51.3716,
+      "at_utc": "2026-11-11T16:20:07.062029Z",
+      "format": 4,
+      "key": "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5",
+      "kind": "setup",
+      "payload_sha256": "e43d3fc1bdcd1321a1b34d2b6e3dea2dbcc50ab5d5bfe0f5cf32c61bc8045eed",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 51.3716,
+      "at_utc": "2026-11-11T16:20:07.062029Z",
+      "format": 4,
+      "key": "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947",
+      "kind": "setup",
+      "payload_sha256": "750d7a3eaca4022174d487c25361fabbc69aa582977c9f7c53975d67c5db84af",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 51.3716,
+      "at_utc": "2026-11-11T16:20:07.062029Z",
+      "format": 4,
+      "key": "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+      "kind": "setup",
+      "payload_sha256": "2e43ab93fd8f2894d9e959f511567171231a5899f85993db9fcfc6bd6f509a0f",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 51.3716,
+      "at_utc": "2026-11-11T16:20:07.062029Z",
+      "format": 4,
+      "key": "plan-status-post-3c8732ac99de4e1e2b742da1bf615116",
+      "kind": "setup",
+      "payload_sha256": "5c8e597f7a3ce95021ea497d3b68cfb56fc11ae58c84a2236fbe3fbf9a8c07d2",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 91.8736,
+      "at_utc": "2026-11-09T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-3b8434a5e66fc3b19b0fed6f9b22c76a",
+      "kind": "result",
+      "payload_sha256": "a480b1e6647e444c0132cf59459482c0b5721ce16310ee1b0d8d06c9072397f8",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-aa4f00432677c019741a6c12a9717f81",
+      "kind": "result",
+      "payload_sha256": "0de4c8b43b1d81bb70c067dae22091e2346bc834f4ff9fe25198437689bb3ad6",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-b707b375fdd37affb2da55bb492a55c3",
+      "kind": "result",
+      "payload_sha256": "cde76965066b8f52fe8f0e0f27a9022b5c369bce45df8c65cab519673c8c016b",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-eaa40a7af035752e0eb902af20f598be",
+      "kind": "result",
+      "payload_sha256": "3d454fddf7b41fc7fd0fefe04e06d5f55de87b0cf4735895314651575bb6da6b",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-45a70abda9ff5b927fb1c035e663003e",
+      "kind": "result",
+      "payload_sha256": "c3e969991f0a1adbc2c174bba94f804166e6f1a62c8646d36d8a728fa4f75382",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-0ec52097d82976d8bf83eff21f231287",
+      "kind": "result",
+      "payload_sha256": "c4ec441f915130c8ee25b0f16abbd68e9b60c79dabd32b3eb1132f6322333153",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-5ee23a334e28ad555df3f156f2fbd9e0",
+      "kind": "result",
+      "payload_sha256": "d5468352eb309d25c70c870fb8f4cab1e59c9e1c23a78924d83dfe27000e5c90",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-ae66a2cbf57b4458b6bcd4f0ee9169f2",
+      "kind": "result",
+      "payload_sha256": "68106cbcc4c865fa02d35a13b6c5aa4b1b2847fcdab18e3e610681cda8aabed1",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 43.8736,
+      "at_utc": "2026-11-11T23:50:00Z",
+      "format": 4,
+      "key": "plan-result-post-07b268e76b668684acc3ae66d69ae7e7",
+      "kind": "result",
+      "payload_sha256": "5bbf79f344652c0f0f647ac26d7917dcd2945980f215557686a8902ca839067c",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 30.3838,
+      "at_utc": "2026-11-12T13:19:23.123369Z",
+      "format": 4,
+      "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "kind": "setup",
+      "payload_sha256": "3b5b773d9532785fd367ca68632b34db5c9ad111ecfcd02da8665f6972070ee6",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "age_hours": 26.0401,
+      "at_utc": "2026-11-12T17:40:00.360572Z",
+      "format": 4,
+      "key": "plan-status-post-bfcf822a8217d37a65c818ee097f7370",
+      "kind": "setup",
+      "payload_sha256": "d2866b07fdd2466cf8e5fb23f347fc2783e130326aaa3a31599aa0a88e27db96",
+      "status": "SETTLED"
+    },
+    {
+      "age_hours": 26.0401,
+      "at_utc": "2026-11-12T17:40:00.360572Z",
+      "format": 4,
+      "key": "plan-status-post-b63716423fbebcbebcf14e3e5d40d20b",
+      "kind": "setup",
+      "payload_sha256": "04c521c0cf3ff6e41389551805dd979e89ccae7acdea740ef1ca58946fa7f83c",
+      "status": "SETTLED"
+    }
+  ],
+  "settlement_causes": {
+    "CARD_PARENT_DEFINITE_NO_WRITE": 68,
+    "CARD_PARENT_DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE": 1,
+    "CARD_PARENT_NOT_CONFIRMED": 132,
+    "DESTINATION_DEFINITE_NO_WRITE": 4,
+    "LATE_STATE_LIMIT_24_HOURS": 41,
+    "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS": 2,
+    "PUBLISHING_OLDER_THAN_24_HOURS": 150
+  },
+  "since_install_utc": "2026-11-12T14:39:55Z",
+  "store_access": "mode=ro; one read transaction"
+}

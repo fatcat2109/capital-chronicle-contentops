@@ -123,6 +123,9 @@ def bound(store,tmp_path,work,url):
 @pytest.fixture(autouse=True)
 def isolated_control(monkeypatch):
     monkeypatch.setattr('live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled',lambda:None)
+    # Endpoint fixtures exercise exact transport bytes; they have no article
+    # workspace. Real image validation has its own CC-463/465 asset fixtures.
+    monkeypatch.setattr('live_contentops.publication_image_contract_v1.validate_write',lambda *a:None)
 
 
 @pytest.mark.parametrize('destination',['x','substack_notes'])
@@ -189,7 +192,9 @@ from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
 from live_contentops.neo_endpoint_executor_v1 import NeoMcpClient
 from live_contentops import llm_operator_control_v1
 from live_contentops import neo_destination_handoff_v1
+from live_contentops import publication_image_contract_v1
 llm_operator_control_v1.assert_llm_operator_execution_enabled=lambda:None
+publication_image_contract_v1.validate_write=lambda *a:None
 neo_destination_handoff_v1.SUSPENDED_ROUTES_FILE=Path(sys.argv[1]).parent/'fixture-suspended-routes-absent.json'
 s=ContentOpsDurableStore(Path(sys.argv[1]),auto_migrate=False)
 class ImageHttp:
@@ -212,6 +217,58 @@ print('X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD')
         assert 'X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD' in result.stdout
         assert state['posts'].keys()=={'x','substack_notes'}
         assert state['uploads']==[str(card),str(card)]
+
+
+def test_company_readback_waits_for_the_exact_post_body(monkeypatch):
+    url='https://www.linkedin.com/feed/update/urn:li:activity:123/'
+    text='Gold trend-long: 76 trades, 0.391R per trade.'
+    events=[]
+    class Client:
+        def call(self,name,args):events.append(name)
+        def snapshot(self,page):return {'url':url,'text':'Capital Chronicle'}
+        def wait(self,page,selector):events.append('post-selector')
+        def wait_text(self,page,value):
+            assert value==text
+            events.append('target-text')
+        def run(self,page,phase,**kwargs):
+            assert events[-1]=='target-text'
+            return {'posts':[{'public_object_id':'urn:li:activity:123','public_object_url':url,
+                'observed_identity':'linkedin:company:143198922','observed_text':text,'links':[],
+                'public_image_urls':[]}]}
+    monkeypatch.setattr(neo,'compare_public_images',lambda request,observed,**kwargs:observed)
+    result=neo.NeoBrowserDriver(Client()).article_readback({'destination':'linkedin_company',
+        'public_object_url':url,'expected_identity':'linkedin:company:143198922','request_sha256':'x'},1,posts=[text])
+    assert result['status']=='SUCCESS' and result['content_verified']
+    assert events==['navigate','post-selector','target-text']
+
+
+@pytest.mark.parametrize('case', ['loaded_feed', 'empty_feed', 'partial_target', 'wrong_identity'])
+def test_company_target_wait_timeout_still_observes_the_feed_before_absence(case):
+    url = 'https://www.linkedin.com/company/143198922/admin/page-posts/published/'
+    text = 'Bitcoin trend-long: 281 trades, 0.197R per trade; always long: 704 trades, 0.086R.'
+    identity = 'linkedin:company:143198922'
+    events = []
+    class Client:
+        def wait(self, page, selector): events.append('loaded-post-selector')
+        def wait_text(self, page, value):
+            events.append('target-wait-timeout')
+            raise neo.NeoEndpointError('NEO_TOOL_ERROR_WAIT')
+        def snapshot(self, page): return {'url': url}
+        def run(self, page, phase, **kwargs):
+            events.append(phase)
+            if phase == 'article_identity':
+                return {'authenticated': True, 'observed_identity':
+                    'linkedin:company:other' if case == 'wrong_identity' else identity}
+            assert phase == 'article_readback'
+            observed = text[:60] + ' incomplete' if case == 'partial_target' else 'Earlier confirmed research article.'
+            return {'posts': [] if case == 'empty_feed' else [{
+                'public_object_id': 'urn:li:activity:old', 'public_object_url': 'https://www.linkedin.com/feed/update/urn:li:activity:old/',
+                'observed_identity': identity, 'observed_text': observed, 'links': []}]}
+    result = neo.NeoBrowserDriver(Client()).article_readback({'destination': 'linkedin_company',
+        'entry_url': url, 'expected_identity': identity, 'request_sha256': 'exact-readback'}, 1, posts=[text])
+    assert events[:3] == ['loaded-post-selector', 'target-wait-timeout', 'article_readback']
+    assert result.get('target_post_absent') is (True if case == 'loaded_feed' else None)
+    assert result.get('verified') is False
 
 
 def test_local_endpoint_only():
@@ -304,7 +361,20 @@ def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,mo
     from scripts import plan_status_posts as cli
     from live_contentops import plan_status_posts_v1 as posts,plan_analysis_pages_v1 as pages
     from live_contentops import pinned_result_scorecard_v1,event_timestamp_v1,event_pack_v1
+    from live_contentops import plan_reader_editorial_v1, x_reply_bot_v1, x_reply_tabs_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1, call_followups_v1
     store=copied_store(tmp_path);seen=[]
+    # New minute consumers are outside this transport test. In particular, no
+    # real Main export or editorial CLI may be used by a controlled fixture.
+    monkeypatch.setattr(posts,'read_export',lambda *a,**kw:{'status':{'plans':[]}})
+    monkeypatch.setattr(plan_reader_editorial_v1,'run_due',lambda *a,**kw:{'status':'OK','pages':[]})
+    monkeypatch.setattr(call_followups_v1,'minute_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(x_reply_bot_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(x_reply_bot_v1,'observe_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(x_reply_tabs_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(audience_collection_v1,'run_collection',lambda *a,**kw:{'collected':0})
+    monkeypatch.setattr(model_invocation_usage_v1,'import_native_invocations',lambda *a,**kw:{'imported':0})
+    monkeypatch.setattr(neo,'resume_stored_requests',lambda *a,**kw:{'requests':[]})
     monkeypatch.setattr(cli,'queue_posts',lambda *a,**kw:{'status':'OK','latest_states':{},'active_recoveries':{}})
     monkeypatch.setattr(pinned_result_scorecard_v1,'refresh_scorecard',lambda *a,**kw:{'status':'CONFIRMED'})
     monkeypatch.setattr(pages,'resume_discord_links',lambda *a,**kw:[])
@@ -312,8 +382,12 @@ def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,mo
     monkeypatch.setattr(event_pack_v1,'run_due_packs',lambda *a,**kw:{'status':'OK'})
     monkeypatch.setattr(posts,'publish_ready',lambda s,**kw:seen.append((s.db_path,kw)) or {'posts':[]})
     assert cli.main(['--store',str(store.db_path),'--publish'])==0
-    assert seen[0][0]==store.db_path
-    assert seen[0][1]['automatic_neo'] is True
+    assert len(seen)==2
+    assert all(path==store.db_path for path,_ in seen)
+    # CC-543's API alerts precede editorial work; the later browser phase
+    # still selects CC-436's endpoint executor without a Codex tool step.
+    assert seen[0][1]['immediate_only'] is True
+    assert seen[1][1]['automatic_neo'] is True
 
 
 def test_larger_neo_dom_result_reads_only_documented_local_output(tmp_path,monkeypatch):
@@ -361,6 +435,130 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
                    'stage':'PUBLISH_CLICK_ATTEMPTED'}
         monkeypatch.setattr(e,'_get',lambda *a:{'result':ambiguous})
         assert e.fresh_publish_request(base) is None
+
+
+@pytest.mark.parametrize("target_matches",[False,True])
+def test_cc536_linkedin_exit_page_follows_only_the_exact_visible_canonical(monkeypatch,target_matches):
+    c=neo.NeoMcpClient();short='https://lnkd.in/exact';canonical='https://capitalchronicle.substack.com/p/method'
+    target=canonical if target_matches else 'https://example.test/other'
+    first={'url':short,'text':f'This link will take you to a page\n- link "{target}" [ref=e1] [url="{target}"]',
+        'refs':[{'role':'link','name':target,'ref':'e1'}]}
+    clicks=[]
+    monkeypatch.setattr(c,'open',lambda *args:1)
+    monkeypatch.setattr(c,'snapshot',lambda page:{'url':canonical} if clicks else first)
+    monkeypatch.setattr(c,'act',lambda *args,**kwargs:clicks.append(kwargs))
+    assert c.verify_link(short,canonical) is target_matches
+    assert len(clicks)==int(target_matches)
+
+
+@pytest.mark.parametrize("case,allowed", [("exact_absence",True),("wrong_intent",False),("before_claim",False),("empty_feed",False)])
+def test_cc536_lost_article_claim_needs_exact_later_absence_before_new_native_identity(tmp_path,case,allowed):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store=copied_store(tmp_path)
+    store.create_work_item(story_id="article",work_item_id="article",title="Article",target_surface="MULTI_PLATFORM")
+    exe=neo.EndpointNeoExecutor(store,operation_id="article",output_dir=tmp_path/'native',native_invocation_id="test",allow_publish=True)
+    base={"action":"PUBLISH","destination":"linkedin_company","work_item_id":"article","intent_sha256":"exact-intent",
+        "package_identity":"exact-package","payload_hash":"exact-text","expected_identity":"linkedin:company:143198922","canonical_url":"https://capitalchronicle.substack.com/p/article"}
+    claim={"native_invocation_id":"lost-run","begun_at_utc":"2026-11-14T08:18:00+00:00"}
+    exe._put(sha256_of(base),'started',claim,'article')
+    read={**base,"action":"READBACK","entry_url":"https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+        "latest_dispatch_attempt_at_utc":"2026-11-14T08:00:00+00:00"}
+    if case=='wrong_intent': read['intent_sha256']='other-intent'
+    read['request_sha256']=sha256_of(read)
+    result={"target_post_absent":True,"authenticated":True,"activity_feed_loaded":case!='empty_feed',
+        "observed_profile_url":read['entry_url'],"native_tool_return_sha256":"actual-observation",
+        "native_tool_observation":{"observed_at_utc":"2026-11-14T08:12:00+00:00" if case=='before_claim' else "2026-11-14T08:58:00+00:00"}}
+    exe._put(read['request_sha256'],'request',{'request':read},'article')
+    exe._put(read['request_sha256'],'response',{'result':result},'article')
+    refreshed=exe.fresh_publish_request(base)
+    assert bool(refreshed) is allowed
+    assert exe._get(sha256_of(base),'started')==claim
+    if allowed:
+        assert refreshed['supersedes_reconciled_absent_claim_sha256']
+        exe._put(sha256_of(refreshed),'started',{'native_invocation_id':'next-run','begun_at_utc':'2026-11-14T09:00:00+00:00'},'article')
+        assert exe.fresh_publish_request(base)==refreshed
+
+
+@pytest.mark.parametrize('destination', ['substack_notes', 'x'])
+@pytest.mark.parametrize('case', ['exact_absence', 'missing_read', 'wrong_intent', 'before_claim', 'empty_feed', 'known_object'])
+def test_cc603_uncertain_post_renews_only_after_exact_later_absence(tmp_path, destination, case):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store = copied_store(tmp_path)
+    store.create_work_item(story_id='followup', work_item_id='followup', title='Follow-up', target_surface='MULTI_PLATFORM')
+    exe = neo.EndpointNeoExecutor(store, operation_id='followup', output_dir=tmp_path/'native',
+                                 native_invocation_id='test', allow_publish=True)
+    profile = 'https://substack.com/@capitalchronicle' if destination == 'substack_notes' else 'https://x.com/Capitalnicle'
+    base = {'action':'PUBLISH', 'destination':destination, 'work_item_id':'followup', 'intent_sha256':'bound-intent',
+            'package_identity':'bound-package', 'payload_hash':'bound-copy', 'expected_identity':profile.rsplit('/', 1)[-1],
+            'canonical_url':None}
+    key = sha256_of(base)
+    claim = {'native_invocation_id':'original-run', 'begun_at_utc':'2026-11-15T21:51:00+00:00'}
+    original = {'status':'UNKNOWN_WRITE', **({'public_object_id':'known-object'} if case == 'known_object' else {})}
+    exe._put(key, 'started', claim, 'followup')
+    exe._put(key, 'response', {'result':original}, 'followup')
+    read = {**base, 'action':'READBACK', 'entry_url':profile, 'latest_dispatch_attempt_at_utc':claim['begun_at_utc']}
+    if case == 'wrong_intent':
+        read['intent_sha256'] = 'another-intent'
+    read['request_sha256'] = sha256_of(read)
+    if case != 'missing_read':
+        exe._put(read['request_sha256'], 'request', {'request':read}, 'followup')
+        exe._put(read['request_sha256'], 'response', {'result':{
+            'target_post_absent':True, 'authenticated':True, 'activity_feed_loaded':case != 'empty_feed',
+            'observed_profile_url':profile, 'native_tool_return_sha256':'retained-browser-return',
+            'native_tool_observation':{'observed_at_utc':
+                '2026-11-15T21:40:00+00:00' if case == 'before_claim' else '2026-11-15T23:12:00+00:00'}}}, 'followup')
+    renewed = exe.fresh_publish_request(base)
+    assert bool(renewed) is (case == 'exact_absence')
+    assert exe._get(key, 'started') == claim
+    assert exe._get(key, 'response')['result'] == original
+    if renewed:
+        exe._put(sha256_of(renewed), 'started', {'native_invocation_id':'resumed-run',
+                     'begun_at_utc':'2026-11-15T23:14:00+00:00'}, 'followup')
+        assert exe.fresh_publish_request(base) == renewed
+
+
+@pytest.mark.parametrize('ready', [False, True])
+def test_cc603_publish_waits_for_enabled_submit_and_never_clicks_disabled(ready):
+    code = '''
+const fs=require('node:fs');
+const input={phase:'publish',destination:'substack_notes',posts:['Bound copy']};
+const calls=[];let evaluation=0, snapshots=0;
+const page={snapshot:async()=>({refs:[{role:'button',name:'Post',ref:++snapshots===1?'disabled-ref':'ready-ref'}]}),
+ evaluateInPage:async()=>({value:[{count:1,matches:true},['Bound copy'],{marked:true}][evaluation++]}),
+ waitForSelector:async(selector)=>{calls.push({wait:selector});return {matched:process.argv[1]==='true'};},
+ click:async(ref)=>{calls.push({click:ref});}};
+const run=new Function('input','page','return (async()=>{'+fs.readFileSync(process.argv[2],'utf8')+'})()');
+run(input,page).then(result=>process.stdout.write(JSON.stringify({result,calls}))).catch(e=>{console.error(e);process.exit(1)});
+'''
+    result = subprocess.run(['node', '-e', code, str(ready).lower(), str(neo.STEPS)],
+                            capture_output=True, text=True, timeout=10, check=True)
+    observed = json.loads(result.stdout)
+    assert ':not(:disabled)' in observed['calls'][0]['wait']
+    assert [c['click'] for c in observed['calls'] if 'click' in c] == (['ready-ref'] if ready else [])
+    assert observed['result']['status'] == ('CLICKED' if ready else 'FAILED_BEFORE_WRITE')
+
+
+def test_cc603_exact_note_dialog_is_read_even_when_main_contains_only_the_background_feed():
+    code = '''
+const fs=require('node:fs');
+global.location={href:'https://substack.com/@capitalchronicle/note/c-603'};
+const link={innerText:'now',href:location.href,getAttribute:()=>null,querySelector:()=>null,getClientRects:()=>[{}]};
+const owner={parentElement:null,querySelectorAll:selector=>selector==='a[href]'?[link]:[]};
+const note={innerText:'Exact published correction and original link',getClientRects:()=>[{}],closest:()=>owner};
+const otherLink={...link,href:'https://substack.com/@anotherauthor/note/c-999'};
+const backgroundOwner={parentElement:null,querySelectorAll:selector=>selector==='a[href]'?[otherLink]:[]};
+const background={innerText:'Unrelated background feed',getClientRects:()=>[{}],closest:()=>backgroundOwner};
+global.document={querySelectorAll:selector=>selector==='.FeedProseMirror'?[background,note]:[]};
+const input={phase:'readback',expected_identity:'@capitalchronicle'};
+const page={evaluateInPage:async(fn,arg)=>({value:fn(arg)})};
+const run=new Function('input','page','return (async()=>{'+fs.readFileSync(process.argv[1],'utf8')+'})()');
+run(input,page).then(result=>process.stdout.write(JSON.stringify(result))).catch(e=>{console.error(e);process.exit(1)});
+'''
+    result = subprocess.run(['node', '-e', code, str(neo.STEPS)], capture_output=True, text=True, timeout=10, check=True)
+    observed = json.loads(result.stdout)
+    assert len(observed['notes']) == 1
+    assert observed['notes'][0]['public_object_id'] == 'c-603'
+    assert observed['notes'][0]['observed_text'] == 'Exact published correction and original link'
 
 
 @pytest.mark.parametrize('destination',['x','substack_notes'])
@@ -483,7 +681,7 @@ def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(
         assert state['posts'].keys()=={'x'}
 
 
-def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
+def test_expired_claimed_step_leaves_minute_work_but_keeps_explicit_readback_without_another_click(tmp_path):
     store=copied_store(tmp_path);ids,value=message(store,'x')
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',
         native_invocation_id='lost-agent',allow_publish=True)
@@ -494,8 +692,11 @@ def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
         destination='internal:plan-status-post',payload=json.dumps({'kind':'setup','at_utc':'2026-01-01T00:00:00Z'}),status='PUBLISHED')
     with endpoint() as (url,state):
         result=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
-        assert result['requests']
-        assert result['requests'][0]['status']!='PLAN_STATUS_X_STALE_NOT_POSTED'
+        assert result['requests']==[]
+        assert store.get_outbox_message(value['work_item_id'])['status']=='SETTLED'
+        c2,e2=bound(store,tmp_path,value['work_item_id'],url)
+        explicit=c2.readback_existing_dispatch(ids['dispatch_id'])
+        assert explicit['publish_called'] is False
         assert not state['posts']
         assert any(name=='run' and '"phase": "readback"' in args['code'] for name,args in state['calls'])
 

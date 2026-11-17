@@ -1,0 +1,14 @@
+{
+  "item": "CC-199",
+  "observed_at_utc": "2026-11-17T02:07:35.6324230Z",
+  "process_id": 34408,
+  "parent_process_id": 8796,
+  "started_at_utc": "2026-11-17T02:02:32.2782510Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "evidence_state": "CONFIGURED_NOT_OBSERVED",
+  "command_line_names_item": true,
+  "command_line_names_worktree": true,
+  "editorial_model_calls": 0,
+  "note": "Launch arguments observed through Win32_Process. Runtime model and effort telemetry unavailable; no launch or effort gate imposed."
+}

@@ -1,0 +1,8 @@
+{
+  "classification": "PASS",
+  "message_id": "outbox_873dddf89422b103efe92b1b5f469f1c",
+  "record_id": "report:cc-cpi-reactions-since-2024",
+  "export_sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750",
+  "bound_tables": 5,
+  "scenario_policy": "BACKLOG_CC425_OPS_PRODUCT_20261112_PUBLISH_REFERENCE_NO_INVENTED_ODDS"
+}

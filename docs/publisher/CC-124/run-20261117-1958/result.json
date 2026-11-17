@@ -1,0 +1,83 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-17T13:05:06.352862+00:00",
+  "outcome": "NO_NEW_PUBLICATION",
+  "standing_status": "OPEN",
+  "first_cause": "DAILY_ARTICLE_CAP_REACHED",
+  "first_cause_authority": "Jim decision 93; CC-536 says its measured-table pieces count against CC-124\u2019s daily ceiling.",
+  "production_day": "2026-11-17",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [
+    "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+    "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and"
+  ],
+  "counted_records_state": "Both canonical article records are PUBLISHED in the existing image registry; no independent public readback was performed in this run.",
+  "new_publications_this_run": 0,
+  "completed_main_report_count": 57,
+  "timely_completed_main_reports": 0,
+  "changed_main_report_outputs_since_prior_check": 0,
+  "additional_source_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:28060s",
+  "latest_completed_daily_report": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-native.json",
+    "sha256": "8dc55c0d31f3448d01536b210f9d8369bc4e8ba04fa8e74a0b73b94c149fc2fe",
+    "capture_known_at_utc": "2026-11-17T05:13:30.999499Z",
+    "publication_deadline_utc": "2026-11-17T06:13:30.999499+00:00",
+    "acceptance_evidence": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-end.json",
+      "bytes": 1044,
+      "sha256": "c0fe14a4171b8a3eeddf61cfc2f10bac296149ab1f3fd847c15d1d71e25f312d",
+      "completed_at_utc": "2026-11-17T06:27:06.810557Z",
+      "output_hash_matches": true,
+      "hash_basis": "Main proof hashes canonical JSON; source sha256 hashes exact file bytes.",
+      "canonical_output_sha256": "4445f22ad0739830c676d47eddcc0e3f72abad70d5d97d6b4c7dcb097021d213"
+    }
+  },
+  "retail_dossier_assessment": "event-source-assessment.json",
+  "active_production_leases": [],
+  "operation_created": false,
+  "pending_request_created": null,
+  "native_editorial_calls": 0,
+  "channel_states": {
+    "substack": "NOT_DISPATCHED_BY_THIS_RUN",
+    "telegram": "NOT_DISPATCHED_BY_THIS_RUN",
+    "discord": "NOT_DISPATCHED_BY_THIS_RUN",
+    "linkedin": "NOT_DISPATCHED_BY_THIS_RUN",
+    "linkedin_company": "NOT_DISPATCHED_BY_THIS_RUN",
+    "facebook_page": "NOT_DISPATCHED_BY_THIS_RUN",
+    "instagram_business": "NOT_DISPATCHED_BY_THIS_RUN",
+    "threads": "NOT_DISPATCHED_BY_THIS_RUN",
+    "x": "NOT_DISPATCHED_BY_THIS_RUN",
+    "youtube": "NOT_DISPATCHED_BY_THIS_RUN"
+  },
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 30621,
+    "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553"
+  },
+  "publication_feed_unchanged": true,
+  "all_eight_inherited_modified_files_unchanged": true,
+  "schedules_changed": false,
+  "browser_actions": 0,
+  "native_desktop_actions": 0,
+  "messages_sent": 0,
+  "pytest_processes_started": 0,
+  "configured_launch": {
+    "observed_at_utc": "2026-11-17T13:01:21.4259481Z",
+    "process_id": 39112,
+    "parent_process_id": 27704,
+    "process_started_at_utc": "2026-11-17T12:58:08.0177590Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_evidence": "Current Win32_Process command line; argument values only, prompt omitted",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "native_editorial_calls": 0
+  },
+  "branch": "backlog/cc-124-main-check-20261117-1958",
+  "base_sha": "e904d914cabce6516c517086afe042daf6581170",
+  "base_reason": "Current operating root, identical to builder HEAD. Fresh origin/master 5be8fc63317be06d8319f3dd51ac4137a107cbb5 is its ancestor, 1335 commits behind.",
+  "next_due_utc": "2026-11-17T19:00:00Z",
+  "next_due_gmt7": "18 Nov 2026 02:00 GMT+7",
+  "next_due_reason": "First production-day reset at or after six hours from the 19:58 GMT+7 launch; installed newsroom_production_date switches at 02:00 GMT+7. This is the backlog due marker, with no schedule change.",
+  "next_action": "On the next due run, re-read Main\u2019s current outputs and available article capacity, then use the existing newsroom only for an eligible piece. Retained bindings, drafts and exact-object recovery remain intact.",
+  "delivery_commit": "Recorded in this item\u2019s BACKLOG Result after push and operating-root integration."
+}

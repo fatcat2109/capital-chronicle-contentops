@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="4.083" timestamp="2026-11-16T14:50:15.071833+07:00" hostname="J-P"><testcase classname="tests.test_durable_operational_store_v1" name="test_concurrent_claims_only_one_winner" time="0.988" /></testsuite></testsuites>

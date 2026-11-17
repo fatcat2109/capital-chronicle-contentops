@@ -180,7 +180,12 @@ def check_article(article, documents, *, contract=None):
     body = visible(article.get("substack_body_markdown"))
     text = "\n\n".join(visible(article.get(k)) for k in FIELDS)
     errors.extend(label_errors(text))
-    first = next(iter(sentences(body)), "")
+    lead = body
+    if article.get("article_type") == "EVENT_REVIEW":
+        # CC-107's required retrospective writing-date notice precedes prose.
+        # It is a clock label; the first actual sentence still carries our call.
+        lead = re.sub(r"\ARetrospective analysis, written on \d{1,2} [A-Za-z]+ \d{4} \(ET\)\s*\n+", "", lead)
+    first = next(iter(sentences(lead)), "")
     if not re.match(r"^(?:We\b|Our\b)", first, re.I) or not re.search(
             r"\b(?:think|expect|see|favour|favor|prefer|lean|watch|remain|view|judge|look|would|are|stay|keep)\b", first, re.I):
         errors.append("FIRST_SENTENCE_OUR_CALL_REQUIRED")
@@ -267,6 +272,16 @@ def validate_publication_clock(article, *, now, destination):
     if contract.get("policy") != POLICY or destination != "substack":
         return
     cutoff = contract.get("data_cutoff_utc")
+    from live_contentops.cpi_reaction_page_v1 import RECORD_ID, POLICY as CPI_POLICY, validate_bound_tables
+    reference = article.get("cpi_reaction_page") or {}
+    if reference.get("record_id") == RECORD_ID and reference.get("policy") == CPI_POLICY:
+        # CC-425, Ops Product 12 Nov: publish the checked historical page through
+        # October when November is absent. Its individual observation windows
+        # remain bound; a new capture or an invented fresh cutoff is unnecessary.
+        validate_bound_tables(article)
+        if cutoff and utc(cutoff) > now.astimezone(timezone.utc):
+            raise ValueError("ARTICLE_DATA_CUTOFF_IN_FUTURE")
+        return
     if not cutoff:
         raise ValueError("ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE")
     age = now.astimezone(timezone.utc) - utc(cutoff)

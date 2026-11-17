@@ -1,0 +1,11 @@
+{
+ "destination": "discord",
+ "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+ "publish_called": true,
+ "public_object_id": null,
+ "public_object_url": null,
+ "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+ "safe_error_classification": "http_status:400",
+ "correction_id": "cc432-discord-empty-embed-v1",
+ "pending_requests": []
+}

@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-14T10:16:11.559125+00:00",
+  "production_day": "2026-11-14",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [
+    "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+  ],
+  "active_leases": [],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-14T10:15:23.130441Z",
+    "content_hash": "3fae9ccf9cf1dfa214b8c4d272ff21c5936c774ff2b0d9bb6245e76c02b86a8c",
+    "plan_count": 89,
+    "latest_plan_registration_utc": "2026-11-12T17:40:00.360572Z"
+  },
+  "clock_use": "Export generation does not refresh original analysis capture.",
+  "operation_allocated": false,
+  "channel_readbacks": "None performed by this run."
+}

@@ -1,0 +1,42 @@
+{
+  "item": "CC-172",
+  "recorded_at_utc": "2026-11-13T19:58:10.680869+00:00",
+  "integrated_evidence_commit": "cc53f31f8d32be0aabbb8847ea3dd20940fb64e5",
+  "previous_operating_head": "597c39b69f4fcb922e0caba5e2197a25c0bf78d9",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "integration_method": "git merge --ff-only on the existing operating branch; evidence only, product code unchanged",
+  "live_tag": "contentops-live-20261114-cc172-timing-readback",
+  "rollback_tag": "contentops-rollback-20261114-cc172-timing-readback",
+  "live_tag_scope": "Final evidence delivery after the integration-record commit; same installed product sources.",
+  "installed_consumer_hash_matches": {
+    "live_contentops/native_publication_latency_v1.py": true,
+    "live_contentops/native_desktop_publication_v1.py": true,
+    "live_contentops/publication_coordinator_v1.py": true,
+    "live_contentops/contentops_editorial_desk_v1.py": true,
+    "live_contentops/tool_output_v1.py": true,
+    "live_contentops/reader_article_contract_v1.py": true,
+    "scripts/check_binary_evidence.py": true,
+    "tests/test_native_publication_latency_v1.py": true,
+    "tests/test_binary_evidence_v1.py": true,
+    "tests/test_tool_output_v1.py": true
+  },
+  "preserved_wip": {
+    "exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    }
+  },
+  "acceptance": "BLOCKED: ARTICLE_DATA_CUTOFF_EXPIRED; no complete 15-minute article sample",
+  "runtime_store_writes": 0,
+  "public_writes": 0,
+  "tests": "19 targeted checks PASS; binary guard PASS; source matches operating root",
+  "next_action": "Main/Ops Live supplies fresh Main output; existing CC-124 consumes it, then measure its first approval and each applicable dispatch."
+}
