@@ -1,0 +1,18 @@
+{
+  "bodyCharacters": 53269,
+  "bodyMatches": true,
+  "captionChecks": [
+    true,
+    true
+  ],
+  "expectedCharacters": 53269,
+  "firstCaption": "Photo: USDAgov. Archive context: grocery shopping at the Papaya Supermarket in Dearborn, Michigan, June 2023. Photo: USD",
+  "firstMismatch": null,
+  "headingCount": 10,
+  "imageCount": 2,
+  "paragraphCount": 654,
+  "page_id": 148,
+  "post_id": "225323477",
+  "request_sha256": "feb4ec5286f0a8232ee06c37f98db40e21f68ded284bc657cb2aa1b97b6c8abe",
+  "verification": "BrowserOS Neo exact normalized editor body, media alt/captions and loaded dimensions"
+}

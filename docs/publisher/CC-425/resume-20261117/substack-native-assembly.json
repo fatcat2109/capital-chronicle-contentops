@@ -1,0 +1,23 @@
+{
+  "post_id": "225323477",
+  "request_sha256": "feb4ec5286f0a8232ee06c37f98db40e21f68ded284bc657cb2aa1b97b6c8abe",
+  "html_sha256": "cd1a0e5d7881747dfe13f3b29ef080252fb4e215a51fcef9f3fb5f0b756cefa9",
+  "body_sha256": "f8144408e93e32ccc5a1ff34f0dc61e05a2d8bb9e6eac3ebc45be41b566e3395",
+  "body_characters": 66909,
+  "row_paragraphs": 654,
+  "rendering": "Existing native table-row renderer preserves all cells; source-link label rendered without absent href; issued request unchanged.",
+  "media": [
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/f39c98e5-f984-4b8b-b35e-103550d2d199_1440x1040.png",
+      "alt_text": "Gold's mean changes across four release horizons, separated into hot and cool headline CPI buckets. Cool-print means are negative early and positive at the close; next-close sample counts differ.",
+      "caption": "Mean gold changes in the HistData sample, January\u2013December 2024, grouped by the Investing headline CPI forecast. Hot: four observations, three at the next close; cool: three. Descriptive changes around releases. Sources: Capital Chronicle calculations; U.S. Bureau of Labor Statistics first prints; price proxies as labelled.",
+      "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44"
+    },
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/13f8c3b7-5768-4bf1-80cb-ba48d84a579d_5472x3648.jpeg",
+      "alt_text": "A shopper selects fresh produce inside a supermarket, photographed in Michigan in June 2023.",
+      "caption": "Photo: USDAgov. Archive context: grocery shopping at the Papaya Supermarket in Dearborn, Michigan, June 2023. Photo: USDAgov / Wikimedia Commons; public domain. License: https://commons.wikimedia.org/wiki/Template:PD-USGov. Source: https://commons.wikimedia.org/wiki/File:WICEnvironmentsinMichigan(20230621-USDA-FNS-UNK-0052).jpg. Changes: Unchanged original; display resizing only.",
+      "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08"
+    }
+  ]
+}
