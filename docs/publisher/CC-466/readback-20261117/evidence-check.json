@@ -1,0 +1,43 @@
+{
+  "recorded_at_utc": "2026-11-17T08:45:24.382849+00:00",
+  "public_long_caption_matches": 5,
+  "bound_alert_validations": 2,
+  "targeted_tests": 54,
+  "test_failures": 0,
+  "source_odds_and_writer_prompt": "PASS",
+  "week_counts": "2 / 26 confirmed",
+  "signed_r_count": 6,
+  "json_files": [
+    {
+      "path": "consumer-readback.json",
+      "bytes": 12808,
+      "sha256": "10429e2b17c829c4d5c1309dd465ada59f9fde229312868ce2f2d1a34bf59d57"
+    },
+    {
+      "path": "public-observation.json",
+      "bytes": 5829,
+      "sha256": "3a028b6ec695f1b256d8be8a932062cf6b86418e3d2c27996f728c35a590d5d1"
+    },
+    {
+      "path": "signed-r.json",
+      "bytes": 2474,
+      "sha256": "917978f69ae149f8b99a509bd296ab77e6ddd2e9535363e280ab8491560009eb"
+    },
+    {
+      "path": "source-layers.json",
+      "bytes": 12776,
+      "sha256": "19b16c1225907d1d71f86bec527f73c927335ac0315df02fb3815a63960c4e94"
+    },
+    {
+      "path": "week-coverage.json",
+      "bytes": 20138,
+      "sha256": "eb6001b03ce2e0cf6f66a7a9a70608d4845074bd326354843f4baf0a300b3501"
+    },
+    {
+      "path": "x-before-after.json",
+      "bytes": 1062,
+      "sha256": "7eec0648cad76c9116fac68c75538c27363cb1c2c2977037734e72ca0f562f6f"
+    }
+  ],
+  "public_writes": 0
+}

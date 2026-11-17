@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-11-17T08:44:38.662433+00:00",
+  "before": {
+    "public_object_url": "https://x.com/Capitalnicle/status/2120389158862831949",
+    "observed_at_utc": "2026-11-11T17:53:38.846Z",
+    "public_views": 499,
+    "unique_reach": null,
+    "likes": 0,
+    "reposts": 0,
+    "replies": 1,
+    "cohort": "PRE_CC466_RETAINED_POST"
+  },
+  "after_CC466_analysis_thread": null,
+  "observed_latest_CC543_alert": {
+    "public_object_url": "https://x.com/Capitalnicle/status/2122578373813903388",
+    "public_views": 46,
+    "unique_reach": null,
+    "canonical_link_in_first_reply": false,
+    "main_and_alternative_in_root": false,
+    "cohort": "CC543_INITIAL_ALERT"
+  },
+  "limitation": "The new object is an initial alert, not a post using the CC466 analysis format. Public views are not unique reach. Different ages and cohorts do not establish an effect from moving a link.",
+  "historical_before_source": "docs/publisher/CC-466/x-before-after.json; dated observation retained, not refreshed",
+  "public_writes": 0
+}
