@@ -2354,6 +2354,12 @@ class DurablePublicationCoordinator:
                 from live_contentops.sourced_replies_v1 import validate_plan, payload as reply_payload
                 row = validate_plan(self.store, work_item_id, plan)
                 intent["sourced_reply"] = row["key"]
+                if row.get("heavy_news_quote"):
+                    from .heavy_news_quotes_v1 import quote_parent
+                    intent["heavy_news_quote"] = row["key"]
+                    intent["quote_parent"] = quote_parent(row)
+                    intent["market_asset"] = row["market"]
+                    intent["media_assets"] = [row["image"]]
                 if row.get("x_api_mention"):
                     intent["x_api_mention"] = row["x_api_mention"]
                 intent["native_payload"] = reply_payload(row)

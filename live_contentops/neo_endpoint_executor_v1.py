@@ -407,7 +407,7 @@ class NeoBrowserDriver:
         checkpoint = bool(re.search(r"/(?:checkpoint|challenge|verify)(?:/|\?|$)", url, re.I))
         if not wording and not checkpoint:
             return None
-        cause = ("LINKEDIN" if request["destination"] == "linkedin_company" else "YOUTUBE") + "_PLATFORM_RESTRICTION"
+        cause = {"linkedin_company":"LINKEDIN", "youtube":"YOUTUBE", "x":"X"}[request["destination"]] + "_PLATFORM_RESTRICTION"
         if external_verification and external_verification.get("verification_required"):
             cause = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
         from .neo_destination_handoff_v1 import suspend_route
@@ -713,6 +713,18 @@ class NeoBrowserDriver:
         result = {**root,"status":"SUCCESS","request_sha256":request["request_sha256"],
             "observed_identity":request["expected_identity"],"observed_text":"\n\n".join(r["observed_text"] for r in thread),
             "content_verified":True,"observed_thread":thread}
+        if request.get("quote_parent"):
+            edge = self.client.run(page, "quote_card", quote_parent=request["quote_parent"], public_url=root["public_object_url"])
+            if edge.get("matches") and not edge.get("public_object_url"):
+                # X's quote card is a visible button without an href. Follow
+                # that exact card and observe the actual source permalink.
+                self.client.act(page, "click", ref=self._ref(page, edge.get("role") or "button", {"CC467 observed quote source"}))
+                self.client.wait(page, 'article[data-testid="tweet"]')
+                edge = self.client.run(page, "quote_source", quote_parent=request["quote_parent"])
+                self.client.call("navigate", {"page":page, "url":root["public_object_url"]})
+            if edge.get("matches"):
+                result.update(observed_quote_parent_id=edge.get("public_object_id"),
+                              observed_quote_parent_url=edge.get("public_object_url"))
         # A reply's parent must actually occur on the exact rendered thread.
         parent = request.get("reply_parent")
         if parent and any(r["public_object_url"] == parent["public_object_url"] for r in candidates):
@@ -747,7 +759,15 @@ class NeoBrowserDriver:
         destination = request["destination"]
         parent = request.get("reply_parent")
         if destination == "x":
-            self.client.call("navigate",{"page":page,"url": parent["public_object_url"] if parent else "https://x.com/compose/post"})
+            quote = request.get("quote_parent")
+            self.client.call("navigate",{"page":page,"url": (quote or parent)["public_object_url"] if quote or parent else "https://x.com/compose/post"})
+            if quote:
+                self.client.wait(page, 'article[data-testid="tweet"]')
+                observed = self.client.run(page, "quote_source", quote_parent=quote)
+                if observed.get("matches") is not True:
+                    raise NeoEndpointError("CC467_VISIBLE_SOURCE_CHANGED")
+                self.client.act(page, "click", ref=self._ref(page, "button", {"CC467 source quote menu"}))
+                self.client.act(page, "click", ref=self._ref(page, "menuitem", {"Quote"}))
             editor='[data-testid="tweetTextarea_0"][contenteditable="true"][role="textbox"]'
             self.client.wait(page,editor if parent else '[role="dialog"] '+editor)
         else:
@@ -861,6 +881,10 @@ class NeoBrowserDriver:
             page = self.client.open(destination, profile)
             if request["action"] == "READBACK":
                 return {"result":self.readback(request,page),"identity":identity}
+            if request.get("quote_parent"):
+                refused = self.article_guard(request, page)
+                if refused:
+                    return {"result":refused, "identity":identity}
             self.client.wait_text(page,"Edit profile")
             identity = self.client.run(page,"identity",destination=destination,expected_identity=request["expected_identity"])
         except NeoEndpointError as exc:
@@ -879,7 +903,8 @@ class NeoBrowserDriver:
                 "stage":"BEFORE_PUBLISH_CLICK","reason_code":"NEO_COMPOSER_PREPARATION_FAILED",
                 "safe_error_classification":str(exc)},"identity":identity}
         parent=request.get("reply_parent")
-        result=self.client.run(page,"publish",destination=destination,posts=posts,reply_parent=parent)
+        result=self.client.run(page,"publish",destination=destination,posts=posts,reply_parent=parent,
+                               **({"quote_parent": request["quote_parent"]} if request.get("quote_parent") else {}))
         if result["status"] != "CLICKED":
             return {"result":result,"identity":identity}
         readback=self.readback(request,page,posts=posts)
@@ -945,7 +970,9 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         if automatic_destinations is None:
             kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
-        self.client=client or (NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
+        self.client=client or (NeoMcpClient(task_name="cc467 news quotes",group_title="codex/cc467-news-quotes")
+            if self.operation_id.startswith("heavy-quote-") else
+            NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
             if self.operation_id.startswith("plan-analysis-") else endpoint_client())
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})

@@ -114,6 +114,16 @@ def main(argv=None) -> int:
         # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
         if args.publish and not args.dry_run:
+            # CC-467's source-to-post deadline is five minutes. Its single
+            # bounded slice precedes slower reply/page work in this same task.
+            from live_contentops.heavy_news_quotes_v1 import refresh_due as quotes_due
+            try:
+                result["heavy_news_quotes"] = quotes_due(store,
+                    feed_path=args.store.parent / "x_list_feed/x_list_feed_v1.json",
+                    root=args.store.parent / "daily_app_outputs/heavy_news_quotes")
+            except Exception as exc:
+                result["heavy_news_quotes"] = {"status": "QUOTE_NOT_COMPLETED", "cause": str(exc)[:160]
+                    if isinstance(exc, ValueError) else type(exc).__name__}
             from live_contentops.x_reply_bot_v1 import refresh_due as bot_refresh
             try:
                 reply_bot = bot_refresh(store, binding_path=args.store.parent / "control/x_reply_bot_binding.json")
