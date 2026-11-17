@@ -113,9 +113,11 @@ def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
         raise ValueError("CC074_TARGET_INTEGRITY_FAILED")
     if conn.execute("PRAGMA foreign_key_check").fetchone():
         raise ValueError("CC074_TARGET_FOREIGN_KEY_FAILED")
+    # A reply-tab refresh cannot collide with this exact article import.
+    # Other live writers and all uncertain dispatch/reconciliation stay guarded.
     if conn.execute(
         "SELECT 1 FROM leases WHERE status='ACTIVE' AND expires_at>? "
-        "AND lease_id NOT IN (?,?) LIMIT 1",
+        "AND lease_id NOT IN (?,?) AND lease_key!='x-reply-tabs-refresh' LIMIT 1",
         (datetime.now(timezone.utc).isoformat(), own_lease or "", operation.get("_own_newsroom_lease", "")),
     ).fetchone():
         raise ValueError("CC074_TARGET_HAS_ACTIVE_WORK")

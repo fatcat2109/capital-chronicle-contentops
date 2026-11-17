@@ -50,10 +50,13 @@ def assert_newsroom_idle(store, *, own_lease=None, preparation_only=False):
     # Newsroom windows and editorial operations still exclude a standing entry.
     scope = ("AND (lease_key LIKE 'internal:native-editorial:%' "
              "OR lease_key LIKE 'internal:native-window:%') " if preparation_only else "")
+    # Reply-tab refresh owns different drafts. It does not own the article
+    # import; the existing coordinator still serializes actual dispatches.
     with store.get_read_only_connection() as conn:
         active = conn.execute(
             "SELECT lease_key FROM leases WHERE status='ACTIVE' AND expires_at>? "
-            "AND lease_id!=? " + scope + "LIMIT 1", (store._get_now_iso(), own_lease or ""),
+            "AND lease_id!=? AND lease_key!='x-reply-tabs-refresh' " + scope + "LIMIT 1",
+            (store._get_now_iso(), own_lease or ""),
         ).fetchone()
     if active:
         raise ValueError("NEWSROOM_LEASE_ACTIVE:" + active[0])

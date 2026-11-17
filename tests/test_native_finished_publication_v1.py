@@ -428,3 +428,18 @@ def test_finished_writer_model_and_effort_labels_are_recorded_not_gates(ready, m
     assert result["status"] == "PASS"
     assert result["writer_observation"]["model"] == "recorded-model"
     assert result["writer_observation"]["reasoning_effort"] == "recorded-effort"
+
+
+def test_reply_tab_refresh_does_not_block_finished_article_import(ready):
+    _, target, _, path, rollout = ready
+    lease = target.acquire_lease("x-reply-tabs-refresh", owner_ref="CONTROLLED-tab-refresh", ttl_seconds=600)
+    released = release_finished_piece(path, rollout)
+    assert released["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
+    assert released["binding"]["store_path"] == str(target.db_path)
+    assert target.list_platform_dispatches() == []
+    with target.get_read_only_connection() as conn:
+        row = conn.execute("SELECT status FROM leases WHERE lease_id=?", (lease["lease_id"],)).fetchone()
+    assert row["status"] == "ACTIVE"
+    target.acquire_lease("internal:native-editorial:CONTROLLED-active-article", owner_ref="CONTROLLED-writer", ttl_seconds=600)
+    with pytest.raises(ValueError, match="NEWSROOM_LEASE_ACTIVE:internal:native-editorial"):
+        release_finished_piece(path, rollout)
