@@ -472,11 +472,11 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         if not target:
             return None
         if target not in cache:
-            cache[target] = fetcher(platform, target)
+            cache[target] = {**fetcher(platform, target), "checked_at_utc": iso(datetime.now(timezone.utc))}
         response = cache[target]
         status = response.get("http_status")
         cause = code(response.get("first_cause"))
-        checked = {"checked_at_utc": iso(now), "http_status": status}
+        checked = {"checked_at_utc": response["checked_at_utc"], "http_status": status}
         if cause or status != 200:
             return {**checked, "first_cause": cause or "HTTP_" + str(status),
                     "first_line_matches": None, "text_complete": None, "links_match": None,
