@@ -1,0 +1,55 @@
+{
+  "application_actions": 0,
+  "branch": "backlog/cc-436-live-timing-20261117",
+  "final_live_tag": "contentops-live-20261117-cc436-timing",
+  "installed_tests": {
+    "deselected": 72,
+    "file": "tests/test_neo_endpoint_executor_cc436.py",
+    "junitxml": "installed-consumer-tests.xml",
+    "passed": 2,
+    "seconds": 3.74,
+    "selection": "status_minute_consumer_selects_automatic_executor or cli_publish_passes_automatic_transport_to_the_real_consumer"
+  },
+  "integration_method": "git merge --ff-only; evidence paths only",
+  "item": "CC-436",
+  "latest_minute_log": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261117.jsonl",
+    "runs": [
+      {
+        "at_utc": "2026-11-17T03:25:15.692968Z",
+        "cause": null,
+        "export_age_seconds": 26.3,
+        "export_generated_at_utc": "2026-11-17T03:24:00.724285Z",
+        "neo_stored_requests": {
+          "requests": [],
+          "status": "OK"
+        },
+        "posts": [],
+        "queued": 0,
+        "status": "OK"
+      },
+      {
+        "at_utc": "2026-11-17T03:25:55.230820Z",
+        "cause": null,
+        "export_age_seconds": 26.0,
+        "export_generated_at_utc": "2026-11-17T03:25:01.006237Z",
+        "neo_stored_requests": {
+          "requests": [],
+          "status": "OK"
+        },
+        "posts": [],
+        "queued": 0,
+        "status": "OK"
+      }
+    ]
+  },
+  "observed_at_utc": "2026-11-17T03:27:57.064551+00:00",
+  "operating_head_before_final_evidence_commit": "a3c6935c12788b1097c6cf5b3e0bc8c3fb2d0529",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "public_write_calls": 0,
+  "remaining_acceptance": "AWAITING_FRESH_MAIN_STATUS_EVENT_FOR_2_MINUTE_TIMING_PROOF",
+  "rollback_commit": "4b83736bde70663c743ba239b1809cb7f5f8d80d",
+  "rollback_tag": "contentops-rollback-20261117-cc436-timing",
+  "schedule_changes": 0,
+  "verification_commit": "a3c6935c12788b1097c6cf5b3e0bc8c3fb2d0529"
+}

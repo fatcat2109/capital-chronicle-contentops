@@ -1,6 +1,7 @@
 # CC-436 continuation, 17 November 2026
 
-The installed automatic executor works through Neo again. The remaining live
+Neo's endpoint responds, and the installed executor verifies retained public
+objects again. The remaining live
 acceptance condition is **AWAITING_FRESH_MAIN_STATUS_EVENT_FOR_2_MINUTE_TIMING_PROOF**.
 No runtime source change was needed in this continuation.
 
@@ -51,7 +52,7 @@ Eight natural status operations since 11 November have Telegram and browser
 dispatches. **Zero X pairs meet 120 seconds; one Notes pair does.** The passing
 Notes pair remains 5.1276 seconds before Telegram. The most recent natural
 source event is **13 November 06:00 GMT+7**; there were zero source events from
-the preceding 60 minutes at collection. Existing source rows are settled,
+the preceding 60 minutes at collection. Natural status rows are settled,
 published or explicitly superseded/stale; the fresh export and completed
 minute runs do not manufacture a new status event.
 
@@ -62,6 +63,13 @@ target, and it has no Notes twin. The later follow-up's X confirmation was
 visible. Neither closes the natural status timing acceptance.
 
 ## Delivery and next action
+
+Evidence commit `a3c6935c` was pushed and fast-forwarded into the operating root.
+The two consumer/CLI checks then passed there in **3.74 seconds**; see
+[installed-consumer-tests.xml](installed-consumer-tests.xml). The verification
+and rollback binding is recorded in
+[integration-verification.json](integration-verification.json). No runtime
+restart is required for this evidence-only delivery.
 
 This branch starts at operating HEAD
 `4b83736bde70663c743ba239b1809cb7f5f8d80d`. Fresh `origin/master`
