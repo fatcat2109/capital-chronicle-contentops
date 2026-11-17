@@ -1,0 +1,183 @@
+{
+  "item": "CC-536",
+  "piece": 3,
+  "outcome": "PIECE_PUBLISHED_AND_RECONCILED; SERIES_CONTINUES_ONE_PER_DAY",
+  "checked_at_utc": "2026-11-17T12:12:29.805734+00:00",
+  "operation_id": "cc536-measured-odds-3",
+  "plan_hash": "33453f3726205f0a11aa38f55bb486bfc31a26d943ac547e577a725b024264a2",
+  "source": {
+    "live_tag": "live-20261117-cc651-173754",
+    "commit": "c75564df26b15258576d12f1fed5ee258706656a",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "blobs_verified": 7
+  },
+  "public_numbers": {
+    "status": "PASS",
+    "numerical_occurrences": 119,
+    "report": "public-number-report.json",
+    "script": "verify_public_numbers.py"
+  },
+  "tests": {
+    "measured_odds_consumer": "33 passed, including operating-root imports",
+    "company_readback": "9 passed"
+  },
+  "channels": [
+    {
+      "destination": "substack",
+      "dispatch_id": "dispatch_83c7064567496006688b1d04c3882759",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "225334659",
+      "public_object_url": "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+      "reason_code": null
+    },
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_db606a8376c5f9958f64266bdc642c9f",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "191",
+      "public_object_url": "https://t.me/CapitalChronicle/191",
+      "reason_code": null
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_19117d15f46d08c6d085e0a3374a0de0",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1572216152845852683",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572216152845852683",
+      "reason_code": null
+    },
+    {
+      "destination": "x",
+      "dispatch_id": "dispatch_3857b5a61a634cf4a7971aad6f1d036a",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2122658263015772508",
+      "public_object_url": "https://x.com/Capitalnicle/status/2122658263015772508",
+      "reason_code": null
+    },
+    {
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_3658ca7568eb3672b332dd3a157fe252",
+      "status": "DESTINATION_FAILED_ET_DAY_SKIP",
+      "reconciliation_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP"
+    },
+    {
+      "destination": "linkedin_company",
+      "dispatch_id": "dispatch_c40a5c64ce38f9eeae4dd2263912e866",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:activity:7528425620956098561",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528425620956098561/",
+      "reason_code": null
+    },
+    {
+      "destination": "facebook_page",
+      "dispatch_id": "dispatch_881ca7d160b6de9b74b849e7fc036e2b",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1458033773181705",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1458033773181705",
+      "reason_code": null
+    },
+    {
+      "destination": "instagram_business",
+      "dispatch_id": "dispatch_190814d4bd1797cfe5e6e32c08d2a640",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18134616655793878",
+      "public_object_url": "https://www.instagram.com/p/Df12uTckiwI/",
+      "reason_code": null
+    },
+    {
+      "destination": "threads",
+      "dispatch_id": "dispatch_ef17eee84be13e793a46cc69ce710199",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "17994786675079145",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df123yRk8_I",
+      "reason_code": null
+    },
+    {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_6600e2941e2ec400a368ce065f490dce",
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "public_object_id": null,
+      "public_object_url": null,
+      "reason_code": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+    }
+  ],
+  "confirmed_surface_count": 8,
+  "unknown_write_count": 0,
+  "company_recovery": {
+    "original_attempt": "Preserved; no second publish or edit",
+    "observed_post": "https://www.linkedin.com/feed/update/urn:li:activity:7528425620956098561/",
+    "canonical_link": "Verified through the exact visible lnkd.in exit link",
+    "media": "Exact delivered bytes re-fetched; source/delivered chart pair visually accepted; original automatic mismatch preserved",
+    "native_return": "company-current-native-submitted.json",
+    "coordinator": "company-confirmed.json",
+    "manual_readback_request": "034699cd291c7ab11be239a60c787035376d37da7d621f4e6aafa7626ace34d4",
+    "readback_limit_fixed": "A target-text wait timeout now continues to the loaded-feed identity and absence checks; nine focused cases passed. The actual recovered company post was confirmed present, never retried."
+  },
+  "remaining_routes": {
+    "linkedin": {
+      "status": "DESTINATION_FAILED_ET_DAY_SKIP",
+      "cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+      "first_failure": {
+        "attempt_started_at_utc": "2026-11-17T10:22:26.801123+00:00",
+        "destination": "linkedin",
+        "dispatch_id": "dispatch_28d69265b4602968e22a4a62bfabecc3",
+        "et_day": "2026-11-17",
+        "local_prewrite_validation": false,
+        "safe_error_classification": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+        "status": "DEFINITE_NO_WRITE",
+        "write_outcome_certainty": "DEFINITE_NO_WRITE"
+      },
+      "current_piece_public_write": false
+    },
+    "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED; one prepared person step is to complete the company channel external-link verification, then Ops clears only that route."
+  },
+  "next_piece": {
+    "piece": 4,
+    "eligible_at_gmt7": "18 Nov 2026 18:00 GMT+7",
+    "reason": "CC-536 explicitly allows one piece per day."
+  },
+  "remaining_series_acceptance": [
+    "pieces 4-7",
+    "daily-board and next-plan method-link public readbacks"
+  ],
+  "integration": "integration.json",
+  "preserved_work": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508,
+      "current_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337,
+      "current_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "initial_bytes_unchanged": true
+    }
+  ],
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "desktop_automation": false,
+  "source_code_commit": "97a37c6a905c5f3a240919cbac070d6be5c235ec",
+  "native_pending_requests": 2,
+  "automatic_readback_limit": {
+    "operation": "NeoMcpClient.open -> navigate",
+    "observed_error": "NEO_RPC_DEADLINE_EXCEEDED",
+    "resolution": "Completed the existing NativeNeoExecutor begin / actual BrowserOS Neo MCP run / submit / coordinator readback route. Exact current text, redirect and delivered image were verified; no new write.",
+    "automatic_navigation_fix_claimed": false
+  }
+}

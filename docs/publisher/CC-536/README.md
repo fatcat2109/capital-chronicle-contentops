@@ -1,5 +1,11 @@
 # CC-536: measured-odds method series
 
+Piece 3 is [published on Substack](https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the) with its [X thread](https://x.com/Capitalnicle/status/2122658263015772508). Eight surfaces are strictly reconciled, including company LinkedIn, with zero unknown writes. All 119 printed numerical occurrences match Main's live table and side split. [The current result](piece-3/closeout.json) preserves exact identities, source and image evidence, tests, clocks and route limits.
+
+The code and evidence are pushed and integrated. Piece 4 is next on 18 November 2026 at 18:00 GMT+7 under the one-piece-per-day instruction. Member LinkedIn has its measured API TLS failure; YouTube requires external-link verification. Later pieces and the daily-board/next-plan method-link public readbacks remain in this item.
+
+## Earlier piece records
+
 Piece 2 is [published on Substack](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly) with its [X thread](https://x.com/Capitalnicle/status/2122235588179079329). Eight surfaces are strictly reconciled; member LinkedIn has an API TLS failure and YouTube requires external-link verification. All 58 numerical occurrences match the seven pinned Main blobs. The unused native TradingView chart and method link are present.
 
 The fixes are pushed and integrated. Piece 3 is next on 17 November 2026 at 18:00 GMT+7 under the one-piece-per-day instruction. [The current result](piece-2/resume-20261116.json) preserves exact clocks, objects, tests and remaining series acceptance.
