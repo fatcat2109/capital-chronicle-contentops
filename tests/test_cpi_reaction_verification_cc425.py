@@ -104,3 +104,18 @@ def test_current_visual_reviewer_keeps_exact_binding_and_unresolved_issue_guard(
     response["output"]["render_findings"][0]["findings"] = ["Controlled unresolved clipping defect"]
     with pytest.raises(ValueError, match="UNRESOLVED_ISSUE"):
         native.validate_final_visual_return(turn, request, response)
+
+
+def test_cpi_social_compiler_uses_writer_copy_instead_of_unconfirmed_news_template():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+    article = bind_tables({"title": "What CPI history says", "dek": "A dated reference with gaps.",
+        "social_hook": "The first move can differ from the close.",
+        "substack_body_markdown": "We compare separate horizons.\n\nSo what: Keep each sample separate.\n\n" + TOKEN}, pack())
+    bundle, _ = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
+        article_identity="CONTROLLED-cpi", epistemic_state={"event_confirmation_state": "UNCONFIRMED"})
+    for payload in bundle["packages"].values():
+        text = payload.get("full_text") or payload.get("text") or ""
+        assert "not been independently confirmed" not in text
+        assert "conditional on verification" not in text
+        assert "Independent confirmation or denial" not in text
+    assert "A dated reference with gaps." in bundle["packages"]["linkedin"]["text"]

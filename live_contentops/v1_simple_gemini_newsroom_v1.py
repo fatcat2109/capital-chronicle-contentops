@@ -2224,7 +2224,17 @@ def _reader_safe_native_article(
         if short_name:
             result["native_source_attribution"] = {"publisher": publisher, "display_name": short_name,
                 "source_url": bound["url"]}
-    if ((epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
+    if article.get("cpi_reaction_page"):
+        # A bound statistical reference is not an unconfirmed news report.
+        # Carry the writer's exact hook, coverage and reader takeaway; the
+        # compiler must not invent a report-confirmation watch for this page.
+        takeaway = next((p.strip() for p in body.split("\n\n")
+                         if p.strip().startswith("So what:")), "")
+        result.update(social_mechanism_summary=str(article.get("social_hook") or ""),
+                      social_policy_summary=str(article.get("dek") or ""),
+                      social_cross_asset_summary=takeaway)
+    if (not article.get("cpi_reaction_page")
+            and (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
             and not all(article.get(k) for k in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"))):
         result.update(
             {
