@@ -1,0 +1,281 @@
+{
+  "item": "CC-406",
+  "observed_at_utc": "2026-11-17T17:20:50.017891+00:00",
+  "base_sha": "74e947af77a76f9a6f3623371d5c3e94c66242d3",
+  "base_choice": "Current Publisher operating-root HEAD; continuation of integrated CC-406, absent from origin/master. No source code change planned.",
+  "remote_default_sha": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_root_head_before": "74e947af77a76f9a6f3623371d5c3e94c66242d3",
+  "launch": {
+    "source": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-406-20261117T1717\\launch.json",
+    "pid": 20932,
+    "started_utc": "2026-11-17T17:17:53Z",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  },
+  "preserved_wip": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "41a0d201533ab2eadf383fc605781fe0f6eceac1ac2c8704d444c03b32e829a9",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "5b82a52ca8c0a80b9f31ecf0f233dbd6c75a71ea4c6e75e814e32d9a8e4df73b",
+      "unchanged": true
+    }
+  ],
+  "public_write_performed": false,
+  "schedule_changes": 0,
+  "implementation_changed": false,
+  "acceptance_at_entry": {
+    "dated_18_november_note_present": false,
+    "current_consecutive_on_time_mornings": 0,
+    "remaining_mornings": [
+      "2026-11-18",
+      "2026-11-19",
+      "2026-11-20"
+    ]
+  },
+  "targeted_tests": {
+    "passed": 20,
+    "seconds": 11.03,
+    "artifact": "resume-20261118-targeted.xml",
+    "command": "python -B -m pytest -q tests/test_vietnamese_gold_note_cc406.py --junitxml=docs/publisher/CC-406/resume-20261118-targeted.xml"
+  },
+  "supplemental_main_bindings": {
+    "spec": {
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:gold-note:baf78ace6c184db44162786b53af8e278c45c16669e6a2aaaf36942ae79bdb22",
+      "headline_id": "cc406-main-baf78ace6c184db44162786b53af8e278c45c16669e6a2aaaf36942ae79bdb22",
+      "headline_text": "Main daily gold mechanism and countercase",
+      "known_at_utc": "2026-11-17T16:40:13.192955+00:00",
+      "revision_at_utc": "2026-11-17T17:22:29.047464+00:00",
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\analysis-native.json",
+          "source_sha256": "baf78ace6c184db44162786b53af8e278c45c16669e6a2aaaf36942ae79bdb22",
+          "source_json_pointer": "/native_synthesis/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 112,
+              "end": 203
+            },
+            {
+              "start": 1759,
+              "end": 1822
+            }
+          ]
+        }
+      ]
+    },
+    "verified_projection_sha256": "90eea0b877b6cc6007b0113663fde64278c7858139695f9eaa3377e6a1efd9e0",
+    "note_use": "Qualitative real-yield and dollar pressure, buyers at the floor, and safe-haven countercase; no source price, probability, positioning, execution or account number reproduced."
+  },
+  "source_choice": "Newest completed Main synthesis from the original 17 November capture; weak positive lean explicitly judged insufficient for a view. All six market rows read. Exact public Main spans support the mechanism and countercase. Held official BLS CPI spans supply both printed figures and the chart.",
+  "native_request": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc406-gold-note-2026-11-18\\desktop_request_gold-note.json",
+    "request_sha256": "e733c37668c0056d1be834c2bda8e654a15ac1b3e183bdc42c111ee76f9657b0",
+    "source_pack_sha256": "e9ab00a7e22ea2431c04cbfd4c7eecb5cd32d10f56487ddd59052bacd5e2884f"
+  },
+  "delivery": {
+    "acceptance_morning": true,
+    "chart_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-18.png",
+    "chart_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+    "data_cutoff_utc": "2026-11-17T15:41:09.154264+00:00",
+    "day": "2026-11-18",
+    "deadline_utc": "2026-11-18T00:30:00+00:00",
+    "invocation_observation": {
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "invocation_id": "/root",
+      "model": null,
+      "observation_source": "This active Codex exec /root authored the exact note from the frozen 18 November request and two verified qualitative Main spans. PID 20932 launch arguments configure gpt-6.1-sol/max; supported runtime model/effort telemetry is unavailable.",
+      "observed_at_utc": "2026-11-17T17:22:30.114888+00:00",
+      "reasoning_effort": null,
+      "surface": "CODEX_EXEC"
+    },
+    "main_source": {
+      "capture_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\capture.json",
+      "capture_sha256": "262c7e545e56e857d18079fa7d9787cbcd2250d0490e64dd619b63f76777bae5",
+      "known_at_utc": "2026-11-17T16:40:13.192955+00:00",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\analysis-native.json",
+      "projection_sha256": "1caa36294971cce91a43c64793327489c71d8a78637d9e7c08058f94b8cfa483",
+      "sha256": "baf78ace6c184db44162786b53af8e278c45c16669e6a2aaaf36942ae79bdb22"
+    },
+    "native_request_sha256": "e733c37668c0056d1be834c2bda8e654a15ac1b3e183bdc42c111ee76f9657b0",
+    "native_return_sha256": "71a85786f3a197ae0b44f9d84c9cd386653d583219ba9c311d2e29a6625ef675",
+    "official_evidence": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\role-evidence.json",
+      "sha256": "38ea1d1b6b62c4aacec86a022280f032ffda5047c662afc259efab8b0bde5b05"
+    },
+    "official_facts": [
+      {
+        "display": "0.4%",
+        "fact_id": "headline",
+        "known_at_utc": "2026-11-10T13:30:29.854000Z",
+        "label": "CPI chung",
+        "official_text_sha256": "1185247b3966672a4243099c833d3bcead3fe28517fdcdb0861650f82f71af18",
+        "period": "2026-M10",
+        "publisher": "U.S. Bureau of Labor Statistics (BLS)",
+        "rights_class": "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED",
+        "source_excerpt": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent",
+        "source_row_key": "bls-cpi-2026-m10-e086d7ed3b85",
+        "source_span": [
+          683,
+          761
+        ],
+        "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "unit": "percent_month_on_month_seasonally_adjusted",
+        "value": 0.4
+      },
+      {
+        "display": "0.3%",
+        "fact_id": "core",
+        "known_at_utc": "2026-11-10T13:30:29.854000Z",
+        "label": "CPI lõi",
+        "official_text_sha256": "1185247b3966672a4243099c833d3bcead3fe28517fdcdb0861650f82f71af18",
+        "period": "2026-M10",
+        "publisher": "U.S. Bureau of Labor Statistics (BLS)",
+        "rights_class": "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED",
+        "source_excerpt": "The index for all items less food and energy rose 0.3 percent",
+        "source_row_key": "bls-cpi-2026-m10-e086d7ed3b85",
+        "source_span": [
+          1278,
+          1339
+        ],
+        "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+        "unit": "percent_month_on_month_seasonally_adjusted",
+        "value": 0.3
+      }
+    ],
+    "prepared_at_utc": "2026-11-17T17:23:21.075979+00:00",
+    "public_write_performed": false,
+    "ready_by_0730": true,
+    "review": {
+      "accepted": true,
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "chart_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "findings": "Inspected the exact 1500x900 PNG with view_image and the exact 124-word Vietnamese text. The chart has two zero-based bars at October 2026 monthly seasonally adjusted BLS headline CPI 0.4% and core CPI 0.3%, with correct readable labels, period, units and full BLS attribution. The text states no clear directional gold view, consistent with the newest completed 17 November Main synthesis and all six market rows. Real-yield/dollar pressure, buyers at the floor and the equity-driven safe-haven countercase trace to two verified exact public Main spans. CPI facts match both bound official spans. No private source numbers or advice appear; brand separation, dated source context and the exact final notice are preserved.",
+      "reviewed_at_utc": "2026-11-17T17:23:19.759490+00:00",
+      "reviewer_invocation_id": "/root",
+      "text_sha256": "e60d29d57256cbb6d71a2edf4366176b4563734c78eb0f94c8778965b3998306"
+    },
+    "schema_version": "contentops.vietnamese_gold_note.v1",
+    "six_market_table": [
+      {
+        "asset": "XAUUSD",
+        "source_json_pointer": "/native_synthesis/candidates/3/rationale",
+        "view": "Base case (52%): GOLD is above 3875.033 at 2026-11-18T15:45:05Z; the lean is too small to be a view."
+      },
+      {
+        "asset": "US500",
+        "source_json_pointer": "/native_synthesis/candidates/7/rationale",
+        "view": "Base case (53%): SPX is below 7362.28 at 2026-11-18T15:45:05Z; the lean is too small and too event-bound to trade."
+      },
+      {
+        "asset": "EURUSD",
+        "source_json_pointer": "/native_synthesis/candidates/1/rationale",
+        "view": "Base case (50%): EURUSD is below 1.09993 at 2026-11-18T15:45:05Z; no directional view."
+      },
+      {
+        "asset": "USDJPY",
+        "source_json_pointer": "/native_synthesis/candidates/9/rationale",
+        "view": "Base case (51%): USDJPY is below 159.295 at 2026-11-18T15:45:05Z; no directional view."
+      },
+      {
+        "asset": "USOIL",
+        "source_json_pointer": "/native_synthesis/candidates/10/rationale",
+        "view": "Base case (52%): WTI is above 85.067 at 2026-11-18T15:45:05Z; the lean is too small to be a view."
+      },
+      {
+        "asset": "BTCUSD",
+        "source_json_pointer": "/native_synthesis/candidates/0/rationale",
+        "view": "Base case (58%): BTCUSD is below 64678.62 at 2026-11-18T18:30:00Z as the downtrend resumes from a three-day pause."
+      }
+    ],
+    "source_age_seconds_at_delivery": 6131.921715,
+    "source_pack_sha256": "e9ab00a7e22ea2431c04cbfd4c7eecb5cd32d10f56487ddd59052bacd5e2884f",
+    "text_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-18.md",
+    "text_sha256": "e60d29d57256cbb6d71a2edf4366176b4563734c78eb0f94c8778965b3998306",
+    "word_count": 124
+  },
+  "acceptance": {
+    "required_consecutive_mornings": 3,
+    "on_time_mornings_recorded_previously": [
+      "2026-11-16"
+    ],
+    "late_morning": "2026-11-17",
+    "late_morning_counts": false,
+    "current_consecutive_on_time_mornings": 0,
+    "today_note_and_chart_prepared_before_deadline": true,
+    "today_installed_cache_consumed_exact_files": true,
+    "today_live_home_display_verified": false,
+    "today_counts_toward_acceptance": false,
+    "cause": "DESK_GOLD_NOTE_PANEL_NOT_RENDERED; exact source files reach the installed cache, but the normal live home lacks the note/copy/chart panel. The 18 November 07:30 GMT+7 deadline has not passed at this observation.",
+    "remaining": "Web restores and observes the current note on the installed home before 07:30 GMT+7; then two future real on-time desk deliveries on 19 and 20 November. No backdating or schedule change.",
+    "next_due_utc": "2026-11-18T17:00:00Z",
+    "proposed_web_repair": "CC-652"
+  },
+  "updated_at_utc": "2026-11-17T17:29:08.837267+00:00",
+  "desk_readback": {
+    "observed_at_utc": "2026-11-17T17:29:08.837267+00:00",
+    "cache_path": "A:\\Capital Chronicle\\PrivateApp\\data\\jim-page.private.json",
+    "cache_sha256": "39b788b2edcae8cf73e2fadd997b1300a07a788f4d61eec298907bcc588be25e",
+    "cache_mtime_utc": "2026-11-17T17:28:41.777946+00:00",
+    "read_at_utc": "2026-11-17T17:28:26.713626Z",
+    "consumer_path": "A:\\Capital Chronicle\\PrivateApp\\builder\\tools\\product\\private_desk_overview_v1.py",
+    "consumer_sha256": "8ace53af10ba8bc36f0111451e1d27ef3826e63501c9f654316c83cfd77d5033",
+    "note_state": "READ",
+    "note_date": "2026-11-18",
+    "source": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-18.md",
+      "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-18.md"
+    },
+    "chart": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-18.png",
+      "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-18.png"
+    },
+    "exact_dated_note_text": true,
+    "exact_chart_path_and_hash": true,
+    "cache_observed_before_0730": true,
+    "refresh": "Existing installed desk refresh; no manual build, cache write, schedule or consumer change.",
+    "browser": {
+      "page_id": 190,
+      "url": "file:///A:/Capital%20Chronicle/PrivateApp/index.html",
+      "tab_group_id": "C6D6AF6CD986E1BE86EC3E6701D72DFB",
+      "tab_group_title": "codex/cc406-gold-note",
+      "observed_at_utc": "2026-11-17T17:29:08.837267+00:00",
+      "note_heading": "no matches",
+      "copy_note": "no matches",
+      "paired_chart": "no matches",
+      "book_route_also_lacks_note_panel": true
+    },
+    "ui_failure": {
+      "cause": "DESK_GOLD_NOTE_PANEL_NOT_RENDERED",
+      "owner": "Codex Web / Ops Product",
+      "proposed_item": "CC-652",
+      "installed_bundle_path": "A:\\Capital Chronicle\\PrivateApp\\app\\private-desk.js",
+      "installed_bundle_sha256": "8ee107086852a4abd8c293ca2da9655ed11c20a79af975c9e2a7837e7b66f9f0",
+      "finding": "Installed gold_note reader and legacy Vietnamese note/copy component remain present. The current home branch selects the newer first-screen component rather than the legacy component that renders gold_note. Neo confirms the normal home and book routes lack the note panel.",
+      "next_action": "Restore the existing note, chart and Copy note component on the live home route and read back its exact text before the morning deadline."
+    }
+  }
+}

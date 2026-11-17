@@ -1,5 +1,34 @@
 # CC-406 Vietnamese morning gold note
 
+## 18 November continuation
+
+The installed producer delivered a 124-word Vietnamese note and one inspected
+BLS chart at 00:23 GMT+7, before the 07:30 deadline. It uses Main's newest
+completed synthesis from the original 17 November capture. Gold's weak positive
+lean is explicitly insufficient for a directional view; the note preserves that
+judgment. All six market rows were read. Both printed CPI figures match their
+exact held official BLS spans, and the required final notice is present.
+
+The normal installed desk refresh consumed the exact dated Markdown and chart
+at 00:25 GMT+7. BrowserOS Neo then exposed a separate display failure: the
+current home and Book routes show neither the Vietnamese gold-note panel nor
+its Copy note control and chart. The installed reader and legacy note component
+remain present, but the current home selects a different first-screen component.
+CC-652 proposes that Web restore this existing CC-418 delivery. The repair does
+not require a new Publisher source, note, schedule or public post.
+
+Today's preparation and cache read are on time; an actual live-home display
+has not been verified and is not counted toward the three-morning acceptance.
+Yesterday's late note already reset the streak to zero. If Web restores and
+reads back today's panel before 07:30 GMT+7, 19 and 20 November remain the next
+two real on-time mornings. No future observation has been created.
+
+See [delivery, exact consumer readback and measured UI failure](resume-20261118.json)
+and the [20 passing targeted checks](resume-20261118-targeted.xml). The note and
+chart are in the existing runtime folder. This continuation changes no source
+code or schedule and sends no public post. Existing uncommitted files retain
+their original bytes.
+
 ## 17 November continuation
 
 The installed producer delivered a 123-word Vietnamese note and one inspected
