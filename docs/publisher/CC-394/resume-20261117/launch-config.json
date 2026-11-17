@@ -18,6 +18,16 @@
       "model": "NOT_OBSERVED",
       "effort": "NOT_OBSERVED",
       "cause": "Existing minute-consumer integration test did not isolate later editorial services; fixed before rerun."
+    },
+    {
+      "process_id": 41000,
+      "parent_pytest_process_id": 38028,
+      "created_at_utc": "2026-11-17T02:49:44.246661Z",
+      "status": "STOPPED_NO_SUPPORTED_RETURN",
+      "model": "NOT_OBSERVED",
+      "effort": "NOT_OBSERVED",
+      "cause": "Integration wrapper used operating cwd before merge; shell continued to old installed test after its preparation failed."
     }
-  ]
+  ],
+  "owned_test_process_cleanup": "NO_OWNED_TEST_OR_CHILD_REMAINS"
 }

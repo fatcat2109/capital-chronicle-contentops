@@ -121,6 +121,7 @@ save("live-consumer.json", {"observed_at_utc": clock(), "run_artifact_directory"
     "public_message_ids": sorted({str(r["scorecard"]["message_id"]) for r in runs
                                   if (r["scorecard"] or {}).get("message_id")}),
     "outbox_destinations_for_work_item": destinations, "scorecard_feed_outbox_count": feed_count,
+    "scorecard_feed_destination": posts.DESTINATION,
     "platform_dispatches_for_scorecard_work_item": dispatch_count,
     "object_binding": json.loads(store.get_outbox_message(scorecard.OBJECT)["payload"]),
     "latest_runs": runs[-3:], "public_writes_this_observation": 0})

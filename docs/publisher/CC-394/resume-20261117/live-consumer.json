@@ -1,7 +1,7 @@
 {
-  "observed_at_utc": "2026-11-17T02:41:41.865892+00:00",
+  "observed_at_utc": "2026-11-17T02:50:46.764050+00:00",
   "run_artifact_directory": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs",
-  "scorecard_run_records": 4145,
+  "scorecard_run_records": 4149,
   "scorecard_created_message_count": 1,
   "nonzero_extra_feed_post_records": 0,
   "public_message_ids": [
@@ -33,10 +33,10 @@
   },
   "latest_runs": [
     {
-      "at_utc": "2026-11-17T02:38:40.961962Z",
+      "at_utc": "2026-11-17T02:43:18.527730Z",
       "status": "OK",
       "cause": null,
-      "export_generated_at_utc": "2026-11-17T02:36:00.726568Z",
+      "export_generated_at_utc": "2026-11-17T02:41:59.812679Z",
       "scorecard": {
         "characters": 3947,
         "counts": {
@@ -58,10 +58,10 @@
       }
     },
     {
-      "at_utc": "2026-11-17T02:40:24.966556Z",
+      "at_utc": "2026-11-17T02:43:45.495693Z",
       "status": "OK",
       "cause": null,
-      "export_generated_at_utc": "2026-11-17T02:38:59.798747Z",
+      "export_generated_at_utc": "2026-11-17T02:43:00.078688Z",
       "scorecard": {
         "characters": 3947,
         "counts": {
@@ -83,10 +83,10 @@
       }
     },
     {
-      "at_utc": "2026-11-17T02:41:03.773618Z",
+      "at_utc": "2026-11-17T02:50:22.287780Z",
       "status": "OK",
       "cause": null,
-      "export_generated_at_utc": "2026-11-17T02:40:00.234425Z",
+      "export_generated_at_utc": "2026-11-17T02:48:59.797220Z",
       "scorecard": {
         "characters": 3947,
         "counts": {

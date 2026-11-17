@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-11-17T02:51:40.787548+00:00",
+  "base": "d85d096d58a4abc5fcf09d9ce9b621fc87530351",
+  "delivery_commit_at_verification": "67a7b5c793d46a7a01eee453de82a06b89999b9b",
+  "operating_head_at_verification": "67a7b5c793d46a7a01eee453de82a06b89999b9b",
+  "branch": "backlog/cc-394-public-readback-20261117",
+  "integration": "FAST_FORWARD",
+  "live_tag": "contentops-live-20261117-cc394-readback",
+  "rollback_tag": "contentops-rollback-20261117-cc394-readback",
+  "production_code_changes": 0,
+  "test_file_changes": 1,
+  "installed_targeted_tests_passed": 5,
+  "installed_source_matches": true,
+  "live_consumer_confirmed": true,
+  "public_bot_text_matches": true,
+  "public_message_id": "134",
+  "preserved_files": {
+    "builder": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    }
+  },
+  "live_public_writes": 0,
+  "schedule_changes": 0,
+  "app_restarts": 0,
+  "status": "ACCEPTANCE_COMPLETE",
+  "final_evidence_commit": "Descendant recording this verification; final live tag and BACKLOG Result identify it."
+}

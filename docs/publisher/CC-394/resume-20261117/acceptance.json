@@ -1,5 +1,5 @@
 {
-  "observed_at_utc": "2026-11-17T02:49:03.528207+00:00",
+  "observed_at_utc": "2026-11-17T02:51:40.689248+00:00",
   "status": "ACCEPTANCE_PASSED",
   "implementation_already_live": true,
   "live_consumer": "scripts/plan_status_posts.py --publish -> DurablePublicationCoordinator.update_pinned_result_scorecard",
@@ -39,7 +39,7 @@
   "newest_score_latency_seconds": 9805.300383,
   "historical_missed_deadline_cause": "PLAN_EXPORT_STALE",
   "historical_delay_evidence": "../resume-20261115/live-consumer.json",
-  "scorecard_run_records": 4145,
+  "scorecard_run_records": 4149,
   "bootstrap_messages": 1,
   "extra_result_feed_posts": 0,
   "targeted_tests": {
@@ -51,5 +51,11 @@
   "test_isolation_fix": true,
   "live_public_writes_this_run": 0,
   "schedule_changes": 0,
-  "choice": "Reuse the installed consumer and exact pinned object; isolate the stale integration test; retain the historical upstream export delay."
+  "choice": "Reuse the installed consumer and exact pinned object; isolate the stale integration test; retain the historical upstream export delay.",
+  "installed_tests": {
+    "passed": 5,
+    "deselected": 25,
+    "artifact": "installed-targeted-tests.xml"
+  },
+  "interrupted_test_attempts": 2
 }

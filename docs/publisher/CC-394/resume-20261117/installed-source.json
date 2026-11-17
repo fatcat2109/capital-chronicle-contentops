@@ -1,6 +1,6 @@
 {
-  "observed_at_utc": "2026-11-17T02:41:41.940263+00:00",
-  "operating_head": "d85d096d58a4abc5fcf09d9ce9b621fc87530351",
+  "observed_at_utc": "2026-11-17T02:50:46.856740+00:00",
+  "operating_head": "67a7b5c793d46a7a01eee453de82a06b89999b9b",
   "imported_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\pinned_result_scorecard_v1.py",
   "source_files": {
     "live_contentops/pinned_result_scorecard_v1.py": {
@@ -24,8 +24,8 @@
       "matches_after_newline_normalization": true
     },
     "tests/test_pinned_result_scorecard_cc394.py": {
-      "builder_sha256": "5344a3d7aff41b18bbb58d73e643f0a16bb9f05ce75e835915b9ceda87a95a50",
-      "operating_sha256": "5344a3d7aff41b18bbb58d73e643f0a16bb9f05ce75e835915b9ceda87a95a50",
+      "builder_sha256": "bd9882ce9e87cec84e4cbca8480fea8fdd9c08ddb75d8859931230644eed5404",
+      "operating_sha256": "bd9882ce9e87cec84e4cbca8480fea8fdd9c08ddb75d8859931230644eed5404",
       "matches_after_newline_normalization": true
     }
   },

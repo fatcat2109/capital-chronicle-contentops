@@ -27,7 +27,7 @@ one bootstrap message, only object 134, no extra scorecard feed posts, and no
 scorecard feed outbox or platform dispatch rows. Its latest completed runs
 confirm the pinned text. [Task readback](live-consumer-task.json) and
 [installed-source hashes](installed-source.json) identify the operating root
-and its actual consumers. No publishing command, schedule change, application
+and its actual consumers. No live publishing command, schedule change, application
 restart or signed-in Telegram access was needed.
 
 [Targeted checks](targeted-tests.xml): **5 passed, 25 deselected**, in one
@@ -35,13 +35,17 @@ pytest process. They cover identical win/loss form, the limit and totals,
 one-object updates, the existing minute consumer's use of Main rows through
 the coordinator, and separate observation clocks.
 
-The first test attempt was stopped without a terminal test result after its
-minute-consumer test reached later editorial services and spawned an unintended
-Codex CLI child. Both owned processes exited. The test now stubs those companion
-services, uses fake Main rows, and fails if a subprocess is attempted; the
-successful rerun took 3.10 seconds. Production publishing code is unchanged.
+Two test attempts were stopped without terminal test results after the old
+minute-consumer test reached later editorial services and spawned unintended
+Codex CLI children. The second attempt followed a working-directory error that
+prevented integration while the shell continued to the old installed test.
+Those owned tests and children exited. The test now stubs the companion
+services, uses fake Main rows, and fails if a subprocess is attempted. The
+corrected checks passed in 3.10 seconds in the worktree and
+[4.99 seconds in the operating root](installed-targeted-tests.xml).
+Production publishing code is unchanged.
 [Launch evidence](launch-config.json) records configured `gpt-6.1-sol/max` as
-`CONFIGURED_NOT_OBSERVED`, plus the interrupted child's unobserved model and effort.
+`CONFIGURED_NOT_OBSERVED`, plus the interrupted children's unobserved models and efforts.
 
 The delivery reuses the installed scorecard because a replacement message or
 formatter would not supply the missing public observation. Existing modified
