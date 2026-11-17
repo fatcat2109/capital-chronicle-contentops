@@ -116,16 +116,19 @@ def test_piece_three_repaired_fx_and_exact_sides_reach_native_compiler():
         assert any("/markets/" + market + "/sides/" in r["pointer"] for r in report)
     # Read actual public cells against each named column, including the baseline.
     rows = [line.split("|")[1:-1] for line in piece["article"]["substack_body_markdown"].splitlines()
-            if line.startswith("| ") and "trades;" not in line]
+            if line.startswith("| ") and not line.startswith("| Market and rule")]
     order = ["XAUUSD", "USOIL", "US500", "BTCUSD", "EURUSD", "USDJPY"]
     for index, market in enumerate(order):
-        for cells, behaviour in [(rows[index], "WITH_YARDSTICK_5"),
-                                 (rows[index + 6], "AGAINST_YARDSTICK_5")]:
-            for cell, side in zip(cells[1:3], ("LONG", "SHORT")):
+        for start, behaviour in [(index * 3, "WITH_YARDSTICK_5"),
+                                 (18 + index * 2, "AGAINST_YARDSTICK_5")]:
+            for offset, side in enumerate(("LONG", "SHORT")):
+                cells = rows[start + offset]
                 source = markets[market]["sides"][behaviour][side]
-                assert cell.strip() == f"{source[0]}; {source[2]}"
+                assert side.lower() in cells[0]
+                assert cells[1].strip() == f"{source[0]}; {source[2]}"
         baseline = markets[market]["always"]["WITH_YARDSTICK_5"]["ALWAYS_LONG"]
-        assert rows[index][3].strip() == f"{baseline[0]}; {baseline[2]}"
+        assert "always long" in rows[index * 3 + 2][0]
+        assert rows[index * 3 + 2][1].strip() == f"{baseline[0]}; {baseline[2]}"
     from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
     payloads = build_native_derivative_payloads(article=piece["article"], selection={},
         canonical_url="https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the-trend-question",

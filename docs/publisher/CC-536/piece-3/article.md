@@ -30,14 +30,26 @@ Each cell gives that rule's trade count, then its mean net R per trade.
 Always long enters whenever free, with the trend rule's stop, target and holding period.
 Its entry dates and denominator differ from the conditional rules.
 
-| Market | Trend long (trades; mean R) | Trend short (trades; mean R) | Always long (trades; mean R) |
-|---|---:|---:|---:|
-| Gold futures | 230; 0.109 | 119; -0.055 | 476; 0.087 |
-| Oil futures | 180; 0.115 | 153; -0.092 | 476; 0.001 |
-| S&P 500 futures | 301; 0.032 | 77; -0.155 | 476; 0.093 |
-| Bitcoin | 281; 0.197 | 218; -0.048 | 704; 0.086 |
-| Euro / US dollar | 162; -0.026 | 185; -0.079 | 480; -0.035 |
-| US dollar / yen | 214; 0.032 | 119; -0.099 | 461; 0.03 |
+| Market and rule | Trades; mean net R |
+|---|---:|
+| Gold futures — trend long | 230; 0.109 |
+| Gold futures — trend short | 119; -0.055 |
+| Gold futures — always long | 476; 0.087 |
+| Oil futures — trend long | 180; 0.115 |
+| Oil futures — trend short | 153; -0.092 |
+| Oil futures — always long | 476; 0.001 |
+| S&P 500 futures — trend long | 301; 0.032 |
+| S&P 500 futures — trend short | 77; -0.155 |
+| S&P 500 futures — always long | 476; 0.093 |
+| Bitcoin — trend long | 281; 0.197 |
+| Bitcoin — trend short | 218; -0.048 |
+| Bitcoin — always long | 704; 0.086 |
+| Euro / US dollar — trend long | 162; -0.026 |
+| Euro / US dollar — trend short | 185; -0.079 |
+| Euro / US dollar — always long | 480; -0.035 |
+| US dollar / yen — trend long | 214; 0.032 |
+| US dollar / yen — trend short | 119; -0.099 |
+| US dollar / yen — always long | 461; 0.03 |
 
 Bitcoin's trend-long mean was 0.32R in the first half and 0.05R in the later half.
 Its trend-short mean changed from 0.01R to -0.09R.
@@ -53,14 +65,20 @@ Being long at all paid in those rising markets; a trend filter gets no automatic
 These are separate side records, with the tighter stop described above.
 Each cell again gives trades, then mean net R per trade.
 
-| Market | Against-trend long (trades; mean R) | Against-trend short (trades; mean R) |
-|---|---:|---:|
-| Gold futures | 119; -0.013 | 230; -0.154 |
-| Oil futures | 153; 0.013 | 180; -0.265 |
-| S&P 500 futures | 77; 0.015 | 301; -0.143 |
-| Bitcoin | 218; 0.04 | 281; -0.169 |
-| Euro / US dollar | 185; 0.017 | 162; -0.094 |
-| US dollar / yen | 119; 0.068 | 214; -0.112 |
+| Market and rule | Trades; mean net R |
+|---|---:|
+| Gold futures — long against trend | 119; -0.013 |
+| Gold futures — short against trend | 230; -0.154 |
+| Oil futures — long against trend | 153; 0.013 |
+| Oil futures — short against trend | 180; -0.265 |
+| S&P 500 futures — long against trend | 77; 0.015 |
+| S&P 500 futures — short against trend | 301; -0.143 |
+| Bitcoin — long against trend | 218; 0.04 |
+| Bitcoin — short against trend | 281; -0.169 |
+| Euro / US dollar — long against trend | 185; 0.017 |
+| Euro / US dollar — short against trend | 162; -0.094 |
+| US dollar / yen — long against trend | 119; 0.068 |
+| US dollar / yen — short against trend | 214; -0.112 |
 
 The short side lost on average in every market under both rules.
 The positive full-period against-trend long means were negative in the earlier half, except for the S&P, which lost later.
