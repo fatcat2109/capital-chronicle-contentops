@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.375" timestamp="2026-11-17T13:48:26.815713+07:00" hostname="J-P"><testcase classname="tests.test_plan_status_posts_cc306" name="test_a_refused_export_is_named_and_queues_nothing" time="1.664"><failure message="AssertionError: assert {'cause': 'PL...T_UNREADABLE'} == {'cause': 'PL...T_UNREADABLE'}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Differing items:&#10;  {'cause': 'PLAN_EXPORT_UNREADABLE:AttributeError'} != {'cause': 'PLAN_EXPORT_UNREADABLE:PUBLIC_PLAN_STATUS_SCHEMA_INVALID'}&#10;  Use -v to get more diff">tests\test_plan_status_posts_cc306.py:185: in test_a_refused_export_is_named_and_queues_nothing
+    assert result == {"status": "EXPORT_UNREADABLE", "cause": "PLAN_EXPORT_UNREADABLE:PUBLIC_PLAN_STATUS_SCHEMA_INVALID"}
+E   AssertionError: assert {'cause': 'PL...T_UNREADABLE'} == {'cause': 'PL...T_UNREADABLE'}
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'cause': 'PLAN_EXPORT_UNREADABLE:AttributeError'} != {'cause': 'PLAN_EXPORT_UNREADABLE:PUBLIC_PLAN_STATUS_SCHEMA_INVALID'}
+E     Use -v to get more diff</failure></testcase></testsuite></testsuites>

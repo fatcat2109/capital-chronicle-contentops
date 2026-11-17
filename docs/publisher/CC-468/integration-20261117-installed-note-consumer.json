@@ -1,0 +1,41 @@
+{
+  "observed_at_utc": "2026-11-17T06:50:23.489236+00:00",
+  "entry_kind": "one bounded explicit installed consumer invocation, not a claimed scheduled tick",
+  "module_root": "A:\\Capital Chronicle\\ContentOps",
+  "daily_note": {
+    "state": "NOTE_WAITING_SOURCE",
+    "day_et": "2026-11-17",
+    "source_causes": [
+      {
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "cause": "NOTE_SOURCE_CAPTURE_CHANGED"
+      },
+      {
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "cause": "NOTE_SOURCE_CAPTURE_CHANGED"
+      },
+      {
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "cause": "NOTE_SOURCE_CAPTURE_CHANGED"
+      },
+      {
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "cause": "NOTE_SOURCE_CAPTURE_CHANGED"
+      },
+      {
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "cause": "NOTE_SOURCE_CAPTURE_CHANGED"
+      },
+      {
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "cause": "NOTE_DATA_CUTOFF_EXPIRED_OR_FUTURE"
+      },
+      {
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "cause": "NOTE_DATA_CUTOFF_EXPIRED_OR_FUTURE"
+      }
+    ]
+  },
+  "existing_run_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261117.jsonl",
+  "schedule_changes": 0
+}

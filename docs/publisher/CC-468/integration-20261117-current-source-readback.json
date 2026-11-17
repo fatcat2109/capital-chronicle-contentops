@@ -1,0 +1,43 @@
+[
+  {
+    "family": "NFP",
+    "observed_moves": 527,
+    "gaps": {
+      "EXACT_RELEASE_BASELINE_ABSENT": 630,
+      "EXACT_ENDPOINT_ABSENT": 40,
+      "M1_SIGNAL_NOT_HELD": 27
+    },
+    "preparation_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\editorial-preparation\\nfp\\source-0707b6f45b692236",
+    "source_data_cutoff_utc": "2026-11-17T04:13:47.164560Z",
+    "tables": 7,
+    "full_source_preserved": true
+  },
+  {
+    "family": "FOMC",
+    "observed_moves": 160,
+    "gaps": {
+      "EXACT_RELEASE_CLOCK_NOT_HELD": 1044,
+      "EXACT_RELEASE_BASELINE_ABSENT": 456,
+      "EXACT_ENDPOINT_ABSENT": 8,
+      "M1_SIGNAL_NOT_HELD": 24
+    },
+    "preparation_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\editorial-preparation\\fomc\\source-ee6760de164023eb",
+    "source_data_cutoff_utc": "2026-11-17T04:13:47.164560Z",
+    "tables": 13,
+    "full_source_preserved": true
+  },
+  {
+    "family": "PPI",
+    "observed_moves": 521,
+    "gaps": {
+      "EXACT_ENDPOINT_ABSENT": 59,
+      "EXACT_RELEASE_BASELINE_ABSENT": 618,
+      "M1_SIGNAL_NOT_HELD": 21,
+      "HORIZON_NOT_COMPLETED": 5
+    },
+    "preparation_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\editorial-preparation\\ppi\\source-4b46b3f7b3354fac",
+    "source_data_cutoff_utc": "2026-11-17T04:13:47.164560Z",
+    "tables": 7,
+    "full_source_preserved": true
+  }
+]
