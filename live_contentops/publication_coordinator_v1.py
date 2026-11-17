@@ -4181,7 +4181,8 @@ class DurablePublicationCoordinator:
             # Native tool transcripts and editorial packets are not dispatch
             # obligations. Filter through the existing destination index before
             # loading payloads; CC-425 measured a gigabyte history scan here.
-            destinations = {"substack", "site", "linkedin_company", *V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+            from live_contentops.destination_transport_registry_v1 import canonical_transport_registry
+            destinations = {"site", *(r["destination_key"] for r in canonical_transport_registry()["surfaces"])}
             messages = [row for destination in sorted(destinations)
                         for row in self.store.list_outbox_messages(destination=destination)]
             messages.sort(key=lambda row: (row["created_at"], row["message_id"]))

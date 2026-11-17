@@ -1,0 +1,5 @@
+{
+  "classification": "CC425_RELEASE_ERROR",
+  "cause": "CC074_EXISTING_PUBLICATION_RECOVERY_REQUIRED",
+  "error_class": "ValueError"
+}

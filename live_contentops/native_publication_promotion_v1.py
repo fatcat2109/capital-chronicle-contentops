@@ -118,10 +118,10 @@ def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
         raise ValueError("CC074_TARGET_HAS_ACTIVE_WORK")
     uncertain = conn.execute(
         "SELECT d.*,o.destination,o.work_item_id,o.payload FROM platform_dispatches d "
-        "LEFT JOIN outbox_messages o USING(message_id) WHERE "
+        "LEFT JOIN outbox_messages o USING(message_id) WHERE o.status!='PLAN_POST_SETTLED' AND ("
         "UPPER(d.status) LIKE '%UNKNOWN%' OR UPPER(d.status) LIKE '%AMBIG%' OR "
         "UPPER(d.status) LIKE '%STARTED%' OR UPPER(d.status) LIKE '%PENDING%' OR "
-        "UPPER(d.status) LIKE '%SENDING%'"
+        "UPPER(d.status) LIKE '%SENDING%')"
     ).fetchall()
     pending_reconciliation = conn.execute(
         "SELECT 1 FROM reconciliations WHERE status IN ('PENDING','STARTED','UNKNOWN_WRITE') LIMIT 1"

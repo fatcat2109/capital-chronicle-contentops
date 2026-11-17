@@ -181,8 +181,14 @@ def test_promotion_checks_exact_store_binding_without_repeated_full_storage_scan
     assert item["work_item_id"] == work and rows == [] and reviews == []
     operation = {"item": {"work_item_id": "CONTROLLED-next"}, "pin": {"article_identity": "CONTROLLED-next"},
                  "rows": [], "reviews": []}
+    source.register_outbox_message(message_id="CONTROLLED-settled-note", work_item_id=work,
+        destination="substack_notes", payload='{"plan_status_post":"CONTROLLED-prior"}', status="PLAN_POST_SETTLED")
+    with source.get_connection() as conn:
+        conn.execute("INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at) VALUES (?,?,?,?,?)",
+                     ("CONTROLLED-settled-dispatch", "CONTROLLED-settled-note", "substack_notes", "UNKNOWN_WRITE", "2026-11-17T00:00:00Z"))
     with reader.get_read_only_connection() as conn:
         assert _target_guards(conn, operation, {"run_id": "CONTROLLED-next"}, {"message_id": "CONTROLLED-new"}) is False
+        assert conn.execute("SELECT status FROM platform_dispatches WHERE dispatch_id='CONTROLLED-settled-dispatch'").fetchone()[0] == "UNKNOWN_WRITE"
     assert not any("integrity_check" in q.lower() or "foreign_key_check" in q.lower() for q in statements)
     other = source.create_work_item(story_id="CONTROLLED-other", work_item_id="CONTROLLED-other",
                                     title="Controlled existing article", target_surface="TEST")
@@ -207,6 +213,8 @@ def test_recovery_uses_indexed_publication_rows_and_retains_unknown_obligation(t
         destination="substack", payload='{"work_item_id":"CONTROLLED-cpi","plan_hash":"CONTROLLED-plan"}', status="UNKNOWN_WRITE")
     store.register_outbox_message(message_id="CONTROLLED-tool", work_item_id="CONTROLLED-cpi",
         destination="internal:native-neo-tool", payload='{"transcript":"not a dispatch"}', status="EDITORIAL_INTERNAL")
+    store.register_outbox_message(message_id="CONTROLLED-note", work_item_id="CONTROLLED-cpi",
+        destination="substack_notes", payload='{"work_item_id":"CONTROLLED-cpi","plan_hash":"CONTROLLED-note-plan"}', status="UNKNOWN_WRITE")
     original = store.list_outbox_messages
     def indexed(**kwargs):
         assert kwargs.get("destination"), "Recovery must query the destination index first"
@@ -214,5 +222,5 @@ def test_recovery_uses_indexed_publication_rows_and_retains_unknown_obligation(t
     monkeypatch.setattr(store, "list_outbox_messages", indexed)
     co = DurablePublicationCoordinator(store=store, transport_runtime=None)
     rows = co._recovery_messages()
-    assert [r["message_id"] for r in rows] == ["CONTROLLED-public"]
-    assert rows[0]["status"] == "UNKNOWN_WRITE"
+    assert {r["message_id"] for r in rows} == {"CONTROLLED-public", "CONTROLLED-note"}
+    assert all(r["status"] == "UNKNOWN_WRITE" for r in rows)
