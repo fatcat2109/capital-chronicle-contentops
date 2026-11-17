@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="7" time="23.319" timestamp="2026-11-17T14:02:56.422172+07:00" hostname="J-P"><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_queues_a_complete_alert_without_page_or_variants" time="1.355" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes" time="5.760" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_missing_chart_sends_nothing_and_source_changes_fail" time="0.955" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_later_states_use_the_same_api_consumer_without_editorial" time="6.897" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_actual_minute_entry_sends_alerts_before_models_and_browser[False]" time="1.053"><failure message="sqlite3.OperationalError: no such table: leases">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4676/test_actual_minute_entry_sends0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000020AA4410160&gt;
+dry = False
+
+    @pytest.mark.parametrize("dry", [False, True])
+    def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, monkeypatch, dry):
+        import importlib.util
+        import io
+        spec = importlib.util.spec_from_file_location("cc543_minute", Path(__file__).parents[1] / "scripts/plan_status_posts.py")
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        from live_contentops import x_reply_bot_v1 as bot, x_reply_tabs_v1 as tabs
+        from live_contentops import event_timestamp_v1, event_pack_v1, audience_collection_v1, model_invocation_usage_v1
+        from live_contentops import pinned_result_scorecard_v1, neo_endpoint_executor_v1, call_followups_v1
+        monkeypatch.setattr(call_followups_v1, "minute_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
+        order = []
+        monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {"status": "OK"})
+        def publish(*a, **kw):
+            order.append("immediate" if kw.get("immediate_only") else "later-destinations")
+            return {"status": "OK", "posts": []}
+        def page(*a, **k):
+            order.append("model-page")
+            raise RuntimeError("MODEL_QUOTA_UNAVAILABLE")
+        monkeypatch.setattr(posts, "publish_ready", publish)
+        monkeypatch.setattr(posts, "read_export", lambda *a, **k: {})
+        monkeypatch.setattr(posts, "record_run", lambda *a, **k: tmp_path / "runs.jsonl")
+        monkeypatch.setattr(editorial, "run_due", page)
+        monkeypatch.setattr(bot, "refresh_due", lambda *a, **k: order.append("private-replies") or {})
+        monkeypatch.setattr(bot, "observe_due", lambda *a, **k: {})
+        monkeypatch.setattr(tabs, "refresh_due", lambda *a, **k: {})
+        monkeypatch.setattr(pages, "resume_discord_links", lambda *a, **k: [])
+        monkeypatch.setattr(neo_endpoint_executor_v1, "resume_stored_requests", lambda *a, **k: {"status": "BROWSER_UNAVAILABLE"})
+        monkeypatch.setattr(pinned_result_scorecard_v1, "refresh_scorecard", lambda *a, **k: {})
+        monkeypatch.setattr(event_timestamp_v1, "maintain_timestamps", lambda: {})
+        monkeypatch.setattr(event_pack_v1, "run_due_packs", lambda *a, **k: {})
+        monkeypatch.setattr(audience_collection_v1, "run_collection", lambda *a, **k: {"collected": 0})
+        monkeypatch.setattr(model_invocation_usage_v1, "import_native_invocations", lambda *a, **k: {})
+        class Output(io.StringIO):
+            def reconfigure(self, **kw):
+                pass
+        output = Output()
+        monkeypatch.setattr(sys, "stdout", output)
+&gt;       assert cli.main(["--store", str(tmp_path / "cli.sqlite3"), "--publish", *(["--dry-run"] if dry else [])]) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_plan_state_alerts_cc543.py:238: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\plan_status_posts.py:163: in main
+    result["substack_daily_note"] = daily_note(store,
+live_contentops\substack_daily_note_v1.py:257: in run_due
+    lease = store.acquire_lease(key, owner, ttl_seconds=180)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000020AA5D64180&gt;
+lease_key = 'substack-daily-note-2026-11-17'
+owner_ref = 'cc468-aa74c599638d4c5d887b7fc5069e2671', ttl_seconds = 180
+work_item_id = None
+
+    def acquire_lease(self, lease_key: str, owner_ref: str, ttl_seconds: int = 30, work_item_id: Optional[str] = None) -&gt; Dict[str, Any]:
+        now = self._get_now(); now_iso = now.isoformat(); expires = (now + timedelta(seconds=ttl_seconds)).isoformat(); conn = self.get_connection()
+        try:
+&gt;           conn.execute("BEGIN IMMEDIATE"); existing = conn.execute("SELECT * FROM leases WHERE lease_key=?", (lease_key,)).fetchone()
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           sqlite3.OperationalError: no such table: leases
+
+live_contentops\durable_operational_store_v1.py:909: OperationalError</failure></testcase><testcase classname="tests.test_plan_state_alerts_cc543" name="test_actual_minute_entry_sends_alerts_before_models_and_browser[True]" time="0.007" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_unknown_api_acceptance_is_read_back_without_republishing" time="2.909" /></testsuite></testsuites>
