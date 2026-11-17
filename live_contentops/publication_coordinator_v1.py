@@ -2609,6 +2609,66 @@ class DurablePublicationCoordinator:
                                              "cause": type(image_error).__name__}))
         return status
 
+    def cancel_unclaimed_status_post(self, message_id, *, reason):
+        """Cancel an untouched status dispatch atomically; a claimed write needs readback."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        conn = self.store.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)).fetchone()
+            if not row or row["destination"].startswith("internal:"):
+                raise ValueError("EXACT_STATUS_POST_DISPATCH_REQUIRED")
+            intent = json.loads(row["payload"])
+            if not intent.get("plan_status_post") or intent["plan_status_post"] != row["work_item_id"]:
+                raise ValueError("EXACT_STATUS_POST_DISPATCH_REQUIRED")
+            ids = self._ids(row["work_item_id"], intent["plan_hash"], row["destination"])
+            if ids["message_id"] != message_id:
+                raise ValueError("EXACT_STATUS_POST_INTENT_REQUIRED")
+            readback_id = "cancel_unclaimed_" + ids["dispatch_id"]
+            prior = conn.execute("SELECT readback_data FROM readbacks WHERE readback_id=?", (readback_id,)).fetchone()
+            if prior and row["status"] == DEFINITE_NO_WRITE:
+                result = json.loads(prior["readback_data"])
+                if result.get("reason_code") != reason:
+                    raise ValueError("STATUS_POST_CANCELLATION_REASON_CHANGED")
+                conn.commit()
+                return result
+            dispatch = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (ids["dispatch_id"],)).fetchone()
+            if row["status"] != "READY" or dispatch is not None:
+                raise ValueError("STATUS_POST_ALREADY_CLAIMED_READBACK_REQUIRED")
+            requests = []
+            for native in conn.execute("SELECT * FROM outbox_messages WHERE destination='internal:native-neo-tool' AND work_item_id=?", (row["work_item_id"],)):
+                request = (json.loads(native["payload"]).get("request") or {})
+                if request.get("destination") != row["destination"] or request.get("action") != "PUBLISH":
+                    continue
+                if request.get("intent_sha256") != sha256_of(intent):
+                    raise ValueError("EXACT_STATUS_POST_INTENT_REQUIRED")
+                for kind in ("started", "response"):
+                    key = "native-neo-" + sha256_of([row["work_item_id"], request["request_sha256"], kind])
+                    if conn.execute("SELECT 1 FROM outbox_messages WHERE message_id=?", (key,)).fetchone():
+                        raise ValueError("STATUS_POST_ALREADY_CLAIMED_READBACK_REQUIRED")
+                requests.append(native["message_id"])
+            now = datetime.now(timezone.utc).isoformat()
+            for key in requests:
+                conn.execute("UPDATE outbox_messages SET status='NATIVE_NEO_SUPERSEDED' WHERE message_id=?", (key,))
+            conn.execute("UPDATE outbox_messages SET status=? WHERE message_id=?", (DEFINITE_NO_WRITE, message_id))
+            conn.execute("INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at) VALUES (?,?,?,?,?)",
+                         (ids["dispatch_id"], message_id, row["destination"], DEFINITE_NO_WRITE, now))
+            conn.execute("INSERT INTO reconciliations (reconciliation_id,work_item_id,status,reconciled_at) VALUES (?,?,?,?) "
+                         "ON CONFLICT(reconciliation_id) DO UPDATE SET status=excluded.status,reconciled_at=excluded.reconciled_at",
+                         (ids["reconciliation_id"], row["work_item_id"], reason, now))
+            result = {"message_id": message_id, "dispatch_id": ids["dispatch_id"], "destination": row["destination"],
+                      "status": DEFINITE_NO_WRITE, "reason_code": reason, "public_write_performed": False,
+                      "intent_sha256": sha256_of(intent)}
+            conn.execute("INSERT INTO readbacks (readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+                         (readback_id, ids["dispatch_id"], _canonical_json(result), now))
+            conn.commit()
+            return result
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
+
     def cancel_unclaimed_note(self, message_id, *, reason):
         """End an exact queued Note with zero write, preserving all request bytes."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of

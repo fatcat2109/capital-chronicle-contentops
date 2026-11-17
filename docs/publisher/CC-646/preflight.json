@@ -1,0 +1,76 @@
+{
+  "item": "CC-646",
+  "observed_at_utc": "2026-11-17T12:29:00.152319+00:00",
+  "base_sha": "11eac1310fb9837f243a359e98b73478c4a43843",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "runtime_model_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "original_key": "plan-result-post-f5ecb8c81fed4b645e17580901ac7ff0",
+  "original_payload_sha256": "7a178e16408370f164df8c146c118433b08c8d13623caca440a6437039a39e0c",
+  "original_rows": [
+    {
+      "message_id": "outbox_898f92143aa08dc4ec9e4d2ce007ef53",
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_898f92143aa08dc4ec9e4d2ce007ef53",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1572145031173906523",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572145031173906523",
+      "payload_sha256": "5808272f4039356caea2984f3df5148e458b454ba4b0bd95278e0dbb7a7290f7"
+    },
+    {
+      "message_id": "outbox_b0412d722deb90461f2444cc1b4baa45",
+      "destination": "facebook_page",
+      "status": "READY",
+      "dispatch_id": null,
+      "dispatch_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "payload_sha256": "d87769e5d965a553f6f1cdaf9b2bfc00f142ad5da12e7fa52256cbfcfb9decb4"
+    },
+    {
+      "message_id": "outbox_946c1bec34a0404f6aceef5d5bb4653c",
+      "destination": "instagram_business",
+      "status": "READY",
+      "dispatch_id": null,
+      "dispatch_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "payload_sha256": "1647d2aa120421360a76eef006ca85fcf79a73847326b1e9eb4b9a87f72ebed2"
+    },
+    {
+      "message_id": "outbox_c9b78a917d4d8cefa0f4e48cdcba42d0",
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_c9b78a917d4d8cefa0f4e48cdcba42d0",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "189",
+      "public_object_url": "https://t.me/CapitalChronicle/189",
+      "payload_sha256": "5b0987bae1c8b0bd2de70cf12a4e98f77fe9a8e39eb90d5e62b27514dd84494c"
+    },
+    {
+      "message_id": "outbox_12ea82f6e386fcef210372ff7f0489db",
+      "destination": "threads",
+      "status": "READY",
+      "dispatch_id": null,
+      "dispatch_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "payload_sha256": "4e06c6b27386525360d9971fa86ea85eac11cbf921c11e8c47de82293153a86e"
+    },
+    {
+      "message_id": "outbox_6145c8101fc4e158e1e4cbd01e59e9de",
+      "destination": "x",
+      "status": "READY",
+      "dispatch_id": null,
+      "dispatch_status": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "payload_sha256": "e96cce1efe1472b3462593845105f473ab8ff0eb81981580428d354345e09e04"
+    }
+  ],
+  "correction_body": "USD/JPY: correction. Our 02:00 ET update said this plan was not triggered. That was wrong. Price traded inside the entry zone, 159.02–159.38, from 01:29 ET until the entry window closed at 02:00 ET, so the entry condition was met. A fault in our own entry system meant no position was opened. That was our failure, not the market's.",
+  "final_text": "USD/JPY: correction. Our 02:00 ET update said this plan was not triggered. That was wrong. Price traded inside the entry zone, 159.02–159.38, from 01:29 ET until the entry window closed at 02:00 ET, so the entry condition was met. A fault in our own entry system meant no position was opened. That was our failure, not the market's.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+  "final_text_sha256": "02093479680911b7482eb0e2ccd5da605e9154511dfa35ced28d52abe7d5ed13",
+  "choice": "Reuse the original public plan chart captured 17 Nov 01:29 ET, unchanged and credited, for both exact correction replies; no after-event data or new model-authored claims."
+}

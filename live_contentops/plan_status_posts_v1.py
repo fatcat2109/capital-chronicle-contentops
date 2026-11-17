@@ -1209,8 +1209,10 @@ def _x_pack(text: str, limit: int, *, preserve_lines: bool = False) -> list[str]
 
 
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
-    """The exact copy per destination: the post and the notices, no link (decision 83). With a
-    TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
+    """Exact destination copy, with the mandatory credit for a retained chart."""
+    if row.get("correction_reply_contract"):
+        from .plan_result_correction_cc646 import destination_payloads as correction_payloads
+        return correction_payloads(row, card_id=card_id)
     if row.get("cc603_contract"):
         from .call_followups_v1 import destination_payloads as followup_payloads
         return followup_payloads(row, card_id=card_id, chart_credit=chart_credit)
@@ -1299,6 +1301,10 @@ def _part_payloads(payloads: dict, part: int = 0, *, repeat_media: bool = False)
 
 def card_article(row: Mapping[str, Any]) -> dict:
     at = _utc(row["at_utc"])
+    if row.get("correction_reply_contract"):
+        return {"title": row["title"], "dek": _split(row["text"])[0],
+                "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
+                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     if row.get("cc603_contract"):
         return {"title": row["title"], "dek": _split(row["text"])[0],
                 "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
@@ -1418,6 +1424,12 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         prior_assets = (prior_context.get("media") or {}).get("assets") or []
         card = prior_assets[0] if prior_assets else None
         chart_credit = bool(prior_context.get("chart_credit"))
+    elif row.get("correction_reply_contract"):
+        # Reuse the issued pre-event chart, retaining its source clock and credit.
+        from .plan_result_correction_cc646 import validate
+        validate(store, row)
+        card, chart_credit = row["retained_chart"], True
+        folder.mkdir(parents=True, exist_ok=True)
     elif row.get("cc603_contract"):
         from .tradingview_snapshot_v1 import validate_snapshot_asset
         card = cc603_asset
@@ -1528,6 +1540,9 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    if row.get("correction_reply_contract"):
+        from .plan_result_correction_cc646 import validate
+        validate(store, row)
     # Decision 82 / CC-459: exact readback remains available for old objects,
     # while a fresh write can never send the parked drawn levels picture.
     context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
