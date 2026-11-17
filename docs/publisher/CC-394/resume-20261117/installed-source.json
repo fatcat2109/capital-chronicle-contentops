@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-17T02:41:41.940263+00:00",
+  "operating_head": "d85d096d58a4abc5fcf09d9ce9b621fc87530351",
+  "imported_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\pinned_result_scorecard_v1.py",
+  "source_files": {
+    "live_contentops/pinned_result_scorecard_v1.py": {
+      "builder_sha256": "aec8cd86c2ba724597a0f04fdb7987141030ededa88f1aad8ab01281b824f483",
+      "operating_sha256": "aec8cd86c2ba724597a0f04fdb7987141030ededa88f1aad8ab01281b824f483",
+      "matches_after_newline_normalization": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "builder_sha256": "90f0ed516230787bb8f631323323ebf39d908a8074be8529385bfa57fc1bfb18",
+      "operating_sha256": "e996c0bcb120ecdfe41c850325de88df854a7353cce871f64db624dc19cfa44f",
+      "matches_after_newline_normalization": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "builder_sha256": "e3df8e20bbdb0b857dce53015562e2d1e782a1950ae3765e00b29489eaf8c0f7",
+      "operating_sha256": "e3df8e20bbdb0b857dce53015562e2d1e782a1950ae3765e00b29489eaf8c0f7",
+      "matches_after_newline_normalization": true
+    },
+    "scripts/plan_status_posts.py": {
+      "builder_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "operating_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "matches_after_newline_normalization": true
+    },
+    "tests/test_pinned_result_scorecard_cc394.py": {
+      "builder_sha256": "5344a3d7aff41b18bbb58d73e643f0a16bb9f05ce75e835915b9ceda87a95a50",
+      "operating_sha256": "5344a3d7aff41b18bbb58d73e643f0a16bb9f05ce75e835915b9ceda87a95a50",
+      "matches_after_newline_normalization": true
+    }
+  },
+  "production_source_changes": 0
+}

@@ -1,0 +1,113 @@
+{
+  "observed_at_utc": "2026-11-17T02:41:41.865892+00:00",
+  "run_artifact_directory": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs",
+  "scorecard_run_records": 4145,
+  "scorecard_created_message_count": 1,
+  "nonzero_extra_feed_post_records": 0,
+  "public_message_ids": [
+    "134"
+  ],
+  "outbox_destinations_for_work_item": [
+    {
+      "destination": "internal:pinned-result-scorecard",
+      "rows": 13
+    },
+    {
+      "destination": "internal:pinned-result-scorecard-anchor",
+      "rows": 1
+    },
+    {
+      "destination": "internal:pinned-result-scorecard-object",
+      "rows": 1
+    },
+    {
+      "destination": "internal:pinned-result-scorecard-readback",
+      "rows": 13
+    }
+  ],
+  "scorecard_feed_outbox_count": 0,
+  "platform_dispatches_for_scorecard_work_item": 0,
+  "object_binding": {
+    "message_id": "134",
+    "public_url": "https://t.me/CapitalChronicle/134"
+  },
+  "latest_runs": [
+    {
+      "at_utc": "2026-11-17T02:38:40.961962Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-17T02:36:00.726568Z",
+      "scorecard": {
+        "characters": 3947,
+        "counts": {
+          "EXPIRED": 37,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 5,
+          "scored": 6,
+          "total": 42
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+        "shown": 23,
+        "status": "CONFIRMED"
+      }
+    },
+    {
+      "at_utc": "2026-11-17T02:40:24.966556Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-17T02:38:59.798747Z",
+      "scorecard": {
+        "characters": 3947,
+        "counts": {
+          "EXPIRED": 37,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 5,
+          "scored": 6,
+          "total": 42
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+        "shown": 23,
+        "status": "CONFIRMED"
+      }
+    },
+    {
+      "at_utc": "2026-11-17T02:41:03.773618Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-17T02:40:00.234425Z",
+      "scorecard": {
+        "characters": 3947,
+        "counts": {
+          "EXPIRED": 37,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 5,
+          "scored": 6,
+          "total": 42
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+        "shown": 23,
+        "status": "CONFIRMED"
+      }
+    }
+  ],
+  "public_writes_this_observation": 0,
+  "scorecard_feed_destination": "internal:plan-status-post"
+}
