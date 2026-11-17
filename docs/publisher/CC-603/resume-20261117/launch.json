@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-17T00:30:14.8290905Z",
+  "branch": "backlog/cc-603-call-followups-resume-20261117",
+  "base": "527f5ca55d9ac5b4ba1e7f3266f6d9e41a4b8b6d",
+  "launches": [
+    {
+      "process_id": 27188,
+      "process_started_utc": "2026-11-17T00:16:50.2269640Z",
+      "configured_model": "gpt-6.1-sol",
+      "configured_effort": "max",
+      "classification": "CONFIGURED_NOT_OBSERVED",
+      "configured_arguments_observed": true,
+      "runtime_model_telemetry_available": false
+    }
+  ],
+  "editorial_model_calls": 0,
+  "note": "Existing authored analysis and notices retained; the continuation supplies two exact source URLs only."
+}

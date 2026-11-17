@@ -323,6 +323,17 @@ def validate_write(coordinator, intent, destination):
         article, _, _ = article_inputs(intent)
     else:
         article = intent.get("article") or {}
+    if intent.get("plan_status_post"):
+        from .plan_status_posts_v1 import _row_payload
+        row = _row_payload(coordinator.store, intent["plan_status_post"])
+        if row.get("kind") == "missing_links_reply" and row.get("cc603_contract") == "CC603_V1":
+            # CC-603, Ops Product 16 Nov: one missing-line reply under the
+            # already illustrated Note, preserving the original and its chart.
+            from .call_followups_v1 import validate_link_reply, destination_payloads
+            parent = validate_link_reply(coordinator.store, row)
+            if destination != "substack_notes" or intent.get("native_payload") != destination_payloads(row, card_id=None)[destination]:
+                raise ImageContractError("CC603_LINK_REPLY_COPY_OR_PARENT_CHANGED")
+            return {"policy": "CC603_MISSING_LINK_REPLY", "illustrated_parent_url": parent["public_object_url"]}
     markets, macro = scope(coordinator.store, intent, article)
     if intent.get("output_dir"):
         from ._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs

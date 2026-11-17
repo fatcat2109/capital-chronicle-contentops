@@ -19,6 +19,7 @@ from . import plan_status_posts_v1 as posts
 from . import pinned_result_scorecard_v1 as scorecard
 
 CONTRACT = "CC603_V1"
+LINK_REPLY = "missing_links_reply"
 CR_CALLS = frozenset("a0380280 d7eddc84 576f57e9 52a48ae1 8479dce1 acc5894c 5a6538c6 5820e1f7 ddf94be7 0bf2a58c 106875eb".split())
 ZONE_CORRECTION = "cc359-zone-correction-20261109"
 GOLD_CORRECTION = "cc603-gold-timing-correction-20261112"
@@ -178,7 +179,20 @@ def post_complete(store,row,*,key=None):
                 if d['status'] == 'DISPATCH_CONFIRMED' and d.get('public_object_id') and d.get('public_object_url')
                 and 'reconciliation_'+d['dispatch_id'].removeprefix('dispatch_') in reconciled}
     required = row.get("cc603_destinations") or posts.API_DESTINATIONS
-    if not set(required) <= complete_destinations(key):
+    completed = complete_destinations(key)
+    # Ops Product, 16 Nov: a dropped line is supplied once in the same thread,
+    # never by editing/reposting the call. Keep the root's incomplete readback.
+    if set(required) - completed == {"substack_notes"}:
+        held = store.get_outbox_message(key + "-missing-links")
+        if held:
+            reply = json.loads(held["payload"])
+            try:
+                validate_link_reply(store, reply)
+                if post_complete(store, reply):
+                    completed.add("substack_notes")
+            except (ValueError, KeyError):
+                pass
+    if not set(required) <= completed:
         return False
     if row.get("cc603_contract"):
         for destination,payload in destination_payloads(row,card_id="bound-image",chart_credit=True).items():
@@ -197,6 +211,74 @@ def _save_post(store, row):
     store.register_outbox_message(message_id=row["key"], work_item_id=row["key"],
         destination=posts.DESTINATION, payload=_json(row), status="CC603_PREPARED")
     return row
+
+
+def validate_link_reply(store, row):
+    """A text-only continuation can supply links, never replace missing facts/media."""
+    from .neo_destination_handoff_v1 import _text
+    parent = row["link_reply_parent"]
+    original = posts._row_payload(store, parent["key"])
+    if (row.get("kind") != LINK_REPLY or row.get("cc603_destinations") != ["substack_notes"]
+            or row.get("key") != parent["key"] + "-missing-links"
+            or original.get("kind") != "call_followup" or original.get("cc603_contract") != CONTRACT
+            or _hash(original) != parent["row_sha256"]):
+        raise ValueError("CC603_LINK_REPLY_PARENT_CHANGED")
+    dispatch = store.get_platform_dispatch(parent["dispatch_id"]) or {}
+    if (dispatch.get("message_id") != parent["message_id"] or dispatch.get("platform") != "substack_notes"
+            or dispatch.get("status") != "DISPATCH_CONFIRMED"
+            or dispatch.get("public_object_id") != parent["public_object_id"]
+            or dispatch.get("public_object_url") != parent["public_object_url"]):
+        raise ValueError("CC603_LINK_REPLY_EXACT_PARENT_REQUIRED")
+    readback = next((r for r in store.list_readbacks_for_dispatch(parent["dispatch_id"])
+                     if r["readback_id"] == parent["readback_id"]), None)
+    observed = json.loads(readback["readback_data"])["readback"] if readback else {}
+    checks = observed.get("content_binding_checks") or {}
+    if (not observed.get("write_exists") or not observed.get("identity_match")
+            or observed.get("observed_public_object_id") != parent["public_object_id"]
+            or observed.get("observed_public_object_url") != parent["public_object_url"]
+            or not observed.get("meaningful_media_visible") or checks.get("media_match") is not True
+            or checks.get("thread_match") is not True):
+        raise ValueError("CC603_LINK_REPLY_ILLUSTRATED_PARENT_READBACK_REQUIRED")
+    urls = [original["candidate"]["original_url"], original["record"]["url"]]
+    expected = destination_payloads(original, card_id="parent-chart", chart_credit=True)["substack_notes"]["full_text"]
+    for url in urls:
+        expected = expected.replace(url, "")
+    if _text(expected) != _text(parent["observed_text"]):
+        raise ValueError("CC603_LINK_REPLY_OTHER_CONTENT_MISSING")
+    text = f"Original: {urls[0]}\nRecord: {urls[1]}\n\n{posts.PUBLIC_NOTICE} {posts.CONFLICTS_NOTICE}"
+    if row.get("text") != text:
+        raise ValueError("CC603_LINK_REPLY_COPY_CHANGED")
+    return parent
+
+
+def queue_missing_links_reply(store, key, *, observed_text, now=None):
+    """One durable reply to an identified Note whose only dropped text is its URLs."""
+    reply_key = key + "-missing-links"
+    if store.get_outbox_message(reply_key):
+        return {"status": "EXISTING", "key": reply_key}
+    original = posts._row_payload(store, key)
+    parents = [d for d in store.get_dispatches_for_work_item(key)
+               if d["platform"] == "substack_notes" and d.get("public_object_id")]
+    if len(parents) != 1:
+        raise ValueError("CC603_LINK_REPLY_EXACT_PARENT_REQUIRED")
+    parent = parents[0]
+    readbacks = store.list_readbacks_for_dispatch(parent["dispatch_id"])
+    if not readbacks:
+        raise ValueError("CC603_LINK_REPLY_ILLUSTRATED_PARENT_READBACK_REQUIRED")
+    urls = [original["candidate"]["original_url"], original["record"]["url"]]
+    row = {"schema_version": posts.SCHEMA, "cc603_contract": CONTRACT, "key": reply_key,
+        "kind": LINK_REPLY, "symbol": original["symbol"], "state": "FOLLOW_UP",
+        "at_utc": (now or datetime.now(timezone.utc)).isoformat(),
+        "title": "Links to the original call and pinned record", "conditional_calls": [],
+        "text": f"Original: {urls[0]}\nRecord: {urls[1]}\n\n{posts.PUBLIC_NOTICE} {posts.CONFLICTS_NOTICE}",
+        "cc603_destinations": ["substack_notes"], "counts_as_article": False, "new_post_only": True,
+        "authority": "CC-603; Ops Product 16 Nov; Jim decisions 136 and 84: reply once, no edit",
+        "link_reply_parent": {**{k: parent[k] for k in ("dispatch_id", "message_id", "public_object_id", "public_object_url")},
+            "key": key, "row_sha256": _hash(original), "readback_id": readbacks[-1]["readback_id"],
+            "observed_text": observed_text}}
+    validate_link_reply(store, row)
+    _save_post(store, row)
+    return {"status": "QUEUED", "key": reply_key}
 
 
 def prepare_gold_correction(store, *, now=None):
@@ -308,6 +390,9 @@ def destination_payloads(row, *, card_id, chart_credit=False):
         text = "\n\n".join(s for s in (body, credit, notices) if s)
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id] if card_id else []}
+        if row.get("kind") == LINK_REPLY:
+            parent = row["link_reply_parent"]
+            payload.update(reply_to_id=parent["public_object_id"], reply_to_url=parent["public_object_url"])
         if destination == "x" and posts._x_length(text) > 280:
             chunks = _whole_parts(body,"",280-(len(credit)+2 if credit else 0))
             if credit:
@@ -324,6 +409,9 @@ def destination_payloads(row, *, card_id, chart_credit=False):
 
 def validate_intent(store, row, intent):
     """Actual-write facts: no changed original, uncorrected record or invented hit."""
+    if row.get("kind") == LINK_REPLY:
+        validate_link_reply(store, row)
+        return
     if row["kind"] == "correction":
         if _hash(posts._row_payload(store, row["original_key"])) != row["original_sha256"]:
             raise ValueError("CC603_ORIGINAL_BYTES_CHANGED")
@@ -587,8 +675,13 @@ def held_chart(store, row, *, root=ROOT):
 
 def minute_due(store, load_export, **options):
     """An owed historical correction does not depend on a fresh Main export."""
-    export = load_export() if corrections_complete(store) else {"status":{"plans":[]}}
+    export = load_export() if corrections_complete(store) and not pending_link_replies(store) else {"status":{"plans":[]}}
     return run_due(store,export,**options)
+
+
+def pending_link_replies(store):
+    return [r["message_id"] for r in store.list_outbox_messages(destination=posts.DESTINATION)
+            if r["status"] == "CC603_PREPARED" and json.loads(r["payload"]).get("kind") == LINK_REPLY]
 
 
 def run_record(result):
@@ -641,7 +734,10 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
     from .native_neo_executor_v1 import NativeNeoInputRequired
     correction = prepare_gold_correction(store, now=now)
     results = []
-    if not corrections_complete(store):
+    replies = pending_link_replies(store)
+    if replies:
+        keys = replies
+    elif not corrections_complete(store):
         keys = [correction["key"]]
     else:
         article_calls, article_checks = article_candidates(store)
@@ -665,15 +761,17 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
         if post_complete(store,row):
             store.set_outbox_status(key,"PUBLISHED")
             continue
-        asset = asset_for(row) if asset_for else held_chart(store,row,root=root)
-        if not asset:
+        link_reply = row.get("kind") == LINK_REPLY
+        asset = None if link_reply else asset_for(row) if asset_for else held_chart(store,row,root=root)
+        if not asset and not link_reply:
             results.append({"key":key,"status":"MEDIA_PENDING","cause":"CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
                 "media_request":{"symbol":row["symbol"],"binding_path":str(Path(root)/key/"reviewed_chart.json"),
                     "visible_from_utc":(row.get("candidate") or {}).get("published_at_utc"),
                     "visible_to_utc":(row.get("price_check") or {}).get("resolved_at_utc")}})
             continue
         destinations = sorted(row["cc603_destinations"],key=lambda d:(d in {"x","substack_notes"},d))
-        plan = delivery_plan(store,row,asset,root=root,host=host,destinations=destinations)
+        plan = (posts.prepare_post(store,key,root=root,host=host,destinations=tuple(destinations)) if link_reply
+                else delivery_plan(store,row,asset,root=root,host=host,destinations=destinations))
         if coordinator_for:
             coordinator = coordinator_for(key,Path(plan["output_dir"]))
         else:
@@ -723,5 +821,9 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
             results[-1]['portrait_publication']=coordinator.publish_plan(key,portrait_plan)
         if post_complete(store,row):
             store.set_outbox_status(key,"PUBLISHED")
+            if link_reply:
+                parent = row["link_reply_parent"]["key"]
+                if post_complete(store, posts._row_payload(store, parent)):
+                    store.set_outbox_status(parent, "PUBLISHED")
         break  # One actual publication slice per existing minute, not one blocked candidate.
     return {"status":"OK","corrections_complete":corrections_complete(store),"posts":results}
