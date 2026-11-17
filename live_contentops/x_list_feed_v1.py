@@ -36,6 +36,8 @@ import time
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 
 from live_contentops import x_list_ingest_capture_v1 as capture_v1
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_dir
@@ -51,6 +53,8 @@ WINDOW_HOURS = 24.0
 INTERVAL_SECONDS = 60.0
 RELAUNCH_AFTER_SECONDS = 1800.0
 OWNER_RECHECK_SECONDS = 1800.0
+PAGE_SOCKET_FAILURE_LIMIT = 3
+TAB_REPLACEMENT_COOLDOWN_SECONDS = 600.0
 SCROLL_WHEN_NEW_AT_LEAST = 15
 FLAGS_NAME = "x_list_shock_flags_v1.json"
 FAST_SQUAWKS = ("FirstSquawk", "financialjuice", "DeItaone", "wallstengine", "zerohedge")
@@ -312,12 +316,15 @@ class MinuteCapture:
     def __init__(self, *, module: Any = None, cdp_url: str = capture_v1.CDP_URL_DEFAULT,
                  client_factory: Callable[..., Any] = capture_v1._DirectCDPPageClient,
                  targets_fn: Callable[..., list] | None = None,
-                 now_fn: Callable[[], datetime] | None = None) -> None:
+                 now_fn: Callable[[], datetime] | None = None,
+                 http_open: Callable[..., Any] = urlopen) -> None:
         self.module = module or capture_v1.load_data_ingestion_module()
         self.cdp_url = cdp_url
         self.client_factory = client_factory
         self.targets_fn = targets_fn or capture_v1.list_cdp_page_targets
         self.now_fn = now_fn or (lambda: datetime.now(timezone.utc))
+        self.http_open = http_open
+        self.preferred_target_id: str | None = None
         self.keys: set[str] = set()
         self._load_recent_keys()
 
@@ -380,6 +387,43 @@ class MinuteCapture:
                     written.append(row)
         return written
 
+    def replace_hung_target(self, target_id: str) -> dict[str, Any]:
+        """CC-595: open the locked list first, then close only its failed target."""
+        result: dict[str, Any] = {"state": "TAB_REPLACEMENT_FAILED", "old_target_id": target_id,
+                                  "attempted_utc": _iso(self.now_fn())}
+        try:
+            # A responding catalog proves the browser endpoint is still available. Recheck
+            # the failed id's current URL: it may have become a login or another page.
+            targets = self.targets_fn(cdp_url=self.cdp_url, timeout_seconds=5.0)
+            target = next((row for row in targets if str(row.get("id") or "") == target_id), None)
+            url = str((target or {}).get("url") or "")
+            if capture_v1._visible_url_is_login_redirect(url):
+                return {**result, "state": "REAUTH_REQUIRED", "detail": "LOGIN_REDIRECT_OBSERVED"}
+            if target is None or url.split("?", 1)[0].rstrip("/") != capture_v1.TARGET_LIST_URL:
+                return {**result, "state": "TAB_REPLACEMENT_SKIPPED", "detail": "FAILED_TARGET_NOT_LIST_PAGE"}
+            request = Request(f"{self.cdp_url}/json/new?{quote(capture_v1.TARGET_LIST_URL, safe='')}",
+                              method="PUT")
+            with self.http_open(request, timeout=5.0) as response:
+                fresh = json.loads(response.read().decode("utf-8"))
+            new_id = str(fresh.get("id") or "") if isinstance(fresh, dict) else ""
+            new_url = str(fresh.get("url") or "") if isinstance(fresh, dict) else ""
+            login = capture_v1._visible_url_is_login_redirect(new_url)
+            if not new_id or any(str(row.get("id") or "") == new_id for row in targets) or (
+                    not login and new_url.split("?", 1)[0].rstrip("/") != capture_v1.TARGET_LIST_URL):
+                return {**result, "detail": "NEW_LIST_TARGET_INVALID"}
+            result["new_target_id"] = new_id
+            # If closing the old tab fails, the next capture still uses the new one.
+            self.preferred_target_id = new_id
+            if login:
+                return {**result, "state": "REAUTH_REQUIRED", "detail": "LOGIN_REDIRECT_OBSERVED"}
+            request = Request(f"{self.cdp_url}/json/close/{quote(target_id, safe='')}")
+            with self.http_open(request, timeout=5.0) as response:
+                if response.read().decode("utf-8").strip() != "Target is closing":
+                    return {**result, "detail": "CDP_TARGET_CLOSE_NOT_ACKNOWLEDGED"}
+            return {**result, "state": "TAB_REPLACED", "replaced_utc": _iso(self.now_fn())}
+        except Exception as exc:  # noqa: BLE001 - no retry here, including an uncertain create
+            return {**result, "detail": capture_v1.classify_capture_exception(exc, phase="TAB_REPLACEMENT")[1]}
+
     def capture_once(self, *, max_seconds: float = 40.0,
                      settle_seconds: float = capture_v1.RELOAD_SETTLE_MS / 1000.0,
                      scroll_seconds: float = capture_v1.SCROLL_WAIT_MS / 1000.0) -> dict[str, Any]:
@@ -392,18 +436,33 @@ class MinuteCapture:
             result["duration_seconds"] = round(time.monotonic() - started, 2)
             return result
 
+        def page_call(call: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:
+            try:
+                return call(*args, **kwargs)
+            except Exception as exc:
+                from websocket import WebSocketException
+                if isinstance(exc, (TimeoutError, ConnectionError, WebSocketException)):
+                    result["page_socket_failed"] = True
+                raise
+
         try:
-            target = capture_v1.select_reusable_x_target(self.targets_fn(cdp_url=self.cdp_url, timeout_seconds=5.0))
+            targets = self.targets_fn(cdp_url=self.cdp_url, timeout_seconds=5.0)
+            target = next((dict(row) for row in targets
+                           if self.preferred_target_id and row.get("id") == self.preferred_target_id
+                           and (str(row.get("url") or "").split("?", 1)[0].rstrip("/") == capture_v1.TARGET_LIST_URL
+                                or capture_v1._visible_url_is_login_redirect(str(row.get("url") or "")))), None)
+            target = target or capture_v1.select_reusable_x_target(targets)
         except Exception as exc:  # noqa: BLE001 - the feed records the cause and keeps running
             return finish(state="CDP_UNAVAILABLE",
                           detail=capture_v1.classify_capture_exception(exc, phase="CDP_TARGET_DISCOVERY")[1])
         if target is None:
             return finish(state="NO_X_PAGE", detail="NO_REUSABLE_X_PAGE_TARGET")
+        result["target_id"] = str(target.get("id") or "")
         if capture_v1._visible_url_is_login_redirect(str(target.get("url") or "")):
             return finish(state="REAUTH_REQUIRED", detail="LOGIN_REDIRECT_OBSERVED")
         try:
-            client = self.client_factory(str(target["webSocketDebuggerUrl"]),
-                                         timeout_seconds=capture_v1.DIRECT_CDP_COMMAND_TIMEOUT_SECONDS)
+            client = page_call(self.client_factory, str(target["webSocketDebuggerUrl"]),
+                               timeout_seconds=capture_v1.DIRECT_CDP_COMMAND_TIMEOUT_SECONDS)
         except Exception as exc:  # noqa: BLE001
             return finish(state="CDP_UNAVAILABLE",
                           detail=capture_v1.classify_capture_exception(exc, phase="CDP_TARGET_CONNECT")[1])
@@ -430,7 +489,7 @@ class MinuteCapture:
             url = pending.pop(request_id, None)
             if url is None:
                 return
-            body = client.command("Network.getResponseBody", {"requestId": request_id}, timeout_seconds=10.0)
+            body = page_call(client.command, "Network.getResponseBody", {"requestId": request_id}, timeout_seconds=10.0)
             text = str(body.get("body") or "")
             raw = base64.b64decode(text) if body.get("base64Encoded") else text.encode("utf-8")
             tweets = self.module.recursive_tweet_extractor(json.loads(raw.decode("utf-8")))
@@ -442,26 +501,26 @@ class MinuteCapture:
         def drain(seconds: float) -> None:
             end = min(deadline, time.monotonic() + seconds)
             while time.monotonic() < end:
-                event = client.event(timeout_seconds=min(0.5, max(0.01, end - time.monotonic())))
+                event = page_call(client.event, timeout_seconds=min(0.5, max(0.01, end - time.monotonic())))
                 if event is not None:
                     consume(event)
 
         try:
-            client.command("Page.enable")
-            client.command("Network.enable")
+            page_call(client.command, "Page.enable")
+            page_call(client.command, "Network.enable")
             if capture_v1.TARGET_LIST_ID in str(target.get("url") or ""):
-                client.command("Page.reload", timeout_seconds=30.0)
+                page_call(client.command, "Page.reload", timeout_seconds=30.0)
             else:
-                client.command("Page.navigate", {"url": capture_v1.TARGET_LIST_URL}, timeout_seconds=30.0)
+                page_call(client.command, "Page.navigate", {"url": capture_v1.TARGET_LIST_URL}, timeout_seconds=30.0)
             capture_v1.record_browser_interaction_event(
                 "navigation", reason="X_LIST_FEED_MINUTE_RELOAD", destination="x_ingestion")
             drain(settle_seconds)
             if result["new_rows"] >= SCROLL_WHEN_NEW_AT_LEAST:
-                client.command("Runtime.evaluate", {
+                page_call(client.command, "Runtime.evaluate", {
                     "expression": "window.scrollTo(0, document.body.scrollHeight)", "returnByValue": True})
                 drain(scroll_seconds)
-            evaluated = client.command("Runtime.evaluate", {"expression": "window.location.href",
-                                                            "returnByValue": True})
+            evaluated = page_call(client.command, "Runtime.evaluate", {"expression": "window.location.href",
+                                                                       "returnByValue": True})
             value = evaluated.get("result") if isinstance(evaluated.get("result"), dict) else {}
             if capture_v1._visible_url_is_login_redirect(str(value.get("value") or "")):
                 return finish(state="REAUTH_REQUIRED", detail="LOGIN_REDIRECT_OBSERVED")
@@ -505,6 +564,44 @@ class FeedRunner:
         self.tail = SidecarTail()
         self.last_launch: float | None = None
         self.owner_checked: float | None = None
+        self.failed_target_id: str | None = None
+        self.failed_minute: int | None = None
+        self.page_socket_failures = 0
+        # Keep the ten-minute cooldown across ordinary runner restarts in the existing
+        # feed, without another state file. Older feeds have no replacement record.
+        self.last_tab_replacement: dict[str, Any] = {}
+        try:
+            previous = json.loads(Path(feed_path).read_text(encoding="utf-8"))
+            capture = previous.get("capture") if isinstance(previous, dict) else None
+            retained = capture.get("last_tab_replacement") if isinstance(capture, dict) else None
+            if isinstance(retained, dict):
+                self.last_tab_replacement = dict(retained)
+        except (OSError, ValueError):
+            pass
+
+    def _recover_hung_tab(self, captured: dict[str, Any], *, moment: datetime) -> None:
+        target_id = str(captured.get("target_id") or "")
+        minute = int(moment.timestamp() // INTERVAL_SECONDS)
+        if captured.get("page_socket_failed") and target_id:
+            if target_id != self.failed_target_id or self.failed_minute not in {minute, minute - 1}:
+                self.page_socket_failures = 1
+            elif self.failed_minute != minute:
+                self.page_socket_failures += 1
+            self.failed_target_id, self.failed_minute = target_id, minute
+        else:
+            self.failed_target_id, self.failed_minute, self.page_socket_failures = None, None, 0
+        captured["page_socket_failure_streak"] = self.page_socket_failures
+        last_attempt = _parse_utc(self.last_tab_replacement.get("attempted_utc"))
+        cooling_down = last_attempt is not None and (
+            moment - last_attempt).total_seconds() < TAB_REPLACEMENT_COOLDOWN_SECONDS
+        if self.page_socket_failures >= PAGE_SOCKET_FAILURE_LIMIT and not cooling_down:
+            replacement = self.capture.replace_hung_target(target_id)
+            self.last_tab_replacement = replacement
+            captured["tab_replacement"] = replacement
+            if replacement["state"] == "REAUTH_REQUIRED":
+                captured.update(state="REAUTH_REQUIRED", detail="LOGIN_REDIRECT_OBSERVED")
+        if self.last_tab_replacement:
+            captured["last_tab_replacement"] = self.last_tab_replacement
 
     def _browser_ready(self) -> dict[str, Any]:
         now = self.clock()
@@ -534,6 +631,8 @@ class FeedRunner:
         if browser["ready"]:
             if self.capture is None:
                 self.capture = self.capture_factory()
+                if hasattr(self.capture, "preferred_target_id"):
+                    self.capture.preferred_target_id = self.last_tab_replacement.get("new_target_id")
             captured = self.capture.capture_once()
             if captured.get("state") == "NO_X_PAGE":
                 self.bootstrap.probe_ingestion_session()
@@ -541,6 +640,7 @@ class FeedRunner:
             captured = {"state": "BROWSER_NOT_READY", "attempted_utc": _iso(self.now_fn()),
                         "new_rows": 0, "browser": browser.get("browser"), "detail": browser.get("detail")}
         moment = self.now_fn()
+        self._recover_hung_tab(captured, moment=moment)
         feed = build_feed(now=moment, capture=captured, tail=self.tail, sidecar_dir=self.sidecar_dir)
         written = write_feed(self.feed_path, feed)
         flags = shock_flags(feed, now=moment)
