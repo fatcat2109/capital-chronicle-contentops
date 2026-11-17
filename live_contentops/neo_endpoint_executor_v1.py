@@ -714,8 +714,17 @@ class NeoBrowserDriver:
             "observed_identity":request["expected_identity"],"observed_text":"\n\n".join(r["observed_text"] for r in thread),
             "content_verified":True,"observed_thread":thread}
         if request.get("quote_parent"):
-            result.update(observed_quote_parent_id=root.get("quote_parent_id"),
-                          observed_quote_parent_url=root.get("quote_parent_url"))
+            edge = self.client.run(page, "quote_card", quote_parent=request["quote_parent"], public_url=root["public_object_url"])
+            if edge.get("matches") and not edge.get("public_object_url"):
+                # X's quote card is a visible button without an href. Follow
+                # that exact card and observe the actual source permalink.
+                self.client.act(page, "click", ref=self._ref(page, edge.get("role") or "button", {"CC467 observed quote source"}))
+                self.client.wait(page, 'article[data-testid="tweet"]')
+                edge = self.client.run(page, "quote_source", quote_parent=request["quote_parent"])
+                self.client.call("navigate", {"page":page, "url":root["public_object_url"]})
+            if edge.get("matches"):
+                result.update(observed_quote_parent_id=edge.get("public_object_id"),
+                              observed_quote_parent_url=edge.get("public_object_url"))
         # A reply's parent must actually occur on the exact rendered thread.
         parent = request.get("reply_parent")
         if parent and any(r["public_object_url"] == parent["public_object_url"] for r in candidates):

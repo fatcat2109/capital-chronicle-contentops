@@ -137,7 +137,8 @@ def quote_parent(row):
     day_end = datetime.combine(replies.clock(row["created_at_utc"]).astimezone(LOCAL).date() + timedelta(days=1),
                                datetime.min.time(), LOCAL).astimezone(timezone.utc)
     return {"public_object_id": row["target_id"], "public_object_url": row["target_url"],
-        "source_text": row["target_text"], "deadline_at_utc": min(start + timedelta(seconds=MAX_SECONDS), day_end).isoformat()}
+        "source_text": row["target_text"], "source_posted_at_utc": row["source_posted_at_utc"],
+        "deadline_at_utc": min(start + timedelta(seconds=MAX_SECONDS), day_end).isoformat()}
 
 
 def stage(store, row, *, now):

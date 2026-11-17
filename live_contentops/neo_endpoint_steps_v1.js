@@ -341,8 +341,30 @@ if (input.phase === 'quote_source') {
     const button = source?.querySelector('[data-testid="retweet"]');
     const matches = !!button && norm(text) === norm(parent.source_text);
     if (matches) button.setAttribute('aria-label','CC467 source quote menu');
-    return {matches};
+    const url = source && Array.from(source.querySelectorAll('a[href] time'))
+      .map(t => t.closest('a').href).find(u=>u===parent.public_object_url);
+    return {matches, public_object_url:url, public_object_id:url?.match(/status\/(\d+)/)?.[1]};
   }, input.quote_parent));
+}
+
+if (input.phase === 'quote_card') {
+  return unwrap(await page.evaluateInPage(data => {
+    const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
+    const scope = data.public_url ? Array.from(document.querySelectorAll('article[data-testid="tweet"]'))
+      .find(e => e.querySelector('a[href*="/status/"] time')?.closest('a').href === data.public_url)
+      : document.querySelector('[role="dialog"]');
+    const parent = data.parent;
+    const handle = new URL(parent.public_object_url).pathname.split('/')[1];
+    const card = scope && Array.from(scope.querySelectorAll('button,[role="button"],[role="link"],[data-testid="quoteTweet"],[data-testid="card.wrapper"]'))
+      .find(e => e.getClientRects().length && Array.from(e.querySelectorAll('[data-testid="tweetText"]'))
+        .some(t => norm(t.innerText) === norm(parent.source_text))
+        && e.innerText.toLowerCase().includes('@'+handle.toLowerCase())
+        && Array.from(e.querySelectorAll('time')).some(t => Math.abs(Date.parse(t.getAttribute('datetime'))-Date.parse(parent.source_posted_at_utc)) < 1000));
+    const url = card && Array.from(card.querySelectorAll('a[href]')).find(a=>a.href===parent.public_object_url)?.href;
+    if (card && !url) card.setAttribute('aria-label','CC467 observed quote source');
+    return {matches:!!card, role:card?.getAttribute('role') || (card?.tagName==='BUTTON' ? 'button' : 'link'),
+      public_object_url:url || null, public_object_id:url?.match(/status\/(\d+)/)?.[1] || null};
+  }, {parent:input.quote_parent,public_url:input.public_url}));
 }
 
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
@@ -411,9 +433,11 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
     const quote = unwrap(await page.evaluateInPage(parent => {
       const dialog = document.querySelector('[role="dialog"]');
       const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
-      const card = dialog && Array.from(dialog.querySelectorAll('[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
-        .find(e => Array.from(e.querySelectorAll('a[href]')).some(a => a.href === parent.public_object_url)
-          && Array.from(e.querySelectorAll('[data-testid="tweetText"]')).some(t => norm(t.innerText) === norm(parent.source_text)));
+      const handle = new URL(parent.public_object_url).pathname.split('/')[1];
+      const card = dialog && Array.from(dialog.querySelectorAll('button,[role="button"],[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
+        .find(e => e.innerText.toLowerCase().includes('@'+handle.toLowerCase())
+          && Array.from(e.querySelectorAll('[data-testid="tweetText"]')).some(t => norm(t.innerText) === norm(parent.source_text))
+          && Array.from(e.querySelectorAll('time')).some(t => Math.abs(Date.parse(t.getAttribute('datetime'))-Date.parse(parent.source_posted_at_utc)) < 1000));
       const chart = dialog && Array.from(dialog.querySelectorAll('[data-testid="attachments"] img, [data-testid="mediaPreview"] img'))
         .some(e => e.complete && e.naturalWidth > 0);
       return {matches:!!card && !!chart, deadline:Date.parse(parent.deadline_at_utc)};
@@ -445,9 +469,9 @@ if (input.phase === 'readback') {
       const url = time && time.closest('a').href;
       const text = e.querySelector('[data-testid="tweetText"]');
       const postLinks = links(e);
-      const quoted = Array.from(e.querySelectorAll('[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
+      const quoted = Array.from(e.querySelectorAll('button,[role="button"],[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
         .find(card => card !== e && card.querySelector('[data-testid="tweetText"]')
-          && Array.from(card.querySelectorAll('a[href] time')).some(t => t.closest('a').href !== url));
+          && Array.from(card.querySelectorAll('time')).some(t => !t.closest('a') || t.closest('a').href !== url));
       const quotedTime = quoted && Array.from(quoted.querySelectorAll('a[href] time'))
         .find(t => t.closest('a').href !== url);
       const quotedUrl = quotedTime?.closest('a').href;
