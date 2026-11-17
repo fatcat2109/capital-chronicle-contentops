@@ -165,7 +165,8 @@ def stage(store, row, *, now):
 def native_call(role, prompt, root):
     from .x_reply_bot_v1 import _text_call
     _, model, effort, timeout = next(r for r in ROLES if r[0] == role)
-    return _text_call(prompt, root=root, writer=True, model_config=(model, effort), timeout=timeout)
+    return _text_call("Do not call any tool. Use only the supplied source packet. Return only final JSON.\n" + prompt,
+                      root=root, writer=True, model_config=(model, effort), timeout=timeout)
 
 
 def _editorial(store, posts, root, *, call):

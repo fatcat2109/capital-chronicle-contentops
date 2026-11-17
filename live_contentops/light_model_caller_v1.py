@@ -186,6 +186,16 @@ def _codex_observations(raw, record):
         if event.get("type") == "turn.completed":
             record["observed_usage"] = event.get("usage")
         item = event.get("item") or {}
+        if (item.get("type") == "mcp_tool_call" and item.get("server") == "codex"
+                and item.get("tool") in {"list_mcp_resources", "list_mcp_resource_templates"}
+                and not item.get("arguments")):
+            # CC-467 observed these empty metadata lookups before a valid final
+            # answer despite disabled tools. They read no resource and write
+            # nothing. Record them; source/copy checks still judge the answer.
+            record.setdefault("observed_metadata_lookups", [])
+            if item["tool"] not in record["observed_metadata_lookups"]:
+                record["observed_metadata_lookups"].append(item["tool"])
+            continue
         if item.get("type") == "agent_message" and isinstance(item.get("text"), str):
             messages.append(item["text"])
         if item.get("type") in {"command_execution", "mcp_tool_call", "web_search", "tool_call", "function_call",

@@ -152,6 +152,27 @@ def test_tool_action_is_not_accepted_as_a_codex_light_answer(tmp_path):
     assert record["fallback_cause"]=="CODEX_LIGHT_TOOL_USE_REFUSED" and record["answered_by"] is None
 
 
+def test_empty_metadata_discovery_does_not_discard_a_completed_source_bound_answer():
+    raw=b'\n'.join(json.dumps(value).encode() for value in [
+        {"type":"item.completed","item":{"type":"mcp_tool_call","server":"codex","tool":"list_mcp_resources","arguments":{}}},
+        {"type":"item.completed","item":{"type":"mcp_tool_call","server":"codex","tool":"list_mcp_resource_templates","arguments":{}}},
+        {"type":"item.completed","item":{"type":"agent_message","text":'{"text":"The bound figure is 4.86%."}'}},
+        {"type":"turn.completed","usage":{"input_tokens":10,"output_tokens":10}},
+    ])
+    record={}
+    assert json.loads(light._codex_observations(raw,record))["text"]=="The bound figure is 4.86%."
+    assert record["observed_metadata_lookups"]==["list_mcp_resources","list_mcp_resource_templates"]
+    assert record["observed_usage"]["output_tokens"]==10
+
+
+@pytest.mark.parametrize("server,tool,args",[("codex","read_mcp_resource",{}),
+    ("codex","list_mcp_resources",{"uri":"private"}),("other","list_mcp_resources",{})])
+def test_resource_reads_and_other_tool_actions_still_cannot_replace_the_source_packet(server,tool,args):
+    raw=json.dumps({"item":{"type":"mcp_tool_call","server":server,"tool":tool,"arguments":args}}).encode()
+    with pytest.raises(ValueError,match="CODEX_LIGHT_TOOL_USE_REFUSED"):
+        light._codex_observations(raw,{})
+
+
 def test_variant_consumer_still_checks_the_fallback_source_and_copy(tmp_path,monkeypatch):
     from test_plan_reader_copy_cc466 import source_and_fields
     source,fields=source_and_fields()
