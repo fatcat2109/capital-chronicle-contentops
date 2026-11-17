@@ -1,0 +1,42 @@
+{
+  "item": "CC-427",
+  "reviewed_at_utc": "2026-11-17T14:42:56.757140+00:00",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_observation": "CONFIGURED_NOT_OBSERVED",
+  "runtime_model": null,
+  "runtime_effort": null,
+  "launch_pid": 42828,
+  "supported_context_identity": "/root",
+  "role": "Bounded revision and local rendered review; reused accepted Light preparation; no new filtering or source capture",
+  "source_report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30",
+  "article_sha256": "834c48b86dc226e912e2f7774bcda19624deb2c71e52e000a4be34a483bf87d5",
+  "article_payload_sha256": "c383d398882f59c1cbd7677d6d0b00832d77b51eb2ecd773de4c4f77a7bcaa3e",
+  "desktop_html_sha256": "543b26299db84dfcbaf7e110ae4b318109ac2d605792aa5e49148444e0844746",
+  "mobile_html_sha256": "81269215118ec880e99c10b6517bd146801d59a471613f268ef14975dc1b994f",
+  "media_sha256": "d69a6a0e9a6e04f70c02cdca7e1de8027740976b063a6067dd9ccbe7e4da99af",
+  "media_path": "media/challenge-audit-5edcb95885daa4ea-834c48b86dc226e9.png",
+  "surfaces": [
+    {
+      "browser": "BrowserOS Neo",
+      "page": 184,
+      "layout": "desktop reader"
+    },
+    {
+      "browser": "BrowserOS Neo",
+      "page": 185,
+      "layout": "390px reader"
+    }
+  ],
+  "browser_group": "86DFB163080E88756068458ED75FE900",
+  "inspection_observed": true,
+  "findings": [
+    "Revised risk wording is visible on copy, card and caption; alt text matches the source-bound aggregate facts.",
+    "Six rule verdicts and explanations remain readable; the mobile table uses stacked rows.",
+    "The 11 November cutoff is explicit. The sample shows 5 positions, 4 closed, 1 open, -0.86% booked change and unknown equity-loss verdicts.",
+    "The Challenge news/weekend exemptions remain distinct from subsequent Standard restrictions.",
+    "No account identity, money amount, size or order is present in reader copy or selected media."
+  ],
+  "decision": "LOCAL_WORDING_REVISION_ACCEPTED_FULL_MONTH_REBUILD_REQUIRED",
+  "publication_state": "NOT_DISPATCHED"
+}

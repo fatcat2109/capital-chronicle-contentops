@@ -1,6 +1,6 @@
 {
-  "article_sha256": "916e977065b4d26a5f47d6182138ff6bbefe176cca3ea19a9ec62106b3e630a9",
-  "source_report_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\preparation-20261111\\challenge-8bf0ac21812637c0\\report.json",
+  "article_sha256": "834c48b86dc226e912e2f7774bcda19624deb2c71e52e000a4be34a483bf87d5",
+  "source_report_path": "preparation-20261111/challenge-8bf0ac21812637c0/report.json",
   "source_report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30",
   "private_trace_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc-427-private\\source-d937de24ecfb4254\\challenge-5edcb95885daa4ea-trace.json",
   "bindings": [
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "reader_claim": "fixed 0.5% starting-capital risk, without compounding",
+      "reader_claim": "a fixed 0.5% of a challenge account's starting balance, without compounding",
       "source": "report.model and rules.model"
     },
     {

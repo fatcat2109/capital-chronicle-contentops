@@ -210,6 +210,17 @@ def test_source_binding_rejects_changed_writer_facts(rules):
         _source_pack([doc])
 
 
+def test_complete_challenge_facts_keep_their_hash_after_source_pack_merge(rules):
+    report = evaluate(dataset(trade()), rules)
+    report["rules"][0]["reason"] += " Recorded objective context." * 400
+    doc = source_document(report, rules)
+    packed = _source_pack([doc])[0]
+    assert packed["canonical_content_text"] == doc["canonical_content_text"]
+    assert packed["canonical_content_sha256"] == doc["canonical_content_sha256"]
+    assert packed["prop_challenge_binding"] == doc["prop_challenge_binding"]
+    assert "source_document_text_truncated" not in packed
+
+
 def test_foreign_fingerprint_is_not_confused_with_stable_account(tmp_path):
     path, root, statement, journal = fixture_files(tmp_path)
     # The adapter's real contract uses an observation fingerprint and a stable

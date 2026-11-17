@@ -1,0 +1,10 @@
+{
+  "item": "CC-427",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_basis": "Read back codex.exe PID 42828 launch arguments on 17 November 2026",
+  "observation": "CONFIGURED_NOT_OBSERVED",
+  "actual_runtime_model": null,
+  "actual_runtime_effort": null,
+  "additional_model_calls": 0
+}
