@@ -685,9 +685,11 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
         def __init__(self):
             super().__init__()
             self.prepare_calls = 0
+            self.preparation_plans = []
 
         def prepare_delivery_media(self, **_kwargs):
             self.prepare_calls += 1
+            self.preparation_plans.append(_kwargs["plan"])
             if self.prepare_calls > 1:
                 return {
                     "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
@@ -705,6 +707,7 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
     )
 
     plan = _quality_plan()
+    plan["artifact_refs"] = {"native_derivative_previews": "controlled-reviewed-previews.json"}
     for row in plan["destinations"]:
         if row["destination"] == "instagram_business":
             row["delivery_media_required"] = True
@@ -730,6 +733,7 @@ def test_delivery_media_preparation_failure_is_destination_local_after_canonical
         DISPATCH_CONFIRMED
     )
     assert transport.publish_calls.count("instagram_business") == 1
+    assert transport.preparation_plans[-1]["artifact_refs"] == plan["artifact_refs"]
 
 
 def test_quality_probation_full_nine_surface_confirmation(tmp_path):

@@ -4388,12 +4388,13 @@ class DurablePublicationCoordinator:
                             if callable(preparer):
                                 work_item_intents = [
                                     json.loads(str(row["payload"]))
-                                    for row in self.store.list_outbox_messages()
+                                    for row in self.store.list_outbox_messages(work_item_id=work_item_id)
                                     if str(row.get("work_item_id") or "") == work_item_id
                                 ]
                                 recovery_plan = {
                                     "plan_hash": intent.get("plan_hash"),
                                     "output_dir": intent.get("output_dir"),
+                                    "artifact_refs": intent.get("artifact_refs") or {},
                                     "quality_probation_policy_id": intent.get(
                                         "quality_probation_policy_id"
                                     ),
