@@ -162,11 +162,15 @@ def load_run(plan, *, run_root=RUN_ROOT):
     if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", run_id):
         raise ValueError("PLAN_ANALYSIS_RUN_ID_INVALID")
     folder = next((Path(run_root) / kind / run_id for kind in ("requests", "shocks")
-                   if (Path(run_root) / kind / run_id / "role-pack.json").is_file()), None)
+                   if (Path(run_root) / kind / run_id).is_dir()), None)
     if folder is None:
         raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
-    names = ["role-pack.json", "role-evidence.json", "integrated-owner-record.json",
-             "plan-geometry.json", "options-context.json", "final-decision-freeze.json", "desktop-manual-result.json"]
+    # Main's single-pass runs retain the sealed result and combined analysis,
+    # without the old role packaging. Bind every held legacy file when present;
+    # the exact result and freeze checks below apply to both run formats.
+    names = [name for name in ("role-pack.json", "role-evidence.json") if (folder / name).is_file()]
+    names += ["integrated-owner-record.json", "plan-geometry.json", "options-context.json",
+              "final-decision-freeze.json", "desktop-manual-result.json"]
     names += (["analysis-native.json"] if (folder / "analysis-native.json").is_file()
               else ["primary-native.json", "critical-native.json", "owner-native.json"])
     names += [name for name in ("critic-note.json", "market-context.json", "shock-pack.json") if (folder / name).is_file()]

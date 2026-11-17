@@ -15,9 +15,69 @@ from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
 from test_plan_call_cards_cc399 import write, rows
+from test_plan_analysis_pages_cc432 import source  # noqa: F401
 
 
 FIXTURES = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures"
+
+
+@pytest.fixture
+def single_pass_run(source):
+    root, folder, plan, _ = source
+    result = json.loads((folder / "desktop-manual-result.json").read_bytes())
+    result["native_synthesis"]["candidates"][0]["candidate_id"] = "cand_macro_eurusd"
+    result.update(primary_analysis={}, critical_review={})
+    for name in ("analysis-native.json", "desktop-manual-result.json"):
+        (folder / name).write_text(json.dumps(result), encoding="utf-8")
+    plan["analysis_result_hash"] = pages.sha256_of(result)
+    freeze = json.loads((folder / "final-decision-freeze.json").read_bytes())
+    freeze["qualitative_result_hash"] = plan["analysis_result_hash"]
+    (folder / "final-decision-freeze.json").write_text(json.dumps(freeze), encoding="utf-8")
+    for name in ("role-pack.json", "role-evidence.json", "primary-native.json",
+                 "critical-native.json", "owner-native.json"):
+        (folder / name).unlink()
+    return root, folder, plan
+
+
+def test_single_pass_original_analysis_reaches_the_real_page_writer(single_pass_run, tmp_path):
+    root, folder, plan = single_pass_run
+    calls = []
+
+    def writer(prompt, **options):
+        calls.append(prompt)
+        assert "Base chance 55%; support 1.12; alternative 35%." in prompt
+        assert "analysis-native.json" in prompt
+        return {"status": "FAILED", "cause": "CONTROLLED_WRITER_STOP"}
+
+    result = editorial.prepare_page(plan, output_dir=tmp_path / "page", run_root=root, call=writer)
+    assert result["status"] == "PAGE_TEXT_UNAVAILABLE"
+    assert result["cause"] == "CONTROLLED_WRITER_STOP"
+    assert len(calls) == 1
+    run = pages.load_run(plan, run_root=root)
+    packet = reader.source_packet(plan, run)
+    rationale = next(s for s in packet["sources"] if s["ref"]["pointer"].endswith("/rationale"))
+    assert rationale["ref"]["file"] == "analysis-native.json"
+    assert pages._source_text(run, rationale["ref"]) == rationale["text"]
+    assert run["manifest"]["analysis-native.json"]["path"] == str(folder / "analysis-native.json")
+    assert "role-pack.json" not in run["manifest"]
+    assert "role-evidence.json" not in run["manifest"]
+
+
+@pytest.mark.parametrize("document,reason", [
+    ("desktop-manual-result.json", "PLAN_ANALYSIS_RESULT_HASH_MISMATCH"),
+    ("final-decision-freeze.json", "PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH"),
+])
+def test_single_pass_keeps_exact_result_and_freeze_binding(single_pass_run, document, reason):
+    root, folder, plan = single_pass_run
+    path = folder / document
+    value = json.loads(path.read_bytes())
+    if document == "final-decision-freeze.json":
+        value["qualitative_result_hash"] = "wrong"
+    else:
+        value["changed"] = True
+    path.write_text(json.dumps(value), encoding="utf-8")
+    with pytest.raises(ValueError, match=reason):
+        pages.load_run(plan, run_root=root)
 
 
 @pytest.fixture
