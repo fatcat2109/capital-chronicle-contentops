@@ -1,0 +1,75 @@
+{
+  "item": "CC-427",
+  "recorded_at_utc": "2026-11-17T14:47:03.049922+00:00",
+  "status": "BLOCKED",
+  "cause": "November's full record is not available before month-end",
+  "choice": "Integrate the accepted replay now with the approved risk wording; rebuild the full November edition after month-end, as Ops Product directed on 14 November. The 11 November sample is not published.",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_code_head": "0559e7acced0eeab898a80497b7fc27eb5c3a4a2",
+  "accepted_build_head": "c5f2782fbda30c4477112194e35427e8b9f3a092",
+  "integration_merge": "209f284d5b84edad65fda0e25af0723409b93121",
+  "live_tag": "contentops-live-20261117-cc427",
+  "rollback_tag": "contentops-rollback-20261117-cc427",
+  "rollback_head": "5b38e1fff13752c86fa44c59c3131e2e1c118bcc",
+  "integration_state": "INSTALLED_CONSUMER_VERIFIED",
+  "source_cutoff_utc": "2026-11-11T09:07:21.979327Z",
+  "rules_version": "ftmo-cfd-2-step-2026-11-11-r2",
+  "frozen_source_rule_and_original_role_review_files_unchanged": 21,
+  "wording": "a fixed 0.5% of a challenge account's starting balance",
+  "copy_card_caption_alt_checked": true,
+  "render_review": "writer-render-review.json",
+  "installed_render_bytes_match_review": true,
+  "installed_consumer": "installed-consumer.json",
+  "consumer": "Installed prepare_prop_challenge_v1.py -> held_dataset -> evaluate -> source_document -> RetainedSourceResearch -> existing newsroom _source_pack",
+  "consumer_edition": "Reused the exact retained 11 November edition at its original path; not added to automatic publication intake",
+  "tests": {
+    "merge-tests.xml": {
+      "tests": "101",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "13.869"
+    },
+    "revised-tests.xml": {
+      "tests": "28",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.587"
+    },
+    "installed-tests.xml": {
+      "tests": "102",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "13.092"
+    }
+  },
+  "unique_installed_test_cases": 102,
+  "full_suite_run": false,
+  "parallel_pytest_processes": false,
+  "all_test_runs_under_one_minute": true,
+  "local_verification_repair": "Corrected the WIP inventory parser before installation; an initial pre-install test selection collected no tests. The installed selection then passed 102 tests.",
+  "operating_tracked_wip_files_preserved": 6,
+  "exec_unrelated_telemetry_files_staged": false,
+  "launch": {
+    "pid": 42828,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "public_writes": 0,
+  "new_native_newsroom_operations": 0,
+  "application_restarts": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "resume_not_before_utc": "2026-12-01T02:00:00Z",
+  "publish_by_utc": "2026-12-01T11:00:00Z",
+  "next_owner": "Codex Publisher",
+  "next_action": "After the New York close of 30 November, freeze the full November record with a fresh cutoff and recheck the official FTMO rule sources. Resume on 1 December at 09:00 GMT+7; use the existing native newsroom and sole coordinator to publish and read back the monthly post by 18:00 GMT+7.",
+  "limits": [
+    "The 11 November replay is month-to-date, not the full November result.",
+    "Equity-loss verdicts remain unknown where the normalised price/equity path has gaps.",
+    "No canonical or derivative publication/readback occurred in this integration."
+  ]
+}

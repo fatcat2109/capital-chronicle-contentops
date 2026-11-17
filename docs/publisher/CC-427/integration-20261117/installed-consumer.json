@@ -1,0 +1,44 @@
+{
+  "item": "CC-427",
+  "month": "2026-11",
+  "phase": "challenge",
+  "data_cutoff_utc": "2026-11-11T09:07:21.979327Z",
+  "public_edition": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\preparation-20261111\\challenge-8bf0ac21812637c0",
+  "private_trace": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc-427-private\\source-d937de24ecfb4254\\challenge-5edcb95885daa4ea-trace.json",
+  "report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30",
+  "trade_count": 5,
+  "overall": "NOT_PASSED_AS_OF_CUTOFF",
+  "rules": {
+    "profit_target": "NOT_MET",
+    "maximum_daily_loss": "UNKNOWN",
+    "maximum_loss": "UNKNOWN",
+    "minimum_trading_days": "NOT_MET",
+    "news_window": "NOT_APPLICABLE",
+    "weekend_holding": "NOT_APPLICABLE"
+  },
+  "consumer": "held_dataset -> evaluate -> RetainedSourceResearch -> existing newsroom _source_pack",
+  "consumer_readback_exact": true,
+  "publication_state": "NOT_DISPATCHED",
+  "observed_at_utc": "2026-11-17T14:44:52.668414+00:00",
+  "installed_operating_head": "0559e7acced0eeab898a80497b7fc27eb5c3a4a2",
+  "installed_modules": {
+    "live_contentops.prop_challenge_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\prop_challenge_v1.py",
+      "sha256": "603b52223d3c89cfed056b660da11c32418f1e81a34c68a506196c060cf73c30"
+    },
+    "live_contentops.contentops_source_research_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py",
+      "sha256": "1b800c0a713f7f51a1428cf82ef00ef0ae4fe0247d5b73b477567bc8fe736952"
+    },
+    "live_contentops.v1_simple_gemini_newsroom_v1": {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\v1_simple_gemini_newsroom_v1.py",
+      "sha256": "3a75113fedb1eb2d13d2c257a8531457ef002b5d756bb3a129d4a517a5d8115b"
+    }
+  },
+  "retained_library_gap_count": 0,
+  "retained_library_record_count": 1,
+  "writer_source_count": 1,
+  "public_pack_sha256": "50966ff4ceb9b1529eb30b8addfbab6413c07e22a466710ae48b3f3ad7ad4cc6",
+  "frozen_input_edition_reused": true,
+  "public_writes": 0
+}
