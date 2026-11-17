@@ -49,3 +49,11 @@ the four outbox projections to PLAN_POST_SETTLED. The first correction attempt
 stopped before registration or any provider call because its local check expected
 the earlier outbox label. The corrected check uses the terminal dispatch state;
 a focused regression covers that existing consumer transition and repeated cancellation.
+
+Completed: [Telegram correction 192](https://t.me/CapitalChronicle/192) replies to 189;
+[Discord correction](https://discord.com/channels/1519310996030750782/1572136686857748551/1572231357072015371)
+replies to result 1572145031173906523 in its original call thread. Both are
+DISPATCH_CONFIRMED with verified identity, content/media readback and
+RECONCILED_CONFIRMED. All four cancelled dispatches remain terminal no-writes;
+all original payload hashes and confirmed object identities match preflight.
+Final evidence: [final-verification.json](final-verification.json).

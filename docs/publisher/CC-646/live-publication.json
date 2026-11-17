@@ -1,0 +1,76 @@
+{
+  "item": "CC-646",
+  "phase": "publish",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "observed_at_utc": "2026-11-17T12:46:13.649170+00:00",
+  "result": {
+    "plan_hash": "aed0cefeaafd7510cd478c3e1ead36328c1baeccec56a4d6c10f4dd352608b01",
+    "registered": [
+      {
+        "destination": "discord",
+        "message_id": "outbox_71f22afb4456f294101dc454a21e5a7c",
+        "dispatch_id": "dispatch_71f22afb4456f294101dc454a21e5a7c",
+        "reconciliation_id": "reconciliation_71f22afb4456f294101dc454a21e5a7c"
+      },
+      {
+        "destination": "telegram",
+        "message_id": "outbox_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+        "dispatch_id": "dispatch_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+        "reconciliation_id": "reconciliation_40255bb2df6eb26c6bf7d7d2cf3a0c4f"
+      }
+    ],
+    "outbox_count": 2,
+    "per_destination": {
+      "discord": {
+        "destination": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "publish_called": true,
+        "public_object_id": "1572231357072015371",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572231357072015371",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "safe_error_classification": null,
+        "dispatch_id": "dispatch_71f22afb4456f294101dc454a21e5a7c",
+        "dispatch_recorded": true
+      },
+      "telegram": {
+        "destination": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "publish_called": true,
+        "public_object_id": "192",
+        "public_object_url": "https://t.me/CapitalChronicle/192",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "safe_error_classification": null,
+        "dispatch_id": "dispatch_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+        "dispatch_recorded": true
+      }
+    },
+    "canonical_article_status": "NOT_CONFIRMED",
+    "canonical_article_real_published": false,
+    "canonical_url": null,
+    "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+    "distribution_status": "CANONICAL_NOT_CONFIRMED",
+    "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+    "quality_preflight": null,
+    "delivery_media_preparation": {
+      "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+      "provider_calls": 0,
+      "public_write_performed": false
+    },
+    "recovery_required_destinations": [],
+    "readback_limitation_destinations": [],
+    "metrics_availability_independent_from_publication_confirmation": true,
+    "derivative_attempted_count": 2,
+    "derivative_confirmed_count": 2,
+    "derivative_skipped_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_unknown_count": 0,
+    "public_write_performed": true,
+    "retired_browser_unknown_count": 0,
+    "retired_x_unknown_count": 0,
+    "unknown_write_detected": false,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_never_attempted_count": 0,
+    "unknown_write_count": 0,
+    "closed_no_write_destinations": []
+  }
+}

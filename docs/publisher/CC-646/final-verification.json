@@ -1,0 +1,79 @@
+{
+  "item": "CC-646",
+  "status": "DONE",
+  "observed_at_utc": "2026-11-17T12:48:30.175277+00:00",
+  "live_code_commit": "8721f961a14f23e82f5ec932cbb42610cccbfc52",
+  "live_tag": "contentops-live-20261117-cc646-settled",
+  "rollback_tag": "contentops-rollback-20261117-cc646",
+  "original_key": "plan-result-post-f5ecb8c81fed4b645e17580901ac7ff0",
+  "original_payloads_unchanged": true,
+  "original_public_objects_unchanged": true,
+  "cancelled_destinations": [
+    "threads",
+    "x",
+    "instagram_business",
+    "facebook_page"
+  ],
+  "cancelled_dispatches_terminal_zero_write": true,
+  "wrong_copies_after_correction_possible": false,
+  "correction_count": 2,
+  "corrections": [
+    {
+      "destination": "telegram",
+      "dispatch_id": "dispatch_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+      "public_object_id": "192",
+      "public_object_url": "https://t.me/CapitalChronicle/192",
+      "dispatched_at_utc": "2026-11-17T12:46:12.029074+00:00",
+      "reply_parent_id": "189",
+      "reply_parent_url": "https://t.me/CapitalChronicle/189",
+      "parent_binding_source": "frozen dispatch native payload",
+      "coordinator_readback": {
+        "identity_match": true,
+        "meaningful_media_visible": true,
+        "observed_public_object_id": "192",
+        "observed_public_object_url": "https://t.me/CapitalChronicle/192",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      },
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-17T12:46:13.595141+00:00"
+      }
+    },
+    {
+      "destination": "discord",
+      "dispatch_id": "dispatch_71f22afb4456f294101dc454a21e5a7c",
+      "public_object_id": "1572231357072015371",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572231357072015371",
+      "dispatched_at_utc": "2026-11-17T12:46:04.398770+00:00",
+      "reply_parent_id": "1572145031173906523",
+      "reply_parent_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572145031173906523",
+      "parent_binding_source": "frozen dispatch native payload",
+      "coordinator_readback": {
+        "identity_match": true,
+        "meaningful_media_visible": true,
+        "observed_public_object_id": "1572231357072015371",
+        "observed_public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572231357072015371",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": true
+      },
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-17T12:46:10.303753+00:00"
+      }
+    }
+  ],
+  "final_text": "USD/JPY: correction. Our 02:00 ET update said this plan was not triggered. That was wrong. Price traded inside the entry zone, 159.02–159.38, from 01:29 ET until the entry window closed at 02:00 ET, so the entry condition was met. A fault in our own entry system meant no position was opened. That was our failure, not the market's.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+  "final_text_sha256": "02093479680911b7482eb0e2ccd5da605e9154511dfa35ced28d52abe7d5ed13",
+  "retained_chart_sha256": "273863f92ae560758f521825c8c4bcb6e6115d9db7c0d7ae0dcf3d1c655a7232",
+  "retained_chart_captured_at_utc": "2026-11-17T06:29:48.866487+00:00",
+  "validation": "157 unique targeted cases have passing latest results; installed item test file 9 PASS before settled-consumer repair; repair item/canonical claim selection 17 PASS.",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "model_effort_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "choice": "Retain the already public pre-event plan chart; use terminal dispatch truth after the minute consumer settles its outbox projection."
+}
