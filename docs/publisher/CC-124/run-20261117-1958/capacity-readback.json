@@ -1,0 +1,77 @@
+{
+  "observed_at_utc": "2026-11-17T13:02:20.236554+00:00",
+  "production_day": "2026-11-17",
+  "daily_limit": 2,
+  "distinct_article_slots": [
+    "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+    "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and"
+  ],
+  "matching_publication_feed_rows": [
+    {
+      "title": "Five sessions did not settle the trend question",
+      "published_at_utc": "2026-11-17T11:45:29.396000+00:00",
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572216152845852683"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1458033773181705"
+        },
+        {
+          "name": "instagram_business",
+          "url": "https://www.instagram.com/p/Df12uTckiwI/"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/191"
+        },
+        {
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/Df123yRk8_I"
+        },
+        {
+          "name": "x",
+          "url": "https://x.com/Capitalnicle/status/2122658263015772508"
+        }
+      ]
+    }
+  ],
+  "use": "The installed PublishedImages._daily_pieces consumer uses these exact canonical identities to enforce the decision-93 cap; this run does not claim new public readbacks.",
+  "image_registry": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+    "bytes": 1042798,
+    "sha256": "160fc16233b642de3fc23e5054d561fc424c61abdb241887ef846e4d7dee7abe"
+  },
+  "counting_image_registry_rows": [
+    {
+      "record_id": "fd9af46aad5d0d7869b1f766b21367b35f48c9e0535107dc691f6557e6728cf0",
+      "piece_id": "e0e8f0ac13113dd913a4f09b00690631473b69f65493d151a31e3abb1bd7031d",
+      "state": "PUBLISHED",
+      "day": "2026-11-17",
+      "canonical_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+      "published_at_utc": "2026-11-17T10:06:46.417000+00:00",
+      "recorded_at_utc": "2026-11-17T10:20:41.009600+00:00",
+      "possible_publication_days": [],
+      "counts_as_article": true
+    },
+    {
+      "record_id": "ea0b1efc0e5ce4ae8c21d67b8d3472cbe4d36b21e93fd20edbe49ee787e60c25",
+      "piece_id": "8ff7c062216db2a745470254b4dc2cd12693d5248420937d578b354397a4aeeb",
+      "state": "PUBLISHED",
+      "day": "2026-11-17",
+      "canonical_url": "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+      "published_at_utc": "2026-11-17T11:45:29.396000+00:00",
+      "recorded_at_utc": "2026-11-17T11:45:37.348585+00:00",
+      "possible_publication_days": [],
+      "counts_as_article": true
+    }
+  ],
+  "cap_cause": "DAILY_ARTICLE_CAP_REACHED",
+  "cap_reason": "Jim decision 93; CC-536 explicitly counts each measured-table piece against the same two-article ceiling."
+}

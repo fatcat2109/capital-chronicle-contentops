@@ -1,0 +1,57 @@
+{
+  "observed_at_utc": "2026-11-17T13:05:06.352862+00:00",
+  "installed_root": "A:\\Capital Chronicle\\ContentOps",
+  "modules": [
+    {
+      "module": "main_report_projection_source_v1.py",
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+        "bytes": 18677,
+        "sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106"
+      },
+      "builder_sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106",
+      "same_bytes": true
+    },
+    {
+      "module": "reader_article_contract_v1.py",
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+        "bytes": 16584,
+        "sha256": "107784b3a4966c76046579458679f0d0c5c844b8f3ff9039219072e2cd6425c0"
+      },
+      "builder_sha256": "107784b3a4966c76046579458679f0d0c5c844b8f3ff9039219072e2cd6425c0",
+      "same_bytes": true
+    },
+    {
+      "module": "published_images_v1.py",
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py",
+        "bytes": 14248,
+        "sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677"
+      },
+      "builder_sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677",
+      "same_bytes": true
+    },
+    {
+      "module": "plan_status_posts_v1.py",
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+        "bytes": 119975,
+        "sha256": "805eb29627ef01c738558d0e61fdcb5b07bd71bf26d9a0adb01a90190fb6bebc"
+      },
+      "builder_sha256": "805eb29627ef01c738558d0e61fdcb5b07bd71bf26d9a0adb01a90190fb6bebc",
+      "same_bytes": true
+    },
+    {
+      "module": "newsroom_production_day_v1.py",
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\newsroom_production_day_v1.py",
+        "bytes": 30143,
+        "sha256": "6d44a270001331e61601d0a7e6d8377df71c7506ed84e6dcd9811013f1f01a6b"
+      },
+      "builder_sha256": "6d44a270001331e61601d0a7e6d8377df71c7506ed84e6dcd9811013f1f01a6b",
+      "same_bytes": true
+    }
+  ],
+  "validation": "Executed the installed source projection, reader source-clock, plan export and daily article-cap consumers; no source code changed, no pytest run needed."
+}
