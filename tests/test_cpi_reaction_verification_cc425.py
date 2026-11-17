@@ -119,3 +119,44 @@ def test_cpi_social_compiler_uses_writer_copy_instead_of_unconfirmed_news_templa
         assert "conditional on verification" not in text
         assert "Independent confirmation or denial" not in text
     assert "A dated reference with gaps." in bundle["packages"]["linkedin"]["text"]
+
+
+@pytest.mark.parametrize("fault", [None, "unconfirmed", "wrong_target", "changed_original"])
+def test_existing_reader_revision_appends_only_the_confirmed_cpi_reference(monkeypatch, fault):
+    import json
+    from live_contentops import native_desktop_editorial_v1 as native
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+    target_article = bind_tables({"substack_body_markdown": TOKEN}, pack())
+    if fault == "wrong_target":
+        target_article["cpi_reaction_page"]["record_id"] = "report:another-page"
+    original = {"dispatch_id": "original", "message_id": "original-message", "platform": "substack",
+                "public_object_id": "100", "public_object_url": "https://capitalchronicle.substack.com/p/cpi-preview",
+                "status": "DISPATCH_CONFIRMED"}
+    target = {"dispatch_id": "reference", "message_id": "reference-message", "platform": "substack",
+              "public_object_id": "101", "public_object_url": "https://capitalchronicle.substack.com/p/cpi-history",
+              "status": "UNKNOWN_WRITE" if fault == "unconfirmed" else "DISPATCH_CONFIRMED"}
+    result = {"article_identity": "original-article", "qualified_article_count": 1,
+              "article": {"title": "Our CPI review", "substack_body_markdown": "Original CPI review, unchanged."},
+              "evidence": [], "previews": [], "media_assets": [],
+              "simple_result": {"publication_lifecycle_plan": {"plan_hash": "CONTROLLED-plan"}}}
+    messages = {"final": {"payload": json.dumps(result)},
+                "reference-message": {"payload": json.dumps({"article": target_article})}}
+    store = SimpleNamespace(get_platform_dispatch=lambda key: {"original": original, "reference": target}.get(key),
+                            get_outbox_message=lambda key: messages.get(key))
+    monkeypatch.setattr(native, "native_artifact_key", lambda *args: "final")
+    after = result["article"]["substack_body_markdown"] + "\n\n## Historical CPI comparisons\n\n[Compare the market reactions in our CPI history tables](" + target["public_object_url"] + ")."
+    proposal = {"policy": LINK_POLICY, "run_id": "cc338-cpi-preview", "reference_dispatch_id": "reference",
+                "reference_url": target["public_object_url"], "objects": {"substack": original},
+                "body_after": after + (" Changed claim." if fault == "changed_original" else "")}
+    if fault:
+        with pytest.raises(ValueError, match="CPI_REFERENCE_LINK"):
+            native.build_reader_presentation_revision(store, run_id=proposal["run_id"], proposal=proposal,
+                                                      owner_authority_ref="human:BACKLOG_CC425")
+    else:
+        revision = native.build_reader_presentation_revision(store, run_id=proposal["run_id"], proposal=proposal,
+                                                              owner_authority_ref="human:BACKLOG_CC425")
+        view = native.reader_presentation_revision_view(store, run_id=proposal["run_id"], result=result, revision=revision)
+        assert view["article"]["substack_body_markdown"] == after
+        assert view["article"]["title"] == result["article"]["title"]
+        assert view["evidence"] == result["evidence"]
+        assert result["article"]["substack_body_markdown"] == "Original CPI review, unchanged."

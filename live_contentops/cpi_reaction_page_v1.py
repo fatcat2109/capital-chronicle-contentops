@@ -12,7 +12,51 @@ from collections import Counter
 RECORD_ID = "report:cc-cpi-reactions-since-2024"
 TOKEN = "[[CPI_REACTION_TABLES]]"
 POLICY = "CC425_CPI_REACTION_PAGE_V1"
+LINK_POLICY = "CC425_CONFIRMED_REFERENCE_LINK_V1"
 TITLE = "What gold, the euro and the S&P did after each CPI since 2024"
+
+
+def reference_link_revision(store, *, run_id, proposal, result):
+    """Append one checked canonical link to an exact confirmed CPI post."""
+    from copy import deepcopy
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.native_desktop_editorial_v1 import native_review_revision
+    if (proposal.get("policy") != LINK_POLICY or proposal.get("run_id") != run_id
+            or proposal.get("owner_authority_ref") != "human:BACKLOG_CC425"
+            or proposal.get("base_result_sha256") != sha256_of(result)
+            or proposal.get("prior_revision") != native_review_revision(result)
+            or proposal.get("source_sha256") != sha256_of(result.get("evidence", []))):
+        raise ValueError("CPI_REFERENCE_LINK_ORIGINAL_CHANGED")
+    if "cpi" not in (str(result.get("article", {}).get("title", "")) + run_id).casefold():
+        raise ValueError("CPI_REFERENCE_LINK_CPI_POST_REQUIRED")
+    identity = proposal.get("objects", {}).get("substack") or {}
+    original = store.get_platform_dispatch(identity.get("dispatch_id")) or {}
+    target = store.get_platform_dispatch(proposal.get("reference_dispatch_id")) or {}
+    if (set(proposal.get("objects", {})) != {"substack"}
+            or original.get("status") != "DISPATCH_CONFIRMED"
+            or any(original.get(k) != identity.get(k) for k in
+                   ("message_id", "platform", "public_object_id", "public_object_url"))
+            or target.get("platform") != "substack" or target.get("status") != "DISPATCH_CONFIRMED"
+            or target.get("public_object_url") != proposal.get("reference_url")
+            or not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-zA-Z0-9-]+", str(proposal.get("reference_url")))):
+        raise ValueError("CPI_REFERENCE_LINK_CONFIRMED_OBJECTS_REQUIRED")
+    message = store.get_outbox_message(target["message_id"])
+    if not message:
+        raise ValueError("CPI_REFERENCE_LINK_TARGET_NOT_BOUND")
+    import json
+    from live_contentops.article_publication_quality_v1 import article_inputs
+    article, _, _ = article_inputs(json.loads(message["payload"]))
+    if (article.get("cpi_reaction_page") or {}).get("record_id") != RECORD_ID:
+        raise ValueError("CPI_REFERENCE_LINK_TARGET_NOT_CPI_PAGE")
+    validate_bound_tables(article)
+    suffix = "\n\n## Historical CPI comparisons\n\n[Compare the market reactions in our CPI history tables](" + proposal["reference_url"] + ")."
+    before = result["article"]["substack_body_markdown"]
+    if (proposal.get("body_before") != before or proposal["reference_url"] in before
+            or proposal.get("body_after") != before.rstrip() + suffix):
+        raise ValueError("CPI_REFERENCE_LINK_APPEND_ONLY_REQUIRED")
+    view = deepcopy(result)
+    view["article"]["substack_body_markdown"] = proposal["body_after"]
+    return view
 
 # CC-468 extends the same table consumer. CPI's issued projection and policy
 # retain their exact shape; new families carry their own source identity.

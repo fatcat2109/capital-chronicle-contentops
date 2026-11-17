@@ -2176,6 +2176,14 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY, reference_link_revision
+    if proposal.get("policy") == LINK_POLICY:
+        revision = {**proposal, "owner_authority_ref": owner_authority_ref,
+            "base_result_sha256": sha256_of(result), "source_sha256": sha256_of(result.get("evidence", [])),
+            "prior_revision": native_review_revision(result), "article_identity": result["article_identity"],
+            "body_before": result["article"]["substack_body_markdown"], "payloads": {}}
+        reference_link_revision(store, run_id=run_id, proposal=revision, result=result)
+        return revision
     from live_contentops.event_media_order_repair_v1 import POLICY as ORDER_POLICY, build as order_revision
     if proposal.get("policy") == ORDER_POLICY:
         return order_revision(store, run_id=run_id, result=result, owner_authority_ref=owner_authority_ref,
@@ -2232,6 +2240,9 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 
 
 def reader_presentation_revision_view(store, *, run_id, result, revision):
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY, reference_link_revision
+    if revision.get("policy") == LINK_POLICY:
+        return reference_link_revision(store, run_id=run_id, proposal=revision, result=result)
     from live_contentops.event_media_order_repair_v1 import POLICY as ORDER_POLICY, revision_view as order_view
     if revision.get("policy") == ORDER_POLICY:
         return order_view(store, run_id=run_id, result=result, revision=revision)
