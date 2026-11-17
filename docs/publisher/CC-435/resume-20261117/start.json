@@ -1,0 +1,27 @@
+{
+  "item": "CC-435",
+  "started_at_utc": "2026-11-17T02:17:43.015908+00:00",
+  "base": "377570adad9cc2fbba5eb16de096812b2032bbec",
+  "remote_default": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Implementation already integrated; the current Publisher operating HEAD includes the live distribution and readback consumers.",
+  "branch": "backlog/cc-435-route-readback-20261117",
+  "launch": {
+    "pid": 28800,
+    "started_at_gmt7": "2026-11-17T09:11:49.757381+07:00",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence": "CONFIGURED_NOT_OBSERVED",
+    "source": "Own ancestor codex.exe launch arguments; actual runtime model telemetry unavailable."
+  },
+  "editorial_model_calls": 0,
+  "preserved_work": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  ]
+}

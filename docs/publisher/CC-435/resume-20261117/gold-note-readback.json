@@ -1,0 +1,105 @@
+{
+  "item": "CC-435",
+  "started_at_utc": "2026-11-17T02:18:10.938626+00:00",
+  "before": {
+    "confirmed": false,
+    "status": "DISPATCH_CONFIRMED",
+    "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "reconciled_at_utc": "2026-11-12T17:06:23.198397+00:00",
+    "public_object_id": "c-385656965",
+    "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965"
+  },
+  "public_write_requested": false,
+  "result": {
+    "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+    "destination": "substack_notes",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_write_performed": false,
+    "publish_called": false,
+    "pending_requests": []
+  },
+  "ended_at_utc": "2026-11-17T02:18:20.496985+00:00",
+  "after": {
+    "confirmed": true,
+    "status": "DISPATCH_CONFIRMED",
+    "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "reconciled_at_utc": "2026-11-12T17:06:23.198397+00:00",
+    "public_object_id": "c-385656965",
+    "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965"
+  },
+  "actual_readback": {
+    "readback_id": "readback_ed8f8ee922d9affadd089c50e84024f7",
+    "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+    "read_at": "2026-11-17T02:18:20.079633+00:00",
+    "destination": "substack_notes",
+    "readback": {
+      "content_binding_checks": {
+        "media_match": true,
+        "text_match": true,
+        "thread_match": true
+      },
+      "identity_match": true,
+      "meaningful_media_visible": false,
+      "observed_at_utc": "2026-11-17T02:18:20.034670+00:00",
+      "observed_public_object_id": "c-385656965",
+      "observed_public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+      "source_status": "SUCCESS",
+      "verified": true,
+      "write_absent": false,
+      "write_exists": true
+    }
+  },
+  "native_tool_provenance": [
+    {
+      "message_id": "native-neo-87b7a81a8b55b7f2e2aca7d957ede3fcca5c34e905665d5624ab9a6bc8b1ffc8",
+      "created_at_utc": "2026-11-17T02:18:11.455752+00:00",
+      "status": "NATIVE_NEO_INTERNAL",
+      "tool_request_sha256": "31aefd4efe0ee180b09f8747acedf12098ae9ed32d9bc1520369c225f1b8370d",
+      "required_tool": "mcp__browseros_neo__run",
+      "request": {
+        "action": "READBACK",
+        "destination": "substack_notes",
+        "request_sha256": "cd300fece2b60dd23d9b1a666c9a93d32d9a59da98acab0436a8dad7166560c1",
+        "public_object_id": "c-385656965",
+        "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+        "expected_identity": "@capitalchronicle"
+      },
+      "result": {}
+    },
+    {
+      "message_id": "native-neo-4bee25c9f55266da14e6ca4ef75e3697d43c01c8f3ce7096d4c9981e3394af38",
+      "created_at_utc": "2026-11-17T02:18:11.540411+00:00",
+      "status": "NATIVE_NEO_INTERNAL",
+      "tool_request_sha256": "31aefd4efe0ee180b09f8747acedf12098ae9ed32d9bc1520369c225f1b8370d",
+      "required_tool": "mcp__browseros_neo__run",
+      "native_invocation_id": "neo-endpoint:4d12d5ddf5d1478694fcfc81d89bd0d4",
+      "begun_at_utc": "2026-11-17T02:18:11.539696+00:00",
+      "request": {},
+      "result": {}
+    },
+    {
+      "message_id": "native-neo-70b012a384d955d3d8eebe046815e9510b9ed8e5e9a60aeabb7427195ccf5dfd",
+      "created_at_utc": "2026-11-17T02:18:20.038744+00:00",
+      "status": "NATIVE_NEO_INTERNAL",
+      "request": {},
+      "result": {
+        "status": "SUCCESS",
+        "observed_identity": "@capitalchronicle",
+        "public_object_id": "c-385656965",
+        "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+        "content_verified": true,
+        "native_tool_observation": {
+          "native_invocation_id": "neo-endpoint:4d12d5ddf5d1478694fcfc81d89bd0d4",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-17T02:18:20.034670+00:00",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        "request_sha256": "cd300fece2b60dd23d9b1a666c9a93d32d9a59da98acab0436a8dad7166560c1"
+      },
+      "observed_text_sha256": "d2d47d90e784a204ec025ce10767ab86aab74ad163a96e7010c7176a4597494a"
+    }
+  ]
+}
