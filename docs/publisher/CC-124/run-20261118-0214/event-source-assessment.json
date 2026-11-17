@@ -1,0 +1,61 @@
+{
+  "observed_at_utc": "2026-11-17T19:19:29.355550+00:00",
+  "retail_dossier": {
+    "run": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-0930-dossier-retail\\run.json",
+      "bytes": 9634,
+      "sha256": "7d0e83f55f02a6914b367e353fb58cf64203fe2982eca7181c3796064487742a"
+    },
+    "analysis": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-0930-dossier-retail\\analysis-branches.json",
+      "bytes": 35340,
+      "sha256": "4b9093caa3c6d98213452c0be76b144b1e7d216a397ca8a4990044ef7338a204"
+    },
+    "source_data_cutoff_utc": "2026-11-17T05:13:57Z",
+    "reader_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "ARTICLE",
+      "source_pack_sha256": "ba1c3cce5a8ecd6d59b383150f1859e9bd0a867f109c34192c129a2d79a1635d",
+      "primary_document_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-0930-dossier-retail\\analysis-branches.json",
+      "data_cutoff_utc": "2026-11-17T05:13:57+00:00",
+      "max_sentence_words": 35,
+      "daily_prose_words": 350,
+      "publication_target_minutes": 60
+    },
+    "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:50732s",
+    "actual_end_utc": "2026-11-17T10:04:57Z",
+    "planned_cutoff_utc": "2026-11-17T12:05:00Z"
+  },
+  "retail_release": {
+    "run": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-1320-arrival-retail\\run.json",
+      "bytes": 6929,
+      "sha256": "f47338f8b47ec57f34c02fab8b018bd795e8e12ecd39db4d2a4fd70fe30883c7"
+    },
+    "report": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-1320-arrival-retail\\RESULT.md",
+      "bytes": 5162,
+      "sha256": "462eadfe94500ac60dad5030d1eb8607049912f6df42eab84ad5ec79def43c57"
+    },
+    "actual_end_utc": "2026-11-17T13:32:56Z",
+    "native_run": null,
+    "held_official_pdf_snapshot": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261117-1320-arrival-retail\\pdf-snapshot\\CENSUS_MARTS-2026-M10-932fd71f8671.json"
+  },
+  "catchup": {
+    "handoff": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup\\catchup-20261117T153222Z\\official-release-admission\\daily-handoff.json",
+      "bytes": 91516,
+      "sha256": "d79cd5ee7fe0f5c921cf8998d0e2fcc4c734a8ba4f91f52e1d1bd909a855bb5b"
+    },
+    "admission": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup\\catchup-20261117T153222Z\\official-release-admission\\admission-readback.json",
+      "bytes": 4833,
+      "sha256": "e626a3933ba5dc8ed221d3068bbe0966f165a0e41095c90b152522613f573675"
+    },
+    "decision_cutoff_utc": "2026-11-17T15:32:22.073418Z",
+    "official_rows_citable": true,
+    "model_calls": 0,
+    "admission_mode": "AFTER_THE_FACT_CATCH_UP"
+  },
+  "assessment": "The retained dossier has expired market data. Main release and catch-up outputs exist; their release/preparation/decision clocks are also older than the newest daily source. Trading-entry admission failures are not treated as a publication restriction. These held inputs remain usable as dated context; they do not refresh a new article cutoff."
+}

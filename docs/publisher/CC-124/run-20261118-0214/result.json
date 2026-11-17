@@ -1,0 +1,110 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-17T19:14:37.497380+00:00",
+  "observed_at_utc": "2026-11-17T19:19:29.355550+00:00",
+  "outcome": "NO_NEW_PUBLICATION",
+  "standing_status": "OPEN",
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:12944s",
+  "first_cause_authority": "CC-403 root Reader copy contract, decisions 98/114: publish within 60 minutes of original source data cutoff; CC-124 Main-only direction (decision 89).",
+  "production_day": "2026-11-18",
+  "daily_article_limit": 2,
+  "article_slots_used": 0,
+  "new_publications_this_run": 0,
+  "completed_main_reports": 58,
+  "timely_completed_main_reports": 0,
+  "changed_main_reports_since_previous_check": 1,
+  "latest_completed_analysis": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\analysis-native.json",
+    "bytes": 132100,
+    "sha256": "baf78ace6c184db44162786b53af8e278c45c16669e6a2aaaf36942ae79bdb22",
+    "capture_known_at_utc": "2026-11-17T15:41:09.154264Z",
+    "completed_output": true,
+    "acceptance_evidence": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\analysis-end.json",
+      "bytes": 1044,
+      "sha256": "7d2d452f06f3c6b6f9dbbe3545d9b30cc6878cca821b6f810aae6ea622a3c79e",
+      "completed_at_utc": "2026-11-17T16:40:47.790524Z",
+      "output_hash_matches": true,
+      "hash_basis": "Main proof hashes canonical JSON; source sha256 hashes exact file bytes.",
+      "canonical_output_sha256": "55bffd95911bc1e9dd25789a40e5f4900f47e45bece62ba10e6894ce316f3882"
+    },
+    "changed_from_prior_native_inventory": true,
+    "summary_count": 4,
+    "summary_sha256": "c8682af27dc8c389959e955ce318a2cd7d0f082d62ac18adfc42a0b2cbcc98ce",
+    "candidate_count": 11,
+    "reader_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "ARTICLE",
+      "source_pack_sha256": "22855dc5f6269992745472defdc5558b5f4998e48a355de4781441150907e106",
+      "primary_document_id": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e1f66e09d276d984\\analysis-native.json",
+      "data_cutoff_utc": "2026-11-17T15:41:09.154264+00:00",
+      "max_sentence_words": 35,
+      "daily_prose_words": 350,
+      "publication_target_minutes": 60
+    },
+    "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:12944s",
+    "publication_deadline_utc": "2026-11-17T16:41:09.154264+00:00"
+  },
+  "event_assessment": "event-source-assessment.json",
+  "active_leases_at_assessment": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-17T19:17:00.672806+00:00"
+    },
+    {
+      "lease_id": "lease_7256c29c88ec60d2",
+      "lease_key": "heavy-news-quotes-minute",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-17T19:26:30.433290+00:00"
+    }
+  ],
+  "newsroom_window_lease_observed": false,
+  "operation_created": false,
+  "native_editorial_calls": 0,
+  "pending_request_created": false,
+  "channel_states": {
+    "substack": "NOT_DISPATCHED_BY_THIS_RUN",
+    "telegram": "NOT_DISPATCHED_BY_THIS_RUN",
+    "discord": "NOT_DISPATCHED_BY_THIS_RUN",
+    "linkedin": "NOT_DISPATCHED_BY_THIS_RUN",
+    "linkedin_company": "NOT_DISPATCHED_BY_THIS_RUN",
+    "facebook_page": "NOT_DISPATCHED_BY_THIS_RUN",
+    "instagram_business": "NOT_DISPATCHED_BY_THIS_RUN",
+    "threads": "NOT_DISPATCHED_BY_THIS_RUN",
+    "x": "NOT_DISPATCHED_BY_THIS_RUN",
+    "youtube": "NOT_DISPATCHED_BY_THIS_RUN"
+  },
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 30621,
+    "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553"
+  },
+  "publication_feed_unchanged": true,
+  "all_eight_inherited_modified_files_unchanged": true,
+  "schedules_changed": false,
+  "browser_actions": 0,
+  "native_desktop_actions": 0,
+  "messages_sent": 0,
+  "pytest_processes_started": 0,
+  "configured_launch": {
+    "observed_at_utc": "2026-11-17T19:17:18.4041328Z",
+    "process_id": 23496,
+    "parent_process_id": 27704,
+    "process_started_at_utc": "2026-11-17T19:14:37.4973800Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_evidence": "Win32_Process launch argument values; prompt omitted",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "native_editorial_calls": 0
+  },
+  "branch": "backlog/cc-124-main-check-20261118-0214",
+  "base_sha": "9a280ad023f6e56dfa66989ab917a189d35c91ce",
+  "base_reason": "Current operating-root HEAD, equal to builder HEAD at launch. Fresh origin/master 5be8fc63317be06d8319f3dd51ac4137a107cbb5 is its ancestor, 1360 commits behind.",
+  "next_due_utc": "2026-11-18T01:15:00+00:00",
+  "next_due_gmt7": "18 Nov 2026 08:15 GMT+7",
+  "next_due_reason": "Rounded up from six hours after this exact launch; backlog due marker only.",
+  "next_action": "On the next due run, assess current Main outputs with original capture clocks and continue the existing newsroom for a timely piece. Keep all existing bindings and recovery objects.",
+  "delivery_commit": "Recorded in CC-124 BACKLOG Result after push and integration."
+}

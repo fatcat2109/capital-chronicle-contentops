@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-17T19:17:18.4041328Z",
+  "process_id": 23496,
+  "parent_process_id": 27704,
+  "process_started_at_utc": "2026-11-17T19:14:37.4973800Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_evidence": "Win32_Process launch argument values; prompt omitted",
+  "observation": "CONFIGURED_NOT_OBSERVED",
+  "native_editorial_calls": 0
+}
