@@ -196,3 +196,23 @@ def test_promotion_checks_exact_store_binding_without_repeated_full_storage_scan
         conn.execute("DROP TRIGGER trg_transition_events_append_authorized")
     with pytest.raises(DurableStateCorruptionError, match="Runtime insert guard"):
         ReadOnlyStore(source.db_path)
+
+
+def test_recovery_uses_indexed_publication_rows_and_retains_unknown_obligation(tmp_path, monkeypatch):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store = ContentOpsDurableStore(tmp_path / "recovery.sqlite3")
+    store.create_work_item(story_id="CONTROLLED-cpi", work_item_id="CONTROLLED-cpi", title="Controlled", target_surface="TEST")
+    store.register_outbox_message(message_id="CONTROLLED-public", work_item_id="CONTROLLED-cpi",
+        destination="substack", payload='{"work_item_id":"CONTROLLED-cpi","plan_hash":"CONTROLLED-plan"}', status="UNKNOWN_WRITE")
+    store.register_outbox_message(message_id="CONTROLLED-tool", work_item_id="CONTROLLED-cpi",
+        destination="internal:native-neo-tool", payload='{"transcript":"not a dispatch"}', status="EDITORIAL_INTERNAL")
+    original = store.list_outbox_messages
+    def indexed(**kwargs):
+        assert kwargs.get("destination"), "Recovery must query the destination index first"
+        return original(**kwargs)
+    monkeypatch.setattr(store, "list_outbox_messages", indexed)
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    rows = co._recovery_messages()
+    assert [r["message_id"] for r in rows] == ["CONTROLLED-public"]
+    assert rows[0]["status"] == "UNKNOWN_WRITE"

@@ -4178,7 +4178,13 @@ class DurablePublicationCoordinator:
             # Query before loading payloads: retained history can be very large.
             messages = self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
         else:
-            messages = self.store.list_outbox_messages()
+            # Native tool transcripts and editorial packets are not dispatch
+            # obligations. Filter through the existing destination index before
+            # loading payloads; CC-425 measured a gigabyte history scan here.
+            destinations = {"substack", "site", "linkedin_company", *V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+            messages = [row for destination in sorted(destinations)
+                        for row in self.store.list_outbox_messages(destination=destination)]
+            messages.sort(key=lambda row: (row["created_at"], row["message_id"]))
         result = []
         for message in messages:
             if (message["status"] == "PLAN_POST_SETTLED"
