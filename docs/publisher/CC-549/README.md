@@ -44,3 +44,28 @@ The retained build was reapplied on the operating HEAD `1d0748e3` as `backlog/cc
 The continuation found and repaired a result regression: freezing first-alert terms must not hide a later Main-signed R result. A result row now retains its exact later public outcome and hash separately from its original levels; the write-boundary check binds it to the same plan and registration. [The failing replay](result-source-red.xml) and [three passing recovery checks](result-and-thread-recovery-green.xml) cover this. The broader consumer run had 51 passes and two failures in an old Discord fixture that still required the invalid starter reference removed by installed CC-432; that fixture now checks the accepted thread behavior. Its original failures remain in [thread-consumers-current.xml](thread-consumers-current.xml).
 
 The current writer/copy checks passed [171 tests](editorial-guards-current.xml). The current page, Discord reply and distribution consumers passed [92 tests](page-replies-current.xml). A direct read of the held public export also composed all 75 six-market plans with complete levels without a term-binding error; this is retained-source coverage, not a new public post.
+
+## 17 November live readback and source fix
+
+The next Main plan is now registered: USD/JPY, `plan_30f3365059e996b2f0d1d79a`, at **13:28:43.661 GMT+7 on 17 November**. The earlier `NEXT_MAIN_PLAN_NOT_REGISTERED` cause is resolved. At **14:36:24 GMT+7**, BrowserOS Neo's public-channel readback confirms [root 188](https://t.me/CapitalChronicle/188) and [status reply 189](https://t.me/CapitalChronicle/189). Both use the same entry range, cancellation condition, target and two clocks. Neither uses first-person singular or the observed writer-input wording. Reply 189 says the entry was not triggered; it does not claim a filled position closed.
+
+| Reader field | Frozen Main field | Display in both posts |
+|---|---|---|
+| Market | `asset_id`; incomplete `public_instrument` is not used for prices | USD/JPY |
+| Entry range | `zone.minimum`, `zone.maximum` | 159.02–159.38 |
+| Cancellation before entry | `invalidation_conditions[0].field/operator/threshold` | Spot plan cancelled on high at or above 160.3 before entry |
+| Target | `target_level` | 158.05 |
+| Entry deadline | `entry_deadline_utc`, earlier than `expires_at_utc` | Tue 17 Nov, 2:00 AM ET |
+| Filled-position horizon | `forecast_probabilities.horizon_end_utc` | Wed 18 Nov, 1:30 PM ET |
+
+**The analysis page and its analysis reply are still absent.** Reply 189 is a status result, not the required long analysis reply. The loaded Substack archive shows no page for this new plan. The [readback record](live-readback-20261117.json) retains both observed posts, their checks and null analysis URLs. The [source read](source-read-20261117.json), taken at **14:23:22 GMT+7**, records zero registered page rows and the runtime's exact `SOURCE_PAGE_PENDING / ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND` result.
+
+The Main run is present at `requests/request-dbc0b55a4b96d198`. Its sealed result matches the exported `analysis_result_hash`, and its freeze matches that same result. Main's combined `analysis-native.json` is present; the older `role-pack.json` and `role-evidence.json` are absent. The installed loader mistakes the absent old packaging for an absent run.
+
+Commit `f08c81a6dde4adc86b3bdb51346d934260a08520` fixes this in the existing page loader. It finds the exact named run folder, retains any old role files that exist, and reads the current combined analysis. The existing sealed-result and freeze checks remain. A read of the actual frozen alert source now yields 32 safe source lines, including two exact original-analysis references in the page-writer prompt. This run made no editorial model call.
+
+[The regression before the fix](single-pass-source-red-20261117.xml) reproduces the failure. [The targeted run after the fix](source-and-thread-green-20261117.xml) passes **61 tests** across the thread, page and editorial consumers, including the retained gold thread, old issued payload compatibility, original-analysis use by the real page-writer entry, and rejection of changed result/freeze bindings. One pytest process ran, without workers or shards; no full suite ran.
+
+Delivery branch: `backlog/cc-549-live-readback-20261117`, cut from operating HEAD `de6c35d747e14701ea9b2c5d9af8d0c4ea475a80`. Launch arguments for process 14732 name `gpt-6.1-sol`, effort `max`, **CONFIGURED_NOT_OBSERVED**. Existing unrelated `local-evidence/` files remain outside this delivery.
+
+**Delivery state: BUILT_UNMERGED (Ops review pending).** Under this second-stream run's instructions, no integration or live step was performed. The first Publisher stream integrates the pushed fix, then uses the existing page/reply path and records the canonical page and analysis-reply URLs before DONE. No existing public object was edited, and no schedule or application was changed.
