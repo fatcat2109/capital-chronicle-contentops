@@ -1,0 +1,12 @@
+{
+  "classification": "CC425_PREPARATION_STORAGE_SCAN_STOPPED",
+  "observed_at_utc": "2026-11-17T08:46:33.649748+00:00",
+  "pid": 26992,
+  "first_attempt_started_at_utc": "2026-11-17T08:28:51Z",
+  "last_observed_read_bytes": 2147331115,
+  "last_observed_write_bytes": 4412,
+  "live_operation_rows_at_last_read": 0,
+  "public_write_performed": false,
+  "cause": "REPEATED_WHOLE_STORE_INTEGRITY_SCANS",
+  "action": "Stopped only the identified CC425 preparation helper and released its own exact newsroom lease; scoped import validation replaces repeated scans. Physical audits retain their default checks."
+}

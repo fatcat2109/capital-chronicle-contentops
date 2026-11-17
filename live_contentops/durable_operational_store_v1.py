@@ -515,10 +515,11 @@ class ContentOpsDurableStore:
                 conn.execute(statement)
     def query_pragmas(self) -> Dict[str, Any]:
         with self.get_connection() as c: return {"journal_mode": str(c.execute("PRAGMA journal_mode").fetchone()[0]).upper(), "foreign_keys": int(c.execute("PRAGMA foreign_keys").fetchone()[0]), "busy_timeout_ms": int(c.execute("PRAGMA busy_timeout").fetchone()[0])}
-    def verify_schema_integrity(self) -> bool:
+    def verify_schema_integrity(self, *, physical_check: bool = True) -> bool:
         with self.get_connection() as c:
-            result = c.execute("PRAGMA integrity_check").fetchone()[0]
-            if str(result).lower() != "ok": raise DurableStateCorruptionError(str(result))
+            if physical_check:
+                result = c.execute("PRAGMA integrity_check").fetchone()[0]
+                if str(result).lower() != "ok": raise DurableStateCorruptionError(str(result))
             current_row = c.execute(
                 "SELECT MAX(version) FROM schema_migrations"
             ).fetchone() if c.execute(

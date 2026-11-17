@@ -160,3 +160,32 @@ def test_existing_reader_revision_appends_only_the_confirmed_cpi_reference(monke
         assert view["article"]["title"] == result["article"]["title"]
         assert view["evidence"] == result["evidence"]
         assert result["article"]["substack_body_markdown"] == "Original CPI review, unchanged."
+
+
+def test_promotion_checks_exact_store_binding_without_repeated_full_storage_scan(tmp_path, monkeypatch):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, DurableStateCorruptionError
+    from live_contentops.native_publication_promotion_v1 import ReadOnlyStore, _snapshot, _target_guards
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    source = ContentOpsDurableStore(tmp_path / "source.sqlite3")
+    work = "cc-opportunity-" + sha256_of("CONTROLLED-cpi")
+    source.create_work_item(story_id=work, work_item_id=work, title="Controlled CPI", target_surface="TEST")
+    statements = []
+    original = ContentOpsDurableStore.get_read_only_connection
+    def traced(store):
+        conn = original(store)
+        conn.set_trace_callback(statements.append)
+        return conn
+    monkeypatch.setattr(ContentOpsDurableStore, "get_read_only_connection", traced)
+    reader = ReadOnlyStore(source.db_path)
+    rows, reviews, item = _snapshot(reader, "CONTROLLED-cpi")
+    assert item["work_item_id"] == work and rows == [] and reviews == []
+    operation = {"item": {"work_item_id": "CONTROLLED-next"}, "pin": {"article_identity": "CONTROLLED-next"},
+                 "rows": [], "reviews": []}
+    with reader.get_read_only_connection() as conn:
+        assert _target_guards(conn, operation, {"run_id": "CONTROLLED-next"}, {"message_id": "CONTROLLED-new"}) is False
+    assert not any("integrity_check" in q.lower() or "foreign_key_check" in q.lower() for q in statements)
+    # Schema and authorization-trigger tampering still fails the import reader.
+    with source.get_connection() as conn:
+        conn.execute("DROP TRIGGER trg_transition_events_append_authorized")
+    with pytest.raises(DurableStateCorruptionError, match="Runtime insert guard"):
+        ReadOnlyStore(source.db_path)

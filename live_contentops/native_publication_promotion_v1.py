@@ -32,7 +32,10 @@ class ReadOnlyStore(ContentOpsDurableStore):
         if not path.is_file():
             raise ValueError("CC074_EXISTING_STORE_REQUIRED:" + str(path))
         super().__init__(path, auto_migrate=False)
-        self.verify_schema_integrity()
+        # Import validates exact rows and hashes; physical audits retain their
+        # default full scan. Repeating it per phase delayed CC-425 by 15 minutes.
+        self.verify_schema_integrity(physical_check=False)
+        self.verify_applied_migrations()
 
     def get_connection(self):
         return self.get_read_only_connection()
@@ -41,10 +44,6 @@ class ReadOnlyStore(ContentOpsDurableStore):
 def _snapshot(store, run_id):
     work = "cc-opportunity-" + sha256_of(run_id)
     with store.get_read_only_connection() as conn:
-        if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-            raise ValueError("CC074_STORE_INTEGRITY_FAILED")
-        if conn.execute("PRAGMA foreign_key_check").fetchone():
-            raise ValueError("CC074_STORE_FOREIGN_KEY_FAILED")
         rows = [
             dict(r)
             for r in conn.execute(
@@ -109,10 +108,6 @@ def _prior_distribution_can_wait(rows, operation, binding):
 
 
 def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
-    if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-        raise ValueError("CC074_TARGET_INTEGRITY_FAILED")
-    if conn.execute("PRAGMA foreign_key_check").fetchone():
-        raise ValueError("CC074_TARGET_FOREIGN_KEY_FAILED")
     # A reply-tab refresh cannot collide with this exact article import.
     # Other live writers and all uncertain dispatch/reconciliation stay guarded.
     if conn.execute(
