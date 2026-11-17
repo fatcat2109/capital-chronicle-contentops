@@ -1,5 +1,15 @@
 # CC-378 — Antigravity light text and claim check
 
+## Resume — 17 November 2026
+
+The installed assistance passed all 31 tests in each root. Neo is available, and
+one timely Main report was consumed by the existing newsroom. Native selection
+returned NO_STORY / NO_MATERIAL_NEWS; no qualifying article or public write
+resulted. The earlier missing-source and Neo-outage causes no longer describe
+this run. Two successful CC-124 assistance/publication readbacks remain required.
+[Current result](run-20261117/README.md) preserves the exact operation, evidence
+and next consumer action.
+
 ## Resume — 16 November 2026
 
 The version-probe failure no longer prevents the article prompt. The fix is

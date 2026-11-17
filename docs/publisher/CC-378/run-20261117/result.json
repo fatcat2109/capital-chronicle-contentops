@@ -1,0 +1,35 @@
+{
+  "item": "CC-378",
+  "observed_at_utc": "2026-11-17T05:02:15.706557+00:00",
+  "status": "BLOCKED",
+  "first_cause": "NO_MATERIAL_NEWS",
+  "cause_detail": "Timely completed Main report supplied no accepted market reaction and six stand-asides; native editorial selection found no material reader update. Two qualifying CC-124 publications remain unavailable.",
+  "operation_id": "cc378-main-reaction-20261117",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc378-main-reaction-20261117\\binding.json",
+  "terminal_artifact": "advance-terminal.json",
+  "qualified_articles": 0,
+  "qualifying_published_pair": false,
+  "neo_access": "AVAILABLE; public archive read through BrowserOS Neo in one existing window",
+  "source_availability": {
+    "completed_sources": 56,
+    "eligible_at_assessment": 1,
+    "original_capture_utc": "2026-11-17T04:13:36.733674Z",
+    "publication_deadline_utc": "2026-11-17T05:13:36.733674+00:00"
+  },
+  "checks": {
+    "worktree": "31 passed in 2.84s; assist-tests.xml",
+    "operating_root": "31 passed in 2.26s; installed-assist-tests.xml",
+    "installed_modules": "Byte-identical assistance/editorial modules; installed-code.json",
+    "preservation": "Eight inherited tracked files and publication feed unchanged; preservation-readback.json"
+  },
+  "implementation_change": false,
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "remaining_acceptance": "Next two CC-124 pieces retain actual successful AGY claims, alt text and four variants, Publisher flag decisions, and exact published alt/copy readbacks.",
+  "next_actor": "Existing CC-124 Publisher opportunity",
+  "next_action": "Consume the next materially useful timely Main report through the installed newsroom and sole coordinator; retain no-story and historical failed-call records unchanged.",
+  "choice": "Use held Main output in the editorial decision; do not publish filler to manufacture a qualifying pair.",
+  "launch_configuration": "gpt-6.1-sol/high; CONFIGURED_NOT_OBSERVED",
+  "selector_configuration": "gpt-6.1-sol/low; CONFIGURED_NOT_OBSERVED"
+}
