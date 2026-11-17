@@ -61,5 +61,12 @@
   },
   "recovery_live_commit": "97a37c6a905c5f3a240919cbac070d6be5c235ec",
   "recovery_live_tag": "contentops/cc-536-piece3-recovery-live-20261117T115533Z",
-  "recovery_tests": "company-absence-consumer-tests.xml: 9 passed"
+  "recovery_tests": "company-absence-consumer-tests.xml: 9 passed",
+  "final_evidence_commit": "2a7ecc07a43e9d7139c826d5384fa5a68851b9b1",
+  "installed_public_number_audit": {
+    "status": "PASS",
+    "numerical_occurrences": 119,
+    "script": "docs/publisher/CC-536/piece-3/verify_public_numbers.py",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps"
+  }
 }

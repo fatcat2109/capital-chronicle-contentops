@@ -27,5 +27,10 @@
   ],
   "schedule_changes": false,
   "other_chat_messages": false,
-  "desktop_automation": false
+  "desktop_automation": false,
+  "backlog_claim_correction": {
+    "corrected_at_utc": "2026-11-17T12:18:46.026476+00:00",
+    "cause": "Initial edit matched the quoted Status example, leaving the actual Owner status unchanged.",
+    "repair": "Restored the exact cadence instruction and updated only the actual Owner status; no backdated claim."
+  }
 }
