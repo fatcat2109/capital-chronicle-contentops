@@ -5,7 +5,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_native_newsroom_owner_operation_v1 import entry
 
 
-@pytest.mark.parametrize("command", ["advance", "publication-resume"])
+@pytest.mark.parametrize("command", ["advance", "agy-review", "publication-resume"])
 def test_other_public_worker_only_serializes_public_dispatch(tmp_path, monkeypatch, command):
     store = ContentOpsDurableStore(tmp_path / "isolated.sqlite3")
     other = store.acquire_lease("pinned-result-scorecard-v1", "controlled-other", ttl_seconds=900)

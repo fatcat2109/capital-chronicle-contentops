@@ -574,7 +574,7 @@ def operation(binding, **kwargs):
         # window's lease. Keep this operation's lease and all native claim,
         # identity and content checks; begin/resume still take the newsroom lock.
         records_tool_return = command == "publication-tool-submit"
-        prepares_editorial = command in {"advance", "newsroom", "standing", "scheduled", "next-candidate",
+        prepares_editorial = command in {"advance", "newsroom", "standing", "scheduled", "next-candidate", "agy-review",
             "submit", "recover-sources", "media", "media-plan", "final-visual-review", "review", "handoff"}
         # Editorial work has its own operation lease and sends nothing publicly.
         # An unrelated scorecard/publication must not hold a timely article's preparation.
