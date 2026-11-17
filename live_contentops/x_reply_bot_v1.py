@@ -242,13 +242,18 @@ def _json_response(raw):
     return value
 
 
-def _text_call(prompt, *, root, writer=False, runner=None):
+def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, timeout=None):
     """Bounded text CLI, no Claude/API fallback and no inherited project context."""
     from live_contentops.agy_editorial_assist_v1 import MODEL, EFFORT
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     (root / "prompt.txt").write_text(prompt, encoding="utf-8")
     model, effort = (WRITER_MODEL, WRITER_EFFORT) if writer else (MODEL, EFFORT)
+    if model_config is not None:
+        if not writer:
+            raise ValueError("TEXT_MODEL_CONFIG_REQUIRES_NATIVE_CALL")
+        model, effort = model_config
+    call_timeout = WRITER_TIMEOUT if timeout is None else timeout
     record_ = {"configured_model": model, "configured_effort": effort, "runtime_model": None,
         "runtime_effort": None, "configuration_status": "CONFIGURED_NOT_OBSERVED",
         "started_at_utc": packs.utcnow().isoformat(), "public_submit_actions": 0}
@@ -281,7 +286,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
                     "-c", 'web_search="disabled"', "--disable", "shell_tool", "--disable", "multi_agent",
                     "--disable", "view_image", "--disable", "apps", "--disable", "remote_plugin",
                     "--disable", "hooks", "--json", "--output-last-message", str(result_path), "-"]
-                result = (runner or _run_codex)(args, cwd=cwd, timeout=WRITER_TIMEOUT, input=prompt.encode("utf-8"))
+                result = (runner or _run_codex)(args, cwd=cwd, timeout=call_timeout, input=prompt.encode("utf-8"))
                 raw, err = result.stdout, result.stderr
                 if result.returncode:
                     raise ValueError("CODEX_EXIT_" + str(result.returncode))
@@ -297,7 +302,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
     except subprocess.TimeoutExpired as exc:
         raw, err = exc.output or b"", exc.stderr or b""
         record_["status"] = "TIMEOUT"
-        raise ValueError(("CODEX_DRAFT_TIMEOUT_" + str(WRITER_TIMEOUT) + "S") if writer else "AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S") from None
+        raise ValueError(("CODEX_DRAFT_TIMEOUT_" + str(call_timeout) + "S") if writer else "AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S") from None
     except Exception as exc:
         record_.setdefault("status", "FAILED")
         record_["cause"] = str(exc) if "light_call" in record_ else type(exc).__name__

@@ -15,7 +15,7 @@ def main():
     p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report",
                                        "tabs-refresh", "tabs-status", "tabs-enable",
                                        "bot-refresh", "bot-bind", "bot-status", "bot-observe",
-                                       "api-poll", "api-publish", "api-status"])
+                                       "api-poll", "api-publish", "api-status", "quote-refresh", "quote-status"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
     p.add_argument(
@@ -36,7 +36,11 @@ def main():
     p.add_argument("--x-approval-ref")
     args = p.parse_args()
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command.startswith("bot-"):
+    if args.command.startswith("quote-"):
+        from live_contentops import heavy_news_quotes_v1 as quotes
+        result = (quotes.audience_review(store) if args.command == "quote-status" else quotes.refresh_due(store,
+            feed_path=args.feed, root=args.output_root or Path(args.store).parent / "daily_app_outputs/heavy_news_quotes"))
+    elif args.command.startswith("bot-"):
         from live_contentops import x_reply_bot_v1 as bot
         control = Path(args.store).parent / "control/x_reply_bot_binding.json"
         if args.command == "bot-refresh":

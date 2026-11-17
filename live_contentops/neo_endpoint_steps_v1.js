@@ -332,6 +332,19 @@ if (input.phase === 'note_inline_copy') {
   },input.text));
 }
 
+if (input.phase === 'quote_source') {
+  return unwrap(await page.evaluateInPage(parent => {
+    const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
+    const source = Array.from(document.querySelectorAll('article[data-testid="tweet"]')).find(e =>
+      Array.from(e.querySelectorAll('a[href] time')).some(t => t.closest('a').href === parent.public_object_url));
+    const text = source?.querySelector('[data-testid="tweetText"]')?.innerText;
+    const button = source?.querySelector('[data-testid="retweet"]');
+    const matches = !!button && norm(text) === norm(parent.source_text);
+    if (matches) button.setAttribute('aria-label','CC467 source quote menu');
+    return {matches};
+  }, input.quote_parent));
+}
+
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
   let s = await snap();
   const posts = input.posts;
@@ -394,6 +407,23 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   button = settledButtons[settledButtons.length - 1];
   if (!button) return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
     reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
+  if (input.quote_parent) {
+    const quote = unwrap(await page.evaluateInPage(parent => {
+      const dialog = document.querySelector('[role="dialog"]');
+      const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
+      const card = dialog && Array.from(dialog.querySelectorAll('[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
+        .find(e => Array.from(e.querySelectorAll('a[href]')).some(a => a.href === parent.public_object_url)
+          && Array.from(e.querySelectorAll('[data-testid="tweetText"]')).some(t => norm(t.innerText) === norm(parent.source_text)));
+      const chart = dialog && Array.from(dialog.querySelectorAll('[data-testid="attachments"] img, [data-testid="mediaPreview"] img'))
+        .some(e => e.complete && e.naturalWidth > 0);
+      return {matches:!!card && !!chart, deadline:Date.parse(parent.deadline_at_utc)};
+    }, input.quote_parent));
+    if (!quote.matches || !Number.isFinite(quote.deadline) || Date.now() >= quote.deadline) {
+      return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
+        reason_code:Date.now() >= quote.deadline ? 'CC467_SOURCE_OUTSIDE_FIVE_MINUTES' : 'CC467_QUOTED_SOURCE_OR_CHART_MISSING',
+        pre_click_posts:editors};
+    }
+  }
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);
@@ -415,13 +445,20 @@ if (input.phase === 'readback') {
       const url = time && time.closest('a').href;
       const text = e.querySelector('[data-testid="tweetText"]');
       const postLinks = links(e);
+      const quoted = Array.from(e.querySelectorAll('[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
+        .find(card => card !== e && card.querySelector('[data-testid="tweetText"]')
+          && Array.from(card.querySelectorAll('a[href] time')).some(t => t.closest('a').href !== url));
+      const quotedTime = quoted && Array.from(quoted.querySelectorAll('a[href] time'))
+        .find(t => t.closest('a').href !== url);
+      const quotedUrl = quotedTime?.closest('a').href;
       const views=e.querySelector('a[href$="/analytics"]');
       return {public_object_url:url, public_object_id:url && url.match(/status\/(\d+)/)?.[1],
         observed_text:text?.innerText || '', published_at_utc:time?.getAttribute('datetime'),
+        quote_parent_url:quotedUrl || null, quote_parent_id:quotedUrl?.match(/status\/(\d+)/)?.[1] || null,
         public_views_text:views?.innerText || null, public_views_label:views?.getAttribute('aria-label') || null,
         metrics_observed_at_utc:new Date().toISOString(),
         links:postLinks, public_image_urls:Array.from(e.querySelectorAll('img'))
-          .map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
+          .filter(i=>!quoted?.contains(i)).map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));
     const permalink = document.querySelector('main [class*="feedPermalinkUnit"]');
     const parentUrl = permalink && links(permalink).find(a=>a.url === location.href)?.url;

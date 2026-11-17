@@ -68,7 +68,7 @@ def suspended_routes():
 
 def suspend_route(destination, cause):
     """Decision 121: persist a platform objection on this destination only."""
-    if destination not in {"linkedin_company", "youtube"}:
+    if destination not in {"linkedin_company", "youtube", "x"}:
         raise ValueError("ARTICLE_ROUTE_REQUIRED")
     routes = suspended_routes()
     routes[destination] = str(cause)
@@ -471,8 +471,13 @@ class NeoDestinationHandoff:
             valid_canonical = (_social_canonical(intent.get("canonical_url"))
                 if intent.get("distribution_policy") == "SITE_FIRST_V1" else _canonical(intent.get("canonical_url")))
             if destination != "substack" and not valid_canonical and not (
-                    intent.get("plan_status_post") and not intent.get("canonical_url")):
+                    (intent.get("plan_status_post") or intent.get("heavy_news_quote")) and not intent.get("canonical_url")):
                 raise ValueError("RECONCILED_CANONICAL_URL_REQUIRED")
+            if intent.get("heavy_news_quote"):
+                from .sourced_replies_v1 import validate_intent
+                if destination != "x" or self.store is None:
+                    raise ValueError("CC467_X_QUOTE_STORE_REQUIRED")
+                validate_intent(self.store, intent)
             from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link, posted_values
             if find_forbidden_link(*posted_values(intent)):
                 raise ValueError(REASON)
@@ -525,6 +530,14 @@ class NeoDestinationHandoff:
             # No signed-in view at all: the public channel page is the only Telegram surface.
             value["steps"][1] = "read " + TELEGRAM_PUBLIC_FEED + " with no sign-in; match the channel name @CapitalChronicle"
             value["forbidden"] = value["forbidden"] + ["web.telegram.org", "signed_in_telegram_view"]
+        if intent.get("heavy_news_quote"):
+            from .sourced_replies_v1 import validate_intent
+            validate_intent(self.store, intent)
+            value["quote_parent"] = intent["quote_parent"]
+            value["surface"] = "X_QUOTE_POST"
+            value["steps"].insert(3, "Quote the exact visible quote_parent source through its Quote composer; "
+                "attach the bound chart. Recheck its deadline before the single Post click. Read back the "
+                "quoted source id and URL inside our exact own-account post, never infer a quote from a text link.")
         if (destination == "substack_notes" or destination == "x" and intent.get("plan_analysis_link")) \
                 and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
             parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
@@ -703,6 +716,11 @@ class NeoDestinationHandoff:
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
         parent = request.get("reply_parent")
+        quote = request.get("quote_parent")
+        if quote and (result.get("observed_quote_parent_id") != quote["public_object_id"]
+                      or result.get("observed_quote_parent_url") != quote["public_object_url"]):
+            return {**result, "status": "UNKNOWN_WRITE", "reason_code": "X_QUOTE_PARENT_UNVERIFIED",
+                    "retry_permitted": False}
         if parent and (result.get("observed_reply_parent_id") != parent["public_object_id"]
                        or result.get("observed_reply_parent_url") != parent["public_object_url"]):
             return {**result, "status": "UNKNOWN_WRITE", "reason_code": (
@@ -893,6 +911,10 @@ class NeoDestinationHandoff:
         if parent:
             verified = verified and result.get("observed_reply_parent_id") == parent["public_object_id"] \
                 and result.get("observed_reply_parent_url") == parent["public_object_url"]
+        quote = request.get("quote_parent")
+        if quote:
+            verified = verified and result.get("observed_quote_parent_id") == quote["public_object_id"] \
+                and result.get("observed_quote_parent_url") == quote["public_object_url"]
         identity_exists = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == request["expected_identity"]
             and bool(public_object_id) and result.get("public_object_id") == public_object_id

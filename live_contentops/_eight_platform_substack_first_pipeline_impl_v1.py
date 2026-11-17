@@ -4179,7 +4179,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     output_dir = Path(str(intent.get("output_dir") or ""))
     if not output_dir.is_dir():
         raise RuntimeError("durable_intent_output_dir_unavailable")
-    if intent.get("plan_analysis_link") or intent.get("event_pack") or (intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids")):
+    if intent.get("plan_analysis_link") or intent.get("event_pack") or intent.get("heavy_news_quote") or (intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids")):
         destination = str(intent["destination_plan"]["destination"])
         frozen = intent["native_payload"]
         assets = intent.get("media_assets") or []
