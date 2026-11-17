@@ -371,11 +371,23 @@ def test_usdjpy_17_nov_actual_alert_queue_reads_later_outcome_without_rewriting_
 def test_cc648_unexecuted_call_with_pending_market_score_still_gets_an_ending(usdjpy_17_nov):
     raw = usdjpy_17_nov
     raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
-    raw["outcome"].update(state="SOURCE_BLOCKED", not_executed=True, first_cause="OUTCOME_MARKET_PATH_NOT_RETAINED")
+    raw["outcome"].update(state="UNAVAILABLE", not_executed=True, first_cause="OUTCOME_MARKET_PATH_NOT_RETAINED")
     row, = cards._result_rows({"status": {"plans": [raw]}, "transitions": {"transitions": [
         {"plan_id": raw["plan_id"], "status": "EXPIRED", "at_utc": "2026-11-17T07:00:26.003455Z"}]}})
     assert not row["scored"] and row["not_executed"]
     assert cards.ending_words(row) == "price reached the entry zone, but no position was opened because of a fault on our side"
+
+
+def test_dated_ready_result_remains_owed_while_old_publishing_work_still_settles(tmp_path):
+    from test_minute_consumer_cc515 import retained
+    store = ContentOpsDurableStore(tmp_path / "owed.sqlite3")
+    ready = retained(store, "dated-result", kind="result", hours=96)
+    before = store.get_outbox_message(ready["key"])
+    assert cards.settle_pending(store, before, ready, now=NOW) is None
+    assert store.get_outbox_message(ready["key"]) == before
+    attempted = retained(store, "old-attempt", kind="result", hours=96, status="PUBLISHING")
+    settled = cards.settle_pending(store, store.get_outbox_message(attempted["key"]), attempted, now=NOW)
+    assert settled["status"] == "SETTLED" and settled["cause"] == "PUBLISHING_OLDER_THAN_24_HOURS"
 
 
 def test_missing_fields_do_not_hide_available_inputs(five, main_root):

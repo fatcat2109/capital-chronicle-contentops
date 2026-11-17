@@ -144,6 +144,21 @@ def test_cc648_market_path_score_keeps_unexecuted_call_in_weekly_record(usdjpy_1
     assert validation["status"] == "PASS" and words in article["substack_body_markdown"]
 
 
+def test_cc648_pending_market_path_score_keeps_usdjpy_as_unscored(usdjpy_17_nov):
+    raw = usdjpy_17_nov
+    at = "2026-11-17T07:00:26.003455Z"
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    raw["outcome"].update(state="UNAVAILABLE", not_executed=True, first_cause="OUTCOME_MARKET_PATH_NOT_RETAINED")
+    data = {"status": {"generated_at_utc": at, "content_hash": "a" * 64, "scored_call_count": 0, "plans": [raw]},
+            "transitions": {"transitions": [{"plan_id": raw["plan_id"], "status": "EXPIRED", "at_utc": at}]}}
+    record = weekly.project(data, cutoff_utc="2026-11-21T15:00:00Z")
+    row, = record["rows"]
+    assert row["plan_id"] == raw["plan_id"] and not row["scored"]
+    assert "price reached the entry zone, but no position was opened because of a fault on our side; not scored." in row["line"]
+    assert "not triggered" not in record["text"].lower()
+    assert record["counts"] == {"scored_calls": 0, "hits": 0, "stops": 0, "unscored_expiries": 1}
+
+
 @pytest.mark.parametrize("change", ["count", "duplicate", "score", "direction", "zone"])
 def test_inconsistent_export_cannot_silently_drop_or_relabel_a_call(change):
     data = export()

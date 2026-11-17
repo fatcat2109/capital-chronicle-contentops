@@ -747,7 +747,9 @@ def settle_pending(store, outbox, row, *, now, root=None):
     from .publication_coordinator_v1 import DurablePublicationCoordinator
     settled = settled_destinations(store, row)
     age = posts._age_minutes(row, now)
-    late = age > posts.LATE_STATE_HOURS * 60
+    # Dated results remain owed (the publication freshness contract). CC-515
+    # still closes an attempted PUBLISHING row after 24 hours and dead parents.
+    late = age > posts.LATE_STATE_HOURS * 60 and not (row.get("kind") == "result" and outbox["status"] == posts.READY)
     confirmed = set()
     resumable = set(_ready_destinations(store, row, root=root)) if not late and row.get("format") == FORMAT else set()
     parent_message = store.get_outbox_message(row["parent_key"]) if row.get("parent_key") else None

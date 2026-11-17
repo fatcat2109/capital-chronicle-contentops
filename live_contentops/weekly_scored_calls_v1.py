@@ -13,8 +13,8 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy
-from live_contentops.plan_call_cards_v1 import ending_words, no_entry_words
-from live_contentops.plan_status_posts_v1 import TITLES, _utc, read_export, result_rows_from_export
+from live_contentops.plan_call_cards_v1 import _result_rows, ending_words, no_entry_words
+from live_contentops.plan_status_posts_v1 import TITLES, _built_plan, _utc, read_export, result_rows_from_export
 
 SCHEMA = "contentops.weekly_scored_calls.v1"
 ET = ZoneInfo("America/New_York")
@@ -104,7 +104,13 @@ def project(export, *, cutoff_utc):
     # Preserve the reader's explicit legacy expiries as unscored, until Main
     # supplies scored NOT_TRIGGERED outcomes. Never count them as scored calls.
     sources = {p.get("plan_id"): p for p in status.get("plans", [])}
-    for row in result_rows_from_export(export, include_not_triggered=True):
+    endings = {row["plan_id"]: row for row in result_rows_from_export(export, include_not_triggered=True)}
+    # CC-648 can prove no execution before its market-path score is available.
+    # Use the same ending owner as the alert queue and retain the call as unscored.
+    for row in _result_rows(export):
+        if not row["scored"] and row["not_executed"] and row["plan_id"] not in endings:
+            endings[row["plan_id"]] = {**row, "plan": _built_plan(sources[row["plan_id"]])}
+    for row in endings.values():
         if row["scored"]:
             continue
         resolved = _utc(row["at_utc"])

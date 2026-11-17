@@ -8,6 +8,7 @@ import sys
 import pytest
 
 from live_contentops import plan_status_posts_v1 as posts
+from test_plan_call_cards_cc399 import controlled_tradingview
 from test_plan_status_posts_cc306 import NOW, event, main_root, plan, write_export
 from test_plan_status_publication_cc306 import fake_host, no_real_snapshot
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
@@ -103,7 +104,8 @@ def test_missing_or_invalid_count_is_not_fabricated(tmp_path, main_root, count):
     assert result == {"status": "EXPORT_UNREADABLE", "cause": "PLAN_RESULT_SCORED_COUNT_INVALID"}
 
 
-def test_old_scored_results_reach_all_three_live_consumers_once(tmp_path, main_root, no_real_snapshot):
+def test_old_scored_results_reach_all_three_live_consumers_once(tmp_path, main_root, no_real_snapshot, controlled_tradingview):
+    from live_contentops import tradingview_snapshot_v1 as tv
     store, transport, coordinator = _coordinator(tmp_path, runtime=FixtureTransport())
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     folder = source(tmp_path)
@@ -121,11 +123,15 @@ def test_old_scored_results_reach_all_three_live_consumers_once(tmp_path, main_r
     queued = posts.queue_posts(store, folder, now=later, main_root=main_root, python=sys.executable)
     key = next(q["key"] for q in queued["queued"] if q["state"] == "RESULT")
     root = tmp_path / "posts"
+    # Retain controlled CC-459 media before dispatch. The publication step must
+    # reuse its exact package, without requesting a later price observation.
+    posts.prepare_post(store, key, root=root, host=fake_host, destinations=posts.API_DESTINATIONS,
+                       snapshot=tv.capture)
     first = posts.publish_ready(store, now=later, root=root, host=fake_host,
                                 coordinator_for=lambda key, folder: coordinator,
                                 snapshot=lambda *a: pytest.fail("result must not capture later prices"))
     assert first["posts"] == [{"key": key, "status": "PUBLISHED", "per_destination":
-                               {d: "DISPATCH_CONFIRMED" for d in posts.API_DESTINATIONS}}]
+                               {d: "DISPATCH_CONFIRMED" for d in posts.API_DESTINATIONS}, "destination_causes": {}}]
     assert sorted(transport.publish_calls) == sorted(posts.API_DESTINATIONS)
     assert not posts.publish_ready(store, now=later, root=root, host=fake_host,
                                    coordinator_for=lambda key, folder: coordinator)["posts"]

@@ -207,7 +207,9 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     from live_contentops import x_reply_bot_v1 as bot, x_reply_tabs_v1 as tabs
     from live_contentops import event_timestamp_v1, event_pack_v1, audience_collection_v1, model_invocation_usage_v1
     from live_contentops import pinned_result_scorecard_v1, neo_endpoint_executor_v1, call_followups_v1
+    from live_contentops import substack_daily_note_v1
     monkeypatch.setattr(call_followups_v1, "minute_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
+    monkeypatch.setattr(substack_daily_note_v1, "run_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
     order = []
     monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {"status": "OK"})
     def publish(*a, **kw):
