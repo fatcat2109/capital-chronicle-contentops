@@ -534,7 +534,7 @@ class NeoDestinationHandoff:
             from .sourced_replies_v1 import validate_intent
             validate_intent(self.store, intent)
             value["quote_parent"] = intent["quote_parent"]
-            value["surface"] = "X_QUOTE_POST"
+            value["surface"] = "X_POST"
             value["steps"].insert(3, "Quote the exact visible quote_parent source through its Quote composer; "
                 "attach the bound chart. Recheck its deadline before the single Post click. Read back the "
                 "quoted source id and URL inside our exact own-account post, never infer a quote from a text link.")

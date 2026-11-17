@@ -401,6 +401,7 @@ def normalize_readback_result(
 LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
     "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
     "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED",
+    "NEO_PUBLICATION_SURFACE_UNREGISTERED",
 })
 
 
@@ -2847,6 +2848,31 @@ class DurablePublicationCoordinator:
             description=_canonical_json({"cause":"OBSERVED_NATIVE_PRECLICK_REFUSAL_AND_RECONCILED_ABSENCE",
                 "dispatch_id":dispatch["dispatch_id"],"request_hash":request_hash,
                 "public_write_performed":False,"retry_performed":False}))
+
+    def resolve_unregistered_quote_begin_failure(self, dispatch_id, *, native_executor):
+        """Release this local X circuit only after the existing absence owner settles it."""
+        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
+        failure = self._destination_day_failure("x") or {}
+        if (dispatch.get("status") != RECONCILED_ABSENT_SAFE_TO_RETRY
+                or failure.get("dispatch_id") != dispatch_id or failure.get("safe_error_classification") != "KeyError"):
+            raise ValueError("CC467_EXACT_LOCAL_BEGIN_FAILURE_AND_ABSENCE_REQUIRED")
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=message["work_item_id"]):
+            packet = json.loads(row["payload"])
+            request = packet.get("request") or {}
+            if (request.get("action") == "PUBLISH" and request.get("destination") == "x"
+                    and request.get("surface") == "X_QUOTE_POST" and request.get("quote_parent")
+                    and request.get("dispatch_attempt_identity") == dispatch_id):
+                key = request["request_sha256"]
+                if not native_executor._get(key,"started") or native_executor._get(key,"response"):
+                    raise ValueError("CC467_EXACT_INTERRUPTED_BEGIN_REQUIRED")
+                incident_id, _, _ = self._destination_failure_cursor("x")
+                return self.store.register_incident(incident_id=incident_id+"_local_prewrite_resolved",
+                    work_item_id=request["work_item_id"], severity="RESOLVED_LOCAL_PREWRITE",
+                    description=_canonical_json({"cause":"CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM",
+                        "dispatch_id":dispatch_id,"request_sha256":key,"reconciled_absent":True,
+                        "public_write_performed":False,"retry_performed":False}))
+        raise ValueError("CC467_EXACT_UNREGISTERED_SURFACE_REQUEST_REQUIRED")
 
     def _record_destination_day_failure(self, intent, destination, detail, instant=None):
         # CC-401: reuse the incident table as the daily circuit, with first cause
