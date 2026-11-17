@@ -1,0 +1,72 @@
+{
+  "application_actions": 0,
+  "consumer_source_bindings": [
+    {
+      "matches": true,
+      "operating_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "path": "scripts/plan_status_posts.py",
+      "worktree_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690"
+    },
+    {
+      "matches": true,
+      "operating_sha256": "e996c0bcb120ecdfe41c850325de88df854a7353cce871f64db624dc19cfa44f",
+      "path": "live_contentops/plan_status_posts_v1.py",
+      "worktree_sha256": "e996c0bcb120ecdfe41c850325de88df854a7353cce871f64db624dc19cfa44f"
+    },
+    {
+      "matches": true,
+      "operating_sha256": "e75e36056eea21fd8a625e473bd8a680d98af1e468a2131bf375c76ad3817bad",
+      "path": "live_contentops/neo_endpoint_executor_v1.py",
+      "worktree_sha256": "e75e36056eea21fd8a625e473bd8a680d98af1e468a2131bf375c76ad3817bad"
+    },
+    {
+      "matches": true,
+      "operating_sha256": "19b2d55a031598e6e6ca72f56bc11e3a799810df2d1281750d8902116e78aad2",
+      "path": "live_contentops/neo_endpoint_steps_v1.js",
+      "worktree_sha256": "19b2d55a031598e6e6ca72f56bc11e3a799810df2d1281750d8902116e78aad2"
+    },
+    {
+      "matches": true,
+      "operating_sha256": "f01431eb6cdc798afdc8940b221ec579d6c65cbcedd7f973e5994371bf6e11c0",
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "worktree_sha256": "f01431eb6cdc798afdc8940b221ec579d6c65cbcedd7f973e5994371bf6e11c0"
+    }
+  ],
+  "launch": {
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_effort": "max",
+    "configured_model": "gpt-6.1-sol",
+    "max_argument_observed": true,
+    "model_argument_observed": true,
+    "pid": 31356,
+    "runtime_effort": null,
+    "runtime_model": null,
+    "started_at_utc": "2026-11-17T03:15:20.5362600Z"
+  },
+  "neo_listener_9010_count": 1,
+  "observed_at_utc": "2026-11-17T03:25:02.8497728Z",
+  "schedule_changes": 0,
+  "task": {
+    "actions": [
+      {
+        "Arguments": "-B scripts\\plan_status_posts.py --publish",
+        "Execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+        "WorkingDirectory": "A:\\Capital Chronicle\\ContentOps"
+      }
+    ],
+    "last_result": 267009,
+    "last_run_utc": "2026-11-17T03:24:26.0000000Z",
+    "multiple_instances": "IgnoreNew",
+    "name": "CapitalChronicle-PlanStatusPosts-V1",
+    "next_run_utc": "2026-11-17T03:25:25.0000000Z",
+    "state": "Running"
+  },
+  "workers": [
+    {
+      "command_line": "\"C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe\" -B scripts\\plan_status_posts.py --publish",
+      "parent_pid": 2084,
+      "pid": 34144,
+      "started_at_utc": "2026-11-17T03:24:26.536541+00:00"
+    }
+  ]
+}

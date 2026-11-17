@@ -1,0 +1,1026 @@
+{
+  "acceptance": {
+    "copied_store": "PASS: endpoint-acceptance-tests.xml, six targeted tests",
+    "first_cause": "AWAITING_FRESH_MAIN_STATUS_EVENT_FOR_2_MINUTE_TIMING_PROOF",
+    "live": "NOT_SATISFIED",
+    "next_action": "On the next new Main status event, the existing minute consumer sends the exact X and Notes copies and records their first verified confirmations against their own Telegram twin; do not repost old objects or substitute publication clocks."
+  },
+  "item": "CC-436",
+  "latest_natural_events": [
+    {
+      "kind": "result",
+      "operation_id": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9",
+      "registered_at_utc": "2026-11-15T12:17:28.860271+00:00",
+      "source_event_at_utc": "2026-11-12T23:00:00Z",
+      "status": "SETTLED"
+    },
+    {
+      "kind": "setup",
+      "operation_id": "plan-status-post-bfcf822a8217d37a65c818ee097f7370",
+      "registered_at_utc": "2026-11-12T17:45:38.526386+00:00",
+      "source_event_at_utc": "2026-11-12T17:40:00.360572Z",
+      "status": "SETTLED"
+    },
+    {
+      "kind": "setup",
+      "operation_id": "plan-status-post-b63716423fbebcbebcf14e3e5d40d20b",
+      "registered_at_utc": "2026-11-12T17:45:38.544451+00:00",
+      "source_event_at_utc": "2026-11-12T17:40:00.360572Z",
+      "status": "SETTLED"
+    },
+    {
+      "kind": "setup",
+      "operation_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "registered_at_utc": "2026-11-12T13:21:26.062364+00:00",
+      "source_event_at_utc": "2026-11-12T13:19:23.123369Z",
+      "status": "SUPERSEDED_NOT_POSTED"
+    },
+    {
+      "kind": "result",
+      "operation_id": "plan-result-post-aa4f00432677c019741a6c12a9717f81",
+      "registered_at_utc": "2026-11-12T11:13:32.438966+00:00",
+      "source_event_at_utc": "2026-11-11T23:50:00Z",
+      "status": "SETTLED"
+    },
+    {
+      "kind": "result",
+      "operation_id": "plan-result-post-b707b375fdd37affb2da55bb492a55c3",
+      "registered_at_utc": "2026-11-12T11:13:32.499918+00:00",
+      "source_event_at_utc": "2026-11-11T23:50:00Z",
+      "status": "SETTLED"
+    }
+  ],
+  "observed_at_utc": "2026-11-17T03:23:21.523235+00:00",
+  "other_recent_pairs": [
+    {
+      "destinations": [
+        {
+          "confirmation_minus_telegram_seconds": 1445.90092,
+          "destination": "x",
+          "dispatch_id": "dispatch_80c5ebd06f43dcdc28886dc6aee13003",
+          "dispatched_at": "2026-11-14T07:20:13.246198+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-14T07:46:16.329890+00:00",
+            "observed_at_utc": "2026-11-14T07:46:16.259230+00:00",
+            "observed_published_at_utc": "2026-11-14T07:20:57+00:00"
+          },
+          "public_object_id": "2121503636216049751",
+          "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_94959c640d07e2c5892c4f0bc694a5da",
+          "dispatched_at": "2026-11-14T07:22:07.385831+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-14T07:22:10.428970+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "183",
+          "public_object_url": "https://t.me/CapitalChronicle/183",
+          "status": "DISPATCH_CONFIRMED"
+        }
+      ],
+      "endpoint_observation_count": 27,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-14T05:49:02.114382+00:00",
+          "native_invocation_id": "neo-endpoint:d1a8326dd42546bb91b37589fa65567b",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-14T05:49:02.106912+00:00",
+          "outbox_id": "native-neo-76b26a21b89cc124cda6e4b06ea9b0c4070a87f87e0d7eb99593616c35be58a5",
+          "reason_code": "NEO_CONTROL_COVERED_ACT",
+          "request_sha256": "2b7a1d5bee45e9f454bd745046c70ac3892a06efd8dfb762ef3d1a359daceca5",
+          "status": "FAILED_BEFORE_WRITE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-14T09:16:59.800666+00:00",
+          "native_invocation_id": "neo-endpoint:8e6cd42e414b489385a9e82548270e8b",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-14T09:16:59.772865+00:00",
+          "outbox_id": "native-neo-a9538fb8670e34542708d8ded9b935ba9fca7eda84085f3e6591a37882669878",
+          "reason_code": null,
+          "request_sha256": "28684066fb1c03aec59ab446a2d2aac3553728946712ca6f52fc7685317a6edc",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-14T09:56:46.904537+00:00",
+          "native_invocation_id": "codex-exec-pid44920-20261114T095405Z",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT_AND_LOCAL_VIEW_IMAGE_SOURCE_PAIR",
+          "observed_at_utc": "2026-11-14T09:56:46.802024+00:00",
+          "outbox_id": "native-neo-65b5dcd6e8332bf48b876e71340c92187f100a6d2b0a70e5d486b6cc2fe4d4d5",
+          "reason_code": null,
+          "request_sha256": "8abe91a638e8cdbf608c7393b3a4014e98354dbdb642e55ac0cd66621dfaa8b8",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": false,
+      "kind": null,
+      "operation_id": "cc536-measured-odds-1",
+      "registered_at_utc": null,
+      "source_event_at_utc": null
+    },
+    {
+      "destinations": [
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_c523c1889d10fc5e11029d748b754508",
+          "dispatched_at": "2026-11-16T00:03:55.019094+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_27d66949208afd9eca16f37f80ffaefc",
+          "dispatched_at": "2026-11-16T00:03:55.269271+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE"
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_ca82e7e43e11a595b7a5360b56b958c1",
+          "dispatched_at": "2026-11-16T00:03:55.727349+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_61d5f6d1611ae436151598831e74cf61",
+          "dispatched_at": "2026-11-16T00:21:52.187544+00:00",
+          "first_verified_readback": null,
+          "public_object_id": "c-388486151",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-388486151",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_7a36c6323cfa9933b450f512f26d9d25",
+          "dispatched_at": "2026-11-16T00:22:53.329383+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-16T00:22:55.962267+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "185",
+          "public_object_url": "https://t.me/CapitalChronicle/185",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 1116.401861,
+          "destination": "x",
+          "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+          "dispatched_at": "2026-11-16T00:24:01.205301+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-16T00:41:32.364128+00:00",
+            "observed_at_utc": "2026-11-16T00:41:28.058301+00:00",
+            "observed_published_at_utc": "2026-11-16T00:24:49+00:00"
+          },
+          "public_object_id": "2122123689437323291",
+          "public_object_url": "https://x.com/Capitalnicle/status/2122123689437323291",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 27,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-16T00:22:27.776578+00:00",
+          "dispatched_at_utc": "2026-11-16T00:22:10.919Z",
+          "native_invocation_id": "neo-endpoint:326cd6e2714c4e4f8674622296c029d6",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-16T00:22:27.761261+00:00",
+          "outbox_id": "native-neo-5f5dcea0339f1af473298b2917ad62ce2667089430fdec40ace7e2e29de936f8",
+          "reason_code": "NEO_THREAD_READBACK_INCOMPLETE",
+          "request_sha256": "599e9b0f63fafcc1f23c688ccf032ee57c0ddb06d9018b65291862153a769526",
+          "status": "UNKNOWN_WRITE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-17T00:29:06.025338+00:00",
+          "native_invocation_id": "neo-endpoint:4f536d74409045b3b5251f06d578f508",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-17T00:29:06.022352+00:00",
+          "outbox_id": "native-neo-95a206e6bfeb52f976c583af1c8a132ed02801eb4dcf651c5e50d68c7790dec1",
+          "reason_code": "NEO_THREAD_READBACK_INCOMPLETE",
+          "request_sha256": "4fb75e9379942fb308f996e68e307bcf70bd610c2a24b68bf7273c00e88e3157",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-17T00:29:14.454362+00:00",
+          "native_invocation_id": "neo-endpoint:4f536d74409045b3b5251f06d578f508",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-17T00:29:14.450330+00:00",
+          "outbox_id": "native-neo-17ba8a5c42c2c4eeb2bd1f375a2740fcf1cec6515a7f1febce5f71a7ddf3531c",
+          "reason_code": null,
+          "request_sha256": "99fc13d238a5c3725b8fb81989b168b45f04fac0244e6228441f3f1978ffc604",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": false,
+      "kind": "call_followup",
+      "operation_id": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+      "registered_at_utc": "2026-11-15T23:51:34.608523+00:00",
+      "source_event_at_utc": "2026-11-15T23:51:32.804671+00:00"
+    },
+    {
+      "destinations": [
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_bf305391d7590b239bd830b27524e43b",
+          "dispatched_at": "2026-11-16T07:46:25.968126+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-16T07:46:28.374738+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "186",
+          "public_object_url": "https://t.me/CapitalChronicle/186",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 219.450642,
+          "destination": "x",
+          "dispatch_id": "dispatch_712ef8fcd42f489a57994a2b924645db",
+          "dispatched_at": "2026-11-16T07:48:37.836792+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-16T07:50:07.825380+00:00",
+            "observed_at_utc": "2026-11-16T07:49:55.805628+00:00",
+            "observed_published_at_utc": "2026-11-16T07:49:28+00:00"
+          },
+          "public_object_id": "2122235588179079329",
+          "public_object_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 10,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-16T07:20:01.647464+00:00",
+          "native_invocation_id": "neo-endpoint:6d666c3dff5a492c9afe9cc2a02794e5",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-16T07:20:01.642560+00:00",
+          "outbox_id": "native-neo-92f1f707b6b269016b8b8602c5ce9b25b4729cd2dec9c5db18687c677698d86b",
+          "reason_code": "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH",
+          "request_sha256": "026c5471ee4620df754724851a7b0faa068e61e7383086e845f948c70db945bc",
+          "status": "FAILED_BEFORE_WRITE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-16T08:01:11.395143+00:00",
+          "native_invocation_id": "neo-endpoint:3045c3ceb96c49d0bc4f949068c9dae0",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-16T08:01:11.288980+00:00",
+          "outbox_id": "native-neo-52f7bc2be0152233daefae204ac87e20e3f7854ab1db8fdc8356e50a46156fd2",
+          "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+          "request_sha256": "509159638790d7f96654334e2e6de61f4422c7d9e981307ff574c520e14fc6e0",
+          "status": "READBACK_UNAVAILABLE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-16T08:08:04.568174+00:00",
+          "native_invocation_id": "neo-endpoint:9bdabfccf1234596b7080bb2789d3370",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-16T08:08:04.557932+00:00",
+          "outbox_id": "native-neo-081340ea72307e3718047e7f7be811422736fe6641e4c54393ee81459e32dc21",
+          "reason_code": null,
+          "request_sha256": "455e5a01e111048916b30230abe4b54741f9cc519314dd50ba467d6d83422e03",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": false,
+      "kind": null,
+      "operation_id": "cc536-measured-odds-2",
+      "registered_at_utc": null,
+      "source_event_at_utc": null
+    }
+  ],
+  "public_write_calls": 0,
+  "schedule_changes": 0,
+  "source_rows": {
+    "fresh_natural_event_count_60m": 0,
+    "natural_count": 129,
+    "statuses": {
+      "CC603_PREPARED": 10,
+      "PUBLISHED": 23,
+      "SETTLED": 97,
+      "STALE_NOT_POSTED": 1,
+      "SUPERSEDED_NOT_POSTED": 10
+    },
+    "total": 141
+  },
+  "status_pairs": [
+    {
+      "destinations": [
+        {
+          "confirmation_minus_telegram_seconds": -5.1276,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_62f15756ab2ddae2011415e0afe53e33",
+          "dispatched_at": "2026-11-11T03:24:44.238453+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:25:49.343512+00:00",
+            "observed_at_utc": "2026-11-11T03:25:47.480961+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-384300093",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-384300093",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": true
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_f82c7b8896853bb03eb28d0c3962ee5a",
+          "dispatched_at": "2026-11-11T03:25:51.660274+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:25:54.471112+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "163",
+          "public_object_url": "https://t.me/CapitalChronicle/163",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 7551.088593,
+          "destination": "x",
+          "dispatch_id": "dispatch_173280bff1d92c660e1f896dddf233c9",
+          "dispatched_at": "2026-11-11T04:52:34.890688+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T05:31:45.559705+00:00",
+            "observed_at_utc": "2026-11-11T05:31:41.124468+00:00",
+            "observed_published_at_utc": "2026-11-11T05:31:06+00:00"
+          },
+          "public_object_id": "2120388829182132310",
+          "public_object_url": "https://x.com/Capitalnicle/status/2120388829182132310",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 7,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T03:25:27.779208+00:00",
+          "dispatched_at_utc": "2026-11-11T03:24:58.853Z",
+          "native_invocation_id": "neo-endpoint:b15c444c319c43c09358f67a408c56de",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T03:25:27.761928+00:00",
+          "outbox_id": "native-neo-21848925cc89657dd410606541e5bbc6572f930eced6b1ddbf79b4c0c93792a3",
+          "reason_code": null,
+          "request_sha256": "6aa7dfd5bd7e45426acf08b4e5831536214b7a2c1425e5ccb2a7f3b5a4035499",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:31:41.143218+00:00",
+          "dispatched_at_utc": "2026-11-11T05:31:05.553Z",
+          "native_invocation_id": "neo-endpoint:e9eceb79edf848aebd6f437153f0843b",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:31:41.124468+00:00",
+          "outbox_id": "native-neo-1546a7d3011125d92620c061bd9f46b72db5dc92978568d8602cae3c7f9f94aa",
+          "reason_code": null,
+          "request_sha256": "42d82facf0a6346844e7dc0cd826182bf6826499957a981a79c7e7c801565649",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:31:43.609598+00:00",
+          "dispatched_at_utc": "2026-11-11T05:31:05.553Z",
+          "native_invocation_id": "neo-endpoint:e9eceb79edf848aebd6f437153f0843b",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:31:41.124468+00:00",
+          "outbox_id": "native-neo-78a48250af3481b18fabf44ff343e1808cf56a5088561df2b5b596d8389ee7fb",
+          "reason_code": null,
+          "request_sha256": "288c2e011e001563298cfa4fb1bf0c2360d3cca694c09c85760a6290466122fc",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "run",
+      "operation_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "registered_at_utc": "2026-11-11T03:22:36.891158+00:00",
+      "source_event_at_utc": "2026-11-11T03:19:22.635185Z"
+    },
+    {
+      "destinations": [
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_03df7502ff55b5c4cba39c9665f48b8b",
+          "dispatched_at": "2026-11-11T06:33:27.290374+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "UNKNOWN_WRITE",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_f907869bcdb47caae04c9ddf92fc52ea",
+          "dispatched_at": "2026-11-11T06:33:53.591120+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T06:33:56.121627+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "170",
+          "public_object_url": "https://t.me/CapitalChronicle/170",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_39c748f94e3a74da224f69b9046c80dc",
+          "dispatched_at": "2026-11-12T05:03:44.997077+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 533,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T06:33:40.930799+00:00",
+          "dispatched_at_utc": "2026-11-11T06:33:37.111Z",
+          "native_invocation_id": "neo-endpoint:51dede7864c949819a4675a115676fda",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T06:33:40.928205+00:00",
+          "outbox_id": "native-neo-5a5f603cb925010f285409a6a225e5370ff3c5f24da7e84c6639f0b43c20d8ff",
+          "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+          "request_sha256": "f0b7c727fd0036a91fbc59dcc4484e91a6643c9b1eb5e5eb85869766c2f4303b",
+          "status": "UNKNOWN_WRITE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-12T14:07:55.863104+00:00",
+          "native_invocation_id": "neo-endpoint:978d2680ff8c4b6fa27e9af4be8e7724",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-12T14:07:55.860806+00:00",
+          "outbox_id": "native-neo-9d2018fa2c1aa20c184dc99aa7ff140ffcb7dacb952277b7bdeb0c2f3cf8cca4",
+          "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+          "request_sha256": "5e150a5be8c9d6eac5eb75d6e465f21384bdd808b547121409dee17d84c2698d",
+          "status": "READBACK_UNAVAILABLE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-12T14:11:28.503878+00:00",
+          "native_invocation_id": "neo-endpoint:ef7b623aa4c8404f8aa2dba4f66ceda8",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-12T14:11:28.501571+00:00",
+          "outbox_id": "native-neo-0da303721f8d453819f134f1b1528284a9eb8498a5e0d95f2432f69a19632852",
+          "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+          "request_sha256": "d67f43017873fde65afd8233236a7a15d9fc132b2181c7d0cdc8579d61b49852",
+          "status": "READBACK_UNAVAILABLE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "run",
+      "operation_id": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "registered_at_utc": "2026-11-11T06:32:28.274288+00:00",
+      "source_event_at_utc": "2026-11-11T06:31:04.626225Z"
+    },
+    {
+      "destinations": [
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_d5cc7918faeaaec9802c8d277afd8232",
+          "dispatched_at": "2026-11-11T16:25:58.935792+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T16:26:00.992748+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "175",
+          "public_object_url": "https://t.me/CapitalChronicle/175",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 45490.780593,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_9fcea925640c86ebdc88502f91b2c96d",
+          "dispatched_at": "2026-11-12T05:03:46.529654+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-12T05:04:11.773341+00:00",
+            "observed_at_utc": "2026-11-12T05:04:06.247243+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-385240262",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-385240262",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "confirmation_minus_telegram_seconds": 45851.584617,
+          "destination": "x",
+          "dispatch_id": "dispatch_fa6b738ce02a978b5b3853ee24559a10",
+          "dispatched_at": "2026-11-12T05:04:12.269419+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-12T05:10:12.577365+00:00",
+            "observed_at_utc": "2026-11-12T05:10:12.257873+00:00",
+            "observed_published_at_utc": "2026-11-12T05:04:27+00:00"
+          },
+          "public_object_id": "2120744512545017962",
+          "public_object_url": "https://x.com/Capitalnicle/status/2120744512545017962",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 3,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-12T05:04:06.249721+00:00",
+          "dispatched_at_utc": "2026-11-12T05:03:56.943Z",
+          "native_invocation_id": "neo-endpoint:e608968065da4f45b7cf595b2141eabe",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-12T05:04:06.247243+00:00",
+          "outbox_id": "native-neo-746b963d8c99b4b86ea06db49b5367f612ab61b41046058d9d8921638f45f7f5",
+          "reason_code": null,
+          "request_sha256": "c71f1cce673f33da67248b3bf4baea00af28dc2f23a633d0efa42132694e0cdb",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-12T05:04:11.214916+00:00",
+          "dispatched_at_utc": "2026-11-12T05:03:56.943Z",
+          "native_invocation_id": "neo-endpoint:e608968065da4f45b7cf595b2141eabe",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-12T05:04:06.247243+00:00",
+          "outbox_id": "native-neo-99687c33dbf7b09b31a71288771fb7ab1739c9d3511b64f7ae8f669e42b22f75",
+          "reason_code": null,
+          "request_sha256": "460f3edbb842a2df9ec091289ef0b4164e48b7fa68a1dcc1206efb4d2eb256db",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-12T05:10:12.260304+00:00",
+          "native_invocation_id": "neo-endpoint:ae56565644934e589425553a71cfe1ec",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-12T05:10:12.257873+00:00",
+          "outbox_id": "native-neo-589f2e046d004e6310fdd7f44c23ffcf45aadb1519f9041b0ca92c0bee67a014",
+          "reason_code": null,
+          "request_sha256": "0e93ea2042a06e7295bfe45422cbba60f611092880fa20a800b9cb4b93372c64",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "run",
+      "operation_id": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "registered_at_utc": "2026-11-11T16:23:19.305242+00:00",
+      "source_event_at_utc": "2026-11-11T16:20:07.062029Z"
+    },
+    {
+      "destinations": [
+        {
+          "confirmation_minus_telegram_seconds": 6106.650913,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_5b055ab48781622679c7c737e35656a3",
+          "dispatched_at": "2026-11-11T03:26:22.305552+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T05:08:28.713047+00:00",
+            "observed_at_utc": "2026-11-11T05:08:25.410416+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-384344804",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-384344804",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_1135e2d58e75d3e5dba73449712216c2",
+          "dispatched_at": "2026-11-11T03:26:39.115380+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:26:42.062134+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "164",
+          "public_object_url": "https://t.me/CapitalChronicle/164",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_478932297f67ea7dfabf30282223b47f",
+          "dispatched_at": "2026-11-12T05:10:27.289468+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 3,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T03:26:37.447171+00:00",
+          "native_invocation_id": "neo-endpoint:46eb7b40a70a42e5b12d93b5a45cfb8e",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T03:26:37.407747+00:00",
+          "outbox_id": "native-neo-f278c978bd02f3f6ebf87a1201add3f78e6bdd1532642640974c172e31253bad",
+          "reason_code": "NEO_COMPOSER_PREPARATION_FAILED",
+          "request_sha256": "9f38e3414a96f62e5475538f84597f2a2ceee9121faa9e814a89ac2e6ed90a27",
+          "status": "FAILED_BEFORE_WRITE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:08:25.419915+00:00",
+          "dispatched_at_utc": "2026-11-11T05:07:59.126Z",
+          "native_invocation_id": "neo-endpoint:1cd3ea0b9f6f436f93f2adf9730960db",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:08:25.410416+00:00",
+          "outbox_id": "native-neo-183998844bb410f9104b66949039dd756b3fd55a21d7814d7c428d787d08a847",
+          "reason_code": null,
+          "request_sha256": "173abd42c7b74ad476f5426957014af1c7a7131a1396004ef7a78f6cff3fcc1a",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:08:28.359960+00:00",
+          "dispatched_at_utc": "2026-11-11T05:07:59.126Z",
+          "native_invocation_id": "neo-endpoint:1cd3ea0b9f6f436f93f2adf9730960db",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:08:25.410416+00:00",
+          "outbox_id": "native-neo-772ddd0cfc0a721ae40cab249eb07e392b9f63ca046a57a60c49198152cdeeee",
+          "reason_code": null,
+          "request_sha256": "13db5f2e9261549ed3285a0627d21e178f10c65d340812cd49689a16f79da7c3",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "setup",
+      "operation_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "registered_at_utc": "2026-11-11T03:22:36.989717+00:00",
+      "source_event_at_utc": "2026-11-11T03:19:22.635185Z"
+    },
+    {
+      "destinations": [
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_920556bcf3b57fa765717ba300f35820",
+          "dispatched_at": "2026-11-11T03:27:10.699521+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:27:13.792823+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "165",
+          "public_object_url": "https://t.me/CapitalChronicle/165",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 5686.262596,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_d83465bdf864cd6aa5e59b95afb3b580",
+          "dispatched_at": "2026-11-11T04:53:01.320659+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T05:02:00.055419+00:00",
+            "observed_at_utc": "2026-11-11T05:01:59.852213+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-384339008",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-384339008",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_7f9f09be6d45f275d0b8e6fa9091aaf1",
+          "dispatched_at": "2026-11-12T05:10:27.852199+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 8,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T04:53:34.695742+00:00",
+          "dispatched_at_utc": "2026-11-11T04:53:17.011Z",
+          "native_invocation_id": "neo-endpoint:7d56e0b7f7d9458c8fa83efbb4ef97f5",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T04:53:34.683140+00:00",
+          "outbox_id": "native-neo-67f983b0334f4fc105b3787e5f8d3b9d7de445720b5e74ec612c941ce25069e0",
+          "reason_code": "NEO_THREAD_READBACK_INCOMPLETE",
+          "request_sha256": "323f7ed79a038634ef290cd718c58d5eb965229a912ce1597c9731ed257641b0",
+          "status": "UNKNOWN_WRITE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T04:59:49.654673+00:00",
+          "native_invocation_id": "neo-endpoint:6fc64d31cc424d008cbc497e90748461",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T04:59:49.644538+00:00",
+          "outbox_id": "native-neo-9772a7892b5b93cc94a9ee434c59638c4d24d086cd1345562d4d832c1950e7f7",
+          "reason_code": "NEO_THREAD_READBACK_INCOMPLETE",
+          "request_sha256": "15d2d6738645516466e25bcbc0aafb01274d4ddb47fc837bdaab37005c3e7f7f",
+          "status": "READBACK_UNAVAILABLE",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:01:59.857681+00:00",
+          "native_invocation_id": "neo-endpoint:11c8cbaeeb144c3291a406631f7dcf66",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:01:59.852213+00:00",
+          "outbox_id": "native-neo-e97bccdf25fd7a6898a91cf87da5e9bdc6fff5983e02d2324256ac2be689cc10",
+          "reason_code": null,
+          "request_sha256": "f73677023e2f30a70437423255f73def9c67a2c0c7cbf5f3f7a859ce38ed2cdd",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "setup",
+      "operation_id": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "registered_at_utc": "2026-11-11T03:22:37.186706+00:00",
+      "source_event_at_utc": "2026-11-11T03:19:22.635185Z"
+    },
+    {
+      "destinations": [
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_00c16dd5c04990c4051031994d69ff9e",
+          "dispatched_at": "2026-11-11T03:27:45.076562+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:27:47.145098+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "166",
+          "public_object_url": "https://t.me/CapitalChronicle/166",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 5704.328427,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_6591322cf997c28575131ec772d5d167",
+          "dispatched_at": "2026-11-11T05:02:02.375571+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T05:02:51.473525+00:00",
+            "observed_at_utc": "2026-11-11T05:02:43.114169+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-384342640",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-384342640",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_b234934dfcf7f3ed0c714475f7fa6cf8",
+          "dispatched_at": "2026-11-12T05:10:28.312908+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 2,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T05:02:43.195982+00:00",
+          "dispatched_at_utc": "2026-11-11T05:02:21.151Z",
+          "native_invocation_id": "neo-endpoint:ef5ef962fab94386bbaba83f639c7caf",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:02:43.114169+00:00",
+          "outbox_id": "native-neo-4df549d2d3e3d6468c8cb30ec7a482de8f07b6e3ab8466b3b8de3a0c27259056",
+          "reason_code": null,
+          "request_sha256": "875768fc533eb178344fb2eaf1ee189f050442594c43ba018fdb767f0bd6c826",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:02:51.165271+00:00",
+          "dispatched_at_utc": "2026-11-11T05:02:21.151Z",
+          "native_invocation_id": "neo-endpoint:ef5ef962fab94386bbaba83f639c7caf",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:02:43.114169+00:00",
+          "outbox_id": "native-neo-5cdd29bd2450a72c8ea81afd706e3d67bc48eae22bf8093b1df11e0e88516511",
+          "reason_code": null,
+          "request_sha256": "f470941ab342b89a5be8e15b768f79f5ad0d33e4b9181a9f9a3b5f385f430ccc",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "setup",
+      "operation_id": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "registered_at_utc": "2026-11-11T03:22:37.289092+00:00",
+      "source_event_at_utc": "2026-11-11T03:19:22.635185Z"
+    },
+    {
+      "destinations": [
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_2e9e3f7b425f859d182ad643e9d7e0cc",
+          "dispatched_at": "2026-11-11T03:28:13.570024+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:28:16.489384+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "167",
+          "public_object_url": "https://t.me/CapitalChronicle/167",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 5715.476529,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_13455b23b5c204bbd2f6e2b52325b0ba",
+          "dispatched_at": "2026-11-11T05:02:52.752815+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T05:03:31.965913+00:00",
+            "observed_at_utc": "2026-11-11T05:03:29.133988+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-384342971",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-384342971",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_29eb59803216530bd6e7199922fc74d6",
+          "dispatched_at": "2026-11-12T05:10:28.785583+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 2,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T05:03:29.149493+00:00",
+          "dispatched_at_utc": "2026-11-11T05:03:10.087Z",
+          "native_invocation_id": "neo-endpoint:53bbde9cd416445d9654b50c83dec54a",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:03:29.133988+00:00",
+          "outbox_id": "native-neo-0870620efdbd61b64c892ad0aaaabe3f2939a33cf108187da424a563e9e55b22",
+          "reason_code": null,
+          "request_sha256": "cbf240bc5ed84ab6250646a2d2ae875f2cc14abb3c70426ff388d9081106fd15",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:03:31.626343+00:00",
+          "dispatched_at_utc": "2026-11-11T05:03:10.087Z",
+          "native_invocation_id": "neo-endpoint:53bbde9cd416445d9654b50c83dec54a",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:03:29.133988+00:00",
+          "outbox_id": "native-neo-6e78ac9cafd421729f7b739b8209c2cb41dd6d5e6af2b49bca0682eae76d75f6",
+          "reason_code": null,
+          "request_sha256": "6fbbeccf8acf0e7f04e4ccd9de9ed3cc9519fc8c934529bc3bce13eb03cea92b",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "setup",
+      "operation_id": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "registered_at_utc": "2026-11-11T03:22:37.490429+00:00",
+      "source_event_at_utc": "2026-11-11T03:19:22.635185Z"
+    },
+    {
+      "destinations": [
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_a6c658fa379cd6e9eccb0096ab9fcfe0",
+          "dispatched_at": "2026-11-11T03:28:43.328099+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T03:28:46.227757+00:00",
+            "observed_at_utc": null,
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "168",
+          "public_object_url": "https://t.me/CapitalChronicle/168",
+          "status": "DISPATCH_CONFIRMED"
+        },
+        {
+          "confirmation_minus_telegram_seconds": 5748.678815,
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_6378227167726ccee1c33d0a657eba7c",
+          "dispatched_at": "2026-11-11T05:03:32.647160+00:00",
+          "first_verified_readback": {
+            "confirmed_at_utc": "2026-11-11T05:04:34.906572+00:00",
+            "observed_at_utc": "2026-11-11T05:04:26.868183+00:00",
+            "observed_published_at_utc": null
+          },
+          "public_object_id": "c-384343241",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-384343241",
+          "status": "DISPATCH_CONFIRMED",
+          "within_120_seconds_of_telegram": false
+        },
+        {
+          "confirmation_minus_telegram_seconds": null,
+          "destination": "x",
+          "dispatch_id": "dispatch_785293c62a56e121a3d46a31446e438b",
+          "dispatched_at": "2026-11-12T05:10:29.277352+00:00",
+          "first_verified_readback": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "status": "DEFINITE_NO_WRITE",
+          "within_120_seconds_of_telegram": false
+        }
+      ],
+      "endpoint_observation_count": 2,
+      "endpoint_observations_sample": [
+        {
+          "created_at_utc": "2026-11-11T05:04:26.880639+00:00",
+          "dispatched_at_utc": "2026-11-11T05:03:51.139Z",
+          "native_invocation_id": "neo-endpoint:88e4da5ce9794e3c870a34fecc0a0dad",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:04:26.868183+00:00",
+          "outbox_id": "native-neo-57fe9462f65cfef218c022dafca4b2c7c6767f22a957a6e02846faefc4c07080",
+          "reason_code": null,
+          "request_sha256": "b16f32a7545e2e7890573964b18496680460e7108a3c0effc9f1930601794304",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        },
+        {
+          "created_at_utc": "2026-11-11T05:04:29.382496+00:00",
+          "dispatched_at_utc": "2026-11-11T05:03:51.139Z",
+          "native_invocation_id": "neo-endpoint:88e4da5ce9794e3c870a34fecc0a0dad",
+          "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+          "observed_at_utc": "2026-11-11T05:04:26.868183+00:00",
+          "outbox_id": "native-neo-aaf50ecb50195d9ccdd73f9c1cf151cfdd8899a5ebc471259784a25653b51473",
+          "reason_code": null,
+          "request_sha256": "3dd9d8dbc0ef9ae2a202983831c40f7f47bc8fda70e4dfc702eaf9eb2f049d26",
+          "status": "SUCCESS",
+          "surface": "NEO_ENDPOINT_EXECUTOR",
+          "tool_name": "browseros-neo/run"
+        }
+      ],
+      "is_natural_status_event": true,
+      "kind": "setup",
+      "operation_id": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "registered_at_utc": "2026-11-11T03:22:37.574731+00:00",
+      "source_event_at_utc": "2026-11-11T03:19:22.635185Z"
+    }
+  ],
+  "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "store_access": "SQLite mode=ro",
+  "timely_notes_status_pairs": 1,
+  "timely_x_status_pairs": 0
+}

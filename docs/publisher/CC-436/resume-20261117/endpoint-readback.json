@@ -1,0 +1,106 @@
+{
+  "finished_at_utc": "2026-11-17T03:24:59.532387+00:00",
+  "followup_mismatch_explanation": {
+    "content_check_kept": "Measured public-content mismatch; no second publish or weakened validation.",
+    "followup_missing_links_key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f-missing-links",
+    "missing_expected_links": [
+      "https://t.me/CapitalChronicle/166",
+      "https://t.me/CapitalChronicle/134"
+    ],
+    "operation_id": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+    "reason": "Existing follow-up Note omits bound visible Telegram links; exact readback correctly declines content verification. Its separately prepared CC-603 missing-links reply is already in the existing outbox."
+  },
+  "initialize": {
+    "observed_at_utc": "2026-11-17T03:22:23.284406+00:00",
+    "status": "PASS"
+  },
+  "item": "CC-436",
+  "public_write_calls": 0,
+  "readbacks": [
+    {
+      "content_verified": true,
+      "expected_public_object_url": "https://x.com/Capitalnicle/status/2122123689437323291",
+      "media_comparisons": [
+        {
+          "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+          "max_luma_delta": 0,
+          "observed_image_url": "https://pbs.twimg.com/media/HXNMHJ_bgAABUBz?format=png&name=small",
+          "pixels_inspected": true,
+          "platform_sha256": "aca059504b7a7cfd7175cc4a00e2bfdb8d1d1e9e480369488ea17f7084af246d",
+          "public_image_url": "https://pbs.twimg.com/media/HXNMHJ_bgAABUBz?format=png&name=orig",
+          "public_object_url": "https://x.com/Capitalnicle/status/2122123689437323291",
+          "rms": 0.0,
+          "source_asset_sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+          "source_pixels_match": true,
+          "worst_tile_rms": 0.0
+        }
+      ],
+      "observed_at_utc": "2026-11-17T03:22:31.633145+00:00",
+      "observed_identity": "@Capitalnicle",
+      "observed_media_sha256": [
+        "aca059504b7a7cfd7175cc4a00e2bfdb8d1d1e9e480369488ea17f7084af246d"
+      ],
+      "public_object_id": "2122123689437323291",
+      "public_object_url": "https://x.com/Capitalnicle/status/2122123689437323291",
+      "published_at_utc": "2026-11-16T00:24:49.000Z",
+      "request_sha256": "99fc13d238a5c3725b8fb81989b168b45f04fac0244e6228441f3f1978ffc604",
+      "source": "Installed NeoBrowserDriver.perform; immutable READBACK packet; no begin/submit or store writes",
+      "source_request_created_at_utc": "2026-11-17T00:29:06.160261+00:00",
+      "source_request_outbox_id": "native-neo-2d9b7fdfa8625dd41bb08a1578802542271c210c1a9a77713fa1c421dd1e3a2e",
+      "status": "SUCCESS"
+    },
+    {
+      "content_verified": false,
+      "expected_public_object_url": "https://substack.com/@capitalchronicle/note/c-388486151",
+      "media_comparisons": [
+        {
+          "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+          "max_luma_delta": 0,
+          "observed_image_url": "https://substackcdn.com/image/fetch/$s_!DL96!,w_568,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5b9a1b4d-e285-46c1-8fc4-fba3ce823d34_1524x858.png",
+          "pixels_inspected": true,
+          "platform_sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+          "public_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/5b9a1b4d-e285-46c1-8fc4-fba3ce823d34_1524x858.png",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-388486151",
+          "rms": 0.0,
+          "source_asset_sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+          "source_pixels_match": true,
+          "worst_tile_rms": 0.0
+        }
+      ],
+      "observed_at_utc": "2026-11-17T03:22:40.419006+00:00",
+      "observed_identity": "@capitalchronicle",
+      "observed_media_sha256": [
+        "61705ea9f6527e0ef1b450cbabd87f9210092babbde1788d3e4110da5e17fa67",
+        "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+        "132e9446ff5acf2811d3ed30f5d7d5daa6a3363d49ec9461180166a6a4ff7c1a"
+      ],
+      "public_object_id": "c-388486151",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-388486151",
+      "reason_code": "NEO_THREAD_READBACK_INCOMPLETE",
+      "request_sha256": "4fb75e9379942fb308f996e68e307bcf70bd610c2a24b68bf7273c00e88e3157",
+      "source": "Installed NeoBrowserDriver.perform; immutable READBACK packet; no begin/submit or store writes",
+      "source_request_created_at_utc": "2026-11-17T00:28:57.405768+00:00",
+      "source_request_outbox_id": "native-neo-a0a3f0e2e466e9919f45969184251205fb1e3af7dedef54876b86b71b1f33aff",
+      "status": "SUCCESS"
+    },
+    {
+      "content_verified": true,
+      "expected_public_object_url": "https://substack.com/@capitalchronicle/note/c-385240262",
+      "media_comparisons": [],
+      "observed_at_utc": "2026-11-17T03:24:59.532373+00:00",
+      "observed_identity": "@capitalchronicle",
+      "observed_media_sha256": [
+        "61705ea9f6527e0ef1b450cbabd87f9210092babbde1788d3e4110da5e17fa67"
+      ],
+      "public_object_id": "c-385240262",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-385240262",
+      "request_sha256": "460f3edbb842a2df9ec091289ef0b4164e48b7fa68a1dcc1206efb4d2eb256db",
+      "source": "Installed NeoBrowserDriver.perform; immutable READBACK packet; no begin/submit or store writes",
+      "source_request_created_at_utc": "2026-11-12T05:04:11.187856+00:00",
+      "source_request_outbox_id": "native-neo-9cef3025d30dfc2641c268872e90c34dd3434572f3e3f38afe5713ab196b9973",
+      "status": "SUCCESS"
+    }
+  ],
+  "started_at_utc": "2026-11-17T03:22:23.273686+00:00",
+  "store_access": "SQLite mode=ro"
+}
