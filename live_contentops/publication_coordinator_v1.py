@@ -936,7 +936,11 @@ class DurablePublicationCoordinator:
 
     def _effective_message(self, message):
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
-        row = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(message["message_id"]))
+        key = "native-reader-presentation-" + sha256_of(message["message_id"])
+        row = self.store.get_outbox_message(key)
+        reference = self.store.get_outbox_message(key + "-cc425-reference")
+        if reference and reference["status"] == "PRESENTATION_EDIT_CONFIRMED":
+            row = reference
         if not row or row["status"] not in {"PRESENTATION_EDIT_CONFIRMED", "PRESENTATION_MEDIA_BOUND"}:
             return self._dated_distribution_message(message)
         edit = json.loads(row["payload"])
@@ -1079,6 +1083,19 @@ class DurablePublicationCoordinator:
         intent, revision, view, acceptance = self._reader_presentation_intent(message, review_reference)
         destination = message["destination"]
         key = "native-reader-presentation-" + sha256_of(message["message_id"])
+        from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+        if revision.get("policy") == LINK_POLICY:
+            previous = self.store.get_outbox_message(key)
+            if previous:
+                previous_note = json.loads(previous["payload"])
+                if (previous["status"] != "PRESENTATION_EDIT_CONFIRMED"
+                        or previous_note.get("article", {}).get("substack_body_markdown") != revision["body_before"]
+                        or previous_note.get("public_object_id") != dispatch["public_object_id"]
+                        or previous_note.get("public_object_url") != dispatch["public_object_url"]):
+                    raise ValueError("CPI_REFERENCE_PRIOR_EDIT_MUST_BE_CONFIRMED_AND_UNCHANGED")
+            # Preserve the completed earlier edit and its recovery bytes.
+            # This exact append is selected only after its own strict readback.
+            key += "-cc425-reference"
         canonical_id = revision["objects"]["substack"]["message_id"]
         if destination != "substack":
             canonical_edit = self.store.get_outbox_message("native-reader-presentation-" + sha256_of(canonical_id)) or {}

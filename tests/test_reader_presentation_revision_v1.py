@@ -160,6 +160,45 @@ def test_coordinator_edits_once_and_never_reposts_unknown_api_edit(revised, tmp_
     assert "Reporting as of" not in json.loads(co._effective_message(store.get_outbox_message("message-facebook_page"))["payload"])["payload"]
 
 
+def test_confirmed_reference_append_preserves_prior_edit_and_becomes_live_only_after_readback(revised, tmp_path, monkeypatch):
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+    store, run, _, _, _ = revised
+    first = accept(revised, tmp_path)
+    class Runtime:
+        verified = True
+        def amend_reader_presentation(self, **kwargs):
+            return {"status": "UNKNOWN_EDIT"}
+        def readback(self, **kwargs):
+            return {"verified": self.verified, "public_object_id": kwargs["public_object_id"]}
+    runtime = Runtime()
+    co = DurablePublicationCoordinator(store=store, transport_runtime=runtime)
+    co.amend_reader_presentation("dispatch-substack", review_reference=first)
+    message = store.get_outbox_message("message-substack")
+    intent, revision, view, acceptance = co._reader_presentation_intent(message, first)
+    key = "native-reader-presentation-" + sha256_of(message["message_id"])
+    original = store.get_outbox_message(key)
+    second = {"stage": "CONTROLLED-confirmed-reference"}
+    revision = {**revision, "policy": LINK_POLICY, "body_before": view["article"]["substack_body_markdown"]}
+    view = deepcopy(view)
+    view["article"]["substack_body_markdown"] += "\n\nHistorical CPI comparisons."
+    intent = deepcopy(intent)
+    intent["native_payload"]["body_markdown"] += "\n\nHistorical CPI comparisons."
+    original_intent = co._reader_presentation_intent
+    monkeypatch.setattr(co, "_reader_presentation_intent", lambda msg, ref:
+        (intent, revision, view, acceptance) if ref == second else original_intent(msg, ref))
+    runtime.verified = False
+    pending = co.amend_reader_presentation("dispatch-substack", review_reference=second)
+    assert not pending["verified"]
+    assert "Historical CPI comparisons" not in json.loads(co._effective_message(message)["payload"])["native_payload"]["body_markdown"]
+    runtime.verified = True
+    done = co.amend_reader_presentation("dispatch-substack", review_reference=second)
+    assert done["verified"] and done["new_post_calls"] == 0
+    assert store.get_outbox_message(key) == original
+    assert store.get_outbox_message(key + "-cc425-reference")["status"] == "PRESENTATION_EDIT_CONFIRMED"
+    assert "Historical CPI comparisons" in json.loads(co._effective_message(message)["payload"])["native_payload"]["body_markdown"]
+    assert store.get_platform_dispatch("dispatch-substack")["public_object_id"] == "123"
+
+
 def test_readback_requires_footer_absence_even_when_remaining_body_matches():
     value = {"work_item_id": "CONTROLLED", "payload": "Controlled article.", "reader_presentation_review": {},
         "removed_reader_text": ["Reporting as of 11:00 Bangkok on 27 October 2026."],
