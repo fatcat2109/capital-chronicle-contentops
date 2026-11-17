@@ -243,3 +243,25 @@ def test_actual_minute_entry_consumes_the_fresh_page_independently_of_status_exp
         assert len(calls) == 1 and calls[0]["automatic_neo"] is True
         assert json.loads(held["payload"])["page_id"] == page["page_id"]
         assert json.loads(output.getvalue())["substack_daily_note"]["state"] == "NOTE_PREPARED"
+
+
+@pytest.mark.parametrize("state", ["NOTE_WAITING_SOURCE", "NOTE_COORDINATOR_RETURNED"])
+def test_pythonw_run_record_keeps_note_source_or_publication_result_without_copy(tmp_path, state):
+    from live_contentops.plan_status_posts_v1 import record_run
+    note = {"state": state, "day_et": "2026-11-17"}
+    if state == "NOTE_WAITING_SOURCE":
+        note["source_causes"] = [{"page_id": "held-page", "cause": "NOTE_DATA_CUTOFF_EXPIRED_OR_FUTURE"}]
+    else:
+        note.update(note_id="substack-daily-note-2026-11-17", outcome={
+            "status": "RECOVERY_REQUIRED", "per_destination": {
+                "substack_notes": {"status": "UNKNOWN_WRITE", "cause": "PROVIDER_RESPONSE_LOST"}},
+            "native_payload": {"text": "Do not copy this into the run record."}})
+    path = record_run({"status": "OK", "substack_daily_note": note}, tmp_path)
+    saved = json.loads(path.read_bytes())["substack_daily_note"]
+    assert saved["state"] == state and saved["day_et"] == note["day_et"]
+    if state == "NOTE_WAITING_SOURCE":
+        assert saved["source_causes"] == note["source_causes"]
+    else:
+        assert saved["publication_state"] == "RECOVERY_REQUIRED"
+        assert saved["per_destination"]["substack_notes"]["status"] == "UNKNOWN_WRITE"
+        assert "Do not copy" not in path.read_text(encoding="utf-8")

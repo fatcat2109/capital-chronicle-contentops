@@ -958,6 +958,18 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
         line["phase"] = result["phase"]
     if result.get("plan_pages") is not None:
         line["plan_pages"] = result["plan_pages"]
+    if "substack_daily_note" in result:
+        # CC-468: pythonw has no stdout. Keep the Note's first source cause or
+        # coordinator result in this existing run record, without copy/media.
+        note = result["substack_daily_note"]
+        outcome = note.get("outcome") or {}
+        per = outcome.get("per_destination") or {}
+        line["substack_daily_note"] = {
+            **{k: note[k] for k in ("state", "day_et", "note_id", "cause", "source_causes", "call_path") if k in note},
+            **({"publication_state": outcome.get("state") or outcome.get("status") or outcome.get("distribution_status"),
+                "per_destination": {d: {k: value[k] for k in ("status", "cause", "public_object_id", "public_object_url")
+                                            if k in value} for d, value in per.items()}}
+               if outcome else {})}
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
     if "call_followups" in result:
