@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-17T07:13:33.335041+00:00",
+  "integrated_evidence_commit": "2c3c7492b1057ea031478f71c42b9ef704375815",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "weekly_record_matches_in_both_checkouts": true,
+  "counts": {
+    "scored_calls": 4,
+    "hits": 0,
+    "stops": 4,
+    "unscored_expiries": 33
+  },
+  "inherited_modified_files_unchanged": 8,
+  "publication_feed_unchanged": true,
+  "acceptance": "INCOMPLETE_NO_WEEKLY_SUBSTACK_OBJECT",
+  "cause": "NO_TIMELY_MAIN_WRAP_SOURCE",
+  "exact_source_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:6920s",
+  "next_action": "Publisher consumes the next timely Main weekly review through the installed source hook, retains all dated rows, then obtains exact Substack readback. Original deadline remains missed."
+}

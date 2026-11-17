@@ -55,3 +55,9 @@ existing window and the task's own group; the archive remains open.
 
 [Launch observation](launch-observation.json) records PID 27744 with explicit
 `gpt-6.1-sol/high`, `CONFIGURED_NOT_OBSERVED`. No editorial role was invoked.
+
+[Integration](integration.json) records commit
+`2c3c7492b1057ea031478f71c42b9ef704375815` pushed and fast-forwarded into the
+operating root. The installed weekly record matches the builder's parsed record;
+all eight inherited files and the publication feed remain unchanged. This is
+integrated verification evidence. The Substack acceptance remains incomplete.
