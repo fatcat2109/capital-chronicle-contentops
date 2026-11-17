@@ -7,7 +7,6 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime, timedelta, timezone
-from hashlib import sha256
 import json
 from pathlib import Path
 import re
@@ -287,7 +286,7 @@ def audience_review(store, *, now=None):
     now = now or now_utc()
     rows = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.DESTINATION)
             if json.loads(r["payload"]).get("heavy_news_quote") == POLICY]
-    reports = [replies.report_one(store, row) for row in rows]
+    reports = [quote_report(store, row) for row in rows]
     posted = [r for r in reports if r["readback_url"] and r["posted_at_utc"]]
     if not posted:
         return {"status": "FIRST_LIVE_QUOTE_PENDING", "quotes": reports}
@@ -323,4 +322,30 @@ def audience_review(store, *, now=None):
         result.update(status="FOURTEEN_DAY_REVIEW_COMPLETE", decision="KEEP" if mean(views["quotes"]) >= mean(views["ordinary"]) else "STOP")
     else:
         result["status"] = "FOURTEEN_DAY_VIEWS_UNAVAILABLE"
+    return result
+
+
+def quote_report(store, row):
+    result = replies.report_one(store, row)
+    source_at = replies.clock(row["source_posted_at_utc"]) if row.get("source_posted_at_utc") else None
+    result.update(source_posted_at_utc=row.get("source_posted_at_utc"),
+                  feed_seen_at_utc=row.get("feed_seen_at_utc"), observed_published_at_utc=None,
+                  source_to_post_seconds=None, within_five_minutes=None)
+    dispatches = store.get_dispatches_for_work_item(row["key"]) if hasattr(store,"get_dispatches_for_work_item") else []
+    def observed(value, identity):
+        if isinstance(value, dict):
+            if str(value.get("public_object_id")) == str(identity) and value.get("published_at_utc"):
+                yield value["published_at_utc"]
+            for child in value.values():
+                yield from observed(child, identity)
+        elif isinstance(value, list):
+            for child in value:
+                yield from observed(child, identity)
+    for dispatch in dispatches:
+        for readback in store.list_readbacks_for_dispatch(dispatch["dispatch_id"]):
+            clocks = list(observed(json.loads(readback["readback_data"]), dispatch["public_object_id"]))
+            if clocks and source_at and result["readback_url"]:
+                at = replies.clock(clocks[-1])
+                result.update(observed_published_at_utc=at.isoformat(), source_to_post_seconds=(at-source_at).total_seconds(),
+                              within_five_minutes=0 <= (at-source_at).total_seconds() <= MAX_SECONDS)
     return result

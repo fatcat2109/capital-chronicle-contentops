@@ -18,6 +18,7 @@ def test_real_minute_entry_delivers_drafts_before_slow_work_and_dry_run_calls_no
     from live_contentops import event_timestamp_v1, event_pack_v1, plan_status_posts_v1
     from live_contentops import audience_collection_v1, model_invocation_usage_v1
     from live_contentops import call_followups_v1, plan_reader_editorial_v1
+    from live_contentops import heavy_news_quotes_v1, substack_daily_note_v1
     order = []
     def refresh(store, **options):
         order.append("private-draft")
@@ -33,6 +34,11 @@ def test_real_minute_entry_delivers_drafts_before_slow_work_and_dry_run_calls_no
         order.append("plan-pages")
         return {"status": "CANONICAL_PENDING"}
     monkeypatch.setattr(bot, "refresh_due", refresh)
+    def quote_tick(*a, **kw):
+        order.append("heavy-quote")
+        return {"status":"NO_HEAVY_NEWS"}
+    monkeypatch.setattr(heavy_news_quotes_v1, "refresh_due", quote_tick)
+    monkeypatch.setattr(substack_daily_note_v1, "run_due", lambda *a, **kw:{"status":"NOT_DUE"})
     monkeypatch.setattr(bot, "observe_due", lambda *a, **k: {"status": "OBSERVATION_NOT_DUE"})
     monkeypatch.setattr(cli, "queue_posts", queue)
     monkeypatch.setattr(tabs, "refresh_due", lambda *a, **k: {"status": "DISABLED"})
@@ -53,7 +59,8 @@ def test_real_minute_entry_delivers_drafts_before_slow_work_and_dry_run_calls_no
     monkeypatch.setattr(sys, "stdout", output)
     cli.main(["--store", str(tmp_path / "store.sqlite3"), "--publish", *(["--dry-run"] if dry else [])])
     value = json.loads(output.getvalue())
-    assert order == (["main-export"] if dry else ["main-export", "private-draft", "followups", "plan-pages"])
+    assert order == (["main-export"] if dry else ["main-export", "heavy-quote", "private-draft", "followups", "plan-pages"])
+    assert ("heavy_news_quotes" not in value) if dry else value["heavy_news_quotes"]["status"] == "NO_HEAVY_NEWS"
     assert ("reply_bot" not in value) if dry else value["reply_bot"]["status"] == "PENDING_JIM_BOT_START"
 
 

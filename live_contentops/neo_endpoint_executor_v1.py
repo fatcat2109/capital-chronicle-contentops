@@ -961,7 +961,9 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         if automatic_destinations is None:
             kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
-        self.client=client or (NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
+        self.client=client or (NeoMcpClient(task_name="cc467 news quotes",group_title="codex/cc467-news-quotes")
+            if self.operation_id.startswith("heavy-quote-") else
+            NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
             if self.operation_id.startswith("plan-analysis-") else endpoint_client())
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})
