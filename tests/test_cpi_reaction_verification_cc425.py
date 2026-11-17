@@ -155,7 +155,8 @@ def test_existing_reader_revision_appends_only_the_confirmed_cpi_reference(monke
               "status": "UNKNOWN_WRITE" if fault == "unconfirmed" else "DISPATCH_CONFIRMED"}
     result = {"article_identity": "original-article", "qualified_article_count": 1,
               "article": {"title": "Our CPI review", "substack_body_markdown": "Original CPI review, unchanged."},
-              "evidence": [], "previews": [], "media_assets": [],
+              "evidence": [], "previews": [{"destination": d, "payload": {"text": "Original CPI copy."}}
+                    for d in sorted(native.FINAL_VISUAL_CHANNELS - {"substack"})], "media_assets": [],
               "simple_result": {"publication_lifecycle_plan": {"plan_hash": "CONTROLLED-plan"}}}
     messages = {"final": {"payload": json.dumps(result)},
                 "reference-message": {"payload": json.dumps({"article": target_article})}}
@@ -178,6 +179,22 @@ def test_existing_reader_revision_appends_only_the_confirmed_cpi_reference(monke
         assert view["article"]["title"] == result["article"]["title"]
         assert view["evidence"] == result["evidence"]
         assert result["article"]["substack_body_markdown"] == "Original CPI review, unchanged."
+        class ReviewTurn:
+            run_id = proposal["run_id"]
+            def _get(self, *args):
+                return {"invocation_observation": {"invocation_id": "CONTROLLED-original"}}
+            def __call__(self, **kwargs):
+                return {"governed_input": kwargs["governed_input"]}
+        turn = ReviewTurn()
+        turn.store = store
+        request = native.request_final_visual_review(turn, renders=None, reader_presentation_revision=revision)
+        assert request["governed_input"]["binding"]["renders"] == []
+        response = {"invocation_observation": {"invocation_id": "CONTROLLED-current", "model": "gpt-6.1-sol", "reasoning_effort": "max"},
+                    "output": {"decision": "ACCEPT", "rationale": "Controlled exact confirmed reference link; original source, body and media retained."}}
+        native.validate_final_visual_return(turn, request, response)
+        request["governed_input"]["reader_presentation_revision"]["body_after"] += " New unapproved claim."
+        with pytest.raises(ValueError, match="APPEND_ONLY"):
+            native.validate_final_visual_return(turn, request, response)
 
 
 def test_promotion_checks_exact_store_binding_without_repeated_full_storage_scan(tmp_path, monkeypatch):

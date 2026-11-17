@@ -2398,8 +2398,10 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import uses_short_path
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+    reference_link = (reader_presentation_revision or {}).get("policy") == LINK_POLICY
     media_only_repair = (reader_presentation_revision or {}).get("policy") in {
-        "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}
+        "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER", LINK_POLICY}
     agent = getattr(turn, "editorial_agent", "codex")
     # CC-300: the reviewer is named by its own family's label, never another's.
     editor = role_assignment("final-visual", agent)
@@ -2414,8 +2416,10 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None:
             governed["reader_presentation_revision"] = reader_presentation_revision
         return turn(logical_invocation_id=turn.run_id + ":" + stage,
-            prompt="You are this run's native " + editor_label + " editor. Review the exact dated social copy against the admitted "
-                "article, source facts, uncertainty, account, canonical link and selected images. No historical "
+            prompt="You are this run's native " + editor_label + " editor. " +
+                ("Review the exact appended CPI reference link and its confirmed canonical target; the original body and media remain byte-bound. "
+                 if reference_link else "Review the exact dated social copy. ") +
+                "Check the admitted article, source facts, uncertainty, account, canonical link and selected images. No historical "
                 "named writer is required. Decision 53 uses one editor check and the bound automated image "
                 "load/dimension check, without new screenshots. Return JSON {decision: ACCEPT or REPAIR_REQUIRED, "
                 "rationale: substantive findings}. Never claim pixel inspection. GOVERNED_INPUT:\n" + canonical_bytes(governed).decode(),
@@ -2496,8 +2500,10 @@ def validate_final_visual_return(turn, request, response):
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
-    if (recovery is not None or (revision or {}).get("policy") in {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}) and binding.get("review_policy") == SPEED_POLICY:
-        if (((revision or {}).get("policy") not in {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"} and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+    bounded_repairs = {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER", LINK_POLICY}
+    if (recovery is not None or (revision or {}).get("policy") in bounded_repairs) and binding.get("review_policy") == SPEED_POLICY:
+        if (((revision or {}).get("policy") not in bounded_repairs and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
                 or _distribution_editor_check_binding(result, scope, agent=agent) != binding):
             raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
         if (output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED"}
