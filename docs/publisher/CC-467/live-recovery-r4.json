@@ -1,0 +1,179 @@
+{
+  "started_at_utc": "2026-11-17T13:59:03.595522+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "result": {
+    "status": "QUOTE_READBACK_RECOVERY",
+    "result": {
+      "publication": {
+        "plan_hash": "49ec7d01bfde62c39f8287820b1dc20e387b95a5932b082e93d073c76a05b165",
+        "registered": [],
+        "outbox_count": 0,
+        "per_destination": {
+          "x": {
+            "destination": "x",
+            "dispatch_id": "dispatch_4a98e9f4e6b9669a6b6d872bda2b3b80",
+            "dispatch_recorded": true,
+            "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "public_object_id": null,
+            "public_object_url": null,
+            "publish_called": false
+          }
+        },
+        "canonical_article_status": "NOT_CONFIRMED",
+        "canonical_article_real_published": false,
+        "canonical_url": null,
+        "canonical_publication_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+        "distribution_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+        "recovery_preflight": {
+          "safe_resumes": 0,
+          "safely_attempted": 0,
+          "stale_expired": 0,
+          "marked_unknown": 0,
+          "readbacks": 1,
+          "publish_calls": 0,
+          "readiness_probe_performed": false,
+          "per_destination": {},
+          "recovery_attempt_budget": 9,
+          "backlog_remaining": 1,
+          "legacy_noncanonical_rows_skipped": 43,
+          "backlog_remaining_by_destination": [
+            "x"
+          ],
+          "backlog_remaining_obligations": [],
+          "recovery_quarantined_obligations": [],
+          "recovery_quarantined_obligation_count": 0,
+          "backlog_blocking_new_publication": true,
+          "backlog_blocking_current_article": true
+        },
+        "public_write_performed": false,
+        "unknown_write_detected": false,
+        "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+        "derivative_confirmed_count": 0,
+        "derivative_attempted_count": 1,
+        "derivative_unknown_count": 0,
+        "derivative_absent_safe_to_retry_count": 1,
+        "derivative_failed_count": 0,
+        "derivative_never_attempted_count": 0,
+        "recovery_required_destinations": [],
+        "readback_limitation_destinations": [],
+        "retired_browser_unknown_count": 0,
+        "retired_x_unknown_count": 0,
+        "unknown_write_count": 0,
+        "closed_no_write_destinations": []
+      },
+      "reply": {
+        "key": "heavy-quote-2122686560797667435",
+        "platform": "x",
+        "target_url": "https://x.com/financialjuice/status/2122686560797667435",
+        "target_author": "financialjuice",
+        "text": "Iran supply risk matters for WTI crude oil. COT data as of 3 Nov 2026 put speculators’ net longs at 4.2% of open interest, before the selloff. Chart: TradingView. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "image": {
+          "alt_text": "WTI crude oil, daily interval.",
+          "article_inclusion": false,
+          "asset_id": "tradingview-snapshot-7036a4e2e5fcf3ec0f1b",
+          "attribution": "TradingView",
+          "canonical_article_media": false,
+          "caption": "Market context: 15m chart of WTI light crude oil futures, front month (NYMEX). Chart: TradingView.",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "credit": "Chart: TradingView",
+          "delivery_only": true,
+          "height": 858,
+          "media_role": "delivery_only",
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\heavy-quote-2122686560797667435\\media\\tradingview-47fe6801a884c609-16x9.png",
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "publication_authority": false,
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "role": "market_chart",
+          "sha256": "7036a4e2e5fcf3ec0f1b472175ede5fe7e160ca147358d55b0afb3932f563a67",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=15",
+          "tradingview_snapshot": {
+            "capture_ratio": "16:9",
+            "capture_viewport": {
+              "height": 850,
+              "width": 1910
+            },
+            "captured_at_utc": "2026-11-17T13:45:35.189207+00:00",
+            "chart_geometry_cause": "TRADINGVIEW_AXIS_GRID_PIXEL_CHECK_FAILED",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=15",
+            "framing": {
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ],
+              "ratio": "16:9",
+              "width": 1524
+            },
+            "height": 856,
+            "interval": "15",
+            "interval_label": "15m",
+            "legend": "15m",
+            "levels_drawn": [],
+            "page_title": "CL1! 86.81 ▲ +1.27%",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\heavy-quote-2122686560797667435\\media\\CL1!_2026-11-17_13-45-34.png",
+            "policy": "contentops.tradingview_snapshot.v1",
+            "price_scale_check": {
+              "captured_at_utc": "2026-11-17T13:45:35.189207+00:00",
+              "chart_sha256": "47fe6801a884c6092e2d10d02f34754b098791ef795bd40b9c19ef86537dc5c4",
+              "comparison_basis": "NOT_COMPARED",
+              "level_offset": 0.0,
+              "market": "USOIL",
+              "policy": "CC463_TRADINGVIEW_FIRST_V1",
+              "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+              "quote_source_attempts": [
+                {
+                  "age_seconds": 416217.405357,
+                  "cause": "CHART_REFERENCE_STALE",
+                  "price_at_utc": "2026-11-12T18:08:37.783850+00:00",
+                  "source_kind": "PLAN_STATUS_EXPORT"
+                },
+                {
+                  "age_seconds": 30755.189207,
+                  "cause": "CHART_REFERENCE_STALE",
+                  "price_at_utc": "2026-11-17T05:13:00+00:00",
+                  "source_kind": "BAR_STORE_M1_CLOSE"
+                },
+                {
+                  "age_seconds": 618.189207,
+                  "cache_hit": true,
+                  "cause": "PUBLIC_QUOTE_STALE",
+                  "fetch_seconds": 0.0,
+                  "observed_at_utc": "2026-11-17T13:35:17+00:00",
+                  "rate_limited": false,
+                  "retry_after_seconds": 42.363928,
+                  "source": "Yahoo Finance",
+                  "source_kind": "PUBLIC_ON_DEMAND_QUOTE"
+                },
+                {
+                  "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+                  "market": "USOIL",
+                  "maximum_clock_skew_seconds": 120,
+                  "source_kind": "MAIN_SAVED_TICK"
+                }
+              ],
+              "tv_symbol": "NYMEX:CL1!"
+            },
+            "seconds": 16.9,
+            "sha256": "47fe6801a884c6092e2d10d02f34754b098791ef795bd40b9c19ef86537dc5c4",
+            "suggested_filename": "CL1!_2026-11-17_13-45-34.png",
+            "target_drawn": false,
+            "tv_symbol": "NYMEX:CL1!",
+            "width": 1524
+          },
+          "width": 1524
+        },
+        "posted_at_utc": "2026-11-17T13:45:37.369798+00:00",
+        "readback_url": null,
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "audience_24h": [],
+        "debate_parent_key": null
+      }
+    }
+  },
+  "ended_at_utc": "2026-11-17T13:59:09.312194+00:00"
+}
