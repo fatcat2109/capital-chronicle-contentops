@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy
-from live_contentops.plan_call_cards_v1 import no_entry_words
+from live_contentops.plan_call_cards_v1 import ending_words, no_entry_words
 from live_contentops.plan_status_posts_v1 import TITLES, _utc, read_export, result_rows_from_export
 
 SCHEMA = "contentops.weekly_scored_calls.v1"
@@ -91,6 +91,8 @@ def project(export, *, cutoff_utc):
         local = resolved.astimezone(ET)
         day = f"{local:%a} {local.day} {local:%b}"
         words = no_entry_words(plan) if result == "NOT_TRIGGERED" else RESULTS[result]
+        if outcome.get("not_executed") is True or score.get("not_executed") is True:
+            words = ending_words({"source_plan": plan, "result": result})
         line = (f"- {day} ET: {TITLES.get(symbol, symbol)}; original direction was {direction}; "
                 f"{levels}{words}.")
         rows.append({"plan_id": plan["plan_id"], "outcome_id": outcome["outcome_id"],

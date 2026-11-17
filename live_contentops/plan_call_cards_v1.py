@@ -385,9 +385,17 @@ def no_entry_words(plan):
 
 
 def ending_words(row):
-    if row.get("untriggered") or row.get("triggered_not_traded") or row.get("result") == "NOT_TRIGGERED":
-        source = row.get("outcome_source_plan") or row.get("source_plan") or row
-        return no_entry_words(source)
+    source = row.get("outcome_source_plan") or row.get("source_plan") or row
+    outcome = source.get("outcome") or {}
+    not_executed = (row.get("not_executed") is True or outcome.get("not_executed") is True
+                    or (outcome.get("score") or {}).get("not_executed") is True)
+    if row.get("untriggered") or row.get("triggered_not_traded") or row.get("result") == "NOT_TRIGGERED" or not_executed:
+        words = no_entry_words(source)
+        market_path = {"HIT": "hit the target", "STOPPED": "reached the invalidation level",
+                       "EXPIRED": "ended at the time exit"}
+        if not_executed and row.get("result") in market_path:
+            words += "; the market path " + market_path[row["result"]]
+        return words
     if row.get("result") == "HIT":
         if "TIME_EXIT" in str(row.get("score_basis") or ""):
             return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
@@ -421,7 +429,8 @@ def _result_rows(export):
                        or score.get("triggered") is False or score.get("result") == "NOT_TRIGGERED")
         not_traded = (score.get("execution_state") == "TRIGGERED_NOT_TRADED"
                       or outcome.get("first_cause") == "TRIGGERED_NOT_TRADED")
-        if not scored and not untriggered and not not_traded:
+        not_executed = outcome.get("not_executed") is True or score.get("not_executed") is True
+        if not scored and not untriggered and not not_traded and not not_executed:
             continue  # A watch ending does not establish that an open model trade closed.
         correction = score.get("corrects_outcome_id")
         traded, cause = entry_condition_facts(raw)
@@ -430,6 +439,7 @@ def _result_rows(export):
             "plan_id": raw["plan_id"], "symbol": raw["asset_id"], "to": "RESULT", "at_utc": at,
             "kind": "result", "untriggered": untriggered,
             "triggered_not_traded": not_traded,
+            "not_executed": not_executed,
             "entry_condition_traded": traded, "first_blocking_cause": cause,
             "direction_correct": score.get("direction_correct", score.get("went_our_way")),
             "result": outcome.get("result") or score.get("result") or "NOT_TRIGGERED",

@@ -293,6 +293,7 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         r"(?:hit|stopped|closed at the end of its window|not triggered|expired without entry; not scored|"
         r"(?:the entry window ended with no entry|price did not reach the entry zone|"
         r"price reached the entry zone, but no position was opened(?: because of a fault on our side)?)"
+        r"(?:; the market path (?:hit the target|reached the invalidation level|ended at the time exit))?"
         r"(?:; not scored)?)\.",
         "", remainder)
     # CC-394 / decision 109: the same resolved record in the pinned scorecard.

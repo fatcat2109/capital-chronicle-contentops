@@ -310,9 +310,13 @@ def test_main_entry_facts_drive_result_and_tally_words(usdjpy_17_nov, traded, ca
     assert "not triggered" not in text.lower()
 
 
-@pytest.mark.parametrize("traded,cause,expected", NO_ENTRY_CASES[:7])
+@pytest.mark.parametrize("traded,cause,expected,scored_result",
+    [(traded, cause, words, None) for traded, cause, words in NO_ENTRY_CASES[:7]] + [
+        (True, "software or process defect",
+         "price reached the entry zone, but no position was opened because of a fault on our side", result)
+        for result in ("HIT", "STOPPED", "EXPIRED")])
 def test_usdjpy_17_nov_actual_alert_queue_reads_later_outcome_without_rewriting_history(
-        tmp_path, main_root, monkeypatch, usdjpy_17_nov, traded, cause, expected):
+        tmp_path, main_root, monkeypatch, usdjpy_17_nov, traded, cause, expected, scored_result):
     from live_contentops import secret_store_v1
     from live_contentops.plan_state_alerts_v1 import validate
     monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
@@ -328,10 +332,18 @@ def test_usdjpy_17_nov_actual_alert_queue_reads_later_outcome_without_rewriting_
     setup_bytes = store.get_outbox_message(setup["key"])["payload"]
     store.set_outbox_status(setup["key"], "PUBLISHED")
     ended = deepcopy(usdjpy_17_nov)
+    if scored_result:
+        ended["outcome"] = {"state": "SCORED", "result": scored_result, "outcome_id": "controlled-outcome",
+                            "not_executed": True, "score": {
+                                "plan_id": ended["plan_id"], "asset_id": "USDJPY", "outcome_id": "controlled-outcome",
+                                "result": scored_result, "not_executed": True,
+                                "resolved_at_utc": "2026-11-17T07:00:26.003455Z"}}
+        expected += "; the market path " + {"HIT": "hit the target", "STOPPED": "reached the invalidation level",
+                                           "EXPIRED": "ended at the time exit"}[scored_result]
     if traded is not None:
-        ended["outcome"]["entry_condition_traded"] = traded
+        ended["entry_condition_traded"] = traded
     if cause is not None:
-        ended["outcome"]["first_blocking_cause"] = cause
+        ended["first_blocking_cause"] = cause
     events.append(event(raw["plan_id"], "EXPIRED", "2026-11-17T07:00:26.003455Z"))
     now = posts._utc("2026-11-17T07:01:00Z")
     write(folder, [ended], events, generated_at_utc=now.isoformat(), scored_call_count=0)
@@ -340,6 +352,8 @@ def test_usdjpy_17_nov_actual_alert_queue_reads_later_outcome_without_rewriting_
     result, = [r for r in rows(store) if r["kind"] == "result"]
     assert result["lead"] == "USD/JPY: " + expected + "."
     assert result["outcome_source_plan"] == ended and result["source_plan"] == raw
+    if scored_result:
+        assert result["result"] == scored_result and result["scored"] and result["not_executed"]
     validate(result)
     copies = cards.destination_payloads(result, card_id="controlled-chart")
     for copy in copies.values():
@@ -347,11 +361,21 @@ def test_usdjpy_17_nov_actual_alert_queue_reads_later_outcome_without_rewriting_
         assert expected in text and "not triggered" not in text.lower()
     result_bytes = store.get_outbox_message(result["key"])["payload"]
     # A later export must not rewrite or reissue the existing result.
-    ended["outcome"]["entry_condition_traded"] = not traded
+    ended["entry_condition_traded"] = not traded
     write(folder, [ended], events, generated_at_utc=now.isoformat(), scored_call_count=0)
     assert posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)["queued"] == []
     assert store.get_outbox_message(result["key"])["payload"] == result_bytes
     assert store.get_outbox_message(setup["key"])["payload"] == setup_bytes
+
+
+def test_cc648_unexecuted_call_with_pending_market_score_still_gets_an_ending(usdjpy_17_nov):
+    raw = usdjpy_17_nov
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    raw["outcome"].update(state="SOURCE_BLOCKED", not_executed=True, first_cause="OUTCOME_MARKET_PATH_NOT_RETAINED")
+    row, = cards._result_rows({"status": {"plans": [raw]}, "transitions": {"transitions": [
+        {"plan_id": raw["plan_id"], "status": "EXPIRED", "at_utc": "2026-11-17T07:00:26.003455Z"}]}})
+    assert not row["scored"] and row["not_executed"]
+    assert cards.ending_words(row) == "price reached the entry zone, but no position was opened because of a fault on our side"
 
 
 def test_missing_fields_do_not_hide_available_inputs(five, main_root):

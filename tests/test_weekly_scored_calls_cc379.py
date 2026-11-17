@@ -120,6 +120,30 @@ def test_usdjpy_17_nov_weekly_record_uses_main_entry_facts(
     assert expected in reader["substack_body_markdown"]
 
 
+@pytest.mark.parametrize("result,words", [("HIT", "hit the target"),
+                                         ("STOPPED", "reached the invalidation level"),
+                                         ("EXPIRED", "ended at the time exit")])
+def test_cc648_market_path_score_keeps_unexecuted_call_in_weekly_record(usdjpy_17_nov, result, words):
+    raw = usdjpy_17_nov
+    at = "2026-11-17T07:00:26.003455Z"
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    raw["outcome"] = scored(raw["plan_id"], result, at, asset="USDJPY", known=at)["outcome"]
+    raw["outcome"].update(not_executed=True)
+    raw["outcome"]["score"].update(not_executed=True,
+        score_basis="NOT_EXECUTED_MARKET_PATH_WORST_IN_BOUNDS", first_blocking_cause="software or process defect")
+    data = {"status": {"generated_at_utc": at, "content_hash": "a" * 64, "scored_call_count": 1, "plans": [raw]},
+            "transitions": {"transitions": []}}
+    record = weekly.project(data, cutoff_utc="2026-11-21T15:00:00Z")
+    row, = record["rows"]
+    assert row["result"] == result and row["scored"]
+    assert "price reached the entry zone, but no position was opened because of a fault on our side" in row["line"]
+    assert "; the market path " + words in row["line"] and "not triggered" not in record["text"].lower()
+    assert record["counts"] == {"scored_calls": 1, "hits": int(result == "HIT"), "stops": int(result == "STOPPED")}
+    doc = weekly.document(record, "SOURCE_1")
+    article, validation = newsroom._validate_article_against_source_pack(article_for(doc), [doc])
+    assert validation["status"] == "PASS" and words in article["substack_body_markdown"]
+
+
 @pytest.mark.parametrize("change", ["count", "duplicate", "score", "direction", "zone"])
 def test_inconsistent_export_cannot_silently_drop_or_relabel_a_call(change):
     data = export()
@@ -238,6 +262,7 @@ def test_ordinary_articles_and_historical_frozen_wraps_stay_byte_stable(tmp_path
     "Tue 17 Nov ET: USD/JPY; original direction was bearish; price reached the entry zone.",
     "Tue 17 Nov ET: USD/JPY; original direction was bearish; the entry window ended with no entry. USD/JPY is bearish.",
     "Tue 17 Nov ET: USD/JPY; original direction was bearish; price reached the entry zone, but no position was opened. Account number 123456.",
+    "Tue 17 Nov ET: USD/JPY; original direction was bearish; price reached the entry zone, but no position was opened; the market path is bearish.",
     "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; stopped. Gold is bullish.",
     "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; stopped. Account number 123456."])
 def test_resolved_call_exception_still_refuses_new_calls_and_account_details(bad_copy):
