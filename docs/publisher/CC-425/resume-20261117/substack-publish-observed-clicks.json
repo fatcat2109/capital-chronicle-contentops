@@ -1,0 +1,46 @@
+{
+  "initial": {
+    "delivery": {
+      "emailSendEnabled": false,
+      "scheduleEnabled": false
+    },
+    "dispatchedAtUtc": "2026-11-17T10:06:27.790Z",
+    "info": {
+      "browserProfileId": "9A797656792448B962A67FA969714DA0",
+      "groupId": "3630DB600DC7DF3C466BFBCCC72426BC",
+      "index": 3,
+      "isActive": false,
+      "isLoading": false,
+      "isPinned": false,
+      "loadProgress": 0,
+      "pageId": 148,
+      "tabId": 1698405596,
+      "targetId": "5E13E37BEBEDA2D7385FF8D480A82D5B",
+      "title": "(5) Editing \"What gold, the euro and the S&P did after each CPI since 2024\" - Substack",
+      "url": "https://capitalchronicle.substack.com/publish/post/225323477",
+      "windowId": 1698405211
+    },
+    "observedAtUtc": "2026-11-17T10:06:33.449Z",
+    "snapshot": "- region \"Notifications\" [ref=e41] [cursor=pointer]\n- dialog \"Do you want to send this post via email?\"\n  - heading \"Do you want to send this post via email?\" [level=2]\n  - LabelText\n    - checkbox \"Don\u2019t ask again\" [ref=e785]\n  - button \"Publish on web only\" [ref=e786]\n  - button \"Also send via email\" [ref=e787]"
+  },
+  "confirmation": {
+    "dispatchedAtUtc": "2026-11-17T10:06:43.951Z",
+    "info": {
+      "browserProfileId": "9A797656792448B962A67FA969714DA0",
+      "groupId": "3630DB600DC7DF3C466BFBCCC72426BC",
+      "index": 3,
+      "isActive": false,
+      "isLoading": true,
+      "isPinned": false,
+      "loadProgress": 0,
+      "pageId": 148,
+      "tabId": 1698405596,
+      "targetId": "5E13E37BEBEDA2D7385FF8D480A82D5B",
+      "title": "Substack Home - Capital Chronicle",
+      "url": "https://capitalchronicle.substack.com/publish/posts/detail/225323477/share-center",
+      "windowId": 1698405211
+    },
+    "observedAtUtc": "2026-11-17T10:06:49.875Z",
+    "snapshot": "- navigation \"Publisher dashboard\"\n  - button \"Capital Chronicle\" [collapsed] [ref=e1]\n  - link \"Home\" [ref=e2] [url=\"https://capitalchronicle.substack.com/publish/home\"]\n  - link \"Website\" [ref=e3] [url=\"https://capitalchronicle.substack.com/\"]\n  - button \"Create\" [collapsed] [ref=e4]\n  - link \"Publish\" [expanded] [ref=e5] [url=\"https://capitalchronicle.substack.com/publish/posts/drafts\"]\n  - link \"Drafts\" [ref=e6] [url=\"https://capitalchronicle.substack.com/publish/posts/drafts\"]\n  - link \"Posts\" [ref=e7] [url=\"https://capitalchronicle.substack.com/publish/posts\"]\n  - link \"Podcast\" [ref=e8] [url=\"https://capitalchronicle.substack.com/publish/podcasting\"]\n  - link \"Chat\" [ref=e9] [url=\"https://capitalchronicle.substack.com/publish/chat\"]\n  - link \"Live video\" [ref=e10] [url=\"https://capitalchronicle.substack.com/publish/live-videos\"]\n  - link \"Website editor\" [ref=e11] [url=\"https://capitalchronicle.substack.com/publish/website-editor/home?from=dashboard\"]\n  - link \"Audience\" [collapsed] [ref=e12] [url=\"https://capitalchronicle.substack.com/publish/subscribers\"]\n  - link \"Analytics\" [collapsed] [ref=e13] [url=\"https://capitalchronicle.substack.com/publish/growth\"]\n  - link \"Revenue\" [collapsed] [ref=e14] [url=\"https://capitalchronicle.substack.com/publish/payments\"]\n  - button \"Help\" [ref=e15]\n  - link \"Settings\" [ref=e16] [url=\"https://capitalchronicle.substack.com/publish/settings\"]\n- button \"Back\" [ref=e17]\n- button \"Open sidebar\" [ref=e18]\n- heading \"Posts\" [level=3]\n- button \"Switch to dark mode\" [ref=e19]\n- button \"Search\" [ref=e20]\n- button \"View chats\" [collapsed] [ref=e21]\n- button \"View activity\" [collapsed] [ref=e22]\n- button \"Capital Chronicle's avatar\" [collapsed] [ref=e23]\n- button \"Enable 2FA\" [ref=e24]\n- button \"Dismiss\" [ref=e25]\n- region \"Notifications\" [ref=e26] [cursor=pointer]"
+  }
+}
