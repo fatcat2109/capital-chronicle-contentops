@@ -1,123 +1,88 @@
-# CC-603 — Corrections first, then the original call and its outcome
+# CC-603 — Original call, outcome and pinned record
 
-**BLOCKED: `NEO_ENDPOINT_CONNECTIONERROR`.** The implementation is integrated in
-`A:\Capital Chronicle\ContentOps` at `98eea144c7e99b3031bc92ce17b89f8fd3cd9a09`.
-The required first follow-up has not been published. Its Substack and X
-acceptance remains incomplete.
+The implementation is live at `c5ee1ef32f32fc9c35e83fc4ff2205d2cb53be33` in
+`A:\Capital Chronicle\ContentOps`. **Live acceptance remains incomplete:** the
+Substack Note lost its original-link text. One link reply is prepared, but
+Substack Notes' existing daily failure circuit refused it before any write.
 
-## What is live
+The earliest next ET day is **17 November 2026, 12:00 GMT+7**. The existing
+minute consumer can resume that same reply after the circuit ends, or after
+the prior uncertain write is reconciled. This run changed no schedule and
+performed no public post, edit or deletion.
 
-The existing `CapitalChronicle-PlanStatusPosts-V1` task still runs
+## Verified public objects
+
+Both owed corrections were published and read back before the first follow-up:
+
+- The oil/euro correction reuses CC-359, including [Telegram 107](https://t.me/CapitalChronicle/107).
+- The gold timing correction retains [Telegram 184](https://t.me/CapitalChronicle/184),
+  Discord, Threads and [Substack Note c-388463042](https://substack.com/@capitalchronicle/note/c-388463042).
+
+The Bitcoin follow-up retains its exact existing objects:
+
+- [Substack Note c-388486151](https://substack.com/@capitalchronicle/note/c-388486151)
+  displays the approved call, outcome, notices and TradingView chart. Its
+  `Original:` and `Record:` lines have lost their URLs; the record link card
+  remains. Current browser inspection and coordinator readback confirm this.
+  The Note was not edited again.
+- [X thread](https://x.com/Capitalnicle/status/2122123689437323291) has a fresh
+  strict confirmed readback, including chart, original link, outcome, record
+  link and both notices.
+- Telegram 185, Facebook, Threads and Instagram retain their confirmed identities.
+
+The text says the Bitcoin entry zone never traded. It reports a directional
+view, without a trading win. The pinned record remains **0 hits, 5 stopped,
+37 expiries; 42 results, 6 scored**, matching [Telegram 134](https://t.me/CapitalChronicle/134).
+The original publication and current readback clocks remain separate.
+
+## One missing-link reply
+
+Ops Product's 16 November amendment permits a missing line once as a reply in
+the same thread, or a recorded gap. The new consumer path prepares only the
+two exact original/record URLs and the existing notices. It binds to Note
+`c-388486151`, requires its confirmed identity and matching chart evidence,
+and refuses any missing analytical sentence or changed original.
+
+The reply has one durable identity:
+`cc603-followup-5da8be4c6a0f24959930f9bd8870753f-missing-links`.
+It remains `CC603_PREPARED`, with **zero dispatches** at the final observation.
+The existing coordinator returned `DESTINATION_FAILED_ET_DAY_SKIP`.
+
+The first failure is a different, existing Notes dispatch:
+`dispatch_52b74856711d9922bcacceba907a1974`. It remains `UNKNOWN_WRITE` with
+`NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND`. One readback-only reconciliation in this
+run remained pending. No retry or circuit override was performed. CC-401's
+daily failure policy remains intact.
+
+After strict reply readback, the consumer can recognize the complete parent
+thread. It preserves the root's `RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE`
+record rather than claiming the root itself recovered its missing text.
+
+## Integration and checks
+
+The existing `CapitalChronicle-PlanStatusPosts-V1` task runs
 `pythonw.exe -B scripts\plan_status_posts.py --publish` from the operating root.
-Its existing store, outbox, dispatch claims, recovery and
-`DurablePublicationCoordinator` own this feature. No schedule was changed.
-The new progress field uses its existing minute result file; it contains
-identities and states, without article copy or image bytes.
+It consumes the prepared reply through the existing store, outbox and
+`DurablePublicationCoordinator`. No additional publisher or schedule was added.
 
-The live tag is `contentops-live-20261116-cc603`; rollback is
-`contentops-rollback-20261116-cc603` at
-`ea9cd48e2b61592882fa1b99976e6c381ec98893`. Both tags and the delivery branch
-are pushed. [Integration evidence](integration.json) records source hashes,
-installed tests and the unrelated changes preserved in both worktrees.
-Two newly added files differ between checkouts only in CRLF/LF endings;
-all four installed paths match after line ending normalization.
+- [61 targeted acceptance checks](resume-20261117/acceptance-tests.xml) pass,
+  including stored hit/expiry, exactly-once delivery, missing-link replies and
+  the publication image contract.
+- [Eight installed checks](resume-20261117/installed-tests.xml) pass.
+- The earlier [48-check baseline](resume-20261117/baseline-tests.xml) also passes.
+- [Integration evidence](resume-20261117/integration.json) verifies source
+  hashes and preserved unrelated work. Live tag:
+  `contentops-live-20261117-cc603-links`; rollback tag:
+  `contentops-rollback-20261117-cc603-links` at `527f5ca55d9ac5b4ba1e7f3266f6d9e41a4b8b6d`.
+- [Launch evidence](resume-20261117/launch.json) records
+  `gpt-6.1-sol/max`, `CONFIGURED_NOT_OBSERVED`. No additional editorial model
+  or Claude call was made; the reply contains retained URLs and notices only.
 
-## Corrections and exact public objects
+Current evidence: [fresh original readbacks](resume-20261117/before-reply-readback.json),
+[reply refusal](resume-20261117/missing-links-live.json),
+[prior-write readback](resume-20261117/destination-readback.json) and
+[final state](resume-20261117/final-state.json).
 
-The oil/euro correction already existed as CC-359. Its confirmed objects on
-Telegram, Discord, Threads, X and Substack Notes are retained; this item
-does not repost it. Its [Telegram correction is message 107](https://t.me/CapitalChronicle/107).
-
-The new gold correction says the 12 November analysis and status post were
-late and cannot be cited as foresight. It links the original analysis and
-changes or deletes no original object. Confirmed copies are:
-
-- [Telegram 184](https://t.me/CapitalChronicle/184).
-- [Discord](https://discord.com/channels/1519310996030750782/1519311669216673802/1571605061375623189).
-- [Threads first part](https://www.threads.com/@official.capitalchronicle/post/Dfxg403AWfN)
-  and [its complete continuation](https://www.threads.com/@official.capitalchronicle/post/DfxiUuLgfWN).
-
-The Threads continuation initially received a definite no-write because it
-had no image. The repaired dispatch carries the same unannotated TradingView
-image. Its new dispatch identity preserves the old refusal and the issued
-first part. The continuation read back at **02:30:36 GMT+7, 16 November**.
-[Recovery evidence](live-correction-recovery.json) retains the separate states.
-
-The gold Substack Notes copy remains `NATIVE_NEO_TOOL_PENDING`:
-
-- Work item: `cc603-gold-timing-correction-20261112`.
-- Dispatch: `dispatch_796db3424675b9656112164e7a908724`.
-- Request: `fef361bb49568b7ccc77e9b4b48554d6394861e62901b6b5c2e3b7f2e2967be7`.
-- Retained outbox row: `native-neo-51d69d03d8578fda175d598dba490f23fc465ae0d56120b9660fb0cdcd4fb151`.
-
-The existing Neo MCP endpoint `http://127.0.0.1:9010/mcp` failed initialization
-again at **02:29:07 GMT+7, 16 November**. No browser action ran in that check.
-[Endpoint evidence](resumed-neo-connection.json) records the exact error.
-No native desktop control, browser restart or alternate browser was used.
-
-## Follow-up behavior and prepared first candidate
-
-The consumer joins Main's explicit as-written HITs to their original public
-terms. It also reads published article tests and exact public-span annotations.
-The older CPI article's empty call array is recovered from its published
-conditional title, the retained official BLS core CPI response and held prices.
-Its 0.3% condition occurred, but its complete price-and-time test failed;
-it produces no follow-up. An intrahour move alone cannot satisfy an endpoint
-claim. [Article evidence](article-price-checks.json) retains that check.
-
-The eleven specifically approved CR views enter a separate dated view report.
-An untraded entry never becomes an as-written hit or a trading win. Exact
-original quote, ET time, condition, direction, horizon, invalidation and link
-stay bound. The public time uses the confirmed dispatch minute, identified
-as such in private metadata; no platform publication clock is invented.
-New ordinary resolutions keep the one-hour window. The expressly named
-historical CR set uses Ops Product's 14 November backfill instruction.
-
-Only one durable follow-up exists per call. The two corrections must read
-back first. The first follow-up includes the original destinations plus the
-explicitly required Substack Notes and X acceptance destinations. A short
-follow-up is not counted as a full article.
-
-Bitcoin `d7eddc84` is prepared first because its held price path is complete.
-It was published before the move, but its 76,000–76,700 entry zone never traded.
-Gold `a0380280` has an uncovered interval in this held-price check, so no hit
-is inferred through that interval. [All source checks](final-source-checks.json)
-and the [first-candidate preparation](first-followup-preparation.json) retain
-the source hashes, original terms and checks.
-
-The pinned record was read through its official Bot API, matched to its
-confirmed exact text and message 134. The observed line is **0 hits, 5 stopped,
-37 expiries; 42 results, 6 scored**. This is the named pinned record, not the
-different 88-call CR population. Every new write checks that its counts still
-match. The old record is not changed by reporting an untraded CR view.
-
-The original gold TradingView download was inspected with its full attribution.
-The old overlaid picture, which contains a target, is not used. No held Bitcoin
-chart captured after its resolution was found in the existing plan media.
-The next chart must show the original and resolution, preserve attribution,
-and bind its visible window in the existing media package before publication.
-
-## Verification and remaining action
-
-There are **23 distinct passing targeted checks**: 22 in
-[final-tests.xml](final-tests.xml), plus the existing minute result projection
-in [minute-record-tests.xml](minute-record-tests.xml). They cover stored HIT
-versus expiry, exactly-once delivery through the real coordinator seam,
-unmet conditions, partial matches, same-bar ambiguity, source gaps, correction
-ordering, original preservation, pinned counts and continuation recovery.
-Installed consumer/recovery checks also pass:
-[three checks](installed-final-recovery-tests.xml) and the
-[installed minute result check](installed-minute-record-tests.xml).
-
-Both exec launches configured `gpt-6.1-sol/max`, recorded as
-`CONFIGURED_NOT_OBSERVED` in [launch.json](launch.json) and
-[resume-launch.json](resume-launch.json). No separate paid model call or
-Claude session was started. Existing ledger and other unrelated work remains
-uncommitted and outside the delivery.
-
-**Next action:** Ops Product restores the existing Neo connection. Publisher
-then resumes the exact pending gold Substack request, reads both corrections
-back completely, acquires the bound Bitcoin move chart through that connection,
-and publishes one follow-up. Read Substack and X back with the original link,
-chart and scorecard counts observed in the same minute. Do not recreate the
-operation or retry any uncertain public write.
+Completion requires the existing reply's strict readback beside the original
+Substack chart, with its original and pinned-record links. Resume that exact
+identity; preserve all issued objects and uncertain-write recovery.
