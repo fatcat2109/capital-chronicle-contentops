@@ -277,5 +277,31 @@
       "finding": "Installed gold_note reader and legacy Vietnamese note/copy component remain present. The current home branch selects the newer first-screen component rather than the legacy component that renders gold_note. Neo confirms the normal home and book routes lack the note panel.",
       "next_action": "Restore the existing note, chart and Copy note component on the live home route and read back its exact text before the morning deadline."
     }
+  },
+  "integration": {
+    "state": "INTEGRATED",
+    "observed_at_utc": "2026-11-17T17:30:52.248366+00:00",
+    "implementation_and_delivery_evidence_sha": "10cf2593dc0b262ef5c370fa85e7ea569a3777bb",
+    "operating_root_head_after": "10cf2593dc0b262ef5c370fa85e7ea569a3777bb",
+    "rollback_tag": "contentops/cc-406-note-rollback-20261117T173047Z",
+    "live_tag": "contentops/cc-406-note-live-20261117T173047Z",
+    "merge": "FAST_FORWARD",
+    "runtime_restart_performed": false,
+    "source_code_changed": false
+  },
+  "idempotent_installed_cli": {
+    "state": "GOLD_NOTE_READY_ON_DESK_INPUT",
+    "command": "gold-note-status",
+    "first_delivery_clock_preserved": true,
+    "first_prepared_at_utc": "2026-11-17T17:23:21.075979+00:00",
+    "native_request_preserved": true
+  },
+  "final_wip_verification_utc": "2026-11-17T17:31:36.347741+00:00",
+  "final_outcome": {
+    "state": "BLOCKED",
+    "cause": "DESK_GOLD_NOTE_PANEL_NOT_RENDERED",
+    "owner_next_action": "Codex Web restores CC-418 note/chart/copy on current home via proposed CC-652; exact live home readback is still required.",
+    "publisher_delivery": "18 November note and chart ready before 07:30 GMT+7; existing installed refresh consumes their exact bytes.",
+    "future_mornings": "19 and 20 November require real on-time deliveries; no future artifact or observation has been fabricated."
   }
 }
