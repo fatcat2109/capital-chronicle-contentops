@@ -170,6 +170,38 @@ def test_newsroom_lease_is_shared_and_never_steals_a_window(ready):
                 pytest.fail("second operation entered")
 
 
+def test_standing_entry_prepares_with_an_unrelated_plan_page_worker(ready):
+    _, target, _, _, rollout = ready
+    lease = target.acquire_lease("cc466-plan-page-editorial", "controlled-plan-page", ttl_seconds=1200)
+    profile = {"schema_version": "contentops.native_desktop_operator_profile.v1"}
+    try:
+        path, binding = standing_binding(profile, rollout, operation_id="standing-during-plan-page",
+            resolver=resolve_owner_operation, request="Prepare the latest Main article.", report_only=True)
+        assert json.loads(path.read_bytes()) == binding
+        assert binding["store_path"] == str(target.db_path)
+        assert binding["standing_operation"] and binding["owner_manual_live"]
+        assert Path(binding["rolling_input_path"]).name == "native_desktop_report_only_input_v1.json"
+        with target.get_read_only_connection() as conn:
+            assert conn.execute("SELECT status FROM leases WHERE lease_id=?", (lease["lease_id"],)).fetchone()[0] == "ACTIVE"
+        with pytest.raises(ValueError, match="NEWSROOM_LEASE_ACTIVE:cc466-plan-page-editorial"):
+            with newsroom_lease(target):
+                pytest.fail("public dispatch entered alongside another public worker")
+    finally:
+        target.release_lease(lease["lease_id"], "controlled-plan-page", lease["fencing_token"])
+
+
+@pytest.mark.parametrize("key", ["internal:native-editorial:window", "internal:native-window:current"])
+def test_standing_entry_still_defers_to_a_newsroom_window(ready, key):
+    _, target, _, _, rollout = ready
+    lease = target.acquire_lease(key, "controlled-window", ttl_seconds=900)
+    try:
+        with pytest.raises(ValueError, match="NEWSROOM_LEASE_ACTIVE"):
+            standing_binding({}, rollout, operation_id="standing-during-window",
+                resolver=lambda *a, **k: pytest.fail("overlapping standing entry admitted"))
+    finally:
+        target.release_lease(lease["lease_id"], "controlled-window", lease["fencing_token"])
+
+
 def test_finished_piece_is_due_without_spacing_and_keeps_original_canonical_clock(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)
