@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-11-17T01:09:31.775086+00:00",
+  "recent_completion_proofs": [
+    {
+      "proof_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\named-trigger-ecb228624a469cd6af264c99\\analysis-end.json",
+      "output_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\named-trigger-ecb228624a469cd6af264c99\\analysis-native.json",
+      "completed_at_utc": "2026-11-16T23:23:46.022622Z",
+      "original_capture_utc": "2026-11-16T23:07:31.969973Z",
+      "age_seconds": 7319.805113,
+      "schema_errors": [],
+      "output_sha256": "486f6f8378b873aaa454940e87c7407ca9424fa7ae6aae8bb39fb94a75c40cbf"
+    },
+    {
+      "proof_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261116T230541Z\\analysis-end.json",
+      "output_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261116T230541Z\\analysis-native.json",
+      "completed_at_utc": "2026-11-16T23:26:49.494176Z",
+      "original_capture_utc": "2026-11-16T23:08:14.993194Z",
+      "age_seconds": 7276.781892,
+      "schema_errors": [],
+      "output_sha256": "ac4b465163ad8c71a35322d0c366ce85cf485fc9e261e3c9c62e3d0b634538b5"
+    },
+    {
+      "proof_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261116T233542Z\\analysis-end.json",
+      "output_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261116T233542Z\\analysis-native.json",
+      "completed_at_utc": "2026-11-16T23:56:22.707164Z",
+      "original_capture_utc": "2026-11-16T23:37:50.239511Z",
+      "age_seconds": 5501.535575,
+      "schema_errors": [],
+      "output_sha256": "e520f1e9be35beba7bbba794c6204b79b873b6d7b8f702ba3b75de82130efcdd"
+    },
+    {
+      "proof_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-end.json",
+      "output_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+      "completed_at_utc": "2026-11-17T00:24:44.012231Z",
+      "original_capture_utc": "2026-11-17T00:07:57.072144Z",
+      "age_seconds": 3694.702942,
+      "schema_errors": [],
+      "output_sha256": "7094806988ca0699745041d8a647abdce840b1c9eb221ed71ace27913fbcba89"
+    },
+    {
+      "proof_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-end.json",
+      "output_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-native.json",
+      "completed_at_utc": "2026-11-17T00:55:54.955049Z",
+      "original_capture_utc": "2026-11-17T00:37:43.684818Z",
+      "age_seconds": 1908.090268,
+      "schema_errors": [],
+      "output_sha256": "5632d6e63b60b29fdedd299e050e81823a6cdf6c7ec5435f3637c52b90b97957"
+    }
+  ],
+  "fresh_source_count": 1
+}

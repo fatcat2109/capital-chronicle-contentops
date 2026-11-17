@@ -1,0 +1,85 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc124-btc-range-20261117-r2",
+      "headline_id": "cc124-btc-range-20261117-r2",
+      "headline_text": "Bitcoin remains inside its range after the broader selloff",
+      "known_at_utc": "2026-11-17T00:55:54.955049Z",
+      "revision_at_utc": "2026-11-17T01:12:01.006036+00:00",
+      "candidate_catalyst_tags": [
+        "MAIN_REPORT",
+        "BTCUSD",
+        "MARKET_REACTION"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-native.json",
+          "source_sha256": "91a0e7dca594767b0228585c5a5c63a17d2da62a77fdc1230b46da3de1a65f0d",
+          "source_json_pointer": "/native_synthesis/summary/0/text",
+          "fragments": [
+            {
+              "start": 179,
+              "end": 257
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-native.json",
+          "source_sha256": "91a0e7dca594767b0228585c5a5c63a17d2da62a77fdc1230b46da3de1a65f0d",
+          "source_json_pointer": "/native_synthesis/summary/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 229
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-native.json",
+          "source_sha256": "91a0e7dca594767b0228585c5a5c63a17d2da62a77fdc1230b46da3de1a65f0d",
+          "source_json_pointer": "/native_synthesis/contradictions/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 188
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\analysis-native.json",
+          "source_sha256": "91a0e7dca594767b0228585c5a5c63a17d2da62a77fdc1230b46da3de1a65f0d",
+          "source_json_pointer": "/native_synthesis/candidates/0/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 96
+            },
+            {
+              "start": 255,
+              "end": 352
+            },
+            {
+              "start": 432,
+              "end": 458
+            },
+            {
+              "start": 667,
+              "end": 903
+            },
+            {
+              "start": 1210,
+              "end": 1369
+            },
+            {
+              "start": 1370,
+              "end": 1533
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

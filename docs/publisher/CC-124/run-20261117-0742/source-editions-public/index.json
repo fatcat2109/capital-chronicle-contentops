@@ -1,0 +1,222 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc124-asia-risk-20261117",
+      "headline_id": "cc124-asia-risk-20261117",
+      "headline_text": "After the selloff, six markets lack a common shock signal",
+      "known_at_utc": "2026-11-17T00:24:44.012231Z",
+      "revision_at_utc": "2026-11-17T00:50:20.262618+00:00",
+      "candidate_catalyst_tags": [
+        "MAIN_REPORT",
+        "BTCUSD",
+        "GOLD",
+        "MARKET_REACTION"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/summary/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 31
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/summary/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 274
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/contradictions/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 148
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/priced_in/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 287
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/0/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 697
+            },
+            {
+              "start": 952,
+              "end": 1101
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/0/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 62
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/1/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 595
+            },
+            {
+              "start": 815,
+              "end": 937
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/1/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 73
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/2/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 766
+            },
+            {
+              "start": 1005,
+              "end": 1180
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/2/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 62
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 608
+            },
+            {
+              "start": 876,
+              "end": 991
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/3/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 73
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/4/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 677
+            },
+            {
+              "start": 881,
+              "end": 1003
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/4/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 80
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/5/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 628
+            },
+            {
+              "start": 837,
+              "end": 980
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T000541Z\\analysis-native.json",
+          "source_sha256": "f523c1688273f3e21bafb8ac5220b9a588c1395e5de80ea9cf7a507b088a551d",
+          "source_json_pointer": "/native_synthesis/candidates/5/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 71
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

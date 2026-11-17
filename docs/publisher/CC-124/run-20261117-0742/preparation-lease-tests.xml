@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="12.144" timestamp="2026-11-17T07:48:45.726161+07:00" hostname="J-P"><testcase classname="tests.test_native_finished_publication_v1" name="test_any_finished_store_releases_without_manifest_and_preserves_source" time="2.129"><failure message="ValueError: FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED">ready = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x00000245C943BA10&gt;, &lt;live_contentops....01T00:00:00Z', 'scope': 'V1_NATIVE_PUBLICATION', 'thread_id': 'CONTROLLED', ...}, 'public_write_authority': True, ...})
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000245C94A2780&gt;
+
+    def test_any_finished_store_releases_without_manifest_and_preserves_source(ready, monkeypatch):
+        source, target, original, path, rollout = ready
+        before = workspace_snapshot(source.db_path)
+&gt;       value = release_finished_piece(path, rollout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_native_finished_publication_v1.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\native_finished_publication_v1.py:223: in release_finished_piece
+    return _release_finished_piece(binding_path, rollout, own_lease=lease["lease_id"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_finished_publication_v1.py:234: in _release_finished_piece
+    check = check_finished_piece(source, binding)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = &lt;live_contentops.native_publication_promotion_v1.ReadOnlyStore object at 0x00000245CA78FB60&gt;
+binding = {'cutoff_utc': '2026-10-30T10:00:00Z', 'feed_pointer_path': 'C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-JP\\pyt...controlled-recorded-window\\simple-gemini-slot-938d31b23a7b32111d5ae2ca2b9d1783', 'owner_manual_validation': True, ...}
+
+    def check_finished_piece(store, binding):
+        """Recheck the exact writer return, facts, clocks, public text and chart lineage."""
+        from live_contentops.event_article_guard_v1 import check_publication_copy, check_public_event_article
+        from live_contentops.v1_simple_gemini_newsroom_v1 import (
+            _normalize_relay_attribution, _public_copy, _validate_article_against_source_pack,
+        )
+        result, _, review = validated_native_review(store, run_id=binding["run_id"])
+        from live_contentops.native_publication_latency_v1 import validate_publication_media
+        validate_publication_media(store, run_id=binding["run_id"], result=result)
+        require_current_final_visual_review(store, run_id=binding["run_id"])
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"],
+            output_dir=binding["output_dir"], owner_manual_validation=True)
+        request = turn.frozen_request("write")
+        stage = "revise" if result.get("simple_result", {}).get("revision_performed") else "write"
+        response, exact = turn._get(stage, "response"), turn.frozen_request(stage)
+        if not request or not exact or not response or response["request_sha256"] != exact["request_sha256"]:
+            raise ValueError("FINISHED_PIECE_EXACT_NATIVE_WRITER_REQUIRED")
+        for packet in (request, exact):
+            if packet["request_sha256"] != sha256_of({k: v for k, v in packet.items() if k != "request_sha256"}):
+                raise ValueError("FINISHED_PIECE_NATIVE_REQUEST_CHANGED")
+        observation = response.get("invocation_observation") or {}
+        # Decisions 60 and 86: record role labels; they never refuse a finished piece.
+        # The real invocation, exact source/copy and current review remain required.
+        if not observation.get("invocation_id"):
+            raise ValueError("FINISHED_PIECE_NATIVE_INVOCATION_REQUIRED")
+        governed = request["governed_input"]
+        cutoff = utc(governed["cutoff_utc"])
+        if cutoff != utc(binding["cutoff_utc"]):
+            raise ValueError("FINISHED_PIECE_CUTOFF_CHANGED")
+        for document in governed["source_pack"]:
+            clocks = [document[k] for k in ("published_at_utc", "known_at_utc") if document.get(k)]
+            if not clocks or any(utc(c) &gt; cutoff for c in clocks):
+                raise ValueError("FINISHED_PIECE_SOURCE_CLOCK_INVALID:" + document["source_id"])
+            if document.get("public_claim_allowed") is False:
+                raise ValueError("FINISHED_PIECE_SOURCE_REMAINS_PRIVATE")
+        output, _ = _normalize_relay_attribution(response["output"], governed.get("epistemic_state"))
+        checked, validation = _validate_article_against_source_pack(output, governed["source_pack"],
+            selected_candidate=governed.get("selected_candidate"), article_mode=governed.get("article_mode"),
+            epistemic_state=governed.get("epistemic_state"))
+        if _public_copy(checked) != _public_copy(result["article"]):
+            raise ValueError("FINISHED_PIECE_DIFFERS_FROM_FACT_CHECKED_COPY")
+        surfaces = [_public_copy(result["article"]), *[json.dumps(p["payload"], ensure_ascii=False)
+                     for p in result.get("previews", [])]]
+        check_publication_copy({"body": surfaces[0]},
+            conditional_calls=result["article"].get("conditional_calls", []), require_notice=False)
+        for surface in surfaces[1:]:
+            check_publication_copy({"body": surface},
+                conditional_calls=result["article"].get("conditional_calls", []),
+                require_notice=False, require_call_text=False)
+        if _private(result["article"]):
+            raise ValueError("FINISHED_PIECE_PUBLIC_OUTPUT_GUARD")
+        if "analysis, not financial advice" not in surfaces[0].casefold():
+&gt;           raise ValueError("FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED")
+E           ValueError: FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED
+
+live_contentops\native_finished_publication_v1.py:185: ValueError</failure></testcase><testcase classname="tests.test_native_finished_publication_v1" name="test_newsroom_lease_is_shared_and_never_steals_a_window" time="1.660" /><testcase classname="tests.test_native_finished_publication_v1" name="test_standing_entry_prepares_with_an_unrelated_plan_page_worker" time="1.547"><failure message="TypeError: 'NoneType' object is not subscriptable">ready = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x00000245CA8D1F20&gt;, &lt;live_contentops....01T00:00:00Z', 'scope': 'V1_NATIVE_PUBLICATION', 'thread_id': 'CONTROLLED', ...}, 'public_write_authority': True, ...})
+
+    def test_standing_entry_prepares_with_an_unrelated_plan_page_worker(ready):
+        _, target, _, _, rollout = ready
+        lease = target.acquire_lease("cc466-plan-page-editorial", "controlled-plan-page", ttl_seconds=1200)
+        profile = {"schema_version": "contentops.native_desktop_operator_profile.v1"}
+        try:
+            path, binding = standing_binding(profile, rollout, operation_id="standing-during-plan-page",
+                resolver=resolve_owner_operation, request="Prepare the latest Main article.", report_only=True)
+            assert json.loads(path.read_bytes()) == binding
+            registered = target.get_outbox_message("native-operation-binding-" + sha256_of(binding["run_id"]))
+&gt;           assert json.loads(registered["payload"]) == binding
+                              ^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+tests\test_native_finished_publication_v1.py:182: TypeError</failure></testcase><testcase classname="tests.test_native_finished_publication_v1" name="test_standing_entry_still_defers_to_a_newsroom_window[internal:native-editorial:window]" time="1.724" /><testcase classname="tests.test_native_finished_publication_v1" name="test_standing_entry_still_defers_to_a_newsroom_window[internal:native-window:current]" time="1.401" /><testcase classname="tests.test_native_finished_publication_v1" name="test_finished_release_can_consult_live_history_from_a_distinct_private_store" time="1.454"><failure message="ValueError: FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED">ready = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x00000245CA8DD0D0&gt;, &lt;live_contentops....01T00:00:00Z', 'scope': 'V1_NATIVE_PUBLICATION', 'thread_id': 'CONTROLLED', ...}, 'public_write_authority': True, ...})
+
+    def test_finished_release_can_consult_live_history_from_a_distinct_private_store(ready):
+        source, target, binding, path, rollout = ready
+        binding["published_memory_store"] = str(target.db_path)
+        with source.get_connection() as conn:
+            conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                (canonical_bytes(binding).decode(), "native-operation-binding-" + sha256_of(binding["run_id"])))
+        path.write_bytes(canonical_bytes(binding))
+        before = workspace_snapshot(source.db_path)
+&gt;       released = release_finished_piece(path, rollout)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_native_finished_publication_v1.py:348: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\native_finished_publication_v1.py:223: in release_finished_piece
+    return _release_finished_piece(binding_path, rollout, own_lease=lease["lease_id"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_finished_publication_v1.py:234: in _release_finished_piece
+    check = check_finished_piece(source, binding)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+store = &lt;live_contentops.native_publication_promotion_v1.ReadOnlyStore object at 0x00000245CAB48410&gt;
+binding = {'cutoff_utc': '2026-10-30T10:00:00Z', 'feed_pointer_path': 'C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-JP\\pyt...controlled-recorded-window\\simple-gemini-slot-938d31b23a7b32111d5ae2ca2b9d1783', 'owner_manual_validation': True, ...}
+
+    def check_finished_piece(store, binding):
+        """Recheck the exact writer return, facts, clocks, public text and chart lineage."""
+        from live_contentops.event_article_guard_v1 import check_publication_copy, check_public_event_article
+        from live_contentops.v1_simple_gemini_newsroom_v1 import (
+            _normalize_relay_attribution, _public_copy, _validate_article_against_source_pack,
+        )
+        result, _, review = validated_native_review(store, run_id=binding["run_id"])
+        from live_contentops.native_publication_latency_v1 import validate_publication_media
+        validate_publication_media(store, run_id=binding["run_id"], result=result)
+        require_current_final_visual_review(store, run_id=binding["run_id"])
+        turn = NativeDesktopTurn(store, run_id=binding["run_id"],
+            output_dir=binding["output_dir"], owner_manual_validation=True)
+        request = turn.frozen_request("write")
+        stage = "revise" if result.get("simple_result", {}).get("revision_performed") else "write"
+        response, exact = turn._get(stage, "response"), turn.frozen_request(stage)
+        if not request or not exact or not response or response["request_sha256"] != exact["request_sha256"]:
+            raise ValueError("FINISHED_PIECE_EXACT_NATIVE_WRITER_REQUIRED")
+        for packet in (request, exact):
+            if packet["request_sha256"] != sha256_of({k: v for k, v in packet.items() if k != "request_sha256"}):
+                raise ValueError("FINISHED_PIECE_NATIVE_REQUEST_CHANGED")
+        observation = response.get("invocation_observation") or {}
+        # Decisions 60 and 86: record role labels; they never refuse a finished piece.
+        # The real invocation, exact source/copy and current review remain required.
+        if not observation.get("invocation_id"):
+            raise ValueError("FINISHED_PIECE_NATIVE_INVOCATION_REQUIRED")
+        governed = request["governed_input"]
+        cutoff = utc(governed["cutoff_utc"])
+        if cutoff != utc(binding["cutoff_utc"]):
+            raise ValueError("FINISHED_PIECE_CUTOFF_CHANGED")
+        for document in governed["source_pack"]:
+            clocks = [document[k] for k in ("published_at_utc", "known_at_utc") if document.get(k)]
+            if not clocks or any(utc(c) &gt; cutoff for c in clocks):
+                raise ValueError("FINISHED_PIECE_SOURCE_CLOCK_INVALID:" + document["source_id"])
+            if document.get("public_claim_allowed") is False:
+                raise ValueError("FINISHED_PIECE_SOURCE_REMAINS_PRIVATE")
+        output, _ = _normalize_relay_attribution(response["output"], governed.get("epistemic_state"))
+        checked, validation = _validate_article_against_source_pack(output, governed["source_pack"],
+            selected_candidate=governed.get("selected_candidate"), article_mode=governed.get("article_mode"),
+            epistemic_state=governed.get("epistemic_state"))
+        if _public_copy(checked) != _public_copy(result["article"]):
+            raise ValueError("FINISHED_PIECE_DIFFERS_FROM_FACT_CHECKED_COPY")
+        surfaces = [_public_copy(result["article"]), *[json.dumps(p["payload"], ensure_ascii=False)
+                     for p in result.get("previews", [])]]
+        check_publication_copy({"body": surfaces[0]},
+            conditional_calls=result["article"].get("conditional_calls", []), require_notice=False)
+        for surface in surfaces[1:]:
+            check_publication_copy({"body": surface},
+                conditional_calls=result["article"].get("conditional_calls", []),
+                require_notice=False, require_call_text=False)
+        if _private(result["article"]):
+            raise ValueError("FINISHED_PIECE_PUBLIC_OUTPUT_GUARD")
+        if "analysis, not financial advice" not in surfaces[0].casefold():
+&gt;           raise ValueError("FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED")
+E           ValueError: FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED
+
+live_contentops\native_finished_publication_v1.py:185: ValueError</failure></testcase><testcase classname="tests.test_native_editorial_preparation_lease_v1" name="test_other_public_worker_only_serializes_public_dispatch[advance]" time="0.462" /><testcase classname="tests.test_native_editorial_preparation_lease_v1" name="test_other_public_worker_only_serializes_public_dispatch[publication-resume]" time="0.478" /></testsuite></testsuites>

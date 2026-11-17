@@ -1,0 +1,37 @@
+{
+  "request_sha256": "29585ed1cc00cfe1ce6ef3364727f7a2513160f2843cad1066dba7a34d9f15e9",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Distinguish continuation of Monday's selloff from a fresh catalyst: the bound Main synthesis finds no common new shock signal across six markets, supporting its stand-aside call.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-3dda85c65d18c7b00fbbb3a6",
+        "evidence_plan": "Resolve the exact held Main shock analysis cc124-asia-risk-20261117 and its admitted public synthesis through the existing source owner. Bind every factual premise to its source span, preserving original capture 2026-11-17T00:07:57.072144Z and deadline 2026-11-17T01:07:57.072144Z. Do not use revision, retrieval or media clocks to extend publication. Prepare only the explicit Main-authorized Bitcoin 55/45 scenario set if its complete horizon, confirmation, implications and invalidation are present; never calculate an alternative or joint six-market probability. Other markets remain dated context. Omit unverified allegations, unseen social posts, execution and cost discussion, sizes and account results. Coincident five-minute moves do not establish causation. Preserve the current ledger and source budget; existing owners perform arithmetic and new lawful source-bound visual binding, preferably led by Bitcoin. MAX owns prose, notices, ET dates and public instrument naming. If expired, retain preparation without a stale send.",
+        "primary_reader_question": "Do falling Bitcoin and equities extend Monday's selloff, or reveal a fresh catalyst, and which source-bound signals would distinguish them?",
+        "research_queries": [
+          "Bitcoin equities Monday selloff November 16 2026 continuation fresh catalyst",
+          "November 17 2026 Asia markets gold oil dollar yen Bitcoin selloff"
+        ],
+        "selection_rationale": "The exact owner request names this newly completed Main synthesis and one useful reader question. Its competing explanations and explicit uncertainty support analysis without repeating unverified allegations. The other retained candidates are unrelated, historical or calendar-only and do not warrant filler fallbacks in this stable operation."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one bounded analysis from the exact Main public synthesis. Selection admits source preparation, not independent confirmation or a new publication clock. No unrelated fallback or second operation.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_29585ed1cc00",
+    "speed": "standard",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "supported spawn request",
+    "observation_source": "Supported collaboration.spawn_agent task identity and collected native saved artifact; configured model and effort are not observed runtime telemetry."
+  }
+}
