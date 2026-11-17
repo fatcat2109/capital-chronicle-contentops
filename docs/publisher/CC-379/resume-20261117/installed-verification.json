@@ -1,0 +1,189 @@
+{
+  "observed_at_utc": "2026-11-17T07:10:55.317815+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "2b336202bbf42b1c96224fedd85c7111f1289a10",
+  "source_consumer": {
+    "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\weekly_scored_calls_v1.py",
+    "bytes": 11281,
+    "sha256": "a28b147b333d1153177b2cea0cef6e664b1baa92f2b168bb3dbb0f6db6731cc0"
+  },
+  "record": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-379\\resume-20261117\\weekly-call-record.json",
+    "bytes": 25806,
+    "sha256": "18bd5b61e10a368793bd64e79e627dbdc14eb650c004e499ed2083b649b1a618"
+  },
+  "source_document_sha256": "5fb9496f113fa9d838f0f66b22f4b86effc4da4e7f340b80341debcbd557528c",
+  "counts": {
+    "scored_calls": 4,
+    "hits": 0,
+    "stops": 4,
+    "unscored_expiries": 33
+  },
+  "cumulative_export_scored_calls": 6,
+  "exact_scored_membership_and_outcomes": true,
+  "complete_record_validated_by_installed_article_owner": true,
+  "all_rows_consumed_by_installed_reader": true,
+  "authored_article_created": false,
+  "editorial_model_calls": 0,
+  "publication_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979"
+  },
+  "recent_publications": [
+    {
+      "content_id": "substack:224141856",
+      "title": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades",
+      "published_at_utc": "2026-11-09T12:17:45.237000+00:00",
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569327155824037980"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1449816490670100"
+        },
+        {
+          "name": "instagram_business",
+          "url": "https://www.instagram.com/p/DfhU-RqE2M8/"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/106"
+        },
+        {
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/DfhVAWMFO3e"
+        }
+      ]
+    },
+    {
+      "content_id": "substack:224293572",
+      "title": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+      "published_at_utc": "2026-11-10T12:09:49.251000+00:00",
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1450849443900138"
+        },
+        {
+          "name": "instagram_business",
+          "url": "https://www.instagram.com/p/Dfj5h_nj32E/"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/136"
+        },
+        {
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E"
+        },
+        {
+          "name": "x",
+          "url": "https://x.com/Capitalnicle/status/2120129873830388070"
+        }
+      ]
+    },
+    {
+      "content_id": "substack:224849463",
+      "title": "How we measure a trading rule before trusting it",
+      "published_at_utc": "2026-11-14T06:01:31.721000+00:00",
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1454906993494383"
+        },
+        {
+          "name": "instagram_business",
+          "url": "https://www.instagram.com/p/DftqP-ikncx/"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/183"
+        },
+        {
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/DfttV9YEhzv"
+        },
+        {
+          "name": "x",
+          "url": "https://x.com/Capitalnicle/status/2121503636216049751"
+        }
+      ]
+    },
+    {
+      "content_id": "substack:225143229",
+      "title": "Following the trend worked unevenly",
+      "published_at_utc": "2026-11-16T07:44:03.233000+00:00",
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571793081802559540"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1456899786628437"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/186"
+        },
+        {
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/Dfy2i0AE-Lb"
+        },
+        {
+          "name": "x",
+          "url": "https://x.com/Capitalnicle/status/2122235588179079329"
+        }
+      ]
+    }
+  ],
+  "source_assessment": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-379\\resume-20261117\\source-check\\source-assessment.json",
+    "bytes": 111692,
+    "sha256": "e11a82d8c1b9368a3d4731b4b609d4089d33ebac67b96e0d7e9e98d24434f01e"
+  },
+  "completed_main_reports": 57,
+  "eligible_main_reports": 0,
+  "latest_main_source": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-native.json",
+    "sha256": "8dc55c0d31f3448d01536b210f9d8369bc4e8ba04fa8e74a0b73b94c149fc2fe",
+    "capture_known_at_utc": "2026-11-17T05:13:30.999499Z",
+    "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:6920s",
+    "publication_deadline_utc": "2026-11-17T06:13:30.999499+00:00"
+  },
+  "remaining_acceptance": "Substack weekly review containing every 9-13 November row and count; no such wrap observed.",
+  "first_current_cause": "NO_TIMELY_MAIN_WRAP_SOURCE",
+  "reason_to_restrict_fresh_publication": "JIM_DECISION_114 / CC-403 original data cutoff +60 minutes",
+  "next_action": "Publisher includes this complete dated record through the existing weekly source hook when the next timely Main wrap source arrives; preserve the actual later publication date and missed original deadline.",
+  "inherited_modified_files_verified_unchanged": 8,
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0
+}

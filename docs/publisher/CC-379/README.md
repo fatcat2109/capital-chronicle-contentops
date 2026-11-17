@@ -1,5 +1,14 @@
 # CC-379 — the complete weekly scored-call record
 
+17 November continuation: **the Substack acceptance remains incomplete**. The
+installed source and reader consume all 37 rows for 9–13 November: four scored
+calls, zero hits, four stops, and 33 separately labelled unscored expiries.
+The [current verification](resume-20261117/README.md) records 81 passing targeted
+tests, exact export bindings, the public archive read and the source-clock cause.
+No wrap was published on 14–15 November. No timely Main wrap source is available
+now; the next eligible weekly review must retain the dated whole record and its
+actual publication date. The original deadline remains missed.
+
 Decision 106 is wired into the existing native newsroom source stage, writer,
 article validator and canonical reader projection. The sole publisher and its
 exact Substack readback remain in use. No schedule or historical post changes.
