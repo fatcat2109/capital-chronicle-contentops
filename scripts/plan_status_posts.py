@@ -129,6 +129,12 @@ def main(argv=None) -> int:
                 reply_bot = bot_refresh(store, binding_path=args.store.parent / "control/x_reply_bot_binding.json")
             except Exception as exc:
                 reply_bot = {"status": "REPLY_BOT_FAILED", "cause": type(exc).__name__, "public_submit_actions": 0}
+        if args.publish and not args.dry_run:
+            # CC-537 follows immediate/private delivery and precedes slow page
+            # writing. Its board remains independent of plan-export freshness.
+            from live_contentops.daily_trend_board_v1 import run_due as trend_board
+            result["daily_trend_board"] = trend_board(store,
+                output_root=args.store.parent / "daily_app_outputs/daily-trend-board", automatic_neo=True)
         plan_pages = None
         if args.publish and not args.dry_run:
             # CC-603's corrections are owed even while Main's export is stale.

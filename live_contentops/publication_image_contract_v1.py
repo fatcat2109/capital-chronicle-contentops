@@ -318,6 +318,9 @@ def validate_write(coordinator, intent, destination):
     """Check actual transport-selected media, once, for every fresh post type."""
     if coordinator._clock() < EFFECTIVE_FROM:
         return None
+    if intent.get("daily_trend_board"):
+        from .daily_trend_board_v1 import validate_media
+        return validate_media(coordinator.store, intent)
     if intent.get("output_dir"):
         from .article_publication_quality_v1 import article_inputs
         article, _, _ = article_inputs(intent)

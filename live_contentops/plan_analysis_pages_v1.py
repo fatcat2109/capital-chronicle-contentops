@@ -839,6 +839,10 @@ def validate_link_plan(store, work_item_id, plan):
     if value.get("kind") == "daily_note":
         from .substack_daily_note_v1 import validate_note
         return validate_note(store, value)
+    if value.get("kind") == "daily_trend_board":
+        from .daily_trend_board_v1 import validate_link
+        validate_link(store, value)
+        return value
     packet=json.loads(store.get_outbox_message(value["page_id"])["payload"])
     validate_plan(store,packet["page_id"],packet["plan"])
     if page_status(store,packet)["canonical_url"]!=value["canonical_url"]:
@@ -899,6 +903,9 @@ def validate_link_intent(store, intent):
     if value.get("kind") == "daily_note":
         from .substack_daily_note_v1 import validate_note
         validate_note(store, value, now=datetime.now(timezone.utc))
+    if value.get("kind") == "daily_trend_board":
+        from .daily_trend_board_v1 import validate_link
+        validate_link(store, value, now=datetime.now(timezone.utc))
     if intent.get("native_payload")!=value["native_payload"] or intent.get("canonical_url")!=value["canonical_url"]:
         raise ValueError("PLAN_ANALYSIS_LINK_INTENT_CHANGED")
     return value
@@ -1269,6 +1276,8 @@ def resume_discord_links(store, *, latest_states, now, limit=5, coordinator_for=
     for message, key in candidates[:limit]:
         try:
             value = json.loads(store.get_outbox_message(key)["payload"])
+            if value.get("kind") == "daily_trend_board":
+                continue  # CC-537 resumes its board links independently of plan states.
             plan = value["plan"]
             if coordinator_for is None:
                 coordinator = DurablePublicationCoordinator(store=store,
