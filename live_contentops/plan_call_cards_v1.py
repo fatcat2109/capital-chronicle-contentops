@@ -1412,17 +1412,22 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 "deferred_destinations": deferred})
             continue
         api_done = not any(d in API_DESTINATIONS for d in ready)
-        if api_done:
-            if browser_only >= limit:
-                results.append({"key": key, "status": "WAITING", "cause": "BROWSER_WORK_LIMIT_THIS_RUN"})
-                continue
-            browser_only += 1
-        elif row["kind"] != "run":
-            if calls >= limit:
-                results.append({"key": key, "status": "WAITING", "cause": "CARD_WORK_LIMIT_THIS_RUN"})
-                continue
-            calls += 1
+        if api_done and browser_only >= limit:
+            results.append({"key": key, "status": "WAITING", "cause": "BROWSER_WORK_LIMIT_THIS_RUN"})
+            continue
+        if not api_done and row["kind"] != "run" and calls >= limit:
+            results.append({"key": key, "status": "WAITING", "cause": "CARD_WORK_LIMIT_THIS_RUN"})
+            continue
         try:
+            # Source mismatches stop before chart or transport work. A row
+            # refused here must leave the delivery slot available to others.
+            if row.get("state_alert_contract") == "CC543_V1":
+                from .plan_state_alerts_v1 import validate as validate_alert
+                validate_alert(row)
+            if api_done:
+                browser_only += 1
+            elif row["kind"] != "run":
+                calls += 1
             plan = prepare_post(store, key, root=root, host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed,
                                 **({"destinations": tuple(ready)} if destinations is not None else {}))
             if not plan["destinations"]:

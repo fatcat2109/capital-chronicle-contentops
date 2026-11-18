@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="3.086" timestamp="2026-11-18T13:28:50.467167+07:00" hostname="J-P"><testcase classname="tests.test_plan_state_alerts_cc543" name="test_source_refusal_does_not_take_the_next_ending_delivery_slot" time="1.774"><failure message="AssertionError: {'posts': [{'cause': 'PLAN_ALERT_SOURCE_FIELD_CHANGED:target', 'key': 'ending-with-unbound-target', 'status': 'NOT_STA...ORK_LIMIT_THIS_RUN', 'key': 'plan-result-post-2cc8d586ad74f5b187da9d59f82946f9', 'status': 'WAITING'}], 'status': 'OK'}&#10;assert None == 'DISPATCH_CONFIRMED'&#10; +  where None = &lt;built-in method get of dict object at 0x0000022A70343180&gt;('telegram')&#10; +    where &lt;built-in method get of dict object at 0x0000022A70343180&gt; = {}.get&#10; +      where {} = &lt;built-in method get of dict object at 0x0000022A6E58B5C0&gt;('per_destination', {})&#10; +        where &lt;built-in method get of dict object at 0x0000022A6E58B5C0&gt; = {'cause': 'CARD_WORK_LIMIT_THIS_RUN', 'key': 'plan-result-post-2cc8d586ad74f5b187da9d59f82946f9', 'status': 'WAITING'}.get">replay = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000022A705423C0&gt;, WindowsPath('C:/C...ons': [], 'cancel_kind': None, ...}, datetime.datetime(2026, 11, 12, 13, 20, 23, 123369, tzinfo=datetime.timezone.utc))
+main_root = WindowsPath('C:/CapitalChronicleScratch/cc399-installed-fmqn4zg2/red-fixtures/test_source_refusal_does_not_t0/main')
+tmp_path = WindowsPath('C:/CapitalChronicleScratch/cc399-installed-fmqn4zg2/red-fixtures/test_source_refusal_does_not_t0')
+
+    def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main_root, tmp_path):
+        from hashlib import sha256
+
+        store, folder, raw, now = replay
+        events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+        posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        setup, = rows(store)
+        setup_key = setup["key"]
+        store.create_work_item(story_id=setup_key, work_item_id=setup_key, title="Call card",
+                               target_surface="MULTI_PLATFORM")
+        confirm(store, setup_key, sha256(("plan-status-post:" + setup_key).encode()).hexdigest(),
+                "telegram", "700", "https://t.me/CapitalChronicle/700")
+        store.set_outbox_status(setup_key, "SETTLED")
+
+        raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+        events.append(event(raw["plan_id"], "EXPIRED", now.isoformat()))
+        now += timedelta(minutes=1)
+        write(folder, [raw], events, generated_at_utc=now.isoformat())
+        queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        ending, = [row for row in rows(store) if row["kind"] == "result"]
+
+        # A newer ending omitted the target even though its bound source supplies one.
+        invalid = deepcopy(ending)
+        invalid.update(key="ending-with-unbound-target", at_utc=now.isoformat())
+        assert invalid["levels"]["target"]
+        invalid["levels"]["target"] = None
+        invalid.update(cards.compose(invalid))
+        invalid_bytes = json.dumps(invalid, sort_keys=True)
+        store.register_outbox_message(message_id=invalid["key"], work_item_id=posts.WORK_ITEM_ID,
+            destination=posts.DESTINATION, payload=invalid_bytes, status=posts.READY)
+
+        runtime = FixtureTransport()
+        coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+            readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+            published_content_path=tmp_path / "published.jsonl")
+        result = posts.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda *args: coordinator, immediate_only=True, limit=1)
+
+        refused, delivered = result["posts"]
+        assert refused == {"key": invalid["key"], "status": "NOT_STARTED", "cause": "PLAN_ALERT_SOURCE_FIELD_CHANGED:target"}
+        assert delivered["key"] == ending["key"]
+&gt;       assert delivered.get("per_destination", {}).get("telegram") == "DISPATCH_CONFIRMED", result
+E       AssertionError: {'posts': [{'cause': 'PLAN_ALERT_SOURCE_FIELD_CHANGED:target', 'key': 'ending-with-unbound-target', 'status': 'NOT_STA...ORK_LIMIT_THIS_RUN', 'key': 'plan-result-post-2cc8d586ad74f5b187da9d59f82946f9', 'status': 'WAITING'}], 'status': 'OK'}
+E       assert None == 'DISPATCH_CONFIRMED'
+E        +  where None = &lt;built-in method get of dict object at 0x0000022A70343180&gt;('telegram')
+E        +    where &lt;built-in method get of dict object at 0x0000022A70343180&gt; = {}.get
+E        +      where {} = &lt;built-in method get of dict object at 0x0000022A6E58B5C0&gt;('per_destination', {})
+E        +        where &lt;built-in method get of dict object at 0x0000022A6E58B5C0&gt; = {'cause': 'CARD_WORK_LIMIT_THIS_RUN', 'key': 'plan-result-post-2cc8d586ad74f5b187da9d59f82946f9', 'status': 'WAITING'}.get
+
+tests\test_plan_state_alerts_cc543.py:241: AssertionError</failure></testcase></testsuite></testsuites>

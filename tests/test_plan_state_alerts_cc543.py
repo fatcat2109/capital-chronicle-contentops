@@ -197,6 +197,56 @@ def test_later_states_use_the_same_api_consumer_without_editorial(replay, main_r
         assert cards.NOTICES in text
 
 
+def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main_root, tmp_path):
+    from hashlib import sha256
+
+    store, folder, raw, now = replay
+    events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+    posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    setup, = rows(store)
+    setup_key = setup["key"]
+    store.create_work_item(story_id=setup_key, work_item_id=setup_key, title="Call card",
+                           target_surface="MULTI_PLATFORM")
+    confirm(store, setup_key, sha256(("plan-status-post:" + setup_key).encode()).hexdigest(),
+            "telegram", "700", "https://t.me/CapitalChronicle/700")
+    store.set_outbox_status(setup_key, "SETTLED")
+
+    raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+    events.append(event(raw["plan_id"], "EXPIRED", now.isoformat()))
+    now += timedelta(minutes=1)
+    write(folder, [raw], events, generated_at_utc=now.isoformat())
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    ending, = [row for row in rows(store) if row["kind"] == "result"]
+
+    # A newer ending omitted the target even though its bound source supplies one.
+    invalid = deepcopy(ending)
+    invalid.update(key="ending-with-unbound-target", at_utc=now.isoformat())
+    assert invalid["levels"]["target"]
+    invalid["levels"]["target"] = None
+    invalid.update(cards.compose(invalid))
+    invalid_bytes = json.dumps(invalid, sort_keys=True)
+    store.register_outbox_message(message_id=invalid["key"], work_item_id=posts.WORK_ITEM_ID,
+        destination=posts.DESTINATION, payload=invalid_bytes, status=posts.READY)
+
+    runtime = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    result = posts.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
+        host=fake_host, coordinator_for=lambda *args: coordinator, immediate_only=True, limit=1)
+
+    refused, delivered = result["posts"]
+    assert refused == {"key": invalid["key"], "status": "NOT_STARTED", "cause": "PLAN_ALERT_SOURCE_FIELD_CHANGED:target"}
+    assert delivered["key"] == ending["key"]
+    assert delivered.get("per_destination", {}).get("telegram") == "DISPATCH_CONFIRMED", result
+    dispatch = cards._dispatch(store, ending["key"], "telegram")
+    intent = json.loads(store.get_outbox_message(dispatch["message_id"])["payload"])
+    assert intent["native_payload"]["reply_to_id"] == "700"
+    assert runtime.publish_calls == ["telegram"]
+    assert cards._dispatch(store, invalid["key"], "telegram") is None
+    assert store.get_outbox_message(invalid["key"])["payload"] == invalid_bytes
+
+
 @pytest.mark.parametrize("dry", [False, True])
 def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, monkeypatch, dry):
     import importlib.util
@@ -207,7 +257,11 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     from live_contentops import x_reply_bot_v1 as bot, x_reply_tabs_v1 as tabs
     from live_contentops import event_timestamp_v1, event_pack_v1, audience_collection_v1, model_invocation_usage_v1
     from live_contentops import pinned_result_scorecard_v1, neo_endpoint_executor_v1, call_followups_v1
+    from live_contentops import daily_trend_board_v1, heavy_news_quotes_v1, substack_daily_note_v1
     monkeypatch.setattr(call_followups_v1, "minute_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
+    monkeypatch.setattr(daily_trend_board_v1, "run_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
+    monkeypatch.setattr(heavy_news_quotes_v1, "refresh_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
+    monkeypatch.setattr(substack_daily_note_v1, "run_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
     order = []
     monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {"status": "OK"})
     def publish(*a, **kw):
