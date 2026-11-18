@@ -201,6 +201,42 @@ def test_existing_issued_alert_and_page_keep_their_original_composer(gold):
     assert "supplied" in pages.structured_summary(packet, "telegram", "https://capitalchronicle.substack.com/p/gold-original")
 
 
+def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(gold, tmp_path, main_root):
+    raw, _ = gold
+    raw.update(
+        asset_id="BTCUSD", status="WAITING", registered_at_utc="2026-11-17T16:43:13Z",
+        not_before_utc="2026-11-17T16:43:13Z", entry_deadline_utc="2026-11-17T19:30:00Z",
+        expires_at_utc="2026-11-17T19:30:00Z", time_exit_utc="2026-11-18T18:30:00Z",
+        invalidation_conditions=[{"field": "high", "operator": "GTE", "threshold": 66450}],
+    )
+    raw["public_instrument"].update(
+        name="Micro Bitcoin", symbol="MBT", exchange="CME", contract_month="2026-11",
+        entries=[{"kind": "LIMIT", "zone_low": 63885, "zone_high": 65160}],
+        zone_low=63885, zone_high=65160, invalidation_level=66415, target_level=61115, tick_size=5,
+    )
+    now = posts._utc(raw["registered_at_utc"]) + timedelta(minutes=1)
+    folder = write(tmp_path / "export", [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])],
+                   generated_at_utc=now.isoformat())
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    posts.queue_posts(store, folder, now=now, main_root=main_root)
+    queued, = rows(store)
+    key = queued["key"]
+    frozen = store.get_outbox_message(key)["payload"]
+
+    result = posts.queue_posts(store, folder, now=now, main_root=main_root, dry_run=True, render_all=True)
+    assert result["status"] == "OK"
+    preview, = result["rendered_posts"]
+    chart_thread = cards.destination_payloads(
+        queued, card_id="dry-run-" + key, chart_credit=True, complete_levels=True,
+    )["threads"]
+    assert preview["destinations"]["threads"] == chart_thread
+    assert all(len(text) <= 500 for text in [chart_thread["root_text"], *chart_thread["reply_texts"]])
+    for phrase in ("63,885–65,160", "at or above 66,450 before entry", "above 66,415 after entry",
+                   "Entry can start until Tue 17 Nov, 2:30 PM ET.", "Filled positions close by Wed 18 Nov, 1:30 PM ET."):
+        assert phrase in chart_thread["full_text"]
+    assert store.get_outbox_message(key)["payload"] == frozen
+
+
 def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path, main_root, monkeypatch):
     raw, _ = gold
     raw["status"] = "WAITING"

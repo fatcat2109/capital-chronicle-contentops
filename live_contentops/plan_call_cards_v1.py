@@ -15,6 +15,7 @@ from typing import Mapping
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
+from .plan_reader_copy_v1 import THREAD_CONTRACT
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 FORMAT = 4
@@ -495,7 +496,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
-            from .plan_reader_copy_v1 import THREAD_CONTRACT, LEVEL_CONTRACT, LEVEL_EFFECTIVE, thread_terms
+            from .plan_reader_copy_v1 import LEVEL_CONTRACT, LEVEL_EFFECTIVE, thread_terms
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
@@ -593,7 +594,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         if card.get("format") == FORMAT:
             for field in ("levels", "instrument_title", "price_basis", "registered_at_utc"):
                 item[field] = card.get(field)
-        if card.get("thread_contract") == "CC549_V1":
+        if card.get("thread_contract") == THREAD_CONTRACT:
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
                 item[field] = card[field]
@@ -626,7 +627,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 continue
             try:
                 item = {**item, **compose(item)}
-                copies = destination_payloads(item, card_id="dry-run-" + item["key"])
+                # Use the publisher's complete-level layout and reserve space for chart credit.
+                charted_thread = item.get("thread_contract") == THREAD_CONTRACT
+                copies = destination_payloads(item, card_id="dry-run-" + item["key"],
+                                              chart_credit=charted_thread, complete_levels=charted_thread)
             except posts.PlanPostError as exc:
                 return {"status": "RENDER_FAILED", "cause": str(exc),
                         "failed_field": "posts." + item["key"] + ".destinations",
