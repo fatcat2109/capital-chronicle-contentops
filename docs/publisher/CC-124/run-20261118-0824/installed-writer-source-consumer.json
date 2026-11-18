@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-18T01:36:25.676279+00:00",
+  "writer_request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-floor-20261118-0824\\desktop_request_write.json",
+  "writer_request_sha256": "3493b9fd9bd2f54892ab532ac40e21025f6941f5c49f915604f8f39a1b14947a",
+  "document_id": "cc124-gold-floor-20261118-0824",
+  "source_canonical_content_sha256": "3ccf8326206b4faf579eef226154dbef5b85b0ca18d209d6ef164508362590aa",
+  "matches_admitted_projection": true,
+  "source_data_cutoff_utc": "2026-11-18T00:33:27.059961Z",
+  "reader_contract": {
+    "policy": "CC403_READER_ARTICLE_V1",
+    "format": "ARTICLE",
+    "source_pack_sha256": "7b4648d6237888fda4e0cf043af964e1f2f12f2c8486ec24a96e31fbedb56ca7",
+    "primary_document_id": "cc124-gold-floor-20261118-0824",
+    "data_cutoff_utc": "2026-11-18T00:33:27.059961+00:00",
+    "max_sentence_words": 35,
+    "daily_prose_words": 350,
+    "publication_target_minutes": 60
+  },
+  "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3778s",
+  "publication_allowed_now": false,
+  "source_pack_document_count": 1,
+  "use": "The installed source adapter supplied exact Main public spans to the frozen MAX writer. The installed publication-clock consumer uses the original capture, not source completion or article preparation."
+}

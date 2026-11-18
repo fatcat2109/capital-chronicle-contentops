@@ -1,0 +1,134 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-18T01:39:40.635061+00:00",
+  "actual_entry_utc": "2026-11-18T01:24:36.1018940Z",
+  "outcome": "NO_PUBLICATION_SELECTED_SOURCE_EXPIRED_DURING_PREPARATION",
+  "standing_status": "OPEN",
+  "next_due_utc": "2026-11-18T07:25:00+00:00",
+  "first_terminal_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3867s",
+  "cause_authority": "CC-403 original source capture plus 60 minutes; Jim decision 89 Main reports only, no filler",
+  "completed_main_sources_at_assessment": 61,
+  "timely_completed_main_sources_at_assessment": 2,
+  "original_selected_data_cutoff_utc": "2026-11-18T00:33:27.059961Z",
+  "selected_source_completed_at_utc": "2026-11-18T00:50:26.285704Z",
+  "publication_deadline_utc": "2026-11-18T01:33:27.059961Z",
+  "operations": [
+    {
+      "operation_id": "cc124-main-20261118-0824",
+      "dispatches": [],
+      "dispatch_count": 0
+    },
+    {
+      "operation_id": "cc124-gold-floor-20261118-0824",
+      "dispatches": [],
+      "dispatch_count": 0
+    }
+  ],
+  "selected_operation_terminal": {
+    "classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+    "run_id": "cc124-gold-floor-20261118-0824",
+    "qualified_article_count": 0,
+    "derivative_intent_count": 0,
+    "candidate_outcomes": [
+      {
+        "candidate_id": "simple-story-39a022625380aab664f61ab7",
+        "native_stage": "write",
+        "outcome": "HOLD",
+        "primary_cause": "LATE_OR_STALE",
+        "provenance": {
+          "actual_configuration_unavailable": true,
+          "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+          "configuration_source": "This exact supported parent assignment to execute the frozen Sol MAX writer/editor request 3493b9fd9bd2f54892ab532ac40e21025f6941f5c49f915604f8f39a1b14947a for cc124-gold-floor-20261118-0824; requested settings are configured and actual values remain unobserved.",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "invocation_id": "/root/native_writer_3493b9fd9bd2",
+          "model": null,
+          "observation_source": "The supported native task context identifies /root/native_writer_3493b9fd9bd2 as this executing subagent; actual model and effort telemetry are not exposed.",
+          "reasoning_effort": null,
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        "public_write_attempted": false,
+        "public_write_performed": false,
+        "reason": "The original data cutoff 2026-11-18T00:33:27.059961+00:00 expired at 2026-11-18T01:33:27.059961+00:00. At 2026-11-18T01:37:55+00:00 the installed Substack publication-clock validator returned ARTICLE_DATA_CUTOFF_EXPIRED:3867s. This is the first material cause. No draft or media was created. The unchanged Main excerpt remains usable as dated context; generation, retrieval, approval and media clocks do not refresh its cutoff.",
+        "request_sha256": "3493b9fd9bd2f54892ab532ac40e21025f6941f5c49f915604f8f39a1b14947a",
+        "run_id": "cc124-gold-floor-20261118-0824",
+        "schema_version": "contentops.native_pre_writer_outcome.v1",
+        "source_request_count": 0,
+        "source_request_limit": 20
+      }
+    ],
+    "outcome_counts": {
+      "HOLD": 1
+    },
+    "cause_counts": {
+      "LATE_OR_STALE": 1
+    },
+    "process_findings": [],
+    "source_request_count": 0,
+    "source_request_limit": 20,
+    "model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN",
+    "public_write_performed": false,
+    "publication_handoff_state": "TERMINAL_EDITORIAL_OUTCOMES_NO_DISPATCH",
+    "volume_policy": {
+      "brief_only": false,
+      "effective_production_date": "2026-10-31",
+      "max_admitted_candidates": 6,
+      "max_articles": 2,
+      "non_chargeable_only": true,
+      "photo_less_news_policy": true,
+      "policy_id": "CC-047-20261030",
+      "source_request_limit": 20,
+      "source_resolvability_first": true
+    },
+    "remaining_candidate_ids": [],
+    "next_operation": "none"
+  },
+  "native_roles_collected": {
+    "select": 2,
+    "media-plan": 1,
+    "write_terminal": 1,
+    "filter": 0
+  },
+  "actual_model_effort_observation": "CONFIGURED_NOT_OBSERVED",
+  "model_role_configuration": {
+    "top_level": "gpt-6.1-sol/max",
+    "select": "gpt-6.1-sol/low",
+    "media-plan": "gpt-6.1-sol/low",
+    "write": "gpt-6.1-sol/max"
+  },
+  "production_day": "2026-11-18",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "distinct_canonicals_added": 0,
+  "new_public_objects": 0,
+  "new_drafts": 0,
+  "new_media": 0,
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 30621,
+    "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553"
+  },
+  "publication_feed_unchanged": true,
+  "channel_states": {
+    "substack": "NOT_DISPATCHED_BY_THIS_RUN",
+    "telegram": "NOT_DISPATCHED_BY_THIS_RUN",
+    "discord": "NOT_DISPATCHED_BY_THIS_RUN",
+    "x": "NOT_DISPATCHED_BY_THIS_RUN",
+    "linkedin": "NOT_DISPATCHED_BY_THIS_RUN",
+    "linkedin_company": "NOT_DISPATCHED_BY_THIS_RUN",
+    "facebook_page": "NOT_DISPATCHED_BY_THIS_RUN",
+    "instagram_business": "NOT_DISPATCHED_BY_THIS_RUN",
+    "threads": "NOT_DISPATCHED_BY_THIS_RUN",
+    "youtube": "NOT_DISPATCHED_BY_THIS_RUN"
+  },
+  "implementation_changes": 0,
+  "pytest_processes": 0,
+  "preserved_modified_files": 8,
+  "browser_desktop_chat_schedule_actions": 0,
+  "source_admission_commit": "972d7d8f",
+  "preparation_commit": "0473ed3c",
+  "choice": "Admit the held current Main report through the existing public projection owner. Preserve exact source spans and probabilities. Once its original publication cutoff expires, keep the dated evidence and finish the standing run without a stale send.",
+  "next_action": "At the next due run, consume genuinely new timely Main evidence through the existing newsroom; preserve both terminal bindings, public identities and recovery objects."
+}

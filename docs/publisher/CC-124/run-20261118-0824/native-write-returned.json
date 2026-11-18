@@ -1,0 +1,27 @@
+{
+  "invocation_observation": {
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "This exact supported parent assignment to execute the frozen Sol MAX writer/editor request 3493b9fd9bd2f54892ab532ac40e21025f6941f5c49f915604f8f39a1b14947a for cc124-gold-floor-20261118-0824; requested settings are configured and actual values remain unobserved.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "invocation_id": "/root/native_writer_3493b9fd9bd2",
+    "model": null,
+    "observation_source": "The supported native task context identifies /root/native_writer_3493b9fd9bd2 as this executing subagent; actual model and effort telemetry are not exposed.",
+    "reasoning_effort": null,
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "candidate_id": "simple-story-39a022625380aab664f61ab7",
+    "outcome": "HOLD",
+    "primary_cause": "LATE_OR_STALE",
+    "public_write_attempted": false,
+    "reason": "The original data cutoff 2026-11-18T00:33:27.059961+00:00 expired at 2026-11-18T01:33:27.059961+00:00. At 2026-11-18T01:37:55+00:00 the installed Substack publication-clock validator returned ARTICLE_DATA_CUTOFF_EXPIRED:3867s. This is the first material cause. No draft or media was created. The unchanged Main excerpt remains usable as dated context; generation, retrieval, approval and media clocks do not refresh its cutoff.",
+    "schema_version": "contentops.native_pre_writer_outcome.v1",
+    "source_request_count": 0,
+    "source_request_limit": 20
+  },
+  "request_sha256": "3493b9fd9bd2f54892ab532ac40e21025f6941f5c49f915604f8f39a1b14947a"
+}

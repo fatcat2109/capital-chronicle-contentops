@@ -1,0 +1,40 @@
+{
+  "clock_observation": {
+    "observed_at_utc": "2026-11-18T01:37:55+00:00",
+    "returned_current_time": "2026-11-18 01:37:55 UTC",
+    "tool": "clock.curr_time"
+  },
+  "data_cutoff_utc": "2026-11-18T00:33:27.059961+00:00",
+  "deadline_utc": "2026-11-18T01:33:27.059961+00:00",
+  "destination": "substack",
+  "exact_validator_result": {
+    "exception_message": "ARTICLE_DATA_CUTOFF_EXPIRED:3867s",
+    "exception_type": "ValueError",
+    "passed": false,
+    "return_value": null
+  },
+  "first_material_cause": "LATE_OR_STALE",
+  "next_action": "Submit this exact pre-writer native return and resume the same binding to record the terminal result. A new current piece requires genuinely newer admitted Main evidence; retain this source as dated context without refreshing its cutoff.",
+  "public_write_attempted": false,
+  "reader_article_contract": {
+    "daily_prose_words": 350,
+    "data_cutoff_utc": "2026-11-18T00:33:27.059961+00:00",
+    "format": "ARTICLE",
+    "max_sentence_words": 35,
+    "policy": "CC403_READER_ARTICLE_V1",
+    "primary_document_id": "cc124-gold-floor-20261118-0824",
+    "publication_target_minutes": 60,
+    "source_pack_sha256": "7b4648d6237888fda4e0cf043af964e1f2f12f2c8486ec24a96e31fbedb56ca7"
+  },
+  "request_sha256": "3493b9fd9bd2f54892ab532ac40e21025f6941f5c49f915604f8f39a1b14947a",
+  "run_id": "cc124-gold-floor-20261118-0824",
+  "schema_version": "contentops.native_role_clock_validation.v1",
+  "seconds_past_deadline": 267.940039,
+  "source_age_seconds": 3867.940039,
+  "stage": "write",
+  "terminal_outcome_schema_validated": true,
+  "validated_input": "Exact frozen desktop_request_write.json governed_input with its unchanged reader_article_contract",
+  "validator": "live_contentops.reader_article_contract_v1.validate_publication_clock",
+  "validator_module_file_sha256": "107784b3a4966c76046579458679f0d0c5c844b8f3ff9039219072e2cd6425c0",
+  "validator_module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py"
+}

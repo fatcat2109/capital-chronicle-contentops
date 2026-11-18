@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-11-18T01:37:11.278994+00:00",
+  "operations": [
+    {
+      "operation_id": "cc124-main-20261118-0824",
+      "dispatch_count": 0,
+      "dispatches": []
+    },
+    {
+      "operation_id": "cc124-gold-floor-20261118-0824",
+      "dispatch_count": 0,
+      "dispatches": []
+    }
+  ],
+  "publication_feed_after": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 30621,
+    "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553"
+  },
+  "publication_feed_unchanged": true,
+  "public_write_attempted_by_this_run": false
+}
