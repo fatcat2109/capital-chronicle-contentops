@@ -226,19 +226,24 @@ def _link_identity(value, base_url=""):
     return None
 
 
+def _with_class_prefix(nodes, prefix):
+    return (node for node in nodes if any(
+        name.startswith(prefix) for name in (node.attrs.get("class") or "").split()))
+
+
 def check_public_text(platform, html, *, expected_text="", expected_title="", page_url=""):
     """Inspect the post body, never a menu, script, metadata or another post."""
     nodes = list(_HTML(html).root.walk())
     body = None
+    attachments = ()
     if platform == "telegram":
         body = next((n for n in nodes if "tgme_widget_message_text" in n.attrs.get("class", "").split()), None)
     elif platform == "substack_notes":
         # Substack's public permalink scopes the root Note separately from replies.
-        permalink = next((n for n in nodes if any(
-            name.startswith("feedPermalinkUnit-") for name in n.attrs.get("class", "").split())), None)
+        permalink = next(_with_class_prefix(nodes, "feedPermalinkUnit-"), None)
         if permalink is not None:
-            body = next((n for n in permalink.walk() if any(
-                name.startswith("feedCommentBody-") for name in n.attrs.get("class", "").split())), None)
+            body = next(_with_class_prefix(permalink.walk(), "feedCommentBody-"), None)
+            attachments = tuple(_with_class_prefix(permalink.walk(), "postAttachment-"))
         else:
             body = next((n for n in nodes if {"comment-body", "note-body"}.intersection(n.attrs.get("class", "").split())
                          or n.attrs.get("data-testid") in {"comment-body", "note-body"}), None)
@@ -256,8 +261,9 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
     first = expected_title or next((line for line in expected_text.splitlines() if line.strip()), "")
     first_matches = (_contains_in_order(_tokens(first), _tokens(headings + " " + text)) if first else None)
     complete = _contains_in_order(_tokens(expected_text), _tokens(headings + " " + text)) if expected_text else None
-    found_links = [n.attrs["href"] for n in body.walk() if n.tag == "a" and "href" in n.attrs]
-    found_links.extend(_links(text))
+    found_links = _links(text)
+    for part in (body, *attachments):
+        found_links.extend(n.attrs["href"] for n in part.walk() if n.tag == "a" and "href" in n.attrs)
     expected_links = {_link_identity(u) for u in _links(expected_text)}
     actual_links = {_link_identity(u, page_url) for u in found_links}
     missing = len(expected_links - actual_links)

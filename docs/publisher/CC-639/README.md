@@ -107,10 +107,11 @@ CC-536 piece 2 dispatches, personal LinkedIn's reconciled absence, YouTube's
 definite no-write and the digest's five recipients.
 
 The replay exposed two parser defects. Public Notes render their text in a
-permalink-specific body. Selecting that body keeps other replies out of the
-comparison. The digest wraps Markdown links in bold, so the comparator now
+permalink-specific body and may put the linked page in a card beside it.
+The comparator checks the Note's own text and cards, with replies outside
+that scope. The digest wraps Markdown links in bold, so the comparator
 extracts the URL before the closing Markdown syntax. The
-[repair tests](readback-fix-tests.xml) passed all 47 focused checks, including
+[repair tests](readback-fix-tests.xml) passed all 48 focused checks, including
 Telegram 187's cutoff and missing-link regression.
 
 The existing 19:15 task owner is Ops Product. Its final step uses the command

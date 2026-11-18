@@ -316,21 +316,23 @@ def test_notes_use_only_the_note_body_and_its_exact_link():
     assert result["first_line_matches"] and not result["links_match"]
 
 
-@pytest.mark.parametrize("link_in_note", [True, False])
-def test_substack_permalink_checks_the_visible_note_before_replies(link_in_note):
+@pytest.mark.parametrize("link_location", ["body", "attachment", "reply"])
+def test_substack_permalink_checks_its_own_body_and_attachment(link_location):
     canonical = "https://capitalchronicle.substack.com/p/source"
     link = f'<a href="{canonical}">View the analysis</a>'
+    attachment = f'<a class="postAttachment-eYV3fM" href="{canonical}">Analysis card</a>'
     html = f"""
-    <div class="comment-body">Unrelated reply. {link}</div>
+    <div class="comment-body">Unrelated reply. {attachment}</div>
     <div class="feedPermalinkUnit-JBJrHa">
       <div class="feedCommentBody-UWho7S">
-        <div class="richTextBody-dR7ynA">Read the analysis. {link if link_in_note else ""}</div>
+        <div class="richTextBody-dR7ynA">Read the analysis. {link if link_location == "body" else ""}</div>
       </div>
+      {attachment if link_location == "attachment" else ""}
     </div>
     """
     result = readback.check_public_text("substack_notes", html, expected_text=f"Read the analysis. {canonical}")
     assert result["first_line_matches"] and result["text_complete"]
-    assert result["links_match"] is link_in_note
+    assert result["links_match"] is (link_location != "reply")
 
 
 def test_digest_link_inside_bold_markdown_matches_the_rendered_anchor():
