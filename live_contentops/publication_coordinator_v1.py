@@ -2181,6 +2181,29 @@ class DurablePublicationCoordinator:
             # Cockpit telemetry can never interrupt a canonical publication or recovery path.
             return
 
+    def _bind_ready_reply_parent(self, previous, intent, ids):
+        """Complete the parent fields of a registered API reply before its first attempt."""
+        from live_contentops.durable_operational_store_v1 import DispatchIdentityConflictError
+
+        old = json.loads(previous["payload"])
+        held_copy = old.get("native_payload") or {}
+        current_copy = intent["native_payload"]
+        if "reply_to_id" in held_copy or not current_copy.get("reply_to_id"):
+            return
+        fields = ("reply_to_id", "reply_to_url", "discord_thread_parent_id", "discord_thread_name",
+                  "own_call_comment", "comment_card_image")
+        additions = {field: current_copy[field] for field in fields if field in current_copy and field not in held_copy}
+        if {**old, "native_payload": {**held_copy, **additions}} != intent:
+            return
+        if self.store.get_platform_dispatch(ids["dispatch_id"]):
+            return
+        try:
+            self.store.finalize_outbox_payload_before_dispatch(message_id=ids["message_id"],
+                payload=_canonical_json(intent), expected_payload=previous["payload"])
+        except DispatchIdentityConflictError:
+            # A concurrent attempt now owns the original bytes and recovery.
+            return
+
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
             raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
@@ -2373,6 +2396,9 @@ class DurablePublicationCoordinator:
                 actual_hash = _hash(str(item.get("payload")))
                 if actual_hash != expected_hash:
                     raise ValueError(f"publication_plan_payload_hash_mismatch:{destination}")
+            if (plan.get("plan_status_post") and previous and previous["status"] == "READY"
+                    and destination in {"telegram", "discord", "threads", "facebook_page", "instagram_business"}):
+                self._bind_ready_reply_parent(previous, intent, ids)
             self.store.register_outbox_message(
                 message_id=ids["message_id"], work_item_id=work_item_id,
                 destination=destination, payload=payload, status="READY",

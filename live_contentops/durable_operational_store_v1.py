@@ -1165,13 +1165,15 @@ class ContentOpsDurableStore:
             conn.close()
 
     def finalize_outbox_payload_before_dispatch(
-        self, *, message_id: str, payload: str, status: str = "READY"
+        self, *, message_id: str, payload: str, status: str = "READY",
+        expected_payload: str | None = None,
     ) -> Dict[str, Any]:
         """Finalize dependency-bound bytes only while no dispatch marker exists.
 
         This is used for Substack-first derivative packages: the canonical URL is unknowable
         when the master plan is registered, but exact final payload bytes must be durable before
         the adapter boundary.  Once any dispatch row exists the payload is immutable.
+        With expected_payload, finalize only the exact payload still in the requested status.
         """
         conn = self.get_connection()
         try:
@@ -1181,6 +1183,9 @@ class ContentOpsDurableStore:
             ).fetchone()
             if row is None:
                 raise WorkItemNotFoundError(f"outbox message {message_id} not found")
+            if expected_payload is not None and (row["payload"] != expected_payload or row["status"] != status):
+                conn.execute("COMMIT")
+                return dict(row)
             marker = conn.execute(
                 "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (message_id,)
             ).fetchone()

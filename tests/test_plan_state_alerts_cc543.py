@@ -247,8 +247,10 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
     assert store.get_outbox_message(invalid["key"])["payload"] == invalid_bytes
 
 
-def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_root, tmp_path):
+@pytest.mark.parametrize("registered_before_parent", [False, True], ids=["new-copy", "prebound"])
+def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_root, tmp_path, registered_before_parent):
     from hashlib import sha256
+    from live_contentops.destination_transport_registry_v1 import registration_for_destination
 
     store, folder, raw, now = replay
     events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
@@ -283,6 +285,21 @@ def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_ro
     discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
     directory = tmp_path / "posts" / key
     _, first_copies = posts._expected(store, key, directory)
+    if registered_before_parent:
+        plan = cards.prepare_post(store, key, root=tmp_path / "posts", host=fake_host, destinations=("discord",))
+        route = registration_for_destination("telegram")
+        text = first_copies["telegram"]["full_text"]
+        copy = {**plan["destinations"][0], "destination": "telegram", "platform": route.platform,
+                "surface": route.surface, "transport_type": route.transport_type,
+                "expected_destination_identity": route.expected_identity,
+                "payload": text, "payload_hash": sha256(text.encode()).hexdigest()}
+        # The old coordinator materialized this intent, then the parent check
+        # stopped it before any dispatch could be recorded.
+        record, = coordinator.register_plan(key, {**plan, "destinations": [copy]})["registered"]
+        held = store.get_outbox_message(record["message_id"])
+        assert held["status"] == "READY"
+        assert "reply_to_id" not in json.loads(held["payload"])["native_payload"]
+        assert cards._dispatch(store, key, "telegram") is None
 
     confirm(store, setup_key, setup_hash, "telegram", "700", "https://t.me/CapitalChronicle/700")
     recovered = posts.publish_ready(store, **options)

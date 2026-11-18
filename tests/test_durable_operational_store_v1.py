@@ -22,6 +22,7 @@ from live_contentops.durable_operational_store_v1 import (
     StaleFencingTokenError,
     LeaseConflictError,
     DurableStateCorruptionError,
+    DispatchIdentityConflictError,
     Wave02AuthorityViolationError,
     ArtifactNotFoundError,
     ArtifactValidationError,
@@ -63,6 +64,27 @@ def test_clean_init_and_idempotent_migrations(temp_db):
     applied = temp_db.run_migrations()
     assert applied == 0
     assert temp_db.verify_schema_integrity() is True
+
+
+def test_finalize_exact_ready_payload_only_before_dispatch(temp_db):
+    store = temp_db
+    store.create_work_item(story_id="call", work_item_id="call", title="Call", target_surface="TELEGRAM")
+    store.register_outbox_message(message_id="reply", work_item_id="call", destination="telegram",
+                                  payload='{"text":"Ending"}', status="READY")
+
+    bound = '{"reply_to_id":"193","text":"Ending"}'
+    updated = store.finalize_outbox_payload_before_dispatch(message_id="reply", payload=bound,
+                                                            expected_payload='{"text":"Ending"}')
+    assert updated["payload"] == bound
+    stale = store.finalize_outbox_payload_before_dispatch(message_id="reply", payload='{"reply_to_id":"200"}',
+                                                          expected_payload='{"text":"Ending"}')
+    assert stale["payload"] == bound
+
+    assert store.claim_platform_dispatch_attempt(dispatch_id="dispatch", message_id="reply", platform="telegram")
+    with pytest.raises(DispatchIdentityConflictError):
+        store.finalize_outbox_payload_before_dispatch(message_id="reply", payload='{"reply_to_id":"200"}',
+                                                       expected_payload=bound)
+    assert store.get_outbox_message("reply")["payload"] == bound
 
 
 def test_real_multi_version_migration_upgrade(tmp_path):

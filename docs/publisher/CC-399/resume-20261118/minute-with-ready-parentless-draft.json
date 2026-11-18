@@ -1,0 +1,89 @@
+{
+  "observed_at_utc": "2026-11-18T06:42:45.549543+00:00",
+  "applied_at_utc": "2026-11-18T06:40:06.896901+00:00",
+  "installed_minute_output": [
+    {
+      "at_utc": "2026-11-18T06:41:19.270500Z",
+      "phase": null,
+      "status": "OK",
+      "export_generated_at_utc": "2026-11-18T06:40:01.019635Z",
+      "ending": {
+        "key": "plan-result-post-20b237ff2ba9b04ca81e951be36badc5",
+        "status": "NOT_STARTED",
+        "cause": "PLAN_CARD_REPLY_PARENT_CHANGED"
+      },
+      "target_refusals": 6
+    },
+    {
+      "at_utc": "2026-11-18T06:41:29.801161Z",
+      "phase": "IMMEDIATE_ALERTS",
+      "status": "OK",
+      "export_generated_at_utc": "2026-11-18T06:40:01.019635Z",
+      "ending": {
+        "key": "plan-result-post-20b237ff2ba9b04ca81e951be36badc5",
+        "status": "NOT_STARTED",
+        "cause": "PLAN_CARD_REPLY_PARENT_CHANGED"
+      },
+      "target_refusals": 6
+    },
+    {
+      "at_utc": "2026-11-18T06:42:12.869463Z",
+      "phase": null,
+      "status": "OK",
+      "export_generated_at_utc": "2026-11-18T06:40:01.019635Z",
+      "ending": {
+        "key": "plan-result-post-20b237ff2ba9b04ca81e951be36badc5",
+        "status": "NOT_STARTED",
+        "cause": "PLAN_CARD_REPLY_PARENT_CHANGED"
+      },
+      "target_refusals": 6
+    },
+    {
+      "at_utc": "2026-11-18T06:42:29.720628Z",
+      "phase": "IMMEDIATE_ALERTS",
+      "status": "OK",
+      "export_generated_at_utc": "2026-11-18T06:40:01.019635Z",
+      "ending": {
+        "key": "plan-result-post-20b237ff2ba9b04ca81e951be36badc5",
+        "status": "NOT_STARTED",
+        "cause": "PLAN_CARD_REPLY_PARENT_CHANGED"
+      },
+      "target_refusals": 6
+    }
+  ],
+  "bitcoin_setup_and_ending_dispatches": [
+    {
+      "work_item_id": "plan-result-post-20b237ff2ba9b04ca81e951be36badc5",
+      "outbox_status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_f8718d879ce72d922724aa05c4f10eca",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-17T19:32:47.038634+00:00",
+      "public_object_id": "1572333710240387164",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1572291805364621322/1572333710240387164",
+      "expected_parent_id": "1572291805364621322"
+    },
+    {
+      "work_item_id": "plan-status-post-19ba4c132cc5e0065b576ffcb467f1ea",
+      "outbox_status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_175677c43f5eba00a4a01cbf71937887",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-17T16:46:17.718848+00:00",
+      "public_object_id": "1572291805364621322",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572291805364621322",
+      "expected_parent_id": null
+    },
+    {
+      "work_item_id": "plan-status-post-19ba4c132cc5e0065b576ffcb467f1ea",
+      "outbox_status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_0dee4413070128dc9580661a868ae5c6",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-17T16:46:23.809207+00:00",
+      "public_object_id": "193",
+      "public_object_url": "https://t.me/CapitalChronicle/193",
+      "expected_parent_id": null
+    }
+  ]
+}

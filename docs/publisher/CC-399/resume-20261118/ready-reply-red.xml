@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="6.266" timestamp="2026-11-18T13:47:00.174905+07:00" hostname="J-P"><testcase classname="tests.test_plan_state_alerts_cc543" name="test_late_parent_confirmation_enables_only_its_unsent_ending[prebound]" time="4.311"><failure message="AssertionError: {'posts': [{'cause': 'PLAN_CARD_REPLY_PARENT_CHANGED', 'key': 'plan-result-post-2cc8d586ad74f5b187da9d59f82946f9', 'status': 'NOT_STARTED'}], 'status': 'OK'}&#10;assert (None)">replay = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000001FBAA54E510&gt;, WindowsPath('C:/C...ons': [], 'cancel_kind': None, ...}, datetime.datetime(2026, 11, 12, 13, 20, 23, 123369, tzinfo=datetime.timezone.utc))
+main_root = WindowsPath('C:/CapitalChronicleScratch/cc399-installed-fmqn4zg2/ready-reply-red-fixtures/test_late_parent_confirmation_0/main')
+tmp_path = WindowsPath('C:/CapitalChronicleScratch/cc399-installed-fmqn4zg2/ready-reply-red-fixtures/test_late_parent_confirmation_0')
+registered_before_parent = True
+
+    @pytest.mark.parametrize("registered_before_parent", [False, True], ids=["new-copy", "prebound"])
+    def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_root, tmp_path, registered_before_parent):
+        from hashlib import sha256
+        from live_contentops.destination_transport_registry_v1 import registration_for_destination
+
+        store, folder, raw, now = replay
+        events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+        posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        setup, = rows(store)
+        setup_key = setup["key"]
+        setup_hash = sha256(("plan-status-post:" + setup_key).encode()).hexdigest()
+        store.create_work_item(story_id=setup_key, work_item_id=setup_key, title="Call card",
+                               target_surface="MULTI_PLATFORM")
+        confirm(store, setup_key, setup_hash, "discord", "600",
+                "https://discord.com/channels/42/1519311669216673802/600")
+        store.set_outbox_status(setup_key, "SETTLED")
+
+        raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+        events.append(event(raw["plan_id"], "EXPIRED", now.isoformat()))
+        now += timedelta(minutes=1)
+        write(folder, [raw], events, generated_at_utc=now.isoformat())
+        queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        ending, = [row for row in rows(store) if row["kind"] == "result"]
+        key = ending["key"]
+
+        runtime = FixtureTransport()
+        coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+            readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+            published_content_path=tmp_path / "published.jsonl")
+        options = {"now": now, "latest_states": queued["latest_states"], "root": tmp_path / "posts",
+                   "host": fake_host, "coordinator_for": lambda *args: coordinator, "immediate_only": True}
+        posts.publish_ready(store, **options)
+        discord = cards._dispatch(store, key, "discord")
+        assert discord["status"] == "DISPATCH_CONFIRMED"
+        assert cards._dispatch(store, key, "telegram") is None
+        discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
+        directory = tmp_path / "posts" / key
+        _, first_copies = posts._expected(store, key, directory)
+        if registered_before_parent:
+            plan = cards.prepare_post(store, key, root=tmp_path / "posts", host=fake_host, destinations=("discord",))
+            route = registration_for_destination("telegram")
+            text = first_copies["telegram"]["full_text"]
+            copy = {**plan["destinations"][0], "destination": "telegram", "platform": route.platform,
+                    "surface": route.surface, "transport_type": route.transport_type,
+                    "expected_destination_identity": route.expected_identity,
+                    "payload": text, "payload_hash": sha256(text.encode()).hexdigest()}
+            # The old coordinator materialized this intent, then the parent check
+            # stopped it before any dispatch could be recorded.
+            record, = coordinator.register_plan(key, {**plan, "destinations": [copy]})["registered"]
+            held = store.get_outbox_message(record["message_id"])
+            assert held["status"] == "READY"
+            assert "reply_to_id" not in json.loads(held["payload"])["native_payload"]
+            assert cards._dispatch(store, key, "telegram") is None
+
+        confirm(store, setup_key, setup_hash, "telegram", "700", "https://t.me/CapitalChronicle/700")
+        recovered = posts.publish_ready(store, **options)
+        telegram = cards._dispatch(store, key, "telegram")
+&gt;       assert telegram and telegram["status"] == "DISPATCH_CONFIRMED", recovered
+E       AssertionError: {'posts': [{'cause': 'PLAN_CARD_REPLY_PARENT_CHANGED', 'key': 'plan-result-post-2cc8d586ad74f5b187da9d59f82946f9', 'status': 'NOT_STARTED'}], 'status': 'OK'}
+E       assert (None)
+
+tests\test_plan_state_alerts_cc543.py:307: AssertionError</failure></testcase></testsuite></testsuites>
