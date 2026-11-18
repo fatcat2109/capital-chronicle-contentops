@@ -1,0 +1,42 @@
+{
+  "delivery_commit": "d4c997210af50482e68b72c7df3e481fa59f840e",
+  "operating_commit": "b183ead6ac3b969e547159b4001b1c698861a1a2",
+  "live_tag": "contentops-live-20261119-cc467-r5",
+  "rollback_commit": "14156d4106bc4d8d67804f4c11e6c1dab75bef2b",
+  "rollback_tag": "contentops-rollback-20261119-cc467-r5",
+  "installed_tests": {"passed": 69, "failed": 0, "report": "installed-composer-repair-20261119.xml"},
+  "baseline_regression": "The unrelated CC-603 Substack Note DOM fixture failed on both the delivery and the prior operating commit.",
+  "launch": {"model": "gpt-6.2-sol", "effort": "max", "provenance": "CONFIGURED_NOT_OBSERVED"},
+  "minute_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "entrypoint": "scripts/plan_status_posts.py --publish",
+    "checked_entrypoint": "scripts/run_sourced_replies.py quote-refresh",
+    "started_at_utc": "2026-11-18T17:56:47.986902+00:00",
+    "feed_generated_at_utc": "2026-11-18T17:56:23.349Z",
+    "observed_at_utc": "2026-11-18T17:56:50.390654+00:00",
+    "result": "NO_FRESH_ORIGINAL_NEWS",
+    "stored_quotes": 13,
+    "confirmed_five_minute_quotes": 0,
+    "audience_status": "FIRST_LIVE_QUOTE_PENDING"
+  },
+  "retained_day_readback": {
+    "artifact": "Runtime/ContentOps/daily_app_outputs/owner-manual/route-1900/20261118T121511Z/day_readback.md",
+    "method": "Existing day projection on the read-only store. Public HTTP omitted. Original report retained.",
+    "first_causes": [
+      {"source_id": "2122686560797667435", "status": "RECONCILED_ABSENT_SAFE_TO_RETRY", "cause": "CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM"},
+      {"source_id": "2122695457495544038", "status": "RECONCILED_ABSENT_SAFE_TO_RETRY", "cause": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"},
+      {"source_id": "2122702049615716621", "status": "DEFINITE_NO_WRITE", "cause": "NEO_CONTROL_COVERED_ACT"},
+      {"source_id": "2122707371277369759", "status": "DEFINITE_NO_WRITE", "cause": "CC467_VISIBLE_SOURCE_CHANGED"},
+      {"source_id": "2122718679041245623", "status": "RECONCILED_ABSENT_SAFE_TO_RETRY", "cause": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"},
+      {"source_id": "2122746976441610494", "status": "DEFINITE_NO_WRITE", "cause": "NEO_CONTROL_COVERED_ACT"},
+      {"source_id": "2122770499835134412", "status": "RECONCILED_ABSENT_SAFE_TO_RETRY", "cause": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"},
+      {"source_id": "2122777851011432669", "status": "RECONCILED_ABSENT_SAFE_TO_RETRY", "cause": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"},
+      {"source_id": "2122802014270677055", "status": "RECONCILED_ABSENT_SAFE_TO_RETRY", "cause": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"},
+      {"source_id": "2122806847778291712", "status": "DEFINITE_NO_WRITE", "cause": "CC467_QUOTED_SOURCE_OR_CHART_MISSING"},
+      {"source_id": "2122807863068561572", "status": "READY", "cause": "DESTINATION_FAILED_ET_DAY_SKIP"},
+      {"source_id": "2122809570955567439", "status": "READY", "cause": "DESTINATION_FAILED_ET_DAY_SKIP"},
+      {"source_id": "2122813140375097573", "status": "READY", "cause": "DESTINATION_FAILED_ET_DAY_SKIP"}
+    ]
+  }
+}
