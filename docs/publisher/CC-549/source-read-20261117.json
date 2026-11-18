@@ -1,0 +1,152 @@
+{
+  "item": "CC-549",
+  "observed_at_utc": "2026-11-17T07:23:22.048575+00:00",
+  "plan_id": "plan_30f3365059e996b2f0d1d79a",
+  "registration_hash": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+  "run_id": "request-dbc0b55a4b96d198",
+  "analysis_result_hash": "abdf014b01d910bf5cd080f12835aa28e0b7fc28d10b9c4d9599502501572d5e",
+  "retained_runtime_result": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_30f3365059e996b2f0d1d79a\\editorial_result.json",
+    "sha256": "f9a52a187d4cdc3eb9b711e8d92503fdd1ee76b4bdd2f49104b5894b4a479339",
+    "cause": "ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND",
+    "plan_id": "plan_30f3365059e996b2f0d1d79a",
+    "status": "SOURCE_PAGE_PENDING"
+  },
+  "patched_source_lookup": "PASS",
+  "source_folder": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198",
+  "source_manifest": {
+    "integrated-owner-record.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\integrated-owner-record.json",
+      "sha256": "cea6945840ad171e82bede458ace7eac6c53a1fa657809d73202861b622c073b",
+      "bytes": 9119732
+    },
+    "plan-geometry.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\plan-geometry.json",
+      "sha256": "7c390ac2389880a8b3c429bc3dbae4d480a1c9dce2ad954c642aa1b4fd873d27",
+      "bytes": 8070
+    },
+    "options-context.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\options-context.json",
+      "sha256": "730e6ac66f06b84ceaf5287a8f5b1c057c6784db8a1bc0321ea328173122911a",
+      "bytes": 34971
+    },
+    "final-decision-freeze.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\final-decision-freeze.json",
+      "sha256": "6ff697abc5146480fca3b3c3baa2a558b4fd1580b7f39306d6fbe191d939eb25",
+      "bytes": 1888
+    },
+    "desktop-manual-result.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\desktop-manual-result.json",
+      "sha256": "30655119af00283d0f727533c1b3f6c5bafd8ed4f6a8e46c2198ece8956b1bfb",
+      "bytes": 299909
+    },
+    "analysis-native.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-native.json",
+      "sha256": "8dc55c0d31f3448d01536b210f9d8369bc4e8ba04fa8e74a0b73b94c149fc2fe",
+      "bytes": 123177
+    },
+    "market-context.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\market-context.json",
+      "sha256": "f7d2e5a3e449d5a61ad05a3adebe991a6aded5e167db5fe3b90eb1a3745e04ac",
+      "bytes": 11937
+    }
+  },
+  "role_pack_present": false,
+  "role_evidence_present": false,
+  "source_count": 32,
+  "original_analysis_source_count": 2,
+  "original_analysis_refs": [
+    {
+      "file": "analysis-native.json",
+      "pointer": "/native_synthesis/candidates/9/rationale"
+    },
+    {
+      "file": "analysis-native.json",
+      "pointer": "/native_synthesis/candidates/9/invalidation"
+    }
+  ],
+  "original_analysis_reaches_writer_prompt": true,
+  "frozen_terms": {
+    "contract": "CC549_V1",
+    "market": "USD/JPY",
+    "price_basis": "plan",
+    "title": "USD/JPY: Spot plan cancelled on high at or above 160.3 before entry",
+    "invalidation": "Spot plan cancelled on high at or above 160.3 before entry",
+    "entry_deadline_utc": "2026-11-17T07:00:00Z",
+    "time_exit_utc": "2026-11-18T18:30:00Z",
+    "clocks": [
+      "Entry can start until Tue 17 Nov, 2:00 AM ET.",
+      "Filled positions close by Wed 18 Nov, 1:30 PM ET."
+    ],
+    "call": {
+      "market": "USD/JPY",
+      "direction": "bearish",
+      "condition": "price trades into 159.02–159.38",
+      "horizon": "Entry can start until Tue 17 Nov, 2:00 AM ET. Filled positions close by Wed 18 Nov, 1:30 PM ET",
+      "invalidation": "Spot plan cancelled on high at or above 160.3 before entry"
+    },
+    "call_line": "We are bearish on USD/JPY if price trades into 159.02–159.38. Spot plan cancelled on high at or above 160.3 before entry. Entry can start until Tue 17 Nov, 2:00 AM ET. Filled positions close by Wed 18 Nov, 1:30 PM ET.",
+    "refs": [
+      {
+        "file": "plan-export",
+        "pointer": "/invalidation_conditions/0/threshold"
+      },
+      {
+        "file": "plan-export",
+        "pointer": "/zone/minimum"
+      },
+      {
+        "file": "plan-export",
+        "pointer": "/zone/maximum"
+      },
+      {
+        "file": "plan-export",
+        "pointer": "/entry_deadline_utc",
+        "transform": "ET12"
+      },
+      {
+        "file": "plan-export",
+        "pointer": "/forecast_probabilities/horizon_end_utc",
+        "transform": "ET12"
+      }
+    ]
+  },
+  "stored_alert_validation": "PASS",
+  "stored_row_ids": [
+    "plan-status-post-7dc744efd5c6fa801ab5144d9a620a67",
+    "plan-result-post-f5ecb8c81fed4b645e17580901ac7ff0"
+  ],
+  "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+  "confirmed_telegram_dispatches": [
+    {
+      "dispatch_id": "dispatch_d8a4afc2944451f654ce5f8d9c7068ca",
+      "message_id": "outbox_d8a4afc2944451f654ce5f8d9c7068ca",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-17T06:29:59.651185+00:00",
+      "public_object_id": "188",
+      "public_object_url": "https://t.me/CapitalChronicle/188",
+      "public_object_url_hash": "bd37b3f18e6b8bd15780dcce8de454e6d22202cccd8c678579afd6ae2a2d6d2e"
+    },
+    {
+      "dispatch_id": "dispatch_c9b78a917d4d8cefa0f4e48cdcba42d0",
+      "message_id": "outbox_c9b78a917d4d8cefa0f4e48cdcba42d0",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-17T07:03:09.371289+00:00",
+      "public_object_id": "189",
+      "public_object_url": "https://t.me/CapitalChronicle/189",
+      "public_object_url_hash": "0d8d1f66629ac258a97785fdce95079094dc8bf819d7f4ad4c75410555b8ce3e"
+    }
+  ],
+  "analysis_page_outbox_rows": 0,
+  "public_writes_by_this_run": 0,
+  "editorial_model_calls_by_this_run": 0,
+  "production_store_mode": "read-only",
+  "application_restarted": false,
+  "schedule_changed": false,
+  "top_level_model": "gpt-6.1-sol",
+  "top_level_effort": "max",
+  "top_level_pid": 14732,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED"
+}

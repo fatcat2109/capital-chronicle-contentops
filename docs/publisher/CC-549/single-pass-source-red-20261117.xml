@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="1.918" timestamp="2026-11-17T14:21:30.904100+07:00" hostname="J-P"><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_single_pass_original_analysis_reaches_the_real_page_writer" time="0.091"><failure message="ValueError: PLAN_ANALYSIS_RUN_NOT_FOUND">single_pass_run = (WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4692/test_single_pass_original_anal0/runs'), Windo... 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...})
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4692/test_single_pass_original_anal0')
+
+    def test_single_pass_original_analysis_reaches_the_real_page_writer(single_pass_run, tmp_path):
+        root, folder, plan = single_pass_run
+        calls = []
+    
+        def writer(prompt, **options):
+            calls.append(prompt)
+            assert "Base chance 55%; support 1.12; alternative 35%." in prompt
+            assert "analysis-native.json" in prompt
+            return {"status": "FAILED", "cause": "CONTROLLED_WRITER_STOP"}
+    
+&gt;       result = editorial.prepare_page(plan, output_dir=tmp_path / "page", run_root=root, call=writer)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_plan_thread_consistency_cc549.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\plan_reader_editorial_v1.py:200: in prepare_page
+    run=pages.load_run(plan,run_root=run_root)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+plan = {'analysis_result_hash': '8e074f469700f77271ec6f6adb80c1b10fb6f32c0fb8f791b3e018bcd2d3b98e', 'asset_id': 'EURUSD', 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...}
+
+    def load_run(plan, *, run_root=RUN_ROOT):
+        run_id = plan.get("run_id")
+        if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", run_id):
+            raise ValueError("PLAN_ANALYSIS_RUN_ID_INVALID")
+        folder = next((Path(run_root) / kind / run_id for kind in ("requests", "shocks")
+                       if (Path(run_root) / kind / run_id / "role-pack.json").is_file()), None)
+        if folder is None:
+&gt;           raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
+E           ValueError: PLAN_ANALYSIS_RUN_NOT_FOUND
+
+live_contentops\plan_analysis_pages_v1.py:167: ValueError</failure></testcase><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_single_pass_keeps_exact_result_and_freeze_binding[desktop-manual-result.json-PLAN_ANALYSIS_RESULT_HASH_MISMATCH]" time="0.026"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'PLAN_ANALYSIS_RESULT_HASH_MISMATCH'&#10;  Actual message: 'PLAN_ANALYSIS_RUN_NOT_FOUND'">single_pass_run = (WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4692/test_single_pass_keeps_exact_r0/runs'), Windo... 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...})
+document = 'desktop-manual-result.json'
+reason = 'PLAN_ANALYSIS_RESULT_HASH_MISMATCH'
+
+    @pytest.mark.parametrize("document,reason", [
+        ("desktop-manual-result.json", "PLAN_ANALYSIS_RESULT_HASH_MISMATCH"),
+        ("final-decision-freeze.json", "PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH"),
+    ])
+    def test_single_pass_keeps_exact_result_and_freeze_binding(single_pass_run, document, reason):
+        root, folder, plan = single_pass_run
+        path = folder / document
+        value = json.loads(path.read_bytes())
+        if document == "final-decision-freeze.json":
+            value["qualitative_result_hash"] = "wrong"
+        else:
+            value["changed"] = True
+        path.write_text(json.dumps(value), encoding="utf-8")
+        with pytest.raises(ValueError, match=reason):
+&gt;           pages.load_run(plan, run_root=root)
+
+tests\test_plan_thread_consistency_cc549.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+plan = {'analysis_result_hash': '8e074f469700f77271ec6f6adb80c1b10fb6f32c0fb8f791b3e018bcd2d3b98e', 'asset_id': 'EURUSD', 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...}
+
+    def load_run(plan, *, run_root=RUN_ROOT):
+        run_id = plan.get("run_id")
+        if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", run_id):
+            raise ValueError("PLAN_ANALYSIS_RUN_ID_INVALID")
+        folder = next((Path(run_root) / kind / run_id for kind in ("requests", "shocks")
+                       if (Path(run_root) / kind / run_id / "role-pack.json").is_file()), None)
+        if folder is None:
+&gt;           raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
+E           ValueError: PLAN_ANALYSIS_RUN_NOT_FOUND
+
+live_contentops\plan_analysis_pages_v1.py:167: ValueError
+
+During handling of the above exception, another exception occurred:
+
+single_pass_run = (WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4692/test_single_pass_keeps_exact_r0/runs'), Windo... 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...})
+document = 'desktop-manual-result.json'
+reason = 'PLAN_ANALYSIS_RESULT_HASH_MISMATCH'
+
+    @pytest.mark.parametrize("document,reason", [
+        ("desktop-manual-result.json", "PLAN_ANALYSIS_RESULT_HASH_MISMATCH"),
+        ("final-decision-freeze.json", "PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH"),
+    ])
+    def test_single_pass_keeps_exact_result_and_freeze_binding(single_pass_run, document, reason):
+        root, folder, plan = single_pass_run
+        path = folder / document
+        value = json.loads(path.read_bytes())
+        if document == "final-decision-freeze.json":
+            value["qualitative_result_hash"] = "wrong"
+        else:
+            value["changed"] = True
+        path.write_text(json.dumps(value), encoding="utf-8")
+&gt;       with pytest.raises(ValueError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'PLAN_ANALYSIS_RESULT_HASH_MISMATCH'
+E         Actual message: 'PLAN_ANALYSIS_RUN_NOT_FOUND'
+
+tests\test_plan_thread_consistency_cc549.py:79: AssertionError</failure></testcase><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_single_pass_keeps_exact_result_and_freeze_binding[final-decision-freeze.json-PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH]" time="0.038"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH'&#10;  Actual message: 'PLAN_ANALYSIS_RUN_NOT_FOUND'">single_pass_run = (WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4692/test_single_pass_keeps_exact_r1/runs'), Windo... 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...})
+document = 'final-decision-freeze.json'
+reason = 'PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH'
+
+    @pytest.mark.parametrize("document,reason", [
+        ("desktop-manual-result.json", "PLAN_ANALYSIS_RESULT_HASH_MISMATCH"),
+        ("final-decision-freeze.json", "PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH"),
+    ])
+    def test_single_pass_keeps_exact_result_and_freeze_binding(single_pass_run, document, reason):
+        root, folder, plan = single_pass_run
+        path = folder / document
+        value = json.loads(path.read_bytes())
+        if document == "final-decision-freeze.json":
+            value["qualitative_result_hash"] = "wrong"
+        else:
+            value["changed"] = True
+        path.write_text(json.dumps(value), encoding="utf-8")
+        with pytest.raises(ValueError, match=reason):
+&gt;           pages.load_run(plan, run_root=root)
+
+tests\test_plan_thread_consistency_cc549.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+plan = {'analysis_result_hash': '8e074f469700f77271ec6f6adb80c1b10fb6f32c0fb8f791b3e018bcd2d3b98e', 'asset_id': 'EURUSD', 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...}
+
+    def load_run(plan, *, run_root=RUN_ROOT):
+        run_id = plan.get("run_id")
+        if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", run_id):
+            raise ValueError("PLAN_ANALYSIS_RUN_ID_INVALID")
+        folder = next((Path(run_root) / kind / run_id for kind in ("requests", "shocks")
+                       if (Path(run_root) / kind / run_id / "role-pack.json").is_file()), None)
+        if folder is None:
+&gt;           raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
+E           ValueError: PLAN_ANALYSIS_RUN_NOT_FOUND
+
+live_contentops\plan_analysis_pages_v1.py:167: ValueError
+
+During handling of the above exception, another exception occurred:
+
+single_pass_run = (WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-4692/test_single_pass_keeps_exact_r1/runs'), Windo... 'plan_id': 'plan_test', 'registration_hash': 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', ...})
+document = 'final-decision-freeze.json'
+reason = 'PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH'
+
+    @pytest.mark.parametrize("document,reason", [
+        ("desktop-manual-result.json", "PLAN_ANALYSIS_RESULT_HASH_MISMATCH"),
+        ("final-decision-freeze.json", "PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH"),
+    ])
+    def test_single_pass_keeps_exact_result_and_freeze_binding(single_pass_run, document, reason):
+        root, folder, plan = single_pass_run
+        path = folder / document
+        value = json.loads(path.read_bytes())
+        if document == "final-decision-freeze.json":
+            value["qualitative_result_hash"] = "wrong"
+        else:
+            value["changed"] = True
+        path.write_text(json.dumps(value), encoding="utf-8")
+&gt;       with pytest.raises(ValueError, match=reason):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH'
+E         Actual message: 'PLAN_ANALYSIS_RUN_NOT_FOUND'
+
+tests\test_plan_thread_consistency_cc549.py:79: AssertionError</failure></testcase></testsuite></testsuites>
