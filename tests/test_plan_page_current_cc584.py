@@ -1,6 +1,6 @@
 """Current public state, named pricing sources and distinct pre/post-entry levels."""
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 
@@ -101,6 +101,42 @@ def test_current_matching_plan_and_quote_are_used_for_a_fresh_page(monkeypatch):
     now = posts._utc("2026-11-12T16:32:05Z")
     assert pages.require_current_page({"source_plan": raw}, now=now) is current
     assert calls == [(raw["plan_id"], {"registration_hash": raw["registration_hash"], "now": now})]
+
+
+def test_dated_page_update_uses_main_quote_and_rechecks_state_before_write(monkeypatch):
+    from test_plan_thread_consistency_cc549 import authored
+    from live_contentops import plan_reader_editorial_v1 as editorial
+
+    raw = json.loads(GOLD.read_bytes())
+    raw.update(status="WAITING")
+    at = posts._utc(raw["registered_at_utc"]) + timedelta(minutes=3)
+    quote_at = (at - timedelta(seconds=30)).isoformat()
+    quote = {"price": 3948.123, "instrument": raw["asset_id"], "quoted_at_utc": quote_at,
+             "known_at_utc": quote_at, "source_hash": "a" * 64}
+    current = {**raw, "last_quote": quote}
+    monkeypatch.setattr(posts, "current_public_plan", lambda *a, **k: current)
+    update = pages.market_update(raw, current, now=at)
+    assert update == quote
+    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run["source_plan"] = raw
+    source = reader.source_packet(raw, run, thread=True, level_contract=reader.LEVEL_CONTRACT)
+    manuscript = editorial.bind_manuscript(authored(source), source, raw)
+    packet, _, _ = pages._assemble(raw, manuscript, run, market_update=update)
+    body = packet["body_markdown"]
+    assert "Since we fixed the plan, Gold was below the original entry zone." in body
+    assert "Our quote at " + reader.et(quote_at) + " was 3,948.123." in body
+    assert body.index("Our quote at") < body.index("## What is priced in")
+    assert pages.require_current_page({"source_plan": raw, "market_update": update}, now=at) == current
+
+    with pytest.raises(ValueError, match="DATED_UPDATE_NO_LONGER_CURRENT"):
+        pages.require_current_page({"source_plan": raw, "market_update": {**update, "price": 3900}}, now=at)
+    current["last_quote"] = {**quote, "quoted_at_utc": at.isoformat(), "known_at_utc": at.isoformat(),
+                            "price": 3959, "source_hash": "b" * 64}
+    with pytest.raises(ValueError, match="DATED_UPDATE_NO_LONGER_CURRENT"):
+        pages.require_current_page({"source_plan": raw, "market_update": update}, now=at)
+    current["status"] = "EXPIRED"
+    with pytest.raises(ValueError, match="STATE_CHANGED"):
+        pages.require_current_page({"source_plan": raw, "market_update": update}, now=at)
 
 
 def test_stored_91_percent_paragraph_needs_a_named_pricing_source():

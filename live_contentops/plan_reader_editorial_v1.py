@@ -197,7 +197,8 @@ def check_manuscript(value, source, plan, run):
     return {"numeric_bindings":bound,"checks":reports,"word_count":word_count}
 
 
-def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False):
+def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False,
+                 market_update=None):
     folder=Path(output_dir)
     run=pages.load_run(plan,run_root=run_root)
     source=reader.source_packet(plan,run,thread=bool(plan.get("zone") and plan.get("invalidation_conditions")),
@@ -217,7 +218,8 @@ def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, r
             if unknown and attempt==0:
                 raise ValueError("Rewrite unknown acronyms once: "+",".join(unknown))
             manuscript["authorship"]={"calls":records,"checks":checks,"unknown_acronyms_logged":unknown}
-            packet=pages.render(plan,manuscript,output_dir=folder,run_root=run_root)
+            packet=pages.render(plan,manuscript,output_dir=folder,run_root=run_root,
+                                market_update=market_update)
             packet["reader_source"]=source
             (folder/"page.json").write_bytes(canonical_bytes(packet))
             return {"status":"PREPARED","packet":packet,"calls":records}
@@ -304,15 +306,18 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
     owner="cc466-"+uuid4().hex
     from .durable_operational_store_v1 import LeaseConflictError
     try:
-        lease=store.acquire_lease("cc466-plan-page-editorial",owner,ttl_seconds=1200)
+        # The existing IgnoreNew minute task has a five-minute execution cap.
+        # Its abandoned lease must not keep the following three windows idle.
+        lease=store.acquire_lease("cc466-plan-page-editorial",owner,ttl_seconds=300)
     except LeaseConflictError:
         return {"status":"ACTIVE_PAGE_SLICE","pages":[]}
-    results=[]
+    results, waiting = [], []
     try:
         plans=[p for p in export["status"]["plans"] if p.get("asset_id") in __import__(
             "live_contentops.plan_status_posts_v1",fromlist=["MARKETS"]).MARKETS
             and p.get("run_id") and p.get("analysis_result_hash") and p.get("registered_at_utc")]
         plans=[p for p in plans if now-timedelta(days=7)<=datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<=now]
+        current_plans = {p["plan_id"]: p for p in plans}
         def attempt_clock(plan):
             path=Path(root)/("plan-analysis-"+plan["plan_id"])/"editorial_result.json"
             return path.stat().st_mtime if path.is_file() else 0
@@ -335,8 +340,20 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                 break
             folder=Path(root)/("plan-analysis-"+plan["plan_id"])
             if not packet:
+                dated = None
+                if publish:
+                    current = current_plans[plan["plan_id"]]
+                    from .plan_status_posts_v1 import ACTIVE
+                    if current.get("status") not in ACTIVE:
+                        continue  # No new live call after a plan ended. Issued pages still reconcile below.
+                    try:
+                        dated = pages.market_update(plan, current, now=now)
+                    except ValueError as exc:
+                        waiting.append({"plan_id": plan["plan_id"], "cause": str(exc)})
+                        continue
                 try:
-                    prepared=prepare_page(plan,output_dir=folder,call=call)
+                    prepared=prepare_page(plan,output_dir=folder,call=call,
+                                          **({"market_update": dated} if dated else {}))
                 except (OSError,ValueError,KeyError,TypeError) as exc:
                     prepared={"status":"SOURCE_PAGE_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
                 if prepared["status"]!="PREPARED":
@@ -354,7 +371,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                 outcome={"status":"PREPARED","page_id":packet["page_id"]}
             results.append({"plan_id":plan["plan_id"],"page_id":packet["page_id"],"publication":outcome})
             (folder/"editorial_result.json").write_bytes(canonical_bytes(results[-1]))
-        return {"status":"OK","pages":results,"week_plan_count":len(plans)}
+        return {"status":"OK","pages":results,"week_plan_count":len(plans),"waiting_for_current_quote":waiting}
     finally:
         store.release_lease(lease["lease_id"],owner,lease["fencing_token"])
 

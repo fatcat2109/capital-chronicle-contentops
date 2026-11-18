@@ -269,6 +269,36 @@ def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path
     assert seen[0] == first["source_plan"]
 
 
+def test_minute_page_slice_uses_later_quote_and_skips_the_stale_plan(gold, tmp_path, monkeypatch):
+    raw, _ = gold
+    raw["status"] = "WAITING"
+    raw_at = posts._utc(raw["registered_at_utc"])
+    at = raw_at + timedelta(minutes=3)
+    quoted_at = (at - timedelta(seconds=30)).isoformat()
+    quote = {"price": 3948.123, "instrument": raw["asset_id"], "quoted_at_utc": quoted_at,
+             "known_at_utc": quoted_at, "source_hash": "a" * 64}
+    current = {**raw, "last_quote": quote}
+    stale = {**current, "plan_id": "older-quote", "last_quote": {**quote,
+             "quoted_at_utc": (at - timedelta(hours=2)).isoformat()}}
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    seen = []
+
+    def prepare(plan, **options):
+        seen.append((plan["plan_id"], options["market_update"]))
+        return {"status": "PAGE_TEXT_UNAVAILABLE", "cause": "CONTROLLED_WRITER_FAILURE"}
+
+    monkeypatch.setattr(editorial, "prepare_page", prepare)
+    result = editorial.run_due(store, {"status": {"plans": [stale, current]}},
+                               root=tmp_path / "pages", rollout={}, now=at)
+    assert seen == [(raw["plan_id"], quote)]
+    assert result["waiting_for_current_quote"] == [
+        {"plan_id": stale["plan_id"], "cause": "PLAN_ANALYSIS_QUOTE_STALE_REVIEW_REQUIRED"}]
+    with store.get_read_only_connection() as conn:
+        lease = conn.execute("SELECT acquired_at, expires_at FROM leases WHERE lease_key=?",
+                             ("cc466-plan-page-editorial",)).fetchone()
+    assert posts._utc(lease["expires_at"]) - posts._utc(lease["acquired_at"]) == timedelta(minutes=5)
+
+
 def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root):
     raw, _ = gold
     raw.update(status="WAITING")

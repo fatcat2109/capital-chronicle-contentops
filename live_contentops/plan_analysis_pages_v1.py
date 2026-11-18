@@ -104,19 +104,7 @@ def check_new_page_copy(manuscript, run):
               for p in s.get("paragraphs", [])), pricing_source=manuscript.get("pricing_source"))
 
 
-def require_current_page(packet, *, now=None):
-    """A moved plan waits for an updated dated page; no prose or price is invented."""
-    raw = packet["source_plan"]
-    if not raw.get("zone"):
-        return  # Non-plan historical analytical packets have no entry geometry.
-    now = now or datetime.now(timezone.utc)
-    current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
-    state = current.get("status")
-    if (not state or str(state).startswith(("STALE", "SUPERSEDED"))
-            or state != raw.get("status")):
-        raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
-    quote = current.get("last_quote") or {"price": current.get("last_price"),
-        "quoted_at_utc": current.get("last_price_at_utc"), "instrument": raw["asset_id"]}
+def _validate_quote(raw, quote, now):
     if (quote.get("instrument") != raw["asset_id"] or quote.get("price") is None
             or not quote.get("quoted_at_utc")):
         raise ValueError("PLAN_ANALYSIS_EXACT_CURRENT_QUOTE_REQUIRED")
@@ -126,12 +114,67 @@ def require_current_page(packet, *, now=None):
     price = Decimal(str(quote["price"]))
     if not price.is_finite() or price <= 0:
         raise ValueError("PLAN_ANALYSIS_EXACT_CURRENT_QUOTE_REQUIRED")
-    zone = raw["zone"]
-    moved = not Decimal(str(zone["minimum"])) <= price <= Decimal(str(zone["maximum"]))
-    if moved:
-        raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
-    if (state == "WAITING" and raw.get("entry_deadline_utc") and now >= posts._utc(raw["entry_deadline_utc"])):
+    return price
+
+
+def _current_quote(raw, current, now):
+    state = current.get("status")
+    if (not state or str(state).startswith(("STALE", "SUPERSEDED"))
+            or state != raw.get("status") or current.get("registration_hash") != raw["registration_hash"]):
+        raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
+    quote = current.get("last_quote") or {"price": current.get("last_price"),
+        "quoted_at_utc": current.get("last_price_at_utc"), "instrument": raw["asset_id"]}
+    _validate_quote(raw, quote, now)
+    if state == "WAITING" and raw.get("entry_deadline_utc") and now >= posts._utc(raw["entry_deadline_utc"]):
         raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
+    return quote
+
+
+def _zone_relation(raw, price):
+    zone = raw["zone"]
+    if price < Decimal(str(zone["minimum"])):
+        return "below"
+    if price > Decimal(str(zone["maximum"])):
+        return "above"
+    return "inside"
+
+
+def market_update(raw, current, *, now):
+    """Capture a dated CC-584 update from Main for a quote outside the entry zone."""
+    if not raw.get("zone"):
+        return None
+    quote = _current_quote(raw, current, now)
+    if _zone_relation(raw, Decimal(str(quote["price"]))) == "inside":
+        return None
+    if (current["status"] not in posts.ACTIVE or not quote.get("source_hash")
+            or not quote.get("known_at_utc")
+            or not posts._utc(raw["registered_at_utc"]) <= posts._utc(quote["quoted_at_utc"])
+            <= posts._utc(quote["known_at_utc"]) <= now):
+        raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
+    return {key: quote[key] for key in ("price", "instrument", "quoted_at_utc", "known_at_utc", "source_hash")}
+
+
+def require_current_page(packet, *, now=None):
+    """Check the exact plan and quote again immediately before the write."""
+    raw = packet["source_plan"]
+    if not raw.get("zone"):
+        return  # Non-plan historical analytical packets have no entry geometry.
+    now = now or datetime.now(timezone.utc)
+    current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    observed = _current_quote(raw, current, now)
+    update = packet.get("market_update")
+    relation = _zone_relation(raw, Decimal(str(observed["price"])))
+    if update:
+        price = _validate_quote(raw, update, now)
+        update_at, observed_at = (posts._utc(q["quoted_at_utc"]) for q in (update, observed))
+        latest = market_update(raw, current, now=now)
+        if (not latest or not update.get("source_hash") or not update.get("known_at_utc")
+                or not posts._utc(raw["registered_at_utc"]) <= update_at <= posts._utc(update["known_at_utc"]) <= now
+                or update_at > observed_at or (update_at == observed_at and update != latest)
+                or relation != _zone_relation(raw, price)):
+            raise ValueError("PLAN_ANALYSIS_DATED_UPDATE_NO_LONGER_CURRENT")
+    elif relation != "inside":
+        raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
     return current
 
 
@@ -340,7 +383,7 @@ def _card(plan, run, folder, manuscript):
     return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
 
 
-def _assemble(plan, manuscript, run):
+def _assemble(plan, manuscript, run, *, market_update=None):
     freeze = run["freeze"]
     timestamp = public_timestamp(freeze["frozen_at_utc"])
     cutoff = public_timestamp(freeze.get("decision_cutoff_utc", freeze["frozen_at_utc"]))
@@ -348,6 +391,13 @@ def _assemble(plan, manuscript, run):
     reader = manuscript.get("reader_contract") == "CC466_V1"
     geometry, geometry_bindings = ([], []) if reader else _public_geometry(plan, run)
     paragraphs = [manuscript["introduction"]]
+    if market_update:
+        from .plan_reader_copy_v1 import et
+        price = Decimal(str(market_update["price"]))
+        relation = _zone_relation(plan, price)
+        name = posts.TITLES[plan["asset_id"]]
+        paragraphs.append(f"Since we fixed the plan, {name} was {relation} the original entry zone. "
+                          f"Our quote at {et(market_update['quoted_at_utc'])} was {price:,f}.")
     for key, title in sections_for(manuscript):
         paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
         if key == "technical":
@@ -371,12 +421,12 @@ def _assemble(plan, manuscript, run):
     return payload, paragraphs, geometry_bindings
 
 
-def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
+def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
     check_new_page_copy(manuscript, run)
     freeze = run["freeze"]
-    payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run)
+    payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run, market_update=market_update)
     bindings += geometry_bindings
     body = payload["body_markdown"]
     folder = Path(output_dir)
@@ -403,6 +453,8 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
               "freeze": {k: freeze[k] for k in ("frozen_at_utc", "immutable_hash")},
               "authorship": manuscript.get("authorship", {}), "manuscript": manuscript, "run_root": str(Path(run_root)),
               "source_plan": plan, "media_assets": [card] if card else [], "output_dir": str(folder.resolve())}
+    if market_update:
+        packet["market_update"] = market_update
     article = {"title": payload["title"], "body": body, "market_asset": plan.get("asset_id")}
     state = folder / "tradingview_capture_v1.json"
     if state.is_file():
@@ -515,7 +567,7 @@ def validate_plan(store, work_item_id, plan):
     if run["manifest"] != packet["source_manifest"]:
         raise ValueError("PLAN_ANALYSIS_SOURCE_BYTES_CHANGED")
     validate_manuscript(packet["source_plan"], packet["manuscript"], run)
-    expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run)
+    expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run, market_update=packet.get("market_update"))
     if expected != packet["native_payload"]:
         raise ValueError("PLAN_ANALYSIS_RENDERED_COPY_CHANGED")
     if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in sections_for(packet["manuscript"])}:
