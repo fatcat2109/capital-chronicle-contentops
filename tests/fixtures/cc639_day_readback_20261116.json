@@ -1,0 +1,772 @@
+{
+  "provenance": {
+    "source": "ContentOps read-only stored rows, extracted 17 Nov 2026",
+    "scope": "CC-536 piece 2, Telegram 187, digest and selected reply-bot rows; HTTP bodies are constructed regression pages, not retained live page bytes"
+  },
+  "feed": [
+    {
+      "conditional_calls": [],
+      "conflicts_notice": null,
+      "content_id": "substack:225143229",
+      "content_sha256": "5e11b16515de21966e096daf9734ff84e0b4bfcaee04794ed52e8c78a4d9a110",
+      "disclaimer": "Capital Chronicle offers analysis only, not financial advice or recommendations.",
+      "event_id": null,
+      "outlets": [
+        {
+          "name": "substack",
+          "url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly"
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571793081802559540"
+        },
+        {
+          "name": "facebook_page",
+          "url": "https://www.facebook.com/1342369584748125/posts/1456899786628437"
+        },
+        {
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/186"
+        },
+        {
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/Dfy2i0AE-Lb"
+        },
+        {
+          "name": "x",
+          "url": "https://x.com/Capitalnicle/status/2122235588179079329"
+        }
+      ],
+      "published_at_utc": "2026-11-16T07:44:03.233000+00:00",
+      "recorded_at_utc": "2026-11-16T07:51:43.682279+00:00",
+      "rights_class": "CC_OWN_ANALYSIS",
+      "schema_version": "contentops.published_content.v1",
+      "standfirst": "The long and short records tell different stories once the always-long comparison enters the picture.",
+      "title": "Following the trend worked unevenly",
+      "type": "ARTICLE",
+      "visibility": "public"
+    }
+  ],
+  "outbox_messages": [
+    {
+      "message_id": "outbox_b25e71916d6a02c3fca353f695c424d9",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "substack",
+      "payload": "{\"canonical_url\": null, \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.359539+00:00"
+    },
+    {
+      "message_id": "outbox_e43d58eee8e8c8fe6f5a640774ef16f8",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "discord",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.396586+00:00"
+    },
+    {
+      "message_id": "outbox_bb9729cf36dfcffec0afb050dd116c35",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "facebook_page",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.412319+00:00"
+    },
+    {
+      "message_id": "outbox_c97bd3d8a67765db725069a6a9e7980d",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "instagram_business",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.434182+00:00"
+    },
+    {
+      "message_id": "outbox_8fedc0e11e7e7ca7b3acc7886ed06295",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "linkedin",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "created_at": "2026-11-16T07:19:37.454067+00:00"
+    },
+    {
+      "message_id": "outbox_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "linkedin_company",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.484835+00:00"
+    },
+    {
+      "message_id": "outbox_bf305391d7590b239bd830b27524e43b",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "telegram",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"payload\": \"Gold trend-long: 76 trades, 0.391R per trade. Always long: 119 trades, 0.276R.\\n\\nS&P 500 trend-long: 87 trades, 0.113R. Always long: 119 trades, 0.196R.\\n\\nBitcoin trend-short: 73 trades, 0.297R; the later half lost.\\n\\nSample: November 2016 to November 2026. Hypothetical historical tests, rather than our trade results. Euro and yen figures await repaired closes.\\n\\nA rising decade and many rows limit the claim. The method page and full side records are in the article.\\n\\nFull analysis: https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\\n\\nCapital Chronicle offers analysis only, not financial advice or recommendations.\\nCapital Chronicle may hold positions in the markets it covers.\", \"native_payload\": {\"text\": \"Gold trend-long: 76 trades, 0.391R per trade. Always long: 119 trades, 0.276R.\\n\\nS&P 500 trend-long: 87 trades, 0.113R. Always long: 119 trades, 0.196R.\\n\\nBitcoin trend-short: 73 trades, 0.297R; the later half lost.\\n\\nSample: November 2016 to November 2026. Hypothetical historical tests, rather than our trade results. Euro and yen figures await repaired closes.\\n\\nA rising decade and many rows limit the claim. The method page and full side records are in the article.\\n\\nFull analysis: https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\\n\\nCapital Chronicle offers analysis only, not financial advice or recommendations.\\nCapital Chronicle may hold positions in the markets it covers.\"}}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.524594+00:00"
+    },
+    {
+      "message_id": "outbox_bbcbbd89e5a4492cfb9b8a54e59c1208",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "threads",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.550742+00:00"
+    },
+    {
+      "message_id": "outbox_712ef8fcd42f489a57994a2b924645db",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "x",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T07:19:37.575508+00:00"
+    },
+    {
+      "message_id": "outbox_0facda61cac93107f7e8ee9caf03aa94",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "youtube",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\", \"required_publication_destinations\": [\"substack\", \"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"], \"required_derivative_destinations\": [\"telegram\", \"x\", \"discord\", \"linkedin\", \"facebook_page\", \"instagram_business\", \"threads\", \"youtube\"]}",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-16T07:19:37.603944+00:00"
+    },
+    {
+      "message_id": "outbox_98dc91e50fedafc7f3c9034027166ba8",
+      "work_item_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-telegram",
+      "destination": "telegram",
+      "payload": "{\"canonical_url\": \"https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\", \"required_publication_destinations\": [], \"required_derivative_destinations\": [], \"payload\": \"EUR/USD: bearish at 1.1101\\u20131.1108, wrong above 1.1139\\nMacro: We need the rate explanation to remain intact.\\nPriced in: We see rate expectations and recent weakness already reflected in price.\\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\\nFear: We retain caution because the documented squeeze risk remains material.\\nStory: We regard this as a revised plan built around the newly broken floor.\\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\", \"native_payload\": {\"full_text\": \"EUR/USD: bearish at 1.1101\\u20131.1108, wrong above 1.1139\\nMacro: We need the rate explanation to remain intact.\\nPriced in: We see rate expectations and recent weakness already reflected in price.\\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\\nFear: We retain caution because the documented squeeze risk remains material.\\nStory: We regard this as a revised plan built around the newly broken floor.\\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\", \"text\": \"EUR/USD: bearish at 1.1101\\u20131.1108, wrong above 1.1139\\nMacro: We need the rate explanation to remain intact.\\nPriced in: We see rate expectations and recent weakness already reflected in price.\\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\\nFear: We retain caution because the documented squeeze risk remains material.\\nStory: We regard this as a revised plan built around the newly broken floor.\\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\"}}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-12T14:33:58.378661+00:00"
+    },
+    {
+      "message_id": "substack-digest-cc143-digest-2026-11-16",
+      "work_item_id": "cc143-digest-2026-11-16",
+      "destination": "internal:substack-daily-digest",
+      "payload": "{\"digest_id\": \"cc143-digest-2026-11-16\", \"cutoff_utc\": \"2026-11-16T12:00:00+00:00\", \"articles\": [{\"content_id\": \"substack:225143229\", \"content_sha256\": \"af171f816d4813c72bc830539749dcb08811e185b64345538a9f631c363acc3c\", \"published_at_utc\": \"2026-11-16T07:44:03.233000+00:00\", \"standfirst\": \"The long and short records tell different stories once the always-long comparison enters the picture.\", \"title\": \"Following the trend worked unevenly\", \"url\": \"https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly\"}], \"native_payload\": {\"body_markdown\": \"**[Following the trend worked unevenly](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly)**\\n\\nThe long and short records tell different stories once the always-long comparison enters the picture.\\n\\nCapital Chronicle offers analysis only, not financial advice or recommendations.\", \"subtitle\": \"Following the trend worked unevenly\", \"title\": \"Capital Chronicle daily digest \\u2014 November 16, 2026 (ET)\"}}",
+      "status": "EDITORIAL_INTERNAL",
+      "created_at": "2026-11-16T12:15:57.848199+00:00"
+    },
+    {
+      "message_id": "outbox_3b7cdce94b9bd5fd1435970ddc755d4c",
+      "work_item_id": "cc143-digest-2026-11-16",
+      "destination": "substack",
+      "payload": "{\"canonical_url\": null, \"required_publication_destinations\": [], \"required_derivative_destinations\": [], \"payload\": \"**[Following the trend worked unevenly](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly)**\\n\\nThe long and short records tell different stories once the always-long comparison enters the picture.\\n\\nCapital Chronicle offers analysis only, not financial advice or recommendations.\", \"native_payload\": {\"body_markdown\": \"**[Following the trend worked unevenly](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly)**\\n\\nThe long and short records tell different stories once the always-long comparison enters the picture.\\n\\nCapital Chronicle offers analysis only, not financial advice or recommendations.\", \"title\": \"Capital Chronicle daily digest \\u2014 November 16, 2026 (ET)\"}}",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-16T12:15:58.001535+00:00"
+    },
+    {
+      "message_id": "xrb-2121942041185726906",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-delivery",
+      "payload": "{\"post_id\": \"2121942041185726906\"}",
+      "status": "DELIVERED",
+      "created_at": "2026-11-15T12:26:25.529847+00:00"
+    },
+    {
+      "message_id": "xrb-2121945814335438893",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-delivery",
+      "payload": "{\"post_id\": \"2121945814335438893\"}",
+      "status": "DELIVERED",
+      "created_at": "2026-11-15T12:51:18.016702+00:00"
+    },
+    {
+      "message_id": "xrb-2122050647617053106",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-delivery",
+      "payload": "{\"post_id\": \"2122050647617053106\"}",
+      "status": "DELIVERED",
+      "created_at": "2026-11-15T19:40:40.681744+00:00"
+    },
+    {
+      "message_id": "xrb-2122220229019484476",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-delivery",
+      "payload": "{\"post_id\": \"2122220229019484476\"}",
+      "status": "DELIVERED",
+      "created_at": "2026-11-16T06:54:00.322997+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-84ac047abc5359ed080afea8af2de66ab244b55c561135ab1880cebd6a59b65d",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-event",
+      "payload": "{\"delivered_at_utc\": \"2026-11-15T12:26:26+00:00\", \"kind\": \"private_draft_delivered\", \"post_id\": \"2121942041185726906\"}",
+      "status": "SAVED",
+      "created_at": "2026-11-15T12:26:26.425981+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-6b55f853e01dd8b0cd19925e8c18def3cd030b1752bef2440cefe139e9f5059d",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-event",
+      "payload": "{\"delivered_at_utc\": \"2026-11-15T12:51:18+00:00\", \"kind\": \"private_draft_delivered\", \"post_id\": \"2121945814335438893\"}",
+      "status": "SAVED",
+      "created_at": "2026-11-15T12:51:18.914058+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-00659936a7dd33df9b7aded17e4241b204845f0be8f9ad2b25bdb8a7e4677205",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-event",
+      "payload": "{\"delivered_at_utc\": \"2026-11-15T19:40:46+00:00\", \"kind\": \"private_draft_delivered\", \"post_id\": \"2122050647617053106\"}",
+      "status": "SAVED",
+      "created_at": "2026-11-15T19:40:47.068298+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-ad4374afecdee2f53eef18ce90d5826a0a1f3086ed6dcbcc86236254ea710c0b",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-event",
+      "payload": "{\"delivered_at_utc\": \"2026-11-16T06:54:01+00:00\", \"kind\": \"private_draft_delivered\", \"post_id\": \"2122220229019484476\"}",
+      "status": "SAVED",
+      "created_at": "2026-11-16T06:54:01.337565+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-038a2d7e990eb5482f50a7bd5534f56cb9af49263ce0ff2ec1cc5bbed1c81006",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-run",
+      "payload": "{\"selection_causes\": {\"NO_SIX_MARKET_OR_MACRO_TOPIC\": 4, \"TARGET_OVER_15_MINUTES_AT_SEND\": 330}, \"status\": \"NO_FRESH_UNSENT_DRAFTS\"}",
+      "status": "NO_FRESH_UNSENT_DRAFTS",
+      "created_at": "2026-11-15T12:15:14.897648+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-51dc9adfc1afd048b77530bdb9edc9aa573f95ac40d21e47a83417a9d46ed61d",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-run",
+      "payload": "{\"selection_causes\": {\"NO_SIX_MARKET_OR_MACRO_TOPIC\": 3, \"TARGET_OVER_15_MINUTES_AT_SEND\": 332}, \"status\": \"NO_NEW_ELIGIBLE_TARGETS\"}",
+      "status": "NO_NEW_ELIGIBLE_TARGETS",
+      "created_at": "2026-11-15T12:16:39.460975+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-2a6f6d5ab4e16498a1e73e19ea33d056525c46b4599449a70698d47e415b8275",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-run",
+      "payload": "{\"selection_causes\": {\"NO_SIX_MARKET_OR_MACRO_TOPIC\": 3, \"TARGET_OVER_15_MINUTES_AT_SEND\": 330}, \"status\": \"DELIVERED\"}",
+      "status": "DELIVERED",
+      "created_at": "2026-11-15T12:26:26.456867+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-a2866911bb1d2920950307d08b2cf2355de1e634ad881e38510d0f6304f84826",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-run",
+      "payload": "{\"cause\": \"NeoEndpointError\", \"status\": \"MANUAL_READBACK_UNAVAILABLE\"}",
+      "status": "MANUAL_READBACK_UNAVAILABLE",
+      "created_at": "2026-11-15T13:53:44.458457+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-fa8c068c7b2395cf2d9259d751c5e2a62dd8f60f8543640992fcd0759e1091d9",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-run",
+      "payload": "{\"cause\": \"CODEX_EXIT_1\", \"selection_causes\": {\"NO_SIX_MARKET_OR_MACRO_TOPIC\": 1, \"TARGET_OVER_15_MINUTES_AT_SEND\": 310}, \"status\": \"REPLY_BOT_FAILED\"}",
+      "status": "REPLY_BOT_FAILED",
+      "created_at": "2026-11-15T13:55:29.311977+00:00"
+    },
+    {
+      "message_id": "x-reply-bot-46ec8642236580e144acea61dc9ce0ab846a52c000e85e2b0531fc7f8528a6cc",
+      "work_item_id": "x-reply-bot",
+      "destination": "internal:x-reply-bot-run",
+      "payload": "{\"status\": \"OBSERVED\"}",
+      "status": "OBSERVED",
+      "created_at": "2026-11-15T22:00:22.459765+00:00"
+    },
+    {
+      "message_id": "native-neo-579d61c7080baee8e4991f0a403924179f332bc6376108ea30d8e1bf06f2deb9",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"026c5471ee4620df754724851a7b0faa068e61e7383086e845f948c70db945bc\", \"destination\": \"substack\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:19:38.206281+00:00"
+    },
+    {
+      "message_id": "native-neo-92f1f707b6b269016b8b8602c5ce9b25b4729cd2dec9c5db18687c677698d86b",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"026c5471ee4620df754724851a7b0faa068e61e7383086e845f948c70db945bc\", \"status\": \"FAILED_BEFORE_WRITE\", \"reason_code\": \"PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:20:01.647464+00:00"
+    },
+    {
+      "message_id": "native-neo-e35550ce3670cf70dfc2d91bafe2afbbfd210bdfcb8dce0dd4100ed6ed64a80f",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"da8869979290975e09dc2cbc166389127e6ff928b6ac28df30f04c6c5203be15\", \"destination\": \"substack\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:43:45.467199+00:00"
+    },
+    {
+      "message_id": "native-neo-8ca773fe97659d3334d43337eb29dd45761a405947479f6630399c5fd6811a04",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"da8869979290975e09dc2cbc166389127e6ff928b6ac28df30f04c6c5203be15\", \"status\": \"SUCCESS\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:44:06.574194+00:00"
+    },
+    {
+      "message_id": "native-neo-9e7e9bdafdebb4461c79bb08c550106a10016ea05a78119c2e74de9042931a0c",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"bd27ac92c0b680291be048d446abbe28ffa8305e0c527312acdd9781abff0a59\", \"destination\": \"substack\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:44:18.320191+00:00"
+    },
+    {
+      "message_id": "native-neo-cd5d9b474143170e89e70c1447e48175824c6261166ca972181ec4d7e77715df",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"bd27ac92c0b680291be048d446abbe28ffa8305e0c527312acdd9781abff0a59\", \"status\": \"SUCCESS\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:44:24.053226+00:00"
+    },
+    {
+      "message_id": "native-neo-83f92e94d4c1d5a07c27bbed50c28598a72a0bd176d3caf12f81c47aac1ae04d",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"64eb1d293e476cf69aea5139adc3108e0973f072c645f1e53d0233a005bf67c4\", \"destination\": \"linkedin_company\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:45:47.658663+00:00"
+    },
+    {
+      "message_id": "native-neo-e9c4b0d35d7ea7b9cb1f4ccc459c6f0fcb9a492cd328ddf1f9cdfddc2a8df02e",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"64eb1d293e476cf69aea5139adc3108e0973f072c645f1e53d0233a005bf67c4\", \"status\": \"UNKNOWN_WRITE\", \"reason_code\": \"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:46:08.235046+00:00"
+    },
+    {
+      "message_id": "native-neo-5776fb1703bc2f53e4a44a944de80d294244dcdba6ae74a73c8d59d4bdf42c89",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"339ec96e823a2d124a41b142ad11858800e767260ca8278db3730c0d9d044a59\", \"destination\": \"linkedin_company\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:46:20.069877+00:00"
+    },
+    {
+      "message_id": "native-neo-50342cb6aa83dd52210e566060cc5b42dda84c7b889f7ba01167fc410211a0e7",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"339ec96e823a2d124a41b142ad11858800e767260ca8278db3730c0d9d044a59\", \"status\": \"READBACK_UNAVAILABLE\", \"reason_code\": \"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:46:24.202105+00:00"
+    },
+    {
+      "message_id": "native-neo-46f189ab045e38e03d1791f05efa07f9c19760bc0754fa6e4b9638c9ea4f6c23",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"7e1756dfe0f1341b790a111da66f7a6f25cd5d38b8760162265ac2374fdbe353\", \"destination\": \"x\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:48:37.873630+00:00"
+    },
+    {
+      "message_id": "native-neo-892b1f932983d1c83f75febe57dea59ee9d59e3fa4ac44f0bbb7aebab70cd79e",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"7e1756dfe0f1341b790a111da66f7a6f25cd5d38b8760162265ac2374fdbe353\", \"status\": \"SUCCESS\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:49:55.814914+00:00"
+    },
+    {
+      "message_id": "native-neo-76fa73932cbcec7f08868eb939f29e95b231ec453a712bf5b14db5fd7ea39524",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"ad7406160e8e17fbc362dcef0d3ef269a569e263f10fd901b405dee7a6d78d52\", \"destination\": \"x\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:50:03.090533+00:00"
+    },
+    {
+      "message_id": "native-neo-3697b8c1bd017cb3425073bf2694c08e200fce18e4db66ec3f746288101808f6",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"ad7406160e8e17fbc362dcef0d3ef269a569e263f10fd901b405dee7a6d78d52\", \"status\": \"SUCCESS\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:50:03.164586+00:00"
+    },
+    {
+      "message_id": "native-neo-4f1df6be37c8388b6c23f68064aa9315cdfa5a6dbbbfb82c032be197b019fb2d",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"b9b58a50e49a2df437bce70d06ecc14c4fe67426faff072058392175b2e0cb5e\", \"destination\": \"linkedin_company\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:55:14.578560+00:00"
+    },
+    {
+      "message_id": "native-neo-99f4c7a1124b5da98e625fd48416633e4269b26a50a575785e92b4b2cb8b3ff9",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"b9b58a50e49a2df437bce70d06ecc14c4fe67426faff072058392175b2e0cb5e\", \"status\": \"READBACK_UNAVAILABLE\", \"reason_code\": \"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T07:55:19.342082+00:00"
+    },
+    {
+      "message_id": "native-neo-e8add32655af45f3a5f5ed25a0012ab2d812ce4839d7e9eded402a8c08a3863f",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"509159638790d7f96654334e2e6de61f4422c7d9e981307ff574c520e14fc6e0\", \"destination\": \"linkedin_company\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T08:01:07.469918+00:00"
+    },
+    {
+      "message_id": "native-neo-52f7bc2be0152233daefae204ac87e20e3f7854ab1db8fdc8356e50a46156fd2",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"509159638790d7f96654334e2e6de61f4422c7d9e981307ff574c520e14fc6e0\", \"status\": \"READBACK_UNAVAILABLE\", \"reason_code\": \"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T08:01:11.395143+00:00"
+    },
+    {
+      "message_id": "native-neo-bc7297cda533e9918d31730fe7ea16da98b5d655e74b4fd87ba1d4fb608a6d7e",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"455e5a01e111048916b30230abe4b54741f9cc519314dd50ba467d6d83422e03\", \"destination\": \"linkedin_company\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T08:07:43.824712+00:00"
+    },
+    {
+      "message_id": "native-neo-081340ea72307e3718047e7f7be811422736fe6641e4c54393ee81459e32dc21",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"455e5a01e111048916b30230abe4b54741f9cc519314dd50ba467d6d83422e03\", \"status\": \"SUCCESS\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T08:08:04.568174+00:00"
+    },
+    {
+      "message_id": "native-neo-4e325f417ad2f8f018e19806dcf0882df78da1489bc77a4d7399f9cda118b7e1",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"request\": {\"request_sha256\": \"1308a6f609305f84db1e1a93e55f91b1cb8a499b204d7627ef94950cd6a38f77\", \"destination\": \"linkedin_company\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T08:18:59.836896+00:00"
+    },
+    {
+      "message_id": "native-neo-4851530708ce47a0f0ee7430b84296c17649bbe34fd63626aa68a2da812f611a",
+      "work_item_id": "cc536-measured-odds-2",
+      "destination": "internal:native-neo-tool",
+      "payload": "{\"result\": {\"request_sha256\": \"1308a6f609305f84db1e1a93e55f91b1cb8a499b204d7627ef94950cd6a38f77\", \"status\": \"SUCCESS\"}}",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-16T08:21:27.385214+00:00"
+    }
+  ],
+  "platform_dispatches": [
+    {
+      "dispatch_id": "dispatch_b25e71916d6a02c3fca353f695c424d9",
+      "message_id": "outbox_b25e71916d6a02c3fca353f695c424d9",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:19:38.172309+00:00",
+      "public_object_id": "225143229",
+      "public_object_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+      "public_object_url_hash": "646af2dc19416d333f18fe062b7a8793daeb32daea549ea912c1699a0aeeaff3"
+    },
+    {
+      "dispatch_id": "dispatch_e43d58eee8e8c8fe6f5a640774ef16f8",
+      "message_id": "outbox_e43d58eee8e8c8fe6f5a640774ef16f8",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:44:32.598124+00:00",
+      "public_object_id": "1571793081802559540",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571793081802559540",
+      "public_object_url_hash": "4f054d7147bb99df4856e5759478ef189bbc1ac0cc5362c390bc4076fcd1782e"
+    },
+    {
+      "dispatch_id": "dispatch_bb9729cf36dfcffec0afb050dd116c35",
+      "message_id": "outbox_bb9729cf36dfcffec0afb050dd116c35",
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:44:35.926491+00:00",
+      "public_object_id": "106091951705748_1456899786628437",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1456899786628437",
+      "public_object_url_hash": "c871499f34cfb9548de35714cafaf388614ad63096414f924b69a6833e6b5c22"
+    },
+    {
+      "dispatch_id": "dispatch_c97bd3d8a67765db725069a6a9e7980d",
+      "message_id": "outbox_c97bd3d8a67765db725069a6a9e7980d",
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T08:10:42.013091+00:00",
+      "public_object_id": "18117761285605069",
+      "public_object_url": "https://www.instagram.com/p/Dfy5T3FEpSb/",
+      "public_object_url_hash": "db518d8fbff3006a1e2c32db843d2c38aa72018600281ccda5fe6c614d3437bb"
+    },
+    {
+      "dispatch_id": "dispatch_8fedc0e11e7e7ca7b3acc7886ed06295",
+      "message_id": "outbox_8fedc0e11e7e7ca7b3acc7886ed06295",
+      "platform": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "dispatched_at": "2026-11-16T07:45:42.326098+00:00",
+      "public_object_id": null,
+      "public_object_url": null,
+      "public_object_url_hash": null
+    },
+    {
+      "dispatch_id": "dispatch_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "message_id": "outbox_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:45:47.624233+00:00",
+      "public_object_id": "urn:li:activity:7528000442874691584",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528000442874691584/",
+      "public_object_url_hash": "beeafde3fccce7af5263e93d962cf1707a64611679fddace37de03b20572bf8a"
+    },
+    {
+      "dispatch_id": "dispatch_bf305391d7590b239bd830b27524e43b",
+      "message_id": "outbox_bf305391d7590b239bd830b27524e43b",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:46:25.968126+00:00",
+      "public_object_id": "186",
+      "public_object_url": "https://t.me/CapitalChronicle/186",
+      "public_object_url_hash": "47274db37e8a6670253f57827edb9908280cba8881b685dbdbae16c9e355b762"
+    },
+    {
+      "dispatch_id": "dispatch_bbcbbd89e5a4492cfb9b8a54e59c1208",
+      "message_id": "outbox_bbcbbd89e5a4492cfb9b8a54e59c1208",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:46:30.705459+00:00",
+      "public_object_id": "18097596503669718",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfy2i0AE-Lb",
+      "public_object_url_hash": "c5d84605e08b31d78e76f4ba4528f8373a4b64036b5bd1ab00379fb97c58d517"
+    },
+    {
+      "dispatch_id": "dispatch_712ef8fcd42f489a57994a2b924645db",
+      "message_id": "outbox_712ef8fcd42f489a57994a2b924645db",
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T07:48:37.836792+00:00",
+      "public_object_id": "2122235588179079329",
+      "public_object_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+      "public_object_url_hash": "dddd29016bc9bfcd53f4328ed3c111f89b6cf3cd0b966f3e05826f151162ac66"
+    },
+    {
+      "dispatch_id": "dispatch_0facda61cac93107f7e8ee9caf03aa94",
+      "message_id": "outbox_0facda61cac93107f7e8ee9caf03aa94",
+      "platform": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatched_at": "2026-11-16T07:50:08.056295+00:00",
+      "public_object_id": null,
+      "public_object_url": null,
+      "public_object_url_hash": null
+    },
+    {
+      "dispatch_id": "dispatch_98dc91e50fedafc7f3c9034027166ba8",
+      "message_id": "outbox_98dc91e50fedafc7f3c9034027166ba8",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T14:33:58.532737+00:00",
+      "public_object_id": "187",
+      "public_object_url": "https://t.me/CapitalChronicle/187",
+      "public_object_url_hash": "2de3eddafcfd4d0df45ed13e948755d725a329c65417d384567bf6b2ec8da360"
+    },
+    {
+      "dispatch_id": "dispatch_3b7cdce94b9bd5fd1435970ddc755d4c",
+      "message_id": "outbox_3b7cdce94b9bd5fd1435970ddc755d4c",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-16T12:16:31.912220+00:00",
+      "public_object_id": "225178771",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-9cf",
+      "public_object_url_hash": "36e5cede49b41e16c5d95f1abee54eac9174b45bea4729826ad28451064ebc9a"
+    }
+  ],
+  "readbacks": [
+    {
+      "readback_id": "no-write-cause-8b339148b7d589cc5b361ef5255ed254",
+      "dispatch_id": "dispatch_b25e71916d6a02c3fca353f695c424d9",
+      "readback_data": "{\"destination\": \"substack\", \"dispatch_id\": \"dispatch_b25e71916d6a02c3fca353f695c424d9\", \"reason_code\": \"PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH\", \"status\": \"DEFINITE_NO_WRITE\"}",
+      "read_at": "2026-11-16T07:20:01.754999+00:00"
+    },
+    {
+      "readback_id": "readback_348f91c6b5a185ae5fb866bef421c9de",
+      "dispatch_id": "dispatch_b25e71916d6a02c3fca353f695c424d9",
+      "readback_data": "{\"destination\": \"substack\", \"dispatch_id\": \"dispatch_b25e71916d6a02c3fca353f695c424d9\", \"readback\": {\"observed_published_at_utc\": \"2026-11-16T07:44:03.233000+00:00\", \"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": true}}",
+      "read_at": "2026-11-16T07:44:29.305051+00:00"
+    },
+    {
+      "readback_id": "readback_de9d529dd7469980d321144c007698fb",
+      "dispatch_id": "dispatch_e43d58eee8e8c8fe6f5a640774ef16f8",
+      "readback_data": "{\"destination\": \"discord\", \"dispatch_id\": \"dispatch_e43d58eee8e8c8fe6f5a640774ef16f8\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": true}}",
+      "read_at": "2026-11-16T07:44:35.216110+00:00"
+    },
+    {
+      "readback_id": "readback_b31fcb69282b247c706442d7e125d9c4",
+      "dispatch_id": "dispatch_bb9729cf36dfcffec0afb050dd116c35",
+      "readback_data": "{\"destination\": \"facebook_page\", \"dispatch_id\": \"dispatch_bb9729cf36dfcffec0afb050dd116c35\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T07:44:41.897237+00:00"
+    },
+    {
+      "readback_id": "readback_3b7ab3cb55794e9fa0bcd2909862f31b",
+      "dispatch_id": "dispatch_c97bd3d8a67765db725069a6a9e7980d",
+      "readback_data": "{\"destination\": \"instagram_business\", \"dispatch_id\": \"dispatch_c97bd3d8a67765db725069a6a9e7980d\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T08:10:53.808149+00:00"
+    },
+    {
+      "readback_id": "readback_c9930d70bd832e4139b601c74298b3cd",
+      "dispatch_id": "dispatch_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "readback_data": "{\"destination\": \"linkedin_company\", \"dispatch_id\": \"dispatch_eca6349fe08cca69fe6d4dd2fa7840c0\", \"readback\": {\"source_status\": \"BLOCKED\", \"verified\": false, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T07:46:24.317643+00:00"
+    },
+    {
+      "readback_id": "readback_04f318a4963ca8ee893b0904ce8836f2",
+      "dispatch_id": "dispatch_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "readback_data": "{\"destination\": \"linkedin_company\", \"dispatch_id\": \"dispatch_eca6349fe08cca69fe6d4dd2fa7840c0\", \"readback\": {\"source_status\": \"BLOCKED\", \"verified\": false, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T07:55:19.394658+00:00"
+    },
+    {
+      "readback_id": "readback_291184bf02942735130d85d912ffd6f4",
+      "dispatch_id": "dispatch_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "readback_data": "{\"destination\": \"linkedin_company\", \"dispatch_id\": \"dispatch_eca6349fe08cca69fe6d4dd2fa7840c0\", \"readback\": {\"source_status\": \"BLOCKED\", \"verified\": false, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T08:01:11.546098+00:00"
+    },
+    {
+      "readback_id": "readback_d2c31fd5c75a9b10e11fd1abc3722dfb",
+      "dispatch_id": "dispatch_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "readback_data": "{\"destination\": \"linkedin_company\", \"dispatch_id\": \"dispatch_eca6349fe08cca69fe6d4dd2fa7840c0\", \"readback\": {\"source_status\": \"BLOCKED\", \"verified\": false, \"write_absent\": false, \"write_exists\": true}}",
+      "read_at": "2026-11-16T08:08:04.620232+00:00"
+    },
+    {
+      "readback_id": "readback_b6ba167f1de0cc3434607f77d7824626",
+      "dispatch_id": "dispatch_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "readback_data": "{\"destination\": \"linkedin_company\", \"dispatch_id\": \"dispatch_eca6349fe08cca69fe6d4dd2fa7840c0\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": true}}",
+      "read_at": "2026-11-16T08:22:11.190301+00:00"
+    },
+    {
+      "readback_id": "readback_edaffb340b773575a6ffd5709a524449",
+      "dispatch_id": "dispatch_bf305391d7590b239bd830b27524e43b",
+      "readback_data": "{\"destination\": \"telegram\", \"dispatch_id\": \"dispatch_bf305391d7590b239bd830b27524e43b\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T07:46:28.374738+00:00"
+    },
+    {
+      "readback_id": "readback_4578f74094fc18b437b2f470b7accf87",
+      "dispatch_id": "dispatch_bbcbbd89e5a4492cfb9b8a54e59c1208",
+      "readback_data": "{\"destination\": \"threads\", \"dispatch_id\": \"dispatch_bbcbbd89e5a4492cfb9b8a54e59c1208\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T07:47:51.805964+00:00"
+    },
+    {
+      "readback_id": "readback_e7437be48ec9d7d9cefd12d78b5eeb92",
+      "dispatch_id": "dispatch_712ef8fcd42f489a57994a2b924645db",
+      "readback_data": "{\"destination\": \"x\", \"dispatch_id\": \"dispatch_712ef8fcd42f489a57994a2b924645db\", \"readback\": {\"observed_published_at_utc\": \"2026-11-16T07:49:28+00:00\", \"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": true}}",
+      "read_at": "2026-11-16T07:50:07.825380+00:00"
+    },
+    {
+      "readback_id": "no-write-cause-8962b270e830307ab7f520e073e67ad7",
+      "dispatch_id": "dispatch_0facda61cac93107f7e8ee9caf03aa94",
+      "readback_data": "{\"destination\": \"youtube\", \"dispatch_id\": \"dispatch_0facda61cac93107f7e8ee9caf03aa94\", \"reason_code\": \"YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED\", \"status\": \"DEFINITE_NO_WRITE\"}",
+      "read_at": "2026-11-16T07:50:08.111049+00:00"
+    },
+    {
+      "readback_id": "no-write-cause-8e716275c098d5b64d57b6a1fe4b6169",
+      "dispatch_id": "dispatch_98dc91e50fedafc7f3c9034027166ba8",
+      "readback_data": "{\"destination\": \"telegram\", \"dispatch_id\": \"dispatch_98dc91e50fedafc7f3c9034027166ba8\", \"reason_code\": \"TRADINGVIEW_FIRST_IMAGE_REQUIRED\", \"status\": \"DEFINITE_NO_WRITE\"}",
+      "read_at": "2026-11-12T14:33:58.664556+00:00"
+    },
+    {
+      "readback_id": "cc584-image-refusal-dispatch_98dc91e50fedafc7f3c9034027166ba8",
+      "dispatch_id": "dispatch_98dc91e50fedafc7f3c9034027166ba8",
+      "readback_data": "{\"cause\": \"CC584_EXACT_PRETRANSPORT_IMAGE_REFUSAL_REPAIRED\", \"dispatch_id\": \"dispatch_98dc91e50fedafc7f3c9034027166ba8\"}",
+      "read_at": "2026-11-16T23:31:01.886075+00:00"
+    },
+    {
+      "readback_id": "readback_39500091d20d80bdfb10bebdfebfb0fc",
+      "dispatch_id": "dispatch_98dc91e50fedafc7f3c9034027166ba8",
+      "readback_data": "{\"destination\": \"telegram\", \"dispatch_id\": \"dispatch_98dc91e50fedafc7f3c9034027166ba8\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": false}}",
+      "read_at": "2026-11-16T23:31:05.500854+00:00"
+    },
+    {
+      "readback_id": "readback_a3550db82ac6ed0f4e06965a540144c2",
+      "dispatch_id": "dispatch_3b7cdce94b9bd5fd1435970ddc755d4c",
+      "readback_data": "{\"destination\": \"substack\", \"dispatch_id\": \"dispatch_3b7cdce94b9bd5fd1435970ddc755d4c\", \"readback\": {\"source_status\": \"SUCCESS\", \"verified\": true, \"write_absent\": false, \"write_exists\": true}}",
+      "read_at": "2026-11-16T12:42:08.879551+00:00"
+    }
+  ],
+  "reconciliations": [
+    {
+      "reconciliation_id": "reconciliation_b25e71916d6a02c3fca353f695c424d9",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:43:26.046785+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_e43d58eee8e8c8fe6f5a640774ef16f8",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:44:35.258517+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_bb9729cf36dfcffec0afb050dd116c35",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:44:41.940692+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_8fedc0e11e7e7ca7b3acc7886ed06295",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciled_at": "2026-11-16T07:45:42.590203+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_eca6349fe08cca69fe6d4dd2fa7840c0",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:46:24.321992+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_bf305391d7590b239bd830b27524e43b",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:46:28.418660+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_bbcbbd89e5a4492cfb9b8a54e59c1208",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:47:51.835280+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_712ef8fcd42f489a57994a2b924645db",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T07:50:07.848328+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_0facda61cac93107f7e8ee9caf03aa94",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "reconciled_at": "2026-11-16T07:50:08.085773+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_c97bd3d8a67765db725069a6a9e7980d",
+      "work_item_id": "cc536-measured-odds-2",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T08:10:53.828021+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_98dc91e50fedafc7f3c9034027166ba8",
+      "work_item_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-telegram",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-12T14:33:58.630955+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_3b7cdce94b9bd5fd1435970ddc755d4c",
+      "work_item_id": "cc143-digest-2026-11-16",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-16T12:42:08.896002+00:00"
+    }
+  ],
+  "run_result": {
+    "digest_id": "cc143-digest-2026-11-16",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-9cf",
+    "public_object_id": "225178771",
+    "recorded_at_utc": "2026-11-16T12:42:18Z",
+    "final_route_state": "CONFIRMED"
+  },
+  "digest_observation": {
+    "observed_at_utc": "2026-11-16T12:42:06Z",
+    "public_page": {
+      "url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-9cf"
+    },
+    "email": {
+      "email_delivery_confirmed": true,
+      "reads": [
+        {
+          "at_utc": "2026-11-16T12:41:48.121Z",
+          "shown": "Published at 7:22 PM; Total views 1; Recipients 5; Open rate 20%, 1 open"
+        }
+      ]
+    }
+  }
+}
