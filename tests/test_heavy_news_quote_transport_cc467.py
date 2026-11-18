@@ -34,48 +34,74 @@ def test_handoff_requires_exact_stored_quote_and_proves_edge_instead_of_link(pre
         "content_verified":True, "observed_text":intent["native_payload"]["text"]}
     result = handoff.publish(destination="x", intent=intent, authorization_context=auth)
     assert result["status"] == "UNKNOWN_WRITE" and result["reason_code"] == "X_QUOTE_PARENT_UNVERIFIED"
+    handoff.native_executor = lambda request: {"request_sha256":request["request_sha256"],
+        "status":"UNKNOWN_WRITE", "reason_code":"NEO_RUN_FAILED_PUBLISH"}
+    result = handoff.publish(destination="x", intent=intent, authorization_context=auth)
+    assert result["reason_code"] == "NEO_RUN_FAILED_PUBLISH" and result["retry_permitted"] is False
 
 
-@pytest.mark.parametrize("expired,card,expected",[(True,True,"CC467_SOURCE_OUTSIDE_FIVE_MINUTES"),
-                                                (False,False,"CC467_QUOTED_SOURCE_OR_CHART_MISSING"),
-                                                (False,True,"CLICKED")])
-def test_actual_final_submit_program_checks_deadline_and_card_before_its_only_click(tmp_path, expired, card, expected):
+@pytest.mark.parametrize("fault,expected,clicks", [
+    ("expired", "CC467_SOURCE_OUTSIDE_FIVE_MINUTES", 0),
+    ("changed_card", "CC467_QUOTE_CARD_NOT_VERIFIED", 0),
+    ("avatar_only", "CC467_CHART_PREVIEW_NOT_LOADED", 0),
+    ("lost_click_return", "CC467_QUOTE_CLICK_RETURN_INCOMPLETE", 1),
+    (None, "CLICKED", 1),
+])
+def test_actual_final_submit_program_checks_deadline_and_card_before_its_only_click(fault, expected, clicks):
     # Run the actual shipped JS with a settled composer and a controlled Neo page.
     # A deadline can elapse after Python's dispatch check while the upload settles.
-    deadline = datetime.now(timezone.utc)+timedelta(seconds=-1 if expired else 60)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=-1 if fault == "expired" else 60)
     program = """
 const fs=require('fs');const input=JSON.parse(process.argv[2]);
-let clicked=0, calls=0;
-const page={snapshot:async()=>({text:'',refs:[{role:'button',name:'Post',ref:'submit'}]}),
- evaluateInPage:async()=>{calls++;const value=calls===1?{matches:true,count:1}:calls===2?['Bound text.']:
-   calls===3?{marked:true}:{matches:input.card,deadline:Date.parse(input.quote_parent.deadline_at_utc)};return {value}},
- waitForSelector:async()=>({matched:true}),click:async()=>{clicked++}};
-const browser={page:()=>page};delete input.card;
-const fn=new (Object.getPrototypeOf(async function(){}).constructor)('browser','const input='+JSON.stringify(input)+';\\n'+fs.readFileSync(process.argv[1],'utf8'));
-fn(browser).then(result=>console.log(JSON.stringify({result,clicked}))).catch(e=>{console.error(e);process.exit(1)});
+const {fault, ...request}=input;
+let clicked=0, label='Post';
+const visible={getClientRects:()=>[{}]};
+const tweet=fault==='changed_card'?'Different.':'Bound headline.';
+const clock={getAttribute:()=>request.quote_parent.source_posted_at_utc};
+const card={...visible,innerText:'@FirstSquawk',getAttribute:()=>'button',contains:()=>false,
+  querySelectorAll:selector=>({'[data-testid="tweetText"]':[{innerText:tweet+' https://\\nexample.com/long',
+    textContent:tweet+' https://example.com/long'}],time:[clock]})[selector]||[]};
+const chart={...visible,complete:true,naturalWidth:1400};
+const submit={...visible,disabled:false,getAttribute:()=>null,setAttribute:(_,name)=>{label=name;}};
+const dialog={querySelector:()=>submit,querySelectorAll:selector=>selector.startsWith('[data-testid="attachments"]')
+  ? (fault==='avatar_only'&&selector.includes('blob:')?[]:[chart]) : [card]};
+const editor={...visible,innerText:'Bound text.',closest:()=>dialog};
+const document={querySelectorAll:()=>[editor]};
+const page={snapshot:async()=>({refs:[{role:'button',name:label,ref:'submit'}]}),
+  evaluateInPage:async(fn,args)=>({value:fn(args)}),waitForSelector:async()=>({matched:true}),
+  click:async ref=>{if(ref!=='submit')throw Error('Wrong submit control');clicked++;
+    if(fault==='lost_click_return')throw Error('Lost return');}};
+const fn=new (Object.getPrototypeOf(async function(){}).constructor)('input','page','document',fs.readFileSync(process.argv[1],'utf8'));
+fn(request,page,document).then(result=>console.log(JSON.stringify({result,clicked}))).catch(e=>{console.error(e);process.exit(1)});
 """
-    data = {"phase":"publish","page":1,"destination":"x","posts":["Bound text."],"card":card,
-        "quote_parent":{"deadline_at_utc":deadline.isoformat()}}
-    # Keep the mock's settled quote observation outside the untrusted request.
-    program=program.replace("let clicked=0, calls=0;", "let clicked=0, calls=0;const observedCard=input.card;").replace("matches:input.card", "matches:observedCard")
+    data = {"phase":"publish", "destination":"x", "posts":["Bound text."], "fault":fault,
+        "quote_parent":{"deadline_at_utc":deadline.isoformat(), "public_object_id":"123",
+            "public_object_url":"https://x.com/FirstSquawk/status/123", "source_text":"Bound headline. https://t.co/example",
+            "source_posted_at_utc":(deadline-timedelta(minutes=5)).isoformat()}}
     result = subprocess.run(["node","-e",program,str(STEPS),json.dumps(data)],capture_output=True,timeout=10)
     assert result.returncode == 0, result.stderr.decode()
     value=json.loads(result.stdout)
     assert value["result"].get("reason_code",value["result"]["status"]) == expected
-    assert value["clicked"] == (1 if expected=="CLICKED" else 0)
+    assert value["clicked"] == clicks
 
 
 class QuoteClient:
-    def __init__(self, *, matches=True):self.matches,self.actions,self.uploads=matches,[],[]
+    def __init__(self, *, matches=True, focused=True):
+        self.matches, self.focused = matches, focused
+        self.actions, self.uploads = [], []
     def call(self,name,data):
         self.actions.append((name,data))
         if name=="upload":self.uploads.extend(data["files"])
-    def wait(self,*a):pass
+    def wait(self,page,selector):self.actions.append(("wait", {"selector":selector}))
     def snapshot(self,page):
         return {"refs":[{"role":role,"name":name,"ref":name} for role,name in
             [("button","CC467 source quote menu"),("menuitem","Quote"),("textbox","Post text"),("button","Choose Files")]]}
     def run(self,page,phase,**kw):
-        return {"matches":self.matches} if phase=="quote_source" else {}
+        if phase == "quote_source":
+            return {"matches":self.matches, "menu_available":True}
+        if phase == "quote_control_focused":
+            return {"focused":self.focused or kw["control"] == "menu"}
+        return {}
     def act(self,page,kind,**kw):self.actions.append((kind,kw))
 
 
@@ -86,13 +112,29 @@ def test_prepare_opens_exact_source_quote_and_uploads_without_opening_file_dialo
     posts=NeoBrowserDriver(client).prepare(request,1)
     assert posts == [intent["native_payload"]["text"]]
     assert client.actions[0][1]["url"]==intent["quote_parent"]["public_object_url"]
-    assert [(k,v.get("ref")) for k,v in client.actions if k=="click"] == [
-        ("click","CC467 source quote menu"),("click","Quote")]
+    assert client.actions[1][1]["selector"].endswith('/status/123"] time')
+    assert [(k,v.get("ref") or v.get("key")) for k,v in client.actions if k in {"click", "focus", "press"}] == [
+        ("focus","CC467 source quote menu"), ("press","Enter"), ("focus","Quote"), ("press","Enter")]
     assert client.uploads == [intent["media_assets"][0]["path"]]
     client=QuoteClient(matches=False)
     with pytest.raises(NeoEndpointError,match="VISIBLE_SOURCE_CHANGED"):
         NeoBrowserDriver(client).prepare(request,1)
-    assert not client.uploads and not any(k=="click" for k,_ in client.actions)
+    assert not client.uploads and not any(k=="press" for k,_ in client.actions)
+    client = QuoteClient(focused=False)
+    with pytest.raises(NeoEndpointError, match="QUOTE_CONTROL_FOCUS_NOT_CONFIRMED"):
+        NeoBrowserDriver(client).prepare(request, 1)
+    assert not client.uploads and sum(k == "press" for k, _ in client.actions) == 1
+
+
+@pytest.mark.parametrize("reason", ["CC467_QUOTED_SOURCE_OR_CHART_MISSING", "CC467_CHART_PREVIEW_NOT_LOADED"])
+def test_another_fresh_quote_dispatches_after_a_local_chart_refusal(prepared, tmp_path, reason):
+    store, coordinator, transport, raw, now = prepared
+    incident_id, _ = coordinator._destination_failure_key("x")
+    store.register_incident(incident_id=incident_id, work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"status":"DEFINITE_NO_WRITE", "safe_error_classification":reason}))
+    row = quotes.stage(store, raw, now=now)
+    result = replies.publish(store, row["key"], coordinator=coordinator, root=tmp_path, now=now)
+    assert result["reply"]["readback_url"] and transport.publish_calls == ["x"]
 
 
 def test_real_native_begin_uses_the_registered_x_surface_and_bad_surface_never_claims(prepared, tmp_path):
