@@ -18,6 +18,7 @@ CREATE TABLE outbox_messages(message_id TEXT PRIMARY KEY,work_item_id TEXT,desti
 CREATE TABLE platform_dispatches(dispatch_id TEXT PRIMARY KEY,message_id TEXT,platform TEXT,status TEXT,dispatched_at TEXT,public_object_id TEXT,public_object_url TEXT,public_object_url_hash TEXT);
 CREATE TABLE readbacks(readback_id TEXT PRIMARY KEY,dispatch_id TEXT,readback_data TEXT,read_at TEXT);
 CREATE TABLE reconciliations(reconciliation_id TEXT PRIMARY KEY,work_item_id TEXT,status TEXT,reconciled_at TEXT);
+CREATE TABLE incidents(incident_id TEXT PRIMARY KEY,work_item_id TEXT,severity TEXT,description TEXT,created_at TEXT);
 """
 
 
@@ -292,6 +293,48 @@ def test_native_first_cause_is_used_when_the_dispatch_has_no_readback(recorded):
     assert company["first_cause"] == "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"
     member = next(r for r in piece["platforms"] if r["platform"] == "linkedin")
     assert member["first_cause"] == "FIRST_CAUSE_NOT_RECORDED"
+
+
+def test_quote_report_keeps_first_dispatch_and_unsent_causes(recorded):
+    _, store, _, _ = recorded
+    at = "2026-11-16T10:55:00Z"
+    until = "2026-11-16T11:00:00Z"
+    ready, absent, refused = "heavy-quote-123", "heavy-quote-456", "heavy-quote-789"
+    folder = store.parent / "daily_app_outputs/heavy_news_quotes/editorial-0123456789abcdef"
+    folder.mkdir(parents=True)
+    (folder / "result.json").write_text(json.dumps({"status":"QUOTE_PUBLICATION", "result":{
+        "reply":{"key":ready}, "publication":{"recovery_preflight":{"per_destination":{"x":{
+            "reason_code":"DESTINATION_FAILED_ET_DAY_SKIP"}}}}}}), encoding="utf-8")
+    with sqlite3.connect(store) as conn:
+        for work, status in ((ready, "READY"), (absent, "RECONCILED_ABSENT_SAFE_TO_RETRY"), (refused, "DEFINITE_NO_WRITE")):
+            outbox_id = "outbox_" + work
+            intent = json.dumps({"quote_parent":{"public_object_id":work.removeprefix("heavy-quote-"), "deadline_at_utc":until}})
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (outbox_id, work, "x", intent, status, at))
+            if work != ready:
+                conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
+                             ("dispatch_" + work, outbox_id, "x", status, at, None, None, None))
+        conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)", ("incident", absent, "DISPATCH_OUTCOME", json.dumps({
+            "dispatch_id":"dispatch_" + absent, "status":"UNKNOWN_WRITE", "attempt_started_at_utc":at,
+            "safe_error_classification":"NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}), at))
+        conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)", ("later", "dispatch_" + absent,
+            json.dumps({"readback":{"write_absent":True, "reason_code":"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"}}), until))
+        for suffix, packet in (("request", {"request":{"destination":"x", "request_sha256":"abc"}}),
+                               ("result", {"result":{"request_sha256":"abc", "status":"FAILED_BEFORE_WRITE",
+                                "reason_code":"NEO_COMPOSER_PREPARATION_FAILED", "safe_error_classification":"NEO_CONTROL_COVERED_ACT"}})):
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+                "native-" + suffix, refused, "internal:native-neo-tool", json.dumps(packet), "NATIVE_NEO_INTERNAL", at))
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "reservation", absent, "internal:sourced-reply-reservation", "{}", "RECONCILED_ABSENT", at))
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "editorial", "quote-editorial-123", "internal:heavy-news-quote-editorial",
+            json.dumps({"post":{"target_id":"123"}, "artifact_dir":str(folder)}), "STARTED", at))
+    report, _ = build(recorded)
+    routes = {piece["piece_id"]:piece["platforms"][0] for piece in report["pieces"] if piece["piece_id"].startswith("heavy-quote-")}
+    assert routes[ready]["status"] == "READY" and routes[ready]["first_cause"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+    assert routes[absent]["first_cause"] == "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"
+    assert routes[refused]["first_cause"] == "NEO_CONTROL_COVERED_ACT"
+    assert any(e["piece_id"] == ready and e["first_cause"] == "DESTINATION_FAILED_ET_DAY_SKIP" for e in report["exceptions"])
+    assert any(e["message_id"] == "reservation" and e["first_cause"] == routes[absent]["first_cause"] for e in report["exceptions"])
 
 
 def test_hidden_full_text_does_not_mask_a_cut_off_post():

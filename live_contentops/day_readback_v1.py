@@ -49,7 +49,7 @@ def first_cause(value):
     """Keep fixed diagnostics, never serialize arbitrary exception or private text."""
     if not isinstance(value, dict):
         return None
-    for key in ("first_cause", "first_blocking_cause", "reason_code", "cause", "error_code"):
+    for key in ("first_cause", "first_blocking_cause", "reason_code", "cause", "error_code", "safe_error_classification"):
         if result := code(value.get(key)):
             return result
     for key in ("causes", "selection_causes"):
@@ -366,7 +366,8 @@ def _native_observations(conn, work_id, until):
         json_extract(payload,'$.result.request_sha256') AS response_hash,
         json_extract(payload,'$.result.status') AS status,
         json_extract(payload,'$.result.reason_code') AS reason_code,
-        json_extract(payload,'$.result.first_cause') AS first_cause
+        json_extract(payload,'$.result.first_cause') AS first_cause,
+        json_extract(payload,'$.result.safe_error_classification') AS safe_error_classification
         FROM outbox_messages WHERE work_item_id=? AND destination='internal:native-neo-tool'
         AND julianday(created_at) <= julianday(?) ORDER BY created_at,message_id""", (work_id, until)):
         if row["request_hash"] and row["platform"] in ROUTES:
@@ -378,8 +379,58 @@ def _native_observations(conn, work_id, until):
         platform = requests.get(row["response_hash"])
         if platform:
             by_platform[platform].append((row["created_at"], {"status": row["status"],
-                "reason_code": code(row["reason_code"]), "first_cause": code(row["first_cause"])}))
+                "reason_code": code(row["reason_code"]), "first_cause": code(row["first_cause"]),
+                "safe_error_classification": code(row["safe_error_classification"])}))
     return by_platform
+
+
+def _quote_dispatch_outcomes(conn, work_id, dispatch_id, until):
+    if not dispatch_id:
+        return []
+    outcomes = []
+    for row in conn.execute("""SELECT severity, description, created_at FROM incidents
+        WHERE work_item_id=? AND severity IN ('DISPATCH_OUTCOME','RESOLVED_LOCAL_PREWRITE')
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at,incident_id""", (work_id, until)):
+        value = json.loads(row["description"])
+        if value.get("dispatch_id") != dispatch_id:
+            continue
+        if (row["severity"] == "RESOLVED_LOCAL_PREWRITE"
+                and value.get("cause") == "CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM"):
+            for _, outcome in outcomes:
+                if outcome.get("safe_error_classification") == "KeyError":
+                    outcome["first_cause"] = value["cause"]
+                    break
+        else:
+            outcomes.append((value.get("attempt_started_at_utc") or row["created_at"], value))
+    return outcomes
+
+
+def _unsent_quote_cause(conn, work_id, quote, until, store_path):
+    """Project the retained exact quote run, including coordinator refusals before a dispatch exists."""
+    root = (Path(store_path).resolve().parent / "daily_app_outputs/heavy_news_quotes").resolve()
+    for row in conn.execute("""SELECT json_extract(payload,'$.artifact_dir') AS folder FROM outbox_messages
+        WHERE destination='internal:heavy-news-quote-editorial' AND json_extract(payload,'$.post.target_id')=?
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at,message_id""", (quote.get("public_object_id"), until)):
+        folder = Path(row["folder"] or "").resolve()
+        if folder.parent != root or not re.fullmatch(r"editorial-[0-9a-f]{16}", folder.name):
+            continue
+        path = folder / "result.json"
+        try:
+            if path.stat().st_size > 256_000:
+                continue
+            value = json.loads(path.read_bytes())
+        except (OSError, ValueError):
+            continue
+        result = value.get("result") or {}
+        if value.get("status") != "QUOTE_PUBLICATION" or (result.get("reply") or {}).get("key") != work_id:
+            continue
+        publication = result.get("publication") or {}
+        for projection in (publication, publication.get("recovery_preflight") or {}):
+            if cause := first_cause((projection.get("per_destination") or {}).get("x")):
+                return cause
+    if quote.get("deadline_at_utc") and utc(quote["deadline_at_utc"]) <= utc(until):
+        return "CC467_SOURCE_OUTSIDE_FIVE_MINUTES"
+    return None
 
 
 def _digest(conn, run_dir, result):
@@ -511,6 +562,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
             groups[row["work_item_id"]].append(row)
         feed_by_url = {o["url"]: f for f in feed for o in f["outlets"] if o["name"] == "substack"}
         consumed = set()
+        quote_causes = {}
         for work_id, group in sorted(groups.items()):
             if work_id == result.get("digest_id"):
                 continue  # This run's digest has its own packet/page/delivery section.
@@ -536,9 +588,21 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                                              (row["dispatch_id"],)):
                         if utc(read["read_at"]) <= end:
                             history.append((read["read_at"], json.loads(read["readback_data"])))
-                diagnostics = sorted(history + native.get(platform, []), key=lambda item: utc(item[0]))
+                quote = intent.get("quote_parent") if platform == "x" and work_id.startswith("heavy-quote-") else None
+                diagnostics = history + native.get(platform, [])
+                if quote:
+                    diagnostics += _quote_dispatch_outcomes(conn, work_id, row["dispatch_id"], window["until_utc"])
+                diagnostics.sort(key=lambda item: utc(item[0]))
                 cause = next((c for _, value in diagnostics if (c := first_cause(value))), None)
                 status = row["status"] or row["outbox_status"]
+                if quote:
+                    if cause == "NEO_COMPOSER_PREPARATION_FAILED":
+                        cause = next((value["safe_error_classification"] for _, value in diagnostics
+                                      if value.get("reason_code") == cause and code(value.get("safe_error_classification"))), cause)
+                    if not cause and status == "READY":
+                        cause = _unsent_quote_cause(conn, work_id, quote, window["until_utc"], store_path)
+                    if cause:
+                        quote_causes[work_id] = cause
                 route = {"platform": platform, "message_id": row["message_id"], "dispatch_id": row["dispatch_id"],
                          "status": status, "outbox_status": row["outbox_status"], "first_cause": cause,
                          "public_url": safe_url(row["public_object_url"]), "store_readback": None}
@@ -549,6 +613,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 if _failure(status):
                     route["first_cause"] = cause or "FIRST_CAUSE_NOT_RECORDED"
                     exception(route["first_cause"], piece_id, platform, row, status)
+                elif quote and status == "READY" and cause:
+                    exception(cause, piece_id, platform, row, status)
                 prior_failures = set()
                 for clock, value in diagnostics:
                     if start < utc(clock) and _failure(value.get("status")) and value.get("status") != status:
@@ -587,7 +653,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
             AND julianday(created_at) <= julianday(?) ORDER BY created_at,message_id""",
             (window["since_utc"], window["until_utc"])):
             if (row["message_id"], row["status"]) not in seen:
-                exception(first_cause(dict(row)) or "FIRST_CAUSE_NOT_RECORDED", row["work_item_id"],
+                exception(first_cause(dict(row)) or quote_causes.get(row["work_item_id"]) or "FIRST_CAUSE_NOT_RECORDED", row["work_item_id"],
                           row["destination"] if row["destination"] in ROUTES else "internal", dict(row), row["status"])
     # Release the SQLite snapshot before doing any HTTP. A slow page cannot keep
     # the production reader transaction open throughout the network pass.
