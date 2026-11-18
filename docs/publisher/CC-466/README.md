@@ -1,9 +1,10 @@
 # CC-466
 
-The first Publisher stream integrated the second-stream handoff and the X reply
-repair on 18 November. Live acceptance awaits a qualifying Main registration.
-See the [18 November operating integration](#18-november-operating-integration)
-for the installed commit, tests, week coverage and public observations.
+The first Publisher stream integrated the handoff, the X reply repair and the
+dated plan-page quote update on 18 November. See the
+[18 November operating integration](#18-november-operating-integration) and
+[new plan registrations](#new-plan-registrations-on-18-november) for the
+installed commits, tests and public observations.
 
 The original delivery branch was `backlog/cc-466-forces-first-plan-posts`.
 The original live and rollback tags were `contentops-live-20261112-cc466` and
@@ -199,8 +200,56 @@ contains the alert's call terms. The pre-change sample retains 499 public views.
 The repaired analysis shape still needs its first live readback. Those two
 recorded counts have different ages and formats, and unique reach is unknown.
 
-The prior USD/JPY alert took 174.189 seconds from decision freeze. The full
-analysis speed and complete week coverage remain open. The Main export had
-zero current six-market plans at readback. On the next qualifying registration,
-the Publisher needs the canonical page and the exact X first-reply URL, with
-their separate publication clocks and a dated public-view count.
+The prior USD/JPY alert took 174.189 seconds from decision freeze. The Main
+export had zero current six-market plans at this readback.
+
+## New plan registrations on 18 November
+
+Main froze both views at 14:37:44.708 GMT+7. Gold registered at 14:39:10.618
+and Bitcoin at 14:38:52.099. The public Telegram chart alerts appeared at
+14:41:07 for [gold](https://t.me/CapitalChronicle/195) and 14:41:32 for
+[Bitcoin](https://t.me/CapitalChronicle/196), 202.292 and 227.292 seconds after
+freeze. Both alerts reached Discord as well.
+
+The current gold quote was below the original entry zone. The dated-page
+release adds the observed quote and its ET clock to the page before its nine
+analysis sections. The write boundary checks that the same registration and
+entry state still apply, the quote is fresh, and the price remains on the same
+side of the original zone. Bitcoin's public export carried a previous-day
+quote. The page consumer deferred it under the fresh-quote requirement.
+
+The dated-page release is `921f94a57a235d74c74ac1701dad3ef620215c8a`.
+The [dated-page checks](installed-current-quote-20261118.xml) passed 63 tests.
+The minute job now uses a five-minute page lease, matching its existing task
+limit. The prior worker's orphaned lease was released through the existing
+store after the parent process exited and both candidate page outbox keys were
+checked. The next minute run took the gold plan.
+
+The writer-budget repair (`64d8a231`) saved the gold timeout before the scheduled
+process exited. The [writer checks](installed-writer-budget-20261118.xml) passed
+51 tests. This Publisher turn edited Main's sealed analysis into a 723-word
+page with 22 source bindings, the nine required headings, both notices and the
+plan's TradingView chart. The article includes the 15:26:35 GMT+7 quote. The
+launch records identify the scheduled writer and this turn as configured for
+`gpt-6.2-sol/max`, with served model and effort unobserved.
+
+`79eb436f` lets the canonical page use a chart already delivered for its exact
+plan registration. The image register still rejects a match from another plan.
+The [installed chart and transport checks](installed-plan-image-20261118.xml)
+passed 74 tests. The operating root and remote tag
+`contentops-live-20261118-cc466-plan-image` point to the repair. Rollback is
+`contentops-rollback-20261118-cc466-plan-image`.
+
+Substack reached its email-code prompt at the first publish attempt. The
+coordinator retained `UNKNOWN_WRITE` and `RECONCILIATION_PENDING`; the page has
+no confirmed public URL. The prepared step is for Jim to enter the code in
+BrowserOS Neo page 235, Substack draft `225472603`. Publisher then reads back the
+same object. [Gold draft](https://capitalchronicle.substack.com/publish/post/225472603).
+
+At 16:03:55 GMT+7, two of 15 plans in the rolling week had confirmed pages.
+Bitcoin's quote had refreshed by that readback. Both setup posts were already
+beyond the 60-minute X freshness limit. The full-analysis ten-minute target
+was missed for both, and the next eligible X setup is needed to read back a
+first reply containing the canonical link and record public views. Six retained
+export rows have explicit signed R, and the two new alerts pass the installed
+source-bound validator. [Current readback](resume-readback-20261118.json).

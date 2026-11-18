@@ -1,0 +1,402 @@
+{
+  "item": "CC-466",
+  "status": "BLOCKED",
+  "causes": [
+    "PENDING_JIM_EMAIL_CODE",
+    "X_SETUP_FRESHNESS_WINDOW_ELAPSED"
+  ],
+  "delivery_branch": "backlog/cc-466-integrate-20261118",
+  "top_level_launches": [
+    {
+      "pid": 47796,
+      "configured_model": "gpt-6.2-sol",
+      "configured_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    },
+    {
+      "pid": 41340,
+      "started_at_utc": "2026-11-18T07:44:01.5532980Z",
+      "configured_model": "gpt-6.2-sol",
+      "configured_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    },
+    {
+      "pid": 31672,
+      "started_at_utc": "2026-11-18T08:43:52.0502280Z",
+      "configured_model": "gpt-6.2-sol",
+      "configured_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    }
+  ],
+  "installed": [
+    {
+      "commit": "921f94a57a235d74c74ac1701dad3ef620215c8a",
+      "applied_at_utc": "2026-11-18T07:55:59.4890074Z",
+      "live_tag": "contentops-live-20261118-cc466-dated-page",
+      "rollback_tag": "contentops-rollback-20261118-cc466-dated-page",
+      "focused_tests": {
+        "passed": 63,
+        "xml": "installed-current-quote-20261118.xml",
+        "sha256": "f886d7b374cbe1487ef3bd7cdb8bbc6c88c5d234b000d330039cdc6061d76d9c"
+      }
+    },
+    {
+      "commit": "64d8a231f13a34b3743e2ccf4f3c374fa07a50dc",
+      "applied_at_utc": "2026-11-18T08:20:57.2053142Z",
+      "live_tag": "contentops-live-20261118-cc466-writer-budget",
+      "rollback_tag": "contentops-rollback-20261118-cc466-writer-budget",
+      "focused_tests": {
+        "passed": 51,
+        "xml": "installed-writer-budget-20261118.xml",
+        "sha256": "e60579d855025d6a36d24371d00e4397341ce4e79764d3118c7f0aa1c559e4c2"
+      }
+    },
+    {
+      "commit": "79eb436fd71729cba1460b4f21c92e3362e137bf",
+      "applied_at_utc": "2026-11-18T08:58:14.4420065Z",
+      "live_tag": "contentops-live-20261118-cc466-plan-image",
+      "rollback_tag": "contentops-rollback-20261118-cc466-plan-image",
+      "rollback_commit": "64d8a231f13a34b3743e2ccf4f3c374fa07a50dc",
+      "focused_tests": {
+        "passed": 74,
+        "xml": "installed-plan-image-20261118.xml",
+        "sha256": "181086425952e8f667d53004e00a2f4198e850e9faeafd336ac235d7bde1359d"
+      }
+    }
+  ],
+  "chart_reservation_fix": {
+    "first_cause": "IMAGE_REUSED",
+    "comparison": "Four observations were from the same gold plan and registration. Their perceptual matches were across destinations.",
+    "related_registration_only": true,
+    "unrelated_tracked_operating_files_preserved_by_hash": 6
+  },
+  "orphaned_page_lease": {
+    "released_at_utc": "2026-11-18T07:59:18.035105+00:00",
+    "prior_worker_pid": 29816,
+    "original_expiry_at_utc": "2026-11-18T08:12:41.922359+00:00",
+    "result": "RELEASED",
+    "next_worker_picked_gold_at_utc": "2026-11-18T07:59:40.109696+00:00"
+  },
+  "writer": {
+    "scheduled_model": "gpt-6.2-sol",
+    "scheduled_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "scheduled_cause": "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT",
+    "scheduled_result_at_utc": "2026-11-18T08:29:42.603290Z",
+    "scheduled_prompt_sha256": "70fcf3f6bbccb280ba0823ce8a18932888fd7ca68a263823ddfd3800162738d1",
+    "manual_edit_model_configuration": "gpt-6.2-sol/max",
+    "manual_turn_pid": 41340,
+    "manual_return_sha256": "c1a6725f43eefd67a1f69ab5f798a1643a1a5842119094a501b12e94aa4328e9",
+    "editorial_page_words": 723,
+    "chart_sha256": "2faeee857d482a75c211e764a4727db9981e2fb4f1b5a21e8b99dde11896c74c",
+    "registered_from": "Exact Main-bound manuscript edited in the Publisher turn and passed through the existing page renderer and coordinator."
+  },
+  "public_telegram": {
+    "source": "https://t.me/s/CapitalChronicle",
+    "decision_freeze_utc": "2026-11-18T07:37:44.708080Z",
+    "observations": [
+      {
+        "asset": "XAUUSD",
+        "url": "https://t.me/CapitalChronicle/195",
+        "at_utc": "2026-11-18T07:41:07Z",
+        "chart_visible": true,
+        "seconds_since_freeze": 202.292
+      },
+      {
+        "asset": "BTCUSD",
+        "url": "https://t.me/CapitalChronicle/196",
+        "at_utc": "2026-11-18T07:41:32Z",
+        "chart_visible": true,
+        "seconds_since_freeze": 227.292
+      }
+    ]
+  },
+  "current_readback": {
+    "checked_at_utc": "2026-11-18T09:03:55.980411+00:00",
+    "week_start_utc": "2026-11-11T09:03:55.980411+00:00",
+    "export_sha256": "b1399576cca7ec5924ebcc5b37c9600451088047a58be540d250b87d90588d87",
+    "export_generated_at_utc": "2026-11-18T09:03:00.559582Z",
+    "weekly_plans": 15,
+    "weekly_confirmed_pages": 2,
+    "week": [
+      {
+        "plan_id": "plan_64c0b961e6d621d10de5e9d3",
+        "asset": "XAUUSD",
+        "status": "WAITING",
+        "registered_at_utc": "2026-11-18T07:39:10.617567Z",
+        "page_registered": true,
+        "confirmed_page": null,
+        "dispatch_status": "UNKNOWN_WRITE"
+      },
+      {
+        "plan_id": "plan_1ff891e0f778736fc3f89c02",
+        "asset": "BTCUSD",
+        "status": "WAITING",
+        "registered_at_utc": "2026-11-18T07:38:52.099058Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_05bdd0f3e95fa2c90e29841c",
+        "asset": "BTCUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-17T16:43:13.289952Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_30f3365059e996b2f0d1d79a",
+        "asset": "USDJPY",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_5556d93fba0baaf67f944e2d",
+        "asset": "USOIL",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_208ff18176c47f7d5de7ca37",
+        "asset": "XAUUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_230a9464a193ca7a377d0c41",
+        "asset": "XAUUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-12T13:19:23.123369Z",
+        "page_registered": true,
+        "confirmed_page": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+        "dispatch_status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "plan_id": "plan_aef82bda0ae8503b4cc91456",
+        "asset": "XAUUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_45bec31221424f5b47b02ac3",
+        "asset": "EURUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_36f7532de32e34c1ce6455b3",
+        "asset": "USOIL",
+        "status": "CLOSED",
+        "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_25f72703bd52500d440e9080",
+        "asset": "USOIL",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_71c24e00afe1c6a495d36468",
+        "asset": "XAUUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_2e66e8e8a4e3605f81f5470f",
+        "asset": "US500",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      },
+      {
+        "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+        "asset": "EURUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "page_registered": true,
+        "confirmed_page": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+        "dispatch_status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "plan_id": "plan_7be77d05f616bb239254de75",
+        "asset": "BTCUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "page_registered": false,
+        "confirmed_page": null,
+        "dispatch_status": null
+      }
+    ],
+    "live_plans": [
+      {
+        "asset": "XAUUSD",
+        "plan_id": "plan_64c0b961e6d621d10de5e9d3",
+        "state": "WAITING",
+        "registration": "2026-11-18T07:39:10.617567Z",
+        "entry_deadline_utc": "2026-11-18T10:00:00Z",
+        "quote_at_utc": "2026-11-18T08:59:35.379501Z",
+        "setup_age_minutes": 84.756,
+        "fresh_setup_refusal": "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT",
+        "checked_alert_uses_x_analysis_route": true,
+        "plan_page_quote": {
+          "update_eligible": true
+        },
+        "dispatches": {
+          "telegram": {
+            "status": "DISPATCH_CONFIRMED",
+            "public_object_url": "https://t.me/CapitalChronicle/195",
+            "dispatched_at": "2026-11-18T07:41:04.695712+00:00"
+          },
+          "discord": {
+            "status": "DISPATCH_CONFIRMED",
+            "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572516958023192636",
+            "dispatched_at": "2026-11-18T07:40:58.029415+00:00"
+          },
+          "x": {
+            "status": null,
+            "public_object_url": null,
+            "dispatched_at": null
+          }
+        }
+      },
+      {
+        "asset": "BTCUSD",
+        "plan_id": "plan_1ff891e0f778736fc3f89c02",
+        "state": "WAITING",
+        "registration": "2026-11-18T07:38:52.099058Z",
+        "entry_deadline_utc": "2026-11-19T19:00:00Z",
+        "quote_at_utc": "2026-11-18T09:01:54.345000Z",
+        "setup_age_minutes": 85.065,
+        "fresh_setup_refusal": "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT",
+        "checked_alert_uses_x_analysis_route": true,
+        "plan_page_quote": {
+          "update_eligible": true
+        },
+        "dispatches": {
+          "telegram": {
+            "status": "DISPATCH_CONFIRMED",
+            "public_object_url": "https://t.me/CapitalChronicle/196",
+            "dispatched_at": "2026-11-18T07:41:30.985842+00:00"
+          },
+          "discord": {
+            "status": "DISPATCH_CONFIRMED",
+            "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572517071848214599",
+            "dispatched_at": "2026-11-18T07:41:25.331448+00:00"
+          },
+          "x": {
+            "status": null,
+            "public_object_url": null,
+            "dispatched_at": null
+          }
+        }
+      }
+    ],
+    "substack_native": [
+      {
+        "status": "READBACK_UNAVAILABLE"
+      },
+      {
+        "status": "PENDING_JIM_EMAIL_CODE",
+        "page_id": 235,
+        "page_url": "https://capitalchronicle.substack.com/publish/post/225472603",
+        "draft_id": "225472603"
+      },
+      {
+        "action": "PUBLISH",
+        "request_sha256": "8e50465287ee090350de544310b04c58ecf3d5c02b1d52d824426016f352298c"
+      }
+    ],
+    "signed_r_plan_rows_in_export": 6
+  },
+  "gold_page": {
+    "checked_at": "2026-11-18T09:05:27.906078+00:00",
+    "plan_id": "plan_64c0b961e6d621d10de5e9d3",
+    "page_id": "plan-analysis-plan_64c0b961e6d621d10de5e9d3",
+    "sections": [
+      "What is priced in",
+      "Positioning",
+      "Fear",
+      "Structure",
+      "The story",
+      "Macro",
+      "The scenarios",
+      "The plan",
+      "What would change our mind"
+    ],
+    "sections_in_contract_order": true,
+    "source_binding_count": 22,
+    "source_layers": {
+      "macro": 3,
+      "priced_in": 1,
+      "positioning": 1,
+      "story": 1,
+      "technical": 1,
+      "invalidation": 2,
+      "scenarios": 5,
+      "analysis": 2,
+      "plan": 18
+    },
+    "frozen_sha256": "26400d20db23f9fbcec4eedbb76d7ec0e5d8149fd25cdce7c2b46183cb7d38cc",
+    "observed_quote_at_utc": "2026-11-18T08:26:35.156714Z",
+    "observed_quote_source_sha256": "72d07fe0f9b23cc5c48531673832c4531b12f7345b61c24e828fa433c8f186a9",
+    "dispatch_status": "UNKNOWN_WRITE",
+    "dispatch_id": "dispatch_27426e18f28a70345c41ec33fc0eaa03",
+    "dispatch_at": "2026-11-18T09:01:06.773746+00:00",
+    "url": null,
+    "reconciled": "RECONCILIATION_PENDING",
+    "notices_present": true
+  },
+  "gold_publish_attempt": {
+    "at_utc": "2026-11-18T09:02:08.117005+00:00",
+    "page_id": "plan-analysis-plan_64c0b961e6d621d10de5e9d3",
+    "confirmed": false,
+    "canonical_url": null,
+    "dispatch_status": "UNKNOWN_WRITE",
+    "dispatch_time": "2026-11-18T09:01:06.773746+00:00",
+    "reconciliation": "RECONCILIATION_PENDING",
+    "transport": {
+      "status": "UNKNOWN_WRITE",
+      "cause": null,
+      "error_code": null,
+      "reason": null
+    },
+    "native": {
+      "action": null,
+      "request_sha256": null
+    },
+    "stage": null
+  },
+  "x_analysis_first_reply": false,
+  "after_analysis_thread_views": null,
+  "verified_gold_publication_time_utc": null,
+  "next_action": "Jim enters the verification code in BrowserOS Neo page 235 for draft 225472603. Publisher then reconciles the exact draft and observes the first-reply analysis link on the next eligible X setup.",
+  "schedule_changes": 0
+}
