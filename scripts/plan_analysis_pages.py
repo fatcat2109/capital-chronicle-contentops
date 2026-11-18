@@ -2,14 +2,16 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
+from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from live_contentops import plan_analysis_pages_v1 as pages
-from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
 from live_contentops.published_content_v1 import PRODUCTION_STORE
 from live_contentops.plan_status_posts_v1 import read_export
 
@@ -35,19 +37,35 @@ def main(argv=None):
     if args.command == "prepare-page":
         if not args.plan_id:
             parser.error("--plan-id is required")
-        from live_contentops.plan_reader_editorial_v1 import prepare_page, publication_packet
-        plan = next(p for p in read_export()["status"]["plans"] if p["plan_id"] == args.plan_id)
-        packet = publication_packet(store, plan)
+        from live_contentops.plan_reader_editorial_v1 import PAGE_LEASE, frozen_page_sources, prepare_page, publication_packet
+        packet = publication_packet(store, {"plan_id": args.plan_id})
         if packet:
             result = {"state": "REGISTERED", **pages.page_status(store, packet)}
         else:
-            folder = args.output_dir or args.store.parent / "daily_app_outputs" / "plan_analysis" / ("plan-analysis-" + args.plan_id)
-            prepared = prepare_page(plan, output_dir=folder, retry_failed=args.retry_failed_text)
-            result = {k: v for k, v in prepared.items() if k != "packet"}
-            result["state"] = prepared["status"]
-            if prepared["status"] == "PREPARED":
-                packet = pages.register_page(store, prepared["packet"])
-                result.update(state="REGISTERED", page_id=packet["page_id"], plan_id=packet["plan_id"])
+            owner = "plan-page-resume-" + uuid4().hex
+            try:
+                lease = store.acquire_lease(PAGE_LEASE, owner, ttl_seconds=900)
+            except LeaseConflictError:
+                result = {"state": "ACTIVE_PAGE_SLICE"}
+            else:
+                try:
+                    current = next(p for p in read_export()["status"]["plans"] if p["plan_id"] == args.plan_id)
+                    plan = frozen_page_sources(store).get(args.plan_id, current)
+                    packet = publication_packet(store, plan)
+                    if packet:
+                        result = {"state": "REGISTERED", **pages.page_status(store, packet)}
+                    else:
+                        folder = args.output_dir or args.store.parent / "daily_app_outputs" / "plan_analysis" / ("plan-analysis-" + args.plan_id)
+                        update = pages.market_update(plan, current, now=datetime.now(timezone.utc))
+                        prepared = prepare_page(plan, output_dir=folder, retry_failed=args.retry_failed_text,
+                                                **({"market_update": update} if update else {}))
+                        result = {k: v for k, v in prepared.items() if k != "packet"}
+                        result["state"] = prepared["status"]
+                        if prepared["status"] == "PREPARED":
+                            packet = pages.register_page(store, prepared["packet"])
+                            result.update(state="REGISTERED", page_id=packet["page_id"], plan_id=packet["plan_id"])
+                finally:
+                    store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
     elif args.command == "prepare-variants":
         if not args.post_key:
             parser.error("--post-key is required")

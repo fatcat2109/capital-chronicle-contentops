@@ -23,6 +23,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
+from time import monotonic
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -46,6 +47,7 @@ def child_python() -> str:
 
 
 def main(argv=None) -> int:
+    started = monotonic()
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="validate the export and render posts without writes")
     parser.add_argument("--export-dir", type=Path, default=EXPORT_DIR)
@@ -151,7 +153,7 @@ def main(argv=None) -> int:
                 page_export = posts.read_export(args.export_dir, main_root=args.main_root, python=child_python())
                 rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
                 plan_pages = run_due(store, page_export, root=args.store.parent / "daily_app_outputs/plan_analysis",
-                    rollout=rollout, now=datetime.now(timezone.utc))
+                    rollout=rollout, now=datetime.now(timezone.utc), writer_deadline=started + 255)
             except Exception as exc:
                 plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
         if reply_bot is not None:

@@ -6,6 +6,7 @@ each. This owns no publication transport, schedule or second operational store.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from functools import partial
 from hashlib import sha256
 import json
 import re
@@ -13,14 +14,17 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from time import monotonic
 from uuid import uuid4
 
 from . import plan_reader_copy_v1 as reader
 from . import plan_analysis_pages_v1 as pages
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 
+PAGE_LEASE = "cc466-plan-page-editorial"
 
-def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
+
+def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, writer_deadline=None):
     from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
     from .x_reply_bot_v1 import _json_response
     root = Path(root)
@@ -37,6 +41,9 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
         # An explicit resume or first CC-512 continuation retains the first
         # failure and the new observed attempt under the same request.
         artifact=artifact.parent/("resume-"+datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))/"result.json"
+    writer_seconds = min(300, writer_deadline - monotonic()) if writer_deadline is not None else 300
+    if writer and writer_seconds <= 0:
+        return {"status": "FAILED", "cause": "PAGE_WRITER_MINUTE_BUDGET_EXHAUSTED"}
     artifact.parent.mkdir(parents=True, exist_ok=True)
     (artifact.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
     model, effort = ("gpt-6.2-sol", "max") if writer else (MODEL, EFFORT)
@@ -71,7 +78,7 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
                 args = [codex,"exec","--model",model,"-c",'model_reasoning_effort="'+effort+'"',
                     "--ignore-user-config","--ephemeral","--skip-git-repo-check","--sandbox","read-only",
                     "-c",'approval_policy="never"',"--output-last-message",str(result_path),"-"]
-                done = (runner or _run)(args,cwd=cwd,timeout=300,input=prompt.encode())
+                done = (runner or _run)(args,cwd=cwd,timeout=writer_seconds,input=prompt.encode())
                 raw,err = done.stdout,done.stderr
                 answer = result_path.read_bytes() if result_path.is_file() else raw
             record["returncode"]=done.returncode
@@ -81,7 +88,8 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
     except Exception as exc:
         if isinstance(exc,subprocess.TimeoutExpired):
             raw,err=exc.output or b"",exc.stderr or b""
-            record["cause"]="PAGE_WRITER_TIMEOUT_300S" if writer else "AGY_VARIANTS_TIMEOUT_120S"
+            record["cause"] = ("PAGE_WRITER_MINUTE_BUDGET_TIMEOUT" if writer_deadline is not None else
+                               "PAGE_WRITER_TIMEOUT_300S" if writer else "AGY_VARIANTS_TIMEOUT_120S")
         else:
             record["cause"]=str(exc) if not writer and "light_call" in record else type(exc).__name__+":"+str(exc)[:160]
     finally:
@@ -301,14 +309,20 @@ def publication_packet(store, plan):
     return json.loads(row["payload"]) if row else None
 
 
-def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, limit=1):
+def frozen_page_sources(store):
+    alerts = (json.loads(row["payload"]) for row in store.list_outbox_messages(destination="internal:plan-status-post"))
+    return {row["plan_id"]: row["source_plan"] for row in alerts
+            if row.get("kind") == "setup" and row.get("thread_contract") == reader.THREAD_CONTRACT}
+
+
+def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, limit=1, writer_deadline=None):
     """One bounded slice per existing minute entry; no coordination polling."""
     owner="cc466-"+uuid4().hex
     from .durable_operational_store_v1 import LeaseConflictError
     try:
         # The existing IgnoreNew minute task has a five-minute execution cap.
         # Its abandoned lease must not keep the following three windows idle.
-        lease=store.acquire_lease("cc466-plan-page-editorial",owner,ttl_seconds=300)
+        lease=store.acquire_lease(PAGE_LEASE,owner,ttl_seconds=300)
     except LeaseConflictError:
         return {"status":"ACTIVE_PAGE_SLICE","pages":[]}
     results, waiting = [], []
@@ -325,10 +339,9 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
         # Retained failures rotate; a cached refusal cannot starve the week.
         plans.sort(key=lambda p:(0 if now-datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<timedelta(minutes=10)
                                   else 1, attempt_clock(p),p["registered_at_utc"]))
-        alerts = [json.loads(row["payload"]) for row in store.list_outbox_messages(
-            destination="internal:plan-status-post")]
-        frozen = {row["plan_id"]: row["source_plan"] for row in alerts
-                  if row.get("kind") == "setup" and row.get("thread_contract") == reader.THREAD_CONTRACT}
+        frozen = frozen_page_sources(store)
+        if writer_deadline is not None:
+            call = partial(call, writer_deadline=writer_deadline)
         for plan in plans:
             # A public thread retains its first alert's exact price basis and
             # clocks, including when Main later enriches the same registration.

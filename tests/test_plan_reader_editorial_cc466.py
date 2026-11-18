@@ -239,6 +239,11 @@ def test_page_resume_cli_registers_return_for_live_consumer_without_reauthoring(
     monkeypatch.setattr(editorial,'prepare_page',prepare)
     args=['prepare-page','--plan-id',plan['plan_id'],'--store',str(store.db_path),
           '--output-dir',str(tmp_path/'page'),'--retry-failed-text','--result',str(tmp_path/'result.json')]
+    held_lease = store.acquire_lease(editorial.PAGE_LEASE, 'minute-publisher', ttl_seconds=300)
+    assert cli.main(args)==0
+    assert json.loads((tmp_path/'result.json').read_bytes())['state']=='ACTIVE_PAGE_SLICE'
+    assert calls==[]
+    store.release_lease(held_lease['lease_id'], 'minute-publisher', held_lease['fencing_token'])
     assert cli.main(args)==0
     assert calls==[(plan,{'output_dir':tmp_path/'page','retry_failed':True})]
     held=store.get_outbox_message('plan-analysis-'+plan['plan_id'])
@@ -246,6 +251,31 @@ def test_page_resume_cli_registers_return_for_live_consumer_without_reauthoring(
     assert cli.main(args)==0
     assert len(calls)==1
     assert store.list_outbox_messages(destination='substack')==[]
+
+
+def test_minute_timeout_is_recorded_before_process_limit_and_exact_resume_can_return(tmp_path, monkeypatch):
+    from pathlib import Path
+    import subprocess
+
+    monkeypatch.setattr(editorial, 'monotonic', lambda: 20)
+    monkeypatch.setattr(editorial.shutil, 'which', lambda _: 'codex.exe')
+    calls = []
+
+    def runner(args, *, cwd, timeout, input):
+        calls.append((timeout, input))
+        if timeout < 300:
+            raise subprocess.TimeoutExpired(args, timeout, output=b'', stderr=b'')
+        return subprocess.CompletedProcess(args, 0, b'{"title":"Returned copy"}', b'')
+
+    first = editorial.text_call('Exact plan', root=tmp_path, writer=True, runner=runner, writer_deadline=260)
+    assert first['cause'] == 'PAGE_WRITER_MINUTE_BUDGET_TIMEOUT'
+    held = Path(first['artifact_path']).read_bytes()
+    assert editorial.text_call('Exact plan', root=tmp_path, writer=True, runner=runner, writer_deadline=260) == first
+    resumed = editorial.text_call('Exact plan', root=tmp_path, writer=True, runner=runner, retry_failed=True)
+    assert calls == [(240, b'Exact plan'), (300, b'Exact plan')]
+    assert resumed['status'] == 'RETURNED'
+    assert resumed['prompt_sha256'] == first['prompt_sha256']
+    assert Path(first['artifact_path']).read_bytes() == held
 
 
 @pytest.mark.parametrize('rationale,expected',[
