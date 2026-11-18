@@ -1,0 +1,237 @@
+{
+  "item": "CC-124",
+  "standing_status": "OPEN",
+  "outcome": "NO_ELIGIBLE_ARTICLE",
+  "actual_entry_utc": "2026-11-18T18:18:57Z",
+  "observed_at_utc": "2026-11-18T18:27:12.133337Z",
+  "next_due_utc": "2026-11-19T00:19:00Z",
+  "cadence_hours": 6,
+  "first_cause": {
+    "code": "ARTICLE_DATA_CUTOFF_EXPIRED",
+    "installed_check": "ARTICLE_DATA_CUTOFF_EXPIRED:11459s",
+    "latest_report_deadline_utc": "2026-11-18T16:07:57.544751Z",
+    "basis": "CC-403 and the installed CC403_READER_ARTICLE_V1 data cutoff"
+  },
+  "current_policy": "Jim decisions 89, 93 and 98. The CC-403 article contract gives new canonicals 60 minutes from their source data cutoff.",
+  "new_canonical_articles": 0,
+  "source_assessment": {
+    "observed_at_utc": "2026-11-18T18:24:54.850200Z",
+    "native_reports_checked": 35,
+    "hash_verified_completed_native_reports": 34,
+    "recent_unfinished_native_reports": [],
+    "latest_main_report": {
+      "capture": {
+        "bytes": 9429449,
+        "sha256": "3665f8f1db9be26d7f0292252b2a736919c82cbe1bfbb34bd374b01a6098c031"
+      },
+      "completed_at_utc": "2026-11-18T15:32:48.124094Z",
+      "completion_receipt": {
+        "bytes": 1147,
+        "sha256": "e52037831cd5ceee09807137de01197e76716d6c4dc0e251209f8cfe1cca5eb6"
+      },
+      "data_cutoff_utc": "2026-11-18T15:07:57.544751Z",
+      "path": "requests/request-a112364ecae5a6a3/analysis-native.json",
+      "report": {
+        "bytes": 69249,
+        "sha256": "72196f721849c70fd58c16f2c228bbf6033b1947b14d30c2a4706876515a3695"
+      },
+      "substack_deadline_utc": "2026-11-18T16:07:57.544751Z"
+    },
+    "installed_projection_and_article_clock": {
+      "clock_result_at_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:11459s",
+      "clock_result_at_observation": "ARTICLE_DATA_CUTOFF_EXPIRED:11817s",
+      "contract": {
+        "daily_prose_words": 350,
+        "data_cutoff_utc": "2026-11-18T15:07:57.544751+00:00",
+        "format": "ARTICLE",
+        "max_sentence_words": 35,
+        "policy": "CC403_READER_ARTICLE_V1",
+        "primary_document_id": "cc124-freshness-check",
+        "publication_target_minutes": 60,
+        "source_pack_sha256": "42c877db2bb645fd7c83bca2bcd1ebca0e1f432b0d9739a0b3264a187c0cd8a7"
+      },
+      "fragment": {
+        "end": 260,
+        "start": 0
+      },
+      "projection_sha256": "9442b6d050f52cf90cf75b339e98f53eac7c3cd8d5d55dfcaf6b5ffd233986ad",
+      "source_clock_matches_capture": true,
+      "source_pointer": "/native_synthesis/summary/0/text"
+    },
+    "configured_public_main_feed": {
+      "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+      "manifest_bytes_sha256": "ab497668c62ea2e2141535239f6655ab32c237b57f2a26bff7cfa564fd6e3623",
+      "manifest_bytes_match_pointer": true,
+      "entries": 15,
+      "emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+      "latest_known_at_cutoff_utc": "2026-10-20T15:27:29.653737Z"
+    },
+    "public_plan_and_call_source_clocks": {
+      "desk_board_as_of_utc": "2026-11-18T18:24:51.815537Z",
+      "desk_board_refresh_reason": "PLAN_STATUS_REFRESH",
+      "export_generated_at_utc": "2026-11-18T18:24:03.185880Z",
+      "latest_frozen_call_utc": "2026-11-18T15:32:48.124094Z",
+      "latest_plan_evaluation_utc": "2026-11-18T18:23:23.496760Z",
+      "latest_plan_transition_utc": "2026-11-18T17:14:15.957987Z",
+      "latest_registration_utc": "2026-11-18T16:48:56.338712Z"
+    },
+    "other_held_outputs": [
+      {
+        "modified_in_window": 0,
+        "newest_file": "20261117-1320-arrival-retail/run.json",
+        "newest_modified_utc": "2026-11-17T13:32:57.983394Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+        "scanned_files": 86,
+        "source": "Main event dossiers"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "PARKED.md",
+        "newest_modified_utc": "2026-11-15T21:58:42.023767Z",
+        "root": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy",
+        "scanned_files": 37,
+        "source": "Main strategy dossiers"
+      },
+      {
+        "modified_in_window": 5,
+        "newest_file": "20261118T173308Z/UK_JOBS_20261117/20261117T070000Z.json",
+        "newest_modified_utc": "2026-11-18T17:35:20.564836Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables",
+        "scanned_files": 29,
+        "source": "Main event reactions"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "event-scores-US_PPI_20261113-20261113T135117Z.json",
+        "newest_modified_utc": "2026-11-13T13:51:17.716337Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\main-event-forecast-scores",
+        "scanned_files": 3,
+        "source": "Main event scores"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "t2-20261118T144009Z/STATUS.md",
+        "newest_modified_utc": "2026-11-18T15:01:14.577264Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs",
+        "scanned_files": 42,
+        "source": "Main T2 runs"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "run-20261116T104457Z/STATUS.md",
+        "newest_modified_utc": "2026-11-16T11:36:10.281030Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-runs",
+        "scanned_files": 2,
+        "source": "Main horizon runs"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "catchup-20261118T050853Z/official-release-admission/admission-readback.json",
+        "newest_modified_utc": "2026-11-18T05:08:57.270205Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup",
+        "scanned_files": 23,
+        "source": "Main catchup admissions"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "digest-20261118.md",
+        "newest_modified_utc": "2026-11-18T00:10:22.935879Z",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest",
+        "scanned_files": 20,
+        "source": "Main daily digest"
+      },
+      {
+        "modified_in_window": 0,
+        "newest_file": "cc-125/ca-policy-minutes-snapshot-20261110/validation.json",
+        "newest_modified_utc": "2026-11-07T08:45:56.229296Z",
+        "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research",
+        "scanned_files": 83,
+        "source": "Data lane research"
+      }
+    ],
+    "recent_event_reaction_builds": [
+      {
+        "built_at_utc": "2026-11-18T17:33:08.507871Z",
+        "event_at_utc": "2026-11-16T13:30:00Z",
+        "event_id": "CA_CPI_20261116",
+        "last_bound_intraday_horizon_minutes": 60,
+        "latest_bound_intraday_horizon_utc": "2026-11-16T14:30:00Z",
+        "sha256": "42e55d206b9949b79b35450175173e7c8934b7fa5d096030a97df3a56e5166c2"
+      },
+      {
+        "built_at_utc": "2026-11-18T17:33:08.507871Z",
+        "event_at_utc": "2026-11-16T02:00:00Z",
+        "event_id": "CN_ECONOMIC_ACTIVITY_20261116",
+        "last_bound_intraday_horizon_minutes": 60,
+        "latest_bound_intraday_horizon_utc": "2026-11-16T03:00:00Z",
+        "sha256": "298bfaca6f368039d71c23ad3655fa4daac2d8206a035f621361084146ce54a4"
+      },
+      {
+        "built_at_utc": "2026-11-18T17:33:08.507871Z",
+        "event_at_utc": "2026-11-16T02:00:00Z",
+        "event_id": "CN_RETAIL_SALES_20261116",
+        "last_bound_intraday_horizon_minutes": 60,
+        "latest_bound_intraday_horizon_utc": "2026-11-16T03:00:00Z",
+        "sha256": "bf139c7a049d068b7ffa2c38747e28cbe7cd1b260134f15dc9ceb9ed80262ed4"
+      },
+      {
+        "built_at_utc": "2026-11-18T17:33:08.507871Z",
+        "event_at_utc": "2026-11-16T04:30:00Z",
+        "event_id": "JP_RETAIL_SALES_FINAL_20261116",
+        "last_bound_intraday_horizon_minutes": 60,
+        "latest_bound_intraday_horizon_utc": "2026-11-16T05:30:00Z",
+        "sha256": "266b67175fa792da5bc31528ec85030418a72121942f1beec87c6785e22012bb"
+      },
+      {
+        "built_at_utc": "2026-11-18T17:33:08.507871Z",
+        "event_at_utc": "2026-11-17T07:00:00Z",
+        "event_id": "UK_JOBS_20261117",
+        "last_bound_intraday_horizon_minutes": 60,
+        "latest_bound_intraday_horizon_utc": "2026-11-17T08:00:00Z",
+        "sha256": "b450cf0d8f43eea3e7ad32755c7cdc5b937d7f59cb560450bc6153473284816f"
+      }
+    ],
+    "latest_shock_check": {
+      "artifact": "2026-11-18/20261118T182042Z/decision.json",
+      "cause": "2 fires today; 1 reserved for impact 3",
+      "checked_at_utc": "2026-11-18T18:20:42Z",
+      "verdict": "SUPPRESSED_DAILY_FIRE_CAP"
+    },
+    "retained_review_candidate": {
+      "article_manifest_sha256": "108ffdbc57e226c8913f5d1660fd34abeb0e6e28da864432ec9b54ec17253216",
+      "clock_result_at_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:150073s",
+      "data_cutoff_utc": "2026-11-17T00:37:43.684818Z",
+      "operation": "cc124-btc-range-20261117-r2"
+    }
+  },
+  "operating_readback": {
+    "live_branch_base": "7bbacc2c8bd84edf81c3b9f7621d6f7336959cd6",
+    "fresh_remote_master_ancestor": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+    "production_day_id": "newsroom-production-day-2026-11-18-bangkok",
+    "standing_canonical_count": 0,
+    "production_day_canonical_count": 0,
+    "digest_input_day_canonical_count": 0,
+    "article_cap": 2,
+    "article_slots_fenced": 0,
+    "publication_feed_day_count": 0,
+    "publication_feed": {
+      "bytes": 30621,
+      "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553"
+    },
+    "publication_feed_unchanged_during_readback": true,
+    "newsroom_lease_conflict": null,
+    "unresolved_cc124_dispatches": [],
+    "operating_mode": "AUTONOMOUS_DEFAULT",
+    "rollout_public_write_authority": true
+  },
+  "configured_launch": {
+    "pid": 45180,
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "verified_launch_arguments": true
+  },
+  "native_editorial_calls": 0,
+  "new_draft_operations": 0,
+  "public_dispatch_attempts": 0
+}
