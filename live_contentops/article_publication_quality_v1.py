@@ -176,9 +176,21 @@ def before_article_write(coordinator, intent, destination):
                     for key,leg in a["chart_spec"]["legs"].items()}},sort_keys=True).encode()).hexdigest()}
                     if a.get("chart_spec") else {})}
                   for a in assets]
+        # CC-543 sends the same plan's setup alert before its Substack page.
+        # Decision 93's image reuse rule applies between pieces, not between
+        # the setup and page bound to this exact Main plan registration.
+        related = set()
+        if len(assets) == 1 and assets[0].get("modality") == "tradingview_chart_snapshot":
+            from .plan_status_posts_v1 import DESTINATION
+            for row in coordinator.store.list_outbox_messages(destination=DESTINATION):
+                alert = json.loads(row["payload"])
+                if (alert.get("kind") == "setup" and alert.get("state_alert_contract") == "CC543_V1"
+                        and alert.get("plan_id") == packet["plan_id"]
+                        and alert.get("source_plan_registration") == packet["registration_hash"]):
+                    related.add(piece_id(coordinator.store, {"work_item_id": row["message_id"]}))
         return image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=assets,
             lead_asset_id=assets[0]["asset_id"], now=coordinator._clock(),
-            canonical_url=intent.get("canonical_url"), enforce_cap=False)
+            canonical_url=intent.get("canonical_url"), enforce_cap=False, related_piece_ids=related)
     article, assets, documents = article_inputs(intent)
     from live_contentops.cpi_reaction_page_v1 import validate_bound_tables
     validate_bound_tables(article)

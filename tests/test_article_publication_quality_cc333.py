@@ -105,6 +105,33 @@ def test_real_coordinator_publishes_fresh_image_and_records_confirmed_fingerprin
     assert len(record["images"][0]["perceptual_hash"]) == 16
 
 
+@pytest.mark.parametrize("same_registration", [True, False])
+def test_plan_page_reuses_only_its_registered_setup_chart(tmp_path, monkeypatch, same_registration):
+    from live_contentops import plan_analysis_pages_v1 as pages, plan_status_posts_v1 as posts
+
+    store, _, coordinator = _coordinator(tmp_path)
+    coordinator._clock = lambda: NOW
+    coordinator.published_content_path = tmp_path / "published_content_v1.jsonl"
+    asset = {**image_asset(tmp_path), "modality": "tradingview_chart_snapshot"}
+    store.register_outbox_message(message_id="alert", work_item_id="work-1", destination=posts.DESTINATION,
+        payload=json.dumps({"kind":"setup", "state_alert_contract":"CC543_V1", "plan_id":"plan",
+                            "source_plan_registration":"registration" if same_registration else "old"}))
+    ledger = image_register(coordinator)
+    ledger.seed(piece_id=piece_id(store, {"work_item_id": "alert"}), canonical_url=None,
+                images=[asset], published_at=NOW.isoformat(), observation_ref="fixture", counts_as_article=False)
+    monkeypatch.setattr(pages, "validate_intent", lambda *_: {"media_assets": [asset],
+        "plan_id":"plan", "registration_hash":"registration", "source_plan":{"asset_id":"XAUUSD"}})
+    intent = {"work_item_id":"page", "plan_analysis_page":"page"}
+    if same_registration:
+        reserved = before_article_write(coordinator, intent, "substack")
+        assert reserved["state"] == "RESERVED"
+        assert reserved["piece_id"] == piece_id(store, intent)
+        assert reserved["images"][0]["sha256"] == asset["sha256"]
+    else:
+        with pytest.raises(ImagePolicyError, match="IMAGE_REUSED"):
+            before_article_write(coordinator, intent, "substack")
+
+
 def test_fingerprint_recording_failure_cannot_disable_public_readback(tmp_path, monkeypatch):
     from live_contentops import article_publication_quality_v1 as quality
     _, runtime, coordinator, message, *_ = publication(tmp_path)

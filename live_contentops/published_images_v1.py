@@ -160,7 +160,7 @@ class PublishedImages:
         return pieces
 
     def reserve(self, *, piece_id, assets, lead_asset_id, now, canonical_url=None, enforce_cap=True,
-                text_fallback=None, market=None, image_contract=None):
+                text_fallback=None, market=None, image_contract=None, related_piece_ids=()):
         if ((not assets and not text_fallback) or (assets and lead_asset_id not in {a.get("asset_id") for a in assets})):
             raise ImagePolicyError("IMAGE_MISSING")
         images = []
@@ -182,7 +182,7 @@ class PublishedImages:
             own = [r for r in active if r["piece_id"] == piece_id or
                    (canonical_url and r.get("canonical_url") == canonical_url)]
             # Sharing an article's image across its destinations is required distribution.
-            others = [r for r in active if r not in own]
+            others = [r for r in active if r not in own and r["piece_id"] not in related_piece_ids]
             if any(near(image, previous) for image in images for r in others for previous in r["images"]):
                 raise ImagePolicyError("IMAGE_REUSED")
             already_today = any(r["day"] == day_of(now) or r["state"] == "PUBLISHED" for r in own)
