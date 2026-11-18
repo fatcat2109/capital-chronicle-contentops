@@ -500,6 +500,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
+            if kind == "setup":
+                item["x_analysis_thread"] = True
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
                 if now >= LEVEL_EFFECTIVE:
                     item["level_contract"] = LEVEL_CONTRACT
@@ -782,6 +784,10 @@ def _ready_destinations(store, row, root=None):
         if destination in skipped or destination in settled:
             continue
         dispatch = _dispatch(store, row["key"], destination)
+        if destination == "x" and row.get("x_analysis_thread") and not dispatch:
+            from .plan_analysis_pages_v1 import confirmed_publication
+            if not confirmed_publication(store, row["source_plan"]):
+                continue
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
             if destination in {"x", "substack_notes"} and dispatch["status"] == "DEFINITE_NO_WRITE":
                 from .neo_endpoint_executor_v1 import repaired_prewrite_request
@@ -876,11 +882,18 @@ def _parents(store, row, destinations, previous):
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
-                         portrait_id=None):
+                         portrait_id=None, x_analysis=None):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
-        return alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
+        result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
             chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id)
+        if row.get("x_analysis_thread"):
+            result.pop("x", None)
+            if x_analysis:
+                from .plan_reader_copy_v1 import payloads
+                result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
+                result["x"]["alt_text"] = x_analysis["reader_fields"]["alt_text"]["text"]
+        return result
     if row.get("reader_contract") == "CC466_V1":
         from .plan_reader_copy_v1 import payloads
         return payloads(row, card_id, chart_credit=chart_credit, parents=parents, portrait_id=portrait_id)
@@ -1072,6 +1085,17 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         unpostable = [{"destination": d, "cause": "RUN_HAS_NO_POSTABLE_CALL"} for d in chosen
                      if not postable_run_members(store, row, d, root=root)]
         chosen = [d for d in chosen if postable_run_members(store, row, d, root=root)]
+    x_analysis = previous.get("status_post_x_analysis")
+    if row.get("x_analysis_thread") and "x" in chosen and not x_analysis:
+        from .plan_reader_editorial_v1 import prepare_social_copy
+        prepared = prepare_social_copy(store, row, root=root)
+        if prepared["status"] == "PREPARED":
+            x_analysis = {k: prepared["row"][k] for k in (
+                "reader_fields", "reader_source", "reader_call_line", "analysis_publication",
+                "variant_calls", "unknown_acronyms_logged")}
+        else:
+            chosen.remove("x")
+            deferred.append({"destination": "x", "cause": prepared["cause"]})
     if not chosen:
         return {"destinations": [], "deferred_destinations": deferred, "output_dir": str(folder.resolve())}
     title = (row["lead"] if row["kind"] == "run" else
@@ -1208,6 +1232,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             context["reader_contract"] = row["reader_contract"]
             context["reader_source"] = row["reader_source"]
             context["reader_fields"] = row["reader_fields"]
+        if x_analysis:
+            context["status_post_x_analysis"] = x_analysis
         context_path.write_bytes(canonical_bytes(context))
     elif row.get("parent_key"):
         # A sibling dispatch can freeze the chart before this destination's
@@ -1218,9 +1244,12 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         if new_parents:
             previous["status_post_parents"] = {**frozen_parents, **new_parents}
             context_path.write_bytes(canonical_bytes(previous))
+    if frozen and x_analysis and not previous.get("status_post_x_analysis"):
+        previous["status_post_x_analysis"] = x_analysis
+        context_path.write_bytes(canonical_bytes(previous))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
-                                  portrait_id=portrait_id,
+                                  portrait_id=portrait_id, x_analysis=x_analysis,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     plan_rows = []
     for destination in chosen:
@@ -1416,6 +1445,8 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 results.append({"key": key, "status": "WAITING", "cause": "RUN_HAS_NO_POSTABLE_CALL"})
                 continue
             _, deferred = _parents(store, row, DESTINATIONS, {})
+            if row.get("x_analysis_thread") and not _dispatch(store, key, "x"):
+                deferred.append({"destination": "x", "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED"})
             results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",
                 "cause": deferred[0]["cause"] if deferred else "ALL_DESTINATIONS_SETTLED",
                 "deferred_destinations": deferred})

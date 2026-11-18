@@ -777,6 +777,13 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     prior = store.get_outbox_message(identity)
     if prior and not authored_summary:
         return json.loads(prior["payload"])
+    original = store.get_outbox_message(original_key) or {}
+    original_payload = json.loads(original.get("payload") or "{}")
+    if destination == "x" and original_payload.get("x_analysis_thread"):
+        ref = _reference(store, original_key, destination)
+        return {"state": "PLAN_ANALYSIS_IN_X_THREAD" if ref else "PLAN_ANALYSIS_X_THREAD_PENDING",
+                "destination": destination, "original_key": original_key,
+                "public_object_url": ref.get("public_object_url") if ref else None}
     parent = None if destination == "substack_notes" else _analysis_parent(store, original_key, packet["plan_id"], destination)
     if original_analysis_root:
         # Decision 113 explicitly asks for today's original plan analysis. An
@@ -790,8 +797,6 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
             raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_REQUIRED")
     elif not parent and destination != "substack_notes":
         return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
-    original = store.get_outbox_message(original_key) or {}
-    original_payload = json.loads(original.get("payload") or "{}")
     discord_delivery = (original_payload.get("discord_delivery")
                         if destination == "discord" else None)
     if destination == "discord" and original_payload.get("state_alert_contract"):

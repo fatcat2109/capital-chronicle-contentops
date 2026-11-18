@@ -1509,6 +1509,7 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
                                   portrait_id=context.get("status_post_threads_image"),
+                                 x_analysis=context.get("status_post_x_analysis"),
                                  chart_credit=bool(context.get("chart_credit")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
@@ -1566,7 +1567,14 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     if (intent.get("work_item_id") != (f"{key}-part-{part}" if part else key)
             or intent.get("native_payload") != payloads.get(destination)):
         raise PlanPostError("PLAN_STATUS_POST_INTENT_COPY_CHANGED")
-    check_publication_copy({"post": payloads[destination]["full_text"]},
+    public_text = payloads[destination]["full_text"]
+    if destination == "x" and row.get("x_analysis_thread"):
+        from .plan_reader_editorial_v1 import validate_reader_row
+        validate_reader_row(store, {**row, **context["status_post_x_analysis"]})
+        # The call can span complete-sentence replies. The exact stored copy
+        # is checked above; here validate the ordered terms across post breaks.
+        public_text = " ".join(public_text.split())
+    check_publication_copy({"post": public_text},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [],
                            require_call_text=not (row.get("cc603_contract") and
                                (row.get("candidate") or {}).get("source_kind") == "ARTICLE"))

@@ -185,12 +185,18 @@ def test_explicit_page_resume_reuses_exact_source_and_retains_failed_writer(sour
     basis=reader.source_packet(plan,pages.load_run(plan,run_root=root))
     ref=next(s['id'] for s in basis['sources'] if '55' in s['text'] and '1.12' in s['text'])
     prose=('We assign the base case a 55% chance. We place support at 1.12. '
-           'We give the alternative a 35% chance. ')*4
+           'We give the alternative a 35% chance. ')*3
     value={'title':'EUR/USD: a conditional dollar view','subtitle':'We weigh the case and its countercase.',
            'introduction':'We weigh a dated conditional view.',
            'sections':{key:{'paragraphs':[{'text':prose.strip(),'source_ids':[ref]}],
                              'summary':'We assign the base case a 55% chance.'}
                        for key,_ in pages.READER_SECTIONS}}
+    for key in ('macro', 'scenarios'):
+        value['sections'][key]['paragraphs'][0]['text'] += (
+            ' We assign the base case a 55% chance. We place support at 1.12. '
+            'We give the alternative a 35% chance.')
+    assert sum(len(p['text'].split()) for section in value['sections'].values()
+               for p in section['paragraphs']) == 580
     calls=[]
     def runner(args,**kw):
         calls.append(kw['input'])
@@ -212,6 +218,7 @@ def test_explicit_page_resume_reuses_exact_source_and_retains_failed_writer(sour
     assert calls[0]==calls[1]
     assert resumed['packet']['registration_hash']==plan['registration_hash']
     assert resumed['packet']['numeric_bindings']
+    assert 600 <= resumed['packet']['authorship']['checks']['word_count'] <= 1100
     store=ContentOpsDurableStore(tmp_path/'resumed.sqlite3')
     packet=pages.register_page(store,resumed['packet'])
     assert json.loads(store.get_outbox_message(packet['page_id'])['payload'])['native_payload']==packet['native_payload']

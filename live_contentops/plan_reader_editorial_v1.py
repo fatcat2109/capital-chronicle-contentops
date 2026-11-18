@@ -189,7 +189,9 @@ def check_manuscript(value, source, plan, run):
             for paragraph in section["paragraphs"]:
                 reader.check_thread_text(paragraph["text"])
             reader.check_thread_text(section["summary"])
-    word_count=len(" ".join(p["text"] for s in value["sections"].values() for p in s["paragraphs"]).split())
+    section_text = [text for key, heading in pages.sections_for(value)
+                    for text in (heading, *(p["text"] for p in value["sections"][key]["paragraphs"]))]
+    word_count = len(" ".join([value["title"], value["subtitle"], value["introduction"], *section_text]).split())
     if not 600 <= word_count <= 1100:
         raise ValueError("CC466_PAGE_WORD_RANGE:"+str(word_count))
     return {"numeric_bindings":bound,"checks":reports,"word_count":word_count}
@@ -281,7 +283,8 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
                 raise ValueError("Rewrite unknown acronyms once: "+",".join(unknown))
             prepared={**row,**call_fields,"reader_fields":record["output"],"reader_source":source,
                 "analysis_publication":{"canonical_url":"https://capitalchronicle.substack.com/p/length-check"}}
-            reader.payloads(prepared,"chart",chart_credit=True)
+            reader.payloads(prepared, "chart", chart_credit=True,
+                            destinations=("x",) if row.get("x_analysis_thread") else None)
             return {"status":"PREPARED","reader_fields":record["output"],"reader_source":source,
                 "reader_checks":checks,"variant_calls":records,"unknown_acronyms_logged":unknown,**call_fields}
         except (ValueError,KeyError,TypeError) as exc:
@@ -356,27 +359,36 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
         store.release_lease(lease["lease_id"],owner,lease["fencing_token"])
 
 
-def prepare_social_row(store, row, *, root, call=text_call, retry_failed=False):
-    """A canonical-page failure has the same unsettled status as an X failure."""
+def prepare_social_copy(store, row, *, root, call=None, retry_failed=False):
+    """Prepare checked variants for this plan's confirmed canonical page."""
+    call = call or text_call
     from . import plan_call_cards_v1 as cards
-    from . import plan_status_posts_v1 as posts
     plan=row["source_plan"]
     if row.get("kind")=="result" and reader.result_r(plan) is None:
         return {"status":"SOURCE_FIELD_ABSENT","cause":"outcome.score.result_r",
             "plan_id":plan["plan_id"],"owner":"CC-471 Main public export"}
     packet=publication_packet(store,plan)
-    if not packet or not pages.page_status(store,packet)["confirmed"]:
+    publication = pages.confirmed_publication(store, plan) if packet else None
+    if not publication:
         return {"status":"CANONICAL_PENDING","cause":"SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
                 "plan_id":plan["plan_id"]}
     prepared=prepare_variants(packet,row,output_dir=Path(root)/row["key"],call=call,retry_failed=retry_failed)
     if prepared["status"]!="PREPARED":
         return prepared
-    publication=pages.confirmed_publication(store,plan)
     updated={**row,**{k:v for k,v in prepared.items() if k!="status"},"analysis_publication":publication}
     updated.update(cards.compose(updated))
-    store.finalize_outbox_payload_before_dispatch(message_id=row["key"],
-        payload=json.dumps(updated,sort_keys=True,ensure_ascii=False),status=posts.READY)
     return {"status":"PREPARED","row":updated}
+
+
+def prepare_social_row(store, row, *, root, call=text_call, retry_failed=False):
+    """Finalize the original all-destination row before any of it is issued."""
+    from . import plan_status_posts_v1 as posts
+    prepared = prepare_social_copy(store, row, root=root, call=call, retry_failed=retry_failed)
+    if prepared["status"] != "PREPARED":
+        return prepared
+    store.finalize_outbox_payload_before_dispatch(message_id=row["key"],
+        payload=json.dumps(prepared["row"],sort_keys=True,ensure_ascii=False),status=posts.READY)
+    return prepared
 
 
 def validate_reader_row(store, row):

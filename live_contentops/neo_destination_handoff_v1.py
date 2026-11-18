@@ -328,6 +328,8 @@ def _payload_binding(intent, destination):
         media_ids = set(payload.get("media_asset_ids") or [])
         media_ids.update(a for post in posts if isinstance(post, dict) for a in post.get("media_asset_ids") or [])
         assets = [a for a in assets if a.get("asset_id") in media_ids]
+        if destination == "x" and intent.get("plan_status_post") and payload.get("alt_text"):
+            assets = [{**asset, "alt_text": payload["alt_text"]} for asset in assets]
     if destination == "substack":
         # Retained delivery assets are not all canonical article images. Honour
         # the editor's existing exclusions before freezing the browser binding.

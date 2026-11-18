@@ -387,7 +387,7 @@ def result_r(plan):
     return None
 
 
-def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None):
+def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None, destinations=None):
     from . import plan_status_posts_v1 as posts
     fields, source = row["reader_fields"], row["reader_source"]
     validate_fields(fields, source)
@@ -420,10 +420,14 @@ def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None
         # The two exact phase conditions and clocks may exceed a single post.
         # Keep the link first and the points second; continue with complete
         # sentences rather than asking a writer to shorten frozen plan facts.
-        facts = [*points[:3], *re.split(r"(?<=\.)\s+(?=[A-Z])", call_line)]
+        facts = re.split(r"(?<=\.)\s+(?=[A-Z])", call_line)
+        # The analysis thread's second reply is reserved for the market forces.
+        own_thread = row.get("x_analysis_thread")
+        if not own_thread:
+            facts = [*points[:3], *facts]
         if chart_credit:
             facts.append(posts.CHART_CREDIT)
-        continuations, current = [], ""
+        continuations, current = (["\n".join(points[:3])] if own_thread and points else []), ""
         for fact in facts:
             if posts._x_length(fact) > 280:
                 raise ValueError("CC466_X_BOUND_SENTENCE_TOO_LONG")
@@ -437,14 +441,15 @@ def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None
             continuations.append(current)
         x_parts = [root, link_reply, *continuations]
     x_parts=[part for part in x_parts if part.strip()]
-    if any(posts._x_length(part) > 280 for part in x_parts):
+    destinations = destinations or ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes")
+    if "x" in destinations and any(posts._x_length(part) > 280 for part in x_parts):
         raise ValueError("CC466_X_FIELD_SET_TOO_LONG_REWRITE_REQUIRED")
     threads_root = "\n\n".join([root, "Full analysis: " + url, NOTICES])
     thread_parts = [threads_root, reasons + credit]
-    if any(len(part) > 500 for part in thread_parts):
+    if "threads" in destinations and any(len(part) > 500 for part in thread_parts):
         raise ValueError("CC466_THREADS_FIELD_SET_TOO_LONG_REWRITE_REQUIRED")
     result = {}
-    for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
+    for destination in destinations:
         media_id = portrait_id if portrait_id and destination in {"threads", "instagram_business"} else card_id
         parts = x_parts if destination == "x" else thread_parts if destination == "threads" else [long]
         maximum = {"telegram": 4096, "discord": 2000, "instagram_business": 2200}.get(destination, 60000)
