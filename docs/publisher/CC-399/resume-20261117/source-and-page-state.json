@@ -1,0 +1,70 @@
+{
+  "item": "CC-399",
+  "observed_at_utc": "2026-11-17T08:01:34.493842+00:00",
+  "plan_id": "plan_30f3365059e996b2f0d1d79a",
+  "source_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "sha256": "656bf5bdec731fd24b443b7e9468fa3c87c5b2b0afd443eeea68beba5fe48a9b",
+    "generated_at_utc": "2026-11-17T08:01:21.197739Z",
+    "contract_version": "2.0.0"
+  },
+  "plan": {
+    "registration_hash": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+    "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+    "run_id": "request-dbc0b55a4b96d198",
+    "status": "EXPIRED",
+    "zone": {
+      "maximum": 159.38,
+      "minimum": 159.02
+    },
+    "target_level": 158.05,
+    "invalidation_conditions": [
+      {
+        "field": "high",
+        "operator": "GTE",
+        "threshold": 160.3
+      }
+    ],
+    "entry_deadline_utc": "2026-11-17T07:00:00Z",
+    "expires_at_utc": "2026-11-17T12:30:00Z"
+  },
+  "filled_position_horizon_utc": "2026-11-18T18:30:00Z",
+  "analysis_page_row": {
+    "message_id": "plan-analysis-plan_30f3365059e996b2f0d1d79a",
+    "exists": false,
+    "status": null
+  },
+  "runtime_result": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_30f3365059e996b2f0d1d79a\\editorial_result.json",
+    "sha256": "f9a52a187d4cdc3eb9b711e8d92503fdd1ee76b4bdd2f49104b5894b4a479339",
+    "status": "SOURCE_PAGE_PENDING",
+    "cause": "ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND",
+    "plan_id": "plan_30f3365059e996b2f0d1d79a"
+  },
+  "held_run": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198",
+    "exists": true,
+    "analysis_native_exists": true,
+    "legacy_role_pack_exists": false,
+    "legacy_role_evidence_exists": false
+  },
+  "existing_source_fix": {
+    "item": "CC-549",
+    "branch": "backlog/cc-549-live-readback-20261117",
+    "commit": "f08c81a6dde4adc86b3bdb51346d934260a08520",
+    "included_in_operating_history": false
+  },
+  "operating_head_at_readback": "2d234265a17d22fcc7fe94f75141e148ad0e57fd",
+  "configured_launch": {
+    "pid": 37836,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "editorial_model_calls_by_this_run": 0,
+  "public_writes_by_this_run": 0,
+  "production_store_writes_by_this_run": 0,
+  "schedules_changed": 0,
+  "deploy_steps": 0,
+  "next_action": "First Publisher runner integrates CC-549 source fix, then resumes the existing source-bound page/reply path and reads the canonical page plus analysis replies under the existing cards."
+}
