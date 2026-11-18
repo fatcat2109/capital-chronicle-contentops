@@ -1,0 +1,112 @@
+{
+  "observed_at_utc": "2026-11-18T01:34:37.530857+00:00",
+  "installed_root": "A:\\Capital Chronicle\\ContentOps",
+  "modules": [
+    {
+      "module": "main_report_projection_source_v1",
+      "loaded_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+      "sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106",
+      "builder_sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106",
+      "same_bytes": true
+    },
+    {
+      "module": "reader_article_contract_v1",
+      "loaded_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+      "sha256": "107784b3a4966c76046579458679f0d0c5c844b8f3ff9039219072e2cd6425c0",
+      "builder_sha256": "107784b3a4966c76046579458679f0d0c5c844b8f3ff9039219072e2cd6425c0",
+      "same_bytes": true
+    },
+    {
+      "module": "published_images_v1",
+      "loaded_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py",
+      "sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677",
+      "builder_sha256": "3520d74407227f5d53305ba1bbb0ddda403f8e6c933ac06504b15dfc00b4a677",
+      "same_bytes": true
+    },
+    {
+      "module": "plan_status_posts_v1",
+      "loaded_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+      "sha256": "805eb29627ef01c738558d0e61fdcb5b07bd71bf26d9a0adb01a90190fb6bebc",
+      "builder_sha256": "805eb29627ef01c738558d0e61fdcb5b07bd71bf26d9a0adb01a90190fb6bebc",
+      "same_bytes": true
+    },
+    {
+      "module": "newsroom_production_day_v1",
+      "loaded_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\newsroom_production_day_v1.py",
+      "sha256": "6d44a270001331e61601d0a7e6d8377df71c7506ed84e6dcd9811013f1f01a6b",
+      "builder_sha256": "6d44a270001331e61601d0a7e6d8377df71c7506ed84e6dcd9811013f1f01a6b",
+      "same_bytes": true
+    }
+  ],
+  "native_role_results": [
+    {
+      "operation_id": "cc124-main-20261118-0824",
+      "stage": "desktop_response_select.json",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-main-20261118-0824\\desktop_response_select.json",
+      "saved_copy": "native-default-select-returned.json",
+      "bytes": 1799,
+      "sha256": "28ca58ec21ab6bc3c9660d9bef07ff340711dbaa3c96c5050efdc9330c9a0602",
+      "request_sha256": "8afb7dcc40d2c69b4d04d637d849b2cbf7084e2a397cb89583f72d5050a25004",
+      "invocation_observation": {
+        "invocation_id": "/root/native_select_8afb7dcc40d2",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_state": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Parent native selection assignment cc124-main-20261118-0824:select; supported canonical task identity from native execution context; actual model and reasoning effort unavailable.",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "observation_source": "Supported native task context identifies /root/native_select_8afb7dcc40d2 as this executing subagent."
+      }
+    },
+    {
+      "operation_id": "cc124-gold-floor-20261118-0824",
+      "stage": "desktop_response_select.json",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-floor-20261118-0824\\desktop_response_select.json",
+      "saved_copy": "native-gold-select-returned.json",
+      "bytes": 2839,
+      "sha256": "e85e4b9efe1c33cdaeb458ccb51d1d33905bb0965ecb42c45a418d917fa3541b",
+      "request_sha256": "005ee9a3c82c8b36957930da1933a068901565dab11172c828eec44ac22c6831",
+      "invocation_observation": {
+        "invocation_id": "/root/native_select_8afb7dcc40d2",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_state": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Parent native selection assignment cc124-main-20261118-0824:select; supported canonical task identity from native execution context; actual model and reasoning effort unavailable.",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "observation_source": "Supported native task context identifies /root/native_select_8afb7dcc40d2 as this executing subagent."
+      }
+    },
+    {
+      "operation_id": "cc124-gold-floor-20261118-0824",
+      "stage": "desktop_response_media-plan.json",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-floor-20261118-0824\\desktop_response_media-plan.json",
+      "saved_copy": "native-media-plan-returned.json",
+      "bytes": 2569,
+      "sha256": "13d1ac7495232722747d0ade24ac080aa01a0978572e7a0c393b6f62ce3d55cf",
+      "request_sha256": "41546ab98d551967d78befedd57276131e4bdde124cd1a0c0522397ffb230dce",
+      "invocation_observation": {
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "/root/native_select_8afb7dcc40d2",
+        "observation_source": "Supported native task context identifies /root/native_select_8afb7dcc40d2 as this executing subagent.",
+        "model": null,
+        "reasoning_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Parent assignment to execute exact media-plan Sol Light stage for cc124-gold-floor-20261118-0824 in this supported native subagent; actual model and effort telemetry unavailable."
+      }
+    }
+  ],
+  "implementation_changes": 0,
+  "pytest_processes": 0,
+  "validation": "The installed source, clock, plan export and daily-cap consumers executed; accepted native select and media-plan returns are exact-hash bound. No implementation changed."
+}

@@ -1,0 +1,23 @@
+{
+  "request_sha256": "8afb7dcc40d2c69b4d04d637d849b2cbf7084e2a397cb89583f72d5050a25004",
+  "output": {
+    "ordered_candidate_plan": [],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "The frozen governed input contains 32 candidates but no candidate for Main's completed 18 November shock analysis or the requested gold floor break. Its supplied candidates are older releases, retained reports, educational material or calendar records; none establishes a timely evidence delta answering this specific commission. No candidate ID can be invented or reassigned to the shock analysis. This does not assert that Main's report is absent: the coordinator is preparing its exact public spans. Continue through an updated governed candidate bound to those spans, preserving the original data cutoff and the 60-minute publication deadline; do not refresh that clock or infer scenario probabilities.",
+    "status": "ABSTAIN"
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_8afb7dcc40d2",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_state": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configuration_source": "Parent native selection assignment cc124-main-20261118-0824:select; supported canonical task identity from native execution context; actual model and reasoning effort unavailable.",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "observation_source": "Supported native task context identifies /root/native_select_8afb7dcc40d2 as this executing subagent."
+  }
+}
