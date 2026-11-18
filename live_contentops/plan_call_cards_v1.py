@@ -1209,6 +1209,15 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             context["reader_source"] = row["reader_source"]
             context["reader_fields"] = row["reader_fields"]
         context_path.write_bytes(canonical_bytes(context))
+    elif row.get("parent_key"):
+        # A sibling dispatch can freeze the chart before this destination's
+        # setup is confirmed. Add only parents for copies yet to be issued.
+        frozen_parents = previous.get("status_post_parents") or {}
+        new_parents = {d: parents[d] for d in chosen
+                       if d in parents and d not in frozen_parents and not _dispatch(store, key, d)}
+        if new_parents:
+            previous["status_post_parents"] = {**frozen_parents, **new_parents}
+            context_path.write_bytes(canonical_bytes(previous))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
                                   portrait_id=portrait_id,

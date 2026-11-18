@@ -247,6 +247,56 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
     assert store.get_outbox_message(invalid["key"])["payload"] == invalid_bytes
 
 
+def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_root, tmp_path):
+    from hashlib import sha256
+
+    store, folder, raw, now = replay
+    events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+    posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    setup, = rows(store)
+    setup_key = setup["key"]
+    setup_hash = sha256(("plan-status-post:" + setup_key).encode()).hexdigest()
+    store.create_work_item(story_id=setup_key, work_item_id=setup_key, title="Call card",
+                           target_surface="MULTI_PLATFORM")
+    confirm(store, setup_key, setup_hash, "discord", "600",
+            "https://discord.com/channels/42/1519311669216673802/600")
+    store.set_outbox_status(setup_key, "SETTLED")
+
+    raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+    events.append(event(raw["plan_id"], "EXPIRED", now.isoformat()))
+    now += timedelta(minutes=1)
+    write(folder, [raw], events, generated_at_utc=now.isoformat())
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    ending, = [row for row in rows(store) if row["kind"] == "result"]
+    key = ending["key"]
+
+    runtime = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    options = {"now": now, "latest_states": queued["latest_states"], "root": tmp_path / "posts",
+               "host": fake_host, "coordinator_for": lambda *args: coordinator, "immediate_only": True}
+    posts.publish_ready(store, **options)
+    discord = cards._dispatch(store, key, "discord")
+    assert discord["status"] == "DISPATCH_CONFIRMED"
+    assert cards._dispatch(store, key, "telegram") is None
+    discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
+    directory = tmp_path / "posts" / key
+    _, first_copies = posts._expected(store, key, directory)
+
+    confirm(store, setup_key, setup_hash, "telegram", "700", "https://t.me/CapitalChronicle/700")
+    recovered = posts.publish_ready(store, **options)
+    telegram = cards._dispatch(store, key, "telegram")
+    assert telegram and telegram["status"] == "DISPATCH_CONFIRMED", recovered
+    intent = json.loads(store.get_outbox_message(telegram["message_id"])["payload"])
+    assert intent["native_payload"]["reply_to_id"] == "700"
+    assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
+    _, copies = posts._expected(store, key, directory)
+    assert copies["discord"] == first_copies["discord"]
+    posts.publish_ready(store, **options)
+    assert runtime.publish_calls == ["discord", "telegram"]
+
+
 @pytest.mark.parametrize("dry", [False, True])
 def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, monkeypatch, dry):
     import importlib.util
