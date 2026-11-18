@@ -354,13 +354,14 @@ def _public_rows(conn, window, feed):
             "d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url "
             "FROM outbox_messages m LEFT JOIN platform_dispatches d ON m.message_id=d.message_id ")
     span = (window["since_utc"], window["until_utc"])
+    # Materialize the in-window IDs once instead of scanning both tables per outbox row.
     rows = conn.execute(base + f"WHERE m.destination IN ({marks}) AND ("
         "julianday(m.created_at) > julianday(?) AND julianday(m.created_at) <= julianday(?) OR "
         "julianday(d.dispatched_at) > julianday(?) AND julianday(d.dispatched_at) <= julianday(?) OR "
-        "EXISTS (SELECT 1 FROM readbacks r WHERE r.dispatch_id=d.dispatch_id AND "
-        "julianday(r.read_at) > julianday(?) AND julianday(r.read_at) <= julianday(?)) OR "
-        "EXISTS (SELECT 1 FROM reconciliations r WHERE r.work_item_id=m.work_item_id AND "
-        "julianday(r.reconciled_at) > julianday(?) AND julianday(r.reconciled_at) <= julianday(?)) OR "
+        "d.dispatch_id IN (SELECT dispatch_id FROM readbacks "
+        "WHERE julianday(read_at) > julianday(?) AND julianday(read_at) <= julianday(?)) OR "
+        "m.work_item_id IN (SELECT work_item_id FROM reconciliations "
+        "WHERE julianday(reconciled_at) > julianday(?) AND julianday(reconciled_at) <= julianday(?)) OR "
         "EXISTS (SELECT 1 FROM outbox_messages n WHERE n.work_item_id=m.work_item_id "
         "AND n.destination='internal:native-neo-tool' AND julianday(n.created_at) > julianday(?) "
         "AND julianday(n.created_at) <= julianday(?)))",

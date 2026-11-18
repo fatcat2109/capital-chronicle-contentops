@@ -456,6 +456,25 @@ def test_failure_readback_is_selected_after_an_old_dispatch_clock(recorded):
     assert any(e["dispatch_id"] == "old-dispatch" and e["first_cause"] == "EXACT_PUBLIC_OBJECT_NOT_FOUND" for e in report["exceptions"])
 
 
+def test_reconciliation_selects_the_older_piece_and_keeps_its_first_dispatch(recorded):
+    _, store, _, _ = recorded
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "old-message", "old-piece", "x", json.dumps({"payload": "A held market update."}),
+            "RECONCILED_ABSENT_SAFE_TO_RETRY", "2026-11-10T10:00:00Z"))
+        conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)", (
+            "old-dispatch", "old-message", "x", "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "2026-11-10T10:01:00Z", None, None, None))
+        conn.execute("INSERT INTO reconciliations VALUES(?,?,?,?)", (
+            "new-reconciliation", "old-piece", "RECONCILED_ABSENT_SAFE_TO_RETRY", "2026-11-16T11:00:00Z"))
+
+    report, _ = build(recorded)
+    piece = next(piece for piece in report["pieces"] if piece["piece_id"] == "old-piece")
+    assert piece["first_line"] == "A held market update."
+    assert piece["first_dispatch_at_utc"] == "2026-11-10T10:01:00+00:00"
+    assert piece["platforms"][0]["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY"
+
+
 def test_link_queries_are_checked_instead_of_matching_any_same_path():
     html = '<article>First line. <a href="https://example.com/data?series=wrong">Source</a></article>'
     result = readback.check_public_text("substack", html,
