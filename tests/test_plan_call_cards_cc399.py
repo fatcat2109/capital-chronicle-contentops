@@ -1,5 +1,6 @@
 """CC-399 acceptance: the existing outbox consumes Main calls without new analytics."""
 from datetime import datetime, timezone
+from copy import deepcopy
 import json
 from pathlib import Path
 import sqlite3
@@ -195,7 +196,7 @@ def test_unfilled_ending_is_owed_only_for_a_posted_setup(five, main_root):
     write(folder, plans, events)
     queue(store, folder, main_root)
     endings = [r for r in rows(store) if r["kind"] == "result"]
-    assert len(endings) == 1 and "not triggered" in endings[0]["text"]
+    assert len(endings) == 1 and "the entry window ended with no entry" in endings[0]["text"]
     assert "our way" not in endings[0]["text"]  # not supplied by Main
 
 
@@ -230,7 +231,7 @@ def test_ending_uses_confirmed_card_after_queue_closure(five, main_root, tmp_pat
         assert not endings
         assert any(r["cause"] == "PLAN_NEVER_ANNOUNCED" for r in queued["not_posted"])
         return
-    assert len(endings) == 1 and "not triggered" in endings[0]["text"]
+    assert len(endings) == 1 and "the entry window ended with no entry" in endings[0]["text"]
     assert endings[0]["parent_key"] == original["key"]
     prepared = posts.prepare_post(store, endings[0]["key"], root=tmp_path / "posts", host=fake_host,
                                   destinations=("discord", "telegram"))
@@ -242,10 +243,226 @@ def test_ending_uses_confirmed_card_after_queue_closure(five, main_root, tmp_pat
     assert len([r for r in rows(store) if r["kind"] == "result"]) == 1
 
 
-def test_main_scorer_supplies_untriggered_direction_without_publisher_inference():
-    assert cards.ending_words({"untriggered": True, "direction_correct": True}) == "not triggered; price then went our way"
-    assert cards.ending_words({"untriggered": True, "direction_correct": False}) == "not triggered; price then went against us"
-    assert cards.ending_words({"triggered_not_traded": True}) == "triggered, not traded"
+def test_no_fill_or_direction_result_infers_whether_the_zone_was_reached():
+    for row in ({"untriggered": True, "direction_correct": True},
+                {"untriggered": True, "direction_correct": False},
+                {"triggered_not_traded": True}, {"result": "NOT_TRIGGERED"}):
+        assert cards.ending_words(row) == "the entry window ended with no entry"
+
+
+@pytest.fixture
+def usdjpy_17_nov():
+    """Relevant exact fields of Main's 17 Nov 09:14:47Z public snapshot, CC-646.
+
+    The snapshot has no entry-condition facts. Added facts in tests are controlled
+    CC-648 inputs, never a claim that Main already exported them.
+    """
+    return {
+        "plan_id": "plan_30f3365059e996b2f0d1d79a", "asset_id": "USDJPY", "direction": "BEARISH",
+        "status": "EXPIRED", "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+        "not_before_utc": "2026-11-17T06:28:43.661312Z", "expires_at_utc": "2026-11-17T12:30:00Z",
+        "entry_deadline_utc": "2026-11-17T07:00:00Z", "zone": {"maximum": 159.38, "minimum": 159.02},
+        "invalidation_conditions": [{"field": "high", "operator": "GTE", "threshold": 160.3}],
+        "registration_hash": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+        "entries": [], "target_level": 158.05, "target_tick_size": None,
+        "public_instrument": {"contract_first_cause": None, "contract_month": None, "direction": None,
+                              "entries": [], "exchange": "IDEALPRO", "invalidation_level": None,
+                              "kind": "SPOT", "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                              "name": "US dollar / Japanese yen", "symbol": "USD.JPY",
+                              "target_first_cause": "TARGET_NOT_RECORDED", "target_level": None,
+                              "tick_size": None, "zone_high": None, "zone_low": None},
+        "outcome": {"state": "NOT_SCORED_UNTRIGGERED", "first_cause": "UNTRIGGERED_PLAN_ENDED",
+                    "public_call_id": "call_add48d10f279cd46b4ddfa92", "result": None,
+                    "outcome_id": None, "score": None},
+    }
+
+
+NO_ENTRY_CASES = [
+    (None, None, "the entry window ended with no entry"),
+    (False, None, "price did not reach the entry zone"),
+    (True, None, "price reached the entry zone, but no position was opened"),
+    (True, "SOFTWARE_OR_PROCESS_DEFECT", "price reached the entry zone, but no position was opened because of a fault on our side"),
+    (True, "protection or reconciliation block", "price reached the entry zone, but no position was opened because of a fault on our side"),
+    (True, "COST_OR_RISK_REFUSAL", "price reached the entry zone, but no position was opened"),
+    (None, "SOFTWARE_OR_PROCESS_DEFECT", "the entry window ended with no entry"),
+    ("true", "SOFTWARE_OR_PROCESS_DEFECT", "the entry window ended with no entry"),
+    (0, None, "the entry window ended with no entry"),
+]
+
+
+@pytest.mark.parametrize("traded,cause,expected", NO_ENTRY_CASES)
+@pytest.mark.parametrize("location", ["plan", "outcome", "score"])
+def test_main_entry_facts_drive_result_and_tally_words(usdjpy_17_nov, traded, cause, expected, location):
+    raw = usdjpy_17_nov
+    if location == "plan":
+        source = raw
+    elif location == "outcome":
+        source = raw["outcome"]
+    else:
+        source = raw["outcome"]["score"] = {}
+    source.update(entry_condition_traded=traded, first_blocking_cause=cause)
+    assert cards.ending_words({"untriggered": True, "source_plan": raw}) == expected
+    assert cards.ending_words({"untriggered": True, "outcome_source_plan": raw,
+                               "source_plan": {"entry_condition_traded": False}}) == expected
+    score = {**raw, "result": "NOT_TRIGGERED"}
+    text = cards.record_line({"scored_calls": [score, deepcopy(score)]})
+    assert expected + ": 1" in text  # One tally per plan, irrespective of duplicate rows.
+    assert "not triggered" not in text.lower()
+
+
+def test_call_card_tally_uses_main_plan_facts_when_score_has_no_zone_touch(usdjpy_17_nov):
+    raw = usdjpy_17_nov
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    score = {"plan_id": raw["plan_id"], "result": "NOT_TRIGGERED"}
+    text = cards.record_line({"plans": [raw], "scored_calls": [score]})
+    assert "price reached the entry zone, but no position was opened because of a fault on our side: 1" in text
+
+
+@pytest.mark.parametrize("traded,cause,expected,scored_result",
+    [(traded, cause, words, None) for traded, cause, words in NO_ENTRY_CASES[:7]] + [
+        (True, "software or process defect",
+         "price reached the entry zone, but no position was opened because of a fault on our side", result)
+        for result in ("HIT", "STOPPED", "EXPIRED")])
+def test_usdjpy_17_nov_actual_alert_queue_reads_later_outcome_without_rewriting_history(
+        tmp_path, main_root, monkeypatch, usdjpy_17_nov, traded, cause, expected, scored_result):
+    from live_contentops import secret_store_v1
+    from live_contentops.plan_state_alerts_v1 import validate
+    monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
+    raw = deepcopy(usdjpy_17_nov)
+    raw.update(status="WAITING", outcome={})
+    store = ContentOpsDurableStore(tmp_path / "usdjpy.sqlite3")
+    events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+    now = posts._utc("2026-11-17T06:29:00Z")
+    folder = write(tmp_path / "export", [raw], events, generated_at_utc=now.isoformat(), scored_call_count=0)
+    first = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    assert first["status"] == "OK", first
+    setup, = rows(store)
+    setup_bytes = store.get_outbox_message(setup["key"])["payload"]
+    store.set_outbox_status(setup["key"], "PUBLISHED")
+    ended = deepcopy(usdjpy_17_nov)
+    if scored_result:
+        ended["outcome"] = {"state": "SCORED", "result": scored_result, "outcome_id": "controlled-outcome",
+                            "not_executed": True, "score": {
+                                "plan_id": ended["plan_id"], "asset_id": "USDJPY", "outcome_id": "controlled-outcome",
+                                "result": scored_result, "not_executed": True,
+                                "resolved_at_utc": "2026-11-17T07:00:26.003455Z"}}
+        expected += "; the market path " + {"HIT": "hit the target", "STOPPED": "reached the invalidation level",
+                                           "EXPIRED": "ended at the time exit"}[scored_result]
+    if traded is not None:
+        ended["entry_condition_traded"] = traded
+    if cause is not None:
+        ended["first_blocking_cause"] = cause
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-17T07:00:26.003455Z"))
+    now = posts._utc("2026-11-17T07:01:00Z")
+    write(folder, [ended], events, generated_at_utc=now.isoformat(), scored_call_count=0)
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    assert queued["status"] == "OK", queued
+    result, = [r for r in rows(store) if r["kind"] == "result"]
+    assert result["lead"] == "USD/JPY: " + expected + "."
+    assert result["outcome_source_plan"] == ended and result["source_plan"] == raw
+    if scored_result:
+        assert result["result"] == scored_result and result["scored"] and result["not_executed"]
+    validate(result)
+    copies = cards.destination_payloads(result, card_id="controlled-chart")
+    for copy in copies.values():
+        text = copy.get("full_text") or copy["text"]
+        assert expected in text and "not triggered" not in text.lower()
+    result_bytes = store.get_outbox_message(result["key"])["payload"]
+    # A later export must not rewrite or reissue the existing result.
+    ended["entry_condition_traded"] = not traded
+    write(folder, [ended], events, generated_at_utc=now.isoformat(), scored_call_count=0)
+    assert posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)["queued"] == []
+    assert store.get_outbox_message(result["key"])["payload"] == result_bytes
+    assert store.get_outbox_message(setup["key"])["payload"] == setup_bytes
+
+
+def test_cc648_unexecuted_call_with_pending_market_score_still_gets_an_ending(usdjpy_17_nov):
+    raw = usdjpy_17_nov
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    raw["outcome"].update(state="UNAVAILABLE", not_executed=True, first_cause="OUTCOME_MARKET_PATH_NOT_RETAINED")
+    row, = cards._result_rows({"status": {"plans": [raw]}, "transitions": {"transitions": [
+        {"plan_id": raw["plan_id"], "status": "EXPIRED", "at_utc": "2026-11-17T07:00:26.003455Z"}]}})
+    assert not row["scored"] and row["not_executed"]
+    assert cards.ending_words(row) == "price reached the entry zone, but no position was opened because of a fault on our side"
+
+
+@pytest.mark.parametrize("issued", [False, True])
+def test_minute_queue_corrects_only_unissued_legacy_no_entry_copy(
+        tmp_path, main_root, monkeypatch, usdjpy_17_nov, issued):
+    from live_contentops import secret_store_v1
+    from live_contentops.plan_state_alerts_v1 import validate
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
+    raw = {**usdjpy_17_nov, "status": "WAITING", "outcome": {}}
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+    now = posts._utc("2026-11-17T06:29:00Z")
+    folder = write(tmp_path / "export", [raw], events, generated_at_utc=now.isoformat())
+    assert posts.queue_posts(store, folder, now=now, main_root=main_root)["status"] == "OK"
+    setup, = rows(store)
+    setup_bytes = store.get_outbox_message(setup["key"])["payload"]
+    store.set_outbox_status(setup["key"], "PUBLISHED")
+
+    ended = deepcopy(usdjpy_17_nov)
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-17T07:00:26.003455Z"))
+    now = posts._utc("2026-11-17T07:01:00Z")
+    write(folder, [ended], events, generated_at_utc=now.isoformat())
+    assert posts.queue_posts(store, folder, now=now, main_root=main_root)["status"] == "OK"
+    draft, = [row for row in rows(store) if row["kind"] == "result"]
+    assert draft["levels"]["target"]
+    # The operating queue held results inherited from setup cards without targets.
+    draft["levels"]["target"] = None
+    draft["price_basis"] = None
+    draft.update(cards.compose(draft))
+    old_lead = "USD/JPY: not triggered."
+    draft.update(lead=old_lead, text=draft["text"].replace(draft["lead"], old_lead, 1))
+    key = draft["key"]
+    draft_bytes = json.dumps(draft, sort_keys=True)
+    store.finalize_outbox_payload_before_dispatch(message_id=key, payload=draft_bytes, status=posts.READY)
+    if issued:
+        import hashlib
+        plan_hash = hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest()
+        child = DurablePublicationCoordinator._ids(key, plan_hash, "telegram")["message_id"]
+        store.create_work_item(story_id=key, title="Issued copy", target_surface="MULTI_PLATFORM", work_item_id=key)
+        store.register_outbox_message(message_id=child, work_item_id=key, destination="telegram",
+                                      payload=draft_bytes, status="READY")
+
+    ended.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    write(folder, [ended], events, generated_at_utc=now.isoformat())
+    dry = posts.queue_posts(store, folder, now=now, dry_run=True, main_root=main_root)
+    assert dry["status"] == "OK"
+    assert store.get_outbox_message(key)["payload"] == draft_bytes
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root)
+    assert queued["status"] == "OK" and key in queued["already_queued"] and queued["queued"] == []
+    stored = store.get_outbox_message(key)["payload"]
+    assert store.get_outbox_message(setup["key"])["payload"] == setup_bytes
+    if issued:
+        assert stored == draft_bytes and store.get_outbox_message(child)["payload"] == draft_bytes
+    else:
+        updated = json.loads(stored)
+        validate(updated)
+        assert updated["at_utc"] == draft["at_utc"] and updated["levels"] == draft["levels"]
+        assert updated["price_basis"] == "plan"
+        assert updated["outcome_source_plan"] == ended
+        copies = cards.destination_payloads(updated, card_id="controlled-chart")
+        assert "price reached the entry zone, but no position was opened because of a fault on our side" in copies["telegram"]["full_text"]
+        assert all("not triggered" not in copy["full_text"].lower() for copy in copies.values())
+        updated["levels"]["target"] = [999]
+        with pytest.raises(posts.PlanPostError, match="PLAN_ALERT_SOURCE_FIELD_CHANGED:target"):
+            validate(updated)
+
+
+def test_dated_ready_result_remains_owed_while_old_publishing_work_still_settles(tmp_path):
+    from test_minute_consumer_cc515 import retained
+    store = ContentOpsDurableStore(tmp_path / "owed.sqlite3")
+    ready = retained(store, "dated-result", kind="result", hours=96)
+    before = store.get_outbox_message(ready["key"])
+    assert cards.settle_pending(store, before, ready, now=NOW) is None
+    assert store.get_outbox_message(ready["key"]) == before
+    attempted = retained(store, "old-attempt", kind="result", hours=96, status="PUBLISHING")
+    settled = cards.settle_pending(store, store.get_outbox_message(attempted["key"]), attempted, now=NOW)
+    assert settled["status"] == "SETTLED" and settled["cause"] == "PUBLISHING_OLDER_THAN_24_HOURS"
 
 
 def test_missing_fields_do_not_hide_available_inputs(five, main_root):

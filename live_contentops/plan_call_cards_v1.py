@@ -139,10 +139,20 @@ def record_line(status):
     if clocks:
         at = min(map(posts._utc, clocks)).astimezone(posts.PUBLIC_TZ)
         since = f"Since {at.day} {at:%b}: "
+    plans = {plan["plan_id"]: plan for plan in status.get("plans", []) if plan.get("plan_id")}
     counts = {result: sum(s["result"] == result for s in scores.values())
-              for result in ("HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED")}
-    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits", "NOT_TRIGGERED": "not triggered"}
-    parts = [f"{count} {labels[result]}" for result, count in counts.items() if count]
+              for result in ("HIT", "STOPPED", "EXPIRED")}
+    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits"}
+    parts = [f"{counts[result]} {label}" for result, label in labels.items() if counts[result]]
+    no_entries = {}
+    for score in scores.values():
+        if score["result"] == "NOT_TRIGGERED":
+            source = score
+            if entry_condition_facts(score)[0] is None:
+                source = plans.get(score.get("plan_id"), score)
+            words = no_entry_words(source)
+            no_entries[words] = no_entries.get(words, 0) + 1
+    parts.extend(f"{words}: {count}" for words, count in no_entries.items())
     return f"{since}{len(scores)} calls judged: " + ", ".join(parts) + "."
 
 
@@ -355,13 +365,42 @@ def _run_summary(row, lead, limit):
     return lead + "\n\n" + "\n\n".join(blocks)
 
 
+def entry_condition_facts(plan):
+    """Read Main's explicit zone-touch and blocking-cause fields."""
+    outcome = plan.get("outcome") or {}
+    sources = (outcome, outcome.get("score") or {}, plan)
+    traded = next((source["entry_condition_traded"] for source in sources
+                   if isinstance(source.get("entry_condition_traded"), bool)), None)
+    cause = next((source[key] for key in ("first_blocking_cause", "first_cause") for source in sources
+                  if isinstance(source.get(key), str) and source[key]), None)
+    return traded, cause
+
+
+def no_entry_words(plan):
+    traded, cause = entry_condition_facts(plan)
+    if traded is False:
+        return "price did not reach the entry zone"
+    if traded is True:
+        words = "price reached the entry zone, but no position was opened"
+        category = re.sub(r"[\s-]+", "_", (cause or "").upper())
+        if category in {"SOFTWARE_OR_PROCESS_DEFECT", "PROTECTION_OR_RECONCILIATION_BLOCK"}:
+            words += " because of a fault on our side"
+        return words
+    return "the entry window ended with no entry"
+
+
 def ending_words(row):
-    if row.get("triggered_not_traded"):
-        return "triggered, not traded"
-    if row.get("untriggered"):
-        direction = row.get("direction_correct")
-        return ("not triggered; price then went our way" if direction is True else
-                "not triggered; price then went against us" if direction is False else "not triggered")
+    source = row.get("outcome_source_plan") or row.get("source_plan") or row
+    outcome = source.get("outcome") or {}
+    not_executed = (row.get("not_executed") is True or outcome.get("not_executed") is True
+                    or (outcome.get("score") or {}).get("not_executed") is True)
+    if row.get("untriggered") or row.get("triggered_not_traded") or row.get("result") == "NOT_TRIGGERED" or not_executed:
+        words = no_entry_words(source)
+        market_path = {"HIT": "hit the target", "STOPPED": "reached the invalidation level",
+                       "EXPIRED": "ended at the time exit"}
+        if not_executed and row.get("result") in market_path:
+            words += "; the market path " + market_path[row["result"]]
+        return words
     if row.get("result") == "HIT":
         if "TIME_EXIT" in str(row.get("score_basis") or ""):
             return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
@@ -395,20 +434,54 @@ def _result_rows(export):
                        or score.get("triggered") is False or score.get("result") == "NOT_TRIGGERED")
         not_traded = (score.get("execution_state") == "TRIGGERED_NOT_TRADED"
                       or outcome.get("first_cause") == "TRIGGERED_NOT_TRADED")
-        if not scored and not untriggered and not not_traded:
+        not_executed = outcome.get("not_executed") is True or score.get("not_executed") is True
+        if not scored and not untriggered and not not_traded and not not_executed:
             continue  # A watch ending does not establish that an open model trade closed.
         correction = score.get("corrects_outcome_id")
+        traded, cause = entry_condition_facts(raw)
         identity = f"{raw['plan_id']}|RESULT" + (f"|{score.get('outcome_id')}" if correction else "")
         result.append({"key": "plan-result-post-" + hashlib.sha256(identity.encode()).hexdigest()[:32],
             "plan_id": raw["plan_id"], "symbol": raw["asset_id"], "to": "RESULT", "at_utc": at,
             "kind": "result", "untriggered": untriggered,
             "triggered_not_traded": not_traded,
+            "not_executed": not_executed,
+            "entry_condition_traded": traded, "first_blocking_cause": cause,
             "direction_correct": score.get("direction_correct", score.get("went_our_way")),
             "result": outcome.get("result") or score.get("result") or "NOT_TRIGGERED",
             "scored": scored, "outcome_id": outcome.get("outcome_id"),
             "corrects_outcome_id": correction, "score_hash": score.get("content_hash"),
             "score_basis": score.get("score_basis")})
     return result
+
+
+def _refresh_unissued_no_entry_result(store, message, result, source):
+    """Correct the same draft before the coordinator has registered any copy."""
+    if message["status"] != posts.READY:
+        return
+    draft = json.loads(message["payload"])
+    legacy_words = draft.get("lead", "").partition(": ")[2]
+    if (draft.get("state_alert_contract") != "CC543_V1"
+            or not legacy_words.startswith(("not triggered", "triggered, not traded"))
+            or not (result["untriggered"] or result["triggered_not_traded"] or result["not_executed"])
+            or source.get("registration_hash") != draft.get("source_plan_registration")):
+        return
+    updated = {**draft, **{field: result[field] for field in (
+        "untriggered", "triggered_not_traded", "not_executed", "result", "scored",
+        "outcome_id", "corrects_outcome_id", "score_hash", "score_basis", "direction_correct",
+        "entry_condition_traded", "first_blocking_cause",
+    )}, "outcome_source_plan": source, "outcome_source_sha256": _hash(source)}
+    from .plan_state_alerts_v1 import validate
+    try:
+        if updated.get("price_basis") is None:
+            updated["price_basis"] = card_plan(updated["source_plan"])["price_basis"]
+        updated.update(compose(updated))
+        validate(updated)
+    except posts.PlanPostError:
+        return  # The existing publisher records the original draft's refusal.
+    store.finalize_outbox_payload_before_dispatch(
+        message_id=draft["key"], status=posts.READY, expected_payload=message["payload"],
+        unissued_work_item_id=draft["key"], payload=json.dumps(updated, sort_keys=True, ensure_ascii=False),
+    )
 
 
 def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False,
@@ -567,6 +640,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         if pid not in sources or row["to"] == "WAITING" or (row["to"] in TERMINAL and pid in ended_plans):
             continue
         if row["key"] in prior:
+            if row["to"] == "RESULT" and not dry_run:
+                _refresh_unissued_no_entry_result(store, prior[row["key"]], row, sources[pid])
             already.append(row["key"])
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":
@@ -594,8 +669,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         # newly supplied alias or revised short id.
         item["short_id"] = card.get("short_id", item["short_id"])
         if card.get("format") == FORMAT:
-            for field in ("levels", "instrument_title", "price_basis", "registered_at_utc"):
+            for field in ("levels", "instrument_title", "registered_at_utc"):
                 item[field] = card.get(field)
+            if kind != "result" or card.get("price_basis") is not None:
+                item["price_basis"] = card.get("price_basis")
         if card.get("thread_contract") == THREAD_CONTRACT:
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
@@ -714,7 +791,9 @@ def settle_pending(store, outbox, row, *, now, root=None):
     from .publication_coordinator_v1 import DurablePublicationCoordinator
     settled = settled_destinations(store, row)
     age = posts._age_minutes(row, now)
-    late = age > posts.LATE_STATE_HOURS * 60
+    # Dated results remain owed (the publication freshness contract). CC-515
+    # still closes an attempted PUBLISHING row after 24 hours and dead parents.
+    late = age > posts.LATE_STATE_HOURS * 60 and not (row.get("kind") == "result" and outbox["status"] == posts.READY)
     confirmed = set()
     resumable = set(_ready_destinations(store, row, root=root)) if not late and row.get("format") == FORMAT else set()
     parent_message = store.get_outbox_message(row["parent_key"]) if row.get("parent_key") else None

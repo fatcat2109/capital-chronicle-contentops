@@ -295,8 +295,8 @@ def test_possibly_sent_child_keeps_readback_while_recent(tmp_path):
 def test_card_budget_goes_to_newest_live_post_after_dead_work_closes(tmp_path, monkeypatch):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     retained(store, "dead", hours=25, parent_key="never-written")
-    old = retained(store, "older", hours=2, kind="setup")
-    new = retained(store, "newest", hours=1, kind="setup")
+    old = retained(store, "older", hours=0.75, kind="setup")
+    new = retained(store, "newest", hours=0.5, kind="setup")
     reached = []
     monkeypatch.setattr(cards, "prepare_post", lambda s,k,**kw: {
         "plan_status_post":k, "destinations":[{"destination":"discord"}],

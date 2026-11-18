@@ -34,6 +34,11 @@ STUB_READER = textwrap.dedent('''
     class PlanStatusError(ValueError):
         pass
 
+    def _seal(value):
+        if value.get("tampered"):
+            raise PlanStatusError("PUBLIC_PLAN_STATUS_SCHEMA_INVALID")
+        return value
+
     def read_public_status(path, *, as_of):
         value = json.loads(Path(path).read_bytes())
         if value.get("tampered"):

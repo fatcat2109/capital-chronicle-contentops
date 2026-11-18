@@ -9,6 +9,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_o
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn
 from live_contentops import v1_simple_gemini_newsroom_v1 as newsroom
+from test_plan_call_cards_cc399 import usdjpy_17_nov, NO_ENTRY_CASES  # noqa: F401
 
 CUTOFF = "2026-11-14T15:00:00Z"
 
@@ -71,7 +72,7 @@ def test_cc394_weekly_overflow_keeps_main_scored_not_triggered():
     data["status"]["scored_call_count"] += 1
     record = weekly.project(data, cutoff_utc=CUTOFF)
     assert len(record["rows"]) == 5 and record["counts"]["scored_calls"] == 5
-    assert "not triggered." in record["text"]
+    assert "the entry window ended with no entry." in record["text"]
     assert "not-entered" in {r["plan_id"] for r in record["rows"]}
 
 
@@ -85,10 +86,77 @@ def test_cc394_weekly_overflow_keeps_legacy_expiry_without_inflating_scored_coun
     record = weekly.project(data, cutoff_utc=CUTOFF)
     assert len(record["rows"]) == 5 and record["counts"]["scored_calls"] == 4
     assert record["counts"]["unscored_expiries"] == 1
-    assert "expired without entry; not scored." in record["text"]
+    assert "the entry window ended with no entry; not scored." in record["text"]
     document = weekly.document(record, "SOURCE_1")
     assert document["weekly_scored_calls"] == record
     assert document["published_at_utc"] == CUTOFF
+
+
+@pytest.mark.parametrize("traded,cause,expected", NO_ENTRY_CASES[:7])
+@pytest.mark.parametrize("scored_result", [False, True])
+def test_usdjpy_17_nov_weekly_record_uses_main_entry_facts(
+        usdjpy_17_nov, traded, cause, expected, scored_result):
+    raw = usdjpy_17_nov
+    at = "2026-11-17T07:00:26.003455Z"
+    cutoff = "2026-11-21T15:00:00Z"
+    if scored_result:
+        raw["outcome"] = scored(raw["plan_id"], "NOT_TRIGGERED", at, asset="USDJPY", known=at)["outcome"]
+    if traded is not None:
+        raw["outcome"]["entry_condition_traded"] = traded
+    if cause is not None:
+        raw["outcome"]["first_blocking_cause"] = cause
+    data = {"status": {"generated_at_utc": "2026-11-17T09:14:47.021964Z", "content_hash": "a" * 64,
+                       "scored_call_count": int(scored_result), "plans": [raw]},
+            "transitions": {"transitions": [{"plan_id": raw["plan_id"], "status": "EXPIRED", "at_utc": at}]}}
+    record = weekly.project(data, cutoff_utc=cutoff)
+    row, = record["rows"]
+    assert expected in row["line"] and "not triggered" not in record["text"].lower()
+    assert "USD/JPY" in row["line"] and "159.02–159.38" in row["line"]
+    assert row["scored"] is scored_result and record["counts"]["scored_calls"] == int(scored_result)
+    doc = weekly.document(record, "SOURCE_1")
+    article, validation = newsroom._validate_article_against_source_pack(article_for(doc), [doc])
+    assert validation["status"] == "PASS"
+    reader = newsroom._reader_safe_native_article(article, article_mode="STANDARD_NEWS_ANALYSIS")
+    assert expected in reader["substack_body_markdown"]
+
+
+@pytest.mark.parametrize("result,words", [("HIT", "hit the target"),
+                                         ("STOPPED", "reached the invalidation level"),
+                                         ("EXPIRED", "ended at the time exit")])
+def test_cc648_market_path_score_keeps_unexecuted_call_in_weekly_record(usdjpy_17_nov, result, words):
+    raw = usdjpy_17_nov
+    at = "2026-11-17T07:00:26.003455Z"
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    raw["outcome"] = scored(raw["plan_id"], result, at, asset="USDJPY", known=at)["outcome"]
+    raw["outcome"].update(not_executed=True)
+    raw["outcome"]["score"].update(not_executed=True,
+        score_basis="NOT_EXECUTED_MARKET_PATH_WORST_IN_BOUNDS", first_blocking_cause="software or process defect")
+    data = {"status": {"generated_at_utc": at, "content_hash": "a" * 64, "scored_call_count": 1, "plans": [raw]},
+            "transitions": {"transitions": []}}
+    record = weekly.project(data, cutoff_utc="2026-11-21T15:00:00Z")
+    row, = record["rows"]
+    assert row["result"] == result and row["scored"]
+    assert "price reached the entry zone, but no position was opened because of a fault on our side" in row["line"]
+    assert "; the market path " + words in row["line"] and "not triggered" not in record["text"].lower()
+    assert record["counts"] == {"scored_calls": 1, "hits": int(result == "HIT"), "stops": int(result == "STOPPED")}
+    doc = weekly.document(record, "SOURCE_1")
+    article, validation = newsroom._validate_article_against_source_pack(article_for(doc), [doc])
+    assert validation["status"] == "PASS" and words in article["substack_body_markdown"]
+
+
+def test_cc648_pending_market_path_score_keeps_usdjpy_as_unscored(usdjpy_17_nov):
+    raw = usdjpy_17_nov
+    at = "2026-11-17T07:00:26.003455Z"
+    raw.update(entry_condition_traded=True, first_blocking_cause="software or process defect")
+    raw["outcome"].update(state="UNAVAILABLE", not_executed=True, first_cause="OUTCOME_MARKET_PATH_NOT_RETAINED")
+    data = {"status": {"generated_at_utc": at, "content_hash": "a" * 64, "scored_call_count": 0, "plans": [raw]},
+            "transitions": {"transitions": [{"plan_id": raw["plan_id"], "status": "EXPIRED", "at_utc": at}]}}
+    record = weekly.project(data, cutoff_utc="2026-11-21T15:00:00Z")
+    row, = record["rows"]
+    assert row["plan_id"] == raw["plan_id"] and not row["scored"]
+    assert "price reached the entry zone, but no position was opened because of a fault on our side; not scored." in row["line"]
+    assert "not triggered" not in record["text"].lower()
+    assert record["counts"] == {"scored_calls": 0, "hits": 0, "stops": 0, "unscored_expiries": 1}
 
 
 @pytest.mark.parametrize("change", ["count", "duplicate", "score", "direction", "zone"])
@@ -206,6 +274,10 @@ def test_ordinary_articles_and_historical_frozen_wraps_stay_byte_stable(tmp_path
 
 @pytest.mark.parametrize("bad_copy", ["Gold is bearish.", "Gold was bearish.",
     "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; open.",
+    "Tue 17 Nov ET: USD/JPY; original direction was bearish; price reached the entry zone.",
+    "Tue 17 Nov ET: USD/JPY; original direction was bearish; the entry window ended with no entry. USD/JPY is bearish.",
+    "Tue 17 Nov ET: USD/JPY; original direction was bearish; price reached the entry zone, but no position was opened. Account number 123456.",
+    "Tue 17 Nov ET: USD/JPY; original direction was bearish; price reached the entry zone, but no position was opened; the market path is bearish.",
     "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; stopped. Gold is bullish.",
     "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; stopped. Account number 123456."])
 def test_resolved_call_exception_still_refuses_new_calls_and_account_details(bad_copy):

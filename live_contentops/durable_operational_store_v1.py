@@ -1166,7 +1166,7 @@ class ContentOpsDurableStore:
 
     def finalize_outbox_payload_before_dispatch(
         self, *, message_id: str, payload: str, status: str = "READY",
-        expected_payload: str | None = None,
+        expected_payload: str | None = None, unissued_work_item_id: str | None = None,
     ) -> Dict[str, Any]:
         """Finalize dependency-bound bytes only while no dispatch marker exists.
 
@@ -1174,6 +1174,8 @@ class ContentOpsDurableStore:
         when the master plan is registered, but exact final payload bytes must be durable before
         the adapter boundary.  Once any dispatch row exists the payload is immutable.
         With expected_payload, finalize only the exact payload still in the requested status.
+        With unissued_work_item_id, a master draft remains editable only until a
+        child outbox message is registered under that work item.
         """
         conn = self.get_connection()
         try:
@@ -1184,6 +1186,12 @@ class ContentOpsDurableStore:
             if row is None:
                 raise WorkItemNotFoundError(f"outbox message {message_id} not found")
             if expected_payload is not None and (row["payload"] != expected_payload or row["status"] != status):
+                conn.execute("COMMIT")
+                return dict(row)
+            if unissued_work_item_id is not None and conn.execute(
+                "SELECT 1 FROM outbox_messages WHERE work_item_id=? AND message_id<>? LIMIT 1",
+                (unissued_work_item_id, message_id),
+            ).fetchone() is not None:
                 conn.execute("COMMIT")
                 return dict(row)
             marker = conn.execute(

@@ -74,7 +74,7 @@ def compose(row):
         lines = [lead, "Updated " + at + ".",
                  "Entry zone: " + cards.level(plan["zone_low"], plan) + "–" + cards.level(plan["zone_high"], plan) + ".",
                  "Invalidation: " + cards.level(plan["invalidation_level"], plan) + "."]
-        value = result_r(row.get("source_plan") or {}) if row["kind"] == "result" else None
+        value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {}) if row["kind"] == "result" else None
         if value is not None:
             lines.append(f"Result: {value:+.1f}R.")
     if row.get("price_basis") == "plan" and not thread:
@@ -111,7 +111,12 @@ def validate(row):
                 or outcome_source.get("registration_hash") != raw.get("registration_hash")):
             raise posts.PlanPostError("PLAN_ALERT_OUTCOME_SOURCE_REGISTRATION_CHANGED")
     expected = card_plan(raw)
-    for field in ("direction", "zone_low", "zone_high", "invalidation_level", "target", "valid_until_utc"):
+    fields = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
+    # Older setup cards omitted the target. Their result can keep that omission,
+    # but any level the result actually prints still has to match its source.
+    if row["kind"] != "result" or row["levels"].get("target") is not None:
+        fields += ("target",)
+    for field in fields:
         if row["levels"].get(field) != expected.get(field):
             raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
     if row.get("thread_contract") == "CC549_V1":
