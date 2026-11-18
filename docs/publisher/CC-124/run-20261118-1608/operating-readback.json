@@ -1,0 +1,201 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-18T09:22:14.385898+00:00",
+  "production_day_id": "newsroom-production-day-2026-11-18-bangkok",
+  "production_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "rollout_public_write_authority": true,
+  "verified_canonical_count_standing_consumer": 0,
+  "verified_canonical_count_production_day_consumer": 0,
+  "confirmed_canonical_count_digest_consumer_today": 0,
+  "published_feed_articles_today": 0,
+  "article_cap": 2,
+  "article_slots_in_use": 0,
+  "publication_feed_before": {
+    "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553",
+    "size_bytes": 30621
+  },
+  "publication_feed_after": {
+    "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553",
+    "size_bytes": 30621
+  },
+  "publication_feed_unchanged_during_readback": true,
+  "active_leases": [],
+  "retained_standing_dispatch_counts": [
+    {
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "facebook_page",
+      "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+      "count": 1
+    },
+    {
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "instagram_business",
+      "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+      "count": 2
+    },
+    {
+      "platform": "linkedin",
+      "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+      "count": 2
+    },
+    {
+      "platform": "linkedin",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 8
+    },
+    {
+      "platform": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "count": 4
+    },
+    {
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "telegram",
+      "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+      "count": 1
+    },
+    {
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 14
+    },
+    {
+      "platform": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "count": 1
+    },
+    {
+      "platform": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "count": 13
+    },
+    {
+      "platform": "youtube",
+      "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY",
+      "count": 1
+    }
+  ],
+  "unresolved_standing_dispatches": [],
+  "new_native_reports_after_source_assessment": [],
+  "operating_consumer_modules": [
+    {
+      "path": "live_contentops/main_report_projection_source_v1.py",
+      "sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106",
+      "size_bytes": 18677,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/reader_article_contract_v1.py",
+      "sha256": "107784b3a4966c76046579458679f0d0c5c844b8f3ff9039219072e2cd6425c0",
+      "size_bytes": 16584,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/native_finished_publication_v1.py",
+      "sha256": "6c8cb908ec1f918bb8ad61d7db9441581b2b57ac38b021a4c460004dfbe8ad07",
+      "size_bytes": 17625,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/newsroom_production_day_v1.py",
+      "sha256": "6d44a270001331e61601d0a7e6d8377df71c7506ed84e6dcd9811013f1f01a6b",
+      "size_bytes": 30143,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/published_content_v1.py",
+      "sha256": "9f2b751488a8f7588e9cf77dc2f2eb7b5438c81f0f75a44eeb59ba33e20e5327",
+      "size_bytes": 23264,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/published_corpus_read_model_v1.py",
+      "sha256": "a6f89fefce23f36b918ae3a792b19904688f50883b19f3375f1e071e7082320e",
+      "size_bytes": 16437,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/published_images_v1.py",
+      "sha256": "d99abb60b9620de888f99a0da50ca272eb4106dbfa28a32fccae8f04ec2f1930",
+      "size_bytes": 14313,
+      "matches_builder": true
+    },
+    {
+      "path": "live_contentops/substack_daily_digest_v1.py",
+      "sha256": "ba72256f06c8a8fded4c6059a1033cc165c2f645c689eeb1cfbbea29e0f3e2fc",
+      "size_bytes": 22981,
+      "matches_builder": true
+    }
+  ],
+  "inherited_modified_files": {
+    "builder": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "size_bytes": 992508
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "size_bytes": 10337
+      }
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+        "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "size_bytes": 3959
+      },
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+        "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "size_bytes": 19341
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+        "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "size_bytes": 39129
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+        "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "size_bytes": 6166
+      },
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "sha256": "ccf45b5209652928aafc5adc68634fb00a7ce34449d138ee4c909788afa3bb1d",
+        "size_bytes": 1500243
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "sha256": "84dccd5cc0f1e8414d6f38c065d968ed9b5f36c4c0ac7cde2fcca27fbbceb474",
+        "size_bytes": 78026
+      }
+    }
+  },
+  "inherited_fingerprints_observed_at_utc": "2026-11-18T09:24:08.835542+00:00"
+}
