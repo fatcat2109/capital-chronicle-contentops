@@ -410,7 +410,7 @@ def _local_quote_preclick_failure(destination, detail):
     return destination == "x" and detail.get("status") == DEFINITE_NO_WRITE and cause in {
         "CC467_QUOTED_SOURCE_OR_CHART_MISSING", "CC467_QUOTE_CARD_NOT_VERIFIED",
         "CC467_CHART_PREVIEW_NOT_LOADED", "CC467_SOURCE_OUTSIDE_FIVE_MINUTES",
-        "CC467_QUOTE_PRECLICK_OBSERVATION_FAILED",
+        "CC467_QUOTE_PRECLICK_OBSERVATION_FAILED", "CC467_QUOTE_SUBMIT_NOT_READY",
     }
 
 

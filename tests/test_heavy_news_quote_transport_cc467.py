@@ -44,6 +44,7 @@ def test_handoff_requires_exact_stored_quote_and_proves_edge_instead_of_link(pre
     ("expired", "CC467_SOURCE_OUTSIDE_FIVE_MINUTES", 0),
     ("changed_card", "CC467_QUOTE_CARD_NOT_VERIFIED", 0),
     ("avatar_only", "CC467_CHART_PREVIEW_NOT_LOADED", 0),
+    ("preview_timeout", "CC467_CHART_PREVIEW_NOT_LOADED", 0),
     ("lost_click_return", "CC467_QUOTE_CLICK_RETURN_INCOMPLETE", 1),
     (None, "CLICKED", 1),
 ])
@@ -54,7 +55,7 @@ def test_actual_final_submit_program_checks_deadline_and_card_before_its_only_cl
     program = """
 const fs=require('fs');const input=JSON.parse(process.argv[2]);
 const {fault, ...request}=input;
-let clicked=0, label='Post';
+let clicked=0, label='Post', chartReady=false;
 const visible={getClientRects:()=>[{}]};
 const tweet=fault==='changed_card'?'Different.':'Bound headline.';
 const clock={getAttribute:()=>request.quote_parent.source_posted_at_utc};
@@ -64,11 +65,12 @@ const card={...visible,innerText:'@FirstSquawk',getAttribute:()=>'button',contai
 const chart={...visible,complete:true,naturalWidth:1400};
 const submit={...visible,disabled:false,getAttribute:()=>null,setAttribute:(_,name)=>{label=name;}};
 const dialog={querySelector:()=>submit,querySelectorAll:selector=>selector.startsWith('[data-testid="attachments"]')
-  ? (fault==='avatar_only'&&selector.includes('blob:')?[]:[chart]) : [card]};
+  ? (chartReady&&fault!=='avatar_only'?[chart]:[]) : [card]};
 const editor={...visible,innerText:'Bound text.',closest:()=>dialog};
 const document={querySelectorAll:()=>[editor]};
 const page={snapshot:async()=>({refs:[{role:'button',name:label,ref:'submit'}]}),
-  evaluateInPage:async(fn,args)=>({value:fn(args)}),waitForSelector:async()=>({matched:true}),
+  evaluateInPage:async(fn,args)=>({value:fn(args)}),waitForSelector:async selector=>{
+    if(selector.includes('blob:'))chartReady=fault!=='preview_timeout';return {matched:chartReady};},
   click:async ref=>{if(ref!=='submit')throw Error('Wrong submit control');clicked++;
     if(fault==='lost_click_return')throw Error('Lost return');}};
 const fn=new (Object.getPrototypeOf(async function(){}).constructor)('input','page','document',fs.readFileSync(process.argv[1],'utf8'));

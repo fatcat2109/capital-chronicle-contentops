@@ -393,14 +393,18 @@ const quoteCard = async (parent, publicUrl, posts) => unwrap(await page.evaluate
     const enabled = !!submit?.getClientRects().length && !submit.disabled && submit.getAttribute('aria-disabled') !== 'true';
     const reason = !editor || data.posts.length !== 1 || normalizeCopy(text) !== normalizeCopy(data.posts[0])
       ? 'NEO_COMPOSER_PAYLOAD_MISMATCH' : !matches ? 'CC467_QUOTE_CARD_NOT_VERIFIED'
-      : !chart ? 'CC467_CHART_PREVIEW_NOT_LOADED' : !enabled ? 'NEO_SUBMIT_NOT_READY' : null;
+      : !chart ? 'CC467_CHART_PREVIEW_NOT_LOADED' : !enabled ? 'CC467_QUOTE_SUBMIT_NOT_READY' : null;
     if (!reason && submit.getAttribute('aria-label') !== 'CC467 quote Post') {
       submit.setAttribute('aria-label','CC467 quote Post');
     }
     return {...observed, chart_loaded:!!chart, reason_code:reason, pre_click_posts:editor ? [text] : []};
   }, {parent, publicUrl, posts}));
 
+const waitForQuotePreview = timeout => page.waitForSelector(
+  '[role="dialog"] [data-testid="attachments"] img[src^="blob:"]', {timeout});
+
 if (input.phase === 'quote_card') {
+  if (input.posts) await waitForQuotePreview(6000);
   return await quoteCard(input.quote_parent, input.public_url, input.posts);
 }
 
@@ -412,12 +416,16 @@ if ((input.phase === 'publish' || input.phase === 'validate') && input.quote_par
   if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES');
   let observed, button;
   try {
+    const preview = await waitForQuotePreview(Math.min(6000, Math.max(1, deadline - Date.now())));
+    if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES');
+    if (!preview.matched) return refused('CC467_CHART_PREVIEW_NOT_LOADED');
     await page.waitForSelector('[role="dialog"] button[data-testid="tweetButton"]:not(:disabled):not([aria-disabled="true"])',
       {timeout:Math.min(6000, Math.max(1, deadline - Date.now()))});
+    if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES');
     observed = await quoteCard(input.quote_parent, null, input.posts);
     if (observed.reason_code) return refused(observed.reason_code, observed.pre_click_posts);
     button = find(await snap(), 'button', 'CC467 quote Post');
-    if (!button) return refused('NEO_SUBMIT_NOT_READY', observed.pre_click_posts);
+    if (!button) return refused('CC467_QUOTE_SUBMIT_NOT_READY', observed.pre_click_posts);
     observed = await quoteCard(input.quote_parent, null, input.posts);
     if (observed.reason_code) return refused(observed.reason_code, observed.pre_click_posts);
   } catch (_) {
