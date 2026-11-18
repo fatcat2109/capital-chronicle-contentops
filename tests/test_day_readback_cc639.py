@@ -243,6 +243,28 @@ def test_http_text_comparison_accepts_a_link_label_with_the_exact_target():
     assert result["first_line_matches"] is True and result["links_match"] is True
 
 
+@pytest.mark.parametrize("reply_complete", [True, False])
+def test_telegram_reply_embed_uses_its_own_text_and_links(reply_complete):
+    canonical = "https://capitalchronicle.substack.com/p/source"
+    full_reply = f'Reply first line.<br>Second sentence. <a href="{canonical}">Read the analysis</a>'
+    quote = "The parent post's text." if reply_complete else full_reply
+    reply = full_reply if reply_complete else "Reply first line."
+    html = f"""
+    <div class="tgme_widget_message">
+      <a class="tgme_widget_message_reply" href="https://t.me/CapitalChronicle/202">
+        <div class="tgme_widget_message_text">{quote}</div>
+      </a>
+      <div class="tgme_widget_message_text js-message_text">{reply}</div>
+    </div>
+    """
+    result = readback.check_public_text("telegram", html,
+        expected_text=f"Reply first line.\nSecond sentence. {canonical}")
+    assert result["first_line_matches"] is True
+    assert result["text_complete"] is reply_complete
+    assert result["links_match"] is reply_complete
+    assert result["exceptions"] == ([] if reply_complete else ["PUBLIC_TEXT_CUT_OFF", "PUBLIC_LINK_MISSING"])
+
+
 def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys):
     from scripts import run_day_readback as cli
     data, store, feed, run = recorded

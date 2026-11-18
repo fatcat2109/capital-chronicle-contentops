@@ -237,7 +237,9 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
     body = None
     attachments = ()
     if platform == "telegram":
-        body = next((n for n in nodes if "tgme_widget_message_text" in n.attrs.get("class", "").split()), None)
+        # Reply embeds show the quoted parent before the reply's own text.
+        body = next((n for n in reversed(nodes)
+                     if "tgme_widget_message_text" in (n.attrs.get("class") or "").split()), None)
     elif platform == "substack_notes":
         # Substack's public permalink scopes the root Note separately from replies.
         permalink = next(_with_class_prefix(nodes, "feedPermalinkUnit-"), None)
