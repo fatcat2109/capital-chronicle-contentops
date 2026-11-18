@@ -113,7 +113,7 @@ scripts cannot send a chat message by assertion. Retained `news-read`/`news-expo
 views are read-only views, not independent task runs or new notification sources.
 
 Run the actual assigned native roles: only new admissible X records need Luna MAX;
-Sol6.1 low selects the angle/mode and evidence plan; Sol6.1 max writes canonical prose/SEO
+Sol6.2 low selects the angle/mode and evidence plan; Sol6.2 max writes canonical prose/SEO
 under the exact institutional packet. Native subagents may perform these assigned roles.
 For EVERY spawn/follow-up, apply
 `docs/automation/CONTENTOPS_BUILDER_SUBAGENT_COMPLETION_HANDOFF_RULE_V1.md` and bind the

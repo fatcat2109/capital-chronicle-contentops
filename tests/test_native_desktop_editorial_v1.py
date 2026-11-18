@@ -231,7 +231,7 @@ def test_paused_rollout_and_active_authority_match_native_target():
             "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
             "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md"):
         text = (root / name).read_text(encoding="utf-8")
-        assert "NATIVE_CODEX_DESKTOP" in text and "gpt-6.1-sol" in text
+        assert "NATIVE_CODEX_DESKTOP" in text and "gpt-6.2-sol" in text
 
 
 def test_native_request_rechecks_pause_before_next_stage(tmp_path, monkeypatch):

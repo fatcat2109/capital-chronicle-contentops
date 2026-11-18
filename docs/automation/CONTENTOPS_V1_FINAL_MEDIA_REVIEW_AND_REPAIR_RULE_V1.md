@@ -9,8 +9,8 @@ Owner messages: `01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a` (mandatory MAX review),
 ## Permanent obligation and current model
 
 Every V1 article must receive actual final rendered-media review before publication.
-The currently required native editor/reviewer is **GPT-6.1 Sol MAX**:
-`gpt-6.1-sol`, reasoning effort `max`. The same MAX writer/editor owns direct repairs.
+The currently required native editor/reviewer is **GPT-6.2 Sol MAX**:
+`gpt-6.2-sol`, reasoning effort `max`. The same MAX writer/editor owns direct repairs.
 This obligation applies to owner-manual and scheduled production, canonical articles,
 their actual derivative media, and later material revisions. It survives completion of
 the current goal, future chats, source releases and model upgrades.

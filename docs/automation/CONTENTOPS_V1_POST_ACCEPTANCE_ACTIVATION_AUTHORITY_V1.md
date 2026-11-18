@@ -3,7 +3,7 @@
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.
-After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.1-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard/restart or arbitrary one-repair ceiling for recoverable defects. Missing external source/rights/access remains an exact resumable affected-article constraint.
+After final assembly the SAME actual designated strongest native editor/writer, currently gpt-6.2-sol/max, inspects the exact rendered canonical/channel desktop/mobile pixels and source-bound visual meaning, then directly repairs concrete defects, re-renders affected outputs and checks the correction. Preserve valid article/intake/returns/assets; no discard/restart or arbitrary one-repair ceiling for recoverable defects. Missing external source/rights/access remains an exact resumable affected-article constraint.
 Existing native request/return and article-review owners bind actual model/effort/invocation, article/media/render revision and findings. The sole publisher rejects missing/stale/wrong-model acceptance or unresolved material issues before a fresh send; UNKNOWN_WRITE recovery remains readback-first. Planning/settings/tests do not prove inspection. Later approved stronger models may replace the active editorial assignment consistently; the review-and-repair obligation is permanent. V2/V3 remain paused.
 
 
@@ -25,8 +25,8 @@ Jim's human instruction in assigned L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be
 This scoped applied amendment supersedes the older PAUSED_NOT_DEPLOYED and missing-activation-grant wording below. It does not authorize public writes, draft/upload actions, new windows, paid model paths or V2/V3. Runtime recovery PR93 is merged/installed at `cbfa1e8f`: the same hidden FDA-G task owns lifetime, Windows telemetry readers/writers share a lock, and an actual task-owned capture added six headlines. Final14:33UTC readback verifies one owner/API8765, SHADOW_ONLY/version37 and no new dispatch/provider calls. Original failure/cadence remain evidence; future reliability is unproven. The21:00task triggered but stopped before filtering under stale root pause wording; L2 must align that shared wording and preserve the same pending binding. [Recovery evidence and exact next action](CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md).
 
 Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, with the owner-approved three-stage method:
-Luna/Terra MAX filters X headlines; `gpt-6.1-sol / low` (Light) selects content and prepares data;
-`gpt-6.1-sol / max` writes the article and SEO/house-style package, including a bounded useful revision.
+Luna/Terra MAX filters X headlines; `gpt-6.2-sol / low` (Light) selects content and prepares data;
+`gpt-6.2-sol / max` writes the article and SEO/house-style package, including a bounded useful revision.
 Read `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md` for exact role,
 source/tool, style and checkpoint rules. This target supersedes the earlier Sol-low-only method;
 the Goal24 isolated proof remains evidence for its older configuration, not this complete pipeline.

@@ -3,7 +3,7 @@
 Authority date: 2026-10-20. Descriptive source map; root authority and exact host evidence govern.
 
 Target source owner: `NATIVE_CODEX_DESKTOP`; Luna/Terra MAX filters X headlines,
-`gpt-6.1-sol / low` selects content/prepares data, and `gpt-6.1-sol / max` writes. Read
+`gpt-6.2-sol / low` selects content/prepares data, and `gpt-6.2-sol / max` writes. Read
 `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md`; target-method adoption
 does not claim deployed runtime or three-stage model proof.
 The App-owned four windows are prepared and PAUSED; production pause/deployed bytes are unchanged.
