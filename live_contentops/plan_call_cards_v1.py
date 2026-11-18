@@ -475,7 +475,7 @@ def _refresh_unissued_no_entry_result(store, message, result, source):
         if updated.get("price_basis") is None:
             updated["price_basis"] = card_plan(updated["source_plan"])["price_basis"]
         updated.update(compose(updated))
-        validate(updated)
+        validate(updated, store=store)
     except posts.PlanPostError:
         return  # The existing publisher records the original draft's refusal.
     store.finalize_outbox_payload_before_dispatch(
@@ -1153,7 +1153,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import validate as validate_alert
-        validate_alert(row)
+        validate_alert(row, store=store)
     elif row.get("reader_contract") == "CC466_V1":
         from .plan_reader_editorial_v1 import validate_reader_row
         validate_reader_row(store, row)
@@ -1365,7 +1365,7 @@ def validate_parent_intent(store, row, intent):
             raise posts.PlanPostError(refusal[1])
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import validate as validate_alert
-        validate_alert(row)
+        validate_alert(row, store=store)
     elif row.get("reader_contract") == "CC466_V1":
         from .plan_reader_editorial_v1 import validate_reader_row
         validate_reader_row(store, row)
@@ -1542,7 +1542,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             # refused here must leave the delivery slot available to others.
             if row.get("state_alert_contract") == "CC543_V1":
                 from .plan_state_alerts_v1 import validate as validate_alert
-                validate_alert(row)
+                validate_alert(row, store=store)
             if api_done:
                 browser_only += 1
             elif row["kind"] != "run":

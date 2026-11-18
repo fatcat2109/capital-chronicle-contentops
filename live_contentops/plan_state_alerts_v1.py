@@ -95,7 +95,21 @@ def compose(row):
     return {"lead": lead, "text": text, "conditional_calls": calls, "detail_lines": lines[1:]}
 
 
-def validate(row):
+def _inherits_target_omission(row, store):
+    if (store is None or row["kind"] != "result" or row["levels"].get("target") is not None
+            or not row.get("parent_key") or not row.get("source_plan_registration")):
+        return False
+    try:
+        parent = posts._row_payload(store, row["parent_key"])
+    except posts.PlanPostError:
+        return False
+    registration = parent.get("source_plan_registration") or parent.get("source_plan_hash")
+    return (parent.get("kind") == "setup" and parent.get("plan_id") == row["plan_id"]
+            and parent.get("symbol") == row["symbol"] and registration == row["source_plan_registration"]
+            and (parent.get("levels") or {}).get("target") is None)
+
+
+def validate(row, *, store=None):
     """The public geometry and copy must still equal this frozen Main plan."""
     from .plan_call_cards_v1 import card_plan
     raw = row["source_plan"]
@@ -111,14 +125,13 @@ def validate(row):
                 or outcome_source.get("registration_hash") != raw.get("registration_hash")):
             raise posts.PlanPostError("PLAN_ALERT_OUTCOME_SOURCE_REGISTRATION_CHANGED")
     expected = card_plan(raw)
-    fields = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
-    # Older setup cards omitted the target. Their result can keep that omission,
-    # but any level the result actually prints still has to match its source.
-    if row["kind"] != "result" or row["levels"].get("target") is not None:
-        fields += ("target",)
-    for field in fields:
+    for field in ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc"):
         if row["levels"].get(field) != expected.get(field):
             raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
+    # The original post can omit a target. A result can inherit that omission
+    # only from the same frozen setup, never from a changed result payload.
+    if row["levels"].get("target") != expected.get("target") and not _inherits_target_omission(row, store):
+        raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:target")
     if row.get("thread_contract") == "CC549_V1":
         from .plan_reader_copy_v1 import thread_terms
         terms = thread_terms(raw, level_contract=row.get("level_contract"))

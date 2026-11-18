@@ -401,6 +401,11 @@ def test_minute_queue_corrects_only_unissued_legacy_no_entry_copy(
     folder = write(tmp_path / "export", [raw], events, generated_at_utc=now.isoformat())
     assert posts.queue_posts(store, folder, now=now, main_root=main_root)["status"] == "OK"
     setup, = rows(store)
+    assert setup["levels"]["target"]
+    setup["levels"]["target"] = None
+    setup.update(cards.compose(setup))
+    store.finalize_outbox_payload_before_dispatch(message_id=setup["key"],
+        payload=json.dumps(setup, sort_keys=True), status=posts.READY)
     setup_bytes = store.get_outbox_message(setup["key"])["payload"]
     store.set_outbox_status(setup["key"], "PUBLISHED")
 
@@ -410,9 +415,8 @@ def test_minute_queue_corrects_only_unissued_legacy_no_entry_copy(
     write(folder, [ended], events, generated_at_utc=now.isoformat())
     assert posts.queue_posts(store, folder, now=now, main_root=main_root)["status"] == "OK"
     draft, = [row for row in rows(store) if row["kind"] == "result"]
-    assert draft["levels"]["target"]
     # The operating queue held results inherited from setup cards without targets.
-    draft["levels"]["target"] = None
+    assert draft["levels"]["target"] is None
     draft["price_basis"] = None
     draft.update(cards.compose(draft))
     old_lead = "USD/JPY: not triggered."
@@ -441,7 +445,7 @@ def test_minute_queue_corrects_only_unissued_legacy_no_entry_copy(
         assert stored == draft_bytes and store.get_outbox_message(child)["payload"] == draft_bytes
     else:
         updated = json.loads(stored)
-        validate(updated)
+        validate(updated, store=store)
         assert updated["at_utc"] == draft["at_utc"] and updated["levels"] == draft["levels"]
         assert updated["price_basis"] == "plan"
         assert updated["outcome_source_plan"] == ended
@@ -450,7 +454,7 @@ def test_minute_queue_corrects_only_unissued_legacy_no_entry_copy(
         assert all("not triggered" not in copy["full_text"].lower() for copy in copies.values())
         updated["levels"]["target"] = [999]
         with pytest.raises(posts.PlanPostError, match="PLAN_ALERT_SOURCE_FIELD_CHANGED:target"):
-            validate(updated)
+            validate(updated, store=store)
 
 
 def test_dated_ready_result_remains_owed_while_old_publishing_work_still_settles(tmp_path):
