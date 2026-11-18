@@ -1,0 +1,38 @@
+{
+  "decision": "ACCEPT",
+  "text_approved_at_utc": "2026-11-18T11:38:40.681138+00:00",
+  "article_sha256": "af517f9840a0d02d1a25d77cbe494e3e840eecbf870d0bb51cc183ecf924f710",
+  "reviewed_render_article_sha256": "bd37640db4b863ee06cba78aac131b462a0c115885bcdce2422b8bc2cef7b12f",
+  "piece_file_sha256": "670f19bc467ee9b263bacf575f71e6ff82f2b9fba3136fc793bfdd693e73f80f",
+  "writer": {
+    "pid": 11116,
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags, no inference-time telemetry",
+    "invocation_id": "exec-pid11116-20261118T110026Z",
+    "operation": "cc536-measured-odds-4",
+    "role": "source-bound writing, editing and final rendered review",
+    "preparation_role": {
+      "task": "/root/piece4_light",
+      "model": "gpt-6.2-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "artifact": "preparation.json",
+      "artifact_sha256": "e7087360c64ec92edd741749497647083dfce2a1afeab67e83d4aa01f7940ae3"
+    },
+    "final_review_completed_at_utc": "2026-11-18T11:38:40.681138+00:00"
+  },
+  "numbers_verified": 24,
+  "renders_inspected": 18,
+  "render_manifest": "renders/manifest.json",
+  "chart_sha256": "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396",
+  "repair_rounds": 1,
+  "findings": [
+    "Grouped related sentences and clarified that the two equal means were rounded.",
+    "Desktop and phone canonical display the comparison, denominator, sample period, method link, table fingerprint, both notices and original chart.",
+    "All eight desktop and phone channel previews retain the authored summary and figures. X and Threads retain six complete own replies after the root.",
+    "The preview canonical link is replaced by the coordinator after strict Substack confirmation. It never enters a public write.",
+    "The TradingView plot shows only daily candles within the historical sample, plus the two native closing-price averages and the full original credit."
+  ]
+}

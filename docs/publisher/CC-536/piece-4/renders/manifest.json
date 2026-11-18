@@ -1,0 +1,265 @@
+{
+  "renderer": "BrowserOS Neo Chromium print compositor at desktop and phone widths with PDFium raster",
+  "canonical": "Existing plan_substack_neo_v1.body_html and actual live figure position",
+  "channels": "Existing ReportEditorialWorkspace and all eight exact native compiler outputs",
+  "browser_group": "822AD042B0C9C17EFDFA950300A05C3A",
+  "content_inputs": {
+    "canonical.html": "98a832eff6017f585b5afdead07a4f62588ce7f19be3e5c71036d6cc238cb7f1",
+    "channels.html": "0ffd4c4ed734ec23d993c3a5da0c26c9e01612ec6890931232dc3ac77e472695",
+    "workspace.json": "42a01a768dabdff2d1580886f5d538bfb5517cbf8e7c74c838ef38324640e4bf"
+  },
+  "captures": [
+    {
+      "view": "canonical",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-canonical.jpg",
+      "dimensions": [
+        1440,
+        2305
+      ],
+      "bytes": 299008,
+      "sha256": "210348fdcd4268f6ac95dea872d3deea91d52ebe14060de11a243cc0dcacc445"
+    },
+    {
+      "view": "canonical",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-canonical.jpg",
+      "dimensions": [
+        391,
+        2815
+      ],
+      "bytes": 225010,
+      "sha256": "c5007eeb17116aaaa6fa3b2ef1b83e1c0006241554cf0d1f45d0b7035be88fab"
+    },
+    {
+      "view": "telegram",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-telegram.jpg",
+      "dimensions": [
+        1440,
+        1475
+      ],
+      "bytes": 154901,
+      "sha256": "3aff4e5b28740feea116d847618e4eff5a347d287cc17260cc3b9603cd89bcbc"
+    },
+    {
+      "view": "telegram",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-telegram.jpg",
+      "dimensions": [
+        391,
+        1304
+      ],
+      "bytes": 82280,
+      "sha256": "8573920966456467e9c128d81a82f884fc5c7f3c1603b9a43851bb8903fa75ca"
+    },
+    {
+      "view": "x",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-x.jpg",
+      "dimensions": [
+        1440,
+        1843
+      ],
+      "bytes": 176351,
+      "sha256": "8ab3305dff3284fb8707a0348adbe7ca2b64d0acc80eec2d653b33fd613e195e"
+    },
+    {
+      "view": "x",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-x.jpg",
+      "dimensions": [
+        391,
+        1703
+      ],
+      "bytes": 98073,
+      "sha256": "63b0132c4504cfa832ab2005c1286494c2356a7a2918c5d50c8fdc8c8979bb66"
+    },
+    {
+      "view": "discord",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-discord.jpg",
+      "dimensions": [
+        1440,
+        1475
+      ],
+      "bytes": 154722,
+      "sha256": "6fb9166b4e1ebca89a060c6e56f977093ca18ff8dc1ac320e83f4339dc59c2a0"
+    },
+    {
+      "view": "discord",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-discord.jpg",
+      "dimensions": [
+        391,
+        1304
+      ],
+      "bytes": 82027,
+      "sha256": "3c0fb066ba76d4498f7a59e0c39909b74907afc7a670511344508aeca56b9d2e"
+    },
+    {
+      "view": "linkedin",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-linkedin.jpg",
+      "dimensions": [
+        1440,
+        1475
+      ],
+      "bytes": 154693,
+      "sha256": "1b3727d7f7d9aa963835f61a2c9eec595f85c6c3c1bcab4b4d1920078bf9c864"
+    },
+    {
+      "view": "linkedin",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-linkedin.jpg",
+      "dimensions": [
+        391,
+        1304
+      ],
+      "bytes": 82152,
+      "sha256": "a787ded4e0d0e7517301d1aef5af188dcb4e9a5d0ed9061f852d1011d6b6c045"
+    },
+    {
+      "view": "facebook_page",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-facebook_page.jpg",
+      "dimensions": [
+        1440,
+        1475
+      ],
+      "bytes": 155828,
+      "sha256": "c05ddf1d24b90e76b10b96fd3721a13315527abf46f4ffb3a84c984fc7ebe64e"
+    },
+    {
+      "view": "facebook_page",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-facebook_page.jpg",
+      "dimensions": [
+        391,
+        1304
+      ],
+      "bytes": 82925,
+      "sha256": "5c4df04f8257789a793e309c7c15ba8bb0731342ea940b33549c7e38f64ac7ca"
+    },
+    {
+      "view": "instagram_business",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-instagram_business.jpg",
+      "dimensions": [
+        1440,
+        1475
+      ],
+      "bytes": 156341,
+      "sha256": "0b60e3df81b8a3ef8382a197bd6e26878374d90f3f4b8ba7bcb53916d7dcbda8"
+    },
+    {
+      "view": "instagram_business",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-instagram_business.jpg",
+      "dimensions": [
+        391,
+        1304
+      ],
+      "bytes": 83296,
+      "sha256": "ccd00de9376ef5221246d669c43a3b399fa11866a43035efb3f94ab1b22a8217"
+    },
+    {
+      "view": "threads",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-threads.jpg",
+      "dimensions": [
+        1440,
+        1843
+      ],
+      "bytes": 177226,
+      "sha256": "ce51bfe454635374b13a699e06820bfd4d7a41e47c1f9788ae9225907415b213"
+    },
+    {
+      "view": "threads",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-threads.jpg",
+      "dimensions": [
+        391,
+        1703
+      ],
+      "bytes": 98785,
+      "sha256": "5ffe75b758860f6ad88ecb6c783187d0f6795730cf3c6b6091d57ad449dd482b"
+    },
+    {
+      "view": "youtube",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "path": "desktop-youtube.jpg",
+      "dimensions": [
+        1440,
+        1475
+      ],
+      "bytes": 156440,
+      "sha256": "2c14baf687e7dac61fc3b5ae2d30762edbe873095c0bc35c7321b2dfe7b420fc"
+    },
+    {
+      "view": "youtube",
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "mobile-youtube.jpg",
+      "dimensions": [
+        391,
+        1304
+      ],
+      "bytes": 83568,
+      "sha256": "ebb53906ad29f6f95e3766ec916f44612f5c05820797504a171d01a3d7541505"
+    }
+  ]
+}

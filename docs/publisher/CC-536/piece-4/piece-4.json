@@ -57,7 +57,8 @@
     "publisher_identity": "Capital Chronicle",
     "rights_class": "CC_OWN_ANALYSIS",
     "paid": false,
-    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1"
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1",
+    "text_approved_at_utc": "2026-11-18T11:38:40.681138+00:00"
   },
   "number_bindings": [
     {
@@ -204,7 +205,7 @@
     "evidence": "Win32_Process launch flags, no inference-time telemetry",
     "invocation_id": "exec-pid11116-20261118T110026Z",
     "operation": "cc536-measured-odds-4",
-    "role": "same-run article and social writing",
+    "role": "source-bound writing, editing and final rendered review",
     "preparation_role": {
       "task": "/root/piece4_light",
       "model": "gpt-6.2-sol",
@@ -212,6 +213,7 @@
       "status": "CONFIGURED_NOT_OBSERVED",
       "artifact": "preparation.json",
       "artifact_sha256": "e7087360c64ec92edd741749497647083dfce2a1afeab67e83d4aa01f7940ae3"
-    }
+    },
+    "final_review_completed_at_utc": "2026-11-18T11:38:40.681138+00:00"
   }
 }
