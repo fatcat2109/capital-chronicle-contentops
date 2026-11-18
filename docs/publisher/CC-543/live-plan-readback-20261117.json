@@ -1,0 +1,247 @@
+{
+  "item": "CC-543",
+  "observed_at_utc": "2026-11-17T07:10:14.054609+00:00",
+  "top_level_launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "base_operating_head": "3e73c3151f8594191188573b3591c7c49b17677c",
+  "installed_code_head": "d8eea92c63458e896753c07d66a71134b62ad222",
+  "production_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "sqlite_access": "mode=ro; PRAGMA query_only=ON",
+  "main_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "sha256": "66b7786e02653f4e8058f45f4bbe737296e3dd20d0ad43a4aa9a48d50a0aaf90",
+    "generated_at_utc": "2026-11-17T07:10:02.932449Z",
+    "content_hash": "d2492998df0efb2f0d060208c2c72c90c463937ace1031cbf15ebe3cbdad1191",
+    "dated_postinstallation_plan_count": 1,
+    "undated_registration_count": 3,
+    "plan": {
+      "plan_id": "plan_30f3365059e996b2f0d1d79a",
+      "asset_id": "USDJPY",
+      "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+      "registration_hash": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+      "direction": "BEARISH",
+      "zone": {
+        "maximum": 159.38,
+        "minimum": 159.02
+      },
+      "invalidation_conditions": [
+        {
+          "field": "high",
+          "operator": "GTE",
+          "threshold": 160.3
+        }
+      ],
+      "target_level": 158.05,
+      "entry_deadline_utc": "2026-11-17T07:00:00Z",
+      "time_exit_utc": "2026-11-18T18:30:00Z"
+    }
+  },
+  "frozen_alert": {
+    "plan_id": "plan_30f3365059e996b2f0d1d79a",
+    "state": "WAITING",
+    "kind": "setup",
+    "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+    "source_plan_registration": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+    "source_content_hash": "3fefbf65891ab61e7b096f1086f96a16119735ae551644af98420ac3b406eaf9",
+    "source_plan_hash": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+    "state_alert_contract": "CC543_V1",
+    "state_alert_source_sha256": "cc22bc0d32a88a65138a2da33324bd3d7e8cb81b04fa471f1bcb2a238745a4fe",
+    "analysis_first_cause": "CC432_ANALYSIS_PUBLICATION_NOT_SUPPLIED",
+    "analysis_publication": {},
+    "message_id": "plan-status-post-7dc744efd5c6fa801ab5144d9a620a67",
+    "created_at_utc": "2026-11-17T06:29:28.021734+00:00",
+    "payload_sha256": "d10da2a7d2cd9cde35cfffcafed7c2653033db598a949c7b22a78646ececedb9"
+  },
+  "channels": {
+    "telegram": {
+      "dispatch": {
+        "dispatch_id": "dispatch_d8a4afc2944451f654ce5f8d9c7068ca",
+        "message_id": "outbox_d8a4afc2944451f654ce5f8d9c7068ca",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-17T06:29:59.651185+00:00",
+        "public_object_id": "188",
+        "public_object_url": "https://t.me/CapitalChronicle/188",
+        "public_object_url_hash": "bd37b3f18e6b8bd15780dcce8de454e6d22202cccd8c678579afd6ae2a2d6d2e"
+      },
+      "reconciliation": {
+        "reconciliation_id": "reconciliation_d8a4afc2944451f654ce5f8d9c7068ca",
+        "work_item_id": "plan-status-post-7dc744efd5c6fa801ab5144d9a620a67",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-17T06:30:02.132892+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_7090aa7397de397790984ff7712c58fd",
+        "read_at_utc": "2026-11-17T06:30:02.120166+00:00",
+        "identity_match": true,
+        "meaningful_media_visible": true,
+        "observed_public_object_id": "188",
+        "observed_public_object_url": "https://t.me/CapitalChronicle/188",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": false
+      },
+      "intent": {
+        "message_id": "outbox_d8a4afc2944451f654ce5f8d9c7068ca",
+        "status": "DISPATCH_CONFIRMED",
+        "native_text_sha256": "72df826c709abdde0cff75e09af0bf6686192501bc66f50046b71d2937c8a7f1",
+        "media_asset_ids": [
+          "tradingview-plan-bfb517f1cd5760658a5c"
+        ],
+        "bridge_model_call_count": 0
+      },
+      "confirmed_upper_bound_seconds": 78.47158
+    },
+    "discord": {
+      "dispatch": {
+        "dispatch_id": "dispatch_1404d2e6f026834653af26c42b8a4f70",
+        "message_id": "outbox_1404d2e6f026834653af26c42b8a4f70",
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-17T06:29:54.652723+00:00",
+        "public_object_id": "1572136686857748551",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572136686857748551",
+        "public_object_url_hash": "53248c8f9164ce2e98bdf63120a79b1417d6ede432050ee41e0c0cbc3f118017"
+      },
+      "reconciliation": {
+        "reconciliation_id": "reconciliation_1404d2e6f026834653af26c42b8a4f70",
+        "work_item_id": "plan-status-post-7dc744efd5c6fa801ab5144d9a620a67",
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-17T06:29:56.943867+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_c299fe01d28fb94c79832c313df55e21",
+        "read_at_utc": "2026-11-17T06:29:56.929620+00:00",
+        "identity_match": true,
+        "meaningful_media_visible": true,
+        "observed_public_object_id": "1572136686857748551",
+        "observed_public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572136686857748551",
+        "source_status": "SUCCESS",
+        "verified": true,
+        "write_absent": false,
+        "write_exists": true
+      },
+      "intent": {
+        "message_id": "outbox_1404d2e6f026834653af26c42b8a4f70",
+        "status": "DISPATCH_CONFIRMED",
+        "native_text_sha256": "72df826c709abdde0cff75e09af0bf6686192501bc66f50046b71d2937c8a7f1",
+        "media_asset_ids": [
+          "tradingview-plan-bfb517f1cd5760658a5c"
+        ],
+        "bridge_model_call_count": 0
+      },
+      "confirmed_upper_bound_seconds": 73.282555
+    }
+  },
+  "public_telegram": {
+    "data_post": "CapitalChronicle/188",
+    "edited_marker": false,
+    "observed_at_utc": "2026-11-17T07:01:26.202Z",
+    "photo": {
+      "background_image_present": true,
+      "height": 201.8125,
+      "href": "https://t.me/CapitalChronicle/188",
+      "present": true,
+      "width": 358
+    },
+    "public_time": {
+      "canonical_url": "https://t.me/CapitalChronicle/188",
+      "datetime": "2026-11-17T06:30:01+00:00",
+      "display": "13:30",
+      "title": null
+    },
+    "text": "USD/JPY: armed, waiting for price to trade into 159.02–159.38.\nWe are bearish on USD/JPY if price trades into 159.02–159.38. Spot plan cancelled on high at or above 160.3 before entry. Entry can start until Tue 17 Nov, 2:00 AM ET. Filled positions close by Wed 18 Nov, 1:30 PM ET.\nTarget level: 158.05.\nRegistered 17 Nov 01:28 ET.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+    "url": "https://t.me/s/CapitalChronicle?before=189"
+  },
+  "chart": {
+    "media_asset_id": "tradingview-plan-bfb517f1cd5760658a5c",
+    "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-7dc744efd5c6fa801ab5144d9a620a67\\media_assets\\tradingview-ee9652ac81a3afd4-16x9-levels-bfb517f1cd576065.png",
+    "width": 1524,
+    "height": 858,
+    "sha256": "273863f92ae560758f521825c8c4bcb6e6115d9db7c0d7ae0dcf3d1c655a7232",
+    "declared_sha256": "273863f92ae560758f521825c8c4bcb6e6115d9db7c0d7ae0dcf3d1c655a7232",
+    "public_delivery_sha256": "273863f92ae560758f521825c8c4bcb6e6115d9db7c0d7ae0dcf3d1c655a7232",
+    "local_public_hash_continuity": true,
+    "source_provenance": {
+      "caption": "USD/JPY: 1h chart of US dollar / Japanese yen spot (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+      "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+      "source_label": null,
+      "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=60",
+      "status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE"
+    },
+    "manifest_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\plan-status-post-7dc744efd5c6fa801ab5144d9a620a67\\delivery_media_manifest_v1.json",
+    "manifest_sha256": "6577e9b02f042ae683048b6a5aaacc25b3be3c545af288089fbf94a76332d42d",
+    "observed_file_sha256": "273863f92ae560758f521825c8c4bcb6e6115d9db7c0d7ae0dcf3d1c655a7232",
+    "observed_file_bytes": 52755
+  },
+  "consumer_run_log": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261117.jsonl",
+    "immediate_ticks": [
+      {
+        "at_utc": "2026-11-17T06:30:02.317785Z",
+        "phase": "IMMEDIATE_ALERTS",
+        "status": "OK",
+        "cause": null,
+        "export_generated_at_utc": "2026-11-17T06:29:00.735817Z",
+        "publication": "OK",
+        "posts": [
+          {
+            "deferred_destinations": [],
+            "destination_causes": {},
+            "key": "plan-status-post-7dc744efd5c6fa801ab5144d9a620a67",
+            "per_destination": {
+              "discord": "DISPATCH_CONFIRMED",
+              "telegram": "DISPATCH_CONFIRMED"
+            },
+            "status": "PUBLISHING"
+          }
+        ],
+        "line": 462,
+        "line_sha256": "1a00296a6434f19d1b2f83a43244a280a812d0bf9d1f4691ad45c3a2925e00d7"
+      }
+    ],
+    "subsequent_page_state": [
+      {
+        "cause": "ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND",
+        "plan_id": "plan_30f3365059e996b2f0d1d79a",
+        "status": "SOURCE_PAGE_PENDING"
+      }
+    ]
+  },
+  "telegram_latency_seconds": 77.338688,
+  "limit_seconds": 600,
+  "checks": {
+    "installed_code_is_ancestor": true,
+    "first_dated_postinstallation_plan": true,
+    "registration_matches_frozen_alert": true,
+    "alert_contract": true,
+    "public_identity_matches_dispatch": true,
+    "public_text_matches_intent": true,
+    "public_photo_present": true,
+    "chart_bytes_match_manifest": true,
+    "both_apis_use_same_chart": true,
+    "both_api_readbacks_confirmed": true,
+    "public_latency_within_600_seconds": true,
+    "both_api_confirmation_bounds_within_600_seconds": true,
+    "alert_did_not_wait_for_analysis": true,
+    "no_bridge_model_calls": true
+  },
+  "live_latency_acceptance": "PASS",
+  "analysis_reply_live_status": "Not observed: this plan has no confirmed analysis page in the observed records; reply behavior passed the retained and repeated fixture replay.",
+  "replay": {
+    "path": "live-readback-replay-20261117-green.xml",
+    "passed": 7,
+    "failures": 0,
+    "previous_path": "live-readback-replay-20261117.xml",
+    "previous_failure": "Unmocked CC-468 daily Note in the CC-543 minute-entry test; temporary store had no leases table. Fixture now isolates that unrelated path."
+  },
+  "public_writes_by_this_run": 0,
+  "runtime_edits_by_this_run": 0,
+  "schedule_changes_by_this_run": 0,
+  "editorial_model_calls_by_this_run": 0
+}
