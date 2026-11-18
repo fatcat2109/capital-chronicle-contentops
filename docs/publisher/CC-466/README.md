@@ -1,14 +1,13 @@
 # CC-466
 
-The implementation is integrated; acceptance remains incomplete. The
-[17 November readback](#17-november-readback) below supersedes the old AGY timeout
-and signed-R source gaps. This second-stream evidence delivery is
-**BUILT_UNMERGED (Ops review pending)**; it performs no integration or public write.
-The original delivery branch was `backlog/cc-466-forces-first-plan-posts`;
-this continuation uses `backlog/cc-466-plan-readback-20261117-live`. The live and
-rollback tags are `contentops-live-20261112-cc466` and
-`contentops-rollback-20261112-cc466`; `integration.json` records the tested source
-HEAD, exact installed file hashes and preserved unrelated work.
+The first Publisher stream integrated the second-stream handoff and the X reply
+repair on 18 November. Live acceptance awaits a qualifying Main registration.
+See the [18 November operating integration](#18-november-operating-integration)
+for the installed commit, tests, week coverage and public observations.
+
+The original delivery branch was `backlog/cc-466-forces-first-plan-posts`.
+The original live and rollback tags were `contentops-live-20261112-cc466` and
+`contentops-rollback-20261112-cc466`. [Original integration evidence](integration.json).
 
 New plan pages use the analyst's bound original output in nine ordered sections.
 The existing minute consumer prepares them through native Sol 6.1 MAX, then the
@@ -160,3 +159,48 @@ the eligible page/reply path under its current-status and readback rules. It the
 records the canonical page, analysis replies and a qualifying X first-reply link.
 Complete week coverage and analysis-publication speed remain acceptance work;
 this evidence delivery does not mark CC-466 DONE.
+
+## 18 November operating integration
+
+The first stream integrated `628eb490b1edf4de2e7f95a83aefcdc8ebfb7710` onto the
+current Publisher operating branch. The repair is installed at
+`e9866e9a8b19b9b77112074e10e23571fe1c3c71` under
+`contentops-live-20261118-cc466`; `contentops-rollback-20261118-cc466` points to
+`edc57570505b2771d58079dcf9dcea6ad67388d3`. The existing minute publisher uses the
+operating root. Its installed dry run validated 90 retained previews and found
+zero new rows to queue. [Operating evidence](operating-readback-20261118.json).
+
+New X setups use the confirmed Substack page and the existing Antigravity-first
+variant caller before issuing the thread. The chart and stated main and
+alternative scenarios go in the root, the canonical link and both notices in
+the first reply, and the sourced market forces in the second. Further replies
+carry the full conditional terms when needed. The existing coordinator uses the
+original setup identity and freezes the checked alt text in the X request. The
+immediate Telegram and Discord alerts keep their own clock. The replay exercises
+their confirmed intents, the X request binding and the duplicate-link check.
+[Installed thread tests](installed-thread-consumers-20261118.xml) passed 48
+checks. [Installed distribution tests](installed-distribution-regressions-20261118.xml)
+passed 80 checks, including current-state refusals and the prior link routes.
+
+The page-length check now counts the whole editorial page. The retained Bitcoin
+draft has 662 words and 19 source bindings through the installed checks. It had
+558 words in section paragraphs. The live plan is expired. The USD/JPY draft
+still has an unsupported number in its technical section and its plan is also
+expired. Both retain their existing current-state and source checks.
+
+At 14:33:51 GMT+7 the rolling week had 13 six-market plans, 12 expired and one
+closed. Two confirmed canonical pages opened publicly with all nine headings.
+[Gold page](https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry),
+[EUR/USD page](https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong).
+
+The latest USD/JPY [X root](https://x.com/Capitalnicle/status/2122578373813903388)
+showed 89 public views when read on 18 November. Its [first reply](https://x.com/Capitalnicle/status/2122578377056141687)
+contains the alert's call terms. The pre-change sample retains 499 public views.
+The repaired analysis shape still needs its first live readback. Those two
+recorded counts have different ages and formats, and unique reach is unknown.
+
+The prior USD/JPY alert took 174.189 seconds from decision freeze. The full
+analysis speed and complete week coverage remain open. The Main export had
+zero current six-market plans at readback. On the next qualifying registration,
+the Publisher needs the canonical page and the exact X first-reply URL, with
+their separate publication clocks and a dated public-view count.
