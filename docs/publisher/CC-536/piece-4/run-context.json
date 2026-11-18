@@ -1,0 +1,29 @@
+{
+  "item": "CC-536",
+  "piece": 4,
+  "started_at_utc": "2026-11-18T11:00:26Z",
+  "claimed_local": "18 Nov 2026 18:02 GMT+7",
+  "branch": "backlog/cc-536-piece-4-stop-width",
+  "base_operating_head": "4f08d710c1c3cd1bd5157b133726dbd5ef85b348",
+  "fresh_remote_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "top_level_launch": {
+    "pid": 11116,
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags, no inference-time telemetry"
+  },
+  "invocation_id": "exec-pid11116-20261118T110026Z",
+  "preserved_uncommitted_paths": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  ]
+}

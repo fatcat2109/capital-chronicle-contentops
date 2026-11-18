@@ -1,0 +1,218 @@
+{
+  "operation_id": "cc536-measured-odds-4",
+  "stage": "prepare",
+  "assignment_id": "cc536-measured-odds-4:prepare:d8b239b5c769ce2e845995b752503cc650a012604e0fe9649685939c18153058",
+  "role": {
+    "model": "gpt-6.2-sol",
+    "effort": "low",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "observation_limit": "Native runtime model and effort telemetry unavailable in this return."
+  },
+  "source": {
+    "manifest": "source/manifest.json",
+    "manifest_sha256": "d8b239b5c769ce2e845995b752503cc650a012604e0fe9649685939c18153058",
+    "table": "source/desk_odds_v1.json",
+    "table_sha256": "42de028cd9688e9e6a920fb899ead93728e2ddc23dec0adfd80b4bca42bb46f4",
+    "source_check": "source-check.json",
+    "main_path": "data/research/desk-odds/desk_odds_v1.json",
+    "main_tag": "live-20261118-cc663-170312",
+    "main_commit": "63a17b6b5aeaf79e7b5b94c6094cc8d7643cfbe4",
+    "content_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "generated_at_utc": "2026-11-16T06:54:17.399006Z",
+    "retrieved_at_utc": "2026-11-18T11:04:38.805234+00:00"
+  },
+  "angle": "How changing the stop width changed modeled costs and outcomes in the same pooled six-market experiment. Anchor the comparison in the narrow-stop penalty and the small mean R across wider rows.",
+  "basis": {
+    "pointer": "/construction/basis",
+    "value": "All six markets pooled; one trade with the yardstick on every fifth session (trades overlap)."
+  },
+  "sample": {
+    "months": "November 2016 to November 2026",
+    "months_pointer": "/what_this_is",
+    "n_per_width": 1893,
+    "denominator_pointers": [
+      "/construction/stop_width/rows/0/1",
+      "/construction/stop_width/rows/1/1",
+      "/construction/stop_width/rows/2/1",
+      "/construction/stop_width/rows/3/1",
+      "/construction/stop_width/rows/4/1",
+      "/construction/stop_width/rows/5/1",
+      "/construction/stop_width/rows/6/1"
+    ],
+    "market_windows_pointer": "/markets",
+    "market_windows": {
+      "EURUSD": {
+        "pointer": "/markets/EURUSD",
+        "from": "2016-11-14",
+        "through": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:EURUSD=X"
+      },
+      "USDJPY": {
+        "pointer": "/markets/USDJPY",
+        "from": "2016-11-11",
+        "through": "2026-11-09",
+        "series_id": "YAHOO_FINANCE:JPY=X"
+      },
+      "XAUUSD": {
+        "pointer": "/markets/XAUUSD",
+        "from": "2016-11-14",
+        "through": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:GC=F"
+      },
+      "USOIL": {
+        "pointer": "/markets/USOIL",
+        "from": "2016-11-14",
+        "through": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:CL=F"
+      },
+      "US500": {
+        "pointer": "/markets/US500",
+        "from": "2016-11-14",
+        "through": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:ES=F"
+      },
+      "BTCUSD": {
+        "pointer": "/markets/BTCUSD",
+        "from": "2016-11-12",
+        "through": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:BTC-USD"
+      }
+    }
+  },
+  "stop_width": {
+    "note_pointer": "/construction/stop_width/note",
+    "note": "Target 2R, up to 5 sessions. The cost is a fixed part of a normal day, so it weighs more on a tight stop. both_in_one_bar: stop and target lay inside one daily bar and the stop was taken, so a tight stop's result is a floor.",
+    "columns_pointer": "/construction/stop_width/columns",
+    "columns": [
+      "stop_normal_days",
+      "n",
+      "mean_r",
+      "win_share",
+      "stopped_share",
+      "both_in_one_bar_share",
+      "cost_r"
+    ],
+    "rows": [
+      {
+        "pointer": "/construction/stop_width/rows/0",
+        "values": [
+          0.3,
+          1893,
+          -0.213,
+          0.32,
+          0.68,
+          0.09,
+          0.17
+        ]
+      },
+      {
+        "pointer": "/construction/stop_width/rows/1",
+        "values": [
+          0.5,
+          1893,
+          -0.029,
+          0.37,
+          0.62,
+          0.02,
+          0.1
+        ]
+      },
+      {
+        "pointer": "/construction/stop_width/rows/2",
+        "values": [
+          0.75,
+          1893,
+          0.01,
+          0.4,
+          0.55,
+          0.01,
+          0.07
+        ]
+      },
+      {
+        "pointer": "/construction/stop_width/rows/3",
+        "values": [
+          1.0,
+          1893,
+          0.02,
+          0.43,
+          0.45,
+          0.0,
+          0.05
+        ]
+      },
+      {
+        "pointer": "/construction/stop_width/rows/4",
+        "values": [
+          1.5,
+          1893,
+          0.02,
+          0.47,
+          0.3,
+          0.0,
+          0.03
+        ]
+      },
+      {
+        "pointer": "/construction/stop_width/rows/5",
+        "values": [
+          2.0,
+          1893,
+          0.016,
+          0.49,
+          0.18,
+          0.0,
+          0.03
+        ]
+      },
+      {
+        "pointer": "/construction/stop_width/rows/6",
+        "values": [
+          3.0,
+          1893,
+          0.013,
+          0.49,
+          0.07,
+          0.0,
+          0.02
+        ]
+      }
+    ]
+  },
+  "limits": [
+    {
+      "pointers": [
+        "/construction/basis",
+        "/what_this_is"
+      ],
+      "meaning": "Pooled retrospective base rates include asset drift. Every fifth session can produce overlapping trades. Treat the counts as dependent historical observations and the shares as sample outcomes."
+    },
+    {
+      "pointers": [
+        "/construction/stop_width/note",
+        "/how_measured"
+      ],
+      "meaning": "The width comparison fixes the target at 2R and the horizon at up to 5 sessions. R is initial stop distance. A normal day is D1 ATR14. The modeled round-trip charge is 0.05 normal day, so cost in R changes with stop width. Daily bars take the stop first when both levels occur in the same bar, making tight-stop results conservative under the study convention."
+    },
+    {
+      "pointers": [
+        "/how_measured",
+        "/what_this_is"
+      ],
+      "meaning": "Decisions use the close and enter at the next open. BTC includes weekends. Futures are unadjusted continuous proxies with roll risk. FX uses the next session open as the corrected close. Pooled rows do not establish a market-specific optimal stop or prospective odds."
+    }
+  ],
+  "visual": {
+    "status": "proposed",
+    "provider": "TradingView",
+    "instrument": "Bitcoin spot BTC/USD",
+    "timeframe": "1D",
+    "overlays": [
+      "TradingView native SMA 20 on close",
+      "TradingView native SMA 50 on close"
+    ],
+    "sample_pointer": "/markets/BTCUSD",
+    "sample_end": "2026-11-10",
+    "framing": "Capture authentic daily bars into the Main Bitcoin sample end. Exclude later bars. Retain visible symbol and TradingView attribution, identify the actual venue and display window, and describe the image as Bitcoin context for the pooled study. The census input series is separately identified by /markets/BTCUSD/series_id."
+  }
+}
