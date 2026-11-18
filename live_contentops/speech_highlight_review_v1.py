@@ -270,7 +270,7 @@ def revise(directory, root, output, spec, review):
             new_meaning == meaning
             or new_meaning.get("source_sha256") != binding["source_sha256"]
             or new_meaning.get("selection_sha256") != current.digest(selection)
-            or new_meaning.get("model") != "gpt-6.1-sol"
+            or new_meaning.get("model") not in current.NATIVE_RETURN_MODELS
             or new_meaning.get("reasoning_effort") != "max"
             or new_meaning.get("role") != "MEANING"
             or new_meaning.get("native_turn_id") == meaning.get("native_turn_id")

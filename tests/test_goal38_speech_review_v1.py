@@ -141,7 +141,8 @@ def test_presentation_recovery_reuses_native_clip_and_rereview_binding(
     )
 
 
-def test_caption_and_semantic_descendants_and_unreviewed_mutations(job, monkeypatch):
+@pytest.mark.parametrize("meaning_model", ["gpt-6.2-sol", "gpt-6.1-sol"])
+def test_caption_and_semantic_descendants_and_unreviewed_mutations(job, monkeypatch, meaning_model):
     root, parent, value, spec = job
     for kind, dimension in (("CAPTIONS", "CAPTIONS"), ("SEMANTIC", "CONTEXT")):
         v = copy.deepcopy(value)
@@ -154,6 +155,7 @@ def test_caption_and_semantic_descendants_and_unreviewed_mutations(job, monkeypa
             s["cues"] = cues
         else:
             m = review.read(parent / "meaning_return.json")
+            m["model"] = meaning_model
             m["native_turn_id"] = "CONTROLLED_FRESH_ROLE"
             m["headline"] = "Corrected bounded context"
             s["meaning_return"] = m
@@ -176,6 +178,8 @@ def test_caption_and_semantic_descendants_and_unreviewed_mutations(job, monkeypa
                     relay.ARTIFACT_FILES["clean_master"]
                 ]
             )
+        else:
+            assert review.read(out / "meaning_return.json")["model"] == meaning_model
         assert (
             result["production_eligible"] is False
             and "MEDIA_REVIEW" in result["invalidated_stages"]
