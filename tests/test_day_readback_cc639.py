@@ -281,6 +281,39 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     assert output["exceptions"] == report["exceptions"]
 
 
+def test_piece_lines_use_stored_copy_and_first_dispatch_clock(recorded):
+    _, store, _, run = recorded
+    first_line = "USD/JPY: the entry window ended with no entry."
+    with sqlite3.connect(store) as conn:
+        conn.executemany("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", [
+            ("earlier-outbox", "plan-result-post-test", "x",
+             json.dumps({"payload": "A different channel's first line."}),
+             "DISPATCH_CONFIRMED", "2026-11-16T09:00:00Z"),
+            ("first-dispatch", "plan-result-post-test", "facebook_page",
+             json.dumps({"native_payload": {"text": f"\n  {first_line}\nFurther details."}}),
+             "UNKNOWN_WRITE", "2026-11-16T09:01:00Z"),
+            ("queued-outbox", "queued-piece", "x", json.dumps({"payload": "A queued market update."}),
+             "READY", "2026-11-16T09:05:00Z"),
+        ])
+        conn.executemany("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)", [
+            ("later", "earlier-outbox", "x", "DISPATCH_CONFIRMED", "2026-11-16T05:20:00-05:00", None, None, None),
+            ("first", "first-dispatch", "facebook_page", "UNKNOWN_WRITE", "2026-11-16T10:15:00Z", None, None, None),
+        ])
+
+    report, _ = build(recorded)
+    json_path, markdown_path = readback.write_report(run, report)
+    pieces = {piece["piece_id"]: piece for piece in json.loads(json_path.read_bytes())["pieces"]}
+    result = pieces["plan-result-post-test"]
+    assert result["first_line"] == first_line
+    assert result["first_dispatch_at_utc"] == "2026-11-16T10:15:00+00:00"
+    assert result["published_at_utc"] is None
+    assert pieces["queued-piece"]["first_dispatch_at_utc"] is None
+    lines = markdown_path.read_text(encoding="utf-8").splitlines()
+    assert any(line.startswith(f"- {first_line} (16 Nov 2026 17:15 GMT+7):") for line in lines)
+    assert "- A queued market update. (dispatch time unrecorded): x=READY." in lines
+    assert all("Further details." not in line for line in lines)
+
+
 def test_sealed_outlets_without_store_rows_keep_public_identity(recorded):
     _, store, _, _ = recorded
     with sqlite3.connect(store) as conn:
@@ -288,6 +321,8 @@ def test_sealed_outlets_without_store_rows_keep_public_identity(recorded):
         conn.execute("DELETE FROM outbox_messages WHERE work_item_id='cc536-measured-odds-2'")
     report, _ = build(recorded)
     piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
+    assert piece["first_dispatch_at_utc"] is None
+    assert f"- {piece['title']} (dispatch time unrecorded):" in readback.markdown(report)
     telegram = next(r for r in piece["platforms"] if r["platform"] == "telegram")
     assert telegram["status"] == "MISSING_ROW" and telegram["public_url"] == "https://t.me/CapitalChronicle/186"
     assert telegram["public_readback"]["http_status"] == 200

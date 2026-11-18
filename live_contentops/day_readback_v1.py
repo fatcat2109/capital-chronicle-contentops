@@ -231,6 +231,10 @@ def _with_class_prefix(nodes, prefix):
         name.startswith(prefix) for name in (node.attrs.get("class") or "").split()))
 
 
+def _first_text_line(text):
+    return next((line.strip() for line in text.splitlines() if line.strip()), None)
+
+
 def check_public_text(platform, html, *, expected_text="", expected_title="", page_url=""):
     """Inspect the post body, never a menu, script, metadata or another post."""
     nodes = list(_HTML(html).root.walk())
@@ -260,7 +264,7 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
                 "first_cause": "PUBLIC_POST_TEXT_UNAVAILABLE", "exceptions": ["PUBLIC_POST_TEXT_UNAVAILABLE"]}
     text = body.text()
     headings = " ".join(n.text() for n in nodes if n.tag == "h1") if platform == "substack" else ""
-    first = expected_title or next((line for line in expected_text.splitlines() if line.strip()), "")
+    first = expected_title or _first_text_line(expected_text)
     first_matches = (_contains_in_order(_tokens(first), _tokens(headings + " " + text)) if first else None)
     complete = _contains_in_order(_tokens(expected_text), _tokens(headings + " " + text)) if expected_text else None
     found_links = _links(text)
@@ -327,6 +331,21 @@ def _expected(intent):
             if isinstance(native.get(key), str):
                 return native[key]
     return intent.get("payload") if isinstance(intent.get("payload"), str) else ""
+
+
+def _piece_heading(group, expected, end):
+    # Prefer copy from dispatched routes in clock order, then other held public copy.
+    sources = []
+    for row in group:
+        dispatched_at = utc(row["dispatched_at"]) if row["dispatched_at"] else None
+        has_dispatch = dispatched_at is not None and dispatched_at <= end
+        clock = dispatched_at if has_dispatch else utc(row["created_at"])
+        sources.append((not has_dispatch, clock, row["message_id"]))
+    sources.sort()
+    first_line = next((line for _, _, message_id in sources
+                       if (line := _first_text_line(expected[message_id][0]))), None)
+    undispatched, first_clock, _ = sources[0]
+    return first_line, None if undispatched else iso(first_clock)
 
 
 def _public_rows(conn, window, feed):
@@ -561,6 +580,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 expected[row["message_id"]] = (_expected(intent), sealed["title"] if sealed and platform == "substack" else "")
                 route["public_readback"] = None
                 piece["platforms"].append(route)
+            piece["first_line"], piece["first_dispatch_at_utc"] = _piece_heading(group, expected, end)
             for platform in sorted(required - actual):
                 piece["platforms"].append({"platform": platform, "status": "MISSING_ROW", "first_cause": "EXPECTED_PLATFORM_ROW_MISSING",
                                            "public_url": None, "store_readback": None, "public_readback": None})
@@ -569,7 +589,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         for sealed in feed:
             if sealed["content_id"] not in consumed:
                 piece = {"piece_id": sealed["content_id"], "title": sealed["title"],
-                         "published_at_utc": sealed["published_at_utc"], "platforms": []}
+                         "published_at_utc": sealed["published_at_utc"], "first_line": None,
+                         "first_dispatch_at_utc": None, "platforms": []}
                 for outlet in sealed["outlets"]:
                     route = {"platform": outlet["name"], "status": "MISSING_ROW", "first_cause": "SEALED_OUTLET_STORE_ROW_MISSING",
                              "public_url": safe_url(outlet["url"]), "store_readback": None, "public_readback": None}
@@ -618,7 +639,10 @@ def markdown(report):
              f"Store observed: {local(report['observed_at_utc'])}; public HTTP observed at report time."]
     for piece in report["pieces"]:
         platforms = "; ".join(f"{r['platform']}={r['status']}" for r in piece["platforms"])
-        lines.append(f"- {plain(piece['title'] or piece['piece_id'])}: {platforms or 'store rows missing'}.")
+        heading = piece.get("first_line") or piece["title"] or piece["piece_id"]
+        clock = piece.get("first_dispatch_at_utc")
+        dispatch = local(clock) if clock else "dispatch time unrecorded"
+        lines.append(f"- {plain(heading)} ({dispatch}): {platforms or 'store rows missing'}.")
     digest = report["digest"]
     lines.append(f"Digest: {digest['state']}; recipients {digest['recipients'] if digest['recipients'] is not None else 'unknown'}; "
                  f"opens {digest['opens'] if digest['opens'] is not None else 'unknown'}; {digest['public_url'] or 'page unrecorded'}.")
