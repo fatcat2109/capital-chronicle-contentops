@@ -10,6 +10,7 @@ import sqlite3
 import pytest
 
 from live_contentops import day_readback_v1 as readback
+from live_contentops.channel_engagement_v1 import CHANNELS
 
 FIXTURE = Path(__file__).parent / "fixtures/cc639_day_readback_20261116.json"
 NOW = datetime(2026, 11, 17, 10, 0, tzinfo=timezone.utc)
@@ -20,6 +21,9 @@ CREATE TABLE platform_dispatches(dispatch_id TEXT PRIMARY KEY,message_id TEXT,pl
 CREATE TABLE readbacks(readback_id TEXT PRIMARY KEY,dispatch_id TEXT,readback_data TEXT,read_at TEXT);
 CREATE TABLE reconciliations(reconciliation_id TEXT PRIMARY KEY,work_item_id TEXT,status TEXT,reconciled_at TEXT);
 CREATE TABLE incidents(incident_id TEXT PRIMARY KEY,work_item_id TEXT,severity TEXT,description TEXT,created_at TEXT);
+CREATE TABLE performance_observations(observation_id TEXT PRIMARY KEY,dispatch_id TEXT,platform TEXT,
+    public_object_id TEXT,collected_at_utc TEXT,scheduled_for_utc TEXT,collection_status TEXT,learning_eligible INTEGER,
+    metrics_native_json TEXT,metric_availability_json TEXT);
 """
 
 
@@ -32,6 +36,17 @@ def recorded(tmp_path):
         for table in ("outbox_messages", "platform_dispatches", "readbacks", "reconciliations"):
             for row in data[table]:
                 conn.execute(f"INSERT INTO {table} ({','.join(row)}) VALUES ({','.join('?' for _ in row)})", tuple(row.values()))
+        # The retained CC-639 fixture projects verification flags only. Supply
+        # exact-object envelopes for the CC-044 metric scenarios on these rows.
+        for dispatch in data["platform_dispatches"][:10]:
+            if dispatch["platform"] not in {"x", "substack", "telegram", "threads"}:
+                continue
+            payload = {"dispatch_id": dispatch["dispatch_id"], "destination": dispatch["platform"], "readback": {
+                "verified": True, "identity_match": True, "observed_public_object_id": dispatch["public_object_id"],
+                "observed_public_object_url": dispatch["public_object_url"]}}
+            conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)", (
+                "engagement-proof-" + dispatch["platform"], dispatch["dispatch_id"], json.dumps(payload),
+                "2026-11-16T09:00:00Z"))
     feed = tmp_path / "published.jsonl"
     feed.write_text("".join(json.dumps(row) + "\n" for row in data["feed"]), encoding="utf-8")
     root = tmp_path / "route-1900"
@@ -267,9 +282,25 @@ def test_telegram_reply_embed_uses_its_own_text_and_links(reply_complete):
     assert result["exceptions"] == ([] if reply_complete else ["PUBLIC_TEXT_CUT_OFF", "PUBLIC_LINK_MISSING"])
 
 
+def observe(conn, dispatch, observation_id, *, collected_at, metrics, states, status="COLLECTED", object_id=None,
+            scheduled_for="2026-11-16T09:00:00Z"):
+    conn.execute("INSERT INTO performance_observations VALUES(?,?,?,?,?,?,?,?,?,?)", (
+        observation_id, dispatch["dispatch_id"], dispatch["platform"], object_id or dispatch["public_object_id"],
+        collected_at, scheduled_for, status, 1, json.dumps(metrics), json.dumps(states)))
+
+
 def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys):
     from scripts import run_day_readback as cli
     data, store, feed, run = recorded
+    dispatches = {row["platform"]: row for row in data["platform_dispatches"][:10]}
+    with sqlite3.connect(store) as conn:
+        for platform, metrics, states in [
+                ("x", {"views": 123, "likes": 0, "replies": 2},
+                 {"views": "AVAILABLE", "likes": "AVAILABLE", "replies": "AVAILABLE"}),
+                ("substack", {"total_views": 21, "comments": 0},
+                 {"total_views": "AVAILABLE", "comments": "AVAILABLE", "likes": "NOT_EXPOSED"}),
+                ("threads", {"reply_sample_count": 3}, {"replies": "NOT_EXPOSED"})]:
+            observe(conn, dispatches[platform], platform, collected_at="2026-11-16T10:00:00Z", metrics=metrics, states=states)
     getter, _ = getter_for(data)
     real_build = readback.build_report
     monkeypatch.setattr(cli, "build_report", lambda *args, **kwargs: real_build(*args, **kwargs, fetcher=getter))
@@ -279,8 +310,53 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     assert output["state"] == "READBACK_WRITTEN"
     report = json.loads((run / "day_readback.json").read_bytes())
     assert report["digest"]["recipients"] == 5
-    assert "Exceptions:" in (run / "day_readback.md").read_text(encoding="utf-8")
     assert output["exceptions"] == report["exceptions"]
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
+    engagement = {row["platform"]: row for row in piece["engagement"]}
+    assert set(engagement) == set(CHANNELS)
+    assert {name: metric["value"] for name, metric in engagement["x"]["metrics"].items()} == {"views": 123, "likes": 0, "replies": 2}
+    assert engagement["substack"]["metrics"]["replies"]["source_metric"] == "comments"
+    assert engagement["substack"]["missing_metrics"] == {"likes": "NOT_EXPOSED"}
+    assert engagement["threads"]["metrics"] == {}
+    assert engagement["threads"]["missing_metrics"]["replies"] == "NOT_EXPOSED"
+    assert engagement["youtube"]["first_cause"] == "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+    markdown = (run / "day_readback.md").read_text(encoding="utf-8")
+    assert "## Engagement" in markdown and "Exceptions:" in markdown
+    assert "**x** · 123 views (16 Nov 2026 17:00 GMT+7) · 0 likes" in markdown
+
+
+def test_engagement_uses_latest_held_counter_and_names_gaps_without_future_or_other_object(recorded):
+    data, store, _, _ = recorded
+    dispatch = next(row for row in data["platform_dispatches"] if row["platform"] == "x")
+    telegram = next(row for row in data["platform_dispatches"] if row["platform"] == "telegram")
+    with sqlite3.connect(store) as conn:
+        for name, clock, value, object_id in [
+                ("earlier", "2026-11-16T10:00:00Z", 75, None),
+                ("latest", "2026-11-16T11:00:00+00:00", 90, None),
+                ("invalid", "2026-11-16T11:30:00Z", True, None),
+                ("different-object", "2026-11-16T12:00:00Z", 1000, "another-object"),
+                ("after-cutoff", "2026-11-16T12:43:00Z", 1500, None)]:
+            observe(conn, dispatch, name, collected_at=clock, metrics={"views": value, "likes": True},
+                    states={"views": "AVAILABLE", "likes": "AVAILABLE", "replies": "PERMISSION_REQUIRED"}, object_id=object_id)
+        observe(conn, telegram, "pending", collected_at=None, metrics={}, states={}, status="SCHEDULED")
+    report, _ = build(recorded)
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
+    engagement = {row["platform"]: row for row in piece["engagement"]}
+    assert engagement["x"]["metrics"] == {"views": {
+        "value": 90, "source_metric": "views", "collected_at_utc": "2026-11-16T11:00:00+00:00"}}
+    assert engagement["x"]["missing_metrics"] == {"likes": "INVALID_OR_MISSING_NATIVE_VALUE", "replies": "PERMISSION_REQUIRED"}
+    assert engagement["telegram"]["first_cause"] == "METRIC_COLLECTION_PENDING"
+    assert all(row["metrics"] == {} for p in report["pieces"] if p is not piece for row in p["engagement"])
+
+
+def test_missing_engagement_source_keeps_the_publication_readback_usable(recorded):
+    _, store, _, _ = recorded
+    with sqlite3.connect(store) as conn:
+        conn.execute("DROP TABLE performance_observations")
+    report, _ = build(recorded)
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
+    assert next(row for row in piece["engagement"] if row["platform"] == "x")["first_cause"] == "ENGAGEMENT_EXPORT_SOURCE_UNAVAILABLE"
+    assert report["digest"]["recipients"] == 5
 
 
 def test_piece_lines_use_stored_copy_and_first_dispatch_clock(recorded):

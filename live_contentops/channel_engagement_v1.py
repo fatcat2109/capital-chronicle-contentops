@@ -68,23 +68,108 @@ def verified_dispatch_identity(row, dispatch):
         return False
 
 
+def engagement_readback_basis(dispatch, reconciliation_status, readbacks):
+    """Both reports use the same exact-object criteria, including damaged public copy."""
+    if not DurablePublicationCoordinator._confirmed_public_object(
+            {**dispatch, "reconciliation_status": reconciliation_status}, destination=dispatch["platform"]):
+        return None
+    if any(verified_dispatch_identity(row, dispatch) for row in readbacks):
+        return "EXACT_IDENTITY"
+    if any(verified_dispatch_readback(row, dispatch) for row in readbacks):
+        return "VERIFIED_READBACK"
+    return None
+
+
+def _observation_matches(observation, dispatch, basis):
+    return (basis is not None and observation.get("platform") == dispatch["platform"]
+            and observation.get("dispatch_id") == dispatch["dispatch_id"]
+            and str(observation.get("public_object_id")) == str(dispatch["public_object_id"])
+            and (observation.get("learning_eligible") in (True, 1) or basis == "EXACT_IDENTITY"))
+
+
+def _valid_native_metric(value):
+    return type(value) in (float, int) and value >= 0 and (type(value) is int or math.isfinite(value))
+
+
+PIECE_METRICS = {"views": ("views", "total_views"), "likes": ("likes",), "replies": ("replies", "comments")}
+
+
+def piece_engagement(dispatch, basis, observations, *, as_of):
+    """Read native counters from the weekly export's inputs before it sums them."""
+    samples, causes = [], set()
+    for observation in observations:
+        if not _observation_matches(observation, dispatch, basis):
+            causes.add("UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT")
+            continue
+        if observation.get("collection_status") == "SCHEDULED":
+            try:
+                if _clock(observation.get("scheduled_for_utc")) <= as_of:
+                    causes.add("METRIC_COLLECTION_PENDING")
+            except (ValueError, TypeError):
+                causes.add("MISSING_COLLECTION_CLOCK")
+            continue
+        try:
+            clock = _clock(observation.get("collected_at_utc"))
+        except (ValueError, TypeError):
+            causes.add("MISSING_COLLECTION_CLOCK")
+            continue
+        if clock <= as_of:
+            samples.append((clock, observation))
+
+    if not samples:
+        cause = next((name for name in ("UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT",
+            "MISSING_COLLECTION_CLOCK", "METRIC_COLLECTION_PENDING") if name in causes),
+            "NO_COLLECTED_OBSERVATION_BY_CUTOFF")
+        return {}, {}, cause
+
+    values, gaps = {}, {}
+    for clock, observation in sorted(samples, key=lambda pair: pair[0], reverse=True):
+        try:
+            metrics = _json(observation["metrics_native_json"])
+            states = _json(observation["metric_availability_json"])
+            if not isinstance(metrics, dict) or not isinstance(states, dict):
+                raise ValueError("INVALID_METRIC_JSON")
+        except (ValueError, TypeError):
+            for name in PIECE_METRICS:
+                gaps.setdefault(name, "INVALID_METRIC_JSON")
+            continue
+        for name, candidates in PIECE_METRICS.items():
+            if name in values:
+                continue
+            for native in candidates:
+                if states.get(native) == "AVAILABLE" and _valid_native_metric(metrics.get(native)):
+                    values[name] = {"value": metrics[native], "source_metric": native,
+                                    "collected_at_utc": observation["collected_at_utc"]}
+                    break
+            else:
+                state = next((states[native] for native in candidates if states.get(native)), None)
+                if state == "AVAILABLE":
+                    state = "INVALID_OR_MISSING_NATIVE_VALUE"
+                status = observation.get("collection_status")
+                gaps.setdefault(name, state or (status if status != "COLLECTED" else None) or "METRIC_NOT_RECORDED")
+        if len(values) == len(PIECE_METRICS):
+            break
+    missing = {name: gaps[name] for name in PIECE_METRICS if name not in values}
+    return values, missing, None
+
+
 def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observations, week_ending, call_bindings=None):
     ending = date.fromisoformat(week_ending)
     start = datetime.combine(ending - timedelta(days=6), time(), ZoneInfo("Asia/Bangkok"))
     end = datetime.combine(ending + timedelta(days=1), time(), ZoneInfo("Asia/Bangkok"))
     reconciliation_by_id = {r["reconciliation_id"]: r for r in reconciliations}
     eligible = {}
+    readbacks_by_dispatch = {}
+    for row in readbacks:
+        readbacks_by_dispatch.setdefault(row.get("dispatch_id"), []).append(row)
     for dispatch in dispatches:
         channel = dispatch.get("platform")
         if channel not in CHANNELS:
             continue
         reconciliation = reconciliation_by_id.get("reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_"), {})
-        if not DurablePublicationCoordinator._confirmed_public_object(
-                {**dispatch, "reconciliation_status": reconciliation.get("status")}, destination=channel):
-            continue
-        verified = any(verified_dispatch_readback(row, dispatch) or verified_dispatch_identity(row, dispatch) for row in readbacks)
-        if verified:
-            eligible[dispatch["dispatch_id"]] = dispatch
+        basis = engagement_readback_basis(dispatch, reconciliation.get("status"), readbacks_by_dispatch.get(dispatch["dispatch_id"], ()))
+        if basis:
+            eligible[dispatch["dispatch_id"]] = (dispatch, basis)
 
     latest, excluded, calls_by_object = {}, Counter(), {}
     for observation in observations:
@@ -99,11 +184,8 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
             continue
         if not start <= clock < end:
             continue
-        dispatch = eligible.get(observation.get("dispatch_id"))
-        if (not dispatch or dispatch["platform"] != channel
-                or str(dispatch["public_object_id"]) != str(observation.get("public_object_id"))
-                or (observation.get("learning_eligible") not in (True, 1)
-                    and not any(verified_dispatch_identity(row, dispatch) for row in readbacks))):
+        dispatch, basis = eligible.get(observation.get("dispatch_id"), ({}, None))
+        if not _observation_matches(observation, dispatch, basis):
             excluded[(channel, "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT")] += 1
             continue
         key = (channel, str(observation["public_object_id"]))
@@ -139,7 +221,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
                     causes[str(state)] += 1
                     continue
                 value = metrics.get(name)
-                if not isinstance(value, (float, int)) or isinstance(value, bool) or not math.isfinite(value) or value < 0:
+                if not _valid_native_metric(value):
                     causes["INVALID_OR_MISSING_NATIVE_VALUE"] += 1
                     continue
                 available = True
@@ -160,11 +242,11 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
                     total["shared_object_metrics"] |= len(bound_calls) > 1 or metrics.get("_shared_public_object") is True
                     total["posts"] += 1
                     for name in COUNTERS:
-                        if availability.get(name) == "AVAILABLE" and type(metrics.get(name)) in (int, float) and math.isfinite(metrics[name]) and metrics[name] >= 0:
+                        if availability.get(name) == "AVAILABLE" and _valid_native_metric(metrics.get(name)):
                             total["native_counter_sums"][name] = total["native_counter_sums"].get(name, 0) + metrics[name]
             else:
                 causes[str(observation.get("collection_status") or "NO_AVAILABLE_NATIVE_METRIC")] += 1
-        confirmed_objects = {str(d["public_object_id"]) for d in eligible.values() if d["platform"] == channel}
+        confirmed_objects = {str(d["public_object_id"]) for d, _ in eligible.values() if d["platform"] == channel}
         if not confirmed_objects:
             causes["NO_ELIGIBLE_CONFIRMED_PUBLIC_OBJECT"] += 1
         elif not samples:
@@ -193,7 +275,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         follower_before = (account_prior or {}).get("metrics", {}).get(follower_key)
         net_followers = follower_now - follower_before if type(follower_now) is int and type(follower_before) is int else None
         posted = set()
-        for dispatch in eligible.values():
+        for dispatch, _ in eligible.values():
             try:
                 if dispatch["platform"] == channel and start <= _clock(dispatch.get("dispatched_at")) < end:
                     posted.add(str(dispatch["public_object_id"]))
@@ -214,7 +296,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         "timezone": "Asia/Bangkok", "channels": channels,
         "calls": list(call_totals.values()),
         "metric_basis": "Latest cumulative native snapshot per channel/public object collected in this week; not incremental weekly activity. Per-object reach can overlap. Rates are not summed or averaged.",
-        "content_incomplete_objects_included": sum(1 for dispatch in eligible.values()
+        "content_incomplete_objects_included": sum(1 for dispatch, _ in eligible.values()
             if reconciliation_by_id.get("reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_"), {}).get("status") == "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"),
         "missing_is_zero": False, "public_write_performed": False, "model_calls": 0}
 

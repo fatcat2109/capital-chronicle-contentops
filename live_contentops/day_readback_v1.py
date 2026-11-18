@@ -19,6 +19,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
+from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
 
 LOCAL = timezone(timedelta(hours=7))
@@ -379,6 +381,52 @@ def _public_rows(conn, window, feed):
     return list(by_id.values())
 
 
+def _route_engagement(conn, row, route, history, *, as_of, source_exists, collector_states):
+    entry = {"platform": route["platform"], "public_url": route["public_url"],
+             "metrics": {}, "missing_metrics": {}, "first_cause": None}
+    if route["status"] != "DISPATCH_CONFIRMED":
+        entry["first_cause"] = route["first_cause"] or code(route["status"]) or "NO_CONFIRMED_PUBLIC_OBJECT"
+        return entry
+    dispatch_id = row["dispatch_id"]
+    if not dispatch_id:
+        entry["first_cause"] = "NO_CONFIRMED_PUBLIC_OBJECT"
+        return entry
+    dispatch = {**row, "platform": route["platform"]}
+    reconciliation = conn.execute("""SELECT status FROM reconciliations WHERE reconciliation_id=?
+        AND julianday(reconciled_at) <= julianday(?)""",
+        ("reconciliation_" + dispatch_id.removeprefix("dispatch_"), iso(as_of))).fetchone()
+    readbacks = [{"dispatch_id": dispatch_id, "readback_data": data} for clock, data in history if utc(clock) <= as_of]
+    basis = engagement_readback_basis(dispatch, reconciliation["status"] if reconciliation else None, readbacks)
+    if not basis:
+        entry["first_cause"] = "NO_EXACT_CONFIRMED_READBACK_BY_CUTOFF"
+    elif not source_exists:
+        entry["first_cause"] = "ENGAGEMENT_EXPORT_SOURCE_UNAVAILABLE"
+    else:
+        rows = conn.execute("""SELECT dispatch_id, platform, public_object_id, collected_at_utc, scheduled_for_utc,
+            collection_status, learning_eligible, metrics_native_json, metric_availability_json
+            FROM performance_observations WHERE dispatch_id=? ORDER BY observation_id""", (dispatch_id,))
+        values, missing, cause = piece_engagement(dispatch, basis, (dict(r) for r in rows), as_of=as_of)
+        entry["metrics"] = values
+        entry["missing_metrics"] = {metric: code(reason) or "METRIC_UNAVAILABLE" for metric, reason in missing.items()}
+        entry["first_cause"] = cause
+        if cause == "NO_COLLECTED_OBSERVATION_BY_CUTOFF" and route["platform"] in collector_states:
+            entry["collector_state"] = collector_states[route["platform"]]
+    return entry
+
+
+def _complete_engagement(piece):
+    actual = {row["platform"] for row in piece["engagement"]}
+    for route in piece["platforms"]:
+        if route["platform"] not in actual:
+            piece["engagement"].append({"platform": route["platform"], "public_url": route["public_url"],
+                "metrics": {}, "missing_metrics": {}, "first_cause": route["first_cause"]})
+            actual.add(route["platform"])
+    for platform in CHANNELS:
+        if platform not in actual:
+            piece["engagement"].append({"platform": platform, "public_url": None, "metrics": {},
+                "missing_metrics": {}, "first_cause": "NO_PUBLICATION_ROUTE_RECORDED"})
+
+
 def _native_observations(conn, work_id, until):
     """Reuse stored request/return diagnostics when a dispatch has no readback yet."""
     requests, returns = {}, []
@@ -540,6 +588,9 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
               "window": window, "pieces": [], "exceptions": [],
               "store_open_mode": "ro", "public_writes": 0, "browser_opens": 0, "model_calls": 0}
     start, end = utc(window["since_utc"]), utc(window["until_utc"])
+    engagement_cutoff = min(now, end)
+    report["engagement"] = {"source": "performance_observations", "cutoff_utc": iso(engagement_cutoff)}
+    collector_states = {row["destination"]: row["collector_state"] for row in current_metrics_capability_matrix()}
     cache, expected = {}, {}
 
     def exception(cause, piece, platform=None, row=None, status=None):
@@ -578,6 +629,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA query_only=ON")
         conn.execute("BEGIN")
+        engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None
         rows = _public_rows(conn, window, feed)
         groups = defaultdict(list)
         for row in rows:
@@ -594,7 +646,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 consumed.add(sealed["content_id"])
             piece_id = sealed["content_id"] if sealed else work_id
             piece = {"piece_id": piece_id, "title": sealed["title"] if sealed else None,
-                     "published_at_utc": sealed["published_at_utc"] if sealed else None, "platforms": []}
+                     "published_at_utc": sealed["published_at_utc"] if sealed else None, "platforms": [], "engagement": []}
             required = {o["name"] for o in sealed["outlets"]} if sealed else set()
             actual = set()
             native = _native_observations(conn, work_id, window["until_utc"])
@@ -647,6 +699,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 expected[row["message_id"]] = (_expected(intent), sealed["title"] if sealed and platform == "substack" else "")
                 route["public_readback"] = None
                 piece["platforms"].append(route)
+                piece["engagement"].append(_route_engagement(conn, row, route, history, as_of=engagement_cutoff,
+                    source_exists=engagement_source_exists, collector_states=collector_states))
             piece["first_line"], piece["first_dispatch_at_utc"] = _piece_heading(group, expected, end)
             if not (piece["first_line"] or piece["title"]):
                 registered = conn.execute("SELECT title FROM work_items WHERE work_item_id=? "
@@ -658,17 +712,19 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 piece["platforms"].append({"platform": platform, "status": "MISSING_ROW", "first_cause": "EXPECTED_PLATFORM_ROW_MISSING",
                                            "public_url": None, "store_readback": None, "public_readback": None})
                 exception("EXPECTED_PLATFORM_ROW_MISSING", piece_id, platform, status="MISSING_ROW")
+            _complete_engagement(piece)
             report["pieces"].append(piece)
         for sealed in feed:
             if sealed["content_id"] not in consumed:
                 piece = {"piece_id": sealed["content_id"], "title": sealed["title"],
                          "published_at_utc": sealed["published_at_utc"], "first_line": None,
-                         "first_dispatch_at_utc": None, "platforms": []}
+                         "first_dispatch_at_utc": None, "platforms": [], "engagement": []}
                 for outlet in sealed["outlets"]:
                     route = {"platform": outlet["name"], "status": "MISSING_ROW", "first_cause": "SEALED_OUTLET_STORE_ROW_MISSING",
                              "public_url": safe_url(outlet["url"]), "store_readback": None, "public_readback": None}
                     piece["platforms"].append(route)
                     exception("SEALED_OUTLET_STORE_ROW_MISSING", sealed["content_id"], outlet["name"], route, status="MISSING_ROW")
+                _complete_engagement(piece)
                 report["pieces"].append(piece)
         report["digest"], digest_copy = _digest(conn, run_dir, result)
         report["reply_bot"] = _reply_bot(conn, window)
@@ -721,6 +777,29 @@ def markdown(report):
                  f"opens {digest['opens'] if digest['opens'] is not None else 'unknown'}; {digest['public_url'] or 'page unrecorded'}.")
     lines.append(f"Reply bot: {report['reply_bot']['delivered_count']} delivered drafts; "
                  + json.dumps(report["reply_bot"]["counts_by_kind_and_status"], sort_keys=True) + ".")
+    lines.extend(["", "## Engagement", "", f"Latest available cumulative counters through {local(report['engagement']['cutoff_utc'])}."])
+    if not report["pieces"]:
+        lines.append("No pieces in this window.")
+    for piece in report["pieces"]:
+        heading = piece.get("first_line") or piece["title"] or piece["piece_id"]
+        lines.append(f"- {plain(heading)}")
+        unavailable = defaultdict(list)
+        multiplicity = Counter(row["platform"] for row in piece["engagement"])
+        for row in piece["engagement"]:
+            platform = row["platform"]
+            if multiplicity[platform] > 1 and row["public_url"]:
+                platform = f"[{platform}]({row['public_url']})"
+            if row["first_cause"]:
+                unavailable[(row["first_cause"], row.get("collector_state"))].append(platform)
+                continue
+            metrics = [f"{m['value']} {m['source_metric'].replace('_', ' ')} ({local(m['collected_at_utc'])})"
+                       for m in row["metrics"].values()]
+            gaps = [f"{name} unavailable ({cause})" for name, cause in row["missing_metrics"].items()]
+            lines.append(f"  - **{platform}** · " + " · ".join(metrics + gaps))
+        for (cause, collector), platforms in unavailable.items():
+            detail = f"{cause} ({collector})" if collector else cause
+            lines.append(f"  - {', '.join(platforms)} · {detail}")
+    lines.append("")
     lines.append(f"Exceptions: {report['exception_count']}.")
     for item in report["exceptions"]:
         lines.append(f"- {plain(item['piece_id'])} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
