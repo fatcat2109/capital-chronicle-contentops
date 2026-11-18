@@ -1,0 +1,16 @@
+{
+  "destination": "substack",
+  "first_failure": {
+    "attempt_started_at_utc": "2026-11-18T09:01:06.784323+00:00",
+    "destination": "substack",
+    "dispatch_id": "dispatch_27426e18f28a70345c41ec33fc0eaa03",
+    "et_day": "2026-11-18",
+    "local_prewrite_validation": false,
+    "safe_error_classification": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH",
+    "status": "UNKNOWN_WRITE",
+    "write_outcome_certainty": "AMBIGUOUS"
+  },
+  "publish_called": false,
+  "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
+  "status": "DESTINATION_FAILED_ET_DAY_SKIP"
+}

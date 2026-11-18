@@ -1,0 +1,168 @@
+{
+  "item": "CC-536",
+  "piece": 4,
+  "checked_at_utc": "2026-11-18T11:44:41.910176+00:00",
+  "outcome": "BLOCKED_UNTIL_SUBSTACK_ET_DAY_RESET",
+  "source": {
+    "live_tag": "live-20261118-cc663-170312",
+    "commit": "63a17b6b5aeaf79e7b5b94c6094cc8d7643cfbe4",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "blobs_verified": 7
+  },
+  "exact_operation_id": "cc536-measured-odds-4",
+  "plan_hash": "534644146ab8f33db02ba2253a6290328b94e9851579ba61c3ddbd8c6298359f",
+  "binding_dir": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-4",
+  "piece_sha256": "670f19bc467ee9b263bacf575f71e6ff82f2b9fba3136fc793bfdd693e73f80f",
+  "approval_sha256": "c2d18c658c46aa2ff80c2d438798421a14c432af496751ee04de8d21c518673b",
+  "registration_artifact_hashes": {
+    "article_manifest_v1.json": "af517f9840a0d02d1a25d77cbe494e3e840eecbf870d0bb51cc183ecf924f710",
+    "piece.json": "1817e84081f8121ec24c2fa083af45e5695d963675d7d06959f08ffe6804c7f0",
+    "run_context_v1.json": "034c329dbdd543f0bb2f56a59dfa7d77b2fdb1a0e5c14ff5fbc71528eff63bbb",
+    "source/manifest.json": "d8b239b5c769ce2e845995b752503cc650a012604e0fe9649685939c18153058"
+  },
+  "browser_group": "822AD042B0C9C17EFDFA950300A05C3A",
+  "publication": {
+    "canonical": "READY",
+    "coordinator_result": {
+      "destination": "substack",
+      "first_failure": {
+        "attempt_started_at_utc": "2026-11-18T09:01:06.784323+00:00",
+        "destination": "substack",
+        "dispatch_id": "dispatch_27426e18f28a70345c41ec33fc0eaa03",
+        "et_day": "2026-11-18",
+        "local_prewrite_validation": false,
+        "safe_error_classification": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH",
+        "status": "UNKNOWN_WRITE",
+        "write_outcome_certainty": "AMBIGUOUS"
+      },
+      "publish_called": false,
+      "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
+      "status": "DESTINATION_FAILED_ET_DAY_SKIP"
+    },
+    "attempted_public_writes": 0,
+    "new_dispatch_records": 0,
+    "pending_native_tool_requests": 0,
+    "derivatives": "WAITING_CANONICAL_URL",
+    "cause_authority": "CC-401 applies the destination hold for the remaining New York day after an actual ambiguous attempt.",
+    "retry_eligible_at_utc": "2026-11-19T05:00:00+00:00",
+    "retry_eligible_gmt7": "19 Nov 2026 12:00 GMT+7",
+    "next_action": "Codex Publisher resumes cc536-measured-odds-4 through the operating coordinator after the New York day resets."
+  },
+  "verification": {
+    "source_bound_numerical_occurrences": 24,
+    "worktree_tests": 33,
+    "installed_consumer_tests": 33,
+    "installed_day_circuit_tests": 1,
+    "desktop_and_mobile_renders_inspected": 18
+  },
+  "series_acceptance": {
+    "first_two_confirmed_surfaces": [
+      {
+        "operation": "cc536-measured-odds-1",
+        "surface": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "dispatch_confirmed_utc": "2026-11-14T05:48:10.281934+00:00",
+        "stored_readbacks": 2
+      },
+      {
+        "operation": "cc536-measured-odds-1",
+        "surface": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "url": "https://x.com/Capitalnicle/status/2121503636216049751",
+        "dispatch_confirmed_utc": "2026-11-14T07:20:13.246198+00:00",
+        "stored_readbacks": 2
+      },
+      {
+        "operation": "cc536-measured-odds-2",
+        "surface": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+        "dispatch_confirmed_utc": "2026-11-16T07:19:38.172309+00:00",
+        "stored_readbacks": 2
+      },
+      {
+        "operation": "cc536-measured-odds-2",
+        "surface": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "url": "https://x.com/Capitalnicle/status/2122235588179079329",
+        "dispatch_confirmed_utc": "2026-11-16T07:48:37.836792+00:00",
+        "stored_readbacks": 1
+      }
+    ],
+    "first_two_chart_and_copy_evidence": [
+      "../README.md",
+      "../piece-2/README.md"
+    ],
+    "daily_board": {
+      "source_as_of_utc": "2026-11-18T11:43:52.410462Z",
+      "cause": "BOARD_PUBLIC_FIELDS_ABSENT",
+      "missing_fields": [
+        "/markets/XAUUSD/yardstick/mean_close_20",
+        "/markets/XAUUSD/yardstick/mean_close_50",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/1/this_side",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/2/this_side",
+        "/markets/XAUUSD/rows_whose_condition_holds_now/3/this_side",
+        "/markets/US500/yardstick/mean_close_20",
+        "/markets/US500/yardstick/mean_close_50",
+        "/markets/US500/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/US500/rows_whose_condition_holds_now/1/this_side",
+        "/markets/US500/rows_whose_condition_holds_now/2/this_side",
+        "/markets/EURUSD/yardstick/mean_close_20",
+        "/markets/EURUSD/yardstick/mean_close_50",
+        "/markets/EURUSD/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/EURUSD/rows_whose_condition_holds_now/1/this_side",
+        "/markets/EURUSD/rows_whose_condition_holds_now/2/this_side",
+        "/markets/EURUSD/rows_whose_condition_holds_now/3/this_side",
+        "/markets/USDJPY/yardstick/mean_close_20",
+        "/markets/USDJPY/yardstick/mean_close_50",
+        "/markets/USDJPY/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/USDJPY/rows_whose_condition_holds_now/1/this_side",
+        "/markets/USDJPY/rows_whose_condition_holds_now/2/this_side",
+        "/markets/USOIL/yardstick/mean_close_20",
+        "/markets/USOIL/yardstick/mean_close_50",
+        "/markets/BTCUSD/yardstick/mean_close_20",
+        "/markets/BTCUSD/yardstick/mean_close_50",
+        "/markets/BTCUSD/rows_whose_condition_holds_now/0/sample_period",
+        "/markets/BTCUSD/rows_whose_condition_holds_now/1/this_side",
+        "/markets/BTCUSD/rows_whose_condition_holds_now/2/this_side"
+      ],
+      "as_of_utc": "2026-11-18T11:43:52.410462Z",
+      "day_et": "2026-11-17",
+      "age_seconds": 49.499714
+    },
+    "next_plan": {
+      "work_item_id": "plan-analysis-plan_64c0b961e6d621d10de5e9d3",
+      "checked_at_utc": "2026-11-18T11:43:03.253480+00:00",
+      "archive_url": "https://capitalchronicle.substack.com/archive",
+      "listed_canonical_links": 12,
+      "exact_title_matches": [],
+      "readback_limit": "The public archive sample does not prove absence or resolve an uncertain original write.",
+      "status": "UNKNOWN_WRITE",
+      "first_dispatch_utc": "2026-11-18T09:01:06.773746+00:00",
+      "latest_readback_cause": "PLAN_SUBSTACK_EXACT_PUBLIC_URL_REQUIRED"
+    },
+    "remaining": "Resume piece 4, continue one piece per day, and read the board/next-plan method links on their confirmed public objects."
+  },
+  "integration": {
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "reviewed_package_commit": "cf2d8e081037ddb20483451c7463c3b65cd8ee25",
+    "live_tag": "contentops-live-20261118-cc536-piece4",
+    "rollback_tag": "contentops-rollback-20261118-cc536-piece4"
+  },
+  "pre_existing_work_preserved": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  ],
+  "scheduled_tasks_changed": false,
+  "other_chat_messages_sent": false
+}
