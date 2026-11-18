@@ -1,0 +1,40 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc124-gold-floor-20261118-0824",
+      "headline_id": "cc124-gold-floor-20261118-0824",
+      "headline_text": "Gold breaks its floor without a haven bid",
+      "known_at_utc": "2026-11-18T00:50:26.285704Z",
+      "revision_at_utc": "2026-11-18T01:30:14.265913+00:00",
+      "candidate_catalyst_tags": [
+        "MAIN_REPORT",
+        "XAUUSD",
+        "MARKET_REACTION"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261118T003041Z\\analysis-native.json",
+          "source_sha256": "7b2ed9c583831bc563be38656140da9df0c9a9b03c1da70e1d1939d3832131a5",
+          "source_json_pointer": "/native_synthesis/candidates/2/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 540
+            },
+            {
+              "start": 1018,
+              "end": 1181
+            },
+            {
+              "start": 1988,
+              "end": 2086
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "spec": {
+    "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+    "authority_ref": "JIM_DECISION_89",
+    "source_url": "urn:cc-public-report:cc124-gold-floor-20261118-0824",
+    "headline_id": "cc124-gold-floor-20261118-0824",
+    "headline_text": "Gold breaks its floor without a haven bid",
+    "known_at_utc": "2026-11-18T00:50:26.285704Z",
+    "revision_at_utc": "2026-11-18T01:30:14.265913+00:00",
+    "candidate_catalyst_tags": [
+      "MAIN_REPORT",
+      "XAUUSD",
+      "MARKET_REACTION"
+    ],
+    "passages": [
+      {
+        "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261118T003041Z\\analysis-native.json",
+        "source_sha256": "7b2ed9c583831bc563be38656140da9df0c9a9b03c1da70e1d1939d3832131a5",
+        "source_json_pointer": "/native_synthesis/candidates/2/rationale",
+        "fragments": [
+          {
+            "start": 0,
+            "end": 540
+          },
+          {
+            "start": 1018,
+            "end": 1181
+          },
+          {
+            "start": 1988,
+            "end": 2086
+          }
+        ]
+      }
+    ]
+  },
+  "projection": {
+    "headline_id": "cc124-gold-floor-20261118-0824",
+    "headline_text": "Gold breaks its floor without a haven bid",
+    "text_sha256": "bb4f169ee717424fd53b14be5807c62be51ee7ee88b0a060abe049b6961e06c4",
+    "source_identity": "cc124-gold-floor-20261118-0824",
+    "source_account": "Capital Chronicle",
+    "source_platform": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+    "source_url": "urn:cc-public-report:main-retained:78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c",
+    "official_source_urls": [],
+    "source_timestamp_utc": "2026-11-18T00:50:26.285704Z",
+    "headline_timestamp": "2026-11-18T00:50:26.285704Z",
+    "known_at_utc": "2026-11-18T00:50:26.285704Z",
+    "retrieval_time_utc": "2026-11-18T01:30:14.265913+00:00",
+    "revision_at_utc": "2026-11-18T01:30:14.265913+00:00",
+    "rights_state": "MAIN_PUBLIC_REPORT_PROJECTION",
+    "rights_evidence_sha256": "3681f42d3dbdfcf5b63cfa6cf84a3e22ff8743ea360b5de8428b9353add1f401",
+    "source_capture_sha256": "78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c",
+    "source_permission_record_sha256": "3681f42d3dbdfcf5b63cfa6cf84a3e22ff8743ea360b5de8428b9353add1f401",
+    "source_permissions": {
+      "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+      "authority_ref": "JIM_DECISION_89",
+      "provider_safe": true,
+      "MODEL_INPUT_ALLOWED": true,
+      "LLM_INPUT_ALLOWED": true,
+      "INTERNAL_ANALYSIS_ALLOWED": true,
+      "permitted_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "attribution_required": true,
+      "public_expression_reuse_allowed": true,
+      "underlying_event_truth_granted": false,
+      "source_capture_sha256": "78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c"
+    },
+    "candidate_catalyst_tags": [
+      "MAIN_REPORT",
+      "XAUUSD",
+      "MARKET_REACTION"
+    ],
+    "originality": "MAIN_ORIGIN_RECIRCULATION",
+    "correction_of": null,
+    "document": {
+      "document_id": "cc124-gold-floor-20261118-0824",
+      "title": "Gold breaks its floor without a haven bid",
+      "publisher": "Capital Chronicle",
+      "source_identity": "cc124-gold-floor-20261118-0824",
+      "source_url": "urn:cc-public-report:main-retained:78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c",
+      "reader_source_url": "urn:cc-public-report:main-retained:78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c",
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_adapter_family": "capital_chronicle_main_report",
+      "published_at_utc": "2026-11-18T00:50:26.285704Z",
+      "known_at_utc": "2026-11-18T00:50:26.285704Z",
+      "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+      "canonical_content_text": "Base case (56%): gold is lower in 24 hours after losing a floor that had held five times since 16 November. Mechanism: trend selling and stops below 3832.288 in a market down 17.5% over 60 sessions; the driver of the first push at 00:00 UTC is not identified. Priced: about 25 below the 23:45 UTC close at the capture bid of 3823.598, below the 20-session range low of 3852.401. Positioning: not observed. Driver: structure and trend; an unverified U.S. strike lead that would normally lift gold drew no bid, and crude did not move either. Confirmations: the 00:15 M15 close of 3830.973 below 3832.288 and a fresh low for the 60 daily bars shown. Invalidation: a completed H1 bar closing above 3858.19. Main alternative (44%): the drop is a stop run and gold is back above 3832.288 within the session.",
+      "canonical_content_sha256": "3ccf8326206b4faf579eef226154dbef5b85b0ca18d209d6ef164508362590aa",
+      "source_capture_sha256": "78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c",
+      "source_reuse_constraints": {
+        "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+        "authority_ref": "JIM_DECISION_89",
+        "provider_safe": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "attribution_required": true,
+        "public_expression_reuse_allowed": true,
+        "underlying_event_truth_granted": false,
+        "source_capture_sha256": "78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c"
+      },
+      "public_claim_allowed": true,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
+      "report_lineage": {
+        "report_id": "cc124-gold-floor-20261118-0824",
+        "report_projection_sha256": "78889dd85af6d685c8e9f51c737e99686b45f3c1916501364335147c8e1ec56c",
+        "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS",
+        "independent_confirmation": false
+      },
+      "data_cutoff_utc": "2026-11-18T00:33:27.059961Z",
+      "data_clock_binding": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261118T003041Z\\capture.json",
+          "field": "/known_at_utc",
+          "sha256": "5bb9bad9816b06af8fbf599e370f617bd5737f2ef5417b3f8d79e5d43a97062c",
+          "value": "2026-11-18T00:33:27.059961Z"
+        }
+      ]
+    },
+    "source_chart": null,
+    "permitted_source_text": "Base case (56%): gold is lower in 24 hours after losing a floor that had held five times since 16 November. Mechanism: trend selling and stops below 3832.288 in a market down 17.5% over 60 sessions; the driver of the first push at 00:00 UTC is not identified. Priced: about 25 below the 23:45 UTC close at the capture bid of 3823.598, below the 20-session range low of 3852.401. Positioning: not observed. Driver: structure and trend; an unverified U.S. strike lead that would normally lift gold drew no bid, and crude did not move either. Confirmations: the 00:15 M15 close of 3830.973 below 3832.288 and a fresh low for the 60 daily bars shown. Invalidation: a completed H1 bar closing above 3858.19. Main alternative (44%): the drop is a stop run and gold is back above 3832.288 within the session.",
+    "supporting_headline_ids": [],
+    "research_metadata": {
+      "source_hashes": {
+        "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261118T003041Z\\analysis-native.json": "7b2ed9c583831bc563be38656140da9df0c9a9b03c1da70e1d1939d3832131a5"
+      },
+      "authority_ref": "JIM_DECISION_89",
+      "independent_event_confirmation": false
+    }
+  }
+}
