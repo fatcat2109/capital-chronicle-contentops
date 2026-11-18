@@ -1,0 +1,222 @@
+{
+  "item": "CC-124",
+  "standing_status": "OPEN",
+  "outcome": "NO_TIMELY_MAIN_REPORT",
+  "actual_entry_utc": "2026-11-18T12:06:47.841763Z",
+  "observed_at_utc": "2026-11-18T12:15:12.923701Z",
+  "next_due_utc": "2026-11-18T18:07:00Z",
+  "cadence_hours": 6,
+  "piece_checked": "PRE_US_WRAP",
+  "current_policy": "Jim decisions 89, 93 and 98; CC-403 publication within 60 minutes of data cutoff",
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:18674s",
+  "new_canonical_articles": 0,
+  "source_assessment": {
+    "single_pass_native_outputs_checked": 34,
+    "hash_verified_completed_native_reports": 33,
+    "latest_main_report": {
+      "path": "requests\\request-f8cc5f05733fd5c8\\analysis-native.json",
+      "report_sha256": "4f2977f645f375f84c6c41dfc0425c43053b2f9bb442cfb1573212acb8414d83",
+      "capture": {
+        "sha256": "03c2d143c313a3605dbf2fe8fc920a7953ba2d147482de44c995012ab4d2f01a",
+        "bytes": 9428726
+      },
+      "completion_receipt": {
+        "sha256": "f790f69151b573f80a13c93bae19b65fd05715c850ed35e1c65b15e8835443d9",
+        "bytes": 1045
+      },
+      "completed_at_utc": "2026-11-18T07:37:44.708080Z",
+      "data_cutoff_utc": "2026-11-18T06:55:33.580624Z",
+      "substack_deadline_utc": "2026-11-18T07:55:33.580624Z"
+    },
+    "installed_projection_and_article_clock": {
+      "source_pointer": "/native_synthesis/summary/2/text",
+      "fragment": {
+        "start": 0,
+        "end": 88
+      },
+      "projection_sha256": "b0ac4ff191bfc6952a746fe10460cff32a0841b704f2dacee2bfc13f4ff50692",
+      "contract": "CC403_READER_ARTICLE_V1",
+      "source_pack_sha256": "edc3d695136ca80806450f6b45cddc340f8e29fe09e7717fce6701ef7dc4b23c",
+      "clock_result_at_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:18674s",
+      "dated_context_available": true
+    },
+    "configured_public_main_manifest": {
+      "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+      "entries": 15,
+      "emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+      "latest_data_cutoff_utc": "2026-10-20T15:27:29.653737Z"
+    },
+    "public_plan_and_call_source_clocks": {
+      "export_generated_at_utc": "2026-11-18T12:15:03.516851Z",
+      "last_analysis_registration_utc": "2026-11-18T07:39:10.617567Z",
+      "last_plan_transition_utc": "2026-11-18T09:45:54.781000Z",
+      "last_plan_state_evaluation_utc": "2026-11-18T12:14:25.938287Z",
+      "last_public_call_frozen_utc": "2026-11-18T07:37:44.708080Z",
+      "desk_board_as_of_utc": "2026-11-18T12:14:52.315939Z",
+      "desk_board_refresh_reason": "PLAN_STATUS_REFRESH"
+    },
+    "other_held_outputs": [
+      {
+        "source": "Main event dossiers",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+        "candidates_checked": 292,
+        "newest_path": "20261117-1320-arrival-retail\\run.json",
+        "newest_modified_utc": "2026-11-17T13:32:57.983394Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Dated Main strategy dossiers",
+        "root": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy",
+        "candidates_checked": 37,
+        "newest_path": "PARKED.md",
+        "newest_modified_utc": "2026-11-15T21:58:42.023767Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Main event reactions",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables",
+        "candidates_checked": 19,
+        "newest_path": "20261118T024947Z\\AU_POLICY_MINUTES_20261117\\20261117T003000Z.json",
+        "newest_modified_utc": "2026-11-18T02:49:48.549464Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Main event scores",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\main-event-forecast-scores",
+        "candidates_checked": 10,
+        "newest_path": "event-scores-US_PPI_20261113-20261113T135117Z.json",
+        "newest_modified_utc": "2026-11-13T13:51:17.716337Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Main T2 runs",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs",
+        "candidates_checked": 81,
+        "newest_path": "t2-20261118T044519Z\\STATUS.md",
+        "newest_modified_utc": "2026-11-18T05:08:34.777275Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Main horizon runs",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\horizon-runs",
+        "candidates_checked": 4,
+        "newest_path": "run-20261116T104457Z\\STATUS.md",
+        "newest_modified_utc": "2026-11-16T11:36:10.281030Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Main event catchup",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup",
+        "candidates_checked": 23,
+        "newest_path": "catchup-20261118T050853Z\\official-release-admission\\admission-readback.json",
+        "newest_modified_utc": "2026-11-18T05:08:57.270205Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Main digest",
+        "root": "A:\\Capital Chronicle\\ResearchRuns\\main-daily-digest",
+        "candidates_checked": 20,
+        "newest_path": "digest-20261118.md",
+        "newest_modified_utc": "2026-11-18T00:10:22.935879Z",
+        "candidates_modified_in_window": 0
+      },
+      {
+        "source": "Data lane research",
+        "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research",
+        "candidates_checked": 83,
+        "newest_path": "cc-125\\ca-policy-minutes-snapshot-20261110\\validation.json",
+        "newest_modified_utc": "2026-11-07T08:45:56.229296Z",
+        "candidates_modified_in_window": 0
+      }
+    ],
+    "latest_shock_check": {
+      "checked_at_utc": "2026-11-18T12:10:41Z",
+      "verdict": "SUPPRESSED_DAILY_FIRE_CAP",
+      "cause": "2 fires today; 1 reserved for impact 3"
+    },
+    "supported_report_files_and_receipts": {
+      "analysis-native.json": {
+        "files": 34,
+        "newest_modified_utc": "2026-11-18T07:37:26.981262Z",
+        "files_modified_in_window": 0,
+        "path": "requests\\request-f8cc5f05733fd5c8\\analysis-native.json"
+      },
+      "analysis-end.json": {
+        "files": 33,
+        "newest_modified_utc": "2026-11-18T07:37:47.516246Z",
+        "files_modified_in_window": 0,
+        "path": "requests\\request-f8cc5f05733fd5c8\\analysis-end.json"
+      },
+      "owner-native.json": {
+        "files": 22,
+        "newest_modified_utc": "2026-11-11T16:19:18.730948Z",
+        "files_modified_in_window": 0,
+        "path": "requests\\request-f342a3cfaca32345\\owner-native.json"
+      },
+      "completion-result.json": {
+        "files": 55,
+        "newest_modified_utc": "2026-11-18T07:38:05.994367Z",
+        "files_modified_in_window": 0,
+        "path": "requests\\request-f8cc5f05733fd5c8\\completion-result.json"
+      }
+    }
+  },
+  "operating_readback": {
+    "live_branch_base": "076cd5f8ea9f5c8ff4b824d6794f5beff6aed489",
+    "fresh_remote_master_ancestor": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+    "production_day_id": "newsroom-production-day-2026-11-18-bangkok",
+    "article_cap": 2,
+    "article_slots_fenced": 0,
+    "standing_canonical_count": 0,
+    "production_day_canonical_count": 0,
+    "digest_input_day_canonical_count": 0,
+    "publication_feed_day_count": 0,
+    "publication_feed_before_and_after": {
+      "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553",
+      "bytes": 30621
+    },
+    "newsroom_lease_conflict": null,
+    "active_dispatch_leases": 0,
+    "unresolved_cc124_dispatches": [],
+    "separate_pending_dispatch_counts": [
+      {
+        "destination": "facebook_page",
+        "state": "UNKNOWN_WRITE",
+        "count": 1
+      },
+      {
+        "destination": "substack",
+        "state": "UNKNOWN_WRITE",
+        "count": 1
+      },
+      {
+        "destination": "substack_notes",
+        "state": "UNKNOWN_WRITE",
+        "count": 4
+      },
+      {
+        "destination": "threads",
+        "state": "UNKNOWN_WRITE",
+        "count": 3
+      },
+      {
+        "destination": "x",
+        "state": "UNKNOWN_WRITE",
+        "count": 2
+      }
+    ],
+    "rollout_public_write_authority": true,
+    "operating_mode": "AUTONOMOUS_DEFAULT"
+  },
+  "configured_launch": {
+    "pid": 45480,
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "verified_launch_arguments": true
+  },
+  "native_editorial_calls": 0,
+  "new_draft_operations": 0,
+  "public_dispatch_attempts": 0,
+  "implementation_changes": 0
+}
