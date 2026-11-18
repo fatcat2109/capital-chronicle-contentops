@@ -1,0 +1,133 @@
+{
+  "item": "CC-399",
+  "recorded_at_utc": "2026-11-18T06:54:48.250472+00:00",
+  "received_branch_sha": "6094d427d8e222e9327e00c768a8fd94c79f9036",
+  "readback_integration_sha": "02cf228cc1c3cc9d008b0f9b42be9f99d1a990fb",
+  "cc549_source_fix_sha": "f08c81a6dde4adc86b3bdb51346d934260a08520",
+  "installations": [
+    {
+      "prior_operating_head": "02cf228cc1c3cc9d008b0f9b42be9f99d1a990fb",
+      "installed_head": "0889ca62eaaf42698f2611ff17207d540d575cfb",
+      "applied_at_utc": "2026-11-18T06:33:52.1689826+00:00",
+      "installed_source_sha256": "3fbb5c7ec9792a8b76b64fc6d584e02158e2fa96e0158c57ec9f575e87318d2b",
+      "wip_files_verified": 6,
+      "preserved_wip_bytes": true,
+      "applied_paths": [
+        "docs/publisher/CC-399/resume-20261118/delivery-slot-red.xml",
+        "docs/publisher/CC-399/resume-20261118/entry-and-slot.xml",
+        "live_contentops/plan_call_cards_v1.py",
+        "tests/test_plan_state_alerts_cc543.py"
+      ]
+    },
+    {
+      "prior_operating_head": "0889ca62eaaf42698f2611ff17207d540d575cfb",
+      "installed_head": "67f7d9ed2e676395f55e1f28b916fddf0da816a2",
+      "applied_at_utc": "2026-11-18T06:40:06.8969015+00:00",
+      "installed_source_sha256": "224afd95aed41eac45f4f9bc21b8d5a6f312256a9d74c0999efe43ae941a3623",
+      "wip_files_verified": 6,
+      "preserved_wip_bytes": true,
+      "applied_paths": [
+        "docs/publisher/CC-399/resume-20261118/ending-recovery-branch.xml",
+        "docs/publisher/CC-399/resume-20261118/installed-after-fix.xml",
+        "docs/publisher/CC-399/resume-20261118/late-parent-red.xml",
+        "docs/publisher/CC-399/resume-20261118/minute-before-parent-fix.json",
+        "live_contentops/plan_call_cards_v1.py",
+        "tests/test_plan_state_alerts_cc543.py"
+      ]
+    },
+    {
+      "prior_operating_head": "67f7d9ed2e676395f55e1f28b916fddf0da816a2",
+      "installed_head": "d75088f3f321f09b82fed64e5d71c1d122c8cad8",
+      "applied_at_utc": "2026-11-18T06:50:14.7685974+00:00",
+      "installed_source": [
+        {
+          "path": "live_contentops/plan_call_cards_v1.py",
+          "sha256": "224afd95aed41eac45f4f9bc21b8d5a6f312256a9d74c0999efe43ae941a3623"
+        },
+        {
+          "path": "live_contentops/publication_coordinator_v1.py",
+          "sha256": "b14226c19029657c9b8fe19a7ea77b79a617be5503760c2d5d24cfe74916665e"
+        },
+        {
+          "path": "live_contentops/durable_operational_store_v1.py",
+          "sha256": "d6ff247b9f4bdddc6c476e6e255b1b5b1e27edf9a1e1385992941e8a5c130655"
+        }
+      ],
+      "wip_files_verified": 6,
+      "preserved_wip_bytes": true,
+      "applied_paths": [
+        "docs/publisher/CC-399/resume-20261118/minute-with-ready-parentless-draft.json",
+        "docs/publisher/CC-399/resume-20261118/ready-reply-branch.xml",
+        "docs/publisher/CC-399/resume-20261118/ready-reply-red.xml",
+        "live_contentops/durable_operational_store_v1.py",
+        "live_contentops/publication_coordinator_v1.py",
+        "tests/test_durable_operational_store_v1.py",
+        "tests/test_plan_state_alerts_cc543.py"
+      ]
+    }
+  ],
+  "tags": {
+    "contentops-live-20261118-cc399": "d75088f3f321f09b82fed64e5d71c1d122c8cad8",
+    "contentops-rollback-20261118-cc399": "02cf228cc1c3cc9d008b0f9b42be9f99d1a990fb"
+  },
+  "launch": {
+    "pid": 30060,
+    "process_started_utc": "2026-11-18T06:11:13.1613740Z",
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "installed_tests": {
+    "status": "COMPLETED",
+    "started_at_utc": "2026-11-18T06:50:29.007813+00:00",
+    "finished_at_utc": "2026-11-18T06:51:05.276340+00:00",
+    "elapsed_seconds": 36.268,
+    "exit_code": 0,
+    "selected_tests": [
+      "tests/test_plan_state_alerts_cc543.py",
+      "tests/test_durable_operational_store_v1.py::test_finalize_exact_ready_payload_only_before_dispatch",
+      "tests/test_publication_coordinator_v1.py::test_case_e_provider_accepted_response_lost_reconciles_without_duplicate",
+      "tests/test_publication_coordinator_v1.py::test_pending_unknown_write_uses_exact_destination_readback_only"
+    ],
+    "pytest_processes": 1,
+    "parallel_workers": 0,
+    "passed": 13,
+    "artifact": "installed-ready-reply.xml"
+  },
+  "existing_consumer": {
+    "scheduled_task": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "action": "pythonw.exe -B scripts/plan_status_posts.py --publish"
+  },
+  "telegram": {
+    "method": "BrowserOS Neo AX on the public channel, joined to the exact dispatch",
+    "channel": "https://t.me/s/CapitalChronicle",
+    "setup": "https://t.me/CapitalChronicle/193",
+    "ending": "https://t.me/CapitalChronicle/194",
+    "public_ending_lead": "Micro Bitcoin (MBT futures, Nov 2026): not triggered.",
+    "ending_quotes_exact_setup": true,
+    "chart_visible": true,
+    "dispatch_attempt_started_at_utc": "2026-11-18T06:51:02.079671+00:00",
+    "coordinator_readback_recorded_at_utc": "2026-11-18T06:51:04.665488+00:00",
+    "public_display_time_gmt_plus_7": "18 Nov 2026 13:51"
+  },
+  "preserved_dispatch_payload_sha256": {
+    "outbox_f8718d879ce72d922724aa05c4f10eca": "6b946c082b732386161d5fd85cdee88b21437c4cb4b6bfb7856407fee66b6101",
+    "outbox_175677c43f5eba00a4a01cbf71937887": "6e9da88973b5dfade7457abf8c946aaef0a5bd5c72bcfe324becb41f3973931d",
+    "outbox_0dee4413070128dc9580661a868ae5c6": "73c14a9af8d8900f674e38a150975bfb2614a3c3e8024cd7cdfad0c8f2b84c1c"
+  },
+  "preserved_exec_wip_sha256": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+  },
+  "next_required_observation": {
+    "cause": "NEXT_ELIGIBLE_MAIN_PLAN_NOT_REGISTERED",
+    "first_phase_markets_decision": 79,
+    "source": "eligibility.json",
+    "action": "After the next eligible Main registration, read the Substack page and exact Telegram and Discord analysis replies under that card.",
+    "latest_export_observed_at_utc": "2026-11-18T06:55:22.245390+00:00"
+  },
+  "schedule_changes": 0,
+  "manual_public_actions": 0,
+  "editorial_calls_by_this_run": 0
+}

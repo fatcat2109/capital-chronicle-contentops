@@ -1,0 +1,50 @@
+{
+  "observed_at_utc": "2026-11-18T06:55:22.245390+00:00",
+  "export_sha256": "c2a5f8f59fbe56ccc0383f3188605c9612671676b49f55a364c33e80a214a355",
+  "export_generated_at_utc": "2026-11-18T06:55:00.729776Z",
+  "contract_version": "2.0.0",
+  "latest_registrations": [
+    {
+      "plan_id": "plan_f8c5af0df91966236ab77557",
+      "market": "USDCAD",
+      "state": "FILLED",
+      "registered_at_utc": "2026-11-18T00:22:44.619101Z",
+      "entry_deadline_utc": "2026-11-18T04:00:00Z",
+      "expires_at_utc": "2026-11-18T04:00:00Z",
+      "in_first_phase": false
+    },
+    {
+      "plan_id": "plan_05bdd0f3e95fa2c90e29841c",
+      "market": "BTCUSD",
+      "state": "EXPIRED",
+      "registered_at_utc": "2026-11-17T16:43:13.289952Z",
+      "entry_deadline_utc": "2026-11-17T19:30:00Z",
+      "expires_at_utc": "2026-11-17T19:30:00Z",
+      "in_first_phase": true
+    },
+    {
+      "plan_id": "plan_30f3365059e996b2f0d1d79a",
+      "market": "USDJPY",
+      "state": "EXPIRED",
+      "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+      "entry_deadline_utc": "2026-11-17T07:00:00Z",
+      "expires_at_utc": "2026-11-17T12:30:00Z",
+      "in_first_phase": true
+    }
+  ],
+  "active_plans_in_first_phase_markets": [],
+  "owned_page_and_link_readback": {
+    "plan_30f3365059e996b2f0d1d79a": {
+      "page_and_link_rows": [],
+      "latest_writer_status": "PAGE_COPY_NEEDS_REPAIR",
+      "latest_writer_cause": "PLAN_ANALYSIS_UNBOUND_NUMBER:technical:2",
+      "writer_record_time_utc": "2026-11-18T06:42:47.058590+00:00"
+    },
+    "plan_05bdd0f3e95fa2c90e29841c": {
+      "page_and_link_rows": [],
+      "latest_writer_status": "PAGE_COPY_NEEDS_REPAIR",
+      "latest_writer_cause": "CC466_PAGE_WORD_RANGE:558",
+      "writer_record_time_utc": "2026-11-18T06:45:50.496547+00:00"
+    }
+  }
+}

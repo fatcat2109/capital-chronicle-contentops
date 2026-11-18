@@ -6,11 +6,11 @@ gold card, its thread and the full-analysis reply. The old run thread has no
 card messages. CC-466 now removes count posts: new plans use their own card
 and thread, while issued objects keep their original route and bytes.
 
-The 17 November readback verifies the new USD/JPY setup and its untriggered
-ending on Telegram and Discord. The ending answers its exact card on both
-destinations. The full-analysis page and its analysis reply remain absent;
-CC-549 already delivers their source-loader fix on a branch. See the
-[current source and page state](resume-20261117/source-and-page-state.json).
+The 18 November readback confirms the Micro Bitcoin ending under its original
+card on Telegram and Discord. The existing minute publisher sent the Telegram
+reply after recovering the confirmed parent. The next eligible Main plan is
+needed to verify a fresh full-analysis page and linked reply. See the
+[18 November readback](#resume--18-november-2026).
 
 The earlier ending-selection fix keeps a confirmed card available as a parent
 after its internal queue row becomes SETTLED or SUPERSEDED_NOT_POSTED. Its
@@ -249,3 +249,57 @@ runner integrates the existing CC-549 source fix, then resumes the existing
 source-bound page/reply path and records the canonical page and analysis
 replies under these same cards. CC-399's setup and ending readbacks now pass;
 its full-analysis acceptance remains open until those public objects exist.
+
+## Resume — 18 November 2026
+
+The first Publisher stream merged the 17 November readback into ContentOps
+after CC-549. Official Discord GET readbacks confirmed the USD/JPY setup and
+original ending, the Micro Bitcoin setup and ending, and the earlier gold reply
+with its exact Substack link. The USD/JPY ending is historical and the public
+correction remains attached to that story. [Discord readback](resume-20261118/discord-readback.json).
+
+The minute publisher had left Micro Bitcoin's Telegram ending waiting. Six
+older endings inherited levels from older cards that did not match their
+source fields. The first five used every delivery slot before the valid
+ending was reached. Source-mismatch checks now run before allocating a slot.
+They still refuse the mismatched copy. [Baseline failure](resume-20261118/delivery-slot-red.xml),
+[passing regression](resume-20261118/entry-and-slot.xml),
+[first installed run](resume-20261118/minute-before-parent-fix.json).
+
+The next tick found a separate cause. Discord had already confirmed its ending
+when the Telegram setup's uncertain return was reconciled to post 193. The
+frozen package needed a Telegram parent and the existing Telegram draft had
+stopped at the parent check with no dispatch attempt. The publisher now fills
+the confirmed parent for the unsent copy. The coordinator applies that change
+to an already registered draft only when its exact bytes and READY status still
+match and there is no dispatch marker. The existing Discord ending retained
+its public identity and payload hash. [Parent test](resume-20261118/ready-reply-branch.xml).
+
+The existing minute task confirmed Telegram post 194 at **13:51 GMT+7**.
+BrowserOS Neo read the public post's quote link back to setup 193. Discord's
+ending remains under its own setup. The minute record also confirms the
+Facebook and Instagram comments. Threads, X and Notes were waiting for their
+respective setup identities at this observation.
+[Telegram ending](https://t.me/CapitalChronicle/194),
+[Discord ending](https://discord.com/channels/1519310996030750782/1572291805364621322/1572333710240387164),
+[minute readback](resume-20261118/minute-readback-final.json).
+
+The final source is installed at `d75088f3f321f09b82fed64e5d71c1d122c8cad8`.
+The live and rollback tags are `contentops-live-20261118-cc399` and
+`contentops-rollback-20261118-cc399`. Thirteen installed checks passed, including
+the exact outbox update, the scheduled entry, and existing uncertain-write
+recovery. The copied-store test for the earlier run with five cards also passed.
+The top-level launch named `gpt-6.2-sol/max`, `CONFIGURED_NOT_OBSERVED`.
+The verification invoked no editorial model or manual public action.
+[Installed tests](resume-20261118/installed-ready-reply.xml),
+[copied-store tests](resume-20261118/copied-store.xml),
+[installation and public readback](resume-20261118/readback.json).
+
+**The remaining cause is `NEXT_ELIGIBLE_MAIN_PLAN_NOT_REGISTERED`.** The fresh public
+export has zero eligible plans in decision 79's first-phase markets. The 17
+November USD/JPY and Bitcoin plans have expired, and neither has a canonical
+page or analysis reply in the production store. The recent USD/CAD registration
+is outside decision 79's first-phase list. When Main next registers an eligible
+plan, the existing minute publisher can prepare the page. Publisher then reads
+back its Substack page and linked reply under the original card.
+[Export and page state](resume-20261118/eligibility.json).
