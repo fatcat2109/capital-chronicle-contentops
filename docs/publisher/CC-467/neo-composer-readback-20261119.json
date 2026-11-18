@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-18T17:51:45.095375+00:00",
+  "account_verified": true,
+  "source_url": "https://x.com/zerohedge/status/2122806847778291712",
+  "native_request_sha256": "1e0b77ed67fa57a46abacf0cad0ddb51e9eb753e29da82e4d9ca0dd3dd19bf36",
+  "exact_copy": true,
+  "exact_quote_card": true,
+  "loaded_chart_preview": true,
+  "chart_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\heavy-quote-2122806847778291712\\media\\tradingview-120a93ad94751eb5-16x9.png",
+  "chart_bytes": 46645,
+  "chart_sha256": "475133b0808f023634afd602b2837f2f5f16bc950cb1f0bc6ff7d8a2f0058850",
+  "original_deadline_enforced": "CC467_SOURCE_OUTSIDE_FIVE_MINUTES",
+  "public_submit_actions": 0
+}

@@ -405,6 +405,15 @@ LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
 })
 
 
+def _local_quote_preclick_failure(destination, detail):
+    cause = detail.get("reason_code") or detail.get("safe_error_classification")
+    return destination == "x" and detail.get("status") == DEFINITE_NO_WRITE and cause in {
+        "CC467_QUOTED_SOURCE_OR_CHART_MISSING", "CC467_QUOTE_CARD_NOT_VERIFIED",
+        "CC467_CHART_PREVIEW_NOT_LOADED", "CC467_SOURCE_OUTSIDE_FIVE_MINUTES",
+        "CC467_QUOTE_PRECLICK_OBSERVATION_FAILED", "CC467_QUOTE_SUBMIT_NOT_READY",
+    }
+
+
 def _local_missing_threads_text(destination, detail):
     # CC-536: the adapter validates its text before any HTTP request. Retain
     # the failed dispatch, but do not mistake a repaired payload for an outage.
@@ -2771,7 +2780,8 @@ class DurablePublicationCoordinator:
                 failure = json.loads(row["description"]) if row else None
                 local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                     or _local_missing_threads_text(destination, failure) or _local_identity_refusal(failure)
-                    or _local_instagram_validation_failure(destination, failure))
+                    or _local_instagram_validation_failure(destination, failure)
+                    or _local_quote_preclick_failure(destination, failure))
                 if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
                         "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}:
                     local = failure.get("status") == DEFINITE_NO_WRITE
@@ -2797,7 +2807,7 @@ class DurablePublicationCoordinator:
                             and reconciliation and reconciliation["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
                             and failure.get("safe_error_classification") in {
                                 "ValueError", "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN",
-                                "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"}):
+                                 "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "CC467_QUOTE_CLICK_RETURN_INCOMPLETE"}):
                         # CC-453: fresh authenticated absence resolves the old
                         # local validation/return exception; keep its exact retry
                         # budget. A still-unknown dispatch remains fenced above.
@@ -2908,7 +2918,8 @@ class DurablePublicationCoordinator:
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
         if (_local_missing_threads_text(destination, detail) or _local_identity_refusal(detail)
-                or _local_instagram_validation_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                or _local_instagram_validation_failure(destination, detail)
+                or _local_quote_preclick_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                 and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
                      or detail.get("status") == DEFINITE_NO_WRITE)):
             return

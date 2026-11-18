@@ -714,11 +714,17 @@ class NeoDestinationHandoff:
             # CC-283: the composed run stopped before the publish click (for example an account
             # mismatch); a definite no-write that releases the claim for a retry.
             return result
+        quote = request.get("quote_parent")
+        if (quote and result.get("request_sha256") == request["request_sha256"]
+                and result.get("status") == "UNKNOWN_WRITE" and result.get("reason_code")
+                and not result.get("public_object_id") and not result.get("public_object_url")):
+            # The exact action remains readback-only. Keep the endpoint's first
+            # cause even if the interrupted return cannot prove account identity.
+            return {**result, "retry_permitted": False}
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
         parent = request.get("reply_parent")
-        quote = request.get("quote_parent")
         if quote and (result.get("observed_quote_parent_id") != quote["public_object_id"]
                       or result.get("observed_quote_parent_url") != quote["public_object_url"]):
             return {**result, "status": "UNKNOWN_WRITE", "reason_code": "X_QUOTE_PARENT_UNVERIFIED",

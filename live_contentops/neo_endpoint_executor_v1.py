@@ -735,13 +735,17 @@ class NeoBrowserDriver:
             "observed_identity":request["expected_identity"],"observed_text":"\n\n".join(r["observed_text"] for r in thread),
             "content_verified":True,"observed_thread":thread}
         if request.get("quote_parent"):
-            edge = self.client.run(page, "quote_card", quote_parent=request["quote_parent"], public_url=root["public_object_url"])
+            quote = request["quote_parent"]
+            edge = self.client.run(page, "quote_card", quote_parent=quote, public_url=root["public_object_url"])
             if edge.get("matches") and not edge.get("public_object_url"):
                 # X's quote card is a visible button without an href. Follow
                 # that exact card and observe the actual source permalink.
-                self.client.act(page, "click", ref=self._ref(page, edge.get("role") or "button", {"CC467 observed quote source"}))
-                self.client.wait(page, 'article[data-testid="tweet"]')
-                edge = self.client.run(page, "quote_source", quote_parent=request["quote_parent"])
+                self.client.act(page, "focus", ref=self._ref(page, edge.get("role") or "button", {"CC467 observed quote source"}))
+                if self.client.run(page, "quote_control_focused", control="card").get("focused") is not True:
+                    raise NeoEndpointError("CC467_QUOTE_CARD_FOCUS_NOT_CONFIRMED")
+                self.client.act(page, "press", key="Enter")
+                self.client.wait(page, f'article[data-testid="tweet"] a[href$="/status/{quote["public_object_id"]}"] time')
+                edge = self.client.run(page, "quote_source", quote_parent=quote)
                 self.client.call("navigate", {"page":page, "url":root["public_object_url"]})
             if edge.get("matches"):
                 result.update(observed_quote_parent_id=edge.get("public_object_id"),
@@ -783,12 +787,22 @@ class NeoBrowserDriver:
             quote = request.get("quote_parent")
             self.client.call("navigate",{"page":page,"url": (quote or parent)["public_object_url"] if quote or parent else "https://x.com/compose/post"})
             if quote:
-                self.client.wait(page, 'article[data-testid="tweet"]')
+                self.client.wait(page, f'article[data-testid="tweet"] a[href$="/status/{quote["public_object_id"]}"] time')
                 observed = self.client.run(page, "quote_source", quote_parent=quote)
                 if observed.get("matches") is not True:
                     raise NeoEndpointError("CC467_VISIBLE_SOURCE_CHANGED")
-                self.client.act(page, "click", ref=self._ref(page, "button", {"CC467 source quote menu"}))
-                self.client.act(page, "click", ref=self._ref(page, "menuitem", {"Quote"}))
+                if observed.get("menu_available") is not True:
+                    raise NeoEndpointError("CC467_SOURCE_QUOTE_MENU_UNAVAILABLE")
+                # X's sticky overlay intercepts the Quote menu item's pointer
+                # target. Verify each exact control before activating it.
+                for control, role, name in (("menu", "button", "CC467 source quote menu"),
+                                            ("quote", "menuitem", "Quote")):
+                    self.client.act(page, "focus", ref=self._ref(page, role, {name}))
+                    if self.client.run(page, "quote_control_focused", control=control).get("focused") is not True:
+                        raise NeoEndpointError("CC467_QUOTE_CONTROL_FOCUS_NOT_CONFIRMED")
+                    self.client.act(page, "press", key="Enter")
+                    if control == "menu":
+                        self.client.wait(page, '[role="menuitem"]')
             editor='[data-testid="tweetTextarea_0"][contenteditable="true"][role="textbox"]'
             self.client.wait(page,editor if parent else '[role="dialog"] '+editor)
         else:
@@ -926,9 +940,17 @@ class NeoBrowserDriver:
         parent=request.get("reply_parent")
         result=self.client.run(page,"publish",destination=destination,posts=posts,reply_parent=parent,
                                **({"quote_parent": request["quote_parent"]} if request.get("quote_parent") else {}))
+        if request.get("quote_parent") and result["status"] == "UNKNOWN_WRITE":
+            return {"result":result,"identity":identity, "readback":{"status":"READBACK_UNAVAILABLE"},
+                    "pre_click_posts":result["pre_click_posts"],"dispatched_at_utc":result["dispatched_at_utc"]}
         if result["status"] != "CLICKED":
             return {"result":result,"identity":identity}
-        readback=self.readback(request,page,posts=posts)
+        try:
+            readback=self.readback(request,page,posts=posts)
+        except NeoEndpointError as exc:
+            if not request.get("quote_parent"):
+                raise
+            readback = {"status":"READBACK_UNAVAILABLE", "reason_code":str(exc)}
         return {"result":{**readback,"status":"SUCCESS" if readback.get("public_object_id") else "UNKNOWN_WRITE",
             "stage":"PUBLISH_CLICK_ATTEMPTED"},"identity":identity,"readback":readback,
             "pre_click_posts":result["pre_click_posts"],"dispatched_at_utc":result["dispatched_at_utc"]}
@@ -1112,10 +1134,13 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                     "pre_click_posts":observed.get("pre_click_posts"),"readback":observed.get("readback")}}
             self.submit(request_hash,response)
             return super().__call__(request)
-        except (NeoEndpointError,OSError,ValueError,KeyError,requests.RequestException):
+        except (NeoEndpointError,OSError,ValueError,KeyError,requests.RequestException) as exc:
             # No repeat after a claimed action, including a lost click/return.
+            cause = "NEO_ENDPOINT_OBSERVATION_INCOMPLETE"
+            if request.get("quote_parent") and isinstance(exc, NeoEndpointError) and re.fullmatch(r"[A-Z0-9_]{3,150}", str(exc)):
+                cause = str(exc)
             return {"status":"UNKNOWN_WRITE" if request["action"] == "PUBLISH" else "READBACK_UNAVAILABLE",
-                "retry_permitted":False,"reason_code":"NEO_ENDPOINT_OBSERVATION_INCOMPLETE",
+                "retry_permitted":False,"reason_code":cause,
                 "request_sha256":request_hash}
 
 

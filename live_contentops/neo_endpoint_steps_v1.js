@@ -335,36 +335,112 @@ if (input.phase === 'note_inline_copy') {
 if (input.phase === 'quote_source') {
   return unwrap(await page.evaluateInPage(parent => {
     const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
-    const source = Array.from(document.querySelectorAll('article[data-testid="tweet"]')).find(e =>
-      Array.from(e.querySelectorAll('a[href] time')).some(t => t.closest('a').href === parent.public_object_url));
-    const text = source?.querySelector('[data-testid="tweetText"]')?.innerText;
+    const times = Array.from(document.querySelectorAll('article[data-testid="tweet"] a[href] time'));
+    const clock = times.find(t => t.getClientRects().length &&
+      t.closest('a').href.toLowerCase() === parent.public_object_url.toLowerCase());
+    const source = clock?.closest('article[data-testid="tweet"]');
+    const text = source?.querySelector('[data-testid="tweetText"]');
     const button = source?.querySelector('[data-testid="retweet"]');
-    const matches = !!button && norm(text) === norm(parent.source_text);
-    if (matches) button.setAttribute('aria-label','CC467 source quote menu');
-    const url = source && Array.from(source.querySelectorAll('a[href] time'))
-      .map(t => t.closest('a').href).find(u=>u===parent.public_object_url);
-    return {matches, public_object_url:url, public_object_id:url?.match(/status\/(\d+)/)?.[1]};
+    const matches = !!clock && Math.abs(Date.parse(clock.getAttribute('datetime')) -
+      Date.parse(parent.source_posted_at_utc)) < 1000 && [text?.innerText, text?.textContent].some(t =>
+      !!t && norm(t) === norm(parent.source_text));
+    if (matches && button) button.setAttribute('aria-label','CC467 source quote menu');
+    const url = clock?.closest('a').href;
+    return {matches, menu_available:!!button, public_object_url:matches ? parent.public_object_url : url,
+      public_object_id:url?.match(/status\/(\d+)/)?.[1]};
   }, input.quote_parent));
 }
 
-if (input.phase === 'quote_card') {
-  return unwrap(await page.evaluateInPage(data => {
+if (input.phase === 'quote_control_focused') {
+  return unwrap(await page.evaluateInPage(control => {
+    const e = document.activeElement;
+    if (control === 'menu') return {focused:e?.matches('[data-testid="retweet"][aria-label="CC467 source quote menu"]')};
+    if (control === 'card') return {focused:e?.getAttribute('aria-label') === 'CC467 observed quote source'};
+    return {focused:e?.matches('[role="menuitem"]') && e.innerText.trim() === 'Quote'};
+  }, input.control));
+}
+
+const quoteCard = async (parent, publicUrl, posts) => unwrap(await page.evaluateInPage(data => {
     const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
-    const scope = data.public_url ? Array.from(document.querySelectorAll('article[data-testid="tweet"]'))
-      .find(e => e.querySelector('a[href*="/status/"] time')?.closest('a').href === data.public_url)
-      : document.querySelector('[role="dialog"]');
+    const editor = Array.from(document.querySelectorAll('[role="dialog"] [data-testid="tweetTextarea_0"][contenteditable="true"]'))
+      .find(e => e.getClientRects().length);
+    const scope = data.publicUrl ? Array.from(document.querySelectorAll('article[data-testid="tweet"]'))
+      .find(e => e.querySelector('a[href*="/status/"] time')?.closest('a').href === data.publicUrl)
+      : editor?.closest('[role="dialog"]');
     const parent = data.parent;
     const handle = new URL(parent.public_object_url).pathname.split('/')[1];
     const card = scope && Array.from(scope.querySelectorAll('button,[role="button"],[role="link"],[data-testid="quoteTweet"],[data-testid="card.wrapper"]'))
       .find(e => e.getClientRects().length && Array.from(e.querySelectorAll('[data-testid="tweetText"]'))
-        .some(t => norm(t.innerText) === norm(parent.source_text))
+        // X wraps a rendered link over multiple lines inside a non-link span.
+        .some(t => [t.innerText, t.textContent].some(text => !!text && norm(text) === norm(parent.source_text)))
         && e.innerText.toLowerCase().includes('@'+handle.toLowerCase())
         && Array.from(e.querySelectorAll('time')).some(t => Math.abs(Date.parse(t.getAttribute('datetime'))-Date.parse(parent.source_posted_at_utc)) < 1000));
-    const url = card && Array.from(card.querySelectorAll('a[href]')).find(a=>a.href===parent.public_object_url)?.href;
-    if (card && !url) card.setAttribute('aria-label','CC467 observed quote source');
-    return {matches:!!card, role:card?.getAttribute('role') || (card?.tagName==='BUTTON' ? 'button' : 'link'),
-      public_object_url:url || null, public_object_id:url?.match(/status\/(\d+)/)?.[1] || null};
-  }, {parent:input.quote_parent,public_url:input.public_url}));
+    const link = card && Array.from(card.querySelectorAll('a[href*="/status/"] time')).map(t => t.closest('a').href)[0];
+    const matches = !!card && (!link || link.toLowerCase() === parent.public_object_url.toLowerCase());
+    if (matches && !link && data.publicUrl) card.setAttribute('aria-label','CC467 observed quote source');
+    const observed = {matches, role:card?.getAttribute('role') || (card?.tagName==='BUTTON' ? 'button' : 'link'),
+      public_object_url:matches && link ? parent.public_object_url : null,
+      public_object_id:matches && link ? parent.public_object_id : null};
+    if (!data.posts) return observed;
+
+    const normalizeCopy = text => text.replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
+    const text = editor?.innerText || '';
+    // Only the task's uploaded preview qualifies. The quoted card can contain
+    // its own images or an avatar under the same attachments container.
+    const chart = scope && Array.from(scope.querySelectorAll('[data-testid="attachments"] img[src^="blob:"]'))
+      .some(e => !card?.contains(e) && e.getClientRects().length && e.complete && e.naturalWidth > 0);
+    const submit = scope?.querySelector('button[data-testid="tweetButton"]');
+    const enabled = !!submit?.getClientRects().length && !submit.disabled && submit.getAttribute('aria-disabled') !== 'true';
+    const reason = !editor || data.posts.length !== 1 || normalizeCopy(text) !== normalizeCopy(data.posts[0])
+      ? 'NEO_COMPOSER_PAYLOAD_MISMATCH' : !matches ? 'CC467_QUOTE_CARD_NOT_VERIFIED'
+      : !chart ? 'CC467_CHART_PREVIEW_NOT_LOADED' : !enabled ? 'CC467_QUOTE_SUBMIT_NOT_READY' : null;
+    if (!reason && submit.getAttribute('aria-label') !== 'CC467 quote Post') {
+      submit.setAttribute('aria-label','CC467 quote Post');
+    }
+    return {...observed, chart_loaded:!!chart, reason_code:reason, pre_click_posts:editor ? [text] : []};
+  }, {parent, publicUrl, posts}));
+
+const waitForQuotePreview = timeout => page.waitForSelector(
+  '[role="dialog"] [data-testid="attachments"] img[src^="blob:"]', {timeout});
+
+if (input.phase === 'quote_card') {
+  if (input.posts) await waitForQuotePreview(6000);
+  return await quoteCard(input.quote_parent, input.public_url, input.posts);
+}
+
+if ((input.phase === 'publish' || input.phase === 'validate') && input.quote_parent) {
+  const deadline = Date.parse(input.quote_parent.deadline_at_utc);
+  const refused = (reason_code, pre_click_posts=[]) => ({status:'FAILED_BEFORE_WRITE', definite_no_write:true,
+    stage:'BEFORE_PUBLISH_CLICK', reason_code, pre_click_posts});
+  const expired = () => !Number.isFinite(deadline) || Date.now() >= deadline;
+  if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES');
+  let observed, button;
+  try {
+    const preview = await waitForQuotePreview(Math.min(6000, Math.max(1, deadline - Date.now())));
+    if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES');
+    if (!preview.matched) return refused('CC467_CHART_PREVIEW_NOT_LOADED');
+    await page.waitForSelector('[role="dialog"] button[data-testid="tweetButton"]:not(:disabled):not([aria-disabled="true"])',
+      {timeout:Math.min(6000, Math.max(1, deadline - Date.now()))});
+    if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES');
+    observed = await quoteCard(input.quote_parent, null, input.posts);
+    if (observed.reason_code) return refused(observed.reason_code, observed.pre_click_posts);
+    button = find(await snap(), 'button', 'CC467 quote Post');
+    if (!button) return refused('CC467_QUOTE_SUBMIT_NOT_READY', observed.pre_click_posts);
+    observed = await quoteCard(input.quote_parent, null, input.posts);
+    if (observed.reason_code) return refused(observed.reason_code, observed.pre_click_posts);
+  } catch (_) {
+    return refused('CC467_QUOTE_PRECLICK_OBSERVATION_FAILED');
+  }
+  if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES', observed.pre_click_posts);
+  if (input.phase === 'validate') return {status:'PREPARED', post_count:1, quote_card_verified:true, chart_loaded:true};
+  const dispatched_at_utc = new Date().toISOString();
+  try {
+    await page.click(button.ref);
+  } catch (_) {
+    return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_CLICK_RETURN_INCOMPLETE',
+      stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc, pre_click_posts:observed.pre_click_posts};
+  }
+  return {status:'CLICKED', stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc, pre_click_posts:observed.pre_click_posts};
 }
 
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
@@ -429,25 +505,6 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   button = settledButtons[settledButtons.length - 1];
   if (!button) return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
     reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
-  if (input.quote_parent) {
-    const quote = unwrap(await page.evaluateInPage(parent => {
-      const dialog = document.querySelector('[role="dialog"]');
-      const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
-      const handle = new URL(parent.public_object_url).pathname.split('/')[1];
-      const card = dialog && Array.from(dialog.querySelectorAll('button,[role="button"],[data-testid="quoteTweet"], [data-testid="card.wrapper"], [role="link"]'))
-        .find(e => e.innerText.toLowerCase().includes('@'+handle.toLowerCase())
-          && Array.from(e.querySelectorAll('[data-testid="tweetText"]')).some(t => norm(t.innerText) === norm(parent.source_text))
-          && Array.from(e.querySelectorAll('time')).some(t => Math.abs(Date.parse(t.getAttribute('datetime'))-Date.parse(parent.source_posted_at_utc)) < 1000));
-      const chart = dialog && Array.from(dialog.querySelectorAll('[data-testid="attachments"] img, [data-testid="mediaPreview"] img'))
-        .some(e => e.complete && e.naturalWidth > 0);
-      return {matches:!!card && !!chart, deadline:Date.parse(parent.deadline_at_utc)};
-    }, input.quote_parent));
-    if (!quote.matches || !Number.isFinite(quote.deadline) || Date.now() >= quote.deadline) {
-      return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
-        reason_code:Date.now() >= quote.deadline ? 'CC467_SOURCE_OUTSIDE_FIVE_MINUTES' : 'CC467_QUOTED_SOURCE_OR_CHART_MISSING',
-        pre_click_posts:editors};
-    }
-  }
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);
