@@ -282,8 +282,8 @@ def prepare(store, *, output_root, now=None, day=None, report_root=NATIVE_MAIN_R
     except DesktopInputRequired as pending:
         return {"state": "GOLD_NOTE_NATIVE_INPUT_REQUIRED", "day": day.isoformat(),
             "stage": stage, "request_path": pending.request["request_path"],
-            "request_sha256": pending.request["request_sha256"], "requested_model": "gpt-6.1-sol",
-            "requested_reasoning_effort": "max", "public_write_performed": False,
+            "request_sha256": pending.request["request_sha256"], "requested_model": pending.request["requested_model"],
+            "requested_reasoning_effort": pending.request["requested_reasoning_effort"], "public_write_performed": False,
             "next_command": {"command": "gold-note-submit", "note_date": day.isoformat(),
                 "response": "<authored-response.json>", "rollout": "<same applied rollout>"},
             "continuation_required": "Read the exact request, write in this native MAX context, gold-note-submit, inspect its PNG, then gold-note-accept; do not end with an executable pending note."}

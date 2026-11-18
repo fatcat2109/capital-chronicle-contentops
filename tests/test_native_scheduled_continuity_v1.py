@@ -84,6 +84,23 @@ def test_interrupted_pending_native_request_is_discovered_after_expiry_without_n
     assert len(store.list_outbox_messages()) == before_rows
 
 
+def test_model_switch_continues_an_issued_window_without_rebinding_its_first_slot(rollout):
+    previous = {**rollout, "model": "gpt-6.1-sol", "tasks": []}
+    _, binding, path = start(previous)
+    terminal_abstention(previous, binding)
+    before = path.read_bytes()
+
+    routing = {**previous, "model": "gpt-6.2-sol"}
+    current = {**routing, "terminal_reporting_prompt_compatibility": {
+        "previous_rollout_sha256": sha256_of(previous),
+        "unchanged_routing_sha256": sha256_of(routing),
+    }}
+    reply = schedule.scheduled_binding(current, AUTO, now=at("2026-10-26T14:06:00Z"), continue_after=binding["run_id"])
+    successor = json.loads(Path(reply["binding_path"]).read_bytes())
+    assert successor["slot_ordinal"] == 2 and successor["cutoff_utc"] == binding["cutoff_utc"]
+    assert path.read_bytes() == before
+
+
 def test_completed_duplicate_callback_replays_without_another_slot_or_source_work(rollout, monkeypatch):
     _, binding, path = start(rollout)
     store = terminal_abstention(rollout, binding)
@@ -269,11 +286,11 @@ def test_actual_cli_uses_completed_discovery_without_advancing_or_allocating(rol
 def test_task_startup_precedes_full_context_without_changing_roles_or_calendar():
     from live_contentops.codex_desktop_newsroom_operator_v1 import four_task_setup_packet
     packet = four_task_setup_packet()
-    assert len(packet["tasks"]) == 4 and packet["model"] == "gpt-6.1-sol" and packet["reasoning_effort"] == "low"
+    assert len(packet["tasks"]) == 4 and packet["model"] == "gpt-6.2-sol" and packet["reasoning_effort"] == "low"
     for task in packet["tasks"]:
         prompt = task["prompt"]
         assert prompt.startswith("STARTUP FIRST:")
         assert prompt.index("scheduled --automation-id") < prompt.index("lengthy context reads")
         assert "never backdates a never-bound window" in prompt and "--continue-after" in prompt
-        assert "gpt-6-luna/max" in prompt and "gpt-6.1-sol/max" in prompt
+        assert "gpt-6-luna/max" in prompt and "gpt-6.2-sol/max" in prompt
         assert "UNKNOWN writes" in prompt and "same writer" in prompt

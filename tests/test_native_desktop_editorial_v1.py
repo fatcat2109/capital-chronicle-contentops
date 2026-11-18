@@ -34,23 +34,40 @@ def test_omitted_visual_metadata_uses_the_exact_accepted_operation_decision(tmp_
     assert article["substack_body_markdown"] == "Controlled unchanged prose."
 
 
-def test_pending_response_restart_and_mismatched_binding(tmp_path):
+@pytest.mark.parametrize("issued_model", ["gpt-6.2-sol", "gpt-6.1-sol"])
+def test_pending_response_restart_and_mismatched_binding(tmp_path, monkeypatch, issued_model):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
+    from live_contentops.native_desktop_editorial_v1 import ROLE_ASSIGNMENTS
+    from live_contentops.native_editorial_continuation_v1 import next_editorial_action
+
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     work = "cc-opportunity-" + sha256_of("same-turn")
     store.create_work_item(story_id=work, work_item_id=work, title="test", target_surface="CONTENTOPS_EDITORIAL_ONLY")
     turn = NativeDesktopTurn(store, run_id="same-turn", output_dir=tmp_path, owner_manual_validation=True)
     args = dict(logical_invocation_id="same-turn:select", prompt="exact", governed_input={"candidates": ["a"]},
                 validator=lambda raw: (True, None, json.loads(raw), None))
-    with pytest.raises(DesktopInputRequired) as pending:
-        turn(**args)
-    observation = dict(surface="CODEX_NATIVE_SUBAGENT", invocation_id="controlled-test-only", model="gpt-6.1-sol",
+    with monkeypatch.context() as issued:
+        issued.setitem(ROLE_ASSIGNMENTS["select"], "model", issued_model)
+        with pytest.raises(DesktopInputRequired) as pending:
+            turn(**args)
+    request = pending.value.request
+    request_path = Path(request["request_path"])
+    original_bytes = request_path.read_bytes()
+    restarted = NativeDesktopTurn(store, run_id="same-turn", output_dir=tmp_path, owner_manual_validation=True)
+    with pytest.raises(DesktopInputRequired) as resumed:
+        restarted(**args)
+    assert resumed.value.request == request and request_path.read_bytes() == original_bytes
+    call = native_role_call(request, {"run_id": turn.run_id}, binding_path="binding.json")
+    assert call["arguments"]["model"] == issued_model
+    assert next_editorial_action({"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "next_native_call": call})[
+        "action"] == "EXECUTE_AND_COLLECT_NATIVE_ROLES"
+    observation = dict(surface="CODEX_NATIVE_SUBAGENT", invocation_id="controlled-test-only", model=issued_model,
                        reasoning_effort="low", observation_source="CONTROLLED_UNIT_TEST_NOT_MODEL_PROOF")
     response = {"request_sha256": pending.value.request["request_sha256"], "output": {"selected": "a"},
                 "invocation_observation": observation}
     with pytest.raises(ValueError, match="BINDING"):
         turn.submit("select", {**response, "request_sha256": "wrong"})
     turn.submit("select", response)
-    restarted = NativeDesktopTurn(store, run_id="same-turn", output_dir=tmp_path, owner_manual_validation=True)
     assert restarted(**args)[0] == {"selected": "a"}
     before = len(store.list_outbox_messages())
     assert restarted(**args)[0] == {"selected": "a"}
@@ -59,6 +76,38 @@ def test_pending_response_restart_and_mismatched_binding(tmp_path):
         restarted(**{**args, "prompt": "changed"})
     assert restarted.telemetry()["usage_tokens"] is None
     assert restarted.telemetry()["external_provider_attempt_count"] == 0
+    assert restarted.telemetry()["requested_model"] == issued_model
+
+
+def test_issued_final_visual_review_retains_pre_switch_model_and_request(tmp_path, monkeypatch):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from live_contentops.native_desktop_editorial_v1 import (
+        FINAL_VISUAL_CHANNELS, ROLE_ASSIGNMENTS, native_artifact_key, request_final_visual_review,
+    )
+    from tests.native_final_visual_fixture_v1 import visual_request_fixture
+
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    run = "pre-switch-visual-review"
+    work = "cc-opportunity-" + sha256_of(run)
+    store.create_work_item(story_id=work, work_item_id=work, title="Controlled", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    result = {"qualified_article_count": 1, "article_identity": "controlled-article", "article": {"title": "Controlled"},
+        "previews": [{"destination": d, "payload": {}} for d in sorted(FINAL_VISUAL_CHANNELS - {"substack"})],
+        "simple_result": {"publication_lifecycle_plan": {"plan_hash": "controlled-plan"}}}
+    store.register_outbox_message(message_id=native_artifact_key(store, run, "cc-editorial-final-"), work_item_id=work,
+        destination="internal:cc-report-simple-result", payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    with monkeypatch.context() as issued:
+        issued.setitem(ROLE_ASSIGNMENTS["final-visual"], "model", "gpt-6.1-sol")
+        turn, request, response = visual_request_fixture(store, {"run_id": run, "output_dir": str(tmp_path)}, result)
+    request_path = Path(request["request_path"])
+    original_bytes = request_path.read_bytes()
+    renders = request["governed_input"]["binding"]["renders"]
+    with pytest.raises(DesktopInputRequired) as resumed:
+        request_final_visual_review(turn, renders=renders)
+    assert resumed.value.request == request and request_path.read_bytes() == original_bytes
+    assert request["requested_model"] == "gpt-6.1-sol"
+    turn.submit(request["stage"], response)
+    reviewed, receipt = request_final_visual_review(turn, renders=renders)
+    assert reviewed["decision"] == "ACCEPT" and receipt["requested_model"] == "gpt-6.1-sol"
 
 
 def test_writer_replays_issued_prompt_after_template_change(tmp_path):
@@ -168,8 +217,14 @@ def test_paused_rollout_and_active_authority_match_native_target():
     assert rollout["public_write_authority"] is True
     assert rollout["live_authority"]["scope"] == "V1_NATIVE_PUBLICATION"
     assert len({r["id"] for r in rollout["tasks"]}) == 4
-    assert rollout["model"] == "gpt-6.1-sol" and rollout["reasoning_effort"] == "low"
-    for name in ("AGENTS.md", "docs/codegraph/V1_CONTEXT.md",
+    assert rollout["model"] == "gpt-6.2-sol" and rollout["reasoning_effort"] == "low"
+    assert rollout["editorial_roles"] == four_task_setup_packet()["editorial_roles"]
+    key = "terminal_reporting_prompt_compatibility"
+    routing = {**{k: v for k, v in rollout.items() if k != key}, "tasks": without_prompt(rollout["tasks"])}
+    assert rollout[key]["unchanged_routing_sha256"] == sha256_of(routing)
+    assert rollout[key]["previous_rollout_sha256"] == "1ef3d0401fab63f6321b70a7668e42f182f7e9720b6c57189bea8154137b1dba"
+    assert "gpt-6.2-sol" in (root / "AGENTS.md").read_text(encoding="utf-8")
+    for name in ("docs/codegraph/V1_CONTEXT.md",
             "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
             "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
             "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",

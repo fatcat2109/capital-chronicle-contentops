@@ -81,7 +81,7 @@ def test_a_claude_return_without_true_labels_or_invocation_evidence_is_refused(t
 def test_a_codex_operation_is_unchanged_and_refuses_a_claude_return(tmp_path):
     turn = turn_for(tmp_path, "codex")
     _, request = pending(turn)
-    assert "editorial_agent" not in request and request["requested_model"] == "gpt-6.1-sol"
+    assert "editorial_agent" not in request and request["requested_model"] == "gpt-6.2-sol"
     with pytest.raises(ValueError, match="NATIVE_DESKTOP_SURFACE_REQUIRED"):
         turn.submit("select", {"request_sha256": request["request_sha256"], "output": {"selected": "x"},
                                "invocation_observation": claude()})

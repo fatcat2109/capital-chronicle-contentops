@@ -187,10 +187,11 @@ def native_note(tmp_path, monkeypatch):
     assert pending["next_command"]["command"] == "gold-note-submit"
     turn = gold._turn(store, args["output_root"], NOW.astimezone(gold.LOCAL).date())
     request = turn.frozen_request("gold-note")
-    assert request["requested_model"] == "gpt-6.1-sol" and request["requested_reasoning_effort"] == "max"
+    assert pending["requested_model"] == request["requested_model"] == "gpt-6.2-sol"
+    assert pending["requested_reasoning_effort"] == request["requested_reasoning_effort"] == "max"
     assert "separate from the Capital Chronicle brand" in request["prompt"]
     observation = {"surface": "CODEX_EXEC", "model": None, "reasoning_effort": None,
-        "configured_model": "gpt-6.1-sol", "configured_reasoning_effort": "max",
+        "configured_model": "gpt-6.2-sol", "configured_reasoning_effort": "max",
         "configuration_status": "CONFIGURED_NOT_OBSERVED", "invocation_id": "controlled-test-context",
         "observation_source": "TEST_FIXTURE"}
     response = {"request_sha256": request["request_sha256"], "output": {"text": TEXT, "fact_ids": ["headline", "core"]},

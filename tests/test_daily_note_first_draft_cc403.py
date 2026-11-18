@@ -120,9 +120,9 @@ def test_daily_request_consumes_agy_once_and_dispatches_one_light_editor(tmp_pat
     assert GUIDANCE in request["prompt"]
     call = native_role_call(request, {"run_id": turn.run_id, "output_dir": str(tmp_path)}, binding_path="binding.json")
     assert call["arguments"]["reasoning_effort"] == "low"
-    assert call["arguments"]["model"] == "gpt-6.1-sol"
+    assert call["arguments"]["model"] == "gpt-6.2-sol"
     response = {"request_sha256": request["request_sha256"], "output": output(),
-        "invocation_observation": {"model": "gpt-6.1-sol", "reasoning_effort": "low",
+        "invocation_observation": {"model": "gpt-6.2-sol", "reasoning_effort": "low",
             "surface": "CODEX_EXEC", "invocation_id": "fixture-daily-editor", "observation_source": "test fixture"}}
     turn._put("write", "response", response)
     frozen = deepcopy(request)

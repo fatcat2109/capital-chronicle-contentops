@@ -255,7 +255,7 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
         with store.get_connection() as conn:
             conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
                 (canonical_bytes(response).decode(), turn._key(stage, "response")))
-    assert ROLE_ASSIGNMENTS["write"] == {"model": "gpt-6.1-sol", "reasoning_effort": "max"}
+    assert ROLE_ASSIGNMENTS["write"] == {"model": "gpt-6.2-sol", "reasoning_effort": "max"}
     accepted = require_current_final_visual_review(store, run_id=binding["run_id"])
     assert accepted["policy_id"] == SPEED_POLICY and accepted["pixels_inspected"] is False
     assert accepted["automated_media_check"]["blocks_publication"] is False
