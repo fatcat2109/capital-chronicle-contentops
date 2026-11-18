@@ -1,8 +1,34 @@
-Implementation is live in the Publisher operating root. Acceptance is pending:
-the observed consumer returned `NO_HEAVY_NEWS` at **17 November 2026 21:00:37
-GMT+7**. No quote-post is confirmed. The first five-minute quote/readback and
-its following fourteen-day views comparison remain outstanding. The existing
-minute consumer continues; no additional trigger is needed.
+## 19 November composer repair
+
+The 18 November evening readback found 13 heavy-news quote candidates from the
+preceding session. None had a confirmed public object. The exact dispatch and
+editorial returns account for all 13 rows. Two Quote clicks met a covering X
+overlay, one source observation failed, and a rendered line break in the Nvidia
+quote link caused the card check to refuse it. That last local refusal also
+triggered the X day circuit, leaving three later quotes staged. Six attempted
+dispatches were eventually reconciled absent. Their earlier incidents retain
+the unregistered-surface error for one and the incomplete native return
+classification for five.
+
+The existing Neo route now opens the exact source and verifies focus before
+activating its Quote menu. The publisher checks the native card, the bound copy
+and the completed TradingView preview in the active composer before dispatch.
+An expired source still refuses the action. An interrupted click still enters
+exact readback, and a proven pre-click chart or source refusal only applies to
+its own candidate. The daily readback uses existing exact dispatch incidents,
+native tool returns and editorial results for the first cause.
+
+[Neo composer observation](neo-composer-readback-20261119.json) records the
+actual Nvidia composer, quote card, exact copy and uploaded chart. The source
+was already outside the five-minute window, and no public submit was made.
+The existing minute consumer handles the next qualifying flag. The five-minute
+public acceptance and fourteen-day views comparison require its actual readback.
+
+## Prior installation and checks
+
+At the 17 November R4 installation, the observed consumer returned
+`NO_HEAVY_NEWS` at **21:00:37 GMT+7**. The records below document that earlier
+run and its verified recovery.
 
 CC-467 extends the existing minute consumer and sole durable publisher with
 own-account X quote-posts. It reuses CC-258's fast-squawk flags and the existing
@@ -10,8 +36,8 @@ sourced-interaction outbox, leases, dispatches, readback and audience collection
 It changes no schedule. Jim's reply drafts and their posting rule keep their
 existing path.
 
-Luna MAX screens fresh original flagged posts, Sol 6.1 low prepares one held
-desk figure, and Sol 6.1 MAX writes complete source-bound copy. Every call saves
+Luna MAX screens fresh original flagged posts, Sol 6.2 low prepares one held
+desk figure, and Sol 6.2 MAX writes complete source-bound copy. Every call saves
 its input, return, configured model/effort, available runtime telemetry and
 clocks. These labels do not gate execution. CC-466's actual source/copy checks
 apply. The TradingView service captures the affected market after the news;
@@ -77,7 +103,8 @@ flag enters the same installed roles and publisher. Publisher then reads back
 its exact source edge, chart and observed publication clock; only that proof
 starts the fourteen-day audience period. Missing views remain unknown.
 
-The Ops launch explicitly configured gpt-6.1-sol/max. Role calls retain their
+The November 17 Ops launch explicitly configured gpt-6.1-sol/max. The November
+19 launch explicitly configured gpt-6.2-sol/max. Role calls retain their
 own configured settings, observed sessions, usage when exposed and original
 clocks. Runtime model and effort remain `CONFIGURED_NOT_OBSERVED` when the CLI
 does not expose them. No Claude review or further approval is needed for this
