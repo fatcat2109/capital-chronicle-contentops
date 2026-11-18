@@ -298,6 +298,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "with the fact's actual date and source in words. Sentence two explains its relevance. "
             "Allowed reply_shape: base_rate, positioning, priced_in. No brand, disclaimer, we, our, "
             "own calls, links, emoji, hashtags, certain forecasts or advice. Never invent or round a number. "
+            "Copy every number exactly as written in its source, including any sign or percent symbol. "
             "State the unit of a count (contracts), rate (percent or bp) or price (currency). "
             "Prefer one useful figure; do not add a second price just because it is in the source. "
             "Explain the direct implication; no speculation about unobserved exits or liquidation. "

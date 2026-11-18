@@ -248,6 +248,7 @@ def test_non_private_destination_is_refused_before_any_draft_send(setup):
     (lambda d: d.update(draft_text=d["draft_text"].replace("That makes", "Capital Chronicle makes")), "VOICE"),
     (lambda d: d.update(draft_text=d["draft_text"].replace("102,321", "102,322")), "EXACT_SOURCE_FACT"),
     (lambda d: d.update(draft_text=d["draft_text"].replace("27%", "28%")), "UNBOUND_OR_CHANGED_NUMBER"),
+    (lambda d: d.update(draft_text=d["draft_text"].replace("27%", "27 percent")), "UNBOUND_OR_CHANGED_NUMBER"),
     (lambda d: d.update(date_text="4 Nov"), "BOUND_DATE_AND_SOURCE"),
     (lambda d: d.update(source_name="Reuters"), "BOUND_DATE_AND_SOURCE"),
     (lambda d: d.update(reply_shape="generic_form"), "SHAPE"),
@@ -332,6 +333,7 @@ def test_ranker_uses_agy_but_only_stronger_writer_authors_source_bound_reply(set
     def write(prompt, **kwargs):
         calls.append("writer")
         assert kwargs["writer"] and "102,321" in prompt
+        assert "Copy every number exactly as written in its source, including any sign or percent symbol." in prompt
         return authored(packs.read_json(ready["request_path"])), {"configured_model": "gpt-6.2-sol", "configured_effort": "max", "configuration_status": "CONFIGURED_NOT_OBSERVED"}
     path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native", ranker=rank, writer=write, now=NOW)
     value = packs.read_json(path)
