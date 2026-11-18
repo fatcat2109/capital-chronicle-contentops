@@ -1,0 +1,733 @@
+{
+  "item": "CC-466",
+  "observed_at_utc": "2026-11-17T08:36:36.295785+00:00",
+  "window_start_utc": "2026-11-10T08:36:36.295785+00:00",
+  "window_end_utc": "2026-11-17T08:36:36.295785+00:00",
+  "coverage_scope": "All retained six-market public registrations in the preceding seven calendar days; no synthetic plans or historical backfill",
+  "export_path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+  "export_sha256": "3a97ed4049bf3b5383947487abeb466059d8088b1f940a2f80efbbdb231f7475",
+  "export_generated_at_utc": "2026-11-17T08:33:01.401182Z",
+  "week_plan_count": 26,
+  "registered_page_count": 2,
+  "confirmed_page_count": 2,
+  "all_plan_pages_complete": false,
+  "plans": [
+    {
+      "plan_id": "plan_1c84765c96ff32077bba92dc",
+      "asset": "USDJPY",
+      "registered_at_utc": "2026-11-10T13:32:04.271797Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "asset": "USOIL",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "page": null,
+      "signed_result_r_present": true
+    },
+    {
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "asset": "EURUSD",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "asset": "USDJPY",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_5fb1fd296a3ef7bf4b22636b",
+      "asset": "BTCUSD",
+      "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_a11a3108089c7d75cc6b1522",
+      "asset": "US500",
+      "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_5e5cf20917286ebd8cb8d945",
+      "asset": "EURUSD",
+      "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_4a68fd77e5609b19cd258ac1",
+      "asset": "USOIL",
+      "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_6af844208892f3705eee4de5",
+      "asset": "USDJPY",
+      "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_e53c7c0aa6230ec191762925",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_f13d70a61474060ff249abbd",
+      "asset": "EURUSD",
+      "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_6465a91a64f564ec3198d4a8",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_7ce981a4fdf322a422c90c4d",
+      "asset": "USDJPY",
+      "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_25f72703bd52500d440e9080",
+      "asset": "USOIL",
+      "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_71c24e00afe1c6a495d36468",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_2e66e8e8a4e3605f81f5470f",
+      "asset": "US500",
+      "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+      "asset": "EURUSD",
+      "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+      "page": {
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "confirmed": true,
+        "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+        "dispatch_status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reader_contract": "CC466_V1"
+      },
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_7be77d05f616bb239254de75",
+      "asset": "BTCUSD",
+      "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_aef82bda0ae8503b4cc91456",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_45bec31221424f5b47b02ac3",
+      "asset": "EURUSD",
+      "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_36f7532de32e34c1ce6455b3",
+      "asset": "USOIL",
+      "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+      "page": null,
+      "signed_result_r_present": true
+    },
+    {
+      "plan_id": "plan_230a9464a193ca7a377d0c41",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-12T13:19:23.123369Z",
+      "page": {
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "confirmed": true,
+        "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+        "dispatch_status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "reader_contract": "CC466_V1"
+      },
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_5556d93fba0baaf67f944e2d",
+      "asset": "USOIL",
+      "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_208ff18176c47f7d5de7ca37",
+      "asset": "XAUUSD",
+      "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+      "page": null,
+      "signed_result_r_present": false
+    },
+    {
+      "plan_id": "plan_30f3365059e996b2f0d1d79a",
+      "asset": "USDJPY",
+      "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+      "page": null,
+      "signed_result_r_present": false
+    }
+  ],
+  "signed_r_in_retained_export": 6,
+  "scored_record_count": 6,
+  "non_publication_internal_rows": [
+    {
+      "message_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-discord",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-threads",
+      "keys": [
+        "authored_summary",
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-discord",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-threads",
+      "keys": [
+        "authored_summary",
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-discord",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-threads",
+      "keys": [
+        "authored_summary",
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-discord",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-threads",
+      "keys": [
+        "authored_summary",
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-discord",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-root-plan_8b7c1dd880206079033b6efe-threads",
+      "keys": [
+        "authored_summary",
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-threads",
+      "keys": [
+        "authored_summary",
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-x",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-run-b1fb50b21f47dcac1ebd0e047a0ecdc6-linkedin",
+      "keys": [
+        "canonical_url",
+        "canonical_urls",
+        "destination",
+        "kind",
+        "link_id",
+        "native_payload",
+        "page_ids",
+        "plan",
+        "run_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-run-bba3482d406c30ad8f1f6a52b90c8219-linkedin",
+      "keys": [
+        "canonical_url",
+        "canonical_urls",
+        "destination",
+        "kind",
+        "link_id",
+        "native_payload",
+        "page_ids",
+        "plan",
+        "run_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-run-869a66f11a0b985282e0674efea9eeef-linkedin",
+      "keys": [
+        "canonical_url",
+        "canonical_urls",
+        "destination",
+        "kind",
+        "link_id",
+        "native_payload",
+        "page_ids",
+        "plan",
+        "run_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-run-c40fb590ba9a4076ec36e533beaf0cfe-linkedin",
+      "keys": [
+        "canonical_url",
+        "canonical_urls",
+        "destination",
+        "kind",
+        "link_id",
+        "native_payload",
+        "page_ids",
+        "plan",
+        "run_id"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "discord_delivery",
+        "discord_thread_parent_id",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+      "keys": [
+        "canonical_url",
+        "destination",
+        "link_id",
+        "native_payload",
+        "original_analysis_root",
+        "original_key",
+        "page_id",
+        "parent",
+        "plan",
+        "plan_id",
+        "summary_version"
+      ],
+      "reason": "not a bound publication packet"
+    }
+  ],
+  "latest_plan_id": "plan_30f3365059e996b2f0d1d79a",
+  "latest_page_registered": false,
+  "public_writes": 0
+}

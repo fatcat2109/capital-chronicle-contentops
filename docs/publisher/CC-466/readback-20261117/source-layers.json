@@ -1,0 +1,309 @@
+{
+  "item": "CC-466",
+  "observed_at_utc": "2026-11-17T08:33:17.806896+00:00",
+  "plan_id": "plan_30f3365059e996b2f0d1d79a",
+  "registration_hash": "da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575",
+  "run_id": "request-dbc0b55a4b96d198",
+  "analysis_result_hash": "abdf014b01d910bf5cd080f12835aa28e0b7fc28d10b9c4d9599502501572d5e",
+  "installed_lookup": "PLAN_ANALYSIS_RUN_NOT_FOUND",
+  "existing_fix_commit": "f08c81a6dde4adc86b3bdb51346d934260a08520",
+  "existing_fix_item": "CC-549",
+  "patched_lookup": "PASS",
+  "patched_lookup_scope": "in-memory read-only use of the already-pushed loader; no source or runtime changed",
+  "source_count": 32,
+  "source_layers": {
+    "macro": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/mechanism"
+        },
+        "text": "sellers met the pair at 160.047 and 160.193 and it has made lower session highs for three sessions; it moves with US500, 20-day correlation +0.49, and equities are weak; upside follow-through has been absent while the downside has room to the 11 Nov breakout base."
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/driver"
+        },
+        "text": "the US front end through today's retail sales, and risk appetite; channel MIXED since 12 Nov, the pair fell 0.44% while DXY rose 0.27%."
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/confirmations"
+        },
+        "text": "session highs of 160.193, 159.862 and 159.614; a daily close below 158.668 would confirm the breakout failed. Prior view: run shock-20261117T041041Z, plan 91e87ff91db3466e992d742b1318f62be3b26d0b7722700034bc96c1a0371648, frozen 2026-11-17T04:29:03Z, was flat at 50% from 159.251 and named an M15 close above 159.614 for a long; the pair has since made a lower low at 159.147 and the view moves to a short lean."
+      }
+    ],
+    "priced_in": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/priced"
+        },
+        "text": "the 11 Nov breakout and the 32 bp rise in the US 2-year since 6 Nov are in the price; are too old to weigh."
+      }
+    ],
+    "positioning": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/positioning"
+        },
+        "text": "speculators were net long 123,113 yen contracts on 10 Nov, 1.37 SD above the three-year mean and rising; the yen long is crowded and its stops sit above 160.193."
+      }
+    ],
+    "story": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/acceptance"
+        },
+        "text": "ACCEPTED below the 159.31 to 159.35 shelf on two H1 closes, low 159.147."
+      }
+    ],
+    "technical": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/zone_reason"
+        },
+        "text": "market entry near the reference price; no pullback zone is used because the shelf is already broken."
+      }
+    ],
+    "invalidation": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/invalidation_text"
+        },
+        "text": "a completed daily close above 160.193."
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/invalidation_reason"
+        },
+        "text": "a break of 160.193, the high of the twenty sessions, would show the top was a pause and would force the crowded yen long to cover."
+      }
+    ],
+    "scenarios": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/opposite_mechanism"
+        },
+        "text": "a strong retail sales print lifts US yields and carries the pair through 160.193, squeezing the yen long; the 20-session trend is up."
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/base_case/market_move"
+        },
+        "text": "USDJPY is below 159.186 at 2026-11-18T18:30:00Z as the pullback from the failed test of 160 extends."
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/base_case/probability_pct"
+        },
+        "text": "53.0"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/main_alternative/market_move"
+        },
+        "text": "USDJPY is above 159.186 at the exit as the uptrend resumes after a three-day pullback."
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/main_alternative/probability_pct"
+        },
+        "text": "47.0"
+      }
+    ],
+    "analysis": [
+      {
+        "ref": {
+          "file": "analysis-native.json",
+          "pointer": "/native_synthesis/candidates/9/rationale"
+        },
+        "text": "Base case (53%): USDJPY is below 159.186 at 2026-11-18T18:30:00Z as the pullback from the failed test of 160 extends. Mechanism: sellers met the pair at 160.047 and 160.193 and it has made lower session highs for three sessions; it moves with US500, 20-day correlation +0.49, and equities are weak; upside follow-through has been absent while the downside has room to the 11 Nov breakout base. Priced: the 11 Nov breakout and the 32 bp rise in the US 2-year since 6 Nov are in the price; the held prediction-market captures date from 3 Nov and are too old to weigh. Positioning: speculators were net long 123,113 yen contracts on 10 Nov, 1.37 SD above the three-year mean and rising; the yen long is crowded and its stops sit above 160.193. Driver: the US front end through today's retail sales, and risk appetite; channel MIXED since 12 Nov, the pair fell 0.44% while DXY rose 0.27%. Acceptance: ACCEPTED below the 159.31 to 159.35 shelf on two H1 closes, low 159.147. Zone reason: market entry near the reference price; no pullback zone is used because the shelf is already broken. Invalidation reason: a break of 160.193, the high of the twenty sessions, would show the top was a pause and would force the crowded yen long to cover. Confirmations: session highs of 160.193, 159.862 and 159.614; a daily close below 158.668 would confirm the breakout failed. Prior view: run shock-20261117T041041Z, plan 91e87ff91db3466e992d742b1318f62be3b26d0b7722700034bc96c1a0371648, frozen 2026-11-17T04:29:03Z, was flat at 50% from 159.251 and named an M15 close above 159.614 for a long; the pair has since made a lower low at 159.147 and the view moves to a short lean. Invalidation: a completed daily close above 160.193. Why no OPEN: not applicable, this row is an OPEN; the doubt is shown in the smaller risk tier. Opposite mechanism: a strong retail sales print lifts US yields and carries the pair through 160.193, squeezing the yen long; the 20-session trend is up. Main alternative (47%): USDJPY is above 159.186 at the exit as the uptrend resumes after a three-day pullback."
+      },
+      {
+        "ref": {
+          "file": "analysis-native.json",
+          "pointer": "/native_synthesis/candidates/9/invalidation"
+        },
+        "text": "A completed daily close above 160.193 invalidates the view; the broker stop at 160.30 is the hard exit."
+      }
+    ],
+    "plan": [
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/direction"
+        },
+        "text": "BEARISH"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/entry_deadline_utc"
+        },
+        "text": "2026-11-17T07:00:00Z"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/registered_at_utc"
+        },
+        "text": "2026-11-17T06:28:43.661312Z"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/horizon_end_utc"
+        },
+        "text": "2026-11-18T18:30:00Z"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/status"
+        },
+        "text": "WAITING"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/zone/maximum"
+        },
+        "text": "159.38"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/zone/minimum"
+        },
+        "text": "159.02"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/invalidation_conditions/0/threshold"
+        },
+        "text": "160.3"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/zone/minimum"
+        },
+        "text": "159.02"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/zone/maximum"
+        },
+        "text": "159.38"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/entry_deadline_utc",
+          "transform": "ET12"
+        },
+        "text": "Tue 17 Nov, 2:00 AM ET"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/forecast_probabilities/horizon_end_utc",
+          "transform": "ET12"
+        },
+        "text": "Wed 18 Nov, 1:30 PM ET"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/registered_at_utc",
+          "transform": "ET12"
+        },
+        "text": "Tue 17 Nov, 1:28 AM ET"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/entry_deadline_utc",
+          "transform": "ET12"
+        },
+        "text": "Tue 17 Nov, 2:00 AM ET"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/status_at_utc",
+          "transform": "ET12"
+        },
+        "text": "Tue 17 Nov, 1:28 AM ET"
+      },
+      {
+        "ref": {
+          "file": "plan-export",
+          "pointer": "/scenario_analysis/horizon_end_utc",
+          "transform": "ET12"
+        },
+        "text": "Wed 18 Nov, 1:30 PM ET"
+      }
+    ]
+  },
+  "source_manifest": {
+    "integrated-owner-record.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\integrated-owner-record.json",
+      "sha256": "cea6945840ad171e82bede458ace7eac6c53a1fa657809d73202861b622c073b",
+      "bytes": 9119732
+    },
+    "plan-geometry.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\plan-geometry.json",
+      "sha256": "7c390ac2389880a8b3c429bc3dbae4d480a1c9dce2ad954c642aa1b4fd873d27",
+      "bytes": 8070
+    },
+    "options-context.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\options-context.json",
+      "sha256": "730e6ac66f06b84ceaf5287a8f5b1c057c6784db8a1bc0321ea328173122911a",
+      "bytes": 34971
+    },
+    "final-decision-freeze.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\final-decision-freeze.json",
+      "sha256": "6ff697abc5146480fca3b3c3baa2a558b4fd1580b7f39306d6fbe191d939eb25",
+      "bytes": 1888
+    },
+    "desktop-manual-result.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\desktop-manual-result.json",
+      "sha256": "30655119af00283d0f727533c1b3f6c5bafd8ed4f6a8e46c2198ece8956b1bfb",
+      "bytes": 299909
+    },
+    "analysis-native.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\analysis-native.json",
+      "sha256": "8dc55c0d31f3448d01536b210f9d8369bc4e8ba04fa8e74a0b73b94c149fc2fe",
+      "bytes": 123177
+    },
+    "market-context.json": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-dbc0b55a4b96d198\\market-context.json",
+      "sha256": "f7d2e5a3e449d5a61ad05a3adebe991a6aded5e167db5fe3b90eb1a3745e04ac",
+      "bytes": 11937
+    }
+  },
+  "writer_prompt_has_original_refs": true,
+  "odds": {
+    "main": 53.0,
+    "alternative": 47.0
+  },
+  "missing_export_fields": [],
+  "editorial_model_calls": 0,
+  "public_writes": 0
+}
