@@ -39,7 +39,7 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
         artifact=artifact.parent/("resume-"+datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))/"result.json"
     artifact.parent.mkdir(parents=True, exist_ok=True)
     (artifact.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
-    model, effort = ("gpt-6.1-sol", "max") if writer else (MODEL, EFFORT)
+    model, effort = ("gpt-6.2-sol", "max") if writer else (MODEL, EFFORT)
     record = {"configured_model":model, "configured_effort":effort,
         "runtime_model":None, "runtime_effort":None, "configuration_status":"CONFIGURED_NOT_OBSERVED",
         "started_at_utc":datetime.now(timezone.utc).isoformat(), "prompt_sha256":key,

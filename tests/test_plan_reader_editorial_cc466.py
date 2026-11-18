@@ -140,6 +140,22 @@ def test_source_validation_uses_the_confirmed_page_not_only_writer_fields(source
         editorial.validate_reader_row(store,row)
 
 
+def test_plan_writer_passes_and_records_the_current_max_default(tmp_path, monkeypatch):
+    import subprocess
+
+    monkeypatch.setattr(editorial.shutil, "which", lambda name: "codex.exe")
+
+    def runner(args, **kwargs):
+        assert args[args.index("--model") + 1] == "gpt-6.2-sol"
+        assert 'model_reasoning_effort="max"' in args
+        return subprocess.CompletedProcess(args, 0, b'{"answer":"Returned text."}', b"")
+
+    result = editorial.text_call("Exact plan.", root=tmp_path, writer=True, runner=runner)
+    assert result["status"] == "RETURNED"
+    assert result["configured_model"] == "gpt-6.2-sol"
+    assert result["configured_effort"] == "max"
+
+
 def test_explicit_native_retry_preserves_the_failure_and_caches_its_return(tmp_path):
     import subprocess
     calls=[]

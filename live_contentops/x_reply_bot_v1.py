@@ -30,7 +30,7 @@ DELIVERY = "internal:x-reply-bot-delivery"
 EVENTS = "internal:x-reply-bot-event"
 RUNS = "internal:x-reply-bot-run"
 ATTEMPTS = "internal:x-reply-bot-attempt"
-WRITER_MODEL, WRITER_EFFORT = "gpt-6.1-sol", "max"
+WRITER_MODEL, WRITER_EFFORT = "gpt-6.2-sol", "max"
 # Two real MAX batch calls reached the old 90s ceiling without a final turn.
 # Keep one finite call, with room for the two separately grounded drafts.
 RANK_TIMEOUT, WRITER_TIMEOUT = AGY_TIMEOUT + CODEX_TIMEOUT, 150
