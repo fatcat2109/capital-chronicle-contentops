@@ -316,6 +316,31 @@ def test_notes_use_only_the_note_body_and_its_exact_link():
     assert result["first_line_matches"] and not result["links_match"]
 
 
+@pytest.mark.parametrize("link_in_note", [True, False])
+def test_substack_permalink_checks_the_visible_note_before_replies(link_in_note):
+    canonical = "https://capitalchronicle.substack.com/p/source"
+    link = f'<a href="{canonical}">View the analysis</a>'
+    html = f"""
+    <div class="comment-body">Unrelated reply. {link}</div>
+    <div class="feedPermalinkUnit-JBJrHa">
+      <div class="feedCommentBody-UWho7S">
+        <div class="richTextBody-dR7ynA">Read the analysis. {link if link_in_note else ""}</div>
+      </div>
+    </div>
+    """
+    result = readback.check_public_text("substack_notes", html, expected_text=f"Read the analysis. {canonical}")
+    assert result["first_line_matches"] and result["text_complete"]
+    assert result["links_match"] is link_in_note
+
+
+def test_digest_link_inside_bold_markdown_matches_the_rendered_anchor():
+    canonical = "https://capitalchronicle.substack.com/p/source"
+    html = f'<article><strong><a href="{canonical}">Read the analysis</a></strong></article>'
+    result = readback.check_public_text("substack", html, expected_text=f"**[Read the analysis]({canonical})**")
+    assert result["text_complete"] and result["links_match"]
+    assert result["exceptions"] == []
+
+
 def test_failure_readback_is_selected_after_an_old_dispatch_clock(recorded):
     _, store, _, _ = recorded
     with sqlite3.connect(store) as conn:

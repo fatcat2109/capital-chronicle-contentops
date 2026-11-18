@@ -96,3 +96,28 @@ remain the item's live acceptance.
 The launch arguments were read from the running Codex process: `--model
 gpt-6.1-sol` and `model_reasoning_effort="max"`. Actual model/effort telemetry:
 `CONFIGURED_NOT_OBSERVED`. The implementation invokes no editorial model.
+
+## First-stream integration on 18 November
+
+Publisher merged the delivery onto operating HEAD `608c2962`.
+The [integration tests](integration-tests.xml) passed 44 checks across the
+readback command, digest route and digest publisher. The first 16 November
+replay read the live store and produced both reports. It confirmed eight
+CC-536 piece 2 dispatches, personal LinkedIn's reconciled absence, YouTube's
+definite no-write and the digest's five recipients.
+
+The replay exposed two parser defects. Public Notes render their text in a
+permalink-specific body. Selecting that body keeps other replies out of the
+comparison. The digest wraps Markdown links in bold, so the comparator now
+extracts the URL before the closing Markdown syntax. The
+[repair tests](readback-fix-tests.xml) passed all 47 focused checks, including
+Telegram 187's cutoff and missing-link regression.
+
+The existing 19:15 task owner is Ops Product. Its final step uses the command
+above with the task's actual run folder and quotes the returned exceptions.
+The first scheduled pair of reports and Ops Product's spot-check are the
+remaining acceptance evidence.
+
+This integration ran with `--model gpt-6.2-sol` and
+`model_reasoning_effort="max"` read from its launch process
+(`CONFIGURED_NOT_OBSERVED`).

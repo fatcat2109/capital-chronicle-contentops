@@ -207,7 +207,11 @@ def _contains_in_order(needle, haystack):
 
 def _links(value):
     without_images = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", value or "")
-    return sorted(set(re.findall(r"https?://[^\s<>\"']+", unescape(without_images))))
+    links = re.findall(
+        r"\[[^\]\n]+\]\((https?://[^)\s]+)\)|(https?://[^\s<>\"']+)",
+        unescape(without_images),
+    )
+    return sorted({markdown_target or bare_url for markdown_target, bare_url in links})
 
 
 def _link_identity(value, base_url=""):
@@ -229,8 +233,15 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
     if platform == "telegram":
         body = next((n for n in nodes if "tgme_widget_message_text" in n.attrs.get("class", "").split()), None)
     elif platform == "substack_notes":
-        body = next((n for n in nodes if {"comment-body", "note-body"}.intersection(n.attrs.get("class", "").split())
-                     or n.attrs.get("data-testid") in {"comment-body", "note-body"}), None)
+        # Substack's public permalink scopes the root Note separately from replies.
+        permalink = next((n for n in nodes if any(
+            name.startswith("feedPermalinkUnit-") for name in n.attrs.get("class", "").split())), None)
+        if permalink is not None:
+            body = next((n for n in permalink.walk() if any(
+                name.startswith("feedCommentBody-") for name in n.attrs.get("class", "").split())), None)
+        else:
+            body = next((n for n in nodes if {"comment-body", "note-body"}.intersection(n.attrs.get("class", "").split())
+                         or n.attrs.get("data-testid") in {"comment-body", "note-body"}), None)
     else:
         body = next((n for n in nodes if n.tag == "article"), None)
         if body is None:
