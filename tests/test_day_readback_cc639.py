@@ -14,6 +14,7 @@ from live_contentops import day_readback_v1 as readback
 FIXTURE = Path(__file__).parent / "fixtures/cc639_day_readback_20261116.json"
 NOW = datetime(2026, 11, 17, 10, 0, tzinfo=timezone.utc)
 SCHEMA = """
+CREATE TABLE work_items(work_item_id TEXT PRIMARY KEY,title TEXT NOT NULL,created_at TEXT NOT NULL);
 CREATE TABLE outbox_messages(message_id TEXT PRIMARY KEY,work_item_id TEXT,destination TEXT,payload TEXT,status TEXT,created_at TEXT);
 CREATE TABLE platform_dispatches(dispatch_id TEXT PRIMARY KEY,message_id TEXT,platform TEXT,status TEXT,dispatched_at TEXT,public_object_id TEXT,public_object_url TEXT,public_object_url_hash TEXT);
 CREATE TABLE readbacks(readback_id TEXT PRIMARY KEY,dispatch_id TEXT,readback_data TEXT,read_at TEXT);
@@ -313,6 +314,24 @@ def test_piece_lines_use_stored_copy_and_first_dispatch_clock(recorded):
     assert any(line.startswith(f"- {first_line} (16 Nov 2026 17:15 GMT+7):") for line in lines)
     assert "- A queued market update. (dispatch time unrecorded): x=READY." in lines
     assert all("Further details." not in line for line in lines)
+
+
+def test_queued_piece_without_copy_uses_its_registered_title(recorded):
+    _, store, _, run = recorded
+    title = "A reviewed article waiting for its canonical URL"
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO work_items VALUES(?,?,?)", ("queued-piece", title, "2026-11-16T09:00:00Z"))
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "queued-outbox", "queued-piece", "substack", json.dumps({"payload": None, "draft_text": "Private draft"}),
+            "READY", "2026-11-16T09:05:00Z"))
+
+    report, _ = build(recorded)
+    json_path, markdown_path = readback.write_report(run, report)
+    piece = next(piece for piece in report["pieces"] if piece["piece_id"] == "queued-piece")
+    assert piece["title"] == title
+    assert piece["first_line"] is None and piece["first_dispatch_at_utc"] is None
+    assert f"- {title} (dispatch time unrecorded): substack=READY." in markdown_path.read_text(encoding="utf-8")
+    assert "Private draft" not in json_path.read_text(encoding="utf-8")
 
 
 def test_sealed_outlets_without_store_rows_keep_public_identity(recorded):

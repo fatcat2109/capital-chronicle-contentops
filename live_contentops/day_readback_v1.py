@@ -648,6 +648,12 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 route["public_readback"] = None
                 piece["platforms"].append(route)
             piece["first_line"], piece["first_dispatch_at_utc"] = _piece_heading(group, expected, end)
+            if not (piece["first_line"] or piece["title"]):
+                registered = conn.execute("SELECT title FROM work_items WHERE work_item_id=? "
+                                          "AND julianday(created_at) <= julianday(?)",
+                                          (work_id, window["until_utc"])).fetchone()
+                if registered:
+                    piece["title"] = _first_text_line(registered["title"])
             for platform in sorted(required - actual):
                 piece["platforms"].append({"platform": platform, "status": "MISSING_ROW", "first_cause": "EXPECTED_PLATFORM_ROW_MISSING",
                                            "public_url": None, "store_readback": None, "public_readback": None})
