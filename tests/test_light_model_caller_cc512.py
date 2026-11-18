@@ -37,7 +37,7 @@ def fallback_runner(value, failure, calls):
                 "status":"SUCCESS", "response":"", "duration_seconds":timeout}}).encode(), b"")
         assert len(calls) == 2 and args[0] == "codex.exe"
         assert input.decode() == json.loads(calls[0]["prompt"])["message"]["content"][0]["text"]
-        assert args[args.index("--model")+1] == "gpt-6.1-sol"
+        assert args[args.index("--model")+1] == "gpt-6.2-sol"
         assert 'model_reasoning_effort="low"' in args and 'forced_login_method="chatgpt"' in args
         assert args[args.index("--sandbox")+1] == "read-only" and args[-1] == "-"
         assert "--ignore-user-config" in args and "--ephemeral" in args
@@ -76,7 +76,7 @@ def test_each_consumer_uses_the_second_answer_and_records_caller_seconds(tmp_pat
         assert returned == output and record["status"] == "RETURNED"
     saved=record["light_call"]
     assert len(calls) == 2 and saved["answered_by"] == record["answered_by"] == "codex"
-    assert saved["configured_model"] == "gpt-6.1-sol" and saved["configured_effort"] == "low"
+    assert saved["configured_model"] == "gpt-6.2-sol" and saved["configured_effort"] == "low"
     assert saved["answer_seconds"] >= 0 and saved["elapsed_seconds"] >= saved["answer_seconds"]
     assert saved["first_cause"].startswith("AGY_") and saved["attempts"][0]["status"] != "RETURNED"
     assert json.loads(Path(saved["artifact_path"]).read_bytes()) == saved

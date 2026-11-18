@@ -332,7 +332,7 @@ def test_ranker_uses_agy_but_only_stronger_writer_authors_source_bound_reply(set
     def write(prompt, **kwargs):
         calls.append("writer")
         assert kwargs["writer"] and "102,321" in prompt
-        return authored(packs.read_json(ready["request_path"])), {"configured_model": "gpt-6.1-sol", "configured_effort": "max", "configuration_status": "CONFIGURED_NOT_OBSERVED"}
+        return authored(packs.read_json(ready["request_path"])), {"configured_model": "gpt-6.2-sol", "configured_effort": "max", "configuration_status": "CONFIGURED_NOT_OBSERVED"}
     path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native", ranker=rank, writer=write, now=NOW)
     value = packs.read_json(path)
     assert calls == ["rank", "writer"] and value["quality_score"] == 92
@@ -562,10 +562,11 @@ def test_headless_writer_has_explicit_model_effort_and_no_project_or_mcp_inherit
         assert kwargs["timeout"] == 150
         return subprocess.CompletedProcess(args, 0, b'{"items":[],"omissions":[]}', b"")
     _, call = botlane._text_call("Return JSON only.", root=tmp_path, writer=True, runner=run)
-    assert seen[seen.index("--model") + 1] == "gpt-6.1-sol"
+    assert seen[seen.index("--model") + 1] == "gpt-6.2-sol"
     assert 'model_reasoning_effort="max"' in seen
     assert "--ignore-user-config" in seen and "--ephemeral" in seen and "read-only" in seen
     assert call["configuration_status"] == "CONFIGURED_NOT_OBSERVED" and call["runtime_model"] is None
+    assert packs.read_json(tmp_path / "call.json")["configured_model"] == "gpt-6.2-sol"
 
 
 def test_native_timeout_keeps_partial_return_in_existing_call_artifacts(tmp_path):

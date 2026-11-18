@@ -115,6 +115,23 @@ def test_changed_bound_source_and_changed_quote_intent_are_rejected(prepared, tm
         quotes.validate({**row,"source":source}, store=store)
 
 
+@pytest.mark.parametrize("role,model,effort", [
+    ("filter", "gpt-6-luna", "max"),
+    ("prepare", "gpt-6.2-sol", "low"),
+    ("write", "gpt-6.2-sol", "max"),
+])
+def test_native_quote_call_uses_its_configured_role(tmp_path, monkeypatch, role, model, effort):
+    from live_contentops import x_reply_bot_v1 as bot
+
+    def text_call(prompt, *, root, writer, model_config, timeout):
+        assert writer and root == tmp_path
+        assert prompt.endswith("Exact source packet.")
+        return model_config
+
+    monkeypatch.setattr(bot, "_text_call", text_call)
+    assert quotes.native_call(role, "Exact source packet.", tmp_path) == (model, effort)
+
+
 def test_one_minute_tick_calls_roles_and_live_publisher_and_idle_tick_uses_no_models(prepared, tmp_path, monkeypatch):
     store, coordinator, transport, raw, now = prepared
     feed = tmp_path / "feed.json"

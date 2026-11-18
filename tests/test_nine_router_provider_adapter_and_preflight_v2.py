@@ -241,6 +241,7 @@ def test_preflight_prompt_and_seam_manifest_remain_deterministic_and_gemini_only
     )
 
     manifest = integration_manifest()
+    assert (manifest["native_desktop_model"], manifest["native_desktop_reasoning_effort"]) == ("gpt-6.2-sol", "low")
     assert len(PREFLIGHT_PROMPT) < 200
     assert "READY" in PREFLIGHT_PROMPT
     assert manifest["ordered_model_pool"] == [PRO, FLASH]

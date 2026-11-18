@@ -27,8 +27,8 @@ ATTEMPTS = "internal:heavy-news-quote-editorial"
 LOCAL = ZoneInfo("Asia/Bangkok")
 MAX_SECONDS, DAILY_CAP = 300, 5
 ROLES = (("filter", "gpt-6-luna", "max", 35),
-         ("prepare", "gpt-6.1-sol", "low", 35),
-         ("write", "gpt-6.1-sol", "max", 90))
+         ("prepare", "gpt-6.2-sol", "low", 35),
+         ("write", "gpt-6.2-sol", "max", 90))
 POST = re.compile(r"https://(?:www\.)?x\.com/([A-Za-z0-9_]+)/status/(\d+)")
 
 

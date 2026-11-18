@@ -16,7 +16,8 @@ from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 from live_contentops.native_manual_candidate_v1 import active_manual_candidate, candidate_root, native_artifact_key
 
 OWNER = "NATIVE_CODEX_DESKTOP"
-MODEL = "gpt-6.1-sol"
+MODEL = "gpt-6.2-sol"
+LEGACY_CODEX_MODEL = "gpt-6.1-sol"  # Issued requests and review bindings from before CC-659.
 EFFORT = "low"
 DESTINATION = "internal:native-desktop-editorial"
 SCHEMA = "contentops.native_desktop_editorial.v1"
@@ -83,7 +84,9 @@ def request_role_assignment(request):
     contract = request.get("governed_input", {}).get("reader_article_contract") or {}
     if (contract.get("policy") == "CC403_READER_ARTICLE_V1" and contract.get("format") == "DAILY_NOTE"
             and editorial_agent_of(request) == "codex" and native_role(request["stage"]) in {"write", "revise"}):
-        return {"model": MODEL, "reasoning_effort": "low"}
+        target["reasoning_effort"] = "low"
+    if target["model"] == MODEL and request.get("requested_model") == LEGACY_CODEX_MODEL:
+        target["model"] = LEGACY_CODEX_MODEL
     return target
 
 
@@ -108,6 +111,7 @@ def validate_native_role_dispatch(call):
     role = native_role(call.get("native_stage", ""))
     agent = editorial_agent_of(call)
     target = request_role_assignment({"stage": call["native_stage"], "editorial_agent": agent,
+        "requested_model": call.get("requested_model"),
         "governed_input": {"reader_article_contract": call.get("reader_article_contract")}})
     arguments = call.get("arguments") or {}
     if agent == "claude" or call.get("tool") == "claude.session":
@@ -1009,8 +1013,9 @@ class NativeDesktopTurn:
         if self.volume_policy:
             governed["volume_policy"] = self.volume_policy
         frozen = self.frozen_request("visual-edit")
+        editor_model = role_assignment("visual-edit", self.editorial_agent)["model"]
         value, _ = self(logical_invocation_id=self.run_id + ":visual-edit", governed_input=governed,
-            prompt=(frozen["prompt"] if frozen else "You are the native Sol6.1 MAX visual editor and final writer in the SAME context. "
+            prompt=(frozen["prompt"] if frozen else f"You are the native {editor_model} MAX visual editor and final writer in the SAME context. "
                 "Choose the article's defensible argument, serious countercase and source/data limits from "
                 "the actual Light preparation and admitted sources. Return DATA_JOURNALISM_V1 JSON with "
                 "slug, story_kind ANALYSIS/NEWS/POLICY, editorial_thesis, countercase, charts, channel_media, "
@@ -1156,8 +1161,10 @@ class NativeDesktopTurn:
         agent = getattr(self, "editorial_agent", "codex")
         target = role_assignment(role, agent)
         if agent == "codex" and reader_contract and reader_contract["format"] == "DAILY_NOTE":
-            target = {"model": "gpt-6.1-sol", "reasoning_effort": "low"}
+            target = {"model": MODEL, "reasoning_effort": "low"}
         frozen = self.frozen_request(stage)
+        if frozen:
+            target = {"model": frozen["requested_model"], "reasoning_effort": frozen["requested_reasoning_effort"]}
         volume_guidance = ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
             "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
             "Never treat an optional photo gap as a factual gap or relabel analysis. Keep exact final rendered desktop/mobile review.")
@@ -1479,9 +1486,11 @@ class NativeDesktopTurn:
                 "model": request["requested_model"], "reasoning_effort": request["requested_reasoning_effort"]}
         drafts = {d["prompt_sha256"]: d for q in requests
                   if (d := q.get("governed_input", {}).get("daily_note_first_draft")) and d.get("prompt_sha256")}
+        first_editorial_model = next((q["requested_model"] for q in requests if native_role(q["stage"]) != "filter"),
+            family["assignments"]["select"]["model"])
         return {
             "owner": family["owner"],
-            "requested_model": MODEL if family["owner"] == OWNER else CLAUDE_MODEL,
+            "requested_model": first_editorial_model,
             "requested_reasoning_effort": EFFORT if family["owner"] == OWNER else "max",
             "role_assignments": assignments,
             "observed_models": sorted({o["model"] for o in observations if o.get("model")}),
@@ -2430,6 +2439,15 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
     binding = final_visual_binding(result, renders=renders,
         destinations=scope, agent=agent)
     stage = "final-visual-" + sha256_of(binding)
+    frozen = turn.frozen_request(stage)
+    if frozen is None and agent == "codex":
+        # The issued review ID includes the reviewer's assignment. Resume that
+        # ID when only the configured default has changed since issuance.
+        legacy_binding = {**binding, "reviewer_assignment": {**editor, "model": LEGACY_CODEX_MODEL}}
+        legacy_stage = "final-visual-" + sha256_of(legacy_binding)
+        frozen = turn.frozen_request(legacy_stage)
+        if frozen is not None:
+            stage = legacy_stage
     governed = {"binding": binding, "article": result["article"], "previews": result["previews"],
         "visual_repair_policy": {"policy": "CC-172", "maximum_repair_rounds": 1,
             "repair_rounds_used": (result.get("visual_repair_disposition") or {}).get("repair_rounds", 0)},
@@ -2440,7 +2458,7 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         governed["distribution_recovery"] = distribution_recovery
     if reader_presentation_revision is not None:
         governed["reader_presentation_revision"] = reader_presentation_revision
-    family_label = "gpt-6.1-sol/max" if agent == "codex" else editor["model"] + "/" + editor["reasoning_effort"]
+    family_label = editor["model"] + "/" + editor["reasoning_effort"]
     reviewer = ("You are this run's native " + family_label + " editor for the published article's dated social copies. "
         "Complete their review in this run. The original writer identity is retained provenance. "
         if distribution_recovery is not None else
@@ -2473,7 +2491,6 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         "article's own media folder; never click a native file-dialog control. NATIVE_FILE_DIALOG_OPEN stops that step. "
         "Save screenshots as binary image files; never put base64 image text in Git or session output. No public send here.\n"
         "GOVERNED_INPUT:\n" + canonical_bytes(governed).decode())
-    frozen = turn.frozen_request(stage)
     return turn(logical_invocation_id=turn.run_id + ":" + stage,
         prompt=frozen["prompt"] if frozen else prompt,
         governed_input=frozen["governed_input"] if frozen else governed,
@@ -2516,9 +2533,10 @@ def validate_final_visual_return(turn, request, response):
         return
     current = final_visual_binding(result, renders=binding["renders"], destinations=scope,
         verify_render_sources=False, agent=agent)
-    # Renderer source is provenance for the saved pixels. Its later source edits
-    # do not alter the exact PNG/HTML, media, source or channel bytes checked above.
+    # Renderer source and the assigned reviewer are provenance of this issued
+    # request. Recheck the exact pixels, media, source and channel bytes above.
     current["renderer_sha256"] = binding["renderer_sha256"]
+    current["reviewer_assignment"] = binding["reviewer_assignment"]
     if current != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:

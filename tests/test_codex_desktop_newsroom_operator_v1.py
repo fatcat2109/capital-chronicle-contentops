@@ -790,7 +790,7 @@ def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes
 
 def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_active_light_coordinators():
     packet = four_task_setup_packet()
-    assert packet["model"] == "gpt-6.1-sol"
+    assert packet["model"] == "gpt-6.2-sol"
     assert packet["reasoning_effort"] == "low"
     assert packet["routine_task_count"] == 4
     assert packet["publication_minimum"] == 5
@@ -798,12 +798,13 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_active_light
     assert packet["subagents_for_assigned_native_roles"] is True
     assert packet["editorial_roles"] == {
         "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
-        "select": {"model": "gpt-6.1-sol", "reasoning_effort": "low"},
-        "visual-edit": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
-        "write": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
-        "revise": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
-        "final-visual": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
+        "select": {"model": "gpt-6.2-sol", "reasoning_effort": "low"},
+        "visual-edit": {"model": "gpt-6.2-sol", "reasoning_effort": "max"},
+        "write": {"model": "gpt-6.2-sol", "reasoning_effort": "max"},
+        "revise": {"model": "gpt-6.2-sol", "reasoning_effort": "max"},
+        "final-visual": {"model": "gpt-6.2-sol", "reasoning_effort": "max"},
     }
+    assert packet["editorial_worker_model"] == "gpt-6.2-sol"
     assert packet["editorial_worker_reasoning_effort"] == "max"
     assert packet["role_settings_state"] == "CONFIGURED_TARGET_NOT_INVOCATION_PROOF"
     assert packet["speed"] == "standard"
@@ -821,7 +822,7 @@ def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_active_light
         assert "2-5 distinct useful" in task["prompt"]
         assert "may justify zero with an explicit editorial reason" in task["prompt"]
         assert "and one useful source-bound quantitative chart" not in task["prompt"]
-        assert task["model"] == "gpt-6.1-sol" and task["reasoning_effort"] == "low"
+        assert task["model"] == "gpt-6.2-sol" and task["reasoning_effort"] == "low"
         assert "native_subagent_completion_prompt" in task["prompt"]
         assert "Never tell a child to message its ancestor" in task["prompt"]
         assert "HOLD or REPAIR_REQUIRED review is usable; partial batches/turns/quota interruptions are not completion" in task["prompt"]
@@ -996,7 +997,7 @@ def test_committed_automation_normalization_readback_remains_historical_evidence
         assert task["rrule"] == expected["rrule"]
         assert task["timezone"] == packet["timezone"] == "Asia/Bangkok"
         assert task["model"] == "gpt-5.6-sol"
-        assert packet["model"] == "gpt-6.1-sol"
+        assert packet["model"] == "gpt-6.2-sol"
         assert task["reasoning_effort"] == "high"
         assert task["status"] == "PAUSED"
         assert task["after_prompt_sha256"] == historical_prompt_sha

@@ -41,10 +41,10 @@ def source(tmp_path):
     )
 
 
-def returns(packet):
+def returns(packet, model="gpt-6.1-sol"):
     base = dict(
         source_sha256=current.digest(packet),
-        model="gpt-6.1-sol",
+        model=model,
         native_turn_id="CONTROLLED_NOT_MODEL_EXECUTION",
     )
     select = dict(
@@ -72,19 +72,20 @@ def returns(packet):
     return select, meaning
 
 
+@pytest.mark.parametrize("issued_model", ["gpt-6.2-sol", "gpt-6.1-sol"])
 def test_exact_request_resume_uses_completed_stages_and_detects_artifact_drift(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, issued_model
 ):
     packet = source(tmp_path)
-    selection, meaning = returns(packet)
+    selection, meaning = returns(packet, issued_model)
     out = tmp_path / ".task-runtime/speech_highlight_relay_v1/job"
-    assert (
-        current.prepare(packet, tmp_path, out)["stage"] == "AWAITING_NATIVE_SELECTION"
-    )
-    assert (
-        current.prepare(packet, tmp_path, out, selection)["stage"]
-        == "AWAITING_NATIVE_MEANING"
-    )
+    with monkeypatch.context() as issuing:
+        if issued_model == "gpt-6.1-sol":
+            issuing.setattr(current, "NATIVE_MODEL", issued_model)
+        assert current.prepare(packet, tmp_path, out)["stage"] == "AWAITING_NATIVE_SELECTION"
+        assert current.prepare(packet, tmp_path, out, selection)["stage"] == "AWAITING_NATIVE_MEANING"
+    issued = {path: path.read_bytes() for path in (out / "selection_request.json", out / "meaning_request.json")}
+    assert all(json.loads(raw)["model"] == issued_model for raw in issued.values())
     calls = []
     monkeypatch.setattr(
         relay.DynamicMediaClipper,
@@ -105,6 +106,7 @@ def test_exact_request_resume_uses_completed_stages_and_detects_artifact_drift(
     assert result["production_eligible"] is False
     assert "ORIGINAL_AUDIO_LISTENING_NOT_VERIFIED" in result["holds"]
     assert current.prepare(packet, tmp_path, out) == result and len(calls) == 2
+    assert all(path.read_bytes() == raw for path, raw in issued.items())
     review = json.loads((out / "review_request.json").read_text())
     assert review["span"] == selection["span"]
     assert review["edit_sha256"] == result["edit_sha256"]

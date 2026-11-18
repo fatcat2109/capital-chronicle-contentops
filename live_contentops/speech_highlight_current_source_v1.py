@@ -24,6 +24,8 @@ FORMATS = {
     "CONSEQUENCE_WATCHPOINT",
 }
 SCHEMA = "contentops.speech_highlight_relay.current_source_private.v1"
+NATIVE_MODEL = "gpt-6.2-sol"
+NATIVE_RETURN_MODELS = (NATIVE_MODEL, "gpt-6.1-sol")  # Pre-switch native returns remain valid.
 
 
 def digest(value):
@@ -62,6 +64,17 @@ def atomic_json(path, value):
     temporary = path.with_name(path.name + ".partial")
     relay.write_json(temporary, value)
     os.replace(temporary, path)
+
+
+def _retain_request(path, value):
+    if not path.exists():
+        atomic_json(path, value)
+        return
+    previous = json.loads(path.read_text(encoding="utf-8"))
+    # The exact source and selection still bind the request. Keep its issued
+    # model and bytes when the default has changed since it was saved.
+    if {**previous, "model": value["model"]} != value:
+        raise relay.SpeechRelayError("Issued native request changed")
 
 
 def retain_return(output, name, value):
@@ -188,14 +201,14 @@ def prepare(packet, root, output, selection=None, meaning=None):
     selection_request = dict(
         schema="contentops.signal_clips.native_request.v1",
         role="SELECTION",
-        model="gpt-6.1-sol",
+        model=NATIVE_MODEL,
         reasoning_effort="low",
         source_sha256=binding,
         utterances=utterances,
         formats=sorted(FORMATS),
         source=packet,
     )
-    atomic_json(output / "selection_request.json", selection_request)
+    _retain_request(output / "selection_request.json", selection_request)
     if selection is None and (output / "selection_return.json").is_file():
         selection = json.loads(
             (output / "selection_return.json").read_text(encoding="utf-8")
@@ -219,7 +232,7 @@ def prepare(packet, root, output, selection=None, meaning=None):
         if (
             value.get("source_sha256") != binding
             or value.get("role") != role
-            or value.get("model") != "gpt-6.1-sol"
+            or value.get("model") not in NATIVE_RETURN_MODELS
             or value.get("reasoning_effort") != effort
             or not value.get("native_turn_id")
         ):
@@ -269,7 +282,7 @@ def prepare(packet, root, output, selection=None, meaning=None):
             raise relay.SpeechRelayError("HTTPS supporting source required")
         relay._local_artifact(root, spec)
     retain_return(output, "selection", selection)
-    atomic_json(
+    _retain_request(
         output / "meaning_request.json",
         dict(
             selection_request,

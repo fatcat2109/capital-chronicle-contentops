@@ -285,6 +285,7 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
             "fork_turns": "none", "model": target["model"],
             "reasoning_effort": target["reasoning_effort"], "message": message}}
     call = {**call, "native_stage": stage, "result_path": result_path,
+        "requested_model": target["model"],
         "after_result": {"command": "submit", "binding_path": str(binding_path),
             "stage": stage, "response_path": result_path},
         "continuation": "Collect the real native return, verify actual spawn/context identity at submit, then advance the SAME binding in this turn."}
@@ -346,9 +347,9 @@ DESKTOP_TASK_PROMPT = (
     "actual native start and result in existing automation memory, then stop without a manual "
     "replacement, sleep, monitor, timer or retry loop. Quota before binding is an external capacity "
     "limit; do not claim editorial completion. Routine owner NATIVE_CODEX_DESKTOP; "
-    "the coordinator uses gpt-6.1-sol/low (Light), standard speed, within this SAME opportunity. "
+    "the coordinator uses gpt-6.2-sol/low (Light), standard speed, within this SAME opportunity. "
     "Follow CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2: native gpt-6-luna/max filters; "
-    "gpt-6.1-sol/low selects content and prepares evidence; native gpt-6.1-sol/max writes and repairs. "
+    "gpt-6.2-sol/low selects content and prepares evidence; native gpt-6.2-sol/max writes and repairs. "
     "Use fresh native subagents for the assigned MAX roles; keep the same writer for useful repair and all necessary concrete final-media corrections. "
     "No Gemini/9Router, SDK/App-Server/API fallback, paid speed, permanent fleet or source/rights weakening. "
     "Jim's27October V1 live grant is applied through the current rollout/control owners; publish only reviewed fresh operations under those exact guards. "
@@ -419,7 +420,7 @@ DESKTOP_TASK_PROMPT = (
     "uncertainty, mandatory quotation/photo/reuse credits and meaningful chart metric/unit/period/context. Useful exact "
     "public times use America/New_York with date-correct daylight saving, written ET (Jim decision 90); never GMT+7 or UTC+7; internal UTC and Bangkok calendars stay exact. "
     "PERMANENT FINAL PRODUCT RULE CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1: after final assembly, "
-    "the SAME actual designated strongest native editor/writer (currently gpt-6.1-sol/max) must inspect actual "
+    "the SAME actual designated strongest native editor/writer (currently gpt-6.2-sol/max) must inspect actual "
     "canonical and all affected channel rendered pixels at desktop/mobile. Use final-visual-review --binding "
     "<binding_path> to obtain exact render targets, then --response <render-manifest.json> to issue its existing "
     "native request. Same MAX inspects every chart's admitted values, sign/zero baseline/scale/rounding/periods/units, "
@@ -506,7 +507,7 @@ def volume_task_setup_packet() -> dict[str, Any]:
         local_hour = hour + 7
         tasks.append({"id": task_id, "name": "V1 Newsroom — " + session.replace('_', ' '),
             "rrule": f"RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR={local_hour};BYMINUTE=0",
-            "status": "PAUSED", "model": "gpt-6.1-sol", "reasoning_effort": "low",
+            "status": "PAUSED", "model": "gpt-6.2-sol", "reasoning_effort": "low",
             "prompt": (
                 "BRIEF ENTRY FIRST: run python scripts/run_native_desktop_editorial.py scheduled --automation-id "
                 + task_id + " --rollout config/native_desktop_rollout_v1.json before source acquisition or native role delegation. "
@@ -560,9 +561,9 @@ def four_task_setup_packet() -> dict[str, Any]:
         "policy_id": QUALITY_PROBATION_POLICY_ID,
         "project": r"A:\Capital Chronicle\ContentOps",
         "timezone": "Asia/Bangkok",
-        "model": "gpt-6.1-sol",
+        "model": "gpt-6.2-sol",
         "reasoning_effort": "low",
-        "editorial_worker_model": "gpt-6.1-sol",
+        "editorial_worker_model": "gpt-6.2-sol",
         "editorial_worker_reasoning_effort": "max",
         "editorial_worker_is_fresh_and_isolated": True,
         "editorial_worker_only_when_article_warranted": True,
@@ -574,7 +575,7 @@ def four_task_setup_packet() -> dict[str, Any]:
         "role_settings_state": "CONFIGURED_TARGET_NOT_INVOCATION_PROOF",
         "target_status": "ACTIVE",
         "speed": "standard",
-        "tasks": [{**task, "status": "ACTIVE", "model": "gpt-6.1-sol", "reasoning_effort": "low",
+        "tasks": [{**task, "status": "ACTIVE", "model": "gpt-6.2-sol", "reasoning_effort": "low",
                    "prompt": DESKTOP_TASK_PROMPT.replace("{automation_id}", task["id"])} for task in tasks],
         "routine_task_count": len(tasks),
         "build_qualified_floor": 4,

@@ -10,7 +10,7 @@ from live_contentops.native_editorial_continuation_v1 import next_editorial_acti
 from test_native_configured_provenance_v1 import configured
 
 
-def request(stage, model="gpt-6.1-sol", effort="max"):
+def request(stage, model="gpt-6.2-sol", effort="max"):
     return {"stage": stage, "run_id": "issued-run", "request_sha256": "b" * 64,
         "request_path": "frozen-request.json", "requested_model": model,
         "requested_reasoning_effort": effort, "prompt": "Frozen role request",
@@ -29,9 +29,9 @@ def continuation():
 
 @pytest.mark.parametrize("stage,model,effort", [
     ("filter-" + "a" * 64, "gpt-6-luna", "max"),
-    ("select", "gpt-6.1-sol", "low"), ("media-plan", "gpt-6.1-sol", "low"),
-    ("feedback", "gpt-6.1-sol", "low"), ("visual-edit", "gpt-6.1-sol", "max"),
-    ("write", "gpt-6.1-sol", "max"),
+    ("select", "gpt-6.2-sol", "low"), ("media-plan", "gpt-6.2-sol", "low"),
+    ("feedback", "gpt-6.2-sol", "low"), ("visual-edit", "gpt-6.2-sol", "max"),
+    ("write", "gpt-6.2-sol", "max"),
 ])
 def test_fresh_role_cannot_inherit_the_coordinators_model(tmp_path, stage, model, effort):
     call = native_role_call(request(stage, model, effort), binding(tmp_path), binding_path="binding.json")
@@ -84,7 +84,7 @@ def test_dated_social_review_does_not_follow_a_retained_writer(tmp_path):
     call = native_role_call(frozen, binding(tmp_path), binding_path="binding.json",
         same_writer_invocation="/root/unavailable_old_writer", same_writer_configuration={})
     assert call["tool"] == "collaboration.spawn_agent"
-    assert call["arguments"]["model"] == "gpt-6.1-sol"
+    assert call["arguments"]["model"] == "gpt-6.2-sol"
     assert call["arguments"]["reasoning_effort"] == "max"
     assert "continuation_observation" not in call
 
@@ -126,7 +126,7 @@ def test_cli_continues_only_the_saved_approved_writer_configuration(tmp_path, mo
     call = module.operation(local)["next_native_call"]
     if dated_social_review:
         assert call["tool"] == "collaboration.spawn_agent"
-        assert call["arguments"]["model"] == "gpt-6.1-sol"
+        assert call["arguments"]["model"] == "gpt-6.2-sol"
         assert call["arguments"]["reasoning_effort"] == "max"
         assert "continuation_observation" not in call
     else:

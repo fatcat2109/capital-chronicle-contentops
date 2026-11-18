@@ -25,7 +25,7 @@ from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
 AGY_TIMEOUT = 65
 CODEX_TIMEOUT = 65
 CODEX_IMAGE_TIMEOUT = 120
-CODEX_MODEL, CODEX_EFFORT = "gpt-6.1-sol", "low"
+CODEX_MODEL, CODEX_EFFORT = "gpt-6.2-sol", "low"
 POLICY = "cc512-light-caller-v1"
 
 

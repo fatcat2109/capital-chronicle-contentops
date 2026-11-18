@@ -142,6 +142,7 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
     after = {path.name for path in tmp_path.iterdir()}
     target = snapshot["editorial_execution_target"]
+    assert (target["model"], target["reasoning_effort"]) == ("gpt-6.2-sol", "low")
     assert target["editorial_roles"]["filter"] == {"model": "gpt-6-luna", "reasoning_effort": "max"}
     assert target["editorial_roles"]["select"]["reasoning_effort"] == "low"
     assert target["editorial_roles"]["write"]["reasoning_effort"] == "max"

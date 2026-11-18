@@ -132,10 +132,10 @@ def test_real_pending_cli_role_exposes_spawn_then_accepts_actual_result_and_adva
     assert pending["pending_publication_recovery_dispatch_ids"] == pending_recovery
     call = pending["next_native_call"]
     assert call["tool"] == "collaboration.spawn_agent"
-    assert call["arguments"]["model"] == "gpt-6.1-sol" and call["arguments"]["reasoning_effort"] == "low"
+    assert call["arguments"]["model"] == "gpt-6.2-sol" and call["arguments"]["reasoning_effort"] == "low"
     request = json.loads(Path(pending["request_path"]).read_bytes())
     response = {"request_sha256": request["request_sha256"], "output": {"controlled": "done"},
-        "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
+        "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.2-sol",
             "reasoning_effort": "low", "invocation_id": None, "observation_source": "CONTROLLED_TEST_NOT_REAL_SPAWN"}}
     turn = NativeDesktopTurn(ContentOpsDurableStore(binding["store_path"]), run_id=binding["run_id"], output_dir=binding["output_dir"])
     with pytest.raises(ValueError, match="INVOCATION_OBSERVATION_REQUIRED"):

@@ -1755,7 +1755,7 @@ def build_daily_app_snapshot(
                 "decision": "HOLD_NO_POLICY_CHANGE",
             } if not policy_models else None),
         },
-        "editorial_execution_target": {"owner": "NATIVE_CODEX_DESKTOP", "model": "gpt-6.1-sol",
+        "editorial_execution_target": {"owner": "NATIVE_CODEX_DESKTOP", "model": "gpt-6.2-sol",
             "reasoning_effort": "low", "target_status": "PREPARED_NOT_HOST_ACTIVATED",
             "editorial_roles": automation_state["configured_intent"]["editorial_roles"],
             "role_settings_state": automation_state["configured_intent"]["role_settings_state"],
