@@ -1,0 +1,217 @@
+{
+  "policy": "CC536_MEASURED_ODDS_SERIES_V1",
+  "piece": 4,
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "article": {
+    "title": "What a tight stop cost in our historical test",
+    "subtitle": "A fixed charge weighed most on narrow stops, and daily prices left the order of some exits uncertain.",
+    "dek": "A fixed charge weighed most on narrow stops, and daily prices left the order of some exits uncertain.",
+    "social_hook": "The tightest stop lost the most in our six-market test. A smaller stop made the same trading cost heavier, and more daily bars reached both exits.",
+    "social_summary": "The sample spans November 2016 to November 2026. Each width used 1893 trade observations, both sides together.\n\nAt 0.3 normal days, both sides together averaged -0.213R per trade after costs. The assumed round-trip cost was 0.17R.\n\nAt 1.0 normal day, both sides together averaged 0.02R per trade. R is the initial stop distance.\n\nWhen a bar reached both exit levels, we counted the stop first. The tightest setting was most exposed to that rule.\n\nThese are hypothetical historical tests. Trades overlap, and gold, shares and Bitcoin rose during the sample. The wider study tested 54 market-and-rule combinations.",
+    "social_bullets": [
+      "The sample spans November 2016 to November 2026. Each width used 1893 trade observations, both sides together.",
+      "At 0.3 normal days, both sides together averaged -0.213R per trade after costs. The assumed round-trip cost was 0.17R.",
+      "At 1.0 normal day, both sides together averaged 0.02R per trade. R is the initial stop distance.",
+      "When a bar reached both exit levels, we counted the stop first. The tightest setting was most exposed to that rule.",
+      "These are hypothetical historical tests. Trades overlap, and gold, shares and Bitcoin rose during the sample. The wider study tested 54 market-and-rule combinations."
+    ],
+    "substack_body_markdown": "We found that the tightest stop lost the most in our six-market test. The fixed trading charge took a larger share of the initial stop distance, and more daily bars reached both exit levels.\n\nThe sample spans November 2016 to November 2026. Each width used 1893 trade observations, both sides together. Trades can overlap, so the observations are dependent.\n\n## What we held fixed\n\nThe test took a trade with our trend rule every fifth session, counting both sides together. The target was 2R, and the hold lasted up to 5 sessions.\n\nA normal day is the average true range over 14 daily bars. The study charged 0.05 of a normal day per round trip. R is the initial stop distance, and the averages include costs.\n\n## What changed as stops moved out\n\nAt 0.3 normal days, both sides together averaged -0.213R per trade. The assumed round-trip cost at that width was 0.17R. This was also the width most often affected by a daily bar spanning both exits.\n\nAt 0.5 normal days, both sides together averaged -0.029R per trade. At 1.0 normal day, both sides together averaged 0.02R per trade. The next wider setting had the same rounded mean, and the widest settings stayed close to flat.\n\nThe cost assumption stays fixed in normal days. Its cost in R changes because a wider stop increases the price distance that R represents.\n\n## What the daily bar leaves open\n\nWhen a bar reached both exit levels, we counted the stop first. A daily bar shows the range, so the actual order remains unknown. The tightest stop was most sensitive to that choice.\n\nGold, shares and Bitcoin rose over the decade, which can help trades that follow upward trends. The wider study examined 54 market-and-rule combinations, increasing the chances of a result that appears to pay by luck. Futures roll gaps and the next-open proxy for the euro and yen close also affect the historical sample.\n\nSo what: We treat the narrowest result as evidence to question how cost and price noise are modeled. The pooled figures give a historical comparison across widths, with market-specific stop choices still open.\n\nThese are hypothetical historical tests. Read [how we measure historical odds](https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before) for the test design and its limits. The figures come from our audited historical table. Table fingerprint `4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41`.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "search_title": "What a tight stop cost in our historical test",
+    "meta_description": "A fixed charge weighed most on narrow stops, and daily prices left the order of some exits uncertain.",
+    "article_type": "ARTICLE",
+    "resolved_article_mode": "EVERGREEN_EXPLAINER",
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_article_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "MEASURED_ODDS_SERIES",
+      "source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+      "source_sample_periods": {
+        "EURUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USDJPY": {
+          "from": "2016-11-11",
+          "through": "2026-11-09"
+        },
+        "XAUUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USOIL": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "US500": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "BTCUSD": {
+          "from": "2016-11-12",
+          "through": "2026-11-10"
+        }
+      },
+      "authority_ref": "BACKLOG_CC536_DATED_METHOD_SERIES"
+    },
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "paid": false,
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1"
+  },
+  "number_bindings": [
+    {
+      "field": "substack_body_markdown",
+      "span": "The sample spans November 2016 to November 2026.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "November 2016 to November 2026"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Each width used 1893 trade observations, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/0/1"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "At 1.0 normal day, both sides together averaged 0.02R per trade.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/3"
+    },
+    {
+      "field": "social_summary",
+      "span": "The sample spans November 2016 to November 2026.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "November 2016 to November 2026"
+    },
+    {
+      "field": "social_summary",
+      "span": "Each width used 1893 trade observations, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/0/1"
+    },
+    {
+      "field": "social_summary",
+      "span": "At 1.0 normal day, both sides together averaged 0.02R per trade.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/3"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The test took a trade with our trend rule every fifth session, counting both sides together. The target was 2R, and the hold lasted up to 5 sessions.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/note",
+      "source_excerpt": "Target 2R, up to 5 sessions."
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "A normal day is the average true range over 14 daily bars.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "source_excerpt": "D1 ATR14"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The study charged 0.05 of a normal day per round trip.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "source_excerpt": "cost 0.05 of a normal day (D1 ATR14) per round trip"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "At 0.3 normal days, both sides together averaged -0.213R per trade. The assumed round-trip cost at that width was 0.17R.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/0"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "At 0.5 normal days, both sides together averaged -0.029R per trade.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/1"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The wider study examined 54 market-and-rule combinations",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "out of 54 by chance"
+    },
+    {
+      "field": "social_summary",
+      "span": "At 0.3 normal days, both sides together averaged -0.213R per trade after costs. The assumed round-trip cost was 0.17R.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/stop_width/rows/0"
+    },
+    {
+      "field": "social_summary",
+      "span": "The wider study tested 54 market-and-rule combinations.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "out of 54 by chance"
+    }
+  ],
+  "media_assets": [
+    {
+      "asset_id": "cc536-piece4-btc-native-20-50",
+      "path": "media/BTCUSD_2026-11-18_18-12-29.png",
+      "sha256": "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396",
+      "width": 978,
+      "height": 834,
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "role": "context_chart",
+      "article_inclusion": true,
+      "canonical_article_media": true,
+      "placement_after": "What changed as stops moved out",
+      "attribution": "Chart created with TradingView",
+      "caption": "Bitcoin daily candles with twenty- and fifty-session simple averages. Bitstamp via TradingView. The chart illustrates the trend rule using data within the historical sample.",
+      "alt_text": "Daily Bitcoin candles over a late stretch of the sample, with two native closing-price averages. The chart illustrates the trend rule.",
+      "rights_basis": "TradingView original download with full attribution on a free public page under Jim decision 82.",
+      "source_url": "https://www.tradingview.com/widgetembed/?symbol=BITSTAMP%3ABTCUSD&interval=D",
+      "source_links": [
+        "https://www.tradingview.com/"
+      ],
+      "native_study": {
+        "name": "MA ribbon",
+        "type": "SMA",
+        "source": "Close",
+        "enabled_lengths": [
+          20,
+          50
+        ],
+        "disabled_lengths": [
+          100,
+          200
+        ]
+      },
+      "captured_at_utc": "2026-11-18T11:12:29Z",
+      "inspected_pixels": true,
+      "chart_sample": {
+        "from_utc": "2026-07-15T00:00:00Z",
+        "through_utc": "2026-11-08T00:00:00Z",
+        "main_bitcoin_sample_through": "2026-11-10",
+        "capture_observation": "Native chart range verified. Latest-price line and current OHLC and study legend values disabled before original TradingView download."
+      }
+    }
+  ],
+  "editorial_call": {
+    "pid": 11116,
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags, no inference-time telemetry",
+    "invocation_id": "exec-pid11116-20261118T110026Z",
+    "operation": "cc536-measured-odds-4",
+    "role": "same-run article and social writing",
+    "preparation_role": {
+      "task": "/root/piece4_light",
+      "model": "gpt-6.2-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "artifact": "preparation.json",
+      "artifact_sha256": "e7087360c64ec92edd741749497647083dfce2a1afeab67e83d4aa01f7940ae3"
+    }
+  }
+}
