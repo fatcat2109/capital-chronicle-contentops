@@ -1,0 +1,259 @@
+{
+  "item": "CC-549",
+  "integration_branch": "backlog/cc-549-integrate-20261118",
+  "received_commit": "a9ca10745b1f1fe6c7e5ae065683fe07d7ec87f6",
+  "phases": [
+    {
+      "commit": "4d077f14782308ad78c279ca9a475c84951aa7f7",
+      "applied_at_utc": "2026-11-18T05:08:07.6104060Z",
+      "live_tag": "contentops-live-20261118-cc549",
+      "rollback_tag": "contentops-rollback-20261118-cc549",
+      "rollback_commit": "15cf38f9c800cc9d4a63fcb52258fbfee2ed19dd"
+    },
+    {
+      "live_tag": "contentops-live-20261118-cc549-preview",
+      "rollback_tag": "contentops-rollback-20261118-cc549-preview",
+      "commit": "fef4e9e35e8ee492127d54c84c134763c39d1a6a",
+      "applied_at_utc": "2026-11-18T05:30:09.6325303Z",
+      "rollback_commit": "4d077f14782308ad78c279ca9a475c84951aa7f7",
+      "operating_wip_paths_hash_verified": 6,
+      "exec_wip_paths_hash_verified": 2
+    }
+  ],
+  "focused_tests": {
+    "files": [
+      "tests/test_plan_thread_consistency_cc549.py",
+      "tests/test_plan_analysis_pages_cc432.py",
+      "tests/test_plan_reader_editorial_cc466.py"
+    ],
+    "branch": {
+      "artifact": "integration-thread-consumers-20261118.xml",
+      "passed": 62
+    },
+    "operating_root": {
+      "artifact": "installed-thread-consumers-20261118.xml",
+      "passed": 62
+    }
+  },
+  "installed_dry_run": {
+    "status": "OK",
+    "validation": "PASS",
+    "contract_version": "2.0.0",
+    "export_generated_at_utc": "2026-11-18T05:30:01.784093Z",
+    "rendered_count": 90,
+    "cause": null,
+    "failed_field": null,
+    "would_queue": 0,
+    "manual_public_writes": 0,
+    "bitcoin_threads": {
+      "parts": [
+        500,
+        244
+      ],
+      "both_invalidations": true,
+      "both_clocks": true
+    }
+  },
+  "public_channel": {
+    "surface": "BrowserOS Neo, public Telegram",
+    "read_scope": "https://t.me/s/CapitalChronicle?before=196",
+    "usd_jpy_setup": "https://t.me/CapitalChronicle/188",
+    "usd_jpy_status_reply": "https://t.me/CapitalChronicle/189",
+    "usd_jpy_correction": "https://t.me/CapitalChronicle/192",
+    "usd_jpy_setup_and_status_share_terms": true,
+    "usd_jpy_status_reply_is_analysis_reply": false,
+    "bitcoin_setup": {
+      "readback": {
+        "dispatch_id": "dispatch_0dee4413070128dc9580661a868ae5c6",
+        "destination": "telegram",
+        "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "public_write_performed": false,
+        "publish_called": false
+      },
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "193",
+      "public_object_url": "https://t.me/CapitalChronicle/193",
+      "observed_at_utc": "2026-11-18T05:38:25.157Z",
+      "published_at_utc": "2026-11-17T16:47:27+00:00",
+      "exact_text_match": true,
+      "public_chart_visible": true,
+      "media_exact_bytes_match": false,
+      "public_media_sha256": "8f9ad6d9c3db1ca98f8e0c540dc6f8a9455b777b7eb70c30986b4b6ce8402d92",
+      "frozen_source_media_sha256": "5d3fd182173206e0d28e799ff709281d15dd607284190f355370d0de818ab6fe",
+      "request_sha256": "902b331b7107bd7aaaabcca986953a6b67190c4fde0645b326eae8183e366450",
+      "tool_return_sha256": "1c440bfb194d18724d45d642ea918eb3670f82c8931bc8a5033e7dd27ca946c3"
+    },
+    "archive_observation": "The public Substack archive inspected after the first integration did not list a USD/JPY or Bitcoin page for these registrations. The exact store lookups below agree."
+  },
+  "live_export_and_consumers": {
+    "observed_at_utc": "2026-11-18T05:39:17.537286+00:00",
+    "export_generated_at_utc": "2026-11-18T05:39:01.106248Z",
+    "installed_modules_sha256": {
+      "plan_analysis_pages_v1.py": "7617a0b33791eb84662973d68de2a06096fdd64db5dce4739fb8d7523030df79",
+      "plan_call_cards_v1.py": "979df1b28e7c88ee6f879fea5ebc80a00b25cc0fd06dca3bea9e990549628cc3"
+    },
+    "eligible_live_registrations": [],
+    "currently_active_in_six_market_route": [],
+    "latest_registrations": [
+      {
+        "plan_id": "plan_05bdd0f3e95fa2c90e29841c",
+        "asset_id": "BTCUSD",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-17T16:43:13.289952Z",
+        "entry_deadline_utc": "2026-11-17T19:30:00Z",
+        "run_id": "request-e1f66e09d276d984"
+      },
+      {
+        "plan_id": "plan_30f3365059e996b2f0d1d79a",
+        "asset_id": "USDJPY",
+        "status": "EXPIRED",
+        "registered_at_utc": "2026-11-17T06:28:43.661312Z",
+        "entry_deadline_utc": "2026-11-17T07:00:00Z",
+        "run_id": "request-dbc0b55a4b96d198"
+      }
+    ],
+    "consumers": [
+      {
+        "plan_id": "plan_05bdd0f3e95fa2c90e29841c",
+        "frozen_status": "WAITING",
+        "now_status": "EXPIRED",
+        "source_count": 34,
+        "sealed_result_matches": true,
+        "freeze_matches": true,
+        "legacy_role_pack_present": true,
+        "literal_source_reaches_installed_writer": [
+          {
+            "prompt_sha256": "8316f53aaaffe13f0d3493554052a3f13e195e74cefcad8a22064f38e1205630",
+            "exact_original_lines_in_prompt": 2,
+            "writer_route_requested": true
+          }
+        ],
+        "controlled_probe_result": "INTENTIONAL_READ_ONLY_WRITER_BOUNDARY",
+        "canonical_page_registered": false,
+        "telegram_analysis_reply_registered": false,
+        "telegram_setup_dispatch": {
+          "status": "DISPATCH_CONFIRMED",
+          "dispatch_id": "dispatch_0dee4413070128dc9580661a868ae5c6",
+          "public_object_url": "https://t.me/CapitalChronicle/193",
+          "dispatched_at": "2026-11-17T16:46:23.809207+00:00"
+        },
+        "current_page_write_boundary": "PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED",
+        "retained_editorial_result": {
+          "status": "PAGE_COPY_NEEDS_REPAIR",
+          "cause": "CC466_PAGE_WORD_RANGE:558",
+          "page_id": null,
+          "saved_at_utc": "2026-11-18T05:03:46.811775+00:00"
+        }
+      },
+      {
+        "plan_id": "plan_30f3365059e996b2f0d1d79a",
+        "frozen_status": "WAITING",
+        "now_status": "EXPIRED",
+        "source_count": 32,
+        "sealed_result_matches": true,
+        "freeze_matches": true,
+        "legacy_role_pack_present": false,
+        "literal_source_reaches_installed_writer": [
+          {
+            "prompt_sha256": "e30a6d39c4576c8f1c6f0845fa5e830289867c89a112d650272ea30a8a0ba9a0",
+            "exact_original_lines_in_prompt": 2,
+            "writer_route_requested": true
+          }
+        ],
+        "controlled_probe_result": "INTENTIONAL_READ_ONLY_WRITER_BOUNDARY",
+        "canonical_page_registered": false,
+        "telegram_analysis_reply_registered": false,
+        "telegram_setup_dispatch": {
+          "status": "DISPATCH_CONFIRMED",
+          "dispatch_id": "dispatch_d8a4afc2944451f654ce5f8d9c7068ca",
+          "public_object_url": "https://t.me/CapitalChronicle/188",
+          "dispatched_at": "2026-11-17T06:29:59.651185+00:00"
+        },
+        "current_page_write_boundary": "PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED",
+        "retained_editorial_result": {
+          "status": "PAGE_COPY_NEEDS_REPAIR",
+          "cause": "PLAN_ANALYSIS_UNBOUND_NUMBER:technical:2",
+          "page_id": null,
+          "saved_at_utc": "2026-11-18T05:37:06.654007+00:00"
+        }
+      }
+    ],
+    "latest_live_minute_slices": [
+      {
+        "at_utc": "2026-11-18T05:31:15.878852Z",
+        "status": "OK",
+        "page_slice_status": "ACTIVE_PAGE_SLICE",
+        "pages": []
+      },
+      {
+        "at_utc": "2026-11-18T05:31:53.398904Z",
+        "status": "OK",
+        "page_slice_status": "ACTIVE_PAGE_SLICE",
+        "pages": []
+      },
+      {
+        "at_utc": "2026-11-18T05:38:43.051914Z",
+        "status": "OK",
+        "page_slice_status": "OK",
+        "pages": [
+          {
+            "plan_id": "plan_f13d70a61474060ff249abbd",
+            "status": "PAGE_TEXT_UNAVAILABLE",
+            "cause": "ValueError:TEXT_CLI_EXIT_1",
+            "page_id": null
+          }
+        ]
+      }
+    ]
+  },
+  "minute_page_writer": {
+    "plan_id": "plan_30f3365059e996b2f0d1d79a",
+    "status": "PAGE_COPY_NEEDS_REPAIR",
+    "cause": "PLAN_ANALYSIS_UNBOUND_NUMBER:technical:2",
+    "calls": [
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "max",
+        "runtime_model": null,
+        "runtime_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "status": "RETURNED",
+        "cause": null,
+        "started_at_utc": "2026-11-18T05:11:44.018290+00:00",
+        "ended_at_utc": "2026-11-18T05:16:24.482456+00:00",
+        "prompt_sha256": "cfb9e516fac6a56400fc5940b1a8e235269383a840e7e495340104d2f1bde0d5"
+      },
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "max",
+        "runtime_model": null,
+        "runtime_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "status": "RETURNED",
+        "cause": null,
+        "started_at_utc": "2026-11-18T05:32:48.880697+00:00",
+        "ended_at_utc": "2026-11-18T05:37:06.588201+00:00",
+        "prompt_sha256": "886491826c30e84ea88423a9c14c5d6654be416bbb351bb6427856c117e4a553"
+      }
+    ]
+  },
+  "top_level_launches": [
+    {
+      "pid": 12180,
+      "configured_model": "gpt-6.2-sol",
+      "configured_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    },
+    {
+      "pid": 44916,
+      "configured_model": "gpt-6.2-sol",
+      "configured_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    }
+  ],
+  "outcome": "BLOCKED_NEXT_ELIGIBLE_MAIN_PLAN_NOT_REGISTERED",
+  "next_action": "After Main exports a current eligible plan, confirm its Substack analysis page and the linked Telegram reply under its setup, then verify terms, clocks and reader copy.",
+  "public_writes_by_this_item_run": 0,
+  "editorial_calls_started_by_this_item_run": 0,
+  "schedule_changes": 0
+}

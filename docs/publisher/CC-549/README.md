@@ -69,3 +69,45 @@ Commit `f08c81a6dde4adc86b3bdb51346d934260a08520` fixes this in the existing pag
 Delivery branch: `backlog/cc-549-live-readback-20261117`, cut from operating HEAD `de6c35d747e14701ea9b2c5d9af8d0c4ea475a80`. Launch arguments for process 14732 name `gpt-6.1-sol`, effort `max`, **CONFIGURED_NOT_OBSERVED**. Existing unrelated `local-evidence/` files remain outside this delivery.
 
 **Delivery state: BUILT_UNMERGED (Ops review pending).** Under this second-stream run's instructions, no integration or live step was performed. The first Publisher stream integrates the pushed fix, then uses the existing page/reply path and records the canonical page and analysis-reply URLs before DONE. No existing public object was edited, and no schedule or application was changed.
+
+## 18 November operating integration and public readback
+
+The sealed single-pass loader went live at **12:08:07 GMT+7** in
+`4d077f14782308ad78c279ca9a475c84951aa7f7`. The public readback exposed a second
+issue in the preview. The retained Micro Bitcoin call was too long for the
+one-message Threads preview, which dropped its conditional call and failed
+the copy check. The preview now uses the publisher's chart-backed continuation
+layout. The repair went live at **12:30:09 GMT+7** in
+`fef4e9e35e8ee492127d54c84c134763c39d1a6a`. The
+[operating record](operating-readback-20261118.json) records the live and rollback
+tags, both installed source hashes and the public-channel readback.
+
+Both [branch tests](integration-thread-consumers-20261118.xml) and
+[operating-root tests](installed-thread-consumers-20261118.xml) passed 62
+targeted checks. The installed CLI preview rendered 90 retained posts. The
+Micro Bitcoin Threads preview preserved both invalidation levels and both
+clocks across its two posts. The gold replay verified the setup, analysis
+reply and page title against the same structured terms.
+
+The [USD/JPY setup](https://t.me/CapitalChronicle/188) and
+[status reply](https://t.me/CapitalChronicle/189) carry the same levels and
+clocks. The [later correction](https://t.me/CapitalChronicle/192) records that
+the price reached the entry zone. The [Bitcoin setup](https://t.me/CapitalChronicle/193)
+also carries both invalidations and clocks. The coordinator reconciled its
+previously uncertain delivery to the existing post after exact text and identity
+readback. Its chart was visible. The public image bytes differed from the
+frozen source image, so the reconciliation retains the media comparison limit.
+
+The installed writer received 32 bound source lines from USD/JPY, including
+two from Main's sealed original analysis. The live minute publisher later
+returned `PAGE_COPY_NEEDS_REPAIR` for an unsupported number in the technical
+section. The two actual writer returns retain `gpt-6.1-sol/max` as configured.
+The integration and resumed CLI were configured for `gpt-6.2-sol/max`.
+Served model and effort telemetry is unavailable for these calls.
+
+**Live acceptance is blocked pending a new eligible Main plan.** The
+**12:39:01 GMT+7** export had zero active plans in this publishing route.
+The USD/JPY and Bitcoin plans are expired. Their canonical pages and linked
+analysis replies are absent from the publication store. On the next eligible
+registration, verify the canonical page and the exact linked reply under the
+public Telegram setup.
