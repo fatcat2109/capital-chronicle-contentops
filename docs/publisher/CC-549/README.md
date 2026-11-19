@@ -111,3 +111,51 @@ The USD/JPY and Bitcoin plans are expired. Their canonical pages and linked
 analysis replies are absent from the publication store. On the next eligible
 registration, verify the canonical page and the exact linked reply under the
 public Telegram setup.
+
+## 20 November page completion
+
+[Gold setup 209](https://t.me/CapitalChronicle/209) and
+[fill reply 210](https://t.me/CapitalChronicle/210) agree on the 3,722–3,752
+entry zone, the 3,792 spot cancellation level, the 3,645 target, the entry
+deadline of 19 November at 8:15 AM ET, and the filled-position horizon of
+20 November at 3:00 PM ET. The reply links to its setup. The publication store
+has no analysis page or analysis-link reply for this registration.
+[The earlier Gold page](https://capitalchronicle.substack.com/p/gold-spot-plan-cancelled-on-high)
+belongs to a separate registration whose title shows 3,833.5 and 3,832.9.
+
+Main registered the plan behind 209 at 16:42:33 GMT+7 on 19 November and
+reported it filled at 16:44:07 GMT+7. The page consumer compared the fill with
+the setup's frozen status and returned `PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED`.
+The page now uses Main's `status` and `status_at_utc` from the same `plan_id`
+and `registration_hash`. It keeps the setup's sealed analysis, entry zone,
+both clocks and price basis. The installed source resolves the retained title
+to “Gold: bearish at 3,722–3,752, wrong above 3,792”. If a fill arrives during
+writing, the coordinator gets a revised page before its first send. The
+existing revision and readback checks protect issued or uncertain requests.
+
+The WTI and EUR/USD writer calls stopped after 135.28 and 208.20 seconds
+respectively. Later minutes reused the saved timeout for the same prompt.
+The minute consumer now gives an exact timed-out prompt one automatic retry
+within the existing writer budget. It retains the first attempt and reuses a
+successful return. The same minute task starts the writer.
+
+The two fixes were fast-forwarded into the operating root at
+`54ae306b62e037c6da12ba3a5b825efc5528859f` at 03:44:02 GMT+7 on 20 November.
+The live tag is `contentops-live-20261120-cc549-page-completion`. The rollback
+tag is `contentops-rollback-20261120-cc549-page-completion` at `37e318ec`.
+[Installed consumer tests](page-completion-installed-20261120.xml) passed 150
+checks. The replays confirm the registered page reaches the canonical
+consumer, and its URL reaches a reply bound to the original Telegram card.
+The existing task started from the operating root at 03:44:26 GMT+7 and
+recorded both alert phases as OK at 03:44:29 GMT+7. Its 03:47:50 GMT+7
+terminal record shows the page consumer returned OK with zero eligible pages
+and four closed entry windows in
+`Runtime/ContentOps/daily_app_outputs/plan_status_post_runs/runs-20261119.jsonl`.
+This run used read-only public checks.
+
+At 03:46:13 GMT+7, the 03:45:07 GMT+7 Main export had four recent filled plans.
+Every entry window had already closed. The live title, card and canonical-link
+reply still need a fresh eligible registration. Publisher will verify all
+three objects together when Main registers one. The exec launch specified
+`gpt-6.2-sol/max` with `CONFIGURED_NOT_OBSERVED` provenance. The test writer
+and transport responses were fixtures.
