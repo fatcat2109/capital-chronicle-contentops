@@ -1,0 +1,506 @@
+{
+  "item": "CC-124",
+  "outcome": "NO_ELIGIBLE_ARTICLE",
+  "standing_status": "OPEN",
+  "previous_due_utc": "2026-11-19T12:44:00Z",
+  "actual_entry_utc": "2026-11-19T12:49:28.4319360Z",
+  "next_due_utc": "2026-11-19T18:50:00Z",
+  "next_due_basis": "Six hours from the actual runner start, rounded up to the minute for BACKLOG.",
+  "first_cause": {
+    "code": "ARTICLE_DATA_CUTOFF_EXPIRED",
+    "policy": "CC403_READER_ARTICLE_V1",
+    "source_data_cutoff_utc": "2026-11-19T09:48:12.543454Z",
+    "main_report_completed_at_utc": "2026-11-19T10:12:01.587351Z",
+    "deadline_utc": "2026-11-19T10:48:12.543454+00:00",
+    "scheduled_due_check": "ARTICLE_DATA_CUTOFF_EXPIRED:10547s",
+    "actual_entry_check": "ARTICLE_DATA_CUTOFF_EXPIRED:10875s",
+    "last_readback_check": "ARTICLE_DATA_CUTOFF_EXPIRED:11690s"
+  },
+  "new_canonical_articles": 0,
+  "native_editorial_calls": 0,
+  "draft_operations_started": 0,
+  "public_dispatch_attempts": 0,
+  "source_assessment": {
+    "observed_at_utc": "2026-11-19T13:03:02.763853+00:00",
+    "operating_reader_file_sha256": "3ab6b833a6e2c6af7251c8a19e02370d72ee4feb239b23e3465e67ebaa322635",
+    "native_reports_by_capture": [
+      {
+        "path_below_main_root": "shocks/shock-20261119T094541Z/analysis-native.json",
+        "report": {
+          "bytes": 57299,
+          "sha256": "6c33460d8fc092809344a6721981787a8648e5d020dac956979c80d4f244b32f"
+        },
+        "capture": {
+          "bytes": 1805299,
+          "sha256": "de1b2a7920c539defe2b4838e9898b9a377001e56508e4093febf2dad85fe19c"
+        },
+        "completion_receipt": {
+          "bytes": 1110,
+          "sha256": "7dfa866b7dd9cd5b1ffc35d2842c746ff73174641df681f59e65d473ca94298e"
+        },
+        "completion_digest_encodings": [
+          "ASCII_ESCAPED_JSON",
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T09:48:12.543454Z",
+        "report_completed_at_utc": "2026-11-19T10:12:01.587351Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "713ebf554870c2d6234671c35bc39bca0ee56613d6f9c90e136a523fcf056659",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T10:48:12.543454+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:10547s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:10875s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:11690s"
+        }
+      },
+      {
+        "path_below_main_root": "requests/request-27a6d26fe25af6d4/analysis-native.json",
+        "report": {
+          "bytes": 63781,
+          "sha256": "9d8466bc11437467e37aebd0f403dffc9b39bdf0c80bf1a1d60bbbd1eb5af0da"
+        },
+        "capture": {
+          "bytes": 9361420,
+          "sha256": "8010b9e7700ed50c1dd81e3531a8deafbd1be1c9805efc497bfb8180f21b7ef7"
+        },
+        "completion_receipt": {
+          "bytes": 1148,
+          "sha256": "d9ac5916a895fb7d2f8c53d1f314bf44cc1d61bbae6185a9f7db0426a1b19c85"
+        },
+        "completion_digest_encodings": [
+          "ASCII_ESCAPED_JSON",
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T09:19:17.686498Z",
+        "report_completed_at_utc": "2026-11-19T09:40:54.826235Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "d1e746e8453f2ed265d10d1afe9b6c4f658fbdf2c0040e9c737218c4ec8343c0",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T10:19:17.686498+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:12282s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:12610s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:13425s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/shock-20261119T084041Z/decision91/analysis-native.json",
+        "report": {
+          "bytes": 74565,
+          "sha256": "2d951abd7c6da57fa63a0ac05cdcc8ba27134b1bb4eee17db1f20d6570316c33"
+        },
+        "capture": {
+          "bytes": 1737081,
+          "sha256": "dc2ad2773a8f81602b555b28c288380d42f84d1783207c185a8fc31b901ef640"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "ced1b51ab60d9768a947a3a87c2c28678c7c3cc1e244c0f1509ae1c2218dc541"
+        },
+        "completion_digest_encodings": [
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T08:42:03.873167Z",
+        "report_completed_at_utc": "2026-11-19T09:07:31.313956Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "ecfdcffa9e61539b31e0432a51a49ed2c62cabedde2a0beeb85f2b9f68ed3352",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T09:42:03.873167+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:14516s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:14844s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:15658s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/shock-20261119T074542Z/decision91/analysis-native.json",
+        "report": {
+          "bytes": 76484,
+          "sha256": "e0fea7413749d17e001a35a2a7b63fd96cadb2b922c19fcd6c36b91869cbf83f"
+        },
+        "capture": {
+          "bytes": 1876455,
+          "sha256": "215aaba06215e4ba70fa44f678e1bc102220651105bd65df5db884527d4d4011"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "753fef8da9e44c8c696b67574a5f3437db120b3abf2a7428231ddb3ac93e56fc"
+        },
+        "completion_digest_encodings": [
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T07:46:59.481934Z",
+        "report_completed_at_utc": "2026-11-19T08:11:27.022238Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "17eaa8a1b8eabcb306fd34a5e1fc21933234a32bbc09819c730dfa08c2fc467f",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T08:46:59.481934+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:17820s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:18148s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:18963s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/shock-20261119T050542Z/decision91/analysis-native.json",
+        "report": {
+          "bytes": 78563,
+          "sha256": "cc428b41859065f3d0143d01430050267f3d469dd4394e2980aa7135907a3f9e"
+        },
+        "capture": {
+          "bytes": 1805529,
+          "sha256": "9011c1413a25b48e2a6df2852b1ae839d216958890f26ff33a6dce276ac8e6f1"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "5b46e9e6965a7db31b49dd2665c7ccb417a92527ffdfa77f0e4466fc12b71889"
+        },
+        "completion_digest_encodings": [
+          "ASCII_ESCAPED_JSON",
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T05:06:53.992764Z",
+        "report_completed_at_utc": "2026-11-19T05:27:36.599509Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "e1a6bac9ce7b04b8e8871866f32221211681ccb9d635b4787d52a283331ee23b",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T06:06:53.992764+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:27426s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:27754s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:28568s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/named-trigger-1b44eae5428d7eef3b5eba8d/decision91/analysis-native.json",
+        "report": {
+          "bytes": 30300,
+          "sha256": "36a6a5779a5625861ded72cc1e3dc79b617e2a3480b0dc49836cf87c40d6c1cf"
+        },
+        "capture": {
+          "bytes": 1385813,
+          "sha256": "1b32b9f9997f3394e50c083331afc61733fa3d3675ebb076e78b37b75ad1ccef"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "45cf0625f2d3e31859d8227558df1d1c70d31d8fafdc02a9125806b2d820eaed"
+        },
+        "completion_digest_encodings": [
+          "ASCII_ESCAPED_JSON",
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T01:58:02.106136Z",
+        "report_completed_at_utc": "2026-11-19T02:29:11.637911Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "195a2c24a6a922b64b93319f7153a5974d183ec2e74608534f0a5dcf6d8eb592",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T02:58:02.106136+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:38757s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:39086s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:39900s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/shock-20261119T005543Z/decision91/analysis-native.json",
+        "report": {
+          "bytes": 70465,
+          "sha256": "bdbf4b5071a7a8b018a9c8f15d1a7d87f79e477956d7d5b14015a8f95cdee382"
+        },
+        "capture": {
+          "bytes": 1874772,
+          "sha256": "13b87434010017b84e7d0f8ccb7a39ce76fa6d164ce6144caea79df0cb8fe323"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "4f87e10b0c3dc75ce9d0c2093ba896c1e25efd4b65b5fdf3f4286ee25f6d672f"
+        },
+        "completion_digest_encodings": [
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T00:57:55.157409Z",
+        "report_completed_at_utc": "2026-11-19T01:30:29.114725Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "e9d4613e5fc671b624fe0cc3218cf9c861cc6d6ce33777f8e84d78aa832123b6",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T01:57:55.157409+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:42364s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:42693s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:43507s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/shock-20261119T000042Z/decision91/analysis-native.json",
+        "report": {
+          "bytes": 67747,
+          "sha256": "78ed4c06eccc7ea33caeb14bc40f9244210e7571fb741fe121b4e07b4cb5650a"
+        },
+        "capture": {
+          "bytes": 1805310,
+          "sha256": "91f1007adb230c7adba446cecb181315a6d68848bffd81481890a2c0e8776734"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "e1b8b74d4a307a93c8c545fba33cb5783f88518de7eebe1683371ce5135b8081"
+        },
+        "completion_digest_encodings": [
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T00:08:23.631519Z",
+        "report_completed_at_utc": "2026-11-19T00:46:48.939639Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "2056318c84d0b5ebb0c891af13ede838529be009121a9119e4c64c79ab3041f8",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T01:08:23.631519+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:45336s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:45664s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:46479s"
+        }
+      },
+      {
+        "path_below_main_root": "shocks/named-trigger-d32334e356bd431d9ed2f0cc/decision91/analysis-native.json",
+        "report": {
+          "bytes": 29188,
+          "sha256": "5eb944d140e9f8e10a902d9ce7210e96522697e4155143f099e4c4124d90fac5"
+        },
+        "capture": {
+          "bytes": 1385802,
+          "sha256": "e114f706dcd564b6494dd47e5dbd2910b6ab8e8910237ec2caec4ac5a5cf0f62"
+        },
+        "completion_receipt": {
+          "bytes": 1053,
+          "sha256": "41a859b1e88944d1b90bf655b6554f7bc4439eb7f6b876d5c583df96db8c8ec3"
+        },
+        "completion_digest_encodings": [
+          "ASCII_ESCAPED_JSON",
+          "UTF8_JSON"
+        ],
+        "producer_schema_error_count": 0,
+        "article_data_cutoff_utc": "2026-11-19T00:07:25.409802Z",
+        "report_completed_at_utc": "2026-11-19T00:46:53.736636Z",
+        "admission_status": "PASS",
+        "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+        "admitted_writer_doc_content_sha256": "1a3fd8a3593ea8b9d8660b745b8b57098bff232ba636d7db29a46f41be5c5814",
+        "admitted_writer_document_count": 1,
+        "article_substack_deadline_utc": "2026-11-19T01:07:25.409802+00:00",
+        "clock_check": {
+          "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:45394s",
+          "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:45723s",
+          "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:46537s"
+        }
+      }
+    ],
+    "native_report_discovery_paths": 19,
+    "main_public_exports": {
+      "plan-transitions.public.json": {
+        "generated_at_utc": "2026-11-19T13:02:03.726981Z",
+        "bytes": 76812,
+        "sha256": "ef5454ed11a63b28b424848971909f2566a0a86fbfcdd13dbcaf47517d7c88ec",
+        "transitions": {
+          "records": 204,
+          "clock_field": "at_utc",
+          "latest_source_event_at_utc": "2026-11-19T10:25:07.855770+00:00"
+        }
+      },
+      "calls-ledger.public.json": {
+        "generated_at_utc": "2026-11-19T13:02:03.726981Z",
+        "bytes": 189713,
+        "sha256": "2093eb3614fa683d41ffc463c64c5982ed3a9ebe0656b0499ba627ef498d90de",
+        "calls": {
+          "records": 96,
+          "clock_field": "event_at_utc",
+          "latest_source_event_at_utc": "2026-11-19T10:12:01.587351+00:00"
+        },
+        "registrations": {
+          "records": 148,
+          "clock_field": "event_at_utc",
+          "latest_source_event_at_utc": "2026-11-19T10:16:19.948814+00:00"
+        },
+        "results": {
+          "records": 77,
+          "clock_field": "resolved_at_utc",
+          "latest_source_event_at_utc": "2026-11-18T18:30:23.407000+00:00"
+        }
+      },
+      "plan-status.public.json": {
+        "generated_at_utc": "2026-11-19T13:02:03.726981Z",
+        "bytes": 700492,
+        "sha256": "6ec37d00ab782cca7d3d2fa9aae9228a7a385db042621312dbd25fb90cc746c4",
+        "plans": {
+          "records": 97,
+          "clock_field": "last_price_at_utc",
+          "latest_source_event_at_utc": "2026-11-19T10:24:41.393791+00:00"
+        }
+      },
+      "desk-board.public.json": {
+        "as_of_utc": "2026-11-19T13:02:52.280508Z",
+        "bytes": 57571,
+        "sha256": "7fe2c0d7568946d127bd0f487be3509c2d5556b092850b0ae9012b052f02e867"
+      }
+    },
+    "public_export_observed_at_utc": "2026-11-19T13:03:02.673289+00:00",
+    "bound_main_public_feed": {
+      "latest_manifest_pointer": {
+        "bytes": 314,
+        "sha256": "043809b6fe5c183a70398dc2a642ba16ba693f518e9cc1409c16571679f0e565",
+        "mtime_utc": "2026-10-20T22:43:01.466603+00:00"
+      },
+      "manifest": {
+        "bytes": 33005,
+        "sha256": "ab497668c62ea2e2141535239f6655ab32c237b57f2a26bff7cfa564fd6e3623",
+        "mtime_utc": "2026-10-20T22:43:01.456157+00:00"
+      },
+      "manifest_clock_fields": {
+        "emitted_at_utc": "2026-10-20T22:43:00.880869Z"
+      }
+    },
+    "other_held_sources_searched": {
+      "claude-main-events-20261029": {
+        "latest_retained_file": "20261117-1320-arrival-retail/run.json",
+        "bytes": 6929,
+        "sha256": "f47338f8b47ec57f34c02fab8b018bd795e8e12ecd39db4d2a4fd70fe30883c7",
+        "mtime_utc": "2026-11-17T13:32:57.983394+00:00"
+      },
+      "claude-main-events-catchup": {
+        "latest_retained_file": "catchup-20261119T000854Z/official-release-admission/admission-readback.json",
+        "bytes": 5494,
+        "sha256": "0fa3d0f97ebeea66781a2ece9e0f740e6118d22d04ce34317cff33c5922f7d33",
+        "mtime_utc": "2026-11-19T00:09:51.637072+00:00"
+      },
+      "main-event-reaction-tables/tables": {
+        "latest_retained_file": "20261118T173308Z/UK_JOBS_20261117/20261117T070000Z.json",
+        "bytes": 103019,
+        "sha256": "b450cf0d8f43eea3e7ad32755c7cdc5b937d7f59cb560450bc6153473284816f",
+        "mtime_utc": "2026-11-18T17:35:20.564836+00:00"
+      },
+      "main-event-forecast-scores": {
+        "latest_retained_file": "event-scores-US_PPI_20261113-20261113T135117Z.json",
+        "bytes": 445291,
+        "sha256": "7ca6e35cac3d6c54aea26ecd2ea16053b5871a1bfcfaabd86efe232cc958b792",
+        "mtime_utc": "2026-11-13T13:51:17.716337+00:00"
+      },
+      "claude-main-research/t2-runs": {
+        "latest_retained_file": "t2-20261119T044533Z/run.json",
+        "bytes": 4620,
+        "sha256": "704ad28c4ed6611823eb49ec630835d88e14069812f9417aeeb86553e59ce2d3",
+        "mtime_utc": "2026-11-19T05:02:32.712161+00:00"
+      },
+      "claude-main-research/horizon-runs": {
+        "latest_retained_file": "run-20261119T003944Z/run.json",
+        "bytes": 9568,
+        "sha256": "06cf271b6ca63c9b424f1114d37d6ea7b7b2d9d6ca47f8bddab822d9b622503a",
+        "mtime_utc": "2026-11-19T00:46:59.201128+00:00"
+      },
+      "frozen-public-calls": {
+        "latest_retained_file": "bls-emsit-20261106.json",
+        "bytes": 3977,
+        "sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+        "mtime_utc": "2026-11-08T19:01:41.784027+00:00"
+      }
+    }
+  },
+  "publication_readback": {
+    "day": "newsroom-production-day-2026-11-19-bangkok",
+    "canonical_read_model_article_count": 1,
+    "installed_published_corpus_sha256": "7efb61bce352b4c8a507c8be20cee64a114a2fd2d519f3e01ab760088b451477",
+    "canonical_reconciled_articles": [
+      {
+        "source_work_item_id": "cc536-measured-odds-4",
+        "article_identity": "af517f9840a0d02d1a25d77cbe494e3e840eecbf870d0bb51cc183ecf924f710",
+        "published_at_utc": "2026-11-19T05:17:44.840000+00:00",
+        "canonical_url": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical",
+        "dispatched_at_utc": "2026-11-19T05:16:13.387517+00:00",
+        "first_observed_publication_clock_readback_utc": "2026-11-19T05:30:01.798993+00:00"
+      }
+    ],
+    "today_substack_dispatch_readback": [
+      {
+        "dispatch_id": "dispatch_3542636e7460eebd8664a7a142cdf593",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical",
+        "work_item_id": "cc536-measured-odds-4",
+        "daily_digest": null
+      },
+      {
+        "dispatch_id": "dispatch_b94c199bbdafd33da00c00e0bf3543d2",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-cbd",
+        "work_item_id": "cc143-digest-2026-11-19",
+        "daily_digest": "cc143-digest-2026-11-19"
+      }
+    ],
+    "image_registry_article_slots_used_or_reserved": 1,
+    "article_cap": 2,
+    "publication_feed": {
+      "bytes": 31949,
+      "sha256": "fbb12a882ad8badecf437e3f9cf6f6bf6e3399508bc7f16d40ce60f89f682092",
+      "mtime_utc": "2026-11-19T05:35:26.113108+00:00",
+      "stable_during_readback": true
+    },
+    "publication_feed_articles": [
+      {
+        "title": "What a tight stop cost in our historical test",
+        "published_at_utc": "2026-11-19T05:17:44.840000+00:00",
+        "substack": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical"
+      }
+    ],
+    "rollout_public_write_authority": true,
+    "newsroom_publication_lease_conflicts": [],
+    "standing_unresolved_writes": [],
+    "digest": {
+      "path": "digest-20261119.md",
+      "sha256": "fdd4d6c523fcb38bb3c11b8b76a968c837ba07cec61a6ed75b22523a11f71390",
+      "generated_at_header": null,
+      "production_day": "newsroom-production-day-2026-11-18-bangkok",
+      "canonical_count": 0
+    },
+    "observed_at_utc": "2026-11-19T13:03:02.673289+00:00",
+    "article_count_before_digest_fix": 2
+  },
+  "fixes": {
+    "operating_base": "85a5e7e2c137139456150da3565ed7ef9ea2e791",
+    "branch": "backlog/cc-124-main-check-20261119-1949",
+    "receipt_encoding": {
+      "first_refusal": "MAIN_REPORT_ANALYSIS_COMPLETION_MISMATCH for exact unescaped UTF-8 canonical JSON receipts",
+      "integrated_commit": "a5c192b4c2e7b2dfc410102e45f9779eb2ad70a6",
+      "verification": "Four UTF-8-only Main receipts admitted in the installed reader. Exact excerpts and original source cutoffs reached the writer's source pack.",
+      "regression_before": "1 failed, 3 passed. The UTF-8 case failed with MAIN_REPORT_ANALYSIS_COMPLETION_MISMATCH.",
+      "targeted_tests": "python -B -m pytest -q tests/test_main_report_projection_source_v1.py tests/test_reader_article_contract_cc403.py --tb=short",
+      "result": "108 passed in 31.19s"
+    },
+    "article_count": {
+      "integrated_commit": "c89ab597e26cb6f63585893b3f8c26e8d76e2072",
+      "regression_before": "Expected one article when a confirmed digest was also present. The production-day read model returned two.",
+      "verification": "Installed canonical article count, article register and publication feed each show one article. The daily digest's separate dispatch remains confirmed.",
+      "targeted_tests": "python -B -m pytest -q tests/test_v1_reconciled_published_count_accounting_v1.py tests/test_substack_daily_digest_v1.py --tb=short",
+      "result": "44 passed in 29.63s"
+    }
+  },
+  "configured_launch": {
+    "process_id": 43228,
+    "parent_process_id": 46812,
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  }
+}
