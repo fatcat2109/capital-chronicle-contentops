@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 
 from live_contentops.destination_transport_registry_v1 import (
@@ -229,6 +230,7 @@ def _seed_durable_publication(
     reconciliation_status: str | None = RECONCILED_CONFIRMED,
     public_object_id: str | None = None,
     public_object_url: str | None = None,
+    daily_digest: bool = False,
 ) -> None:
     work_item_id = f"work-{suffix}"
     message_id = f"outbox-{suffix}"
@@ -239,19 +241,19 @@ def _seed_durable_publication(
         target_surface="MULTI_PLATFORM",
         work_item_id=work_item_id,
     )
+    intent = {
+        "schema_version": "contentops.prewrite_intent.v1",
+        "work_item_id": work_item_id,
+        "story_identity": f"story-{suffix}",
+        "article_identity": article_identity,
+    }
+    if daily_digest:
+        intent["daily_digest"] = work_item_id
     store.register_outbox_message(
         message_id=message_id,
         work_item_id=work_item_id,
         destination=destination,
-        payload=json.dumps(
-            {
-                "schema_version": "contentops.prewrite_intent.v1",
-                "work_item_id": work_item_id,
-                "story_identity": f"story-{suffix}",
-                "article_identity": article_identity,
-            },
-            sort_keys=True,
-        ),
+        payload=json.dumps(intent, sort_keys=True),
         status="READY",
     )
     store.register_platform_dispatch(
@@ -354,6 +356,37 @@ def test_derivatives_never_inflate_and_article_identity_dedupes_deterministicall
         [first, duplicate],
         production_day_id=newsroom_production_day_id(REFERENCE),
     ) == 1
+
+
+def test_production_day_counts_one_article_alongside_a_confirmed_digest(tmp_path):
+    reference = datetime.fromisoformat("2026-11-19T12:30:00+00:00")
+    store = ContentOpsDurableStore(tmp_path / "disposable.sqlite3", now_fn=lambda: reference)
+    _seed_durable_publication(
+        store,
+        suffix="article",
+        article_identity="article-1",
+        public_object_id="substack-article-id",
+        public_object_url="https://capitalchronicle.substack.com/p/article-1",
+    )
+    _seed_durable_publication(
+        store,
+        suffix="digest",
+        article_identity="digest-1",
+        public_object_id="substack-digest-id",
+        public_object_url="https://capitalchronicle.substack.com/p/digest-1",
+        daily_digest=True,
+    )
+
+    corpus = load_published_corpus(store)
+    snapshot = build_production_day_snapshot(
+        reference=reference,
+        output_root=tmp_path,
+        published_corpus=corpus["articles"],
+        routine_opportunities_used_override=1,
+    )
+    assert snapshot.published_articles_today == 1
+    assert [article.article_identity for article in corpus["articles"]] == ["article-1"]
+    assert store.get_platform_dispatch("dispatch_digest")["status"] == DISPATCH_CONFIRMED
 
 
 def test_bangkok_cross_midnight_published_count_semantics_are_unchanged(tmp_path):

@@ -234,6 +234,9 @@ def load_published_corpus(
             canonical_groups_without_substack += 1
             continue
         intent = dict(substack["intent"])
+        if intent.get("daily_digest"):
+            # The digest summarizes articles and has its own durable readback.
+            continue
         output_value = str(intent.get("output_dir") or "")
         output_dir = Path(output_value) if output_value else None
         if (output_dir is None or not output_dir.is_dir()) and fallback_root is not None:
