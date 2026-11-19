@@ -416,6 +416,7 @@ def sync_confirmed_piece(store, path, work_item_id, *, recorded_at_utc=None, ori
                 if any(prior[k] != value for k, value in metadata.items()):
                     raise PublishedContentError("SEALED_PUBLICATION_IDENTITY_CONFLICT")
                 result = {"status": "ALREADY_RECORDED", "content_id": prior["content_id"],
+                          "published_at_utc": prior["published_at_utc"],
                           "content_sha256": prior["content_sha256"], "outlet_count": len(prior["outlets"])}
                 try:
                     outlets = _corpus_outlets(article, (original or {}).get("outlet_urls"))
@@ -442,4 +443,4 @@ def sync_confirmed_piece(store, path, work_item_id, *, recorded_at_utc=None, ori
     record = record_from_corpus(article, metadata, published_at_utc=published,
         recorded_at_utc=recorded_at_utc or datetime.now(timezone.utc).isoformat(),
         outlet_urls=original.get("outlet_urls"))
-    return append_record(path, record)
+    return {**append_record(path, record), "published_at_utc": record["published_at_utc"]}

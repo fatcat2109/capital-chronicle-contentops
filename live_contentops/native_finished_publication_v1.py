@@ -62,12 +62,12 @@ def assert_newsroom_idle(store, *, own_lease=None, preparation_only=False):
         raise ValueError("NEWSROOM_LEASE_ACTIVE:" + active[0])
 
 
-def confirmed_canonicals(store):
+def confirmed_canonicals(store, *, feed_path=None):
     """Yield exact reconciled objects with separate publication and readback clocks."""
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
     from live_contentops.published_content_v1 import DEFAULT_FEED, read_records
     try:
-        records = read_records(DEFAULT_FEED)
+        records = read_records(DEFAULT_FEED if feed_path is None else feed_path)
     except FileNotFoundError:
         records = []
     publication_clocks = {(r["content_id"], o["url"]): utc(r["published_at_utc"])

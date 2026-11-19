@@ -2,6 +2,7 @@
 from copy import deepcopy
 from datetime import datetime
 from hashlib import sha256
+import json
 
 import pytest
 
@@ -69,6 +70,7 @@ def publish_with_original_clock(tmp_path):
 
 
 def native_lifecycle(tmp_path):
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     from live_contentops.newsroom_production_day_v1 import _logical_hash
     store, transport, coordinator, plan, article, root = lifecycle(tmp_path)
     article.pop("author_identity")
@@ -82,9 +84,10 @@ def native_lifecycle(tmp_path):
     context = {"schema_version": "contentops.simple_durable_run_context.v1", "run_id": "work-1",
         **{key: plan[key] for key in ("article_identity", "article_content_sha256",
                                     "compiler_input_sha256", "accepted_evidence_sha256")}}
+    intents = [{"destination": destination} for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS]
     record = {"schema_version": "contentops.newsroom_qualified_article.v1", "qualified": True,
         "qualification_blockers": [], "public_write_performed": False, "unknown_write_count": 0,
-        "derivative_package_intent_count": 8, "derivative_package_intents": [{} for _ in range(8)],
+        "derivative_package_intent_count": len(intents), "derivative_package_intents": intents,
         "newsroom_production_day_id": "2026-11-03", "attempt_run_id": "work-1", "parent_window_id": "work-1",
         "article_identity": identity, "article_body_sha256": identity,
         "accepted_evidence_sha256": plan["accepted_evidence_sha256"],
@@ -116,7 +119,6 @@ def test_retained_native_original_prose_publishes_and_exports_without_rewriting_
 
 @pytest.mark.parametrize("wrong_current_identity", [False, True])
 def test_revised_native_prose_uses_current_body_identity_instead_of_stale_duplicate_hash(tmp_path, wrong_current_identity):
-    import json
     from live_contentops.newsroom_production_day_v1 import _logical_hash
     _, transport, coordinator, plan, _, root = native_lifecycle(tmp_path)
     record_path = root / "qualified_article_record_v1.json"
@@ -311,15 +313,31 @@ def test_original_publication_clock_is_retained_only_when_explicitly_observed():
 
 
 def test_publication_appends_one_piece_with_five_exact_confirmed_outlets_and_no_repeat(tmp_path):
+    from live_contentops.newsroom_production_day_v1 import PRODUCTION_DAY_RECORD, newsroom_production_day_id
+
     store, transport, coordinator, plan, result = publish_with_original_clock(tmp_path)
     assert result["published_content_record"]["status"] == "APPENDED"
     feed = coordinator.published_content_path
     records = read_records(feed)
     assert len(records) == 1 and len(records[0]["outlets"]) == 5
     assert records[0]["published_at_utc"] == "2026-11-02T17:35:07.590000+00:00"
+    day = newsroom_production_day_id(ORIGINAL)
+    day_path = tmp_path / "daily_app_outputs" / day / PRODUCTION_DAY_RECORD
+    assert result["published_content_record"]["production_day_record"] == str(day_path)
+    saved = json.loads(day_path.read_bytes())
+    assert saved["newsroom_production_day_id"] == day
+    assert saved["native_volume_measurement"]["distinct_canonical_items_published"] == 1
+    assert saved["native_volume_measurement"]["confirmed_copies_by_channel"] == {
+        "discord": 1, "facebook_page": 1, "substack": 1, "telegram": 1, "x": 1,
+    }
+    sealed_day = saved.pop("record_sha256")
+    assert sealed_day == sha256(canonical(saved)).hexdigest()
     before = feed.read_bytes()
     calls = list(transport.publish_calls)
-    coordinator.execute_plan("work-1", plan)
+    day_path.unlink()
+    result = coordinator.execute_plan("work-1", plan)
+    assert result["published_content_record"]["production_day_record"] == str(day_path)
+    assert json.loads(day_path.read_bytes())["native_volume_measurement"]["distinct_canonical_items_published"] == 1
     assert feed.read_bytes() == before and transport.publish_calls == calls
     assert sync_confirmed_piece(store, feed, "work-1")["status"] == "ALREADY_RECORDED"
 
@@ -329,6 +347,7 @@ def test_unknown_canonical_never_enters_feed(tmp_path):
     store, transport, coordinator, plan, _, _ = lifecycle(tmp_path, transport=FixtureTransport(ambiguous=True))
     coordinator.execute_plan("work-1", plan)
     assert not coordinator.published_content_path.exists()
+    assert not (tmp_path / "daily_app_outputs").exists()
     assert sync_confirmed_piece(store, coordinator.published_content_path, "work-1")["status"] == "CANONICAL_NOT_CONFIRMED_NO_RECORD"
 
 

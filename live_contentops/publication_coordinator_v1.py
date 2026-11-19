@@ -3924,12 +3924,21 @@ class DurablePublicationCoordinator:
             return {"status": "PUBLICATION_RECORD_EXPORT_NOT_CONFIGURED"}
         from live_contentops.published_content_v1 import sync_confirmed_piece
         try:
-            return sync_confirmed_piece(self.store, self.published_content_path, work_item_id,
-                                        recorded_at_utc=self._clock().isoformat())
+            record = sync_confirmed_piece(self.store, self.published_content_path, work_item_id,
+                                          recorded_at_utc=self._clock().isoformat())
         except (ValueError, OSError, KeyError, TypeError) as exc:
             # A post-write export failure must never cause another public send.
             return {"status": "PUBLICATION_RECORD_PENDING",
                     "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
+        if record.get("published_at_utc"):
+            from sqlite3 import Error as SQLiteError
+            from live_contentops.native_newsroom_volume_v1 import persist_publication_day_measurement
+            try:
+                record["production_day_record"] = persist_publication_day_measurement(
+                    self.store, self.published_content_path, published_at_utc=record["published_at_utc"])
+            except (ValueError, OSError, KeyError, TypeError, SQLiteError) as exc:
+                record["production_day_record_error"] = type(exc).__name__
+        return record
 
     def _execute_site_first_plan(self, work_item_id, plan):
         from live_contentops.site_first_publication_v1 import candidate
@@ -4009,13 +4018,7 @@ class DurablePublicationCoordinator:
             outcomes, full_v1=self._full_v1_distribution_required(plan))}
         result = self._site_publication_state(work_item_id, plan, result)
         if self.published_content_path is not None and result["substack_publication_confirmed"] and not plan.get("daily_digest") and not plan.get("plan_analysis_page"):
-            from live_contentops.published_content_v1 import sync_confirmed_piece
-            try:
-                result["published_content_record"] = sync_confirmed_piece(self.store,
-                    self.published_content_path, work_item_id, recorded_at_utc=self._clock().isoformat())
-            except (ValueError, OSError, KeyError, TypeError) as exc:
-                result["published_content_record"] = {"status": "PUBLICATION_RECORD_PENDING",
-                    "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__}
+            result["published_content_record"] = self.sync_published_content(work_item_id)
         return result
 
     def _site_publication_state(self, work_item_id, plan, result):

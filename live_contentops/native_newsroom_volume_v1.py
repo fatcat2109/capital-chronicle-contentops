@@ -5,8 +5,12 @@ Issued bindings keep their frozen policy; the date gate never upgrades old work.
 """
 from __future__ import annotations
 
+from contextlib import closing
+from datetime import datetime, timezone
+from hashlib import sha256
 import json
 from pathlib import Path
+import tempfile
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 from live_contentops.newsroom_production_day_v1 import newsroom_production_date
@@ -229,16 +233,11 @@ def persist_native_day_measurement(store, binding):
     No platform collection is performed here. A missing reader metric is null,
     and the measured latency ends at canonical readback, not an invented publish time.
     """
-    from collections import Counter, defaultdict
-    from datetime import datetime, timezone
     from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
-    from live_contentops.native_desktop_publication_v1 import publication_projection
-    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
-    from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
-    from live_contentops.native_brief_windows_v1 import quota_stop_observations
     if not bound_volume_policy(binding) and not binding.get("owner_manual_live"):
         return None
     from live_contentops.native_finished_publication_v1 import confirmed_canonicals
+    observed_at = datetime.now(timezone.utc)
     published = list(confirmed_canonicals(store))
     own_publication = next((p for p in published if p["run_id"] == binding["run_id"]), None)
     # A standing run may reconcile after 02:00 Bangkok. Refresh the day on
@@ -246,10 +245,49 @@ def persist_native_day_measurement(store, binding):
     # article from the prior day's digest when this projection is refreshed.
     reference = (binding["cutoff_utc"] if binding.get("window_id") else
                  ((own_publication.get("published_at_utc") or own_publication["first_readback_utc"])
-                  if own_publication else datetime.now(timezone.utc)))
+                  if own_publication else observed_at))
     day = newsroom_production_day_id(reference)
-    confirmed_runs = {p["run_id"] for p in published
-                      if newsroom_production_day_id(p.get("published_at_utc") or p["first_readback_utc"]) == day}
+    root = (Path(binding["output_dir"]).parent.parent if binding.get("window_id")
+            else Path(binding["published_memory_output_root"]) / day)
+    if root.name != day:
+        raise ValueError("EXACT_NATIVE_PRODUCTION_DAY_OUTPUT_ROOT_REQUIRED")
+    return _persist_day_measurement(store, root, reference, published,
+        observed_at=observed_at, policy_id=(binding.get("volume_policy") or {}).get("policy_id", "JIM_DECISION_39"))
+
+
+def persist_publication_day_measurement(store, feed_path, *, published_at_utc):
+    """Refresh the existing digest input after a canonical article is recorded."""
+    from live_contentops.native_finished_publication_v1 import confirmed_canonicals
+    from live_contentops.newsroom_production_day_v1 import PRODUCTION_DAY_RECORD, newsroom_production_day_id
+    from live_contentops.published_content_v1 import outlets_path
+
+    observed_at = datetime.now(timezone.utc)
+    feed = Path(feed_path)
+    root = feed.parent / "daily_app_outputs" / newsroom_production_day_id(published_at_utc)
+    record = root / PRODUCTION_DAY_RECORD
+    version = {path.name: sha256(path.read_bytes()).hexdigest()
+               for path in (feed, outlets_path(feed)) if path.is_file()}
+    if record.is_file():
+        existing = json.loads(record.read_bytes()).get("native_volume_measurement") or {}
+        if existing.get("publication_feed_version") == version:
+            return str(record)
+    return _persist_day_measurement(store, root, published_at_utc,
+        list(confirmed_canonicals(store, feed_path=feed)), observed_at=observed_at,
+        policy_id="JIM_DECISION_39", publication_feed_version=version)
+
+
+def _persist_day_measurement(store, root, reference, published, *, observed_at, policy_id,
+                             publication_feed_version=None):
+    from collections import Counter, defaultdict
+    from live_contentops.native_brief_windows_v1 import quota_stop_observations
+    from live_contentops.native_desktop_publication_v1 import publication_projection
+    from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    day = newsroom_production_day_id(reference)
+    published_today = [p for p in published
+                       if newsroom_production_day_id(p.get("published_at_utc") or p["first_readback_utc"]) == day]
+    confirmed_runs = {p["run_id"] for p in published_today}
     rows, dispatches = store.list_outbox_messages(), store.list_platform_dispatches()
     bindings = [json.loads(row["payload"]) for row in rows if row["message_id"].startswith("native-operation-binding-")]
     bindings = [b for b in bindings if
@@ -323,10 +361,20 @@ def persist_native_day_measurement(store, binding):
                         - datetime.fromisoformat(entry.replace("Z", "+00:00"))).total_seconds()
                 latencies.append({"run_id": run, "public_object_id": object_id,
                     "window_entry_to_canonical_readback_seconds": seconds})
-    quota_stops = quota_stop_observations(store, production_date=newsroom_production_date(binding["cutoff_utc"]).isoformat())
+    # Direct coordinator articles need no native editorial binding. The existing
+    # corpus supplies their exact public objects, and the sealed feed dates them.
+    direct_runs = {p["run_id"] for p in published_today if p.get("published_at_utc") and p.get("dispatch_id")}
+    direct_runs.difference_update(current["run_id"] for current in bindings)
+    if direct_runs:
+        from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+        for article in load_published_corpus(store)["articles"]:
+            if article.source_work_item_id in direct_runs:
+                for outlet in article.derivative_public_objects:
+                    confirmed[outlet["destination"]].add(outlet["public_object_id"])
+    quota_stops = quota_stop_observations(store, production_date=newsroom_production_date(reference).isoformat())
     quota_stops.extend(i for i in interventions if i.get("cause") == "CODEX_QUOTA_STOP" and i not in quota_stops)
-    measurement = {"observed_at_utc": datetime.now(timezone.utc).isoformat(),
-        "policy_id": (binding.get("volume_policy") or {}).get("policy_id", "JIM_DECISION_39"), "admitted_items": len(admissions),
+    measurement = {"observed_at_utc": observed_at.isoformat(),
+        "policy_id": policy_id, "admitted_items": len(admissions),
         "source_qualified_items": len(qualified), "distinct_canonical_items_published": len(confirmed["substack"]),
         "confirmed_copies_by_channel": {k: len(v) for k, v in confirmed.items()},
         "first_blocking_causes": dict(Counter(first_causes.values())), "windows": windows,
@@ -338,17 +386,36 @@ def persist_native_day_measurement(store, binding):
             "planned_release_utc": p.get("planned_release_utc"), "source_admission_state": p["source_admission_state"]} for p in preparations],
         "distinct_daily_target": 8, "target_by_revised_production_day": 3,
         "tests_or_derivatives_are_original_publications": False}
-    # Same existing day artifact. Preserve the existing snapshot's other fields.
-    root = (Path(binding["output_dir"]).parent.parent if binding.get("window_id")
-            else Path(binding["published_memory_output_root"]) / day)
-    if root.name != day:
-        raise ValueError("EXACT_NATIVE_PRODUCTION_DAY_OUTPUT_ROOT_REQUIRED")
-    path = root / "newsroom_production_day_v1.json"
+    if publication_feed_version is not None:
+        measurement["publication_feed_version"] = publication_feed_version
+    return _write_day_measurement(store, root, day, measurement, observed_at)
+
+
+def _write_day_measurement(store, root, day, measurement, observed_at):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from live_contentops.newsroom_production_day_v1 import PRODUCTION_DAY_RECORD
+
+    path = root / PRODUCTION_DAY_RECORD
     root.mkdir(parents=True, exist_ok=True)
-    payload = json.loads(path.read_bytes()) if path.is_file() else {
-        "schema_version": "contentops.newsroom_production_day.v1", "newsroom_production_day_id": day}
-    payload.update(native_volume_measurement=measurement)
-    payload.pop("record_sha256", None)
-    payload["record_sha256"] = sha256_of(payload)
-    path.write_bytes(canonical_bytes(payload))
+    # Serialize just the file replacement with the existing store lock. Readers
+    # see a whole record, and an overlapping older observation cannot replace it.
+    with closing(store.get_connection()) as connection:
+        connection.execute("BEGIN IMMEDIATE")
+        payload = json.loads(path.read_bytes()) if path.is_file() else {
+            "schema_version": "contentops.newsroom_production_day.v1", "newsroom_production_day_id": day}
+        previous_at = (payload.get("native_volume_measurement") or {}).get("observed_at_utc")
+        if previous_at and datetime.fromisoformat(previous_at.replace("Z", "+00:00")) > observed_at:
+            return str(path)
+        payload.update(native_volume_measurement=measurement)
+        payload.pop("record_sha256", None)
+        payload["record_sha256"] = sha256_of(payload)
+        temporary = None
+        try:
+            with tempfile.NamedTemporaryFile(dir=root, delete=False) as stream:
+                temporary = Path(stream.name)
+                stream.write(canonical_bytes(payload))
+            temporary.replace(path)
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
     return str(path)
