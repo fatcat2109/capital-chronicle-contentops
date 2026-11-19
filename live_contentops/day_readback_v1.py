@@ -511,7 +511,8 @@ def _digest(conn, run_dir, result):
                            ("internal:substack-daily-digest", digest_id)).fetchone()
         if row:
             packet = json.loads(row["payload"])
-    summary = {"digest_id": digest_id, "state": code(result.get("final_route_state")) or "RUN_RESULT_UNAVAILABLE",
+    state = code(result.get("route_state")) or code(result.get("final_route_state"))
+    summary = {"digest_id": digest_id, "state": state or "RUN_RESULT_UNAVAILABLE",
                "first_cause": first_cause(result),
                "packet_message_id": row["message_id"] if digest_id and packet else None,
                "packet_present": bool(packet), "article_count": len(packet.get("articles", [])),
@@ -688,6 +689,11 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 platform = row["destination"]
                 actual.add(platform)
                 intent = json.loads(row["payload"])
+                if platform == "substack" and not piece["title"]:
+                    native_payload = intent.get("native_payload")
+                    title = native_payload.get("title") if isinstance(native_payload, dict) else None
+                    if isinstance(title, str):
+                        piece["title"] = _first_text_line(title)
                 required.update(d for key in ("required_publication_destinations", "required_derivative_destinations")
                                 for d in intent.get(key, []) if d in ROUTES)
                 history = []
@@ -736,7 +742,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 piece["engagement"].append(_route_engagement(conn, row, route, history, as_of=engagement_cutoff,
                     source_exists=engagement_source_exists, collector_states=collector_states))
             piece["first_line"], piece["first_dispatch_at_utc"] = _piece_heading(group, expected, end)
-            if not (piece["first_line"] or piece["title"]):
+            if not piece["title"] and ("substack" in actual or not piece["first_line"]):
                 registered = conn.execute("SELECT title FROM work_items WHERE work_item_id=? "
                                           "AND julianday(created_at) <= julianday(?)",
                                           (work_id, window["until_utc"])).fetchone()
@@ -799,14 +805,15 @@ def markdown(report):
         return utc(value).astimezone(LOCAL).strftime("%d %b %Y %H:%M GMT+7")
     def plain(value):
         return " ".join(str(value).split()).replace("|", "/")
+    def heading(piece):
+        return plain(piece["title"] or piece.get("first_line") or piece["piece_id"])
     lines = [f"Day readback: {local(report['window']['since_utc'])} to {local(report['window']['until_utc'])}.",
              f"Store observed: {local(report['observed_at_utc'])}; public HTTP observed at report time."]
     for piece in report["pieces"]:
         platforms = "; ".join(f"{r['platform']}={r['status']}" for r in piece["platforms"])
-        heading = piece.get("first_line") or piece["title"] or piece["piece_id"]
         clock = piece.get("first_dispatch_at_utc")
         dispatch = local(clock) if clock else "dispatch time unrecorded"
-        lines.append(f"- {plain(heading)} ({dispatch}): {platforms or 'store rows missing'}.")
+        lines.append(f"- {heading(piece)} ({dispatch}): {platforms or 'store rows missing'}.")
     digest = report["digest"]
     lines.append(f"Digest: {digest['state']}; recipients {digest['recipients'] if digest['recipients'] is not None else 'unknown'}; "
                  f"opens {digest['opens'] if digest['opens'] is not None else 'unknown'}; {digest['public_url'] or 'page unrecorded'}.")
@@ -823,24 +830,27 @@ def markdown(report):
     if not report["pieces"]:
         lines.append("No pieces in this window.")
     for piece in report["pieces"]:
-        heading = piece.get("first_line") or piece["title"] or piece["piece_id"]
-        lines.append(f"- {plain(heading)}")
-        unavailable = defaultdict(list)
+        lines.append(f"- {heading(piece)}")
+        unrecorded = []
         multiplicity = Counter(row["platform"] for row in piece["engagement"])
         for row in piece["engagement"]:
             platform = row["platform"]
+            if row["first_cause"] == "NO_PUBLICATION_ROUTE_RECORDED":
+                unrecorded.append(platform)
+                continue
             if multiplicity[platform] > 1 and row["public_url"]:
                 platform = f"[{platform}]({row['public_url']})"
-            if row["first_cause"]:
-                unavailable[(row["first_cause"], row.get("collector_state"))].append(platform)
+            if cause := row["first_cause"]:
+                collector = row.get("collector_state")
+                detail = f"{cause} ({collector})" if collector else cause
+                lines.append(f"  - **{platform}** · {detail}")
                 continue
             metrics = [f"{m['value']} {m['source_metric'].replace('_', ' ')} ({local(m['collected_at_utc'])})"
                        for m in row["metrics"].values()]
             gaps = [f"{name} unavailable ({cause})" for name, cause in row["missing_metrics"].items()]
             lines.append(f"  - **{platform}** · " + " · ".join(metrics + gaps))
-        for (cause, collector), platforms in unavailable.items():
-            detail = f"{cause} ({collector})" if collector else cause
-            lines.append(f"  - {', '.join(platforms)} · {detail}")
+        if unrecorded:
+            lines.append(f"  - {', '.join(unrecorded)} · NO_PUBLICATION_ROUTE_RECORDED")
     lines.append("")
     lines.append(f"Exceptions: {report['exception_count']}.")
     for item in report["exceptions"]:
