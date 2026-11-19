@@ -120,11 +120,10 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     original = rows(store)[0]
     frozen_payload = store.get_outbox_message(original["key"])["payload"]
     assert original["x_analysis_thread"] is True
-    assert "x" not in cards._ready_destinations(store, original)
+    assert "x" in cards._ready_destinations(store, original)
     missing_page = cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",))
-    assert not missing_page["destinations"]
-    assert missing_page["deferred_destinations"] == [
-        {"destination": "x", "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED"}]
+    assert [d["destination"] for d in missing_page["destinations"]] == ["x"]
+    assert not missing_page["deferred_destinations"]
     # The external page completes later. Its controlled source fixture tests the
     # existing exact page/link consumer, without performing a browser write.
     run_root, _, plan, manuscript = source
@@ -294,15 +293,15 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
     dispatch = cards._dispatch(store, ending["key"], "telegram")
     intent = json.loads(store.get_outbox_message(dispatch["message_id"])["payload"])
     assert intent["native_payload"]["reply_to_id"] == "700"
-    assert runtime.publish_calls == ["telegram"]
+    assert set(runtime.publish_calls) == {"telegram", "discord"}
     assert cards._dispatch(store, invalid["key"], "telegram") is None
     assert store.get_outbox_message(invalid["key"])["payload"] == invalid_bytes
 
 
-@pytest.mark.parametrize("registered_before_parent", [False, True], ids=["new-copy", "prebound"])
-def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_root, tmp_path, registered_before_parent):
+@pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout"])
+def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure):
     from hashlib import sha256
-    from live_contentops.destination_transport_registry_v1 import registration_for_destination
+    from test_minute_consumer_cc515 import dispatch
 
     store, folder, raw, now = replay
     events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
@@ -314,7 +313,10 @@ def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_ro
                            target_surface="MULTI_PLATFORM")
     confirm(store, setup_key, setup_hash, "discord", "600",
             "https://discord.com/channels/42/1519311669216673802/600")
-    store.set_outbox_status(setup_key, "SETTLED")
+    if failure == "refused-telegram":
+        dispatch(store, setup, "telegram", "DEFINITE_NO_WRITE")
+    else:
+        store.set_outbox_status(setup_key, posts.SUPERSEDED)
 
     raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
     events.append(event(raw["plan_id"], "EXPIRED", now.isoformat()))
@@ -323,47 +325,41 @@ def test_late_parent_confirmation_enables_only_its_unsent_ending(replay, main_ro
     queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     ending, = [row for row in rows(store) if row["kind"] == "result"]
     key = ending["key"]
+    if failure == "refused-telegram":
+        store.register_incident(incident_id=cards._settlement_id(key, "telegram"),
+            work_item_id=posts.WORK_ITEM_ID, severity="RECOVERY_AUDIT",
+            description=json.dumps({"cause": "CARD_PARENT_DEFINITE_NO_WRITE", "dispatch_id": None}))
 
     runtime = FixtureTransport()
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
         readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
         published_content_path=tmp_path / "published.jsonl")
     options = {"now": now, "latest_states": queued["latest_states"], "root": tmp_path / "posts",
-               "host": fake_host, "coordinator_for": lambda *args: coordinator, "immediate_only": True}
-    posts.publish_ready(store, **options)
+               "host": fake_host, "coordinator_for": lambda *args: coordinator}
+    posts.publish_ready(store, **options, immediate_only=True)
     discord = cards._dispatch(store, key, "discord")
     assert discord["status"] == "DISPATCH_CONFIRMED"
-    assert cards._dispatch(store, key, "telegram") is None
-    discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
-    directory = tmp_path / "posts" / key
-    _, first_copies = posts._expected(store, key, directory)
-    if registered_before_parent:
-        plan = cards.prepare_post(store, key, root=tmp_path / "posts", host=fake_host, destinations=("discord",))
-        route = registration_for_destination("telegram")
-        text = first_copies["telegram"]["full_text"]
-        copy = {**plan["destinations"][0], "destination": "telegram", "platform": route.platform,
-                "surface": route.surface, "transport_type": route.transport_type,
-                "expected_destination_identity": route.expected_identity,
-                "payload": text, "payload_hash": sha256(text.encode()).hexdigest()}
-        # The old coordinator materialized this intent, then the parent check
-        # stopped it before any dispatch could be recorded.
-        record, = coordinator.register_plan(key, {**plan, "destinations": [copy]})["registered"]
-        held = store.get_outbox_message(record["message_id"])
-        assert held["status"] == "READY"
-        assert "reply_to_id" not in json.loads(held["payload"])["native_payload"]
-        assert cards._dispatch(store, key, "telegram") is None
-
-    confirm(store, setup_key, setup_hash, "telegram", "700", "https://t.me/CapitalChronicle/700")
-    recovered = posts.publish_ready(store, **options)
     telegram = cards._dispatch(store, key, "telegram")
-    assert telegram and telegram["status"] == "DISPATCH_CONFIRMED", recovered
-    intent = json.loads(store.get_outbox_message(telegram["message_id"])["payload"])
-    assert intent["native_payload"]["reply_to_id"] == "700"
+    assert telegram["status"] == "DISPATCH_CONFIRMED"
+    telegram_intent = json.loads(store.get_outbox_message(telegram["message_id"])["payload"])
+    assert "reply_to_id" not in telegram_intent["native_payload"]
+    discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
+    assert json.loads(discord_bytes)["native_payload"]["reply_to_id"] == "600"
+
+    now += timedelta(minutes=1)
+    options["now"] = now
+    recovered = posts.publish_ready(store, **options, alert_filter=True)
+    assert set(runtime.publish_calls) == set(cards.destinations_for(ending)), recovered
+    for destination in cards.destinations_for(ending):
+        delivery = cards._dispatch(store, key, destination)
+        assert delivery["status"] == "DISPATCH_CONFIRMED", recovered
+        if destination not in {"telegram", "discord"}:
+            intent = json.loads(store.get_outbox_message(delivery["message_id"])["payload"])
+            assert "reply_to_id" not in intent["native_payload"]
     assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
-    _, copies = posts._expected(store, key, directory)
-    assert copies["discord"] == first_copies["discord"]
-    posts.publish_ready(store, **options)
-    assert runtime.publish_calls == ["discord", "telegram"]
+    assert store.get_outbox_message(setup_key)["status"] == posts.SUPERSEDED
+    posts.publish_ready(store, **options, alert_filter=True)
+    assert len(runtime.publish_calls) == len(cards.destinations_for(ending))
 
 
 @pytest.mark.parametrize("dry", [False, True])
@@ -384,7 +380,8 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     order = []
     monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {"status": "OK"})
     def publish(*a, **kw):
-        order.append("immediate" if kw.get("immediate_only") else "later-destinations")
+        order.append("immediate" if kw.get("immediate_only") else
+                     "alert-fanout" if kw.get("alert_filter") else "later-destinations")
         return {"status": "OK", "posts": []}
     def page(*a, **k):
         order.append("model-page")
@@ -409,7 +406,8 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     output = Output()
     monkeypatch.setattr(sys, "stdout", output)
     assert cli.main(["--store", str(tmp_path / "cli.sqlite3"), "--publish", *(["--dry-run"] if dry else [])]) == 0
-    assert order == (["export"] if dry else ["export", "immediate", "private-replies", "model-page", "later-destinations"])
+    assert order == (["export"] if dry else [
+        "export", "immediate", "alert-fanout", "private-replies", "model-page", "later-destinations"])
     if not dry:
         result = json.loads(output.getvalue())
         assert result["plan_pages"]["cause"] == "RuntimeError:MODEL_QUOTA_UNAVAILABLE"

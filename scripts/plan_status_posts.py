@@ -108,9 +108,12 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                 active_recoveries=result.get("active_recoveries"), immediate_only=True)
-            # pythonw has no stdout and later editorial work may outlive the
-            # task. Save the actual API result in its existing run record now.
+            # Save the API receipts even if the later browser work outlives the tick.
             posts.record_run({**result, "phase": "IMMEDIATE_ALERTS", "publication": result["immediate_publication"]},
+                             args.store.parent / posts.RUN_RECORD_FOLDER)
+            result["plan_alert_fanout"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
+                automatic_neo=True, alert_filter=True)
+            posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"]},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
         # Decision 124's private delivery still precedes the slow editorial and
         # browser phase, through this same minute entry and existing schedule.
@@ -166,7 +169,9 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run and result["status"] == "OK":
             from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                                                       active_recoveries=result.get("active_recoveries"), automatic_neo=True)
+                active_recoveries=result.get("active_recoveries"), automatic_neo=True, alert_filter=False)
+            result["publication"]["posts"] = (result["plan_alert_fanout"]["posts"]
+                + result["publication"].get("posts", []))
             result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
                                                   python=child_python())
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links

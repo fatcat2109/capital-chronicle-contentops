@@ -904,7 +904,7 @@ def _discord_analysis_thread(store, original, parent):
 
 def register_link(store, packet, *, original_key, destination, authored_summary=None,
                   original_analysis_root=False, canonical_image_url=None):
-    from .plan_call_cards_v1 import _reference
+    from .plan_call_cards_v1 import _dispatch, _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     status = page_status(store, packet)
     if not status["confirmed"]:
@@ -919,9 +919,17 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     original_payload = json.loads(original.get("payload") or "{}")
     if destination == "x" and original_payload.get("x_analysis_thread"):
         ref = _reference(store, original_key, destination)
-        return {"state": "PLAN_ANALYSIS_IN_X_THREAD" if ref else "PLAN_ANALYSIS_X_THREAD_PENDING",
-                "destination": destination, "original_key": original_key,
-                "public_object_url": ref.get("public_object_url") if ref else None}
+        if not ref:
+            return {"state": "PLAN_ANALYSIS_X_THREAD_PENDING", "destination": destination,
+                    "original_key": original_key, "public_object_url": None}
+        dispatch = _dispatch(store, original_key, destination)
+        message = store.get_outbox_message(dispatch["message_id"]) or {}
+        sent = json.loads(message.get("payload") or "{}").get("native_payload") or {}
+        if status["canonical_url"] in sent.get("full_text", ""):
+            return {"state": "PLAN_ANALYSIS_IN_X_THREAD", "destination": destination,
+                    "original_key": original_key, "public_object_url": ref.get("public_object_url")}
+        # The first alert can go out while the page is still being prepared.
+        # Its confirmed root now receives the same bound link as other channels.
     parent = None if destination == "substack_notes" else _analysis_parent(store, original_key, packet["plan_id"], destination)
     if original_analysis_root:
         # Decision 113 explicitly asks for today's original plan analysis. An

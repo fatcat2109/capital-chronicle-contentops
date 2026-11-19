@@ -1556,7 +1556,9 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         # cannot rewrite it or make an exact historical intent fail comparison.
         # The intent/parent equality and current public-copy checks below stay.
         from .plan_call_cards_v1 import validate_parent_intent
-        validate_parent_intent(store, row, intent)
+        destination = intent["destination_plan"]["destination"]
+        route = (context.get("status_post_parents") or {}).get(destination)
+        validate_parent_intent(store, row, intent, parent_route=route)
         if not assets:
             raise PlanPostError("EVERY_POST_IMAGE_REQUIRED:" + str(row.get("kind")))
     elif row.get("kind") == "result":
@@ -1568,7 +1570,7 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
             or intent.get("native_payload") != payloads.get(destination)):
         raise PlanPostError("PLAN_STATUS_POST_INTENT_COPY_CHANGED")
     public_text = payloads[destination]["full_text"]
-    if destination == "x" and row.get("x_analysis_thread"):
+    if destination == "x" and row.get("x_analysis_thread") and context.get("status_post_x_analysis"):
         from .plan_reader_editorial_v1 import validate_reader_row
         validate_reader_row(store, {**row, **context["status_post_x_analysis"]})
         # The call can span complete-sentence replies. The exact stored copy
@@ -1630,6 +1632,11 @@ def publication_refusal(store, payload, *, now=None, latest_states=None):
         from .plan_call_cards_v1 import TERMINAL
         if current in TERMINAL | {"RESULT"}:
             return SUPERSEDED, "PLAN_UPDATE_SUPERSEDED_BY_" + str(current)
+    if current and payload.get("state_alert_contract") and payload.get("kind") == "update":
+        state = payload.get("state")
+        fill_states = {"TRIGGERED", "FILLED"}
+        if state != current and not {state, current} <= fill_states:
+            return SUPERSEDED, "PLAN_UPDATE_SUPERSEDED_BY_" + str(current)
     if _age_minutes(payload, now) > freshness_limit_minutes(payload):
         return STALE, "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT"
     if payload.get("kind") == "setup" and payload.get("time_exit_utc") and now >= _utc(payload["time_exit_utc"]):
@@ -1684,7 +1691,7 @@ def _api_confirmed(store, key: str, *, root: Path = POST_ROOT) -> bool:
 
 def publish_ready(store, *, latest_states=None, active_recoveries=None, now: datetime | None = None, coordinator_for=None,
                   root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False,
-                  immediate_only=False) -> dict:
+                  immediate_only=False, alert_filter=None) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
@@ -1695,15 +1702,17 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     retry); a row with all three confirmed is done, so an idle run touches nothing.
     """
     now = now or datetime.now(timezone.utc)
-    if immediate_only:
+    if immediate_only or alert_filter is True:
         import time
         from .plan_call_cards_v1 import publish_ready as publish_cards
         from .plan_state_alerts_v1 import IMMEDIATE_DESTINATIONS
         started = time.monotonic()
-        return publish_cards(store, now=now, latest_states=latest_states, root=root, host=host,
-            coordinator_for=coordinator_for, limit=limit, automatic_neo=False,
-            destinations=IMMEDIATE_DESTINATIONS, snapshot=snapshot,
+        result = publish_cards(store, now=now, latest_states=latest_states, root=root, host=host,
+            coordinator_for=coordinator_for, limit=limit, automatic_neo=automatic_neo and not immediate_only,
+            destinations=IMMEDIATE_DESTINATIONS if immediate_only else None, snapshot=snapshot, alert_filter=True,
             snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
+        result["pending_post_queue"] = pending_post_queue(store, now)
+        return result
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
@@ -1794,17 +1803,21 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
                                  host=host, coordinator_for=coordinator_for, limit=limit, automatic_neo=automatic_neo,
+                                 alert_filter=alert_filter,
                                  snapshot=snapshot, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     from .plan_analysis_pages_v1 import distribute_links
     links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
+    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links,
+            "pending_post_queue": pending_post_queue(store, now)}
+
+
+def pending_post_queue(store, now):
     pending_ages = [_age_minutes(json.loads(row["payload"]), now)
         for row in store.list_outbox_messages(destination=DESTINATION)
         if row["status"] in {READY, "PUBLISHING"}]
-    queue_health = {"pending": len(pending_ages),
+    return {"pending": len(pending_ages),
         "older_than_24_hours": sum(age > LATE_STATE_HOURS * 60 for age in pending_ages),
         "oldest_age_minutes": round(max(pending_ages), 3) if pending_ages else None}
-    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links,
-            "pending_post_queue": queue_health}
 
 
 def destination_causes(outcome: Mapping[str, Any]) -> dict:

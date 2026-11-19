@@ -144,10 +144,15 @@ def validate(row, *, store=None):
 
 
 def payloads(row, **options):
-    from .plan_call_cards_v1 import destination_payloads
+    from .plan_call_cards_v1 import destination_payloads, destinations_for
     # Reuse the established length, thread, notice, chart-credit and parent
     # handling. The public source fields need no editorial variants.
-    result = destination_payloads({**row, "state_alert_contract": None, "reader_contract": None}, **options)
+    parents = options.pop("parents", None) or {}
+    compiled = {**row, "state_alert_contract": None, "reader_contract": None}
+    if parents.get("discord", {}).get("delivery_mode") == "standalone":
+        compiled["discord_delivery"] = "channel"
+    replies = {d: route for d, route in parents.items() if route.get("public_object_id")}
+    result = destination_payloads(compiled, parents=replies, destinations=destinations_for(row), **options)
     if options.get("carousel") and "instagram_business" in result:
         result["instagram_business"]["media_asset_ids"] = [options["carousel"][0]["asset_id"]]
     return result

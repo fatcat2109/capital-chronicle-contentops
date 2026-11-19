@@ -336,6 +336,8 @@ def compose(row):
 
 
 def destinations_for(row):
+    if row.get("state_alert_contract") == "CC543_V1":
+        return DESTINATIONS
     if row.get("reader_contract") == "CC466_V1":
         return tuple(d for d in DESTINATIONS if d != "linkedin")
     # LinkedIn receives the run and its links, rather than one duplicate root
@@ -752,7 +754,8 @@ def _skipped_images(root, row):
     """Destination-local image failure, retained in the existing post artifact."""
     if root is None:
         return []
-    for key in (row["key"], row.get("parent_key")):
+    keys = (row["key"],) if row.get("state_alert_contract") else (row["key"], row.get("parent_key"))
+    for key in keys:
         if not key:
             continue
         path = Path(root) / key / "run_context_v1.json"
@@ -779,10 +782,16 @@ def settled_destinations(store, row):
     with store.get_read_only_connection() as conn:
         records = conn.execute("SELECT incident_id, description FROM incidents WHERE incident_id IN ("
             + ",".join("?" for _ in ids) + ")", tuple(ids)).fetchall()
-    return {ids[r["incident_id"]]: json.loads(r["description"]) for r in records}
+    details = {ids[r["incident_id"]]: json.loads(r["description"]) for r in records}
+    if row.get("state_alert_contract"):
+        # The previous minute consumer closed some current copies solely
+        # because the parent was unavailable. Their own dispatch never began.
+        return {d: v for d, v in details.items()
+                if not (v["cause"].startswith("CARD_PARENT_") and not v.get("dispatch_id"))}
+    return details
 
 
-def settle_pending(store, outbox, row, *, now, root=None):
+def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     """Close dead destination work; retain exact dispatch/claim/object truth.
 
     A late UNKNOWN_WRITE remains UNKNOWN_WRITE, available to explicit readback.
@@ -806,10 +815,10 @@ def settle_pending(store, outbox, row, *, now, root=None):
             continue
         if destination in settled:
             continue
-        cause = None
+        cause = image_cause if not dispatch else None
         # A possibly-sent child keeps its readback until the late-state limit.
         unstarted = not dispatch or dispatch.get("status") in SETTLED_DISPATCHES
-        parent_needed = bool(row.get("parent_key") and not
+        parent_needed = bool(row.get("parent_key") and not row.get("state_alert_contract") and not
             (destination == "discord" and row.get("discord_delivery") == "channel"))
         if parent_needed and not _reference(store, row["parent_key"], destination):
             parent = _dispatch(store, row["parent_key"], destination) or {}
@@ -842,15 +851,16 @@ def settle_pending(store, outbox, row, *, now, root=None):
             hashlib.sha256(("plan-status-post:" + row["key"]).encode()).hexdigest(), destination)
         if store.get_outbox_message(ids["message_id"]):
             store.set_outbox_status(ids["message_id"], SETTLED_COPY)
-    skipped = {d["destination"] for d in _skipped_images(root, row)}
-    if set(_post_destinations(row)) <= confirmed | set(settled) | skipped:
-        status = SETTLED_POST if settled else "PUBLISHED"
+    skipped = {d["destination"]: d["cause"] for d in _skipped_images(root, row)}
+    if set(_post_destinations(row)) <= confirmed | set(settled) | set(skipped):
+        causes = {**skipped, **{d: v["cause"] for d, v in settled.items()}}
+        status = SETTLED_POST if causes else "PUBLISHED"
         store.set_outbox_status(row["key"], status)
         return {"key": row["key"], "status": status,
-            "cause": next(iter(settled.values()))["cause"] if settled else "ALL_DESTINATIONS_CONFIRMED",
+            "cause": next(iter(causes.values()), "ALL_DESTINATIONS_CONFIRMED"),
             "per_destination": {d: "DISPATCH_CONFIRMED" if d in confirmed else SETTLED_POST
                 for d in _post_destinations(row)},
-            "destination_causes": {d: v["cause"] for d, v in settled.items()}}
+            "destination_causes": causes}
     return None
 
 
@@ -863,10 +873,6 @@ def _ready_destinations(store, row, root=None):
         if destination in skipped or destination in settled:
             continue
         dispatch = _dispatch(store, row["key"], destination)
-        if destination == "x" and row.get("x_analysis_thread") and not dispatch:
-            from .plan_analysis_pages_v1 import confirmed_publication
-            if not confirmed_publication(store, row["source_plan"]):
-                continue
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
             if destination in {"x", "substack_notes"} and dispatch["status"] == "DEFINITE_NO_WRITE":
                 from .neo_endpoint_executor_v1 import repaired_prewrite_request
@@ -882,7 +888,8 @@ def _ready_destinations(store, row, root=None):
                         for r in store.get_reconciliations_for_work_item(row["key"])):
                     ready.append(destination)
             continue
-        if (dispatch or not row.get("parent_key") or _reference(store, row["parent_key"], destination)
+        if (dispatch or not row.get("parent_key") or row.get("state_alert_contract")
+                or _reference(store, row["parent_key"], destination)
                 or (destination == "discord" and row.get("discord_delivery") == "channel")):
             ready.append(destination)
     return ready
@@ -941,6 +948,9 @@ def _parents(store, row, destinations, previous):
             continue
         ref = _reference(store, row["parent_key"], destination)
         if not ref:
+            if row.get("state_alert_contract") and not _dispatch(store, row["key"], destination):
+                parents[destination] = {"delivery_mode": "standalone"}
+                continue
             parent_dispatch = _dispatch(store, row["parent_key"], destination) or {}
             cause = ("CARD_PARENT_" + parent_dispatch["status"] if
                 parent_dispatch.get("status") in SETTLED_DISPATCHES else "CARD_PARENT_NOT_CONFIRMED")
@@ -961,17 +971,15 @@ def _parents(store, row, destinations, previous):
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
-                         portrait_id=None, x_analysis=None):
+                         portrait_id=None, x_analysis=None, destinations=None):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
         result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
             chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id)
-        if row.get("x_analysis_thread"):
-            result.pop("x", None)
-            if x_analysis:
-                from .plan_reader_copy_v1 import payloads
-                result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
-                result["x"]["alt_text"] = x_analysis["reader_fields"]["alt_text"]["text"]
+        if row.get("x_analysis_thread") and x_analysis:
+            from .plan_reader_copy_v1 import payloads
+            result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
+            result["x"]["alt_text"] = x_analysis["reader_fields"]["alt_text"]["text"]
         return result
     if row.get("reader_contract") == "CC466_V1":
         from .plan_reader_copy_v1 import payloads
@@ -986,7 +994,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         limits["telegram"] = 4096
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
-    for destination in destinations_for(row):
+    for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
         if destination == "threads" and row["kind"] != "run" and complete_levels:
             # The image no longer carries the only copy of a level/window.
@@ -1137,7 +1145,7 @@ def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
 
 
 def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
-                 snapshot=None, snapshot_allowed=None, **ignored):
+                 snapshot=None, snapshot_allowed=None, fast_alert=False, **ignored):
     from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     from . import tradingview_snapshot_v1 as tv
@@ -1165,16 +1173,16 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                      if not postable_run_members(store, row, d, root=root)]
         chosen = [d for d in chosen if postable_run_members(store, row, d, root=root)]
     x_analysis = previous.get("status_post_x_analysis")
-    if row.get("x_analysis_thread") and "x" in chosen and not x_analysis:
+    if (row.get("x_analysis_thread") and "x" in chosen and not x_analysis
+            and not fast_alert and not _dispatch(store, key, "x")):
+        from .plan_analysis_pages_v1 import confirmed_publication
         from .plan_reader_editorial_v1 import prepare_social_copy
-        prepared = prepare_social_copy(store, row, root=root)
-        if prepared["status"] == "PREPARED":
-            x_analysis = {k: prepared["row"][k] for k in (
-                "reader_fields", "reader_source", "reader_call_line", "analysis_publication",
-                "variant_calls", "unknown_acronyms_logged")}
-        else:
-            chosen.remove("x")
-            deferred.append({"destination": "x", "cause": prepared["cause"]})
+        if confirmed_publication(store, row["source_plan"]):
+            prepared = prepare_social_copy(store, row, root=root)
+            if prepared["status"] == "PREPARED":
+                x_analysis = {k: prepared["row"][k] for k in (
+                    "reader_fields", "reader_source", "reader_call_line", "analysis_publication",
+                    "variant_calls", "unknown_acronyms_logged")}
     if not chosen:
         return {"destinations": [], "deferred_destinations": deferred, "output_dir": str(folder.resolve())}
     title = (row["lead"] if row["kind"] == "run" else
@@ -1224,7 +1232,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             assets.append(card)
             carousel_card = card
             native_templates = bool(card.get("image_template"))
-            if "instagram_business" in chosen or native_templates and "threads" in chosen:
+            if not row.get("state_alert_contract") and (
+                    "instagram_business" in chosen or native_templates and "threads" in chosen):
                 # CC-463: a separate native portrait capture from the same
                 # service. A failed portrait affects only Instagram.
                 carousel_card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
@@ -1265,8 +1274,12 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             chosen = [d for d in chosen if d not in image_unpostable]
     skipped = list({s["destination"]: s for s in [*skipped, *unpostable]}.values())
     if not assets:
-        raise posts.PlanPostError("EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper())
-    if frozen and row.get("state_alert_contract") and "instagram_business" in chosen and not previous.get("status_post_alert_portrait"):
+        cause = "EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper()
+        if row.get("state_alert_contract"):
+            raise tv.SnapshotUnavailable(cause)
+        raise posts.PlanPostError(cause)
+    alert_portrait = previous.get("status_post_alert_portrait")
+    if row.get("state_alert_contract") and "instagram_business" in chosen and not alert_portrait:
         # The fast API pass freezes its landscape bytes. Complete Instagram's
         # separate portrait afterwards; append media without changing those
         # already-issued payloads or their original chart.
@@ -1274,7 +1287,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             portrait, _ = posts._post_image(row, folder, snapshot=snapshot,
                 snapshot_allowed=snapshot_allowed, ratio="4:5")
             if not portrait:
-                raise tv.SnapshotPending("TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
+                raise tv.SnapshotUnavailable("TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
             if host is None:
                 from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
             delivery = host(work_item_id=key, delivery_only_assets=[portrait], existing_manifest=None,
@@ -1288,14 +1301,19 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             hosted = delivery["manifest"]["assets"][0]
             carousel = [{"asset_id": portrait["asset_id"], "path": portrait["path"],
                 "sha256": portrait["sha256"], "url": hosted["verified_public_delivery_url"]}]
+            alert_portrait = portrait["asset_id"]
             previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
-                            status_post_alert_portrait=portrait["asset_id"])
+                            status_post_alert_portrait=alert_portrait)
+        except tv.SnapshotUnavailable as exc:
+            skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
+        except tv.SnapshotPending as exc:
+            deferred.append({"destination": "instagram_business", "cause": str(exc)[:200]})
+            chosen.remove("instagram_business")
         except (OSError, ValueError, KeyError, TypeError) as exc:
             skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
-        previous["status_post_skipped_destinations"] = skipped
-        context_path.write_bytes(canonical_bytes(previous))
-    if row.get("state_alert_contract") and not assets:
-        raise tv.SnapshotPending("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
+        if frozen:
+            previous["status_post_skipped_destinations"] = skipped
+            context_path.write_bytes(canonical_bytes(previous))
     skipped_names = {s["destination"] for s in skipped}
     chosen = [d for d in chosen if d not in skipped_names]
     card = assets[0] if assets else None
@@ -1307,6 +1325,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
             "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id}
+        if alert_portrait:
+            context["status_post_alert_portrait"] = alert_portrait
         if row.get("reader_contract") and not row.get("state_alert_contract"):
             context["reader_contract"] = row["reader_contract"]
             context["reader_source"] = row["reader_source"]
@@ -1349,7 +1369,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
 
 
 
-def validate_parent_intent(store, row, intent):
+def validate_parent_intent(store, row, intent, *, parent_route=None):
     destination = intent["destination_plan"]["destination"]
     refusal = posts.publication_refusal(store, row, now=datetime.now(timezone.utc))
     if refusal:
@@ -1374,10 +1394,16 @@ def validate_parent_intent(store, row, intent):
     if not row.get("parent_key"):
         return
     payload = intent["native_payload"]
-    if destination == "discord" and row.get("discord_delivery") == "channel":
+    standalone = row.get("state_alert_contract") and (parent_route or {}).get("delivery_mode") == "standalone"
+    if destination == "discord" and (row.get("discord_delivery") == "channel" or standalone):
         if (payload.get("discord_channel_post") is not True
                 or any(payload.get(k) for k in ("discord_thread_parent_id", "reply_to_id", "discord_thread_name"))):
             raise posts.PlanPostError("PLAN_CARD_DISCORD_CHANNEL_ROUTE_CHANGED")
+        return
+    if standalone:
+        if any(payload.get(k) for k in ("reply_to_id", "reply_to_url", "own_call_comment",
+                                        "carousel_parent_id", "reuse_run_carousel")):
+            raise posts.PlanPostError("PLAN_CARD_STANDALONE_ROUTE_CHANGED")
         return
     ref = _reference(store, row["parent_key"], destination)
     if not ref:
@@ -1421,7 +1447,8 @@ def readback_own_comment(destination, comment_id, parent_id, text):
 
 
 def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False,
-                  snapshot=None, snapshot_allowed=None, destinations=None):
+                  snapshot=None, snapshot_allowed=None, destinations=None, alert_filter=None):
+    from .tradingview_snapshot_v1 import SnapshotPending, SnapshotUnavailable
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from .native_neo_executor_v1 import bind_native_neo_coordinator
@@ -1431,11 +1458,17 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
     for outbox in store.list_outbox_messages(destination=posts.DESTINATION):
         row = json.loads(outbox["payload"])
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
-            pending.append((outbox, row))
+            alert = row.get("state_alert_contract") == "CC543_V1"
+            if alert_filter is None or alert == alert_filter:
+                pending.append((outbox, row))
     def priority(pair):
         _, row = pair
-        # Run roots precede their children; each budget goes to newest live work.
-        return (0 if row["kind"] == "run" else 1, -posts._utc(row["at_utc"]).timestamp(),
+        # Run roots can supply replies. An alert recovering from a refused
+        # parent goes first, then newer alerts get the remaining time.
+        refused_parent = bool(row.get("state_alert_contract") and row.get("parent_key") and any(
+            (_dispatch(store, row["parent_key"], d) or {}).get("status") == "DEFINITE_NO_WRITE"
+            for d in ("telegram", "discord")))
+        return (0 if row["kind"] == "run" or refused_parent else 1, -posts._utc(row["at_utc"]).timestamp(),
                 {"run": 0, "setup": 1, "update": 2, "result": 3}[row["kind"]])
     pending.sort(key=priority)
     results, calls, browser_only, readback_count = [], 0, 0, 0
@@ -1465,6 +1498,11 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                         readbacks.append({"destination": destination, "dispatch_id": dispatch["dispatch_id"],
                             "status": "READBACK_PENDING", "cause": str(exc)[:200], "publish_called": False})
                 settle_pending(store, outbox, row, now=now, root=root)
+                if row.get("state_alert_contract"):
+                    # Close fresh-write work on every destination once the
+                    # state has moved on. Issued dispatches keep their exact
+                    # receipts and readback even when the parent row closes.
+                    store.set_outbox_status(key, refusal[0])
             results.append({"key": key, "status": refusal[0], "cause": refusal[1], "readbacks": readbacks})
             continue
         settled = settle_pending(store, outbox, row, now=now, root=root)
@@ -1524,8 +1562,6 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 results.append({"key": key, "status": "WAITING", "cause": "RUN_HAS_NO_POSTABLE_CALL"})
                 continue
             _, deferred = _parents(store, row, DESTINATIONS, {})
-            if row.get("x_analysis_thread") and not _dispatch(store, key, "x"):
-                deferred.append({"destination": "x", "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED"})
             results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",
                 "cause": deferred[0]["cause"] if deferred else "ALL_DESTINATIONS_SETTLED",
                 "deferred_destinations": deferred})
@@ -1548,12 +1584,21 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             elif row["kind"] != "run":
                 calls += 1
             plan = prepare_post(store, key, root=root, host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed,
-                                **({"destinations": tuple(ready)} if destinations is not None else {}))
+                                 destinations=tuple(ready), fast_alert=alert_filter is True)
             if not plan["destinations"]:
-                results.append({"key": key, "status": "WAITING_FOR_CARD_PARENT",
-                                "cause": (plan["deferred_destinations"] or [{}])[0].get("cause", "CARD_PARENT_NOT_CONFIRMED"),
+                media = plan.get("skipped_destinations") or []
+                deferred = plan["deferred_destinations"]
+                settled = settle_pending(store, outbox, row, now=now, root=root) if media else None
+                if settled:
+                    results.append(settled)
+                    continue
+                cause = (deferred or media or [{}])[0].get("cause", "CARD_PARENT_NOT_CONFIRMED")
+                results.append({"key": key,
+                                "status": "WAITING_FOR_TRADINGVIEW_CHART" if cause.startswith("TRADINGVIEW")
+                                else "WAITING_FOR_CARD_PARENT",
+                                "cause": cause,
                                 "deferred_destinations": plan["deferred_destinations"],
-                "skipped_destinations": plan.get("skipped_destinations", [])})
+                                "skipped_destinations": media})
                 continue
             store.create_work_item(story_id=key, title="Call run" if row["kind"] == "run" else "Call card",
                                    target_surface="MULTI_PLATFORM", work_item_id=key)
@@ -1567,13 +1612,19 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             skipped = {d["destination"] for d in plan.get("skipped_destinations") or []}
             settled = settled_destinations(store, row)
             done = set(required) <= confirmed | skipped | set(settled)
-            status = SETTLED_POST if done and settled else "PUBLISHED" if done else "PUBLISHING"
+            status = SETTLED_POST if done and (settled or skipped) else "PUBLISHED" if done else "PUBLISHING"
             store.set_outbox_status(key, status)
             results.append({"key": key, "status": status,
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),
                 "destination_causes": {**posts.destination_causes(outcome), **{d: v["cause"] for d,v in settled.items()}},
                 "deferred_destinations": plan["deferred_destinations"],
                 "skipped_destinations": plan.get("skipped_destinations", [])})
+        except SnapshotUnavailable as exc:
+            cause = str(exc)[:200]
+            results.append(settle_pending(store, outbox, row, now=now, root=root, image_cause=cause)
+                           or {"key": key, "status": "TRADINGVIEW_CHART_UNAVAILABLE", "cause": cause})
+        except SnapshotPending as exc:
+            results.append({"key": key, "status": "WAITING_FOR_TRADINGVIEW_CHART", "cause": str(exc)[:200]})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             cause = str(exc)[:200]
             status = "NOT_STARTED"

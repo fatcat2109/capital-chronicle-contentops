@@ -67,6 +67,10 @@ class SnapshotPending(ValueError):
     """The existing minute consumer resumes the same capture, without a new job."""
 
 
+class SnapshotUnavailable(SnapshotPending):
+    """The required capture exhausted its attempts with a named cause."""
+
+
 PLAN_CACHE_SECONDS = 15 * 60
 PLAN_WAIT_SECONDS = 5 * 60
 PLAN_ATTEMPTS = 2
@@ -99,8 +103,12 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             return prepare_asset(image_input,"W" if ratio=="16:9" else "T",media,taken)
         return snapshot_asset(market,title,taken,media,ratio)
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {
+    initial = {
         "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0}
+    required = bool(row.get("state_alert_contract"))
+    if required:
+        initial["required_chart"] = True
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else initial.copy()
     if state.get("key") != row["key"] or state.get("market") != market:
         raise ValueError("TRADINGVIEW_PLAN_CAPTURE_BINDING_CHANGED")
 
@@ -141,9 +149,19 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             record_outcome({k: v for k, v in state.items() if k != "snapshot"})
         return asset
     if state.get("status") == "TEXT_ONLY":
-        if image_input:
-            raise SnapshotPending(state.get("cause") or "IMAGE_TRADINGVIEW_CAPTURE_REQUIRED")
-        return None
+        if required and not state.get("required_chart"):
+            # Retained alerts were parked permanently after a capture failed.
+            # Give their current state the same bounded capture as a new alert.
+            state = {**initial, "prior_failure": {
+                field: state.get(field) for field in ("started_at_utc", "attempts", "first_cause", "cause")}}
+            save()
+        else:
+            cause = state.get("cause") or "IMAGE_TRADINGVIEW_CAPTURE_REQUIRED"
+            if required:
+                raise SnapshotUnavailable(cause)
+            if image_input:
+                raise SnapshotPending(cause)
+            return None
     deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
     while state["attempts"] < PLAN_ATTEMPTS and datetime.now(timezone.utc) < deadline:
         if snapshot_allowed is not None and not snapshot_allowed():
@@ -179,6 +197,8 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         state["status"] = "IMAGE_HELD"
     save()
     record_outcome(state)
+    if required:
+        raise SnapshotUnavailable(state["cause"])
     if image_input:
         raise SnapshotPending(state["cause"])
     return None
