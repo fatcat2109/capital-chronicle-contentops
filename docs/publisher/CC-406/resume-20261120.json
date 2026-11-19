@@ -1,0 +1,134 @@
+{
+  "item": "CC-406",
+  "day": "2026-11-20",
+  "observed_at_utc": "2026-11-19T17:15:17.780008+00:00",
+  "branch": "backlog/cc-406-morning-note-20261120",
+  "base_sha": "1cb0a3bb94b6aaacef26fed5d05c98c766c3d203",
+  "base_choice": "Current Publisher operating head includes the integrated producer and prior CC-406 deliveries.",
+  "launch": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-406-20261119T1707\\launch.json",
+    "pid": 10620,
+    "started_utc": "2026-11-19T17:07:17Z",
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true,
+    "native_session_id": "01a1f4c6-ee4d-79c2-af0b-ea89b2d1203f"
+  },
+  "main": {
+    "capture_sha256": "8d5bee6cfba89a80502f474de365730fd1be3447b0d02515ffaea5b25490592b",
+    "known_at_utc": "2026-11-19T15:29:59.879916+00:00",
+    "projection_sha256": "e01a2a88b1a041e3a5685ca3798a4afde7b061e91b8e0dec1964af8ed9f2bae7",
+    "sha256": "9c5352a353055489e9913096ca5626e985f678494cf9c7881c47365b5bd09506",
+    "request": "request-923f71471b449588",
+    "report": "analysis-native.json",
+    "capture": "capture.json",
+    "data_cutoff_utc": "2026-11-19T15:08:12.366878+00:00",
+    "age_seconds_at_delivery": 7570.588401,
+    "six_market_table_rows_consumed": [
+      "XAUUSD",
+      "US500",
+      "EURUSD",
+      "USDJPY",
+      "USOIL",
+      "BTCUSD"
+    ]
+  },
+  "main_supplement": {
+    "source_json_pointer": "/native_synthesis/candidates/2/rationale",
+    "fragments": [
+      {
+        "end": 140,
+        "start": 102
+      },
+      {
+        "end": 738,
+        "start": 693
+      }
+    ],
+    "verified_projection_sha256": "486ebbe06ad6c3522123a266f297287cfd3048d278bad44e4a859d6efa8de2f4",
+    "bound_evidence": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc406-gold-note-2026-11-20\\cc406-main-mechanism.json"
+  },
+  "source_choice": "Used the newest completed Main capture from 19 November and six market rows. Used held official BLS October CPI as dated inflation context and for the single chart.",
+  "official_facts": [
+    {
+      "display": "0.4%",
+      "fact_id": "headline",
+      "known_at_utc": "2026-11-10T13:30:29.854000Z",
+      "label": "CPI chung",
+      "official_text_sha256": "1185247b3966672a4243099c833d3bcead3fe28517fdcdb0861650f82f71af18",
+      "period": "2026-M10",
+      "publisher": "U.S. Bureau of Labor Statistics (BLS)",
+      "rights_class": "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED",
+      "source_excerpt": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent",
+      "source_row_key": "bls-cpi-2026-m10-e086d7ed3b85",
+      "source_span": [
+        683,
+        761
+      ],
+      "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "unit": "percent_month_on_month_seasonally_adjusted",
+      "value": 0.4
+    },
+    {
+      "display": "0.3%",
+      "fact_id": "core",
+      "known_at_utc": "2026-11-10T13:30:29.854000Z",
+      "label": "CPI lõi",
+      "official_text_sha256": "1185247b3966672a4243099c833d3bcead3fe28517fdcdb0861650f82f71af18",
+      "period": "2026-M10",
+      "publisher": "U.S. Bureau of Labor Statistics (BLS)",
+      "rights_class": "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED",
+      "source_excerpt": "The index for all items less food and energy rose 0.3 percent",
+      "source_row_key": "bls-cpi-2026-m10-e086d7ed3b85",
+      "source_span": [
+        1278,
+        1339
+      ],
+      "source_url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "unit": "percent_month_on_month_seasonally_adjusted",
+      "value": 0.3
+    }
+  ],
+  "native_request": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc406-gold-note-2026-11-20\\desktop_request_gold-note.json",
+    "request_sha256": "2b5b3315073559d1bf7dda5ea07be282b6e93e7c72ecc26fbc9d63c761d75b48",
+    "return_sha256": "7f0507f596d1bbd0daa63a1007187cf739246335a3a5aa68b2710011f4909f6e",
+    "source_pack_sha256": "33c820c16716be10f910787b9fe0d257eada2ab67c847de07c9f7c4249674747"
+  },
+  "delivery": {
+    "prepared_at_utc": "2026-11-19T17:14:22.955279+00:00",
+    "deadline_utc": "2026-11-20T00:30:00+00:00",
+    "ready_by_0730": true,
+    "text_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-20.md",
+    "text_sha256": "a45cfb70eb40dde80f7cb0fe3d5e70fb03352b57df6feb8fda0bbb3352ed54a6",
+    "chart_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-20.png",
+    "chart_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+    "word_count": 118,
+    "review": {
+      "accepted": true,
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "chart_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.2-sol",
+      "configured_reasoning_effort": "max",
+      "findings": "Inspected this exact 1500x900 PNG and the exact 118-word Vietnamese text. The zero-based bars, labels and heights match the BLS headline 0.4% and core 0.3% for October 2026, with the monthly seasonally adjusted unit and BLS credit readable. The dated Main view, euro and yen context, and the qualitative rates-relief countercase match the 19 November Main capture and verified spans. The official figures are historical context. The exact final notice, brand separation and absence of personal advice were checked.",
+      "reviewed_at_utc": "2026-11-19T17:14:22.140639+00:00",
+      "reviewer_invocation_id": "01a1f4c6-ee4d-79c2-af0b-ea89b2d1203f",
+      "text_sha256": "a45cfb70eb40dde80f7cb0fe3d5e70fb03352b57df6feb8fda0bbb3352ed54a6"
+    }
+  },
+  "retained_delivery": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-20.json",
+    "sha256": "e57941483a53b79138ed2c5db8a201b0bb487e4bd3b435d601cc2069b779b43a"
+  },
+  "targeted_tests": {
+    "passed": 20,
+    "seconds": 7.712,
+    "evidence": "resume-20261120-targeted.xml",
+    "sha256": "6b9f15e6e793795abf9581a655c763b9233b11c5dd46a6a745817e06f5140dbc"
+  },
+  "public_write_performed": false,
+  "schedule_changes": 0
+}
