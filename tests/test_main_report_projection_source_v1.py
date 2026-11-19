@@ -11,9 +11,14 @@ NOW = "2026-10-18T17:00:00Z"
 
 
 def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic sweep. Equities and Bitcoin rose.", *, native=False):
-    single_pass = native == "single_pass"
-    report = (tmp_path / "Main/shocks/shock-one/analysis-native.json" if single_pass else
-              tmp_path / "Main" / ("owner-native.json" if native else "DOSSIER.md"))
+    single_pass = native in ("single_pass", "decision91")
+    if single_pass:
+        run_dir = tmp_path / "Main/shocks/shock-one"
+        if native == "decision91":
+            run_dir /= "decision91"
+        report = run_dir / "analysis-native.json"
+    else:
+        report = tmp_path / "Main" / ("owner-native.json" if native else "DOSSIER.md")
     report.parent.mkdir(parents=True)
     synthesis = {"summary": [{"text": text}], "candidates": [{"entry": 123, "rationale": text}]}
     report.write_text(json.dumps({"native_synthesis": synthesis} if single_pass else synthesis)
@@ -38,7 +43,7 @@ def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic swee
     return root, report, spec
 
 
-@pytest.mark.parametrize("native", [False, True, "single_pass"])
+@pytest.mark.parametrize("native", [False, True, "single_pass", "decision91"])
 def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeypatch, native):
     root, report, spec = retained(tmp_path, monkeypatch, native=native)
     research = RetainedSourceResearch(root)
@@ -97,7 +102,7 @@ def test_changed_main_bytes_cannot_replace_frozen_evidence(tmp_path, monkeypatch
     assert research.gaps[0]["state"] == "MAIN_REPORT_SOURCE_BYTES_CHANGED"
 
 
-@pytest.mark.parametrize("native", [True, "single_pass"])
+@pytest.mark.parametrize("native", [True, "single_pass", "decision91"])
 def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_path, monkeypatch, native):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
     from live_contentops.reader_article_contract_v1 import contract_for
@@ -114,8 +119,9 @@ def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_pat
 
 
 @pytest.mark.parametrize("failure", ["missing", "changed", "schema_errors"])
-def test_single_pass_requires_completed_exact_main_output(tmp_path, monkeypatch, failure):
-    _, report, spec = retained(tmp_path, monkeypatch, native="single_pass")
+@pytest.mark.parametrize("native", ["single_pass", "decision91"])
+def test_single_pass_requires_completed_exact_main_output(tmp_path, monkeypatch, failure, native):
+    _, report, spec = retained(tmp_path, monkeypatch, native=native)
     proof = report.parent / "analysis-end.json"
     if failure == "missing":
         proof.unlink()
@@ -124,6 +130,15 @@ def test_single_pass_requires_completed_exact_main_output(tmp_path, monkeypatch,
         record["output_sha256" if failure == "changed" else "schema_errors"] = "bad"
         proof.write_text(json.dumps(record), encoding="utf-8")
     with pytest.raises(ValueError, match="MAIN_REPORT_ANALYSIS_COMPLETION_"):
+        projection.verify_projection(spec)
+
+
+def test_unrecognized_nested_main_shock_path_is_refused(tmp_path, monkeypatch):
+    _, report, spec = retained(tmp_path, monkeypatch, native="decision91")
+    alternate = report.parent.with_name("other-route")
+    report.parent.rename(alternate)
+    spec["passages"][0]["source_path"] = str(alternate / report.name)
+    with pytest.raises(ValueError, match="MAIN_REPORT_SOURCE_PATH_INVALID"):
         projection.verify_projection(spec)
 
 

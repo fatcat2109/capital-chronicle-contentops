@@ -112,10 +112,14 @@ def _event_output_clock(path, passage, raw, spec):
 
 
 def _single_pass_path(path):
-    if path.name != "analysis-native.json" or not path.is_relative_to(NATIVE_MAIN_ANALYSIS_ROOT.resolve()):
+    root = NATIVE_MAIN_ANALYSIS_ROOT.resolve()
+    if path.name != "analysis-native.json" or not path.is_relative_to(root):
         return False
-    parts = path.relative_to(NATIVE_MAIN_ANALYSIS_ROOT.resolve()).parts
-    return len(parts) == 3 and parts[0] in {"requests", "shocks"}
+    parts = path.relative_to(root).parts
+    if len(parts) == 3:
+        return parts[0] in {"requests", "shocks"}
+    # Main's Decision 91 shock route keeps the report and its receipts together.
+    return len(parts) == 4 and parts[0] == "shocks" and parts[2] == "decision91"
 
 
 def _allowed_report_path(path):
