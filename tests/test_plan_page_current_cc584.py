@@ -13,6 +13,29 @@ from test_plan_analysis_pages_cc432 import source  # noqa: F401
 GOLD = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures/gold-plan-thread-181.json"
 
 
+@pytest.fixture
+def gold_18_nov():
+    # Public Main export for the plan behind the page published on 19 November.
+    return {
+        "asset_id": "XAUUSD", "direction": "BEARISH",
+        "plan_id": "plan_64c0b961e6d621d10de5e9d3",
+        "registration_hash": "353955a42d4e3dd7eb8652123554696676f225022c1be512219fc5bbcaf161e3",
+        "zone": {"minimum": 3773, "maximum": 3790},
+        "invalidation_conditions": [{"field": "high", "operator": "GTE", "threshold": 3833.5}],
+        "registered_at_utc": "2026-11-18T07:39:10.617567Z", "entry_deadline_utc": "2026-11-18T10:00:00Z",
+        "expires_at_utc": "2026-11-18T10:45:00Z",
+        "public_instrument": {"kind": "FUT", "symbol": "MGC", "name": "Micro gold", "direction": "BEARISH",
+                              "zone_low": 3772.302882583667, "zone_high": 3789.302882583667,
+                              "invalidation_level": 3832.9, "tick_size": 0.1},
+    }
+
+
+def test_november_gold_title_states_the_view_and_uses_the_exported_stop(gold_18_nov):
+    terms = reader.thread_terms(gold_18_nov, level_contract=reader.LEVEL_CONTRACT)
+    assert terms["title"] == "Gold: bearish at 3,772.3–3,789.3, wrong above 3,832.9"
+    assert "3,833.5 before entry" in terms["invalidation"]
+
+
 @pytest.mark.parametrize("change,cause", [
     ({"status": "EXPIRED"}, "STATE_CHANGED"),
     ({"last_price": 3875}, "MOVED_PAST"),
@@ -212,7 +235,8 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
     marked = overlay.apply(plain, row)
     overlay.validate(marked, row)
     terms = reader.thread_terms(raw, level_contract=reader.LEVEL_CONTRACT)["invalidation"]
-    assert terms in alert and terms in payload["body_markdown"] and terms in payload["title"]
+    assert terms in alert and terms in payload["body_markdown"]
+    assert payload["title"] == "Gold: bearish at 3,954.4, wrong above 4,004.4"
     assert marked["plan_overlay"]["source"]["phase_terms"] == terms
     assert marked["plan_overlay"]["source"]["phase_source_sha256"] == posts._sha(raw)
     assert not marked["plan_overlay"]["markers"]  # MGC's stop is never plotted on a spot-price axis.
