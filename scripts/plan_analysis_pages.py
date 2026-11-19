@@ -56,9 +56,9 @@ def main(argv=None):
                         result = {"state": "REGISTERED", **pages.page_status(store, packet)}
                     else:
                         folder = args.output_dir or args.store.parent / "daily_app_outputs" / "plan_analysis" / ("plan-analysis-" + args.plan_id)
-                        update = pages.market_update(plan, current, now=datetime.now(timezone.utc))
+                        options = pages.current_page_options(plan, current, now=datetime.now(timezone.utc))
                         prepared = prepare_page(plan, output_dir=folder, retry_failed=args.retry_failed_text,
-                                                **({"market_update": update} if update else {}))
+                                                **options)
                         result = {k: v for k, v in prepared.items() if k != "packet"}
                         result["state"] = prepared["status"]
                         if prepared["status"] == "PREPARED":

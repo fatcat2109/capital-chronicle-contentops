@@ -209,7 +209,7 @@ def check_manuscript(value, source, plan, run):
 
 
 def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False,
-                 market_update=None):
+                 market_update=None, active_status=None):
     folder=Path(output_dir)
     run=pages.load_run(plan,run_root=run_root)
     source=reader.source_packet(plan,run,thread=bool(plan.get("zone") and plan.get("invalidation_conditions")),
@@ -230,7 +230,7 @@ def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, r
                 raise ValueError("Rewrite unknown acronyms once: "+",".join(unknown))
             manuscript["authorship"]={"calls":records,"checks":checks,"unknown_acronyms_logged":unknown}
             packet=pages.render(plan,manuscript,output_dir=folder,run_root=run_root,
-                                market_update=market_update)
+                                 market_update=market_update, active_status=active_status)
             packet["reader_source"]=source
             (folder/"page.json").write_bytes(canonical_bytes(packet))
             return {"status":"PREPARED","packet":packet,"calls":records}
@@ -407,20 +407,19 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                 break
             folder=Path(root)/("plan-analysis-"+plan["plan_id"])
             if not packet:
-                dated = None
+                options = {}
                 if publish:
                     current = current_plans[plan["plan_id"]]
                     from .plan_status_posts_v1 import ACTIVE
                     if current.get("status") not in ACTIVE:
                         continue  # No new live call after a plan ended. Issued pages still reconcile below.
                     try:
-                        dated = pages.market_update(plan, current, now=now)
+                        options = pages.current_page_options(plan, current, now=now)
                     except ValueError as exc:
                         waiting.append({"plan_id": plan["plan_id"], "cause": str(exc)})
                         continue
                 try:
-                    prepared=prepare_page(plan,output_dir=folder,call=call,
-                                          **({"market_update": dated} if dated else {}))
+                    prepared=prepare_page(plan,output_dir=folder,call=call,**options)
                 except (OSError,ValueError,KeyError,TypeError) as exc:
                     prepared={"status":"SOURCE_PAGE_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
                 if prepared["status"]!="PREPARED":

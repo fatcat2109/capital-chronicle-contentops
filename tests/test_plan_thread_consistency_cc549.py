@@ -1,8 +1,10 @@
 """The gold thread's retained inputs flow into one new, source-bound thread."""
 from copy import deepcopy
 from datetime import timedelta
+from hashlib import sha256
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -16,6 +18,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
 from test_plan_call_cards_cc399 import write, rows
 from test_plan_analysis_pages_cc432 import source  # noqa: F401
+from test_plan_analysis_distribution_cc435 import confirm
 
 
 FIXTURES = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures"
@@ -267,6 +270,81 @@ def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path
     monkeypatch.setattr(editorial, "prepare_page", prepare)
     editorial.run_due(store, {"status": {"plans": [later]}}, root=tmp_path / "pages", rollout={}, now=at, publish=False)
     assert seen[0] == first["source_plan"]
+
+
+@pytest.mark.parametrize("fills_during_writing", [False, True])
+def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
+        gold, tmp_path, main_root, monkeypatch, fills_during_writing):
+    from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
+
+    raw, reasoning = gold
+    raw.update(status="WAITING", status_at_utc=raw["registered_at_utc"])
+    registered = posts._utc(raw["registered_at_utc"])
+    filled_at = registered + timedelta(minutes=1)
+    now = filled_at + timedelta(minutes=2)
+    folder = write(tmp_path / "export", [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])],
+                   generated_at_utc=registered.isoformat())
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    posts.queue_posts(store, folder, now=registered, main_root=main_root)
+    first, = rows(store)
+    frozen = store.get_outbox_message(first["key"])["payload"]
+    store.create_work_item(story_id=first["key"], work_item_id=first["key"], title="Gold setup",
+                           target_surface="MULTI_PLATFORM")
+    confirm(store, first["key"], sha256(("plan-status-post:" + first["key"]).encode()).hexdigest(),
+            "telegram", "901", "https://t.me/CapitalChronicle/901")
+    waiting = {**raw, "last_quote": None, "last_price": 3959, "last_price_at_utc": registered.isoformat()}
+    current = {**waiting, "status": "FILLED", "status_at_utc": filled_at.isoformat(),
+               "last_price_at_utc": filled_at.isoformat(),
+               "public_instrument": {**raw["public_instrument"], "invalidation_level": 4999}}
+    canonical = "https://capitalchronicle.substack.com/p/gold-filled-replay"
+    monkeypatch.setattr(pages, "load_run", lambda *args, **kwargs: reasoning)
+    monkeypatch.setattr(pages, "_card", lambda *args: None)
+    monkeypatch.setattr(pages, "datetime", SimpleNamespace(now=lambda tz: now))
+    monkeypatch.setattr(posts, "current_public_plan", lambda *args, **options: current)
+    monkeypatch.setattr(native_desktop_publication_v1, "live_publication_policy", lambda rollout: None)
+    monkeypatch.setattr(llm_operator_control_v1, "assert_llm_operator_execution_enabled", lambda: None)
+
+    def prepare(plan, *, output_dir, call, **options):
+        assert plan == first["source_plan"]
+        source = reader.source_packet(plan, reasoning, thread=True)
+        manuscript = editorial.bind_manuscript(authored(source), source, plan)
+        return {"status": "PREPARED", "packet": pages.render(plan, manuscript, output_dir=output_dir, **options)}
+
+    class Coordinator:
+        def publish_plan(self, page_id, plan):
+            assert self.recovery_scope["plan"] == plan
+            packet = pages.validate_plan(store, page_id, plan)
+            assert pages.require_current_page(packet, now=now) == current
+            confirm(store, page_id, plan["plan_hash"], "substack", "replay", canonical)
+
+    monkeypatch.setattr(editorial, "prepare_page", prepare)
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator",
+                        lambda *args, **options: (Coordinator(), SimpleNamespace(pending=lambda: [])))
+    export = {"status": {"plans": [waiting if fills_during_writing else current]}}
+    result = editorial.run_due(store, export, root=tmp_path / "pages",
+                               rollout={"store_path": store.db_path}, now=now)
+    observed, = result["pages"]
+    assert observed["publication"]["canonical_url"] == canonical
+    packet = editorial.publication_packet(store, raw)
+    assert packet["source_plan"] == first["source_plan"]
+    assert packet["active_status"] == {"status": "FILLED", "status_at_utc": filled_at.isoformat()}
+    page = packet["native_payload"]
+    assert "Status: in position (updated " + reader.et(filled_at.isoformat()) in page["body_markdown"]
+    assert "waiting for entry" not in page["body_markdown"]
+    prior = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+    if fills_during_writing:
+        original, = prior
+        assert "Status: waiting for entry" in json.loads(original["payload"])["native_payload"]["body_markdown"]
+    else:
+        assert prior == []
+    reply = pages.register_link(store, packet, original_key=first["key"], destination="telegram")
+    assert reply["native_payload"]["reply_to_id"] == "901"
+    assert reply["canonical_url"] == canonical
+    assert canonical in reply["native_payload"]["text"]
+    assert pages.validate_link_plan(store, reply["link_id"], reply["plan"]) == reply
+    for text in (first["text"], page["title"], reply["native_payload"]["text"]):
+        assert "3,972.6" in text and "4,004.4" in text and "4,999" not in text
+    assert store.get_outbox_message(first["key"])["payload"] == frozen
 
 
 def test_minute_page_slice_uses_later_quote_and_skips_the_stale_plan(gold, tmp_path, monkeypatch):

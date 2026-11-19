@@ -39,6 +39,7 @@ READER_SECTIONS = (
 )
 FINAL_STATES = {"CANCELLED": "cancelled", "INVALIDATED": "invalidated", "EXPIRED": "expired",
                 "VIEW_CHANGED": "view changed", "CLOSED": "closed", "RESULT": "closed"}
+ENTRY_TRANSITIONS = {"WAITING": {"TRIGGERED", "FILLED"}, "TRIGGERED": {"FILLED"}}
 
 
 def sections_for(manuscript):
@@ -161,22 +162,45 @@ def _zone_relation(raw, price):
     return "inside"
 
 
-def market_update(raw, current, *, now):
-    """Capture a dated CC-584 update from Main for a quote outside the entry zone."""
-    if not raw.get("zone"):
+def _active_status(raw, current, now):
+    state = current.get("status")
+    if state == raw.get("status"):
         return None
+    at = current.get("status_at_utc")
+    prior_at = raw.get("status_at_utc") or raw.get("registered_at_utc")
+    if (state not in ENTRY_TRANSITIONS.get(raw.get("status"), ())
+            or current.get("plan_id") != raw["plan_id"]
+            or current.get("registration_hash") != raw["registration_hash"]
+            or not at or not prior_at or not posts._utc(prior_at) <= posts._utc(at) <= now):
+        raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
+    return {"status": state, "status_at_utc": at}
+
+
+def current_page_options(raw, current, *, now):
+    """Bind a current entry state and dated quote to the original plan terms."""
+    if not raw.get("zone"):
+        return {}
     deadline = entry_deadline(raw)
     if deadline and now >= posts._utc(deadline):
         raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
-    quote = _current_quote(raw, current, now)
+    active = _active_status(raw, current, now)
+    options = {"active_status": active} if active else {}
+    quote = _current_quote({**raw, **(active or {})}, current, now)
     if _zone_relation(raw, Decimal(str(quote["price"]))) == "inside":
-        return None
+        return options
     if (current["status"] not in posts.ACTIVE or not quote.get("source_hash")
             or not quote.get("known_at_utc")
             or not posts._utc(raw["registered_at_utc"]) <= posts._utc(quote["quoted_at_utc"])
             <= posts._utc(quote["known_at_utc"]) <= now):
         raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
-    return {key: quote[key] for key in ("price", "instrument", "quoted_at_utc", "known_at_utc", "source_hash")}
+    options["market_update"] = {key: quote[key] for key in (
+        "price", "instrument", "quoted_at_utc", "known_at_utc", "source_hash")}
+    return options
+
+
+def market_update(raw, current, *, now):
+    """Capture a dated CC-584 update from Main for a quote outside the entry zone."""
+    return current_page_options(raw, current, now=now).get("market_update")
 
 
 def require_current_page(packet, *, now=None):
@@ -196,19 +220,21 @@ def require_current_page(packet, *, now=None):
         return current
     if final_status:
         raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_STILL_OPEN")
-    observed = _current_quote(raw, current, now)
+    options = current_page_options(raw, current, now=now)
+    if options.get("active_status") != packet.get("active_status"):
+        raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
+    latest = options.get("market_update")
     update = packet.get("market_update")
-    relation = _zone_relation(raw, Decimal(str(observed["price"])))
     if update:
         price = _validate_quote(raw, update, now)
-        update_at, observed_at = (posts._utc(q["quoted_at_utc"]) for q in (update, observed))
-        latest = market_update(raw, current, now=now)
+        update_at = posts._utc(update["quoted_at_utc"])
         if (not latest or not update.get("source_hash") or not update.get("known_at_utc")
                 or not posts._utc(raw["registered_at_utc"]) <= update_at <= posts._utc(update["known_at_utc"]) <= now
-                or update_at > observed_at or (update_at == observed_at and update != latest)
-                or relation != _zone_relation(raw, price)):
+                or update_at > posts._utc(latest["quoted_at_utc"])
+                or (update_at == posts._utc(latest["quoted_at_utc"]) and update != latest)
+                or _zone_relation(raw, Decimal(str(latest["price"]))) != _zone_relation(raw, price)):
             raise ValueError("PLAN_ANALYSIS_DATED_UPDATE_NO_LONGER_CURRENT")
-    elif relation != "inside":
+    elif latest:
         raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
     return current
 
@@ -418,7 +444,7 @@ def _card(plan, run, folder, manuscript):
     return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
 
 
-def _assemble(plan, manuscript, run, *, market_update=None, final_status=None):
+def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, active_status=None):
     freeze = run["freeze"]
     timestamp = public_timestamp(freeze["frozen_at_utc"])
     cutoff = public_timestamp(freeze.get("decision_cutoff_utc", freeze["frozen_at_utc"]))
@@ -449,7 +475,8 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None):
             paragraphs += geometry
     if reader:
         from .plan_reader_copy_v1 import page_footer, check_text
-        footer = page_footer(plan, freeze, legacy=manuscript.get("reader_revision", 1) < 2)
+        footer = page_footer({**plan, **(active_status or {})}, freeze,
+                             legacy=manuscript.get("reader_revision", 1) < 2)
         paragraphs += footer[:1] if final_status else footer
     else:
         paragraphs += [audit]
@@ -467,13 +494,14 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None):
     return payload, paragraphs, geometry_bindings
 
 
-def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None, final_status=None):
+def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None, final_status=None,
+           active_status=None):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
     check_new_page_copy(manuscript, run)
     freeze = run["freeze"]
     payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run, market_update=market_update,
-                                                        final_status=final_status)
+                                                        final_status=final_status, active_status=active_status)
     bindings += geometry_bindings
     body = payload["body_markdown"]
     folder = Path(output_dir)
@@ -504,6 +532,8 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
         packet["market_update"] = market_update
     if final_status:
         packet["final_status"] = final_status
+    if active_status:
+        packet["active_status"] = active_status
     article = {"title": payload["title"], "body": body, "market_asset": plan.get("asset_id")}
     state = folder / "tradingview_capture_v1.json"
     if state.is_file():
@@ -628,7 +658,7 @@ def validate_plan(store, work_item_id, plan):
         raise ValueError("PLAN_ANALYSIS_SOURCE_BYTES_CHANGED")
     validate_manuscript(packet["source_plan"], packet["manuscript"], run)
     expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run, market_update=packet.get("market_update"),
-                               final_status=packet.get("final_status"))
+                               final_status=packet.get("final_status"), active_status=packet.get("active_status"))
     if expected != packet["native_payload"]:
         raise ValueError("PLAN_ANALYSIS_RENDERED_COPY_CHANGED")
     if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in sections_for(packet["manuscript"])}:
@@ -710,6 +740,25 @@ def refresh_ended_page(store, packet, *, now):
     return replace_unpublished_copy(store, packet, {**packet, "native_payload": payload, "final_status": final})
 
 
+def refresh_active_page(store, packet, *, now):
+    raw = packet["source_plan"]
+    current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    active = _active_status(raw, current, now)
+    prior = packet.get("active_status")
+    if active == prior:
+        return packet
+    if prior:
+        _active_status({**raw, **prior}, current, now)
+    options = current_page_options(raw, current, now=now)
+    validate_plan(store, packet["page_id"], packet["plan"])
+    run = load_run(raw, run_root=Path(packet["run_root"]))
+    payload, _, _ = _assemble(raw, packet["manuscript"], run, **options)
+    revised = {**packet, "native_payload": payload, **options}
+    if "market_update" not in options:
+        revised.pop("market_update", None)
+    return replace_unpublished_copy(store, packet, revised)
+
+
 def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None,
                   automatic=False):
     from .native_desktop_publication_v1 import live_publication_policy
@@ -747,7 +796,10 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
         else:
             if ended:
                 packet = refresh_ended_page(store, packet, now=now)
-                coordinator.recovery_scope["plan"] = packet["plan"]
+            elif (raw.get("zone") and packet["manuscript"].get("reader_revision", 1) >= 3
+                  and status in {None, "DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}):
+                packet = refresh_active_page(store, packet, now=now)
+            coordinator.recovery_scope["plan"] = packet["plan"]
             result = coordinator.publish_plan(packet["page_id"], packet["plan"])
     except NativeNeoInputRequired as pending:
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
