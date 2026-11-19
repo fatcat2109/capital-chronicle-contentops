@@ -253,3 +253,36 @@ was missed for both, and the next eligible X setup is needed to read back a
 first reply containing the canonical link and record public views. Six retained
 export rows have explicit signed R, and the two new alerts pass the installed
 source-bound validator. [Current readback](resume-readback-20261118.json).
+
+## 19 November exact public readback
+
+Substack published the original gold draft, `225472603`, at
+`2026-11-19T11:40:36.628Z`. The exact share-center identity and its canonical
+URL matched. The installed readback verified the full frozen text and original
+TradingView image. The page shows the nine plan headings in order and both
+notices. [Gold plan](https://capitalchronicle.substack.com/p/gold-spot-plan-cancelled-on-high).
+
+The coordinator reconciled `dispatch_27426e18f28a70345c41ec33fc0eaa03` at
+`2026-11-19T12:11:13.951591Z` using
+`readback_9be876e7fa150f8e2b09ed36cfb5b1b3`. The store now has
+`DISPATCH_CONFIRMED` and `RECONCILED_CONFIRMED`. The installed plan consumer
+returned the same URL against the current export's matching registration.
+The original publish claim count is one. The dispatch clock remains
+`2026-11-18T09:01:06.773746Z`.
+
+Gold went out 28 hours, 2 minutes and 52 seconds after freeze and 25 hours,
+40 minutes and 37 seconds after entry closed. The published copy still says
+waiting for entry. CC-584 owns the expired-page and title fixes. The same
+15-plan cohort from the 18 November check now has three confirmed pages.
+The repaired first-reply X format still lacks a live readback.
+
+The live Notes store shows five result attempts from `10:34Z` to `10:39Z` on
+18 November. Four are definite no-writes at composer preparation. One remains
+`UNKNOWN_WRITE` after the earlier CC-639 snapshot. A separate plan-status
+Note from `07:45Z` remains uncertain. A later result Note was reconciled at
+`2026-11-18T18:36:43Z` and the public page still shows its expected copy.
+The cause of the earlier cluster remains unverified.
+[Later result Note](https://substack.com/@capitalchronicle/note/c-390915631).
+
+The exec launch and turn context recorded `gpt-6.2-sol/max` with
+`CONFIGURED_NOT_OBSERVED` provenance.
