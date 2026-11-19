@@ -858,7 +858,7 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     skipped = {d["destination"]: d["cause"] for d in _skipped_images(root, row)}
     if set(_post_destinations(row)) <= confirmed | set(settled) | set(skipped):
         causes = {**skipped, **{d: v["cause"] for d, v in settled.items()}}
-        status = SETTLED_POST if causes else "PUBLISHED"
+        status = SETTLED_POST if settled or (row.get("state_alert_contract") and skipped) else "PUBLISHED"
         store.set_outbox_status(row["key"], status)
         return {"key": row["key"], "status": status,
             "cause": next(iter(causes.values()), "ALL_DESTINATIONS_CONFIRMED"),
@@ -1587,8 +1587,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 browser_only += 1
             elif row["kind"] != "run":
                 calls += 1
+            selected = {"destinations": tuple(ready)} if row.get("state_alert_contract") or destinations is not None else {}
             plan = prepare_post(store, key, root=root, host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed,
-                                 destinations=tuple(ready), fast_alert=alert_filter is True)
+                                 fast_alert=alert_filter is True, **selected)
             if not plan["destinations"]:
                 media = plan.get("skipped_destinations") or []
                 deferred = plan["deferred_destinations"]
@@ -1624,7 +1625,8 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             skipped = {d["destination"] for d in plan.get("skipped_destinations") or []}
             settled = settled_destinations(store, row)
             done = set(required) <= confirmed | skipped | set(settled)
-            status = SETTLED_POST if done and (settled or skipped) else "PUBLISHED" if done else "PUBLISHING"
+            closed_copy = settled or (row.get("state_alert_contract") and skipped)
+            status = SETTLED_POST if done and closed_copy else "PUBLISHED" if done else "PUBLISHING"
             store.set_outbox_status(key, status)
             results.append({"key": key, "status": status,
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),

@@ -126,6 +126,47 @@ def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, m
         ("discord", "2026-11-09"), ("threads", "2026-11-09"), ("discord", "2026-11-10")]
 
 
+def test_transient_readiness_probe_rechecks_the_same_unclaimed_copy(cc401_copied_store, monkeypatch):
+    from datetime import timedelta
+    from live_contentops.destination_transport_registry_v1 import DestinationReadinessManager, _base_row
+
+    store = cc401_copied_store
+    runtime = FixtureTransport()
+    manager = DestinationReadinessManager(store=store, env={})
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime, readiness_manager=manager)
+    destination = "discord"
+    incident_id, _ = coordinator._destination_failure_key(destination)
+    store.register_incident(incident_id=incident_id, work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"status": "TRANSIENT_DEGRADED", "stage": "READINESS"}))
+    registration = registration_for_destination(destination)
+    probes = []
+
+    def probe(surface):
+        assert surface == registration.surface
+        probes.append(surface)
+        first = len(probes) == 1
+        return _base_row(registration, state="TRANSIENT_DEGRADED" if first else "READY_NON_BROWSER_BINDING",
+            identity=None, identity_match=not first, probe_kind="fixture-api",
+            detail={"error_class": "TimeoutError"} if first else {})
+
+    monkeypatch.setattr(manager, "probe_surface", probe)
+    registered, = coordinator.register_plan("work-1", _plan(destination))["registered"]
+    message = store.get_outbox_message(registered["message_id"])
+    assert coordinator._dispatch_message(message, canonical_url=None)["status"] == "TRANSIENT_DEGRADED"
+    assert not runtime.publish_calls
+    assert store.get_platform_dispatch("dispatch_" + message["message_id"].removeprefix("outbox_")) is None
+    assert coordinator._dispatch_message(message, canonical_url=None)["status"] == "TRANSIENT_DEGRADED"
+    assert len(probes) == 1
+
+    with store.get_connection() as conn:
+        conn.execute("UPDATE destination_readiness SET probed_at_utc=? WHERE surface=?",
+            ((datetime.now(timezone.utc) - timedelta(minutes=1, seconds=1)).isoformat(), registration.surface))
+        conn.commit()
+    assert coordinator._dispatch_message(message, canonical_url=None)["status"] == DISPATCH_CONFIRMED
+    coordinator._dispatch_message(message, canonical_url=None)
+    assert len(probes) == 2 and runtime.publish_calls == [destination]
+
+
 @pytest.mark.parametrize("status,local", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
 @pytest.mark.parametrize("destination,cause", [("threads", "missing:text"), ("youtube", "NEO_SIGNED_IN_ACCOUNT_MISMATCH")])
 def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_failure(cc401_copied_store, status, local, destination, cause):

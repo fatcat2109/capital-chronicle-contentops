@@ -802,6 +802,13 @@ class DestinationReadinessManager:
         detail = dict(detail) if isinstance(detail, Mapping) else {}
         state = str(previous.get("readiness_state") or "")
         if detail.get("jit_attempt_identity") == str(attempt_identity) and state not in READY_STATES:
+            if state == "TRANSIENT_DEGRADED":
+                try:
+                    observed = datetime.fromisoformat(str(previous.get("probed_at_utc")).replace("Z", "+00:00"))
+                    if (datetime.now(timezone.utc) - observed).total_seconds() >= 60:
+                        return None  # A later minute may repeat the read-only probe.
+                except (TypeError, ValueError):
+                    pass
             return dict(previous)
         return None
 

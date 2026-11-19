@@ -2836,6 +2836,11 @@ class DurablePublicationCoordinator:
         day = (instant or datetime.now(timezone.utc)).astimezone(ZoneInfo("America/New_York")).date().isoformat()
         return "incident_destination_day_" + _hash(destination + ":" + day)[:32], day
 
+    @staticmethod
+    def _transient_readiness_failure(detail):
+        return (detail.get("stage") == "READINESS" and detail.get("status") == "TRANSIENT_DEGRADED"
+                and not detail.get("dispatch_id"))
+
     def _destination_failure_cursor(self, destination, instant=None):
         incident_id, day = self._destination_failure_key(destination, instant)
         with self.store.get_read_only_connection() as conn:
@@ -2845,6 +2850,7 @@ class DurablePublicationCoordinator:
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
                 local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                    or self._transient_readiness_failure(failure)
                     or _local_missing_threads_text(destination, failure) or _local_identity_refusal(destination, failure)
                     or _local_instagram_validation_failure(destination, failure)
                     or _local_quote_preclick_failure(destination, failure))
@@ -2983,7 +2989,8 @@ class DurablePublicationCoordinator:
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
-        if (_local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)
+        if (self._transient_readiness_failure(detail)
+                or _local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)
                 or _local_instagram_validation_failure(destination, detail)
                 or _local_quote_preclick_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                 and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
