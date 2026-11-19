@@ -22,9 +22,11 @@ from . import plan_analysis_pages_v1 as pages
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 
 PAGE_LEASE = "cc466-plan-page-editorial"
+MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
-def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, writer_deadline=None):
+def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, writer_deadline=None,
+              retry_minute_timeout=False):
     from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
     from .x_reply_bot_v1 import _json_response
     root = Path(root)
@@ -36,10 +38,11 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, wr
         previous=json.loads(attempts[-1].read_bytes())
         from .light_model_caller_v1 import POLICY
         legacy_light_failure = not writer and previous["status"] != "RETURNED" and previous.get("light_call",{}).get("policy") != POLICY
-        if previous["status"]=="RETURNED" or (not retry_failed and not legacy_light_failure):
+        minute_timeout = (writer and retry_minute_timeout and len(attempts) == 1
+                          and previous.get("cause") == MINUTE_WRITER_TIMEOUT)
+        if previous["status"] == "RETURNED" or not (retry_failed or legacy_light_failure or minute_timeout):
             return previous
-        # An explicit resume or first CC-512 continuation retains the first
-        # failure and the new observed attempt under the same request.
+        # A resumed call retains the first attempt under the same prompt hash.
         artifact=artifact.parent/("resume-"+datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))/"result.json"
     writer_seconds = min(300, writer_deadline - monotonic()) if writer_deadline is not None else 300
     if writer and writer_seconds <= 0:
@@ -88,7 +91,7 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, wr
     except Exception as exc:
         if isinstance(exc,subprocess.TimeoutExpired):
             raw,err=exc.output or b"",exc.stderr or b""
-            record["cause"] = ("PAGE_WRITER_MINUTE_BUDGET_TIMEOUT" if writer_deadline is not None else
+            record["cause"] = (MINUTE_WRITER_TIMEOUT if writer_deadline is not None else
                                "PAGE_WRITER_TIMEOUT_300S" if writer else "AGY_VARIANTS_TIMEOUT_120S")
         else:
             record["cause"]=str(exc) if not writer and "light_call" in record else type(exc).__name__+":"+str(exc)[:160]
@@ -392,7 +395,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
             attempt_clock(p["plan_id"]), p["registered_at_utc"]))
         frozen = frozen_page_sources(store)
         if writer_deadline is not None:
-            call = partial(call, writer_deadline=writer_deadline)
+            call = partial(call, writer_deadline=writer_deadline, retry_minute_timeout=True)
         for plan in plans:
             # A public thread retains its first alert's exact price basis and
             # clocks, including when Main later enriches the same registration.

@@ -278,6 +278,70 @@ def test_minute_timeout_is_recorded_before_process_limit_and_exact_resume_can_re
     assert Path(first['artifact_path']).read_bytes() == held
 
 
+@pytest.mark.parametrize("writer_recovers", [True, False])
+def test_minute_consumer_recovers_exact_timed_out_page_once(source, tmp_path, monkeypatch, writer_recovers):
+    from functools import partial
+    from pathlib import Path
+    import subprocess
+
+    root, _, plan, _ = source
+    now = datetime(2026, 11, 10, 1, 37, tzinfo=timezone.utc)
+    plan.update(status="WAITING", registered_at_utc="2026-11-10T01:36:00Z",
+                scenario_analysis={"mechanism": "Base chance 55%; support 1.12; alternative 35%."})
+    load_run = pages.load_run
+    basis = reader.source_packet(plan, load_run(plan, run_root=root))
+    ref = next(s["id"] for s in basis["sources"] if "Base chance 55%" in s["text"])
+    prose = "We see support at 1.12 and assign the base case a 55% chance."
+    value = {
+        "title": "EUR/USD: a conditional dollar view",
+        "subtitle": "We weigh the case and its countercase.",
+        "introduction": "We weigh a dated conditional view.",
+        "sections": {key: {"paragraphs": [{"text": " ".join([prose] * 5), "source_ids": [ref]}],
+                           "summary": prose} for key, _ in pages.READER_SECTIONS},
+    }
+    attempts = []
+    continued = []
+
+    def runner(args, *, cwd, timeout, input):
+        attempts.append(input)
+        if len(attempts) == 1 or not writer_recovers:
+            raise subprocess.TimeoutExpired(args, timeout, output=b"", stderr=b"")
+        return subprocess.CompletedProcess(args, 0, json.dumps(value).encode(), b"")
+
+    def continue_page(store, packet, **options):
+        assert pages.validate_plan(store, packet["page_id"], packet["plan"]) == packet
+        continued.append(packet["page_id"])
+        return {"status": "CONTROLLED_PUBLICATION"}
+
+    monkeypatch.setattr(editorial.shutil, "which", lambda _: "codex.exe")
+    monkeypatch.setattr(editorial, "monotonic", lambda: 20)
+    monkeypatch.setattr(pages, "load_run", lambda plan, **options: load_run(plan, run_root=root))
+    monkeypatch.setattr(pages, "continue_page", continue_page)
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    export = {"status": {"plans": [plan]}}
+    run = partial(editorial.run_due, store, export, root=tmp_path / "pages", rollout={},
+                  now=now, call=partial(editorial.text_call, runner=runner), writer_deadline=260)
+    first, = run()["pages"]
+    assert first["cause"] == "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
+    first_artifact = Path(first["calls"][0]["artifact_path"])
+    original = first_artifact.read_bytes()
+
+    second, = run()["pages"]
+    assert len(attempts) == 2
+    assert attempts[0] == attempts[1]
+    assert first_artifact.read_bytes() == original
+    resume_artifact, = first_artifact.parent.glob("resume-*/result.json")
+    assert json.loads(resume_artifact.read_bytes())["prompt_sha256"] == first["calls"][0]["prompt_sha256"]
+    run()
+    assert len(attempts) == 2
+    if writer_recovers:
+        assert second["publication"]["status"] == "CONTROLLED_PUBLICATION"
+        assert continued == [second["page_id"], second["page_id"]]
+    else:
+        assert second["cause"] == first["cause"]
+        assert continued == []
+
+
 @pytest.mark.parametrize('rationale,expected',[
     ('Dollar strength supports the view. Probability: 55% lower at the exit.',55),
     ('Dollar strength supports the view. Touch probability 55%; probability up 45%.',None),
