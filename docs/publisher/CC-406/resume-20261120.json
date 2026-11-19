@@ -130,5 +130,83 @@
     "sha256": "6b9f15e6e793795abf9581a655c763b9233b11c5dd46a6a745817e06f5140dbc"
   },
   "public_write_performed": false,
-  "schedule_changes": 0
+  "schedule_changes": 0,
+  "desk_readback": {
+    "source": "Existing installed desk refresh and home route",
+    "cache_path": "A:\\Capital Chronicle\\PrivateApp\\data\\jim-page.private.json",
+    "first_observed_current_cache": {
+      "read_at_utc": "2026-11-19T17:15:49.984601+00:00",
+      "cache_mtime_utc": "2026-11-19T17:16:30.2709038Z",
+      "observed_at_utc": "2026-11-19T17:16:38Z"
+    },
+    "exact_cache_sample": {
+      "read_at_utc": "2026-11-19T17:17:08.593427Z",
+      "sha256": "99c3ac99bef69f8dcea63e1b02e853780978dfee13d85b6ff9434ec4234bf1c4",
+      "observed_at_utc": "2026-11-19T17:18:57.286922+00:00"
+    },
+    "consumer": {
+      "path": "A:\\Capital Chronicle\\PrivateApp\\builder\\tools\\product\\private_desk_overview_v1.py",
+      "sha256": "8ace53af10ba8bc36f0111451e1d27ef3826e63501c9f654316c83cfd77d5033"
+    },
+    "home_bundle": {
+      "path": "A:\\Capital Chronicle\\PrivateApp\\app\\private-desk.js",
+      "sha256": "bd286a61866fd185794b6f67a88f040ba69bc12be590d9a9e3ae1812e5190bdb"
+    },
+    "note_date": "2026-11-20",
+    "markdown_sha256": "a45cfb70eb40dde80f7cb0fe3d5e70fb03352b57df6feb8fda0bbb3352ed54a6",
+    "chart_file_sha256": "d945763d96a911929fb9974cf0903e3e416d682cccbf46bf9656a6a969c101f1",
+    "chart_file_bytes": 65432,
+    "browser": {
+      "group_title": "codex/cc-406-gold",
+      "allExpected": true,
+      "check": {
+        "chartDecoded": true,
+        "chartUrl": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-20.png",
+        "copyPresent": true,
+        "dateMatches": true,
+        "decodedPixelsSha256": null,
+        "exactChartUrl": true,
+        "exactMarkdown": true,
+        "exactNotice": true,
+        "href": "file:///A:/Capital%20Chronicle/PrivateApp/index.html",
+        "imageSize": [
+          1500,
+          900
+        ],
+        "observedAtUtc": "2026-11-19T17:17:37.509Z",
+        "oneChart": true,
+        "textSha256": "a45cfb70eb40dde80f7cb0fe3d5e70fb03352b57df6feb8fda0bbb3352ed54a6"
+      },
+      "copy": {
+        "copiedStatusObserved": true,
+        "exactCopyPayload": true,
+        "observedAtUtc": "2026-11-19T17:17:39.775Z",
+        "sha256": "a45cfb70eb40dde80f7cb0fe3d5e70fb03352b57df6feb8fda0bbb3352ed54a6",
+        "writeCalls": 1
+      },
+      "groupId": "A09D47F4B87A17700BC7E0514605B37D",
+      "pageId": 379,
+      "copy_method": "Clicked the installed button and captured its exact browser Clipboard API payload in this tab. Restored the API without writing to the user's system clipboard.",
+      "chart_method": "The installed panel decoded the expected local PNG URL at 1500x900. The exact file at that URL matches the paired delivery SHA-256. The browser prevented cross-file canvas readback."
+    }
+  },
+  "acceptance": {
+    "required_trading_mornings": 3,
+    "current_consecutive_on_time_mornings": 1,
+    "accepted_mornings": [
+      "2026-11-20"
+    ],
+    "remaining_trading_mornings": [
+      "2026-11-23",
+      "2026-11-24"
+    ],
+    "next_eligible_at_utc": "2026-11-22T17:00:00Z",
+    "next_deadline_utc": "2026-11-23T00:30:00Z"
+  },
+  "operating_root_head_at_proof": "1cb0a3bb94b6aaacef26fed5d05c98c766c3d203",
+  "implementation_changed": false,
+  "preserved_worktree_files": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+  }
 }
