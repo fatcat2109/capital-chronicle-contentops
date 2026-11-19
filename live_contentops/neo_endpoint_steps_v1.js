@@ -22,9 +22,13 @@ if (input.phase === 'plan_substack_front') {
   return {front:true};
 }
 if (input.phase === 'plan_substack_identity') {
-  const s=await snap();
-  return {authenticated:s.text.includes('Publisher dashboard') && s.refs.some(r=>r.name==='Capital Chronicle'),
-    observed_identity:'capitalchronicle.substack.com',observed_at_utc:new Date().toISOString()};
+  const s = await snap();
+  const onPublisher = /^https:\/\/capitalchronicle\.substack\.com\/publish(?:\/|$)/.test(s.url)
+    && s.text.includes('navigation "Publisher dashboard"');
+  const account = find(s, 'button', "Capital Chronicle's avatar") || find(s, 'button', 'Capital Chronicle');
+  const authenticated = onPublisher && !!account && !!find(s, 'button', 'Create');
+  return {authenticated, observed_identity: authenticated ? 'capitalchronicle.substack.com' : null,
+    observed_at_utc: new Date().toISOString()};
 }
 if (input.phase === 'plan_substack_editor_identity') {
   return unwrap(await page.evaluateInPage(data=>({

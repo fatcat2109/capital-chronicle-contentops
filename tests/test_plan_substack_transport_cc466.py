@@ -2,6 +2,9 @@
 from copy import deepcopy
 from hashlib import sha256
 from io import BytesIO
+import json
+from pathlib import Path
+import subprocess
 
 from PIL import Image
 import pytest
@@ -143,6 +146,33 @@ def test_failure_before_click_is_a_definite_no_write(packet,fault):
     assert result["result"]["status"]=="FAILED_BEFORE_WRITE"
     assert result["result"]["definite_no_write"] is True
     assert not client.clicked
+
+
+@pytest.mark.parametrize("host, account, authenticated", [
+    ("capitalchronicle.substack.com", "Capital Chronicle's avatar", True),
+    ("capitalchronicle.substack.com", "Capital Chronicle", True),
+    ("capitalchronicle.substack.com", "Another account's avatar", False),
+    ("another-publication.substack.com", "Capital Chronicle's avatar", False),
+])
+def test_dashboard_identity_uses_the_bound_publication_and_signed_in_control(host, account, authenticated):
+    source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
+    snapshot = {
+        "url": f"https://{host}/publish/posts/published",
+        "text": '- navigation "Publisher dashboard"\n  - image "Capital Chronicle"',
+        "refs": [{"role": "button", "name": account}, {"role": "button", "name": "Create"}],
+    }
+    script = """
+const fs = require('fs');
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction('page', 'input', fs.readFileSync(process.argv[1], 'utf8'));
+const page = {snapshot: async () => JSON.parse(process.argv[2])};
+run(page, {phase: 'plan_substack_identity'}).then(result => console.log(JSON.stringify(result)));
+"""
+    output = subprocess.check_output(["node", "-e", script, str(source), json.dumps(snapshot)],
+                                     text=True, timeout=5)
+    result = json.loads(output)
+    assert result["authenticated"] is authenticated
+    assert result["observed_identity"] == ("capitalchronicle.substack.com" if authenticated else None)
 
 
 def test_lost_publish_return_requires_readback_and_is_never_called_no_write(packet):
