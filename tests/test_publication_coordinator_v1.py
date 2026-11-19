@@ -144,6 +144,34 @@ def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_fa
             assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident,)).fetchone()
 
 
+def test_substack_dashboard_probe_recovers_without_waiting_for_the_next_day(tmp_path):
+    readiness = {"substack": "SESSION_UNAVAILABLE"}
+    store, transport, coordinator = _coordinator(tmp_path, readiness=readiness)
+    registered = coordinator.register_plan("work-1", _plan("substack"))["registered"][0]
+    message = store.get_outbox_message(registered["message_id"])
+
+    refused = coordinator._dispatch_message(message, canonical_url=None)
+    assert refused["status"] == "SESSION_UNAVAILABLE"
+    assert transport.publish_calls == []
+    assert store.get_platform_dispatch(registered["dispatch_id"]) is None
+    assert coordinator._destination_day_failure("substack") is None
+
+    # Installed stores may still have the old false-positive day incident.
+    incident, _ = coordinator._destination_failure_key("substack")
+    store.register_incident(incident_id=incident, work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"destination": "substack", "status": "SESSION_UNAVAILABLE", "stage": "READINESS"}))
+    assert coordinator._dispatch_message(message, canonical_url=None)["status"] == "SESSION_UNAVAILABLE"
+    assert transport.publish_calls == []
+
+    readiness["substack"] = "READY_AUTHENTICATED"
+    published = coordinator._dispatch_message(message, canonical_url=None)
+    assert published["reconciliation_status"] == RECONCILED_CONFIRMED
+    coordinator._dispatch_message(message, canonical_url=None)
+    assert transport.publish_calls == ["substack"]
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident,)).fetchone()
+
+
 @pytest.mark.parametrize("dispatch_status,reconciliation_status,released", [
     ("UNKNOWN_WRITE", "RECONCILIATION_PENDING", False),
     ("RECONCILED_ABSENT_SAFE_TO_RETRY", "RECONCILIATION_PENDING", False),
