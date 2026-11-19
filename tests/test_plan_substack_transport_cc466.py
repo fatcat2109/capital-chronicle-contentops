@@ -70,9 +70,13 @@ class Client:
         if phase=="plan_substack_code_handoff":
             return {"page_id":page,"draft_id":"123","page_url":self.snapshot(page)["url"]}
         if phase=="plan_substack_published":
+            if self.fault in {"expired_code", "wrong_expired_editor"}:
+                return {}
             if kw.get("published_row_draft_id"):
                 return {"published_detail_url":"https://capitalchronicle.substack.com/publish/posts/detail/123"}
             return {"public_object_id":"123","public_object_url":"https://capitalchronicle.substack.com/p/own"}
+        if phase=="plan_substack_cancel_expired_code":
+            return {"closed": True, "draft_url": kw["draft_url"] if self.fault=="expired_code" else kw["draft_url"]+"4"}
         if phase=="plan_substack_readback":
             request=self.packet["request"]
             body=plan_neo.body_text(request["native_payload"]["body_markdown"])
@@ -222,6 +226,73 @@ def test_readback_without_identity_leaves_browser_tabs_untouched(packet):
     result = neo.NeoBrowserDriver(client).perform(packet)["result"]
     assert result["reason_code"] == "PLAN_SUBSTACK_EXACT_PUBLIC_URL_REQUIRED"
     assert client.calls == []
+
+
+@pytest.mark.parametrize("fault,closed", [("expired_code", True), ("wrong_expired_editor", False), (None, False)])
+def test_expired_code_closes_only_the_exact_draft_and_preserves_a_public_readback(packet, fault, closed):
+    screen = {"page_id": "15", "draft_id": "123", "page_url": "https://capitalchronicle.substack.com/publish/post/123",
+              "cancel_on_or_after_utc": "2026-11-18T10:00:00Z"}
+    packet["request"].update(action="READBACK", pending_owner_screen=screen)
+    client = Client(packet, fault)
+    result = neo.NeoBrowserDriver(client).perform(packet)["result"]
+    assert client.calls[0] == ("plan_substack_published", {})
+    if fault:
+        assert client.calls[1] == ("plan_substack_cancel_expired_code", {
+            "draft_url": screen["page_url"], "cancel_on_or_after_utc": screen["cancel_on_or_after_utc"],
+            "title": packet["request"]["native_payload"]["title"]})
+        assert result.get("cancelled_owner_screen") == (screen if closed else None)
+        assert not any(c[0] in {"open", "plan_substack_publish"} for c in client.calls)
+    else:
+        assert result["content_verified"] is True
+        assert not any(c[0] == "plan_substack_cancel_expired_code" for c in client.calls)
+
+
+@pytest.mark.parametrize("phase", ["plan_substack_publish", "plan_substack_confirm"])
+def test_browser_publish_controls_apply_the_cutoff_before_clicking(phase):
+    source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
+    script = """
+const fs = require('fs');
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction('page', 'input', fs.readFileSync(process.argv[1], 'utf8'));
+Date.now = () => Date.parse('2026-11-18T10:00:00Z');
+const clicks = [];
+const page = {snapshot: async () => ({refs: [
+  {role:'button', name:'Publish now', ref:'publish'}, {role:'button', name:'Publish on web only', ref:'web'}]}),
+  evaluateInPage: async () => ({value:true}), click: async ref => clicks.push(ref)};
+run(page, {phase:process.argv[2], plan_entry_deadline_utc:'2026-11-18T10:00:00Z'})
+  .then(result => console.log(JSON.stringify({result,clicks})));
+"""
+    out = json.loads(subprocess.check_output(["node", "-e", script, str(source), phase], text=True, timeout=5))
+    assert out["result"]["reason_code"] == "PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED"
+    assert out["result"]["definite_no_write"] is True
+    assert out["clicks"] == []
+
+
+@pytest.mark.parametrize("selection,expected", [("exact", ["e153"]), ("wrong_url", []), ("early", []), ("wrong_title", [])])
+def test_browser_cancel_targets_only_the_expired_code_dialog(selection, expected):
+    source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
+    script = """
+const fs = require('fs');
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction('page', 'input', fs.readFileSync(process.argv[1], 'utf8'));
+const selection = process.argv[2];
+const draft = 'https://capitalchronicle.substack.com/publish/post/123';
+const clicks = [];
+Date.now = () => Date.parse(selection === 'early' ? '2026-11-18T09:59:59Z' : '2026-11-18T10:00:00Z');
+const page = {
+  snapshot: async () => ({url:selection === 'wrong_url' ? draft + '4' : draft,
+    text:'- button "Cancel" [ref=unrelated]\\n' + (clicks.length ? '- button "Continue" [ref=e155]'
+      : '- dialog "Check your email"\\n  - button "close" [ref=e150]\\n  - button "Cancel" [ref=e153]'),
+    refs: clicks.length ? [{role:'button', name:'Continue', ref:'e155'}] : []}),
+  evaluateInPage: async () => ({value:selection !== 'wrong_title'}),
+  click: async ref => clicks.push(ref)
+};
+run(page, {phase:'plan_substack_cancel_expired_code', draft_url:draft, title:'A sourced page.',
+    cancel_on_or_after_utc:'2026-11-18T10:00:00Z'}).then(result => console.log(JSON.stringify({result,clicks})));
+"""
+    out = json.loads(subprocess.check_output(["node", "-e", script, str(source), selection], text=True, timeout=5))
+    assert out["clicks"] == expected
+    assert out["result"]["closed"] is bool(expected)
 
 
 def test_legacy_code_readback_reopens_only_the_observed_published_row(packet):

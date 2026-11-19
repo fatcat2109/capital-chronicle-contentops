@@ -205,6 +205,7 @@ class NativeNeoExecutor:
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
+        plan_entry_deadline = None
         from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
         if request.get("destination") in barred_browser_destinations() and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
             raise ValueError(barred_browser_destinations()[request["destination"]])
@@ -295,8 +296,10 @@ class NativeNeoExecutor:
                         from .plan_status_posts_v1 import validate_status_post_intent
                         validate_status_post_intent(self.store, intent)
                     elif intent.get("plan_analysis_page"):
-                        from .plan_analysis_pages_v1 import validate_intent
-                        validate_intent(self.store, intent)
+                        from .plan_analysis_pages_v1 import open_page_deadline, validate_intent
+                        page_packet = validate_intent(self.store, intent)
+                        if request["destination"] == "substack":
+                            plan_entry_deadline = open_page_deadline(page_packet)
                     if intent.get("reader_presentation_review"):
                         expected_payload, expected_content = _payload_binding(intent, request["destination"])
                         if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
@@ -377,6 +380,12 @@ class NativeNeoExecutor:
             }
             if request.get("substack_delivery_policy"):
                 action_packet["substack_publish_routine"]["delivery"] = request["substack_delivery_policy"]
+            if plan_entry_deadline:
+                action_packet["plan_entry_deadline_utc"] = plan_entry_deadline
+                action_packet["substack_publish_routine"]["plan_deadline"] = (
+                    "Check the clock immediately before Publish now and Publish on web only. "
+                    f"Leave the draft unpublished at or after {plan_entry_deadline}. "
+                    "Report an observed code dialog on that exact draft so the Publisher can close it at expiry.")
         if self._composed(request):
             from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
             action_packet["composed_run"] = {

@@ -36,10 +36,25 @@ def test_november_gold_title_states_the_view_and_uses_the_exported_stop(gold_18_
     assert "3,833.5 before entry" in terms["invalidation"]
 
 
+def test_title_uses_the_sealed_original_stop_when_mapped_levels_are_incomplete(gold_18_nov):
+    raw = {**gold_18_nov, "public_instrument": {"symbol": "MGC"}}
+    candidate = {"candidate_id": "cand_macro_gold", "direction": "SHORT",
+                 "entry_bounds": raw["zone"], "stop_loss": 3836}
+    run = {"documents": {"analysis-native.json": {"native_synthesis": {"candidates": [candidate]}}}}
+    terms = reader.page_thread_terms(raw, run, level_contract=reader.LEVEL_CONTRACT)
+    assert terms["title"] == "Gold: bearish at 3,773–3,790, wrong above 3,836"
+    assert "3,833.5 before entry" in terms["invalidation"]
+    assert pages._source_text(run, next(ref for ref in terms["refs"] if ref["pointer"].endswith("/stop_loss"))) == "3836"
+
+
 def test_november_gold_page_rendered_after_expiry_uses_the_final_status(gold_18_nov, tmp_path, monkeypatch):
-    from live_contentops import plan_reader_editorial_v1 as editorial
+    from live_contentops import native_neo_executor_v1 as native, plan_reader_editorial_v1 as editorial
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
-    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    from live_contentops.plan_substack_neo_v1 import EXPIRED_CODE_DRAFT_CLOSED
+    from live_contentops.publication_coordinator_v1 import (
+        CanonicalDestinationTransportRuntimeV1, DurablePublicationCoordinator,
+    )
     from test_plan_thread_consistency_cc549 import authored
 
     raw = {**gold_18_nov, "status": "WAITING", "run_id": "retained-gold", "analysis_result_hash": "retained"}
@@ -69,9 +84,53 @@ def test_november_gold_page_rendered_after_expiry_uses_the_final_status(gold_18_
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     held = pages.register_page(store, pages.render(raw, manuscript, output_dir=tmp_path / "held"))
     old_bytes = store.get_outbox_message(held["page_id"])["payload"]
-    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    seen = []
+
+    class Executor:
+        native_invocation_id = "expiry-test"
+
+        def pending(self):
+            return []
+
+        def __call__(self, request):
+            seen.append(request)
+            screen = request["pending_owner_screen"]
+            assert request["action"] == "READBACK"
+            assert screen["cancel_on_or_after_utc"] == raw["entry_deadline_utc"]
+            return {"status": EXPIRED_CODE_DRAFT_CLOSED, "cancelled_owner_screen": screen,
+                    "observed_identity": request["expected_identity"], "request_sha256": request["request_sha256"]}
+
+    executor = Executor()
+    transport = CanonicalDestinationTransportRuntimeV1(
+        linkedin_transport=object(), neo_transport=NeoDestinationHandoff(native_executor=executor))
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport, clock=lambda: now)
     coordinator.register_plan(held["page_id"], held["plan"])
     old_intent, = store.list_outbox_messages(destination="substack")
+    ids = coordinator._ids(held["page_id"], held["plan"]["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="substack",
+        status="SUBSTACK_DRAFT_AWAITING_OWNER", public_object_id="123")
+    screen = {"draft_id": "123", "page_id": "15", "page_url": "https://capitalchronicle.substack.com/publish/post/123",
+              "status": "PENDING_JIM_EMAIL_CODE"}
+    screen_id = "substack-owner-screen-" + ids["dispatch_id"]
+    store.register_outbox_message(message_id=screen_id, work_item_id=held["page_id"], destination="internal:substack-owner-screen",
+        payload=json.dumps(screen), status="SUBSTACK_DRAFT_AWAITING_OWNER")
+    with pytest.raises(ValueError, match="COPY_REVISION_READBACK_REQUIRED"):
+        pages.refresh_ended_page(store, held, now=now)
+    monkeypatch.setattr(native, "bind_native_neo_coordinator", lambda *a, **k: (coordinator, executor))
+
+    def unavailable_export():
+        assert len(seen) == 1  # The readback runs before the potentially slow Main reader.
+        raise OSError("controlled Main export outage")
+
+    rollout = {"store_path": store.db_path, "public_write_authority": False}
+    outcome = editorial.run_due(store, unavailable_export, root=tmp_path / "minute", rollout=rollout, now=now)
+    assert outcome["pages"][0]["publication"]["publication"]["reconciliation_status"] == EXPIRED_CODE_DRAFT_CLOSED
+    assert "controlled Main export outage" in outcome["source_cause"]
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DEFINITE_NO_WRITE"
+    assert json.loads(store.get_outbox_message(screen_id)["payload"]) == screen
+    assert not editorial.run_due(store, unavailable_export, root=tmp_path / "minute", rollout=rollout, now=now)["pages"]
+    assert len(seen) == 1
+
     refreshed = pages.refresh_ended_page(store, held, now=now)
     coordinator.register_plan(refreshed["page_id"], refreshed["plan"])
     native = [json.loads(row["payload"])["native_payload"] for row in store.list_outbox_messages(destination="substack")]

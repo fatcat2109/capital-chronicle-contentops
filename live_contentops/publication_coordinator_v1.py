@@ -2553,6 +2553,15 @@ class DurablePublicationCoordinator:
                 pending_owner_screen = json.loads(screen["payload"]) if screen else None
             if pending_owner_screen is not None:
                 object_id = pending_owner_screen["draft_id"]
+                if intent.get("plan_analysis_page") == intent["work_item_id"] and not dispatch.get("public_object_url"):
+                    from .plan_analysis_pages_v1 import open_page_deadline
+                    from .plan_status_posts_v1 import _utc
+                    row = self.store.get_outbox_message(intent["work_item_id"])
+                    page = json.loads(row["payload"]) if row else {}
+                    if page.get("plan", {}).get("plan_hash") == intent["plan_hash"]:
+                        deadline = open_page_deadline(page)
+                        if deadline and self._clock() >= _utc(deadline):
+                            pending_owner_screen = {**pending_owner_screen, "cancel_on_or_after_utc": deadline}
                 intent = {**intent, "pending_owner_screen": pending_owner_screen}
                 executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
                 if executor:
@@ -2611,6 +2620,14 @@ class DurablePublicationCoordinator:
             "destination": destination,
             "readback": normalized,
         }
+        cancelled_code = False
+        if awaiting_owner and (pending_owner_screen or {}).get("cancel_on_or_after_utc"):
+            from .plan_substack_neo_v1 import EXPIRED_CODE_DRAFT_CLOSED
+            cancelled_code = (normalized.get("source_status") == EXPIRED_CODE_DRAFT_CLOSED
+                and normalized.get("write_absent") is True and not normalized.get("write_exists")
+                and raw.get("cancelled_owner_screen") == pending_owner_screen)
+        if cancelled_code:
+            readback_packet["cancelled_owner_screen"] = pending_owner_screen
         bounded_provider_outcome = (
             _bounded_substack_provider_outcome(
                 provider_outcome,
@@ -2644,6 +2661,10 @@ class DurablePublicationCoordinator:
                 )
             self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
             self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
+        elif cancelled_code:
+            status = EXPIRED_CODE_DRAFT_CLOSED
+            self.store.set_dispatch_status(dispatch_id, DEFINITE_NO_WRITE)
+            self.store.set_outbox_status(str(dispatch["message_id"]), DEFINITE_NO_WRITE)
         elif awaiting_owner:
             # A still-open draft/code screen never proves absence safe for another click.
             status = RECONCILIATION_PENDING
@@ -2682,7 +2703,8 @@ class DurablePublicationCoordinator:
         self.store.set_reconciliation_status(ids["reconciliation_id"], status)
         from live_contentops.article_publication_quality_v1 import settle_article_images
         try:
-            settle_article_images(self, intent, destination=destination, status=status, canonical_url=observed_url,
+            settle_article_images(self, intent, destination=destination,
+                                  status=DEFINITE_NO_WRITE if cancelled_code else status, canonical_url=observed_url,
                                   published_at_utc=normalized.get("observed_published_at_utc"))
             if status in {RECONCILED_CONFIRMED, RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE}:
                 from live_contentops.article_publication_quality_v1 import observe_published_images
@@ -4791,8 +4813,8 @@ class DurablePublicationCoordinator:
         """Refresh one already persisted object through the existing strict reconciliation.
 
         This operation never calls publish, saves a draft or allocates a new dispatch. It
-        also works under the paused/KILL_SWITCH mode and preserves prior proof while the
-        native Desktop readback tool request is pending.
+        works under the paused/KILL_SWITCH mode and retains prior proof while the native
+        tool request is pending. An expired plan's bound code dialog can be dismissed here.
         """
         dispatch = self.store.get_platform_dispatch(dispatch_id)
         if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, RECONCILED_ABSENT_SAFE_TO_RETRY, DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE, DERIVATIVE_EXPIRED_STALE_NO_WRITE, "SUBSTACK_DRAFT_AWAITING_OWNER"}:

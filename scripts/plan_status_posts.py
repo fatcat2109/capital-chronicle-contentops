@@ -150,9 +150,10 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run:
             from live_contentops.plan_reader_editorial_v1 import run_due
             try:
-                page_export = posts.read_export(args.export_dir, main_root=args.main_root, python=child_python())
                 rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
-                plan_pages = run_due(store, page_export, root=args.store.parent / "daily_app_outputs/plan_analysis",
+                plan_pages = run_due(store, lambda: posts.read_export(
+                    args.export_dir, main_root=args.main_root, python=child_python()),
+                    root=args.store.parent / "daily_app_outputs/plan_analysis",
                     rollout=rollout, now=datetime.now(timezone.utc), writer_deadline=started + 255)
             except Exception as exc:
                 plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
