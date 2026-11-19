@@ -96,6 +96,30 @@ def build(recorded, **kwargs):
     return report, calls
 
 
+def test_evening_file_reports_ready_and_never_registered_plan_copies(recorded):
+    from live_contentops import plan_status_posts_v1 as posts
+
+    _, store, _, _ = recorded
+    key = "plan-status-post-fixture"
+    row = {"key": key, "format": 4, "kind": "update", "state_alert_contract": "CC543_V1"}
+    with sqlite3.connect(store) as conn:
+        conn.executemany("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", [
+            (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(row), "PUBLISHING", "2026-11-17T09:54:00Z"),
+            ("x-copy", key, "x", "{}", "READY", "2026-11-17T09:54:30Z"),
+            ("notes-copy", key, "substack_notes", "{}", "READY", "2026-11-17T09:57:00Z"),
+            ("telegram-copy", key, "telegram", "{}", "DISPATCH_CONFIRMED", "2026-11-17T09:54:00Z"),
+        ])
+
+    report, _ = build(recorded)
+    queue = report["plan_copy_queue"]
+    assert queue["ready_or_waiting"] == 7
+    overdue = {r["platform"]: r for r in queue["over_five_minutes"]}
+    assert len(overdue) == 6
+    assert overdue["x"]["status"] == "READY" and overdue["x"]["age_seconds"] == 330
+    assert overdue["discord"]["status"] == "WAITING" and overdue["discord"]["age_seconds"] == 360
+    assert "6 of 7 ready or waiting plan copies were older than five minutes" in readback.markdown(report)
+
+
 def test_nov16_piece_channels_and_digest_are_consumed(recorded):
     report, calls = build(recorded)
     piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")

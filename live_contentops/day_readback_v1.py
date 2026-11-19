@@ -580,6 +580,40 @@ def _reply_bot(conn, window):
             "delivered_drafts": list(delivered.values())}
 
 
+def _plan_copy_queue(conn, now, store_path):
+    from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
+    from live_contentops.native_neo_executor_v1 import PENDING as NATIVE_NEO_PENDING
+
+    root = Path(store_path).parent / "daily_app_outputs" / "plan-status-posts"
+    pending, overdue = 0, []
+    for plan in conn.execute("""SELECT message_id,payload,created_at FROM outbox_messages
+        WHERE destination=? AND status IN (?, 'PUBLISHING')""", (posts.DESTINATION, posts.READY)):
+        row = json.loads(plan["payload"])
+        if row.get("format") != cards.FORMAT:
+            continue
+        settled = cards.read_settled_destinations(conn, row)
+        unavailable = {d["destination"] for d in cards._skipped_images(root, row)}
+        copies = {r["destination"]: r for r in conn.execute("""SELECT o.destination,o.created_at,
+            COALESCE(d.status,o.status) AS status FROM outbox_messages o
+            LEFT JOIN platform_dispatches d ON o.message_id=d.message_id
+            WHERE o.work_item_id=?""", (plan["message_id"],))}
+        for destination in cards.destinations_for(row):
+            if destination in settled or destination in unavailable:
+                continue
+            copy = copies.get(destination)
+            status = copy["status"] if copy else "WAITING"
+            if not (status in {"READY", NATIVE_NEO_PENDING} or status.startswith("WAITING")):
+                continue
+            queued_at = utc(copy["created_at"] if copy else plan["created_at"])
+            age = (now - queued_at).total_seconds()
+            pending += 1
+            if age > 300:
+                overdue.append({"plan_post": plan["message_id"], "platform": destination,
+                    "status": status, "queued_at_utc": iso(queued_at), "age_seconds": round(age, 1)})
+    return {"observed_at_utc": iso(now), "ready_or_waiting": pending,
+            "over_five_minutes": sorted(overdue, key=lambda r: (-r["age_seconds"], r["platform"]))}
+
+
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
                  since=None, until=None, now=None, fetcher=fetch_public):
     now = now or datetime.now(timezone.utc)
@@ -728,6 +762,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 report["pieces"].append(piece)
         report["digest"], digest_copy = _digest(conn, run_dir, result)
         report["reply_bot"] = _reply_bot(conn, window)
+        report["plan_copy_queue"] = _plan_copy_queue(conn, now, store_path)
         seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
         # A contradictory outbox status, or an uncertain private reply delivery,
         # is still an exception even when it has no public dispatch row.
@@ -777,6 +812,13 @@ def markdown(report):
                  f"opens {digest['opens'] if digest['opens'] is not None else 'unknown'}; {digest['public_url'] or 'page unrecorded'}.")
     lines.append(f"Reply bot: {report['reply_bot']['delivered_count']} delivered drafts; "
                  + json.dumps(report["reply_bot"]["counts_by_kind_and_status"], sort_keys=True) + ".")
+    if queue := report.get("plan_copy_queue"):
+        overdue = queue["over_five_minutes"]
+        lines.append(f"{len(overdue)} of {queue['ready_or_waiting']} ready or waiting plan copies "
+                     f"were older than five minutes at {local(queue['observed_at_utc'])}.")
+        for row in overdue:
+            lines.append(f"- {row['plan_post']} / {row['platform']} was {row['status']} "
+                         f"for {row['age_seconds']:.1f} seconds.")
     lines.extend(["", "## Engagement", "", f"Latest available cumulative counters through {local(report['engagement']['cutoff_utc'])}."])
     if not report["pieces"]:
         lines.append("No pieces in this window.")

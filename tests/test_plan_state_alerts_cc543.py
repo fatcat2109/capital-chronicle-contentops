@@ -301,6 +301,7 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
 @pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout"])
 def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure):
     from hashlib import sha256
+    from threading import Event
     from test_minute_consumer_cc515 import dispatch
 
     store, folder, raw, now = replay
@@ -330,7 +331,18 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             work_item_id=posts.WORK_ITEM_ID, severity="RECOVERY_AUDIT",
             description=json.dumps({"cause": "CARD_PARENT_DEFINITE_NO_WRITE", "dispatch_id": None}))
 
-    runtime = FixtureTransport()
+    class ConcurrentRoutes(FixtureTransport):
+        x_started = Event()
+
+        def publish(self, *, destination, intent, authorization_context):
+            if destination == "facebook_page":
+                assert self.x_started.wait(10), "A slow destination serialized the alert fanout"
+            if destination == "x":
+                self.x_started.set()
+            return super().publish(destination=destination, intent=intent,
+                                   authorization_context=authorization_context)
+
+    runtime = ConcurrentRoutes()
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
         readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
         published_content_path=tmp_path / "published.jsonl")
@@ -348,7 +360,7 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
 
     now += timedelta(minutes=1)
     options["now"] = now
-    recovered = posts.publish_ready(store, **options, alert_filter=True)
+    recovered = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
     assert set(runtime.publish_calls) == set(cards.destinations_for(ending)), recovered
     for destination in cards.destinations_for(ending):
         delivery = cards._dispatch(store, key, destination)
@@ -358,7 +370,7 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             assert "reply_to_id" not in intent["native_payload"]
     assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
     assert store.get_outbox_message(setup_key)["status"] == posts.SUPERSEDED
-    posts.publish_ready(store, **options, alert_filter=True)
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
     assert len(runtime.publish_calls) == len(cards.destinations_for(ending))
 
 

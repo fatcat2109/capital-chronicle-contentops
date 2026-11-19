@@ -778,10 +778,14 @@ def settled_destinations(store, row):
     """CC-515: destination closures in the existing incident audit, not send evidence."""
     if not hasattr(store, "get_read_only_connection"):
         return {}
-    ids = {_settlement_id(row["key"], d): d for d in _post_destinations(row)}
     with store.get_read_only_connection() as conn:
-        records = conn.execute("SELECT incident_id, description FROM incidents WHERE incident_id IN ("
-            + ",".join("?" for _ in ids) + ")", tuple(ids)).fetchall()
+        return read_settled_destinations(conn, row)
+
+
+def read_settled_destinations(conn, row):
+    ids = {_settlement_id(row["key"], d): d for d in _post_destinations(row)}
+    records = conn.execute("SELECT incident_id, description FROM incidents WHERE incident_id IN ("
+        + ",".join("?" for _ in ids) + ")", tuple(ids)).fetchall()
     details = {ids[r["incident_id"]]: json.loads(r["description"]) for r in records}
     if row.get("state_alert_contract"):
         # The previous minute consumer closed some current copies solely
@@ -1605,7 +1609,15 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             coordinator = coordinator_for(key, Path(plan["output_dir"]))
             posts.scope_to_post(coordinator, key, plan)
             coordinator.register_plan(key, plan)
-            outcome = coordinator.execute_plan(key, plan)
+            if automatic_neo and alert_filter is True:
+                def alert_worker():
+                    worker = coordinator_for(key, Path(plan["output_dir"]))
+                    posts.scope_to_post(worker, key, plan)
+                    return worker
+
+                outcome = coordinator.execute_plan(key, plan, alert_worker_for=alert_worker)
+            else:
+                outcome = coordinator.execute_plan(key, plan)
             states = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
             required = destinations_for(row)
             confirmed = {d for d in required if _reference(store, key, d)}

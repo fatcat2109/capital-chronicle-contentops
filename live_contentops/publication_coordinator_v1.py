@@ -3884,10 +3884,13 @@ class DurablePublicationCoordinator:
             self._reconcile(dispatch, intent)
         return {**result, "edit_called": True, "new_post_calls": 0}
 
-    def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+    def execute_plan(self, work_item_id: str, plan: Mapping[str, Any], *, alert_worker_for=None) -> dict[str, Any]:
         if plan.get("distribution_policy") == "SITE_FIRST_V1":
             return self._execute_site_first_plan(work_item_id, plan)
-        result = self._execute_plan(work_item_id, plan)
+        if alert_worker_for is None:
+            result = self._execute_plan(work_item_id, plan)
+        else:
+            result = self._execute_plan(work_item_id, plan, alert_worker_for=alert_worker_for)
         current = self.publication_state(work_item_id, plan)
         if any(o["dispatch_recorded"] for o in current["per_destination"].values()):
             callbacks = result.get("per_destination") or {}
@@ -4028,7 +4031,7 @@ class DurablePublicationCoordinator:
             "public_write_performed": any(o.get("publish_called") is True and o.get("status") == DISPATCH_CONFIRMED
                 for o in result.get("per_destination", {}).values())}
 
-    def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+    def _execute_plan(self, work_item_id: str, plan: Mapping[str, Any], *, alert_worker_for=None) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
             raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
         if self._recovery_is_quarantined(work_item_id):
@@ -4045,7 +4048,12 @@ class DurablePublicationCoordinator:
                 "public_write_performed": False,
                 "unknown_write_detected": True,
             }
-        recovery_preflight = self.recover_pending()
+        if alert_worker_for is None:
+            recovery_preflight = self.recover_pending()
+        else:
+            fresh_alert_messages = {self._ids(work_item_id, plan["plan_hash"], row["destination"])["message_id"]
+                                    for row in plan["destinations"]}
+            recovery_preflight = self.recover_pending(defer_unstarted=fresh_alert_messages)
         blocks = self.recovery_blocks_new_publication(recovery_preflight, work_item_id, plan=plan)
         recovery_preflight["backlog_blocking_current_article"] = blocks
         if blocks:
@@ -4160,8 +4168,33 @@ class DurablePublicationCoordinator:
             "CLOUDINARY_DELIVERY_MEDIA_READY",
             "CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED",
         }
+        parallel_destinations = set()
+        if alert_worker_for is not None and plan.get("plan_status_post") and canonical_message is None:
+            from concurrent.futures import ThreadPoolExecutor
+
+            selected = {row["destination"] for row in plan["destinations"]}
+            fresh = [m for m in messages if m["destination"] in selected
+                     and m["destination"] not in outcomes and m["status"] == "READY"
+                     and not self.store.get_platform_dispatch(
+                         self._ids(work_item_id, registration["plan_hash"], m["destination"])["dispatch_id"])]
+            if len(fresh) > 1:
+                def dispatch_alert(message):
+                    # Separate transport clients keep the X and Notes actions
+                    # bound to their own task tabs. The existing per-destination
+                    # claims and last-moment write checks still own each send.
+                    intent = json.loads(str(message["payload"]))
+                    worker = alert_worker_for()
+                    return worker._dispatch_message(message, canonical_url=intent.get("canonical_url"))
+
+                with ThreadPoolExecutor(max_workers=min(6, len(fresh))) as pool:
+                    for message, outcome in zip(fresh, pool.map(dispatch_alert, fresh), strict=True):
+                        destination = message["destination"]
+                        outcomes[destination] = outcome
+                        parallel_destinations.add(destination)
         for message in messages:
             if message["destination"] == "substack":
+                continue
+            if message["destination"] in parallel_destinations:
                 continue
             intent = json.loads(str(message["payload"]))
             destination_plan = dict(intent.get("destination_plan") or {})
@@ -4406,7 +4439,7 @@ class DurablePublicationCoordinator:
             result.append(message)
         return result
 
-    def recover_pending(self) -> dict[str, Any]:
+    def recover_pending(self, *, defer_unstarted=frozenset()) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
         summary = {
             "safe_resumes": 0, "safely_attempted": 0, "stale_expired": 0,
@@ -4420,6 +4453,9 @@ class DurablePublicationCoordinator:
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
         quarantined_obligations: set[tuple[str, str, str]] = set()
         for message in messages:
+            if (message["message_id"] in defer_unstarted and message["status"] == "READY"
+                    and message["message_id"] not in dispatch_by_message):
+                continue
             intent = json.loads(str(message["payload"]))
             if not intent.get("work_item_id") or not intent.get("plan_hash"):
                 summary["legacy_noncanonical_rows_skipped"] = int(
@@ -4675,6 +4711,9 @@ class DurablePublicationCoordinator:
             str(row["message_id"]): row for row in self.store.list_platform_dispatches()
         }
         for message in self._recovery_messages():
+            if (message["message_id"] in defer_unstarted and message["status"] == "READY"
+                    and message["message_id"] not in refreshed_dispatches):
+                continue
             try:
                 intent = json.loads(str(message["payload"]))
             except (TypeError, ValueError, KeyError):
