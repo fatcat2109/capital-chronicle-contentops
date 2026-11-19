@@ -37,6 +37,8 @@ READER_SECTIONS = (
     ("macro", "Macro"), ("scenarios", "The scenarios"), ("plan", "The plan"),
     ("invalidation", "What would change our mind"),
 )
+FINAL_STATES = {"CANCELLED": "cancelled", "INVALIDATED": "invalidated", "EXPIRED": "expired",
+                "VIEW_CHANGED": "view changed", "CLOSED": "closed", "RESULT": "closed"}
 
 
 def sections_for(manuscript):
@@ -117,6 +119,28 @@ def _validate_quote(raw, quote, now):
     return price
 
 
+def entry_deadline(raw):
+    return min((raw[key] for key in ("entry_deadline_utc", "expires_at_utc") if raw.get(key)),
+               key=posts._utc, default=None)
+
+
+def open_page_deadline(packet):
+    raw = packet["source_plan"]
+    return entry_deadline(raw) if raw.get("zone") and not packet.get("final_status") else None
+
+
+def ended_plan_status(raw, current, *, now):
+    """Bind late copy to the terminal state of this exact Main registration."""
+    deadline = entry_deadline(raw)
+    state, at = current.get("status"), current.get("status_at_utc")
+    if (not deadline or now < posts._utc(deadline) or state not in FINAL_STATES or not at
+            or current.get("plan_id") != raw["plan_id"]
+            or current.get("registration_hash") != raw["registration_hash"]
+            or not posts._utc(raw["registered_at_utc"]) <= posts._utc(at) <= now):
+        raise ValueError("PLAN_ANALYSIS_FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW")
+    return {"status": state, "status_at_utc": at}
+
+
 def _current_quote(raw, current, now):
     state = current.get("status")
     if (not state or str(state).startswith(("STALE", "SUPERSEDED"))
@@ -125,8 +149,6 @@ def _current_quote(raw, current, now):
     quote = current.get("last_quote") or {"price": current.get("last_price"),
         "quoted_at_utc": current.get("last_price_at_utc"), "instrument": raw["asset_id"]}
     _validate_quote(raw, quote, now)
-    if state == "WAITING" and raw.get("entry_deadline_utc") and now >= posts._utc(raw["entry_deadline_utc"]):
-        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
     return quote
 
 
@@ -143,6 +165,9 @@ def market_update(raw, current, *, now):
     """Capture a dated CC-584 update from Main for a quote outside the entry zone."""
     if not raw.get("zone"):
         return None
+    deadline = entry_deadline(raw)
+    if deadline and now >= posts._utc(deadline):
+        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
     quote = _current_quote(raw, current, now)
     if _zone_relation(raw, Decimal(str(quote["price"]))) == "inside":
         return None
@@ -161,6 +186,16 @@ def require_current_page(packet, *, now=None):
         return  # Non-plan historical analytical packets have no entry geometry.
     now = now or datetime.now(timezone.utc)
     current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    deadline = entry_deadline(raw)
+    final_status = packet.get("final_status")
+    if deadline and now >= posts._utc(deadline):
+        if not final_status:
+            raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
+        if final_status != ended_plan_status(raw, current, now=now):
+            raise ValueError("PLAN_ANALYSIS_FINAL_STATUS_CHANGED_REVIEW_REQUIRED")
+        return current
+    if final_status:
+        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_STILL_OPEN")
     observed = _current_quote(raw, current, now)
     update = packet.get("market_update")
     relation = _zone_relation(raw, Decimal(str(observed["price"])))
@@ -383,14 +418,24 @@ def _card(plan, run, folder, manuscript):
     return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
 
 
-def _assemble(plan, manuscript, run, *, market_update=None):
+def _assemble(plan, manuscript, run, *, market_update=None, final_status=None):
     freeze = run["freeze"]
     timestamp = public_timestamp(freeze["frozen_at_utc"])
     cutoff = public_timestamp(freeze.get("decision_cutoff_utc", freeze["frozen_at_utc"]))
     audit = f"Evidence cutoff: {cutoff}. The view was fixed at {timestamp}. Analysis fingerprint: {freeze['immutable_hash']}."
     reader = manuscript.get("reader_contract") == "CC466_V1"
     geometry, geometry_bindings = ([], []) if reader else _public_geometry(plan, run)
+    headline = manuscript["title"]
     paragraphs = [manuscript["introduction"]]
+    if final_status:
+        from .plan_reader_copy_v1 import et, page_thread_terms, LEVEL_CONTRACT
+        if plan.get("zone") and plan.get("invalidation_conditions"):
+            headline = page_thread_terms(plan, run, level_contract=LEVEL_CONTRACT)["title"]
+        public_filter(headline)
+        paragraphs.append("This page was published after the plan ended. The entry window closed "
+                          f"{et(entry_deadline(plan))}.")
+        paragraphs.append(f"Status: {FINAL_STATES[final_status['status']]} "
+                          f"(updated {et(final_status['status_at_utc'])}).")
     if market_update:
         from .plan_reader_copy_v1 import et
         price = Decimal(str(market_update["price"]))
@@ -404,7 +449,8 @@ def _assemble(plan, manuscript, run, *, market_update=None):
             paragraphs += geometry
     if reader:
         from .plan_reader_copy_v1 import page_footer, check_text
-        paragraphs += page_footer(plan, freeze, legacy=manuscript.get("reader_revision", 1) < 2)
+        footer = page_footer(plan, freeze, legacy=manuscript.get("reader_revision", 1) < 2)
+        paragraphs += footer[:1] if final_status else footer
     else:
         paragraphs += [audit]
     paragraphs += [PUBLIC_NOTICE, CONFLICTS_NOTICE]
@@ -417,16 +463,17 @@ def _assemble(plan, manuscript, run, *, market_update=None):
         if manuscript.get("reader_revision", 1) >= 3:
             from .plan_reader_copy_v1 import check_thread_text
             check_thread_text(body)
-    payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
+    payload = {"title": headline, "subtitle": manuscript["subtitle"], "body_markdown": body}
     return payload, paragraphs, geometry_bindings
 
 
-def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None):
+def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None, final_status=None):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
     check_new_page_copy(manuscript, run)
     freeze = run["freeze"]
-    payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run, market_update=market_update)
+    payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run, market_update=market_update,
+                                                        final_status=final_status)
     bindings += geometry_bindings
     body = payload["body_markdown"]
     folder = Path(output_dir)
@@ -455,6 +502,8 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
               "source_plan": plan, "media_assets": [card] if card else [], "output_dir": str(folder.resolve())}
     if market_update:
         packet["market_update"] = market_update
+    if final_status:
+        packet["final_status"] = final_status
     article = {"title": payload["title"], "body": body, "market_asset": plan.get("asset_id")}
     state = folder / "tradingview_capture_v1.json"
     if state.is_file():
@@ -530,20 +579,28 @@ def replace_unpublished_media(store, held, packet):
 
 
 def replace_unpublished_copy(store, held, packet):
-    """A confirmed pre-click refusal may repair the same retained draft's copy.
+    """An unissued page or an exact no-write can take a new copy revision.
 
     The old request and its exact response remain immutable. A possibly sent
     page always requires its existing readback and cannot enter this function.
     """
+    from .plan_substack_neo_v1 import EXPIRED_CODE_DRAFT_CLOSED
+
     if held["registration_hash"] != packet["registration_hash"] or held["plan_id"] != packet["plan_id"]:
         raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
+    reconciliations = {row["reconciliation_id"]: row["status"]
+                       for row in store.get_reconciliations_for_work_item(held["page_id"])}
     for row in store.list_outbox_messages(work_item_id=held["page_id"]):
         if row["destination"] != "substack":
             continue
         with store.get_read_only_connection() as conn:
             dispatch=conn.execute("SELECT * FROM platform_dispatches WHERE message_id=?",(row["message_id"],)).fetchone()
-        if dispatch and (dispatch["status"] not in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
-                         or dispatch["public_object_id"] or dispatch["public_object_url"]):
+        if not dispatch:
+            continue
+        reconciliation_id = "reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_")
+        closed_draft = reconciliations.get(reconciliation_id) == EXPIRED_CODE_DRAFT_CLOSED
+        if (dispatch["status"] not in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
+                or (dispatch["public_object_id"] and not closed_draft) or dispatch["public_object_url"]):
             raise ValueError("PLAN_ANALYSIS_COPY_REVISION_READBACK_REQUIRED")
     store.register_outbox_message(message_id=held["page_id"]+"-prior-copy-"+held["plan"]["plan_hash"],
         work_item_id=held["page_id"],destination="internal:plan-analysis-revision",
@@ -553,8 +610,11 @@ def replace_unpublished_copy(store, held, packet):
         "payload_hash":sha256(packet["native_payload"]["body_markdown"].encode()).hexdigest()} for d in plan["destinations"]]
     plan.pop("plan_hash",None);plan["plan_hash"]=sha256_of(plan)
     revised={**packet,"page_id":held["page_id"],"plan":plan}
-    store.finalize_outbox_payload_before_dispatch(message_id=held["page_id"],
-        payload=canonical_bytes(revised).decode(),status="EDITORIAL_INTERNAL")
+    payload = canonical_bytes(revised).decode()
+    stored = store.finalize_outbox_payload_before_dispatch(message_id=held["page_id"], payload=payload,
+        status="EDITORIAL_INTERNAL", expected_payload=canonical_bytes(held).decode())
+    if stored["payload"] != payload:
+        raise ValueError("PLAN_ANALYSIS_COPY_REVISION_CHANGED")
     return revised
 
 
@@ -567,7 +627,8 @@ def validate_plan(store, work_item_id, plan):
     if run["manifest"] != packet["source_manifest"]:
         raise ValueError("PLAN_ANALYSIS_SOURCE_BYTES_CHANGED")
     validate_manuscript(packet["source_plan"], packet["manuscript"], run)
-    expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run, market_update=packet.get("market_update"))
+    expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run, market_update=packet.get("market_update"),
+                               final_status=packet.get("final_status"))
     if expected != packet["native_payload"]:
         raise ValueError("PLAN_ANALYSIS_RENDERED_COPY_CHANGED")
     if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in sections_for(packet["manuscript"])}:
@@ -636,17 +697,39 @@ def confirmed_publication(store, plan):
             "canonical_url": status["canonical_url"], "summary": packet["summary"]}
 
 
+def refresh_ended_page(store, packet, *, now):
+    raw = packet["source_plan"]
+    current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    final = ended_plan_status(raw, current, now=now)
+    if final == packet.get("final_status"):
+        return packet
+    validate_plan(store, packet["page_id"], packet["plan"])
+    run = load_run(raw, run_root=Path(packet["run_root"]))
+    payload, _, _ = _assemble(raw, packet["manuscript"], run, market_update=packet.get("market_update"),
+                               final_status=final)
+    return replace_unpublished_copy(store, packet, {**packet, "native_payload": payload, "final_status": final})
+
+
 def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None,
                   automatic=False):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     from .llm_operator_control_v1 import assert_llm_operator_execution_enabled
-    live_publication_policy(rollout)
-    assert_llm_operator_execution_enabled()
     if Path(store.db_path).resolve() != Path(rollout["store_path"]).resolve():
         raise ValueError("PLAN_ANALYSIS_ROLLOUT_STORE_MISMATCH")
+    now = datetime.now(timezone.utc)
+    raw = packet["source_plan"]
+    deadline = entry_deadline(raw) if raw.get("zone") else None
+    ended = deadline and now >= posts._utc(deadline)
+    status = page_status(store, packet)["dispatch"].get("status")
+    reading = command == "readback" or (command == "resume" and (
+        status == "SUBSTACK_DRAFT_AWAITING_OWNER" or (ended and status in {
+            "UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING", "DISPATCH_CONFIRMED"})))
+    if not reading:
+        live_publication_policy(rollout)
+        assert_llm_operator_execution_enabled()
     coordinator, executor = bind_native_neo_coordinator(store, operation_id=packet["page_id"],
-        output_dir=packet["output_dir"], native_invocation_id=invocation_id, allow_publish=True, automatic=automatic)
+         output_dir=packet["output_dir"], native_invocation_id=invocation_id, allow_publish=not reading, automatic=automatic)
     coordinator.allow_prior_confirmed_distribution = True
     coordinator.recovery_scope = {"work_item_id": packet["page_id"], "plan": packet["plan"], "exact_work_item_only": True}
     if command in {"begin", "submit"}:
@@ -658,10 +741,13 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
         except NativeNeoInputRequired as pending:
             return {"state":"NATIVE_NEO_TOOL_PENDING","native_tool_request":pending.request}
     try:
-        if command == "readback":
+        if reading:
             ids = coordinator._ids(packet["page_id"], packet["plan"]["plan_hash"], "substack")
             result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
         else:
+            if ended:
+                packet = refresh_ended_page(store, packet, now=now)
+                coordinator.recovery_scope["plan"] = packet["plan"]
             result = coordinator.publish_plan(packet["page_id"], packet["plan"])
     except NativeNeoInputRequired as pending:
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}

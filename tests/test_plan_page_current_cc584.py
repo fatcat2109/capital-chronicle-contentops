@@ -13,6 +13,144 @@ from test_plan_analysis_pages_cc432 import source  # noqa: F401
 GOLD = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures/gold-plan-thread-181.json"
 
 
+@pytest.fixture
+def gold_18_nov():
+    # Public Main export for the plan behind the page published on 19 November.
+    return {
+        "asset_id": "XAUUSD", "direction": "BEARISH",
+        "plan_id": "plan_64c0b961e6d621d10de5e9d3",
+        "registration_hash": "353955a42d4e3dd7eb8652123554696676f225022c1be512219fc5bbcaf161e3",
+        "zone": {"minimum": 3773, "maximum": 3790},
+        "invalidation_conditions": [{"field": "high", "operator": "GTE", "threshold": 3833.5}],
+        "registered_at_utc": "2026-11-18T07:39:10.617567Z", "entry_deadline_utc": "2026-11-18T10:00:00Z",
+        "expires_at_utc": "2026-11-18T10:45:00Z",
+        "public_instrument": {"kind": "FUT", "symbol": "MGC", "name": "Micro gold", "direction": "BEARISH",
+                              "zone_low": 3772.302882583667, "zone_high": 3789.302882583667,
+                              "invalidation_level": 3832.9, "tick_size": 0.1},
+    }
+
+
+def test_november_gold_title_states_the_view_and_uses_the_exported_stop(gold_18_nov):
+    terms = reader.thread_terms(gold_18_nov, level_contract=reader.LEVEL_CONTRACT)
+    assert terms["title"] == "Gold: bearish at 3,772.3–3,789.3, wrong above 3,832.9"
+    assert "3,833.5 before entry" in terms["invalidation"]
+
+
+def test_title_uses_the_sealed_original_stop_when_mapped_levels_are_incomplete(gold_18_nov):
+    raw = {**gold_18_nov, "public_instrument": {"symbol": "MGC"}}
+    candidate = {"candidate_id": "cand_macro_gold", "direction": "SHORT",
+                 "entry_bounds": raw["zone"], "stop_loss": 3836}
+    run = {"documents": {"analysis-native.json": {"native_synthesis": {"candidates": [candidate]}}}}
+    terms = reader.page_thread_terms(raw, run, level_contract=reader.LEVEL_CONTRACT)
+    assert terms["title"] == "Gold: bearish at 3,773–3,790, wrong above 3,836"
+    assert "3,833.5 before entry" in terms["invalidation"]
+    assert pages._source_text(run, next(ref for ref in terms["refs"] if ref["pointer"].endswith("/stop_loss"))) == "3836"
+
+
+def test_november_gold_page_rendered_after_expiry_uses_the_final_status(gold_18_nov, tmp_path, monkeypatch):
+    from live_contentops import native_neo_executor_v1 as native, plan_reader_editorial_v1 as editorial
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    from live_contentops.plan_substack_neo_v1 import EXPIRED_CODE_DRAFT_CLOSED
+    from live_contentops.publication_coordinator_v1 import (
+        CanonicalDestinationTransportRuntimeV1, DurablePublicationCoordinator,
+    )
+    from test_plan_thread_consistency_cc549 import authored
+
+    raw = {**gold_18_nov, "status": "WAITING", "run_id": "retained-gold", "analysis_result_hash": "retained"}
+    current = {**raw, "status": "CLOSED", "status_at_utc": "2026-11-18T18:30:21.138000Z"}
+    now = posts._utc("2026-11-19T11:40:00Z")
+    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run["source_plan"] = raw
+    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
+    monkeypatch.setattr(pages, "_card", lambda *a: None)
+    monkeypatch.setattr(posts, "current_public_plan", lambda *a, **k: current)
+    source = reader.source_packet(raw, run, thread=True, level_contract=reader.LEVEL_CONTRACT)
+    manuscript = editorial.bind_manuscript(authored(source), source, raw)
+    manuscript["title"] = "Gold: Spot plan cancelled on high"
+
+    with pytest.raises(ValueError, match="ENTRY_WINDOW_ENDED_REVIEW_REQUIRED"):
+        pages.require_current_page({"source_plan": raw}, now=now)
+    final = pages.ended_plan_status(raw, current, now=now)
+    packet = pages.render(raw, manuscript, output_dir=tmp_path / "page", final_status=final)
+    body = packet["native_payload"]["body_markdown"]
+    assert "This page was published after the plan ended. The entry window closed Wed 18 Nov, 5:00 AM ET." in body
+    assert "Status: closed (updated Wed 18 Nov, 1:30 PM ET)." in body
+    assert "waiting for entry" not in body
+    assert packet["native_payload"]["title"] == "Gold: bearish at 3,772.3–3,789.3, wrong above 3,832.9"
+    assert pages.require_current_page(packet, now=now) == current
+    assert "This page was published after the plan ended." in (tmp_path / "page/article.html").read_text(encoding="utf-8")
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    held = pages.register_page(store, pages.render(raw, manuscript, output_dir=tmp_path / "held"))
+    old_bytes = store.get_outbox_message(held["page_id"])["payload"]
+    seen = []
+
+    class Executor:
+        native_invocation_id = "expiry-test"
+
+        def pending(self):
+            return []
+
+        def __call__(self, request):
+            seen.append(request)
+            screen = request["pending_owner_screen"]
+            assert request["action"] == "READBACK"
+            assert screen["cancel_on_or_after_utc"] == raw["entry_deadline_utc"]
+            return {"status": EXPIRED_CODE_DRAFT_CLOSED, "cancelled_owner_screen": screen,
+                    "observed_identity": request["expected_identity"], "request_sha256": request["request_sha256"]}
+
+    executor = Executor()
+    transport = CanonicalDestinationTransportRuntimeV1(
+        linkedin_transport=object(), neo_transport=NeoDestinationHandoff(native_executor=executor))
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport, clock=lambda: now)
+    coordinator.register_plan(held["page_id"], held["plan"])
+    old_intent, = store.list_outbox_messages(destination="substack")
+    ids = coordinator._ids(held["page_id"], held["plan"]["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="substack",
+        status="SUBSTACK_DRAFT_AWAITING_OWNER", public_object_id="123")
+    screen = {"draft_id": "123", "page_id": "15", "page_url": "https://capitalchronicle.substack.com/publish/post/123",
+              "status": "PENDING_JIM_EMAIL_CODE"}
+    screen_id = "substack-owner-screen-" + ids["dispatch_id"]
+    store.register_outbox_message(message_id=screen_id, work_item_id=held["page_id"], destination="internal:substack-owner-screen",
+        payload=json.dumps(screen), status="SUBSTACK_DRAFT_AWAITING_OWNER")
+    with pytest.raises(ValueError, match="COPY_REVISION_READBACK_REQUIRED"):
+        pages.refresh_ended_page(store, held, now=now)
+    monkeypatch.setattr(native, "bind_native_neo_coordinator", lambda *a, **k: (coordinator, executor))
+
+    def unavailable_export():
+        assert len(seen) == 1  # The readback runs before the potentially slow Main reader.
+        raise OSError("controlled Main export outage")
+
+    rollout = {"store_path": store.db_path, "public_write_authority": False}
+    outcome = editorial.run_due(store, unavailable_export, root=tmp_path / "minute", rollout=rollout, now=now)
+    assert outcome["pages"][0]["publication"]["publication"]["reconciliation_status"] == EXPIRED_CODE_DRAFT_CLOSED
+    assert "controlled Main export outage" in outcome["source_cause"]
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DEFINITE_NO_WRITE"
+    assert json.loads(store.get_outbox_message(screen_id)["payload"]) == screen
+    assert not editorial.run_due(store, unavailable_export, root=tmp_path / "minute", rollout=rollout, now=now)["pages"]
+    assert len(seen) == 1
+
+    refreshed = pages.refresh_ended_page(store, held, now=now)
+    coordinator.register_plan(refreshed["page_id"], refreshed["plan"])
+    native = [json.loads(row["payload"])["native_payload"] for row in store.list_outbox_messages(destination="substack")]
+    assert held["plan"]["plan_hash"] != refreshed["plan"]["plan_hash"]
+    assert native == [held["native_payload"], packet["native_payload"]]
+    prior, = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+    assert prior["payload"] == old_bytes
+    assert store.get_outbox_message(old_intent["message_id"])["payload"] == old_intent["payload"]
+
+
+@pytest.mark.parametrize("change", [
+    {"status": "WAITING"}, {"status": "FILLED"}, {"status_at_utc": None},
+    {"registration_hash": "different"}, {"status_at_utc": "2026-11-19T12:30:00Z"},
+])
+def test_after_entry_window_only_the_current_exact_terminal_state_can_be_rendered(gold_18_nov, change):
+    current = {**gold_18_nov, "status": "CLOSED", "status_at_utc": "2026-11-18T18:30:21.138000Z", **change}
+    with pytest.raises(ValueError, match="FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW"):
+        pages.ended_plan_status(gold_18_nov, current, now=posts._utc("2026-11-19T11:40:00Z"))
+
+
 @pytest.mark.parametrize("change,cause", [
     ({"status": "EXPIRED"}, "STATE_CHANGED"),
     ({"last_price": 3875}, "MOVED_PAST"),
@@ -212,7 +350,8 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
     marked = overlay.apply(plain, row)
     overlay.validate(marked, row)
     terms = reader.thread_terms(raw, level_contract=reader.LEVEL_CONTRACT)["invalidation"]
-    assert terms in alert and terms in payload["body_markdown"] and terms in payload["title"]
+    assert terms in alert and terms in payload["body_markdown"]
+    assert payload["title"] == "Gold: bearish at 3,954.4, wrong above 4,004.4"
     assert marked["plan_overlay"]["source"]["phase_terms"] == terms
     assert marked["plan_overlay"]["source"]["phase_source_sha256"] == posts._sha(raw)
     assert not marked["plan_overlay"]["markers"]  # MGC's stop is never plotted on a spot-price axis.

@@ -81,10 +81,16 @@ if (input.phase === 'plan_substack_email') {
   return unwrap(await page.evaluateInPage(()=>({enabled:Array.from(document.querySelectorAll('input[type=checkbox]'))
     .find(e=>e.parentElement.innerText.includes('Send via email'))?.checked})));
 }
-if (input.phase === 'plan_substack_publish') {
-  const safe=unwrap(await page.evaluateInPage(()=>!Array.from(document.querySelectorAll('input[type=checkbox]')).some(e=>e.checked)));
-  const button=find(await snap(),'button','Publish now');
-  if(!safe||!button)return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED'};
+if (input.phase === 'plan_substack_publish' || input.phase === 'plan_substack_confirm') {
+  const confirming = input.phase === 'plan_substack_confirm';
+  const safe = confirming || unwrap(await page.evaluateInPage(() =>
+    !Array.from(document.querySelectorAll('input[type=checkbox]')).some(e=>e.checked)));
+  const button = find(await snap(), 'button', confirming ? 'Publish on web only' : 'Publish now');
+  if (confirming && !button) return {status:'UNKNOWN_WRITE',stage:'PUBLISH_CLICK_ATTEMPTED'};
+  const inWindow = !input.plan_entry_deadline_utc || Date.now() < Date.parse(input.plan_entry_deadline_utc);
+  if (!safe || !button || !inWindow) return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,
+    public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:inWindow
+      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
   const dispatched_at_utc=new Date().toISOString();await page.click(button.ref);
   return {status:'CLICKED',dispatched_at_utc};
 }
@@ -107,6 +113,35 @@ if (input.phase === 'plan_substack_code_handoff') {
   // The operator records this screen before opening the mailbox for the owner.
   const codePage=s.url.match(/\/publish\/post\/(\d+)/)?.[1];
   return {draft_id:codePage,page_id:page.id,page_url:s.url};
+}
+if (input.phase === 'plan_substack_cancel_expired_code') {
+  const screen = await snap();
+  if (screen.url !== input.draft_url || !(Date.now() >= Date.parse(input.cancel_on_or_after_utc))) {
+    return {closed:false};
+  }
+  const lines = screen.text.split('\n');
+  const heading = /^(\s*)- dialog "Check your email"(?:\s|$)/;
+  const start = lines.findIndex(line => heading.test(line));
+  if (start < 0 || lines.slice(start + 1).some(line => heading.test(line))) return {closed:false};
+  const indent = lines[start].match(heading)[1].length;
+  const controls = [];
+  for (const line of lines.slice(start + 1)) {
+    if (!line.trim()) continue;
+    if (line.length - line.trimStart().length <= indent) break;
+    const button = line.match(/^\s*- button "(Cancel|close)" \[ref=([^\]]+)\]/);
+    if (button && !line.includes('[disabled]')) controls.push(button);
+  }
+  const cancel = controls.find(([,name]) => name === 'Cancel') || controls[0];
+  if (!cancel) return {closed:false};
+  const sameDraft = unwrap(await page.evaluateInPage(data => location.href === data.url
+    && document.querySelector('textarea[aria-label="title"]')?.value === data.title
+    && !!document.querySelector('.ProseMirror'), {url:input.draft_url,title:input.title}));
+  if (!sameDraft) return {closed:false};
+  await page.click(cancel[2]);
+  const after = await snap();
+  const stillDraft = after.url === input.draft_url && !after.text.split('\n').some(line => heading.test(line))
+    && !!(find(after, 'button', 'Continue') || find(after, 'button', 'Publish now'));
+  return {closed:stillDraft, draft_url:after.url};
 }
 if (input.phase === 'plan_substack_readback') {
   return unwrap(await page.evaluateInPage(()=>({status:'SUCCESS',observed_identity:'capitalchronicle.substack.com',

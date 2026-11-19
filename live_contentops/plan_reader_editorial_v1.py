@@ -315,6 +315,24 @@ def frozen_page_sources(store):
             if row.get("kind") == "setup" and row.get("thread_contract") == reader.THREAD_CONTRACT}
 
 
+def _expired_owner_pages(store, now):
+    from .plan_status_posts_v1 import _utc
+
+    for row in store.list_outbox_messages(destination="internal:substack-owner-screen"):
+        if not row["work_item_id"].startswith("plan-analysis-"):
+            continue
+        dispatch = store.get_platform_dispatch(row["message_id"].removeprefix("substack-owner-screen-"))
+        if not dispatch or dispatch["status"] != "SUBSTACK_DRAFT_AWAITING_OWNER":
+            continue
+        packet = publication_packet(store, {"plan_id": row["work_item_id"].removeprefix("plan-analysis-")})
+        if not packet:
+            continue
+        deadline = pages.open_page_deadline(packet)
+        if (deadline and now >= _utc(deadline)
+                and pages.page_status(store, packet)["dispatch"].get("dispatch_id") == dispatch["dispatch_id"]):
+            yield packet
+
+
 def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, limit=1, writer_deadline=None):
     """One bounded slice per existing minute entry; no coordination polling."""
     owner="cc466-"+uuid4().hex
@@ -327,18 +345,51 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
         return {"status":"ACTIVE_PAGE_SLICE","pages":[]}
     results, waiting = [], []
     try:
+        def result_path(plan_id):
+            return Path(root) / ("plan-analysis-" + plan_id) / "editorial_result.json"
+
+        def attempt_clock(plan_id):
+            path = result_path(plan_id)
+            return path.stat().st_mtime if path.is_file() else 0
+
+        def resume_registered(packet, *, readback=False):
+            if publish:
+                try:
+                    outcome = pages.continue_page(store, packet, invocation_id=owner, rollout=rollout,
+                        command="readback" if readback else "resume", automatic=True)
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    outcome = {"status": "CANONICAL_PENDING", "cause": type(exc).__name__ + ":" + str(exc)[:160]}
+            else:
+                outcome = {"status": "PREPARED", "page_id": packet["page_id"]}
+            result = {"plan_id": packet["plan_id"], "page_id": packet["page_id"], "publication": outcome}
+            results.append(result)
+            path = result_path(packet["plan_id"])
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(canonical_bytes(result))
+
+        expired = {p["plan_id"]: p for p in _expired_owner_pages(store, now)} if publish else {}
+        if expired:
+            # Dismiss an expired code screen before the Main read can stall.
+            # An ambiguous screen cannot consume the fresh-page allowance.
+            resume_registered(expired[min(expired, key=attempt_clock)], readback=True)
+            limit += 1
+        source_failure = None
+        if callable(export):
+            try:
+                export = export()
+            except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
+                source_failure = type(exc).__name__ + ":" + str(exc)[:160]
+                export = {"status": {"plans": []}}
         plans=[p for p in export["status"]["plans"] if p.get("asset_id") in __import__(
             "live_contentops.plan_status_posts_v1",fromlist=["MARKETS"]).MARKETS
             and p.get("run_id") and p.get("analysis_result_hash") and p.get("registered_at_utc")]
         plans=[p for p in plans if now-timedelta(days=7)<=datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<=now]
         current_plans = {p["plan_id"]: p for p in plans}
-        def attempt_clock(plan):
-            path=Path(root)/("plan-analysis-"+plan["plan_id"])/"editorial_result.json"
-            return path.stat().st_mtime if path.is_file() else 0
+        plans = [p for p in plans if p["plan_id"] not in expired]
         # Fresh plans get their first opportunity within the ten-minute target.
         # Retained failures rotate; a cached refusal cannot starve the week.
-        plans.sort(key=lambda p:(0 if now-datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<timedelta(minutes=10)
-                                  else 1, attempt_clock(p),p["registered_at_utc"]))
+        plans.sort(key=lambda p: (now-datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00")) >= timedelta(minutes=10),
+            attempt_clock(p["plan_id"]), p["registered_at_utc"]))
         frozen = frozen_page_sources(store)
         if writer_deadline is not None:
             call = partial(call, writer_deadline=writer_deadline)
@@ -375,16 +426,10 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                     (folder/"editorial_result.json").write_bytes(canonical_bytes(results[-1]))
                     continue
                 packet=pages.register_page(store,prepared["packet"])
-            if publish:
-                try:
-                    outcome=pages.continue_page(store,packet,invocation_id=owner,rollout=rollout,automatic=True)
-                except (OSError,ValueError,KeyError,TypeError) as exc:
-                    outcome={"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
-            else:
-                outcome={"status":"PREPARED","page_id":packet["page_id"]}
-            results.append({"plan_id":plan["plan_id"],"page_id":packet["page_id"],"publication":outcome})
-            (folder/"editorial_result.json").write_bytes(canonical_bytes(results[-1]))
-        return {"status":"OK","pages":results,"week_plan_count":len(plans),"waiting_for_current_quote":waiting}
+            resume_registered(packet)
+        return {"status": "CANONICAL_PENDING" if source_failure else "OK", "pages": results,
+                "week_plan_count": len(current_plans), "waiting_for_current_quote": waiting,
+                **({"source_cause": source_failure} if source_failure else {})}
     finally:
         store.release_lease(lease["lease_id"],owner,lease["fencing_token"])
 

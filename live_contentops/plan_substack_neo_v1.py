@@ -10,6 +10,8 @@ import re
 
 from .neo_destination_handoff_v1 import _public_url, _text, _substack_rendered_text
 
+EXPIRED_CODE_DRAFT_CLOSED = "PLAN_ANALYSIS_EXPIRED_CODE_DRAFT_CLOSED"
+
 
 def _inline_html(text):
     """Keep the manuscript's HTTPS links and code spans in the editor paste."""
@@ -105,6 +107,15 @@ def _perform(client, packet, state):
             published = client.run(admin, "plan_substack_published")
         object_id, url = published.get("public_object_id"), published.get("public_object_url")
         if object_id != screen["draft_id"] or not _public_url("substack", url, object_id):
+            deadline = screen.get("cancel_on_or_after_utc")
+            if deadline and packet["operation_id"].startswith("plan-analysis-"):
+                closed = client.run(int(screen["page_id"]), "plan_substack_cancel_expired_code",
+                                    draft_url=screen["page_url"], cancel_on_or_after_utc=deadline,
+                                    title=request["native_payload"]["title"])
+                if closed.get("closed") is True and closed.get("draft_url") == screen["page_url"]:
+                    return {"result": {"status": EXPIRED_CODE_DRAFT_CLOSED,
+                                       "observed_identity": "capitalchronicle.substack.com",
+                                       "cancelled_owner_screen": screen}, "identity": {}}
             return {"result": {"status": "READBACK_UNAVAILABLE", "verified": False,
                                "reason_code": "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED"}, "identity": {}}
         # The owner tab stays where it is. Read the canonical page separately.
@@ -217,8 +228,10 @@ def _send_saved_draft(client,packet,state,page,identity):
     # This phase refuses a still-enabled email or schedule before the one click.
     # Mark the boundary before the tool call: a lost click return is uncertain.
     from datetime import datetime, timezone
+    deadline = packet.get("plan_entry_deadline_utc")
+    window = {"plan_entry_deadline_utc": deadline} if deadline else {}
     state["dispatched_at_utc"]=datetime.now(timezone.utc).isoformat()
-    published=client.run(page,"plan_substack_publish")
+    published=client.run(page,"plan_substack_publish", **window)
     if published.get("status")!="CLICKED":
         if published.get("definite_no_write") is True:
             state["dispatched_at_utc"]=None
@@ -227,7 +240,14 @@ def _send_saved_draft(client,packet,state,page,identity):
     follow=wait_or_code(client,page,"Publish on web only")
     if "Check your email" in follow["text"]:
         return pending_code(client,page,published,identity)
-    client.act(page,"click",ref=_ref(client,page,"button","Publish on web only"))
+    if deadline:
+        confirmed = client.run(page, "plan_substack_confirm", **window)
+        if confirmed.get("status") != "CLICKED":
+            if confirmed.get("definite_no_write") is True:
+                state["dispatched_at_utc"] = None
+            return {"result": confirmed, "identity": identity}
+    else:
+        client.act(page,"click",ref=_ref(client,page,"button","Publish on web only"))
     follow=wait_or_code(client,page,"Copy link")
     if "Check your email" in follow["text"]:
         return pending_code(client,page,published,identity)

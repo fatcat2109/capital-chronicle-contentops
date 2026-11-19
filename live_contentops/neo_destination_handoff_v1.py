@@ -619,6 +619,13 @@ class NeoDestinationHandoff:
             value["pending_owner_screen"] = intent["pending_owner_screen"]
             value["owner_readback_invocation"] = intent.get("owner_readback_invocation")
             value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox or enter a code. If still on the code screen, report unverified and continue other destinations in other task tabs without waiting. Continue exact Substack readback only after this tab reaches /publish/posts/detail/.../share-center."]
+            if value["pending_owner_screen"].get("cancel_on_or_after_utc"):
+                value["steps"] = ["Inspect only the bound tab for the exact share-center or Check your email dialog. "
+                    "Continue exact readback if the share-center is already present. At or after cancel_on_or_after_utc, "
+                    "dismiss the matching code dialog using its own Cancel control on the exact draft. "
+                    "Return PLAN_ANALYSIS_EXPIRED_CODE_DRAFT_CLOSED and cancelled_owner_screen equal to "
+                    "pending_owner_screen only if the same exact draft editor remains and the dialog is gone. "
+                    "Leave the tab open and never navigate it, enter a code or open a mailbox."]
         if destination == "substack" and action == "READBACK":
             from live_contentops.substack_draft_inventory_v1 import readback_scope, store_draft_ids
             exact_ids = ({str(public_object_id)} if str(public_object_id or "").isdigit()
@@ -781,6 +788,15 @@ class NeoDestinationHandoff:
             return {"status": "BLOCKED", "verified": False, "request": request,
                     "reason_code": "NEO_NATIVE_READBACK_EXECUTOR_NOT_BOUND"}
         result = dict(self.native_executor(request))
+        screen = request.get("pending_owner_screen") or {}
+        if screen.get("cancel_on_or_after_utc"):
+            from .plan_substack_neo_v1 import EXPIRED_CODE_DRAFT_CLOSED
+            if (result.get("status") == EXPIRED_CODE_DRAFT_CLOSED
+                    and result.get("request_sha256") == request["request_sha256"]
+                    and result.get("observed_identity") == request["expected_identity"]
+                    and result.get("cancelled_owner_screen") == screen
+                    and not result.get("public_object_id") and not result.get("public_object_url")):
+                return {**result, "verified": False, "write_absent": True, "write_exists": False}
         # A reboot can lose the publish return before the coordinator knows the
         # object's ID. Bind a discovered, account-valid object before comparing
         # its shortened links and transcoded media to that exact public URL.

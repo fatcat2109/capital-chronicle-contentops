@@ -46,7 +46,7 @@ def et(value):
     return f"{local:%a} {local.day} {local:%b}, {local:%I:%M %p}".replace(", 0", ", ") + " ET"
 
 
-def thread_terms(raw, *, level_contract=None):
+def thread_terms(raw, *, level_contract=None, original_stop=None):
     """One explicit price basis and two distinct clocks from this Main export."""
     from . import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
     levels = cards.card_plan(raw)
@@ -67,12 +67,17 @@ def thread_terms(raw, *, level_contract=None):
             + f"{condition['field']} {operators[condition['operator']]}{posts._level(condition['threshold'])}"
             + (" before entry" if before else ""))
         refs.append({"file": "plan-export", "pointer": f"/invalidation_conditions/{index}/threshold"})
-    if mapped:
-        side = "below " if Decimal(str(levels["invalidation_level"])) < Decimal(str(levels["zone_low"])) else "above "
+    stop = (levels["invalidation_level"], {"file": "plan-export", "pointer": "/public_instrument/invalidation_level",
+                                         "transform": "PUBLIC_TICK"}) if mapped else original_stop
+    stop_text = None
+    if stop:
+        value, ref = stop
+        side = "below" if Decimal(str(value)) < Decimal(str(levels["zone_low"])) else "above"
+        price = cards.level(value, levels) if mapped else posts._level(value)
+        stop_text = f"{side} {price}"
         conditions.append(f"{name} " + ("plan wrong " if level_contract == LEVEL_CONTRACT else "invalidation ")
-            + f"{side}{cards.level(levels['invalidation_level'], levels)}"
-            + (" after entry" if level_contract == LEVEL_CONTRACT else ""))
-        refs.append({"file": "plan-export", "pointer": "/public_instrument/invalidation_level", "transform": "PUBLIC_TICK"})
+            + stop_text + (" after entry" if level_contract == LEVEL_CONTRACT else ""))
+        refs.append(ref)
     if not conditions:
         raise ValueError("CC549_INVALIDATION_NOT_EXPORTED")
     display = dict(levels)
@@ -112,11 +117,41 @@ def thread_terms(raw, *, level_contract=None):
     invalidation = "; ".join(conditions)
     call = {"market": market, "direction": levels["direction"], "condition": posts._entry_condition(display),
             "horizon": " ".join(clocks).rstrip("."), "invalidation": invalidation}
+    title = posts.TITLES[raw["asset_id"]] + ": " + invalidation
+    if level_contract == LEVEL_CONTRACT:
+        entries = levels.get("entries") or []
+        limit = next((entry for entry in entries if entry["kind"] == "LIMIT"), None)
+        if entries and limit is None:
+            side = "below" if levels["direction"] == "bearish" else "above"
+            entry_text = f"{side} {cards.level(entries[0]['level'], levels)}"
+        else:
+            zone = limit or levels
+            low, high = (cards.level(zone[key], levels) for key in ("zone_low", "zone_high"))
+            entry_text = f"at {low}" if low == high else f"at {low}–{high}"
+        title = f"{posts.TITLES[raw['asset_id']]}: {levels['direction']} {entry_text}"
+        if stop_text:
+            title += f", wrong {stop_text}"
     from .event_article_guard_v1 import thread_reader_conditional_call_text
     return {"contract": THREAD_CONTRACT, "market": market, "price_basis": "instrument" if mapped else "plan",
-            "title": posts.TITLES[raw["asset_id"]] + ": " + invalidation, "invalidation": invalidation,
+            "title": title, "invalidation": invalidation,
             "entry_deadline_utc": deadline, "time_exit_utc": end, "clocks": clocks,
             "call": call, "call_line": thread_reader_conditional_call_text(call), "refs": refs}
+
+
+def page_thread_terms(plan, run, *, level_contract):
+    from .plan_analysis_pages_v1 import _owner_candidate
+
+    original_stop = None
+    if level_contract == LEVEL_CONTRACT:
+        try:
+            candidate, filename, pointer = _owner_candidate(plan, run)
+        except (KeyError, StopIteration):
+            candidate = {}
+        direction = {"LONG": "BULLISH", "SHORT": "BEARISH"}.get(candidate.get("direction"), candidate.get("direction"))
+        if (direction == plan["direction"] and candidate.get("entry_bounds") == plan["zone"]
+                and candidate.get("stop_loss") is not None):
+            original_stop = candidate["stop_loss"], {"file": filename, "pointer": pointer + "/stop_loss"}
+    return thread_terms(plan, level_contract=level_contract, original_stop=original_stop)
 
 
 def check_thread_text(text, *, force=False):
@@ -257,7 +292,7 @@ def source_packet(plan, run, *, original_probabilities=False, thread=False, leve
             add("plan", "plan-export", pointer, value)
     scalars(plan)
     if thread:
-        terms = thread_terms(plan, level_contract=level_contract)
+        terms = page_thread_terms(plan, run, level_contract=level_contract)
         for ref in terms["refs"]:
             lines.append({"id": "s" + str(len(lines)), "layer": "plan",
                           "text": pages._source_text(run, ref), "ref": ref})
