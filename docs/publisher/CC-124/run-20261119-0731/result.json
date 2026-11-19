@@ -1,0 +1,261 @@
+{
+  "item": "CC-124",
+  "outcome": "NO_ELIGIBLE_ARTICLE",
+  "standing_status": "OPEN",
+  "actual_entry_utc": "2026-11-19T00:31:17Z",
+  "observed_at_utc": "2026-11-19T00:51:55.047045Z",
+  "next_due_utc": "2026-11-19T06:32:00Z",
+  "cadence_hours": 6,
+  "first_cause": {
+    "code": "ARTICLE_DATA_CUTOFF_EXPIRED",
+    "installed_check": "ARTICLE_DATA_CUTOFF_EXPIRED:33799s",
+    "latest_completed_report_deadline_utc": "2026-11-18T16:07:57.544751Z",
+    "policy": "CC403_READER_ARTICLE_V1",
+    "newer_main_runs_without_completed_reports": 2
+  },
+  "new_canonical_articles": 0,
+  "native_editorial_calls": 0,
+  "draft_operations_started": 0,
+  "public_dispatch_attempts": 0,
+  "source": {
+    "native_reports_scanned": 35,
+    "completed_with_receipt": 34,
+    "unfinished_or_invalid_native_outputs": [
+      "shocks/shock-20261112T033610Z-jim-makeup/analysis-native.json"
+    ],
+    "newer_runs_without_completion": [
+      {
+        "run": "shocks/named-trigger-d32334e356bd431d9ed2f0cc",
+        "capture_utc": "2026-11-19T00:07:25.409802Z",
+        "started_at_utc": "2026-11-19T00:17:53.880210Z",
+        "native_output_present": false
+      },
+      {
+        "run": "shocks/shock-20261119T000042Z",
+        "capture_utc": "2026-11-19T00:08:23.631519Z",
+        "started_at_utc": "2026-11-19T00:19:26.959167Z",
+        "native_output_present": false
+      }
+    ],
+    "latest_completed_native_report": {
+      "relative_path": "requests/request-a112364ecae5a6a3/analysis-native.json",
+      "report": {
+        "bytes": 69249,
+        "sha256": "72196f721849c70fd58c16f2c228bbf6033b1947b14d30c2a4706876515a3695"
+      },
+      "capture": {
+        "bytes": 9429449,
+        "sha256": "3665f8f1db9be26d7f0292252b2a736919c82cbe1bfbb34bd374b01a6098c031"
+      },
+      "completion_receipt": {
+        "bytes": 1147,
+        "sha256": "e52037831cd5ceee09807137de01197e76716d6c4dc0e251209f8cfe1cca5eb6"
+      },
+      "data_cutoff_utc": "2026-11-18T15:07:57.544751Z",
+      "completion_utc": "2026-11-18T15:32:48.124094Z",
+      "substack_deadline_utc": "2026-11-18T16:07:57.544751Z",
+      "projection_sha256": "9442b6d050f52cf90cf75b339e98f53eac7c3cd8d5d55dfcaf6b5ffd233986ad",
+      "projection_completion_hash_verified": true,
+      "entry_clock_result": "ARTICLE_DATA_CUTOFF_EXPIRED:33799s",
+      "observed_clock_result": "ARTICLE_DATA_CUTOFF_EXPIRED:35037s"
+    },
+    "catchup": {
+      "event_id": "US_PPI_20261113",
+      "source_published_at_utc": "2026-11-13T13:30:00Z",
+      "first_known_utc": "2026-11-13T13:31:45.159249Z",
+      "admitted_at_utc": "2026-11-19T00:09:51.637242Z",
+      "evidence": {
+        "bytes": 5494,
+        "sha256": "0fa3d0f97ebeea66781a2ece9e0f740e6118d22d04ce34317cff33c5922f7d33"
+      }
+    },
+    "public_plan_export": {
+      "export_generated_at_utc": "2026-11-19T00:50:56.466074Z",
+      "desk_as_of_utc": "2026-11-19T00:51:52.343017Z",
+      "transitions_export_generated_at_utc": "2026-11-19T00:50:56.466074Z",
+      "latest_transition_utc": "2026-11-18T18:30:23.407000Z",
+      "latest_frozen_call_utc": "2026-11-18T15:32:48.124094Z"
+    },
+    "retained_editorial_operations": [
+      {
+        "operation": "cc124-gold-floor-20261118-0824",
+        "result_sha256": "dde60e2f2216626087ab2d0b0b7e2d579735b1ed8da715b25a6c032799fd504a",
+        "classification": "NATIVE_PRE_WRITER_EDITION_COMPLETE",
+        "publication_handoff_state": "TERMINAL_EDITORIAL_OUTCOMES_NO_DISPATCH",
+        "qualified_article_count": 0,
+        "cause_counts": {
+          "LATE_OR_STALE": 1
+        }
+      },
+      {
+        "operation": "cc124-main-20261118-0824",
+        "result_sha256": "71391bd7d6c20b303a4be27b3f81051b4c74d7e72d055bf3ae0b70129d589a6d",
+        "classification": "DRAFT_BLOCKED",
+        "publication_handoff_state": "NO_QUALIFIED_HANDOFF",
+        "qualified_article_count": 0,
+        "cause_counts": {
+          "NO_MATERIAL_NEWS": 1
+        },
+        "exact_next_blocker": "DESKTOP_COORDINATOR_ABSTAINED_NO_USEFUL_STORY"
+      },
+      {
+        "operation": "cc124-btc-range-20261117-r2",
+        "result_sha256": "6aa5bda34ebe66a4413b21e418477f30c5b813e5cde21032f96bb1590f5c2805",
+        "manifest_sha256": "108ffdbc57e226c8913f5d1660fd34abeb0e6e28da864432ec9b54ec17253216",
+        "data_cutoff_utc": "2026-11-17T00:37:43.684818+00:00",
+        "clock_result": "ARTICLE_DATA_CUTOFF_EXPIRED:173651s",
+        "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+        "publication_handoff_state": "REVIEW_REQUIRED_NO_DISPATCH",
+        "qualified_article_count": 1
+      }
+    ],
+    "last_horizon_run": {
+      "status": "STOPPED",
+      "cause": "CLAUDE_ROUTE_UNAVAILABLE",
+      "completed_at_utc": "2026-11-19T00:46:59Z",
+      "record": {
+        "bytes": 9568,
+        "sha256": "06cf271b6ca63c9b424f1114d37d6ea7b7b2d9d6ca47f8bddab822d9b622503a"
+      }
+    },
+    "public_main_manifest": {
+      "pointer": {
+        "bytes": 314,
+        "sha256": "043809b6fe5c183a70398dc2a642ba16ba693f518e9cc1409c16571679f0e565"
+      },
+      "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+      "file": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2.json",
+      "emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+      "entries": 15
+    },
+    "other_held_main_outputs": [
+      {
+        "source": "Main event dossiers",
+        "latest_artifact": "20261117-1320-arrival-retail/run.json",
+        "latest_modified_utc": "2026-11-17T13:32:57.9833937Z"
+      },
+      {
+        "source": "Main T2 runs",
+        "latest_artifact": "t2-20261118T144009Z/STATUS.md",
+        "latest_modified_utc": "2026-11-18T15:01:14.5772642Z"
+      },
+      {
+        "source": "Main event reactions",
+        "latest_artifact": "20261118T173308Z/UK_JOBS_20261117/20261117T070000Z.json",
+        "latest_modified_utc": "2026-11-18T17:35:20.5648356Z"
+      },
+      {
+        "source": "Main event forecast scores",
+        "latest_artifact": "event-scores-US_PPI_20261113-20261113T135117Z.json",
+        "latest_modified_utc": "2026-11-13T13:51:17.7163368Z"
+      },
+      {
+        "source": "Frozen public calls",
+        "latest_artifact": "bls-emsit-20261106.json",
+        "latest_modified_utc": "2026-11-08T19:01:41.7840272Z"
+      }
+    ]
+  },
+  "operating_readback": {
+    "operating_base": "101dfb6eebc99a94d0531fbbd9e6d9c701f00ad1",
+    "fetched_master_ancestor": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+    "production_day_id": "newsroom-production-day-2026-11-19-bangkok",
+    "standing_canonicals": 0,
+    "production_day_canonicals": 0,
+    "article_cap": 2,
+    "article_slots_used_or_reserved": 0,
+    "publication_feed": {
+      "bytes": 30621,
+      "sha256": "f3f226ebe9dfd9dc6fa73ee5e6432b0176447c78570ad0b9c328305a5b01b553"
+    },
+    "publication_feed_day_articles": 0,
+    "publication_feed_unchanged_during_readback": true,
+    "newsroom_lease_conflict": null,
+    "standing_operations_checked": 22,
+    "standing_dispatch_states": {
+      "DEFINITE_NO_WRITE": 1,
+      "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE": 2,
+      "DISPATCH_CONFIRMED": 133,
+      "EXTERNAL_REMOVAL_REPORTED_NO_RETRY": 5,
+      "RECONCILED_ABSENT_SAFE_TO_RETRY": 4
+    },
+    "unconfirmed_standing_dispatches": [
+      {
+        "operation": "cc124-prepare-20261103-a",
+        "platform": "instagram_business",
+        "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+      },
+      {
+        "operation": "cc124-next-article-20261103-b",
+        "platform": "facebook_page",
+        "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+      },
+      {
+        "operation": "cc124-next-article-20261103-b",
+        "platform": "telegram",
+        "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+      },
+      {
+        "operation": "cc124-next-article-20261103-b",
+        "platform": "youtube",
+        "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+      },
+      {
+        "operation": "cc124-next-article-20261103-b",
+        "platform": "instagram_business",
+        "status": "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
+      },
+      {
+        "operation": "cc124-next-article-20261105-c",
+        "platform": "linkedin",
+        "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
+      },
+      {
+        "operation": "cc124-next-article-20261105-d",
+        "platform": "linkedin",
+        "status": "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
+      },
+      {
+        "operation": "cc124-gold-yields-20261105-e",
+        "platform": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "operation": "cc124-jobs-fx-watch-20261105-f",
+        "platform": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "operation": "cc124-nfp-us500-preview-20261105-g",
+        "platform": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "operation": "cc124-bitcoin-rates-20261106-h",
+        "platform": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "operation": "cc124-bitcoin-rates-20261106-h",
+        "platform": "youtube",
+        "status": "DEFINITE_NO_WRITE"
+      }
+    ],
+    "rollout_public_write_authority": true,
+    "digest": {
+      "file": "digest-20261119.md",
+      "production_day": "newsroom-production-day-2026-11-18-bangkok",
+      "canonical_count": 0,
+      "file_sha256": "fdd4d6c523fcb38bb3c11b8b76a968c837ba07cec61a6ed75b22523a11f71390",
+      "generated_line": "# Capital Chronicle — private digest — 19 Nov 2026 07:08:24 GMT+7"
+    }
+  },
+  "configured_launch": {
+    "run": "publisher-cc-124-20261119T0030",
+    "pid": 43368,
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  }
+}
