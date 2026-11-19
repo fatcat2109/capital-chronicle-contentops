@@ -1,0 +1,211 @@
+{
+  "item": "CC-124",
+  "outcome": "NO_ELIGIBLE_ARTICLE",
+  "standing_status": "OPEN",
+  "previous_due_utc": "2026-11-19T06:32:00Z",
+  "actual_entry_utc": "2026-11-19T06:43:16Z",
+  "observed_at_utc": "2026-11-19T06:57:48.368360+00:00",
+  "next_due_utc": "2026-11-19T12:44:00Z",
+  "next_due_basis": "Six hours from actual launch, rounded up to the next minute for BACKLOG.",
+  "first_cause": {
+    "code": "ARTICLE_DATA_CUTOFF_EXPIRED",
+    "policy": "CC-403, 60 minutes from Main's original data capture to a new Substack publication.",
+    "deadline_utc": "2026-11-19T06:06:53.992764+00:00",
+    "scheduled_due_check": "ARTICLE_DATA_CUTOFF_EXPIRED:5106s",
+    "actual_entry_check": "ARTICLE_DATA_CUTOFF_EXPIRED:5782s"
+  },
+  "new_canonical_articles": 0,
+  "native_editorial_calls": 0,
+  "draft_operations_started": 0,
+  "public_dispatch_attempts": 0,
+  "source_assessment": {
+    "observed_at_utc": "2026-11-19T06:54:45.571262+00:00",
+    "completed_native_reports_sorted_by_capture": [
+      {
+        "path": "shocks/shock-20261119T050542Z/decision91/analysis-native.json",
+        "data_cutoff_utc": "2026-11-19T05:06:53.992764Z",
+        "completed_at_utc": "2026-11-19T05:27:36.599509Z",
+        "completion_matches": true
+      },
+      {
+        "path": "shocks/named-trigger-1b44eae5428d7eef3b5eba8d/decision91/analysis-native.json",
+        "data_cutoff_utc": "2026-11-19T01:58:02.106136Z",
+        "completed_at_utc": "2026-11-19T02:29:11.637911Z",
+        "completion_matches": true
+      },
+      {
+        "path": "shocks/named-trigger-d32334e356bd431d9ed2f0cc/decision91/analysis-native.json",
+        "data_cutoff_utc": "2026-11-19T00:07:25.409802Z",
+        "completed_at_utc": "2026-11-19T00:46:53.736636Z",
+        "completion_matches": true
+      },
+      {
+        "path": "requests/request-a112364ecae5a6a3/analysis-native.json",
+        "data_cutoff_utc": "2026-11-18T15:07:57.544751Z",
+        "completed_at_utc": "2026-11-18T15:32:48.124094Z",
+        "completion_matches": true
+      }
+    ],
+    "public_plan_clocks": {
+      "transitions": {
+        "file": "plan-transitions.public.json",
+        "export_generated_at_utc": "2026-11-19T06:54:03.500054Z",
+        "latest_source_event_at_utc": "2026-11-18T18:30:23.407000Z",
+        "records": 198
+      },
+      "calls": {
+        "file": "calls-ledger.public.json",
+        "export_generated_at_utc": "2026-11-19T06:54:03.500054Z",
+        "latest_source_event_at_utc": "2026-11-18T15:32:48.124094Z",
+        "records": 94
+      },
+      "results": {
+        "file": "calls-ledger.public.json",
+        "export_generated_at_utc": "2026-11-19T06:54:03.500054Z",
+        "latest_source_event_at_utc": "2026-11-18T18:30:23.407000Z",
+        "records": 77
+      },
+      "desk_board": {
+        "file": "desk-board.public.json",
+        "as_of_utc": "2026-11-19T06:53:51.758060Z"
+      }
+    },
+    "bound_public_manifest": {
+      "fingerprint": {
+        "bytes": 314,
+        "sha256": "043809b6fe5c183a70398dc2a642ba16ba693f518e9cc1409c16571679f0e565"
+      },
+      "pointer_fields": [
+        "bytes_sha256",
+        "manifest_sha256",
+        "path",
+        "schema"
+      ],
+      "modified_at_utc": "2026-10-20T22:43:01.466603+00:00"
+    },
+    "other_held_sources_searched": {
+      "claude-main-events-20261029": {
+        "latest": "20261117-1320-arrival-retail/run.json",
+        "modified_at_utc": "2026-11-17T13:32:57.983394+00:00"
+      },
+      "claude-main-events-catchup": {
+        "latest": "catchup-20261119T000854Z/official-release-admission/admission-readback.json",
+        "modified_at_utc": "2026-11-19T00:09:51.637072+00:00"
+      },
+      "tables": {
+        "latest": "20261118T173308Z/UK_JOBS_20261117/20261117T070000Z.json",
+        "modified_at_utc": "2026-11-18T17:35:20.564836+00:00"
+      },
+      "main-event-forecast-scores": {
+        "latest": "event-scores-US_PPI_20261113-20261113T135117Z.json",
+        "modified_at_utc": "2026-11-13T13:51:17.716337+00:00"
+      },
+      "t2-runs": {
+        "latest": "t2-20261119T044533Z/run.json",
+        "modified_at_utc": "2026-11-19T05:02:32.712161+00:00"
+      },
+      "horizon-runs": {
+        "latest": "run-20261119T003944Z/run.json",
+        "modified_at_utc": "2026-11-19T00:46:59.201128+00:00"
+      },
+      "frozen-public-calls": {
+        "latest": "bls-emsit-20261106.json",
+        "modified_at_utc": "2026-11-08T19:01:41.784027+00:00"
+      },
+      "research": {
+        "latest": "cc-125/ca-policy-minutes-snapshot-20261110/validation.json",
+        "modified_at_utc": "2026-11-07T08:45:56.229296+00:00"
+      }
+    }
+  },
+  "source_reader_fix": {
+    "first_refusal": "MAIN_REPORT_SOURCE_PATH_INVALID",
+    "operating_base": "990da1eea7579285155c5afe8c4844ea38121f35",
+    "verified_remote_master_ancestor": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+    "branch": "backlog/cc-124-main-check-20261119-1343",
+    "integrated_fix_commit": "b154b337157995a976dbbb69d1fa37269a6e28c8",
+    "targeted_tests": "python -m pytest -q tests/test_main_report_projection_source_v1.py tests/test_reader_article_contract_cc403.py --tb=short",
+    "before_fix": "5 new Decision 91 regression cases failed at source admission.",
+    "after_fix": "107 passed in 17.41s.",
+    "operating_readback": {
+      "observed_at_utc": "2026-11-19T06:57:48.368360+00:00",
+      "operating_module": "live_contentops/main_report_projection_source_v1.py",
+      "operating_module_sha256": "492ebfe93414a7b591882605b1f66140cceba5e5b64c88139f8f8de11269b1af",
+      "source_path_below_main_root": "shocks/shock-20261119T050542Z/decision91/analysis-native.json",
+      "public_synthesis_pointer": "/native_synthesis/summary/0/text",
+      "source_span_characters": 200,
+      "source_report": {
+        "bytes": 78563,
+        "sha256": "cc428b41859065f3d0143d01430050267f3d469dd4394e2980aa7135907a3f9e"
+      },
+      "source_capture": {
+        "bytes": 1805529,
+        "sha256": "9011c1413a25b48e2a6df2852b1ae839d216958890f26ff33a6dce276ac8e6f1"
+      },
+      "completion_receipt": {
+        "bytes": 1053,
+        "sha256": "5b46e9e6965a7db31b49dd2665c7ccb417a92527ffdfa77f0e4466fc12b71889"
+      },
+      "completion_digest_matches": true,
+      "admitted_writer_document_count": 1,
+      "admitted_writer_doc_content_sha256": "e1a6bac9ce7b04b8e8871866f32221211681ccb9d635b4787d52a283331ee23b",
+      "report_completed_at_utc": "2026-11-19T05:27:36.599509Z",
+      "article_data_cutoff_utc": "2026-11-19T05:06:53.992764+00:00",
+      "article_substack_deadline_utc": "2026-11-19T06:06:53.992764+00:00",
+      "clock_check": {
+        "scheduled_due": "ARTICLE_DATA_CUTOFF_EXPIRED:5106s",
+        "actual_entry": "ARTICLE_DATA_CUTOFF_EXPIRED:5782s",
+        "readback": "ARTICLE_DATA_CUTOFF_EXPIRED:6654s"
+      },
+      "publication_feed_sha256": "fbb12a882ad8badecf437e3f9cf6f6bf6e3399508bc7f16d40ce60f89f682092",
+      "feed_validated_record_count": 25
+    }
+  },
+  "publication_readback": {
+    "at": "2026-11-19T06:51:54.236059+00:00",
+    "day": "newsroom-production-day-2026-11-19-bangkok",
+    "standing_canonicals_today": 0,
+    "reconciled_canonicals_today": [
+      {
+        "run_id": "cc536-measured-odds-4",
+        "dispatch_id": "dispatch_3542636e7460eebd8664a7a142cdf593",
+        "article_identity": "af517f9840a0d02d1a25d77cbe494e3e840eecbf870d0bb51cc183ecf924f710",
+        "published_at_utc": "2026-11-19 05:17:44.840000+00:00",
+        "first_readback_utc": "2026-11-19 05:30:01.798993+00:00"
+      }
+    ],
+    "production_day_article_count": 1,
+    "image_registry_article_slots_used_or_reserved": 1,
+    "article_cap": 2,
+    "publication_feed_articles": [
+      {
+        "title": "What a tight stop cost in our historical test",
+        "published_at_utc": "2026-11-19T05:17:44.840000+00:00",
+        "substack": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical"
+      }
+    ],
+    "publication_feed": {
+      "bytes": 31949,
+      "sha256": "fbb12a882ad8badecf437e3f9cf6f6bf6e3399508bc7f16d40ce60f89f682092",
+      "stable_during_readback": true
+    },
+    "rollout_public_write_authority": true,
+    "standing_unresolved_writes": [],
+    "newsroom_preparation_lease_conflicts": [],
+    "digest": {
+      "file": "digest-20261119.md",
+      "generated_at_utc": "2026-11-19T00:08:24Z",
+      "production_day": "newsroom-production-day-2026-11-18-bangkok",
+      "canonical_count": 0,
+      "file_sha256": "fdd4d6c523fcb38bb3c11b8b76a968c837ba07cec61a6ed75b22523a11f71390"
+    }
+  },
+  "configured_launch": {
+    "process_id": 24848,
+    "parent_process_id": 46812,
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  }
+}
