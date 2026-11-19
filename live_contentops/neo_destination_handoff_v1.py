@@ -623,6 +623,8 @@ class NeoDestinationHandoff:
             from live_contentops.substack_draft_inventory_v1 import readback_scope, store_draft_ids
             exact_ids = ({str(public_object_id)} if str(public_object_id or "").isdigit()
                          and _public_url(destination, public_object_url, public_object_id) else None)
+            if value.get("pending_owner_screen"):
+                exact_ids = {value["pending_owner_screen"]["draft_id"]}
             # An exact confirmed object needs only its own fallback identity.
             # Scanning every retained native request held CC-536's readback for
             # minutes before a browser request could be issued.

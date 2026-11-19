@@ -37,7 +37,7 @@ class Client:
         controls=[("button","Create"),("menuitem","Article"),("textbox","title"),
             ("textbox","Add a subtitle…"),("button","Insert image"),("menuitem","Image"),
             ("button","CC466 editor upload"),("button","Continue"),
-            ("checkbox","Send via email and the Substack app"),("button","Publish on web only")]
+            ("checkbox","Send via email and the Substack app"),("button","Publish on web only"),("tab","Share")]
         return {"text":"Check your email" if self.fault=="code" and self.clicked else "Ready",
             "url":"https://capitalchronicle.substack.com/publish/post/123",
             "refs":[{"role":r,"name":n,"ref":n} for r,n in controls]}
@@ -68,8 +68,10 @@ class Client:
                 raise neo.NeoEndpointError("LOST_RETURN")
             return {"status":"CLICKED","dispatched_at_utc":"2026-11-12T01:00:00Z"}
         if phase=="plan_substack_code_handoff":
-            return {"page_id":page,"gmail_page_id":2,"page_url":self.snapshot(page)["url"]}
+            return {"page_id":page,"draft_id":"123","page_url":self.snapshot(page)["url"]}
         if phase=="plan_substack_published":
+            if kw.get("published_row_draft_id"):
+                return {"published_detail_url":"https://capitalchronicle.substack.com/publish/posts/detail/123"}
             return {"public_object_id":"123","public_object_url":"https://capitalchronicle.substack.com/p/own"}
         if phase=="plan_substack_readback":
             request=self.packet["request"]
@@ -184,13 +186,15 @@ def test_lost_publish_return_requires_readback_and_is_never_called_no_write(pack
     assert client.clicked and result["dispatched_at_utc"]
 
 
-def test_email_code_wait_hands_off_only_that_tab_without_reading_mail(packet):
+def test_email_code_handoff_returns_only_the_exact_screen_for_recording(packet):
     client=Client(packet,"code")
     result=neo.NeoBrowserDriver(client).perform(packet)
     assert result["result"]["status"]=="PENDING_JIM_EMAIL_CODE"
     assert result["result"]["observed_identity"]=="capitalchronicle.substack.com"
     handoff=next(i for i,c in enumerate(client.calls) if c[0]=="plan_substack_code_handoff")
     assert handoff==len(client.calls)-1
+    assert result["result"]["draft_id"] == "123"
+    assert "gmail_page_id" not in result["result"]
     assert not any(c[0]=="act" and c[2].get("ref")=="Publish on web only" for c in client.calls)
 
 
@@ -210,6 +214,27 @@ def test_code_readback_observes_the_same_tab_before_opening_its_exact_public_pag
         assert result["reason_code"] == "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED"
         assert len(client.calls) == 1
     assert not any(c[0] == "act" for c in client.calls)
+
+
+def test_readback_without_identity_leaves_browser_tabs_untouched(packet):
+    packet["request"]["action"] = "READBACK"
+    client = Client(packet)
+    result = neo.NeoBrowserDriver(client).perform(packet)["result"]
+    assert result["reason_code"] == "PLAN_SUBSTACK_EXACT_PUBLIC_URL_REQUIRED"
+    assert client.calls == []
+
+
+def test_legacy_code_readback_reopens_only_the_observed_published_row(packet):
+    packet["request"].update(action="READBACK", pending_owner_screen={
+        "page_id": "1", "draft_id": "123", "legacy_published_dashboard_readback": True,
+        "page_url": "https://capitalchronicle.substack.com/publish/post/123"})
+    client = Client(packet)
+    result = neo.NeoBrowserDriver(client).perform(packet)["result"]
+    assert result["content_verified"] is True
+    assert client.calls[1] == ("open", "plan-substack-owner-detail",
+                               "https://capitalchronicle.substack.com/publish/posts/detail/123")
+    assert [c[2]["ref"] for c in client.calls if c[0] == "act"] == ["Share"]
+    assert any(c[:2] == ("open", "plan-substack-public") for c in client.calls)
 
 
 @pytest.mark.parametrize("email",[True,None])

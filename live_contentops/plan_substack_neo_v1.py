@@ -92,7 +92,17 @@ def _perform(client, packet, state):
         raise ValueError("PLAN_SUBSTACK_EXACT_PAGE_REQUEST_REQUIRED")
     if request["action"] == "READBACK" and request.get("pending_owner_screen"):
         screen = request["pending_owner_screen"]
-        published = client.run(int(screen["page_id"]), "plan_substack_published")
+        legacy = {}
+        if screen.get("legacy_published_dashboard_readback"):
+            legacy = {"published_row_draft_id": screen["draft_id"],
+                      "published_row_title": request["native_payload"]["title"]}
+        published = client.run(int(screen["page_id"]), "plan_substack_published", **legacy)
+        if legacy and published.get("published_detail_url"):
+            admin = client.open("plan-substack-owner-detail", published["published_detail_url"])
+            client.wait_text(admin, request["native_payload"]["title"])
+            client.act(admin, "click", ref=_ref(client, admin, "tab", "Share"))
+            client.wait_text(admin, "Copy link")
+            published = client.run(admin, "plan_substack_published")
         object_id, url = published.get("public_object_id"), published.get("public_object_url")
         if object_id != screen["draft_id"] or not _public_url("substack", url, object_id):
             return {"result": {"status": "READBACK_UNAVAILABLE", "verified": False,
@@ -101,6 +111,11 @@ def _perform(client, packet, state):
         page = client.open("plan-substack-public", url)
         target = {**request, "public_object_id": object_id, "public_object_url": url}
         return {"result": readback(client, target, page), "identity": {}}
+    if request["action"] == "READBACK" and not request.get("public_object_url"):
+        # The coordinator has no exact target yet. Opening the dashboard here
+        # can replace the still-bound code tab in the same endpoint session.
+        return {"result": {"status": "READBACK_UNAVAILABLE", "verified": False,
+                           "reason_code": "PLAN_SUBSTACK_EXACT_PUBLIC_URL_REQUIRED"}, "identity": {}}
     resume_url=getattr(client,"resume_draft_url",None) if request["action"]=="PUBLISH" else None
     if resume_url and not re.fullmatch(r"https://capitalchronicle\.substack\.com/publish/post/\d+",resume_url):
         raise ValueError("SUBSTACK_EXACT_RETAINED_DRAFT_URL_REQUIRED")
@@ -238,9 +253,8 @@ def wait_or_code(client,page,text):
 
 
 def pending_code(client,page,published,identity):
-    # Open, never inspect, the mailbox only after the observed code dialog.
-    opened=client.run(page,"plan_substack_code_handoff")
-    return {"result":{"status":"PENDING_JIM_EMAIL_CODE",**opened,
+    screen=client.run(page,"plan_substack_code_handoff")
+    return {"result":{"status":"PENDING_JIM_EMAIL_CODE",**screen,
         "observed_identity":identity.get("observed_identity"),
         "public_write_performed":False},"identity":identity,
         "dispatched_at_utc":published["dispatched_at_utc"]}

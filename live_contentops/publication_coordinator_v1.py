@@ -1685,6 +1685,10 @@ class DurablePublicationCoordinator:
             screen = self._substack_owner_screen(result)
             if dispatch.get("public_object_id") not in {None, screen["draft_id"]}:
                 raise ValueError("EXACT_SUBSTACK_DRAFT_CODE_SCREEN_REQUIRED")
+            if dispatch["status"] == UNKNOWN_WRITE and result.get("observed_identity") is None:
+                # The old transport could navigate away during automatic
+                # readback after losing the code-screen return's identity.
+                screen["legacy_published_dashboard_readback"] = True
             status = self._reconcile(dispatch, intent, pending_owner_screen=screen)
             current = self.store.get_platform_dispatch(dispatch_id)
             return {"dispatch_id": dispatch_id, "destination": "substack",

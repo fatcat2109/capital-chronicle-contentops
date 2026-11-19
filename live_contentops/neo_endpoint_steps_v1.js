@@ -91,16 +91,22 @@ if (input.phase === 'plan_substack_publish') {
 if (input.phase === 'plan_substack_published') {
   const s=await snap();
   const match=s.url.match(/^https:\/\/capitalchronicle\.substack\.com\/publish\/posts\/detail\/(\d+)\/share-center(?:[?#]|$)/);
+  if (!match && input.published_row_draft_id && s.url === 'https://capitalchronicle.substack.com/publish/posts/published') {
+    const detail = 'https://capitalchronicle.substack.com/publish/posts/detail/' + input.published_row_draft_id;
+    const row = s.text.split('\n').find(line => line.startsWith('- link "' + input.published_row_title + ' ')
+      && (line.includes('[url="' + detail + '"]') || line.includes('[url="' + detail + '?')));
+    const href = row?.match(/\[url="([^"]+)"\]/)?.[1];
+    if (href) return {published_detail_url: href};
+  }
   const url=s.text.match(/https:\/\/capitalchronicle\.substack\.com\/p\/[a-z0-9-]+/);
   return {public_object_id:match?.[1],public_object_url:url?.[0],share_center_reached_utc:new Date().toISOString()};
 }
 if (input.phase === 'plan_substack_code_handoff') {
   const s=await snap();
   if(!s.text.includes('Check your email'))throw new Error('CODE_DIALOG_NOT_OBSERVED');
-  // Never read, snapshot or evaluate the mailbox. The code tab stays untouched.
+  // The operator records this screen before opening the mailbox for the owner.
   const codePage=s.url.match(/\/publish\/post\/(\d+)/)?.[1];
-  const mail=await browser.open('https://mail.google.com/');
-  return {draft_id:codePage,page_id:page.id,page_url:s.url,gmail_page_id:mail.id};
+  return {draft_id:codePage,page_id:page.id,page_url:s.url};
 }
 if (input.phase === 'plan_substack_readback') {
   return unwrap(await page.evaluateInPage(()=>({status:'SUCCESS',observed_identity:'capitalchronicle.substack.com',
