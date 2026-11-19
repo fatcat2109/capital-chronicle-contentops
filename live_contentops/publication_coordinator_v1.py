@@ -1628,7 +1628,7 @@ class DurablePublicationCoordinator:
                 "repost_dispatch_id": ids["dispatch_id"]}
 
     def reconcile_completed_native_publish(self, dispatch_id, *, request_hash):
-        """Consume an actual completed native write return; this never calls publish."""
+        """Read back an exact native publish return or its retained Substack code tab."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         from live_contentops.neo_destination_handoff_v1 import _public_url, IDENTITIES
         from live_contentops.native_neo_executor_v1 import SURFACE_TOOLS
@@ -1672,8 +1672,25 @@ class DurablePublicationCoordinator:
                 or observed.get("surface") not in SURFACE_TOOLS
                 or observed.get("tool_name") != SURFACE_TOOLS.get(observed.get("surface"))
                 or not executor._claim(request_hash, observed.get("native_invocation_id"))
-                or not result.get("native_tool_return_sha256")
-                or result.get("observed_identity") != request.get("expected_identity")
+                or not result.get("native_tool_return_sha256")):
+            raise ValueError("EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED")
+        if message["destination"] == "substack" and result.get("status") == "PENDING_JIM_EMAIL_CODE":
+            if (dispatch["status"] not in {UNKNOWN_WRITE, "SUBSTACK_DRAFT_AWAITING_OWNER"}
+                    or dispatch.get("public_object_url")
+                    or result.get("observed_identity") not in {None, request["expected_identity"]}
+                    or result.get("public_write_performed") is not False
+                    or not observed.get("dispatched_at_utc")
+                    or (request.get("substack_delivery_policy") or {}).get("email_send_enabled") is not False):
+                raise ValueError("EXACT_SUBSTACK_DRAFT_CODE_SCREEN_REQUIRED")
+            screen = self._substack_owner_screen(result)
+            if dispatch.get("public_object_id") not in {None, screen["draft_id"]}:
+                raise ValueError("EXACT_SUBSTACK_DRAFT_CODE_SCREEN_REQUIRED")
+            status = self._reconcile(dispatch, intent, pending_owner_screen=screen)
+            current = self.store.get_platform_dispatch(dispatch_id)
+            return {"dispatch_id": dispatch_id, "destination": "substack",
+                "public_object_id": current["public_object_id"], "public_object_url": current["public_object_url"],
+                "reconciliation_status": status, "publish_called": False, "public_write_performed": False}
+        if (result.get("observed_identity") != request.get("expected_identity")
                 or not result.get("public_object_id")
                 or not _public_url(message["destination"], result.get("public_object_url"), result.get("public_object_id"))):
             raise ValueError("EXACT_COMPLETED_NATIVE_PUBLISH_RETURN_REQUIRED")
@@ -2492,12 +2509,23 @@ class DurablePublicationCoordinator:
                 destination="linkedin_company", payload=_canonical_json(intent), status="READY")
         return {"destination": "linkedin_company", **ids}
 
+    @staticmethod
+    def _substack_owner_screen(result):
+        draft_id = str(result.get("draft_id") or "")
+        page_id = str(result.get("page_id") or "")
+        page_url = str(result.get("page_url") or "")
+        if (not draft_id.isascii() or not draft_id.isdigit() or not page_id
+                or page_url != "https://capitalchronicle.substack.com/publish/post/" + draft_id):
+            raise ValueError("EXACT_SUBSTACK_DRAFT_CODE_SCREEN_REQUIRED")
+        return {"status": "PENDING_JIM_EMAIL_CODE", "draft_id": draft_id, "page_id": page_id, "page_url": page_url}
+
     def _reconcile(
         self,
         dispatch: Mapping[str, Any],
         intent: Mapping[str, Any],
         *,
         provider_outcome: Mapping[str, Any] | None = None,
+        pending_owner_screen: Mapping[str, Any] | None = None,
     ) -> str:
         dispatch_id = str(dispatch["dispatch_id"])
         original_message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
@@ -2512,11 +2540,16 @@ class DurablePublicationCoordinator:
             key = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
             return next((r["status"] for r in rows if r["reconciliation_id"] == key), RECONCILIATION_PENDING)
         object_id = str(dispatch.get("public_object_id") or "") or None
-        awaiting_owner = destination == "substack" and dispatch.get("status") == "SUBSTACK_DRAFT_AWAITING_OWNER"
+        awaiting_owner = destination == "substack" and (
+            dispatch.get("status") == "SUBSTACK_DRAFT_AWAITING_OWNER" or pending_owner_screen is not None
+        )
         if awaiting_owner:
-            screen = self.store.get_outbox_message("substack-owner-screen-" + dispatch_id)
-            if screen:
-                intent = {**intent, "pending_owner_screen": json.loads(screen["payload"])}
+            if pending_owner_screen is None:
+                screen = self.store.get_outbox_message("substack-owner-screen-" + dispatch_id)
+                pending_owner_screen = json.loads(screen["payload"]) if screen else None
+            if pending_owner_screen is not None:
+                object_id = pending_owner_screen["draft_id"]
+                intent = {**intent, "pending_owner_screen": pending_owner_screen}
                 executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
                 if executor:
                     intent["owner_readback_invocation"] = executor.native_invocation_id
@@ -3365,22 +3398,12 @@ class DurablePublicationCoordinator:
                     "PENDING_JIM_EMAIL_CODE", "SUBSTACK_DRAFT_AWAITING_OWNER"}:
                 # A completed draft/code screen is neither publication nor an absent write.
                 # Keep its identity for readback; never allocate an automatic retry/wait.
-                draft_id = str(raw.get("draft_id") or "")
-                if not draft_id.isdigit() or not raw.get("page_id"):
-                    raise ValueError("EXACT_SUBSTACK_DRAFT_CODE_SCREEN_REQUIRED")
-                page_url = str(raw.get("page_url") or "")
-                parsed = urlsplit(page_url)
-                if (parsed.scheme != "https" or parsed.hostname != "capitalchronicle.substack.com"
-                        or parsed.path != "/publish/post/" + draft_id or parsed.query or parsed.fragment
-                        or parsed.username or parsed.password):
-                    raise ValueError("EXACT_SUBSTACK_DRAFT_CODE_SCREEN_REQUIRED")
-                screen = {"status": "PENDING_JIM_EMAIL_CODE", "draft_id": draft_id,
-                    "page_id": str(raw["page_id"]), "page_url": page_url}
+                screen = self._substack_owner_screen(raw)
                 self.store.register_outbox_message(message_id="substack-owner-screen-" + ids["dispatch_id"],
                     work_item_id=intent["work_item_id"], destination="internal:substack-owner-screen",
                     payload=_canonical_json(screen), status="SUBSTACK_DRAFT_AWAITING_OWNER")
                 result = {"status": "SUBSTACK_DRAFT_AWAITING_OWNER",
-                    "public_object_id": draft_id, "public_object_url": None,
+                    "public_object_id": screen["draft_id"], "public_object_url": None,
                     "reason_code": "PENDING_JIM_EMAIL_CODE"}
             else:
                 result = normalize_dispatch_result(

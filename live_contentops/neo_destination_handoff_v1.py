@@ -783,7 +783,10 @@ class NeoDestinationHandoff:
         # object's ID. Bind a discovered, account-valid object before comparing
         # its shortened links and transcoded media to that exact public URL.
         # A known object never changes identity during recovery.
-        if (not public_object_id and not public_object_url
+        owner_draft_id = (request.get("pending_owner_screen") or {}).get("draft_id")
+        if (not public_object_url
+                and (not public_object_id or (destination == "substack"
+                     and owner_draft_id == public_object_id == result.get("public_object_id")))
                 and result.get("observed_identity") == request["expected_identity"]
                 and result.get("public_object_id")
                 and (not re.fullmatch(r"cc603-followup-[a-f0-9]{32}-missing-links", str(request.get("work_item_id") or ""))

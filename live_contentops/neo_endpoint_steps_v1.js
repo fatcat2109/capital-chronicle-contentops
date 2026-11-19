@@ -89,7 +89,8 @@ if (input.phase === 'plan_substack_publish') {
   return {status:'CLICKED',dispatched_at_utc};
 }
 if (input.phase === 'plan_substack_published') {
-  const s=await snap();const match=s.url.match(/\/publish\/posts\/detail\/(\d+)\/share-center/);
+  const s=await snap();
+  const match=s.url.match(/^https:\/\/capitalchronicle\.substack\.com\/publish\/posts\/detail\/(\d+)\/share-center(?:[?#]|$)/);
   const url=s.text.match(/https:\/\/capitalchronicle\.substack\.com\/p\/[a-z0-9-]+/);
   return {public_object_id:match?.[1],public_object_url:url?.[0],share_center_reached_utc:new Date().toISOString()};
 }

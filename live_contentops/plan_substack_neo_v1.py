@@ -8,7 +8,7 @@ from __future__ import annotations
 from html import escape
 import re
 
-from .neo_destination_handoff_v1 import _text, _substack_rendered_text
+from .neo_destination_handoff_v1 import _public_url, _text, _substack_rendered_text
 
 
 def _inline_html(text):
@@ -90,6 +90,17 @@ def _perform(client, packet, state):
     request=packet["request"]
     if not supports_operation(packet["operation_id"]) or request["destination"]!="substack":
         raise ValueError("PLAN_SUBSTACK_EXACT_PAGE_REQUEST_REQUIRED")
+    if request["action"] == "READBACK" and request.get("pending_owner_screen"):
+        screen = request["pending_owner_screen"]
+        published = client.run(int(screen["page_id"]), "plan_substack_published")
+        object_id, url = published.get("public_object_id"), published.get("public_object_url")
+        if object_id != screen["draft_id"] or not _public_url("substack", url, object_id):
+            return {"result": {"status": "READBACK_UNAVAILABLE", "verified": False,
+                               "reason_code": "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED"}, "identity": {}}
+        # The owner tab stays where it is. Read the canonical page separately.
+        page = client.open("plan-substack-public", url)
+        target = {**request, "public_object_id": object_id, "public_object_url": url}
+        return {"result": readback(client, target, page), "identity": {}}
     resume_url=getattr(client,"resume_draft_url",None) if request["action"]=="PUBLISH" else None
     if resume_url and not re.fullmatch(r"https://capitalchronicle\.substack\.com/publish/post/\d+",resume_url):
         raise ValueError("SUBSTACK_EXACT_RETAINED_DRAFT_URL_REQUIRED")
@@ -230,6 +241,7 @@ def pending_code(client,page,published,identity):
     # Open, never inspect, the mailbox only after the observed code dialog.
     opened=client.run(page,"plan_substack_code_handoff")
     return {"result":{"status":"PENDING_JIM_EMAIL_CODE",**opened,
+        "observed_identity":identity.get("observed_identity"),
         "public_write_performed":False},"identity":identity,
         "dispatched_at_utc":published["dispatched_at_utc"]}
 

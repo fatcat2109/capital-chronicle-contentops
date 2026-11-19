@@ -24,7 +24,8 @@ def test_completed_return_requires_exact_original_or_finalized_intent(tmp_path, 
         "intent_sha256": sha256_of({**finalized, "payload": "Changed fact"} if changed else finalized)}
     result = {"status": "SUCCESS", "request_sha256": request_hash, "observed_identity": "capitalchronicle.substack.com",
         "public_object_id": "123", "public_object_url": original["canonical_url"], "native_tool_return_sha256": "b" * 64,
-        "native_tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": "controlled"}}
+        "native_tool_observation": {"surface": "CODEX_EXEC", "tool_name": "mcp__browseros_neo__run",
+            "native_invocation_id": "controlled"}}
     executor = SimpleNamespace(operation_id="work", native_neo_protocol=True, _claim=lambda *a: True,
         _get=lambda h, kind: {"request": request} if kind == "request" else {"result": result})
     co.transport_runtime = SimpleNamespace(_neo_transport=SimpleNamespace(native_executor=executor),
@@ -38,3 +39,41 @@ def test_completed_return_requires_exact_original_or_finalized_intent(tmp_path, 
         result = co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request_hash)
         assert result["publish_called"] is False
         assert result["public_object_id"] == "123"
+
+
+def test_retained_substack_code_return_reconciles_the_original_dispatch(tmp_path):
+    store, _ = setup(tmp_path)
+    original = intent()
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    ids = co._ids("work", "plan", "substack")
+    store.register_outbox_message(message_id=ids["message_id"], work_item_id="work", destination="substack",
+        payload=json.dumps(original), status="UNKNOWN_WRITE")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="UNKNOWN_WRITE")
+    request_hash = "a" * 64
+    request = {"action": "PUBLISH", "destination": "substack", "expected_identity": "capitalchronicle.substack.com",
+        "dispatch_attempt_identity": ids["dispatch_id"], "work_item_id": "work", "request_sha256": request_hash,
+        "intent_sha256": sha256_of(original), "substack_delivery_policy": {"email_send_enabled": False}}
+    result = {"status": "PENDING_JIM_EMAIL_CODE", "request_sha256": request_hash, "draft_id": "123", "page_id": 340,
+        "page_url": "https://capitalchronicle.substack.com/publish/post/123", "public_write_performed": False,
+        "native_tool_return_sha256": "b" * 64,
+        "native_tool_observation": {"surface": "NEO_ENDPOINT_EXECUTOR", "tool_name": "browseros-neo/run",
+            "native_invocation_id": "controlled", "dispatched_at_utc": "2026-11-19T05:17:20Z"}}
+    executor = SimpleNamespace(operation_id="work", native_neo_protocol=True, _claim=lambda *a: True,
+        _get=lambda h, kind: {"request": request} if kind == "request" else {"result": result},
+        native_invocation_id="readback")
+    public_url = "https://capitalchronicle.substack.com/p/same-draft"
+
+    def readback(**kwargs):
+        assert kwargs["public_object_id"] == "123"
+        assert kwargs["public_object_url"] is None
+        assert kwargs["intent"]["pending_owner_screen"]["page_id"] == "340"
+        return {"verified": True, "public_object_id": "123", "public_object_url": public_url}
+
+    co.transport_runtime = SimpleNamespace(_neo_transport=SimpleNamespace(native_executor=executor), readback=readback)
+    outcome = co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request_hash)
+    assert outcome["publish_called"] is False
+    assert outcome["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert outcome["public_object_url"] == public_url
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DISPATCH_CONFIRMED"
+    assert result["status"] == "PENDING_JIM_EMAIL_CODE"

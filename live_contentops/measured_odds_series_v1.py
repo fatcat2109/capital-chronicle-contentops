@@ -482,7 +482,10 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             if target not in registered_destinations:
                 raise ValueError("ODDS_REGISTERED_DESTINATION_REQUIRED")
             dispatch_ids=Coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],target)
-            result=coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
+            if request_hash:
+                result = coordinator.reconcile_completed_native_publish(dispatch_ids["dispatch_id"], request_hash=request_hash)
+            else:
+                result = coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
         elif command=="dispatch":
             if destination not in registered_destinations - {"substack"}:
                 raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")

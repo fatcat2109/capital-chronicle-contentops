@@ -74,7 +74,8 @@ class Client:
         if phase=="plan_substack_readback":
             request=self.packet["request"]
             body=plan_neo.body_text(request["native_payload"]["body_markdown"])
-            return {"status":"SUCCESS","public_object_url":request["public_object_url"],
+            public_url=next((c[2] for c in self.calls if c[:2]==("open","plan-substack-public")), None)
+            return {"status":"SUCCESS","public_object_url":public_url or request["public_object_url"],
                 "observed_text":"A sourced page. "+body,
                 "article_text":body+(" Extra invented words." if self.fault=="extra_body" else ""),
                 "media":[],"public_image_urls":[]}
@@ -187,9 +188,28 @@ def test_email_code_wait_hands_off_only_that_tab_without_reading_mail(packet):
     client=Client(packet,"code")
     result=neo.NeoBrowserDriver(client).perform(packet)
     assert result["result"]["status"]=="PENDING_JIM_EMAIL_CODE"
+    assert result["result"]["observed_identity"]=="capitalchronicle.substack.com"
     handoff=next(i for i,c in enumerate(client.calls) if c[0]=="plan_substack_code_handoff")
     assert handoff==len(client.calls)-1
     assert not any(c[0]=="act" and c[2].get("ref")=="Publish on web only" for c in client.calls)
+
+
+@pytest.mark.parametrize("draft_id", ["123", "456"])
+def test_code_readback_observes_the_same_tab_before_opening_its_exact_public_page(packet, draft_id):
+    packet["request"].update(action="READBACK", pending_owner_screen={
+        "page_id": "1", "draft_id": draft_id,
+        "page_url": f"https://capitalchronicle.substack.com/publish/post/{draft_id}"})
+    client = Client(packet)
+    result = neo.NeoBrowserDriver(client).perform(packet)["result"]
+    assert client.calls[0] == ("plan_substack_published", {})
+    if draft_id == "123":
+        assert result["content_verified"] is True
+        assert result["public_object_id"] == draft_id
+        assert client.calls[1] == ("open", "plan-substack-public", "https://capitalchronicle.substack.com/p/own")
+    else:
+        assert result["reason_code"] == "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED"
+        assert len(client.calls) == 1
+    assert not any(c[0] == "act" for c in client.calls)
 
 
 @pytest.mark.parametrize("email",[True,None])
