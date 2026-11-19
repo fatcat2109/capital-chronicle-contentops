@@ -1,0 +1,80 @@
+{
+  "substack": {
+    "public_object_id": "225607069",
+    "public_object_url": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical",
+    "observed_media_sha256": [
+      "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396"
+    ],
+    "native_tool_return_sha256": "4cb2c3823dab4dae08b04b45cc75329ae8367f0ba84596a8d0e14491a4803a8d",
+    "published_at_utc": "2026-11-19T05:17:44.840Z",
+    "request_sha256": "78fe3b2b3b0a1f57899faf3e618e824e806481b825e9d439535cb55d8ac94f62",
+    "observed_at_utc": "2026-11-19T05:30:00.404346+00:00",
+    "article_text": "We found that the tightest stop lost the most in our six-market test. The fixed trading charge took a larger share of the initial stop distance, and more daily bars reached both exit levels.\n\nThe sample spans November 2016 to November 2026. Each width used 1893 trade observations, both sides together. Trades can overlap, so the observations are dependent.\n\nBitcoin daily candles with twenty- and fifty-session simple averages. Bitstamp via TradingView. The chart illustrates the trend rule using data within the historical sample.\nWhat we held fixed\n\nThe test took a trade with our trend rule every fifth session, counting both sides together. The target was 2R, and the hold lasted up to 5 sessions.\n\nA normal day is the average true range over 14 daily bars. The study charged 0.05 of a normal day per round trip. R is the initial stop distance, and the averages include costs.\n\nWhat changed as stops moved out\n\nAt 0.3 normal days, both sides together averaged -0.213R per trade. The assumed round-trip cost at that width was 0.17R. This was also the width most often affected by a daily bar spanning both exits.\n\nAt 0.5 normal days, both sides together averaged -0.029R per trade. At 1.0 normal day, both sides together averaged 0.02R per trade. The next wider setting had the same rounded mean, and the widest settings stayed close to flat.\n\nThe cost assumption stays fixed in normal days. Its cost in R changes because a wider stop increases the price distance that R represents.\n\nWhat the daily bar leaves open\n\nWhen a bar reached both exit levels, we counted the stop first. A daily bar shows the range, so the actual order remains unknown. The tightest stop was most sensitive to that choice.\n\nGold, shares and Bitcoin rose over the decade, which can help trades that follow upward trends. The wider study examined 54 market-and-rule combinations, increasing the chances of a result that appears to pay by luck. Futures roll gaps and the next-open proxy for the euro and yen close also affect the historical sample.\n\nSo what: We treat the narrowest result as evidence to question how cost and price noise are modeled. The pooled figures give a historical comparison across widths, with market-specific stop choices still open.\n\nThese are hypothetical historical tests. Read how we measure historical odds for the test design and its limits. The figures come from our audited historical table. Table fingerprint 4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "media_comparisons": [
+      {
+        "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+        "pixels_inspected": true,
+        "platform_sha256": "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396",
+        "source_asset_sha256": "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396",
+        "source_pixels_match": true
+      }
+    ]
+  },
+  "x": {
+    "public_object_id": "2123288779473797353",
+    "public_object_url": "https://x.com/Capitalnicle/status/2123288779473797353",
+    "observed_media_sha256": [
+      "c45a07244880a89c9cafa02ccd6107e53d189831c1d8b82148e32b320b2e0bf9"
+    ],
+    "native_tool_return_sha256": "75411f0919181508c4c86ea71f5e3e4afa498e2222a3b8ca59f727e54d8ed35a",
+    "published_at_utc": "2026-11-19T05:34:28.000Z",
+    "request_sha256": "94f44f472a13dc97293d6a22851c9198707180645d45b826c37c80e3974ef991",
+    "observed_at_utc": "2026-11-19T05:34:55.873389+00:00",
+    "observed_thread": [
+      {
+        "public_object_id": "2123288779473797353",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288779473797353",
+        "observed_text": "The tightest stop lost the most in our six-market test. A smaller stop made the same trading cost heavier, and more daily bars reached both exits."
+      },
+      {
+        "public_object_id": "2123288782611063057",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288782611063057",
+        "observed_text": "Full analysis: \nhttps://\ncapitalchronicle.substack.com/p/what-a-tight\n-stop-cost-in-our-historical\n…\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "public_object_id": "2123288790336971202",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288790336971202",
+        "observed_text": "The sample spans November 2016 to November 2026. Each width used 1893 trade observations, both sides together."
+      },
+      {
+        "public_object_id": "2123288793096843285",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288793096843285",
+        "observed_text": "At 0.3 normal days, both sides together averaged -0.213R per trade after costs. The assumed round-trip cost was 0.17R."
+      },
+      {
+        "public_object_id": "2123288796896882907",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288796896882907",
+        "observed_text": "At 1.0 normal day, both sides together averaged 0.02R per trade. R is the initial stop distance."
+      },
+      {
+        "public_object_id": "2123288800038371500",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288800038371500",
+        "observed_text": "When a bar reached both exit levels, we counted the stop first. The tightest setting was most exposed to that rule."
+      },
+      {
+        "public_object_id": "2123288804002070829",
+        "public_object_url": "https://x.com/Capitalnicle/status/2123288804002070829",
+        "observed_text": "These are hypothetical historical tests. Trades overlap, and gold, shares and Bitcoin rose during the sample. The wider study tested 54 market-and-rule combinations."
+      }
+    ],
+    "media_comparisons": [
+      {
+        "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+        "pixels_inspected": true,
+        "platform_sha256": "c45a07244880a89c9cafa02ccd6107e53d189831c1d8b82148e32b320b2e0bf9",
+        "source_asset_sha256": "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396",
+        "source_pixels_match": true
+      }
+    ]
+  }
+}

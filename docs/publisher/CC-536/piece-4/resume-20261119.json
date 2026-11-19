@@ -1,0 +1,312 @@
+{
+  "item": "CC-536",
+  "piece": 4,
+  "observed_at_utc": "2026-11-19T05:41:20.072843+00:00",
+  "outcome": "PIECE_4_PUBLISHED_WITH_7_STRICT_DERIVATIVE_READBACKS",
+  "launch": {
+    "pid": 47128,
+    "started_utc": "2026-11-19T05:02:43Z",
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  },
+  "source": {
+    "live_tag": "live-20261118-cc663-170312",
+    "commit": "63a17b6b5aeaf79e7b5b94c6094cc8d7643cfbe4",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "blobs_verified": 7
+  },
+  "operation": "cc536-measured-odds-4",
+  "plan_hash": "534644146ab8f33db02ba2253a6290328b94e9851579ba61c3ddbd8c6298359f",
+  "substack_recovery": {
+    "first_prewrite_failure": "SESSION_UNAVAILABLE",
+    "local_circuit": "DESTINATION_FAILED_ET_DAY_SKIP",
+    "original_published_attempt_return": "PENDING_JIM_EMAIL_CODE",
+    "original_dispatch_classification": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH",
+    "original_draft_page_id": 340,
+    "original_draft_page_url": "https://capitalchronicle.substack.com/publish/post/225607069",
+    "same_tab_share_center_observed": "https://capitalchronicle.substack.com/publish/posts/detail/225607069/share-center",
+    "original_native_request_sha256": "2d193b2ac16b454e79bf545733bd069c49e9bc24accbd0e6484f8e58c76bb196",
+    "original_native_response_sha256": "496fc735d821e4c2c217180a45011c8a0a01084c68701f31166627db4f0a9aef",
+    "publish_clicked_at_utc": "2026-11-19T05:17:20.748Z",
+    "strict_readback_request_sha256": "78fe3b2b3b0a1f57899faf3e618e824e806481b825e9d439535cb55d8ac94f62",
+    "strict_readback_observed_at_utc": "2026-11-19T05:30:00.404346+00:00",
+    "reconciliation_method": "After this tab reached share-center, the legacy reader navigated it to Published. The recovery read the original post's exact Published row and share-center in separate tabs and verified the full public copy and chart.",
+    "canonical_publish_attempts": 1
+  },
+  "destinations": {
+    "substack": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "substack",
+      "dispatch_id": "dispatch_3542636e7460eebd8664a7a142cdf593",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "225607069",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical",
+      "dispatched_at": "2026-11-19T05:16:13.387517+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "published_at_utc": "2026-11-19T05:17:44.840Z",
+      "method_url_observed": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+      "chart_attribution_observed": "Bitstamp via TradingView",
+      "analysis_notice_observed": true,
+      "conflicts_notice_observed": true
+    },
+    "discord": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "discord",
+      "dispatch_id": "dispatch_9e8559cd4a20b19a3f99cf964094d4c8",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1572846531382480920",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572846531382480920",
+      "dispatched_at": "2026-11-19T05:30:34.691178+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "facebook_page": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "facebook_page",
+      "dispatch_id": "dispatch_9ed2f63e184ae901b0c879c4cb27b20c",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1459691526349263",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1459691526349263",
+      "dispatched_at": "2026-11-19T05:30:37.589499+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "linkedin": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "linkedin",
+      "dispatch_id": "dispatch_a56012e0a198eb802f0f43c0d8f0eaf7",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:share:7529053537293496321",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7529053537293496321/",
+      "dispatched_at": "2026-11-19T05:30:45.292800+00:00",
+      "reconciliation_status": null,
+      "official_readback": "LINKEDIN_MEMBER_READ_SCOPE_NOT_GRANTED",
+      "write_exists_from_official_api": true
+    },
+    "linkedin_company": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "linkedin_company",
+      "dispatch_id": "dispatch_64d2c6b623197f035c2f144ad9584dc6",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7529053659016486913",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7529053659016486913/",
+      "dispatched_at": "2026-11-19T05:30:48.148565+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "chart_review": {
+        "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-4\\media\\BTCUSD_2026-11-18_18-12-29.png",
+        "source_sha256": "ce5f3cd25026e139afb203df145695f63e73d8e04b30a71d26d33d10ca8a5396",
+        "delivered_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-4\\media\\company-public-67e285637d8b.jpg",
+        "delivered_sha256": "67e285637d8b72e19828079148082e18e0a66c6afee3c10afe6bef34c1d8c40f",
+        "request_sha256": "0bda974a32e3968fee5fc83efe5e2b98aaccf7e10ce3d145dcf0ce96cc32878e",
+        "inspection_tool": "functions.view_image detail=original",
+        "comparison_method": "NATIVE_VIEW_IMAGE_SOURCE_PAIR_V1",
+        "finding": "LinkedIn's JPEG preserves the candles, both mean lines, labels, date, axes, attribution and full image bounds.",
+        "original_automated_comparison": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+      }
+    },
+    "telegram": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "telegram",
+      "dispatch_id": "dispatch_c8925304da070fe8d64798ecb39cb879",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "208",
+      "public_object_url": "https://t.me/CapitalChronicle/208",
+      "dispatched_at": "2026-11-19T05:31:49.083316+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "threads": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "threads",
+      "dispatch_id": "dispatch_1d5756716747a2d463fb60666b4e1a05",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18084089363352309",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df6VhQ4k3fO",
+      "dispatched_at": "2026-11-19T05:31:53.533939+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "x": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "x",
+      "dispatch_id": "dispatch_e5f876e29d66904bf02f123b1ded061a",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2123288779473797353",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123288779473797353",
+      "dispatched_at": "2026-11-19T05:33:28.250593+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "youtube": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "youtube",
+      "dispatch_id": "dispatch_091078a170bfc051a2a5057b8859bc98",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-19T05:34:56.371218+00:00",
+      "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "next_action": "Complete YouTube's external-link verification for the existing channel."
+    },
+    "instagram_business": {
+      "work_item_id": "cc536-measured-odds-4",
+      "platform": "instagram_business",
+      "dispatch_id": "dispatch_ebe01f8271492cf6419285d0a6647265",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17866524345694868",
+      "public_object_url": "https://www.instagram.com/p/Df6V4-HEpdq/",
+      "dispatched_at": "2026-11-19T05:35:06.777301+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    }
+  },
+  "public_numerical_occurrences_verified": 24,
+  "public_number_report": "public-number-report.json",
+  "series_acceptance": {
+    "pieces_1_and_2": [
+      {
+        "work_item_id": "cc536-measured-odds-1",
+        "platform": "substack",
+        "dispatch_id": "dispatch_1078a480ea63b6cd27b0aec10750e0c0",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "224849463",
+        "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "dispatched_at": "2026-11-14T05:48:10.281934+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "work_item_id": "cc536-measured-odds-1",
+        "platform": "x",
+        "dispatch_id": "dispatch_80c5ebd06f43dcdc28886dc6aee13003",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "2121503636216049751",
+        "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751",
+        "dispatched_at": "2026-11-14T07:20:13.246198+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "work_item_id": "cc536-measured-odds-2",
+        "platform": "substack",
+        "dispatch_id": "dispatch_b25e71916d6a02c3fca353f695c424d9",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "225143229",
+        "public_object_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+        "dispatched_at": "2026-11-16T07:19:38.172309+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "work_item_id": "cc536-measured-odds-2",
+        "platform": "x",
+        "dispatch_id": "dispatch_712ef8fcd42f489a57994a2b924645db",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "2122235588179079329",
+        "public_object_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+        "dispatched_at": "2026-11-16T07:48:37.836792+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      }
+    ],
+    "retained_chart_evidence": [
+      "../README.md",
+      "../piece-2/README.md"
+    ],
+    "daily_board": {
+      "status": "BOARD_MARKET_SESSIONS_DIFFER",
+      "details": {
+        "market_sessions": {
+          "XAUUSD": "2026-11-17",
+          "US500": "2026-11-17",
+          "EURUSD": "2026-11-18",
+          "USDJPY": "2026-11-18",
+          "USOIL": "2026-11-17",
+          "BTCUSD": "2026-11-18"
+        }
+      },
+      "as_of_utc": "2026-11-19T05:41:01.766322Z",
+      "source": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\desk-board.public.json",
+      "market_fields": {
+        "XAUUSD": {
+          "completed_bar_open_utc": "2026-11-17T00:00:00Z",
+          "mean_fields_present": false,
+          "rows_without_side_value": 3,
+          "rows_without_sample_period": 4
+        },
+        "US500": {
+          "completed_bar_open_utc": "2026-11-17T00:00:00Z",
+          "mean_fields_present": false,
+          "rows_without_side_value": 2,
+          "rows_without_sample_period": 3
+        },
+        "EURUSD": {
+          "completed_bar_open_utc": "2026-11-18T00:00:00Z",
+          "mean_fields_present": false,
+          "rows_without_side_value": 3,
+          "rows_without_sample_period": 4
+        },
+        "USDJPY": {
+          "completed_bar_open_utc": "2026-11-18T00:00:00Z",
+          "mean_fields_present": false,
+          "rows_without_side_value": 2,
+          "rows_without_sample_period": 3
+        },
+        "USOIL": {
+          "completed_bar_open_utc": "2026-11-17T00:00:00Z",
+          "mean_fields_present": false,
+          "rows_without_side_value": 0,
+          "rows_without_sample_period": 0
+        },
+        "BTCUSD": {
+          "completed_bar_open_utc": "2026-11-18T00:00:00Z",
+          "mean_fields_present": false,
+          "rows_without_side_value": 3,
+          "rows_without_sample_period": 4
+        }
+      },
+      "method_link_preview_and_consumer_test": "tests/test_daily_trend_board_cc537.py::test_each_day_reaches_the_real_coordinator_once_and_three_fixture_days_require_all_readbacks"
+    },
+    "next_plan": {
+      "work_item_id": "plan-analysis-plan_64c0b961e6d621d10de5e9d3",
+      "dispatch_id": "dispatch_27426e18f28a70345c41ec33fc0eaa03",
+      "status": "UNKNOWN_WRITE",
+      "public_object_url": null,
+      "original_substack_return": {
+        "status": "PENDING_JIM_EMAIL_CODE",
+        "draft_id": "225472603",
+        "page_id": 235,
+        "page_url": "https://capitalchronicle.substack.com/publish/post/225472603"
+      },
+      "published_dashboard_rows_examined": 25,
+      "same_code_tab_visible": false,
+      "method_link_consumer_test": "tests/test_plan_analysis_distribution_cc435.py::test_cc536_new_plan_post_durable_consumer_carries_confirmed_method_page"
+    }
+  },
+  "tests": {
+    "installed_piece_and_transport": {
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "installed_report": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-4\\resume-20261119-installed-tests.xml",
+    "focused_coordinator_passed": 26,
+    "installed_day_circuit_passed": 2,
+    "installed_method_consumers_passed": 2
+  },
+  "installation": {
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "operating_code_commit": "aa4b3994cfac23b92ed68426852030ca45a55848",
+    "source_base": "3694965b0a7c5b0b8cca69630446cf86417b7696",
+    "live_tag": "contentops-live-20261119-cc536-exact-public",
+    "rollback_tag": "contentops-rollback-20261119-cc536-exact-public"
+  },
+  "next_piece_not_before_gmt7": "20 Nov 2026 18:00 GMT+7",
+  "next_piece": 5,
+  "previous_worktree_files": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  ],
+  "schedule_changes": 0
+}
