@@ -10,7 +10,10 @@ from tests.test_capital_chronicle_report_feed_v1 import feed
 NOW = "2026-10-18T17:00:00Z"
 
 
-def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic sweep. Equities and Bitcoin rose.", *, native=False):
+def retained(
+    tmp_path, monkeypatch, text="The dossier favoured a Democratic sweep. Equities and Bitcoin rose.",
+    *, native=False, receipt_ensure_ascii=True,
+):
     single_pass = native in ("single_pass", "decision91")
     if single_pass:
         run_dir = tmp_path / "Main/shocks/shock-one"
@@ -24,7 +27,10 @@ def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic swee
     report.write_text(json.dumps({"native_synthesis": synthesis} if single_pass else synthesis)
                       if native else text, encoding="utf-8")
     if single_pass:
-        digest = sha256(json.dumps(json.loads(report.read_bytes()), sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        canonical = json.dumps(
+            json.loads(report.read_bytes()), sort_keys=True, separators=(",", ":"), ensure_ascii=receipt_ensure_ascii,
+        )
+        digest = sha256(canonical.encode("utf-8")).hexdigest()
         (report.parent / "analysis-end.json").write_text(json.dumps({"output_sha256": digest, "schema_errors": []}), encoding="utf-8")
     monkeypatch.setattr(projection, "REPORT_ROOTS", (report.parent,))
     monkeypatch.setattr(projection, "NATIVE_MAIN_REPORT_ROOT", report.parent)
@@ -102,16 +108,25 @@ def test_changed_main_bytes_cannot_replace_frozen_evidence(tmp_path, monkeypatch
     assert research.gaps[0]["state"] == "MAIN_REPORT_SOURCE_BYTES_CHANGED"
 
 
-@pytest.mark.parametrize("native", [True, "single_pass", "decision91"])
-def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_path, monkeypatch, native):
+@pytest.mark.parametrize(
+    "native,receipt_ensure_ascii", [(True, True), ("single_pass", True), ("decision91", True), ("decision91", False)],
+)
+def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(
+    tmp_path, monkeypatch, native, receipt_ensure_ascii,
+):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
     from live_contentops.reader_article_contract_v1 import contract_for
-    root, report, spec = retained(tmp_path, monkeypatch, native=native)
+    text = "The dossier favoured a Democratic sweep. Equities and Bitcoin rose in a \u201cmeasured\u201d move."
+    root, report, spec = retained(
+        tmp_path, monkeypatch, text, native=native, receipt_ensure_ascii=receipt_ensure_ascii,
+    )
     capture = report.parent / "capture.json"
     capture.write_text(json.dumps({"known_at_utc": "2026-10-18T14:00:00Z", "private_value": "never projected"}), encoding="utf-8")
     research = RetainedSourceResearch(root)
+    assert not research.gaps
     docs = _source_pack(research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
     contract = contract_for({"source_pack": docs})
+    assert docs[0]["canonical_content_text"] == text
     assert contract["data_cutoff_utc"] == "2026-10-18T14:00:00+00:00"
     assert docs[0]["published_at_utc"] == "2026-10-18T15:00:00Z"
     assert docs[0]["data_clock_binding"][0]["sha256"] == sha256(capture.read_bytes()).hexdigest()

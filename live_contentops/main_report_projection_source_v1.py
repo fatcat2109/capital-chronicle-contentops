@@ -144,8 +144,16 @@ def _passage_text(path, passage, raw):
         if not proof_path.is_file() or proof_path.stat().st_size > 100_000:
             raise ValueError("MAIN_REPORT_ANALYSIS_COMPLETION_REQUIRED")
         proof = json.loads(proof_path.read_bytes())
-        digest = sha256(json.dumps(json.loads(raw), sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-        if proof.get("output_sha256") != digest or proof.get("schema_errors"):
+        value = json.loads(raw)
+        # Main completion receipts use both escaped JSON and literal UTF-8 JSON.
+        canonical_outputs = (
+            json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=escaped)
+            for escaped in (True, False)
+        )
+        if proof.get("schema_errors") or not any(
+            sha256(output.encode("utf-8")).hexdigest() == proof.get("output_sha256")
+            for output in canonical_outputs
+        ):
             raise ValueError("MAIN_REPORT_ANALYSIS_COMPLETION_MISMATCH")
         if not pointer.startswith("/native_synthesis/"):
             raise ValueError("MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID")
@@ -157,7 +165,8 @@ def _passage_text(path, passage, raw):
         r"|/coverage_limit|/candidates/\d+/(?:rationale|invalidation|next_required_evidence/\d+)", public_pointer
     ):
         raise ValueError("MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID")
-    value = json.loads(raw)
+    if not single_pass:
+        value = json.loads(raw)
     try:
         for key in pointer.split("/")[1:]:
             value = value[int(key)] if isinstance(value, list) else value[key]
