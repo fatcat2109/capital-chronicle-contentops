@@ -451,6 +451,9 @@ def validate_write(coordinator, intent, destination):
                 overlay = asset.get("plan_overlay") or {}
                 if overlay.get("price_scale_check") != check or not overlay.get("basis_label"):
                     raise ImageContractError("TRADINGVIEW_WTI_BASIS_LABEL_REQUIRED")
+            if market == "USOIL" and row and (asset.get("plan_overlay") or {}).get("basis_from_plan"):
+                from .tradingview_plan_overlay_v1 import validate as validate_overlay
+                validate_overlay(asset, row)
         if intent.get("plan_status_post") and not (intent.get("native_payload") or {}).get("reuse_run_carousel"):
             # A multi-market root represents every member, not an arbitrary
             # first market. Single-image routes keep their established lead.

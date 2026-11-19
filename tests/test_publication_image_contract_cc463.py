@@ -257,6 +257,32 @@ def test_wti_overlay_translates_the_supplied_levels_and_prints_the_difference(tm
     overlay.validate(marked, original)
 
 
+def test_wti_basis_can_render_when_the_download_has_no_axis_geometry(tmp_path):
+    from live_contentops import tradingview_plan_overlay_v1 as overlay
+    from test_tradingview_plan_overlay_cc459 import captured
+
+    _, asset = captured("USOIL")
+    snap = deepcopy(asset["tradingview_snapshot"])
+    snap.pop("chart_geometry")
+    snap.update(page_title="CL1! 86.59", captured_at_utc=NOW.isoformat())
+    snap = contract.bind_scale("USOIL", snap, quote=quote("USOIL", 86.481))
+    row = deepcopy(asset["plan_overlay"]["source"])
+    row["levels"]["public_instrument"] = {"symbol": "MCL"}
+    plain = tv.snapshot_asset("USOIL", "WTI", snap, tmp_path)
+
+    marked = overlay.apply(plain, row)
+
+    assert marked["sha256"] != plain["sha256"]
+    assert "Plan instrument: MCL" in marked["plan_overlay"]["basis_label"]
+    assert "+0.109 USD/bbl at capture" in marked["plan_overlay"]["basis_label"]
+    assert marked["plan_overlay"]["markers"] == []
+    tv.validate_snapshot_asset(marked, {"market_asset": "USOIL"})
+    overlay.validate(marked, row)
+    row["levels"]["public_instrument"] = {"symbol": "CL"}
+    with pytest.raises(ValueError, match="PLAN_INSTRUMENT_CHANGED"):
+        overlay.validate(marked, row)
+
+
 def test_instagram_rejects_the_wide_image_even_when_its_prices_pass(tmp_path):
     asset = chart(tmp_path)
     _, _, coordinator, message = message_with(tmp_path / "run", [asset])

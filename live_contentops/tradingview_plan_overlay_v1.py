@@ -149,11 +149,34 @@ def _price_y(scale, price):
     return scale["slope"] * (math.log(price) if scale["mode"] == "log" else price) + scale["intercept"]
 
 
-def _draw(image, overlay, offset):
+def wti_basis_label(row, check):
+    instrument = (row.get("levels") or {}).get("public_instrument") or {}
+    label = f"WTI chart: NYMEX CL1! | Plan instrument: {instrument.get('symbol') or row['symbol']}"
+    if check["level_offset"]:
+        when = {"LAST_CLOSE": "at last close", "VISIBLE_WINDOW_CLOSE": "at chart window close"}.get(
+            check["comparison_basis"], "at capture")
+        reference = check["quote"]["instrument"]
+        label += f" | Chart vs {reference} reference: {check['level_offset']:+.3f} USD/bbl {when}"
+    return label
+
+
+def _wrapped_lines(draw, text, font, width):
+    lines, line = [], ""
+    for word in text.split():
+        candidate = (line + " " + word).strip()
+        if line and draw.textbbox((0, 0), candidate, font=font)[2] > width:
+            lines.append(line)
+            line = word
+        else:
+            line = candidate
+    return [*lines, line]
+
+
+def _draw(image, overlay, box):
     from .fact_card_design_v1 import _font
     scale = overlay["scale"]
-    ox, oy = offset
-    left, top, right, bottom = scale["pane_box"]
+    ox, oy, x2, y2 = box
+    left, top, right, bottom = scale["pane_box"] if scale else (0, 0, x2-ox, y2-oy)
     # Preserve the entire TradingView legend, price axis, header and logo.
     left, top, right, bottom = left+16+ox, top+62+oy, right-16+ox, bottom-12+oy
     draw = ImageDraw.Draw(image, "RGBA")
@@ -161,36 +184,33 @@ def _draw(image, overlay, offset):
     # Decision 82: "A target is never drawn", whatever the bound source carries.
     levels.pop("target", None)
     levels.pop("target_level", None)
-    if overlay["source"].get("annotations_only"):
+    annotations_only = overlay["source"].get("annotations_only")
+    if overlay.get("basis_label") and (overlay.get("basis_from_plan") or not annotations_only):
+        font = _font("semibold", 16)
+        label = overlay["basis_label"]
+        lines = (_wrapped_lines(draw, label, font, right-left-30)
+                 if overlay.get("basis_from_plan") else [label])
+        for line in lines:
+            width = draw.textbbox((0, 0), line, font=font)[2] + 16
+            draw.rectangle((left + 8, top, left + 8 + width, top + 25), fill=(255, 255, 255, 245))
+            draw.text((left + 15, top + 2), line, font=font, fill=(31, 60, 80, 255))
+            top += 30
+    if annotations_only:
         # The chart and a mapped contract may have different price bases. Name
         # both exact conditions without plotting a foreign level on this axis.
         font = _font("semibold", 16)
-        words = overlay["source"]["phase_terms"].split()
-        lines, line = [], ""
-        for word in words:
-            candidate = (line + " " + word).strip()
-            if line and draw.textbbox((0, 0), candidate, font=font)[2] > right-left-30:
-                lines.append(line)
-                line = word
-            else:
-                line = candidate
-        lines.append(line)
+        lines = _wrapped_lines(draw, overlay["source"]["phase_terms"], font, right-left-30)
         draw.rectangle((left, top, right, top+len(lines)*25+12), fill=(255,255,255,245))
         for index, line in enumerate(lines):
             draw.text((left+8, top+6+index*25), line, font=font, fill=(175,40,57,255))
+        return []
+    if overlay.get("basis_only"):
         return []
     offset = (overlay.get("price_scale_check") or {}).get("level_offset", 0)
     if offset:
         for field in ("zone_low", "zone_high", "invalidation_level"):
             if levels.get(field) is not None:
                 levels[field] = float(levels[field]) + offset
-    if overlay.get("basis_label"):
-        font = _font("semibold", 16)
-        label = overlay["basis_label"]
-        width = draw.textbbox((0, 0), label, font=font)[2] + 16
-        draw.rectangle((left + 8, top, left + 8 + width, top + 25), fill=(255, 255, 255, 245))
-        draw.text((left + 15, top + 2), label, font=font, fill=(31, 60, 80, 255))
-        top += 30
     markers = []
     entry_colour = (31,95,191,255) if overlay.get("entry_colour") == "blue" else (25,110,95,255)
     colors = {"Entry low": entry_colour, "Entry high": entry_colour, "Invalidation": (175,40,57,255)}
@@ -240,27 +260,27 @@ def _draw(image, overlay, offset):
 def apply(asset, row, *, require_verified=True):
     if require_verified and row["symbol"] not in VERIFIED_MARKETS:
         return asset
-    scale = asset["tradingview_snapshot"].get("chart_geometry")
-    if not scale or scale.get("policy") != POLICY or scale["source_sha256"] != asset["tradingview_snapshot"]["sha256"]:
+    snap = asset["tradingview_snapshot"]
+    scale = snap.get("chart_geometry")
+    if scale and (scale.get("policy") != POLICY or scale["source_sha256"] != snap["sha256"]):
         raise ValueError("TRADINGVIEW_PRICE_SCALE_NOT_CAPTURED_OR_BOUND")
     result = deepcopy(asset)
     overlay = {"policy": POLICY, "scale": scale, "source": source_binding(row), "entry_colour": "blue"}
-    if asset["tradingview_snapshot"].get("price_scale_check"):
+    if snap.get("price_scale_check"):
         from .publication_image_contract_v1 import validate_scale
-        check = validate_scale(row["symbol"], asset["tradingview_snapshot"])
-        if check.get("comparison_basis") == "NOT_COMPARED" and row["symbol"] == "USOIL":
-            return asset   # the futures basis is unknown without a quote: the plain chart, levels stay in the text
+        check = validate_scale(row["symbol"], snap)
         overlay["price_scale_check"] = check
-        if check["level_offset"]:
-            delta = check["level_offset"]
-            when = "at last close" if check.get("comparison_basis") == "LAST_CLOSE" else "at capture"
-            overlay["basis_label"] = ("WTI futures = plan feed " + ("+" if delta >= 0 else "-")
-                + f" {abs(delta):.3f} USD/bbl {when}")
+        if row["symbol"] == "USOIL":
+            overlay.update(basis_label=wti_basis_label(row, check), basis_from_plan=True,
+                           basis_only=not scale or check["comparison_basis"] == "NOT_COMPARED")
+    text_only = overlay["source"].get("annotations_only") or overlay.get("basis_only")
+    if not scale and not text_only:
+        raise ValueError("TRADINGVIEW_PRICE_SCALE_NOT_CAPTURED_OR_BOUND")
     source = Path(asset["path"])
     with Image.open(source) as image:
         image = image.convert("RGB")
-        overlay["markers"] = _draw(image,overlay,asset["tradingview_snapshot"]["framing"]["original_box"][:2])
-        if ((not overlay["markers"] and not overlay["source"].get("annotations_only"))
+        overlay["markers"] = _draw(image, overlay, snap["framing"]["original_box"])
+        if ((not overlay["markers"] and not text_only)
                 or any(m["error_px"] > 2 for m in overlay["markers"])):
             raise ValueError("TRADINGVIEW_OVERLAY_LEVEL_PIXEL_CHECK_FAILED")
         # Recorded from what was drawn; validate() below redraws, compares and refuses a target.
@@ -277,19 +297,24 @@ def apply(asset, row, *, require_verified=True):
 def validate(asset, row=None):
     overlay = asset["plan_overlay"]
     snap = asset["tradingview_snapshot"]
+    scale = overlay["scale"]
     if target_drawn(asset):
         # Decision 82: an image whose overlay drew a target is never published.
         raise ValueError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
-    if (overlay["policy"] != POLICY or overlay["scale"] != snap.get("chart_geometry")
-            or overlay["scale"]["source_sha256"] != snap["sha256"]
+    if (overlay["policy"] != POLICY or scale != snap.get("chart_geometry")
+            or (scale and scale["source_sha256"] != snap["sha256"])
+            or (not scale and not (overlay["source"].get("annotations_only") or overlay.get("basis_only")))
             or (row and _hash(_drawn_binding(overlay["source"])) != _hash(source_binding(row)))):
         raise ValueError("TRADINGVIEW_OVERLAY_SOURCE_OR_SCALE_CHANGED")
     if overlay.get("price_scale_check") != snap.get("price_scale_check"):
         raise ValueError("TRADINGVIEW_OVERLAY_PRICE_BASIS_CHANGED")
+    if row and overlay.get("basis_from_plan") and overlay["basis_label"] != wti_basis_label(
+            row, overlay["price_scale_check"]):
+        raise ValueError("TRADINGVIEW_OVERLAY_PLAN_INSTRUMENT_CHANGED")
     with Image.open(snap["path"]) as raw, Image.open(asset["path"]) as actual:
         expected = Image.new("RGB", (asset["width"],asset["height"]),"white")
         box = snap["framing"]["original_box"]
         expected.paste(raw.convert("RGB"),box[:2])
-        markers = _draw(expected,overlay,box[:2])
+        markers = _draw(expected, overlay, box)
         if markers != overlay["markers"] or ImageChops.difference(expected,actual.convert("RGB")).getbbox():
             raise ValueError("TRADINGVIEW_OVERLAY_PIXELS_OR_PROTECTED_ATTRIBUTION_CHANGED")
