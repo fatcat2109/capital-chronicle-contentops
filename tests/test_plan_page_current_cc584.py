@@ -36,6 +36,62 @@ def test_november_gold_title_states_the_view_and_uses_the_exported_stop(gold_18_
     assert "3,833.5 before entry" in terms["invalidation"]
 
 
+def test_november_gold_page_rendered_after_expiry_uses_the_final_status(gold_18_nov, tmp_path, monkeypatch):
+    from live_contentops import plan_reader_editorial_v1 as editorial
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from test_plan_thread_consistency_cc549 import authored
+
+    raw = {**gold_18_nov, "status": "WAITING", "run_id": "retained-gold", "analysis_result_hash": "retained"}
+    current = {**raw, "status": "CLOSED", "status_at_utc": "2026-11-18T18:30:21.138000Z"}
+    now = posts._utc("2026-11-19T11:40:00Z")
+    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run["source_plan"] = raw
+    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
+    monkeypatch.setattr(pages, "_card", lambda *a: None)
+    monkeypatch.setattr(posts, "current_public_plan", lambda *a, **k: current)
+    source = reader.source_packet(raw, run, thread=True, level_contract=reader.LEVEL_CONTRACT)
+    manuscript = editorial.bind_manuscript(authored(source), source, raw)
+    manuscript["title"] = "Gold: Spot plan cancelled on high"
+
+    with pytest.raises(ValueError, match="ENTRY_WINDOW_ENDED_REVIEW_REQUIRED"):
+        pages.require_current_page({"source_plan": raw}, now=now)
+    final = pages.ended_plan_status(raw, current, now=now)
+    packet = pages.render(raw, manuscript, output_dir=tmp_path / "page", final_status=final)
+    body = packet["native_payload"]["body_markdown"]
+    assert "This page was published after the plan ended. The entry window closed Wed 18 Nov, 5:00 AM ET." in body
+    assert "Status: closed (updated Wed 18 Nov, 1:30 PM ET)." in body
+    assert "waiting for entry" not in body
+    assert packet["native_payload"]["title"] == "Gold: bearish at 3,772.3–3,789.3, wrong above 3,832.9"
+    assert pages.require_current_page(packet, now=now) == current
+    assert "This page was published after the plan ended." in (tmp_path / "page/article.html").read_text(encoding="utf-8")
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    held = pages.register_page(store, pages.render(raw, manuscript, output_dir=tmp_path / "held"))
+    old_bytes = store.get_outbox_message(held["page_id"])["payload"]
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(held["page_id"], held["plan"])
+    old_intent, = store.list_outbox_messages(destination="substack")
+    refreshed = pages.refresh_ended_page(store, held, now=now)
+    coordinator.register_plan(refreshed["page_id"], refreshed["plan"])
+    native = [json.loads(row["payload"])["native_payload"] for row in store.list_outbox_messages(destination="substack")]
+    assert held["plan"]["plan_hash"] != refreshed["plan"]["plan_hash"]
+    assert native == [held["native_payload"], packet["native_payload"]]
+    prior, = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+    assert prior["payload"] == old_bytes
+    assert store.get_outbox_message(old_intent["message_id"])["payload"] == old_intent["payload"]
+
+
+@pytest.mark.parametrize("change", [
+    {"status": "WAITING"}, {"status": "FILLED"}, {"status_at_utc": None},
+    {"registration_hash": "different"}, {"status_at_utc": "2026-11-19T12:30:00Z"},
+])
+def test_after_entry_window_only_the_current_exact_terminal_state_can_be_rendered(gold_18_nov, change):
+    current = {**gold_18_nov, "status": "CLOSED", "status_at_utc": "2026-11-18T18:30:21.138000Z", **change}
+    with pytest.raises(ValueError, match="FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW"):
+        pages.ended_plan_status(gold_18_nov, current, now=posts._utc("2026-11-19T11:40:00Z"))
+
+
 @pytest.mark.parametrize("change,cause", [
     ({"status": "EXPIRED"}, "STATE_CHANGED"),
     ({"last_price": 3875}, "MOVED_PAST"),
