@@ -2711,10 +2711,8 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
             "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,
             "model_invocations": 0, "source_requests": 0, "public_write_performed": False,
             "dispatched_package_reused": True}
-    image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
-                               [a["sha256"] for a in assets]])
-    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / image_revision
-    root.mkdir(parents=True, exist_ok=True)
+    image_material = [native_review_revision(result), image_view["post_image_policy"],
+                      [a["sha256"] for a in assets]]
     article = image_view["article"]
     state = article.get("epistemic_state")
     mode = article["resolved_article_mode"]
@@ -2738,6 +2736,11 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     record_path = (result.get("visual_repair_revision") or {}).get("qualified_record_path")
     record = json.loads((resolve_workspace_path(record_path) if record_path else
         resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
+    if record.get("article_identity") != identity:
+        record = reviewed_revision_qualification(result, record)
+        image_material.append(identity)
+    root = resolve_workspace_path(output_dir) / "reviewed-handoff" / sha256_of(image_material)
+    root.mkdir(parents=True, exist_ok=True)
     # Same article/source/worker identity; only the pre-publication package/media binding changes.
     record["derivative_package_intents"] = intents
     record["derivative_package_intent_count"] = len(intents)
@@ -2771,3 +2774,17 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         "review_id": current_review["review_id"], "plan_hash": plan["plan_hash"], "output_dir": str(root),
         "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,
         "model_invocations": 0, "source_requests": 0, "public_write_performed": False}
+
+
+def reviewed_revision_qualification(result, record):
+    """Bind the exact accepted copy to a new unsent record without changing the original."""
+    from hashlib import sha256
+    from live_contentops.newsroom_production_day_v1 import _valid_record
+
+    body_hash = sha256(result["article"]["substack_body_markdown"].encode()).hexdigest()
+    source_record = result["simple_result"]
+    if (not _valid_record(record) or not source_record.get("revision_performed")
+            or source_record.get("article_identity") != body_hash or result["article_identity"] != body_hash
+            or source_record["selected_candidate"]["story_identity"] != record["story_identity"]):
+        raise ValueError("EXACT_REVIEWED_REVISION_QUALIFICATION_REQUIRED")
+    return {**record, "article_identity": body_hash, "article_body_sha256": body_hash}

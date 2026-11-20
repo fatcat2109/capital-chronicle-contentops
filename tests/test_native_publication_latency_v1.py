@@ -54,6 +54,28 @@ def test_short_path_replays_frozen_reader_contract_without_rewriting_return(tmp_
     assert "reader_article_contract" not in response["output"]["article"]
 
 
+def test_reviewed_copy_revision_carries_the_matching_qualified_record():
+    from hashlib import sha256
+    from live_contentops.native_desktop_editorial_v1 import reviewed_revision_qualification
+    from live_contentops.newsroom_production_day_v1 import _logical_hash
+
+    body = "Exact reviewed revision."
+    identity = sha256(body.encode()).hexdigest()
+    record = {"schema_version": "contentops.newsroom_qualified_article.v1", "qualified": True,
+              "public_write_performed": False, "article_identity": "a" * 64, "story_identity": "story",
+              "derivative_package_intents": [{"destination": d} for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS],
+              "derivative_package_intent_count": len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)}
+    record["record_sha256"] = _logical_hash(record)
+    result = {"article_identity": identity, "article": {"substack_body_markdown": body},
+              "simple_result": {"article_identity": identity, "revision_performed": True,
+                                "selected_candidate": {"story_identity": "story"}}}
+    assert reviewed_revision_qualification(result, record)["article_identity"] == identity
+    assert record["article_identity"] == "a" * 64
+    result["article"]["substack_body_markdown"] += " Changed after review."
+    with pytest.raises(ValueError, match="EXACT_REVIEWED_REVISION_QUALIFICATION_REQUIRED"):
+        reviewed_revision_qualification(result, record)
+
+
 def test_bound_event_preview_uses_one_editor_check_without_rewriting_writer(tmp_path, monkeypatch):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     monkeypatch.setattr("test_native_desktop_publication_v1.prepare_native_publication", lambda *a, **k: None)
