@@ -291,10 +291,12 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
             "first_cause": next(iter(exceptions), None), "exceptions": exceptions}
 
 
-def report_window(run_dir, *, since=None, until=None, now=None):
+def report_window(run_dir, *, since=None, until=None, now=None, run_result=None):
     run_dir = Path(run_dir)
     result_path = run_dir / "result.json"
-    result = json.loads(result_path.read_bytes()) if result_path.is_file() else {}
+    result = run_result
+    if result is None:
+        result = json.loads(result_path.read_bytes()) if result_path.is_file() else {}
     now = now or datetime.now(timezone.utc)
     end = utc(until) if until else utc(result["recorded_at_utc"]) if result.get("recorded_at_utc") else now
     try:
@@ -812,9 +814,9 @@ def _plan_delivery(conn, window, store_path):
 
 
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
-                 since=None, until=None, now=None, fetcher=fetch_public):
+                 since=None, until=None, now=None, fetcher=fetch_public, run_result=None):
     now = now or datetime.now(timezone.utc)
-    window, result = report_window(run_dir, since=since, until=until, now=now)
+    window, result = report_window(run_dir, since=since, until=until, now=now, run_result=run_result)
     report = {"schema_version": "contentops.day_readback.v1", "observed_at_utc": iso(now),
               "window": window, "pieces": [], "exceptions": [],
               "store_open_mode": "ro", "public_writes": 0, "browser_opens": 0, "model_calls": 0}
