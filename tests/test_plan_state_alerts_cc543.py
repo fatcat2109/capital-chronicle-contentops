@@ -413,7 +413,8 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     monkeypatch.setattr(heavy_news_quotes_v1, "refresh_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
     monkeypatch.setattr(substack_daily_note_v1, "run_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
     order = []
-    monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {"status": "OK"})
+    monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {
+        "status": "OK", "latest_states": {"new-plan": "WAITING", "ended-plan": "EXPIRED"}})
     def publish(*a, **kw):
         order.append("immediate" if kw.get("immediate_only") else
                      "alert-fanout" if kw.get("alert_filter") else "later-destinations")
@@ -421,10 +422,15 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     def page(*a, **k):
         order.append("model-page")
         raise RuntimeError("MODEL_QUOTA_UNAVAILABLE")
+    def draft(*a, **k):
+        assert k["active_plan_ids"] == ["new-plan"]
+        order.append("draft-worker")
+        return {"status": "PAGE_DRAFT_WORKER_STARTED"}
     monkeypatch.setattr(posts, "publish_ready", publish)
     monkeypatch.setattr(posts, "read_export", lambda *a, **k: {})
     monkeypatch.setattr(posts, "record_run", lambda *a, **k: tmp_path / "runs.jsonl")
     monkeypatch.setattr(editorial, "run_due", page)
+    monkeypatch.setattr(editorial, "start_page_draft_worker", draft)
     monkeypatch.setattr(bot, "refresh_due", lambda *a, **k: order.append("private-replies") or {})
     monkeypatch.setattr(bot, "observe_due", lambda *a, **k: {})
     monkeypatch.setattr(tabs, "refresh_due", lambda *a, **k: {})
@@ -442,10 +448,11 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     monkeypatch.setattr(sys, "stdout", output)
     assert cli.main(["--store", str(tmp_path / "cli.sqlite3"), "--publish", *(["--dry-run"] if dry else [])]) == 0
     assert order == (["export"] if dry else [
-        "export", "immediate", "alert-fanout", "private-replies", "model-page", "later-destinations"])
+        "export", "immediate", "draft-worker", "alert-fanout", "private-replies", "model-page", "later-destinations"])
     if not dry:
         result = json.loads(output.getvalue())
         assert result["plan_pages"]["cause"] == "RuntimeError:MODEL_QUOTA_UNAVAILABLE"
+        assert result["plan_pages"]["draft_worker"]["status"] == "PAGE_DRAFT_WORKER_STARTED"
 
 
 def test_unknown_api_acceptance_is_read_back_without_republishing(replay, main_root, tmp_path):

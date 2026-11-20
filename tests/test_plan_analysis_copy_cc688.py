@@ -201,7 +201,12 @@ def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp
     monkeypatch.setattr(editorial.subprocess, "Popen", popen)
     launch = partial(editorial.start_page_draft_worker, store, python=sys.executable, export_dir=tmp_path / "export",
                      main_root=tmp_path / "fixture-main", root=tmp_path / "pages", now=now)
-    assert launch()["pid"] == 99
+    assert launch(active_plan_ids=())["status"] == "NO_DUE_PAGE_DRAFT"
+    drafted = tmp_path / "pages" / "plan-analysis-drafted" / editorial.DRAFT_MANUSCRIPT
+    drafted.parent.mkdir(parents=True)
+    drafted.touch()
+    assert launch(active_plan_ids=("drafted",))["status"] == "NO_DUE_PAGE_DRAFT"
+    assert launch(active_plan_ids=("new",))["pid"] == 99
     args, options = launched[0]
     assert args[2] == "draft-due" and Path(args[1]).name == "plan_analysis_pages.py"
     assert options["stdout"] == subprocess.DEVNULL

@@ -621,8 +621,14 @@ def draft_due_page(store, export, *, root, now, call=None, run_root=pages.RUN_RO
         store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
 
 
-def start_page_draft_worker(store, *, python, export_dir, main_root, root, now):
+def start_page_draft_worker(store, *, python, export_dir, main_root, root, now, active_plan_ids=None):
     """Launch one hidden, detached writer from the existing minute entry."""
+    if active_plan_ids is not None and not any(
+        not (Path(root) / ("plan-analysis-" + plan_id) / DRAFT_MANUSCRIPT).is_file()
+        and not store.get_outbox_message("plan-analysis-" + plan_id)
+        for plan_id in active_plan_ids
+    ):
+        return {"status": "NO_DUE_PAGE_DRAFT"}
     with store.get_read_only_connection() as conn:
         active = conn.execute("SELECT 1 FROM leases WHERE lease_key=? AND status='ACTIVE' AND expires_at>?",
                               (PAGE_DRAFT_LEASE, now.isoformat())).fetchone()

@@ -105,15 +105,32 @@ def main(argv=None) -> int:
                              render_all=args.dry_run, main_root=args.main_root, python=child_python(),
                              analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
                              if args.publish and not args.dry_run else None)
+        page_root = args.store.parent / "daily_app_outputs/plan_analysis"
+        page_worker = None
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                 active_recoveries=result.get("active_recoveries"), immediate_only=True)
             # Save the API receipts even if the later browser work outlives the tick.
             posts.record_run({**result, "phase": "IMMEDIATE_ALERTS", "publication": result["immediate_publication"]},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
+            # Launch the independent author after the API alerts, before the
+            # browser work can exhaust the existing minute task's lifetime.
+            from live_contentops.plan_reader_editorial_v1 import start_page_draft_worker
+            active_plan_ids = [plan_id for plan_id, state in (result.get("latest_states") or {}).items()
+                               if state in posts.ACTIVE]
+            if active_plan_ids:
+                try:
+                    draft = start_page_draft_worker(store, python=child_python(), export_dir=args.export_dir,
+                        main_root=args.main_root, root=page_root, now=datetime.now(timezone.utc),
+                        active_plan_ids=active_plan_ids)
+                except (OSError, ValueError, RuntimeError) as exc:
+                    draft = {"status": "PAGE_DRAFT_WORKER_NOT_STARTED", "cause": type(exc).__name__ + ":" + str(exc)[:160]}
+                if draft["status"] != "NO_DUE_PAGE_DRAFT":
+                    page_worker = draft
             result["plan_alert_fanout"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                 automatic_neo=True, alert_filter=True)
-            posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"]},
+            posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"],
+                              **({"plan_pages": {"draft_worker": page_worker}} if page_worker else {})},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
         # Decision 124's private delivery still precedes the slow editorial and
         # browser phase, through this same minute entry and existing schedule.
@@ -153,17 +170,18 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run:
             from live_contentops.plan_reader_editorial_v1 import run_due, start_page_draft_worker
             try:
-                page_root = args.store.parent / "daily_app_outputs/plan_analysis"
                 now = datetime.now(timezone.utc)
                 rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
                 plan_pages = run_due(store, lambda: posts.read_export(
                     args.export_dir, main_root=args.main_root, python=child_python()),
                     root=page_root, rollout=rollout, now=now, cached_only=True)
-                if plan_pages.get("draft_due"):
-                    plan_pages["draft_worker"] = start_page_draft_worker(store, python=child_python(),
+                if plan_pages.get("draft_due") and page_worker is None:
+                    page_worker = start_page_draft_worker(store, python=child_python(),
                         export_dir=args.export_dir, main_root=args.main_root, root=page_root, now=now)
             except Exception as exc:
                 plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
+            if page_worker is not None:
+                plan_pages["draft_worker"] = page_worker
         if reply_bot is not None:
             result["reply_bot"] = reply_bot
         if plan_pages is not None:
