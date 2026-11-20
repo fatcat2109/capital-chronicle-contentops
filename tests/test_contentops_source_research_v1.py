@@ -24,6 +24,43 @@ FILING_ROOT = ROOT.parent.parent / "goal34/source_editions"
 REPORT_ROOT = ROOT.parent.parent / "goal35/source_editions"
 
 
+def test_official_fed_monthly_calendar_feeds_retained_evidence(tmp_path):
+    from hashlib import sha256
+    from live_contentops.browser_rendered_source_recovery_v1 import _canonical_rendered_text
+
+    retained = ROOT.parent.parent / "goal21/retained_research"
+    policy = retained / "neo-page-65-rendered.json"
+    shutil.copyfile(policy, tmp_path / "policy.json")
+    url = "https://www.federalreserve.gov/newsevents/2026-november.htm"
+    rendered = "November 2026\n\n12:15 p.m. Speech - Governor Lisa D. Cook"
+    text = _canonical_rendered_text(rendered)
+    raw_sha = sha256(rendered.encode()).hexdigest()
+    text_sha = sha256(text.encode()).hexdigest()
+    (tmp_path / "capture.json").write_text(json.dumps({"status": "PASS", "final_url": url,
+        "retrieval_method": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE", "content_truncated": False,
+        "rendered_markdown": rendered, "rendered_page_sha256": raw_sha, "canonical_content_text": text,
+        "canonical_content_sha256": text_sha, "credential_or_session_material_read": False,
+        "public_write_performed": False}), encoding="utf-8")
+    (tmp_path / "admission.json").write_text(json.dumps({"status": "PASS",
+        "official_source_documents": [{"source_url": url, "publisher": "Federal Reserve",
+            "source_adapter_family": "official_policy", "source_authority_class": "official_public_primary_source",
+            "canonical_content_text": text, "raw_sha256": raw_sha, "published_at_utc": None,
+            "content_truncated": False}],
+        "provenance": {"retrieved_at_utc": "2026-11-20T13:57:00Z"}}), encoding="utf-8")
+    spec = {"headline_id": "fed-calendar", "headline_text": text, "capture_path": "capture.json",
+        "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE", "source_capture_sha256": raw_sha,
+        "loader_result_path": "admission.json", "policy_capture_path": "policy.json",
+        "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+        "policy_capture_sha256": sha256(policy.read_bytes()).hexdigest(),
+        "policy_retrieved_at_utc": "2026-10-21T00:00:00Z", "revision_at_utc": "2026-11-20T13:57:00Z",
+        "proposition_span": [0, len(text)]}
+    (tmp_path / "index.json").write_text(json.dumps({"schema_version": "contentops.retained_source_research.v1",
+        "records": [spec]}), encoding="utf-8")
+    research = RetainedSourceResearch(tmp_path)
+    assert not research.gaps
+    assert research.records["fed-calendar"]["permitted_source_text"] == text
+
+
 def yonhap_fixture(root):
     """Synthetic exact-page fixture; no network and no copied newsroom article."""
     from hashlib import sha256

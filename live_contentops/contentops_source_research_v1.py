@@ -370,13 +370,15 @@ class RetainedSourceResearch:
             return self._verify_report_facts(spec, raw, policy, loader, doc)
         url = urlsplit(doc["source_url"])
         rule = POLICIES.get(url.hostname)
+        fed_calendar = (url.hostname == "www.federalreserve.gov" and not url.query and not url.fragment
+                        and re.fullmatch(r"/newsevents/20\d{2}-[a-z]+\.htm", url.path))
         if (
             not rule
             or url.scheme != "https"
             or url.username
             or url.password
             or url.port not in (None, 443)
-            or not any(url.path.startswith(p) for p in rule[2])
+            or not (fed_calendar or any(url.path.startswith(p) for p in rule[2]))
             or (url.hostname == "www.investor.gov" and url.path != rule[2][0])
         ):
             raise ValueError("SOURCE_REUSE_POLICY_NOT_SUPPORTED")
