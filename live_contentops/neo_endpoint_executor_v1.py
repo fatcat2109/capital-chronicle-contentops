@@ -18,13 +18,13 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, unquote
 import requests
 
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, expected_posts
-from live_contentops.neo_destination_handoff_v1 import ROOTS
+from live_contentops.neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS, LINKEDIN_MEMBER_COMPOSER, ROOTS
 
 ENDPOINT_SURFACE = "NEO_ENDPOINT_EXECUTOR"
 ENDPOINT_TOOL = "browseros-neo/run"
 STEPS = Path(__file__).with_name("neo_endpoint_steps_v1.js")
 GROUP = "codex/cc436-automatic-posts"
-ARTICLE_ROUTES = {"linkedin_company", "youtube"}
+ARTICLE_ROUTES = {*LINKEDIN_DESTINATIONS, "youtube"}
 
 
 def retryable_unsent_plan_copy(result):
@@ -276,7 +276,12 @@ class NeoMcpClient:
                         host = urlsplit(match[2]).hostname
                         if host == "x.com": self.pages.setdefault("x", int(match[1]))
                         if host == "substack.com": self.pages.setdefault("substack_notes", int(match[1]))
-                        if host == "www.linkedin.com": self.pages.setdefault("linkedin_company", int(match[1]))
+                        if host == "www.linkedin.com":
+                            path = urlsplit(match[2]).path
+                            if path.startswith("/company/143198922/"):
+                                self.pages.setdefault("linkedin_company", int(match[1]))
+                            elif path.startswith(("/in/jimcc/", "/feed/", "/sharing/")) and not path.startswith("/feed/update/"):
+                                self.pages.setdefault("linkedin", int(match[1]))
                         if host == "www.youtube.com": self.pages.setdefault("youtube", int(match[1]))
                         if host in {"t.co","lnkd.in","capitalchronicle.substack.com"}:
                             self.pages.setdefault("plan-substack" if self.group_title=="codex/cc466-plan-pages" else "link-verification",int(match[1]))
@@ -345,7 +350,7 @@ def compare_public_images(request, observed, *, http=None):
         allowed = (request["destination"] == "x" and host == "pbs.twimg.com" and parsed.path.startswith("/media/")) or (
             request["destination"] in {"substack_notes", "substack"} and (
                 host == "substack-post-media.s3.amazonaws.com" or host == "substackcdn.com" or host.endswith(".substackcdn.com"))) or (
-            request["destination"] == "linkedin_company" and host == "media.licdn.com") or (
+            request["destination"] in LINKEDIN_DESTINATIONS and host == "media.licdn.com") or (
             request["destination"] == "youtube" and host == "yt3.ggpht.com")
         if parsed.scheme != "https" or not allowed:
             continue
@@ -422,6 +427,9 @@ class NeoBrowserDriver:
         snapshot = self.client.snapshot(page)
         text, url = snapshot.get("text", ""), snapshot.get("url", "")
         destination = request["destination"]
+        if destination == "linkedin":
+            text = "\n".join(str(ref.get("name") or "") for ref in snapshot.get("refs", [])
+                if ref.get("role") in {"alert", "dialog", "heading"}) or text
         x_path = ""
         if destination == "x":
             parsed = urlsplit(url)
@@ -459,7 +467,7 @@ class NeoBrowserDriver:
                           or x_path == "/account/access")
         if not wording and not checkpoint:
             return None
-        cause = {"linkedin_company":"LINKEDIN", "youtube":"YOUTUBE", "x":"X"}[destination] + "_PLATFORM_RESTRICTION"
+        cause = ("LINKEDIN" if destination in LINKEDIN_DESTINATIONS else destination.upper()) + "_PLATFORM_RESTRICTION"
         if external_verification and external_verification.get("verification_required"):
             cause = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
         from .neo_destination_handoff_v1 import suspend_route
@@ -471,11 +479,13 @@ class NeoBrowserDriver:
     def article_readback(self, request, page, *, posts=None):
         if request.get("public_object_url"):
             self.client.call("navigate", {"page": page, "url": request["public_object_url"]})
+        elif posts and request["destination"] == "linkedin":
+            self.client.call("navigate", {"page": page, "url": ROOTS["linkedin"]})
         refused = self.article_guard(request, page)
         if refused:
             return {**refused, "status": "READBACK_UNAVAILABLE", "verified": False}
         texts = posts or expected_posts(request)
-        if request["destination"] == "linkedin_company":
+        if request["destination"] in LINKEDIN_DESTINATIONS:
             # The admin shell can settle before its post bodies hydrate.
             # Observe the target text before interpreting the loaded feed.
             self.client.wait(page, '.update-components-text, [data-testid="expandable-text-box"]')
@@ -496,7 +506,7 @@ class NeoBrowserDriver:
                 continue  # An unrelated article's short links cannot prove this one.
             resolutions = []
             for link in post.get("links") or []:
-                if (request.get("canonical_url") and request["destination"] == "linkedin_company"
+                if (request.get("canonical_url") and request["destination"] in LINKEDIN_DESTINATIONS
                         and re.fullmatch(r"https://lnkd\.in/[A-Za-z0-9_-]+", str(link.get("url") or ""))
                         and self.client.verify_link(link["url"], request["canonical_url"])):
                     link["expanded_url"] = request["canonical_url"]
@@ -544,7 +554,12 @@ class NeoBrowserDriver:
         destination = request["destination"]
         identity = {"authenticated": False, "observed_identity": None,
             "observed_at_utc": datetime.now(timezone.utc).isoformat()}
-        page = self.client.open(destination, ROOTS[destination])
+        if destination in LINKEDIN_DESTINATIONS and request["action"] == "EDIT_EXISTING":
+            return {"result": {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "public_write_performed": False, "stage": "BEFORE_PUBLISH_CLICK",
+                "reason_code": "CC684_EXISTING_LINKEDIN_POST_RETAINED"}, "identity": identity}
+        entry = LINKEDIN_MEMBER_COMPOSER if destination == "linkedin" and request["action"] != "READBACK" else ROOTS[destination]
+        page = self.client.open(destination, entry)
         refused = self.article_guard(request, page)
         if refused:
             return {"result": refused, "identity": identity}
@@ -558,7 +573,7 @@ class NeoBrowserDriver:
                 self.client.wait(page, 'a[href^="https://studio.youtube.com/channel/"][href$="/editing"]')
             except NeoEndpointError:
                 pass  # The normal identity check below refuses a real mismatch.
-        elif destination == "linkedin_company":
+        elif destination in LINKEDIN_DESTINATIONS:
             try:
                 self.client.wait_text(page, "Start a post")
             except NeoEndpointError:
@@ -574,10 +589,16 @@ class NeoBrowserDriver:
             posts = expected_posts(request)
             if len(posts) != 1:
                 raise NeoEndpointError("ARTICLE_SINGLE_POST_REQUIRED")
-            if destination == "linkedin_company":
+            if destination in LINKEDIN_DESTINATIONS:
                 self.client.act(page, "click", ref=self._ref(page, "button", {"Start a post"}))
                 self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
-                ref = self._ref(page, "textbox", {"Text editor for creating content"}, last=True)
+                refused = self.article_guard(request, page)
+                if refused:
+                    return {"result": refused, "identity": identity}
+                if destination == "linkedin":
+                    self._ref(page, "button", {"Jim Pham"})
+                    self._ref(page, "button", {"Post to Anyone"})
+                ref = self._ref(page, "textbox", {"Text editor for creating content", "Share your thoughts ..."}, last=True)
             else:
                 ready = self.client.run(page, "article_editor")
                 if not ready.get("ready"):
@@ -606,7 +627,7 @@ class NeoBrowserDriver:
                 # numbers match; article_publish still verifies them at click.
             media = (request.get("content_binding") or {}).get("media_manifest") or []
             if media:
-                if destination == "linkedin_company":
+                if destination in LINKEDIN_DESTINATIONS:
                     snapshot = self.client.snapshot(page)
                     preview = any(r["role"] == "link" and r["name"].startswith("Open article:") for r in snapshot["refs"])
                     remove = next((r for r in snapshot["refs"] if r["role"] == "button" and r["name"] == "Remove media"), None)
@@ -619,12 +640,16 @@ class NeoBrowserDriver:
                 if not ready.get("installed"):
                     raise NeoEndpointError("ARTICLE_FILE_CHOOSER_INTERCEPTION_UNAVAILABLE")
                 try:
-                    names = {"Add media"} if destination == "linkedin_company" else {"Thêm hình ảnh", "Image", "Add image"}
+                    names = {"Add media", "Media"} if destination in LINKEDIN_DESTINATIONS else {"Thêm hình ảnh", "Image", "Add image"}
                     self.client.act(page, "click", ref=self._ref(page, "button", names))
+                    self.client.wait(page, 'input[type="file"][aria-label="CC454 article image"]')
                     ref = self._ref(page, "button", {"CC454 article image"})
                     self.client.call("upload", {"page": page, "ref": ref, "files": [a["path"] for a in media]})
-                    if destination == "linkedin_company":
-                        self.client.act(page, "click", ref=self._ref(page, "button", {"Next"}))
+                    if destination in LINKEDIN_DESTINATIONS:
+                        next_button = next((r for r in self.client.snapshot(page)["refs"]
+                            if r["role"] == "button" and r["name"] == "Next"), None)
+                        if next_button:
+                            self.client.act(page, "click", ref=next_button["ref"])
                         self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
                 finally:
                     self.client.run(page, "article_upload_restore")
@@ -635,7 +660,8 @@ class NeoBrowserDriver:
             return {"result": {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                 "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PREPARATION_FAILED",
                 "safe_error_classification": str(exc)}, "identity": identity}
-        result = self.client.run(page, "article_publish", destination=destination, posts=posts)
+        result = self.client.run(page, "article_publish", destination=destination, posts=posts,
+            require_media=bool(media) and destination in LINKEDIN_DESTINATIONS)
         if result["status"] != "CLICKED":
             return {"result": result, "identity": identity}
         readback = self.article_readback(request, page, posts=posts)

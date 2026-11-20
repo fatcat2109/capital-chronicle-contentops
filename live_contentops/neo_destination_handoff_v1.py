@@ -16,6 +16,8 @@ from urllib.parse import urlsplit, unquote
 
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
+LINKEDIN_DESTINATIONS = frozenset({"linkedin", "linkedin_company"})
+LINKEDIN_MEMBER_COMPOSER = "https://www.linkedin.com/feed/"
 IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@capitalchronicle", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
               "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle",
@@ -67,8 +69,8 @@ def suspended_routes():
 
 
 def suspend_route(destination, cause):
-    """Decision 121: persist a platform objection on this destination only."""
-    if destination not in {"linkedin_company", "youtube", "x"}:
+    """Decisions 121 and CC-684: persist a platform objection on this destination only."""
+    if destination not in {*LINKEDIN_DESTINATIONS, "youtube", "x"}:
         raise ValueError("ARTICLE_ROUTE_REQUIRED")
     routes = suspended_routes()
     routes[destination] = str(cause)

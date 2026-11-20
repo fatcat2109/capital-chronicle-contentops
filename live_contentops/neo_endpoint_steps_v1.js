@@ -2,6 +2,7 @@
 // Python prefixes `input` and `page`; no site API, cookies or application state.
 const snap = async () => await page.snapshot();
 const find = (s, role, name) => s.refs.find(r => r.role === role && r.name === name);
+const isLinkedIn = destination => ['linkedin', 'linkedin_company'].includes(destination);
 const normalize = s => String(s).replace(/[‘’]/g,"'").replace(/[“”]/g,'"')
   .replace(/\s+/g,' ').trim();
 const unwrap = r => {
@@ -9,12 +10,12 @@ const unwrap = r => {
   if (!Object.prototype.hasOwnProperty.call(r,'value')) throw new Error('NEO_DOM_OBSERVATION_UNAVAILABLE');
   return r.value;
 };
-const articleEditors = async destination => unwrap(await page.evaluateInPage(destination => {
-  const scope = destination === 'linkedin_company' ? document.querySelector('[role="dialog"]') : document;
-  return Array.from(scope?.querySelectorAll(destination === 'linkedin_company'
+const articleEditors = async destination => unwrap(await page.evaluateInPage(linkedin => {
+  const scope = linkedin ? document.querySelector('[role="dialog"]') : document;
+  return Array.from(scope?.querySelectorAll(linkedin
     ? '[contenteditable="true"][role="textbox"]' : '#contenteditable-root[contenteditable="true"]') || [])
     .filter(e => e.getClientRects().length).map(e => e.innerText);
-}, destination));
+}, isLinkedIn(destination)));
 
 // CC-466 uses this same endpoint for bound web-only plan pages.
 if (input.phase === 'plan_substack_front') {
@@ -154,16 +155,28 @@ if (input.phase === 'plan_substack_readback') {
       alt_text:f.querySelector('img').alt,caption:f.querySelector('figcaption')?.innerText})),observed_at_utc:new Date().toISOString()})));
 }
 
-// CC-454 extends this same transport for the two restored article destinations.
+// CC-454/684 use this transport for the two LinkedIn accounts and YouTube.
 if (input.phase === 'article_identity') {
   const s = await snap();
   const company = input.destination === 'linkedin_company';
-  const correct = company
-    ? /^https:\/\/www\.linkedin\.com\/company\/143198922\/admin\//.test(s.url)
-      && !!find(s, 'button', 'Start a post') && /heading "Capital Chronicle"/.test(s.text)
-    : /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube\/posts/.test(s.url)
+  let correct;
+  if (company) {
+    correct = /^https:\/\/www\.linkedin\.com\/company\/143198922\/admin\//.test(s.url)
+      && !!find(s, 'button', 'Start a post') && /heading "Capital Chronicle"/.test(s.text);
+  } else if (input.destination === 'linkedin') {
+    const sidebar = s.text.split('\n');
+    const start = sidebar.findIndex(line => line.includes('complementary "Sidebar"'));
+    const ownProfile = /link "View Jim Pham.s profile".*\[url="https:\/\/www\.linkedin\.com\/in\/jimcc\/"\]/i;
+    const ownActivity = /link "Jim Pham You".*\[url="https:\/\/www\.linkedin\.com\/in\/jimcc\/"\]/i;
+    correct = input.expected_identity === 'linkedin:jimcc' && (
+      s.url === 'https://www.linkedin.com/feed/' && !!find(s, 'button', 'Start a post')
+        && start >= 0 && sidebar.slice(start + 1, start + 8).some(line => ownProfile.test(line))
+      || s.url === 'https://www.linkedin.com/in/jimcc/recent-activity/all/' && ownActivity.test(s.text));
+  } else {
+    correct = /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube\/posts/.test(s.url)
       && s.refs.some(r => r.role === 'link' && ['Tùy chỉnh kênh', 'Customize channel'].includes(r.name))
       && s.refs.some(r => r.role === 'tab' && ['Bài đăng', 'Posts'].includes(r.name));
+  }
   return {authenticated:correct, observed_identity:correct ? input.expected_identity : null,
     ...(company && correct ? {observed_stable_id:'143198922'} : {}), observed_at_utc:new Date().toISOString()};
 }
@@ -187,33 +200,38 @@ if (input.phase === 'article_editor') {
 }
 
 if (input.phase === 'article_intercept_upload') {
-  return unwrap(await page.evaluateInPage(destination => {
+  return unwrap(await page.evaluateInPage(linkedin => {
     window.__cc454UploadInterception?.restore();
-    const scope = destination === 'linkedin_company'
+    const scope = linkedin
       ? document.querySelector('[role="dialog"]') : document.querySelector('[role="main"]') || document.body;
     if (!scope) return {installed:false};
-    const original=HTMLInputElement.prototype.click;
+    const prototype=HTMLInputElement.prototype;
+    const original=prototype.click;
+    const originalPicker=prototype.showPicker;
     const show=field=>{
       field.style.cssText='display:block;visibility:visible;position:relative;width:180px;height:30px;opacity:1';
       field.removeAttribute('aria-hidden');field.setAttribute('aria-label','CC454 article image');
       if (!field.isConnected || !field.getClientRects().length) scope.append(field);
     };
-    // Stop both scripted input.click() and a label's default file-selection
-    // action. The real input keeps its platform change handler for Neo upload.
+    // Stop scripted file pickers and the native file input's default action.
+    // The real input keeps its platform change handler for Neo upload.
     const listener=e=>{
       if (e.target instanceof HTMLInputElement && e.target.type==='file') {
         e.preventDefault();e.stopImmediatePropagation();show(e.target);
       }
     };
     const intercept=function(){if(this.type==='file'){show(this);return;}return original.call(this);};
-    HTMLInputElement.prototype.click=intercept;
+    const interceptPicker=function(){if(this.type==='file'){show(this);return;}return originalPicker?.call(this);};
+    prototype.click=intercept;
+    if (originalPicker) prototype.showPicker=interceptPicker;
     document.addEventListener('click',listener,true);
     window.__cc454UploadInterception={restore(){
-      if (HTMLInputElement.prototype.click===intercept) HTMLInputElement.prototype.click=original;
+      if (prototype.click===intercept) prototype.click=original;
+      if (originalPicker && prototype.showPicker===interceptPicker) prototype.showPicker=originalPicker;
       document.removeEventListener('click',listener,true);
     }};
-    return {installed:HTMLInputElement.prototype.click===intercept};
-  }, input.destination));
+    return {installed:prototype.click===intercept && (!originalPicker || prototype.showPicker===interceptPicker)};
+  }, isLinkedIn(input.destination)));
 }
 
 if (input.phase === 'article_upload_restore') {
@@ -237,6 +255,22 @@ if (input.phase === 'article_publish') {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH',pre_click_posts:editors};
   }
+  if (input.destination === 'linkedin'
+      && (!/^https:\/\/www\.linkedin\.com\/sharing\/compose\/?(?:[?#].*)?$/.test(s.url)
+          || !find(s, 'button', 'Jim Pham') || !find(s, 'button', 'Post to Anyone'))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'NEO_SIGNED_IN_ACCOUNT_MISMATCH'};
+  }
+  if (input.require_media && !unwrap(await page.evaluateInPage(() => {
+    const dialog = document.querySelector('[role="dialog"]');
+    return Array.from(dialog?.querySelectorAll('img') || []).some(img =>
+      img.getClientRects().length && img.naturalWidth >= 300 &&
+      (img.src.startsWith('blob:') || img.src.startsWith('data:image/') ||
+       /^https:\/\/media\.licdn\.com\/.+\/(?:feedshare|image)[-_/]/i.test(img.src)));
+  }))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'LINKEDIN_CHART_PREVIEW_UNAVAILABLE'};
+  }
   const dispatched_at_utc=new Date().toISOString();
   await page.click(button.ref);
   return {status:'CLICKED',stage:'PUBLISH_CLICK_ATTEMPTED',dispatched_at_utc,pre_click_posts:editors};
@@ -244,46 +278,52 @@ if (input.phase === 'article_publish') {
 
 if (input.phase === 'article_readback') {
   return unwrap(await page.evaluateInPage(destination => {
+    const linkedin = destination === 'linkedin' || destination === 'linkedin_company';
     const visible=e=>!!e && e.getClientRects().length>0;
     const links=e=>Array.from(e.querySelectorAll('a[href]')).map(a=>{
       const u=new URL(a.href);const expanded=u.hostname==='www.youtube.com' && u.pathname==='/redirect'
         ? u.searchParams.get('q') : null;
       return {text:a.innerText,url:a.href,expanded_url:expanded};
     });
-    let nodes=destination==='linkedin_company'
+    let nodes=linkedin
       ? document.querySelectorAll('[data-urn^="urn:li:activity:"]')
       : document.querySelectorAll('ytd-backstage-post-renderer');
-    const permalink=destination==='linkedin_company'
+    const permalink=linkedin
       ? /^https:\/\/www\.linkedin\.com\/feed\/update\/(urn:li:activity:\d+)\/?(?:[?#].*)?$/.exec(location.href) : null;
-    if (!nodes.length && permalink) {
-      // LinkedIn's permalink uses its current semantic text/listitem layout;
-      // the company admin feed still uses data-urn. Bind the ID to this exact
-      // public URL and continue to require the post's actual company author.
+    if (!nodes.length && linkedin) {
+      // The current member activity and permalink use semantic list items.
       nodes=[...new Set(Array.from(document.querySelectorAll('main [data-testid="expandable-text-box"]'))
         .map(e=>e.closest('[role="listitem"]')).filter(Boolean))];
     }
     const posts=Array.from(nodes).filter(visible).map(e=>{
       const ls=links(e);
-      const author=ls.find(l=>destination==='linkedin_company'
-        ? /^https:\/\/www\.linkedin\.com\/company\/(?:143198922|capitalchronicle)(?:\/|$)/i.test(l.url)
-        : /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube(?:\/|$)/i.test(l.url));
-      const id=destination==='linkedin_company' ? e.getAttribute('data-urn') || permalink?.[1]
+      const ownerPattern = destination === 'linkedin'
+        ? /^https:\/\/www\.linkedin\.com\/in\/jimcc\/?(?:[?#].*)?$/i
+        : destination === 'linkedin_company'
+          ? /^https:\/\/www\.linkedin\.com\/company\/(?:143198922|capitalchronicle)(?:\/|$)/i
+          : /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube(?:\/|$)/i;
+      const author=ls.find(l=>ownerPattern.test(l.url));
+      const memberActivity = destination === 'linkedin' && ls.map(l =>
+        /^https:\/\/www\.linkedin\.com\/analytics\/post-summary\/(urn:li:activity:\d+)\/?(?:[?#].*)?$/.exec(l.url)
+      ).find(Boolean);
+      const id=linkedin ? e.getAttribute('data-urn') || memberActivity?.[1] || permalink?.[1]
         : ls.find(l=>/^https:\/\/www\.youtube\.com\/post\//.test(l.url))?.url.split('/post/')[1];
-      const url=destination==='linkedin_company'
+      const url=linkedin
         ? 'https://www.linkedin.com/feed/update/'+id+'/' : (id?'https://www.youtube.com/post/'+id:null);
-      const body=e.querySelector(destination==='linkedin_company'?'.update-components-text':'#content-text')
-        || (destination==='linkedin_company'?e.querySelector('[data-testid="expandable-text-box"]'):null);
-      if (destination==='linkedin_company') {
+      const body=e.querySelector(linkedin?'.update-components-text':'#content-text')
+        || (linkedin?e.querySelector('[data-testid="expandable-text-box"]'):null);
+      if (linkedin) {
         for (const short of body?.innerText?.match(/https:\/\/lnkd\.in\/[A-Za-z0-9_-]+/g)||[]) {
           if (!ls.some(link=>link.url===short)) ls.push({text:short,url:short,expanded_url:null});
         }
       }
       return {public_object_id:id,public_object_url:url,observed_text:body?.innerText || '',
-        observed_identity:author?(destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
+        observed_identity:author?(destination==='linkedin'?'linkedin:jimcc':
+          destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
         ...(destination==='linkedin_company'&&author?{observed_stable_id:'143198922'}:{}),links:ls,
         public_image_urls:Array.from(e.querySelectorAll('img')).filter(visible).flatMap(i=>{
           const urls=[i.currentSrc||i.src];
-          if (destination==='linkedin_company' && i.getAttribute('srcset')) {
+          if (linkedin && i.getAttribute('srcset')) {
             const variants=i.getAttribute('srcset').split(',').map(s=>{
               const [url,width]=s.trim().split(/\s+/);return {url,width:parseInt(width,10)||0};
             }).sort((a,b)=>b.width-a.width);
@@ -291,7 +331,7 @@ if (input.phase === 'article_readback') {
           }
           return [...new Set(urls)];
         })
-          .filter(u=>destination==='linkedin_company'?/^https:\/\/media\.licdn\.com\//.test(u):/^https:\/\/yt3\.ggpht\.com\//.test(u))};
+          .filter(u=>linkedin?/^https:\/\/media\.licdn\.com\//.test(u):/^https:\/\/yt3\.ggpht\.com\//.test(u))};
     }).filter(p=>p.public_object_id && p.observed_identity);
     return {posts};
   }, input.destination));

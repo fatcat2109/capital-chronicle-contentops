@@ -286,51 +286,66 @@ def test_cc536_youtube_fill_accepts_only_observed_whitespace_changes(tmp_path, f
 def test_cc536_youtube_dom_editor_excludes_hidden_composer(visible):
     import subprocess
     from pathlib import Path
-    source = (Path(endpoint.__file__).with_name("neo_endpoint_steps_v1.js")).read_text(encoding="utf-8")
+    source = Path(endpoint.__file__).with_name("neo_endpoint_steps_v1.js")
     script = """
 const visible=JSON.parse(process.argv[1]);
 const field={getClientRects:()=>visible?[{}]:[],setAttribute:()=>{},getAttribute:()=> 'A rotating prompt'};
 global.document={querySelector:()=>field,querySelectorAll:()=>[field]};
 global.getComputedStyle=()=>({visibility:'visible'});
 const page={evaluateInPage:async fn=>({value:fn()})};
-const source=JSON.parse(process.argv[2]);
+const source=require('fs').readFileSync(process.argv[2],'utf8');
 (async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
 console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
 """
-    raw = subprocess.check_output(["node", "-e", script, json.dumps(visible), json.dumps(source)], text=True, timeout=5)
+    raw = subprocess.check_output(["node", "-e", script, json.dumps(visible), str(source)], text=True, timeout=5)
     result = json.loads(raw)
     assert result["ready"] is visible
     if not visible:
         assert result["prompt"] == "A rotating prompt"
 
 
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
 @pytest.mark.parametrize("correct_author", [False,True])
-def test_cc536_company_permalink_reads_its_exact_id_body_and_visible_short_link(correct_author):
+def test_linkedin_readback_binds_exact_activity_id_to_its_author(destination, correct_author):
     import subprocess
     from pathlib import Path
-    source=Path(endpoint.__file__).with_name('neo_endpoint_steps_v1.js').read_text(encoding='utf-8')
+    source=Path(endpoint.__file__).with_name('neo_endpoint_steps_v1.js')
     script="""
-const correct=JSON.parse(process.argv[1]);
-global.location={href:'https://www.linkedin.com/feed/update/urn:li:activity:123/'};
+const [destination,correct]=JSON.parse(process.argv[1]);
+const member=destination==='linkedin';
+global.location={href:member?'https://www.linkedin.com/in/jimcc/recent-activity/all/':'https://www.linkedin.com/feed/update/urn:li:activity:123/'};
 const body={innerText:'Our exact call. https://lnkd.in/bound',closest:()=>root};
-const author={href:correct?'https://www.linkedin.com/company/capitalchronicle/':'https://www.linkedin.com/company/other/',innerText:'Author'};
+const author={href:correct?(member?'https://www.linkedin.com/in/jimcc/':'https://www.linkedin.com/company/capitalchronicle/'):'https://www.linkedin.com/company/other/',innerText:'Author'};
+const activity={href:'https://www.linkedin.com/analytics/post-summary/urn:li:activity:123/',innerText:'View analytics'};
 const img={getClientRects:()=>[{}],currentSrc:'https://media.licdn.com/chart-small',getAttribute:()=> 'https://media.licdn.com/chart-small 800w, https://media.licdn.com/chart-full 1400w'};
-const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author]:s==='img'?[img]:[]};
+const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author,activity]:s==='img'?[img]:[]};
 global.document={querySelectorAll:s=>s.startsWith('main ')?[body]:[]};
 const page={evaluateInPage:async(fn,input)=>({value:fn(input)})};
-const source=JSON.parse(process.argv[2]);
+const source=require('fs').readFileSync(process.argv[2],'utf8');
 (async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
-console.log(JSON.stringify(await fn(page,{phase:'article_readback',destination:'linkedin_company'})));})();
+console.log(JSON.stringify(await fn(page,{phase:'article_readback',destination})));})();
 """
-    result=json.loads(subprocess.check_output(['node','-e',script,json.dumps(correct_author),json.dumps(source)],text=True,timeout=5))
+    result=json.loads(subprocess.check_output(['node','-e',script,json.dumps([destination, correct_author]),str(source)],text=True,timeout=5))
     if not correct_author:
         assert result['posts']==[]
     else:
         post=result['posts'][0]
+        assert post['observed_identity'] == handoff.IDENTITIES[destination]
         assert post['public_object_id']=='urn:li:activity:123'
         assert post['observed_text']=='Our exact call. https://lnkd.in/bound'
         assert any(link['url']=='https://lnkd.in/bound' for link in post['links'])
         assert post['public_image_urls']==['https://media.licdn.com/chart-small','https://media.licdn.com/chart-full']
+
+
+def test_member_checkpoint_suspends_only_member_without_a_composer_click():
+    browser = ArticleBrowser("linkedin", "checkpoint")
+    result = endpoint.NeoBrowserDriver(browser).article_perform({"request": {
+        "destination": "linkedin", "action": "PUBLISH", "expected_identity": "linkedin:jimcc"
+    }})
+    assert result["result"]["platform_wording"] == "Confirm your identity"
+    assert result["result"]["definite_no_write"] is True
+    assert browser.calls == []
+    assert handoff.suspended_routes() == {"linkedin": "LINKEDIN_PLATFORM_RESTRICTION"}
 
 
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
