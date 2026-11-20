@@ -2854,6 +2854,15 @@ class DurablePublicationCoordinator:
                     # Retain old incidents as per-post evidence without holding unrelated X copies.
                     incident_id += "_after_local_prewrite_repair"
                     continue
+                if (destination == "substack_notes" and failure and failure.get("status") == UNKNOWN_WRITE
+                        and conn.execute("""SELECT 1 FROM platform_dispatches d
+                            JOIN outbox_messages o ON o.message_id=d.message_id
+                            WHERE d.dispatch_id=? AND d.platform='substack_notes'
+                            AND json_extract(o.payload,'$.plan_status_post')=o.work_item_id""",
+                            (failure.get("dispatch_id"),)).fetchone()):
+                    # A plan Note's uncertain send remains on that exact dispatch.
+                    incident_id += "_after_local_prewrite_repair"
+                    continue
                 local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                     or self._transient_readiness_failure(failure)
                     or failure.get("plan_preclick_retry") is True
@@ -2970,6 +2979,8 @@ class DurablePublicationCoordinator:
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
         if ((destination == "x" and not _x_platform_day_failure(detail))
+                or (destination == "substack_notes" and intent.get("plan_status_post")
+                    and detail.get("status") == UNKNOWN_WRITE)
                 or self._transient_readiness_failure(detail)
                 or detail.get("plan_preclick_retry") is True
                 or _local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)

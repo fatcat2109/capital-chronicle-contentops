@@ -9,6 +9,7 @@ from pathlib import Path
 import sqlite3
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from threading import Thread
 
 from PIL import Image, ImageDraw
@@ -108,8 +109,8 @@ def copied_store(tmp_path):
     return ContentOpsDurableStore(path)
 
 
-def message(store,destination, *, plan_status=False):
-    work='card-'+destination
+def message(store,destination, *, plan_status=False, work=None):
+    work = work or 'card-'+destination
     store.create_work_item(story_id=work,work_item_id=work,title='Bound source copy',target_surface='MULTI_PLATFORM')
     value={"work_item_id":work,"plan_hash":"plan","package_identity":"pkg",
         "canonical_url":"https://capitalchronicle.substack.com/p/original-call",
@@ -154,6 +155,60 @@ def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path,destin
         response=next(json.loads(row['payload']) for row in store.list_outbox_messages(destination='internal:native-neo-tool')
             if 'native_tool_observation' in json.loads(row['payload']).get('result',{}))
         assert response['result']['native_tool_observation']['surface']=='NEO_ENDPOINT_EXECUTOR'
+
+
+def test_cc672_parallel_x_and_notes_keep_their_own_endpoint_replies(tmp_path):
+    from threading import Barrier
+
+    store = copied_store(tmp_path)
+    with endpoint() as (url, state):
+        client = neo.NeoMcpClient(url)
+        start = Barrier(2)
+
+        def send(destination):
+            ids, intent = message(store, destination)
+            coordinator = bind_native_neo_coordinator(store, operation_id=intent["work_item_id"],
+                output_dir=tmp_path / destination, native_invocation_id="fixture-parent",
+                allow_publish=True, automatic=True, endpoint_client=client)[0]
+            start.wait(timeout=10)
+            return coordinator._dispatch_message(store.get_outbox_message(ids["message_id"]),
+                                                 canonical_url=intent["canonical_url"])
+
+        with ThreadPoolExecutor(max_workers=2) as workers:
+            results = list(workers.map(send, ("x", "substack_notes")))
+
+        assert [result["status"] for result in results] == ["DISPATCH_CONFIRMED"] * 2, results
+        assert {item["destination"] for item in results} == {"x", "substack_notes"}
+        assert set(state["posts"]) == {"x", "substack_notes"}
+        assert len([name for name, _ in state["calls"] if name == "name_session"]) == 1
+        assert len(set(client.pages.values())) == 2
+
+
+def test_cc672_uncertain_plan_note_keeps_its_claim_without_holding_the_next_note(tmp_path):
+    store = copied_store(tmp_path)
+    prior, intent = message(store, "substack_notes", plan_status=True)
+    store.register_platform_dispatch(dispatch_id=prior["dispatch_id"], message_id=prior["message_id"],
+        platform="substack_notes", status="UNKNOWN_WRITE")
+    coordinator = Coordinator(store=store, transport_runtime=None)
+    day_incident, _ = coordinator._destination_failure_key("substack_notes")
+    detail = {"status": "UNKNOWN_WRITE", "safe_error_classification": "AttributeError",
+              "dispatch_id": prior["dispatch_id"]}
+    coordinator._record_destination_day_failure(intent, "substack_notes", detail)
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (day_incident,)).fetchone() is None
+    store.register_incident(incident_id=day_incident, work_item_id=intent["work_item_id"],
+                            severity="DISPATCH_FAILURE", description=json.dumps(detail))
+
+    current, next_intent = message(store, "substack_notes", work="next-plan-note")
+    with endpoint() as (url, state):
+        coordinator, _ = bound(store, tmp_path, next_intent["work_item_id"], url)
+        outcome = coordinator._dispatch_message(store.get_outbox_message(current["message_id"]),
+                                                canonical_url=next_intent["canonical_url"])
+        assert outcome["status"] == "DISPATCH_CONFIRMED", outcome
+        clicks = [args for name, args in state["calls"]
+                  if name == "run" and '"phase": "publish"' in args.get("code", "")]
+        assert len(clicks) == 1
+    assert store.get_platform_dispatch(prior["dispatch_id"])["status"] == "UNKNOWN_WRITE"
 
 
 @pytest.mark.parametrize('fault',['account','composer'])
