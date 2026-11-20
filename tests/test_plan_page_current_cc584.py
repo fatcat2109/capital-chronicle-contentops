@@ -277,6 +277,75 @@ def test_dated_page_update_uses_main_quote_and_rechecks_state_before_write(monke
         pages.require_current_page({"source_plan": raw, "market_update": update}, now=at)
 
 
+@pytest.mark.parametrize("old_price,current_price", [(3959, 3948.123), (3948.123, 3959), (3959, 3959.5)])
+def test_same_state_quote_crossing_reaches_the_first_canonical_send(old_price, current_price, tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
+    from live_contentops import plan_reader_editorial_v1 as editorial
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from test_plan_thread_consistency_cc549 import authored
+
+    raw = json.loads(GOLD.read_bytes())
+    raw["status"] = "WAITING"
+    prepared_at = posts._utc(raw["registered_at_utc"]) + timedelta(minutes=3)
+    now = prepared_at + timedelta(minutes=1)
+
+    def with_quote(price, at, source_hash):
+        return {**raw, "last_quote": {"price": price, "instrument": raw["asset_id"],
+            "quoted_at_utc": at.isoformat(), "known_at_utc": at.isoformat(), "source_hash": source_hash}}
+
+    previous = with_quote(old_price, prepared_at, "a" * 64)
+    current = with_quote(current_price, now, "b" * 64)
+    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run["source_plan"] = raw
+    source = reader.source_packet(raw, run, thread=True)
+    manuscript = editorial.bind_manuscript(authored(source), source, raw)
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
+    monkeypatch.setattr(pages, "_card", lambda *a: None)
+    monkeypatch.setattr(pages, "datetime", SimpleNamespace(now=lambda tz: now))
+    monkeypatch.setattr(posts, "current_public_plan", lambda *a, **k: current)
+    monkeypatch.setattr(native_desktop_publication_v1, "live_publication_policy", lambda rollout: None)
+    monkeypatch.setattr(llm_operator_control_v1, "assert_llm_operator_execution_enabled", lambda: None)
+
+    held = pages.register_page(store, pages.render(raw, manuscript, output_dir=tmp_path / "page",
+        **pages.current_page_options(raw, previous, now=prepared_at)))
+    held_bytes = store.get_outbox_message(held["page_id"])["payload"]
+    sent = []
+
+    class Coordinator:
+        def publish_plan(self, page_id, plan):
+            assert self.recovery_scope["plan"] == plan
+            packet = pages.validate_plan(store, page_id, plan)
+            assert pages.require_current_page(packet, now=now) == current
+            sent.append(packet)
+            return {"status": "DISPATCH_CONFIRMED"}
+
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator",
+                        lambda *a, **k: (Coordinator(), SimpleNamespace(pending=lambda: [])))
+    outcome = pages.continue_page(store, held, invocation_id="same-state-quote-test",
+                                  rollout={"store_path": store.db_path})
+    assert outcome["publication"]["status"] == "DISPATCH_CONFIRMED"
+    packet, = sent
+    assert packet["source_plan"] == held["source_plan"]
+    assert packet["native_payload"]["title"] == held["native_payload"]["title"]
+    body = packet["native_payload"]["body_markdown"]
+    revisions = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+    if current_price == 3948.123:
+        assert packet["market_update"] == current["last_quote"]
+        assert "Our quote at " + reader.et(now.isoformat()) + " was 3,948.123." in body
+    else:
+        assert not packet.get("market_update")
+        assert "Since we fixed the plan" not in body
+    if current_price == 3959.5:
+        assert packet == held
+        assert revisions == []
+    else:
+        original, = revisions
+        assert original["payload"] == held_bytes
+
+
 def test_stored_91_percent_paragraph_needs_a_named_pricing_source():
     stored = json.loads((Path(__file__).parent / "fixtures/cc584/stored-plan-rows.json").read_bytes())
     run = {"source_plan": {"scenario_analysis": {"priced": stored["eurusd_priced_source"]},

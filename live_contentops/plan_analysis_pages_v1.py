@@ -203,6 +203,21 @@ def market_update(raw, current, *, now):
     return current_page_options(raw, current, now=now).get("market_update")
 
 
+def _require_current_market_update(raw, update, latest, now):
+    if not update:
+        if latest:
+            raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
+        return
+    price = _validate_quote(raw, update, now)
+    update_at = posts._utc(update["quoted_at_utc"])
+    if (not latest or not update.get("source_hash") or not update.get("known_at_utc")
+            or not posts._utc(raw["registered_at_utc"]) <= update_at <= posts._utc(update["known_at_utc"]) <= now
+            or update_at > posts._utc(latest["quoted_at_utc"])
+            or (update_at == posts._utc(latest["quoted_at_utc"]) and update != latest)
+            or _zone_relation(raw, Decimal(str(latest["price"]))) != _zone_relation(raw, price)):
+        raise ValueError("PLAN_ANALYSIS_DATED_UPDATE_NO_LONGER_CURRENT")
+
+
 def require_current_page(packet, *, now=None):
     """Check the exact plan and quote again immediately before the write."""
     raw = packet["source_plan"]
@@ -223,19 +238,7 @@ def require_current_page(packet, *, now=None):
     options = current_page_options(raw, current, now=now)
     if options.get("active_status") != packet.get("active_status"):
         raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
-    latest = options.get("market_update")
-    update = packet.get("market_update")
-    if update:
-        price = _validate_quote(raw, update, now)
-        update_at = posts._utc(update["quoted_at_utc"])
-        if (not latest or not update.get("source_hash") or not update.get("known_at_utc")
-                or not posts._utc(raw["registered_at_utc"]) <= update_at <= posts._utc(update["known_at_utc"]) <= now
-                or update_at > posts._utc(latest["quoted_at_utc"])
-                or (update_at == posts._utc(latest["quoted_at_utc"]) and update != latest)
-                or _zone_relation(raw, Decimal(str(latest["price"]))) != _zone_relation(raw, price)):
-            raise ValueError("PLAN_ANALYSIS_DATED_UPDATE_NO_LONGER_CURRENT")
-    elif latest:
-        raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
+    _require_current_market_update(raw, packet.get("market_update"), options.get("market_update"), now)
     return current
 
 
@@ -743,13 +746,18 @@ def refresh_ended_page(store, packet, *, now):
 def refresh_active_page(store, packet, *, now):
     raw = packet["source_plan"]
     current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
-    active = _active_status(raw, current, now)
+    options = current_page_options(raw, current, now=now)
+    active = options.get("active_status")
     prior = packet.get("active_status")
     if active == prior:
-        return packet
-    if prior:
+        try:
+            _require_current_market_update(raw, packet.get("market_update"), options.get("market_update"), now)
+        except ValueError:
+            pass  # The current observation supports revising the dated line before the first send.
+        else:
+            return packet
+    elif prior:
         _active_status({**raw, **prior}, current, now)
-    options = current_page_options(raw, current, now=now)
     validate_plan(store, packet["page_id"], packet["plan"])
     run = load_run(raw, run_root=Path(packet["run_root"]))
     payload, _, _ = _assemble(raw, packet["manuscript"], run, **options)
