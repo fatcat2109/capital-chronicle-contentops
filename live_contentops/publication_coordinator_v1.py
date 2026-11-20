@@ -1822,13 +1822,15 @@ class DurablePublicationCoordinator:
     def _retry_incident_id(dispatch_id: str) -> str:
         return "incident_derivative_recovery_retry_" + _hash(dispatch_id)[:24]
 
-    def _retry_already_attempted(self, dispatch_id: str) -> bool:
+    def _retry_already_attempted(self, dispatch_id: str, *, strict=False) -> bool:
         try:
             with self.store.get_read_only_connection() as conn:
                 attempted = conn.execute(
                     "SELECT 1 FROM incidents WHERE incident_id=?",
                     (self._retry_incident_id(dispatch_id),),
                 ).fetchone() is not None
+                if strict or not attempted:
+                    return attempted
                 last = conn.execute(
                     "SELECT description FROM incidents WHERE incident_id LIKE ? ORDER BY created_at DESC, rowid DESC LIMIT 1",
                     ("incident_dispatch_outcome_" + _hash(dispatch_id)[:24] + "_%",),
@@ -2854,6 +2856,7 @@ class DurablePublicationCoordinator:
                     continue
                 local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                     or self._transient_readiness_failure(failure)
+                    or failure.get("plan_preclick_retry") is True
                     or _local_missing_threads_text(destination, failure) or _local_identity_refusal(destination, failure)
                     or _local_instagram_validation_failure(destination, failure))
                 if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
@@ -2968,6 +2971,7 @@ class DurablePublicationCoordinator:
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
         if ((destination == "x" and not _x_platform_day_failure(detail))
                 or self._transient_readiness_failure(detail)
+                or detail.get("plan_preclick_retry") is True
                 or _local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)
                 or _local_instagram_validation_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                 and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
@@ -3363,9 +3367,12 @@ class DurablePublicationCoordinator:
         except (ValueError, OSError, KeyError, TypeError) as quality_error:
             cause = str(quality_error) if isinstance(quality_error, ValueError) else type(quality_error).__name__
             return {"destination": destination, "status": cause, "reason_code": cause, "publish_called": False}
+        single_plan_retry = bool(intent.get("plan_status_post")
+                                 and (explicit_reconciled_absent_retry or repaired_composer_no_write))
         claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
             message_id=ids["message_id"], platform=destination,
             expected_status=existing.get("status") if existing else None,
+            **({"retry_incident_id": self._retry_incident_id(ids["dispatch_id"])} if single_plan_retry else {}),
             **({"policy_no_write_cause": "X_NON_API_AUTOMATION_PROHIBITED"} if restored_x_no_write else
                {"policy_no_write_cause": reconciliation_status} if restored_substack_no_write or repaired_composer_no_write else {}))
         if not claimed:
@@ -3389,6 +3396,7 @@ class DurablePublicationCoordinator:
             destination=destination,
         )
         dispatch_call_started_at = datetime.now(timezone.utc).isoformat()
+        plan_preclick_retry = False
         try:
             activity = (
                 browser_activity(
@@ -3420,6 +3428,11 @@ class DurablePublicationCoordinator:
                     raw or {}, destination=destination, surface=registration.surface,
                     transport_type=registration.transport_type,
                 )
+                if (result["status"] == DEFINITE_NO_WRITE and intent.get("plan_status_post")
+                        and registration.transport_type == "BROWSEROS_NEO_MCP"):
+                    from .neo_endpoint_executor_v1 import retryable_unsent_plan_copy
+
+                    plan_preclick_retry = retryable_unsent_plan_copy(raw or {})
         except NativeNeoInputRequired as pending:
             self.store.set_dispatch_status(ids["dispatch_id"], NATIVE_NEO_PENDING)
             self.store.set_outbox_status(ids["message_id"], NATIVE_NEO_PENDING)
@@ -3461,10 +3474,9 @@ class DurablePublicationCoordinator:
         elif (
             result["status"] == DEFINITE_NO_WRITE
             and destination != "substack"
-            and self._full_v1_distribution_required(intent)
+            and (self._full_v1_distribution_required(intent) or plan_preclick_retry)
         ):
-            # A definite pre-write failure is a recoverable quality-probation derivative
-            # obligation, not an ambiguity and not permission to abandon the destination.
+            # An authorized definite prewrite failure keeps the exact copy eligible for recovery.
             reconciliation = RECONCILED_ABSENT_SAFE_TO_RETRY
             self.store.set_dispatch_status(
                 ids["dispatch_id"], RECONCILED_ABSENT_SAFE_TO_RETRY
@@ -3490,6 +3502,8 @@ class DurablePublicationCoordinator:
                       "local_prewrite_validation": destination == "instagram_business"
                           and result.get("provider_metadata", {}).get("source_status") == "VALIDATION_FAILED",
                       "write_outcome_certainty": result.get("write_outcome_certainty")}
+            if plan_preclick_retry:
+                detail["plan_preclick_retry"] = True
             # Recovery and Neo freshness already read this per-attempt outcome.
             # A destination-day incident alone loses later validation results and
             # incorrectly spends the single retry reserved for a possible write.
@@ -4545,7 +4559,7 @@ class DurablePublicationCoordinator:
                 # ``retry_reconciled_absent_substack`` route because a preserved draft ID may
                 # be deliberately non-public.
                 if str(message["destination"]) != "substack":
-                    if self._retry_already_attempted(str(dispatch["dispatch_id"])):
+                    if self._retry_already_attempted(str(dispatch["dispatch_id"]), strict=bool(intent.get("plan_status_post"))):
                         self.store.set_dispatch_status(
                             str(dispatch["dispatch_id"]),
                             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
@@ -4703,7 +4717,7 @@ class DurablePublicationCoordinator:
                 summary["safe_resumes"] += 1
                 summary["safely_attempted"] += 1
                 summary["publish_calls"] += int(bool(outcome.get("publish_called")))
-                if explicit_retry and outcome.get("publish_called") is True:
+                if explicit_retry and outcome.get("publish_called") is True and not intent.get("plan_status_post"):
                     dispatch = self.store.get_platform_dispatch(
                         self._ids(
                             str(intent["work_item_id"]),
@@ -4836,7 +4850,7 @@ class DurablePublicationCoordinator:
             ), None)
             if (
                 reconciliation == RECONCILED_ABSENT_SAFE_TO_RETRY
-                and not self._retry_already_attempted(str(dispatch["dispatch_id"]))
+                and not self._retry_already_attempted(str(dispatch["dispatch_id"]), strict=bool(intent.get("plan_status_post")))
             ):
                 remaining_destinations.append(str(message["destination"]))
         summary["backlog_remaining"] = len(remaining_destinations)

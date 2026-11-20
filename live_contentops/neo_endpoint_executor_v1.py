@@ -26,6 +26,22 @@ GROUP = "codex/cc436-automatic-posts"
 ARTICLE_ROUTES = {"linkedin_company", "youtube"}
 
 
+def retryable_unsent_plan_copy(result):
+    """The exact native return must prove the timeout preceded the publish control."""
+    return (result.get("status") == "FAILED_BEFORE_WRITE"
+            and result.get("stage") == "BEFORE_PUBLISH_CLICK"
+            and result.get("definite_no_write") is True and result.get("public_write_performed") is False
+            and bool(result.get("request_sha256") and result.get("native_tool_return_sha256"))
+            and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+            and not (result.get("public_object_id") or result.get("public_object_url"))
+            and result.get("reason_code") in {"NEO_COMPOSER_PREPARATION_FAILED", "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+            and result.get("safe_error_classification") in {
+                "NEO_RPC_DEADLINE_EXCEEDED", "NEO_RPC_REPLY_MISSING", "NEO_ENDPOINT_CONNECTIONERROR",
+                "NEO_ENDPOINT_READTIMEOUT", "NEO_ENDPOINT_CONNECTTIMEOUT", "NEO_TOOL_ERROR_WAIT",
+                "NEO_CONTROL_NOT_FOUND_WAIT", "NEO_CONTROL_COVERED_ACT", "NEO_STALE_REFERENCE_ACT",
+            })
+
+
 class NeoEndpointError(RuntimeError):
     pass
 
@@ -996,6 +1012,12 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
     message=store.get_outbox_message(dispatch["message_id"])
     if not message:
         return None
+    if json.loads(message["payload"]).get("plan_status_post"):
+        from .publication_coordinator_v1 import DurablePublicationCoordinator
+        with store.get_read_only_connection() as conn:
+            if conn.execute("SELECT 1 FROM incidents WHERE incident_id=?",
+                            (DurablePublicationCoordinator._retry_incident_id(dispatch["dispatch_id"]),)).fetchone():
+                return None
     from .capital_chronicle_latest_report_consumer_v1 import sha256_of
     revision=executor_revision or sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
     found=None
@@ -1099,12 +1121,31 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                     or result.get("public_write_performed") is not False
                     or result.get("stage") != "BEFORE_PUBLISH_CLICK"
                     or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
-                    or not result.get("native_tool_return_sha256")
-                    or (result.get("neo_executor_revision") == self.executor_revision
-                        and request.get('action') != 'EDIT_EXISTING')):
+                    or not result.get("native_tool_return_sha256")):
+                break
+            if (result.get("neo_executor_revision") == self.executor_revision and request.get("action") != "EDIT_EXISTING"
+                    and (refreshed.get("supersedes_prewrite_no_write_sha256")
+                         or not self._claimed_plan_copy_retry(request, result))):
                 break
             refreshed["supersedes_prewrite_no_write_sha256"] = sha256_of(previous)
         return refreshed if refreshed != request else None
+
+    def _claimed_plan_copy_retry(self, request, result):
+        if not retryable_unsent_plan_copy(result):
+            return False
+        from .publication_coordinator_v1 import DurablePublicationCoordinator
+
+        dispatch_id = request.get("dispatch_attempt_identity") or ""
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        if (not dispatch or dispatch["status"] != "DISPATCH_ATTEMPT_STARTED"
+                or dispatch["platform"] != request.get("destination")):
+            return False
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        if not message or json.loads(message["payload"]).get("plan_status_post") != request.get("work_item_id"):
+            return False
+        with self.store.get_read_only_connection() as conn:
+            return conn.execute("SELECT 1 FROM incidents WHERE incident_id=? AND work_item_id=?", (
+                DurablePublicationCoordinator._retry_incident_id(dispatch_id), message["work_item_id"])).fetchone() is not None
 
     def __call__(self,request):
         try:

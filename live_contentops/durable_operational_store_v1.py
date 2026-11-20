@@ -1367,10 +1367,15 @@ class ContentOpsDurableStore:
 
     def claim_platform_dispatch_attempt(self, *, dispatch_id: str, message_id: str,
                                         platform: str, expected_status: Optional[str] = None,
-                                        policy_no_write_cause: Optional[str] = None) -> bool:
+                                        policy_no_write_cause: Optional[str] = None,
+                                        retry_incident_id: Optional[str] = None) -> bool:
         """Atomically fence one provider call in the existing dispatch row."""
         with self.get_connection() as conn:
             conn.execute("BEGIN IMMEDIATE")
+            if retry_incident_id and conn.execute("SELECT 1 FROM incidents WHERE incident_id=?",
+                                                  (retry_incident_id,)).fetchone():
+                conn.execute("COMMIT")
+                return False
             row = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)).fetchone()
             restored_policy_no_write = False
             restorable_causes = {
@@ -1403,6 +1408,15 @@ class ContentOpsDurableStore:
             else:
                 conn.execute("UPDATE platform_dispatches SET status=? WHERE dispatch_id=?",
                     ("DISPATCH_ATTEMPT_STARTED", dispatch_id))
+            if retry_incident_id:
+                # Persist the single retry with the claim, before a crash or a second caller can intervene.
+                now = self._get_now_iso()
+                conn.execute("""INSERT INTO incidents(incident_id,work_item_id,severity,description,created_at)
+                    SELECT ?,work_item_id,'RECOVERY_AUDIT',?,? FROM outbox_messages WHERE message_id=?""",
+                    (retry_incident_id, "One bounded absence-safe derivative retry was started.", now, message_id))
+                conn.execute("UPDATE reconciliations SET status='RECONCILIATION_PENDING',reconciled_at=? "
+                             "WHERE reconciliation_id=?",
+                             (now, "reconciliation_" + dispatch_id.removeprefix("dispatch_")))
             conn.execute("COMMIT")
             return True
 

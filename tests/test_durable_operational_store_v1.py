@@ -87,6 +87,30 @@ def test_finalize_exact_ready_payload_only_before_dispatch(temp_db):
     assert store.get_outbox_message("reply")["payload"] == bound
 
 
+def test_cc672_copy_retry_claim_records_budget_and_reopens_readback_atomically(temp_db):
+    store = temp_db
+    store.create_work_item(story_id="call", work_item_id="call", title="Call", target_surface="TELEGRAM")
+    store.register_outbox_message(message_id="copy", work_item_id="call", destination="telegram",
+                                  payload='{"text":"Ending"}', status="READY")
+    absent = "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    store.register_platform_dispatch(dispatch_id="dispatch_exact", message_id="copy", platform="telegram",
+                                     status=absent)
+    store.register_reconciliation(reconciliation_id="reconciliation_exact", work_item_id="call", status=absent)
+    claim = {"dispatch_id": "dispatch_exact", "message_id": "copy", "platform": "telegram",
+             "expected_status": absent, "retry_incident_id": "retry-exact"}
+
+    assert store.claim_platform_dispatch_attempt(**claim)
+    assert store.get_platform_dispatch("dispatch_exact")["status"] == "DISPATCH_ATTEMPT_STARTED"
+    assert store.get_reconciliations_for_work_item("call")[0]["status"] == "RECONCILIATION_PENDING"
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT work_item_id FROM incidents WHERE incident_id='retry-exact'").fetchone()[0] == "call"
+    # Once the retried request has also been read back as absent, it cannot claim another write.
+    store.set_dispatch_status("dispatch_exact", absent)
+    store.set_reconciliation_status("reconciliation_exact", absent)
+    assert not store.claim_platform_dispatch_attempt(**claim)
+    assert store.get_platform_dispatch("dispatch_exact")["status"] == absent
+
+
 def test_real_multi_version_migration_upgrade(tmp_path):
     db_file = tmp_path / "test_upgrade.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
