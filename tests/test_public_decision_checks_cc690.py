@@ -177,6 +177,20 @@ def test_discord_thread_with_a_confirmed_channel_reply_passes(tmp_path):
     assert not any(issue["decision"] == "CC-685" for issue in audit.finish({}, {})["issues"])
 
 
+def test_triggered_fills_require_a_confirmed_discord_channel_post(tmp_path):
+    audit = checks(tmp_path)
+    source = {"kind": "update", "state": "TRIGGERED"}
+    published(audit, "thread-only", "discord", source=source,
+              native={"discord_thread_parent_id": "parent"})
+    published(audit, "missing", "telegram", source=source)
+    published(audit, "in-channel", "discord", source=source, native={"discord_channel_reply": True})
+    assert {(issue["piece_id"], issue["first_cause"]) for issue in audit.finish({}, {})["issues"]
+            if issue["decision"] == "CC-685"} == {
+        ("thread-only", "DISCORD_FILL_OR_RESULT_THREAD_ONLY"),
+        ("missing", "DISCORD_FILL_OR_RESULT_CHANNEL_COPY_MISSING"),
+    }
+
+
 def test_shared_report_writer_emits_sidecar_for_digest_without_issue(tmp_path):
     run = tmp_path / "20261120T121500Z"
     run.mkdir()

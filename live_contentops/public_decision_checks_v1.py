@@ -20,6 +20,7 @@ WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_pa
                "instagram_business", "threads", "linkedin", "linkedin_company", "x")
 DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83")
 PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
+PLAN_FILL_STATES = {"TRIGGERED", "FILLED"}
 LATE_LINE = "this page was published after the plan ended"
 LAYER_PREFIX = re.compile(
     r"\b(macro|fundamentals?|positioning and sentiment|positioning|sentiment|options and gamma|"
@@ -483,7 +484,7 @@ class DecisionChecks:
 
     def _discord(self, copy, channel_arrivals):
         source = copy.source
-        if source.get("kind") != "result" and str(source.get("state")).upper() != "FILLED":
+        if source.get("kind") != "result" and source.get("state") not in PLAN_FILL_STATES:
             return
         channel_reply = copy.native.get("discord_channel_reply")
         if (channel_reply or (source.get("key") or copy.piece) in channel_arrivals
@@ -597,7 +598,7 @@ class DecisionChecks:
                 self._analysis(copy, analysis_urls)
                 if source.get("kind") == "setup":
                     self._first_analysis(copy)
-                if source.get("kind") == "result" or str(source.get("state")).upper() == "FILLED":
+                if source.get("kind") == "result" or source.get("state") in PLAN_FILL_STATES:
                     fills_and_results.add(source.get("key") or copy.piece)
                 if copy.platform == "discord":
                     self._discord(copy, channel_arrivals)

@@ -804,9 +804,18 @@ def _plan_delivery(conn, window, store_path):
     runtime = Path(store_path).parent
     root = runtime / "daily_app_outputs" / "plan-status-posts"
     selected = []
-    for plan in conn.execute("""SELECT message_id,payload,status,created_at FROM outbox_messages
-        WHERE destination=? AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
-        ORDER BY created_at,message_id""", (posts.DESTINATION, iso(start), iso(end))):
+    for plan in conn.execute("""SELECT p.message_id,p.payload,p.status,p.created_at FROM outbox_messages p
+        WHERE p.destination=? AND julianday(p.created_at) <= julianday(?)
+        AND (julianday(p.created_at) > julianday(?) OR p.status IN (?, 'PUBLISHING')
+             OR p.message_id IN (
+                SELECT o.work_item_id FROM outbox_messages o
+                LEFT JOIN platform_dispatches d ON d.message_id=o.message_id
+                WHERE julianday(o.created_at) <= julianday(?)
+                  AND (julianday(o.created_at) > julianday(?)
+                       OR julianday(d.dispatched_at) > julianday(?)
+                       OR d.status IN ('UNKNOWN_WRITE', 'DISPATCH_ATTEMPT_STARTED'))))
+        ORDER BY p.created_at,p.message_id""",
+        (posts.DESTINATION, iso(end), iso(start), posts.READY, iso(end), iso(start), iso(start))):
         row = json.loads(plan["payload"])
         if row.get("format") != cards.FORMAT or row.get("kind") not in {"setup", "update", "result"}:
             continue
@@ -837,7 +846,7 @@ def _plan_delivery(conn, window, store_path):
             source_at = utc(row["at_utc"])
         except (KeyError, ValueError):
             source_at = None
-        observed, clocks = [], []
+        observed, clocks, in_window = [], [], []
         for destination in named:
             route = routes.get(destination)
             dispatch_at = utc(route["dispatched_at"]) if route and route["dispatched_at"] else None
@@ -847,6 +856,7 @@ def _plan_delivery(conn, window, store_path):
             confirmed = bool(dispatch_at and status == "DISPATCH_CONFIRMED" and route["public_object_id"])
             retry, cause = False, None
             published_at, verified_at = None, None
+            closed_at = None
             if route and route["dispatch_id"]:
                 dispatch_id = route["dispatch_id"]
                 retry_id = DurablePublicationCoordinator._retry_incident_id(dispatch_id)
@@ -862,6 +872,7 @@ def _plan_delivery(conn, window, store_path):
             if not confirmed:
                 closure = settled.get(destination) or {}
                 if closure and (not closure.get("recorded_at_utc") or utc(closure["recorded_at_utc"]) <= end):
+                    closed_at = utc(closure["recorded_at_utc"]) if closure.get("recorded_at_utc") else None
                     status = status if status in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"} else cards.SETTLED_POST
                     cause = cause or _plan_cause(closure.get("cause"))
                 if destination in skipped:
@@ -869,6 +880,12 @@ def _plan_delivery(conn, window, store_path):
                 if not cause:
                     need_cause[key].add(destination)
             ready_at = utc(route["created_at"] if route else plan["created_at"])
+            pending = (not confirmed and status not in {cards.SETTLED_POST, posts.STALE, posts.SUPERSEDED}
+                       and (plan["status"] in {posts.READY, "PUBLISHING"} or status in {
+                           "UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"}
+                           or bool(dispatch_at and dispatch_at > end)))
+            in_window.append(pending or any(at and start < at <= end for at in
+                (ready_at, dispatch_at, published_at, verified_at, closed_at)))
             observed.append({"plan_post": key, "platform": destination, "status": status,
                 "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
                  "source_at_utc": iso(source_at) if source_at else None,
@@ -889,8 +906,9 @@ def _plan_delivery(conn, window, store_path):
             lag = round((finish - first).total_seconds(), 1) if first else None
             copy["seconds_after_first_confirmed"] = lag
             copy["behind_over_ten_minutes"] = lag is not None and lag > 600
-        copies.extend(observed)
-        plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
+        if any(in_window):
+            copies.extend(copy for copy, include in zip(observed, in_window, strict=True) if include)
+            plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
 
     fallback = _plan_minute_causes(runtime / posts.RUN_RECORD_FOLDER, need_cause, start, end)
     states = {key: state for key, state, _ in plan_rows}
