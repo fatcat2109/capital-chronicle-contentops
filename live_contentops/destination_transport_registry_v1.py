@@ -100,8 +100,8 @@ _SURFACES = (
         expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
-        "LINKEDIN_POST", "linkedin", "OFFICIAL_MEMBER_API",
-        "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "LINKEDIN_POST", "linkedin", "BROWSEROS_NEO_MCP",
+        "neo_destination_handoff_v1.NeoDestinationHandoff",
         "linkedin", "linkedin:jimcc",
         canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
@@ -181,8 +181,8 @@ DESTINATION_TO_SURFACE = {
 OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST",
                                          "substack_notes": "SUBSTACK_NOTE"}
 
-# Decision 109 and Ops Product's 10 Nov 09:11 amendment: only a barred
-# browser transport leaves the required set; LinkedIn member and Instagram APIs stay.
+# Required coverage follows the registered, allowed transports. CC-684 uses
+# Neo for the member route and adds the matching company copy in the publisher.
 V1_DERIVATIVE_DESTINATIONS = (
     "telegram", "x", "discord", "linkedin", "facebook_page",
     "instagram_business", "threads", "youtube",
@@ -226,7 +226,7 @@ def canonical_transport_registry() -> dict[str, Any]:
         "runtime_binding_is_identity_authority": False,
         "youtube_community_is_video_surface": False,
         "linkedin_edge_cdp_probe_allowed": False,
-        "linkedin_runtime_state": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
+        "linkedin_runtime_state": "BROWSEROS_NEO_MCP",
     }
 
 

@@ -255,7 +255,7 @@ def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(so
     packet = pages.register_page(store, pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path / "page"))
     roots = {"setup": "setup-status", "update": "fill-status", "result": "target-status"}
     snapshots = {}
-    reply_routes = set(cards.DESTINATIONS) - {"linkedin"}
+    reply_routes = set(cards.DESTINATIONS) - {"linkedin", "linkedin_company"}
     for kind, key in roots.items():
         row = {"key": key, "plan_id": plan["plan_id"], "source_plan_registration": plan["registration_hash"],
                "kind": kind, "symbol": "EURUSD", "schema_version": posts.SCHEMA,
@@ -313,19 +313,59 @@ def test_linkedin_uses_the_late_confirmed_link_with_existing_chart_and_frozen_si
     queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     assert queued["status"] == "OK"
     row, = rows(store)
-    assert "linkedin" not in cards._ready_destinations(store, row)
+    assert not {"linkedin", "linkedin_company"}.intersection(cards._ready_destinations(store, row))
     root = tmp_path / "posts"
-    prepared = cards.prepare_post(store, row["key"], root=root, host=fake_host, destinations=("telegram", "linkedin"))
+    prepared = cards.prepare_post(store, row["key"], root=root, host=fake_host,
+                                  destinations=("telegram", "linkedin", "linkedin_company"))
     assert [value["destination"] for value in prepared["destinations"]] == ["telegram"]
     assert prepared["deferred_destinations"][0]["cause"] == "CC684_LINKEDIN_PLAN_PAGE_NOT_CONFIRMED"
     before = posts._expected(store, row["key"], prepared["output_dir"])[1]["telegram"]
     store.create_work_item(story_id=row["key"], work_item_id=row["key"],
-                           title=row["lead"], target_surface="MULTI_PLATFORM")
+                           title="Call card", target_surface="MULTI_PLATFORM")
     confirm(store, row["key"], prepared["plan_hash"], "telegram", "post-1", "https://t.me/CapitalChronicle/1")
     observed["canonical_url"] = LINK
-    assert "linkedin" in cards._ready_destinations(store, row)
-    prepared = cards.prepare_post(store, row["key"], root=root, host=fake_host, destinations=("linkedin",))
+    linkedin = ("linkedin", "linkedin_company")
+    assert set(linkedin) <= set(cards._ready_destinations(store, row))
+    prepared = cards.prepare_post(store, row["key"], root=root, host=fake_host, destinations=linkedin)
     payloads = posts._expected(store, row["key"], prepared["output_dir"])[1]
     assert payloads["telegram"] == before
-    assert LINK in payloads["linkedin"]["text"]
-    assert payloads["linkedin"]["media_asset_ids"] == before["media_asset_ids"]
+    for destination in linkedin:
+        assert LINK in payloads[destination]["text"]
+        assert payloads[destination]["media_asset_ids"] == before["media_asset_ids"]
+    assert {item["destination"]: (item["transport_type"], item["canonical_url"])
+            for item in prepared["destinations"]} == {d: ("BROWSEROS_NEO_MCP", LINK) for d in linkedin}
+
+    from pathlib import Path
+    from live_contentops import neo_endpoint_executor_v1 as endpoint
+    from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
+    from test_reopened_article_routes_cc454 import ArticleBrowser
+    monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
+    monkeypatch.setattr("live_contentops.linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1.publish",
+                        lambda *args, **kwargs: pytest.fail("the plan reached the retired API"))
+    monkeypatch.setattr("live_contentops.linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1.readback",
+                        lambda *args, **kwargs: pytest.fail("the new plan was read back through the retired API"))
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    for destination in linkedin:
+        browser = ArticleBrowser(destination)
+
+        def compare(request, observed, **kwargs):
+            assets = request["content_binding"]["media_manifest"]
+            assert len(assets) == 1 and assets[0]["modality"] == "tradingview_chart_snapshot"
+            assert browser.uploads == [assets[0]["path"]]
+            assert request["canonical_url"] == LINK and observed["links"] == [{"url": LINK}]
+            return {**observed, "observed_media_sha256": [sha256(Path(browser.uploads[0]).read_bytes()).hexdigest()]}
+
+        monkeypatch.setattr(endpoint, "compare_public_images", compare)
+
+        def coordinator_for(key, folder):
+            return bind_native_neo_coordinator(store, operation_id=key, output_dir=folder / "native-neo",
+                native_invocation_id="controlled-cc684", allow_publish=True, automatic=True, endpoint_client=browser)[0]
+
+        one_route = {**prepared, "destinations": [item for item in prepared["destinations"]
+                                                if item["destination"] == destination]}
+        result = cards._publish_card_plan(store, row, one_route, coordinator_for, parallel=False, immediate=True)
+        assert result["per_destination"][destination]["reconciliation_status"] == "RECONCILED_CONFIRMED", result
+        assert browser.calls.count("article_publish") == 1
+
+    refs = {d: cards._reference(store, row["key"], d)["public_object_url"] for d in linkedin}
+    assert len(set(refs.values())) == 2

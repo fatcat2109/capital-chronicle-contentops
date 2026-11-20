@@ -334,12 +334,13 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
         # (its reconciliation, dispatch or queued message), or that no copy was
         # registered; never a readback claim nobody made.
         queued = next((r for r in rows if r["message_id"] == ids["message_id"]), None)
+        frozen_route = json.loads(queued["payload"]).get("destination_plan", {}) if queued else {}
         blocker = (reconciliation.get("status") or dispatch.get("status")
                    or (queued or {}).get("status") or "NOT_REGISTERED")
         entries.append(
             {
                 "destination": destination,
-                "transport": reg.transport_type,
+                "transport": frozen_route.get("transport_type") or reg.transport_type,
                 "dispatch_id": dispatch.get("dispatch_id", ids["dispatch_id"]),
                 "status": dispatch.get("status", "NOT_DISPATCHED"),
                 "reconciliation_status": reconciliation.get("status"),

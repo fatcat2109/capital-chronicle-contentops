@@ -4281,6 +4281,17 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         from copy import deepcopy
         payloads["linkedin_company"] = deepcopy(payloads["linkedin"])
     frozen_payload = intent.get("native_payload")
+    if (intent.get("cc684_linkedin") and destination in {"linkedin", "linkedin_company"}
+            and destination in payloads and not isinstance(frozen_payload, Mapping)):
+        # Both accounts get the reviewed TradingView chart. Prefer the
+        # editor-approved snapshot, including the combined release panel.
+        charts = {a["asset_id"]: a for a in media_assets if a.get("modality") == "tradingview_chart_snapshot"}
+        preference = [*(article.get("tradingview_snapshot_asset_ids") or []),
+                      *(payloads[destination].get("media_asset_ids") or []), *charts]
+        chart_id = next((key for key in preference if key in charts), None)
+        if chart_id:
+            floor_ids = None
+            payloads[destination]["media_asset_ids"] = [chart_id]
     if floor_ids and destination in payloads and not isinstance(frozen_payload, Mapping):
         # No frozen copy: the rebuilt copy carries the reviewed floor image.
         rebuilt = payloads[destination]

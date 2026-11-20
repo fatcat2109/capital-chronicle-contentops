@@ -133,6 +133,8 @@ class NeoMcpClient:
         self.task_session = result.get("_meta", {}).get("com.browseros.neo/session") or self.task_session
         if result.get("isError"):
             detail=self.text(result).lower()
+            if "native_file_dialog_open" in detail or re.search(r"native file (?:dialog|chooser).{0,24}\bopen(?:ed)?\b", detail):
+                raise NeoEndpointError("NATIVE_FILE_DIALOG_OPEN")
             classification=next((code for marker,code in (
                 ('beforeunload:','BEFOREUNLOAD'),('covered by','CONTROL_COVERED'),
                 ('did not retain','FIELD_NORMALIZED_OR_REJECTED'),('stale','STALE_REFERENCE'),
@@ -552,6 +554,7 @@ class NeoBrowserDriver:
     def article_perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
+        dialog = 'dialog[open]' if destination == "linkedin" else '[role="dialog"]'
         identity = {"authenticated": False, "observed_identity": None,
             "observed_at_utc": datetime.now(timezone.utc).isoformat()}
         if destination in LINKEDIN_DESTINATIONS and request["action"] == "EDIT_EXISTING":
@@ -591,7 +594,7 @@ class NeoBrowserDriver:
                 raise NeoEndpointError("ARTICLE_SINGLE_POST_REQUIRED")
             if destination in LINKEDIN_DESTINATIONS:
                 self.client.act(page, "click", ref=self._ref(page, "button", {"Start a post"}))
-                self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
+                self.client.wait(page, dialog + ' [contenteditable="true"][role="textbox"]')
                 refused = self.article_guard(request, page)
                 if refused:
                     return {"result": refused, "identity": identity}
@@ -639,6 +642,7 @@ class NeoBrowserDriver:
                 ready = self.client.run(page, "article_intercept_upload", destination=destination)
                 if not ready.get("installed"):
                     raise NeoEndpointError("ARTICLE_FILE_CHOOSER_INTERCEPTION_UNAVAILABLE")
+                file_dialog_open = False
                 try:
                     names = {"Add media", "Media"} if destination in LINKEDIN_DESTINATIONS else {"Thêm hình ảnh", "Image", "Add image"}
                     self.client.act(page, "click", ref=self._ref(page, "button", names))
@@ -650,16 +654,26 @@ class NeoBrowserDriver:
                             if r["role"] == "button" and r["name"] == "Next"), None)
                         if next_button:
                             self.client.act(page, "click", ref=next_button["ref"])
-                        self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
+                        self.client.wait(page, dialog + ' [contenteditable="true"][role="textbox"]')
+                except NeoEndpointError as exc:
+                    file_dialog_open = str(exc) == "NATIVE_FILE_DIALOG_OPEN"
+                    raise
                 finally:
-                    self.client.run(page, "article_upload_restore")
+                    if not file_dialog_open:
+                        self.client.run(page, "article_upload_restore")
             refused = self.article_guard(request, page)
             if refused:
                 return {"result": refused, "identity": identity}
         except NeoEndpointError as exc:
+            reason = str(exc)
+            if reason != "NATIVE_FILE_DIALOG_OPEN":
+                refused = self.article_guard(request, page)
+                if refused:
+                    return {"result": refused, "identity": identity}
             return {"result": {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
-                "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PREPARATION_FAILED",
-                "safe_error_classification": str(exc)}, "identity": identity}
+                "stage": "BEFORE_PUBLISH_CLICK", "reason_code": (
+                    reason if reason == "NATIVE_FILE_DIALOG_OPEN" else "NEO_COMPOSER_PREPARATION_FAILED"),
+                "safe_error_classification": reason}, "identity": identity}
         result = self.client.run(page, "article_publish", destination=destination, posts=posts,
             require_media=bool(media) and destination in LINKEDIN_DESTINATIONS)
         if result["status"] != "CLICKED":

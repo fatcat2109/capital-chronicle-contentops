@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import re
+from threading import Lock
 from hashlib import sha256
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,7 +17,7 @@ from urllib.parse import urlsplit, unquote
 
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
-LINKEDIN_DESTINATIONS = frozenset({"linkedin", "linkedin_company"})
+LINKEDIN_DESTINATIONS = ("linkedin", "linkedin_company")
 LINKEDIN_MEMBER_COMPOSER = "https://www.linkedin.com/feed/"
 IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@capitalchronicle", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
@@ -34,16 +35,14 @@ ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes":
 TELEGRAM_PUBLIC_FEED = "https://t.me/s/CapitalChronicle"
 TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-in. Never open, snapshot, read "
                       "or screenshot web.telegram.org or any signed-in Telegram view; it is Jim's personal account.")
-# Jim's decisions 112/121 (10–11 Nov 2026), CC-431/454: X, LinkedIn company
-# and YouTube Community use their existing Neo article routes again. Member
-# LinkedIn and Instagram keep their official APIs; their Neo bars remain.
+# Jim's decisions 112/121 and CC-684 reopen X, YouTube Community and both
+# LinkedIn accounts. Instagram's browser prohibition remains in force.
 # CC-393, Jim decision 109 item 3, read 10 Nov 2026: LinkedIn User Agreement 8.2 prohibits unauthorized
 # automated posting; YouTube Terms, Permissions and Restrictions 2, require prior
 # written permission for automated access. No such platform permission is held.
 # Official API transports remain separate; this map applies to the Neo path only.
 # Sources and the remaining routes: docs/publisher/CC-393/platform-rules.json.
 NON_API_AUTOMATION_PROHIBITED = {
-    "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
     "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED",
 }
 
@@ -53,6 +52,7 @@ NON_API_AUTOMATION_PROHIBITED = {
 # for example {"substack": "SUBSTACK_ACCOUNT_SUSPENDED"}; Ops Product removes the entry when the account is back.
 SUSPENDED_ROUTES_FILE = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\suspended_routes.json")
 _LIVE_SUSPENDED_ROUTES_FILE = SUSPENDED_ROUTES_FILE
+_SUSPENSION_LOCK = Lock()
 
 
 def suspended_routes():
@@ -72,16 +72,17 @@ def suspend_route(destination, cause):
     """Decisions 121 and CC-684: persist a platform objection on this destination only."""
     if destination not in {*LINKEDIN_DESTINATIONS, "youtube", "x"}:
         raise ValueError("ARTICLE_ROUTE_REQUIRED")
-    routes = suspended_routes()
-    routes[destination] = str(cause)
-    SUSPENDED_ROUTES_FILE.parent.mkdir(parents=True, exist_ok=True)
     from uuid import uuid4
-    temporary = SUSPENDED_ROUTES_FILE.with_name(SUSPENDED_ROUTES_FILE.name + "." + uuid4().hex + ".tmp")
-    try:
-        temporary.write_text(json.dumps(routes, indent=2) + "\n", encoding="utf-8")
-        temporary.replace(SUSPENDED_ROUTES_FILE)
-    finally:
-        temporary.unlink(missing_ok=True)
+    with _SUSPENSION_LOCK:
+        routes = suspended_routes()
+        routes[destination] = str(cause)
+        SUSPENDED_ROUTES_FILE.parent.mkdir(parents=True, exist_ok=True)
+        temporary = SUSPENDED_ROUTES_FILE.with_name(SUSPENDED_ROUTES_FILE.name + "." + uuid4().hex + ".tmp")
+        try:
+            temporary.write_text(json.dumps(routes, indent=2) + "\n", encoding="utf-8")
+            temporary.replace(SUSPENDED_ROUTES_FILE)
+        finally:
+            temporary.unlink(missing_ok=True)
 
 
 def _prohibited_write(destination):
@@ -491,6 +492,18 @@ class NeoDestinationHandoff:
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")
         native_payload, content_binding = _payload_binding(intent, destination)
+        if action == "PUBLISH" and destination in LINKEDIN_DESTINATIONS and intent.get("cc684_linkedin"):
+            url = intent.get("canonical_url")
+            if not _canonical(url) or not any(url in segment for segment in content_binding["expected_text_segments"]):
+                raise ValueError("CC684_LINKEDIN_SUBSTACK_LINK_REQUIRED")
+            media = content_binding["media_manifest"]
+            if not media or not all(a.get("modality") == "tradingview_chart_snapshot" for a in media):
+                raise ValueError("CC684_LINKEDIN_TRADINGVIEW_CHART_REQUIRED")
+            root = Path(intent["output_dir"]).resolve()
+            media_dirs = (root / "media", root / "media_assets")
+            if not all(a.get("path") and any(Path(a["path"]).resolve().is_relative_to(folder)
+                       for folder in media_dirs) for a in media):
+                raise ValueError("CC684_LINKEDIN_CHART_OUTSIDE_ITEM_MEDIA_FOLDER")
         if action in {"PUBLISH", "EDIT_EXISTING"}:
             # Decision 83: the bound copy itself (Substack's body included) names no preview host.
             from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link
@@ -502,8 +515,11 @@ class NeoDestinationHandoff:
         telegram_rule = ({"telegram_read_rule": TELEGRAM_READ_RULE} if destination == "telegram" else {})
         identity = (self._readback_identity(destination, intent, public_object_url)
                     if action == "READBACK" else IDENTITIES[destination])
-        entry_url = ("https://substack.com/" + identity if destination == "substack_notes"
-                     else ROOTS[destination])
+        entry_url = ROOTS[destination]
+        if destination == "substack_notes":
+            entry_url = "https://substack.com/" + identity
+        elif destination == "linkedin" and action == "PUBLISH" and intent.get("cc684_linkedin"):
+            entry_url = LINKEDIN_MEMBER_COMPOSER
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": identity,
             "entry_url": TELEGRAM_PUBLIC_FEED if destination == "telegram" else entry_url,
@@ -586,7 +602,7 @@ class NeoDestinationHandoff:
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = ("DIGEST_EDITOR_SUBTITLE_CAPTION_V2" if intent.get("daily_digest")
                                                    else "MARKDOWN_WHITESPACE_SMART_QUOTES_V1")
-            if destination == "linkedin_company" and content_binding.get("media_manifest"):
+            if destination in LINKEDIN_DESTINATIONS and content_binding.get("media_manifest"):
                 value["reader_media_normalization"] = "LINKEDIN_DECLARED_SRCSET_FULL_RES_V1"
             # A failed observation is immutable, but the same native turn may
             # obtain the later readback required after the ten-minute interval.
@@ -855,6 +871,13 @@ class NeoDestinationHandoff:
                     str(intent.get("canonical_url") or ""), bound_urls=_bound_link_targets(binding)) for post in thread))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
+        if destination in LINKEDIN_DESTINATIONS and intent.get("cc684_linkedin"):
+            canonical = request["canonical_url"]
+            text_match = text_match and (
+                any(link.get("url") == canonical for link in result.get("links") or [])
+                or any(link.get("target_verified") is True and link.get("target_url") == canonical
+                       and link.get("public_object_url") == public_object_url
+                       for link in result.get("observed_link_resolutions") or []))
         if destination == "substack":
             # Substack renders Markdown list markers as list nodes, so innerText
             # contains the item text without its leading '- '. Keep numeric minus
@@ -1015,21 +1038,19 @@ class NeoDestinationHandoff:
 
 
 def destination_setup_projection(*, env=None, now=None, linkedin_root=None):
-    """Presence only, with non-secret expiry metadata. Never decrypt or probe tokens."""
+    """Presence only. Browser identities are verified at the action."""
     if env is None:  # CC-297: Credential Manager, then the live user env, then the process env
         from live_contentops.secret_store_v1 import secret_environment
         env = secret_environment()
-    now = now or datetime.now(timezone.utc)
     keys = {
         "telegram": (("TELEGRAM_BOT_TOKEN",), ("TELEGRAM_TARGET_CHAT_ID", "TELEGRAM_CHANNEL_ID", "TELEGRAM_CHAT_ID")),
         "discord": (("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"),),
         "facebook_page": (("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN"), ("FACEBOOK_PAGE_ID",)),
         "instagram_business": (("INSTAGRAM_ACCESS_TOKEN", "META_ACCESS_TOKEN"), ("INSTAGRAM_BUSINESS_ACCOUNT_ID",)),
         "threads": (("THREADS_USER_ACCESS_TOKEN",), ("THREADS_USER_ID",)),
-        "linkedin": (("LINKEDIN_CLIENT_ID",), ("LINKEDIN_CLIENT_SECRET",)),
     }
     transports = {"telegram": "BOT_API", "discord": "WEBHOOK_API", "facebook_page": "META_GRAPH_API",
-                  "instagram_business": "META_GRAPH_API", "threads": "THREADS_API", "linkedin": "OFFICIAL_MEMBER_API"}
+                  "instagram_business": "META_GRAPH_API", "threads": "THREADS_API"}
     result = {}
     for destination, groups in keys.items():
         present = all(any(bool(env.get(k)) for k in group) for group in groups)
@@ -1037,20 +1058,7 @@ def destination_setup_projection(*, env=None, now=None, linkedin_root=None):
             "validity": "NOT_VERIFIED", "identity_state": "NOT_VERIFIED",
             "browser_login_needed": False,
             "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng." if present else "Bổ sung cấu hình API cho đích này."}
-    auth_root = Path(linkedin_root or r"A:\Capital Chronicle\Runtime\ContentOps\linkedin_official_member_api")
-    try:
-        metadata = json.loads((auth_root / "auth_metadata_v1.json").read_bytes())
-        expiry = next((metadata[k] for k in ("expires_at_utc", "token_expires_at_utc", "access_token_expires_at_utc") if metadata.get(k)), None)
-        if expiry and datetime.fromisoformat(expiry.replace("Z", "+00:00")) <= now:
-            result["linkedin"].update(validity="EXPIRED", owner_action="Cấp lại quyền LinkedIn OAuth; đăng nhập tab đơn thuần không làm mới token.")
-        result["linkedin"]["auth_expiry_at_utc"] = expiry
-        result["linkedin"]["encrypted_auth_store_present"] = (auth_root / "linkedin_member_credentials.dpapi").is_file()
-    except (OSError, ValueError, TypeError):
-        result["linkedin"]["owner_action"] = "Kiểm tra/cấp lại LinkedIn OAuth qua luồng hiện có."
     for destination in IDENTITIES:
-        if destination == "linkedin":
-            # Native Neo is an explicit reviewed recovery, not the routine API default.
-            continue
         result[destination] = {"chosen_transport": "BROWSEROS_NEO_MCP", "configuration_present": True,
             "validity": "NOT_VERIFIED", "identity_state": "NOT_VERIFIED", "browser_login_needed": True,
             "expected_identity": IDENTITIES[destination],

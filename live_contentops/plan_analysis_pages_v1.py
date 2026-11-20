@@ -1445,8 +1445,7 @@ def _run_link_text(packets, urls):
 
 
 def register_run_link(store, packets):
-    """One official LinkedIn member run post containing every available page."""
-    from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+    """Locate a retained CC-435 LinkedIn index for recovery."""
     packets = sorted(packets, key=lambda p: p["plan_id"])
     run_ids = {p["source_plan"]["run_id"] for p in packets}
     if not packets or len(run_ids) != 1:
@@ -1459,23 +1458,7 @@ def register_run_link(store, packets):
     prior = store.get_outbox_message(identity)
     if prior:
         return json.loads(prior["payload"])
-    text = _run_link_text(packets, urls)
-    registration = registration_for_destination("linkedin")
-    plan = {"schema_version": "contentops.publication_plan.v1", "plan_analysis_link": identity,
-        "story_identity": identity, "article_identity": identity, "package_identity": identity,
-        "output_dir": packets[0]["output_dir"], "transport_registry_version": REGISTRY_VERSION,
-        "policy_mode_version": "AUTONOMOUS_DEFAULT:CC435", "publication_window": {"window_identity": identity},
-        "destinations": [{"destination": "linkedin", "surface": registration.surface,
-            "transport_type": registration.transport_type, "payload": text,
-            "payload_hash": sha256(text.encode()).hexdigest(), "canonical_url": urls[0]}]}
-    plan["plan_hash"] = sha256_of(plan)
-    value = {"link_id": identity, "kind": "run", "run_id": next(iter(run_ids)), "destination": "linkedin",
-        "page_ids": [p["page_id"] for p in packets], "canonical_urls": urls, "canonical_url": urls[0],
-        "native_payload": {"destination": "linkedin", "text": text, "full_text": text, "media_asset_ids": []}, "plan": plan}
-    store.create_work_item(story_id=identity, work_item_id=identity, title="Full run analyses", target_surface="MULTI_PLATFORM")
-    store.register_outbox_message(message_id=identity, work_item_id=identity, destination=DESTINATION,
-        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
-    return value
+    return {"state": "CC684_LINKEDIN_PLAN_COPY_IS_PER_POST", "destination": "linkedin"}
 
 
 def _validate_run_link(store, value):
@@ -1542,6 +1525,8 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
                 results.append({"destination": "linkedin", "state": "CONFIRMED_IN_RUN_POST"})
                 continue
             value = register_run_link(store, packets)
+            if not value.get("link_id"):
+                continue
             outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
             results.append({"destination": "linkedin", "link_id": value.get("link_id"), "outcome": outcome,
                             **({"readback": link_status(store, value)} if value.get("link_id") else {})})

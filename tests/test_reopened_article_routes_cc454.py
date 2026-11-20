@@ -1,6 +1,7 @@
 """Decision 121: the live coordinator consumes the restored article transport."""
 from datetime import datetime, timezone
 import json
+import re
 
 import pytest
 
@@ -31,6 +32,8 @@ class ArticleBrowser:
             wording = "Confirm your identity"
         result = {"url": self.url, "text": wording, "refs": [
             {"role": "button", "name": "Start a post", "ref": "start"},
+            {"role": "button", "name": "Jim Pham", "ref": "member"},
+            {"role": "button", "name": "Post to Anyone", "ref": "audience"},
             {"role": "textbox", "name": "Text editor for creating content", "ref": "editor"},
             {"role": "button", "name": "Bật mí về video tiếp theo của bạn", "ref": "youtube-editor"},
             {"role": "textbox", "name": "CC454 article text", "ref": "youtube-text"},
@@ -48,6 +51,8 @@ class ArticleBrowser:
         self.calls.append((kind, kwargs))
         if kind == "click" and kwargs.get("ref") in {"add-media", "add-image"}:
             assert getattr(self, "intercepting", False), "A native file chooser must never be opened"
+            if self.fault == "file_dialog":
+                raise endpoint.NeoEndpointError("NATIVE_FILE_DIALOG_OPEN")
         if kind == "click" and kwargs.get("ref") == "remove-preview":
             self.preview_removed = True
         if kind == "fill":
@@ -66,6 +71,7 @@ class ArticleBrowser:
         self.calls.append((name, args))
         if name == "upload":
             assert self.intercepting
+            self.uploads = args["files"]
         if name == "navigate":
             self.url = args["url"]
 
@@ -96,11 +102,13 @@ class ArticleBrowser:
                 return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PAYLOAD_MISMATCH"}
             assert [" ".join(t.split()) for t in kwargs["posts"]] == [" ".join(t.split()) for t in self.composer]
-            company = self.destination == "linkedin_company"
-            self.posts = [{"public_object_id": "urn:li:activity:123" if company else "UgArticle",
-                "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:123/" if company else "https://www.youtube.com/post/UgArticle",
+            linkedin = self.destination in handoff.LINKEDIN_DESTINATIONS
+            activity = "urn:li:activity:123" if self.destination == "linkedin_company" else "urn:li:activity:124"
+            canonical = re.search(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", self.composer[0])
+            self.posts = [{"public_object_id": activity if linkedin else "UgArticle",
+                "public_object_url": f"https://www.linkedin.com/feed/update/{activity}/" if linkedin else "https://www.youtube.com/post/UgArticle",
                 "observed_text": self.composer[0], "observed_identity": handoff.IDENTITIES[self.destination],
-                "links": [], "public_image_urls": []}]
+                "links": [{"url": canonical.group()}] if canonical else [], "public_image_urls": []}]
             if self.fault == "lost_return":
                 self.fault = None
                 raise endpoint.NeoEndpointError("LOST_CLICK_RETURN")
@@ -135,6 +143,9 @@ def article(tmp_path, destination, fault=None, *, automatic_articles_only=False)
     store, _, seed = _coordinator(tmp_path)
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     plan = _quality_plan() if destination == "linkedin_company" else _plan(destination)
+    if destination == "linkedin_company":
+        # Retained CC-454 article fixture, before the personal route cutover.
+        next(row for row in plan["destinations"] if row["destination"] == "linkedin")["transport_type"] = "OFFICIAL_MEMBER_API"
     row = next(r for r in seed.register_plan("work-1", plan)["registered"] if r["destination"] == destination)
     client = ArticleBrowser(destination, fault)
     coordinator, executor = bind_native_neo_coordinator(store, operation_id="work-1", output_dir=tmp_path / "native",
@@ -348,6 +359,18 @@ def test_member_checkpoint_suspends_only_member_without_a_composer_click():
     assert handoff.suspended_routes() == {"linkedin": "LINKEDIN_PLATFORM_RESTRICTION"}
 
 
+def test_native_file_dialog_stops_the_linkedin_step():
+    browser = ArticleBrowser("linkedin", "file_dialog")
+    result = endpoint.NeoBrowserDriver(browser).article_perform({"request": {
+        "destination": "linkedin", "action": "PUBLISH", "expected_identity": "linkedin:jimcc",
+        "native_payload": {"text": "Reviewed text"},
+        "content_binding": {"media_manifest": [{"path": "unused.png"}]},
+    }})
+    assert result["result"]["reason_code"] == "NATIVE_FILE_DIALOG_OPEN"
+    assert "article_upload_restore" not in browser.calls
+    assert "article_publish" not in browser.calls
+
+
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
 def test_lost_article_click_return_is_readback_only(tmp_path, destination):
     store, c, _, browser, message, row = article(tmp_path, destination, "lost_return")
@@ -379,7 +402,7 @@ def test_native_article_consumer_keeps_manual_requests_on_its_parent_invocation(
         native_invocation_id="actual-parent-turn")
     operation._authorize_and_bind()
     assert isinstance(operation.executor, endpoint.EndpointNeoExecutor)
-    assert operation.executor.automatic_destinations == {"linkedin_company", "youtube"}
+    assert operation.executor.automatic_destinations == {"linkedin", "linkedin_company", "youtube"}
     assert operation.executor.native_invocation_id == operation.native_invocation_id
     assert operation.executor.operation_id == binding["run_id"]
     assert operation.coordinator.store is store

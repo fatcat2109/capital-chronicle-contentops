@@ -42,7 +42,7 @@ def ready(source, tmp_path):
     return store, packet, original
 
 
-def test_installed_status_run_distributes_all_eight_and_resumes_without_duplicate(ready, monkeypatch, tmp_path):
+def test_installed_status_run_distributes_supplemental_links_and_resumes_without_duplicate(ready, monkeypatch, tmp_path):
     from test_publication_coordinator_v1 import FixtureTransport, _set_mode
     store, packet, _ = ready
     _set_mode(store, "AUTONOMOUS_DEFAULT")
@@ -59,12 +59,13 @@ def test_installed_status_run_distributes_all_eight_and_resumes_without_duplicat
 
     monkeypatch.setattr(pages, "publish_link", publish)
     first = posts.publish_ready(store, now=datetime.now(timezone.utc), root=tmp_path / "posts")
-    assert {r["destination"] for r in first["analysis_distribution"]["links"]} == set(cards.DESTINATIONS)
-    assert set(runtime.publish_calls) == set(cards.DESTINATIONS)
-    assert len(runtime.publish_calls) == 8
-    intents = [json.loads(r["payload"]) for d in cards.DESTINATIONS for r in store.list_outbox_messages(destination=d)
+    link_destinations = set(cards.DESTINATIONS) - {"linkedin", "linkedin_company"}
+    assert {r["destination"] for r in first["analysis_distribution"]["links"]} == link_destinations
+    assert set(runtime.publish_calls) == link_destinations
+    assert len(runtime.publish_calls) == len(link_destinations)
+    intents = [json.loads(r["payload"]) for d in link_destinations for r in store.list_outbox_messages(destination=d)
                if json.loads(r["payload"]).get("plan_analysis_link")]
-    assert len(intents) == 8
+    assert len(intents) == len(link_destinations)
     assert all(packet["summary"]["macro"] in i["native_payload"]["full_text"] for i in intents
                if i["native_payload"]["destination"] != "threads")
     thread = next(i["native_payload"]["text"] for i in intents if i["native_payload"]["destination"] == "threads")
@@ -73,7 +74,7 @@ def test_installed_status_run_distributes_all_eight_and_resumes_without_duplicat
                                                    "Priced in", "Scenarios", "Desk review"))
     assert all("https://capitalchronicle.substack.com/p/full-original-plan" in i["native_payload"]["full_text"] for i in intents)
     posts.publish_ready(store, now=datetime.now(timezone.utc), root=tmp_path / "posts")
-    assert len(runtime.publish_calls) == 8
+    assert len(runtime.publish_calls) == len(link_destinations)
 
 
 @pytest.mark.parametrize("destination", ["facebook_page", "instagram_business"])
@@ -269,7 +270,7 @@ def test_parent_change_never_turns_an_analysis_comment_into_a_new_root(ready, mo
         pages.validate_link_plan(store, value["link_id"], value["plan"])
 
 
-def test_linkedin_index_keeps_all_links_with_source_bound_summary_and_no_duplicate(ready, source, tmp_path):
+def test_linkedin_plan_pages_create_no_new_text_only_member_index(ready, source, tmp_path):
     store, packet, _ = ready
     run_root, _, plan, manuscript = source
     other = deepcopy(manuscript)
@@ -280,15 +281,9 @@ def test_linkedin_index_keeps_all_links_with_source_bound_summary_and_no_duplica
     confirm(store, second["page_id"], second["plan"]["plan_hash"], "substack", "124",
             "https://capitalchronicle.substack.com/p/second-original-plan")
     value = pages.register_run_link(store, [second, packet])
-    assert len(value["native_payload"]["text"]) <= 3000
-    assert all(url in value["native_payload"]["text"] for url in value["canonical_urls"])
-    assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
     assert pages.register_run_link(store, [packet, second]) == value
-    Coordinator(store=store, transport_runtime=None).register_plan(value["link_id"], value["plan"])
-    intent = json.loads(store.list_outbox_messages(work_item_id=value["link_id"], destination="linkedin")[0]["payload"])
-    from live_contentops.linkedin_official_member_api_v1 import build_linkedin_ugc_post_payload
-    api_payload = build_linkedin_ugc_post_payload(intent, person_urn="urn:li:person:test")
-    assert api_payload["specificContent"]["com.linkedin.ugc.ShareContent"]["shareCommentary"]["text"] == value["native_payload"]["text"]
+    assert value["state"] == "CC684_LINKEDIN_PLAN_COPY_IS_PER_POST"
+    assert not store.list_outbox_messages(destination="linkedin")
 
 
 def test_new_instagram_run_caption_and_linkedin_run_have_the_confirmed_links():

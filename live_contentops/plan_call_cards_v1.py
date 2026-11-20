@@ -17,12 +17,13 @@ from typing import Mapping
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
 from .plan_reader_copy_v1 import THREAD_CONTRACT
+from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 LINKEDIN_PLAN_LINK_EFFECTIVE = datetime(2026, 11, 20, 4, 38, tzinfo=timezone.utc)
 FORMAT = 4
-API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business", "linkedin")
-DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
+API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business")
+DESTINATIONS = (*API_DESTINATIONS, "linkedin", "x", "substack_notes")
 TERMINAL = {"CLOSED", "CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"}
 NOTICES = f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
 # A definite no-write is a settled destination, not work that can consume every
@@ -339,7 +340,7 @@ def compose(row):
 
 def destinations_for(row):
     if row.get("state_alert_contract") == "CC543_V1":
-        return DESTINATIONS
+        return (*DESTINATIONS, "linkedin_company") if row.get("analysis_linkedin_page_required") else DESTINATIONS
     if row.get("reader_contract") == "CC466_V1":
         return tuple(d for d in DESTINATIONS if d != "linkedin")
     # LinkedIn receives the run and its links, rather than one duplicate root
@@ -910,9 +911,8 @@ def _ready_destinations(store, row, root=None):
     """A settled/parent-waiting copy cannot starve unrelated cards of a slot."""
     ready = []
     skipped = {s["destination"] for s in _skipped_images(root, row)}
-    if (row.get("analysis_linkedin_page_required") and not _dispatch(store, row["key"], "linkedin")
-            and not _linkedin_plan_url(store, row)):
-        skipped.add("linkedin")
+    if row.get("analysis_linkedin_page_required") and not _linkedin_plan_url(store, row):
+        skipped.update(d for d in LINKEDIN_DESTINATIONS if not _dispatch(store, row["key"], d))
     settled = settled_destinations(store, row)
     for destination in destinations_for(row):
         if destination in skipped or destination in settled:
@@ -984,7 +984,7 @@ def _parents(store, row, destinations, previous):
         if destination in settled:
             parents.pop(destination, None)
             continue
-        if (destination == "linkedin" and row.get("analysis_linkedin_page_required")
+        if (destination in LINKEDIN_DESTINATIONS and row.get("analysis_linkedin_page_required")
                 and not _dispatch(store, row["key"], destination) and not _linkedin_plan_url(store, row)):
             deferred.append({"destination": destination, "cause": "CC684_LINKEDIN_PLAN_PAGE_NOT_CONFIRMED"})
             continue
@@ -1037,7 +1037,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     linkedin_analysis_url = row.get("linkedin_analysis_url")
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
-              "linkedin": 3000}
+              "linkedin": 3000, "linkedin_company": 3000}
     if (row.get("analysis_publication") or {}).get("canonical_url") or row.get("analysis_publications"):
         # Decision 113: use Telegram's text allowance with the hosted card as
         # its explicit large preview, rather than the photo caption allowance.
@@ -1048,7 +1048,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     limits = {d: n - len(credit) for d, n in limits.items()}
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
-        if destination == "linkedin" and linkedin_analysis_url and not row.get("analysis_link"):
+        if destination in LINKEDIN_DESTINATIONS and linkedin_analysis_url and not row.get("analysis_link"):
             body, notices = posts._split(text)
             text = body + "\nFull analysis: " + linkedin_analysis_url + "\n\n" + notices
         if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
@@ -1207,12 +1207,14 @@ def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
     return None
 
 
-def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
+def prepare_post(store, key, *, root, host=None, destinations=None,
                  snapshot=None, snapshot_allowed=None, fast_alert=False, **ignored):
     from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     from . import tradingview_snapshot_v1 as tv
     row = posts._row_payload(store, key)
+    if destinations is None:
+        destinations = destinations_for(row)
     refusal = posts.publication_refusal(store, row, now=datetime.now(timezone.utc))
     if refusal:
         raise posts.PlanPostError(refusal[1])
@@ -1231,10 +1233,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
     linkedin_url = previous.get("status_post_linkedin_analysis_url")
-    if "linkedin" in chosen and row.get("analysis_linkedin_page_required"):
+    if set(chosen).intersection(LINKEDIN_DESTINATIONS) and row.get("analysis_linkedin_page_required"):
         linkedin_url = linkedin_url or _linkedin_plan_url(store, row)
         if not linkedin_url:
-            chosen.remove("linkedin")
+            chosen = [d for d in chosen if d not in LINKEDIN_DESTINATIONS]
     unpostable = []
     if row["kind"] == "run":
         unpostable = [{"destination": d, "cause": "RUN_HAS_NO_POSTABLE_CALL"} for d in chosen
@@ -1435,7 +1437,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         plan_rows.append({"destination": destination, "platform": registration.platform,
             "surface": registration.surface, "transport_type": registration.transport_type,
             "transport_registry_version": REGISTRY_VERSION, "payload": text,
-            "payload_hash": hashlib.sha256(text.encode()).hexdigest(), "canonical_url": None,
+            "payload_hash": hashlib.sha256(text.encode()).hexdigest(),
+            "canonical_url": linkedin_url if destination in LINKEDIN_DESTINATIONS else None,
             "expected_destination_identity": registration.expected_identity})
     return {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
         "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
@@ -1637,7 +1640,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             if row["kind"] == "run":
                 results.append({"key": key, "status": "WAITING", "cause": "RUN_HAS_NO_POSTABLE_CALL"})
                 continue
-            _, deferred = _parents(store, row, DESTINATIONS, {})
+            _, deferred = _parents(store, row, destinations_for(row), {})
             results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",
                 "cause": deferred[0]["cause"] if deferred else "ALL_DESTINATIONS_SETTLED",
                 "deferred_destinations": deferred})

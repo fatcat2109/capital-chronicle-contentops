@@ -3,6 +3,7 @@
 const snap = async () => await page.snapshot();
 const find = (s, role, name) => s.refs.find(r => r.role === role && r.name === name);
 const isLinkedIn = destination => ['linkedin', 'linkedin_company'].includes(destination);
+const linkedinDialog = destination => destination === 'linkedin' ? 'dialog[open]' : '[role="dialog"]';
 const normalize = s => String(s).replace(/[‘’]/g,"'").replace(/[“”]/g,'"')
   .replace(/\s+/g,' ').trim();
 const unwrap = r => {
@@ -10,12 +11,12 @@ const unwrap = r => {
   if (!Object.prototype.hasOwnProperty.call(r,'value')) throw new Error('NEO_DOM_OBSERVATION_UNAVAILABLE');
   return r.value;
 };
-const articleEditors = async destination => unwrap(await page.evaluateInPage(linkedin => {
-  const scope = linkedin ? document.querySelector('[role="dialog"]') : document;
-  return Array.from(scope?.querySelectorAll(linkedin
+const articleEditors = async destination => unwrap(await page.evaluateInPage(dialog => {
+  const scope = dialog ? document.querySelector(dialog) : document;
+  return Array.from(scope?.querySelectorAll(dialog
     ? '[contenteditable="true"][role="textbox"]' : '#contenteditable-root[contenteditable="true"]') || [])
     .filter(e => e.getClientRects().length).map(e => e.innerText);
-}, isLinkedIn(destination)));
+}, isLinkedIn(destination) ? linkedinDialog(destination) : null));
 
 // CC-466 uses this same endpoint for bound web-only plan pages.
 if (input.phase === 'plan_substack_front') {
@@ -200,10 +201,10 @@ if (input.phase === 'article_editor') {
 }
 
 if (input.phase === 'article_intercept_upload') {
-  return unwrap(await page.evaluateInPage(linkedin => {
+  return unwrap(await page.evaluateInPage(dialog => {
     window.__cc454UploadInterception?.restore();
-    const scope = linkedin
-      ? document.querySelector('[role="dialog"]') : document.querySelector('[role="main"]') || document.body;
+    const scope = dialog ? document.querySelector(dialog)
+      : document.querySelector('[role="main"]') || document.body;
     if (!scope) return {installed:false};
     const prototype=HTMLInputElement.prototype;
     const original=prototype.click;
@@ -231,7 +232,7 @@ if (input.phase === 'article_intercept_upload') {
       document.removeEventListener('click',listener,true);
     }};
     return {installed:prototype.click===intercept && (!originalPicker || prototype.showPicker===interceptPicker)};
-  }, isLinkedIn(input.destination)));
+  }, isLinkedIn(input.destination) ? linkedinDialog(input.destination) : null));
 }
 
 if (input.phase === 'article_upload_restore') {
@@ -261,13 +262,13 @@ if (input.phase === 'article_publish') {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_SIGNED_IN_ACCOUNT_MISMATCH'};
   }
-  if (input.require_media && !unwrap(await page.evaluateInPage(() => {
-    const dialog = document.querySelector('[role="dialog"]');
+  if (input.require_media && !unwrap(await page.evaluateInPage(selector => {
+    const dialog = document.querySelector(selector);
     return Array.from(dialog?.querySelectorAll('img') || []).some(img =>
       img.getClientRects().length && img.naturalWidth >= 300 &&
       (img.src.startsWith('blob:') || img.src.startsWith('data:image/') ||
        /^https:\/\/media\.licdn\.com\/.+\/(?:feedshare|image)[-_/]/i.test(img.src)));
-  }))) {
+  }, linkedinDialog(input.destination)))) {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'LINKEDIN_CHART_PREVIEW_UNAVAILABLE'};
   }

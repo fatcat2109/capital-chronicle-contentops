@@ -818,11 +818,11 @@ def bind_native_neo_coordinator(store, *, operation_id, output_dir, native_invoc
     executor_type = NativeNeoExecutor
     options = {}
     if automatic or automatic_articles:
-        from live_contentops.neo_endpoint_executor_v1 import EndpointNeoExecutor
+        from live_contentops.neo_endpoint_executor_v1 import ARTICLE_ROUTES, EndpointNeoExecutor
         executor_type = EndpointNeoExecutor
         options["client"] = endpoint_client
         if automatic_articles and not automatic:
-            options["automatic_destinations"] = {"linkedin_company", "youtube"}
+            options["automatic_destinations"] = ARTICLE_ROUTES
     executor = executor_type(store, operation_id=operation_id, output_dir=output_dir,
                                  native_invocation_id=native_invocation_id, allow_publish=allow_publish,
                                  identity_at_action=allow_publish, **options)

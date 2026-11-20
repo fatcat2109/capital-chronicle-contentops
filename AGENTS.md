@@ -1,5 +1,13 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## LinkedIn delivery — CC-684, 20 November 2026
+
+New plans, wraps and articles go to Jim's profile and the Capital Chronicle page
+through the existing Neo coordinator. Each copy carries the confirmed Substack
+link and the bound TradingView chart. The member API is retired for sends.
+Preserve issued requests and read back existing posts on their original
+identity. A platform restriction stops only the affected account's route.
+
 ## Plan pages and social copy — CC-466, 11 November 2026
 
 New plan pages use the analyst's bound original output, in this order: priced in,

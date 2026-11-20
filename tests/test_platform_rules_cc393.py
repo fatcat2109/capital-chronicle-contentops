@@ -46,7 +46,8 @@ def test_direct_request_cannot_bypass_bar(destination, action):
 
 
 @pytest.mark.parametrize("action", ["PUBLISH", "EDIT_EXISTING"])
-def test_pending_request_cannot_be_begun_after_route_is_barred(tmp_path, action):
+def test_pending_request_cannot_be_begun_after_route_is_barred(tmp_path, action, monkeypatch):
+    monkeypatch.setitem(handoff.NON_API_AUTOMATION_PROHIBITED, "linkedin", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED")
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     store.create_work_item(story_id="s", work_item_id="work", title="test", target_surface="test")
     executor = NativeNeoExecutor(store, operation_id="op", output_dir=tmp_path,

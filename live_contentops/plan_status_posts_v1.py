@@ -1404,10 +1404,8 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     row = _row_payload(store, key)
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import prepare_post as card_post, DESTINATIONS as card_destinations
-        if destinations == POST_DESTINATIONS:
-            destinations = card_destinations
-        return card_post(store, key, root=root, host=host, destinations=destinations,
+        from .plan_call_cards_v1 import prepare_post as card_post
+        return card_post(store, key, root=root, host=host, destinations=None if destinations == POST_DESTINATIONS else destinations,
                          snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if row.get("kind") == "result":
         if any(d not in API_DESTINATIONS for d in destinations):
@@ -1519,6 +1517,7 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
 
 
 def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any]) -> dict:
+    from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
     key = str(plan.get("plan_status_post") or "")
     part = plan.get("plan_status_part", 0)
     if not isinstance(part, int) or part < 0 or work_item_id != (f"{key}-part-{part}" if part else key):
@@ -1531,8 +1530,11 @@ def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any])
             validate_overlay(asset, _row_payload(store, asset["plan_overlay"]["source"]["key"]))
     for item in plan.get("destinations") or []:
         destination = item.get("destination")
+        expected_url = (context.get("status_post_linkedin_analysis_url") if destination in LINKEDIN_DESTINATIONS else None)
         if (destination not in payloads or item.get("payload") != payloads[destination]["full_text"]
-                or item.get("canonical_url")):
+                or item.get("canonical_url") != expected_url
+                and not (destination == "linkedin" and item.get("transport_type") == "OFFICIAL_MEMBER_API"
+                         and not item.get("canonical_url"))):
             raise PlanPostError("PLAN_STATUS_POST_PLAN_COPY_CHANGED")
     return {"key": key, "part": part, "payloads": payloads}
 
@@ -1580,11 +1582,12 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     if row.get("analysis_copy_contract"):
         from .plan_state_alerts_v1 import validate as validate_alert
         validate_alert(row, store=store)
-        if destination == "linkedin" and row.get("analysis_linkedin_page_required"):
+        from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
+        if destination in LINKEDIN_DESTINATIONS and row.get("analysis_linkedin_page_required"):
             from .plan_call_cards_v1 import _linkedin_plan_url
             url = _linkedin_plan_url(store, row)
             if (not url or url != context.get("status_post_linkedin_analysis_url")
-                    or url not in public_text):
+                    or url not in public_text or (intent.get("cc684_linkedin") and url != intent.get("canonical_url"))):
                 raise PlanPostError("CC684_LINKEDIN_PLAN_LINK_NOT_CONFIRMED")
         public_text = " ".join(public_text.split())
     check_publication_copy({"post": public_text},

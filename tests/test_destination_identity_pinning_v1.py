@@ -43,7 +43,7 @@ def test_registry_contains_owner_pins_without_changing_transport_routing():
     expected_routing = {
         "SUBSTACK_ARTICLE": ("BROWSEROS_NEO_MCP", None),  # Neo since 20 and 28 Oct (CC-268)
         "X_THREAD": ("BROWSEROS_NEO_MCP", None),  # Neo since 20 and 28 Oct (CC-268)
-        "LINKEDIN_POST": ("OFFICIAL_MEMBER_API", None),
+        "LINKEDIN_POST": ("BROWSEROS_NEO_MCP", None),
         "YOUTUBE_COMMUNITY_POST": ("BROWSEROS_NEO_MCP", None),  # Neo since 20 and 28 Oct (CC-268)
         "TELEGRAM_CHANNEL_POST": ("BOT_API", None),
         "DISCORD_ANNOUNCEMENT": ("WEBHOOK_API", None),
@@ -129,24 +129,24 @@ def test_cases_f_g_h_graph_env_id_equal_provider_id_is_not_authority(
     assert row["write_eligible"] is False
 
 
-def test_linkedin_official_api_readiness_never_uses_browser_doctor_or_cdp(monkeypatch, tmp_path):
+def test_linkedin_readiness_uses_current_neo_proof(monkeypatch):
     import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
     import live_contentops.publishing_profile_registry_v1 as profiles
 
     monkeypatch.setattr(
         profiles, "browser_doctor",
-        lambda **_kwargs: pytest.fail("LinkedIn official API must not inspect or recover Edge"),
+        lambda **_kwargs: pytest.fail("Neo must not inspect or recover Edge"),
     )
     monkeypatch.setattr(
         adapter, "probe_authenticated_platform_session",
-        lambda *_args, **_kwargs: pytest.fail("LinkedIn official API must not navigate CDP"),
+        lambda *_args, **_kwargs: pytest.fail("Neo must not navigate through Edge CDP"),
     )
-    row = DestinationReadinessManager(env={}, linkedin_auth_root=tmp_path).probe_surface("LINKEDIN_POST")
-    assert row["readiness_state"] == "SESSION_UNAVAILABLE"
-    assert row["sanitized_detail"]["official_api_state"] == "AUTH_UNAVAILABLE"
-    assert row["probe_kind"] == "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
-    assert row["sanitized_detail"]["cdp_navigation_performed"] is False
-    assert row["write_eligible"] is False
+    manager = DestinationReadinessManager(env={}, neo_readiness_provider=lambda surface: {
+        "authenticated": True, "native_executor_bound": True, "proof_fresh": True,
+        "public_handle": "linkedin:jimcc", "observation_sha256": "1" * 64,
+    })
+    assert manager.probe_surface("LINKEDIN_POST")["readiness_state"] == "READY_AUTHENTICATED"
+    assert manager.probe_surface("LINKEDIN_COMPANY_POST")["readiness_state"] == "SESSION_UNAVAILABLE"
 
 
 def test_global_probe_all_is_passive_and_never_calls_browser_or_provider(monkeypatch, tmp_path):
