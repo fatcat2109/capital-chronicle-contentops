@@ -1,6 +1,9 @@
 """CC-543: deterministic state alerts in the existing plan publication path.
 
-Analysis retains its own page and reply. Neither is an input to these alerts.
+Analysis retains its own page and reply. Neither is an input to these alerts. Since 20 Nov 2026
+(Ops Product interim), a new plan's first post that carries `analysis_lines_contract` also quotes
+the analyst's own scenario text from the export (plan_scenario_lines_v1); rows without it keep
+their bytes.
 """
 from __future__ import annotations
 
@@ -86,6 +89,11 @@ def compose(row):
         lines.append("Entry valid until " + cards._clock(until) + ".")
     if row.get("time_exit_utc") and not thread:
         lines.append("Time exit: " + cards._clock(row["time_exit_utc"]) + ".")
+    if row["kind"] == "setup" and row.get("analysis_lines_contract"):
+        from . import plan_scenario_lines_v1 as scenario_lines
+        if row["analysis_lines_contract"] != scenario_lines.CONTRACT:
+            raise posts.PlanPostError("PLAN_ALERT_ANALYSIS_LINES_CONTRACT_UNKNOWN")
+        lines.extend(scenario_lines.analysis_lines(row["source_plan"]))
     if row["kind"] == "setup":
         lines.append("Registered " + cards._clock(row["registered_at_utc"]) + ".")
     if row.get("delayed_at_utc"):

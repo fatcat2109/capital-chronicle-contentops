@@ -577,6 +577,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
             if kind == "setup":
                 item["x_analysis_thread"] = True
+                from . import plan_scenario_lines_v1 as scenario_lines
+                if now >= scenario_lines.EFFECTIVE:
+                    # Ops Product interim, 20 Nov 2026: the first post quotes the analyst's scenario text.
+                    item["analysis_lines_contract"] = scenario_lines.CONTRACT
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
                 if now >= LEVEL_EFFECTIVE:
                     item["level_contract"] = LEVEL_CONTRACT
