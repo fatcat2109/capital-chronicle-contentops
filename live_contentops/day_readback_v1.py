@@ -28,6 +28,7 @@ from live_contentops.public_decision_checks_v1 import DecisionChecks, public_lin
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
 
 LOCAL = timezone(timedelta(hours=7))
+DECISION_CHECKS_NAME = "decision_checks.json"
 ROUTES = ("substack", "substack_notes", "telegram", "x", "discord", "linkedin",
           "linkedin_company", "facebook_page", "instagram_business", "threads", "youtube")
 REPLY_PREFIX = "internal:x-reply-bot-"
@@ -302,10 +303,12 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
             "first_cause": next(iter(exceptions), None), "exceptions": exceptions}
 
 
-def report_window(run_dir, *, since=None, until=None, now=None):
+def report_window(run_dir, *, since=None, until=None, now=None, run_result=None):
     run_dir = Path(run_dir)
     result_path = run_dir / "result.json"
-    result = json.loads(result_path.read_bytes()) if result_path.is_file() else {}
+    result = run_result
+    if result is None:
+        result = json.loads(result_path.read_bytes()) if result_path.is_file() else {}
     now = now or datetime.now(timezone.utc)
     end = utc(until) if until else utc(result["recorded_at_utc"]) if result.get("recorded_at_utc") else now
     try:
@@ -882,9 +885,9 @@ def _plan_delivery(conn, window, store_path):
 
 
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
-                 since=None, until=None, now=None, fetcher=fetch_public):
+                 since=None, until=None, now=None, fetcher=fetch_public, run_result=None):
     now = now or datetime.now(timezone.utc)
-    window, result = report_window(run_dir, since=since, until=until, now=now)
+    window, result = report_window(run_dir, since=since, until=until, now=now, run_result=run_result)
     report = {"schema_version": "contentops.day_readback.v1", "observed_at_utc": iso(now),
               "window": window, "pieces": [], "exceptions": [],
               "store_open_mode": "ro", "public_writes": 0, "browser_opens": 0, "model_calls": 0}
@@ -1211,7 +1214,7 @@ def _check_report(value):
 
 def write_decision_checks(run_dir, decisions):
     _check_report(decisions)
-    path = Path(run_dir) / "decision_checks.json"
+    path = Path(run_dir) / DECISION_CHECKS_NAME
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
     try:
@@ -1234,4 +1237,6 @@ def write_report(run_dir, report):
     paths = (folder / "day_readback.json", folder / "day_readback.md")
     paths[0].write_text(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     paths[1].write_text(markdown(report), encoding="utf-8")
+    if "decision_checks" in report:
+        write_decision_checks(folder, report["decision_checks"])
     return paths

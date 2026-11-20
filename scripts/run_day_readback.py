@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from live_contentops.day_readback_v1 import build_report, write_decision_checks, write_report
+from live_contentops.day_readback_v1 import DECISION_CHECKS_NAME, build_report, write_decision_checks, write_report
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE
 
 
@@ -36,8 +36,10 @@ def main(argv=None):
                               since=args.since, until=args.until, **source)
         folder = args.output_dir or args.run_dir
         decisions = report["decision_checks"]
-        paths = () if args.decisions_only else write_report(folder, report)
-        paths = (*paths, write_decision_checks(folder, decisions))
+        if args.decisions_only:
+            paths = (write_decision_checks(folder, decisions),)
+        else:
+            paths = (*write_report(folder, report), folder / DECISION_CHECKS_NAME)
     except (OSError, ValueError, RuntimeError, sqlite3.Error) as exc:
         # Exception strings may contain account paths, input copy or private URLs.
         print(json.dumps({"state": "READBACK_COMMAND_FAILED", "first_cause": type(exc).__name__}))

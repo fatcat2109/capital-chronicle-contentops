@@ -1,7 +1,7 @@
 import json
 
 from live_contentops.agy_decision_metrics_v1 import daily_metrics
-from live_contentops.day_readback_v1 import check_public_text, write_decision_checks
+from live_contentops.day_readback_v1 import check_public_text, report_window, write_decision_checks, write_report
 from live_contentops.public_decision_checks_v1 import DecisionChecks, WRAP_ROUTES
 
 
@@ -151,3 +151,46 @@ def test_antigravity_code_outcomes_and_fallbacks_come_from_dated_receipts(tmp_pa
     assert layer["calls_incomplete_at_cutoff"] == 1
     assert layer["code_pass_rate_meets_90_pct"] is False
     assert layer["hours_idle_without_rate_limit"] is None
+
+
+def test_x_own_reply_uses_exact_verified_thread_and_resolved_link(tmp_path):
+    audit = checks(tmp_path)
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    copy = published(audit, "gold-setup", "x", text="Gold is holding.", mutations=[
+        ("2026-11-19T14:02:00Z", {"readback": {
+            "verified": True, "identity_match": True, "observed_public_object_id": "object-1",
+            "content_binding_checks": {"thread_match": True},
+            "observed_thread": [{"public_object_url": "https://x.com/Capitalnicle/status/99"}],
+            "observed_link_resolutions": [{"public_object_url": "https://x.com/Capitalnicle/status/99",
+                                           "target_verified": True, "target_url": page}],
+        }}),
+    ])
+    assert copy.has_link(page)
+    assert not copy.has_link(page + "-different")
+
+
+def test_discord_thread_with_a_confirmed_channel_reply_passes(tmp_path):
+    audit = checks(tmp_path)
+    source = {"kind": "result", "key": "gold-result"}
+    published(audit, "gold-result", "discord", source=source, native={"discord_thread_parent_id": "parent"})
+    published(audit, "gold-result-part-1", "discord", source=source, native={"discord_channel_reply": True})
+    assert not any(issue["decision"] == "CC-685" for issue in audit.finish({}, {})["issues"])
+
+
+def test_shared_report_writer_emits_sidecar_for_digest_without_issue(tmp_path):
+    run = tmp_path / "20261120T121500Z"
+    run.mkdir()
+    observed = {"digest_id": "no-articles", "recorded_at_utc": "2026-11-20T12:16:00Z"}
+    window, result = report_window(run, since="2026-11-19T12:15:00Z", run_result=observed)
+    assert result == observed
+    audit = DecisionChecks(window, tmp_path)
+    decisions = audit.finish({}, {})
+    report = {"window": window, "observed_at_utc": window["until_utc"], "pieces": [],
+              "digest": {"state": "NO_CONFIRMED_ARTICLES", "recipients": None, "opens": None, "public_url": None},
+              "reply_bot": {"delivered_count": 0, "counts_by_kind_and_status": []},
+              "engagement": {"cutoff_utc": window["until_utc"]}, "exception_count": 0, "exceptions": [],
+              "decision_checks": decisions}
+    paths = write_report(run, report)
+    assert len(paths) == 2
+    assert "## Decision checks" in paths[1].read_text(encoding="utf-8")
+    assert json.loads((run / "decision_checks.json").read_bytes()) == decisions

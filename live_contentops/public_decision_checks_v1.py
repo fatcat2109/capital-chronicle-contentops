@@ -24,7 +24,8 @@ LAYER_PREFIX = re.compile(
     r"options|gamma|gex|priced in|technical|structure|geopolitics|geopolitical|scenarios?)\s*:\s*", re.I)
 LAYER_ALIAS = {
     "fundamentals": "fundamental", "positioning and sentiment": "positioning", "sentiment": "positioning",
-    "gamma": "options", "gex": "options", "options and gamma": "options", "structure": "technical",
+    "gamma": "options", "gex": "options", "options and gamma": "options", "options gamma": "options",
+    "structure": "technical",
     "geopolitical": "geopolitics", "scenarios": "scenario",
 }
 AI_LABEL = re.compile(
@@ -139,20 +140,23 @@ def quoted_layer_count(text, source):
     return len(counted)
 
 
-def _observations(history, row):
+def _observations(history, row, end):
     """Only dated observations of this dispatch can establish publication."""
     verified_at = published_at = None
     proof = {}
     for read_at, record in history:
+        seen = clock(read_at)
+        if not seen or seen > end:
+            continue
         current = record.get("readback", record)
         if (current.get("verified") is not True or current.get("write_absent") is True
                 or current.get("identity_match") is False
                 or current.get("observed_public_object_id") not in (None, row.get("public_object_id"))):
             continue
         proof = {**proof, **current}
-        verified_at = verified_at or clock(read_at)
+        verified_at = min(verified_at, seen) if verified_at else seen
         seen_at = clock(current.get("observed_published_at_utc"))
-        if seen_at and seen_at <= clock(read_at):
+        if seen_at and seen_at <= seen:
             published_at = min(published_at, seen_at) if published_at else seen_at
     return proof, verified_at, published_at
 
@@ -195,7 +199,7 @@ class PublicCopy:
     dispatched_at: datetime | None = field(init=False)
 
     def __post_init__(self):
-        self.proof, self.verified_at, self.published_at = _observations(self.history, self.row)
+        self.proof, self.verified_at, self.published_at = _observations(self.history, self.row, self.end)
         dispatched = clock(self.row.get("dispatched_at"))
         self.dispatched_at = dispatched if dispatched and dispatched <= self.end else None
 
@@ -210,12 +214,41 @@ class PublicCopy:
 
     @property
     def visible_text(self):
-        return self.public_text if self.public_text is not None else self.text
+        if self.public_text is not None:
+            return self.public_text
+        observed = self.proof.get("observed_public_text") or self.proof.get("observed_text")
+        return observed if isinstance(observed, str) else self.text
 
     @property
     def evidence(self):
         return "public_http" if self.public_text is not None else (
             "stored_readback" if self.verified_at else "confirmed_dispatch")
+
+    @property
+    def observed_image(self):
+        if self.image_visible is not None:
+            return self.image_visible
+        delivery = self.proof.get("image_delivery")
+        if delivery in {"TEXT_ONLY", "TEXT_FALLBACK", "IMAGE_ATTACHED"}:
+            return delivery == "IMAGE_ATTACHED"
+        return self.proof.get("meaningful_media_visible", self.proof.get("image_visible"))
+
+    def has_link(self, canonical):
+        if contains_link(self.visible_text, canonical, self.public_links):
+            return True
+        if self.public_text is not None:
+            return False
+        links = self.proof.get("observed_link_resolutions") or []
+        thread = self.proof.get("observed_thread") or self.proof.get("thread_posts") or []
+        urls = {self.url}
+        if (self.platform == "x" and self.verified_at
+                and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+            urls.update(post.get("public_object_url") for post in thread)
+            if any(contains_link(str(post.get("observed_text") or ""), canonical) for post in thread):
+                return True
+        resolved = [link["target_url"] for link in links if link.get("target_url")
+                    and link.get("target_verified") is True and link.get("public_object_url") in urls]
+        return contains_link("", canonical, resolved)
 
     def media(self, runtime):
         ids = self.native.get("media_asset_ids")
@@ -283,26 +316,30 @@ class DecisionChecks:
             day += timedelta(days=1)
 
     def _wrap_deadline(self, copies, first_day, day, deadline):
-        candidate_pieces = {
-            copy.piece for copy in copies if copy.platform == "substack"
-            and (ts := copy.published_at or copy.dispatched_at or clock(copy.row.get("created_at")))
-            and first_day <= ts.astimezone(PUBLIC_ZONE).date() <= day
-        }
+        canonical = [(ts, copy) for copy in copies if copy.platform == "substack"
+                     and (ts := copy.published_at or copy.dispatched_at or clock(copy.row.get("created_at")))
+                     and first_day <= ts.astimezone(PUBLIC_ZONE).date() <= day]
+        latest_fallback = datetime.max.replace(tzinfo=timezone.utc)
+        timely = defaultdict(set)
+        for copy in copies:
+            if copy.confirmed and (copy.published_at or copy.verified_at or latest_fallback) <= deadline:
+                timely[copy.piece].add(copy.platform)
+        chosen = min(canonical, key=lambda item: ("substack" not in timely[item[1].piece],
+                     -len(timely[item[1].piece]), not item[1].confirmed, item[0], item[1].piece), default=None)
+        label = (("weekend-wrap-" if first_day != day else "pre-us-wrap-") + day.isoformat()
+                 if chosen is None else chosen[1].piece)
         for platform in WRAP_ROUTES:
             self.counts["98"] += 1
-            candidates = [copy for copy in copies if copy.piece in candidate_pieces and copy.platform == platform]
+            candidates = [copy for copy in copies if copy.piece == label and copy.platform == platform]
             confirmed = [copy for copy in candidates if copy.confirmed]
-            if any((copy.published_at or copy.verified_at or datetime.max.replace(tzinfo=timezone.utc)) <= deadline
-                   for copy in confirmed):
+            if platform in timely[label]:
                 continue
             picked = next(iter(confirmed or candidates), None)
             if confirmed:
                 cause = "WRAP_PUBLISHED_LATE" if all(copy.published_at for copy in confirmed) else "WRAP_PUBLICATION_TIME_UNVERIFIED"
             else:
                 cause = "WRAP_PLATFORM_MISSING"
-            label = ("weekend-wrap-" if first_day != day else "pre-us-wrap-") + day.isoformat()
-            self.issue("98", picked.piece if picked else next(iter(sorted(candidate_pieces)), label),
-                       platform, cause, url=picked.url if picked else None,
+            self.issue("98", label, platform, cause, url=picked.url if picked else None,
                        status="UNVERIFIED" if cause.endswith("_UNVERIFIED") else "FAIL",
                        deadline_utc=deadline.isoformat())
 
@@ -310,18 +347,15 @@ class DecisionChecks:
         source = copy.source.get("source_plan") or {}
         plan_id = copy.source.get("plan_id")
         canonical = analysis_urls.get(plan_id)
-        linked = contains_link(copy.visible_text, canonical, copy.public_links)
-        if not linked and copy.platform == "x" and copy.proof.get("thread_verified") is True:
-            linked = contains_link("\n".join(_strings(copy.native.get("reply_texts"))), canonical)
         layers = quoted_layer_count(copy.visible_text, source)
         self.check("113", copy, "PLAN_LAYER_QUOTES_BELOW_THREE" if layers < 3 else None,
                    quoted_layers=layers)
-        if not linked:
+        if not copy.has_link(canonical):
             self.issue("113", copy.piece, copy.platform, "FULL_ANALYSIS_LINK_MISSING" if canonical
                        else "CONFIRMED_FULL_ANALYSIS_PAGE_UNAVAILABLE", url=copy.url, evidence=copy.evidence)
 
     def _chart(self, copy, market):
-        if not market:
+        if not isinstance(market, str) or not market:
             return
         market = market.upper()
         expected = SYMBOLS.get(market)
@@ -329,7 +363,7 @@ class DecisionChecks:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
         symbols = sorted({symbol for asset in copy.media(self.runtime) if (symbol := _media_symbol(asset))})
-        cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.image_visible is False
+        cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
                  else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols else None)
         self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols)
 
@@ -352,7 +386,8 @@ class DecisionChecks:
         if source.get("kind") != "result" and str(source.get("state")).upper() != "FILLED":
             return
         channel_reply = copy.native.get("discord_channel_reply")
-        if channel_reply or copy.piece in channel_arrivals or copy.proof.get("discord_channel_reply_verified") is True:
+        if (channel_reply or (source.get("key") or copy.piece) in channel_arrivals
+                or copy.proof.get("discord_channel_reply_verified") is True):
             self.check("CC-685", copy)
         elif copy.native.get("discord_thread_parent_id"):
             self.check("CC-685", copy, "DISCORD_FILL_OR_RESULT_THREAD_ONLY")
@@ -370,12 +405,11 @@ class DecisionChecks:
                 self.issue("CC-684", piece, platform, "LINKEDIN_ACCOUNT_COPY_MISSING")
             for copy in available:
                 self.check("CC-684", copy, "LINKEDIN_SUBSTACK_LINK_MISSING"
-                           if not contains_link(copy.visible_text, canonical, copy.public_links) else None)
-                image = copy.image_visible
-                if image is None:
-                    image = copy.proof.get("meaningful_media_visible", copy.proof.get("image_visible"))
+                           if not copy.has_link(canonical) else None)
+                image = copy.observed_image
                 if image is not True:
-                    cause = "LINKEDIN_IMAGE_MISSING" if image is False or not copy.native.get("media_asset_ids") else "LINKEDIN_IMAGE_UNVERIFIED"
+                    cause = ("LINKEDIN_IMAGE_MISSING" if image is False or not copy.media(self.runtime)
+                             else "LINKEDIN_IMAGE_UNVERIFIED")
                     self.issue("CC-684", piece, platform, cause, url=copy.url, evidence=copy.evidence,
                                status="UNVERIFIED" if cause.endswith("_UNVERIFIED") else "FAIL")
 
@@ -410,13 +444,21 @@ class DecisionChecks:
 
     def _immutable(self, copy):
         self.counts["136"] += 1
+        if copy.public_http_status in {404, 410}:
+            self.issue("136", copy.piece, copy.platform, "PREVIOUSLY_CONFIRMED_OBJECT_UNAVAILABLE",
+                       url=copy.url, evidence="public_http", status="UNVERIFIED")
         for read_at, record in copy.history:
-            if not self.start < clock(read_at) <= self.end:
+            seen = clock(read_at)
+            if not seen or not self.start < seen <= self.end:
                 continue
             proof = record.get("readback", record)
             result = record.get("result") or {}
             action = record.get("action")
-            if action == "EDIT_EXISTING" and proof.get("verified") is True and proof.get("write_absent") is not True:
+            if (action in {"EDIT_EXISTING", "EDIT_EXISTING_PHOTO_ATTRIBUTION"}
+                    and (proof.get("verified") is True or result.get("status") == "PRESENTATION_EDIT_CONFIRMED")
+                    and proof.get("write_absent") is not True and result.get("public_write_performed") is not False
+                    and proof.get("identity_match") is not False
+                    and proof.get("observed_public_object_id") in (None, copy.row.get("public_object_id"))):
                 self.issue("136", copy.piece, copy.platform, "PUBLISHED_OBJECT_EDIT_CONFIRMED",
                            url=copy.url, evidence="stored_readback", observed_at_utc=read_at)
             elif (action in {"DELETE_EXISTING", "DELETE_POST"}
@@ -429,8 +471,13 @@ class DecisionChecks:
         self._wraps()
         self._coverage(delivery)
         groups = defaultdict(list)
-        channel_arrivals = {c.piece.rsplit("-part-", 1)[0] for c in self.copies
-                            if c.confirmed and c.platform == "discord" and c.native.get("discord_channel_reply")}
+        discord = defaultdict(list)
+        for copy in self.copies:
+            if copy.confirmed and copy.platform == "discord":
+                discord[copy.source.get("key") or copy.piece].append(copy)
+        channel_arrivals = {key for key, copies in discord.items()
+                            if any(copy.native.get("discord_channel_reply") for copy in copies)}
+        fills_and_results = set()
         for copy in self.copies:
             if not copy.confirmed:
                 continue
@@ -446,6 +493,8 @@ class DecisionChecks:
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
             if plan_post:
                 self._analysis(copy, analysis_urls)
+                if source.get("kind") == "result" or str(source.get("state")).upper() == "FILLED":
+                    fills_and_results.add(source.get("key") or copy.piece)
                 if copy.platform == "discord":
                     self._discord(copy, channel_arrivals)
             market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
@@ -457,8 +506,12 @@ class DecisionChecks:
             self._immutable(copy)
             if plan_page:
                 self._late(copy)
-            if plan_post or copy.intent.get("full_v1_distribution_required") or copy.platform in {"linkedin", "linkedin_company"}:
-                groups[copy.piece].append(copy)
+            if (plan_post or copy.intent.get("full_v1_distribution_required") or copy.intent.get("resolved_article_mode")
+                    or wrap_kind(copy.title, None) or copy.platform in {"linkedin", "linkedin_company"}):
+                groups[source.get("key") or copy.piece].append(copy)
+        for piece in sorted(fills_and_results - discord.keys()):
+            self.counts["CC-685"] += 1
+            self.issue("CC-685", piece, "discord", "DISCORD_FILL_OR_RESULT_CHANNEL_COPY_MISSING")
         for piece, copies in groups.items():
             first = copies[0]
             canonical = (analysis_urls.get(first.source.get("plan_id"))
