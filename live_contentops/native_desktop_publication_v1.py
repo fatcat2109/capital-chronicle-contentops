@@ -55,8 +55,10 @@ def _prepared_packet(store, binding):
     root = resolve_workspace_path(packet["output_dir"])
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
     image_view = post_image_view(result, output_dir=base.parent / "media" / "post-images")
-    image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
-                               [a["sha256"] for a in image_view["media_assets"]]])
+    image_material = [native_review_revision(result), image_view["post_image_policy"],
+                      [a["sha256"] for a in image_view["media_assets"]]]
+    image_revision = sha256_of(image_material)
+    revised_qualification_path = base / sha256_of([*image_material, result["article_identity"]])
     sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=DESTINATION)
         if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
     prior = sealed[-1] if sealed else {}
@@ -68,7 +70,7 @@ def _prepared_packet(store, binding):
         and set(prior.get("artifact_sha256", {})) == set(ARTIFACTS)
         and all((root / name).is_file() and sha256((root / name).read_bytes()).hexdigest() == digest
                 for name, digest in prior["artifact_sha256"].items()))
-    if root not in {base, base / native_review_revision(result), base / image_revision}:
+    if root not in {base, base / native_review_revision(result), base / image_revision, revised_qualification_path}:
         # Current compiler policy may change the review revision without changing
         # any sent bytes. The existing dispatched packet keeps its original path,
         # plan and object identity; only exact original seals admit that path.
