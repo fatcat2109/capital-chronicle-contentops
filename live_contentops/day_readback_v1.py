@@ -9,6 +9,7 @@ from collections import Counter, defaultdict
 from contextlib import closing
 from dataclasses import dataclass, field
 from datetime import datetime, time, timedelta, timezone
+from hashlib import sha256
 from html import unescape
 from html.parser import HTMLParser
 import json
@@ -454,7 +455,7 @@ def _native_observations(conn, work_id, until):
     return by_platform
 
 
-def _quote_dispatch_outcomes(conn, work_id, dispatch_id, until):
+def _dispatch_outcomes(conn, work_id, dispatch_id, until):
     if not dispatch_id:
         return []
     outcomes = []
@@ -614,6 +615,144 @@ def _plan_copy_queue(conn, now, store_path):
             "over_five_minutes": sorted(overdue, key=lambda r: (-r["age_seconds"], r["platform"]))}
 
 
+def _plan_minute_causes(root, needed, start, end):
+    """Read the existing minute records for copies with no durable cause."""
+    causes = {}
+    day = start.date()
+    while needed and day <= end.date():
+        path = root / day.strftime("runs-%Y%m%d.jsonl")
+        if path.is_file():
+            with path.open(encoding="utf-8") as log:
+                for line in log:
+                    try:
+                        tick = json.loads(line)
+                        if not start <= utc(tick["at_utc"]) <= end:
+                            continue
+                    except (ValueError, KeyError, TypeError):
+                        continue
+                    for post in tick.get("posts") or []:
+                        key = post.get("key")
+                        destinations = needed.get(key)
+                        if not destinations:
+                            continue
+                        local = {d["destination"]: d.get("cause") for d in post.get("deferred_destinations", [])}
+                        local.update(post.get("destination_causes") or {})
+                        for destination in destinations:
+                            cause = _plan_cause(local.get(destination)) or _plan_cause(post.get("cause"))
+                            if cause:
+                                causes.setdefault((key, destination), cause)
+        day += timedelta(days=1)
+    return causes
+
+
+def _plan_cause(value):
+    if not isinstance(value, str):
+        return None
+    for reason in value.split(";"):
+        if all(code(part) for part in reason.split(":")):
+            return reason
+    return None
+
+
+def _plan_delivery(conn, window, store_path):
+    """Account for every named copy, even when its public intent was never registered."""
+    from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    start, end = utc(window["since_utc"]), utc(window["until_utc"])
+    runtime = Path(store_path).parent
+    root = runtime / "daily_app_outputs" / "plan-status-posts"
+    plan_rows, copies, need_cause = [], [], defaultdict(set)
+    for plan in conn.execute("""SELECT message_id,payload,status,created_at FROM outbox_messages
+        WHERE destination=? AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
+        ORDER BY created_at,message_id""", (posts.DESTINATION, iso(start), iso(end))):
+        row = json.loads(plan["payload"])
+        if row.get("format") != cards.FORMAT or row.get("kind") not in {"setup", "update", "result"}:
+            continue
+        key = plan["message_id"]
+        named = cards.destinations_for(row)
+        settled = cards.read_settled_destinations(conn, row)
+        skipped = {d["destination"]: d["cause"] for d in cards._skipped_images(root, row)}
+        native = _native_observations(conn, key, iso(end))
+        routes = {}
+        plan_hash = sha256(("plan-status-post:" + key).encode()).hexdigest()
+        for route in conn.execute("""SELECT o.destination,o.status AS outbox_status,o.created_at,
+            o.message_id,d.status,d.dispatch_id,d.dispatched_at,d.public_object_id,d.public_object_url
+            FROM outbox_messages o LEFT JOIN platform_dispatches d ON o.message_id=d.message_id
+            WHERE o.work_item_id=? AND julianday(o.created_at) <= julianday(?)
+            ORDER BY o.created_at,o.message_id""", (key, iso(end))):
+            destination = route["destination"]
+            if destination in named and route["message_id"] == DurablePublicationCoordinator._ids(
+                    key, plan_hash, destination)["message_id"]:
+                routes[destination] = route
+        observed = []
+        for destination in named:
+            route = routes.get(destination)
+            dispatch_at = utc(route["dispatched_at"]) if route and route["dispatched_at"] else None
+            status = "WAITING"
+            if route:
+                status = (route["status"] or route["outbox_status"]) if not dispatch_at or dispatch_at <= end else "READY"
+            confirmed = bool(dispatch_at and status == "DISPATCH_CONFIRMED" and route["public_object_id"])
+            retry, cause = False, None
+            if route and route["dispatch_id"]:
+                dispatch_id = route["dispatch_id"]
+                retry_id = DurablePublicationCoordinator._retry_incident_id(dispatch_id)
+                retry = conn.execute("""SELECT 1 FROM incidents
+                    WHERE incident_id=? AND julianday(created_at) <= julianday(?)""",
+                    (retry_id, iso(end))).fetchone() is not None
+                diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, [])
+                diagnostics.extend((r["read_at"], json.loads(r["readback_data"])) for r in conn.execute(
+                    """SELECT read_at,readback_data FROM readbacks
+                    WHERE dispatch_id=? AND julianday(read_at) <= julianday(?)""", (dispatch_id, iso(end))))
+                cause = next((c for _, value in sorted(diagnostics, key=lambda item: utc(item[0]))
+                              if (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
+            if not confirmed:
+                closure = settled.get(destination) or {}
+                if closure and (not closure.get("recorded_at_utc") or utc(closure["recorded_at_utc"]) <= end):
+                    status = status if status in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"} else cards.SETTLED_POST
+                    cause = cause or _plan_cause(closure.get("cause"))
+                if destination in skipped:
+                    status, cause = cards.SETTLED_POST, cause or _plan_cause(skipped[destination])
+                if not cause:
+                    need_cause[key].add(destination)
+            ready_at = utc(route["created_at"] if route else plan["created_at"])
+            observed.append({"plan_post": key, "platform": destination, "status": status,
+                "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
+                "confirmed_dispatch_at_utc": iso(dispatch_at) if confirmed else None,
+                "public_url": safe_url(route["public_object_url"]) if confirmed else None,
+                "x_ready_over_five_minutes": destination == "x" and status == "READY"
+                    and (end - ready_at).total_seconds() > 300})
+        first = min((utc(r["confirmed_dispatch_at_utc"]) for r in observed if r["confirmed"]), default=None)
+        for copy in observed:
+            finish = utc(copy["confirmed_dispatch_at_utc"]) if copy["confirmed"] else end
+            lag = round((finish - first).total_seconds(), 1) if first else None
+            copy["seconds_after_first_confirmed"] = lag
+            copy["behind_over_ten_minutes"] = lag is not None and lag > 600
+        copies.extend(observed)
+        plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
+
+    fallback = _plan_minute_causes(runtime / posts.RUN_RECORD_FOLDER, need_cause, start, end)
+    states = {key: state for key, state, _ in plan_rows}
+    for copy in copies:
+        if copy["confirmed"] or copy["first_cause"]:
+            continue
+        key = copy["plan_post"]
+        cause = fallback.get((key, copy["platform"]))
+        if states[key] in {posts.STALE, posts.SUPERSEDED} and copy["status"] in {"READY", "WAITING"}:
+            copy["status"] = states[key]
+            cause = cause or "PLAN_POST_" + states[key]
+        copy["first_cause"] = cause or {
+            "READY": "DESTINATION_INTENT_READY_WITHOUT_DISPATCH",
+            "WAITING": "DESTINATION_INTENT_NOT_REGISTERED",
+        }.get(copy["status"], "FIRST_CAUSE_NOT_RECORDED")
+
+    total = len(plan_rows)
+    complete = sum(confirmed for _, _, confirmed in plan_rows)
+    return {"plan_posts": total, "all_destinations_confirmed": complete,
+            "all_destinations_confirmed_pct": round(100 * complete / total, 2) if total else None,
+            "copies": copies}
+
+
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
                  since=None, until=None, now=None, fetcher=fetch_public):
     now = now or datetime.now(timezone.utc)
@@ -699,7 +838,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 quote = intent.get("quote_parent") if platform == "x" and work_id.startswith("heavy-quote-") else None
                 diagnostics = history + native.get(platform, [])
                 if quote:
-                    diagnostics += _quote_dispatch_outcomes(conn, work_id, row["dispatch_id"], window["until_utc"])
+                    diagnostics += _dispatch_outcomes(conn, work_id, row["dispatch_id"], window["until_utc"])
                 diagnostics.sort(key=lambda item: utc(item[0]))
                 cause = next((c for _, value in diagnostics if (c := first_cause(value))), None)
                 status = row["status"] or row["outbox_status"]
@@ -763,6 +902,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         report["digest"], digest_copy = _digest(conn, run_dir, result)
         report["reply_bot"] = _reply_bot(conn, window)
         report["plan_copy_queue"] = _plan_copy_queue(conn, now, store_path)
+        report["plan_delivery"] = _plan_delivery(conn, window, store_path)
         seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
         # A contradictory outbox status, or an uncertain private reply delivery,
         # is still an exception even when it has no public dispatch row.
@@ -819,6 +959,25 @@ def markdown(report):
         for row in overdue:
             lines.append(f"- {row['plan_post']} / {row['platform']} was {row['status']} "
                          f"for {row['age_seconds']:.1f} seconds.")
+    if delivery := report.get("plan_delivery"):
+        lines.extend(["", "## Plan post delivery", ""])
+        lines.append(f"{delivery['all_destinations_confirmed']} of {delivery['plan_posts']} plan posts "
+                     "reached every named platform.")
+        if delivery["copies"]:
+            lines.extend(["", "| Plan post | Platform | State | Retry | First cause | Timing |",
+                          "| --- | --- | --- | --- | --- | --- |"])
+        for row in delivery["copies"]:
+            timing = []
+            if row["behind_over_ten_minutes"]:
+                timing.append("Over 10 min behind first confirmed copy")
+            if row["x_ready_over_five_minutes"]:
+                timing.append("X READY over 5 min")
+            state = row["status"]
+            if row["public_url"]:
+                state = f"[{state}]({row['public_url']})"
+            retry = "Recorded" if row["retry_recorded"] else "—"
+            lines.append(f"| {row['plan_post']} | {row['platform']} | {state} | {retry} | "
+                         f"{row['first_cause'] or '—'} | {' · '.join(timing) or '—'} |")
     lines.extend(["", "## Engagement", "", f"Latest available cumulative counters through {local(report['engagement']['cutoff_utc'])}."])
     if not report["pieces"]:
         lines.append("No pieces in this window.")

@@ -12,6 +12,7 @@ from hashlib import sha256
 from io import BytesIO
 from pathlib import Path
 import re
+from threading import RLock
 from uuid import uuid4
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, unquote
 import requests
@@ -24,6 +25,22 @@ ENDPOINT_TOOL = "browseros-neo/run"
 STEPS = Path(__file__).with_name("neo_endpoint_steps_v1.js")
 GROUP = "codex/cc436-automatic-posts"
 ARTICLE_ROUTES = {"linkedin_company", "youtube"}
+
+
+def retryable_unsent_plan_copy(result):
+    """The exact native return must prove the timeout preceded the publish control."""
+    return (result.get("status") == "FAILED_BEFORE_WRITE"
+            and result.get("stage") == "BEFORE_PUBLISH_CLICK"
+            and result.get("definite_no_write") is True and result.get("public_write_performed") is False
+            and bool(result.get("request_sha256") and result.get("native_tool_return_sha256"))
+            and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+            and not (result.get("public_object_id") or result.get("public_object_url"))
+            and result.get("reason_code") in {"NEO_COMPOSER_PREPARATION_FAILED", "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+            and result.get("safe_error_classification") in {
+                "NEO_RPC_DEADLINE_EXCEEDED", "NEO_RPC_REPLY_MISSING", "NEO_ENDPOINT_CONNECTIONERROR",
+                "NEO_ENDPOINT_READTIMEOUT", "NEO_ENDPOINT_CONNECTTIMEOUT", "NEO_TOOL_ERROR_WAIT",
+                "NEO_CONTROL_NOT_FOUND_WAIT", "NEO_CONTROL_COVERED_ACT", "NEO_STALE_REFERENCE_ACT", "NEO_TOOL_ERROR_ACT",
+            })
 
 
 class NeoEndpointError(RuntimeError):
@@ -44,11 +61,13 @@ class NeoMcpClient:
         self.sequence = 0
         self.task_session = None
         self.initialized = False
+        self._lock = RLock()
 
     def rpc(self, method, params=None):
         import time
         self.sequence += 1
-        payload = {"jsonrpc": "2.0", "id": self.sequence, "method": method, "params": params or {}}
+        request_id = self.sequence
+        payload = {"jsonrpc": "2.0", "id": request_id, "method": method, "params": params or {}}
         try:
             response = self.http.post(self.endpoint, json=payload, timeout=(3, 35),stream=True)
             response.raise_for_status()
@@ -70,7 +89,7 @@ class NeoMcpClient:
                             raise NeoEndpointError("NEO_RPC_DEADLINE_EXCEEDED")
                         if line.startswith("data:") and line[5:].strip():
                             candidate=json.loads(line[5:].strip())
-                            if candidate.get("id")==self.sequence:
+                            if candidate.get("id")==request_id:
                                 value=candidate
                                 break
                     if value is None: raise NeoEndpointError("NEO_RPC_REPLY_MISSING")
@@ -86,17 +105,24 @@ class NeoMcpClient:
             raise NeoEndpointError("NEO_ENDPOINT_" + type(exc).__name__.upper()) from None
 
     def initialize(self):
-        if self.initialized:
-            return
-        result = self.rpc("initialize", {"protocolVersion": "2025-03-26", "capabilities": {},
-            "clientInfo": {"name": "codex", "version": "cc436-endpoint-executor"}})
-        self.http.headers["MCP-Protocol-Version"] = result["protocolVersion"]
-        response = self.http.post(self.endpoint,
-            json={"jsonrpc": "2.0", "method": "notifications/initialized"}, timeout=(3, 5))
-        response.raise_for_status()
-        self.initialized = True
+        with self._lock:
+            if self.initialized:
+                return
+            result = self.rpc("initialize", {"protocolVersion": "2025-03-26", "capabilities": {},
+                "clientInfo": {"name": "codex", "version": "cc436-endpoint-executor"}})
+            self.http.headers["MCP-Protocol-Version"] = result["protocolVersion"]
+            response = self.http.post(self.endpoint,
+                json={"jsonrpc": "2.0", "method": "notifications/initialized"}, timeout=(3, 5))
+            response.raise_for_status()
+            self.initialized = True
 
     def call(self, name, arguments):
+        # Alert fanout shares this client's MCP session and tab group. Serialize
+        # individual RPCs so one destination cannot consume the other's reply.
+        with self._lock:
+            return self._call(name, arguments)
+
+    def _call(self, name, arguments):
         self.initialize()
         arguments = dict(arguments)
         if name=="navigate" and arguments.get("page") in getattr(self,"pages",{}).values():
@@ -112,7 +138,6 @@ class NeoMcpClient:
                 ('did not retain','FIELD_NORMALIZED_OR_REJECTED'),('stale','STALE_REFERENCE'),
                 ('not found','CONTROL_NOT_FOUND'),('not a method','UNSUPPORTED_SDK_METHOD')) if marker in detail),
                 'TOOL_ERROR')
-            self.last_error={"tool":name,"kind":arguments.get("kind"),"classification":classification}
             # A previous pre-click failure may leave this executor's own draft
             # in its task tab. Accept only its browser beforeunload prompt so
             # the requested navigation can finish; never a file/account dialog.
@@ -191,8 +216,8 @@ class NeoMcpClient:
             # script cannot execute in a page while its dialog is blocking it.
             self.call("snapshot",{"page":page})
             snapshot=self.snapshot(page)
-        except NeoEndpointError:
-            if (getattr(self,"last_error",{}).get("classification")=="BEFOREUNLOAD"):
+        except NeoEndpointError as exc:
+            if str(exc) == "NEO_BEFOREUNLOAD_SNAPSHOT":
                 self.act(page,"dialog_accept")
             return
         if 'dialog "Crop media"' in snapshot.get("text",""):
@@ -231,13 +256,17 @@ class NeoMcpClient:
         return "\n".join(c["text"] for c in result.get("content", []) if c.get("type") == "text")
 
     def open(self, destination, url):
+        with self._lock:
+            return self._open(destination, url)
+
+    def _open(self, destination, url):
         if not hasattr(self, "pages"):
-            self.pages = {}
             self.call("name_session", {"name": self.task_name, "category": "social-media"})
             listing = self.text(self.call("tabs", {"action": "list"}))
             groups = self.text(self.call("tab_groups", {"action": "list"}))
             group = re.search(r'^\[([^]]+)\] "' + re.escape(self.group_title) + r'"[^\n]*pages: ([\d, ]+)', groups, re.M)
             self.group = group[1] if group else None
+            self.pages = {}
             # Reuse only this executor's explicitly named group, never another task's tabs.
             if group:
                 owned = set(re.findall(r"\d+", group[2]))
@@ -862,7 +891,7 @@ class NeoBrowserDriver:
             ref=refs[-1]["ref"]
             try:
                 self.client.act(page,"fill",ref=ref,value=text)
-            except NeoEndpointError:
+            except NeoEndpointError as exc:
                 # ProseMirror retains extra paragraph separators, causing
                 # Neo's literal fill verification to fail after inserting the
                 # whole value. Observe the actual editor; never type it twice.
@@ -875,7 +904,7 @@ class NeoBrowserDriver:
                     refs=editor_refs()
                     if len(refs)<=index:
                         raise
-                    if getattr(self.client,"last_error",{}).get("classification")=="CONTROL_COVERED":
+                    if str(exc) == "NEO_CONTROL_COVERED_ACT":
                         # X's sticky thread toolbar can cover a composer's
                         # click point. Focus the exact observed editor, then
                         # type through Neo's supported keyboard action.
@@ -971,8 +1000,6 @@ class NeoBrowserDriver:
         try:
             readback=self.readback(request,page,posts=posts)
         except NeoEndpointError as exc:
-            if not request.get("quote_parent"):
-                raise
             readback = {"status":"READBACK_UNAVAILABLE", "reason_code":str(exc)}
         return {"result":{**readback,"status":"SUCCESS" if readback.get("public_object_id") else "UNKNOWN_WRITE",
             "stage":"PUBLISH_CLICK_ATTEMPTED"},"identity":identity,"readback":readback,
@@ -996,6 +1023,12 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
     message=store.get_outbox_message(dispatch["message_id"])
     if not message:
         return None
+    if json.loads(message["payload"]).get("plan_status_post"):
+        from .publication_coordinator_v1 import DurablePublicationCoordinator
+        with store.get_read_only_connection() as conn:
+            if conn.execute("SELECT 1 FROM incidents WHERE incident_id=?",
+                            (DurablePublicationCoordinator._retry_incident_id(dispatch["dispatch_id"]),)).fetchone():
+                return None
     from .capital_chronicle_latest_report_consumer_v1 import sha256_of
     revision=executor_revision or sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
     found=None
@@ -1099,12 +1132,31 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                     or result.get("public_write_performed") is not False
                     or result.get("stage") != "BEFORE_PUBLISH_CLICK"
                     or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
-                    or not result.get("native_tool_return_sha256")
-                    or (result.get("neo_executor_revision") == self.executor_revision
-                        and request.get('action') != 'EDIT_EXISTING')):
+                    or not result.get("native_tool_return_sha256")):
+                break
+            if (result.get("neo_executor_revision") == self.executor_revision and request.get("action") != "EDIT_EXISTING"
+                    and (refreshed.get("supersedes_prewrite_no_write_sha256")
+                         or not self._claimed_plan_copy_retry(request, result))):
                 break
             refreshed["supersedes_prewrite_no_write_sha256"] = sha256_of(previous)
         return refreshed if refreshed != request else None
+
+    def _claimed_plan_copy_retry(self, request, result):
+        if not retryable_unsent_plan_copy(result):
+            return False
+        from .publication_coordinator_v1 import DurablePublicationCoordinator
+
+        dispatch_id = request.get("dispatch_attempt_identity") or ""
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        if (not dispatch or dispatch["status"] != "DISPATCH_ATTEMPT_STARTED"
+                or dispatch["platform"] != request.get("destination")):
+            return False
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        if not message or json.loads(message["payload"]).get("plan_status_post") != request.get("work_item_id"):
+            return False
+        with self.store.get_read_only_connection() as conn:
+            return conn.execute("SELECT 1 FROM incidents WHERE incident_id=? AND work_item_id=?", (
+                DurablePublicationCoordinator._retry_incident_id(dispatch_id), message["work_item_id"])).fetchone() is not None
 
     def __call__(self,request):
         try:
@@ -1160,7 +1212,7 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         except (NeoEndpointError,OSError,ValueError,KeyError,requests.RequestException) as exc:
             # No repeat after a claimed action, including a lost click/return.
             cause = "NEO_ENDPOINT_OBSERVATION_INCOMPLETE"
-            if request.get("quote_parent") and isinstance(exc, NeoEndpointError) and re.fullmatch(r"[A-Z0-9_]{3,150}", str(exc)):
+            if isinstance(exc, NeoEndpointError) and re.fullmatch(r"[A-Z0-9_]{3,150}", str(exc)):
                 cause = str(exc)
             return {"status":"UNKNOWN_WRITE" if request["action"] == "PUBLISH" else "READBACK_UNAVAILABLE",
                 "retry_permitted":False,"reason_code":cause,

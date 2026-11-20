@@ -1739,6 +1739,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                                 "deferred_destinations": plan["deferred_destinations"],
                                 "skipped_destinations": media})
                 continue
+            if row.get("state_alert_contract") == "CC543_V1":
+                plan["state_alert_contract"] = row["state_alert_contract"]
+                plan["defer_alert_recovery"] = destinations is not None
             store.create_work_item(story_id=key, title="Call run" if row["kind"] == "run" else "Call card",
                                    target_surface="MULTI_PLATFORM", work_item_id=key)
             coordinator = coordinator_for(key, Path(plan["output_dir"]))

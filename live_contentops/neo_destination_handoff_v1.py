@@ -724,7 +724,7 @@ class NeoDestinationHandoff:
             # mismatch); a definite no-write that releases the claim for a retry.
             return result
         quote = request.get("quote_parent")
-        if (quote and result.get("request_sha256") == request["request_sha256"]
+        if ((quote or intent.get("plan_status_post")) and result.get("request_sha256") == request["request_sha256"]
                 and result.get("status") == "UNKNOWN_WRITE" and result.get("reason_code")
                 and not result.get("public_object_id") and not result.get("public_object_url")):
             # The exact action remains readback-only. Keep the endpoint's first

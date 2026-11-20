@@ -120,6 +120,65 @@ def test_evening_file_reports_ready_and_never_registered_plan_copies(recorded):
     assert "6 of 7 ready or waiting plan copies were older than five minutes" in readback.markdown(report)
 
 
+def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recorded):
+    from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    _, store, _, _ = recorded
+    key = "plan-status-post-delivery-fixture"
+    created = "2026-11-17T09:00:00Z"
+    row = {"key": key, "format": 4, "kind": "update", "state_alert_contract": "CC543_V1"}
+    digest = sha256(("plan-status-post:" + key).encode()).hexdigest()
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(row), "PUBLISHING", created))
+        for destination, status, dispatched_at, object_id in [
+            ("telegram", "DISPATCH_CONFIRMED", "2026-11-17T09:00:15Z", "221"),
+            ("discord", "DISPATCH_CONFIRMED", "2026-11-17T09:11:59Z", "222"),
+            ("x", "READY", None, None),
+            ("linkedin", "DEFINITE_NO_WRITE", "2026-11-17T09:03:00Z", None),
+            ("threads", "DISPATCH_CONFIRMED", "2026-11-17T10:00:01Z", "223"),
+        ]:
+            ids = DurablePublicationCoordinator._ids(key, digest, destination)
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                         (ids["message_id"], key, destination, "{}", status, created))
+            if dispatched_at:
+                conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
+                    (ids["dispatch_id"], ids["message_id"], destination, status, dispatched_at, object_id,
+                     "https://t.me/CapitalChronicle/221" if destination == "telegram" else None, None))
+            if destination == "linkedin":
+                conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)",
+                    (DurablePublicationCoordinator._retry_incident_id(ids["dispatch_id"]), key,
+                     "RECOVERY_AUDIT", "One bounded absence-safe derivative retry was started.", dispatched_at))
+                conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)",
+                    ("li-first-cause", ids["dispatch_id"],
+                     json.dumps({"reason_code": "LINKEDIN_MEDIA_PROCESSING"}), "2026-11-17T09:03:01Z"))
+        conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)",
+            (cards._settlement_id(key, "instagram_business"), key, "RECOVERY_AUDIT",
+             json.dumps({"cause": "TRADINGVIEW_PRICE_SCALE_MISMATCH", "recorded_at_utc": created}), created))
+    logs = store.parent / posts.RUN_RECORD_FOLDER
+    logs.mkdir(parents=True)
+    (logs / "runs-20261117.jsonl").write_text(json.dumps({
+        "at_utc": "2026-11-17T09:06:00Z", "posts": [{"key": key,
+            "destination_causes": {"x": "DESTINATION_FAILED_ET_DAY_SKIP"}}]}) + "\n", encoding="utf-8")
+
+    report, _ = build(recorded, since="2026-11-17T08:00:00Z", until="2026-11-17T10:00:00Z")
+    delivery = report["plan_delivery"]
+    assert (delivery["plan_posts"], delivery["all_destinations_confirmed"]) == (1, 0)
+    routes = {r["platform"]: r for r in delivery["copies"]}
+    assert set(routes) == set(cards.DESTINATIONS) and len(delivery["copies"]) == 8
+    assert routes["telegram"]["confirmed"] and routes["telegram"]["seconds_after_first_confirmed"] == 0
+    assert routes["discord"]["confirmed"] and routes["discord"]["behind_over_ten_minutes"]
+    assert routes["x"]["x_ready_over_five_minutes"] and routes["x"]["first_cause"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+    assert routes["linkedin"]["retry_recorded"] and routes["linkedin"]["first_cause"] == "LINKEDIN_MEDIA_PROCESSING"
+    assert routes["instagram_business"]["first_cause"] == "TRADINGVIEW_PRICE_SCALE_MISMATCH"
+    assert routes["substack_notes"]["first_cause"] == "DESTINATION_INTENT_NOT_REGISTERED"
+    assert not routes["threads"]["confirmed"] and routes["threads"]["status"] == "READY"
+    table = readback.markdown(report)
+    assert "Plan post delivery" in table and "X READY over 5 min" in table
+    assert "Over 10 min behind first confirmed copy" in table
+
+
 def test_nov16_piece_channels_and_digest_are_consumed(recorded):
     report, calls = build(recorded)
     piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
