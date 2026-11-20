@@ -8,9 +8,10 @@ import re
 
 import pytest
 
-from live_contentops import call_followups_v1 as followups
+from live_contentops import call_followups_v1 as followups, plan_status_posts_v1 as plan_posts
 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _build_rolling_x_publication_plan
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.neo_destination_handoff_v1 import _payload_binding
 from live_contentops.plan_analysis_pages_v1 import public_filter, structured_summary
 from live_contentops.public_time_v1 import public_datetime, public_timestamp, require_public_time
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
@@ -91,12 +92,19 @@ def test_decision_98_wraps_keep_their_comparison_and_outlook(saved_posts, kind, 
         assert published_et.weekday() < 5 and published_et.time() < time(9, 30)
     else:
         assert published_et.weekday() == 6
-    body = wrap["body_excerpt"]
-    _assert_wrap_shape(kind, body)
+    def check(body):
+        _, binding = _payload_binding({
+            "native_payload": {"title": wrap["title"], "body_markdown": body},
+        }, "substack")
+        heading, bound_body = binding["expected_text_segments"]
+        assert heading == wrap["title"]
+        _assert_wrap_shape(kind, bound_body)
 
+    body = wrap["body_excerpt"]
+    check(body)
     broken = "\n".join(line for line in body.splitlines() if not line.startswith(line_to_drop))
     with pytest.raises(AssertionError, match=diagnosis):
-        _assert_wrap_shape(kind, broken)
+        check(broken)
 
 
 @pytest.mark.parametrize("label", ["An AI-run desk.", "Written by Claude."])
@@ -130,6 +138,7 @@ def test_decision_113_plan_reply_quotes_its_layers_and_links_its_own_analysis(sa
     }
     rendered = structured_summary(packet, "telegram", canonical, version=2)
     _assert_bound_plan_reply(rendered, source["summary"], canonical)
+    assert public_filter(rendered)["status"] == "PASS"
 
     no_link = "\n".join(line for line in reply["text"].splitlines() if not line.startswith("Full analysis: "))
     with pytest.raises(AssertionError, match="Confirmed full-analysis link missing or wrong"):
@@ -145,10 +154,29 @@ def _assert_new_correction(request, original_url, new_url):
     assert new_url and new_url != original_url, "Correction reused the original public object"
 
 
-def test_decision_136_gold_correction_is_a_new_post(saved_posts):
+def test_decision_136_gold_correction_is_a_new_post(saved_posts, tmp_path):
     correction = saved_posts["correction"]
-    row = correction["row"]
-    assert row["new_post_only"] is True
+    original = correction["original"]
+    store = ContentOpsDurableStore(tmp_path / "correction.sqlite3")
+    for key in (original["status_key"], original["note_work_id"]):
+        store.create_work_item(story_id=key, work_item_id=key, title="Original Gold analysis",
+                               target_surface="MULTI_PLATFORM")
+    original_row = json.dumps({"key": original["status_key"], "symbol": "XAUUSD",
+                               "schema_version": plan_posts.SCHEMA, "text": original["status_public_text"]})
+    store.register_outbox_message(message_id=original["status_key"], work_item_id=original["status_key"],
+                                  destination=plan_posts.DESTINATION, payload=original_row)
+    store.register_outbox_message(message_id="original-note", work_item_id=original["note_work_id"],
+                                  destination="substack_notes", payload="{}")
+    store.register_platform_dispatch(dispatch_id="original-note", message_id="original-note",
+                                     platform="substack_notes", status="DISPATCH_CONFIRMED",
+                                     public_object_id=correction["original_object_id"],
+                                     public_object_url=correction["original_url"])
+
+    row = followups.prepare_gold_correction(store, now=datetime.fromisoformat(correction["prepared_at_utc"]))
+    assert row["key"] == correction["row"]["key"] != original["status_key"]
+    assert row["kind"] == "correction" and row["new_post_only"] is True
+    assert store.get_outbox_message(original["status_key"])["payload"] == original_row
+    assert store.get_platform_dispatch("original-note")["public_object_url"] == correction["original_url"]
     new_url = correction["evidence"]["public_url"]
     _assert_new_correction(correction["request"], correction["original_url"], new_url)
     chart_id = saved_posts["charts"]["gold"]["asset"]["asset_id"]
