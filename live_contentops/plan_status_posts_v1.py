@@ -1579,16 +1579,16 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         # The call can span complete-sentence replies. The exact stored copy
         # is checked above; here validate the ordered terms across post breaks.
         public_text = " ".join(public_text.split())
+    from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
+    if destination in LINKEDIN_DESTINATIONS and row.get("analysis_linkedin_page_required"):
+        from .plan_call_cards_v1 import _linkedin_plan_url
+        url = _linkedin_plan_url(store, row)
+        if (not url or url != context.get("status_post_linkedin_analysis_url")
+                or url not in public_text or (intent.get("cc684_linkedin") and url != intent.get("canonical_url"))):
+            raise PlanPostError("CC684_LINKEDIN_PLAN_LINK_NOT_CONFIRMED")
     if row.get("analysis_copy_contract"):
         from .plan_state_alerts_v1 import validate as validate_alert
         validate_alert(row, store=store)
-        from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
-        if destination in LINKEDIN_DESTINATIONS and row.get("analysis_linkedin_page_required"):
-            from .plan_call_cards_v1 import _linkedin_plan_url
-            url = _linkedin_plan_url(store, row)
-            if (not url or url != context.get("status_post_linkedin_analysis_url")
-                    or url not in public_text or (intent.get("cc684_linkedin") and url != intent.get("canonical_url"))):
-                raise PlanPostError("CC684_LINKEDIN_PLAN_LINK_NOT_CONFIRMED")
         public_text = " ".join(public_text.split())
     check_publication_copy({"post": public_text},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [],

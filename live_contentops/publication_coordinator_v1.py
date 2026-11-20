@@ -1255,7 +1255,7 @@ class DurablePublicationCoordinator:
                 adapter="neo_destination_handoff_v1.NeoDestinationHandoff")
         if destination == "linkedin" and intent.get("destination_plan", {}).get("transport_type") == "OFFICIAL_MEMBER_API":
             from dataclasses import replace
-            legacy_neo = getattr(self.transport_runtime, "linkedin_prewrite_fallback", None)
+            legacy_neo = getattr(self.transport_runtime, "retained_linkedin_neo_request", None)
             if not callable(legacy_neo) or not legacy_neo(intent):
                 registration = replace(registration, transport_type="OFFICIAL_MEMBER_API",
                     adapter="linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1")
@@ -5131,7 +5131,7 @@ class CanonicalDestinationTransportRuntimeV1:
             "verified": bool(verified), "public_object_id": public_object_id,
             "canonical_url": canonical, "safe_error_classification": raw.get("error_code")}
 
-    def linkedin_prewrite_fallback(self, intent):
+    def retained_linkedin_neo_request(self, intent):
         """Recognize an already claimed Neo action from before the API retired."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         executor = getattr(self._neo_transport, "native_executor", None)
@@ -5146,18 +5146,23 @@ class CanonicalDestinationTransportRuntimeV1:
                     and request.get("intent_sha256") == sha256_of(intent)
                     and request.get("linkedin_api_prewrite_failure") == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
                     and executor._get(request["request_sha256"], "started")):
-                return request["linkedin_api_prewrite_failure"]
+                return request
         return None
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
         if destination == "linkedin":
             if intent.get("destination_plan", {}).get("transport_type") != "BROWSEROS_NEO_MCP":
-                previous = self.linkedin_prewrite_fallback(intent)
-                if not previous:
+                request = self.retained_linkedin_neo_request(intent)
+                if not request:
                     return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "public_write_performed": False,
                             "reason_code": "CC684_LINKEDIN_MEMBER_API_RETIRED"}
-                authorization_context = {**authorization_context, "linkedin_api_prewrite_failure": previous}
+                # Read the original return without regenerating a PUBLISH
+                # request or allowing the executor to refresh its claim.
+                saved = self._neo_transport.native_executor._get(request["request_sha256"], "response")
+                return saved["result"] if saved else {
+                    "status": UNKNOWN_WRITE, "retry_permitted": False,
+                    "reason_code": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN"}
         if destination in {"substack", "substack_notes", "x", "youtube", *LINKEDIN_DESTINATIONS}:
             return self._neo_transport.publish(destination=destination, intent=intent,
                                                 authorization_context=authorization_context)

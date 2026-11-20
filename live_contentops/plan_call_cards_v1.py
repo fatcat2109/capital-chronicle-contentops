@@ -587,6 +587,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
+            if now >= LINKEDIN_PLAN_LINK_EFFECTIVE:
+                item["analysis_linkedin_page_required"] = True
             if kind == "setup":
                 item["x_analysis_thread"] = True
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
@@ -729,8 +731,6 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             if quotes or confirmed or analysis_copy_root is not None:
                 item.update(analysis_copy_contract=ANALYSIS_COPY, analysis_layer_quotes=quotes,
                             analysis_link=confirmed.get("canonical_url"))
-                if now >= LINKEDIN_PLAN_LINK_EFFECTIVE:
-                    item["analysis_linkedin_page_required"] = True
                 item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):

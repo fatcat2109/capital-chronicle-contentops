@@ -4313,7 +4313,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             for index, post in enumerate(payloads[destination].get("posts") or []):
                 post["media_asset_ids"] = list(floor_ids) if index == 0 else []
             frozen_payload = payloads[destination]
-        if image_selection:
+        if image_selection and not (intent.get("cc684_linkedin") and destination in {"linkedin", "linkedin_company"}):
             from copy import deepcopy
             payloads[destination] = deepcopy(frozen_payload)
             channel_media = article.get("native_destination_media") or {}

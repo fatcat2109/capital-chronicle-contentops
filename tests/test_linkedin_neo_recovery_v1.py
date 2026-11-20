@@ -14,7 +14,7 @@ from live_contentops.native_desktop_editorial_v1 import (
 )
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired
 from live_contentops.neo_destination_handoff_v1 import (
-    NeoDestinationHandoff, IDENTITIES, ROOTS, NON_API_AUTOMATION_PROHIBITED, _public_url, destination_setup_projection,
+    NeoDestinationHandoff, IDENTITIES, ROOTS, _public_url, destination_setup_projection,
 )
 from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
 from test_dated_distribution_recovery_v1 import setup_recovery, accepted_recovery, CANONICAL
@@ -28,6 +28,8 @@ def linkedin_recovery(tmp_path, monkeypatch):
     ids = co._ids(binding["run_id"], plan["plan_hash"], "linkedin")
     message = store.get_outbox_message(ids["message_id"])
     intent = json.loads(message["payload"])
+    intent.pop("cc684_linkedin", None)
+    intent["destination_plan"]["transport_type"] = "OFFICIAL_MEMBER_API"
     intent["canonical_url"] = CANONICAL
     store.finalize_outbox_payload_before_dispatch(message_id=ids["message_id"], payload=json.dumps(intent), status="READY")
     store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
@@ -54,14 +56,15 @@ def test_linkedin_scope_keeps_eight_routine_destinations_and_old_review(tmp_path
     validate_registry()
     assert len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == 8
     assert "LINKEDIN_COMPANY_POST" not in TIER1_SURFACES
-    assert registration_for_destination("linkedin").transport_type == "OFFICIAL_MEMBER_API"
+    assert registration_for_destination("linkedin").transport_type == "BROWSEROS_NEO_MCP"
     assert registration_for_destination("linkedin_company").expected_stable_id == "143198922"
 
 
-def test_neo_recovery_keeps_personal_api_setup_and_company_identity_separate(tmp_path):
-    setup = destination_setup_projection(env={}, linkedin_root=tmp_path)
-    assert setup["linkedin"]["chosen_transport"] == "OFFICIAL_MEMBER_API"
-    assert setup["linkedin"]["browser_login_needed"] is False
+def test_neo_setup_keeps_personal_and_company_identities_separate():
+    setup = destination_setup_projection(env={})
+    assert setup["linkedin"]["chosen_transport"] == "BROWSEROS_NEO_MCP"
+    assert setup["linkedin"]["browser_login_needed"] is True
+    assert setup["linkedin"]["expected_identity"] == "linkedin:jimcc"
     assert setup["linkedin_company"]["chosen_transport"] == "BROWSEROS_NEO_MCP"
     assert setup["linkedin_company"]["expected_identity"] == "linkedin:company:143198922"
 
@@ -71,7 +74,8 @@ def test_optional_company_copy_does_not_enter_routine_readiness_or_publication_p
     import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
     assert set(DESTINATION_TO_SURFACE) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
     monkeypatch.setattr(DestinationReadinessManager, "probe_all", lambda *args, **kwargs: {
-        "surfaces": {surface: {"readiness_state": "READY_AUTHENTICATED"} for surface in TIER1_SURFACES}})
+        "surfaces": {surface: {"readiness_state": "READY_AUTHENTICATED"}
+                     for surface in DESTINATION_TO_SURFACE.values()}})
     readiness = pipeline._rolling_x_destination_readiness(cdp_port=9223)
     assert set(readiness["destinations"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
     assert readiness["all_required_destinations_ready"] is True
@@ -435,87 +439,48 @@ def test_shortened_canonical_requires_actual_exact_post_link_target(destination,
     assert actual["observed_text"] == observed["observed_text"]
 
 
-def test_normal_linkedin_runtime_keeps_api_and_only_explicit_recovery_routes_neo():
-    called = []
-    api = SimpleNamespace(publish=lambda **_: called.append("api") or {"status": "fixture"})
-    neo = SimpleNamespace(publish=lambda **_: called.append("neo") or {"status": "fixture"})
-    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=api, neo_transport=neo)
-    runtime.publish(destination="linkedin", intent={}, authorization_context={})
-    runtime.publish(destination="linkedin", intent={"dated_distribution_recovery": {"fixture": True},
-        "destination_plan": {"transport_type": "BROWSEROS_NEO_MCP"}}, authorization_context={})
-    assert called == ["api", "neo"]
-
-
-@pytest.mark.parametrize("outcome", ["tls_before_http", "ambiguous", "rejected", "accepted"])
-def test_member_api_falls_back_only_for_proven_pre_http_tls_failure(outcome, monkeypatch):
-    # The historical fallback applies only when browser writes are permitted.
-    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "linkedin", raising=False)
-    from live_contentops.linkedin_official_member_api_v1 import LinkedInAmbiguousWriteError
-    called = []
-    def publish(**_):
-        called.append("api")
-        if outcome == "ambiguous":
-            raise LinkedInAmbiguousWriteError("UNKNOWN_WRITE_TRANSPORT_UNAVAILABLE")
-        return {"status": "SUCCESS" if outcome == "accepted" else "DEFINITE_NO_WRITE",
-            "definite_no_write": outcome != "accepted",
-            "reason_code": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE" if outcome == "tls_before_http" else "PERMISSION_MISSING"}
-    executor = SimpleNamespace(native_neo_protocol=True, allow_publish=True,
-        store=SimpleNamespace(list_outbox_messages=lambda **_: []))
-    neo = SimpleNamespace(native_executor=executor,
-        publish=lambda **kw: called.append(("neo", kw["authorization_context"])) or {"status": "NATIVE_NEO_TOOL_PENDING"})
-    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=SimpleNamespace(publish=publish), neo_transport=neo)
-    if outcome == "ambiguous":
-        with pytest.raises(LinkedInAmbiguousWriteError):
-            runtime.publish(destination="linkedin", intent={"work_item_id": "controlled"}, authorization_context={})
-    else:
-        runtime.publish(destination="linkedin", intent={"work_item_id": "controlled"}, authorization_context={})
-    assert len(called) == (2 if outcome == "tls_before_http" else 1)
-    if outcome == "tls_before_http":
-        assert called[1][1]["linkedin_api_prewrite_failure"] == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
-
-
-def test_pre_http_fallback_restart_reuses_one_exact_native_action(tmp_path, monkeypatch):
-    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "linkedin", raising=False)
-    store, binding, result, co, _, recovery, ids = linkedin_recovery(tmp_path, monkeypatch)
-    accepted_recovery(store, binding, result, recovery, tmp_path)
-    store.set_dispatch_status(ids["dispatch_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
-    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"],
-        status="RECONCILED_ABSENT_SAFE_TO_RETRY")
-    executor = NativeNeoExecutor(store, operation_id=binding["run_id"], output_dir=tmp_path/"neo-tls",
-        native_invocation_id="CONTROLLED_TLS_FALLBACK", allow_publish=True)
+def test_runtime_routes_new_linkedin_copies_to_neo_and_keeps_legacy_readback():
     calls = []
-    api = SimpleNamespace(publish=lambda **_: calls.append("api") or {
-        "status": "DEFINITE_NO_WRITE", "definite_no_write": True, "reason_code": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"})
-    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=api,
-        neo_transport=NeoDestinationHandoff(native_executor=executor))
-    co.transport_runtime = runtime
-    message = store.get_outbox_message(ids["message_id"])
-    original = message["payload"]
-    first = co._dispatch_message(message, canonical_url=CANONICAL, explicit_reconciled_absent_retry=True)
-    assert first["status"] == "NATIVE_NEO_TOOL_PENDING"
-    repeated = co._dispatch_message(message, canonical_url=CANONICAL)
-    assert repeated["native_tool_request"]["request"] == first["native_tool_request"]["request"]
-    assert calls == ["api"]
-    assert co._intent_registration("linkedin", json.loads(original)).transport_type == "BROWSEROS_NEO_MCP"
-    assert store.get_outbox_message(ids["message_id"])["payload"] == original
-    changed = json.loads(original)
-    changed["payload"] = "unreviewed change"
-    assert runtime.linkedin_prewrite_fallback(changed) is None
-
-
-@pytest.mark.parametrize("tls_failure", [False, True])
-def test_browser_prohibition_keeps_official_api_retries_available(tls_failure):
-    calls = []
-    result = {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
-        "reason_code": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"} if tls_failure else {"status": "SUCCESS"}
-    api = SimpleNamespace(publish=lambda **kw: calls.append("api") or result)
-    neo = SimpleNamespace(publish=lambda **kw: calls.append("neo") or {})
+    api = SimpleNamespace(
+        publish=lambda **_: pytest.fail("retired member API called for a write"),
+        readback=lambda **_: calls.append("api_readback") or {"verified": True},
+    )
+    neo = SimpleNamespace(
+        publish=lambda **kwargs: calls.append(kwargs["destination"]) or {"status": "fixture"},
+        readback=lambda **_: calls.append("neo_readback") or {"verified": True},
+    )
     runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=api, neo_transport=neo)
-    runtime.linkedin_prewrite_fallback = lambda intent: "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
-    for _ in range(2):
-        assert runtime.publish(destination="linkedin", intent={"work_item_id": "controlled"},
-            authorization_context={}) == result
-    assert calls == ["api", "api"]
+    new = {"destination_plan": {"transport_type": "BROWSEROS_NEO_MCP"}}
+    old = {"destination_plan": {"transport_type": "OFFICIAL_MEMBER_API"}}
+    for destination in ("linkedin", "linkedin_company"):
+        runtime.publish(destination=destination, intent=new, authorization_context={})
+    result = runtime.publish(destination="linkedin", intent=old, authorization_context={})
+    assert result["reason_code"] == "CC684_LINKEDIN_MEMBER_API_RETIRED"
+    for intent in (new, old):
+        runtime.readback(destination="linkedin", intent=intent,
+                         public_object_id="urn:li:activity:123", public_object_url=None)
+    assert calls == ["linkedin", "linkedin_company", "neo_readback", "api_readback"]
+
+
+def test_retired_api_recognizes_only_the_exact_prior_claim(tmp_path):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    store.create_work_item(story_id="retained", work_item_id="retained", title="Retained", target_surface="TEST")
+    executor = NativeNeoExecutor(store, operation_id="retained", output_dir=tmp_path,
+                                 native_invocation_id="LEGACY", allow_publish=True)
+    runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor))
+    intent = {"work_item_id": "retained", "destination_plan": {"transport_type": "OFFICIAL_MEMBER_API"}}
+    request = {"work_item_id": "retained", "destination": "linkedin", "action": "PUBLISH",
+               "intent_sha256": sha256_of(intent), "linkedin_api_prewrite_failure": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"}
+    request_hash = sha256_of(request)
+    request["request_sha256"] = request_hash
+    executor._put(request_hash, "request", {"operation_id": "retained", "request": request}, "retained")
+    assert runtime.retained_linkedin_neo_request(intent) is None
+    executor._put(request_hash, "started", {"native_invocation_id": "LEGACY"}, "retained")
+    assert runtime.retained_linkedin_neo_request(intent) == request
+    assert runtime.retained_linkedin_neo_request({**intent, "payload": "changed"}) is None
 
 
 def test_policy_refusal_cannot_consume_official_api_failure_circuit(tmp_path):
@@ -537,21 +502,6 @@ def test_policy_refusal_cannot_consume_official_api_failure_circuit(tmp_path):
     with store.get_read_only_connection() as conn:
         assert json.loads(conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident,)).fetchone()[0]) == policy
         assert conn.execute("SELECT count(*) FROM incidents").fetchone()[0] == 2
-    monkeypatch.setattr(executor, "readiness", lambda _: {"authenticated": True,
-        "native_executor_bound": True, "proof_fresh": True, "public_handle": IDENTITIES["linkedin"]})
-    packet = first["native_tool_request"]
-    request_hash = packet["request"]["request_sha256"]
-    executor.begin(request_hash)
-    executor.submit(request_hash, {"tool_request_sha256": packet["tool_request_sha256"],
-        "tool_observation": {"tool_name": "mcp__browseros_neo__run", "native_invocation_id": executor.native_invocation_id,
-            "surface": "CODEX_EXEC", "observation_source": "CONTROLLED_PROTOCOL_FIXTURE_NOT_PUBLIC_PROOF",
-            "observed_at_utc": datetime.now(timezone.utc).isoformat()},
-        "result": {"request_sha256": request_hash, "status": "SUCCESS", "observed_identity": IDENTITIES["linkedin"],
-            "public_object_id": "urn:li:activity:123", "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:123/"}})
-    completed = co.reconcile_completed_native_publish(ids["dispatch_id"], request_hash=request_hash)
-    assert completed["public_object_id"] == "urn:li:activity:123"
-    assert completed["reconciliation_status"] == "RECONCILIATION_PENDING"
-    assert calls == ["api"]
 
 
 @pytest.mark.parametrize("stable_id", ["143198922", "wrong-company", None])

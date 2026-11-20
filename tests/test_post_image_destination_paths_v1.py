@@ -56,6 +56,39 @@ def test_neo_request_contains_the_selected_binary_image_path(image_intent, desti
     assert binding["media_manifest"][0]["sha256"]
 
 
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+def test_linkedin_article_finalizes_to_the_reviewed_tradingview_chart(image_intent, destination):
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+
+    root = Path(image_intent["output_dir"])
+    context_file = root / "run_context_v1.json"
+    context = json.loads(context_file.read_bytes())
+    (root / "media").mkdir()
+    chart, card = context["media"]["assets"]
+    path = Path(chart["path"]).rename(root / "media" / "selected-chart.png")
+    chart.update(path=str(path), modality="tradingview_chart_snapshot")
+    context["article"].update(tradingview_snapshot_asset_ids=[chart["asset_id"]],
+                              native_destination_media={d: [card["asset_id"]]
+                                  for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS})
+    context_file.write_text(json.dumps(context), encoding="utf-8")
+    image_intent.update(cc684_linkedin=True, destination_plan={"destination": destination,
+                                                              "transport_type": "BROWSEROS_NEO_MCP"})
+    image_intent.pop("native_payload")
+    url = image_intent["canonical_url"]
+    finalized = CanonicalDestinationTransportRuntimeV1().finalize_intent(
+        destination=destination, intent=image_intent, canonical_url=url)
+    assert finalized["native_payload"]["media_asset_ids"] == [chart["asset_id"]]
+    request = NeoDestinationHandoff().request(destination=destination, intent=finalized, action="PUBLISH",
+        authorization_context={"schema_version": "contentops.canonical_machine_authorization.v1",
+            "operating_mode": "AUTONOMOUS_DEFAULT", "destination": destination,
+            "dispatch_attempt_identity": image_intent["attempt_identity"],
+            "work_item_id": image_intent["work_item_id"], "payload_hash": finalized["destination_plan"]["payload_hash"]})
+    assert request["canonical_url"] == url
+    assert request["content_binding"]["media_manifest"] == [
+        {key: chart[key] for key in ("asset_id", "path", "sha256", "modality")}]
+
+
 @pytest.mark.parametrize("destination", ["telegram", "discord", "facebook_page", "instagram_business", "threads"])
 def test_api_destination_receives_selected_image_and_exact_canonical(image_intent, destination, monkeypatch):
     image_intent["destination_plan"]["destination"] = destination

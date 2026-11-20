@@ -80,6 +80,7 @@ def test_restored_article_route_reaches_live_coordinator_transport(tmp_path, des
 
 
 def test_adapter_preserves_a_claimed_write_and_its_saved_return(tmp_path, monkeypatch):
+    monkeypatch.setitem(handoff.NON_API_AUTOMATION_PROHIBITED, "linkedin", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED")
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     store.create_work_item(story_id="s", work_item_id="work", title="test", target_surface="test")
     executor = NativeNeoExecutor(store, operation_id="op", output_dir=tmp_path,
@@ -142,9 +143,9 @@ def test_review_has_sources_for_every_route_and_matches_the_live_bar_list():
             assert rule["source_ids"] and set(rule["source_ids"]) <= sources.keys()
             if rule["status"] == "NOT_FOUND":
                 assert rule["search_queries"]
-    # The dated decision-109 review stays exact; decisions 112/121 reopen routes.
+    # The dated review stays exact; decisions 112/121 and CC-684 reopen routes.
     assert {k: v for k, v in record["enforcement"]["neo_barred_destinations"].items()
-            if k not in {"x", "linkedin_company", "youtube"}} == handoff.NON_API_AUTOMATION_PROHIBITED
+            if k not in {"x", "linkedin", "linkedin_company", "youtube"}} == handoff.NON_API_AUTOMATION_PROHIBITED
     assert record["consumer"]["owner"] == "Ops Product"
 
 
