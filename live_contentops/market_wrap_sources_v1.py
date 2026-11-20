@@ -26,6 +26,9 @@ INTAKE = Path(r"A:\Capital Chronicle\Runtime\OfficialRates\cc-078-20261101\state
 CALENDAR = INTAKE / "official-calendar/calendar.json"
 CASH_CALENDAR = MAIN_ROOT / "config/ibkr_paper/us_session_calendar_v1.json"
 HISTORY = INTAKE / "market-history/archives"
+RELEASES = INTAKE.parents[3] / "OfficialReleases/official_release_feed_v1.json"
+FEDERAL_SOURCES = {"www.bls.gov", "www.bea.gov", "www.census.gov",
+                   "www.eia.gov", "www.federalreserve.gov"}
 MARKETS = {
     "EURUSD": ("Euro", "EURUSD", ("eurusd", "euro")),
     "USDJPY": ("Yen", "USDJPY", ("usdjpy", "yen")),
@@ -58,9 +61,9 @@ def session_day(day, calendar):
 def slot_at(now, calendar):
     now = utc(now)
     day = now.astimezone(ET).date()
-    if day < START or day.weekday() == 5:
-        return None
     weekly = day.weekday() == 6
+    if day < START - timedelta(days=1 if weekly else 0) or day.weekday() == 5:
+        return None
     if not weekly and not session_day(day, calendar):
         return None
     start = datetime.combine(day, time(15), UTC) if weekly else datetime.combine(day, time(8), ET)
@@ -285,6 +288,42 @@ def calendar_events(raw, start, end, *, as_of):
     return sorted(rows, key=lambda row: (row["scheduled_at_utc"] or row["scheduled_date"], row["id"]))
 
 
+def public_release_facts(start, end, path=RELEASES):
+    """Use attributable release figures where the federal feed has the exact print."""
+    from .reader_article_contract_v1 import numbers
+    from .plan_analysis_pages_v1 import public_filter
+
+    raw = Path(path).read_bytes()
+    values = json.loads(raw)["rows"]
+    facts = {}
+    for row in values:
+        try:
+            url = row["url"]
+            if urlsplit(url).hostname not in FEDERAL_SOURCES or not url.startswith("https://"):
+                continue
+            at, known = utc(row["published_utc"]), utc(row["first_seen_utc"])
+            if not start <= at <= known <= end:
+                continue
+            title = safe_prose(row["title"])
+            publisher = row["source"]
+            if not title or not isinstance(publisher, str):
+                continue
+            public_filter(publisher, source_locator=url)
+            # Retain a single attributed source sentence, never a release's
+            # full summary or data table. A number in the title alone is not a print.
+            lines = public_sentences(row.get("summary"))
+            line = next((s for s in lines if any(re.search(r"%|bps|million|billion|points", value, re.I)
+                        for value in numbers(s))), None)
+            if line:
+                text = f"{et(at)} — {title} {line}"
+                facts[row["item_id"]] = {"id": row["item_id"], "text": text, "publisher": publisher,
+                    "source_url": url, "known_at_utc": known.isoformat(), "published_at_utc": at.isoformat(),
+                    "sha256": sha256_of(row), "feed_sha256": sha256(raw).hexdigest()}
+        except (KeyError, ValueError, TypeError):
+            continue
+    return sorted(facts.values(), key=lambda row: row["published_at_utc"])[-8:]
+
+
 def history_bars(raw, ticker, known_at):
     """Use dated, complete sessions of the exact Yahoo instrument."""
     rows, = json.loads(raw)["chart"]["result"]
@@ -384,7 +423,7 @@ def prior_stops(export, day, as_of):
 
 def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             history=market_history, plans=read_export, main=latest_main, calendar=CALENDAR,
-            clock=quotes.utcnow, releases=None):
+            clock=quotes.utcnow, releases=public_release_facts):
     """Collect each source once. A defect affects only dependent rows."""
     now = utc(now)
     weekly = slot["edition"] == "weekly"
@@ -464,6 +503,12 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
     report = main(now)
     if report.get("cause"):
         gaps["main"] = report["cause"]
+    try:
+        release_facts = releases(cash_close(last, cash_calendar) if weekly
+                                 else datetime.combine(last, time(), ET), now)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        release_facts = []
+        gaps["releases"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
     latest_quote = max((utc(obs["observed_at_utc"]) for obs in snapshots.values()
                         if obs.get("observed_at_utc")), default=None)
     # Sunday uses the explicitly dated last completed session, with its own
@@ -473,8 +518,7 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             previous["slot"]["id"] if previous else None), "analysis": report, "plans": plan_record,
             "events": upcoming, "weekend_events": weekend, "calendar_sha256": calendar_hash,
             "weekly_calls": score, "prior_stops_text": stops, "gaps": gaps,
-            "released_facts": releases(cash_close(last, cash_calendar) if weekly else
-                                      datetime.combine(last, time(), ET), now) if releases else [],
+            "released_facts": release_facts,
             "data_cutoff_utc": data_clock.astimezone(UTC).isoformat() if data_clock else None}
 
 

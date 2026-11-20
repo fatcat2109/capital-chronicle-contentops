@@ -151,6 +151,9 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
 
 
 def before_article_write(coordinator, intent, destination):
+    if intent.get("market_wrap"):
+        from .market_wrap_job_v1 import before_write
+        return before_write(coordinator, intent, destination)
     if not applies(coordinator, intent):
         return None
     if intent.get("measured_odds_piece"):

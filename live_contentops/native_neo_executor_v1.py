@@ -300,6 +300,11 @@ class NativeNeoExecutor:
                         page_packet = validate_intent(self.store, intent)
                         if request["destination"] == "substack":
                             plan_entry_deadline = open_page_deadline(page_packet)
+                    elif intent.get("market_wrap"):
+                        from .market_wrap_job_v1 import before_write
+                        wrap_deadline = before_write(coordinator, intent, request["destination"])
+                        if request["destination"] == "substack":
+                            plan_entry_deadline = wrap_deadline
                     if intent.get("reader_presentation_review"):
                         expected_payload, expected_content = _payload_binding(intent, request["destination"])
                         if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:

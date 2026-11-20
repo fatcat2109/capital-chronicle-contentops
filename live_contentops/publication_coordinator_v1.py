@@ -2037,7 +2037,8 @@ class DurablePublicationCoordinator:
                 destinations.append({"destination": destination})
         for item in destinations:
             destination = str(item.get("destination") or "")
-            if destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company", *barred_browser_destinations()}:
+            if (destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company", *barred_browser_destinations()}
+                    and not (destination == "substack_notes" and plan.get("market_wrap") == work_item_id)):
                 continue
             ids = self._ids(work_item_id, plan_hash, destination)
             message = self.store.get_outbox_message(ids["message_id"])
@@ -2098,7 +2099,8 @@ class DurablePublicationCoordinator:
         permitted_skips = permitted_derivative_skips(plan)
         structural_blockers = {
             "missing_destinations": sorted(required - observed),
-            "unexpected_destinations": sorted(observed - required - set(barred_browser_destinations())),
+            "unexpected_destinations": sorted(observed - required - set(barred_browser_destinations())
+                - ({"substack_notes"} if plan.get("market_wrap") == work_item_id else set())),
             "duplicate_destinations": duplicate_destinations,
             "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips and d not in barred_browser_destinations()],
             "pre_substack_blockers": sorted(
@@ -2245,6 +2247,11 @@ class DurablePublicationCoordinator:
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
             raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
+        if plan.get("market_wrap"):
+            from .market_wrap_job_v1 import validated_plan
+            packet = validated_plan(self.store, work_item_id, plan["plan_hash"])
+            if packet["plan"] != plan:
+                raise ValueError("WRAP_FROZEN_PLAN_CHANGED")
         if plan.get("measured_odds_piece"):
             from .measured_odds_series_v1 import validate_plan
             validate_plan(self.store, work_item_id, plan)
@@ -2333,6 +2340,7 @@ class DurablePublicationCoordinator:
                     plan.get("bridge_source_get_count") or 0
                 ),
                 "publication_window": plan.get("publication_window"),
+                **({"market_wrap": plan["market_wrap"]} if plan.get("market_wrap") else {}),
                 "package_identity": plan.get("package_identity"),
                 "plan_hash": plan_hash,
                 "output_dir": plan.get("output_dir"),
@@ -4135,7 +4143,8 @@ class DurablePublicationCoordinator:
         messages = [m for m in self.store.list_outbox_messages(work_item_id=work_item_id)
             if (m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
                  or (m["destination"] == "substack_notes"
-                     and (plan.get("plan_status_post") or plan.get("plan_analysis_link")))
+                     and (plan.get("plan_status_post") or plan.get("plan_analysis_link")
+                          or plan.get("market_wrap") == work_item_id))
                  or (m["destination"] == "linkedin_company"
                      and json.loads(str(m["payload"])).get("routine_company_copy") is True))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
@@ -5167,6 +5176,18 @@ class CanonicalDestinationTransportRuntimeV1:
         )
         finalized = dict(intent)
         finalized["canonical_url"] = canonical_url
+        if intent.get("market_wrap"):
+            from .market_wrap_editorial_v1 import derivative_payload
+            root = Path(intent["output_dir"])
+            context = json.loads((root / "run_context_v1.json").read_bytes())
+            asset, = context["media"]["assets"]
+            native_payload = derivative_payload(context["article"], asset, canonical_url, destination)
+            destination_plan = {**intent["destination_plan"], "payload_hash": _hash(_canonical_json(native_payload)),
+                "payload_hash_kind": "FINAL_CANONICAL_URL_BOUND_BYTES",
+                "canonical_url_state": "RECONCILED_CANONICAL_URL_BOUND"}
+            return {**finalized, "destination_plan": destination_plan, "native_payload": native_payload,
+                    "payload": native_payload["text"], "rematerialization_model_call_count": 0,
+                    "rematerialization_source_get_count": 0}
         if intent.get("plan_analysis_link"):
             # The confirmed plan-page reply already binds its complete copy,
             # canonical URL and exact original parent. No article recompilation.

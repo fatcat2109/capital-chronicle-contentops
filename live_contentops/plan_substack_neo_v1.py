@@ -81,7 +81,7 @@ def request_action(packet):
 
 def supports_operation(operation_id):
     return (operation_id.startswith("plan-analysis-")
-            or re.fullmatch(r"cc536-measured-odds-[1-7]", operation_id) is not None)
+            or re.fullmatch(r"cc536-measured-odds-[1-7]|cc689-(?:daily|weekly)-\d{4}-\d{2}-\d{2}", operation_id) is not None)
 
 
 def body_text(text):
