@@ -159,7 +159,7 @@ def main(argv=None) -> int:
                 plan_pages = run_due(store, lambda: posts.read_export(
                     args.export_dir, main_root=args.main_root, python=child_python()),
                     root=page_root, rollout=rollout, now=now, cached_only=True)
-                if plan_pages["draft_due"]:
+                if plan_pages.get("draft_due"):
                     plan_pages["draft_worker"] = start_page_draft_worker(store, python=child_python(),
                         export_dir=args.export_dir, main_root=args.main_root, root=page_root, now=now)
             except Exception as exc:

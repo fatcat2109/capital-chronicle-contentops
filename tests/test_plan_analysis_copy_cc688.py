@@ -36,7 +36,8 @@ LINK = "https://capitalchronicle.substack.com/p/controlled-gold-analysis"
 
 
 def test_only_frozen_quotes_pass_and_failed_gy_drafts_fall_back_per_line(tmp_path):
-    plan = {"analysis_layers": LAYERS}
+    alternative = "Price stayed below resistance."
+    plan = {"analysis_layers": {**LAYERS, "technical": {"text": LAYERS["technical"]["text"] + " " + alternative}}}
     expected = {"macro", "fundamental", "positioning_sentiment", "technical"}
     assert set(reader.analysis_layer_options(plan)) == expected
     with pytest.raises(ValueError, match="CC688_LAYER_NOT_QUOTED_FROM_PLAN:macro"):
@@ -45,10 +46,12 @@ def test_only_frozen_quotes_pass_and_failed_gy_drafts_fall_back_per_line(tmp_pat
     def draft(_prompt, **kwargs):
         assert kwargs["callers"] == ("antigravity",)
         return json.dumps({"macro": "Real yields fell after the data release.",
-                           "technical": LAYERS["technical"]["text"]}).encode(), {"status": "RETURNED"}
+                           "technical": "1", "fundamental": "2"}).encode(), {"status": "RETURNED"}
 
     quotes = editorial.prepare_plan_layers(plan, output_dir=tmp_path, call=draft)
     assert quotes["macro"] == LAYERS["macro"]["text"]
+    assert quotes["fundamental"] == LAYERS["fundamentals"]["text"]
+    assert quotes["technical"] == alternative
     assert set(quotes) == expected
     record = json.loads(next(tmp_path.glob("*/light-call.json")).read_bytes())
     assert (record["lines_passed"], record["lines_expected"], record["fallback"]) == (1, 4, "frozen_plan")
@@ -126,7 +129,9 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
         caller, = options["callers"]
         seen.append(caller)
         if caller == "codex":
-            assert options["codex_effort"] == "high"
+            assert options["codex_effort"] == "high" and options["timeout_seconds"] == 120
+        else:
+            assert options["timeout_seconds"] == editorial.PAGE_AGY_TIMEOUT
         if terminal_writer == "codex" and caller == "antigravity":
             return b'{"macro":[1024]}', {"status": "RETURNED"}
         if terminal_writer == "frozen_plan":

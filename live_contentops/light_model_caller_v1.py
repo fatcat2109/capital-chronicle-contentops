@@ -251,7 +251,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                     if schema_path:
                         args += ["--json-schema", str(schema_path)]
                     message = {"event": "user", "message": {"role": "user", "content": [{"type": "text", "text": prompt}]}}
-                    done = run(args, cwd=cwd, timeout=AGY_TIMEOUT, input=(json.dumps(message) + "\n").encode())
+                    done = run(args, cwd=cwd, timeout=limit, input=(json.dumps(message) + "\n").encode())
                     raw, err = done.stdout, done.stderr
                     answer = _agy_answer(raw, attempt)
                 else:

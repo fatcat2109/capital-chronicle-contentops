@@ -24,6 +24,7 @@ from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 PAGE_LEASE = "cc466-plan-page-editorial"
 PAGE_DRAFT_LEASE = "cc688-plan-page-draft"
 DRAFT_MANUSCRIPT = "page-manuscript-cc688.json"
+PAGE_AGY_TIMEOUT = 100
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
@@ -66,6 +67,8 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None):
             for layer in options:
                 try:
                     text = drafted.get(layer)
+                    if isinstance(text, str) and text in ("0", "1", "2"):
+                        text = int(text)
                     if type(text) is int and 0 <= text < len(choices[layer]):
                         text = choices[layer][text]
                     reader.validate_analysis_line(options, layer, text)
@@ -403,7 +406,7 @@ def draft_plan_page(plan, run, *, output_dir, call=None):
         + json.dumps(public, ensure_ascii=False, separators=(",", ":"))
     )
     call = call or call_light
-    key = sha256(prompt.encode()).hexdigest()[:20]
+    key = sha256(canonical_bytes({"prompt": prompt, "antigravity_timeout": PAGE_AGY_TIMEOUT})).hexdigest()[:20]
     records = []
     correction = ""
     for attempt, (caller, fallback) in enumerate(
@@ -415,9 +418,10 @@ def draft_plan_page(plan, run, *, output_dir, call=None):
             record = json.loads(log.read_bytes())
             answer = saved_answer.read_bytes() if saved_answer.is_file() else b""
         else:
+            limits = ({"codex_effort": "high", "timeout_seconds": 120} if caller == "codex" else
+                      {"timeout_seconds": PAGE_AGY_TIMEOUT})
             answer, record = call(prompt + correction, root=root, job="plan_analysis_page", callers=(caller,),
-                timeout_cause="AGY_PLAN_PAGE_TIMEOUT_65S", empty_cause="AGY_PLAN_PAGE_EMPTY",
-                **({"codex_effort": "high", "timeout_seconds": 120} if caller == "codex" else {}))
+                timeout_cause=f"AGY_PLAN_PAGE_TIMEOUT_{PAGE_AGY_TIMEOUT}S", empty_cause="AGY_PLAN_PAGE_EMPTY", **limits)
         manuscript = None
         result = "FAILED"
         try:
