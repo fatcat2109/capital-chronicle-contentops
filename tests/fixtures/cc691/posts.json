@@ -307,5 +307,86 @@
       "note_work_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes"
     },
     "prepared_at_utc": "2026-11-15T19:17:17.357018+00:00"
+  },
+  "plan_coverage": {
+    "row": {
+      "key": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+      "kind": "setup",
+      "state_alert_contract": "CC543_V1"
+    },
+    "readbacks": {
+      "telegram": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_03052889182c51bbcd70d08fda4eb732",
+        "readback_id": "readback_91df66daa576c3b953f949c5ed367065",
+        "public_url": "https://t.me/CapitalChronicle/218",
+        "dispatched_at_utc": "2026-11-20T08:17:06.340829+00:00",
+        "public_object_id": "218",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "discord": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_d5728a8f718f98dae36679e13c8776ca",
+        "readback_id": "readback_1847941205d5cf975ca2e6d34c96b224",
+        "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1573250800006725695",
+        "dispatched_at_utc": "2026-11-20T08:16:59.835188+00:00",
+        "public_object_id": "1573250800006725695",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "facebook_page": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_3156b179f8b9a2f33f8c15d44c96812b",
+        "readback_id": "readback_f69533bd35b9e5e60a3fe4cf70c00943",
+        "public_url": "https://www.facebook.com/1342369584748125/posts/1460820372903045",
+        "dispatched_at_utc": "2026-11-20T08:17:40.728361+00:00",
+        "public_object_id": "106091951705748_1460820372903045",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "instagram_business": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_61dac71c7131ce0c77bf07d4f11a4bc0",
+        "readback_id": "readback_fb328d1db9d75eb08c4b6e705c5ef337",
+        "public_url": "https://www.instagram.com/p/Df9NShhEiM1/",
+        "dispatched_at_utc": "2026-11-20T08:17:40.835975+00:00",
+        "public_object_id": "18088429622322090",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "linkedin": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_07a28a741ef35d96b9daff5481499d7d",
+        "readback_id": null,
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:share:7529457949413363712/",
+        "dispatched_at_utc": "2026-11-20T08:17:44.695044+00:00",
+        "public_object_id": "urn:li:share:7529457949413363712",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "x": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_b27a317d665ea203e9eb60ee7ec411c8",
+        "readback_id": "readback_0ba498ee311adc65b111666ccb51c952",
+        "public_url": "https://x.com/Capitalnicle/status/2123692489819500865",
+        "dispatched_at_utc": "2026-11-20T08:17:49.032673+00:00",
+        "public_object_id": "2123692489819500865",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "threads": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_53ad7b4cfa1d07c780a5c0f70e1255bd",
+        "readback_id": "readback_1eb64b5d964afdeac9859dcd996847c4",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df9NSX4E32L",
+        "dispatched_at_utc": "2026-11-20T08:17:40.756320+00:00",
+        "public_object_id": "18124333159910194",
+        "status": "DISPATCH_CONFIRMED"
+      },
+      "substack_notes": {
+        "work_item_id": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+        "dispatch_id": "dispatch_5ba72955c3d80a0522edc67b1d82767f",
+        "readback_id": "readback_1fbe441274c3fe49225dd32d93a1bbf1",
+        "public_url": "https://substack.com/@capitalchronicle/note/c-392239805",
+        "dispatched_at_utc": "2026-11-20T08:17:49.041037+00:00",
+        "public_object_id": "c-392239805",
+        "status": "DISPATCH_CONFIRMED"
+      }
+    }
   }
 }

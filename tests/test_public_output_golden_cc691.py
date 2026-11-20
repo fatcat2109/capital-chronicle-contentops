@@ -8,7 +8,9 @@ import re
 
 import pytest
 
-from live_contentops import call_followups_v1 as followups, plan_status_posts_v1 as plan_posts
+from live_contentops import call_followups_v1 as followups
+from live_contentops import plan_call_cards_v1 as plan_cards
+from live_contentops import plan_status_posts_v1 as plan_posts
 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _build_rolling_x_publication_plan
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.neo_destination_handoff_v1 import _payload_binding
@@ -24,6 +26,9 @@ WRAP_MARKETS = {"XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD"}
 WRAP_DESTINATIONS = {
     "substack", "telegram", "discord", "facebook_page", "instagram_business",
     "linkedin", "linkedin_company", "x", "threads", "youtube",
+}
+PLAN_DESTINATIONS = {
+    "telegram", "discord", "facebook_page", "instagram_business", "linkedin", "x", "threads", "substack_notes",
 }
 PLAN_LAYERS = {
     "Macro": "macro", "Priced in": "priced_in", "Positioning": "positioning",
@@ -59,6 +64,7 @@ def test_decision_90_the_update_uses_new_york_time(saved_posts):
     require_public_time(update["text"])
     clock = public_timestamp(update["event_utc"]).split(" on ")[0]
     assert update["rendered_timestamp"].endswith(f" {clock}.")
+    assert f"Updated {plan_cards._clock(update['event_utc'])}." == update["rendered_timestamp"]
     assert update["rendered_timestamp"] in update["text"]
 
     broken = update["text"].replace(clock, "12:36 GMT+7")
@@ -192,8 +198,8 @@ def test_decision_136_gold_correction_is_a_new_post(saved_posts, tmp_path):
         _assert_new_correction(broken_request, correction["original_url"], new_url)
 
 
-def _assert_coverage(outcomes):
-    absent = WRAP_DESTINATIONS - {
+def _assert_coverage(expected_destinations, outcomes):
+    absent = expected_destinations - {
         route for route, outcome in outcomes.items()
         if outcome["status"] == "DISPATCH_CONFIRMED" and outcome["public_object_id"]
     }
@@ -231,9 +237,21 @@ def test_coverage_every_named_article_destination_gets_its_copy(saved_posts, tmp
                                          public_object_id=readback["public_object_id"],
                                          public_object_url=readback["public_url"])
     outcomes = coordinator.publication_state(work_id, plan)["per_destination"]
-    _assert_coverage(outcomes)
+    _assert_coverage(WRAP_DESTINATIONS, outcomes)
 
     broken_plan = {**plan, "destinations": [row for row in plan["destinations"] if row["destination"] != "discord"]}
     broken = coordinator.publication_state(work_id, broken_plan)["per_destination"]
     with pytest.raises(AssertionError, match="Named destinations lack confirmed copies: .*discord"):
-        _assert_coverage(broken)
+        _assert_coverage(WRAP_DESTINATIONS, broken)
+
+
+def test_coverage_every_named_plan_alert_destination_gets_its_copy(saved_posts):
+    coverage = saved_posts["plan_coverage"]
+    planned = set(plan_cards.destinations_for(coverage["row"]))
+    assert planned == PLAN_DESTINATIONS
+    evidence = coverage["readbacks"]
+    _assert_coverage(planned, evidence)
+
+    unknown = {**evidence, "substack_notes": {**evidence["substack_notes"], "status": "UNKNOWN_WRITE"}}
+    with pytest.raises(AssertionError, match="Named destinations lack confirmed copies: .*substack_notes"):
+        _assert_coverage(planned, unknown)
