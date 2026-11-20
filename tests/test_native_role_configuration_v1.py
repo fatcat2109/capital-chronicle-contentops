@@ -89,6 +89,16 @@ def test_dated_social_review_does_not_follow_a_retained_writer(tmp_path):
     assert "continuation_observation" not in call
 
 
+def test_existing_exec_writer_continues_in_its_own_run(tmp_path):
+    observed = {**continuation(), "surface": "CODEX_EXEC", "configured_reasoning_effort": "high"}
+    call = native_role_call(request("revise"), binding(tmp_path), binding_path="binding.json",
+        same_writer_invocation=observed["invocation_id"], same_writer_configuration=observed)
+    assert call["tool"] == "codex.exec.current"
+    assert call["continuation_observation"] == observed
+    assert next_editorial_action({"classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+        "next_native_call": call})["action"] == "EXECUTE_AND_COLLECT_NATIVE_ROLES"
+
+
 @pytest.mark.parametrize("source_kind", ["JIM_CONFIRMED_THREAD_SETTINGS", "JIM_CONFIRMED_PERIOD_DEFAULT"])
 def test_parent_app_settings_are_recorded_without_a_label_gate(source_kind):
     observation = {**configured(effort="max"), "surface": "CODEX_DESKTOP_CONVERSATION"}

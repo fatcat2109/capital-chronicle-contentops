@@ -276,7 +276,12 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
         "Do not read or message archived chats, send a completion notice, create a goal or schedule. "
         "The parent collects this role's supported native result in the same operation. "
         "EXACT NATIVE ASSIGNMENT:\n" + json.dumps(fields, ensure_ascii=False, sort_keys=True))
-    if same_writer_invocation:
+    if same_writer_invocation and (same_writer_configuration or {}).get("surface") == "CODEX_EXEC":
+        call = {"tool": "codex.exec.current", "arguments": {
+            "invocation_id": same_writer_invocation,
+            "request_path": str(role_input_path),
+            "message": message.replace("surface CODEX_NATIVE_SUBAGENT", "surface CODEX_EXEC")}}
+    elif same_writer_invocation:
         call = {"tool": "collaboration.followup_task", "arguments": {
             "target": same_writer_invocation, "message": message}}
     else:

@@ -139,6 +139,12 @@ def validate_native_role_dispatch(call):
                 or observation.get("surface") != "CODEX_NATIVE_SUBAGENT"):
             raise ValueError("EXACT_SAME_WRITER_CONFIGURATION_REQUIRED")
         validate_native_configuration(observation, target)
+    elif call.get("tool") == "codex.exec.current":
+        observation = call.get("continuation_observation") or {}
+        if (observation.get("surface") != "CODEX_EXEC" or not arguments.get("invocation_id")
+                or observation.get("invocation_id") != arguments["invocation_id"]
+                or not arguments.get("request_path")):
+            raise ValueError("EXACT_CODEX_EXEC_CONTINUATION_REQUIRED")
     else:
         raise ValueError("SUPPORTED_NATIVE_ROLE_DISPATCH_REQUIRED")
 
