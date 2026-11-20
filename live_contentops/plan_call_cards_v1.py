@@ -31,6 +31,7 @@ SETTLED_DISPATCHES = frozenset({"DISPATCH_CONFIRMED", "DEFINITE_NO_WRITE",
     "EXTERNAL_REMOVAL_REPORTED_NO_RETRY", "UNSENT_MEDIA_SUPERSEDED"})
 SETTLED_POST = "SETTLED"
 SETTLED_COPY = "PLAN_POST_SETTLED"
+DISCORD_CHANNEL_PART = 1
 GLOSSARY = {
     "DXY": "the US dollar index", "COT": "the futures positioning report",
     "M15": "short-interval", "M5": "short-interval", "H1": "hourly",
@@ -573,7 +574,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 "source_contract_version": version,
                 "source_plan_hash": raw.get("registration_hash"), "reasons": [],
                 "discord_delivery": discord_delivery, "analysis_distribution_version": 1}
-        if kind != "setup" and row["plan_id"] in cards:
+        if kind != "setup" and row["plan_id"] in cards and discord_delivery == "channel":
             item["discord_delivery"] = cards[row["plan_id"]].get("discord_delivery", "bot_thread")
         if kind == "setup" and (now - posts._utc(row["at_utc"])).total_seconds() > window_minutes * 60:
             item["delayed_at_utc"] = now.isoformat().replace("+00:00", "Z")
@@ -752,10 +753,13 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
 
 
 def _dispatch(store, key, destination):
+    return store.get_platform_dispatch(_dispatch_ids(key, destination)["dispatch_id"])
+
+
+def _dispatch_ids(key, destination):
     from .publication_coordinator_v1 import DurablePublicationCoordinator
     plan_hash = hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest()
-    ids = DurablePublicationCoordinator._ids(key, plan_hash, destination)
-    return store.get_platform_dispatch(ids["dispatch_id"])
+    return DurablePublicationCoordinator._ids(key, plan_hash, destination)
 
 
 def _reference(store, key, destination):
@@ -763,6 +767,32 @@ def _reference(store, key, destination):
     if row and row["status"] == "DISPATCH_CONFIRMED" and row.get("public_object_id"):
         return {k: row.get(k) for k in ("public_object_id", "public_object_url", "dispatch_id")}
     return None
+
+
+def _discord_channel_update(row):
+    return (row.get("state_alert_contract") == "CC543_V1" and row.get("parent_key")
+            and not row.get("correction_reply_contract")
+            and (row["kind"] == "result"
+                 or row["kind"] == "update" and row["state"] in {"FILLED", "TRIGGERED"}))
+
+
+def _destination_dispatches(store, row, destination, root):
+    key = row["key"]
+    copies = [(key, _dispatch(store, key, destination) or {})]
+    if destination != "discord" or not _discord_channel_update(row):
+        return copies
+    channel_key = f"{key}-part-{DISCORD_CHANNEL_PART}"
+    channel = _dispatch(store, channel_key, destination)
+    if channel:
+        copies.append((channel_key, channel))
+    elif root is not None:
+        context_path = Path(root) / key / "run_context_v1.json"
+        if context_path.is_file():
+            context = json.loads(context_path.read_bytes())
+            parent = (context.get("status_post_parents") or {}).get("discord") or {}
+            if parent.get("channel_reply"):
+                copies.append((channel_key, {}))
+    return copies
 
 
 def _skipped_images(root, row):
@@ -816,7 +846,6 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     A late UNKNOWN_WRITE remains UNKNOWN_WRITE, available to explicit readback.
     Settling its minute-work obligation never asserts an absent public write.
     """
-    from .publication_coordinator_v1 import DurablePublicationCoordinator
     settled = settled_destinations(store, row)
     age = posts._age_minutes(row, now)
     # Dated results remain owed (the publication freshness contract). CC-515
@@ -828,10 +857,13 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     parent_row = json.loads(parent_message["payload"]) if parent_message else {}
     parent_late = bool(parent_row.get("at_utc") and posts._age_minutes(parent_row, now) > posts.LATE_STATE_HOURS * 60)
     for destination in _post_destinations(row):
-        dispatch = _dispatch(store, row["key"], destination)
-        if dispatch and dispatch.get("status") == "DISPATCH_CONFIRMED":
+        copies = _destination_dispatches(store, row, destination, root)
+        dispatch = copies[0][1]
+        if all(copy.get("status") == "DISPATCH_CONFIRMED" for _, copy in copies):
             confirmed.add(destination)
             continue
+        if dispatch.get("status") == "DISPATCH_CONFIRMED":
+            dispatch = copies[-1][1]
         if destination in settled:
             continue
         cause = image_cause if not dispatch else None
@@ -848,10 +880,13 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
                 cause = "CARD_PARENT_NOT_CONFIRMED"
         if cause is None and late:
             cause = "PUBLISHING_OLDER_THAN_24_HOURS" if outbox["status"] == "PUBLISHING" else "LATE_STATE_LIMIT_24_HOURS"
-        if (cause is None and dispatch and destination not in resumable
-                and dispatch.get("status") in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}
-                and not dispatch.get("public_object_id") and not dispatch.get("public_object_url")):
-            cause = "DESTINATION_" + dispatch["status"]
+        if cause is None and destination not in resumable:
+            failed = next((copy for _, copy in copies
+                           if copy.get("status") in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}
+                           and not copy.get("public_object_id") and not copy.get("public_object_url")), None)
+            if failed:
+                dispatch = failed
+                cause = "DESTINATION_" + failed["status"]
         if cause is None:
             continue
         detail = {"key": row["key"], "destination": destination, "cause": cause,
@@ -866,10 +901,11 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
             work_item_id=outbox.get("work_item_id"), severity="RECOVERY_AUDIT",
             description=json.dumps(detail, sort_keys=True))
         settled[destination] = detail
-        ids = DurablePublicationCoordinator._ids(row["key"],
-            hashlib.sha256(("plan-status-post:" + row["key"]).encode()).hexdigest(), destination)
-        if store.get_outbox_message(ids["message_id"]):
-            store.set_outbox_status(ids["message_id"], SETTLED_COPY)
+        for copy_key, copy in copies:
+            if copy.get("status") != "DISPATCH_CONFIRMED":
+                ids = _dispatch_ids(copy_key, destination)
+                if store.get_outbox_message(ids["message_id"]):
+                    store.set_outbox_status(ids["message_id"], SETTLED_COPY)
     skipped = {d["destination"]: d["cause"] for d in _skipped_images(root, row)}
     if set(_post_destinations(row)) <= confirmed | set(settled) | set(skipped):
         causes = {**skipped, **{d: v["cause"] for d, v in settled.items()}}
@@ -891,7 +927,11 @@ def _ready_destinations(store, row, root=None):
     for destination in destinations_for(row):
         if destination in skipped or destination in settled:
             continue
-        dispatch = _dispatch(store, row["key"], destination)
+        copies = _destination_dispatches(store, row, destination, root)
+        dispatch = copies[0][1]
+        if any(copy.get("status") not in SETTLED_DISPATCHES for _, copy in copies[1:]):
+            ready.append(destination)
+            continue
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
             if destination in {"x", "substack_notes"} and dispatch["status"] == "DEFINITE_NO_WRITE":
                 from .neo_endpoint_executor_v1 import repaired_prewrite_request
@@ -914,13 +954,13 @@ def _ready_destinations(store, row, root=None):
     return ready
 
 
-def _can_retire_unstarted(store, row):
+def _can_retire_unstarted(store, row, root=None):
     """Keep confirmed and possibly sent copies with their exact recovery owner."""
     for destination in destinations_for(row):
-        dispatch = _dispatch(store, row["key"], destination)
-        if dispatch and (dispatch.get("public_object_id") or dispatch.get("public_object_url")
-                or dispatch.get("status") not in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}):
-            return False
+        for _, dispatch in _destination_dispatches(store, row, destination, root):
+            if dispatch and (dispatch.get("public_object_id") or dispatch.get("public_object_url")
+                    or dispatch.get("status") not in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}):
+                return False
     return True
 
 
@@ -948,6 +988,44 @@ def postable_run_members(store, row, destination, *, now=None, latest_states=Non
             continue
         members.append(child)
     return members
+
+
+def _discord_message_location(reference):
+    match = re.fullmatch(r"https://discord\.com/channels/([0-9]+)/([0-9]+)/([0-9]+)",
+                         str((reference or {}).get("public_object_url") or ""))
+    if match and match[3] == str(reference["public_object_id"]):
+        return match.groups()
+    return None
+
+
+def _discord_channel_anchor(card, starter):
+    from .destination_transport_registry_v1 import registration_for_destination
+
+    original = _discord_message_location(card)
+    root = _discord_message_location(starter)
+    if not original or not root:
+        return None
+    guild, channel, message = root
+    if channel != registration_for_destination("discord").expected_stable_id:
+        return None
+    # Older cards can live in a shared run thread. Reply to that thread's
+    # channel starter and link to the exact card inside it.
+    if original == root:
+        link = f"https://discord.com/channels/{guild}/{message}"
+    elif original[:2] == (guild, message):
+        link = card["public_object_url"]
+    else:
+        return None
+    return {"reply_to_id": message, "reply_to_url": starter["public_object_url"], "thread_url": link}
+
+
+def _discord_thread_root(store, row, card):
+    parent_key, run_key = row["parent_key"], row.get("run_key")
+    if run_key and run_key != parent_key:
+        run = _reference(store, run_key, "discord")
+        if not row.get("state_alert_contract") or _discord_channel_anchor(card, run):
+            return run
+    return card
 
 
 def _parents(store, row, destinations, previous):
@@ -978,19 +1056,25 @@ def _parents(store, row, destinations, previous):
             continue
         parent = {**ref, "parent_key": row["parent_key"]}
         if destination == "discord":
-            root_key = row["parent_key"] if row.get("state_alert_contract") else row.get("run_key") or row["parent_key"]
-            root = _reference(store, root_key, destination)
+            root = _discord_thread_root(store, row, ref)
             if not root:
                 deferred.append({"destination": destination, "cause": "RUN_PARENT_NOT_CONFIRMED"})
                 continue
             parent["thread_parent_id"] = root["public_object_id"]
             parent["thread_parent_url"] = root.get("public_object_url")
+            # An issued thread-only copy stays byte-for-byte replayable. Stage
+            # the second intent only when preparing a fresh Discord copy.
+            if _discord_channel_update(row) and not store.get_outbox_message(
+                    _dispatch_ids(row["key"], destination)["message_id"]):
+                anchor = _discord_channel_anchor(ref, root)
+                if anchor:
+                    parent["channel_reply"] = anchor
         parents[destination] = parent
     return parents, deferred
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
-                         portrait_id=None, x_analysis=None, destinations=None):
+                         portrait_id=None, x_analysis=None, destinations=None, discord_channel_reply=None):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
         result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
@@ -1013,6 +1097,10 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         limits["telegram"] = 4096
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
+    thread_link = ""
+    if discord_channel_reply:
+        thread_link = f"\n\nPlan thread: <{discord_channel_reply['thread_url']}>"
+        limits["discord"] -= len(thread_link)
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
         if destination == "threads" and row["kind"] != "run" and complete_levels:
@@ -1091,6 +1179,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             text = body + "\n\n" + NOTICES
         if len(text) > limits[destination]:
             raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:" + destination)
+        if destination == "discord":
+            text += thread_link
         check_publication_copy({"body": text}, conditional_calls=row.get("conditional_calls") or [])
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id]}
@@ -1101,7 +1191,11 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             if row["kind"] == "run":
                 payload["carousel_images"] = carousel
         ref = (parents or {}).get(destination)
-        if destination == "discord" and row.get("discord_delivery") == "channel":
+        if destination == "discord" and discord_channel_reply:
+            payload.update(discord_channel_reply=True, reply_to_id=discord_channel_reply["reply_to_id"],
+                reply_to_url=discord_channel_reply["reply_to_url"],
+                discord_thread_name="Calls · " + _clock(row["registered_at_utc"]))
+        elif destination == "discord" and row.get("discord_delivery") == "channel":
             payload["discord_channel_post"] = True
         elif ref:
             if destination in {"telegram", "threads"}:
@@ -1141,6 +1235,16 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             for part in payload.get("posts") or []:
                 part["media_asset_ids"] = []
     return result
+
+
+def discord_channel_payload(row, *, card_id, parents, chart_credit):
+    anchor = ((parents or {}).get("discord") or {}).get("channel_reply")
+    if not anchor or not _discord_channel_update(row):
+        return {}
+    # Both placements use the same frozen state alert and the same chart.
+    compiled = {**row, "state_alert_contract": None, "reader_contract": None}
+    return destination_payloads(compiled, card_id=card_id, chart_credit=chart_credit,
+                                destinations=("discord",), discord_channel_reply=anchor)
 
 
 def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
@@ -1383,13 +1487,25 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             "transport_registry_version": REGISTRY_VERSION, "payload": text,
             "payload_hash": hashlib.sha256(text.encode()).hexdigest(), "canonical_url": None,
             "expected_destination_identity": registration.expected_identity})
-    return {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
+    plan = {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
         "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
         "story_identity": key, "article_identity": key, "package_identity": key,
         "publication_window": {"window_identity": key}, "output_dir": str(folder.resolve()),
         "status_post_card_id": card["asset_id"] if card else None, "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:cc399.v1", "destinations": plan_rows,
         "continuations": [], "deferred_destinations": deferred, "skipped_destinations": skipped}
+    discord = next((item for item in plan_rows if item["destination"] == "discord"), None)
+    if discord:
+        channel = discord_channel_payload(row, card_id=plan["status_post_card_id"],
+                                          parents=parents, chart_credit=chart_credit)
+        if channel:
+            child = f"{key}-part-{DISCORD_CHANNEL_PART}"
+            text = channel["discord"]["full_text"]
+            plan["continuations"] = [{**plan, "plan_status_part": DISCORD_CHANNEL_PART,
+                "work_item_id": child, "story_identity": child, "article_identity": child, "package_identity": child,
+                "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+                "destinations": [{**discord, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()}]}]
+    return plan
 
 
 
@@ -1440,12 +1556,36 @@ def validate_parent_intent(store, row, intent, *, parent_route=None):
             not payload.get("reuse_run_carousel") or str(ref["public_object_id"]) != payload.get("carousel_parent_id")):
         raise posts.PlanPostError("PLAN_CARD_CAROUSEL_PARENT_CHANGED")
     if destination == "discord":
-        root_key = row["parent_key"] if row.get("state_alert_contract") else row.get("run_key") or row["parent_key"]
-        root = _reference(store, root_key, destination)
+        frozen_thread = (parent_route or {}).get("thread_parent_id")
+        root = ref if row.get("state_alert_contract") and frozen_thread == ref["public_object_id"] else (
+            _discord_thread_root(store, row, ref))
+        if intent.get("plan_status_part") == DISCORD_CHANNEL_PART:
+            anchor = _discord_channel_anchor(ref, root)
+            if (not anchor or anchor != (parent_route or {}).get("channel_reply")
+                    or str(anchor["reply_to_id"]) != payload.get("reply_to_id")
+                    or payload.get("discord_channel_reply") is not True):
+                raise posts.PlanPostError("PLAN_CARD_DISCORD_CHANNEL_REPLY_PARENT_CHANGED")
+            return
         if not root or str(root["public_object_id"]) != payload.get("discord_thread_parent_id"):
             raise posts.PlanPostError("PLAN_CARD_DISCORD_THREAD_CHANGED")
         if row["kind"] != "setup" and str(ref["public_object_id"]) != payload.get("reply_to_id"):
             raise posts.PlanPostError("PLAN_CARD_REPLY_PARENT_CHANGED")
+
+
+def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *, immediate):
+    key = continuation["work_item_id"]
+    dispatch = _dispatch(store, key, "discord") or {}
+    if dispatch.get("status") in SETTLED_DISPATCHES:
+        coordinator = coordinator_for(key, Path(continuation["output_dir"]))
+        outcome = coordinator.publication_state(key, continuation)
+    else:
+        outcome = _publish_card_plan(store, row, continuation, coordinator_for,
+                                     parallel=False, immediate=immediate)
+    detail = (outcome.get("per_destination") or {}).get("discord") or {}
+    return {"status": detail.get("status") or outcome.get("distribution_status") or "NOT_STARTED",
+            "dispatch_id": detail.get("dispatch_id"), "public_object_url": detail.get("public_object_url"),
+            "reconciliation_status": detail.get("reconciliation_status"),
+            "cause": posts.destination_causes(outcome).get("discord")}
 
 
 def readback_own_comment(destination, comment_id, parent_id, text):
@@ -1471,12 +1611,13 @@ def readback_own_comment(destination, comment_id, parent_id, text):
 
 
 def _publish_card_plan(store, row, plan, coordinator_for, *, parallel, immediate):
-    key = row["key"]
+    key = plan.get("work_item_id", row["key"])
     if row.get("state_alert_contract") == "CC543_V1":
         plan["state_alert_contract"] = row["state_alert_contract"]
         plan["defer_alert_recovery"] = immediate
-    store.create_work_item(story_id=key, title="Call run" if row["kind"] == "run" else "Call card",
-                           target_surface="MULTI_PLATFORM", work_item_id=key)
+    title = "Discord plan reply in #announcements" if plan.get("plan_status_part") else (
+        "Call run" if row["kind"] == "run" else "Call card")
+    store.create_work_item(story_id=key, title=title, target_surface="MULTI_PLATFORM", work_item_id=key)
 
     def scoped_coordinator():
         coordinator = coordinator_for(key, Path(plan["output_dir"]))
@@ -1522,7 +1663,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         if refusal:
             outcome = {"key": key, "status": refusal[0], "cause": refusal[1], "readbacks": []}
             results.append(outcome)
-            if _can_retire_unstarted(store, row):
+            if _can_retire_unstarted(store, row, root):
                 store.set_outbox_status(key, refusal[0])
             elif destinations is None:
                 retired.append((outbox, row, outcome))
@@ -1566,7 +1707,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         if (row["kind"] == "update" and outbox["status"] == posts.READY
                 and row.get("state") in posts.ACTIVE
                 and (latest_states or {}).get(row["plan_id"]) in TERMINAL | {"RESULT"}
-                and _can_retire_unstarted(store, row)):
+                and _can_retire_unstarted(store, row, root)):
             store.set_outbox_status(key, posts.SUPERSEDED)
             results.append({"key": key, "status": posts.SUPERSEDED,
                 "cause": "PLAN_UPDATE_SUPERSEDED_BY_" + latest_states[row["plan_id"]]})
@@ -1614,6 +1755,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 # landscape copies first so Instagram's input cannot delay them.
                 groups = [tuple(d for d in ready if d != portrait), (portrait,)]
             per_destination, media, deferred = {}, {}, []
+            channel_reply = None
             attempted = False
             for group in groups:
                 selected = {"destinations": group} if row.get("state_alert_contract") or destinations is not None else {}
@@ -1625,6 +1767,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                     outcome = _publish_card_plan(store, row, plan, coordinator_for, parallel=parallel,
                                                  immediate=destinations is not None)
                     per_destination.update(outcome.get("per_destination") or {})
+                    for continuation in plan["continuations"]:
+                        channel_reply = _publish_discord_channel_reply(store, row, continuation, coordinator_for,
+                                                                       immediate=destinations is not None)
                     attempted = True
 
             skipped_details = list(media.values())
@@ -1642,8 +1787,12 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                                 "skipped_destinations": skipped_details})
                 continue
             states = {d: (o or {}).get("status") for d, o in per_destination.items()}
+            if channel_reply and states.get("discord") == "DISPATCH_CONFIRMED":
+                states["discord"] = channel_reply["status"]
             required = destinations_for(row)
-            confirmed = {d for d in required if _reference(store, key, d)}
+            confirmed = {d for d in required if all(
+                copy.get("status") == "DISPATCH_CONFIRMED" and copy.get("public_object_id")
+                for _, copy in _destination_dispatches(store, row, d, root))}
             skipped = set(media)
             settled = settled_destinations(store, row)
             done = set(required) <= confirmed | skipped | set(settled)
@@ -1653,7 +1802,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             results.append({"key": key, "status": status,
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),
                 "destination_causes": {**posts.destination_causes({"per_destination": per_destination}),
+                    **({"discord": channel_reply["cause"]} if channel_reply and channel_reply["cause"] else {}),
                     **{d: item["cause"] for d, item in media.items()}, **{d: v["cause"] for d, v in settled.items()}},
+                **({"discord_channel_reply": channel_reply} if channel_reply else {}),
                 "deferred_destinations": deferred,
                 "skipped_destinations": skipped_details})
         except SnapshotUnavailable as exc:
@@ -1666,7 +1817,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             cause = str(exc)[:200]
             status = "NOT_STARTED"
             if (cause == "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN" and outbox["status"] == posts.READY
-                    and _can_retire_unstarted(store, row)):
+                    and _can_retire_unstarted(store, row, root)):
                 # Old queued disclosures can identify the private DEMO account.
                 # Preserve their bytes and close the unsent copy with its real
                 # public-output refusal instead of spending every minute on it.
@@ -1678,22 +1829,21 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
     from .publication_coordinator_v1 import UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING
     readback_count = 0
     for outbox, row, outcome in retired:
-        key = row["key"]
-        coordinator = None
-        for destination in destinations_for(row):
+        copies = ((destination, copy_key, dispatch) for destination in destinations_for(row)
+                  for copy_key, dispatch in _destination_dispatches(store, row, destination, root))
+        for destination, copy_key, dispatch in copies:
             if readback_count >= limit:
                 break
-            dispatch = _dispatch(store, key, destination) or {}
             if dispatch.get("status") not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
                 continue
             readback_count += 1
             try:
-                coordinator = coordinator or coordinator_for(key, Path(root) / key)
+                coordinator = coordinator_for(copy_key, Path(root) / row["key"])
                 outcome["readbacks"].append(coordinator.readback_existing_dispatch(dispatch["dispatch_id"]))
             except (OSError, ValueError, KeyError, TypeError) as exc:
                 outcome["readbacks"].append({"destination": destination, "dispatch_id": dispatch["dispatch_id"],
                     "status": "READBACK_PENDING", "cause": str(exc)[:200], "publish_called": False})
         settle_pending(store, outbox, row, now=now, root=root)
         if row.get("state_alert_contract"):
-            store.set_outbox_status(key, outcome["status"])
+            store.set_outbox_status(row["key"], outcome["status"])
     return {"status": "OK", "posts": results}
