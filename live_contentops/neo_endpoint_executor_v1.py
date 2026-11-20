@@ -635,7 +635,9 @@ class NeoBrowserDriver:
             return {"result": {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                 "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PREPARATION_FAILED",
                 "safe_error_classification": str(exc)}, "identity": identity}
-        result = self.client.run(page, "article_publish", destination=destination, posts=posts)
+        deadline = packet.get("wrap_deadline_utc")
+        result = self.client.run(page, "article_publish", destination=destination, posts=posts,
+                                 **({"wrap_deadline_utc": deadline} if deadline else {}))
         if result["status"] != "CLICKED":
             return {"result": result, "identity": identity}
         readback = self.article_readback(request, page, posts=posts)
@@ -994,8 +996,10 @@ class NeoBrowserDriver:
                 "stage":"BEFORE_PUBLISH_CLICK","reason_code":"NEO_COMPOSER_PREPARATION_FAILED",
                 "safe_error_classification":str(exc)},"identity":identity}
         parent=request.get("reply_parent")
+        deadline = packet.get("wrap_deadline_utc")
         result=self.client.run(page,"publish",destination=destination,posts=posts,reply_parent=parent,
-                               **({"quote_parent": request["quote_parent"]} if request.get("quote_parent") else {}))
+                               **({"quote_parent": request["quote_parent"]} if request.get("quote_parent") else {}),
+                               **({"wrap_deadline_utc": deadline} if deadline else {}))
         if request.get("quote_parent") and result["status"] == "UNKNOWN_WRITE":
             return {"result":result,"identity":identity, "readback":{"status":"READBACK_UNAVAILABLE"},
                     "pre_click_posts":result["pre_click_posts"],"dispatched_at_utc":result["dispatched_at_utc"]}

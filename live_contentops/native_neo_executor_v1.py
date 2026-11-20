@@ -206,6 +206,7 @@ class NativeNeoExecutor:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
         plan_entry_deadline = None
+        wrap_deadline = None
         from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
         if request.get("destination") in barred_browser_destinations() and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
             raise ValueError(barred_browser_destinations()[request["destination"]])
@@ -303,6 +304,9 @@ class NativeNeoExecutor:
                     elif intent.get("market_wrap"):
                         from .market_wrap_job_v1 import before_write
                         wrap_deadline = before_write(coordinator, intent, request["destination"])
+                        expected_payload, expected_content = _payload_binding(intent, request["destination"])
+                        if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
+                            raise ValueError("WRAP_NATIVE_PAYLOAD_OR_MEDIA_CHANGED")
                         if request["destination"] == "substack":
                             plan_entry_deadline = wrap_deadline
                     if intent.get("reader_presentation_review"):
@@ -351,6 +355,8 @@ class NativeNeoExecutor:
                 if k not in {"request_sha256", "native_invocation_id"}})
             self.readback_request_invocations[identity] = request.get("native_invocation_id")
         action_packet = dict(packet)
+        if wrap_deadline:
+            action_packet["wrap_deadline_utc"] = wrap_deadline
         action_packet["browser_workspace"] = {
             "policy": "JIM_DECISION_63",
             "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
@@ -390,7 +396,8 @@ class NativeNeoExecutor:
                 action_packet["substack_publish_routine"]["plan_deadline"] = (
                     "Check the clock immediately before Publish now and Publish on web only. "
                     f"Leave the draft unpublished at or after {plan_entry_deadline}. "
-                    "Report an observed code dialog on that exact draft so the Publisher can close it at expiry.")
+                    "Report an observed code dialog on that exact draft" +
+                    ("." if wrap_deadline else " so the Publisher can close it at expiry."))
         if self._composed(request):
             from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
             action_packet["composed_run"] = {

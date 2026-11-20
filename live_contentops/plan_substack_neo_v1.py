@@ -1,6 +1,6 @@
 """CC-466 plan pages inside the CC-436 Neo transport and sole coordinator.
 
-Only bound WEB_ONLY plan pages and CC-536 research pieces are accepted. This is no alternate
+Only bound WEB_ONLY plan pages, CC-536 research pieces and CC-689 wraps are accepted. This is no alternate
 publisher: claims, exactly-once, pending codes and reconciliation stay native.
 """
 from __future__ import annotations
@@ -194,7 +194,7 @@ def _create_and_send(client,packet,state,page,identity):
         client.wait(page,".ProseMirror img")
         original_src=client.run(page,"plan_substack_uploaded")["src"]
     _paste_body(client,page,payload,media,original_src,
-                table_rows=packet["operation_id"].startswith("cc536-measured-odds-"))
+                table_rows=packet["operation_id"].startswith(("cc536-measured-odds-", "cc689-")))
     check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
     if check.get("verified") is not True:
         raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
@@ -230,6 +230,8 @@ def _send_saved_draft(client,packet,state,page,identity):
     from datetime import datetime, timezone
     deadline = packet.get("plan_entry_deadline_utc")
     window = {"plan_entry_deadline_utc": deadline} if deadline else {}
+    if packet.get("wrap_deadline_utc"):
+        window["wrap_deadline_utc"] = packet["wrap_deadline_utc"]
     state["dispatched_at_utc"]=datetime.now(timezone.utc).isoformat()
     published=client.run(page,"plan_substack_publish", **window)
     if published.get("status")!="CLICKED":

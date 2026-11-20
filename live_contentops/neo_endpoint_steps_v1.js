@@ -90,7 +90,8 @@ if (input.phase === 'plan_substack_publish' || input.phase === 'plan_substack_co
   const inWindow = !input.plan_entry_deadline_utc || Date.now() < Date.parse(input.plan_entry_deadline_utc);
   if (!safe || !button || !inWindow) return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,
     public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:inWindow
-      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
+      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : input.wrap_deadline_utc
+        ? 'WRAP_PUBLICATION_DEADLINE_ELAPSED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
   const dispatched_at_utc=new Date().toISOString();await page.click(button.ref);
   return {status:'CLICKED',dispatched_at_utc};
 }
@@ -236,6 +237,10 @@ if (input.phase === 'article_publish') {
       || normalize(editors[0]) !== normalize(input.posts[0])) {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH',pre_click_posts:editors};
+  }
+  if (input.wrap_deadline_utc && !(Date.now() < Date.parse(input.wrap_deadline_utc))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'WRAP_PUBLICATION_DEADLINE_ELAPSED',pre_click_posts:editors};
   }
   const dispatched_at_utc=new Date().toISOString();
   await page.click(button.ref);
@@ -551,6 +556,10 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   button = settledButtons[settledButtons.length - 1];
   if (!button) return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
     reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
+  if (input.wrap_deadline_utc && !(Date.now() < Date.parse(input.wrap_deadline_utc))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'WRAP_PUBLICATION_DEADLINE_ELAPSED',pre_click_posts:editors};
+  }
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);
