@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 from hashlib import sha256
 import json
+from subprocess import TimeoutExpired
 
 import pytest
 
@@ -104,6 +105,86 @@ def test_normal_day_is_measured_on_its_own_instrument():
     assert sources.move("XAUUSD", end, start, basis="since the last wrap", normal_day=4)["normal_days"] == -2.5
     with pytest.raises(ValueError, match="INSTRUMENT_MISMATCH"):
         sources.move("XAUUSD", {**end, "symbol": "XAU="}, start, basis="since the last wrap")
+
+
+def test_daily_pack_uses_retained_moves_and_separate_source_clocks(tmp_path, cash):
+    start = at("2026-11-23T13:00Z")
+    observed, captured = start + timedelta(minutes=1), start + timedelta(minutes=3)
+    calendar = tmp_path / "calendar.json"
+    release = event(scheduled_date="2026-11-24", scheduled_at_utc="2026-11-24T13:01Z",
+                    retrieved_at_utc=captured.isoformat())
+    calendar.write_text(json.dumps({"public_use_allowed": True, "built_at_utc": captured.isoformat(),
+                                   "events": [release]}))
+    calls = []
+
+    def quote(key, *, max_age_seconds, fetch=True):
+        calls.append((key, fetch, max_age_seconds))
+        if key == "USOIL" and not fetch:
+            raise ValueError("PUBLIC_QUOTE_NOT_CACHED")
+        return {"source_symbol": sources.quotes.SYMBOLS[key][1], "value": 102, "prior_close": 99,
+                "observed_at_utc": observed.isoformat(), "known_at_utc": observed.isoformat(),
+                "source": "Yahoo Finance", "source_url": "https://example.test/quote", "observation_sha256": "quote"}
+
+    def history(market, days, *, as_of):
+        assert as_of == start
+        return {days[0]: (103, 97, 98)}, {"sha256": market}
+
+    def plans():
+        raise TimeoutExpired("plan export reader", 120)
+
+    def main(cutoff):
+        assert cutoff == captured
+        return {"layers": {}, "outlooks": {}}
+
+    previous = {"slot": {"id": "prior-wrap"}, "snapshots": {
+        "US500": {"symbol": "ES=F", "value": 100, "date": "2026-11-20"}}}
+    pack = sources.collect(sources.slot_at(start, cash), now=start, cash_calendar=cash, previous=previous,
+                           quote=quote, history=history, plans=plans, main=main, calendar=calendar,
+                           releases=lambda *_: [], clock=lambda: captured)
+    assert set(pack["markets"]) == set(sources.MARKETS)
+    assert pack["markets"]["US500"]["basis"] == "since the last wrap"
+    assert pack["markets"]["US500"]["change_pct"] == 2
+    assert pack["markets"]["XAUUSD"]["basis"] == "since the last session's close"
+    assert [row for row in calls if row[1]] == [("USOIL", True, 3600)]
+    assert pack["data_cutoff_utc"] == observed.isoformat()
+    assert pack["source_pack_as_of_utc"] == captured.isoformat()
+    assert pack["events"][0]["time"] == "Tue 24 Nov, 8:01 AM ET"
+    assert pack["gaps"] == {"plans": "PLAN_EXPORT_READER_TIMEOUT"}
+
+
+def test_sunday_pack_keeps_dated_closes_and_calendar_windows(tmp_path, cash):
+    sunday = at("2026-11-29T15:00Z")
+    stamp = sunday.isoformat()
+    calendar = tmp_path / "calendar.json"
+    rows = [event("SUNDAY_DATE_ONLY", scheduled_date="2026-11-29", scheduled_at_utc=None),
+            event("FRIDAY_AFTER_CLOSE", scheduled_date="2026-11-27", scheduled_at_utc="2026-11-27T18:05Z"),
+            event("MONDAY_RELEASE", scheduled_date="2026-11-30", scheduled_at_utc="2026-11-30T14:00Z")]
+    calendar.write_text(json.dumps({"public_use_allowed": True, "built_at_utc": stamp, "events": rows}))
+
+    def history(_market, days, *, as_of):
+        assert as_of == sunday
+        assert days == [date(2026, 11, 20), date(2026, 11, 27)]
+        return {days[0]: (103, 97, 100), days[1]: (108, 102, 104)}, {"sha256": "closes"}
+
+    def no_sunday_quote(*args, **kwargs):
+        pytest.fail("Sunday comparisons must use the completed sessions")
+
+    pack = sources.collect(sources.slot_at(sunday, cash), now=sunday, cash_calendar=cash,
+                           quote=no_sunday_quote, history=history, calendar=calendar, clock=lambda: sunday,
+                           plans=lambda: {"status": {"generated_at_utc": stamp, "plans": [], "content_hash": "plans",
+                                                    "scored_call_count": 0}, "transitions": {"transitions": []}},
+                           main=lambda _: {"layers": {}, "outlooks": {}}, releases=lambda *_: [])
+    assert pack["data_cutoff_utc"] is None
+    assert pack["market_close_date"] == "2026-11-27"
+    assert pack["last_cash_close_utc"] == "2026-11-27T18:00:00+00:00"
+    assert pack["snapshots"]["BTCUSD"]["date"] == "2026-11-27"
+    assert [row["id"] for row in pack["weekend_events"]] == ["FRIDAY_AFTER_CLOSE"]
+    assert [row["id"] for row in pack["events"]] == ["SUNDAY_DATE_ONLY", "MONDAY_RELEASE"]
+    assert pack["gaps"] == {}
+    article, markets = editorial.article_for(pack, editorial.draft(pack, tmp_path, call=select_first))
+    assert "sessions dated November 27, 2026" in article["substack_body_markdown"]
+    assert "Scored calls: 0. Hits: 0. Stops: 0." in article["substack_body_markdown"]
+    assert all(market["change_pct"] == 4 for market in markets.values())
 
 
 @pytest.fixture

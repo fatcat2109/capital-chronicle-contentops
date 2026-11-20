@@ -9,7 +9,7 @@ from pathlib import Path
 from .capital_chronicle_latest_report_consumer_v1 import sha256_of
 from .event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy
 from .light_model_caller_v1 import call_light, json_answer
-from .market_wrap_sources_v1 import MARKETS, safe_prose, utc, ET
+from .market_wrap_sources_v1 import ET, MARKETS
 from .plan_reader_copy_v1 import et
 from .public_instruments_v1 import POLICY as INSTRUMENT_POLICY, validate_article, validate_payload
 from .public_market_quote_v1 import save
@@ -37,7 +37,7 @@ def title_market(key):
     return {
         "US500": "S&P 500 E-mini futures (ES)", "XAUUSD": "COMEX gold futures (GC)",
         "USOIL": "WTI crude oil futures (CL)", "EURUSD": "EUR/USD spot (6E futures reference)",
-        "USDJPY": "USD/JPY spot (6J futures track the inverse)", "BTCUSD": "Bitcoin spot (MBT futures reference)",
+        "USDJPY": "USD/JPY spot (6J futures quote yen in dollars)", "BTCUSD": "Bitcoin spot (MBT futures reference)",
     }[key]
 
 
@@ -198,6 +198,10 @@ def article_for(pack, manuscript):
         intro += f" Our analysis draws on Main's market review as of {et(report_clock)}."
     if pack["data_cutoff_utc"] and not weekly:
         intro += f" Quote observations run through {et(pack['data_cutoff_utc'])}."
+    if weekly and pack.get("market_close_date"):
+        close_date = date.fromisoformat(pack["market_close_date"])
+        close_label = public_date(datetime.combine(close_date, time(), ET))
+        intro += f" The comparison ends with the sessions dated {close_label}."
     body = [intro, "\n".join(table), "## What changed since the last wrap"]
     driver_lines = []
     for key, text in accepted_changes.items():
@@ -276,10 +280,7 @@ def chart_for(pack, markets, root):
     caption = "Capital Chronicle calculations using attributed market observations. " + (
         "One normal day is the mean true range of fourteen completed daily sessions." if use_normal else
         "Each comparison period is identified in the article.")
-    closing_date = pack["slot"]["day_et"]
-    if pack["slot"]["edition"] == "weekly":
-        closing_date = (pack.get("data_cutoff_utc") and
-                        utc(pack["data_cutoff_utc"]).astimezone(ET).date().isoformat()) or closing_date
+    closing_date = pack.get("market_close_date") or pack["slot"]["day_et"]
     stamp = public_date(datetime.combine(date.fromisoformat(closing_date), time(), ET))
     image = Image.new("RGB", (1080, 1350), "#101d2d")
     draw = ImageDraw.Draw(image)

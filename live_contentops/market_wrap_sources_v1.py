@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 import re
 from pathlib import Path
+from subprocess import TimeoutExpired
 from urllib.parse import urlencode, urlsplit
 from zoneinfo import ZoneInfo
 
@@ -375,7 +376,7 @@ def market_history(market, days, *, as_of, root=HISTORY, reader=quotes.http_read
         raise ValueError("WRAP_HELD_CLOSING_SESSIONS_UNAVAILABLE")
     # One bounded public request through the established quote transport.
     base = quotes.source_url(MARKETS[market][1]).split("?")[0]
-    url = base + "?" + urlencode({"range": "2mo", "interval": "1d"})
+    url = base + "?" + urlencode({"range": "1mo", "interval": "1d"})
     raw = reader(url)
     known = clock()
     bars = history_bars(raw, ticker, known)
@@ -430,6 +431,7 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
     day = date.fromisoformat(slot["day_et"])
     last = last_session(day - timedelta(days=2 if weekly else 1), cash_calendar)
     prior = last_session(day - timedelta(days=9), cash_calendar) if weekly else None
+    last_close = cash_close(last, cash_calendar)
     gaps, rows, snapshots = {}, {}, {}
     for market, (_, key, _) in MARKETS.items():
         try:
@@ -446,7 +448,12 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
                 start = {"symbol": ticker, "date": prior.isoformat(), "value": bars[prior][2], "source": source}
                 basis = "from the previous week's close"
             else:
-                observation = quote(key, max_age_seconds=3600)
+                # Reuse the cache before a single bounded fetch. A stale quote
+                # remains a gap instead of borrowing another instrument's move.
+                try:
+                    observation = quote(key, fetch=False, max_age_seconds=120)
+                except (OSError, ValueError):
+                    observation = quote(key, max_age_seconds=3600)
                 end = {"symbol": observation["source_symbol"], "value": observation["value"],
                        "observed_at_utc": observation["observed_at_utc"], "known_at_utc": observation["known_at_utc"],
                        "source": observation["source"], "url": observation["source_url"],
@@ -470,17 +477,6 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
         except (OSError, ValueError, KeyError, TypeError) as exc:
             gaps[f"quote:{market}"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
 
-    upcoming, weekend, calendar_hash = [], [], None
-    try:
-        raw_calendar = Path(calendar).read_bytes()
-        calendar_hash = sha256(raw_calendar).hexdigest()
-        upcoming = calendar_events(raw_calendar, now, now + timedelta(days=7 if weekly else 1), as_of=now)
-        if weekly:
-            friday_close = cash_close(last, cash_calendar)
-            weekend = calendar_events(raw_calendar, friday_close, now, as_of=now)
-    except (OSError, ValueError, KeyError, TypeError) as exc:
-        gaps["calendar"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
-
     score = None
     stops = None
     plan_record = {"rows": [], "scenario": None}
@@ -490,6 +486,8 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
         # distinct from the quote and Main clocks.
         plan_cutoff = max(now, utc(clock()))
         plan_record = project_plans(export, plan_cutoff)
+    except TimeoutExpired:
+        gaps["plans"] = "PLAN_EXPORT_READER_TIMEOUT"
     except (OSError, ValueError, KeyError, TypeError) as exc:
         gaps["plans"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
     else:
@@ -500,26 +498,41 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
                 stops = prior_stops(export, last, plan_cutoff)
         except (OSError, ValueError, KeyError, TypeError) as exc:
             gaps["call_results"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
-    report = main(now)
+    source_cutoff = max(now, utc(clock()))
+    upcoming, weekend, calendar_hash = [], [], None
+    try:
+        raw_calendar = Path(calendar).read_bytes()
+        source_cutoff = max(source_cutoff, utc(clock()))
+        calendar_hash = sha256(raw_calendar).hexdigest()
+        upcoming = calendar_events(raw_calendar, source_cutoff,
+            source_cutoff + timedelta(days=7 if weekly else 1), as_of=source_cutoff)
+        if weekly:
+            already_in_upcoming = {row["id"] for row in upcoming}
+            weekend = [row for row in calendar_events(raw_calendar, last_close, source_cutoff, as_of=source_cutoff)
+                       if row["id"] not in already_in_upcoming]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        gaps["calendar"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
+    report = main(source_cutoff)
     if report.get("cause"):
         gaps["main"] = report["cause"]
     try:
-        release_facts = releases(cash_close(last, cash_calendar) if weekly
-                                 else datetime.combine(last, time(), ET), now)
+        release_facts = releases(last_close if weekly else datetime.combine(last, time(), ET), source_cutoff)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         release_facts = []
         gaps["releases"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
     latest_quote = max((utc(obs["observed_at_utc"]) for obs in snapshots.values()
                         if obs.get("observed_at_utc")), default=None)
-    # Sunday uses the explicitly dated last completed session, with its own
-    # release deadline. A replay or reread does not make a quote newer.
-    data_clock = cash_close(last, cash_calendar) if weekly else latest_quote
+    # Daily quotes have observed UTC clocks. Weekend comparisons use the
+    # instrument's dated session bar, whose date is not a shared closing instant.
     return {"slot": slot, "markets": rows, "snapshots": snapshots, "previous_wrap": (
             previous["slot"]["id"] if previous else None), "analysis": report, "plans": plan_record,
             "events": upcoming, "weekend_events": weekend, "calendar_sha256": calendar_hash,
             "weekly_calls": score, "prior_stops_text": stops, "gaps": gaps,
             "released_facts": release_facts,
-            "data_cutoff_utc": data_clock.astimezone(UTC).isoformat() if data_clock else None}
+            "source_pack_as_of_utc": source_cutoff.isoformat(),
+            "market_close_date": last.isoformat() if weekly else None,
+            "last_cash_close_utc": last_close.astimezone(UTC).isoformat(),
+            "data_cutoff_utc": latest_quote.isoformat() if latest_quote else None}
 
 
 def cash_close(day, calendar):
