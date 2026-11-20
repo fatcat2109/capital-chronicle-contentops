@@ -264,3 +264,100 @@ def test_starter_link_recovery_checks_its_exact_thread_and_preserves_foreign_ref
     assert not result.get("write_absent")
     if wrong is None:
         assert result["thread_verified"] and result["reply_parent_verified"]
+
+
+def test_channel_reply_uses_the_bot_and_reads_back_the_announcement_parent(monkeypatch, tmp_path):
+    from PIL import Image
+    from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6 as telemetry
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _publish_discord_verified
+
+    channel = "1519311669216673802"
+    starter = "700"
+    text = "Gold: an entry filled.\n\nPlan thread: <https://discord.com/channels/42/700>"
+    chart = tmp_path / "chart.png"
+    Image.new("RGB", (32, 32)).save(chart)
+    image_url = "https://cdn.discordapp.com/attachments/42/chart.png"
+    webhook = "https://discord.test/webhook"
+    channel_url = f"https://discord.com/api/v10/channels/{channel}"
+    message = {"id": "901", "channel_id": channel, "guild_id": "42", "type": 19,
+               "content": text, "message_reference": {"message_id": starter, "channel_id": channel},
+               "attachments": [{"content_type": "image/png", "url": image_url}]}
+    calls = []
+
+    class Response:
+        def __init__(self, body): self.body = body
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self, *_): return self.body
+
+    def open_request(request, **_):
+        if isinstance(request, str):
+            assert request == image_url
+            return Response(chart.read_bytes())
+        url, method = request.full_url, request.get_method()
+        calls.append((method, url))
+        if url == webhook:
+            assert method == "GET"
+            return Response(json.dumps({"channel_id": channel}).encode())
+        assert request.get_header("Authorization") == "Bot fixture"
+        if url.endswith("/channels/700"):
+            assert method == "GET"
+            return Response(json.dumps({"id": starter, "parent_id": channel, "type": 10}).encode())
+        if method == "POST":
+            assert url == channel_url + "/messages"
+            body = json.loads(request.data.split(b"\r\n\r\n", 1)[1].split(b"\r\n--", 1)[0])
+            assert body["content"] == text
+            assert body["message_reference"] == {**message["message_reference"], "fail_if_not_exists": True}
+            assert body["allowed_mentions"] == {"parse": [], "replied_user": False}
+            assert chart.read_bytes() in request.data
+        else:
+            assert url == channel_url + "/messages/901"
+        return Response(json.dumps(message).encode())
+
+    monkeypatch.setattr(adapter, "read_secret", lambda name: "fixture" if name == "DISCORD_BOT_TOKEN" else webhook)
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", open_request)
+    monkeypatch.setattr(telemetry, "classify_and_record_dispatch", lambda **_: None)
+
+    result = _publish_discord_verified(text=text, canonical_url="", image_url=None, title="Gold fill",
+        image_path=str(chart), channel_reply=True, reply_to_message_id=starter)
+
+    assert result["destination_identity"] == f"discord_channel:{channel}"
+    assert result["public_url"] == f"https://discord.com/channels/42/{channel}/901"
+    assert result["readback"]["channel_verified"] and result["readback"]["reply_parent_verified"]
+    assert result["readback"]["image_sha256_match"] and result["provider_readback_verified"]
+    assert calls[-2:] == [("POST", channel_url + "/messages"), ("GET", channel_url + "/messages/901")]
+
+
+@pytest.mark.parametrize("history", ["found", "wrong_parent", "foreign", "unreadable", "absent"])
+def test_lost_channel_reply_uses_exact_history_without_retrying_an_uncertain_send(monkeypatch, history):
+    from live_contentops import discord_live_adapter_v6 as adapter
+
+    channel, starter = "1519311669216673802", "700"
+    text = "Gold: hit its target.\n\nPlan thread: <https://discord.com/channels/42/700>"
+    message = {"id": "901", "channel_id": channel, "guild_id": "42", "type": 19,
+               "author": {"id": "99" if history != "foreign" else "98", "bot": True}, "content": text,
+               "message_reference": {"message_id": starter if history != "wrong_parent" else "701"}}
+    messages = [] if history == "unreadable" else [{"id": starter, "channel_id": channel}]
+    if history not in {"unreadable", "absent"}:
+        messages.append(message)
+
+    class Response:
+        def __init__(self, value): self.value = value
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return json.dumps(self.value).encode()
+
+    def get(request, **_):
+        assert request.get_method() == "GET"
+        suffix = request.full_url.removeprefix("https://discord.com/api/v10")
+        return Response({f"/channels/{channel}": {"id": channel, "type": 5},
+                         "/users/@me": {"id": "99", "bot": True},
+                         f"/channels/{channel}/messages?limit=100": messages,
+                         f"/channels/{channel}/messages/901": message}[suffix])
+
+    monkeypatch.setattr(adapter, "read_secret", lambda _: "fixture")
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", get)
+    observed = adapter.find_discord_bot_post(expected_text=text, canonical_url="", channel_reply=True,
+        expected_parent_id=starter, require_media=False)
+    assert observed["verified"] is (history == "found")
+    assert bool(observed.get("write_absent")) is (history == "absent")
