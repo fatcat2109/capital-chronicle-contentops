@@ -181,10 +181,9 @@ def _pack_analysis_lines(lines, limit, width):
     return parts
 
 
-def nine_layer_parts(row, body, notices, *, destination, limit, reply_limit):
+def nine_layer_parts(layers, body, notices, *, destination, limit, reply_limit):
     """Keep the ordered layer copy available beyond the first visible object."""
     width = posts._x_length if destination == "x" else len
-    layers = analysis_lines(row)
     detail = body.splitlines()[len(layers):]
     if destination == "x":
         link = detail.pop() if detail[-1:] and detail[-1].startswith("Full analysis: ") else ""
@@ -192,11 +191,14 @@ def nine_layer_parts(row, body, notices, *, destination, limit, reply_limit):
         if width(footer) > reply_limit:
             raise posts.PlanPostError("PLAN_ANALYSIS_LINK_AND_NOTICES_TOO_LONG:x")
         opening = []
-        while layers and width("\n".join([*opening, layers[0]])) <= limit:
-            opening.append(layers.pop(0))
+        for layer in layers:
+            if width("\n".join([*opening, layer])) > limit:
+                break
+            opening.append(layer)
+        remaining = layers[len(opening):]
         if not opening:
             opening.append(detail.pop(0))
-        return ["\n".join(opening), footer, *_pack_analysis_lines([*layers, *detail], reply_limit, width)]
+        return ["\n".join(opening), footer, *_pack_analysis_lines([*remaining, *detail], reply_limit, width)]
 
     footer = "\n\n" + notices
     if width(body + footer) <= limit:

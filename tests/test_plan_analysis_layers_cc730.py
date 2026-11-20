@@ -151,11 +151,11 @@ def test_minute_queue_renders_the_frozen_layers_on_the_setup_fill_and_result(rep
     assert store.get_outbox_message(key)["payload"] == frozen
 
 
-def test_long_export_reaches_the_durable_discord_thread_as_an_exact_reply(replay, main_root, tmp_path):
+def test_long_export_reaches_the_durable_discord_thread_as_an_exact_reply(replay, main_root, tmp_path, monkeypatch):
     store, folder, raw, now = replay
     raw.update(frozen_layers())
     for line in raw["layers"]:
-        line["text"] = line["text"].rstrip(".") + " as " + 9 * "liquidity moved through the market and " + "volatility fell."
+        line["text"] = line["text"].rstrip(".") + " as " + 14 * "liquidity moved through the market and " + "volatility fell."
     write(folder, [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])], generated_at_utc=now.isoformat())
     queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     assert queued["status"] == "OK"
@@ -165,11 +165,22 @@ def test_long_export_reaches_the_durable_discord_thread_as_an_exact_reply(replay
         def __init__(self):
             super().__init__()
             self.intents = []
+            self.replies_readable = False
 
         def publish(self, *, destination, intent, authorization_context):
             self.intents.append(deepcopy(intent))
+            if intent.get("plan_status_part") == cards.ANALYSIS_FIRST_PART:
+                raise TimeoutError("Fixture accepted a reply before losing its response")
             return {"status": "SUCCESS", "id": str(len(self.intents)),
                     "public_url": f"https://example.test/{destination}/{len(self.intents)}"}
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            match = next((index for index, sent in enumerate(self.intents, start=1)
+                          if sent["work_item_id"] == intent["work_item_id"]), None)
+            if match is None or (intent.get("plan_status_part") and not self.replies_readable):
+                return {"status": "READBACK_UNAVAILABLE", "verified": False}
+            return {"status": "SUCCESS", "verified": True, "public_object_id": str(match),
+                    "public_object_url": f"https://example.test/{destination}/{match}"}
 
     transport = Recorded()
 
@@ -177,9 +188,29 @@ def test_long_export_reaches_the_durable_discord_thread_as_an_exact_reply(replay
         return DurablePublicationCoordinator(store=store, transport_runtime=transport, clock=lambda: now,
             readiness_provider=lambda _: {"readiness_state": "READY_NON_BROWSER_BINDING"})
 
-    for _ in range(2):
-        result = cards.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
-            host=fake_host, coordinator_for=coordinator_for, destinations=("discord",), alert_filter=True)
+    payloads = cards.destination_payloads(row, card_id="chart", chart_credit=True)
+    for route, limit in (("telegram", 4096), ("instagram_business", 2200), ("discord", 2000)):
+        assert len(payloads[route]["parts"]) > 1
+        assert all(len(part) <= limit for part in payloads[route]["parts"])
+    assert all(posts._x_length(part["text"]) <= 280 for part in payloads["x"]["posts"])
+    assert all(len(part) <= 500 for part in [payloads["threads"]["text"], *payloads["threads"]["reply_texts"]])
+    assert len(payloads["linkedin"]["text"]) <= 3000
+
+    ready = cards._ready_destinations
+    monkeypatch.setattr(cards, "_ready_destinations", lambda *a, **kw: [
+        route for route in ready(*a, **kw) if route == "discord"])
+
+    def publish(*, immediate=False):
+        return cards.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=coordinator_for, destinations=("discord",) if immediate else None,
+            alert_filter=True)
+
+    publish(immediate=True)
+    child_key = f"{row['key']}-part-{cards.ANALYSIS_FIRST_PART}"
+    assert cards._dispatch(store, child_key, "discord")["status"] == "UNKNOWN_WRITE"
+    transport.replies_readable = True
+    result = publish()
+    assert cards._dispatch(store, child_key, "discord")["status"] == "DISPATCH_CONFIRMED"
     discord = [intent for intent in transport.intents if intent["destination_plan"]["destination"] == "discord"]
     assert len(discord) > 1, result
     root, *replies = discord
@@ -211,3 +242,24 @@ def test_evening_audit_counts_export_gaps_once_and_reads_the_confirmed_continuat
     analysis_issues = [issue for issue in output["issues"] if issue["decision"] == "113"]
     assert [(issue["platform"], issue["first_cause"], issue["missing_layers"]) for issue in analysis_issues] == [
         ("threads", "EXPORTED_PLAN_LAYER_MISSING", ["Scenarios"])]
+
+
+def test_threads_root_only_observation_uses_only_a_verified_reply_chain(tmp_path):
+    raw = frozen_layers()
+    source = {"kind": "setup", "key": "gold-setup", "plan_id": "plan_gold",
+              "analysis_copy_contract": reader.NINE_LAYER_COPY, "source_plan": raw,
+              "analysis_layer_quotes": editorial.prepare_plan_layers(raw, contract=reader.NINE_LAYER_COPY),
+              "analysis_layer_gaps": {}}
+    lines = alerts.analysis_lines(source)
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    for verified in (True, False):
+        audit = checks(tmp_path)
+        root = "\n".join([*lines[:4], page])
+        copy = published(audit, "gold-setup", "threads", source=source, text=root,
+            native={"reply_texts": lines[4:]}, mutations=[("2026-11-19T14:00:00Z", {"readback": {
+                "verified": True, "identity_match": True, "observed_public_object_id": "object-1",
+                "content_binding_checks": {"thread_match": verified},
+            }})])
+        copy.public_text = root
+        issues = [item for item in audit.finish({}, {"plan_gold": page})["issues"] if item["decision"] == "113"]
+        assert bool(issues) != verified

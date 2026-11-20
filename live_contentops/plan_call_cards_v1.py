@@ -719,7 +719,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
         if item["key"] not in prior and item.get("state_alert_contract"):
-            from .plan_reader_copy_v1 import NINE_LAYER_COPY, plan_layer_candidates
+            from .plan_reader_copy_v1 import plan_layer_candidates
             from .plan_reader_editorial_v1 import prepare_plan_layers
 
             plan = item["source_plan"]
@@ -1148,17 +1148,20 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     if discord_channel_reply:
         thread_link = f"\n\nPlan thread: <{discord_channel_reply['thread_url']}>"
         limits["discord"] -= len(thread_link)
+    layers = None
+    if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
+        from .plan_state_alerts_v1 import analysis_lines, nine_layer_parts
+
+        layers = analysis_lines(row)
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
         if destination in LINKEDIN_DESTINATIONS and linkedin_analysis_url and not row.get("analysis_link"):
             body, notices = posts._split(text)
             text = body + "\nFull analysis: " + linkedin_analysis_url + "\n\n" + notices
         layer_parts = None
-        if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
-            from .plan_state_alerts_v1 import nine_layer_parts
-
+        if layers is not None:
             body, notices = posts._split(text)
-            layer_parts = nine_layer_parts(row, body, notices, destination=destination,
+            layer_parts = nine_layer_parts(layers, body, notices, destination=destination,
                                            limit=limits[destination], reply_limit=reply_limits[destination])
         if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.

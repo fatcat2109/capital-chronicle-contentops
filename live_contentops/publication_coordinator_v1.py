@@ -5298,7 +5298,12 @@ class CanonicalDestinationTransportRuntimeV1:
         if cached is not None:
             proof = cached.get("readback") or {}
             # Threads' strict result has a root plus its ordered reply chain.
-            proof = proof.get("root", proof)
+            if destination == "threads" and (proof.get("chain") or {}).get("status") == "SUCCESS":
+                root = proof.get("root") or {}
+                proof = {**root, "content_binding_checks": {**(root.get("content_binding_checks") or {}),
+                                                            "thread_match": True}}
+            else:
+                proof = proof.get("root", proof)
             return {
                 "status": "SUCCESS", "verified": True,
                 "public_object_id": public_object_id,

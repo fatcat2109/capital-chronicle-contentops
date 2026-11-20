@@ -363,6 +363,9 @@ class DecisionChecks:
                              key=lambda child: child.intent.get("plan_status_part", 0))
             observed = [copy.visible_text, *(child.visible_text for child in related)]
             observed.extend(str(post.get("observed_text") or "") for post in copy.verified_thread())
+            if (copy.platform == "threads" and copy.verified_at
+                    and (copy.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+                observed.extend(copy.native.get("reply_texts") or ())
             body = normalized(re.sub(r"(?:\*\*|__)", "", "\n".join(observed)))
             try:
                 expected = analysis_lines(copy.source)

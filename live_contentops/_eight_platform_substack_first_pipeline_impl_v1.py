@@ -4968,7 +4968,9 @@ def _readback_one_destination_from_durable_intent(
             chain = readback_threads_chain(root_id=public_object_id,
                 reply_expectations=[{"text": value, "expected_media_local_path": None} for value in reply_texts])
             result["reply_chain"] = chain
-            if chain.get("status") != "SUCCESS":
+            thread_match = chain.get("status") == "SUCCESS"
+            result["content_binding_checks"] = {**(result.get("content_binding_checks") or {}), "thread_match": thread_match}
+            if not thread_match:
                 result["status"] = "FAILED_THREADS_REPLY_CHAIN_READBACK"
         if (
             result.get("account_identity_verified") is True and result.get("visible_body_text")
