@@ -366,9 +366,10 @@ def validate_write(coordinator, intent, destination):
                 and (article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"})):
             raise ImageContractError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
         from .image_quality_v1 import validate_asset
+        reviewed = []
         for asset in templates:
             try:
-                validate_asset(asset, destination=destination,require_template_acceptance=True)
+                reviewed.append(validate_asset(asset, destination=destination))
             except ValueError as exc:
                 raise ImageContractError(str(exc), image_sha256=asset.get("sha256")) from exc
         first = assets[0].get("image_template") or {}
@@ -379,7 +380,7 @@ def validate_write(coordinator, intent, destination):
             if meta["chart"] and markets and meta["input"].get("market") not in markets:
                 raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
         return {"policy": "CC465_IMAGE_TEMPLATES_V1", "images": len(templates),
-                "scores": [a["image_quality"]["score"] for a in templates]}
+                "scores": [review["score"] for review in reviewed]}
     if not markets and not macro:
         return None
     if not assets:

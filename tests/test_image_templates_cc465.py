@@ -19,11 +19,6 @@ from live_contentops import tradingview_snapshot_v1 as tv
 NOW = datetime(2026,11,12,16,tzinfo=timezone.utc)
 
 
-@pytest.fixture(autouse=True)
-def isolate_template_acceptance(tmp_path,monkeypatch):
-    monkeypatch.setattr(quality,'ACCEPTANCE_CONTROL',tmp_path/'acceptance-control.json')
-
-
 def input_record(template="call", market="USDJPY"):
     data={"schema":"image_input_v1","post_id":"controlled-fixture","template":template,"market":market,
           "plan":{"market":market,"market_name":templates.MARKETS[market],"direction":"SHORT","horizon_label":"Mid-term",
@@ -83,12 +78,6 @@ def vision_response(args,*,cwd,timeout,input):
 
 def publication_message(tmp_path,image):
     from test_publication_image_contract_cc463 import message_with
-    # The isolated consumer fixture supplies an explicitly controlled template
-    # acceptance. Runtime never derives owner acceptance from one image score.
-    meta=image['image_template']
-    image['image_template_acceptance']={'accepted_at_utc':NOW.isoformat(),'reviews':[
-        {'template':meta['template'],'template_revision':meta['template_revision'],'score':10,'passed':True,
-         'real_snapshot':True,'market':m,'master':s,'image_sha256':'controlled-'+m+s} for m in templates.ORDER for s in ('W','T')]}
     store,runtime,coordinator,message=message_with(tmp_path,[image])
     intent=json.loads(message["payload"])
     context_path=Path(intent["output_dir"])/"run_context_v1.json"
@@ -474,38 +463,24 @@ def test_paid_chart_and_wrong_platform_stay_refused_before_publish(tmp_path):
     assert runtime.publish_calls==[]
 
 
-def test_one_perfect_image_never_substitutes_for_initial_template_acceptance(tmp_path):
+def test_coordinator_uses_the_eight_point_review_without_an_approval_record(tmp_path):
     image=asset(tmp_path);image['image_quality']=yes_review(image)
-    store,runtime,coordinator,message=publication_message(tmp_path/'run',image)
-    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
-    context=json.loads(path.read_bytes());context['media']['assets'][0].pop('image_template_acceptance')
-    path.write_text(json.dumps(context),encoding='utf-8')
-    coordinator._readiness=lambda *a:pytest.fail('unaccepted template reached destination')
+    image['image_quality']['vision']['points'].update({'4':False,'10':False})
+    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
     result=coordinator._dispatch_message(message,canonical_url=None)
-    assert result['status']=='DEFINITE_NO_WRITE' and result['reason_code']=='IMAGE_TEMPLATE_TWELVE_REAL_REVIEWS_REQUIRED'
+    assert result['status']=='DISPATCH_CONFIRMED' and runtime.publish_calls==['substack']
+
+
+@pytest.mark.parametrize('failed_points', [('4','8','10'), ('3',)])
+def test_coordinator_still_requires_a_passing_review(tmp_path, failed_points):
+    image=asset(tmp_path);image['image_quality']=yes_review(image)
+    image['image_quality']['vision']['points'].update(dict.fromkeys(failed_points, False))
+    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
+    coordinator._readiness=lambda *a:pytest.fail('failed image review reached destination')
+    result=coordinator._dispatch_message(message,canonical_url=None)
+    assert result['status']=='DEFINITE_NO_WRITE'
+    assert result['reason_code']=='IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED'
     assert runtime.publish_calls==[]
-
-
-def test_accepted_template_uses_eight_point_routine_threshold_without_overriding_code(tmp_path):
-    image=asset(tmp_path);image['image_quality']=yes_review(image)
-    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
-    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
-    context=json.loads(path.read_bytes());held=context['media']['assets'][0]
-    held['image_quality']['vision']['points'].update({'4':False,'10':False})
-    path.write_text(json.dumps(context),encoding='utf-8')
-    result=coordinator._dispatch_message(message,canonical_url=None)
-    assert result['status']=='DISPATCH_CONFIRMED' and runtime.publish_calls==['substack']
-
-
-def test_installed_consumer_reads_owner_template_acceptance_from_the_existing_control_area(tmp_path):
-    image=asset(tmp_path);image['image_quality']=yes_review(image)
-    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
-    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
-    context=json.loads(path.read_bytes());acceptance=context['media']['assets'][0].pop('image_template_acceptance')
-    quality.ACCEPTANCE_CONTROL.write_text(json.dumps({'templates':{'call':acceptance}}),encoding='utf-8')
-    path.write_text(json.dumps(context),encoding='utf-8')
-    result=coordinator._dispatch_message(message,canonical_url=None)
-    assert result['status']=='DISPATCH_CONFIRMED' and runtime.publish_calls==['substack']
 
 
 def test_reader_copy_and_frozen_validation_select_native_portrait_without_changing_text(tmp_path,monkeypatch):

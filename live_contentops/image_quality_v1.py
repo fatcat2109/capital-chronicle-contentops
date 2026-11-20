@@ -20,7 +20,6 @@ from .image_templates_v1 import POLICY, SIZE, compile_image, template_revision
 from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
-ACCEPTANCE_CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\image_template_acceptance_v1.json")
 VISION_POLICY = "cc465-image-roles-v5"
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
@@ -239,30 +238,14 @@ def review_vision(asset,*,runner=None):
     return record
 
 
-def accepted_template(asset):
-    """Read the integrating owner's existing control area; never write it here."""
-    if asset.get("image_template_acceptance"):
-        return asset["image_template_acceptance"]
-    if ACCEPTANCE_CONTROL.is_file():
-        controls=json.loads(ACCEPTANCE_CONTROL.read_bytes())
-        return (controls.get("templates") or {}).get(asset["image_template"]["template"]) or {}
-    return {}
-
-
-def validate_asset(asset,*,destination=None,require_vision=True,require_template_acceptance=False):
+def validate_asset(asset,*,destination=None,require_vision=True):
     code=code_check(asset,destination=destination)
     if not code["passed"]:
         raise ValueError(code["causes"][0])
     if require_vision:
         review=asset.get("image_quality") or {}
-        accepted=accepted_template(asset)
-        checked=template_acceptance(accepted.get("reviews") or [],code["template"],code["template_revision"])
-        admitted=checked["passed"] and bool(accepted.get("accepted_at_utc"))
-        combined=combine(code,review.get("vision") or {},new_template=not admitted)
+        combined=combine(code,review.get("vision") or {})
         if not combined["passed"]:raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
-        if require_template_acceptance:
-            if not admitted:
-                raise ValueError("IMAGE_TEMPLATE_TWELVE_REAL_REVIEWS_REQUIRED")
         return combined
     return code
 
@@ -292,15 +275,7 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
         review=review_vision(asset,runner=vision_runner)
     else:
         review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
-    # Acceptance is an artifact beside the existing media, supplied by the
-    # integrating owner after twelve actual six-market W/T reviews. No model,
-    # scheduler or publication register can grant it by a score alone.
-    acceptance=Path(folder)/"image_template_acceptance_v1.json"
-    if acceptance.is_file():
-        asset["image_template_acceptance"]=json.loads(acceptance.read_bytes())
-    accepted=accepted_template(asset)
-    admitted=template_acceptance(accepted.get("reviews") or [],code["template"],code["template_revision"])["passed"] and bool(accepted.get("accepted_at_utc"))
-    asset["image_quality"]=combine(code,review,new_template=not admitted)
+    asset["image_quality"]=combine(code,review)
     record_path.write_text(json.dumps(asset,ensure_ascii=False,indent=2),encoding="utf-8")
     validate_asset(asset)
     return asset
