@@ -1200,6 +1200,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     # cannot create a new drawn image; fresh packages always use CC-314.
     frozen = bool(previous and any(_dispatch(store, key, d) for d in destinations_for(row)))
     assets, carousel, skipped = [], [], _skipped_images(root, row)
+    first_image_failure = None
     manifest_path = folder / "delivery_media_manifest_v1.json"
     if frozen:
         assets = (previous.get("media") or {}).get("assets") or []
@@ -1215,8 +1216,15 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         for member in members:
             member_folder = Path(root) / member["key"]
             source_snapshot = _confirmed_page_snapshot(store, member)
-            card, _ = posts._post_image(member, member_folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed,
-                **({"source_snapshot": source_snapshot} if source_snapshot else {}))
+            try:
+                card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
+                    snapshot_allowed=snapshot_allowed, source_snapshot=source_snapshot, required_chart=True)
+            except tv.SnapshotUnavailable as exc:
+                if row["kind"] != "run":
+                    raise
+                first_image_failure = first_image_failure or str(exc)
+                all_carousel_images = False
+                continue
             if card is None:
                 all_carousel_images = False
                 continue
@@ -1278,10 +1286,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             chosen = [d for d in chosen if d not in image_unpostable]
     skipped = list({s["destination"]: s for s in [*skipped, *unpostable]}.values())
     if not assets:
-        cause = "EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper()
-        if row.get("state_alert_contract"):
-            raise tv.SnapshotUnavailable(cause)
-        raise posts.PlanPostError(cause)
+        raise tv.SnapshotUnavailable(first_image_failure or "EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper())
     alert_portrait = previous.get("status_post_alert_portrait")
     if row.get("state_alert_contract") and "instagram_business" in chosen and not alert_portrait:
         # The fast API pass freezes its landscape bytes. Complete Instagram's

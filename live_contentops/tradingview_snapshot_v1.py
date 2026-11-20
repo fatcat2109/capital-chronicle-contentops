@@ -29,6 +29,7 @@ import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import Any, Mapping
 
 POLICY = "contentops.tradingview_snapshot.v1"
@@ -78,8 +79,8 @@ PLAN_ATTEMPTS = 2
 
 def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
                   now: datetime | None = None, ratio: str = "16:9", image_input=None,
-                  source_snapshot=None) -> dict | None:
-    """CC-459's bounded capture/cache owner. A None result means text after two failures.
+                  source_snapshot=None, required_chart=False) -> dict | None:
+    """Use the shared cache or make a bounded capture for this plan and ratio.
 
     Only image artifacts are cached; this is not another scheduler or publication store.
     The market, source download hash, capture clock and first failure stay bound.
@@ -105,7 +106,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
     initial = {
         "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0}
-    required = bool(row.get("state_alert_contract"))
+    required = required_chart or bool(row.get("state_alert_contract"))
     if required:
         initial["required_chart"] = True
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else initial.copy()
@@ -150,8 +151,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         return asset
     if state.get("status") == "TEXT_ONLY":
         if required and not state.get("required_chart"):
-            # Retained alerts were parked permanently after a capture failed.
-            # Give their current state the same bounded capture as a new alert.
+            # Give a retained post its first bounded capture under the required-chart policy.
             state = {**initial, "prior_failure": {
                 field: state.get(field) for field in ("started_at_utc", "attempts", "first_cause", "cause")}}
             save()
@@ -300,15 +300,21 @@ def _run_worker(args: dict, *, timeout: float, python: str | None) -> dict:
     python = python or (str(PLAYWRIGHT_PYTHON) if PLAYWRIGHT_PYTHON.is_file() else sys.executable)
     if Path(python).name.lower() == "pythonw.exe":
         python = str(Path(python).with_name("python.exe"))
-    process = subprocess.Popen([python, "-B", str(Path(__file__).resolve()), "--worker", json.dumps(args)],
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.DEVNULL,
-                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-    try:
-        out, err = process.communicate(timeout=timeout)
-    except subprocess.TimeoutExpired:
-        _kill_tree(process.pid)
-        process.communicate()
-        raise SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT")
+    with TemporaryDirectory(prefix=".snapshot-", dir=args["out_dir"]) as attempt_dir:
+        result_path = Path(attempt_dir) / "result.json"
+        request = {**args, "worker_result_path": str(result_path)}
+        process = subprocess.Popen([python, "-B", str(Path(__file__).resolve()), "--worker", json.dumps(request)],
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.DEVNULL,
+                                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        try:
+            out, err = process.communicate(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            _kill_tree(process.pid)
+            out, err = process.communicate()
+            if not result_path.is_file():
+                raise SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT") from None
+        if result_path.is_file():
+            return json.loads(result_path.read_bytes())
     lines = [line for line in out.decode("utf-8", "replace").splitlines() if line.startswith("{")]
     if process.returncode != 0 or not lines:
         tail = err.decode("utf-8", "replace").strip().splitlines()[-1:] or ["no output"]
@@ -795,6 +801,13 @@ def _worker(args: dict) -> dict:
                     "capture_ratio": args.get("ratio", "16:9"), "capture_viewport": viewport,
                     "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1),
                     **({"geometry_probe": geometry_probe, "axis_path": str(axis_file)} if geometry_probe else {})}
+            # The parent still checks the symbol, interval, PNG and price scale.
+            # Save this download's metadata before Chromium closes its context.
+            if args.get("worker_result_path"):
+                result_path = Path(args["worker_result_path"])
+                staged = result_path.with_suffix(".tmp")
+                staged.write_text(json.dumps(result), encoding="utf-8")
+                staged.replace(result_path)
             if geometry_probe:
                 (out_dir / "visible-axis-geometry.json").write_text(json.dumps(result,sort_keys=True),encoding="utf-8")
             return result

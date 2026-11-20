@@ -7,7 +7,7 @@ import pytest
 
 from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
 from live_contentops import tradingview_snapshot_v1 as tv
-from test_plan_call_cards_cc399 import five, main_root, queue, rows, controlled_tradingview  # noqa: F401
+from test_plan_call_cards_cc399 import NOW, five, main_root, queue, rows, controlled_tradingview  # noqa: F401
 from test_plan_status_publication_cc306 import fake_host
 from test_tradingview_snapshot_cc314 import tradingview_worker
 
@@ -98,22 +98,27 @@ def test_card_preparation_uses_tradingview_and_credits_every_destination(five, m
     posts.validate_status_post_plan(store, card["key"], prepared)
 
 
-def test_failed_capture_prepares_text_on_supported_routes_and_skips_instagram(five, main_root, tmp_path, monkeypatch):
+def test_setup_with_exhausted_capture_closes_every_copy_with_the_first_cause(five, main_root, tmp_path, monkeypatch):
     monkeypatch.setattr(cards, "_reference", lambda *a: {"public_object_id": "parent", "public_object_url": "https://example.test/parent"})
     store, folder, _, _ = five
     queue(store, folder, main_root)
-    card = next(r for r in rows(store) if r["kind"] == "setup")
+    queued = rows(store)
+    card = next(row for row in queued if row["kind"] == "setup")
+    for row in queued:
+        if row["key"] != card["key"]:
+            store.set_outbox_status(row["key"], posts.SUPERSEDED)
+    failures = iter(["TRADINGVIEW_SNAPSHOT_TIMEOUT", "TRADINGVIEW_SNAPSHOT_FILE_MISSING"])
+
     def failure(*args):
-        raise tv.SnapshotError("CONTROLLED_TRADINGVIEW_FAILURE")
-    prepared = posts.prepare_post(store, card["key"], root=tmp_path / "posts", snapshot=failure,
-                                  host=lambda **kw: pytest.fail("no drawn image to host"))
-    assert prepared["status_post_card_id"] is None
-    assert {d["destination"] for d in prepared["destinations"]} == set(cards.destinations_for(card)) - {"instagram_business"}
-    assert prepared["skipped_destinations"] == [{"destination": "instagram_business", "cause": "TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED"}]
-    expected = posts._expected(store, card["key"], prepared["output_dir"])[1]
-    assert all(p["media_asset_ids"] == [] for p in expected.values())
-    assert "Model target level:" in expected["telegram"]["text"] and "Time exit:" in expected["telegram"]["text"]
-    posts.validate_status_post_plan(store, card["key"], prepared)
+        raise tv.SnapshotError(next(failures))
+
+    result = cards.publish_ready(store, now=NOW, root=tmp_path / "posts", snapshot=failure,
+        coordinator_for=lambda *args: pytest.fail("no chart to publish"))
+    outcome, = result["posts"]
+    assert outcome["key"] == card["key"] and outcome["status"] == cards.SETTLED_POST
+    assert outcome["destination_causes"] == dict.fromkeys(cards.destinations_for(card), "TRADINGVIEW_SNAPSHOT_TIMEOUT")
+    assert store.get_outbox_message(card["key"])["status"] == cards.SETTLED_POST
+    assert store.get_dispatches_for_work_item(card["key"]) == []
 
 
 def test_threads_keeps_all_levels_windows_and_long_links_within_actual_character_limit(five, main_root):

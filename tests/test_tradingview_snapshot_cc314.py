@@ -162,6 +162,45 @@ def test_capture_refuses_another_symbol_or_an_unconfirmed_timeframe(tmp_path):
         tv.capture("US500", "60", tmp_path / "b", worker=worker_for(FIXTURE.name, "4h"))
 
 
+@pytest.mark.parametrize("completed", [True, False])
+def test_capture_uses_only_this_workers_download_after_timeout(tmp_path, monkeypatch, outcomes, completed):
+    from live_contentops import publication_image_contract_v1 as contract
+
+    class Worker:
+        pid = 12345
+
+        def communicate(self, timeout=None):
+            if timeout is not None:
+                raise tv.subprocess.TimeoutExpired("snapshot", timeout)
+            return b"", b""
+
+    calls, killed = [], []
+
+    def start(command, **kwargs):
+        request = json.loads(command[-1])
+        result = tradingview_worker(calls)(request)
+        if completed:
+            Path(request["worker_result_path"]).write_text(json.dumps(result), encoding="utf-8")
+        return Worker()
+
+    monkeypatch.setattr(tv.subprocess, "Popen", start)
+    monkeypatch.setattr(tv, "_kill_tree", killed.append)
+    monkeypatch.setattr(contract, "bind_scale", lambda market, snap, quote: {**snap, "price_scale_check": {}})
+    (tmp_path / "visible-axis-geometry.json").write_text('{"old": true}', encoding="utf-8")
+
+    def capture():
+        return tv.capture("US500", "240", tmp_path, quote_provider=lambda market, clock: {})
+
+    if completed:
+        snapshot = capture()
+        assert snapshot["tv_symbol"] == "SP:SPX" and snapshot["interval"] == "240"
+        assert Path(snapshot["path"]).read_bytes() == FIXTURE.read_bytes()
+    else:
+        with pytest.raises(tv.SnapshotError, match="TRADINGVIEW_SNAPSHOT_TIMEOUT"):
+            capture()
+    assert len(calls) == 1 and killed == [Worker.pid]
+
+
 @pytest.mark.parametrize("hours,interval", [(6, "60"), (24, "60"), (25, "240"), (24 * 7, "240"), (24 * 8, "D")])
 def test_the_timeframe_follows_the_plans_validity(hours, interval):
     from datetime import datetime, timedelta, timezone
