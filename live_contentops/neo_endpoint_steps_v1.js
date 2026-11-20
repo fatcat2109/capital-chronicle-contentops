@@ -290,7 +290,9 @@ if (input.phase === 'article_readback') {
       ? document.querySelectorAll('[data-urn^="urn:li:activity:"]')
       : document.querySelectorAll('ytd-backstage-post-renderer');
     const permalink=linkedin
-      ? /^https:\/\/www\.linkedin\.com\/feed\/update\/(urn:li:activity:\d+)\/?(?:[?#].*)?$/.exec(location.href) : null;
+      ? /^https:\/\/www\.linkedin\.com\/feed\/update\/(urn:li:(?:activity|share|ugcPost):\d+)\/?(?:[?#].*)?$/.exec(location.href) : null;
+    const receipt = permalink && (permalink[0].split(/[?#]/, 1)[0] +
+      (destination === 'linkedin_company' && location.search === '?actorCompanyId=143198922' ? location.search : ''));
     if (!nodes.length && linkedin) {
       // The current member activity and permalink use semantic list items.
       nodes=[...new Set(Array.from(document.querySelectorAll('main [data-testid="expandable-text-box"]'))
@@ -307,10 +309,10 @@ if (input.phase === 'article_readback') {
       const memberActivity = destination === 'linkedin' && ls.map(l =>
         /^https:\/\/www\.linkedin\.com\/analytics\/post-summary\/(urn:li:activity:\d+)\/?(?:[?#].*)?$/.exec(l.url)
       ).find(Boolean);
-      const id=linkedin ? e.getAttribute('data-urn') || memberActivity?.[1] || permalink?.[1]
+      const id=linkedin ? permalink?.[1] || e.getAttribute('data-urn') || memberActivity?.[1]
         : ls.find(l=>/^https:\/\/www\.youtube\.com\/post\//.test(l.url))?.url.split('/post/')[1];
       const url=linkedin
-        ? 'https://www.linkedin.com/feed/update/'+id+'/' : (id?'https://www.youtube.com/post/'+id:null);
+        ? receipt || 'https://www.linkedin.com/feed/update/'+id+'/' : (id?'https://www.youtube.com/post/'+id:null);
       const body=e.querySelector(linkedin?'.update-components-text':'#content-text')
         || (linkedin?e.querySelector('[data-testid="expandable-text-box"]'):null);
       if (linkedin) {

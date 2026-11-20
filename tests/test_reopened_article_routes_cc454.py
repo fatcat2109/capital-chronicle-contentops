@@ -315,16 +315,22 @@ console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
         assert result["prompt"] == "A rotating prompt"
 
 
-@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+@pytest.mark.parametrize("destination,entry,expected_id", [
+    ("linkedin", "https://www.linkedin.com/in/jimcc/recent-activity/all/", "urn:li:activity:123"),
+    ("linkedin", "https://www.linkedin.com/feed/update/urn:li:share:124/", "urn:li:share:124"),
+    ("linkedin_company", "https://www.linkedin.com/feed/update/urn:li:activity:123/", "urn:li:activity:123"),
+    ("linkedin_company", "https://www.linkedin.com/feed/update/urn:li:activity:123/?actorCompanyId=143198922",
+     "urn:li:activity:123"),
+])
 @pytest.mark.parametrize("correct_author", [False,True])
-def test_linkedin_readback_binds_exact_activity_id_to_its_author(destination, correct_author):
+def test_linkedin_readback_binds_exact_activity_id_to_its_author(destination, entry, expected_id, correct_author):
     import subprocess
     from pathlib import Path
     source=Path(endpoint.__file__).with_name('neo_endpoint_steps_v1.js')
     script="""
-const [destination,correct]=JSON.parse(process.argv[1]);
+const [destination,entry,correct]=JSON.parse(process.argv[1]);
 const member=destination==='linkedin';
-global.location={href:member?'https://www.linkedin.com/in/jimcc/recent-activity/all/':'https://www.linkedin.com/feed/update/urn:li:activity:123/'};
+global.location=new URL(entry);
 const body={innerText:'Our exact call. https://lnkd.in/bound',closest:()=>root};
 const author={href:correct?(member?'https://www.linkedin.com/in/jimcc/':'https://www.linkedin.com/company/capitalchronicle/'):'https://www.linkedin.com/company/other/',innerText:'Author'};
 const activity={href:'https://www.linkedin.com/analytics/post-summary/urn:li:activity:123/',innerText:'View analytics'};
@@ -336,13 +342,15 @@ const source=require('fs').readFileSync(process.argv[2],'utf8');
 (async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
 console.log(JSON.stringify(await fn(page,{phase:'article_readback',destination})));})();
 """
-    result=json.loads(subprocess.check_output(['node','-e',script,json.dumps([destination, correct_author]),str(source)],text=True,timeout=5))
+    result=json.loads(subprocess.check_output(['node','-e',script,json.dumps([destination, entry, correct_author]),str(source)],text=True,timeout=5))
     if not correct_author:
         assert result['posts']==[]
     else:
         post=result['posts'][0]
         assert post['observed_identity'] == handoff.IDENTITIES[destination]
-        assert post['public_object_id']=='urn:li:activity:123'
+        assert post['public_object_id'] == expected_id
+        assert post['public_object_url'] == (entry if '/feed/update/' in entry else
+                                             'https://www.linkedin.com/feed/update/urn:li:activity:123/')
         assert post['observed_text']=='Our exact call. https://lnkd.in/bound'
         assert any(link['url']=='https://lnkd.in/bound' for link in post['links'])
         assert post['public_image_urls']==['https://media.licdn.com/chart-small','https://media.licdn.com/chart-full']
