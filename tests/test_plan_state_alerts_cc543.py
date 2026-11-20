@@ -1,6 +1,7 @@
 """The installed plan consumer sends state alerts independently of analysis."""
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from hashlib import sha256
 import json
 from pathlib import Path
 import sys
@@ -300,7 +301,6 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
 
 @pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout", "superseded-with-uncertain-x"])
 def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure, monkeypatch):
-    from hashlib import sha256
     from threading import Event
     from test_minute_consumer_cc515 import dispatch
 
@@ -368,6 +368,10 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
     assert "reply_to_id" not in telegram_intent["native_payload"]
     discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
     assert json.loads(discord_bytes)["native_payload"]["reply_to_id"] == "600"
+    channel_reply = cards._dispatch(store, f"{key}-part-{cards.DISCORD_CHANNEL_PART}", "discord")
+    assert channel_reply["status"] == "DISPATCH_CONFIRMED"
+    channel_bytes = store.get_outbox_message(channel_reply["message_id"])["payload"]
+    assert json.loads(channel_bytes)["native_payload"]["discord_channel_reply"] is True
 
     now += timedelta(minutes=1)
     options["now"] = now
@@ -389,12 +393,14 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             intent = json.loads(store.get_outbox_message(delivery["message_id"])["payload"])
             assert "reply_to_id" not in intent["native_payload"]
     assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
+    assert store.get_outbox_message(channel_reply["message_id"])["payload"] == channel_bytes
     assert store.get_outbox_message(setup_key)["status"] == posts.SUPERSEDED
     if failure == "superseded-with-uncertain-x":
         assert retired_readbacks == [old_x["dispatch_id"]]
         assert store.get_platform_dispatch(old_x["dispatch_id"])["status"] == "UNKNOWN_WRITE"
     posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
-    assert len(runtime.publish_calls) == len(cards.destinations_for(ending))
+    assert runtime.publish_calls.count("discord") == 2  # the thread entry and one channel reply
+    assert len(runtime.publish_calls) == len(cards.destinations_for(ending)) + 1
 
 
 @pytest.mark.parametrize("dry", [False, True])
@@ -469,6 +475,138 @@ def test_unknown_api_acceptance_is_read_back_without_republishing(replay, main_r
     assert sorted(runtime.publish_calls) == ["discord", "telegram"]
     row, = rows(store)
     assert all(cards._dispatch(store, row["key"], d)["status"] == "UNKNOWN_WRITE" for d in ("telegram", "discord"))
+
+
+@pytest.mark.parametrize("change,result,headline", [
+    ("FILLED", None, "an entry filled"),
+    ("CLOSED", "HIT", "hit its target"),
+    ("CLOSED", "STOPPED", "stopped at its invalidation level"),
+    ("CLOSED", "EXPIRED", "closed at its time exit"),
+    ("EXPIRED", "NOT_TRIGGERED", None),
+    ("VIEW_CHANGED", None, "the view changed"),
+])
+def test_minute_consumer_sends_major_discord_updates_to_the_channel_and_thread(
+        replay, main_root, tmp_path, change, result, headline):
+    store, folder, raw, now = replay
+    posts.queue_posts(store, folder, now=now, main_root=main_root)
+    setup, = rows(store)
+    store.create_work_item(story_id=setup["key"], title="Original call", target_surface="MULTI_PLATFORM",
+                           work_item_id=setup["key"])
+    channel, starter = "1519311669216673802", "700"
+    prefix = "https://discord.com/channels/42/"
+    card_id, card_channel = starter, channel
+    if result == "STOPPED":
+        # A retained card may live in the older shared run thread.
+        run = setup["run_key"]
+        store.create_work_item(story_id=run, title="Earlier call run", target_surface="MULTI_PLATFORM", work_item_id=run)
+        confirm(store, run, sha256(("plan-status-post:" + run).encode()).hexdigest(),
+                "discord", starter, f"{prefix}{channel}/{starter}")
+        card_id, card_channel = "701", starter
+    card_hash = sha256(("plan-status-post:" + setup["key"]).encode()).hexdigest()
+    confirm(store, setup["key"], card_hash, "discord", card_id, f"{prefix}{card_channel}/{card_id}")
+    store.set_outbox_status(setup["key"], "PUBLISHED")
+    previous = store.get_outbox_message(setup["key"])["payload"]
+
+    at = now + timedelta(minutes=1)
+    updated = deepcopy(raw)
+    updated.update(status=change)
+    if result:
+        outcome_id = "gold-result"
+        updated["outcome"] = {"state": "SCORED_UNTRIGGERED" if result == "NOT_TRIGGERED" else "SCORED",
+            "result": result, "outcome_id": outcome_id,
+            "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": outcome_id,
+                      "result": result, "resolved_at_utc": at.isoformat()}}
+    write(folder, [updated], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"]),
+                             event(raw["plan_id"], change, at.isoformat())], generated_at_utc=at.isoformat())
+    queued = posts.queue_posts(store, folder, now=at, main_root=main_root)
+    update = next(row for row in rows(store) if row["key"] != setup["key"])
+
+    class Recorded(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.discord = []
+            self.accepted = {}
+            self.channel_readback_available = change != "FILLED"
+            self.channel_readbacks = 0
+
+        def publish(self, *, destination, intent, authorization_context):
+            if destination != "discord":
+                return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+            payload = intent["native_payload"]
+            where = channel if payload.get("discord_channel_reply") else payload["discord_thread_parent_id"]
+            message = str(901 + len(self.discord))
+            self.discord.append(deepcopy(intent))
+            receipt = {"status": "SUCCESS", "id": message, "public_url": f"{prefix}{where}/{message}"}
+            self.accepted[intent["work_item_id"]] = receipt
+            if change == "FILLED" and where == channel:
+                raise TimeoutError("Discord accepted the reply and lost the response")
+            return receipt
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination != "discord":
+                return super().readback(destination=destination, public_object_id=public_object_id,
+                                        public_object_url=public_object_url, intent=intent)
+            if intent["native_payload"].get("discord_channel_reply"):
+                self.channel_readbacks += 1
+                if not self.channel_readback_available:
+                    return {"status": "READBACK_UNAVAILABLE", "verified": False}
+            receipt = self.accepted[intent["work_item_id"]]
+            return {"status": "SUCCESS", "verified": True,
+                    "public_object_id": receipt["id"], "public_object_url": receipt["public_url"]}
+
+    transport = Recorded()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: at)
+    runs = []
+    immediate_passes = (True, True, False) if change == "FILLED" else (True, True)
+    for attempt, immediate in enumerate(immediate_passes):
+        previous_readbacks = transport.channel_readbacks
+        run = posts.publish_ready(store, now=at, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda *a: coordinator, immediate_only=immediate, alert_filter=True)
+        runs.append(run)
+        if change == "FILLED" and immediate:
+            first, = run["posts"]
+            assert first["discord_channel_reply"]["status"] == "UNKNOWN_WRITE"
+            assert first["discord_channel_reply"]["reconciliation_status"] == "RECONCILIATION_PENDING"
+            assert coordinator._destination_day_failure("discord") is None
+            if attempt:
+                assert transport.channel_readbacks == previous_readbacks
+            transport.channel_readback_available = True
+
+    major = change != "VIEW_CHANGED"
+    assert len(transport.discord) == (2 if major else 1), runs
+    thread, *other = transport.discord
+    archive = thread["native_payload"]
+    assert archive["discord_thread_parent_id"] == starter
+    assert archive["reply_to_id"] == card_id
+    assert "Plan thread:" not in archive["text"]
+    assert store.get_outbox_message(setup["key"])["payload"] == previous
+    if headline:
+        assert headline in archive["text"]
+    if not major:
+        return
+
+    channel_intent, = other
+    payload = channel_intent["native_payload"]
+    assert payload["discord_channel_reply"] is True and "discord_thread_parent_id" not in payload
+    assert payload["reply_to_id"] == starter
+    assert payload["reply_to_url"] == f"{prefix}{channel}/{starter}"
+    thread_link = f"{prefix}{starter}" if starter == card_id else f"{prefix}{starter}/{card_id}"
+    assert f"Plan thread: <{thread_link}>" in payload["text"]
+    assert archive["media_asset_ids"] == payload["media_asset_ids"] and payload["media_asset_ids"]
+    assert payload["text"].replace(f"\n\nPlan thread: <{thread_link}>", "") == archive["text"]
+    for intent in (thread, channel_intent):
+        assert intent["plan_status_post"] == update["key"]
+        posts.validate_status_post_intent(store, intent)
+        dispatch = cards._dispatch(store, intent["work_item_id"], "discord")
+        assert dispatch["status"] == "DISPATCH_CONFIRMED"
+        assert dispatch["public_object_url"] == transport.accepted[intent["work_item_id"]]["public_url"]
+    assert any(post["discord_channel_reply"]["reconciliation_status"] == "RECONCILED_CONFIRMED"
+               for run in runs for post in run["posts"] if post.get("discord_channel_reply"))
+    altered = deepcopy(channel_intent)
+    altered["native_payload"]["reply_to_id"] = "unrelated"
+    with pytest.raises(ValueError, match="PLAN_CARD_DISCORD_CHANNEL_REPLY_PARENT_CHANGED"):
+        posts.validate_status_post_intent(store, altered)
 
 
 def test_fast_fanout_delivers_new_copies_before_reading_back_the_uncertain_copy(replay, main_root, tmp_path):
