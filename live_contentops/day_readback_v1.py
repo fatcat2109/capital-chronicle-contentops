@@ -357,27 +357,35 @@ def _public_rows(conn, window, feed):
             "d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url "
             "FROM outbox_messages m LEFT JOIN platform_dispatches d ON m.message_id=d.message_id ")
     span = (window["since_utc"], window["until_utc"])
-    # Materialize the in-window IDs once instead of scanning both tables per outbox row.
-    rows = conn.execute(base + f"WHERE m.destination IN ({marks}) AND ("
-        "julianday(m.created_at) > julianday(?) AND julianday(m.created_at) <= julianday(?) OR "
-        "julianday(d.dispatched_at) > julianday(?) AND julianday(d.dispatched_at) <= julianday(?) OR "
-        "d.dispatch_id IN (SELECT dispatch_id FROM readbacks "
-        "WHERE julianday(read_at) > julianday(?) AND julianday(read_at) <= julianday(?)) OR "
-        "m.work_item_id IN (SELECT work_item_id FROM reconciliations "
-        "WHERE julianday(reconciled_at) > julianday(?) AND julianday(reconciled_at) <= julianday(?)) OR "
-        "EXISTS (SELECT 1 FROM outbox_messages n WHERE n.work_item_id=m.work_item_id "
-        "AND n.destination='internal:native-neo-tool' AND julianday(n.created_at) > julianday(?) "
-        "AND julianday(n.created_at) <= julianday(?)))",
-        (*ROUTES, *span, *span, *span, *span, *span)).fetchall()
+    # Select clocks and owner IDs before loading frozen payloads. In particular,
+    # a native reply is a single time-range scan, not a probe for every old post.
+    work_ids = {row[0] for row in conn.execute(f"""
+        SELECT work_item_id FROM outbox_messages
+        WHERE destination IN ({marks}, 'internal:native-neo-tool')
+          AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
+        UNION
+        SELECT o.work_item_id FROM platform_dispatches d
+        JOIN outbox_messages o ON o.message_id=d.message_id
+        WHERE julianday(d.dispatched_at) > julianday(?) AND julianday(d.dispatched_at) <= julianday(?)
+        UNION
+        SELECT o.work_item_id FROM readbacks r JOIN platform_dispatches d ON d.dispatch_id=r.dispatch_id
+        JOIN outbox_messages o ON o.message_id=d.message_id
+        WHERE julianday(r.read_at) > julianday(?) AND julianday(r.read_at) <= julianday(?)
+        UNION
+        SELECT work_item_id FROM reconciliations
+        WHERE julianday(reconciled_at) > julianday(?) AND julianday(reconciled_at) <= julianday(?)
+        """, (*ROUTES, *span, *span, *span, *span))}
     urls = [o["url"] for f in feed for o in f["outlets"] if o["name"] == "substack"]
     for url in urls:
-        rows.extend(conn.execute(base + "WHERE d.public_object_url=? AND m.destination='substack'", (url,)))
-    work_ids = {r["work_item_id"] for r in rows}
+        work_ids.update(row[0] for row in conn.execute("""
+            SELECT o.work_item_id FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
+            WHERE d.public_object_url=? AND o.destination='substack'""", (url,)))
     by_id = {}
+    end = utc(window["until_utc"])
     for work_id in sorted(work_ids):
         for row in conn.execute(base + f"WHERE m.work_item_id=? AND m.destination IN ({marks})", (work_id, *ROUTES)):
             # Don't turn an outbox created after a historical report's end into that day's post.
-            if utc(row["created_at"]) <= utc(window["until_utc"]):
+            if utc(row["created_at"]) <= end:
                 by_id[(row["message_id"], row["dispatch_id"])] = dict(row)
     return list(by_id.values())
 
