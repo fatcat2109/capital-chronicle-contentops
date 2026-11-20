@@ -1234,42 +1234,64 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
     from live_contentops import plan_status_posts_v1 as posts
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     from live_contentops.native_neo_executor_v1 import DESTINATION, SCHEMA, bind_native_neo_coordinator
+    from live_contentops.plan_analysis_pages_v1 import DESTINATION as LINK_DESTINATION, settle_late_link
+    from live_contentops.plan_call_cards_v1 import SETTLED_POST, settled_destinations, settle_pending
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
-    chosen={}
-    for row in store.list_outbox_messages(destination=DESTINATION):
-        packet=json.loads(row["payload"])
-        request=packet.get("request") or {}
-        if (row["status"]=="NATIVE_NEO_SUPERSEDED" or packet.get("schema_version")!=SCHEMA
-                or request.get("destination") not in {"x","substack_notes"}
-                or request.get("action") not in {"PUBLISH","READBACK"}):
-            continue
-        operation=packet["operation_id"]
-        source=store.get_outbox_message(operation)
-        if not source or source["destination"] not in {posts.DESTINATION,"internal:plan-analysis-page"}:
-            continue
-        source_payload=json.loads(source["payload"])
+    # Walk the indexed plan and link work items before reading native packets.
+    # Long legacy notes can store a request on the plan's -part-N work item.
+    with store.get_read_only_connection() as conn:
+        rows = conn.execute("""WITH operations AS (
+            SELECT message_id FROM outbox_messages WHERE destination IN (?, ?)
+        ), owned_work AS (
+            SELECT message_id AS work_item_id FROM operations
+            UNION
+            SELECT w.work_item_id FROM operations o CROSS JOIN work_items w
+            WHERE w.work_item_id BETWEEN o.message_id || '-part-' AND o.message_id || '-part-' || char(1114111)
+        )
+        SELECT n.payload FROM owned_work w CROSS JOIN outbox_messages n
+        WHERE n.work_item_id=w.work_item_id AND n.destination=? AND n.status<>'NATIVE_NEO_SUPERSEDED'
+        ORDER BY n.created_at, n.message_id""", (posts.DESTINATION, LINK_DESTINATION, DESTINATION))
+        requests = []
+        for row in rows:
+            packet = json.loads(row["payload"])
+            request = packet.get("request") or {}
+            if (packet.get("schema_version") != SCHEMA or request.get("destination") not in {"x", "substack_notes"}
+                    or request.get("action") not in {"PUBLISH", "READBACK"}):
+                continue
+            response_key = "native-neo-" + sha256_of([packet["operation_id"], request["request_sha256"], "response"])
+            requests.append((packet, response_key))
+        completed = {row[0] for row in conn.execute("""SELECT message_id FROM outbox_messages
+            WHERE message_id IN (SELECT value FROM json_each(?))""", (json.dumps([key for _, key in requests]),))}
+
+    now = datetime.now(timezone.utc)
+
+    @lru_cache(maxsize=None)
+    def eligible_source(operation):
+        source = store.get_outbox_message(operation)
+        if not source or source["destination"] not in {posts.DESTINATION, LINK_DESTINATION}:
+            return None, set()
+        source_payload = json.loads(source["payload"])
         source_payload.setdefault("key", operation)
         if source["destination"] == posts.DESTINATION:
-            from .plan_call_cards_v1 import SETTLED_POST, settled_destinations, settle_pending
             if source["status"] in {SETTLED_POST, posts.STALE, posts.SUPERSEDED}:
-                continue
+                return None, set()
             # Legacy API-complete rows used PUBLISHED before their browser
             # copies reconciled. Their old readbacks obey the same late limit.
             if source_payload.get("at_utc") and posts._age_minutes(source_payload,
-                    datetime.now(timezone.utc)) > posts.LATE_STATE_HOURS * 60:
-                closed = settle_pending(store, source, source_payload, now=datetime.now(timezone.utc))
-                if closed:
-                    continue
-            if request["destination"] in settled_destinations(store, source_payload):
-                continue
-        if source["destination"]=="internal:plan-analysis-page" and source_payload.get("link_id")!=operation:
-            continue
-        if source["destination"] == "internal:plan-analysis-page":
-            from .plan_analysis_pages_v1 import settle_late_link
-            if settle_late_link(store, source_payload):
-                continue
-        response_key="native-neo-"+sha256_of([operation,request["request_sha256"],"response"])
-        if store.get_outbox_message(response_key):
+                    now) > posts.LATE_STATE_HOURS * 60:
+                if settle_pending(store, source, source_payload, now=now):
+                    return None, set()
+            return source_payload, set(settled_destinations(store, source_payload))
+        if source_payload.get("link_id") != operation or settle_late_link(store, source_payload):
+            return None, set()
+        return source_payload, set()
+
+    chosen = {}
+    for packet, response_key in requests:
+        request = packet["request"]
+        operation = packet["operation_id"]
+        source_payload, settled = eligible_source(operation)
+        if source_payload is None or request["destination"] in settled or response_key in completed:
             continue
         key=(operation,request["destination"])
         prior=chosen.get(key)

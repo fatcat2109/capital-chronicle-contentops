@@ -360,17 +360,27 @@ def test_closed_post_cannot_spend_a_stored_browser_slot(tmp_path, monkeypatch):
     assert neo.resume_stored_requests(store)["requests"] == []
 
 
-def test_stored_browser_budget_goes_to_the_newest_live_post(tmp_path, monkeypatch):
+@pytest.mark.parametrize("continuation", [False, True])
+def test_stored_browser_budget_goes_to_the_newest_live_post(tmp_path, monkeypatch, continuation):
     from live_contentops.native_neo_executor_v1 import SCHEMA, DESTINATION
     store=ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    store.create_work_item(story_id="unrelated", work_item_id="unrelated", title="Unrelated request history",
+                           target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id="request-unrelated", work_item_id="unrelated",
+        destination=DESTINATION, payload="unread legacy record", status="NATIVE_NEO_INTERNAL")
     for key,hours in (("older",2),("newer",1)):
         row=retained(store,key,hours=hours,status="PUBLISHING",
                      at_utc=(datetime.now(timezone.utc)-timedelta(hours=hours)).isoformat())
-        ids=dispatch(store,row,"x","UNKNOWN_WRITE")
-        request={"action":"READBACK","destination":"x","request_sha256":key*8,
-            "work_item_id":key,"dispatch_attempt_identity":ids["dispatch_id"]}
+        work = key + "-part-1" if continuation and key == "newer" else key
+        destination = "substack_notes" if work != key else "x"
+        if work != key:
+            store.create_work_item(story_id=work, work_item_id=work, title="Plan continuation",
+                                   target_surface="MULTI_PLATFORM")
+        ids=dispatch(store,{**row, "key": work},destination,"UNKNOWN_WRITE")
+        request={"action":"READBACK","destination":destination,"request_sha256":key*8,
+            "work_item_id":work,"dispatch_attempt_identity":ids["dispatch_id"]}
         packet={"schema_version":SCHEMA,"operation_id":key,"request":request}
-        store.register_outbox_message(message_id="request-"+key,work_item_id=key,destination=DESTINATION,
+        store.register_outbox_message(message_id="request-"+key,work_item_id=work,destination=DESTINATION,
             payload=json.dumps(packet),status="NATIVE_NEO_INTERNAL")
     reached=[]
     class Coordinator:
@@ -386,7 +396,8 @@ def test_stored_browser_budget_goes_to_the_newest_live_post(tmp_path, monkeypatc
     monkeypatch.setattr(__import__("live_contentops.native_neo_executor_v1",fromlist=["bind_native_neo_coordinator"]),
         "bind_native_neo_coordinator",lambda *a,**kw:(Coordinator(),Executor()))
     result=neo.resume_stored_requests(store,limit=1)
-    assert reached==["newer"] and len(result["requests"])==1
+    assert reached == ["newer-part-1" if continuation else "newer"]
+    assert len(result["requests"]) == 1 and result["requests"][0]["operation_id"] == "newer"
 
 
 def test_minute_record_reports_live_queue_after_settlement_without_losing_recent_work(tmp_path, monkeypatch):
