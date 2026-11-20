@@ -21,7 +21,9 @@ from live_contentops.native_desktop_publication_v1 import (
 )
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 from live_contentops.native_manual_candidate_v1 import manual_output_root
-from live_contentops.native_publication_promotion_v1 import ReadOnlyStore, _snapshot, promote
+from live_contentops.native_publication_promotion_v1 import (
+    X_BACKGROUND_LEASE_KEYS, ReadOnlyStore, _snapshot, promote,
+)
 
 AUTHORITY = "JIM_DECISIONS_20261030_DECISION_39"
 
@@ -50,13 +52,13 @@ def assert_newsroom_idle(store, *, own_lease=None, preparation_only=False):
     # Newsroom windows and editorial operations still exclude a standing entry.
     scope = ("AND (lease_key LIKE 'internal:native-editorial:%' "
              "OR lease_key LIKE 'internal:native-window:%') " if preparation_only else "")
-    # Reply-tab refresh owns different drafts. It does not own the article
-    # import; the existing coordinator still serializes actual dispatches.
+    # X reply and quote workers hold their tick lease during screening and use
+    # separate composers. Their exact dispatches still use the coordinator.
     with store.get_read_only_connection() as conn:
         active = conn.execute(
             "SELECT lease_key FROM leases WHERE status='ACTIVE' AND expires_at>? "
-            "AND lease_id!=? AND lease_key!='x-reply-tabs-refresh' " + scope + "LIMIT 1",
-            (store._get_now_iso(), own_lease or ""),
+            "AND lease_id!=? AND lease_key NOT IN (?, ?) " + scope + "LIMIT 1",
+            (store._get_now_iso(), own_lease or "", *X_BACKGROUND_LEASE_KEYS),
         ).fetchone()
     if active:
         raise ValueError("NEWSROOM_LEASE_ACTIVE:" + active[0])

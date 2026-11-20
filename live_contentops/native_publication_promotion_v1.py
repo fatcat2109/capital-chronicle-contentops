@@ -23,6 +23,7 @@ from live_contentops.native_desktop_publication_v1 import (
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 
 PROMOTION_DESTINATION = "internal:native-retrospective-promotion"
+X_BACKGROUND_LEASE_KEYS = ("x-reply-tabs-refresh", "heavy-news-quotes-minute")
 
 class ReadOnlyStore(ContentOpsDurableStore):
     """Use existing readers while refusing writes, migrations and WAL-mode changes."""
@@ -108,12 +109,13 @@ def _prior_distribution_can_wait(rows, operation, binding):
 
 
 def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
-    # A reply-tab refresh cannot collide with this exact article import.
-    # Other live writers and all uncertain dispatch/reconciliation stay guarded.
+    # The X workers use separate tabs and exact outbox identities. Keep their
+    # dispatch and recovery checks in the coordinator during article import.
     if conn.execute(
         "SELECT 1 FROM leases WHERE status='ACTIVE' AND expires_at>? "
-        "AND lease_id NOT IN (?,?) AND lease_key!='x-reply-tabs-refresh' LIMIT 1",
-        (datetime.now(timezone.utc).isoformat(), own_lease or "", operation.get("_own_newsroom_lease", "")),
+        "AND lease_id NOT IN (?, ?) AND lease_key NOT IN (?, ?) LIMIT 1",
+        (datetime.now(timezone.utc).isoformat(), own_lease or "",
+         operation.get("_own_newsroom_lease", ""), *X_BACKGROUND_LEASE_KEYS),
     ).fetchone():
         raise ValueError("CC074_TARGET_HAS_ACTIVE_WORK")
     uncertain = conn.execute(

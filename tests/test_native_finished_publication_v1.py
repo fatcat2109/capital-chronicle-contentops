@@ -17,7 +17,7 @@ from live_contentops.native_publication_promotion_v1 import ReadOnlyStore
 from live_contentops.native_desktop_workspace_v1 import workspace_snapshot
 from test_native_desktop_publication_v1 import composed, finish
 from test_native_text_first_v1 import brief_packet
-from scripts.run_native_desktop_editorial import resolve_owner_operation
+from scripts.run_native_desktop_editorial import operation as run_editorial_operation, resolve_owner_operation
 
 
 @pytest.fixture
@@ -449,13 +449,25 @@ def test_finished_writer_model_and_effort_labels_are_recorded_not_gates(ready, m
     assert result["writer_observation"]["reasoning_effort"] == "recorded-effort"
 
 
-def test_reply_tab_refresh_does_not_block_finished_article_import(ready):
+@pytest.mark.parametrize("lease_key", ["x-reply-tabs-refresh", "heavy-news-quotes-minute"])
+def test_separate_x_work_does_not_block_an_article(ready, monkeypatch, lease_key):
     _, target, _, path, rollout = ready
-    lease = target.acquire_lease("x-reply-tabs-refresh", owner_ref="CONTROLLED-tab-refresh", ttl_seconds=600)
+    lease = target.acquire_lease(lease_key, owner_ref="CONTROLLED-x-worker", ttl_seconds=600)
     released = release_finished_piece(path, rollout)
     assert released["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
     assert released["binding"]["store_path"] == str(target.db_path)
     assert target.list_platform_dispatches() == []
+
+    operation, executor, _ = composed(target, released["binding"], rollout, monkeypatch)
+    resumed = run_editorial_operation(released["binding"], command="publication-resume",
+        rollout=rollout, native_invocation_id="CONTROLLED")
+    assert resumed["classification"] == "NATIVE_PUBLICATION_CONTINUATION"
+    pending = [p["request"] for p in executor.pending()]
+    assert pending and {request["destination"] for request in pending} == {"substack"}
+    final, _ = finish(operation, executor)
+    assert final["publication"]["canonical_article_real_published"] is True
+    assert len(list(confirmed_canonicals(target))) == 1
+
     with target.get_read_only_connection() as conn:
         row = conn.execute("SELECT status FROM leases WHERE lease_id=?", (lease["lease_id"],)).fetchone()
     assert row["status"] == "ACTIVE"
