@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from live_contentops.agy_decision_metrics_v1 import daily_metrics
 from live_contentops.day_readback_v1 import check_public_text, report_window, write_decision_checks, write_report
 from live_contentops.public_decision_checks_v1 import DecisionChecks, WRAP_ROUTES
@@ -57,7 +59,7 @@ def test_plan_quotes_exact_link_chart_discord_and_linkedin_are_checked_per_copy(
     problems = {(r["decision"], r["platform"], r["first_cause"]) for r in output["issues"]}
     assert {
         ("82", "discord", "MARKET_TRADINGVIEW_SYMBOL_MISMATCH"),
-        ("113", "discord", "PLAN_LAYER_QUOTES_BELOW_THREE"),
+        ("113", "discord", "PLAN_ANALYSIS_LAYERS_MISSING"),
         ("113", "discord", "FULL_ANALYSIS_LINK_MISSING"),
         ("CC-685", "discord", "DISCORD_FILL_OR_RESULT_THREAD_ONLY"),
         ("CC-684", "linkedin", "LINKEDIN_SUBSTACK_LINK_MISSING"),
@@ -80,7 +82,9 @@ def test_actual_post_body_overrides_intent_and_is_not_serialized(tmp_path):
             "Options and gamma: Dealer positioning dampened the early move.\nFull analysis: " + page)
     copy = published(audit, "gold-setup", "telegram", text=text, source=source,
                      intent={"media_assets": [{"asset_id": "chart", "tradingview_snapshot": {"tv_symbol": "FX_IDC:XAUUSD"}}]})
-    assert not any(e["decision"] == "113" for e in audit.finish({}, {"plan_gold": page})["issues"])
+    layers = audit.finish({}, {"plan_gold": page})["plan_analysis"][0]["layers"]
+    assert {name for name, item in layers.items() if item["state"] == "PRINTED"} == {
+        "macro", "fundamental", "options_gamma"}
 
     audit = checks(tmp_path)
     copy = published(audit, "gold-setup", "telegram", text=text, source=source)
@@ -94,6 +98,96 @@ def test_actual_post_body_overrides_intent_and_is_not_serialized(tmp_path):
     artifact = write_decision_checks(tmp_path, result)
     assert "Parent text" not in artifact.read_text(encoding="utf-8")
     assert json.loads(artifact.read_bytes()) == result
+
+
+@pytest.mark.parametrize("case,expected_gaps", [
+    ("complete", {}),
+    ("unavailable", {}),
+    ("omitted", {"technical": "EXPORTED_LAYER_NOT_PRINTED"}),
+    ("incorrect", {"scenarios": "EXPORTED_LAYER_NOT_PRINTED"}),
+    ("uncited", {"cross_asset_contagion": "EXPORT_GAP_WITHOUT_CAUSE"}),
+])
+def test_plan_layers_match_the_frozen_export_per_platform(tmp_path, case, expected_gaps):
+    audit = checks(tmp_path)
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    lines = {
+        "macro": "Yields eased as the dollar weakened.",
+        "event_and_cause": "Prices rose after the official release.",
+        "fundamentals": "Physical demand remained firm through Monday.",
+        "priced_in": "Futures already reflected one rate cut.",
+        "positioning_and_sentiment": "Speculators maintained their net long exposure.",
+        "options_and_gamma": "Dealer hedging slowed the intraday move.",
+        "cross_asset_and_contagion": "Treasuries led the recovery in gold.",
+        "technical": "Gold held above its previous weekly low.",
+    }
+    exported = [{"layer": name, "state": "USED", "text": value} for name, value in lines.items()]
+    if case in {"unavailable", "uncited"}:
+        exported[-2] = {"layer": "cross_asset_and_contagion", "state": "UNAVAILABLE",
+                        "first_cause": "NOT_WRITTEN" if case == "unavailable" else None}
+        lines.pop("cross_asset_and_contagion")
+    if case == "omitted":
+        lines.pop("technical")
+    text = "\n".join(f"{label.replace('_', ' ')}: {value}" for label, value in lines.items())
+    text += f"\nMain scenario (55%). Alternative scenario ({41 if case == 'incorrect' else 40}%).\n{page}"
+    source = {"kind": "update", "plan_id": "plan_gold", "symbol": "XAUUSD", "source_plan": {
+        "layers": exported, "scenario_analysis": {"base_case": {"probability_pct": 55},
+                                                 "main_alternative": {"probability_pct": 40}}}}
+    chart = {"asset_id": "chart", "tradingview_snapshot": {"tv_symbol": "FX_IDC:XAUUSD"}}
+    published(audit, "gold", "telegram", text=text, source=source,
+              native={"media_asset_ids": ["chart"]}, intent={"media_assets": [chart]})
+    published(audit, "gold", "linkedin", text="Gold is holding.", source=source,
+              native={"media_asset_ids": ["chart"]}, intent={"media_assets": [chart]}, media_visible=None)
+    result = audit.finish({}, {"plan_gold": page})
+    copies = {row["platform"]: row for row in result["plan_analysis"]}
+    layers = copies["telegram"]["layers"]
+    assert len(layers) == 9
+    assert copies["telegram"]["full_analysis_link"] and not copies["linkedin"]["full_analysis_link"]
+    assert {key: layer["cause"] for key, layer in layers.items() if layer["state"] == "MISSING"} == expected_gaps
+    assert copies["linkedin"]["layers"]["macro"]["state"] == "MISSING"
+    if case == "unavailable":
+        assert layers["cross_asset_contagion"] == {"state": "UNAVAILABLE", "cause": "NOT_WRITTEN"}
+    assert {(row["platform"], row["first_cause"]) for row in result["issues"] if row["decision"] == "82"} == {
+        ("linkedin", "MARKET_TRADINGVIEW_CHART_UNVERIFIED")}
+
+
+@pytest.mark.parametrize("first_has_link", [True, False])
+def test_analysis_link_uses_only_the_first_confirmed_platform_reply(tmp_path, first_has_link):
+    audit = checks(tmp_path)
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    root = published(audit, "gold", "telegram", source={"kind": "setup", "plan_id": "plan_gold"},
+                     text="Gold is holding.", native={"full_text": "Gold is holding. " + page,
+                                                      "text": "Gold is holding."})
+    published(audit, "first", "telegram", text=page if first_has_link else "Earlier reply.",
+              native={"reply_to_id": "object-1", "reply_to_url": root.url},
+              published_at="2026-11-19T12:31:00Z")
+    published(audit, "second", "telegram", text=page,
+              native={"reply_to_id": "object-1", "reply_to_url": root.url},
+              published_at="2026-11-19T12:32:00Z")
+    assert audit.finish({}, {"plan_gold": page})["plan_analysis"][0]["full_analysis_link"] is first_has_link
+
+
+def test_x_observed_thread_checks_all_layers_but_link_only_in_first_reply(tmp_path):
+    audit = checks(tmp_path)
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    source = {"kind": "setup", "plan_id": "plan_gold", "source_plan": {
+        "macro": "Yields eased as the dollar weakened."}}
+    copy = published(audit, "gold", "x", source=source, text="Gold is holding.", mutations=[
+        ("2026-11-19T14:02:00Z", {"readback": {
+            "verified": True, "content_binding_checks": {"thread_match": True},
+            "observed_text": "Gold is holding. " + page,
+            "observed_thread": [
+                {"role": "root", "public_object_url": "https://x.com/Capitalnicle/status/98",
+                 "observed_text": "Gold is holding."},
+                {"public_object_url": "https://x.com/Capitalnicle/status/99", "observed_text": "First reply."},
+                {"public_object_url": "https://x.com/Capitalnicle/status/100",
+                 "observed_text": "Macro: Yields eased as the dollar weakened. " + page},
+            ],
+        }}),
+    ])
+    copy.url = "https://x.com/Capitalnicle/status/98"
+    result = audit.finish({}, {"plan_gold": page})
+    assert not result["plan_analysis"][0]["full_analysis_link"]
+    assert result["plan_analysis"][0]["layers"]["macro"] == {"state": "PRINTED"}
 
 
 def test_late_page_and_edit_require_dated_object_evidence(tmp_path):

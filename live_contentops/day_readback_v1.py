@@ -396,6 +396,9 @@ def _public_rows(conn, window, feed):
         work_ids.update(row[0] for row in conn.execute("""
             SELECT o.work_item_id FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
             WHERE d.public_object_url=? AND o.destination='substack'""", (url,)))
+    # A continuation can arrive in a later window than its root.
+    work_ids.update(work.rsplit("-part-", 1)[0] for work in tuple(work_ids)
+                    if work.startswith("plan-") and re.search(r"-part-\d+$", work))
     by_id = {}
     end = utc(window["until_utc"])
     for work_id in sorted(work_ids):
@@ -817,10 +820,10 @@ def _plan_delivery(conn, window, store_path):
         ORDER BY p.created_at,p.message_id""",
         (posts.DESTINATION, iso(end), iso(start), posts.READY, iso(end), iso(start), iso(start))):
         row = json.loads(plan["payload"])
-        if row.get("format") != cards.FORMAT or row.get("kind") not in {"setup", "update", "result"}:
+        if row.get("kind") not in {"setup", "update", "result"}:
             continue
         key = plan["message_id"]
-        named = cards.destinations_for(row)
+        named = cards.destinations_for(row) if row.get("format") == cards.FORMAT else posts.POST_DESTINATIONS
         routes = {}
         plan_hash = sha256(("plan-status-post:" + key).encode()).hexdigest()
         for route in conn.execute("""SELECT o.destination,o.status AS outbox_status,o.created_at,
@@ -829,10 +832,10 @@ def _plan_delivery(conn, window, store_path):
             WHERE o.work_item_id=? AND julianday(o.created_at) <= julianday(?)
             ORDER BY o.created_at,o.message_id""", (key, iso(end))):
             destination = route["destination"]
-            if destination in named and route["message_id"] == DurablePublicationCoordinator._ids(
+            if destination in ROUTES and route["message_id"] == DurablePublicationCoordinator._ids(
                     key, plan_hash, destination)["message_id"]:
                 routes[destination] = route
-        selected.append((plan, row, named, routes))
+        selected.append((plan, row, tuple(dict.fromkeys((*named, *routes))), routes))
 
     histories = _readback_histories(conn, (route["dispatch_id"] for _, _, _, routes in selected
                                            for route in routes.values()), end)
@@ -1251,8 +1254,17 @@ def markdown(report):
         for item in decisions["issues"]:
             url = f" · {item['public_url']}" if item["public_url"] else ""
             cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
+            gaps = item.get("missing_layers") or {}
+            if gaps:
+                cause += " (" + ", ".join(f"{key}={value}" for key, value in gaps.items()) + ")"
             lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
+        for copy in decisions.get("plan_analysis", []):
+            unavailable = [f"{key}={item['cause']}" for key, item in copy["layers"].items()
+                           if item["state"] == "UNAVAILABLE"]
+            if unavailable:
+                lines.append(f"- 113 · {plain(copy['piece_id'])} / {copy['platform']} · "
+                             f"Unavailable in the frozen plan ({', '.join(unavailable)})")
         if assist := decisions.get("antigravity"):
             lines.extend(["", "### Antigravity", "",
                           "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",

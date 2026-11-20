@@ -236,6 +236,7 @@ def test_evening_checks_copies_sent_or_pending_after_an_older_plan_was_created(r
     assert ("telegram", "PLAN_COPY_OVER_TEN_MINUTES_LATE") in issues
     assert ("threads", "PLAN_COPY_UNCONFIRMED") in issues
     assert all(platform != "discord" for platform, _ in issues)
+    assert "PLAN_ANALYSIS_LAYERS_MISSING (macro=EXPORT_GAP_NOT_RECORDED" in readback.markdown(report)
 
 
 def test_nov16_piece_channels_and_digest_are_consumed(recorded):
