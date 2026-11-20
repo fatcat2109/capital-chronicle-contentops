@@ -1504,10 +1504,11 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if context.get("plan_status_post") != key:
         raise PlanPostError("PLAN_STATUS_POST_PACKAGE_MISMATCH")
     card_id = (context["media"]["assets"][0]["asset_id"] if context["media"]["assets"] else None)
+    if linkedin_url := context.get("status_post_linkedin_analysis_url"):
+        row["linkedin_analysis_url"] = linkedin_url
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
-        render_row = {**row, "linkedin_analysis_url": context.get("status_post_linkedin_analysis_url")}
-        return row, card_payloads(render_row, card_id=card_id, parents=context.get("status_post_parents"),
+        return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
                                   portrait_id=context.get("status_post_threads_image"),
                                  x_analysis=context.get("status_post_x_analysis"),

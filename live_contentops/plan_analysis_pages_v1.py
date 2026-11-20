@@ -268,8 +268,12 @@ def load_run(plan, *, run_root=RUN_ROOT):
     run_id = plan.get("run_id")
     if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", run_id):
         raise ValueError("PLAN_ANALYSIS_RUN_ID_INVALID")
-    folder = next((Path(run_root) / kind / run_id for kind in ("requests", "shocks")
-                   if (Path(run_root) / kind / run_id).is_dir()), None)
+    root = Path(run_root)
+    roots = [root]
+    if root.name == RUN_ROOT.name:
+        roots.append(root.with_name("horizon-research-mid-279805139"))
+    candidates = (archive / kind / run_id for archive in roots for kind in ("requests", "shocks"))
+    folder = next((candidate for candidate in candidates if candidate.is_dir()), None)
     if folder is None:
         raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
     # Main's single-pass runs retain the sealed result and combined analysis,
@@ -543,7 +547,8 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
                "summary": {k: manuscript["sections"][k]["summary"] for k, _ in sections_for(manuscript)},
               "source_manifest": run["manifest"], "numeric_bindings": bindings,
               "freeze": {k: freeze[k] for k in ("frozen_at_utc", "immutable_hash")},
-              "authorship": manuscript.get("authorship", {}), "manuscript": manuscript, "run_root": str(Path(run_root)),
+              "authorship": manuscript.get("authorship", {}), "manuscript": manuscript,
+              "run_root": str(run["folder"].parent.parent),
               "source_plan": plan, "media_assets": [card] if card else [], "output_dir": str(folder.resolve())}
     if market_update:
         packet["market_update"] = market_update

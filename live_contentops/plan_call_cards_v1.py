@@ -1021,6 +1021,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         from .plan_reader_copy_v1 import payloads
         return payloads(row, card_id, chart_credit=chart_credit, parents=parents, portrait_id=portrait_id)
     result = {}
+    linkedin_analysis_url = row.get("linkedin_analysis_url")
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
               "linkedin": 3000}
@@ -1032,7 +1033,6 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         limits["telegram"] = 4096
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
-    linkedin_analysis_url = row.get("linkedin_analysis_url")
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
         if destination == "linkedin" and linkedin_analysis_url and not row.get("analysis_link"):

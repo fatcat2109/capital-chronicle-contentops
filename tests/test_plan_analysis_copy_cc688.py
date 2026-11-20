@@ -199,6 +199,29 @@ def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp
     assert launch()["status"] == "ACTIVE_PAGE_DRAFT" and len(launched) == 1
 
 
+def test_page_consumer_reads_the_sealed_mid_horizon_archive(source, tmp_path):
+    _, folder, plan, _ = source
+    daily = tmp_path / pages.RUN_ROOT.name
+    mid = daily.with_name("horizon-research-mid-279805139")
+    (mid / "requests").mkdir(parents=True)
+    folder.rename(mid / "requests" / plan["run_id"])
+    plan["analysis_layers"] = LAYERS
+    run = pages.load_run(plan, run_root=daily)
+    manuscript = editorial.draft_plan_page(plan, run, output_dir=tmp_path / "draft",
+        call=lambda prompt, **_: (json.dumps(_selection(prompt)).encode(), {"status": "RETURNED"}))
+    packet = pages.render(plan, manuscript, run_root=daily, output_dir=tmp_path / "page")
+    assert Path(packet["run_root"]) == mid
+    store = ContentOpsDurableStore(tmp_path / "mid.sqlite3")
+    registered = pages.register_page(store, packet)
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(registered["page_id"], registered["plan"])
+    intent, = store.list_outbox_messages(destination="substack")
+    checked = pages.validate_intent(store, json.loads(intent["payload"]))
+    assert checked["native_payload"] == packet["native_payload"]
+    with pytest.raises(ValueError, match="PLAN_ANALYSIS_RESULT_HASH_MISMATCH"):
+        pages.load_run({**plan, "analysis_result_hash": "0" * 64}, run_root=daily)
+
+
 def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(source, tmp_path):
     run_root, _, plan, manuscript = source
     store = ContentOpsDurableStore(tmp_path / "links.sqlite3")
