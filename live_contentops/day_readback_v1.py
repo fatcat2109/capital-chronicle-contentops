@@ -390,6 +390,21 @@ def _public_rows(conn, window, feed):
     return list(by_id.values())
 
 
+def _readback_histories(conn, dispatch_ids, end):
+    ids = list(dict.fromkeys(dispatch_id for dispatch_id in dispatch_ids if dispatch_id))
+    histories = defaultdict(list)
+    if ids:
+        # The store's readbacks index is keyed by readback ID. Select the whole
+        # report cohort in one scan instead of scanning once for every copy.
+        for row in conn.execute("""SELECT dispatch_id,read_at,readback_data FROM readbacks
+            WHERE dispatch_id IN (SELECT value FROM json_each(?))
+            AND julianday(read_at) <= julianday(?) ORDER BY read_at,readback_id""",
+            (json.dumps(ids), iso(end))):
+            if utc(row["read_at"]) <= end:
+                histories[row["dispatch_id"]].append((row["read_at"], json.loads(row["readback_data"])))
+    return histories
+
+
 def _route_engagement(conn, row, route, history, *, as_of, source_exists, collector_states):
     entry = {"platform": route["platform"], "public_url": route["public_url"],
              "metrics": {}, "missing_metrics": {}, "first_cause": None}
@@ -672,7 +687,7 @@ def _plan_delivery(conn, window, store_path):
     start, end = utc(window["since_utc"]), utc(window["until_utc"])
     runtime = Path(store_path).parent
     root = runtime / "daily_app_outputs" / "plan-status-posts"
-    plan_rows, copies, need_cause = [], [], defaultdict(set)
+    selected = []
     for plan in conn.execute("""SELECT message_id,payload,status,created_at FROM outbox_messages
         WHERE destination=? AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
         ORDER BY created_at,message_id""", (posts.DESTINATION, iso(start), iso(end))):
@@ -681,9 +696,6 @@ def _plan_delivery(conn, window, store_path):
             continue
         key = plan["message_id"]
         named = cards.destinations_for(row)
-        settled = cards.read_settled_destinations(conn, row)
-        skipped = {d["destination"]: d["cause"] for d in cards._skipped_images(root, row)}
-        native = _native_observations(conn, key, iso(end))
         routes = {}
         plan_hash = sha256(("plan-status-post:" + key).encode()).hexdigest()
         for route in conn.execute("""SELECT o.destination,o.status AS outbox_status,o.created_at,
@@ -695,6 +707,16 @@ def _plan_delivery(conn, window, store_path):
             if destination in named and route["message_id"] == DurablePublicationCoordinator._ids(
                     key, plan_hash, destination)["message_id"]:
                 routes[destination] = route
+        selected.append((plan, row, named, routes))
+
+    histories = _readback_histories(conn, (route["dispatch_id"] for _, _, _, routes in selected
+                                           for route in routes.values()), end)
+    plan_rows, copies, need_cause = [], [], defaultdict(set)
+    for plan, row, named, routes in selected:
+        key = plan["message_id"]
+        settled = cards.read_settled_destinations(conn, row)
+        skipped = {d["destination"]: d["cause"] for d in cards._skipped_images(root, row)}
+        native = _native_observations(conn, key, iso(end))
         observed = []
         for destination in named:
             route = routes.get(destination)
@@ -711,9 +733,7 @@ def _plan_delivery(conn, window, store_path):
                     WHERE incident_id=? AND julianday(created_at) <= julianday(?)""",
                     (retry_id, iso(end))).fetchone() is not None
                 diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, [])
-                diagnostics.extend((r["read_at"], json.loads(r["readback_data"])) for r in conn.execute(
-                    """SELECT read_at,readback_data FROM readbacks
-                    WHERE dispatch_id=? AND julianday(read_at) <= julianday(?)""", (dispatch_id, iso(end))))
+                diagnostics.extend(histories.get(dispatch_id, []))
                 cause = next((c for _, value in sorted(diagnostics, key=lambda item: utc(item[0]))
                               if (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
             if not confirmed:
@@ -814,6 +834,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         conn.execute("BEGIN")
         engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None
         rows = _public_rows(conn, window, feed)
+        histories = _readback_histories(conn, (row["dispatch_id"] for row in rows), end)
         groups = defaultdict(list)
         for row in rows:
             groups[row["work_item_id"]].append(row)
@@ -839,12 +860,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 intent = json.loads(row["payload"])
                 required.update(d for key in ("required_publication_destinations", "required_derivative_destinations")
                                 for d in intent.get(key, []) if d in ROUTES)
-                history = []
-                if row["dispatch_id"]:
-                    for read in conn.execute("SELECT readback_data,read_at FROM readbacks WHERE dispatch_id=? ORDER BY read_at,readback_id",
-                                             (row["dispatch_id"],)):
-                        if utc(read["read_at"]) <= end:
-                            history.append((read["read_at"], json.loads(read["readback_data"])))
+                history = histories.get(row["dispatch_id"], [])
                 quote = intent.get("quote_parent") if platform == "x" and work_id.startswith("heavy-quote-") else None
                 diagnostics = history + native.get(platform, [])
                 if quote:
