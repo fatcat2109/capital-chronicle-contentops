@@ -757,12 +757,14 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             store.register_outbox_message(message_id=item["key"], work_item_id=posts.WORK_ITEM_ID,
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
         queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text")})
+    from .plan_reader_editorial_v1 import active_page_plan_ids
+
     return {"status": "OK", "dry_run": dry_run, "format": FORMAT, **freshness,
             "quarantined_rows": quarantined,
             "contract_version": version, "source_content_hash": export["status"].get("content_hash"),
             **({"rendered_posts": rendered, "rendered_count": len(rendered)} if render_all else {}),
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
-            "latest_states": current_states, "active_recoveries": {},
+            "latest_states": current_states, "active_page_plan_ids": active_page_plan_ids(export, now), "active_recoveries": {},
             "would_queue" if dry_run else "queued": queued, "already_queued": already, "not_posted": skipped}
 
 

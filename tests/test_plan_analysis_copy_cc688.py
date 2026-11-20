@@ -93,7 +93,7 @@ def test_minute_queue_and_all_status_payloads_use_the_same_frozen_lines(replay, 
     raw["analysis_layers"]["options_and_gamma"] = {
         "state": "USED" if confirmed else "UNAVAILABLE",
         "text": "Dealer gamma turns positive above the nearest strike." if confirmed else None,
-        "first_cause": None if confirmed else "options source is stale",
+        "first_cause": None if confirmed else "NOT_WRITTEN",
     }
     if not confirmed:
         raw["scenario_analysis"] = {"gamma": "Dealer gamma is positive above the nearest strike."}
@@ -105,6 +105,7 @@ def test_minute_queue_and_all_status_payloads_use_the_same_frozen_lines(replay, 
     } if confirmed else None)
     result = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     assert result["status"] == "OK"
+    assert result["active_page_plan_ids"] == [raw["plan_id"]]
     row, = rows(store)
     assert row["analysis_copy_contract"] == reader.ANALYSIS_COPY
     alerts.validate(row, store=store)
@@ -212,6 +213,17 @@ def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp
     assert options["stdout"] == subprocess.DEVNULL
     store.acquire_lease(editorial.PAGE_DRAFT_LEASE, "other-worker", ttl_seconds=360)
     assert launch()["status"] == "ACTIVE_PAGE_DRAFT" and len(launched) == 1
+
+
+def test_page_worker_shortlist_uses_current_plan_rows(source):
+    _, _, plan, _ = source
+    now = posts._utc("2026-11-20T04:30:00Z")
+    active = {**plan, "status": "FILLED", "registered_at_utc": "2026-11-20T04:28:00Z"}
+    ended = {**active, "plan_id": "ended", "status": "EXPIRED"}
+    outside = {**active, "plan_id": "earlier", "registered_at_utc": "2026-11-12T00:00:00Z"}
+    missing_analysis = {**active, "plan_id": "missing", "analysis_result_hash": None}
+    export = {"status": {"plans": [active, ended, outside, missing_analysis]}}
+    assert editorial.active_page_plan_ids(export, now) == [active["plan_id"]]
 
 
 def test_page_consumer_reads_the_sealed_mid_horizon_archive(source, tmp_path):

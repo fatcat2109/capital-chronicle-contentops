@@ -116,8 +116,7 @@ def main(argv=None) -> int:
             # Launch the independent author after the API alerts, before the
             # browser work can exhaust the existing minute task's lifetime.
             from live_contentops.plan_reader_editorial_v1 import start_page_draft_worker
-            active_plan_ids = [plan_id for plan_id, state in (result.get("latest_states") or {}).items()
-                               if state in posts.ACTIVE]
+            active_plan_ids = result.get("active_page_plan_ids") or []
             if active_plan_ids:
                 try:
                     draft = start_page_draft_worker(store, python=child_python(), export_dir=args.export_dir,

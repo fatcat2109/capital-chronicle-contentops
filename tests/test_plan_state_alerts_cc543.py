@@ -414,7 +414,8 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     monkeypatch.setattr(substack_daily_note_v1, "run_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
     order = []
     monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {
-        "status": "OK", "latest_states": {"new-plan": "WAITING", "ended-plan": "EXPIRED"}})
+        "status": "OK", "active_page_plan_ids": ["new-plan"],
+        "latest_states": {"new-plan": "WAITING", "old-transition": "WAITING"}})
     def publish(*a, **kw):
         order.append("immediate" if kw.get("immediate_only") else
                      "alert-fanout" if kw.get("alert_filter") else "later-destinations")

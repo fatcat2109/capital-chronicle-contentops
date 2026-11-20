@@ -569,6 +569,12 @@ def _dated_plans(export, now):
             and now - timedelta(days=7) <= _utc(plan["registered_at_utc"]) <= now]
 
 
+def active_page_plan_ids(export, now):
+    from .plan_status_posts_v1 import ACTIVE
+
+    return [plan["plan_id"] for plan in _dated_plans(export, now) if plan.get("status") in ACTIVE]
+
+
 def _new_plan_ids(store):
     from .plan_status_posts_v1 import DESTINATION
 
