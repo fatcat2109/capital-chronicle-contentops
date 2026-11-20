@@ -170,7 +170,9 @@ def check_finished_piece(store, binding):
             raise ValueError("FINISHED_PIECE_SOURCE_CLOCK_INVALID:" + document["source_id"])
         if document.get("public_claim_allowed") is False:
             raise ValueError("FINISHED_PIECE_SOURCE_REMAINS_PRIVATE")
-    output, _ = _normalize_relay_attribution(response["output"], governed.get("epistemic_state"))
+    from live_contentops.reader_article_contract_v1 import replay_writer_contract
+    output = replay_writer_contract(response["output"], governed, result["article"])
+    output, _ = _normalize_relay_attribution(output, governed.get("epistemic_state"))
     checked, validation = _validate_article_against_source_pack(output, governed["source_pack"],
         selected_candidate=governed.get("selected_candidate"), article_mode=governed.get("article_mode"),
         epistemic_state=governed.get("epistemic_state"))

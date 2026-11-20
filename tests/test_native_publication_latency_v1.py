@@ -25,6 +25,35 @@ def current(store, run):
     return json.loads(store.get_outbox_message("cc-editorial-final-" + sha256_of(run))["payload"])
 
 
+def test_short_path_replays_frozen_reader_contract_without_rewriting_return(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    from live_contentops.native_publication_latency_v1 import short_path_acceptance
+    from live_contentops.reader_article_contract_v1 import contract_for
+    from live_contentops import v1_simple_gemini_newsroom_v1 as newsroom
+
+    store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
+    run = binding["run_id"]
+    governed = {"source_pack": result["evidence"], "article_mode": "STANDARD_NEWS_ANALYSIS"}
+    governed["reader_article_contract"] = contract_for(governed)
+    result["article"]["reader_article_contract"] = governed["reader_article_contract"]
+    article = {key: value for key, value in result["article"].items() if key != "reader_article_contract"}
+    request = {"request_sha256": "f" * 64, "governed_input": governed}
+    response = {"request_sha256": request["request_sha256"], "output": {"article": article}}
+    monkeypatch.setattr(NativeDesktopTurn, "frozen_request", lambda self, stage: request)
+    monkeypatch.setattr(NativeDesktopTurn, "_get", lambda self, stage, kind: response)
+    def validate(output, documents, **kwargs):
+        assert documents == result["evidence"]
+        assert output["article"]["reader_article_contract"] == governed["reader_article_contract"]
+        return output["article"], {}
+
+    monkeypatch.setattr(newsroom, "_validate_article_against_source_pack", validate)
+    note = {"text_approved_at_utc": "2026-11-20T14:47:00Z",
+        "publication_speed_policy": {"policy": SPEED_POLICY}, "automated_media_check": {"status": "PASS"}}
+    review = {"review_id": "controlled-review", "notes": json.dumps(note)}
+    assert short_path_acceptance(store, run_id=run, result=result, review=review)["review_id"] == "controlled-review"
+    assert "reader_article_contract" not in response["output"]["article"]
+
+
 def test_bound_event_preview_uses_one_editor_check_without_rewriting_writer(tmp_path, monkeypatch):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     monkeypatch.setattr("test_native_desktop_publication_v1.prepare_native_publication", lambda *a, **k: None)

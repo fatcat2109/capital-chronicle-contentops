@@ -201,7 +201,9 @@ def short_path_acceptance(store, *, run_id, result, review):
     if text_first_brief(result):
         fact_checked_acceptance(store, run_id=run_id, result=result)
     else:
-        output, _ = _normalize_relay_attribution(response["output"], governed.get("epistemic_state"))
+        from live_contentops.reader_article_contract_v1 import replay_writer_contract
+        output = replay_writer_contract(response["output"], governed, result["article"])
+        output, _ = _normalize_relay_attribution(output, governed.get("epistemic_state"))
         try:
             checked, _ = _validate_article_against_source_pack(output, governed["source_pack"],
                 selected_candidate=governed.get("selected_candidate"), article_mode=governed["article_mode"],

@@ -118,6 +118,16 @@ def new_request_contract(governed, run_id=""):
     return contract_for(governed, run_id)
 
 
+def replay_writer_contract(output, governed, approved_article):
+    """Recover server-owned reader metadata before revalidating a saved writer return."""
+    contract = governed.get("reader_article_contract")
+    if contract != approved_article.get("reader_article_contract"):
+        raise ValueError("ARTICLE_READER_CONTRACT_CHANGED")
+    if not contract:
+        return output
+    return {**output, "article": {**output["article"], "reader_article_contract": contract}}
+
+
 def visible(text):
     text = MARKER.sub("", str(text or ""))
     text = re.sub(r"\[\[(?:CITE:[^|\]]+\|([^\]]+)|VISUAL:[^\]]+)\]\]", lambda m: m[1] or "", text)
