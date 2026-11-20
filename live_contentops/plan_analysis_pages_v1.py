@@ -359,18 +359,16 @@ def validate_manuscript(plan, manuscript, run):
     sections = sections_for(manuscript)
     if set(manuscript.get("sections", {})) != {key for key, _ in sections}:
         raise ValueError("PLAN_ANALYSIS_ALL_SEVEN_SECTIONS_REQUIRED")
-    private_texts = []
-    for name in ("market-context.json", "shock-pack.json"):
-        document = run["documents"].get(name, {})
-        items = document.get("items", []) if name == "market-context.json" else document.get("headlines", {}).get("rows", [])
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-            if name == "shock-pack.json" or _X.search(json.dumps(item)):
-                private_texts.extend(item[k] for k in ("headline", "text", "body", "title") if isinstance(item.get(k), str))
+    if manuscript.get("analysis_copy_contract") == "CC688_V1":
+        from .plan_reader_editorial_v1 import validate_plan_page_quotes
+        validate_plan_page_quotes(manuscript, plan, run)
+    private_texts = private_source_texts(run)
     bound = []
     for key, _ in sections:
         section = manuscript["sections"][key]
+        if (not section.get("paragraphs") and manuscript.get("analysis_copy_contract") == "CC688_V1"
+                and not section.get("summary")):
+            continue
         if not section.get("paragraphs") or (not section.get("summary") and manuscript.get("reader_revision", 1) < 3):
             raise ValueError("PLAN_ANALYSIS_SECTION_EMPTY:" + key)
         for index, paragraph in enumerate(section["paragraphs"]):
@@ -395,6 +393,20 @@ def validate_manuscript(plan, manuscript, run):
         if _numbers(manuscript[field]) - _numbers(" ".join(p["text"] for s in manuscript["sections"].values() for p in s["paragraphs"])):
             raise ValueError("PLAN_ANALYSIS_UNBOUND_HEADING_NUMBER")
     return bound
+
+
+def private_source_texts(run):
+    """Collect the private source text that the manuscript must never quote."""
+    private_texts = []
+    for name in ("market-context.json", "shock-pack.json"):
+        document = run["documents"].get(name, {})
+        items = document.get("items", []) if name == "market-context.json" else document.get("headlines", {}).get("rows", [])
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            if name == "shock-pack.json" or _X.search(json.dumps(item)):
+                private_texts.extend(item[k] for k in ("headline", "text", "body", "title") if isinstance(item.get(k), str))
+    return private_texts
 
 
 def _owner_candidate(plan, run):
@@ -473,6 +485,8 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
         paragraphs.append(f"Since we fixed the plan, {name} was {relation} the original entry zone. "
                           f"Our quote at {et(market_update['quoted_at_utc'])} was {price:,f}.")
     for key, title in sections_for(manuscript):
+        if manuscript.get("analysis_copy_contract") == "CC688_V1" and not manuscript["sections"][key]["paragraphs"]:
+            continue
         paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
         if key == "technical":
             paragraphs += geometry

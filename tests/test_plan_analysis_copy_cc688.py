@@ -1,6 +1,7 @@
 from copy import deepcopy
 from functools import partial
 import json
+from pathlib import Path
 import subprocess
 import sys
 
@@ -13,6 +14,8 @@ from live_contentops import plan_reader_editorial_v1 as editorial
 from live_contentops import plan_state_alerts_v1 as alerts
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.light_model_caller_v1 import call_light
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from test_plan_analysis_pages_cc432 import source  # noqa: F401
 from test_plan_state_alerts_cc543 import event, main_root, replay, rows, write  # noqa: F401
 
 
@@ -95,3 +98,83 @@ def test_minute_queue_and_all_status_payloads_use_the_same_frozen_lines(replay, 
     row["analysis_layer_quotes"]["macro"] = "Real yields fell after the data release."
     with pytest.raises(ValueError, match="CC688_LAYER_NOT_QUOTED_FROM_PLAN"):
         alerts.validate(row, store=store)
+
+
+def _selection(prompt):
+    packet = json.JSONDecoder().raw_decode(prompt.split("\n", 1)[1])[0]
+    return {key: [len(items) - 1] for key, items in packet.items()}
+
+
+@pytest.mark.parametrize("terminal_writer", ["antigravity", "codex", "frozen_plan"])
+def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, tmp_path, monkeypatch, terminal_writer):
+    run_root, _, plan, _ = source
+    now = posts._utc("2026-11-20T04:30:00Z")
+    plan.update(analysis_layers=LAYERS, registered_at_utc="2026-11-20T04:28:00Z", status="WAITING",
+                scenario_analysis={"base_case": {"probability_pct": 55}})
+    store = ContentOpsDurableStore(tmp_path / "draft.sqlite3")
+    export = {"status": {"plans": [plan]}}
+    root = tmp_path / "pages"
+    seen = []
+
+    def draft(prompt, **options):
+        caller, = options["callers"]
+        seen.append(caller)
+        if caller == "codex":
+            assert options["codex_effort"] == "high"
+        if terminal_writer == "codex" and caller == "antigravity":
+            return b'{"macro":[1024]}', {"status": "RETURNED"}
+        if terminal_writer == "frozen_plan":
+            return b"", {"status": "FAILED", "cause": "CLI_QUOTA"}
+        return json.dumps(_selection(prompt)).encode(), {"status": "RETURNED", "answered_by": caller}
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("minute must not launch an authoring call")
+
+    monkeypatch.setattr(editorial, "prepare_page", forbidden)
+    pending = editorial.run_due(store, export, root=root, rollout={}, now=now, publish=False, cached_only=True)
+    assert pending["draft_due"] and pending["pages"] == []
+    result = editorial.draft_due_page(store, lambda: export, root=root, now=now, call=draft, run_root=run_root)
+    assert result["status"] == "PAGE_DRAFT_READY" and result["writer"] == terminal_writer
+    assert seen == (["antigravity"] if terminal_writer == "antigravity" else ["antigravity", "antigravity", "codex"])
+    records = [json.loads(file.read_bytes()) for file in root.glob("*/*/*/*/light-call.json")]
+    assert len(records) == len(seen)
+    assert all(record["job"] == "plan_analysis_page" for record in records)
+    packet_path, = root.glob("*/" + editorial.DRAFT_MANUSCRIPT)
+    draft_bytes = packet_path.read_bytes()
+    render = pages.render
+    monkeypatch.setattr(pages, "render", partial(render, run_root=run_root))
+    outcome = editorial.run_due(store, export, root=root, rollout={}, now=now, publish=False, cached_only=True)
+    assert not outcome["draft_due"] and outcome["pages"][0]["publication"]["status"] == "PREPARED", outcome
+    packet = editorial.publication_packet(store, plan)
+    assert packet["authorship"]["writer"] == terminal_writer
+    assert "Main scenario (55%)" in packet["native_payload"]["body_markdown"]
+    assert "Alternative scenario" not in packet["native_payload"]["body_markdown"]
+    assert packet_path.read_bytes() == draft_bytes
+    manuscript = deepcopy(packet["manuscript"])
+    manuscript["sections"]["macro"]["paragraphs"][0]["text"] = "Real yields fell after the data release."
+    with pytest.raises(ValueError, match="CC688_PAGE_COPY_CHANGED_FROM_FROZEN_PLAN"):
+        pages.validate_manuscript(plan, manuscript, pages.load_run(plan, run_root=run_root))
+
+
+def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp_path, monkeypatch):
+    now = posts._utc("2026-11-20T04:30:00Z")
+    store = ContentOpsDurableStore(tmp_path / "worker.sqlite3")
+    monkeypatch.setattr(store, "_get_now", lambda: now)
+    launched = []
+
+    class Worker:
+        pid = 99
+
+    def popen(args, **options):
+        launched.append((args, options))
+        return Worker()
+
+    monkeypatch.setattr(editorial.subprocess, "Popen", popen)
+    launch = partial(editorial.start_page_draft_worker, store, python=sys.executable, export_dir=tmp_path / "export",
+                     main_root=tmp_path / "fixture-main", root=tmp_path / "pages", now=now)
+    assert launch()["pid"] == 99
+    args, options = launched[0]
+    assert args[2] == "draft-due" and Path(args[1]).name == "plan_analysis_pages.py"
+    assert options["stdout"] == subprocess.DEVNULL
+    store.acquire_lease(editorial.PAGE_DRAFT_LEASE, "other-worker", ttl_seconds=360)
+    assert launch()["status"] == "ACTIVE_PAGE_DRAFT" and len(launched) == 1

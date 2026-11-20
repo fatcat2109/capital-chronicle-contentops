@@ -217,6 +217,15 @@ def check_text(text, *, source, max_chars=None, check_numbers=True, prose=True, 
             "unknown_acronyms": sorted(capitals - base - sourced)}
 
 
+def verbatim_analysis_spans(value):
+    for span in _LAYER_SPAN.split(value.strip()):
+        span = " ".join(span.split()).strip(" ,;:")
+        span = re.sub(r"^(?:ACCEPTED|AMBIGUOUS|REJECTED)[,: ]+\s*", "", span)
+        if span:
+            text = span[0].upper() + span[1:]
+            yield text if text[-1] in ".?!" else text + "."
+
+
 def analysis_layer_options(plan):
     """Public, directly quotable sentences and source pointers from the frozen export."""
     from .plan_analysis_pages_v1 import check_reader_claim
@@ -224,27 +233,19 @@ def analysis_layer_options(plan):
     name_by_layer = dict(ANALYSIS_LAYERS)
     sources = {layer: [] for layer in name_by_layer}
 
-    def add(layer, value, pointer, *, match=None, legacy=False):
+    def add(layer, value, pointer, *, match=None):
         if not isinstance(value, str):
             return
-        for span in _LAYER_SPAN.split(value.strip()):
-            span = " ".join(span.split()).strip(" ,;:")
-            if legacy:
-                span = re.sub(r"^(?:ACCEPTED|AMBIGUOUS|REJECTED)[,: ]+\s*", "", span)
-            if (not span or _UNAVAILABLE_LAYER.search(span) or (match and not match.search(span))
-                    or re.search(r"\b(?:bullish|bearish)\b", span, re.I)):
+        for text in verbatim_analysis_spans(value):
+            if (_UNAVAILABLE_LAYER.search(text) or (match and not match.search(text))
+                    or re.search(r"\b(?:bullish|bearish)\b", text, re.I)):
                 continue
-            # Uppercasing the initial and supplying terminal punctuation leave
-            # the quote text and its figures intact.
-            text = span[0].upper() + span[1:]
-            if text[-1] not in ".?!":
-                text += "."
             if len(text) > 220 or any(item["text"] == text for item in sources[layer]):
                 continue
             try:
                 check_text(text, source=value, prose=False)
                 check_thread_text(text, force=True)
-                check_reader_claim(text, source=span)
+                check_reader_claim(text, source=text)
             except ValueError:
                 continue
             sources[layer].append({"text": text, "ref": {"file": "plan-export", "pointer": pointer}})
@@ -276,7 +277,7 @@ def analysis_layer_options(plan):
 
         def legacy(layer, fields, pattern=None):
             for field in fields:
-                add(layer, scenario.get(field), "/scenario_analysis/" + field, match=pattern, legacy=True)
+                add(layer, scenario.get(field), "/scenario_analysis/" + field, match=pattern)
 
         legacy("macro", ("driver",))
         legacy("fundamental", ("fundamental", "fundamentals", "mechanism", "driver", "positioning"), _FUNDAMENTAL)
