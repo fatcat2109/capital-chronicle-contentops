@@ -1506,7 +1506,10 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if linkedin_url := context.get("status_post_linkedin_analysis_url"):
         row["linkedin_analysis_url"] = linkedin_url
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import destination_payloads as card_payloads
+        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, destination_payloads as card_payloads, discord_channel_payload
+        if part == DISCORD_CHANNEL_PART:
+            return row, discord_channel_payload(row, card_id=card_id, parents=context.get("status_post_parents"),
+                                                chart_credit=bool(context.get("chart_credit")))
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
                                   portrait_id=context.get("status_post_threads_image"),

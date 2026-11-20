@@ -2981,9 +2981,16 @@ class DurablePublicationCoordinator:
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
+        plan_discord = destination == "discord" and intent.get("plan_status_post")
+        discord_codes = str(local_cause or "").split(";") if plan_discord else []
         if ((destination == "x" and not _x_platform_day_failure(detail))
                 or (destination == "substack_notes" and intent.get("plan_status_post")
                     and detail.get("status") == UNKNOWN_WRITE)
+                # A single plan copy's ambiguous send or rejected reply has
+                # its own receipt. A Discord rate limit affects future sends.
+                or (plan_discord and detail.get("status") == UNKNOWN_WRITE
+                    and not {"http_status:401", "http_status:429"}.intersection(discord_codes))
+                or "DISCORD_ANNOUNCEMENT_REPLY_REJECTED" in discord_codes
                 or self._transient_readiness_failure(detail)
                 or detail.get("plan_preclick_retry") is True
                 or _local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)
@@ -4063,7 +4070,10 @@ class DurablePublicationCoordinator:
                 "public_write_performed": False,
                 "unknown_write_detected": True,
             }
-        state_alert = plan.get("state_alert_contract") == "CC543_V1" and plan.get("plan_status_post") == work_item_id
+        alert_key = plan.get("plan_status_post")
+        if part := plan.get("plan_status_part"):
+            alert_key = f"{alert_key}-part-{part}"
+        state_alert = plan.get("state_alert_contract") == "CC543_V1" and alert_key == work_item_id
         if state_alert:
             # The minute consumer chooses independent routes. An older copy's
             # network readback belongs after the new writes, even on this post.
