@@ -1818,7 +1818,8 @@ class DurablePublicationCoordinator:
             >= created + self._freshness_horizon(intent)
         )
 
-    def _retry_incident_id(self, dispatch_id: str) -> str:
+    @staticmethod
+    def _retry_incident_id(dispatch_id: str) -> str:
         return "incident_derivative_recovery_retry_" + _hash(dispatch_id)[:24]
 
     def _retry_already_attempted(self, dispatch_id: str) -> bool:
