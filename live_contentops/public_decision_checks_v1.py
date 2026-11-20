@@ -239,6 +239,7 @@ class DecisionChecks:
         self.runtime = Path(runtime).resolve()
         self.copies = []
         self.counts = Counter()
+        self.wraps_due = Counter()
         self.issues = []
         self.seen = set()
 
@@ -276,7 +277,9 @@ class DecisionChecks:
             deadline = datetime.combine(day, time(18) if weekend else time(13, 45), timezone.utc)
             if self.start < deadline <= self.end and (weekend or trading_date(day, {"EQUITIES"})):
                 first_day = day - timedelta(days=int(weekend))
-                self._wrap_deadline(by_kind["weekend" if weekend else "daily"], first_day, day, deadline)
+                kind = "weekend" if weekend else "daily"
+                self.wraps_due[kind] += 1
+                self._wrap_deadline(by_kind[kind], first_day, day, deadline)
             day += timedelta(days=1)
 
     def _wrap_deadline(self, copies, first_day, day, deadline):
@@ -476,3 +479,17 @@ class DecisionChecks:
                 "failure_count": sum(row["status"] == "FAIL" for row in issues),
                 "unverified_count": sum(row["status"] == "UNVERIFIED" for row in issues),
                 "issues": issues}
+
+    def estimated_jobs(self, delivery):
+        new_plans = {copy.source.get("plan_id") for copy in self.copies
+                     if copy.source.get("kind") == "setup"
+                     and self.start < (clock(copy.row.get("created_at")) or self.start) <= self.end}
+        articles = {copy.piece for copy in self.copies if copy.platform == "substack"
+                    and (copy.intent.get("full_v1_distribution_required")
+                         or copy.intent.get("resolved_article_mode"))
+                    and self.start < (clock(copy.row.get("created_at")) or self.start) <= self.end}
+        return {"plan_layer_lines": delivery.get("plan_posts", 0),
+                "plan_analysis_page": len(new_plans - {None}),
+                "daily_wrap_sections": self.wraps_due["daily"],
+                "weekend_wrap_sections": self.wraps_due["weekend"],
+                "article_claim_check": len(articles)}

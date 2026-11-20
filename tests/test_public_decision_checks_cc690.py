@@ -1,5 +1,6 @@
 import json
 
+from live_contentops.agy_decision_metrics_v1 import daily_metrics
 from live_contentops.day_readback_v1 import check_public_text, write_decision_checks
 from live_contentops.public_decision_checks_v1 import DecisionChecks, WRAP_ROUTES
 
@@ -113,3 +114,40 @@ def test_late_page_and_edit_require_dated_object_evidence(tmp_path):
     published(audit, "late-gold", "substack", source=source,
               text="This page was published after the plan ended. Status: expired.")
     assert not any(e["decision"] == "CC-584" for e in audit.finish({}, {})["issues"])
+
+
+def test_antigravity_code_outcomes_and_fallbacks_come_from_dated_receipts(tmp_path):
+    def receipt(folder, name, value):
+        path = tmp_path / "daily_app_outputs" / folder / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value), encoding="utf-8")
+        return path
+
+    top = "x_reply_pack/bot/20261119T130000-1234"
+    rank = top + "/editorial/rank"
+    receipt(top, "reply-pack-request-1.json", {})
+    receipt(rank + "/light", "light-call.json", {
+        "started_at_utc": "2026-11-19T13:00:00Z", "ended_at_utc": "2026-11-19T13:01:00Z",
+        "answered_by": "antigravity", "attempts": [{"caller": "antigravity", "status": "RETURNED"}],
+    })
+    receipt(rank, "call.json", {"status": "RETURNED", "ended_at_utc": "2026-11-19T13:01:00Z"})
+    receipt(rank, "response.json", {"ranking": [{"post_id": "12345", "quality_score": 81}]})
+    receipt("plan-status-posts/gold/layer-lines-123", "light-call.json", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T15:00:00Z",
+        "ended_at_utc": "2026-11-19T15:05:00Z", "fallback": "frozen_plan", "result": "FALLBACK",
+        "attempts": [{"caller": "antigravity", "status": "TIMEOUT", "cause": "AGY_TIMEOUT"}],
+    })
+    receipt("plan-status-posts/gold/layer-lines-456", "light-call.json", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-20T12:14:00Z",
+        "ended_at_utc": "2026-11-20T12:16:00Z", "result": "PASS", "answered_by": "antigravity",
+        "attempts": [{"caller": "antigravity", "status": "RETURNED"}],
+    })
+    result = daily_metrics(tmp_path, checks(tmp_path).window, {"plan_layer_lines": 3})
+    by_job = {row["job"]: row for row in result["jobs"]}
+    reply = by_job["x_reply_ranking"]
+    assert (reply["posts_due"], reply["calls"], reply["code_pass_rate_pct"]) == (1, 1, 100.0)
+    layer = by_job["plan_layer_lines"]
+    assert (layer["posts_due"], layer["calls"], layer["timeouts"], layer["code_fallbacks"]) == (3, 2, 1, 1)
+    assert layer["calls_incomplete_at_cutoff"] == 1
+    assert layer["code_pass_rate_meets_90_pct"] is False
+    assert layer["hours_idle_without_rate_limit"] is None

@@ -22,6 +22,7 @@ from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
+from live_contentops.agy_decision_metrics_v1 import daily_metrics
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
 from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
@@ -418,15 +419,19 @@ def _readback_histories(conn, dispatch_ids, end):
 
 def _decision_source(conn, work_id, end, expected=""):
     parent_id = work_id.rsplit("-part-", 1)[0] if re.search(r"-part-\d+$", work_id) else work_id
-    key = parent_id if parent_id.startswith(("plan-status-post-", "plan-result-post-", "plan-update-post-")) else work_id
-    rows = conn.execute("""SELECT destination,payload FROM outbox_messages
+    if parent_id.startswith(("plan-status-post-", "plan-result-post-", "plan-update-post-")):
+        row = conn.execute("""SELECT payload FROM outbox_messages WHERE message_id=?
+            AND destination='internal:plan-status-post' AND julianday(created_at) <= julianday(?)""",
+            (parent_id, end)).fetchone()
+        return json.loads(row["payload"]) if row else {}
+    if not work_id.startswith("plan-analysis-"):
+        return {}
+    rows = conn.execute("""SELECT payload FROM outbox_messages
         WHERE work_item_id=? AND destination IN
-            ('internal:plan-status-post','internal:plan-analysis-page','internal:plan-analysis-revision')
-        AND julianday(created_at) <= julianday(?) ORDER BY created_at DESC,message_id""", (key, end))
+            ('internal:plan-analysis-page','internal:plan-analysis-revision')
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at DESC,message_id""", (work_id, end))
     for row in rows:
         source = json.loads(row["payload"])
-        if row["destination"] == "internal:plan-status-post":
-            return source
         if source.get("page_id") == work_id and (not expected or _expected(source) == expected):
             return source
     return {}
@@ -466,7 +471,7 @@ def _earlier_wrap_copies(conn, checks, known_ids):
         histories = _readback_histories(conn, (row["dispatch_id"] for row in rows), checks.end)
         for row in rows:
             intent = json.loads(row["payload"])
-            row["status"] = row["dispatch_status"] or row["status"]
+            row["status"] = row["dispatch_status"]
             checks.add(work["work_item_id"], row["destination"], safe_url(row["public_object_url"]), work["title"],
                        _expected(intent), intent, row, histories[row["dispatch_id"]], {})
 
@@ -1073,6 +1078,9 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         for issue in report["digest"]["public_readback"]["exceptions"]:
             exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
     report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls)
+    report["decision_checks"]["antigravity"] = daily_metrics(
+        Path(store_path).parent, window, checks.estimated_jobs(report["plan_delivery"]),
+        {Path(copy.intent["output_dir"]).resolve() for copy in checks.copies if copy.intent.get("output_dir")})
     report["exceptions"].extend({
         **item, "message_id": None, "dispatch_id": None,
         "first_cause": f"{item['decision']} {item['first_cause']}"
@@ -1171,6 +1179,21 @@ def markdown(report):
             cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
             lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
+        if assist := decisions.get("antigravity"):
+            lines.extend(["", "### Antigravity", "",
+                          "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",
+                          "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"])
+            for job in assist["jobs"]:
+                rate = job["code_pass_rate_pct"]
+                rate_text = f"{rate:.2f}%" if rate is not None else "—"
+                if job["code_pass_rate_meets_90_pct"] is False:
+                    rate_text += " (below 90%)"
+                elif job["unchecked_returns"] or job["calls_incomplete_at_cutoff"]:
+                    rate_text += " (incomplete evidence)"
+                lines.append(f"| {job['job']} | {job['posts_due']} | {job['calls']} | {rate_text} | "
+                             f"{job['empty_answers']} | {job['timeouts']} | "
+                             f"{job['code_fallbacks']} / {job['codex_takeovers']} | {job['hours_without_recorded_call']:.3f} |")
+            lines.append("Quota-free idle time awaits retained rate-limit coverage.")
     return "\n".join(lines) + "\n"
 
 
