@@ -430,6 +430,48 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     assert "**x** · 123 views (16 Nov 2026 17:00 GMT+7) · 0 likes" in markdown
 
 
+def test_empty_scheduled_digest_resume_still_writes_the_plan_delivery_report(recorded, tmp_path, monkeypatch):
+    from live_contentops import native_desktop_publication_v1 as policy
+    from live_contentops import published_content_v1 as published
+    from live_contentops import substack_daily_digest_v1 as digest
+    from scripts import run_daily_digest_1900 as route
+
+    data, store, feed, _ = recorded
+    from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
+    key = "plan-status-post-no-article-night"
+    created = "2026-11-16T12:12:00Z"
+    row = {"key": key, "format": cards.FORMAT, "kind": "setup", "state_alert_contract": "CC543_V1",
+           "at_utc": created}
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(row), posts.READY, created))
+    output = tmp_path / "daily_app_outputs"
+    run = output / "owner-manual" / "route-1900" / "20261116T121550Z"
+    run.mkdir(parents=True)
+    rollout = tmp_path / "rollout.json"
+    rollout.write_text(json.dumps({"store_path": str(store), "editorial_output_root": str(output)}), encoding="utf-8")
+    monkeypatch.setattr(published, "PRODUCTION_STORE", store)
+    monkeypatch.setattr(published, "DEFAULT_FEED", feed)
+    monkeypatch.setattr(policy, "live_publication_policy", lambda config: None)
+    monkeypatch.setattr(digest, "prepare_daily_digest", lambda *args: {"state": "NO_CONFIRMED_ARTICLES"})
+    getter, _ = getter_for(data)
+    real_build = readback.build_report
+    monkeypatch.setattr(readback, "build_report", lambda *args, **kwargs: real_build(*args, **kwargs, fetcher=getter))
+
+    instant = datetime(2026, 11, 16, 12, 16, tzinfo=timezone.utc)
+    invocation = route.SCHEDULED_INVOCATION_PREFIX + run.name
+    result = route.resume(rollout, invocation, now=instant)
+    assert result["route_state"] == "NO_CONFIRMED_ARTICLES" and not result["public_write_performed"]
+    assert result["day_readback"]["state"] == "READBACK_WRITTEN"
+    report = json.loads((run / "day_readback.json").read_bytes())
+    assert report["digest"]["state"] == "NO_CONFIRMED_ARTICLES"
+    assert report["window"]["until_utc"] == instant.isoformat()
+    assert report["plan_copy_queue"]["over_five_minutes"] == []
+    assert {copy["platform"] for copy in report["plan_delivery"]["copies"] if copy["plan_post"] == key} == set(cards.DESTINATIONS)
+    assert "## Plan post delivery" in (run / "day_readback.md").read_text(encoding="utf-8")
+    assert route.resume(rollout, invocation, now=instant)["day_readback"]["state"] == "READBACK_ALREADY_WRITTEN"
+
+
 def test_engagement_uses_latest_held_counter_and_names_gaps_without_future_or_other_object(recorded):
     data, store, _, _ = recorded
     dispatch = next(row for row in data["platform_dispatches"] if row["platform"] == "x")

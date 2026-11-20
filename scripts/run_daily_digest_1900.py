@@ -42,6 +42,7 @@ DEFAULT_ROLLOUT = ROOT / "config" / "native_desktop_rollout_v1.json"
 CLI = "scripts/run_native_desktop_editorial.py"
 SURFACE = "CLAUDE_CODE_SESSION"
 TOOL = "mcp__browseros-neo__run"
+SCHEDULED_INVOCATION_PREFIX = "claude-code-session:cc143-digest-1900:"
 
 
 def _utc(value: str) -> datetime:
@@ -70,7 +71,7 @@ def due_state(now: datetime) -> dict:
 
 def default_invocation_id(now: datetime) -> str:
     """A truthful run label when the session id is not visible to the agent."""
-    return "claude-code-session:cc143-digest-1900:" + now.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    return SCHEDULED_INVOCATION_PREFIX + now.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 
 def _ro(path: Path) -> sqlite3.Connection:
@@ -363,6 +364,33 @@ def summarize_continuation(continued: dict) -> dict:
                              "public_write_authorized": request.get("public_write_authorized")} if request else None}
 
 
+def _empty_digest_readback(rollout, native_invocation_id, digest_id, feed_path, *, now):
+    """The evening report is due even when the digest has no issue to send."""
+    from live_contentops.day_readback_v1 import build_report, write_report
+
+    if not native_invocation_id.startswith(SCHEDULED_INVOCATION_PREFIX):
+        return None
+    stamp = native_invocation_id.removeprefix(SCHEDULED_INVOCATION_PREFIX)
+    try:
+        datetime.strptime(stamp, "%Y%m%dT%H%M%SZ")
+    except ValueError:
+        return None
+    run_dir = Path(rollout["editorial_output_root"]) / "owner-manual" / "route-1900" / stamp
+    if not run_dir.is_dir():
+        return None
+    paths = (run_dir / "day_readback.json", run_dir / "day_readback.md")
+    if all(path.is_file() for path in paths):
+        return {"state": "READBACK_ALREADY_WRITTEN", "files": [str(path) for path in paths]}
+    result = {"digest_id": digest_id, "final_route_state": "NO_CONFIRMED_ARTICLES", "recorded_at_utc": now.isoformat()}
+    try:
+        report = build_report(run_dir, store_path=Path(rollout["store_path"]), feed_path=feed_path,
+                              now=now, run_result=result)
+        paths = write_report(run_dir, report)
+    except (OSError, ValueError, RuntimeError, sqlite3.Error) as exc:
+        return {"state": "READBACK_COMMAND_FAILED", "first_cause": type(exc).__name__}
+    return {"state": "READBACK_WRITTEN", "files": [str(path) for path in paths]}
+
+
 def resume(rollout_path: Path, native_invocation_id: str, *, now: datetime | None = None) -> dict:
     """The CLI's digest-resume through the same owners, guarded against an early wake.
     It never begins a request: only digest-tool-begin claims, and only the agent acts."""
@@ -383,8 +411,14 @@ def resume(rollout_path: Path, native_invocation_id: str, *, now: datetime | Non
     prepared = prepare_daily_digest(store, DEFAULT_FEED)
     packet = prepared.get("packet")
     if not packet:
-        return {"item": "CC-143", "route_state": prepared.get("state"), **due,
-                "prepare": prepared, "public_write_performed": False}
+        state = prepared.get("state")
+        result = {"item": "CC-143", "route_state": state, **due,
+                  "prepare": prepared, "public_write_performed": False}
+        if state == "NO_CONFIRMED_ARTICLES":
+            readback = _empty_digest_readback(rollout, native_invocation_id, due["digest_id"], DEFAULT_FEED, now=now)
+            if readback is not None:
+                result["day_readback"] = readback
+        return result
     continued = continue_daily_digest(store, packet,
         output_dir=Path(rollout["editorial_output_root"]) / "owner-manual" / packet["digest_id"] / "native-tools",
         invocation_id=native_invocation_id, rollout=rollout, command="resume")
