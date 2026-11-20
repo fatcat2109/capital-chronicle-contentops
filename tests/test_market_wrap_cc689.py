@@ -284,17 +284,24 @@ class LocalTransport(CanonicalDestinationTransportRuntimeV1):
                 "published_at_utc": "2026-11-23T13:09:00Z"}
 
 
-def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(tmp_path, pack, cash, monkeypatch):
+@pytest.mark.parametrize("unavailable", [None, "x", "substack_notes"])
+def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(
+        tmp_path, pack, cash, monkeypatch, unavailable):
     from live_contentops import llm_operator_control_v1 as controls
-    from live_contentops import publication_coordinator_v1 as publisher
+    from live_contentops.neo_destination_handoff_v1 import _payload_binding
 
     monkeypatch.setattr(controls, "llm_operator_pause_active", lambda *args, **kwargs: False)
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     transport = LocalTransport()
     now = at("2026-11-23T13:10Z")
+
+    def readiness(destination):
+        return {"readiness_state": "SESSION_UNAVAILABLE" if destination == unavailable
+                else "READY_NON_BROWSER_BINDING"}
+
     def factory(store, plan, **kwargs):
         coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
-            readiness_provider=lambda _: {"readiness_state": "READY_NON_BROWSER_BINDING"},
+            readiness_provider=readiness,
             clock=lambda: now, published_content_path=tmp_path / "published.jsonl")
         coordinator.recovery_scope = {"work_item_id": plan["market_wrap"], "plan": plan, "exact_work_item_only": True}
         coordinator.allow_prior_confirmed_distribution = True
@@ -316,13 +323,22 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(tmp
         gather=lambda *_a, **_kw: pack, writer=write, publish=publish, media=media)
     publication = out["publication"]
     assert publication["canonical_url"] == "https://capitalchronicle.substack.com/p/pre-us-wrap-20261123", publication
-    assert list(transport.writes)[0][0] == "substack"
-    assert {destination for destination, _ in transport.writes} == {*job.ROUTES, "linkedin_company"}
-    assert set(transport.reads) == {*job.ROUTES, "linkedin_company"}
+    assert transport.writes[0][0] == "substack"
+    assert {destination for destination, _ in transport.writes} == set(job.WRAP_DESTINATIONS) - {unavailable}
+    assert set(transport.reads) == set(job.WRAP_DESTINATIONS) - {unavailable}
+    canonical = transport.writes[0][1]
+    canonical_payload, canonical_binding = _payload_binding(canonical, "substack")
+    assert canonical["destination_plan"]["substack_delivery_mode"] == "WEB_ONLY"
+    assert "| Market | Move | Normal days | Comparison |" in canonical_payload["body_markdown"]
+    assert len(canonical_binding["media_manifest"]) == 1
     for destination, intent in transport.writes[1:]:
         assert publication["canonical_url"] in intent["native_payload"]["full_text"]
-        assert len(intent["native_payload"]["media_asset_ids"]) == 1
-    assert publication["per_destination"]["substack_notes"]["status"] == "DISPATCH_CONFIRMED"
+        payload, binding = _payload_binding(intent, destination)
+        assert publication["canonical_url"] in payload["full_text"]
+        assert [a["asset_id"] for a in binding["media_manifest"]] == payload["media_asset_ids"]
+        assert len(binding["media_manifest"]) == 1
+    assert publication["unconfirmed_wrap_destinations"] == ({unavailable: "SESSION_UNAVAILABLE"}
+                                                            if unavailable else {})
     record, = (tmp_path / "published.jsonl").read_text(encoding="utf-8").splitlines()
     assert json.loads(record)["title"].startswith("Pre-US Market Wrap")
     retained = (job.output_path(rollout, pack["slot"]) / "article_manifest_v1.json").read_bytes()
@@ -331,8 +347,48 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(tmp
     repeated = job.run_due(store, rollout=rollout, now=now, clock=lambda: now, cash_calendar=cash,
         gather=unexpected, writer=unexpected, publish=publish)
     assert repeated["plan_hash"] == out["plan_hash"]
-    assert len(transport.writes) == len(job.ROUTES) + 1
+    assert len(transport.writes) == len(job.WRAP_DESTINATIONS) - bool(unavailable)
     assert (job.output_path(rollout, pack["slot"]) / "article_manifest_v1.json").read_bytes() == retained
+
+    after_cutoff = at("2026-11-23T13:45Z")
+    resumed = job.run_due(store, rollout={}, now=after_cutoff, clock=lambda: after_cutoff,
+        resume=out["identity"], gather=unexpected, writer=unexpected, publish=publish)
+    assert resumed["plan_hash"] == out["plan_hash"]
+    assert resumed["publication"]["deadline_elapsed"] is True
+    assert set(resumed["publication"]["unconfirmed_wrap_destinations"]) == ({unavailable} if unavailable else set())
+    assert len(transport.writes) == len(job.WRAP_DESTINATIONS) - bool(unavailable)
+    assert job.read_json(job.output_path(rollout, pack["slot"]) / "wrap-result.json") == resumed
+
+
+def test_late_resume_reconciles_other_surfaces_when_one_readback_is_pending():
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+
+    class RetainedStore:
+        def get_dispatches_for_work_item(self, _):
+            return [{"dispatch_id": route, "platform": route, "status": "UNKNOWN_WRITE"}
+                    for route in ("x", "substack_notes")]
+
+    class ReadbackOnly:
+        _confirmed_public_object = staticmethod(DurablePublicationCoordinator._confirmed_public_object)
+
+        def readback_existing_dispatch(self, dispatch_id):
+            if dispatch_id == "x":
+                raise NativeNeoInputRequired({"destination": "x", "action": "READBACK"})
+            return {"reconciliation_status": "RECONCILED_CONFIRMED"}
+
+        def publication_state(self, *_):
+            return {"per_destination": {}}
+
+    def factory(*_, allow_publish):
+        assert allow_publish is False
+        return ReadbackOnly()
+
+    now = at("2026-11-23T13:45Z")
+    packet = {"identity": "cc689-daily-2026-11-23", "plan": {
+        "publication_window": {"expires_at_utc": now.isoformat()}}}
+    result = job.continue_wrap(RetainedStore(), packet, clock=lambda: now, factory=factory)
+    assert result["recovery"]["x"]["pending_native_request"]["action"] == "READBACK"
+    assert result["recovery"]["substack_notes"]["reconciliation_status"] == "RECONCILED_CONFIRMED"
 
 
 def test_expired_job_cannot_start_new_drafts(tmp_path, cash):

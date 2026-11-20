@@ -17,7 +17,9 @@ from .destination_transport_registry_v1 import (
 )
 from .durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
 from .public_market_quote_v1 import save, utcnow
-from .publication_coordinator_v1 import DurablePublicationCoordinator, V1_QUALITY_PROBATION_POLICY_ID
+from .publication_coordinator_v1 import (
+    RECONCILED_CONFIRMED, DurablePublicationCoordinator, V1_QUALITY_PROBATION_POLICY_ID,
+)
 from .published_content_v1 import PRODUCTION_STORE
 
 DESTINATION = "internal:market-wrap"
@@ -25,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROLLOUT = ROOT / "config/native_desktop_rollout_v1.json"
 WRAP_ID = re.compile(r"cc689-(?:daily|weekly)-\d{4}-\d{2}-\d{2}")
 ROUTES = (*V1_REQUIRED_PUBLICATION_DESTINATIONS, "substack_notes")
+WRAP_DESTINATIONS = (*ROUTES, "linkedin_company")
 
 
 def is_wrap_id(value):
@@ -225,55 +228,76 @@ def continue_wrap(store, packet, *, clock=utcnow, factory=publication_coordinato
     from .native_neo_executor_v1 import NativeNeoInputRequired
 
     identity, plan = packet["identity"], packet["plan"]
-    coordinator = factory(store, plan)
-    try:
-        if clock() >= sources.utc(plan["publication_window"]["expires_at_utc"]):
-            # Late invocations only project the retained result and reconcile
-            # exact begun actions. No new draft or derivative can start.
-            coordinator = factory(store, plan, allow_publish=False)
-            recovery = {}
-            for dispatch in store.get_dispatches_for_work_item(identity):
-                if dispatch["status"] in {"UNKNOWN_WRITE", "ATTEMPT_STARTED", "DISPATCH_ATTEMPT_STARTED",
-                                           "SUBSTACK_DRAFT_AWAITING_OWNER", "NATIVE_NEO_PENDING"}:
-                    recovery[dispatch["platform"]] = coordinator.readback_existing_dispatch(dispatch["dispatch_id"])
-            return {**coordinator.publication_state(identity, plan), "recovery": recovery, "deadline_elapsed": True}
-        return coordinator.publish_plan(identity, plan)
-    except NativeNeoInputRequired as pending:
-        request = pending.request
-        return {**coordinator.publication_state(identity, plan), "pending_native_request": {
-            k: request.get(k) for k in ("request_sha256", "destination", "action", "endpoint_cause")}}
+    expired = clock() >= sources.utc(plan["publication_window"]["expires_at_utc"])
+    coordinator = factory(store, plan, allow_publish=not expired)
+
+    def pending_request(pending):
+        return {k: pending.request.get(k)
+                for k in ("request_sha256", "destination", "action", "endpoint_cause")}
+
+    if expired:
+        # Reconcile exactly the actions that could have started. A pending
+        # readback on one surface does not suppress the others.
+        recovery = {}
+        for dispatch in store.get_dispatches_for_work_item(identity):
+            if dispatch["status"] not in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED",
+                                          "SUBSTACK_DRAFT_AWAITING_OWNER", "NATIVE_NEO_PENDING"}:
+                continue
+            try:
+                recovery[dispatch["platform"]] = coordinator.readback_existing_dispatch(dispatch["dispatch_id"])
+            except NativeNeoInputRequired as pending:
+                recovery[dispatch["platform"]] = {"pending_native_request": pending_request(pending)}
+        publication = {**coordinator.publication_state(identity, plan), "recovery": recovery, "deadline_elapsed": True}
+    else:
+        try:
+            publication = coordinator.publish_plan(identity, plan)
+        except NativeNeoInputRequired as pending:
+            publication = {**coordinator.publication_state(identity, plan),
+                           "pending_native_request": pending_request(pending)}
+    outcomes = publication.get("per_destination") or {}
+    unconfirmed = {}
+    for destination in WRAP_DESTINATIONS:
+        outcome = outcomes.get(destination) or {}
+        if not (coordinator._confirmed_public_object(outcome, destination=destination)
+                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED):
+            unconfirmed[destination] = (outcome.get("reason_code") or outcome.get("reconciliation_status")
+                                        or outcome.get("status") or "NOT_DISPATCHED")
+    return {**publication, "unconfirmed_wrap_destinations": unconfirmed}
 
 
 def run_due(store, *, rollout, now=None, clock=utcnow, cash_calendar=None, gather=sources.collect,
             writer=editorial.draft, publish=continue_wrap, media=prepare_media, resume=None):
     now = sources.utc(now or clock())
-    cash_calendar = cash_calendar if cash_calendar is not None else read_json(sources.CASH_CALENDAR)
-    slot = sources.slot_at(now, cash_calendar)
     if resume:
         if not is_wrap_id(resume):
             raise ValueError("WRAP_SLOT_ID_INVALID")
-        held = store.get_outbox_message(resume)
-        if not held or held["destination"] != DESTINATION:
-            return {"state": "WRAP_NO_RETAINED_EDITION", "identity": resume}
-        packet = json.loads(held["payload"])
-        return {"identity": resume, "publication": publish(store, packet, clock=clock)}
-    if slot is None:
-        return {"state": "WRAP_NO_EDITION_DUE"}
-    if now < sources.utc(slot["start_utc"]):
-        return {"state": "WRAP_NOT_YET_DUE", "slot": slot}
-    identity = slot["id"]
-    folder = output_path(rollout, slot)
+        identity = resume
+    else:
+        cash_calendar = cash_calendar if cash_calendar is not None else read_json(sources.CASH_CALENDAR)
+        slot = sources.slot_at(now, cash_calendar)
+        if slot is None:
+            return {"state": "WRAP_NO_EDITION_DUE"}
+        if now < sources.utc(slot["start_utc"]):
+            return {"state": "WRAP_NOT_YET_DUE", "slot": slot}
+        identity = slot["id"]
     lease_owner = identity + ":" + uuid4().hex
     try:
         lease = store.acquire_lease(identity, lease_owner, ttl_seconds=3 * 3600 + 300)
     except LeaseConflictError:
-        return {"state": "WRAP_ALREADY_RUNNING", "slot": slot}
+        return {"state": "WRAP_ALREADY_RUNNING", "identity": identity}
     try:
         held = store.get_outbox_message(identity)
         if held:
+            if held["destination"] != DESTINATION:
+                raise ValueError("WRAP_FROZEN_PACKET_REQUIRED")
             packet = json.loads(held["payload"])
+            folder = Path(packet["plan"]["output_dir"])
             pack = read_json(folder / "wrap-pack.json")
+            slot = pack["slot"]
+        elif resume:
+            return {"state": "WRAP_NO_RETAINED_EDITION", "identity": identity}
         elif now < sources.utc(slot["deadline_utc"]):
+            folder = output_path(rollout, slot)
             # Existing prior editions and frozen artifacts survive process
             # restarts. Never call either provider again for a staged edition.
             pack_file, draft_file = folder / "source-pack.json", folder / "section-draft.json"
@@ -326,7 +350,8 @@ def main(argv=None):
     publication = result.get("publication") or {}
     print(json.dumps({k: result[k] for k in ("state", "identity", "slot", "source_gaps") if k in result}
         | {"canonical_url": publication.get("canonical_url"),
-           "distribution_status": publication.get("distribution_status")}))
+           "distribution_status": publication.get("distribution_status"),
+           "unconfirmed_wrap_destinations": publication.get("unconfirmed_wrap_destinations")}))
     return 0
 
 

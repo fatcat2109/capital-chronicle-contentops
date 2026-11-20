@@ -2084,6 +2084,9 @@ class DurablePublicationCoordinator:
             if isinstance(row, Mapping) and str(row.get("destination") or "")
         }
         required = set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
+        wrap = plan.get("market_wrap") == work_item_id
+        if wrap:
+            required.add("substack_notes")
         observed = set(destinations)
         duplicate_destinations = sorted(
             destination
@@ -2099,8 +2102,7 @@ class DurablePublicationCoordinator:
         permitted_skips = permitted_derivative_skips(plan)
         structural_blockers = {
             "missing_destinations": sorted(required - observed),
-            "unexpected_destinations": sorted(observed - required - set(barred_browser_destinations())
-                - ({"substack_notes"} if plan.get("market_wrap") == work_item_id else set())),
+            "unexpected_destinations": sorted(observed - required - set(barred_browser_destinations())),
             "duplicate_destinations": duplicate_destinations,
             "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips and d not in barred_browser_destinations()],
             "pre_substack_blockers": sorted(
@@ -2114,7 +2116,10 @@ class DurablePublicationCoordinator:
         confirmed_canonical = self._confirmed_canonical_url_for_work_item(work_item_id, plan_hash=plan_hash)
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
             item = item_by_destination.get(destination, {})
+            # A timed wrap uses X's composed identity check at its own send.
+            # An unavailable X session must leave the other copies eligible.
             if destination not in {"substack", "x"} or (
+                    destination == "x" and wrap) or (
                     destination == "substack" and plan.get("distribution_policy") == "SITE_FIRST_V1"):
                 readiness_rows[destination] = {
                     "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
