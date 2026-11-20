@@ -372,7 +372,7 @@ class DecisionChecks:
             except (KeyError, ValueError):
                 self.check("113", copy, "PLAN_LAYER_RECORD_INVALID")
                 return
-            if copy.platform == "linkedin":
+            if copy.platform in {"linkedin", "linkedin_company"}:
                 official = copy.native.get("text") or ""
                 prefixes = tuple(label + ": " for _, label in PLAN_LAYER_ORDER)
                 compact = [line for line in official.splitlines() if line.startswith(prefixes)]

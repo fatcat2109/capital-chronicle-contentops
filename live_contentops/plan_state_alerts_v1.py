@@ -183,6 +183,8 @@ def _pack_analysis_lines(lines, limit, width):
 
 def nine_layer_parts(layers, body, notices, *, destination, limit, reply_limit):
     """Keep the ordered layer copy available beyond the first visible object."""
+    from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
+
     width = posts._x_length if destination == "x" else len
     detail = body.splitlines()[len(layers):]
     if destination == "x":
@@ -212,9 +214,9 @@ def nine_layer_parts(layers, body, notices, *, destination, limit, reply_limit):
     tail = "\n".join(detail) + footer
     if width(tail) > limit:
         raise posts.PlanPostError("PLAN_ANALYSIS_TERMS_EXCEED_ROUTE_LIMIT:" + destination)
-    if destination == "linkedin" and layers:
-        # The member's existing post permission does not grant the Comments API.
-        # Keep every layer in the post and use its confirmed full-analysis page.
+    if destination in LINKEDIN_DESTINATIONS and layers:
+        # Both LinkedIn routes deliver the titled analysis with a chart and a
+        # confirmed page. Their established post transport has no own reply path.
         room = (limit - len(tail) - len(layers)) // len(layers)
         compact = []
         for line in layers:

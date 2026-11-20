@@ -333,6 +333,7 @@ def test_linkedin_uses_the_late_confirmed_link_with_existing_chart_and_frozen_si
     assert payloads["telegram"] == before
     for destination in linkedin:
         assert LINK in payloads[destination]["text"]
+        assert all(line in payloads[destination]["text"] for line in alerts.analysis_lines(row))
         assert payloads[destination]["media_asset_ids"] == before["media_asset_ids"]
     assert {item["destination"]: (item["transport_type"], item["canonical_url"])
             for item in prepared["destinations"]} == {d: ("BROWSEROS_NEO_MCP", LINK) for d in linkedin}
