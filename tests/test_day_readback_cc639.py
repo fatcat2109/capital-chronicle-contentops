@@ -416,6 +416,10 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     report = json.loads((run / "day_readback.json").read_bytes())
     assert report["digest"]["recipients"] == 5
     assert output["exceptions"] == report["exceptions"]
+    decisions = json.loads((run / "decision_checks.json").read_bytes())
+    assert decisions == report["decision_checks"]
+    assert output["decision_failure_count"] == decisions["failure_count"]
+    assert any(item.get("decision") == "98" for item in output["exceptions"])
     piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
     engagement = {row["platform"]: row for row in piece["engagement"]}
     assert set(engagement) == set(CHANNELS)
@@ -427,6 +431,7 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     assert engagement["youtube"]["first_cause"] == "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
     markdown = (run / "day_readback.md").read_text(encoding="utf-8")
     assert "## Engagement" in markdown and "Exceptions:" in markdown
+    assert "## Decision checks" in markdown and "98 · weekend-wrap-2026-11-15" in markdown
     assert "**x** · 123 views (16 Nov 2026 17:00 GMT+7) · 0 likes" in markdown
 
 

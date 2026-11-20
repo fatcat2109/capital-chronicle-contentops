@@ -1,7 +1,7 @@
 """CC-639: a read-only projection for the existing evening digest consumer.
 
 No coordinator, browser, account session, model, store migration or retry is used.
-Only the two day_readback files are written, by write_report().
+Only the evening report files are written, by write_report().
 """
 from __future__ import annotations
 
@@ -16,12 +16,14 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+from tempfile import NamedTemporaryFile
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
+from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
 
 LOCAL = timezone(timedelta(hours=7))
@@ -239,7 +241,7 @@ def _first_text_line(text):
     return next((line.strip() for line in text.splitlines() if line.strip()), None)
 
 
-def check_public_text(platform, html, *, expected_text="", expected_title="", page_url=""):
+def check_public_text(platform, html, *, expected_text="", expected_title="", page_url="", decision_copy=None):
     """Inspect the post body, never a menu, script, metadata or another post."""
     nodes = list(_HTML(html).root.walk())
     body = None
@@ -274,6 +276,14 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
     found_links = _links(text)
     for part in (body, *attachments):
         found_links.extend(n.attrs["href"] for n in part.walk() if n.tag == "a" and "href" in n.attrs)
+    if decision_copy is not None:
+        decision_copy.public_text = " ".join(filter(None, (headings, text)))
+        decision_copy.public_links = tuple(urljoin(page_url, link) for link in found_links)
+        if platform != "telegram":
+            decision_copy.image_visible = any(
+                node.tag in {"img", "picture"} for part in (body, *attachments) for node in part.walk())
+        # A Telegram reply's scoped text and media are siblings. A photo
+        # elsewhere on the page could belong to the quoted parent.
     expected_links = {_link_identity(u) for u in _links(expected_text)}
     actual_links = {_link_identity(u, page_url) for u in found_links}
     missing = len(expected_links - actual_links)
@@ -404,6 +414,61 @@ def _readback_histories(conn, dispatch_ids, end):
             if utc(row["read_at"]) <= end:
                 histories[row["dispatch_id"]].append((row["read_at"], json.loads(row["readback_data"])))
     return histories
+
+
+def _decision_source(conn, work_id, end, expected=""):
+    parent_id = work_id.rsplit("-part-", 1)[0] if re.search(r"-part-\d+$", work_id) else work_id
+    key = parent_id if parent_id.startswith(("plan-status-post-", "plan-result-post-", "plan-update-post-")) else work_id
+    rows = conn.execute("""SELECT destination,payload FROM outbox_messages
+        WHERE work_item_id=? AND destination IN
+            ('internal:plan-status-post','internal:plan-analysis-page','internal:plan-analysis-revision')
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at DESC,message_id""", (key, end))
+    for row in rows:
+        source = json.loads(row["payload"])
+        if row["destination"] == "internal:plan-status-post":
+            return source
+        if source.get("page_id") == work_id and (not expected or _expected(source) == expected):
+            return source
+    return {}
+
+
+def _confirmed_analysis_urls(conn, copies, end):
+    urls = {}
+    ids = {copy.source.get("plan_id") for copy in copies}
+    for plan_id in sorted(p for p in ids if isinstance(p, str) and re.fullmatch(r"plan_[a-zA-Z0-9_-]+", p)):
+        for row in conn.execute("""SELECT d.public_object_url FROM outbox_messages o
+            JOIN platform_dispatches d ON d.message_id=o.message_id
+            WHERE o.work_item_id=? AND o.destination='substack' AND d.status='DISPATCH_CONFIRMED'
+            AND julianday(d.dispatched_at) <= julianday(?) ORDER BY d.dispatched_at,d.dispatch_id""",
+            ("plan-analysis-" + plan_id, end)):
+            url = safe_url(row["public_object_url"])
+            if public_link(url):
+                urls[plan_id] = url
+    return urls
+
+
+def _earlier_wrap_copies(conn, checks, known_ids):
+    """Include a wrap sent before the evening window opens on the same due day."""
+    since = iso(checks.start - timedelta(days=2))
+    end = checks.window["until_utc"]
+    marks = ",".join("?" for _ in ROUTES)
+    for work in conn.execute("""SELECT work_item_id,title FROM work_items
+        WHERE julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
+        AND (lower(title) LIKE '%wrap%' OR lower(title) LIKE '%recap%' OR lower(title) LIKE '%weekend%')
+        ORDER BY work_item_id""", (since, end)):
+        if work["work_item_id"] in known_ids or not wrap_kind(work["title"] or "", None):
+            continue
+        rows = [dict(row) for row in conn.execute(f"""SELECT o.*, d.dispatch_id,d.status AS dispatch_status,
+            d.dispatched_at,d.public_object_id,d.public_object_url FROM outbox_messages o
+            LEFT JOIN platform_dispatches d ON d.message_id=o.message_id
+            WHERE o.work_item_id=? AND o.destination IN ({marks}) AND julianday(o.created_at) <= julianday(?)""",
+            (work["work_item_id"], *ROUTES, end))]
+        histories = _readback_histories(conn, (row["dispatch_id"] for row in rows), checks.end)
+        for row in rows:
+            intent = json.loads(row["payload"])
+            row["status"] = row["dispatch_status"] or row["status"]
+            checks.add(work["work_item_id"], row["destination"], safe_url(row["public_object_url"]), work["title"],
+                       _expected(intent), intent, row, histories[row["dispatch_id"]], {})
 
 
 def _route_engagement(conn, row, route, history, *, as_of, source_exists, collector_states):
@@ -823,6 +888,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     report["engagement"] = {"source": "performance_observations", "cutoff_utc": iso(engagement_cutoff)}
     collector_states = {row["destination"]: row["collector_state"] for row in current_metrics_capability_matrix()}
     cache, expected = {}, {}
+    decision_copies = {}
+    checks = DecisionChecks(window, Path(store_path).parent)
 
     def exception(cause, piece, platform=None, row=None, status=None):
         report["exceptions"].append({"piece_id": piece, "platform": platform,
@@ -839,9 +906,9 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         feed = []
         exception(code(str(exc)) or "PUBLICATION_FEED_UNREADABLE", "publication_feed")
 
-    def http_check(platform, url, text="", title=""):
+    def http_check(platform, url, text="", title="", decision_copy=None):
         target = public_get_url(platform, url)
-        if not target:
+        if not target or fetcher is None:
             return None
         if target not in cache:
             cache[target] = {**fetcher(platform, target), "checked_at_utc": iso(datetime.now(timezone.utc))}
@@ -849,12 +916,15 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         status = response.get("http_status")
         cause = code(response.get("first_cause"))
         checked = {"checked_at_utc": response["checked_at_utc"], "http_status": status}
+        if decision_copy is not None:
+            decision_copy.public_http_status = status
         if cause or status != 200:
             return {**checked, "first_cause": cause or "HTTP_" + str(status),
                     "first_line_matches": None, "text_complete": None, "links_match": None,
                     "exceptions": [cause or "PUBLIC_HTTP_UNAVAILABLE"]}
         return {**checked, **check_public_text(platform, response.get("html", ""),
-                                               expected_text=text, expected_title=title, page_url=target)}
+                                               expected_text=text, expected_title=title, page_url=target,
+                                               decision_copy=decision_copy)}
 
     with closing(sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True, timeout=5)) as conn:
         conn.row_factory = sqlite3.Row
@@ -870,8 +940,6 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         consumed = set()
         quote_causes = {}
         for work_id, group in sorted(groups.items()):
-            if work_id == result.get("digest_id"):
-                continue  # This run's digest has its own packet/page/delivery section.
             sealed = next((feed_by_url[r["public_object_url"]] for r in group
                            if r["destination"] == "substack" and r["public_object_url"] in feed_by_url), None)
             if sealed:
@@ -882,6 +950,11 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
             required = {o["name"] for o in sealed["outlets"]} if sealed else set()
             actual = set()
             native = _native_observations(conn, work_id, window["until_utc"])
+            registered = conn.execute("SELECT title FROM work_items WHERE work_item_id=? "
+                                      "AND julianday(created_at) <= julianday(?)",
+                                      (work_id, window["until_utc"])).fetchone()
+            work_title = sealed["title"] if sealed else (registered["title"] if registered else "")
+            source = _decision_source(conn, work_id, window["until_utc"])
             for row in group:
                 platform = row["destination"]
                 actual.add(platform)
@@ -889,6 +962,15 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 required.update(d for key in ("required_publication_destinations", "required_derivative_destinations")
                                 for d in intent.get(key, []) if d in ROUTES)
                 history = histories.get(row["dispatch_id"], [])
+                text = _expected(intent)
+                native_title = (intent.get("native_payload") or {}).get("title")
+                if platform == "substack" and intent.get("plan_analysis_page"):
+                    source = _decision_source(conn, work_id, window["until_utc"], expected=text) or source
+                decision_copies[(row["message_id"], row["dispatch_id"])] = checks.add(
+                    piece_id, platform, safe_url(row["public_object_url"]), native_title or work_title or "",
+                    text, intent, row, history, source)
+                if work_id == result.get("digest_id"):
+                    continue  # This run's digest has its own packet/page/delivery section.
                 quote = intent.get("quote_parent") if platform == "x" and work_id.startswith("heavy-quote-") else None
                 diagnostics = history + native.get(platform, [])
                 if quote:
@@ -923,16 +1005,15 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                         if failure not in prior_failures:
                             exception(failure[1], piece_id, platform, row, failure[0])
                             prior_failures.add(failure)
-                expected[row["message_id"]] = (_expected(intent), sealed["title"] if sealed and platform == "substack" else "")
+                expected[row["message_id"]] = (text, sealed["title"] if sealed and platform == "substack" else "")
                 route["public_readback"] = None
                 piece["platforms"].append(route)
                 piece["engagement"].append(_route_engagement(conn, row, route, history, as_of=engagement_cutoff,
                     source_exists=engagement_source_exists, collector_states=collector_states))
+            if work_id == result.get("digest_id"):
+                continue
             piece["first_line"], piece["first_dispatch_at_utc"] = _piece_heading(group, expected, end)
             if not (piece["first_line"] or piece["title"]):
-                registered = conn.execute("SELECT title FROM work_items WHERE work_item_id=? "
-                                          "AND julianday(created_at) <= julianday(?)",
-                                          (work_id, window["until_utc"])).fetchone()
                 if registered:
                     piece["title"] = _first_text_line(registered["title"])
             for platform in sorted(required - actual):
@@ -957,6 +1038,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         report["reply_bot"] = _reply_bot(conn, window)
         report["plan_copy_queue"] = _plan_copy_queue(conn, now, store_path)
         report["plan_delivery"] = _plan_delivery(conn, window, store_path)
+        _earlier_wrap_copies(conn, checks, groups)
+        analysis_urls = _confirmed_analysis_urls(conn, checks.copies, window["until_utc"])
         seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
         # A contradictory outbox status, or an uncertain private reply delivery,
         # is still an exception even when it has no public dispatch row.
@@ -977,15 +1060,24 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     for piece in report["pieces"]:
         for route in piece["platforms"]:
             text, title = expected.get(route.get("message_id"), ("", piece["title"] or ""))
-            route["public_readback"] = http_check(route["platform"], route["public_url"], text, title)
+            copy = decision_copies.get((route.get("message_id"), route.get("dispatch_id")))
+            route["public_readback"] = http_check(route["platform"], route["public_url"], text, title, copy)
             if route["public_readback"]:
                 for issue in route["public_readback"]["exceptions"]:
                     exception(issue, piece["piece_id"], route["platform"], route, route["status"])
+    digest_observation = next((copy for copy in decision_copies.values()
+        if copy.platform == "substack" and copy.url == report["digest"]["public_url"]), None)
     report["digest"]["public_readback"] = http_check("substack", report["digest"]["public_url"],
-        digest_copy.get("body_markdown", ""), digest_copy.get("title", ""))
+        digest_copy.get("body_markdown", ""), digest_copy.get("title", ""), digest_observation)
     if report["digest"]["public_readback"]:
         for issue in report["digest"]["public_readback"]["exceptions"]:
             exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
+    report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls)
+    report["exceptions"].extend({
+        **item, "message_id": None, "dispatch_id": None,
+        "first_cause": f"{item['decision']} {item['first_cause']}"
+        + (f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""),
+    } for item in report["decision_checks"]["issues"] if item["status"] == "FAIL")
     report["exception_count"] = len(report["exceptions"])
     return report
 
@@ -1071,21 +1163,49 @@ def markdown(report):
     for item in report["exceptions"]:
         lines.append(f"- {plain(item['piece_id'])} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
                      f"{item['first_cause']}; {item['public_url'] or 'no public URL'}.")
+    if decisions := report.get("decision_checks"):
+        lines.extend(["", "## Decision checks", "",
+                      f"{decisions['failure_count']} failures and {decisions['unverified_count']} unverified checks."])
+        for item in decisions["issues"]:
+            url = f" · {item['public_url']}" if item["public_url"] else ""
+            cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
+            lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
+                         f"{item['status']} · {item['first_cause']}{cause}{url}")
     return "\n".join(lines) + "\n"
 
 
-def write_report(run_dir, report):
+def _check_report(value):
     # A fixed projection, never a recursively redacted dump of private store data.
-    def check(value):
-        if isinstance(value, dict):
-            for key, item in value.items():
-                if PRIVATE_KEY.search(key):
-                    raise ValueError("PRIVATE_FIELD_IN_REPORT")
-                check(item)
-        elif isinstance(value, list):
-            for item in value:
-                check(item)
-    check(report)
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if PRIVATE_KEY.search(key):
+                raise ValueError("PRIVATE_FIELD_IN_REPORT")
+            _check_report(item)
+    elif isinstance(value, list):
+        for item in value:
+            _check_report(item)
+
+
+def write_decision_checks(run_dir, decisions):
+    _check_report(decisions)
+    path = Path(run_dir) / "decision_checks.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with NamedTemporaryFile(dir=path.parent, prefix=".decision-checks-", delete=False,
+                                mode="w", encoding="utf-8") as stream:
+            temporary = Path(stream.name)
+            json.dump(decisions, stream, ensure_ascii=False, indent=2, allow_nan=False)
+            stream.write("\n")
+        temporary.replace(path)
+    finally:
+        if temporary:
+            temporary.unlink(missing_ok=True)
+    return path
+
+
+def write_report(run_dir, report):
+    _check_report(report)
     folder = Path(run_dir)
     folder.mkdir(parents=True, exist_ok=True)
     paths = (folder / "day_readback.json", folder / "day_readback.md")
