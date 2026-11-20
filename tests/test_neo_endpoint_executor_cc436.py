@@ -247,6 +247,7 @@ def test_wrong_account_or_changed_composer_makes_no_public_post(tmp_path,fault):
 ])
 def test_cc672_x_day_hold_requires_observed_platform_response(tmp_path, monkeypatch, fault, cause):
     from live_contentops import neo_destination_handoff_v1 as handoff
+    from live_contentops import plan_status_posts_v1 as posts
 
     suspended = tmp_path / "suspended_routes.json"
     monkeypatch.setattr(handoff, "SUSPENDED_ROUTES_FILE", suspended)
@@ -265,6 +266,18 @@ def test_cc672_x_day_hold_requires_observed_platform_response(tmp_path, monkeypa
             assert json.loads(suspended.read_text(encoding="utf-8")) == {"x": cause}
         else:
             assert not suspended.exists()
+            later, _ = message(store, "x", work="later-article")
+            assert coordinator._dispatch_message(store.get_outbox_message(later["message_id"]),
+                canonical_url=None)["status"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+
+            monkeypatch.setattr(posts, "validate_status_post_intent", lambda *args, **kwargs: None)
+            plan, intent = message(store, "x", work="later-plan", plan_status=True)
+            plan_coordinator, _ = bound(store, tmp_path, intent["work_item_id"], url)
+            outcome = plan_coordinator._dispatch_message(store.get_outbox_message(plan["message_id"]),
+                canonical_url=intent["canonical_url"])
+            assert outcome["status"] == "DEFINITE_NO_WRITE", outcome
+            assert outcome["safe_error_classification"] == cause
+            assert not state["posts"]
 
 
 @pytest.mark.parametrize("retry_fails", [False, True])

@@ -3216,7 +3216,7 @@ class DurablePublicationCoordinator:
                 }
         # Existing ambiguous writes and native claims are consumed/read back by
         # their original recovery path. Only fresh/definitely absent writes skip.
-        if not native_pending_resume:
+        if not (native_pending_resume or intent.get("plan_status_post") or intent.get("plan_analysis_link")):
             failure = self._destination_day_failure(destination)
             if failure and not (repaired_composer_no_write and failure.get("dispatch_id") == ids["dispatch_id"]):
                 return {"destination": destination, "status": "DESTINATION_FAILED_ET_DAY_SKIP",
