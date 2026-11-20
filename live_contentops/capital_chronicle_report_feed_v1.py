@@ -430,15 +430,25 @@ class MainReportFeed:
                               for r in [received_by_id.get(cached["receipt_id"])]
                               if r and r["receipt_id"] not in seen_receipts)
                 events.sort(key=lambda e: ("WITHDRAW" in e.get("state", ""), e.get("report_version", 10**9), e.get("report_id", "")))
-            from live_contentops.capital_chronicle_desk_record_source_v1 import read_export
+            from live_contentops.capital_chronicle_desk_record_source_v1 import (
+                MAX_DESK_RECORDS, PLAN_STATUS_SOURCE, read_export, read_plan_status,
+            )
             desk_records = []
             for spec in self.pointer.get("desk_record_exports", []):
                 try:
-                    desk_records.extend(read_export(spec, cutoff_utc=cutoff_utc))
+                    if spec.get("source_type") == PLAN_STATUS_SOURCE:
+                        records, invalid = read_plan_status(spec, cutoff_utc=cutoff_utc)
+                        desk_records.extend(records)
+                        if invalid:
+                            gaps.append({"state": "MAIN_DESK_PLAN_STATUS_ROWS_INVALID", "count": invalid})
+                    else:
+                        desk_records.extend(read_export(spec, cutoff_utc=cutoff_utc))
                 except (OSError, ValueError, KeyError, TypeError) as exc:
-                    cause = str(exc) if isinstance(exc, ValueError) and str(exc).startswith("DESK_") else type(exc).__name__
+                    cause = getattr(exc, "cause", None)
+                    if not cause:
+                        cause = str(exc) if isinstance(exc, ValueError) and str(exc).startswith("DESK_") else type(exc).__name__
                     gaps.append({"state": "MAIN_DESK_EXPORT_UNAVAILABLE_OR_INVALID", "cause": cause})
-            if len(desk_records) > 128:
+            if len(desk_records) > MAX_DESK_RECORDS:
                 raise LatestReportConsumerError("MAIN_DESK_RECORD_BOUND_EXCEEDED")
             summary = {
                 "schema_version": SCHEMA,
