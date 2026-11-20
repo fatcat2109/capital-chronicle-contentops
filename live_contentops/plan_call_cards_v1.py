@@ -494,7 +494,7 @@ def _refresh_unissued_no_entry_result(store, message, result, source_for):
 
 
 def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False,
-                instagram_profile_reader=None, analysis_copy_root=None, **reader):
+                instagram_profile_reader=None, analysis_copy_root=None, queue_clock=None, **reader):
     if render_all and not dry_run:
         raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
@@ -502,9 +502,16 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         version = posts.validate_export_contract(export)
         quarantined = posts.record_row_failures(store, export, dry_run=dry_run)
         freshness = posts.export_freshness(export, now)
-        if freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60:
+        stale = freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60
+        if stale and queue_clock is None:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
-        source_rows = posts.rows_from_export(export, include_results=False)
+        observed_rows = posts.rows_from_export(export, include_results=False, include_replaced_expiries=True)
+        if queue_clock is not None:
+            queue_clock.observe([r for r in observed_rows if r["symbol"] in posts.MARKETS],
+                                freshness["export_generated_at_utc"])
+        if stale:
+            return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
+        source_rows = [r for r in observed_rows if not r.get("replaced_expiry")]
         sources = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("asset_id") in posts.MARKETS}
         records = record_line(export["status"])
     except posts.PlanExportContractError as exc:
@@ -544,9 +551,18 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     current_states.update({pid: raw["status"] for pid, raw in sources.items()
                            if raw.get("status") in TERMINAL})
     outcomes = _result_rows(export)
-    ended_plans = {r["plan_id"] for r in outcomes}
+    result_keys = {r["plan_id"]: r["key"] for r in outcomes}
+    ended_plans = result_keys.keys()
     current_states.update({pid: "RESULT" for pid in ended_plans if current_states.get(pid) not in TERMINAL})
     payloads, skipped, already = [], [], []
+    if queue_clock is not None:
+        fill_keys = {r["plan_id"]: r["key"] for r in source_rows if r.get("source_state") == "FILLED"}
+        for row in observed_rows:
+            pid = row["plan_id"]
+            if row.get("replaced_expiry") or (row["to"] in TERMINAL and pid in ended_plans):
+                queue_clock.refuse(row, "PLAN_TRANSITION_REPLACED_BY_RESULT", replacement_key=result_keys.get(pid))
+            elif row.get("superseded_by_fill"):
+                queue_clock.refuse(row, "FILL_EVENT_SUPERSEDES_TRIGGER", replacement_key=fill_keys[pid])
     from .secret_store_v1 import read_secret
     # Freeze the route on NEW rows only. The registered announcement channel
     # cannot create threads through a webhook; Discord permits that only on
@@ -610,6 +626,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         until = card_plan(raw).get("time_exit_utc")
         if (not until or now >= posts._utc(until)
                 or not 0 <= (now - posts._utc(row["at_utc"])).total_seconds() <= posts.LATE_STATE_HOURS * 3600):
+            if queue_clock is not None:
+                queue_clock.refuse(row, "PLAN_SETUP_OUTSIDE_QUEUE_WINDOW")
             continue
         item = payload(row, "setup")
         if any(item["levels"].get(k) is None for k in ("zone_low", "zone_high", "invalidation_level", "direction")):
@@ -655,6 +673,11 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                       and r["status"] in {"PUBLISHING", "PUBLISHED"}}
     for row in sorted(source_rows + outcomes, key=lambda r: posts._utc(r["at_utc"])):
         pid = row["plan_id"]
+        if queue_clock is not None and pid in sources and row["to"] == "WAITING":
+            if latest[pid]["key"] != row["key"] or current_states.get(pid) not in posts.ACTIVE:
+                queue_clock.refuse(row, "PLAN_SETUP_SUPERSEDED")
+            elif pid in cards and cards[pid]["key"] != row["key"]:
+                queue_clock.refuse(row, "PLAN_SETUP_ALREADY_REPRESENTED", replacement_key=cards[pid]["key"])
         if pid not in sources or row["to"] == "WAITING" or (row["to"] in TERMINAL and pid in ended_plans):
             continue
         if row["key"] in prior:

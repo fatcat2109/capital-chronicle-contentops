@@ -177,7 +177,8 @@ def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, p
         raise PlanPostError("PLAN_EXPORT_UNREADABLE:" + re.sub(r"[^A-Za-z0-9_]", "", name)[:80])
 
 
-def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True) -> list[dict]:
+def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True,
+                     include_replaced_expiries: bool = False) -> list[dict]:
     plans = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("plan_id")}
     events = export["transitions"].get("transitions", [])
     filled = {e.get("plan_id"): _utc(e["at_utc"]) for e in events if e.get("status") == "FILLED"}
@@ -187,7 +188,8 @@ def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True)
         if plan is None:
             raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
         status = event.get("status")
-        if status == "EXPIRED" and (plan.get("outcome") or {}).get("state") == "NOT_SCORED_UNTRIGGERED":
+        replaced_expiry = status == "EXPIRED" and (plan.get("outcome") or {}).get("state") == "NOT_SCORED_UNTRIGGERED"
+        if replaced_expiry and not include_replaced_expiries:
             continue  # CC-322: one result post replaces the expiry status post.
         # CC-331 / decision 106: a fill confirms the model position at its own clock. Keep CC-360's existing
         # public TRIGGERED identity even when Main later backfills a separate trigger; this must not post twice.
@@ -199,6 +201,8 @@ def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True)
                    at_utc=event.get("at_utc"), cause=event.get("reason_code"),
                    plan=_built_plan(plan, state=status))
         row.update(source_state=source_state, source_transition_id=event.get("transition_id"))
+        if replaced_expiry:
+            row["replaced_expiry"] = True
         if (source_state == "TRIGGERED" and event["plan_id"] in filled
                 and _utc(row["at_utc"]) != filled[event["plan_id"]]):
             row["superseded_by_fill"] = True
@@ -744,7 +748,8 @@ def _recoverable(payload, recoveries, now) -> bool:
 
 def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
                 window_minutes: int = POSTING_WINDOW_MINUTES, dry_run: bool = False,
-                render_all: bool = False, instagram_profile_reader=None, **reader) -> dict:
+                render_all: bool = False, instagram_profile_reader=None, analysis_copy_root=None, queue_clock=None,
+                **reader) -> dict:
     """Register one outbox row per new transition for the six markets; repeats change nothing.
 
     The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
@@ -760,7 +765,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     if now >= cards.EFFECTIVE:
         return cards.queue_posts(store, export_dir, now=now, window_minutes=window_minutes,
                                  dry_run=dry_run, render_all=render_all,
-                                 instagram_profile_reader=instagram_profile_reader, **reader)
+                                 instagram_profile_reader=instagram_profile_reader,
+                                 analysis_copy_root=analysis_copy_root, queue_clock=queue_clock, **reader)
     limit = EXPORT_MAX_AGE_MINUTES
     freshness = {}
     try:
@@ -956,6 +962,10 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                                    for row in result.get("not_posted") or []]}
     if result.get("phase"):
         line["phase"] = result["phase"]
+    if "plan_export_queue" in result:
+        line["plan_export_queue"] = result["plan_export_queue"]
+    if result.get("plan_export_queue_record_error"):
+        line["plan_export_queue_record_error"] = result["plan_export_queue_record_error"]
     if result.get("plan_pages") is not None:
         line["plan_pages"] = result["plan_pages"]
     if "substack_daily_note" in result:
