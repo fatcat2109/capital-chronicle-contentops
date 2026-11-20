@@ -384,20 +384,15 @@ def test_stored_browser_budget_goes_to_the_newest_live_post(tmp_path, monkeypatc
             payload=json.dumps(packet),status="NATIVE_NEO_INTERNAL")
     reached=[]
     class Coordinator:
-        _ids=staticmethod(DurablePublicationCoordinator._ids)
-        def _effective_message(self,message):
-            return message
-        def readback_existing_dispatch(self,dispatch_id):
+        def recover_plan_copy(self,dispatch_id):
+            dispatch = store.get_platform_dispatch(dispatch_id)
+            reached.append(store.get_outbox_message(dispatch["message_id"])["work_item_id"])
             return {"reconciliation_status":"RECONCILIATION_PENDING"}
-    class Executor:
-        def __call__(self,request):
-            reached.append(request["work_item_id"])
-            return {"status":"READBACK_UNAVAILABLE"}
     monkeypatch.setattr(__import__("live_contentops.native_neo_executor_v1",fromlist=["bind_native_neo_coordinator"]),
-        "bind_native_neo_coordinator",lambda *a,**kw:(Coordinator(),Executor()))
+        "bind_native_neo_coordinator",lambda *a,**kw:(Coordinator(),None))
     result=neo.resume_stored_requests(store,limit=1)
     assert reached == ["newer-part-1" if continuation else "newer"]
-    assert len(result["requests"]) == 1 and result["requests"][0]["operation_id"] == "newer"
+    assert len(result["requests"]) == 1 and result["requests"][0]["operation_id"] == reached[0]
 
 
 def test_minute_record_reports_live_queue_after_settlement_without_losing_recent_work(tmp_path, monkeypatch):

@@ -428,6 +428,8 @@ class DecisionChecks:
                 continue
             self.issue("CC-672", copy["plan_post"], copy["platform"], cause, url=copy["public_url"],
                        delivery_cause=copy.get("first_cause"), delivery_state=copy["status"],
+                       retry_failure_cause=copy.get("retry_failure_cause"),
+                       unresolved_write_age_seconds=copy.get("unresolved_write_age_seconds"),
                        seconds_after_source=source_lag.total_seconds() if source_lag is not None else None,
                        seconds_after_first_confirmed=copy.get("seconds_after_first_confirmed"))
 

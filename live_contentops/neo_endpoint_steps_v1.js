@@ -639,7 +639,11 @@ if (input.phase === 'readback') {
         links:links(owner), public_image_urls:imageUrls(owner),
         ...(replyParent ? {reply_parent_url:replyParent,reply_parent_id:replyParent.match(/note\/(c-\d+)/)?.[1]} : {})};
     }).filter(e=>e.public_object_url);
-    return {url:location.href,tweets,notes,visible_note_count:noteElements.length};
+    const incompleteReplies = Array.from(document.querySelectorAll('main button, main a, main [aria-busy="true"]'))
+      .some(e=>visible(e) && (e.getAttribute('aria-busy') === 'true'
+        || /(?:show|load|view|see) (?:more|hidden|additional|\d+) (?:replies|comments)/i.test(e.innerText || '')));
+    return {url:location.href,tweets,notes,visible_note_count:noteElements.length,
+      note_reply_list_complete:!!parentUrl && !incompleteReplies};
   }, input.expected_identity));
 }
 throw new Error('NEO_UNSUPPORTED_PHASE');

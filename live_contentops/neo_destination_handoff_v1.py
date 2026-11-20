@@ -422,6 +422,10 @@ class NeoDestinationHandoff:
             prefix = "incident_dispatch_outcome_" + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_%"
             with store.get_read_only_connection() as conn:
                 rows = conn.execute("SELECT description FROM incidents WHERE incident_id LIKE ?", (prefix,)).fetchall()
+                retry = conn.execute("SELECT created_at FROM incidents WHERE incident_id=?",
+                    (DurablePublicationCoordinator._retry_incident_id(ids["dispatch_id"]),)).fetchone()
+            if retry:
+                latest = max(latest, datetime.fromisoformat(retry["created_at"].replace("Z", "+00:00")))
             for row in rows:
                 outcome = json.loads(row[0])
                 if outcome.get("dispatch_id") == ids["dispatch_id"]:
@@ -601,9 +605,11 @@ class NeoDestinationHandoff:
                             and intent.get("plan_status_post") and not value.get("reply_parent")
                             and value.get("entry_url") == ROOTS["x"]):
                         value["plan_status_root_readback"] = True
-                    if (not value.get("reply_parent")
-                            and (intent.get("plan_status_post") or intent.get("plan_analysis_link"))):
-                        if destination == "x":
+                    from .publication_coordinator_v1 import _is_plan_copy
+                    if _is_plan_copy(intent):
+                        if destination in {"x", "substack_notes"} and value.get("reply_parent"):
+                            value["public_plan_feed_url"] = value["reply_parent"]["public_object_url"]
+                        elif destination == "x":
                             value["public_plan_feed_url"] = (
                                 "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + identity.lstrip("@"))
                         elif destination == "substack_notes":

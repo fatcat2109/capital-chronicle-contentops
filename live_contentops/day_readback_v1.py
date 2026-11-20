@@ -845,18 +845,25 @@ def _plan_delivery(conn, window, store_path):
             if route:
                 status = (route["status"] or route["outbox_status"]) if not dispatch_at or dispatch_at <= end else "READY"
             confirmed = bool(dispatch_at and status == "DISPATCH_CONFIRMED" and route["public_object_id"])
-            retry, cause = False, None
+            retry, cause, retry_failure_cause = False, None, None
             published_at, verified_at = None, None
             if route and route["dispatch_id"]:
                 dispatch_id = route["dispatch_id"]
                 retry_id = DurablePublicationCoordinator._retry_incident_id(dispatch_id)
-                retry = conn.execute("""SELECT 1 FROM incidents
+                retry_record = conn.execute("""SELECT created_at FROM incidents
                     WHERE incident_id=? AND julianday(created_at) <= julianday(?)""",
-                    (retry_id, iso(end))).fetchone() is not None
+                    (retry_id, iso(end))).fetchone()
+                retry = retry_record is not None
                 history = histories.get(dispatch_id, [])
-                diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, []) + history
+                dispatch_outcomes = _dispatch_outcomes(conn, key, dispatch_id, iso(end))
+                diagnostics = dispatch_outcomes + native.get(destination, []) + history
                 cause = next((c for _, value in sorted(diagnostics, key=lambda item: utc(item[0]))
                               if (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
+                if retry and not confirmed and destination in {"x", "substack_notes"}:
+                    retry_started = utc(retry_record["created_at"])
+                    retry_failure_cause = next((c for at, value in reversed(dispatch_outcomes)
+                        if utc(at) >= retry_started and
+                        (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
                 if confirmed:
                     published_at, verified_at = _plan_copy_clocks(history)
             if not confirmed:
@@ -871,6 +878,10 @@ def _plan_delivery(conn, window, store_path):
             ready_at = utc(route["created_at"] if route else plan["created_at"])
             observed.append({"plan_post": key, "platform": destination, "status": status,
                 "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
+                **({"retry_failure_cause": retry_failure_cause} if retry_failure_cause else {}),
+                **({"unresolved_write_age_seconds": (end - dispatch_at).total_seconds()}
+                   if dispatch_at and destination in {"x", "substack_notes"} and status in {
+                       "UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"} else {}),
                  "source_at_utc": iso(source_at) if source_at else None,
                 "confirmed_dispatch_at_utc": iso(dispatch_at) if confirmed else None,
                 "observed_published_at_utc": iso(published_at) if published_at else None,
