@@ -5,6 +5,7 @@ not another report producer, store or publisher. Private originals stay local.
 """
 from __future__ import annotations
 
+from datetime import timedelta
 from hashlib import sha256
 import json
 import math
@@ -177,6 +178,46 @@ def _passage_text(path, passage, raw):
     return value
 
 
+def _wrap_quote_facts(spec):
+    """Add attributed facts from exact public quote observations to a market wrap."""
+    from live_contentops import public_market_quote_v1 as quotes
+    from live_contentops.article_scenarios_v1 import MARKETS
+    from live_contentops.public_time_v1 import public_timestamp
+
+    bindings = spec["wrap_quote_observations"]
+    if ("PRE_US_WRAP" not in spec.get("candidate_catalyst_tags", [])
+            or not isinstance(bindings, dict) or not set(MARKETS) <= bindings.keys()
+            or not bindings.keys() <= set(MARKETS) | {"DXY", "US10Y"}):
+        raise ValueError("PRE_US_WRAP_QUOTE_MARKETS_INVALID")
+    revision = _time(spec["revision_at_utc"])
+    facts, clocks = [], []
+    for market, binding in bindings.items():
+        digest = binding["sha256"]
+        if not re.fullmatch(r"[a-f0-9]{64}", digest):
+            raise ValueError("PRE_US_WRAP_QUOTE_HASH_INVALID")
+        root = (quotes.ROOT / "observations").resolve()
+        path = (root / (digest + ".json")).resolve()
+        if path.parent != root or not path.is_file() or path.stat().st_size > 16_384:
+            raise ValueError("PRE_US_WRAP_QUOTE_BINDING_MISSING")
+        observation = quotes.resolve(path, digest)
+        quotes.validate(observation, market, now=revision, max_age_seconds=90_000 if market == "US500" else 4_500)
+        known = _time(observation["known_at_utc"])
+        if revision - known > timedelta(minutes=15):
+            raise ValueError("PRE_US_WRAP_QUOTE_SNAPSHOT_STALE")
+        observed = public_timestamp(_time(observation["observed_at_utc"]))
+        price = observation["value_text"]
+        move = observation["day_change_pct"]
+        facts.append(f'{observation["instrument_name"]} ({market}), {observation["source"]} at {observed}: '
+                     f'{price} {observation["unit"]}; {move:+.2f}% versus its provider reference close.')
+        clocks.append({"path": str(path), "sha256": digest, "field": "/known_at_utc", "value": known.isoformat()})
+    cutoff = max((clock["value"] for clock in clocks), key=_time)
+    if _time(cutoff) < _time(spec["known_at_utc"]):
+        raise ValueError("PRE_US_WRAP_QUOTE_SNAPSHOT_PRECEDES_MAIN")
+    facts.insert(0, f"Public quote snapshot: {public_timestamp(_time(cutoff))}. "
+                 f"Main analysis completed: {public_timestamp(_time(spec['known_at_utc']))}.")
+    return facts, clocks, cutoff
+
+
 def verify_projection(spec):
     """Reconstruct every public word from pinned, bounded report spans.
 
@@ -240,6 +281,18 @@ def verify_projection(spec):
                     # Only the new canonical's explicit data deadline needs it.
                     binding["cause"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
                 clock_bindings.append(binding)
+    if "wrap_quote_observations" in spec:
+        from live_contentops.public_time_v1 import public_timestamp
+
+        quote_facts, quote_clocks, quote_cutoff = _wrap_quote_facts(spec)
+        if lead_data_clock:
+            quote_facts.insert(1, "Main's analysis used a market capture at "
+                               + public_timestamp(_time(lead_data_clock)) + ".")
+        texts.extend(quote_facts)
+        clock_bindings.extend(quote_clocks)
+        for clock in quote_clocks:
+            sources[clock["path"]] = clock["sha256"]
+        lead_data_clock = quote_cutoff
     text = "\n\n".join(texts)
     check_publication_copy({"text": text, "title": spec["headline_text"]}, require_notice=False)
     if _time(spec["known_at_utc"]) > _time(spec["revision_at_utc"]):

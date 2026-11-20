@@ -108,6 +108,42 @@ def test_changed_main_bytes_cannot_replace_frozen_evidence(tmp_path, monkeypatch
     assert research.gaps[0]["state"] == "MAIN_REPORT_SOURCE_BYTES_CHANGED"
 
 
+def test_wrap_quote_clock_and_facts_reach_reader_writer_and_publication_gate(tmp_path, monkeypatch):
+    from live_contentops import public_market_quote_v1 as quotes
+    from live_contentops.article_scenarios_v1 import MARKETS
+    from live_contentops.reader_article_contract_v1 import contract_for, utc, validate_publication_clock
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+
+    root, report, spec = retained(tmp_path, monkeypatch, native=True)
+    (report.parent / "capture.json").write_text('{"known_at_utc":"2026-10-18T14:00:00Z"}', encoding="utf-8")
+    monkeypatch.setattr(quotes, "ROOT", tmp_path / "quotes")
+    bindings = {}
+    for market in MARKETS:
+        provider, symbol, name, unit, instrument_type = quotes.SYMBOLS[market]
+        frozen = quotes.freeze({"market": market, "source_symbol": symbol, "instrument_name": name,
+            "source": provider, "unit": unit, "value": 100.0, "value_text": "100.0", "day_change_pct": -1.25,
+            "observed_at_utc": "2026-10-18T15:49:00+00:00", "known_at_utc": "2026-10-18T15:50:00+00:00"})
+        bindings[market] = {"sha256": frozen["observation_sha256"]}
+    spec.update(candidate_catalyst_tags=["PRE_US_WRAP"], wrap_quote_observations=bindings)
+    (root / "index.json").write_text(json.dumps({"schema_version": "contentops.retained_source_research.v1",
+        "records": [spec]}), encoding="utf-8")
+    research = RetainedSourceResearch(root)
+    assert not research.gaps
+    docs = _source_pack(research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    contract = contract_for({"source_pack": docs})
+    assert docs[0]["data_clock_binding"][0]["value"] == "2026-10-18T14:00:00Z"
+    assert "11:50 ET" in docs[0]["canonical_content_text"]
+    assert "-1.25%" in docs[0]["canonical_content_text"]
+    assert contract["data_cutoff_utc"] == "2026-10-18T15:50:00+00:00"
+    article = {"reader_article_contract": contract}
+    validate_publication_clock(article, now=utc("2026-10-18T16:49:00Z"), destination="substack")
+    with pytest.raises(ValueError, match="ARTICLE_DATA_CUTOFF_EXPIRED"):
+        validate_publication_clock(article, now=utc(NOW), destination="substack")
+    (quotes.ROOT / "observations" / (bindings["XAUUSD"]["sha256"] + ".json")).write_text("{}", encoding="utf-8")
+    with pytest.raises(ValueError, match="PUBLIC_QUOTE_BINDING_CHANGED"):
+        projection.verify_projection(spec)
+
+
 @pytest.mark.parametrize(
     "native,receipt_ensure_ascii", [(True, True), ("single_pass", True), ("decision91", True), ("decision91", False)],
 )
