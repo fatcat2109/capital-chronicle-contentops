@@ -397,6 +397,9 @@ def observe(conn, dispatch, observation_id, *, collected_at, metrics, states, st
 def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys):
     from scripts import run_day_readback as cli
     data, store, feed, run = recorded
+    run_result = dict(data["run_result"])
+    run_result["route_state"] = run_result.pop("final_route_state")
+    (run / "result.json").write_text(json.dumps(run_result), encoding="utf-8")
     dispatches = {row["platform"]: row for row in data["platform_dispatches"][:10]}
     with sqlite3.connect(store) as conn:
         for platform, metrics, states in [
@@ -408,12 +411,14 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
             observe(conn, dispatches[platform], platform, collected_at="2026-11-16T10:00:00Z", metrics=metrics, states=states)
     getter, _ = getter_for(data)
     real_build = readback.build_report
-    monkeypatch.setattr(cli, "build_report", lambda *args, **kwargs: real_build(*args, **kwargs, fetcher=getter))
+    monkeypatch.setattr(cli, "build_report", lambda *args, **kwargs: real_build(
+        *args, **kwargs, fetcher=getter, now=readback.utc(run_result["recorded_at_utc"])))
     result = cli.main(["--run-dir", str(run), "--store", str(store), "--feed", str(feed)])
     assert result == 0
     output = json.loads(capsys.readouterr().out)
     assert output["state"] == "READBACK_WRITTEN"
     report = json.loads((run / "day_readback.json").read_bytes())
+    assert report["digest"]["state"] == "CONFIRMED"
     assert report["digest"]["recipients"] == 5
     assert output["exceptions"] == report["exceptions"]
     piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
@@ -426,8 +431,17 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     assert engagement["threads"]["missing_metrics"]["replies"] == "NOT_EXPOSED"
     assert engagement["youtube"]["first_cause"] == "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
     markdown = (run / "day_readback.md").read_text(encoding="utf-8")
-    assert "## Engagement" in markdown and "Exceptions:" in markdown
-    assert "**x** · 123 views (16 Nov 2026 17:00 GMT+7) · 0 likes" in markdown
+    assert "Digest: CONFIRMED; recipients 5; opens 1;" in markdown
+    assert piece["first_line"] and piece["first_line"] != piece["title"]
+    summary, engagement_section = markdown.split("## Engagement\n", 1)
+    assert f"\n- {piece['title']} (" in summary
+    assert f"\n- {piece['first_line']} (" not in summary
+    article_block = engagement_section.split(f"\n- {piece['title']}\n", 1)[1]
+    article_lines = article_block.split("\n\n", 1)[0].split("\n- ", 1)[0].splitlines()
+    assert len(article_lines) == len(CHANNELS)
+    assert all(any(line.startswith(f"  - **{platform}** · ") for line in article_lines) for platform in CHANNELS)
+    assert any("**x** · 123 views (16 Nov 2026 17:00 GMT+7) · 0 likes" in line for line in article_lines)
+    assert "  - **youtube** · YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED" in article_lines
 
 
 def test_empty_scheduled_digest_resume_still_writes_the_plan_delivery_report(recorded, tmp_path, monkeypatch):
@@ -579,6 +593,20 @@ def test_sealed_feed_failure_still_uses_store_publications(recorded):
     piece = next(p for p in report["pieces"] if p["piece_id"] == "cc536-measured-odds-2")
     assert any(r["public_url"] == "https://t.me/CapitalChronicle/186" for r in piece["platforms"])
     assert report["digest"]["recipients"] == 5
+
+
+def test_article_without_sealed_feed_uses_its_canonical_intent_title(recorded):
+    _, store, feed, _ = recorded
+    feed.write_text("", encoding="utf-8")
+    with sqlite3.connect(store) as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE work_item_id=? AND destination='substack'", (
+            json.dumps({"native_payload": {"title": "The article's title", "body_markdown": "Article body opening."}}),
+            "cc536-measured-odds-2"))
+    report, _ = build(recorded)
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "cc536-measured-odds-2")
+    assert piece["title"] == "The article's title"
+    assert "\n- The article's title (" in readback.markdown(report)
+    assert "\n- The article's title\n" in readback.markdown(report)
 
 
 def test_native_first_cause_is_used_when_the_dispatch_has_no_readback(recorded):
