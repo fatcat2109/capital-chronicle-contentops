@@ -28,27 +28,37 @@ PAGE_AGY_TIMEOUT = 100
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
-def prepare_plan_layers(plan, *, output_dir=None, call=None):
+def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANALYSIS_COPY):
     """Choose one public quote per layer before any status copy is issued."""
     from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
 
-    options = reader.analysis_layer_options(plan)
+    nine_layers = contract == reader.NINE_LAYER_COPY
+    options = reader.plan_layer_candidates(plan)[0] if nine_layers else reader.analysis_layer_options(plan)
     quotes = {layer: candidates[0]["text"] for layer, candidates in options.items()}
-    if not quotes or output_dir is None:
+    choices = {layer: [item["text"] for item in candidates[:3]] for layer, candidates in options.items()
+               if candidates[0]["text"]}
+    if not choices or output_dir is None:
         return quotes
-    choices = {layer: [item["text"] for item in candidates[:3]] for layer, candidates in options.items()}
-    prompt = (
-        "Do not call any tool. Pick one clear market finding per layer. Avoid repeating the same finding. "
-        "Return only a JSON object with each layer key mapped to its chosen zero-based string index.\n"
-        + json.dumps(choices, ensure_ascii=False, separators=(",", ":"))
-    )
+    if nine_layers:
+        prompt = (
+            "Do not call tools. Draft one line per layer, using only this plan's own wording. "
+            "Rewrite internal notation using the supplied public wording. Keep the meaning, figures and clocks. "
+            "Return a JSON object mapping each layer to one exact public text or its zero-based index.\n"
+            + json.dumps({layer: options[layer][:3] for layer in choices}, ensure_ascii=False, separators=(",", ":"))
+        )
+    else:
+        prompt = (
+            "Do not call any tool. Pick one clear market finding per layer. Avoid repeating the same finding. "
+            "Return only a JSON object with each layer key mapped to its chosen zero-based string index.\n"
+            + json.dumps(choices, ensure_ascii=False, separators=(",", ":"))
+        )
     root = Path(output_dir) / ("layer-lines-" + sha256(prompt.encode()).hexdigest()[:20])
     log = root / "light-call.json"
     if log.is_file():
         record = json.loads(log.read_bytes())
         selected = record.get("checked_quotes")
         if selected is not None:
-            reader.verified_analysis_lines(plan, selected)
+            reader.verified_analysis_lines(plan, selected, contract=contract)
             return selected
         answer_path = root / "answer.txt"
         answer = answer_path.read_bytes() if answer_path.is_file() else b""
@@ -64,7 +74,7 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None):
             drafted = json_answer(answer)
             if not isinstance(drafted, dict):
                 raise ValueError("CC688_LAYER_OBJECT_REQUIRED")
-            for layer in options:
+            for layer in choices:
                 try:
                     text = drafted.get(layer)
                     if isinstance(text, str) and text in ("0", "1", "2"):
@@ -79,10 +89,10 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None):
                     accepted += 1
         except (UnicodeError, ValueError) as exc:
             findings["answer"] = str(exc)
-    reader.verified_analysis_lines(plan, quotes)
-    record.update(job="plan_layer_lines", result="PASS" if accepted == len(options) and not findings else "FALLBACK",
-                  fallback=None if accepted == len(options) else "frozen_plan",
-                  lines_expected=len(options), lines_passed=accepted, findings=findings, checked_quotes=quotes)
+    reader.verified_analysis_lines(plan, quotes, contract=contract)
+    record.update(job="plan_layer_lines", result="PASS" if accepted == len(choices) and not findings else "FALLBACK",
+                  fallback=None if accepted == len(choices) else "frozen_plan",
+                  lines_expected=len(choices), lines_passed=accepted, findings=findings, checked_quotes=quotes)
     root.mkdir(parents=True, exist_ok=True)
     log.write_bytes(canonical_bytes(record))
     return quotes
