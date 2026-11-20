@@ -274,8 +274,7 @@ class MainHeadlineExporter:
         try:
             pages = [
                 json.loads(r["payload"])
-                for r in self.store.list_outbox_messages()
-                if r["destination"] == DESTINATION
+                for r in self.store.list_outbox_messages(destination=DESTINATION)
             ]
             last = max(pages, key=lambda p: p["sequence"], default={})
             own_pages = [p for p in pages if p.get("cursor_namespace", "editorial") == cursor_namespace]

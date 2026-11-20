@@ -54,7 +54,7 @@ def test_real_unicode_SEC_proposition_matches_Main_native_utf8_wire_hash():
     assert native != escaped and projected["projection_sha256"] == native
 
 
-def test_unicode_reseal_is_representation_supersession_not_new_observation(tmp_path):
+def test_unicode_reseal_is_representation_supersession_not_new_observation(tmp_path, monkeypatch):
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     from live_contentops.contentops_main_headline_projection_v1 import DESTINATION
     root = Path(__file__).parents[1] / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research"
@@ -69,6 +69,13 @@ def test_unicode_reseal_is_representation_supersession_not_new_observation(tmp_p
                 row["projection_sha256"] = hashlib.sha256(json.dumps({k: v for k, v in row.items() if k != "projection_sha256"}, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()).hexdigest()
             rows.append(row)
     _persist(store, "historical-wire-page", {"sequence": 1, "rows": rows, "page_sha256": "a" * 64}, DESTINATION)
+    original_list = store.list_outbox_messages
+
+    def read_projection_pages(*, destination):
+        assert destination == DESTINATION
+        return original_list(destination=destination)
+
+    monkeypatch.setattr(store, "list_outbox_messages", read_projection_pages)
     result = MainHeadlineExporter(store, research=research).export(batch_id="unicode-reseal", paths=[], cutoff_utc=cutoff)
     assert result["eligible_rows"] == 1
     assert result["representation_supersessions"] == 1 and result["new_independent_observations"] == 0
