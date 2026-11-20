@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 import re
 
-from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
+from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy
 
 CONTRACT = "CC466_V1"
 THREAD_CONTRACT = "CC549_V1"
@@ -246,6 +246,7 @@ def analysis_layer_options(plan):
                 check_text(text, source=value, prose=False)
                 check_thread_text(text, force=True)
                 check_reader_claim(text, source=text)
+                check_publication_copy({"body": text}, require_notice=False)
             except ValueError:
                 continue
             sources[layer].append({"text": text, "ref": {"file": "plan-export", "pointer": pointer}})
@@ -323,6 +324,7 @@ def analysis_scenario_lines(plan):
                 raise ValueError("SCENARIO_PROSE_NOT_PUBLIC")
             check_text(summary, source=summary, max_chars=175, prose=False)
             check_reader_claim(summary, source=summary)
+            check_publication_copy({"body": summary}, require_notice=False)
         except ValueError:
             summary = ""
         odds = f"{label} scenario ({probability:g}%)"

@@ -74,6 +74,14 @@ def test_timeout_uses_the_frozen_quote_without_a_second_caller(tmp_path):
     assert record["result"] == "FALLBACK" and record["cause"] == "AGY_PLAN_LAYER_TIMEOUT_65S"
 
 
+def test_execution_copy_is_removed_from_layer_choices_before_it_can_starve_an_alert():
+    technical = "Price failed to recover last week's range."
+    plan = {"analysis_layers": {"technical": {"text": "The stop below the shelf was reviewed. " + technical}}}
+    quotes = editorial.prepare_plan_layers(plan)
+    assert quotes == {"technical": technical}
+    assert reader.verified_analysis_lines(plan, quotes) == ["Technical: " + technical]
+
+
 @pytest.mark.parametrize("confirmed", [True, False])
 def test_minute_queue_and_all_status_payloads_use_the_same_frozen_lines(replay, main_root, monkeypatch, confirmed):
     store, folder, raw, now = replay
