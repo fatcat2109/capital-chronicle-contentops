@@ -10,8 +10,8 @@ def checks(tmp_path, start="2026-11-19T12:15:00Z", end="2026-11-20T12:15:00Z"):
 
 
 def published(audit, piece, platform, *, title="", text="", source=None, native=None, intent=None,
-              published_at="2026-11-19T12:30:00Z", media_visible=True, mutations=()):
-    history = [("2026-11-19T13:30:00Z", {"readback": {
+              published_at="2026-11-19T12:30:00Z", read_at="2026-11-19T13:30:00Z", media_visible=True, mutations=()):
+    history = [(read_at, {"readback": {
         "verified": True, "write_exists": True, "meaningful_media_visible": media_visible,
         "observed_published_at_utc": published_at, "observed_public_object_id": "object-1",
     }})]
@@ -194,3 +194,55 @@ def test_shared_report_writer_emits_sidecar_for_digest_without_issue(tmp_path):
     assert len(paths) == 2
     assert "## Decision checks" in paths[1].read_text(encoding="utf-8")
     assert json.loads((run / "decision_checks.json").read_bytes()) == decisions
+
+
+def test_decision_83_checks_public_links_and_exact_x_thread(tmp_path):
+    audit = checks(tmp_path)
+    root = published(audit, "gold-setup", "telegram", text="Gold is holding.")
+    check_public_text("telegram", """
+        <div class="tgme_widget_message_text">Gold is holding.
+        <a href="https://capital-chronicle-preview.pages.dev">Read more</a></div>
+        """, decision_copy=root)
+    published(audit, "gold-setup", "x", mutations=[
+        ("2026-11-19T14:02:00Z", {"readback": {
+            "verified": True, "identity_match": True, "observed_public_object_id": "object-1",
+            "content_binding_checks": {"thread_match": True},
+            "observed_thread": [{"public_object_url": "https://x.com/Capitalnicle/status/99"}],
+            "observed_link_resolutions": [{"public_object_url": "https://x.com/Capitalnicle/status/99",
+                                           "target_verified": True, "target_url": "https://site.github.io"}],
+        }}),
+    ])
+    published(audit, "other-setup", "discord", text="Capital Chronicle offers analysis.")
+    results = audit.finish({}, {})
+    broken = [issue for issue in results["issues"] if issue["decision"] == "83"]
+    assert {(r["platform"], r["first_cause"]) for r in broken} == {
+        ("telegram", "PREVIEW_HOST_LINK_FORBIDDEN"), ("x", "PREVIEW_HOST_LINK_FORBIDDEN")}
+    assert "pages.dev" not in json.dumps(results) and "github.io" not in json.dumps(results)
+
+
+def test_interim_first_post_uses_available_analysis_and_flags_internal_copy(tmp_path):
+    audit = checks(tmp_path, end="2026-11-20T14:00:00Z")
+    source = {"kind": "setup", "decision_source_created_at_utc": "2026-11-20T12:05:00Z",
+              "source_plan": {"scenario_analysis": {"mechanism": "Gold gained as near-term yields fell."}}}
+    clocks = {"published_at": "2026-11-20T12:30:00Z", "read_at": "2026-11-20T13:30:00Z"}
+    published(audit, "gold-setup", "telegram", source=source, text="The setup is MIXED.", **clocks)
+    published(audit, "gold-setup", "x", source=source, text="Macro: Gold gained as near-term yields fell.", **clocks)
+    published(audit, "other-setup", "telegram", source={
+        **source, "source_plan": {"layers": [{"state": "UNAVAILABLE", "text": None}]}}, text="Gold is holding.", **clocks)
+    issues = audit.finish({}, {})["issues"]
+    interim = {r["piece_id"] + "/" + r["platform"] + "/" + r["first_cause"]
+               for r in issues if r["first_cause"].startswith("FIRST_PLAN_POST_")}
+    assert interim == {"gold-setup/telegram/FIRST_PLAN_POST_ANALYSIS_LINE_MISSING",
+                       "gold-setup/telegram/FIRST_PLAN_POST_INTERNAL_TOKEN"}
+
+
+def test_coverage_names_a_stall_even_when_routes_all_confirm_together(tmp_path):
+    audit = checks(tmp_path)
+    rows = [{"plan_post": "gold-setup", "platform": platform, "status": "DISPATCH_CONFIRMED",
+             "confirmed": True, "behind_over_ten_minutes": False, "public_url": None,
+             "source_at_utc": "2026-11-19T13:00:00Z", "confirmed_dispatch_at_utc": "2026-11-19T21:00:00Z"}
+            for platform in ("x", "telegram")]
+    issues = [r for r in audit.finish({"copies": rows}, {})["issues"] if r["decision"] == "CC-672"]
+    assert [(r["platform"], r["first_cause"], r["seconds_after_source"]) for r in issues] == [
+        ("telegram", "PLAN_COPY_OVER_TEN_MINUTES_LATE", 28800),
+        ("x", "PLAN_COPY_OVER_TEN_MINUTES_LATE", 28800)]

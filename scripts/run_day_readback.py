@@ -27,13 +27,14 @@ def main(argv=None):
     parser.add_argument("--since", help="Exclusive UTC start; default is the preceding digest run's folder clock")
     parser.add_argument("--until", help="Inclusive UTC end; default is result.json's clock, otherwise now")
     parser.add_argument("--stored-only", action="store_true", help="Replay retained records without public HTTP")
+    parser.add_argument("--plan-export-dir", type=Path, help="Use this retained Main public plan snapshot for the report")
     parser.add_argument("--decisions-only", action="store_true", help="Write only decision_checks.json")
     parser.add_argument("--output-dir", type=Path, help="Write to a replay folder instead of the existing run folder")
     args = parser.parse_args(argv)
     try:
         source = {"fetcher": None} if args.stored_only else {}
         report = build_report(args.run_dir, store_path=args.store, feed_path=args.feed,
-                              since=args.since, until=args.until, **source)
+                              since=args.since, until=args.until, plan_export_dir=args.plan_export_dir, **source)
         folder = args.output_dir or args.run_dir
         decisions = report["decision_checks"]
         if args.decisions_only:
@@ -46,7 +47,7 @@ def main(argv=None):
         return 1
     print(json.dumps({"state": "READBACK_WRITTEN", "files": [str(p) for p in paths],
                       "pieces": len(report["pieces"]), "exception_count": report["exception_count"],
-                      "exceptions": report["exceptions"],
+                      "exceptions": sorted(report["exceptions"], key=lambda issue: "decision" not in issue),
                       "decision_failure_count": decisions["failure_count"]}, ensure_ascii=False))
     return 0  # Named destination exceptions belong in the notice, not a retry loop.
 

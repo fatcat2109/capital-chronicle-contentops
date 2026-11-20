@@ -16,6 +16,7 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+from subprocess import TimeoutExpired
 from tempfile import NamedTemporaryFile
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
@@ -423,10 +424,10 @@ def _readback_histories(conn, dispatch_ids, end):
 def _decision_source(conn, work_id, end, expected=""):
     parent_id = work_id.rsplit("-part-", 1)[0] if re.search(r"-part-\d+$", work_id) else work_id
     if parent_id.startswith(("plan-status-post-", "plan-result-post-", "plan-update-post-")):
-        row = conn.execute("""SELECT payload FROM outbox_messages WHERE message_id=?
+        row = conn.execute("""SELECT payload,created_at FROM outbox_messages WHERE message_id=?
             AND destination='internal:plan-status-post' AND julianday(created_at) <= julianday(?)""",
             (parent_id, end)).fetchone()
-        return json.loads(row["payload"]) if row else {}
+        return {**json.loads(row["payload"]), "decision_source_created_at_utc": row["created_at"]} if row else {}
     if not work_id.startswith("plan-analysis-"):
         return {}
     rows = conn.execute("""SELECT payload FROM outbox_messages
@@ -453,6 +454,34 @@ def _confirmed_analysis_urls(conn, copies, end):
             if public_link(url):
                 urls[plan_id] = url
     return urls
+
+
+def _read_plan_export(plan_export_dir):
+    from live_contentops import plan_status_posts_v1 as posts
+
+    try:
+        return posts.read_export(plan_export_dir or posts.EXPORT_DIR), None
+    except posts.PlanExportContractError as exc:
+        return None, exc.cause
+    except posts.PlanPostError as exc:
+        return None, code(str(exc).replace(":", "_")) or "MAIN_PLAN_EXPORT_UNREADABLE"
+    except (OSError, ValueError, KeyError, TimeoutExpired) as exc:
+        return None, "MAIN_PLAN_EXPORT_" + type(exc).__name__.upper()
+
+
+def _confirmed_plan_announcements(conn, export, end):
+    if not export:
+        return set()
+    plans = [plan["plan_id"] for plan in export["status"]["plans"]]
+    routes = ",".join("?" for _ in ROUTES)
+    return {row[0] for row in conn.execute(f"""SELECT DISTINCT json_extract(plan.payload,'$.plan_id')
+        FROM outbox_messages plan JOIN outbox_messages post ON post.work_item_id=plan.message_id
+        JOIN platform_dispatches d ON d.message_id=post.message_id
+        WHERE plan.destination='internal:plan-status-post' AND json_extract(plan.payload,'$.kind')='setup'
+        AND json_extract(plan.payload,'$.plan_id') IN (SELECT value FROM json_each(?))
+        AND post.destination IN ({routes}) AND d.status='DISPATCH_CONFIRMED'
+        AND d.public_object_id IS NOT NULL AND d.public_object_url IS NOT NULL
+        AND julianday(d.dispatched_at) <= julianday(?)""", (json.dumps(plans), *ROUTES, end))}
 
 
 def _earlier_wrap_copies(conn, checks, known_ids):
@@ -886,7 +915,7 @@ def _plan_delivery(conn, window, store_path):
 
 
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
-                 since=None, until=None, now=None, fetcher=fetch_public, run_result=None):
+                 since=None, until=None, now=None, fetcher=fetch_public, run_result=None, plan_export_dir=None):
     now = now or datetime.now(timezone.utc)
     window, result = report_window(run_dir, since=since, until=until, now=now, run_result=run_result)
     report = {"schema_version": "contentops.day_readback.v1", "observed_at_utc": iso(now),
@@ -899,6 +928,9 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     cache, expected = {}, {}
     decision_copies = {}
     checks = DecisionChecks(window, Path(store_path).parent)
+    plan_export, plan_source_error = None, None
+    if plan_export_dir is not None or (until is None and Path(store_path).resolve() == PRODUCTION_STORE.resolve()):
+        plan_export, plan_source_error = _read_plan_export(plan_export_dir)
 
     def exception(cause, piece, platform=None, row=None, status=None):
         report["exceptions"].append({"piece_id": piece, "platform": platform,
@@ -1054,6 +1086,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         report["plan_delivery"] = _plan_delivery(conn, window, store_path)
         _earlier_wrap_copies(conn, checks, groups)
         analysis_urls = _confirmed_analysis_urls(conn, checks.copies, window["until_utc"])
+        announced = _confirmed_plan_announcements(conn, plan_export, window["until_utc"])
         seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
         # A contradictory outbox status, or an uncertain private reply delivery,
         # is still an exception even when it has no public dispatch row.
@@ -1086,7 +1119,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     if report["digest"]["public_readback"]:
         for issue in report["digest"]["public_readback"]["exceptions"]:
             exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
-    report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls)
+    report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls,
+        plan_export=plan_export, announced=announced, plan_source_error=plan_source_error)
     report["decision_checks"]["antigravity"] = daily_metrics(
         Path(store_path).parent, window, checks.estimated_jobs(report["plan_delivery"]),
         {Path(copy.intent["output_dir"]).resolve() for copy in checks.copies if copy.intent.get("output_dir")})

@@ -420,7 +420,8 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     report = json.loads((run / "day_readback.json").read_bytes())
     assert report["digest"]["state"] == "CONFIRMED"
     assert report["digest"]["recipients"] == 5
-    assert output["exceptions"] == report["exceptions"]
+    assert output["exceptions"] == sorted(report["exceptions"], key=lambda issue: "decision" not in issue)
+    assert output["exceptions"][0]["decision"] == "98"
     decisions = json.loads((run / "decision_checks.json").read_bytes())
     assert decisions == report["decision_checks"]
     assert output["decision_failure_count"] == decisions["failure_count"]
@@ -769,3 +770,45 @@ def test_internal_and_contradictory_outbox_uncertainty_are_explicit(recorded):
     report, _ = build(recorded)
     assert any(e["platform"] == "telegram" and e["status"] == "UNKNOWN_WRITE" for e in report["exceptions"])
     assert any(e["message_id"] == "private-uncertainty" and e["first_cause"] == "SEND_TIMED_OUT" for e in report["exceptions"])
+
+
+def test_evening_cli_finds_missing_first_post_from_main_and_uses_prior_confirmation(recorded, monkeypatch, capsys):
+    from scripts import run_day_readback as cli
+    from live_contentops import plan_status_posts_v1 as posts
+
+    _, store, feed, run = recorded
+    registered = "2026-11-16T07:29:16Z"
+    btc = {"plan_id": "plan_btc", "asset_id": "BTCUSD", "kind": "OPEN_ARM", "status": "CANCELLED",
+           "registered_at_utc": registered, "status_at_utc": "2026-11-16T07:29:35Z",
+           "public_instrument": {"direction": "BEARISH", "zone_low": 60000, "zone_high": 61000,
+                                 "invalidation_level": 62500, "levels_first_cause": None}}
+    watch = {**btc, "plan_id": "plan_watch", "kind": "WATCH", "status": "WAITING",
+             "public_instrument": {"levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED"}}
+    announced = {**btc, "plan_id": "plan_posted", "status": "TRIGGERED",
+                 "registered_at_utc": "2026-11-14T10:00:00Z", "public_instrument": None}
+    refused = {**btc, "plan_id": "plan_refused", "public_instrument": None}
+    snapshot = {"status": {"generated_at_utc": "2026-11-16T12:15:00Z",
+                           "plans": [btc, watch, announced, refused]},
+                "transitions": {"transitions": []}}
+    monkeypatch.setattr(posts, "read_export", lambda export_dir: snapshot)
+    old = "2026-11-14T10:00:00Z"
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     ("plan-status-post-older", posts.WORK_ITEM_ID, posts.DESTINATION,
+                      json.dumps({"kind": "setup", "plan_id": "plan_posted"}), "PUBLISHED", old))
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     ("confirmed-copy", "plan-status-post-older", "telegram", "{}", "PUBLISHED", old))
+        conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
+                     ("dispatch-older", "confirmed-copy", "telegram", "DISPATCH_CONFIRMED", old, "1",
+                      "https://t.me/CapitalChronicle/1", None))
+
+    before = sha256(store.read_bytes()).hexdigest()
+    assert cli.main(["--run-dir", str(run), "--store", str(store), "--feed", str(feed),
+                     "--plan-export-dir", str(run), "--stored-only"]) == 0
+    notice = json.loads(capsys.readouterr().out)
+    sidecar = json.loads((run / "decision_checks.json").read_bytes())
+    found = [r for r in sidecar["issues"] if r["first_cause"] == "BROKER_PLAN_FIRST_POST_MISSING"]
+    assert [(r["piece_id"], r["broker_evidence"]) for r in found] == [("plan_btc", "submitted_ibkr_ticket")]
+    assert any(r["piece_id"] == "plan_btc" and r["decision"] == "CC-672" for r in notice["exceptions"])
+    assert "BROKER_PLAN_FIRST_POST_MISSING" in (run / "day_readback.md").read_text(encoding="utf-8")
+    assert sha256(store.read_bytes()).hexdigest() == before

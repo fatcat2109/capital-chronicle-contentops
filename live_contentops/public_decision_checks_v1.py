@@ -10,6 +10,7 @@ import re
 import unicodedata
 from urllib.parse import parse_qs, urlsplit
 
+from .preview_link_guard_v1 import REASON as PREVIEW_LINK_REASON, find_forbidden_link
 from .public_time_v1 import PUBLIC_ZONE, find_forbidden_public_time
 from .tradingview_snapshot_v1 import SYMBOLS
 from .x_reply_trading_dates_v1 import trading_date
@@ -17,13 +18,15 @@ from .x_reply_trading_dates_v1 import trading_date
 
 WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_page",
                "instagram_business", "threads", "linkedin", "linkedin_company", "x")
-DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584")
+DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83")
+PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
 LATE_LINE = "this page was published after the plan ended"
 LAYER_PREFIX = re.compile(
     r"\b(macro|fundamentals?|positioning and sentiment|positioning|sentiment|options and gamma|"
     r"options|gamma|gex|priced in|technical|structure|geopolitics|geopolitical|scenarios?)\s*:\s*", re.I)
 LAYER_ALIAS = {
     "fundamentals": "fundamental", "positioning and sentiment": "positioning", "sentiment": "positioning",
+    "positioning sentiment": "positioning",
     "gamma": "options", "gex": "options", "options and gamma": "options", "options gamma": "options",
     "structure": "technical",
     "geopolitical": "geopolitics", "scenarios": "scenario",
@@ -233,22 +236,25 @@ class PublicCopy:
             return delivery == "IMAGE_ATTACHED"
         return self.proof.get("meaningful_media_visible", self.proof.get("image_visible"))
 
+    def verified_thread(self):
+        if (self.platform == "x" and self.verified_at
+                and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+            return self.proof.get("observed_thread") or self.proof.get("thread_posts") or []
+        return []
+
+    def resolved_links(self, thread):
+        urls = {self.url, *(post.get("public_object_url") for post in thread)} - {None}
+        return [link["target_url"] for link in self.proof.get("observed_link_resolutions") or []
+                if link.get("target_url") and link.get("target_verified") is True and link.get("public_object_url") in urls]
+
     def has_link(self, canonical):
         if contains_link(self.visible_text, canonical, self.public_links):
             return True
         if self.public_text is not None:
             return False
-        links = self.proof.get("observed_link_resolutions") or []
-        thread = self.proof.get("observed_thread") or self.proof.get("thread_posts") or []
-        urls = {self.url}
-        if (self.platform == "x" and self.verified_at
-                and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True):
-            urls.update(post.get("public_object_url") for post in thread)
-            if any(contains_link(str(post.get("observed_text") or ""), canonical) for post in thread):
-                return True
-        resolved = [link["target_url"] for link in links if link.get("target_url")
-                    and link.get("target_verified") is True and link.get("public_object_url") in urls]
-        return contains_link("", canonical, resolved)
+        thread = self.verified_thread()
+        return (any(contains_link(str(post.get("observed_text") or ""), canonical) for post in thread)
+                or contains_link("", canonical, self.resolved_links(thread)))
 
     def media(self, runtime):
         ids = self.native.get("media_asset_ids")
@@ -354,6 +360,42 @@ class DecisionChecks:
             self.issue("113", copy.piece, copy.platform, "FULL_ANALYSIS_LINK_MISSING" if canonical
                        else "CONFIRMED_FULL_ANALYSIS_PAGE_UNAVAILABLE", url=copy.url, evidence=copy.evidence)
 
+    def _first_analysis(self, copy):
+        from . import plan_scenario_lines_v1 as scenario
+
+        created = clock(copy.source.get("decision_source_created_at_utc")) or clock(copy.row.get("created_at"))
+        if (not copy.source.get("analysis_lines_contract")
+                and (not created or created < scenario.EFFECTIVE)):
+            return
+        plan = copy.source.get("source_plan") or {}
+        quotes = scenario.analysis_lines(plan)
+        public_layers = plan.get("layers") or plan.get("analysis_layers") or []
+        if isinstance(public_layers, dict):
+            public_layers = public_layers.values()
+        analyst_line_available = bool(quotes) or any(
+            isinstance(line, dict) and line.get("state") == "USED"
+            and isinstance(line.get("text"), str) and line["text"].strip()
+            for line in public_layers)
+        body = normalized(re.sub(r"\*\*|__", "", copy.visible_text))
+        if (analyst_line_available and not quoted_layer_count(copy.visible_text, plan)
+                and not any(normalized(quote) in body for quote in quotes)):
+            self.check("113", copy, "FIRST_PLAN_POST_ANALYSIS_LINE_MISSING")
+        else:
+            self.check("113", copy)
+        thread = copy.verified_thread()
+        public_text = re.sub(r"https?://\S+", "", "\n".join(
+            [copy.visible_text, *(str(post.get("observed_text") or "") for post in thread)]))
+        if (scenario.BARE_UTC.search(public_text) or scenario.INTERNAL_CAPS.search(public_text)
+                or scenario.INTERNAL_WORDS.search(public_text)):
+            self.issue("113", copy.piece, copy.platform, "FIRST_PLAN_POST_INTERNAL_TOKEN",
+                       url=copy.url, evidence=copy.evidence)
+
+    def _preview_link(self, copy):
+        thread = copy.verified_thread()
+        values = (copy.visible_text, copy.title, copy.public_links, copy.resolved_links(thread),
+                  [post.get("observed_text") for post in thread])
+        self.check("83", copy, PREVIEW_LINK_REASON if find_forbidden_link(*values) else None)
+
     def _chart(self, copy, market):
         if not isinstance(market, str) or not market:
             return
@@ -370,16 +412,73 @@ class DecisionChecks:
     def _coverage(self, delivery):
         for copy in delivery.get("copies", []):
             self.counts["CC-672"] += 1
-            if copy["confirmed"] and not copy["behind_over_ten_minutes"]:
+            source = clock(copy.get("source_at_utc"))
+            delivered = next((at for field in ("observed_published_at_utc", "first_verified_readback_at_utc",
+                                               "confirmed_dispatch_at_utc") if (at := clock(copy.get(field)))), None)
+            source_lag = delivered - source if source and delivered else None
+            waited = copy["behind_over_ten_minutes"] or bool(source and self.end - source > PLAN_DELIVERY_LIMIT)
+            late = copy["behind_over_ten_minutes"] or bool(source_lag and source_lag > PLAN_DELIVERY_LIMIT)
+            if copy["confirmed"]:
+                if not late:
+                    continue
+                cause = "PLAN_COPY_OVER_TEN_MINUTES_LATE"
+            elif waited or copy.get("x_ready_over_five_minutes"):
+                cause = "PLAN_COPY_UNCONFIRMED"
+            else:
                 continue
-            first = clock(copy.get("source_at_utc"))
-            if (not copy["behind_over_ten_minutes"] and not copy.get("x_ready_over_five_minutes")
-                    and (not first or (self.end - first).total_seconds() <= 600)):
-                continue
-            cause = "PLAN_COPY_OVER_TEN_MINUTES_LATE" if copy["confirmed"] else "PLAN_COPY_UNCONFIRMED"
             self.issue("CC-672", copy["plan_post"], copy["platform"], cause, url=copy["public_url"],
                        delivery_cause=copy.get("first_cause"), delivery_state=copy["status"],
+                       seconds_after_source=source_lag.total_seconds() if source_lag is not None else None,
                        seconds_after_first_confirmed=copy.get("seconds_after_first_confirmed"))
+
+    def _first_posts(self, export, announced, source_error):
+        if source_error:
+            self.issue("CC-672", "plan-status", "all", source_error, status="UNVERIFIED",
+                       evidence="main_public_plan_export")
+        if not export:
+            return
+
+        from .plan_status_posts_v1 import ACTIVE
+
+        snapshot = export["status"]
+        observed = clock(snapshot["generated_at_utc"])
+        if observed > self.end or self.end - observed > PLAN_DELIVERY_LIMIT:
+            cause = "MAIN_PLAN_EXPORT_POSTDATES_CUTOFF" if observed > self.end else "MAIN_PLAN_EXPORT_STALE"
+            self.issue("CC-672", "plan-status", "all", cause, status="UNVERIFIED",
+                       evidence="main_public_plan_export", observed_at_utc=observed.isoformat())
+        # Dated fills are usable even when the snapshot was generated just after the cutoff.
+        filled = {transition["plan_id"] for transition in export["transitions"]["transitions"]
+                  if transition["status"] == "FILLED" and self.start < clock(transition["at_utc"]) <= self.end}
+
+        for plan in snapshot["plans"]:
+            registered = clock(plan.get("registered_at_utc"))
+            if not registered or registered > self.end or not plan.get("asset_id"):
+                continue
+            state = plan.get("status")
+            status_at = clock(plan.get("status_at_utc"))
+            if plan["plan_id"] in filled or (state == "FILLED" and status_at and status_at <= self.end):
+                basis = "recorded_fill"
+            elif observed <= self.end:
+                instrument = plan.get("public_instrument") or {}
+                # Main supplies these levels only from a joined submitted IBKR ticket.
+                submitted = (instrument.get("levels_first_cause") is None
+                             and instrument.get("direction") in {"BULLISH", "BEARISH"}
+                             and all(instrument.get(key) is not None for key in
+                                     ("zone_low", "zone_high", "invalidation_level")))
+                if submitted and (registered > self.start or state in ACTIVE):
+                    basis = "submitted_ibkr_ticket"
+                elif state in ACTIVE and plan.get("kind") == "OPEN_ARM":
+                    basis = "active_main_arm"
+                else:
+                    continue
+            else:
+                continue
+            self.counts["CC-672"] += 1
+            if plan["plan_id"] not in announced:
+                self.issue("CC-672", plan["plan_id"], "all", "BROKER_PLAN_FIRST_POST_MISSING",
+                           evidence="main_public_plan_export", broker_evidence=basis,
+                           market=plan["asset_id"], plan_status=state,
+                           registered_at_utc=registered.isoformat(), observed_at_utc=observed.isoformat())
 
     def _discord(self, copy, channel_arrivals):
         source = copy.source
@@ -467,9 +566,10 @@ class DecisionChecks:
                 self.issue("136", copy.piece, copy.platform, "PUBLISHED_OBJECT_DELETE_CONFIRMED",
                            url=copy.url, evidence="stored_readback", observed_at_utc=read_at)
 
-    def finish(self, delivery, analysis_urls):
+    def finish(self, delivery, analysis_urls, *, plan_export=None, announced=(), plan_source_error=None):
         self._wraps()
         self._coverage(delivery)
+        self._first_posts(plan_export, announced, plan_source_error)
         groups = defaultdict(list)
         discord = defaultdict(list)
         for copy in self.copies:
@@ -493,6 +593,8 @@ class DecisionChecks:
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
             if plan_post:
                 self._analysis(copy, analysis_urls)
+                if source.get("kind") == "setup":
+                    self._first_analysis(copy)
                 if source.get("kind") == "result" or str(source.get("state")).upper() == "FILLED":
                     fills_and_results.add(source.get("key") or copy.piece)
                 if copy.platform == "discord":
@@ -503,6 +605,7 @@ class DecisionChecks:
             self.check("90", copy, "PUBLIC_TIMEZONE_ET_REQUIRED"
                        if find_forbidden_public_time(text) or PUBLIC_CLOCK.search(text) else None)
             self.check("109", copy, "PUBLIC_AI_LABEL_OR_MODEL_NAME" if AI_LABEL.search(text) else None)
+            self._preview_link(copy)
             self._immutable(copy)
             if plan_page:
                 self._late(copy)
