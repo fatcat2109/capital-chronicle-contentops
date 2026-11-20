@@ -5178,9 +5178,10 @@ class CanonicalDestinationTransportRuntimeV1:
         finalized["canonical_url"] = canonical_url
         if intent.get("market_wrap"):
             from .market_wrap_editorial_v1 import derivative_payload
+            from .market_wrap_job_v1 import select_media
             root = Path(intent["output_dir"])
             context = json.loads((root / "run_context_v1.json").read_bytes())
-            asset, = context["media"]["assets"]
+            asset = select_media(context["media"]["assets"], destination)
             native_payload = derivative_payload(context["article"], asset, canonical_url, destination)
             destination_plan = {**intent["destination_plan"], "payload_hash": _hash(_canonical_json(native_payload)),
                 "payload_hash_kind": "FINAL_CANONICAL_URL_BOUND_BYTES",

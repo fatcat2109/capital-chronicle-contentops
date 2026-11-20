@@ -174,7 +174,7 @@ def test_codex_capacity_returns_desk_sections_to_antigravity(tmp_path, pack):
     link = "https://capitalchronicle.substack.com/p/pre-us-wrap"
     for route in ("x", "substack_notes", "instagram_business", "linkedin_company", "discord"):
         payload = editorial.derivative_payload(article, asset, link, route)
-        assert link in payload["text"]
+        assert link in payload["full_text"]
         assert payload["media_asset_ids"] == [asset["asset_id"]]
 
 
@@ -208,7 +208,6 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(tmp
     from live_contentops import publication_coordinator_v1 as publisher
 
     monkeypatch.setattr(controls, "llm_operator_pause_active", lambda *args, **kwargs: False)
-    monkeypatch.setattr(publisher, "barred_browser_destinations", lambda: {})
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     transport = LocalTransport()
     now = at("2026-11-23T13:10Z")
@@ -226,16 +225,21 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(tmp
     def write(pack, root):
         return editorial.draft(pack, root, call=select_first)
 
+    def media(pack, article, markets, folder):
+        # Production daily editions use the existing TradingView capture. The
+        # isolated transport fixture exercises the real weekly chart bytes.
+        return {k: v for k, v in article.items() if k != "market_asset"}, [editorial.chart_for(pack, markets, folder)]
+
     rollout = {"editorial_output_root": str(tmp_path)}
     out = job.run_due(store, rollout=rollout, now=now, clock=lambda: now, cash_calendar=cash,
-        gather=lambda *_a, **_kw: pack, writer=write, publish=publish)
+        gather=lambda *_a, **_kw: pack, writer=write, publish=publish, media=media)
     publication = out["publication"]
     assert publication["canonical_url"] == "https://capitalchronicle.substack.com/p/pre-us-wrap-20261123", publication
     assert list(transport.writes)[0][0] == "substack"
     assert {destination for destination, _ in transport.writes} == {*job.ROUTES, "linkedin_company"}
     assert set(transport.reads) == {*job.ROUTES, "linkedin_company"}
     for destination, intent in transport.writes[1:]:
-        assert publication["canonical_url"] in intent["native_payload"]["text"]
+        assert publication["canonical_url"] in intent["native_payload"]["full_text"]
         assert len(intent["native_payload"]["media_asset_ids"]) == 1
     assert publication["per_destination"]["substack_notes"]["status"] == "DISPATCH_CONFIRMED"
     record, = (tmp_path / "published.jsonl").read_text(encoding="utf-8").splitlines()

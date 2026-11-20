@@ -48,7 +48,21 @@ def dispatch_deadline(pack):
     return deadline
 
 
-def make_plan(pack, article, asset, folder):
+def select_media(assets, destination):
+    return next((asset for asset in assets if bool(asset.get("derivative_only")) ==
+                 (destination == "instagram_business" and any(a.get("derivative_only") for a in assets))), None)
+
+
+def prepare_media(pack, article, markets, folder):
+    if article.get("market_asset"):
+        from .tradingview_snapshot_v1 import prepare_contract_article
+        return prepare_contract_article(article, [], output_dir=folder)
+    # The weekly visual describes the Friday closes, including crypto. A
+    # Sunday live snapshot could show prices after the period being measured.
+    return article, [editorial.chart_for(pack, markets, folder)]
+
+
+def make_plan(pack, article, assets, folder):
     from .v1_simple_gemini_newsroom_v1 import _public_copy
 
     identity = pack["slot"]["id"]
@@ -66,7 +80,7 @@ def make_plan(pack, article, asset, folder):
     plan = {
         "schema_version": "contentops.publication_plan.v1", "market_wrap": identity,
         "run_id": identity, "story_identity": identity, "article_identity": sha256_of(article),
-        "package_identity": sha256_of([identity, sha256_of(pack), asset["sha256"]]),
+        "package_identity": sha256_of([identity, sha256_of(pack), [a["sha256"] for a in assets]]),
         "article_content_sha256": sha256(_public_copy(article).encode()).hexdigest(),
         "compiler_input_sha256": sha256_of(article), "accepted_evidence_ids": [sha256_of(pack)],
         "accepted_evidence_sha256": sha256_of(pack), "source_provenance_binding_preserved": True,
@@ -80,30 +94,36 @@ def make_plan(pack, article, asset, folder):
         "editorial_features": {"reader_format": "WEEKEND_WRAP" if pack["slot"]["edition"] == "weekly" else "PRE_US_WRAP"},
         "artifact_refs": {"article_manifest": "article_manifest_v1.json",
                           "native_derivative_previews": "native_derivative_previews_v1.json"},
+        "media_asset_count": len(assets),
         "destinations": targets,
     }
+    if article.get("tradingview_instagram_skip"):
+        plan["image_optional_policy"] = "JIM_DECISION_124"
+        plan["skipped_derivative_destinations"] = [{
+            "destination": "instagram_business", "status": "SKIPPED_IMAGE_REQUIRED",
+            "disposition": "SKIPPED_IMAGE_REQUIRED", "reason": article["tradingview_instagram_skip"],
+        }]
     return {**plan, "plan_hash": sha256_of(plan)}
 
 
-def stage(store, pack, manuscript, folder):
+def stage(store, pack, manuscript, folder, *, media=prepare_media):
     identity = pack["slot"]["id"]
     if not is_wrap_id(identity):
         raise ValueError("WRAP_SLOT_ID_INVALID")
     if held := store.get_outbox_message(identity):
         return json.loads(held["payload"])
     article, markets = editorial.article_for(pack, manuscript)
-    asset = editorial.chart_for(pack, markets, folder)
-    plan = make_plan(pack, article, asset, folder)
-    asset_ids = [asset["asset_id"]]
-    article_payloads = {destination: editorial.derivative_payload(article, asset,
+    article, assets = media(pack, article, markets, folder)
+    plan = make_plan(pack, article, assets, folder)
+    article_payloads = {destination: editorial.derivative_payload(article, select_media(assets, destination),
         "https://capitalchronicle.substack.com/p/pending-publication", destination)
         for destination in (*ROUTES[1:], "linkedin_company")}
     files = {"article_manifest_v1.json": article, "wrap-pack.json": pack, "wrap-manuscript.json": manuscript,
-             "run_context_v1.json": {"article": article, "selection": {}, "media": {"assets": [asset]}},
+             "run_context_v1.json": {"article": article, "selection": {}, "media": {"assets": assets}},
              "native_derivative_previews_v1.json": {"packages": article_payloads}}
     for name, value in files.items():
         save(folder / name, value)
-    packet = {"identity": identity, "plan": plan, "asset": asset, "media_asset_ids": asset_ids,
+    packet = {"identity": identity, "plan": plan, "media_assets": assets,
               "artifact_hashes": {name: sha256((folder / name).read_bytes()).hexdigest() for name in files}}
     store.create_work_item(work_item_id=identity, story_id=identity, title=article["title"], target_surface="MULTI_PLATFORM")
     store.register_outbox_message(message_id=identity, work_item_id=identity, destination=DESTINATION,
@@ -123,10 +143,10 @@ def validated_plan(store, identity, plan_hash):
     for name, digest in packet["artifact_hashes"].items():
         if sha256((root / name).read_bytes()).hexdigest() != digest:
             raise ValueError("WRAP_FROZEN_ARTIFACT_CHANGED")
-    asset = packet["asset"]
-    path = Path(asset["path"]).resolve()
-    if not path.is_relative_to(root / "media") or sha256(path.read_bytes()).hexdigest() != asset["sha256"]:
-        raise ValueError("WRAP_FROZEN_CHART_CHANGED")
+    for asset in packet["media_assets"]:
+        path = Path(asset["path"]).resolve()
+        if not path.is_relative_to(root / "media") or sha256(path.read_bytes()).hexdigest() != asset["sha256"]:
+            raise ValueError("WRAP_FROZEN_CHART_CHANGED")
     return packet
 
 
@@ -145,16 +165,22 @@ def before_write(coordinator, intent, destination):
         if not canonical or intent.get("canonical_url") != canonical:
             raise ValueError("WRAP_CANONICAL_LINK_UNCONFIRMED")
         article = read_json(Path(plan["output_dir"]) / "article_manifest_v1.json")
-        expected = editorial.derivative_payload(article, packet["asset"], canonical, destination)
+        expected = editorial.derivative_payload(article, select_media(packet["media_assets"], destination),
+                                                canonical, destination)
         actual = intent.get("native_payload")
         if actual != expected:
             raise ValueError("WRAP_DERIVATIVE_TEXT_OR_MEDIA_CHANGED")
     from .article_publication_quality_v1 import image_register, piece_id
     if coordinator.published_content_path is not None:
-        asset = packet["asset"]
-        image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=[asset],
-            lead_asset_id=asset["asset_id"], now=now, canonical_url=intent.get("canonical_url"),
-            enforce_cap=destination == "substack")
+        assets = packet["media_assets"]
+        article = read_json(Path(plan["output_dir"]) / "article_manifest_v1.json")
+        from .publication_image_contract_v1 import bounded_text_fallback
+        fallback = bounded_text_fallback(article, plan["output_dir"], now=now) if not assets else None
+        image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=assets,
+            lead_asset_id=assets[0]["asset_id"] if assets else None, now=now,
+            canonical_url=intent.get("canonical_url"), enforce_cap=destination == "substack",
+            text_fallback=fallback, market=article.get("market_asset"),
+            image_contract=article.get("publication_image_contract"))
     return deadline.isoformat()
 
 
@@ -219,7 +245,7 @@ def continue_wrap(store, packet, *, clock=utcnow, factory=publication_coordinato
 
 
 def run_due(store, *, rollout, now=None, clock=utcnow, cash_calendar=None, gather=sources.collect,
-            writer=editorial.draft, publish=continue_wrap, resume=None):
+            writer=editorial.draft, publish=continue_wrap, media=prepare_media, resume=None):
     now = sources.utc(now or clock())
     cash_calendar = cash_calendar if cash_calendar is not None else read_json(sources.CASH_CALENDAR)
     slot = sources.slot_at(now, cash_calendar)
@@ -263,7 +289,7 @@ def run_due(store, *, rollout, now=None, clock=utcnow, cash_calendar=None, gathe
             manuscript = read_json(draft_file) if draft_file.is_file() else writer(pack, folder)
             if not draft_file.is_file():
                 save(draft_file, manuscript)
-            packet = stage(store, pack, manuscript, folder)
+            packet = stage(store, pack, manuscript, folder, media=media)
         else:
             return {"state": "WRAP_WINDOW_ELAPSED_WITHOUT_PACKET", "slot": slot}
         result = {"slot": slot, "identity": identity, "data_cutoff_utc": pack["data_cutoff_utc"],

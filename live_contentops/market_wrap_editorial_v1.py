@@ -187,8 +187,9 @@ def article_for(pack, manuscript):
         fields = (signed(row["change_pct"], "%"), signed(row["normal_days"]) if row["normal_days"] is not None
                   else "Unavailable", row["basis"]) if row else ("Unavailable", "Unavailable", "—")
         table.append("| " + " | ".join([title_market(market), *fields]) + " |")
-    summary = max(published_markets.values(), key=lambda x: abs(
-        x["normal_days"] if x["normal_days"] is not None else x["change_pct"]), default=None)
+    comparable = [row for row in published_markets.values() if row["normal_days"] is not None]
+    summary = (max(comparable, key=lambda row: abs(row["normal_days"])) if comparable
+               else max(published_markets.values(), key=lambda row: abs(row["change_pct"]), default=None))
     biggest = summary["instrument"] if summary else None
     intro = (f"We are watching {biggest} after its move {summary['basis']}." if summary
              else "We are watching the next official releases as fresh market readings come in.")
@@ -255,7 +256,8 @@ def article_for(pack, manuscript):
     title = heading + " — " + public_date(datetime.combine(day, time(), ET))
     article = {"title": title, "subtitle": standfirst, "dek": standfirst, "article_type": "ARTICLE",
                "rights_class": "CC_OWN_ANALYSIS", "substack_body_markdown": "\n\n".join(body),
-               "public_instrument_policy": INSTRUMENT_POLICY, "conditional_calls": []}
+               "public_instrument_policy": INSTRUMENT_POLICY, "conditional_calls": [],
+               **({"market_asset": summary["market"]} if summary and not weekly else {})}
     check_publication_copy({"title": title, "body": article["substack_body_markdown"]})
     validate_article(article)
     require_public_time(article["substack_body_markdown"])
@@ -310,7 +312,9 @@ def chart_for(pack, markets, root):
         f"{MARKETS[m][0]} {signed(v, '' if use_normal else '%')}." for m, v in amounts.items())
     return {"asset_id": pack["slot"]["id"] + "-moves", "path": str(path.resolve()),
             "sha256": sha256(path.read_bytes()).hexdigest(), "width": image.width, "height": image.height,
-            "modality": "source_backed_chart", "rights_status": "CC_OWN_ANALYSIS",
+            "modality": "source_backed_chart", "rights_status": "CC_OWN_ANALYSIS", "mime_type": "image/png",
+            "underlying_source_rights_status": "attributed_facts_independent_chart",
+            "source_reuse_basis": "Capital Chronicle's own calculated changes from individual attributed observations.",
             "caption": caption, "alt_text": alt, "article_inclusion": True, "canonical_article_media": True,
             "owned_diagram_data_sha256": sha256_of({"day": closing_date, "unit": unit, "markets": markets}),
             "source_sha256": sha256_of(markets), "placement_after": "introduction"}
@@ -320,16 +324,27 @@ def derivative_payload(article, asset, canonical_url, destination):
     # One exact visible link and chart on each route, including the X root
     # and the Note. Allocate space for the actual link before rendering.
     text = article["subtitle"]
+    media = [asset["asset_id"]] if asset else []
+    credit = " " + asset["credit"] + "." if asset and asset.get("credit") else ""
+    notices = PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE
     if destination == "x":
-        text = text.split(". That is ", 1)[0].rstrip(".") + "."
-    payload = text + "\n\n" + canonical_url + "\n\n" + PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE
+        root = text.split(". That is ", 1)[0].rstrip(".") + "." + credit
+        reply = canonical_url + "\n\n" + notices
+        posts = [{"order": 0, "role": "root", "text": root, "media_asset_ids": media},
+                 {"order": 1, "role": "reply", "text": reply, "media_asset_ids": []}]
+        payload = {"destination": destination, "format": "thread", "text": root,
+                   "root_text": root, "reply_texts": [reply], "full_text": root + "\n\n" + reply, "posts": posts,
+                   "media_asset_ids": media, "platform_limit": 280, "hard_truncation_used": False}
+        check_publication_copy({"body": payload["full_text"]})
+        validate_payload(article, payload)
+        return payload
+    payload = text + credit + "\n\n" + canonical_url + "\n\n" + notices
     limit = {"x": 280, "threads": 500, "youtube": 1000, "instagram_business": 2200,
              "discord": 2000, "telegram": 4096, "linkedin": 3000, "linkedin_company": 3000,
              "facebook_page": 63206, "substack_notes": 500}.get(destination, 500)
-    measured = len(payload) - len(canonical_url) + 23 if destination == "x" else len(payload)
-    if measured > limit:
-        payload = article["title"] + "\n\n" + canonical_url + "\n\n" + PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE
+    if len(payload) > limit:
+        payload = article["title"] + credit + "\n\n" + canonical_url + "\n\n" + notices
     check_publication_copy({"body": payload})
     validate_payload(article, {"text": payload})
     return {"destination": destination, "format": "market_wrap_summary", "text": payload, "full_text": payload,
-            "media_asset_ids": [asset["asset_id"]], "platform_limit": limit, "hard_truncation_used": False}
+            "media_asset_ids": media, "platform_limit": limit, "hard_truncation_used": False}
