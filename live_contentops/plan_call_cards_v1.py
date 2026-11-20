@@ -990,11 +990,12 @@ def _parents(store, row, destinations, previous):
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
-                         portrait_id=None, x_analysis=None, destinations=None):
+                         portrait_id=None, x_analysis=None, destinations=None, repeat_threads_notices=False):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
         result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
-            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id)
+            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id,
+            repeat_threads_notices=repeat_threads_notices)
         if row.get("x_analysis_thread") and x_analysis:
             from .plan_reader_copy_v1 import payloads
             result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
@@ -1019,7 +1020,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
             body = posts._split(text)[0]
-            parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
+            parts = posts._text_parts(body, NOTICES, limits[destination], lines=True,
+                                      repeat_notices=repeat_threads_notices)
             payload = {"destination": destination, "text": parts[0], "root_text": parts[0],
                        "full_text": "\n\n".join(parts), "reply_texts": parts[1:], "media_asset_ids": [card_id]}
             ref = (parents or {}).get(destination)
@@ -1029,11 +1031,13 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             continue
         if destination == "threads" and row["kind"] == "run" and row.get("analysis_publications"):
             root = row["lead"] + "\n\n" + NOTICES
+            reply_footer = "\n\n" + NOTICES if repeat_threads_notices else ""
             replies = [_run_summary({"analysis_publications": [analysis]}, "",
-                                    500 - len(NOTICES) - 2).lstrip() + "\n\n" + NOTICES
+                                    500 - len(reply_footer)).lstrip() + reply_footer
                        for analysis in row["analysis_publications"]]
-            for part in (root, *replies):
-                check_publication_copy({"body": part}, conditional_calls=[])
+            for index, part in enumerate((root, *replies)):
+                check_publication_copy({"body": part}, conditional_calls=[],
+                                       require_notice=index == 0 or repeat_threads_notices)
                 if len(part) > 500:
                     raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:threads")
             result[destination] = {"destination": destination, "text": root, "root_text": root,
@@ -1343,10 +1347,12 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     card = assets[0] if assets else None
     portrait_id = previous.get("status_post_threads_image") if frozen else next(
         (a["asset_id"] for a in assets if (a.get("image_template") or {}).get("master") == "T"),None)
+    context = previous
     if not frozen:
         context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
             "selection": {}, "media": {"assets": assets}, "plan_status_post": key,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
+            "status_post_threads_single_notice": True,
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
             "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id}
         if alert_portrait:
@@ -1370,10 +1376,17 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     if frozen and x_analysis and not previous.get("status_post_x_analysis"):
         previous["status_post_x_analysis"] = x_analysis
         context_path.write_bytes(canonical_bytes(previous))
+    # A sibling can freeze the package before Threads receives an intent.
+    # Only an issued Threads copy needs its original notice layout.
+    if (frozen and "threads" in chosen and not context.get("status_post_threads_single_notice")
+            and not _dispatch(store, key, "threads")):
+        context["status_post_threads_single_notice"] = True
+        context_path.write_bytes(canonical_bytes(context))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
-                                  complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW",
+                                  repeat_threads_notices=not context.get("status_post_threads_single_notice"))
     plan_rows = []
     for destination in chosen:
         registration = registration_for_destination(destination)
