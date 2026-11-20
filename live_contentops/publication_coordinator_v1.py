@@ -4035,7 +4035,12 @@ class DurablePublicationCoordinator:
                 "public_write_performed": False,
                 "unknown_write_detected": True,
             }
-        if alert_worker_for is None:
+        state_alert = plan.get("state_alert_contract") == "CC543_V1" and plan.get("plan_status_post") == work_item_id
+        if state_alert:
+            # The minute consumer chooses independent routes. An older copy's
+            # network readback belongs after the new writes, even on this post.
+            recovery_preflight = {"per_destination": {}, "backlog_remaining": 0}
+        elif alert_worker_for is None:
             recovery_preflight = self.recover_pending()
         else:
             fresh_alert_messages = {self._ids(work_item_id, plan["plan_hash"], row["destination"])["message_id"]
@@ -4110,6 +4115,12 @@ class DurablePublicationCoordinator:
                      and json.loads(str(m["payload"])).get("routine_company_copy") is True))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
+        alert_recovery = set()
+        if state_alert:
+            selected = {row["destination"] for row in plan["destinations"]}
+            messages = [message for message in messages if message["destination"] in selected]
+            alert_recovery = {d["message_id"] for d in self.store.get_dispatches_for_work_item(work_item_id)
+                if d["status"] in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, RECONCILED_ABSENT_SAFE_TO_RETRY}}
         for destination in barred_browser_destinations():
             ids = self._ids(work_item_id, str(registration["plan_hash"]), destination)
             message = self.store.get_outbox_message(ids["message_id"])
@@ -4183,6 +4194,8 @@ class DurablePublicationCoordinator:
                 continue
             if message["destination"] in parallel_destinations:
                 continue
+            if message["message_id"] in alert_recovery:
+                continue
             intent = json.loads(str(message["payload"]))
             destination_plan = dict(intent.get("destination_plan") or {})
             if delivery_media_blocked and destination_plan.get(
@@ -4240,6 +4253,12 @@ class DurablePublicationCoordinator:
                     "publish_called": False,
                     "reconciliation_status": None,
                 }
+        if state_alert and alert_recovery and not plan.get("defer_alert_recovery"):
+            deferred = alert_recovery.intersection(message["message_id"] for message in messages)
+            if deferred:
+                recovery_preflight = self.recover_pending(only_messages=deferred)
+                recovery_preflight["backlog_blocking_current_article"] = False
+                outcomes.update(recovery_preflight["per_destination"])
         canonical = dict(outcomes.get("substack") or {})
         canonical_real = bool(
             canonical.get("status") == DISPATCH_CONFIRMED
@@ -4426,7 +4445,7 @@ class DurablePublicationCoordinator:
             result.append(message)
         return result
 
-    def recover_pending(self, *, defer_unstarted=frozenset()) -> dict[str, Any]:
+    def recover_pending(self, *, defer_unstarted=frozenset(), only_messages=None) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
         summary = {
             "safe_resumes": 0, "safely_attempted": 0, "stale_expired": 0,
@@ -4435,8 +4454,18 @@ class DurablePublicationCoordinator:
             "recovery_attempt_budget": RECOVERY_ATTEMPT_BUDGET,
             "backlog_remaining": 0,
         }
-        messages = self._recovery_messages()
-        dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
+        def recovery_messages():
+            messages = self._recovery_messages()
+            return messages if only_messages is None else [m for m in messages if m["message_id"] in only_messages]
+
+        def dispatches():
+            scope = self.recovery_scope or {}
+            if scope.get("exact_work_item_only"):
+                return self.store.get_dispatches_for_work_item(scope["work_item_id"])
+            return self.store.list_platform_dispatches()
+
+        messages = recovery_messages()
+        dispatch_by_message = {str(d["message_id"]): d for d in dispatches()}
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
         quarantined_obligations: set[tuple[str, str, str]] = set()
         for message in messages:
@@ -4695,9 +4724,9 @@ class DurablePublicationCoordinator:
         remaining_destinations: list[str] = []
         remaining_obligations: list[dict[str, str]] = []
         refreshed_dispatches = {
-            str(row["message_id"]): row for row in self.store.list_platform_dispatches()
+            str(row["message_id"]): row for row in dispatches()
         }
-        for message in self._recovery_messages():
+        for message in recovery_messages():
             if (message["message_id"] in defer_unstarted and message["status"] == "READY"
                     and message["message_id"] not in refreshed_dispatches):
                 continue

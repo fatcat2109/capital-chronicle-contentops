@@ -438,3 +438,39 @@ def test_unknown_api_acceptance_is_read_back_without_republishing(replay, main_r
     assert sorted(runtime.publish_calls) == ["discord", "telegram"]
     row, = rows(store)
     assert all(cards._dispatch(store, row["key"], d)["status"] == "UNKNOWN_WRITE" for d in ("telegram", "discord"))
+
+
+def test_fast_fanout_delivers_new_copies_before_reading_back_the_uncertain_copy(replay, main_root, tmp_path):
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+
+    class MixedDelivery(FixtureTransport):
+        steps = []
+
+        def publish(self, *, destination, intent, authorization_context):
+            self.steps.append(("publish", destination))
+            if destination == "telegram":
+                raise TimeoutError("first Telegram reply lost")
+            return super().publish(destination=destination, intent=intent,
+                                   authorization_context=authorization_context)
+
+        def readback(self, *, destination, **request):
+            self.steps.append(("readback", destination))
+            if destination == "telegram":
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(destination=destination, **request)
+
+    runtime = MixedDelivery()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now)
+    opts = {"now": now, "latest_states": queued["latest_states"], "root": tmp_path / "posts",
+            "host": fake_host, "coordinator_for": lambda *a: coordinator}
+    posts.publish_ready(store, **opts, immediate_only=True)
+    runtime.steps.clear()
+    posts.publish_ready(store, **opts, automatic_neo=True, alert_filter=True)
+    assert runtime.steps.index(("publish", "x")) < runtime.steps.index(("readback", "telegram"))
+    assert ("publish", "telegram") not in runtime.steps
+    assert ("readback", "discord") not in runtime.steps
+    row, = rows(store)
+    assert cards._dispatch(store, row["key"], "x")["status"] == "DISPATCH_CONFIRMED"
+    assert cards._dispatch(store, row["key"], "telegram")["status"] == "UNKNOWN_WRITE"
