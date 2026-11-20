@@ -185,6 +185,26 @@ def test_article_uses_shared_wide_and_native_portrait_captures_and_the_transport
         assert data["media_assets"] == [chosen]
 
 
+def test_copy_revision_reuses_exact_validated_article_downloads(tmp_path, monkeypatch):
+    import shutil
+
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    def capture(market, interval, folder, *, ratio="16:9"):
+        taken = controlled_capture(market, interval, folder, ratio=ratio)
+        original = Path(taken["path"])
+        path = Path(folder) / original.name
+        if original != path:
+            shutil.copyfile(original, path)
+        return {**taken, "path": str(path)}
+
+    first, originals = tv.prepare_contract_article({"title": "S&P 500", "market_asset": "US500"},
+        [], output_dir=tmp_path, snapshot=capture)
+    resumed, media = tv.prepare_contract_article({"title": "S&P 500 at the open", "market_asset": "US500"},
+        [], output_dir=tmp_path, snapshot=lambda *a, **kw: pytest.fail("A copy revision recaptured a valid chart"))
+    assert resumed["native_destination_media"] == first["native_destination_media"]
+    assert [a["sha256"] for a in media] == [a["sha256"] for a in originals]
+
+
 def test_two_article_capture_failures_do_not_create_a_drawn_substitute_and_keep_the_daily_cap(tmp_path, monkeypatch):
     from live_contentops.tradingview_snapshot_v1 import prepare_contract_article
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view

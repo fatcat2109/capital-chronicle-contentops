@@ -615,6 +615,38 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
     return article, assets
 
 
+def _bound_article_snapshot(assets, article, folder, ratio):
+    from .publication_image_contract_v1 import validate_scale
+
+    market = article["market_asset"]
+    for asset in assets:
+        captured = asset.get("tradingview_snapshot") or {}
+        if (asset.get("modality") == "tradingview_chart_snapshot"
+                and captured.get("tv_symbol") == SYMBOLS[market]
+                and (captured.get("framing") or {}).get("ratio") == ratio
+                and asset.get("path") and captured.get("path")
+                and all(Path(path).resolve().is_relative_to(folder.resolve())
+                        for path in (asset["path"], captured["path"]))):
+            try:
+                validate_snapshot_asset(asset, article)
+                validate_scale(market, captured)
+            except (ValueError, OSError):
+                continue
+            return asset
+    state_path = folder / ("tradingview_capture_v1.json" if ratio == "16:9" else "tradingview_capture_4x5_v1.json")
+    if state_path.is_file():
+        state = json.loads(state_path.read_bytes())
+        captured = state.get("snapshot") or {}
+        if (state.get("status") == "CAPTURED" and state.get("market") == market
+                and captured.get("capture_ratio") == ratio and captured.get("path")
+                and Path(captured["path"]).resolve().is_relative_to(folder.resolve())):
+            validate_scale(market, captured)
+            asset = snapshot_asset(market, article["title"], captured, folder / "media_assets", ratio)
+            validate_snapshot_asset(asset, article)
+            return asset
+    return None
+
+
 def prepare_contract_article(article, assets, *, output_dir, selected_candidate=None, snapshot=None):
     """Decision 124 using the existing bounded capture and image owner."""
     from copy import deepcopy
@@ -652,6 +684,8 @@ def prepare_contract_article(article, assets, *, output_dir, selected_candidate=
         sort_keys=True).encode()).hexdigest()[:24]
     row = {"key": key, "symbol": symbol, "instrument_title": article["title"],
            "at_utc": datetime.now(timezone.utc).isoformat(), "levels": {}}
+    if not first and market and not macro:
+        first = _bound_article_snapshot(assets, article, folder, "16:9")
     if not first:
         first = plan_snapshot(row, folder, snapshot=snapshot)
         article.update(tradingview_capture_state_path=str((folder / "tradingview_capture_v1.json").resolve()),
@@ -665,11 +699,16 @@ def prepare_contract_article(article, assets, *, output_dir, selected_candidate=
         return article, []
     first.update(article_inclusion=True, canonical_article_media=True, placement_after="introduction")
     # No locally drawn headline card leads a new market or macro article.
-    rest = [a for a in assets if a["asset_id"] != first["asset_id"] and not a.get("post_card_binding")]
-    assets = [first, *rest]
     portrait = None
     if first.get("modality") == "tradingview_chart_snapshot":
-        portrait = plan_snapshot(row, folder, snapshot=snapshot, ratio="4:5")
+        if market and not macro:
+            portrait = _bound_article_snapshot(assets, article, folder, "4:5")
+        if not portrait:
+            portrait = plan_snapshot(row, folder, snapshot=snapshot, ratio="4:5")
+    rest = [a for a in assets if a["asset_id"] != first["asset_id"] and not a.get("post_card_binding")
+            and not (market and not macro and a.get("modality") == "tradingview_chart_snapshot")]
+    assets = [first, *rest]
+    if first.get("modality") == "tradingview_chart_snapshot":
         if portrait:
             portrait.update(derivative_only=True, article_inclusion=False, canonical_article_media=False)
             assets.append(portrait)
