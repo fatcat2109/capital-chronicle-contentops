@@ -21,6 +21,7 @@ WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_pa
 DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83")
 PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
 PLAN_FILL_STATES = {"TRIGGERED", "FILLED"}
+PLAN_POST_KINDS = {"setup", "update", "result"}
 LATE_LINE = "this page was published after the plan ended"
 LAYER_PREFIX = re.compile(
     r"\b(macro|fundamentals?|positioning and sentiment|positioning|sentiment|options and gamma|"
@@ -328,7 +329,9 @@ class PublicCopy:
 
     @property
     def confirmed(self):
-        return bool(self.url and (self.verified_at or (
+        has_identity = self.url or (self.source.get("kind") in PLAN_POST_KINDS
+                                    and self.row.get("public_object_id"))
+        return bool(has_identity and (self.verified_at or (
             self.dispatched_at and self.row.get("status") == "DISPATCH_CONFIRMED")))
 
     @property
@@ -370,10 +373,13 @@ class PublicCopy:
         thread = self.verified_thread()
         if root := next((post for post in thread if post.get("public_object_url") == self.url), None):
             return str(root.get("observed_text") or "")
-        if thread or not any(isinstance(self.proof.get(field), str) for field in (
-                "observed_public_text", "observed_text", "visible_body_text")):
-            return self.native.get("root_text") or self.native.get("text") or self.visible_text
-        return self.visible_text
+        observed = self.proof.get("observed_public_text", self.proof.get("observed_text",
+                                  self.proof.get("visible_body_text")))
+        if not thread and isinstance(observed, str):
+            return observed
+        if (self.proof.get("content_binding_checks") or {}).get("text_match") is False:
+            return ""
+        return self.native.get("root_text") or self.native.get("text") or self.text
 
     def resolved_links(self, thread, *, include_root=True):
         urls = {post.get("public_object_url") for post in thread} - {None}
@@ -788,7 +794,7 @@ class DecisionChecks:
                 continue
             source = copy.source
             plan = source.get("source_plan") or {}
-            plan_post = source.get("kind") in {"setup", "update", "result"}
+            plan_post = source.get("kind") in PLAN_POST_KINDS
             plan_part = plan_post and bool(copy.intent.get("plan_status_part"))
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
             if plan_post and not plan_part:

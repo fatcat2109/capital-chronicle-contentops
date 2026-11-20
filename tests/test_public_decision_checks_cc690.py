@@ -190,6 +190,26 @@ def test_x_observed_thread_checks_all_layers_but_link_only_in_first_reply(tmp_pa
     assert result["plan_analysis"][0]["layers"]["macro"] == {"state": "PRINTED"}
 
 
+def test_verified_text_mismatch_cannot_pass_on_the_intended_link(tmp_path):
+    audit = checks(tmp_path)
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    published(audit, "gold", "telegram", source={"kind": "update", "plan_id": "plan_gold"}, text=page,
+              mutations=[("2026-11-19T14:02:00Z", {"readback": {
+                  "verified": True, "content_binding_checks": {"text_match": False},
+              }})])
+    assert not audit.finish({}, {"plan_gold": page})["plan_analysis"][0]["full_analysis_link"]
+
+
+def test_plan_dispatch_with_a_confirmed_object_id_and_no_safe_permalink_is_audited(tmp_path):
+    audit = checks(tmp_path)
+    copy = published(audit, "gold", "instagram_business", source={"kind": "update"}, text="Gold is holding.")
+    copy.url = None
+    output = audit.finish({}, {})
+    assert output["plan_analysis"][0]["platform"] == "instagram_business"
+    assert output["plan_analysis"][0]["public_url"] is None
+    assert any(row["first_cause"] == "PLAN_ANALYSIS_LAYERS_MISSING" for row in output["issues"])
+
+
 def test_late_page_and_edit_require_dated_object_evidence(tmp_path):
     audit = checks(tmp_path)
     source = {"page_id": "late-gold", "source_plan": {"entry_deadline_utc": "2026-11-19T12:20:00Z"}}
