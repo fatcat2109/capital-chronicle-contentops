@@ -1366,7 +1366,7 @@ def _publish_telegram_text_verified(
 def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str,
                               image_path: str | None = None, thread_parent_id: str | None = None,
                               thread_name: str | None = None, reply_to_message_id: str | None = None,
-                              require_media: bool = True) -> dict[str, Any]:
+                              require_media: bool = True, channel_reply: bool = False) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
     # Text-only analysis replies already carry the canonical in their body.
@@ -1377,8 +1377,10 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         embeds[0]["image"] = {"url": image_url}
     raw = execute_discord_post(message=text, embeds=embeds, dry_run=False,
                                **({"image_path": image_path} if image_path else {}),
-                               **({"thread_parent_id": thread_parent_id, "thread_name": thread_name,
-                                   "reply_to_message_id": reply_to_message_id} if thread_parent_id else {}))
+                               **({"thread_parent_id": thread_parent_id} if thread_parent_id else {}),
+                               **({"channel_reply": True} if channel_reply else {}),
+                               **({"thread_name": thread_name, "reply_to_message_id": reply_to_message_id}
+                                  if thread_parent_id or channel_reply else {}))
     if raw.get("status") != "SUCCESS":
         return raw
     response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
@@ -1397,12 +1399,14 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         raw.get("status") == "SUCCESS" and message_id and canonical_url in content
         and (embed_image if image_url else True)
     )
-    if (image_path or thread_parent_id) and raw.get("status") == "SUCCESS" and message_id:
+    if (image_path or thread_parent_id or channel_reply) and message_id:
         try:
             observed = readback_discord_post(message_id=message_id, expected_text=text,
                 canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path) if image_path else None,
                 **({"require_media": False} if not require_media else {}),
-                **({"thread_id": thread_parent_id, "expected_parent_id": reply_to_message_id} if thread_parent_id else {}))
+                **({"thread_id": thread_parent_id} if thread_parent_id else {}),
+                **({"channel_reply": True} if channel_reply else {}),
+                **({"expected_parent_id": reply_to_message_id} if thread_parent_id or channel_reply else {}))
         except Exception as exc:
             observed = {"status": "READBACK_UNAVAILABLE", "verified": False,
                         "safe_error_classification": type(exc).__name__}
@@ -4711,16 +4715,18 @@ def _publish_one_destination_from_durable_intent(
                if payloads[destination].get("reply_to_id") else {}),
         )
     if destination == "discord":
+        delivery = payloads["discord"]
         return _publish_discord_verified(
             text=text, canonical_url=canonical_url,
             image_url=public_image_url if image_path else None,
             title=str(article.get("title") or ""),
             image_path=image_path or None,
             **({"require_media": False} if intent.get("plan_analysis_link") and not image_path else {}),
-            **({"thread_parent_id": payloads[destination]["discord_thread_parent_id"],
-                "thread_name": payloads[destination].get("discord_thread_name"),
-                "reply_to_message_id": payloads[destination].get("reply_to_id")}
-               if payloads[destination].get("discord_thread_parent_id") else {}),
+            **({"thread_parent_id": delivery["discord_thread_parent_id"]}
+               if delivery.get("discord_thread_parent_id") else {}),
+            **({"channel_reply": True} if delivery.get("discord_channel_reply") else {}),
+            **({"thread_name": delivery.get("discord_thread_name"), "reply_to_message_id": delivery.get("reply_to_id")}
+               if delivery.get("discord_thread_parent_id") or delivery.get("discord_channel_reply") else {}),
         )
     if destination == "facebook_page":
         if (intent.get("plan_status_post") or intent.get("plan_analysis_link")) and payloads[destination].get("own_call_comment"):
@@ -4906,21 +4912,28 @@ def _readback_one_destination_from_durable_intent(
         )
     elif destination == "discord" and public_object_id:
         from live_contentops.discord_live_adapter_v6 import readback_discord_post
+        delivery = payloads["discord"]
         result = readback_discord_post(
             message_id=public_object_id,
             expected_text=text,
             canonical_url=canonical_url,
             **({"require_media": False} if intent.get("plan_analysis_link") and not data["primary_media"] else {}),
-            **({"thread_id": payloads[destination]["discord_thread_parent_id"],
-                "expected_parent_id": payloads[destination].get("reply_to_id")}
-               if payloads[destination].get("discord_thread_parent_id") else {}),
+            **({"thread_id": delivery["discord_thread_parent_id"], "expected_parent_id": delivery.get("reply_to_id")}
+               if delivery.get("discord_thread_parent_id") else {}),
+            **({"channel_reply": True, "expected_parent_id": delivery.get("reply_to_id"),
+                "expected_image_sha256": next(iter(data["media_assets"]), {}).get("sha256")}
+               if delivery.get("discord_channel_reply") else {}),
         )
-    elif destination == "discord" and payloads[destination].get("discord_thread_parent_id"):
-        from live_contentops.discord_live_adapter_v6 import find_discord_thread_post
-        result = find_discord_thread_post(
-            thread_id=payloads[destination]["discord_thread_parent_id"], expected_text=text,
-            canonical_url=canonical_url, expected_parent_id=payloads[destination].get("reply_to_id"),
-            expected_image_sha256=(data["primary_media"] or {}).get("sha256"),
+    elif destination == "discord" and (payloads["discord"].get("discord_thread_parent_id")
+                                      or payloads["discord"].get("discord_channel_reply")):
+        from live_contentops.discord_live_adapter_v6 import find_discord_bot_post
+        delivery = payloads["discord"]
+        result = find_discord_bot_post(
+            thread_id=delivery.get("discord_thread_parent_id"), expected_text=text,
+            channel_reply=bool(delivery.get("discord_channel_reply")),
+            canonical_url=canonical_url, expected_parent_id=delivery.get("reply_to_id"),
+            expected_image_sha256=(next(iter(data["media_assets"]), {}) if delivery.get("discord_channel_reply")
+                                   else data["primary_media"] or {}).get("sha256"),
             require_media=not (intent.get("plan_analysis_link") and not data["primary_media"]),
         )
     elif destination == "threads" and public_object_id:
