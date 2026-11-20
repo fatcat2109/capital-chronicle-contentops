@@ -597,6 +597,10 @@ class NeoDestinationHandoff:
                     # A retry in the same epoch needs a fresh observation; the old
                     # immutable return cannot establish absence after that retry.
                     value["latest_dispatch_attempt_at_utc"] = latest_attempt
+                    if (destination == "x" and intent.get("plan_status_post") == intent.get("work_item_id")
+                            and intent.get("plan_status_post") and not value.get("reply_parent")
+                            and value.get("entry_url") == ROOTS["x"]):
+                        value["plan_status_root_readback"] = True
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation

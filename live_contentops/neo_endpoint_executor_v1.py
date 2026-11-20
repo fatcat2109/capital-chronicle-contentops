@@ -675,10 +675,14 @@ class NeoBrowserDriver:
     def readback(self, request, page, *, posts=None):
         destination = request["destination"]
         url = request.get("public_object_url")
+        own_x_root = destination == "x" and bool(request.get("quote_parent") or (
+            request.get("plan_status_root_readback") and not request.get("reply_parent")))
         if url:
             self.client.call("navigate", {"page": page, "url": url})
         else:
-            root = (ROOTS["x"] if request.get("quote_parent") else ROOTS["x"] + "/with_replies") if destination == "x" else request["entry_url"]
+            root = request["entry_url"]
+            if destination == "x":
+                root = ROOTS["x"] if own_x_root else ROOTS["x"] + "/with_replies"
             self.client.call("navigate", {"page": page, "url": root})
         selector = 'article[data-testid="tweet"]' if destination == "x" else '.FeedProseMirror'
         self.client.wait(page, selector)
@@ -704,8 +708,8 @@ class NeoBrowserDriver:
                 and _note_missing_link_reply_text(request, p.get("observed_text"))]
             missing_link_reply = bool(matches)
         if len(matches) != 1:
-            if destination == "x" and request.get("quote_parent") and not url and candidates and texts:
-                # Quote-posts are own-account roots. A freshly loaded own Posts
+            if own_x_root and not url and candidates and texts:
+                # A quote or standalone plan copy lives on the own Posts feed. A
                 # feed whose newest post predates the attempt can prove absence;
                 # the existing owner still enforces its ten-minute wait.
                 attempt = request.get("latest_dispatch_attempt_at_utc")

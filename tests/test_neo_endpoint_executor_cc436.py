@@ -211,6 +211,25 @@ def test_cc672_uncertain_plan_note_keeps_its_claim_without_holding_the_next_note
     assert store.get_platform_dispatch(prior["dispatch_id"])["status"] == "UNKNOWN_WRITE"
 
 
+def test_cc672_claimed_plan_root_gets_only_a_readback_extension(tmp_path):
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+
+    store = copied_store(tmp_path)
+    ids, intent = message(store, "x", plan_status=True)
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+                                     platform="x", status="UNKNOWN_WRITE")
+    handoff = NeoDestinationHandoff(store=store)
+    readback = handoff.request(destination="x", action="READBACK", intent=intent)
+    assert readback["plan_status_root_readback"]
+    assert readback["latest_dispatch_attempt_at_utc"]
+    authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
+                     "operating_mode": "AUTONOMOUS_DEFAULT", "destination": "x",
+                     "dispatch_attempt_identity": ids["dispatch_id"], "work_item_id": intent["work_item_id"],
+                     "payload_hash": intent["destination_plan"]["payload_hash"]}
+    write = handoff.request(destination="x", action="PUBLISH", intent=intent, authorization_context=authorization)
+    assert "plan_status_root_readback" not in write
+
+
 @pytest.mark.parametrize('fault',['account','composer'])
 def test_wrong_account_or_changed_composer_makes_no_public_post(tmp_path,fault):
     store=copied_store(tmp_path);ids,value=message(store,'x')

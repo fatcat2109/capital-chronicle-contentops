@@ -164,7 +164,8 @@ def test_real_native_begin_uses_the_registered_x_surface_and_bad_surface_never_c
     assert executor._get(bad["request_sha256"],"started") is None
 
 
-def test_quote_absence_reader_requires_loaded_own_profile_and_older_last_post():
+@pytest.mark.parametrize("kind", ["quote", "plan-root", "plan-reply"])
+def test_x_absence_reader_requires_loaded_own_profile_and_older_last_post(kind):
     from live_contentops.neo_destination_handoff_v1 import ROOTS
     class Reader:
         def call(self,*a):pass
@@ -175,9 +176,19 @@ def test_quote_absence_reader_requires_loaded_own_profile_and_older_last_post():
             return {"tweets":[{"public_object_id":"1","public_object_url":ROOTS["x"]+"/status/1",
                 "observed_text":"An earlier, different ordinary post.","published_at_utc":"2026-11-17T12:00:00Z"}]}
     request={"destination":"x","action":"READBACK","entry_url":ROOTS["x"],"expected_identity":"@Capitalnicle",
-        "quote_parent":{"public_object_id":"source"},"native_payload":{"text":"The exact missing quote-post."},
+        "native_payload":{"text":"The exact missing post."},
         "content_binding":{},"latest_dispatch_attempt_at_utc":"2026-11-17T13:00:00Z"}
+    if kind == "quote":
+        request["quote_parent"] = {"public_object_id": "source"}
+    else:
+        request["plan_status_root_readback"] = True
+    if kind == "plan-reply":
+        request["reply_parent"] = {"public_object_id": "parent"}
     result=NeoBrowserDriver(Reader()).readback(request,1)
+    if kind == "plan-reply":
+        assert result["status"] == "READBACK_UNAVAILABLE"
+        assert "target_post_absent" not in result
+        return
     assert result["target_post_absent"] and result["authenticated"] and result["observed_feed_post_ids"]==["1"]
     from live_contentops.native_neo_executor_v1 import _readback_absence_evidence
     result["native_tool_observation"]={"observed_at_utc":"2026-11-17T13:09:59Z"}
