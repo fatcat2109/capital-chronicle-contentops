@@ -23,7 +23,6 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
-from time import monotonic
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -47,7 +46,6 @@ def child_python() -> str:
 
 
 def main(argv=None) -> int:
-    started = monotonic()
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="validate the export and render posts without writes")
     parser.add_argument("--export-dir", type=Path, default=EXPORT_DIR)
@@ -104,7 +102,9 @@ def main(argv=None) -> int:
         # The existing task has a five-minute lifetime; a previous slow slice
         # therefore cannot consume this plan's entire ten-minute deadline.
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run, main_root=args.main_root, python=child_python())
+                             render_all=args.dry_run, main_root=args.main_root, python=child_python(),
+                             analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
+                             if args.publish and not args.dry_run else None)
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                 active_recoveries=result.get("active_recoveries"), immediate_only=True)
@@ -151,13 +151,17 @@ def main(argv=None) -> int:
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 result["call_followups"] = {"status": "NOT_COMPLETED", "cause": str(exc)[:200]}
         if args.publish and not args.dry_run:
-            from live_contentops.plan_reader_editorial_v1 import run_due
+            from live_contentops.plan_reader_editorial_v1 import run_due, start_page_draft_worker
             try:
+                page_root = args.store.parent / "daily_app_outputs/plan_analysis"
+                now = datetime.now(timezone.utc)
                 rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
                 plan_pages = run_due(store, lambda: posts.read_export(
                     args.export_dir, main_root=args.main_root, python=child_python()),
-                    root=args.store.parent / "daily_app_outputs/plan_analysis",
-                    rollout=rollout, now=datetime.now(timezone.utc), writer_deadline=started + 255)
+                    root=page_root, rollout=rollout, now=now, cached_only=True)
+                if plan_pages.get("draft_due"):
+                    plan_pages["draft_worker"] = start_page_draft_worker(store, python=child_python(),
+                        export_dir=args.export_dir, main_root=args.main_root, root=page_root, now=now)
             except Exception as exc:
                 plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
         if reply_bot is not None:

@@ -22,7 +22,70 @@ from . import plan_analysis_pages_v1 as pages
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 
 PAGE_LEASE = "cc466-plan-page-editorial"
+PAGE_DRAFT_LEASE = "cc688-plan-page-draft"
+DRAFT_MANUSCRIPT = "page-manuscript-cc688.json"
+PAGE_AGY_TIMEOUT = 100
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
+
+
+def prepare_plan_layers(plan, *, output_dir=None, call=None):
+    """Choose one public quote per layer before any status copy is issued."""
+    from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
+
+    options = reader.analysis_layer_options(plan)
+    quotes = {layer: candidates[0]["text"] for layer, candidates in options.items()}
+    if not quotes or output_dir is None:
+        return quotes
+    choices = {layer: [item["text"] for item in candidates[:3]] for layer, candidates in options.items()}
+    prompt = (
+        "Do not call any tool. Pick one clear market finding per layer. Avoid repeating the same finding. "
+        "Return only a JSON object with each layer key mapped to its chosen zero-based string index.\n"
+        + json.dumps(choices, ensure_ascii=False, separators=(",", ":"))
+    )
+    root = Path(output_dir) / ("layer-lines-" + sha256(prompt.encode()).hexdigest()[:20])
+    log = root / "light-call.json"
+    if log.is_file():
+        record = json.loads(log.read_bytes())
+        selected = record.get("checked_quotes")
+        if selected is not None:
+            reader.verified_analysis_lines(plan, selected)
+            return selected
+        answer_path = root / "answer.txt"
+        answer = answer_path.read_bytes() if answer_path.is_file() else b""
+    else:
+        call = call or call_light
+        answer, record = call(prompt, root=root, job="plan_layer_lines", callers=("antigravity",),
+                              timeout_cause=f"AGY_PLAN_LAYER_TIMEOUT_{AGY_TIMEOUT}S",
+                              empty_cause="AGY_PLAN_LAYER_EMPTY")
+    accepted = 0
+    findings = {}
+    if answer:
+        try:
+            drafted = json_answer(answer)
+            if not isinstance(drafted, dict):
+                raise ValueError("CC688_LAYER_OBJECT_REQUIRED")
+            for layer in options:
+                try:
+                    text = drafted.get(layer)
+                    if isinstance(text, str) and text in ("0", "1", "2"):
+                        text = int(text)
+                    if type(text) is int and 0 <= text < len(choices[layer]):
+                        text = choices[layer][text]
+                    reader.validate_analysis_line(options, layer, text)
+                except ValueError as exc:
+                    findings[layer] = str(exc)
+                else:
+                    quotes[layer] = text
+                    accepted += 1
+        except (UnicodeError, ValueError) as exc:
+            findings["answer"] = str(exc)
+    reader.verified_analysis_lines(plan, quotes)
+    record.update(job="plan_layer_lines", result="PASS" if accepted == len(options) and not findings else "FALLBACK",
+                  fallback=None if accepted == len(options) else "frozen_plan",
+                  lines_expected=len(options), lines_passed=accepted, findings=findings, checked_quotes=quotes)
+    root.mkdir(parents=True, exist_ok=True)
+    log.write_bytes(canonical_bytes(record))
+    return quotes
 
 
 def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, writer_deadline=None,
@@ -208,6 +271,186 @@ def check_manuscript(value, source, plan, run):
     return {"numeric_bindings":bound,"checks":reports,"word_count":word_count}
 
 
+def _plan_page_sources(plan, run):
+    """Offer public excerpts from the frozen plan and its sealed analyst result."""
+    private_texts = pages.private_source_texts(run)
+    sections = {key: [] for key, _ in pages.READER_SECTIONS}
+    used = set()
+
+    def add(section, ref, *, select=None):
+        try:
+            raw = pages._source_text(run, ref)
+        except (KeyError, IndexError, TypeError, ValueError):
+            return
+        for text in reader.verbatim_analysis_spans(select if select is not None else raw):
+            if text in used or len(sections[section]) >= 4 or len(text) > 320:
+                continue
+            try:
+                pages.public_filter(text, private_texts=private_texts)
+                reader.check_text(text, source=raw, prose=False)
+                reader.check_thread_text(text)
+                pages.check_reader_claim(text, source=text)
+            except ValueError:
+                continue
+            used.add(text)
+            sections[section].append({"text": text, "refs": [ref],
+                "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "source_name": "Capital Chronicle"})
+
+    destinations = {
+        "macro": "macro", "fundamental": "story", "positioning_sentiment": "positioning",
+        "options_gamma": "fear", "priced_in": "priced_in", "technical": "technical",
+    }
+    for layer, options in reader.analysis_layer_options(plan).items():
+        for option in options:
+            add(destinations[layer], option["ref"], select=option["text"])
+    scenario_fields = {
+        "priced_in": ("priced",), "positioning": ("positioning",), "technical": ("acceptance", "confirmations", "zone_reason"),
+        "story": ("mechanism",), "macro": ("driver",), "scenarios": ("opposite_mechanism",),
+        "invalidation": ("invalidation_text", "invalidation_reason"),
+    }
+    for section, fields in scenario_fields.items():
+        for field in fields:
+            add(section, {"file": "plan-export", "pointer": "/scenario_analysis/" + field})
+
+    sealed = "desktop-manual-result.json"
+    original = run["documents"][sealed]
+    try:
+        candidate, _, _ = pages._owner_candidate(plan, run)
+        cid = candidate["candidate_id"]
+        original_candidates = original["native_synthesis"]["candidates"]
+        index = next(i for i, value in enumerate(original_candidates) if value.get("candidate_id") == cid)
+    except (KeyError, StopIteration):
+        pass
+    else:
+        ref = {"file": sealed, "pointer": f"/native_synthesis/candidates/{index}/"}
+        add("story", {**ref, "pointer": ref["pointer"] + "decisive_reason"})
+        add("invalidation", {**ref, "pointer": ref["pointer"] + "invalidation"})
+        for index, evaluation in enumerate(original.get("primary_analysis", {}).get("candidate_evaluations", [])):
+            if evaluation.get("candidate_id") != cid:
+                continue
+            prefix = f"/primary_analysis/candidate_evaluations/{index}/"
+            for section, field in (("story", "mechanism_and_transmission"), ("fear", "material_counterevidence"),
+                                   ("story", "directional_thesis"), ("invalidation", "invalidation")):
+                add(section, {"file": sealed, "pointer": prefix + field})
+            break
+    return sections
+
+
+def _page_from_selection(plan, run, sources, selection):
+    from .plan_status_posts_v1 import TITLES
+
+    if not isinstance(selection, dict) or set(selection) != {section for section, entries in sources.items() if entries}:
+        raise ValueError("CC688_PAGE_SECTION_SELECTION_CHANGED")
+    sections = {}
+    for key, items in sources.items():
+        indices = selection.get(key, [])
+        if (not isinstance(indices, list) or (items and not indices)
+                or any(type(index) is not int or not 0 <= index < len(items) for index in indices)
+                or len(set(indices)) != len(indices)):
+            raise ValueError("CC688_PAGE_QUOTE_NOT_IN_SECTION:" + key)
+        paragraphs = [items[index] for index in indices]
+        sections[key] = {"paragraphs": paragraphs, "summary": paragraphs[0]["text"] if paragraphs else ""}
+    if not selection:
+        raise ValueError("CC688_PUBLIC_ANALYST_TEXT_NOT_FOUND")
+
+    subtitle = "The original market view and the conditions behind it."
+    available = (paragraph["text"] for section in sections.values() for paragraph in section["paragraphs"])
+    title, introduction = TITLES[plan["asset_id"]] + ": the original plan", next(available)
+    bindings = {"reader_contract": reader.CONTRACT, "reader_revision": 5, "analysis_copy_contract": reader.ANALYSIS_COPY,
+                "plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"], "draft_selection": selection}
+    if plan.get("zone") and plan.get("invalidation_conditions"):
+        terms = reader.page_thread_terms(plan, run, level_contract=reader.LEVEL_CONTRACT)
+        title, introduction = terms["title"], terms["call_line"]
+        bindings.update(level_contract=reader.LEVEL_CONTRACT, thread_contract=reader.THREAD_CONTRACT)
+        for key, text in (("plan", introduction), ("invalidation", terms["invalidation"] + ".")):
+            paragraph = {"text": text, "refs": terms["refs"], "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+                         "source_name": "Capital Chronicle"}
+            section = sections[key]
+            section["paragraphs"] = [paragraph, *section["paragraphs"]]
+            if not section["summary"]:
+                section["summary"] = text
+    scenarios = reader.analysis_scenario_lines(plan)
+    for key, label in (("base_case", "Main"), ("main_alternative", "Alternative")):
+        text = next((line for line in scenarios if line.startswith(label + " scenario")), None)
+        if text:
+            ref = f"/scenario_analysis/{key}"
+            fields = ("probability_pct", "market_move") if ": " in text else ("probability_pct",)
+            sections["scenarios"]["paragraphs"].append({"text": text, "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+                "source_name": "Capital Chronicle", "refs": [{"file": "plan-export", "pointer": ref + "/" + field}
+                                                              for field in fields],
+                "odds_ref": {"file": "plan-export", "pointer": ref + "/probability_pct"}})
+    return {**bindings, "title": title, "subtitle": subtitle, "introduction": introduction, "sections": sections}
+
+
+def validate_plan_page_quotes(manuscript, plan, run):
+    expected = _page_from_selection(plan, run, _plan_page_sources(plan, run), manuscript.get("draft_selection"))
+    if any(manuscript.get(key) != value for key, value in expected.items()):
+        raise ValueError("CC688_PAGE_COPY_CHANGED_FROM_FROZEN_PLAN")
+
+
+def draft_plan_page(plan, run, *, output_dir, call=None):
+    """Two checked Antigravity attempts, Codex high, then the analyst's own sections."""
+    from .light_model_caller_v1 import call_light, json_answer
+
+    sources = _plan_page_sources(plan, run)
+    public = {section: [item["text"] for item in items] for section, items in sources.items() if items}
+    original = {section: list(range(len(items))) for section, items in public.items()}
+    if not public:
+        raise ValueError("CC688_PUBLIC_ANALYST_TEXT_NOT_FOUND")
+    prompt = (
+        "Do not call any tool. Assemble the dated market analysis under the supplied headings. "
+        "Write the page by selecting and ordering the analyst's best excerpts for each heading. "
+        "Keep every supplied heading and select at least one excerpt per heading. "
+        "Return ONLY a JSON object with each heading mapped to a list of zero-based excerpt indices. "
+        'Example: {"macro":[0,2],"technical":[1]}. Do not output new text, figures or prose.\n'
+        + json.dumps(public, ensure_ascii=False, separators=(",", ":"))
+    )
+    call = call or call_light
+    key = sha256(canonical_bytes({"prompt": prompt, "antigravity_timeout": PAGE_AGY_TIMEOUT})).hexdigest()[:20]
+    records = []
+    correction = ""
+    for attempt, (caller, fallback) in enumerate(
+        (("antigravity", "antigravity_retry"), ("antigravity", "codex_high"), ("codex", "frozen_plan")), start=1
+    ):
+        root = Path(output_dir) / "page-writer-cc688" / key / str(attempt)
+        log, saved_answer = root / "light-call.json", root / "answer.txt"
+        if log.is_file():
+            record = json.loads(log.read_bytes())
+            answer = saved_answer.read_bytes() if saved_answer.is_file() else b""
+        else:
+            limits = ({"codex_effort": "high", "timeout_seconds": 120} if caller == "codex" else
+                      {"timeout_seconds": PAGE_AGY_TIMEOUT})
+            answer, record = call(prompt + correction, root=root, job="plan_analysis_page", callers=(caller,),
+                timeout_cause=f"AGY_PLAN_PAGE_TIMEOUT_{PAGE_AGY_TIMEOUT}S", empty_cause="AGY_PLAN_PAGE_EMPTY", **limits)
+        manuscript = None
+        result = "FAILED"
+        try:
+            if answer:
+                selection = json_answer(answer)
+                manuscript = _page_from_selection(plan, run, sources, selection)
+                pages.validate_manuscript(plan, manuscript, run)
+                pages.check_new_page_copy(manuscript, run)
+                result = "PASS"
+        except (UnicodeError, ValueError, KeyError, TypeError) as exc:
+            correction = "\nCorrect this issue in the second answer: " + str(exc)[:150]
+            record["check_cause"] = str(exc)[:200]
+            manuscript, result = None, "REJECTED"
+        record.update(job="plan_analysis_page", result=result, fallback=None if manuscript else fallback)
+        root.mkdir(parents=True, exist_ok=True)
+        if answer and not saved_answer.is_file():
+            saved_answer.write_bytes(answer)
+        log.write_bytes(canonical_bytes(record))
+        records.append(record)
+        if manuscript:
+            manuscript["authorship"] = {"writer": caller, "calls": records}
+            return manuscript
+    manuscript = _page_from_selection(plan, run, sources, original)
+    pages.validate_manuscript(plan, manuscript, run)
+    pages.check_new_page_copy(manuscript, run)
+    manuscript["authorship"] = {"writer": "frozen_plan", "calls": records}
+    return manuscript
+
+
 def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False,
                  market_update=None, active_status=None):
     folder=Path(output_dir)
@@ -318,6 +561,93 @@ def frozen_page_sources(store):
             if row.get("kind") == "setup" and row.get("thread_contract") == reader.THREAD_CONTRACT}
 
 
+def _dated_plans(export, now):
+    from .plan_status_posts_v1 import MARKETS, _utc
+
+    return [plan for plan in export["status"]["plans"] if plan.get("asset_id") in MARKETS and plan.get("run_id")
+            and plan.get("analysis_result_hash") and plan.get("registered_at_utc")
+            and now - timedelta(days=7) <= _utc(plan["registered_at_utc"]) <= now]
+
+
+def _new_plan_ids(store):
+    from .plan_status_posts_v1 import DESTINATION
+
+    return {item["plan_id"] for row in store.list_outbox_messages(destination=DESTINATION)
+            if (item := json.loads(row["payload"])).get("kind") == "setup"
+            and item.get("analysis_copy_contract") == reader.ANALYSIS_COPY}
+
+
+def draft_due_page(store, export, *, root, now, call=None, run_root=pages.RUN_ROOT):
+    """One bounded writer job. The minute publisher consumes its manuscript."""
+    from .durable_operational_store_v1 import LeaseConflictError
+    from .plan_status_posts_v1 import ACTIVE, _utc
+
+    owner = "cc688-draft-" + uuid4().hex
+    try:
+        lease = store.acquire_lease(PAGE_DRAFT_LEASE, owner, ttl_seconds=360)
+    except LeaseConflictError:
+        return {"status": "ACTIVE_PAGE_DRAFT"}
+    try:
+        frozen = frozen_page_sources(store)
+        original_plan_ids = _new_plan_ids(store)
+        candidates = []
+        for current in _dated_plans(export(), now):
+            plan_id = current["plan_id"]
+            if current.get("status") not in ACTIVE and plan_id not in original_plan_ids:
+                continue
+            folder = Path(root) / ("plan-analysis-" + plan_id)
+            plan = frozen.get(plan_id, current)
+            if publication_packet(store, plan) or (folder / DRAFT_MANUSCRIPT).is_file():
+                continue
+            attempt = folder / "page-writer-cc688"
+            registered = _utc(current["registered_at_utc"])
+            candidates.append((now - registered >= timedelta(minutes=10),
+                               attempt.stat().st_mtime if attempt.is_dir() else 0, registered, plan_id, plan, folder))
+        if not candidates:
+            return {"status": "NO_DUE_PAGE_DRAFT"}
+        _, _, _, plan_id, plan, folder = min(candidates)
+        (folder / "page-writer-cc688").mkdir(parents=True, exist_ok=True)
+        (folder / "page-writer-cc688").touch()
+        try:
+            run = pages.load_run(plan, run_root=run_root)
+            manuscript = draft_plan_page(plan, run, output_dir=folder, call=call)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            return {"status": "PAGE_DRAFT_PENDING", "plan_id": plan_id, "cause": type(exc).__name__ + ":" + str(exc)[:160]}
+        temporary = folder / (DRAFT_MANUSCRIPT + ".tmp")
+        temporary.write_bytes(canonical_bytes(manuscript))
+        temporary.replace(folder / DRAFT_MANUSCRIPT)
+        return {"status": "PAGE_DRAFT_READY", "plan_id": plan_id, "writer": manuscript["authorship"]["writer"]}
+    finally:
+        store.release_lease(lease["lease_id"], owner, lease["fencing_token"])
+
+
+def start_page_draft_worker(store, *, python, export_dir, main_root, root, now):
+    """Launch one hidden, detached writer from the existing minute entry."""
+    with store.get_read_only_connection() as conn:
+        active = conn.execute("SELECT 1 FROM leases WHERE lease_key=? AND status='ACTIVE' AND expires_at>?",
+                              (PAGE_DRAFT_LEASE, now.isoformat())).fetchone()
+    if active:
+        return {"status": "ACTIVE_PAGE_DRAFT"}
+    executable = Path(python)
+    quiet = executable.with_name("pythonw.exe")
+    script = Path(__file__).resolve().parents[1] / "scripts/plan_analysis_pages.py"
+    result = Path(root) / "draft-worker-result.json"
+    result.parent.mkdir(parents=True, exist_ok=True)
+    args = [str(quiet if quiet.is_file() else executable), str(script), "draft-due", "--store", str(store.db_path),
+            "--export-dir", str(export_dir), "--main-root", str(main_root), "--output-dir", str(root),
+            "--result", str(result)]
+    detached = getattr(subprocess, "DETACHED_PROCESS", 0) | getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+    breakaway = getattr(subprocess, "CREATE_BREAKAWAY_FROM_JOB", 0)
+    options = {"stdin": subprocess.DEVNULL, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
+    try:
+        worker = subprocess.Popen(args, creationflags=detached | breakaway, **options)
+    except PermissionError:
+        if not breakaway:
+            raise
+        worker = subprocess.Popen(args, creationflags=detached, **options)
+    return {"status": "PAGE_DRAFT_WORKER_STARTED", "pid": worker.pid, "result_path": str(result)}
+
+
 def _expired_owner_pages(store, now):
     from .plan_status_posts_v1 import _utc
 
@@ -336,7 +666,8 @@ def _expired_owner_pages(store, now):
             yield packet
 
 
-def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, limit=1, writer_deadline=None):
+def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, limit=1, writer_deadline=None,
+            cached_only=False):
     """One bounded slice per existing minute entry; no coordination polling."""
     owner="cc466-"+uuid4().hex
     from .durable_operational_store_v1 import LeaseConflictError
@@ -383,10 +714,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
             except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
                 source_failure = type(exc).__name__ + ":" + str(exc)[:160]
                 export = {"status": {"plans": []}}
-        plans=[p for p in export["status"]["plans"] if p.get("asset_id") in __import__(
-            "live_contentops.plan_status_posts_v1",fromlist=["MARKETS"]).MARKETS
-            and p.get("run_id") and p.get("analysis_result_hash") and p.get("registered_at_utc")]
-        plans=[p for p in plans if now-timedelta(days=7)<=datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<=now]
+        plans = _dated_plans(export, now)
         current_plans = {p["plan_id"]: p for p in plans}
         plans = [p for p in plans if p["plan_id"] not in expired]
         # Fresh plans get their first opportunity within the ten-minute target.
@@ -394,6 +722,8 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
         plans.sort(key=lambda p: (now-datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00")) >= timedelta(minutes=10),
             attempt_clock(p["plan_id"]), p["registered_at_utc"]))
         frozen = frozen_page_sources(store)
+        new_plans = _new_plan_ids(store) if cached_only else set()
+        draft_due = False
         if writer_deadline is not None:
             call = partial(call, writer_deadline=writer_deadline, retry_minute_timeout=True)
         for plan in plans:
@@ -403,23 +733,37 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
             packet=publication_packet(store,plan)
             if packet and pages.page_status(store,packet)["confirmed"]:
                 continue
-            if len(results)>=limit:
-                break
             folder=Path(root)/("plan-analysis-"+plan["plan_id"])
             if not packet:
                 options = {}
+                current = current_plans[plan["plan_id"]]
+                from .plan_status_posts_v1 import ACTIVE
+                if cached_only:
+                    if current.get("status") not in ACTIVE and plan["plan_id"] not in new_plans:
+                        continue
+                    if not (folder / DRAFT_MANUSCRIPT).is_file():
+                        draft_due = True
+                        continue
+                if len(results) >= limit:
+                    continue
                 if publish:
-                    current = current_plans[plan["plan_id"]]
-                    from .plan_status_posts_v1 import ACTIVE
-                    if current.get("status") not in ACTIVE:
+                    if current.get("status") not in ACTIVE and not cached_only:
                         continue  # No new live call after a plan ended. Issued pages still reconcile below.
                     try:
-                        options = pages.current_page_options(plan, current, now=now)
+                        if current.get("status") in ACTIVE:
+                            options = pages.current_page_options(plan, current, now=now)
+                        else:
+                            options = {"final_status": pages.ended_plan_status(plan, current, now=now)}
                     except ValueError as exc:
                         waiting.append({"plan_id": plan["plan_id"], "cause": str(exc)})
                         continue
                 try:
-                    prepared=prepare_page(plan,output_dir=folder,call=call,**options)
+                    if cached_only:
+                        manuscript = json.loads((folder / DRAFT_MANUSCRIPT).read_bytes())
+                        prepared = {"status": "PREPARED",
+                                    "packet": pages.render(plan, manuscript, output_dir=folder, **options)}
+                    else:
+                        prepared = prepare_page(plan, output_dir=folder, call=call, **options)
                 except (OSError,ValueError,KeyError,TypeError) as exc:
                     prepared={"status":"SOURCE_PAGE_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
                 if prepared["status"]!="PREPARED":
@@ -428,9 +772,11 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                     (folder/"editorial_result.json").write_bytes(canonical_bytes(results[-1]))
                     continue
                 packet=pages.register_page(store,prepared["packet"])
-            resume_registered(packet)
+            if len(results) < limit:
+                resume_registered(packet)
         return {"status": "CANONICAL_PENDING" if source_failure else "OK", "pages": results,
                 "week_plan_count": len(current_plans), "waiting_for_current_quote": waiting,
+                **({"draft_due": draft_due} if cached_only else {}),
                 **({"source_cause": source_failure} if source_failure else {})}
     finally:
         store.release_lease(lease["lease_id"],owner,lease["fencing_token"])

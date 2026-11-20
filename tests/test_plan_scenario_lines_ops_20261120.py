@@ -1,5 +1,4 @@
 """Ops Product interim, 20 Nov 2026: a new plan's first post quotes the analyst's own scenario text."""
-from datetime import datetime, timezone
 import sys
 
 from live_contentops import plan_call_cards_v1 as cards
@@ -66,22 +65,30 @@ def test_bullish_words_and_first_person_are_left_out():
         "Priced in: December fully priced; gold is 9.2% under its 50-session mean."]
 
 
-def test_new_first_posts_carry_the_lines_and_old_rows_keep_their_bytes(replay, main_root, monkeypatch):
+def test_queued_interim_alert_keeps_its_bytes_and_new_alerts_drop_interim_contract(replay, main_root, monkeypatch):
     store, folder, raw, now = replay
-    monkeypatch.setattr(scenario_lines, "EFFECTIVE", datetime(2026, 1, 1, tzinfo=timezone.utc))
-    monkeypatch.setattr(scenario_lines, "analysis_lines",
-                        lambda plan: ["Macro: Real yields rise as the hike is priced.",
-                                      "Main (60%): Gold trades lower into the exit."])
+    macro = "Real yields rise as the hike is priced."
+    interim_lines = ["Macro: " + macro, "Main (60%): Gold trades lower into the exit."]
+    raw["analysis_layers"] = {"macro": {"state": "USED", "text": macro, "first_cause": None}}
+    write(folder, [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])],
+          generated_at_utc=now.isoformat())
+    monkeypatch.setattr(scenario_lines, "EFFECTIVE", now)
+    monkeypatch.setattr(scenario_lines, "analysis_lines", lambda plan: interim_lines)
     queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     assert queued["status"] == "OK", queued
-    row, = rows(store)
-    assert row["analysis_lines_contract"] == scenario_lines.CONTRACT
-    text = row["text"]
-    assert "Macro: Real yields rise as the hike is priced.\nMain (60%): Gold trades lower into the exit.\nRegistered " in text
-    alerts.validate(row, store=store)
-    # Every destination still fits its limit with the added lines.
-    payloads = cards.destination_payloads(row, card_id="card-fixture")
+    current, = rows(store)
+    assert current["analysis_copy_contract"] == "CC688_V1"
+    assert "analysis_lines_contract" not in current
+    assert current["text"].startswith(interim_lines[0] + "\n")
+    assert current["text"].count(interim_lines[0]) == 1
+    assert interim_lines[1] not in current["text"]
+    alerts.validate(current, store=store)
+
+    interim = {key: value for key, value in current.items() if not key.startswith("analysis_")}
+    interim["analysis_lines_contract"] = scenario_lines.CONTRACT
+    frozen = alerts.compose({key: value for key, value in interim.items() if key != "analysis_lines_contract"})["text"]
+    interim["text"] = frozen.replace("\nRegistered ", "\n" + "\n".join(interim_lines) + "\nRegistered ", 1)
+    assert interim["text"] != frozen
+    alerts.validate(interim, store=store)
+    payloads = cards.destination_payloads(interim, card_id="card-fixture")
     assert payloads and all(p["text"] for p in payloads.values())
-    # A row queued without the contract composes exactly as before.
-    legacy = {k: v for k, v in row.items() if k != "analysis_lines_contract"}
-    assert "Macro:" not in alerts.compose(legacy)["text"]

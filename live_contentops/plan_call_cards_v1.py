@@ -19,6 +19,7 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publi
 from .plan_reader_copy_v1 import THREAD_CONTRACT
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
+LINKEDIN_PLAN_LINK_EFFECTIVE = datetime(2026, 11, 20, 4, 38, tzinfo=timezone.utc)
 FORMAT = 4
 API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business", "linkedin")
 DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
@@ -490,7 +491,7 @@ def _refresh_unissued_no_entry_result(store, message, result, source_for):
 
 
 def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False,
-                instagram_profile_reader=None, **reader):
+                instagram_profile_reader=None, analysis_copy_root=None, **reader):
     if render_all and not dry_run:
         raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
@@ -587,10 +588,6 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
             if kind == "setup":
                 item["x_analysis_thread"] = True
-                from . import plan_scenario_lines_v1 as scenario_lines
-                if now >= scenario_lines.EFFECTIVE:
-                    # Ops Product interim, 20 Nov 2026: the first post quotes the analyst's scenario text.
-                    item["analysis_lines_contract"] = scenario_lines.CONTRACT
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
                 if now >= LEVEL_EFFECTIVE:
                     item["level_contract"] = LEVEL_CONTRACT
@@ -716,6 +713,24 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                         (row.get("kind") == "run" and card_keys.intersection(row.get("card_keys") or []))]
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
+        if item["key"] not in prior and item.get("state_alert_contract"):
+            from .plan_reader_copy_v1 import ANALYSIS_COPY
+            from .plan_reader_editorial_v1 import prepare_plan_layers
+
+            plan = item["source_plan"]
+            original = cards.get(item["plan_id"]) or {}
+            quotes = original.get("analysis_layer_quotes")
+            if quotes is None or original.get("source_plan_registration") != plan["registration_hash"]:
+                folder = (Path(analysis_copy_root) / plan["plan_id"]
+                          if analysis_copy_root is not None and not dry_run else None)
+                quotes = prepare_plan_layers(plan, output_dir=folder)
+            confirmed = confirmed_publication(store, plan) or {}
+            if quotes or confirmed or analysis_copy_root is not None:
+                item.update(analysis_copy_contract=ANALYSIS_COPY, analysis_layer_quotes=quotes,
+                            analysis_link=confirmed.get("canonical_url"))
+                if now >= LINKEDIN_PLAN_LINK_EFFECTIVE:
+                    item["analysis_linkedin_page_required"] = True
+                item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
                 rendered.append({"key":item["key"],"kind":item["kind"],"status":"EDITORIAL_INPUT_REQUIRED",
@@ -883,10 +898,19 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     return None
 
 
+def _linkedin_plan_url(store, row):
+    from .plan_analysis_pages_v1 import confirmed_publication
+
+    return (confirmed_publication(store, row["source_plan"]) or {}).get("canonical_url")
+
+
 def _ready_destinations(store, row, root=None):
     """A settled/parent-waiting copy cannot starve unrelated cards of a slot."""
     ready = []
     skipped = {s["destination"] for s in _skipped_images(root, row)}
+    if (row.get("analysis_linkedin_page_required") and not _dispatch(store, row["key"], "linkedin")
+            and not _linkedin_plan_url(store, row)):
+        skipped.add("linkedin")
     settled = settled_destinations(store, row)
     for destination in destinations_for(row):
         if destination in skipped or destination in settled:
@@ -958,6 +982,10 @@ def _parents(store, row, destinations, previous):
         if destination in settled:
             parents.pop(destination, None)
             continue
+        if (destination == "linkedin" and row.get("analysis_linkedin_page_required")
+                and not _dispatch(store, row["key"], destination) and not _linkedin_plan_url(store, row)):
+            deferred.append({"destination": destination, "cause": "CC684_LINKEDIN_PLAN_PAGE_NOT_CONFIRMED"})
+            continue
         if destination == "discord" and row.get("discord_delivery") == "channel":
             # A channel post needs no run/thread parent. Its route was frozen
             # when this new card entered the existing outbox.
@@ -1004,6 +1032,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         from .plan_reader_copy_v1 import payloads
         return payloads(row, card_id, chart_credit=chart_credit, parents=parents, portrait_id=portrait_id)
     result = {}
+    linkedin_analysis_url = row.get("linkedin_analysis_url")
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
               "linkedin": 3000}
@@ -1011,15 +1040,24 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         # Decision 113: use Telegram's text allowance with the hosted card as
         # its explicit large preview, rather than the photo caption allowance.
         limits["telegram"] = 4096
+    if row.get("analysis_copy_contract"):
+        limits["telegram"] = 4096
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
-        if destination == "threads" and row["kind"] != "run" and complete_levels:
+        if destination == "linkedin" and linkedin_analysis_url and not row.get("analysis_link"):
+            body, notices = posts._split(text)
+            text = body + "\nFull analysis: " + linkedin_analysis_url + "\n\n" + notices
+        if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
-            body = posts._split(text)[0]
-            parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
+            body, notices = posts._split(text)
+            if row.get("analysis_copy_contract"):
+                from .plan_state_alerts_v1 import analysis_thread_parts
+                parts = analysis_thread_parts(row, body, notices, destination=destination, limit=limits[destination])
+            else:
+                parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
             payload = {"destination": destination, "text": parts[0], "root_text": parts[0],
                        "full_text": "\n\n".join(parts), "reply_texts": parts[1:], "media_asset_ids": [card_id]}
             ref = (parents or {}).get(destination)
@@ -1049,7 +1087,11 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             text = body + "\n" + caption + "\n\n" + NOTICES
         if destination == "x":
             body, notices = posts._split(text)
-            chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
+            if row.get("analysis_copy_contract"):
+                from .plan_state_alerts_v1 import analysis_thread_parts
+                chunks = analysis_thread_parts(row, body, notices, destination=destination, limit=limits["x"])
+            else:
+                chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
             if any(posts._x_length(part) > limits["x"] for part in chunks):
                 raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:x")
             payload = {"destination": "x", "text": chunks[0], "root_text": chunks[0],
@@ -1186,13 +1228,18 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         validate_reader_row(store, row)
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
+    linkedin_url = previous.get("status_post_linkedin_analysis_url")
+    if "linkedin" in chosen and row.get("analysis_linkedin_page_required"):
+        linkedin_url = linkedin_url or _linkedin_plan_url(store, row)
+        if not linkedin_url:
+            chosen.remove("linkedin")
     unpostable = []
     if row["kind"] == "run":
         unpostable = [{"destination": d, "cause": "RUN_HAS_NO_POSTABLE_CALL"} for d in chosen
                      if not postable_run_members(store, row, d, root=root)]
         chosen = [d for d in chosen if postable_run_members(store, row, d, root=root)]
     x_analysis = previous.get("status_post_x_analysis")
-    if (row.get("x_analysis_thread") and "x" in chosen and not x_analysis
+    if (row.get("x_analysis_thread") and "x" in chosen and not x_analysis and not row.get("analysis_copy_contract")
             and not fast_alert and not _dispatch(store, key, "x")):
         from .plan_analysis_pages_v1 import confirmed_publication
         from .plan_reader_editorial_v1 import prepare_social_copy
@@ -1357,6 +1404,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             context["reader_fields"] = row["reader_fields"]
         if x_analysis:
             context["status_post_x_analysis"] = x_analysis
+        if linkedin_url:
+            context["status_post_linkedin_analysis_url"] = linkedin_url
         context_path.write_bytes(canonical_bytes(context))
     elif row.get("parent_key"):
         # A sibling dispatch can freeze the chart before this destination's
@@ -1370,7 +1419,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     if frozen and x_analysis and not previous.get("status_post_x_analysis"):
         previous["status_post_x_analysis"] = x_analysis
         context_path.write_bytes(canonical_bytes(previous))
-    payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
+    if frozen and linkedin_url and not previous.get("status_post_linkedin_analysis_url"):
+        previous["status_post_linkedin_analysis_url"] = linkedin_url
+        context_path.write_bytes(canonical_bytes(previous))
+    payloads = destination_payloads({**row, "linkedin_analysis_url": linkedin_url}, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")

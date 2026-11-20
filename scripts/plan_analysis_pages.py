@@ -13,13 +13,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops import plan_analysis_pages_v1 as pages
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
 from live_contentops.published_content_v1 import PRODUCTION_STORE
-from live_contentops.plan_status_posts_v1 import read_export
+from live_contentops.plan_status_posts_v1 import EXPORT_DIR, MAIN_ROOT, read_export
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=["render", "register", "status", "resume", "readback", "begin", "submit",
-                                          "links", "link-resume", "link-readback", "link-begin", "link-submit", "link-repair-embed", "link-repair-reference", "link-repair-image-refusal", "prepare-variants", "prepare-page"])
+                                          "links", "link-resume", "link-readback", "link-begin", "link-submit", "link-repair-embed", "link-repair-reference", "link-repair-image-refusal", "prepare-variants", "prepare-page", "draft-due"])
     parser.add_argument("--plan-id")
     parser.add_argument("--link-id")
     parser.add_argument("--post-key")
@@ -27,6 +27,8 @@ def main(argv=None):
     parser.add_argument("--manuscript", type=Path)
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
+    parser.add_argument("--export-dir", type=Path, default=EXPORT_DIR)
+    parser.add_argument("--main-root", type=Path, default=MAIN_ROOT)
     parser.add_argument("--native-invocation-id", default="")
     parser.add_argument("--request-hash")
     parser.add_argument("--response", type=Path)
@@ -34,7 +36,16 @@ def main(argv=None):
     parser.add_argument("--rollout", type=Path, default=Path("config/native_desktop_rollout_v1.json"))
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command == "prepare-page":
+    if args.command == "draft-due":
+        from live_contentops.plan_reader_editorial_v1 import draft_due_page
+        from scripts.plan_status_posts import child_python
+        try:
+            result = draft_due_page(store, lambda: read_export(args.export_dir, main_root=args.main_root,
+                python=child_python()), root=args.output_dir or args.store.parent / "daily_app_outputs/plan_analysis",
+                now=datetime.now(timezone.utc))
+        except (OSError, ValueError, KeyError, TypeError, RuntimeError) as exc:
+            result = {"status": "PAGE_DRAFT_PENDING", "cause": type(exc).__name__ + ":" + str(exc)[:160]}
+    elif args.command == "prepare-page":
         if not args.plan_id:
             parser.error("--plan-id is required")
         from live_contentops.plan_reader_editorial_v1 import PAGE_LEASE, frozen_page_sources, prepare_page, publication_packet
@@ -102,10 +113,13 @@ def main(argv=None):
             result = pages.continue_page(store, packet, invocation_id=args.native_invocation_id,
                 rollout=json.loads(args.rollout.read_bytes()), command=args.command, request_hash=args.request_hash,
                 response=json.loads(args.response.read_bytes()) if args.response else None)
+    if args.result and not (args.command == "draft-due" and result["status"] == "ACTIVE_PAGE_DRAFT"):
+        temporary = args.result.with_suffix(".tmp")
+        temporary.write_text(json.dumps(result, ensure_ascii=False, indent=1, default=str),encoding="utf-8")
+        temporary.replace(args.result)
     if sys.stdout:
         sys.stdout.reconfigure(encoding="utf-8")
         if args.result:
-            args.result.write_text(json.dumps(result, ensure_ascii=False, indent=1, default=str),encoding="utf-8")
             requests = ([result["native_tool_request"]] if result.get("native_tool_request") else result.get("pending_requests", []))
             print(json.dumps({"result_path":str(args.result),"state":result.get("state"),"confirmed":result.get("confirmed"),
                 "pending":[{"request_sha256":r["request"]["request_sha256"],"action":r["request"]["action"],
