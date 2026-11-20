@@ -173,6 +173,9 @@ def execute_discord_post(
             "error_code": e.code,
             "error_response": err_json,
         }
+        if channel_reply and e.code in {400, 403, 404}:
+            result.update(status="DEFINITE_NO_WRITE", definite_no_write=True,
+                          reason_code="DISCORD_ANNOUNCEMENT_REPLY_REJECTED")
     except Exception as e:
         result = {
             "status": "FAILED",
@@ -365,7 +368,7 @@ def readback_discord_post(
     return {
         "status": "SUCCESS" if verified else "FAILED_DISCORD_STRICT_READBACK",
         "verified": verified,
-        "write_exists": exact_identity,
+        "write_exists": exact_identity and channel_verified,
         "message_id": observed_id or None,
         "public_url": public_url,
         "body_text_visible": text_verified,
@@ -374,7 +377,10 @@ def readback_discord_post(
         "attached_article_visual": bool(attachments),
         "image_sha256_match": image_hash_match,
         "thread_verified": thread_verified, "reply_parent_verified": parent_verified,
-        **({"channel_verified": channel_verified} if channel_reply else {}),
+        **({"channel_verified": channel_verified, "content_binding_checks": {
+            "text_match": text_verified, "media_match": media_verified,
+            "thread_match": channel_verified and parent_verified,
+        }} if channel_reply else {}),
     }
 
 

@@ -1548,16 +1548,17 @@ def validate_parent_intent(store, row, intent, *, parent_route=None):
 def _publish_discord_channel_reply(store, coordinator, continuation):
     key = continuation["work_item_id"]
     dispatch = _dispatch(store, key, "discord") or {}
-    outcome = {}
-    if dispatch.get("status") not in SETTLED_DISPATCHES:
+    if dispatch.get("status") in SETTLED_DISPATCHES:
+        outcome = coordinator.publication_state(key, continuation)
+    else:
         store.create_work_item(story_id=key, title="Discord plan reply in #announcements",
                                target_surface="MULTI_PLATFORM", work_item_id=key)
         posts.scope_to_post(coordinator, key, continuation)
         outcome = coordinator.execute_plan(key, continuation)
-        dispatch = _dispatch(store, key, "discord") or {}
     detail = (outcome.get("per_destination") or {}).get("discord") or {}
-    return {"status": dispatch.get("status") or detail.get("status") or outcome.get("distribution_status") or "NOT_STARTED",
-            "dispatch_id": dispatch.get("dispatch_id"), "public_object_url": dispatch.get("public_object_url"),
+    return {"status": detail.get("status") or outcome.get("distribution_status") or "NOT_STARTED",
+            "dispatch_id": detail.get("dispatch_id"), "public_object_url": detail.get("public_object_url"),
+            "reconciliation_status": detail.get("reconciliation_status"),
             "cause": posts.destination_causes(outcome).get("discord")}
 
 

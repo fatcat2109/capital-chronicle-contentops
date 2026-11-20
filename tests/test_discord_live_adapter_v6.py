@@ -268,8 +268,9 @@ def test_starter_link_recovery_checks_its_exact_thread_and_preserves_foreign_ref
 
 def test_channel_reply_uses_the_bot_and_reads_back_the_announcement_parent(monkeypatch, tmp_path):
     from PIL import Image
+    from hashlib import sha256
     from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6 as telemetry
-    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _publish_discord_verified
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
 
     channel = "1519311669216673802"
     starter = "700"
@@ -317,15 +318,30 @@ def test_channel_reply_uses_the_bot_and_reads_back_the_announcement_parent(monke
     monkeypatch.setattr(adapter, "read_secret", lambda name: "fixture" if name == "DISCORD_BOT_TOKEN" else webhook)
     monkeypatch.setattr(adapter.urllib.request, "urlopen", open_request)
     monkeypatch.setattr(telemetry, "classify_and_record_dispatch", lambda **_: None)
+    asset = {"asset_id": "chart", "path": str(chart), "sha256": sha256(chart.read_bytes()).hexdigest()}
+    delivery = {"text": text, "discord_channel_reply": True, "reply_to_id": starter, "media_asset_ids": ["chart"]}
+    data = {"output_dir": tmp_path, "article": {"title": "Gold fill"}, "canonical_url": "",
+            "payloads": {"discord": delivery}, "local_media": str(chart), "public_image_url": "",
+            "media_assets": [asset], "primary_media": {}}
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
 
-    result = _publish_discord_verified(text=text, canonical_url="", image_url=None, title="Gold fill",
-        image_path=str(chart), channel_reply=True, reply_to_message_id=starter)
+    intent = {"plan_status_post": "gold-fill", "attempt_identity": "exact"}
+    result = pipeline._publish_one_destination_from_durable_intent(destination="discord", intent=intent,
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "exact"})
 
     assert result["destination_identity"] == f"discord_channel:{channel}"
     assert result["public_url"] == f"https://discord.com/channels/42/{channel}/901"
     assert result["readback"]["channel_verified"] and result["readback"]["reply_parent_verified"]
     assert result["readback"]["image_sha256_match"] and result["provider_readback_verified"]
     assert calls[-2:] == [("POST", channel_url + "/messages"), ("GET", channel_url + "/messages/901")]
+    replay = pipeline._readback_one_destination_from_durable_intent(destination="discord", intent=intent,
+        public_object_id="901", public_object_url=result["public_url"])
+    assert replay["verified"] and replay["content_binding_checks"] == {
+        "text_match": True, "media_match": True, "thread_match": True}
+    message["message_reference"] = {"message_id": "701", "channel_id": channel}
+    wrong_parent = pipeline._readback_one_destination_from_durable_intent(destination="discord", intent=intent,
+        public_object_id="901", public_object_url=result["public_url"])
+    assert not wrong_parent["verified"] and wrong_parent["write_exists"]
 
 
 @pytest.mark.parametrize("history", ["found", "wrong_parent", "foreign", "unreadable", "absent"])

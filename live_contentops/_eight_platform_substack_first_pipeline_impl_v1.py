@@ -4921,7 +4921,7 @@ def _readback_one_destination_from_durable_intent(
             **({"thread_id": delivery["discord_thread_parent_id"], "expected_parent_id": delivery.get("reply_to_id")}
                if delivery.get("discord_thread_parent_id") else {}),
             **({"channel_reply": True, "expected_parent_id": delivery.get("reply_to_id"),
-                "expected_image_sha256": (data["primary_media"] or {}).get("sha256")}
+                "expected_image_sha256": next(iter(data["media_assets"]), {}).get("sha256")}
                if delivery.get("discord_channel_reply") else {}),
         )
     elif destination == "discord" and (payloads["discord"].get("discord_thread_parent_id")
@@ -4932,7 +4932,8 @@ def _readback_one_destination_from_durable_intent(
             thread_id=delivery.get("discord_thread_parent_id"), expected_text=text,
             channel_reply=bool(delivery.get("discord_channel_reply")),
             canonical_url=canonical_url, expected_parent_id=delivery.get("reply_to_id"),
-            expected_image_sha256=(data["primary_media"] or {}).get("sha256"),
+            expected_image_sha256=(next(iter(data["media_assets"]), {}) if delivery.get("discord_channel_reply")
+                                   else data["primary_media"] or {}).get("sha256"),
             require_media=not (intent.get("plan_analysis_link") and not data["primary_media"]),
         )
     elif destination == "threads" and public_object_id:

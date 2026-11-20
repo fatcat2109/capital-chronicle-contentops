@@ -358,6 +358,10 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
     assert "reply_to_id" not in telegram_intent["native_payload"]
     discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
     assert json.loads(discord_bytes)["native_payload"]["reply_to_id"] == "600"
+    channel_reply = cards._dispatch(store, f"{key}-part-{cards.DISCORD_CHANNEL_PART}", "discord")
+    assert channel_reply["status"] == "DISPATCH_CONFIRMED"
+    channel_bytes = store.get_outbox_message(channel_reply["message_id"])["payload"]
+    assert json.loads(channel_bytes)["native_payload"]["discord_channel_reply"] is True
 
     now += timedelta(minutes=1)
     options["now"] = now
@@ -370,9 +374,11 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             intent = json.loads(store.get_outbox_message(delivery["message_id"])["payload"])
             assert "reply_to_id" not in intent["native_payload"]
     assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
+    assert store.get_outbox_message(channel_reply["message_id"])["payload"] == channel_bytes
     assert store.get_outbox_message(setup_key)["status"] == posts.SUPERSEDED
     posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
-    assert len(runtime.publish_calls) == len(cards.destinations_for(ending))
+    assert runtime.publish_calls.count("discord") == 2  # the thread entry and one channel reply
+    assert len(runtime.publish_calls) == len(cards.destinations_for(ending)) + 1
 
 
 @pytest.mark.parametrize("dry", [False, True])
@@ -490,6 +496,7 @@ def test_minute_consumer_sends_major_discord_updates_to_the_channel_and_thread(
             super().__init__()
             self.discord = []
             self.accepted = {}
+            self.channel_readback_available = change != "FILLED"
 
         def publish(self, *, destination, intent, authorization_context):
             if destination != "discord":
@@ -508,6 +515,8 @@ def test_minute_consumer_sends_major_discord_updates_to_the_channel_and_thread(
             if destination != "discord":
                 return super().readback(destination=destination, public_object_id=public_object_id,
                                         public_object_url=public_object_url, intent=intent)
+            if intent["native_payload"].get("discord_channel_reply") and not self.channel_readback_available:
+                return {"status": "READBACK_UNAVAILABLE", "verified": False}
             receipt = self.accepted[intent["work_item_id"]]
             return {"status": "SUCCESS", "verified": True,
                     "public_object_id": receipt["id"], "public_object_url": receipt["public_url"]}
@@ -516,9 +525,16 @@ def test_minute_consumer_sends_major_discord_updates_to_the_channel_and_thread(
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
         readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: at)
     runs = []
-    for _ in range(3):
-        runs.append(posts.publish_ready(store, now=at, latest_states=queued["latest_states"], root=tmp_path / "posts",
-            host=fake_host, coordinator_for=lambda *a: coordinator, immediate_only=True))
+    for attempt in range(3):
+        run = posts.publish_ready(store, now=at, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda *a: coordinator, immediate_only=True)
+        runs.append(run)
+        if change == "FILLED" and attempt == 0:
+            first, = run["posts"]
+            assert first["discord_channel_reply"]["status"] == "UNKNOWN_WRITE"
+            assert first["discord_channel_reply"]["reconciliation_status"] == "RECONCILIATION_PENDING"
+            assert coordinator._destination_day_failure("discord") is None
+            transport.channel_readback_available = True
 
     major = change != "VIEW_CHANGED"
     assert len(transport.discord) == (2 if major else 1), runs
@@ -548,6 +564,8 @@ def test_minute_consumer_sends_major_discord_updates_to_the_channel_and_thread(
         dispatch = cards._dispatch(store, intent["work_item_id"], "discord")
         assert dispatch["status"] == "DISPATCH_CONFIRMED"
         assert dispatch["public_object_url"] == transport.accepted[intent["work_item_id"]]["public_url"]
+    assert any(post["discord_channel_reply"]["reconciliation_status"] == "RECONCILED_CONFIRMED"
+               for run in runs for post in run["posts"] if post.get("discord_channel_reply"))
     altered = deepcopy(channel_intent)
     altered["native_payload"]["reply_to_id"] = "unrelated"
     with pytest.raises(ValueError, match="PLAN_CARD_DISCORD_CHANNEL_REPLY_PARENT_CHANGED"):
