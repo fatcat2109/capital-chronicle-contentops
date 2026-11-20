@@ -1510,6 +1510,7 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
                                  carousel=context.get("status_post_instagram_carousel"),
                                   portrait_id=context.get("status_post_threads_image"),
                                  x_analysis=context.get("status_post_x_analysis"),
+                                 linkedin_analysis_url=context.get("status_post_linkedin_analysis_url"),
                                  chart_credit=bool(context.get("chart_credit")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
@@ -1579,6 +1580,12 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     if row.get("analysis_copy_contract"):
         from .plan_state_alerts_v1 import validate as validate_alert
         validate_alert(row, store=store)
+        if destination == "linkedin" and row.get("analysis_linkedin_page_required"):
+            from .plan_call_cards_v1 import _linkedin_plan_url
+            url = _linkedin_plan_url(store, row)
+            if (not url or url != context.get("status_post_linkedin_analysis_url")
+                    or url not in public_text):
+                raise PlanPostError("CC684_LINKEDIN_PLAN_LINK_NOT_CONFIRMED")
         public_text = " ".join(public_text.split())
     check_publication_copy({"post": public_text},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [],

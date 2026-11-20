@@ -134,12 +134,11 @@ def analysis_thread_parts(row, body, notices, *, destination, limit):
         parts = pack(layer_lines)
         if parts:
             return [parts[0], link + "\n\n" + notices, *parts[1:], *pack(detail)]
-        parts = pack(detail)
-        return [parts[0], link + "\n\n" + notices, *parts[1:]]
+        return [detail[0], link + "\n\n" + notices, *pack(detail[1:])]
     # The root holds the chart credit. Keeping the call sentences together
     # avoids interrupting their exact wording with that credit or the notices.
     tail = [*detail, *([link] if link else []), notices]
-    return [*pack(layer_lines), *pack(tail)]
+    return [*pack(layer_lines), *pack(tail)] if layer_lines else [tail[0], *pack(tail[1:])]
 
 
 def _inherits_target_omission(row, store):

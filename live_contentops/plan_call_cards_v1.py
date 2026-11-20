@@ -18,6 +18,7 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publi
 from .plan_reader_copy_v1 import THREAD_CONTRACT
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
+LINKEDIN_PLAN_LINK_EFFECTIVE = datetime(2026, 11, 20, 4, 38, tzinfo=timezone.utc)
 FORMAT = 4
 API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business", "linkedin")
 DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
@@ -716,6 +717,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             if quotes or confirmed or analysis_copy_root is not None:
                 item.update(analysis_copy_contract=ANALYSIS_COPY, analysis_layer_quotes=quotes,
                             analysis_link=confirmed.get("canonical_url"))
+                if now >= LINKEDIN_PLAN_LINK_EFFECTIVE:
+                    item["analysis_linkedin_page_required"] = True
                 item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
@@ -884,6 +887,12 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     return None
 
 
+def _linkedin_plan_url(store, row):
+    from .plan_analysis_pages_v1 import confirmed_publication
+
+    return (confirmed_publication(store, row["source_plan"]) or {}).get("canonical_url")
+
+
 def _ready_destinations(store, row, root=None):
     """A settled/parent-waiting copy cannot starve unrelated cards of a slot."""
     ready = []
@@ -893,6 +902,9 @@ def _ready_destinations(store, row, root=None):
         if destination in skipped or destination in settled:
             continue
         dispatch = _dispatch(store, row["key"], destination)
+        if (destination == "linkedin" and not dispatch and row.get("analysis_linkedin_page_required")
+                and not _linkedin_plan_url(store, row)):
+            continue
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
             if destination in {"x", "substack_notes"} and dispatch["status"] == "DEFINITE_NO_WRITE":
                 from .neo_endpoint_executor_v1 import repaired_prewrite_request
@@ -959,6 +971,10 @@ def _parents(store, row, destinations, previous):
         if destination in settled:
             parents.pop(destination, None)
             continue
+        if (destination == "linkedin" and row.get("analysis_linkedin_page_required")
+                and not _dispatch(store, row["key"], destination) and not _linkedin_plan_url(store, row)):
+            deferred.append({"destination": destination, "cause": "CC684_LINKEDIN_PLAN_PAGE_NOT_CONFIRMED"})
+            continue
         if destination == "discord" and row.get("discord_delivery") == "channel":
             # A channel post needs no run/thread parent. Its route was frozen
             # when this new card entered the existing outbox.
@@ -991,11 +1007,12 @@ def _parents(store, row, destinations, previous):
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
-                         portrait_id=None, x_analysis=None, destinations=None):
+                         portrait_id=None, x_analysis=None, destinations=None, linkedin_analysis_url=None):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
         result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
-            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id)
+            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id,
+            **({"linkedin_analysis_url": linkedin_analysis_url} if linkedin_analysis_url else {}))
         if row.get("x_analysis_thread") and x_analysis:
             from .plan_reader_copy_v1 import payloads
             result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
@@ -1018,6 +1035,9 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     limits = {d: n - len(credit) for d, n in limits.items()}
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
+        if destination == "linkedin" and linkedin_analysis_url and not row.get("analysis_link"):
+            body, notices = posts._split(text)
+            text = body + "\nFull analysis: " + linkedin_analysis_url + "\n\n" + notices
         if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
@@ -1197,6 +1217,11 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         validate_reader_row(store, row)
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
+    linkedin_url = previous.get("status_post_linkedin_analysis_url")
+    if "linkedin" in chosen and row.get("analysis_linkedin_page_required"):
+        linkedin_url = linkedin_url or _linkedin_plan_url(store, row)
+        if not linkedin_url:
+            chosen.remove("linkedin")
     unpostable = []
     if row["kind"] == "run":
         unpostable = [{"destination": d, "cause": "RUN_HAS_NO_POSTABLE_CALL"} for d in chosen
@@ -1363,6 +1388,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             context["reader_fields"] = row["reader_fields"]
         if x_analysis:
             context["status_post_x_analysis"] = x_analysis
+        if linkedin_url:
+            context["status_post_linkedin_analysis_url"] = linkedin_url
         context_path.write_bytes(canonical_bytes(context))
     elif row.get("parent_key"):
         # A sibling dispatch can freeze the chart before this destination's
@@ -1376,9 +1403,12 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     if frozen and x_analysis and not previous.get("status_post_x_analysis"):
         previous["status_post_x_analysis"] = x_analysis
         context_path.write_bytes(canonical_bytes(previous))
+    if frozen and linkedin_url and not previous.get("status_post_linkedin_analysis_url"):
+        previous["status_post_linkedin_analysis_url"] = linkedin_url
+        context_path.write_bytes(canonical_bytes(previous))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
-                                  portrait_id=portrait_id, x_analysis=x_analysis,
+                                  portrait_id=portrait_id, x_analysis=x_analysis, linkedin_analysis_url=linkedin_url,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     plan_rows = []
     for destination in chosen:

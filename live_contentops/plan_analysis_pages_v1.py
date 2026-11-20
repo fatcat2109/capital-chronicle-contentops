@@ -738,7 +738,8 @@ def confirmed_publication(store, plan):
         return None
     packet = json.loads(row["payload"])
     status = page_status(store, packet)
-    if not status["confirmed"] or packet["registration_hash"] != plan.get("registration_hash"):
+    if (not status["confirmed"] or packet["registration_hash"] != plan.get("registration_hash")
+            or not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", status["canonical_url"] or "")):
         return None
     return {"plan_id": plan["plan_id"], "registration_hash": packet["registration_hash"],
             "canonical_url": status["canonical_url"], "summary": packet["summary"]}
@@ -911,19 +912,19 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
 
 
 def _link_payload(packet, destination, text, canonical_url, parent, *, discord_delivery=None,
-                  discord_thread_parent_id=None):
+                  discord_thread_parent_id=None, status_post_reply=False):
     payload = {"destination": destination, "text": text, "full_text": text, "media_asset_ids": []}
     if parent:
         payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])
     if destination in {"facebook_page", "instagram_business"}:
         payload["own_call_comment"] = True
-    if destination == "substack_notes":
+    if destination == "substack_notes" and not status_post_reply:
         # Notes is its own link-card post, not a reply to an unrelated Note.
         payload.update(link_card_url=canonical_url)
     if destination == "x":
         body = text.rsplit("\n" + PUBLIC_NOTICE, 1)[0]
         notices = PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
-        chunks = posts._x_pack(body, 280, preserve_lines=True) + [notices]
+        chunks = [text] if status_post_reply else posts._x_pack(body, 280, preserve_lines=True) + [notices]
         if any(posts._x_length(chunk) > 280 for chunk in chunks):
             raise ValueError("PLAN_ANALYSIS_X_COPY_TOO_LONG")
         payload.update(text=chunks[0], root_text=chunks[0], full_text="\n\n".join(chunks),
@@ -963,6 +964,10 @@ def _analysis_parent(store, original_key, plan_id, destination):
 def _discord_analysis_thread(store, original, parent):
     """A bot card already lives in its run thread; Discord has no nested threads."""
     from .plan_call_cards_v1 import _reference
+    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    if original.get("analysis_copy_contract") == ANALYSIS_COPY:
+        sent = _status_post_copy(store, original["key"], "discord")
+        return str(sent.get("discord_thread_parent_id") or parent["public_object_id"])
     if original.get("kind") == "setup" and not original.get("parent_key"):
         # CC-466's setup is its own root; run_key remains an internal grouping
         # key and does not identify a public count/summary post.
@@ -976,22 +981,55 @@ def _discord_analysis_thread(store, original, parent):
     return str(run["public_object_id"])
 
 
+def _status_post_copy(store, key, destination):
+    from .plan_call_cards_v1 import _dispatch
+
+    dispatch = _dispatch(store, key, destination) or {}
+    if dispatch.get("status") != "DISPATCH_CONFIRMED":
+        return {}
+    message = store.get_outbox_message(dispatch["message_id"]) or {}
+    return json.loads(message.get("payload") or "{}").get("native_payload") or {}
+
+
+def _status_post_link_text(packet, canonical_url):
+    market = posts.TITLES[packet["source_plan"]["asset_id"]]
+    text = f"{market} | Full analysis: {canonical_url}\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+    public_filter(text)
+    return text
+
+
 def register_link(store, packet, *, original_key, destination, authored_summary=None,
                   original_analysis_root=False, canonical_image_url=None):
     from .plan_call_cards_v1 import _dispatch, _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+    from .plan_reader_copy_v1 import ANALYSIS_COPY
     status = page_status(store, packet)
     if not status["confirmed"]:
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
     if destination not in {"telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"}:
         raise ValueError("PLAN_ANALYSIS_LINK_DESTINATION_INVALID")
+    original = store.get_outbox_message(original_key) or {}
+    original_payload = json.loads(original.get("payload") or "{}")
+    status_post_reply = bool(not original_analysis_root and not authored_summary and
+                             original_payload.get("analysis_copy_contract") == ANALYSIS_COPY)
+    if status_post_reply and (original_payload["plan_id"] != packet["plan_id"]
+                              or original_payload["source_plan_registration"] != packet["registration_hash"]):
+        raise ValueError("CC688_LINK_PLAN_REGISTRATION_CHANGED")
     identity = ("plan-analysis-root-" if original_analysis_root else "plan-analysis-link-")+packet["plan_id"]+'-'+destination
+    if status_post_reply and original_payload["kind"] != "setup":
+        identity += "-" + sha256(original_key.encode()).hexdigest()[:16]
     prior = store.get_outbox_message(identity)
     if prior and not authored_summary:
         return json.loads(prior["payload"])
-    original = store.get_outbox_message(original_key) or {}
-    original_payload = json.loads(original.get("payload") or "{}")
-    if destination == "x" and original_payload.get("x_analysis_thread"):
+    if status_post_reply:
+        parent = _reference(store, original_key, destination)
+        if not parent:
+            return {"state": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination": destination, "original_key": original_key}
+        sent = _status_post_copy(store, original_key, destination)
+        if status["canonical_url"] in sent.get("full_text", ""):
+            return {"state": "PLAN_ANALYSIS_IN_STATUS_POST", "destination": destination,
+                    "original_key": original_key, "public_object_url": parent["public_object_url"]}
+    elif destination == "x" and original_payload.get("x_analysis_thread"):
         ref = _reference(store, original_key, destination)
         if not ref:
             return {"state": "PLAN_ANALYSIS_X_THREAD_PENDING", "destination": destination,
@@ -1004,7 +1042,8 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
                     "original_key": original_key, "public_object_url": ref.get("public_object_url")}
         # The first alert can go out while the page is still being prepared.
         # Its confirmed root now receives the same bound link as other channels.
-    parent = None if destination == "substack_notes" else _analysis_parent(store, original_key, packet["plan_id"], destination)
+    if not status_post_reply:
+        parent = None if destination == "substack_notes" else _analysis_parent(store, original_key, packet["plan_id"], destination)
     if original_analysis_root:
         # Decision 113 explicitly asks for today's original plan analysis. An
         # unsent legacy setup is not a new live call: publish a dated analysis
@@ -1025,11 +1064,14 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
         discord_delivery = "bot_thread"
     thread_parent = (_discord_analysis_thread(store, original_payload, parent)
                      if destination == "discord" and discord_delivery != "channel" else None)
-    text = structured_summary(packet, destination, status["canonical_url"],authored_summary, version=2)
+    text = (_status_post_link_text(packet, status["canonical_url"]) if status_post_reply else
+            structured_summary(packet, destination, status["canonical_url"], authored_summary, version=2))
     payload = _link_payload(packet, destination, text, status["canonical_url"], parent,
-                            discord_delivery=discord_delivery, discord_thread_parent_id=thread_parent)
+                            discord_delivery=discord_delivery, discord_thread_parent_id=thread_parent,
+                            status_post_reply=status_post_reply)
     from .measured_odds_series_v1 import confirmed_method_page, add_method_link
-    method_reference = confirmed_method_page(store) if not prior else json.loads(prior["payload"]).get("method_page_reference")
+    method_reference = (None if status_post_reply else confirmed_method_page(store) if not prior
+                        else json.loads(prior["payload"]).get("method_page_reference"))
     payload = add_method_link(payload, method_reference)
     if original_analysis_root:
         payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]], image_url=canonical_image_url)
@@ -1044,6 +1086,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
            "original_analysis_root":original_analysis_root, "summary_version": 2,
+           **({"status_post_reply": True} if status_post_reply else {}),
            **({"method_page_reference":method_reference} if method_reference else {}),
            **({"discord_delivery": discord_delivery} if discord_delivery else {}),
            **({"discord_thread_parent_id": thread_parent} if thread_parent else {}),
@@ -1059,6 +1102,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
 
 def validate_link_plan(store, work_item_id, plan):
     from .plan_call_cards_v1 import _reference
+    from .plan_reader_copy_v1 import ANALYSIS_COPY
     row=store.get_outbox_message(work_item_id)
     value=json.loads(row["payload"]) if row else {}
     if value.get("link_id")!=work_item_id or value.get("plan")!=plan:
@@ -1096,6 +1140,13 @@ def validate_link_plan(store, work_item_id, plan):
                 observed=True
         if not observed:
             raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_NOT_OBSERVED")
+    elif value.get("status_post_reply"):
+        original = posts._row_payload(store, value["original_key"])
+        parent = _reference(store, value["original_key"], value["destination"])
+        if (original.get("analysis_copy_contract") != ANALYSIS_COPY or original["plan_id"] != packet["plan_id"]
+                or original["source_plan_registration"] != packet["registration_hash"]
+                or not parent or parent != value["parent"]):
+            raise ValueError("CC688_LINK_STATUS_POST_PARENT_CHANGED")
     elif value["destination"] == "substack_notes":
         if value.get("parent") or value["native_payload"].get("link_card_url") != value["canonical_url"]:
             raise ValueError("PLAN_ANALYSIS_NOTE_LINK_CARD_CHANGED")
@@ -1103,8 +1154,9 @@ def validate_link_plan(store, work_item_id, plan):
         parent=_analysis_parent(store,value["original_key"],value["plan_id"],value["destination"])
         if not parent or parent!=value["parent"]:
             raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
-    expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'),
-                                version=value.get("summary_version", 1))
+    expected = (_status_post_link_text(packet, value["canonical_url"]) if value.get("status_post_reply") else
+                structured_summary(packet, value["destination"], value["canonical_url"], value.get("authored_summary"),
+                                   version=value.get("summary_version", 1)))
     thread_parent = value.get("discord_thread_parent_id")
     if thread_parent:
         original = json.loads(store.get_outbox_message(value["original_key"])["payload"])
@@ -1112,7 +1164,8 @@ def validate_link_plan(store, work_item_id, plan):
                 or thread_parent != _discord_analysis_thread(store, original, value["parent"])):
             raise ValueError("PLAN_ANALYSIS_DISCORD_THREAD_CHANGED")
     expected_payload = _link_payload(packet, value["destination"], expected, value["canonical_url"], value.get("parent"),
-                                     discord_delivery=value.get("discord_delivery"), discord_thread_parent_id=thread_parent)
+                                     discord_delivery=value.get("discord_delivery"), discord_thread_parent_id=thread_parent,
+                                     status_post_reply=bool(value.get("status_post_reply")))
     if value.get("method_page_reference"):
         from .measured_odds_series_v1 import confirmed_method_page, add_method_link
         if confirmed_method_page(store) != value["method_page_reference"]:
@@ -1444,12 +1497,15 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
     Frozen links are resumed, not rewritten. A later page in the same Main run
     creates one new complete index snapshot, rather than editing a sent object.
     """
-    cards, confirmed_runs = {}, []
+    cards, alerts, confirmed_runs = {}, {}, []
     from .plan_call_cards_v1 import _reference
+    from .plan_reader_copy_v1 import ANALYSIS_COPY
     for row in store.list_outbox_messages(destination=posts.DESTINATION):
         item = json.loads(row["payload"])
         if item.get("kind") == "setup" or item.get("state") == "WAITING":
             cards.setdefault(item.get("plan_id"), row["message_id"])
+        if item.get("analysis_copy_contract") == ANALYSIS_COPY:
+            alerts.setdefault(item["plan_id"], []).append(row["message_id"])
         if item.get("kind") == "run" and _reference(store, row["message_id"], "linkedin"):
             confirmed_runs.append({a["canonical_url"] for a in item.get("analysis_publications", [])})
     pages, runs, results = [], {}, []
@@ -1459,17 +1515,21 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
             pages.append(packet)
     for packet in pages if limit is None else pages[-limit:]:
         original = cards.get(packet["plan_id"], packet["page_id"])
-        for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
-            try:
-                value = register_link(store, packet, original_key=original, destination=destination)
-                outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
-                results.append({"page_id": packet["page_id"], "destination": destination,
-                                "link_id": value.get("link_id"), "outcome": outcome,
-                                **({"readback": link_status(store, value)} if value.get("link_id") else {})})
-            except (OSError, ValueError, KeyError, TypeError) as exc:
-                results.append({"page_id": packet["page_id"], "destination": destination,
-                                "state": "NOT_STARTED", "cause": str(exc)[:200]})
-        runs.setdefault(packet["source_plan"]["run_id"], []).append(packet)
+        for key in dict.fromkeys((original, *alerts.get(packet["plan_id"], []))):
+            for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
+                try:
+                    value = register_link(store, packet, original_key=key, destination=destination)
+                    outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
+                    results.append({"page_id": packet["page_id"], "destination": destination,
+                                    "link_id": value.get("link_id"), "outcome": outcome,
+                                    **({"readback": link_status(store, value)} if value.get("link_id") else {})})
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    results.append({"page_id": packet["page_id"], "destination": destination,
+                                    "state": "NOT_STARTED", "cause": str(exc)[:200]})
+        if original not in alerts.get(packet["plan_id"], []):
+            # New LinkedIn cards carry the confirmed page and chart together.
+            # Earlier cards keep their exact link-index identities.
+            runs.setdefault(packet["source_plan"]["run_id"], []).append(packet)
     for packets in runs.values():
         try:
             urls = {page_status(store, p)["canonical_url"] for p in packets}
@@ -1521,13 +1581,20 @@ def resume_discord_links(store, *, latest_states, now, limit=5, coordinator_for=
             until = original.get("time_exit_utc") or (original.get("levels") or {}).get("valid_until_utc")
             ended = state in {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED", "RESULT"}
             expired = bool(until and now >= posts._utc(until))
-            if not dispatch and (ended or expired):
+            if not dispatch and value.get("status_post_reply"):
+                # The reply completes an already public alert, including a
+                # result posted after the plan ended.
+                settled = settle_late_link(store, value, now=now)
+                if settled:
+                    results.append({"key": key, **settled})
+                    continue
+            elif not dispatch and (ended or expired):
                 coordinator._expire_stale_derivative(message, None)
                 results.append({"key": key, "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
                     "cause": "PLAN_ALREADY_" + str(state) if ended else "PLAN_VALIDITY_ENDED",
                     "per_destination": {"discord": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"}})
                 continue
-            if not dispatch and state not in posts.ACTIVE:
+            elif not dispatch and state not in posts.ACTIVE:
                 results.append({"key": key, "status": "WAITING", "cause": "CURRENT_PLAN_STATE_NOT_IN_EXPORT"})
                 continue
             outcome = coordinator.execute_plan(key, plan)

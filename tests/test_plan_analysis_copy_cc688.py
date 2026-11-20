@@ -1,5 +1,6 @@
 from copy import deepcopy
 from functools import partial
+from hashlib import sha256
 import json
 from pathlib import Path
 import subprocess
@@ -15,8 +16,13 @@ from live_contentops import plan_state_alerts_v1 as alerts
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.light_model_caller_v1 import call_light
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
 from test_plan_analysis_pages_cc432 import source  # noqa: F401
+from test_plan_analysis_distribution_cc435 import confirm
+from test_plan_status_publication_cc306 import fake_host
+from test_plan_call_cards_cc399 import controlled_tradingview  # noqa: F401
 from test_plan_state_alerts_cc543 import event, main_root, replay, rows, write  # noqa: F401
+from test_publication_coordinator_v1 import FixtureTransport, _set_mode
 
 
 LAYERS = {
@@ -178,3 +184,85 @@ def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp
     assert options["stdout"] == subprocess.DEVNULL
     store.acquire_lease(editorial.PAGE_DRAFT_LEASE, "other-worker", ttl_seconds=360)
     assert launch()["status"] == "ACTIVE_PAGE_DRAFT" and len(launched) == 1
+
+
+def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(source, tmp_path):
+    run_root, _, plan, manuscript = source
+    store = ContentOpsDurableStore(tmp_path / "links.sqlite3")
+    packet = pages.register_page(store, pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path / "page"))
+    roots = {"setup": "setup-status", "update": "fill-status", "result": "target-status"}
+    snapshots = {}
+    reply_routes = set(cards.DESTINATIONS) - {"linkedin"}
+    for kind, key in roots.items():
+        row = {"key": key, "plan_id": plan["plan_id"], "source_plan_registration": plan["registration_hash"],
+               "kind": kind, "symbol": "EURUSD", "schema_version": posts.SCHEMA,
+               "analysis_copy_contract": reader.ANALYSIS_COPY}
+        store.create_work_item(story_id=key, work_item_id=key, title=kind, target_surface="MULTI_PLATFORM")
+        store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
+                                      payload=json.dumps(row), status="PUBLISHED")
+        snapshots[key] = store.get_outbox_message(key)["payload"]
+        for destination in reply_routes:
+            confirm(store, key, sha256(("plan-status-post:" + key).encode()).hexdigest(), destination,
+                    key + "-" + destination, "https://example.test/" + destination + "/" + key)
+    assert pages.register_link(store, packet, original_key=roots["setup"], destination="x")["state"] == (
+        "PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED")
+    confirm(store, packet["page_id"], packet["plan"]["plan_hash"], "substack", "confirmed-page", LINK)
+
+    first = pages.distribute_links(store, publish=False)["links"]
+    assert len(first) == 3 * len(reply_routes), first
+    assert len({value["link_id"] for value in first}) == len(first)
+    assert set(value["destination"] for value in first) == reply_routes
+    for item in first:
+        value = json.loads(store.get_outbox_message(item["link_id"])["payload"])
+        native = value["native_payload"]
+        assert native["reply_to_id"] == value["original_key"] + "-" + value["destination"]
+        assert LINK in native["text"]
+        assert not native.get("reply_texts")
+        assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
+    assert pages.distribute_links(store, publish=False)["links"] == first
+    assert all(store.get_outbox_message(key)["payload"] == payload for key, payload in snapshots.items())
+
+    result_link = next(item for item in first if item["destination"] == "discord" and
+                       json.loads(store.get_outbox_message(item["link_id"])["payload"])["original_key"] == roots["result"])
+    plan = json.loads(store.get_outbox_message(result_link["link_id"])["payload"])["plan"]
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    transport = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"})
+    coordinator.register_plan(result_link["link_id"], plan)
+    outcome = pages.resume_discord_links(store, latest_states={packet["plan_id"]: "RESULT"},
+        now=posts._utc(store.get_outbox_message(result_link["link_id"])["created_at"]),
+        coordinator_for=lambda *_: coordinator)
+    assert outcome[0]["status"] == "DISPATCH_CONFIRMED", outcome
+    assert transport.publish_calls == ["discord"]
+
+
+def test_linkedin_uses_the_late_confirmed_link_with_existing_chart_and_frozen_siblings(
+    replay, main_root, monkeypatch, tmp_path, controlled_tradingview,
+):
+    store, folder, raw, now = replay
+    monkeypatch.setattr(cards, "LINKEDIN_PLAN_LINK_EFFECTIVE", now)
+    raw["analysis_layers"] = LAYERS
+    write(folder, [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])],
+          generated_at_utc=now.isoformat())
+    observed = {}
+    monkeypatch.setattr(pages, "confirmed_publication", lambda *_: observed or None)
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    assert queued["status"] == "OK"
+    row, = rows(store)
+    assert "linkedin" not in cards._ready_destinations(store, row)
+    root = tmp_path / "posts"
+    prepared = cards.prepare_post(store, row["key"], root=root, host=fake_host, destinations=("telegram", "linkedin"))
+    assert [value["destination"] for value in prepared["destinations"]] == ["telegram"]
+    assert prepared["deferred_destinations"][0]["cause"] == "CC684_LINKEDIN_PLAN_PAGE_NOT_CONFIRMED"
+    before = posts._expected(store, row["key"], prepared["output_dir"])[1]["telegram"]
+    store.create_work_item(story_id=row["key"], work_item_id=row["key"],
+                           title=row["lead"], target_surface="MULTI_PLATFORM")
+    confirm(store, row["key"], prepared["plan_hash"], "telegram", "post-1", "https://t.me/CapitalChronicle/1")
+    observed["canonical_url"] = LINK
+    assert "linkedin" in cards._ready_destinations(store, row)
+    prepared = cards.prepare_post(store, row["key"], root=root, host=fake_host, destinations=("linkedin",))
+    payloads = posts._expected(store, row["key"], prepared["output_dir"])[1]
+    assert payloads["telegram"] == before
+    assert LINK in payloads["linkedin"]["text"]
+    assert payloads["linkedin"]["media_asset_ids"] == before["media_asset_ids"]
