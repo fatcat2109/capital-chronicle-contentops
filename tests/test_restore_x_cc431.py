@@ -21,6 +21,23 @@ def test_missing_x_identity_holds_every_derivative(tmp_path):
     assert transport.publish_calls == []
 
 
+def test_pending_x_identity_reaches_the_coordinator_caller(tmp_path):
+    from types import SimpleNamespace
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+
+    _, transport, coordinator = _coordinator(tmp_path)
+    request = {"action": "VERIFY_IDENTITY", "destination": "x"}
+    def pending(surface):
+        raise NativeNeoInputRequired(request)
+
+    transport._neo_transport = SimpleNamespace(native_executor=SimpleNamespace(
+        native_neo_protocol=True, readiness=pending))
+    with pytest.raises(NativeNeoInputRequired) as caught:
+        coordinator.execute_plan("work-1", _quality_plan())
+    assert caught.value.request == request
+    assert transport.publish_calls == []
+
+
 @pytest.mark.parametrize("ended,ambiguous", [(False, False), (True, False), (False, True)])
 def test_prior_bar_no_write_resumes_only_a_current_active_plan(queued, monkeypatch, ended, ambiguous):
     store, transport, coordinator, keys, root = queued

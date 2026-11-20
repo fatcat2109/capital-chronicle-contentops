@@ -2109,6 +2109,7 @@ class DurablePublicationCoordinator:
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         readiness_rows: dict[str, Any] = {}
         readiness_blockers: list[str] = []
+        from .native_neo_executor_v1 import NativeNeoInputRequired
         confirmed_canonical = self._confirmed_canonical_url_for_work_item(work_item_id, plan_hash=plan_hash)
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
             item = item_by_destination.get(destination, {})
@@ -2155,6 +2156,8 @@ class DurablePublicationCoordinator:
                     row = dict(self.readiness_provider(destination) or {})
                 else:
                     row = {"readiness_state": self._readiness(destination, item)}
+            except NativeNeoInputRequired:
+                raise
             except Exception as exc:
                 row = {
                     "readiness_state": "READINESS_CHECK_FAILED",
