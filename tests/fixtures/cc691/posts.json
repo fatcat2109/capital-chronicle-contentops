@@ -135,5 +135,171 @@
     },
     "public_analysis_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
     "text": "Gold: Our bearish plan, 3954–3964 entry, 4004 invalidation.\nMacro: We account for euro area growth during the window and finish before United States producer inflation.\nPriced in: We see repricing already underway, tempered by the extent of the decline and unresolved talks.\nPositioning: We retain buying by investors closing bearish bets as a reversal mechanism without claiming those holdings are crowded.\nFear: We see failed talks and buying by bearish investors as reasons gold could rebound.\nStory: We retain the bearish explanation while acknowledging that the supplied historical review did not establish a dependable advantage.\nScenarios: We retain Main at 55% and leave the supplied rebound alternative unquantified.\nFull analysis: https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  "wraps": {
+    "daily": {
+      "evidence": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_55f30b1078b0faa5785c833cedd5d8d4",
+        "readback_id": "readback_c5d8f42d2a570f5f1b4a553924b0e117",
+        "public_url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+        "dispatched_at_utc": "2026-11-09T12:11:38.279494+00:00",
+        "artifact": "daily_app_outputs/owner-manual/cc124-pre-us-wrap-20261109-v1/article_manifest_v1.json",
+        "sha256": "eab831084329cf1504f7e034ec50725fe437fce1bbaed6266609cd1dc82da178",
+        "published_at_utc": "2026-11-09T12:17:45.237000+00:00"
+      },
+      "title": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades",
+      "body_excerpt": "From the 6 November close to that capture, the review records EUR/USD rising from 1.11398 to 1.11781, up 0.34%, while USD/JPY fell 0.35% and USD/CAD fell 0.29%. The same-direction dollar decline across those pairs is its strongest evidence for a US-led FX move.\n## What would change the reading?\n| Market | Latest market-specific cases | Confirmation or invalidation |\n| --- | --- | --- |\n| EURUSD | 60% rebound persists; 30% hot-CPI dollar revival | Broad USD weakness is the confirmation. A completed 15-minute low at or below 1.11440, or hot CPI taking EUR/USD below 1.1164, invalidates the base. |\n| USDJPY | 55% range holds; 35% hot-CPI upside squeeze | The same broad USD decline supports the range case. A completed 15-minute high at or above 158.650 invalidates it. |\n| USOIL | 55% rallies fade; 35% re-escalation restores premium | Repeated rejection below 90.47 supports the fade. A completed 15-minute high at or above 91.600, or confirmed supply disruption, invalidates it. |\n| BTCUSD | 55% downtrend persists; 35% mean reversion | Lower highs and lower lows support the trend case. A completed 15-minute high at or above 76,700 invalidates it. |\n| XAUUSD | 55% range holds; 25% upward resolution | The review names 4,027-4,147. A post-CPI move outside that range holding at least 30 minutes invalidates the range case. |\n| US500 | 55% range holds; 25% soft-CPI upside squeeze | The review names 7,300-7,446. A move outside that range that holds after CPI invalidates the range case. |\n## Rates and the next US test\n## Scenarios"
+    },
+    "weekend": {
+      "evidence": {
+        "work_item_id": "cc341-weekend-wrap-20261109-r2",
+        "dispatch_id": "dispatch_255f4904f75a440fa44aa3ad2753e4b2",
+        "readback_id": "readback_75830400b3fac5f5e49a7f926b37048c",
+        "public_url": "https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran",
+        "dispatched_at_utc": "2026-11-09T00:23:43.037760+00:00",
+        "artifact": "daily_app_outputs/owner-manual/cc341-weekend-wrap-20261109-r2/article_manifest_v1.json",
+        "sha256": "d6a4a2f9cef61217970a04ccff96108f573553ebd32cdd7cfb843014e0e9818c",
+        "published_at_utc": "2026-11-09T00:41:01.324000+00:00"
+      },
+      "title": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+      "body_excerpt": "*Weekend wrap, Sunday evening, 8 November. All times New York (ET).*\nMarkets closed on Friday at 4 p.m. after a strong jobs report lifted the odds of a December Fed rate rise to about 78-80% and firmed the dollar. Oil had just finished a week down about 12% on hopes for a deal to end the Iran war. The weekend tested those hopes.\n*Weekend wrap: Hormuz risk and the CPI week: 1h chart (TVC:USOIL). Chart: TradingView.*\n**What happened.** Tankers were hit again around the Strait of Hormuz. The UK's maritime security agency reported a projectile strike on Saturday afternoon and a separate tanker fire, and the UAE rescued 22 crew from a burning cargo ship. President Trump confirmed what he called minor US strikes on Iran's Qeshm Island. Iran's Revolutionary Guards said they had dropped their self-imposed limit on missile range. Early Sunday, Houthi missiles aimed at Riyadh were intercepted, and debris damaged an Aramco office building; Saudi officials reported no casualties and no hit to production. Gulf stocks, open on Sunday, slipped about 1%.\n**What markets are weighing at the reopen** (currencies about 5 p.m., US stock futures and oil 6 p.m.):\n## Scenarios\n**The week ahead.** China's inflation figures arrive at 8:30 p.m. Sunday. Several Fed officials speak on Monday, and the New York Fed's survey of consumer inflation expectations comes out at 11 a.m. The main event is the October consumer price index on Tuesday at 8:30 a.m. Forecasters expect core prices to rise 0.2% on the month. A 0.3% or higher reading would likely seal a December hike, lift the dollar and weigh on gold and stocks; 0.1% or lower would do the opposite. The weekend's oil moves cannot change October's number, but they shape how the market hears it. Bond markets close on Wednesday for Veterans Day. Producer prices follow on Friday at 8:30 a.m."
+    }
+  },
+  "wrap_coverage": {
+    "readbacks": {
+      "substack": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_55f30b1078b0faa5785c833cedd5d8d4",
+        "readback_id": "readback_c5d8f42d2a570f5f1b4a553924b0e117",
+        "public_url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+        "dispatched_at_utc": "2026-11-09T12:11:38.279494+00:00",
+        "public_object_id": "224141856"
+      },
+      "telegram": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_523a343c517e9f531b84f6c8e933cc8c",
+        "readback_id": "readback_b8e267c437f3b9abfe69b4442eb944b7",
+        "public_url": "https://t.me/CapitalChronicle/106",
+        "dispatched_at_utc": "2026-11-09T12:26:20.563904+00:00",
+        "public_object_id": "106"
+      },
+      "x": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_0fd66a24ab96b469a6b687430491cf64",
+        "readback_id": "readback_6eae27c43433d58cfd698c7bccde593a",
+        "public_url": "https://x.com/Capitalnicle/status/2119770659417096674",
+        "dispatched_at_utc": "2026-11-09T12:26:52.292961+00:00",
+        "public_object_id": "2119770659417096674"
+      },
+      "discord": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_c3d711ec4dd668a29cdb0e41cacc58fe",
+        "readback_id": "readback_175abd6a12bd5c6fe55a7969334bb575",
+        "public_url": null,
+        "dispatched_at_utc": "2026-11-09T12:25:50.318757+00:00",
+        "public_object_id": "1569327155824037980"
+      },
+      "linkedin": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_8b5af9c481b81825ca5b5d27da85121e",
+        "readback_id": "readback_b980c137d42fa3ee41725f6a26f80b79",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525534845696122880/",
+        "dispatched_at_utc": "2026-11-09T12:26:18.211104+00:00",
+        "public_object_id": "7525534845696122880"
+      },
+      "linkedin_company": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_d94c09b046c05c5caa485ba91f7eac94",
+        "readback_id": "readback_b1d866ec2d57e48133d7be86857196b0",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+        "dispatched_at_utc": "2026-11-09T12:26:18.699847+00:00",
+        "public_object_id": "urn:li:activity:7525535662729699328"
+      },
+      "facebook_page": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_aaf1825521b5df0936dcef2537483c43",
+        "readback_id": "readback_1f78aa1fba692e35d6803c7a92aa417e",
+        "public_url": "https://www.facebook.com/1342369584748125/posts/1449816490670100",
+        "dispatched_at_utc": "2026-11-09T12:25:53.062592+00:00",
+        "public_object_id": "106091951705748_1449816490670100"
+      },
+      "instagram_business": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_0ab8ce7e89706ec3d4c0b1a6bbaeb647",
+        "readback_id": "readback_4467cfd73119e73b9f03295d787e26da",
+        "public_url": "https://www.instagram.com/p/DfhU-RqE2M8/",
+        "dispatched_at_utc": "2026-11-09T12:26:04.455635+00:00",
+        "public_object_id": "18133582142483024"
+      },
+      "threads": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_86b8bb46f7dde19e5b23e772090d8d3d",
+        "readback_id": "readback_b5d4af41fe7b544bf7cb52ae33518850",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfhVAWMFO3e",
+        "dispatched_at_utc": "2026-11-09T12:26:23.499261+00:00",
+        "public_object_id": "17961123897259290"
+      },
+      "youtube": {
+        "work_item_id": "cc124-pre-us-wrap-20261109-v1",
+        "dispatch_id": "dispatch_ef4dd6d5b6fabef50c8b3aba06aa2c45",
+        "readback_id": "readback_924061d15511ba00acacdbc5de46174a",
+        "public_url": "https://www.youtube.com/post/Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK",
+        "dispatched_at_utc": "2026-11-09T12:26:52.771442+00:00",
+        "public_object_id": "Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK"
+      }
+    },
+    "media_asset_ids": [
+      "tradingview-snapshot-1badc076e1605a49c0f2"
+    ],
+    "article": {
+      "title": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades"
+    },
+    "release_lock": {
+      "article_body_sha256": "205b94853117b709e4443905d8eaf6db61dc7534ab84d82d1f06cfcb8fb19dd0",
+      "lock_sha256": "1509b2b3bd055e4f03d9f5bde4b50e605ac53938224f29d18974644fa18f4232",
+      "payload_sha256": {
+        "telegram": "f5ada41fa26c7ace8ae6a07036eb7325ceb9c3121221564bcffd291d260fa57b",
+        "x": "eeb293aa1d6b9d65cc1c1febcdffdc5dc24e6cf4a3b36ec07a7b1fab08fb23f3",
+        "discord": "ede24917634f52769fcc90253e93d87bf5a698d0afa3a53283a80a7663502b6e",
+        "linkedin": "53bf7617fd81a29d234f3b64b3a054f2ca6282b6f03ef9a7f9607ae20a6cee2e",
+        "linkedin_company": "53bf7617fd81a29d234f3b64b3a054f2ca6282b6f03ef9a7f9607ae20a6cee2e",
+        "facebook_page": "72fbd5465ddea9b321e0d5aa4a28edf278e65503e2c32520835f512c762beb54",
+        "instagram_business": "20c6887c3c550e86e3e9713b514631f7d25f16c013aa92d3f2a801bb5765c761",
+        "threads": "03877501392363a9dfbed6c6e3a5d2b117efca3da07ffa3fa0b750073f586cd6",
+        "youtube": "0eda64cda52ac632bb07ff10b438ec8ced0f2a504002d1756cffb904d4ac9f2e"
+      }
+    }
+  },
+  "correction": {
+    "evidence": {
+      "work_item_id": "cc603-gold-timing-correction-20261112",
+      "dispatch_id": "dispatch_796db3424675b9656112164e7a908724",
+      "readback_id": "readback_a7a7abcb9ed4bc54583d58dc6d850265",
+      "public_url": "https://substack.com/@capitalchronicle/note/c-388463042",
+      "dispatched_at_utc": "2026-11-15T19:17:55.852890+00:00"
+    },
+    "original_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+    "original_object_id": "c-385656965",
+    "request": {
+      "action": "PUBLISH",
+      "public_object_id": null,
+      "public_object_url": null,
+      "request_sha256": "fef361bb49568b7ccc77e9b4b48554d6394861e62901b6b5c2e3b7f2e2967be7",
+      "message_id": "native-neo-51d69d03d8578fda175d598dba490f23fc465ae0d56120b9660fb0cdcd4fb151"
+    },
+    "row": {
+      "key": "cc603-gold-timing-correction-20261112",
+      "text": "Correction: our 12 Nov gold analysis and later status post were published after the fall they described. They were late, and we will not cite them as a call made before the move. The status post should not have presented the 3,954–3,964 entry zone as a fresh opportunity.\nOriginal analysis: https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "kind": "correction",
+      "cc603_destinations": [
+        "discord",
+        "substack_notes",
+        "telegram",
+        "threads"
+      ],
+      "new_post_only": true
+    },
+    "public_text": "Correction: our 12 Nov gold analysis and later status post were published after the fall they described. They were late, and we will not cite them as a call made before the move. The status post should not have presented the 3,954–3,964 entry zone as a fresh opportunity.\nOriginal analysis: https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry\n\nChart: TradingView\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
   }
 }
