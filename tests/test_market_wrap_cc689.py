@@ -1,7 +1,8 @@
 from datetime import date, timedelta
 from hashlib import sha256
 import json
-from subprocess import TimeoutExpired
+from pathlib import Path
+from subprocess import TimeoutExpired, check_output
 
 import pytest
 
@@ -361,16 +362,14 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(
 
 
 def test_late_resume_reconciles_other_surfaces_when_one_readback_is_pending():
-    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    from live_contentops.native_neo_executor_v1 import PENDING, NativeNeoInputRequired
 
     class RetainedStore:
         def get_dispatches_for_work_item(self, _):
-            return [{"dispatch_id": route, "platform": route, "status": "UNKNOWN_WRITE"}
-                    for route in ("x", "substack_notes")]
+            return [{"dispatch_id": "x", "platform": "x", "status": "UNKNOWN_WRITE"},
+                    {"dispatch_id": "substack_notes", "platform": "substack_notes", "status": PENDING}]
 
     class ReadbackOnly:
-        _confirmed_public_object = staticmethod(DurablePublicationCoordinator._confirmed_public_object)
-
         def readback_existing_dispatch(self, dispatch_id):
             if dispatch_id == "x":
                 raise NativeNeoInputRequired({"destination": "x", "action": "READBACK"})
@@ -399,3 +398,70 @@ def test_expired_job_cannot_start_new_drafts(tmp_path, cash):
     result = job.run_due(store, rollout={"editorial_output_root": str(tmp_path)}, now=now,
         clock=lambda: now, cash_calendar=cash, gather=unexpected, writer=unexpected, publish=unexpected)
     assert result["state"] == "WRAP_WINDOW_ELAPSED_WITHOUT_PACKET"
+
+
+def test_writer_finishing_at_cutoff_does_not_start_a_chart_capture(tmp_path, pack, cash):
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    now = at("2026-11-23T13:00Z")
+
+    def writer(pack, folder):
+        nonlocal now
+        now = at(pack["slot"]["deadline_utc"])
+        return editorial.draft(pack, folder, call=select_first)
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("The cutoff precedes the chart capture and publication")
+
+    result = job.run_due(store, rollout={"editorial_output_root": str(tmp_path)}, now=now,
+                         clock=lambda: now, cash_calendar=cash, gather=lambda *_a, **_kw: pack,
+                         writer=writer, media=unexpected, publish=unexpected)
+    assert result["state"] == "WRAP_EDITORIAL_WINDOW_EXPIRED"
+    assert store.get_outbox_message(pack["slot"]["id"]) is None
+
+
+def test_neo_clicks_apply_the_wrap_deadline_to_each_browser_transport():
+    from live_contentops import neo_endpoint_executor_v1 as neo
+
+    script = r"""
+const fs = require('node:fs');
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction('page', 'input', fs.readFileSync(process.argv[1], 'utf8'));
+const deadline = '2026-11-23T13:45:00Z';
+const cases = [
+  ['plan_substack_publish', 'substack', 'Publish now', [true]],
+  ['plan_substack_confirm', 'substack', 'Publish on web only', []],
+  ['article_publish', 'linkedin_company', 'Post', [['Bound copy']]],
+  ['publish', 'substack_notes', 'Post', [{count:1,matches:true}, ['Bound copy'], {marked:true}]],
+  ['publish', 'x', 'Post', [{count:1,matches:true}, ['Bound copy'], {marked:true}]],
+];
+(async () => {
+  const results = [];
+  for (const [phase, destination, name, values] of cases) {
+    for (const elapsed of [false, true]) {
+      Date.now = () => Date.parse(deadline) - (elapsed ? 0 : 1);
+      const clicks = [];
+      let index = 0;
+      const page = {
+        snapshot: async () => ({refs:[{role:'button', name, ref:'submit'}]}),
+        evaluateInPage: async () => ({value:values[index++]}),
+        waitForSelector: async () => ({matched:true}),
+        click: async (ref) => clicks.push(ref),
+      };
+      const result = await run(page, {phase, destination, wrap_deadline_utc:deadline, posts:['Bound copy']});
+      results.push({phase, destination, elapsed, clicks, result});
+    }
+  }
+  process.stdout.write(JSON.stringify(results));
+})().catch(error => { console.error(error); process.exit(1); });
+"""
+    source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
+    checks = json.loads(check_output(["node", "-e", script, str(source)], timeout=10))
+    assert len(checks) == 10
+    for check in checks:
+        if check["elapsed"]:
+            assert check["clicks"] == [], check
+            assert check["result"]["definite_no_write"] is True
+            assert check["result"]["reason_code"] == "WRAP_PUBLICATION_DEADLINE_ELAPSED"
+        else:
+            assert check["clicks"] == ["submit"], check
+            assert check["result"]["status"] == "CLICKED"

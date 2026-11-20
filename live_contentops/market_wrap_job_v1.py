@@ -18,7 +18,8 @@ from .destination_transport_registry_v1 import (
 from .durable_operational_store_v1 import ContentOpsDurableStore, LeaseConflictError
 from .public_market_quote_v1 import save, utcnow
 from .publication_coordinator_v1 import (
-    RECONCILED_CONFIRMED, DurablePublicationCoordinator, V1_QUALITY_PROBATION_POLICY_ID,
+    ATTEMPT_STARTED, NATIVE_NEO_PENDING, RECONCILED_CONFIRMED, UNKNOWN_WRITE,
+    DurablePublicationCoordinator, V1_QUALITY_PROBATION_POLICY_ID,
 )
 from .published_content_v1 import PRODUCTION_STORE
 
@@ -240,8 +241,8 @@ def continue_wrap(store, packet, *, clock=utcnow, factory=publication_coordinato
         # readback on one surface does not suppress the others.
         recovery = {}
         for dispatch in store.get_dispatches_for_work_item(identity):
-            if dispatch["status"] not in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED",
-                                          "SUBSTACK_DRAFT_AWAITING_OWNER", "NATIVE_NEO_PENDING"}:
+            if dispatch["status"] not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING,
+                                          "SUBSTACK_DRAFT_AWAITING_OWNER"}:
                 continue
             try:
                 recovery[dispatch["platform"]] = coordinator.readback_existing_dispatch(dispatch["dispatch_id"])
@@ -258,7 +259,7 @@ def continue_wrap(store, packet, *, clock=utcnow, factory=publication_coordinato
     unconfirmed = {}
     for destination in WRAP_DESTINATIONS:
         outcome = outcomes.get(destination) or {}
-        if not (coordinator._confirmed_public_object(outcome, destination=destination)
+        if not (DurablePublicationCoordinator._confirmed_public_object(outcome, destination=destination)
                 and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED):
             unconfirmed[destination] = (outcome.get("reason_code") or outcome.get("reconciliation_status")
                                         or outcome.get("status") or "NOT_DISPATCHED")
@@ -313,6 +314,8 @@ def run_due(store, *, rollout, now=None, clock=utcnow, cash_calendar=None, gathe
             manuscript = read_json(draft_file) if draft_file.is_file() else writer(pack, folder)
             if not draft_file.is_file():
                 save(draft_file, manuscript)
+            if clock() >= dispatch_deadline(pack):
+                return {"state": "WRAP_EDITORIAL_WINDOW_EXPIRED", "slot": slot, "source_gaps": pack["gaps"]}
             packet = stage(store, pack, manuscript, folder, media=media)
         else:
             return {"state": "WRAP_WINDOW_ELAPSED_WITHOUT_PACKET", "slot": slot}

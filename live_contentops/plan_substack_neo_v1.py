@@ -228,10 +228,7 @@ def _send_saved_draft(client,packet,state,page,identity):
     # This phase refuses a still-enabled email or schedule before the one click.
     # Mark the boundary before the tool call: a lost click return is uncertain.
     from datetime import datetime, timezone
-    deadline = packet.get("plan_entry_deadline_utc")
-    window = {"plan_entry_deadline_utc": deadline} if deadline else {}
-    if packet.get("wrap_deadline_utc"):
-        window["wrap_deadline_utc"] = packet["wrap_deadline_utc"]
+    window = {key: packet[key] for key in ("wrap_deadline_utc", "plan_entry_deadline_utc") if packet.get(key)}
     state["dispatched_at_utc"]=datetime.now(timezone.utc).isoformat()
     published=client.run(page,"plan_substack_publish", **window)
     if published.get("status")!="CLICKED":
@@ -242,7 +239,7 @@ def _send_saved_draft(client,packet,state,page,identity):
     follow=wait_or_code(client,page,"Publish on web only")
     if "Check your email" in follow["text"]:
         return pending_code(client,page,published,identity)
-    if deadline:
+    if window:
         confirmed = client.run(page, "plan_substack_confirm", **window)
         if confirmed.get("status") != "CLICKED":
             if confirmed.get("definite_no_write") is True:

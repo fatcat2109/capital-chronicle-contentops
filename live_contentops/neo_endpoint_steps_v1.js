@@ -87,7 +87,8 @@ if (input.phase === 'plan_substack_publish' || input.phase === 'plan_substack_co
     !Array.from(document.querySelectorAll('input[type=checkbox]')).some(e=>e.checked)));
   const button = find(await snap(), 'button', confirming ? 'Publish on web only' : 'Publish now');
   if (confirming && !button) return {status:'UNKNOWN_WRITE',stage:'PUBLISH_CLICK_ATTEMPTED'};
-  const inWindow = !input.plan_entry_deadline_utc || Date.now() < Date.parse(input.plan_entry_deadline_utc);
+  const deadline = input.wrap_deadline_utc || input.plan_entry_deadline_utc;
+  const inWindow = !deadline || Date.now() < Date.parse(deadline);
   if (!safe || !button || !inWindow) return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,
     public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:inWindow
       ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : input.wrap_deadline_utc
