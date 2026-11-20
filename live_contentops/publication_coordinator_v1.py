@@ -361,6 +361,12 @@ def normalize_readback_result(
         "identity_match": matching,
         "source_status": str(raw.get("status") or raw.get("classification") or "") or None,
     }
+    reason = raw.get("reason_code")
+    if isinstance(reason, str) and reason.startswith("PUBLIC_PLAN_"):
+        normalized["reason_code"] = reason
+    if absent and raw.get("oldest_feed_post_at_utc") and raw.get("newest_feed_post_at_utc"):
+        normalized["public_feed_absence"] = {key: raw[key] for key in (
+            "observed_profile_url", "observed_feed_post_ids", "oldest_feed_post_at_utc", "newest_feed_post_at_utc")}
     # CC-199: retain the reason an existing object is incomplete. Provider
     # bodies, signed media URLs and authentication material never enter this
     # summary; only the named boolean checks survive.

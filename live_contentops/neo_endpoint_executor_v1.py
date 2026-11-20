@@ -274,7 +274,7 @@ class NeoMcpClient:
                     match = re.match(r"\[(\d+)\] (https://\S+)", line)
                     if match and match[1] in owned:
                         host = urlsplit(match[2]).hostname
-                        if host == "x.com": self.pages.setdefault("x", int(match[1]))
+                        if host in {"x.com", "syndication.twitter.com"}: self.pages.setdefault("x", int(match[1]))
                         if host == "substack.com": self.pages.setdefault("substack_notes", int(match[1]))
                         if host == "www.linkedin.com": self.pages.setdefault("linkedin_company", int(match[1]))
                         if host == "www.youtube.com": self.pages.setdefault("youtube", int(match[1]))
@@ -708,7 +708,7 @@ class NeoBrowserDriver:
                 and _note_missing_link_reply_text(request, p.get("observed_text"))]
             missing_link_reply = bool(matches)
         if len(matches) != 1:
-            if own_x_root and not url and candidates and texts:
+            if own_x_root and not request.get("public_plan_feed_url") and not url and candidates and texts:
                 # A quote or standalone plan copy lives on the own Posts feed. A
                 # feed whose newest post predates the attempt can prove absence;
                 # the existing owner still enforces its ten-minute wait.
@@ -820,6 +820,73 @@ class NeoBrowserDriver:
                 "public_object_url":root["public_object_url"]} for link in root.get("links",[])
                 if link["url"] == card and link.get("card_visible") is True]
         return compare_public_images(request, result, http=getattr(self.client,"image_http",None))
+
+    def public_plan_readback(self, request, page):
+        """Find a published copy or prove absence on the bound account's public feed."""
+        from .neo_destination_handoff_v1 import _public_url, _text
+
+        destination = request["destination"]
+        feed = request["public_plan_feed_url"]
+        identity = request["expected_identity"]
+        x = destination == "x"
+        phase = "x_public_embed" if x else "readback"
+        selector = '.timeline-Tweet, [data-testid="tweet"]' if x else '.FeedProseMirror'
+        self.client.wait(page, selector)
+        data = self.client.run(page, phase, expected_identity=identity)
+        posts = data["tweets" if x else "notes"]
+        unavailable = {"status": "READBACK_UNAVAILABLE", "verified": False,
+                       "reason_code": "PUBLIC_PLAN_FEED_COVERAGE_UNVERIFIED"}
+        if data.get("url") != feed or not posts:
+            return unavailable
+        texts = expected_posts(request)
+        if not texts:
+            return unavailable
+        attempt = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"])
+        dated = {}
+        complete = x or data.get("visible_note_count") == len(posts)
+        for post in posts:
+            object_id, url = post.get("public_object_id"), post.get("public_object_url")
+            if not object_id or not _public_url(destination, url, object_id, expected_identity=identity):
+                complete = False
+                continue
+            try:
+                stamp = datetime.fromisoformat(post.get("published_at_utc") or "")
+                if stamp.tzinfo is None or not _text(post.get("observed_text")) or post.get("text_truncated"):
+                    raise ValueError("PUBLIC_PLAN_FEED_ROW_INCOMPLETE")
+            except ValueError:
+                complete = False
+                continue
+            if object_id in dated:
+                complete = False
+            dated[object_id] = (stamp, post)
+        self._resolve_links(request, [post for _, post in dated.values()])
+        matches = [post for stamp, post in dated.values() if stamp >= attempt and self._matches(request, texts[0], post)]
+        if len(matches) == 1:
+            root = matches[0]
+            exact_request = {**request, "public_object_url": root["public_object_url"]}
+            try:
+                exact = self.readback(exact_request, page)
+                if exact.get("public_object_id") == root["public_object_id"]:
+                    return exact
+            except NeoEndpointError:
+                pass
+            # The exact public feed match is enough to rule out a resend. The
+            # coordinator can still distinguish incomplete media/thread proof.
+            return {**root, "status": "SUCCESS", "content_verified": False,
+                    "reason_code": "PUBLIC_PLAN_PERMALINK_READBACK_INCOMPLETE",
+                    "observed_identity": identity, "request_sha256": request["request_sha256"]}
+        prefix = _text(texts[0])[:100]
+        if not complete or not dated or matches or not prefix or any(
+                prefix in _text(post["observed_text"]) for _, post in dated.values()):
+            return unavailable
+        stamps = [stamp for stamp, _ in dated.values()]
+        if stamps != sorted(stamps, reverse=True) or not min(stamps) < attempt < max(stamps):
+            return unavailable
+        return {"status": "READBACK_COMPLETE", "verified": False, "target_post_absent": True,
+                "activity_feed_loaded": True, "observed_profile_url": feed, "observed_identity": identity,
+                "observed_text": "\n\n".join(post["observed_text"] for _, post in dated.values()),
+                "observed_feed_post_ids": list(dated), "oldest_feed_post_at_utc": min(stamps).isoformat(),
+                "newest_feed_post_at_utc": max(stamps).isoformat(), "request_sha256": request["request_sha256"]}
 
     def _resolve_links(self, request, candidates):
         from .neo_destination_handoff_v1 import _bound_link_targets
@@ -965,12 +1032,34 @@ class NeoBrowserDriver:
             return perform(self.client, packet)
         if destination in ARTICLE_ROUTES:
             return self.article_perform(packet)
-        profile = request["entry_url"] if request["action"] == "READBACK" else ROOTS[destination]
+        public_feed = request.get("public_plan_feed_url") if request["action"] == "READBACK" else None
+        profile = (public_feed or request["entry_url"]) if request["action"] == "READBACK" else ROOTS[destination]
         identity={"authenticated":False,"observed_identity":None,
             "observed_at_utc":datetime.now(timezone.utc).isoformat()}
         try:
             page = self.client.open(destination, profile)
             if request["action"] == "READBACK":
+                if public_feed:
+                    try:
+                        public = self.public_plan_readback(request, page)
+                    except NeoEndpointError:
+                        public = {"status": "READBACK_UNAVAILABLE", "verified": False,
+                                  "reason_code": "PUBLIC_PLAN_FEED_UNREADABLE"}
+                    if public.get("public_object_id") or public.get("target_post_absent"):
+                        return {"result": public, "identity": identity}
+                    # The existing exact reader may still find a copy when the
+                    # public feed is truncated. It cannot authorize a retry.
+                    try:
+                        exact = self.readback(request, page)
+                    except NeoEndpointError:
+                        exact = {}
+                    try:
+                        published = datetime.fromisoformat(exact.get("published_at_utc") or "")
+                        fresh_match = (exact.get("content_verified") is True
+                            and published >= datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"]))
+                    except (ValueError, TypeError):
+                        fresh_match = False
+                    return {"result": exact if fresh_match else public, "identity": identity}
                 return {"result":self.readback(request,page),"identity":identity}
             if destination == "x":
                 refused = self.article_guard(request, page)

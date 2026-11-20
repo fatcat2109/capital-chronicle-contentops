@@ -1,6 +1,6 @@
 """CC-436: copied-store consumer -> local MCP -> publish/readback, without a model."""
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from io import BytesIO
@@ -228,6 +228,73 @@ def test_cc672_claimed_plan_root_gets_only_a_readback_extension(tmp_path):
                      "payload_hash": intent["destination_plan"]["payload_hash"]}
     write = handoff.request(destination="x", action="PUBLISH", intent=intent, authorization_context=authorization)
     assert "plan_status_root_readback" not in write
+
+
+@pytest.mark.parametrize("destination", ["x", "substack_notes"])
+@pytest.mark.parametrize("page_state", ["found", "absent", "unreadable", "stale", "partial"])
+def test_cc735_exact_plan_copy_public_readback(tmp_path, destination, page_state):
+    store = copied_store(tmp_path)
+    ids, intent = message(store, destination, plan_status=True)
+    attempt = datetime.now(timezone.utc) - timedelta(minutes=20)
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+                                     platform=destination, status="UNKNOWN_WRITE")
+    with store.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET dispatched_at=? WHERE dispatch_id=?",
+                     (attempt.isoformat(), ids["dispatch_id"]))
+
+    def public_row(number, text, offset):
+        suffix = str(number) if destination == "x" else "c-" + str(number)
+        path = "/status/" if destination == "x" else "/note/"
+        return {"public_object_id": suffix, "public_object_url": neo.ROOTS[destination] + path + suffix,
+                "observed_text": text, "published_at_utc": (attempt + timedelta(minutes=offset)).isoformat()}
+
+    matching = public_row(2, intent["payload"], 1)
+    before = public_row(1, "An earlier, unrelated post", -2)
+    after = public_row(3, "A newer, unrelated post", 2)
+    rows = {"found": [after, matching, before], "absent": [after, before], "stale": [before],
+            "partial": [after, {**before, "published_at_utc": None}]}
+
+    class PublicClient:
+        def initialize(self):
+            pass
+
+        def open(self, dest, url):
+            assert dest == destination
+            self.url = url
+            assert url.endswith("/Capitalnicle" if destination == "x" else "/notes")
+            return 1
+
+        def wait(self, page, selector):
+            pass
+
+        def call(self, action, params):
+            assert action == "navigate"
+            self.url = params["url"]
+
+        def run(self, page, phase, **kwargs):
+            if page_state == "unreadable":
+                raise neo.NeoEndpointError("FIXTURE_PUBLIC_FEED_UNAVAILABLE")
+            assert phase == ("x_public_embed" if destination == "x" and "syndication" in self.url else "readback")
+            values = ([matching] if self.url == matching["public_object_url"] else
+                      [] if self.url in neo.ROOTS.values() else rows[page_state])
+            return {"url": self.url, "tweets" if destination == "x" else "notes": values,
+                    "visible_note_count": len(values)}
+
+    coordinator, _ = bind_native_neo_coordinator(store, operation_id=intent["work_item_id"],
+        output_dir=tmp_path / "neo", native_invocation_id="fixture", automatic=True, endpoint_client=PublicClient())
+    result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"])
+    assert result["publish_called"] is False
+    if page_state == "found":
+        assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+        assert dispatch["public_object_url"] == matching["public_object_url"]
+    elif page_state == "absent":
+        assert result["reconciliation_status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        receipt = json.loads(store.list_readbacks_for_dispatch(ids["dispatch_id"])[0]["readback_data"])["readback"]
+        assert receipt["public_feed_absence"]["observed_feed_post_ids"] == [after["public_object_id"], before["public_object_id"]]
+    else:
+        assert result["reconciliation_status"] == "RECONCILIATION_PENDING"
+        assert dispatch["status"] == "UNKNOWN_WRITE"
 
 
 @pytest.mark.parametrize('fault',['account','composer'])

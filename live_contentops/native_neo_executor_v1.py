@@ -63,14 +63,25 @@ def _readback_absence_evidence(request, result):
     if (request.get("public_object_id") or request.get("public_object_url")
             or result.get("public_object_id") or result.get("public_object_url")
             or result.get("target_post_absent") is not True
-            or result.get("authenticated") is not True or result.get("activity_feed_loaded") is not True
-            or result.get("observed_profile_url") != request.get("entry_url")):
+            or result.get("activity_feed_loaded") is not True):
         return False
     try:
         observed = datetime.fromisoformat(result["native_tool_observation"]["observed_at_utc"].replace("Z", "+00:00"))
         attempted = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"].replace("Z", "+00:00"))
-        return (observed - attempted).total_seconds() >= 600
-    except (KeyError, TypeError, ValueError):
+        if (observed - attempted).total_seconds() < 600:
+            return False
+        if request.get("public_plan_feed_url"):
+            if (result.get("observed_profile_url") != request["public_plan_feed_url"]
+                    or result.get("observed_identity") != request.get("expected_identity")
+                    or result.get("request_sha256") != request.get("request_sha256")
+                    or not result.get("observed_feed_post_ids") or not result.get("observed_text")):
+                return False
+            oldest = datetime.fromisoformat(result["oldest_feed_post_at_utc"])
+            newest = datetime.fromisoformat(result["newest_feed_post_at_utc"])
+            return oldest < attempted < newest <= observed
+        return (result.get("authenticated") is True
+                and result.get("observed_profile_url") == request.get("entry_url"))
+    except (KeyError, TypeError, ValueError, AttributeError):
         return False
 
 

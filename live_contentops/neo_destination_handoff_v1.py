@@ -601,6 +601,17 @@ class NeoDestinationHandoff:
                             and intent.get("plan_status_post") and not value.get("reply_parent")
                             and value.get("entry_url") == ROOTS["x"]):
                         value["plan_status_root_readback"] = True
+                    if (not value.get("reply_parent")
+                            and (intent.get("plan_status_post") or intent.get("plan_analysis_link"))):
+                        if destination == "x":
+                            value["public_plan_feed_url"] = (
+                                "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + identity.lstrip("@"))
+                        elif destination == "substack_notes":
+                            value["public_plan_feed_url"] = entry_url + "/notes"
+                        if value.get("public_plan_feed_url"):
+                            value["steps"][1] = (
+                                "Read the bound public_plan_feed_url and the exact permalink of a match. "
+                                "Only a complete, dated feed spanning the attempt can prove absence.")
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation
@@ -983,6 +994,10 @@ class NeoDestinationHandoff:
                          if destination == "telegram" else
                          result.get("authenticated") is True
                          and result.get("observed_profile_url") == request["entry_url"])
+            if request.get("public_plan_feed_url"):
+                from .native_neo_executor_v1 import _readback_absence_evidence
+                feed_read = (latest_attempt == request.get("latest_dispatch_attempt_at_utc")
+                             and _readback_absence_evidence(request, result))
             absent = (elapsed >= 600 and feed_read
                 and result.get("activity_feed_loaded") is True and bool(observed_text)
                 and result.get("observed_identity") == request["expected_identity"]
