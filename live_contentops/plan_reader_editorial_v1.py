@@ -590,7 +590,7 @@ def _new_plan_ids(store):
 
     return {item["plan_id"] for row in store.list_outbox_messages(destination=DESTINATION)
             if (item := json.loads(row["payload"])).get("kind") == "setup"
-            and item.get("analysis_copy_contract") == reader.ANALYSIS_COPY}
+            and item.get("analysis_copy_contract") in reader.STATUS_ANALYSIS_CONTRACTS}
 
 
 def draft_due_page(store, export, *, root, now, call=None, run_root=pages.RUN_ROOT):

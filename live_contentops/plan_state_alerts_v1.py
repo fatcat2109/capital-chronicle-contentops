@@ -14,6 +14,17 @@ CONTRACT = "CC543_V1"
 IMMEDIATE_DESTINATIONS = ("telegram", "discord")
 
 
+def analysis_lines(row):
+    from .plan_reader_copy_v1 import ANALYSIS_COPY, analysis_scenario_lines, verified_analysis_lines
+
+    contract = row["analysis_copy_contract"]
+    raw = row["source_plan"]
+    lines = verified_analysis_lines(raw, row["analysis_layer_quotes"], contract=contract)
+    if contract == ANALYSIS_COPY and row["kind"] == "setup":
+        lines += analysis_scenario_lines(raw)
+    return lines
+
+
 def compose(row):
     from . import plan_call_cards_v1 as cards
     from .plan_reader_copy_v1 import result_r
@@ -97,11 +108,7 @@ def compose(row):
     if row.get("delayed_at_utc"):
         lines.insert(0, "Delayed update as of " + cards._clock(row["delayed_at_utc"]) + ".")
     if row.get("analysis_copy_contract"):
-        from .plan_reader_copy_v1 import analysis_scenario_lines, verified_analysis_lines
-        raw = row["source_plan"]
-        layers = verified_analysis_lines(raw, row["analysis_layer_quotes"])
-        scenarios = analysis_scenario_lines(raw) if row["kind"] == "setup" else []
-        lines = [*layers, *scenarios, *lines]
+        lines = [*analysis_lines(row), *lines]
         if row.get("analysis_link"):
             lines.append("Full analysis: " + row["analysis_link"])
     text = "\n".join(lines) + "\n\n" + cards.NOTICES
@@ -111,13 +118,9 @@ def compose(row):
 
 def analysis_thread_parts(row, body, notices, *, destination, limit):
     """Keep complete source lines and plan sentences on the two short routes."""
-    from .plan_reader_copy_v1 import analysis_scenario_lines, verified_analysis_lines
-
     width = posts._x_length if destination == "x" else len
     link = "Full analysis: " + row["analysis_link"] if row.get("analysis_link") else ""
-    layer_lines = verified_analysis_lines(row["source_plan"], row["analysis_layer_quotes"])
-    if row["kind"] == "setup":
-        layer_lines += analysis_scenario_lines(row["source_plan"])
+    layer_lines = analysis_lines(row)
     detail = body.splitlines()[len(layer_lines):]
     if link and detail[-1:] == [link]:
         detail.pop()
@@ -149,6 +152,85 @@ def analysis_thread_parts(row, body, notices, *, destination, limit):
     return [*pack(layer_lines), *pack(tail)] if layer_lines else [tail[0], *pack(tail[1:])]
 
 
+def _pack_analysis_lines(lines, limit, width):
+    parts = []
+    for line in lines:
+        sentences = [line] if width(line) <= limit else re.split(r"(?<=[.!?])\s+(?=[A-Z])", line)
+        for sentence in sentences:
+            # Keep a long sentence intact wherever it fits. X can carry the
+            # entire wording over adjacent replies when even one sentence exceeds its limit.
+            chunks = [sentence]
+            if width(sentence) > limit:
+                chunks = []
+                current = ""
+                for word in sentence.split():
+                    joined = current + " " + word if current else word
+                    if current and width(joined) > limit:
+                        chunks.append(current)
+                        joined = word
+                    current = joined
+                chunks.append(current)
+            if any(width(chunk) > limit for chunk in chunks):
+                raise posts.PlanPostError("PLAN_ANALYSIS_SINGLE_WORD_EXCEEDS_ROUTE_LIMIT")
+            for chunk in chunks:
+                joined = parts[-1] + "\n" + chunk if parts else chunk
+                if parts and width(joined) <= limit:
+                    parts[-1] = joined
+                else:
+                    parts.append(chunk)
+    return parts
+
+
+def nine_layer_parts(row, body, notices, *, destination, limit, reply_limit):
+    """Keep the ordered layer copy available beyond the first visible object."""
+    width = posts._x_length if destination == "x" else len
+    layers = analysis_lines(row)
+    detail = body.splitlines()[len(layers):]
+    if destination == "x":
+        link = detail.pop() if detail[-1:] and detail[-1].startswith("Full analysis: ") else ""
+        footer = (link + "\n\n" if link else "") + notices
+        if width(footer) > reply_limit:
+            raise posts.PlanPostError("PLAN_ANALYSIS_LINK_AND_NOTICES_TOO_LONG:x")
+        opening = []
+        while layers and width("\n".join([*opening, layers[0]])) <= limit:
+            opening.append(layers.pop(0))
+        if not opening:
+            opening.append(detail.pop(0))
+        return ["\n".join(opening), footer, *_pack_analysis_lines([*layers, *detail], reply_limit, width)]
+
+    footer = "\n\n" + notices
+    if width(body + footer) <= limit:
+        return [body + footer]
+    if destination == "threads":
+        first, *rest = _pack_analysis_lines([*layers, *detail], limit - width(footer), width)
+        return [first + footer, *_pack_analysis_lines(rest, reply_limit, width)]
+
+    # Long routes keep the complete state, conditions and link next to the chart.
+    # Put the first layers in that caption and carry subsequent ones in order.
+    tail = "\n".join(detail) + footer
+    if width(tail) > limit:
+        raise posts.PlanPostError("PLAN_ANALYSIS_TERMS_EXCEED_ROUTE_LIMIT:" + destination)
+    if destination == "linkedin" and layers:
+        # The member's existing post permission does not grant the Comments API.
+        # Keep every layer in the post and use its confirmed full-analysis page.
+        room = (limit - len(tail) - len(layers)) // len(layers)
+        compact = []
+        for line in layers:
+            main, separator, alternative = line.partition(" Alternative") if line.startswith("Scenarios: ") else (line, "", "")
+            if separator and len(line) > room:
+                main = posts._excerpt(main, room // 2)
+                compact.append(main + " " + posts._excerpt("Alternative" + alternative, room - len(main) - 1))
+            else:
+                compact.append(posts._excerpt(line, room))
+        return ["\n".join([*compact, tail])]
+    head = []
+    for layer in layers:
+        if width("\n".join([*head, layer, tail])) > limit:
+            break
+        head.append(layer)
+    return ["\n".join([*head, tail]), *_pack_analysis_lines(layers[len(head):], reply_limit, width)]
+
+
 def _inherits_target_omission(row, store):
     if (store is None or row["kind"] != "result" or row["levels"].get("target") is not None
             or not row.get("parent_key") or not row.get("source_plan_registration")):
@@ -166,6 +248,7 @@ def _inherits_target_omission(row, store):
 def validate(row, *, store=None):
     """The public geometry and copy must still equal this frozen Main plan."""
     from .plan_call_cards_v1 import card_plan
+    from .plan_reader_copy_v1 import NINE_LAYER_COPY, plan_layer_candidates
     raw = row["source_plan"]
     if posts._sha(raw) != row.get("state_alert_source_sha256"):
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_BYTES_CHANGED")
@@ -198,6 +281,9 @@ def validate(row, *, store=None):
         publication = confirmed_publication(store, raw) or {}
         if publication.get("canonical_url") != row["analysis_link"]:
             raise posts.PlanPostError("CC688_CANONICAL_PLAN_LINK_CHANGED")
+    if (row.get("analysis_copy_contract") == NINE_LAYER_COPY
+            and row.get("analysis_layer_gaps") != plan_layer_candidates(raw)[1]):
+        raise posts.PlanPostError("CC730_LAYER_GAPS_CHANGED")
     if row["text"] != compose(row)["text"]:
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_COPY_CHANGED")
 

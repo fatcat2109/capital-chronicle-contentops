@@ -1504,16 +1504,20 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if linkedin_url := context.get("status_post_linkedin_analysis_url"):
         row["linkedin_analysis_url"] = linkedin_url
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, destination_payloads as card_payloads, discord_channel_payload
+        from .plan_call_cards_v1 import (ANALYSIS_FIRST_PART, DISCORD_CHANNEL_PART, analysis_reply_payloads,
+                                         destination_payloads as card_payloads, discord_channel_payload)
         if part == DISCORD_CHANNEL_PART:
             return row, discord_channel_payload(row, card_id=card_id, parents=context.get("status_post_parents"),
                                                 chart_credit=bool(context.get("chart_credit")))
-        return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
-                                 carousel=context.get("status_post_instagram_carousel"),
-                                  portrait_id=context.get("status_post_threads_image"),
-                                 x_analysis=context.get("status_post_x_analysis"),
-                                 chart_credit=bool(context.get("chart_credit")),
-                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+        payloads = card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
+                                carousel=context.get("status_post_instagram_carousel"),
+                                portrait_id=context.get("status_post_threads_image"),
+                                x_analysis=context.get("status_post_x_analysis"),
+                                chart_credit=bool(context.get("chart_credit")),
+                                complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+        if part >= ANALYSIS_FIRST_PART:
+            return row, analysis_reply_payloads(store, row, payloads, part)
+        return row, _part_payloads(payloads)
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part,
                               repeat_media=bool(row.get("cc603_contract")))
@@ -1547,6 +1551,8 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    from .plan_call_cards_v1 import ANALYSIS_FIRST_PART
+    layer_reply = row.get("format") == 4 and part >= ANALYSIS_FIRST_PART
     if row.get("correction_reply_contract"):
         from .plan_result_correction_cc646 import validate
         validate(store, row)
@@ -1595,6 +1601,7 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         public_text = " ".join(public_text.split())
     check_publication_copy({"post": public_text},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [],
+                           require_notice=not layer_reply,
                            require_call_text=not (row.get("cc603_contract") and
                                (row.get("candidate") or {}).get("source_kind") == "ARTICLE"))
     if row.get("cc603_contract"):

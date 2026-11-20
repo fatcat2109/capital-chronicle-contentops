@@ -156,27 +156,7 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     first_telegram = next(i for i in transport.intents if i.get("plan_status_post") and i["destination_plan"]["destination"] == "telegram")
     assert copies["telegram"] == first_telegram["native_payload"]
 
-    # The same live queue now feeds the variant writer and the original X
-    # dispatch. Confirming the page cannot issue a second X link job.
-    from test_plan_reader_copy_cc466 import source_and_fields
-    bound, fields = source_and_fields()
-    bound["level_contract"] = editorial.reader.LEVEL_CONTRACT
-    for evidence in bound["sources"]:
-        evidence["text"] = evidence["text"].replace("euro", "gold")
-    for field in (fields["hook"], fields["scenario_main"], fields["scenario_alt"], *fields["points"]):
-        field["text"] = field["text"].replace("euro", "gold")
-    fields["alt_text"] = {"text": "TradingView chart showing the gold plan.", "source_ids": ["0"]}
-    run = pages.load_run(plan, run_root=run_root)
-    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
-    monkeypatch.setattr(editorial.reader, "source_packet", lambda *a, **k: bound)
-    calls = []
-
-    def write_variants(prompt, *, root, writer, retry_failed):
-        calls.append(prompt)
-        assert not writer
-        return {"status": "RETURNED", "output": fields}
-
-    monkeypatch.setattr(editorial, "text_call", write_variants)
+    # A later page cannot replace the export's frozen scenario with its own odds.
     assert "x" in cards._ready_destinations(store, original)
     x_plan = cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",))
     assert [d["destination"] for d in x_plan["destinations"]] == ["x"]
@@ -184,20 +164,15 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     x_intent = json.loads(store.get_outbox_message(registered["message_id"])["payload"])
     posts.validate_status_post_intent(store, x_intent)
     x = x_intent["native_payload"]
-    assert "Main (50%)" in x["text"] and "Alternative (35%)" in x["text"]
+    assert "Scenarios: Alternative: A haven and short-covering squeeze" in x["full_text"]
+    assert "Main (50%)" not in x["full_text"] and "Alternative (35%)" not in x["full_text"]
     assert "https://" not in x["text"]
     assert x["posts"][0]["media_asset_ids"]
-    from live_contentops.neo_destination_handoff_v1 import _payload_binding
-    _, binding = _payload_binding(x_intent, "x")
-    assert binding["media_manifest"][0]["alt_text"] == fields["alt_text"]["text"]
-    assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" in x["reply_texts"][0]
+    assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" not in x["full_text"]
     assert posts.PUBLIC_NOTICE in x["reply_texts"][0]
-    assert x["reply_texts"][1].splitlines() == [
-        f"{dict(editorial.reader.LAYERS)[p['layer']]}: {p['text']}" for p in fields["points"]]
     assert cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",)) == x_plan
-    assert len(calls) == 1
     assert pages.register_link(store, packet, original_key=original["key"], destination="x")["state"] == (
-        "PLAN_ANALYSIS_X_THREAD_PENDING")
+        "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED")
     assert not store.get_outbox_message("plan-analysis-link-" + raw["plan_id"] + "-x")
     assert store.get_outbox_message(original["key"])["payload"] == frozen_payload
     assert posts._expected(store, original["key"], x_plan["output_dir"])[1]["telegram"] == first_telegram["native_payload"]

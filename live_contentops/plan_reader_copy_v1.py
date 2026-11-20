@@ -21,6 +21,7 @@ LEVEL_EFFECTIVE = datetime(2026, 11, 14, tzinfo=timezone.utc)
 EFFECTIVE = datetime(2026, 11, 11, 16, 30, tzinfo=timezone.utc)
 ANALYSIS_COPY = "CC688_V1"
 NINE_LAYER_COPY = "CC730_V1"
+STATUS_ANALYSIS_CONTRACTS = (ANALYSIS_COPY, NINE_LAYER_COPY)
 ANALYSIS_LAYERS = (
     ("macro", "Macro"), ("fundamental", "Fundamentals"), ("positioning_sentiment", "Positioning and sentiment"),
     ("options_gamma", "Options and gamma"), ("priced_in", "Priced in"), ("technical", "Technical"),
@@ -40,6 +41,8 @@ _SCENARIO_CASES = (("base_case", "Main"), ("main_alternative", "Alternative"))
 _PLAN_CLOCK_FIELDS = ("registered_at_utc", "not_before_utc", "entry_deadline_utc", "expires_at_utc",
                       "time_exit_utc", "horizon_end_utc")
 _EVENT_CAUSE = re.compile(r"\b(?:after|because|following|prompted|triggered|drove|led to)\b", re.I)
+_PLAN_INTERNAL_REF = re.compile(r"\b[a-z0-9]+_[a-z0-9_]+\b|\bCC[- ]?\d+\b|\bKB:|\.md\b|"
+                                r"@[0-9a-f]{7,}\b|\b[0-9a-f]{12,}\b|\b[A-Z]:\\", re.I)
 _LAYER_ALIASES = {
     "fundamentals": "fundamental",
     "positioning_and_sentiment": "positioning_sentiment",
@@ -324,7 +327,7 @@ def validate_analysis_line(options, layer, text):
 def _public_plan_quote(span, plan):
     """Translate only source notation whose meaning the code can verify."""
     from .plan_analysis_pages_v1 import check_reader_claim, public_filter
-    from .plan_scenario_lines_v1 import BARE_UTC, INTERNAL_CAPS, INTERNAL_WORDS, ISO_TIME
+    from .plan_scenario_lines_v1 import BARE_UTC, INTERNAL_CAPS, ISO_TIME
 
     # Check before removing notation so a rewrite cannot hide a restricted input.
     public_filter(span)
@@ -343,12 +346,15 @@ def _public_plan_quote(span, plan):
         dates = set(re.findall(r"\b\d{4}-\d{2}-\d{2}\b", span))
         if not dates:
             fields = [plan.get(key) for key in _PLAN_CLOCK_FIELDS]
-            fields.extend((plan.get(key) or {}).get("horizon_end_utc")
-                          for key in ("scenario_analysis", "forecast_probabilities"))
+            fields.extend(value.get("horizon_end_utc") for key in ("scenario_analysis", "forecast_probabilities")
+                          if isinstance(value := plan.get(key), dict))
             for field in fields:
                 if not isinstance(field, str):
                     continue
-                clock = datetime.fromisoformat(field.replace("Z", "+00:00"))
+                try:
+                    clock = datetime.fromisoformat(field.replace("Z", "+00:00"))
+                except ValueError:
+                    continue
                 if clock.tzinfo is None:
                     continue
                 clock = clock.astimezone(timezone.utc)
@@ -361,15 +367,15 @@ def _public_plan_quote(span, plan):
         return value
 
     text = re.sub(r"(?<![\d:\-–])\b(\d{1,2}:\d{2})(?:Z|\s+UTC)\b", utc_clock, text)
-    text = re.sub(r"\b(?i:channel)(?:\s*[:=]\s*|\s+)(MIXED|CLEAR)\b",
-                  lambda match: "signals are " + match[1].lower(), text)
+    text = re.sub(r"\bchannel(?:\s*[:=]\s*|\s+)(MIXED|CLEAR)\b",
+                  lambda match: "signals are " + match[1].lower(), text, flags=re.I)
     text = re.sub(r"\bjim_weekly_minimum_\d+\s+starter\b", "initial entry", text, flags=re.I)
     text = re.sub(r"^CC-\d+\s*[:–-]\s*|\s*\((?:see\s+)?CC-\d+\)|"
                   r"\s+(?:per|under|see)\s+CC-\d+\b", "", text, flags=re.I)
     text = re.sub(r"^(long|short) positions\b", r"\1s", text, flags=re.I)
     text = text.strip()
     text = text[0].upper() + text[1:] if text else text
-    if (not text or BARE_UTC.search(text) or INTERNAL_CAPS.search(text) or INTERNAL_WORDS.search(text)):
+    if not text or BARE_UTC.search(text) or INTERNAL_CAPS.search(text) or _PLAN_INTERNAL_REF.search(text):
         raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
     check_text(text, source="\n".join([span, *converted_clocks]), prose=False)
     check_thread_text(text, force=True)
@@ -382,19 +388,24 @@ def _scenario_probability(branch):
     return value if type(value) in (int, float) and 0 <= value <= 100 else None
 
 
+def _exported_scenarios(plan):
+    scenario = plan.get("scenario_analysis")
+    return scenario if isinstance(scenario, dict) else {}
+
+
 def plan_layer_candidates(plan):
     """Read the CC-717 ordered export, its CC-687 bridge and earlier rationale fields."""
     sources = {layer: [] for layer, _ in PLAN_LAYER_ORDER}
     causes = dict.fromkeys(sources, "EXPORT_FIELD_ABSENT")
     explicit = set()
 
-    def add(layer, value, *, pattern=None):
+    def add(layer, value, *, pattern=None, status=None):
         if not isinstance(value, str) or not value.strip():
             return
         for quote in verbatim_analysis_spans(value):
             if pattern and not pattern.search(quote):
                 continue
-            if _UNAVAILABLE_LAYER.search(quote):
+            if status != "used" and _UNAVAILABLE_LAYER.search(quote):
                 causes[layer] = "ANALYST_REPORTED_UNAVAILABLE"
                 continue
             try:
@@ -427,11 +438,11 @@ def plan_layer_candidates(plan):
                     cause = row.get("first_cause")
                     causes[layer] = str(cause) if cause else "ANALYST_REPORTED_UNAVAILABLE"
                     continue
-                add(layer, row.get("text", row.get("line")))
+                add(layer, row.get("text", row.get("line")), status=state)
             else:
                 add(layer, row)
 
-    scenario = plan.get("scenario_analysis") or {}
+    scenario = _exported_scenarios(plan)
     legacy = (
         ("macro", ("driver",), None),
         ("event_and_cause", ("event_and_cause",), None),
@@ -450,14 +461,15 @@ def plan_layer_candidates(plan):
         add("event_and_cause", scenario.get("mechanism"), pattern=_EVENT_CAUSE)
 
     for case, _ in _SCENARIO_CASES:
-        branch = scenario.get(case) or {}
         sources[case] = []
+        branch = scenario.get(case)
+        if not isinstance(branch, dict):
+            continue
         add(case, branch.get("market_move"))
         if _scenario_probability(branch) is not None and not sources[case]:
             # The probability itself is useful even if the case has no quotable prose.
             sources[case].append({"quote": "", "text": ""})
     if any(sources[case] for case, _ in _SCENARIO_CASES):
-        sources["scenarios"] = []
         causes.pop("scenarios")
     elif not sources["scenarios"]:
         causes["scenarios"] = next((causes[case] for case, _ in _SCENARIO_CASES if case in causes),
@@ -473,8 +485,8 @@ def verified_analysis_lines(plan, quotes, *, contract=ANALYSIS_COPY):
     for layer, text in quotes.items():
         validate_analysis_line(options, layer, text)
     order = PLAN_LAYER_ORDER if contract == NINE_LAYER_COPY else ANALYSIS_LAYERS
-    lines = [f"{label}: {quotes[layer]}" for layer, label in order if layer in quotes]
-    cases = []
+    lines = [f"{label}: {quotes[layer]}" for layer, label in order if layer in quotes and layer != "scenarios"]
+    cases = [quotes["scenarios"]] if "scenarios" in quotes else []
     for key, label in _SCENARIO_CASES:
         if key not in quotes:
             continue

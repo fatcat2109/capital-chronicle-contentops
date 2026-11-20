@@ -969,8 +969,8 @@ def _analysis_parent(store, original_key, plan_id, destination):
 def _discord_analysis_thread(store, original, parent):
     """A bot card already lives in its run thread; Discord has no nested threads."""
     from .plan_call_cards_v1 import _reference
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
-    if original.get("analysis_copy_contract") == ANALYSIS_COPY:
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
+    if original.get("analysis_copy_contract") in STATUS_ANALYSIS_CONTRACTS:
         sent = _status_post_copy(store, original["key"], "discord")
         return str(sent.get("discord_thread_parent_id") or parent["public_object_id"])
     if original.get("kind") == "setup" and not original.get("parent_key"):
@@ -1007,7 +1007,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
                   original_analysis_root=False, canonical_image_url=None):
     from .plan_call_cards_v1 import _dispatch, _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
     status = page_status(store, packet)
     if not status["confirmed"]:
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
@@ -1016,7 +1016,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     original = store.get_outbox_message(original_key) or {}
     original_payload = json.loads(original.get("payload") or "{}")
     status_post_reply = bool(not original_analysis_root and not authored_summary and
-                             original_payload.get("analysis_copy_contract") == ANALYSIS_COPY)
+                             original_payload.get("analysis_copy_contract") in STATUS_ANALYSIS_CONTRACTS)
     if status_post_reply and (original_payload["plan_id"] != packet["plan_id"]
                               or original_payload["source_plan_registration"] != packet["registration_hash"]):
         raise ValueError("CC688_LINK_PLAN_REGISTRATION_CHANGED")
@@ -1107,7 +1107,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
 
 def validate_link_plan(store, work_item_id, plan):
     from .plan_call_cards_v1 import _reference
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
     row=store.get_outbox_message(work_item_id)
     value=json.loads(row["payload"]) if row else {}
     if value.get("link_id")!=work_item_id or value.get("plan")!=plan:
@@ -1148,7 +1148,7 @@ def validate_link_plan(store, work_item_id, plan):
     elif value.get("status_post_reply"):
         original = posts._row_payload(store, value["original_key"])
         parent = _reference(store, value["original_key"], value["destination"])
-        if (original.get("analysis_copy_contract") != ANALYSIS_COPY or original["plan_id"] != packet["plan_id"]
+        if (original.get("analysis_copy_contract") not in STATUS_ANALYSIS_CONTRACTS or original["plan_id"] != packet["plan_id"]
                 or original["source_plan_registration"] != packet["registration_hash"]
                 or not parent or parent != value["parent"]):
             raise ValueError("CC688_LINK_STATUS_POST_PARENT_CHANGED")
@@ -1487,12 +1487,12 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
     """
     cards, alerts, confirmed_runs = {}, {}, []
     from .plan_call_cards_v1 import _reference
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
     for row in store.list_outbox_messages(destination=posts.DESTINATION):
         item = json.loads(row["payload"])
         if item.get("kind") == "setup" or item.get("state") == "WAITING":
             cards.setdefault(item.get("plan_id"), row["message_id"])
-        if item.get("analysis_copy_contract") == ANALYSIS_COPY:
+        if item.get("analysis_copy_contract") in STATUS_ANALYSIS_CONTRACTS:
             alerts.setdefault(item["plan_id"], []).append(row["message_id"])
         if item.get("kind") == "run" and _reference(store, row["message_id"], "linkedin"):
             confirmed_runs.append({a["canonical_url"] for a in item.get("analysis_publications", [])})

@@ -16,8 +16,8 @@ from typing import Mapping
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
-from .plan_reader_copy_v1 import THREAD_CONTRACT
 from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
+from .plan_reader_copy_v1 import NINE_LAYER_COPY, THREAD_CONTRACT
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 LINKEDIN_PLAN_LINK_EFFECTIVE = datetime(2026, 11, 20, 4, 38, tzinfo=timezone.utc)
@@ -34,6 +34,7 @@ SETTLED_DISPATCHES = frozenset({"DISPATCH_CONFIRMED", "DEFINITE_NO_WRITE",
 SETTLED_POST = "SETTLED"
 SETTLED_COPY = "PLAN_POST_SETTLED"
 DISCORD_CHANNEL_PART = 1
+ANALYSIS_FIRST_PART = 2
 GLOSSARY = {
     "DXY": "the US dollar index", "COT": "the futures positioning report",
     "M15": "short-interval", "M5": "short-interval", "H1": "hourly",
@@ -718,21 +719,21 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
         if item["key"] not in prior and item.get("state_alert_contract"):
-            from .plan_reader_copy_v1 import ANALYSIS_COPY
+            from .plan_reader_copy_v1 import NINE_LAYER_COPY, plan_layer_candidates
             from .plan_reader_editorial_v1 import prepare_plan_layers
 
             plan = item["source_plan"]
             original = cards.get(item["plan_id"]) or {}
-            quotes = original.get("analysis_layer_quotes")
-            if quotes is None or original.get("source_plan_registration") != plan["registration_hash"]:
+            if original.get("analysis_copy_contract") == NINE_LAYER_COPY and original.get("source_plan") == plan:
+                quotes = original["analysis_layer_quotes"]
+            else:
                 folder = (Path(analysis_copy_root) / plan["plan_id"]
                           if analysis_copy_root is not None and not dry_run else None)
-                quotes = prepare_plan_layers(plan, output_dir=folder)
+                quotes = prepare_plan_layers(plan, output_dir=folder, contract=NINE_LAYER_COPY)
             confirmed = confirmed_publication(store, plan) or {}
-            if quotes or confirmed or analysis_copy_root is not None:
-                item.update(analysis_copy_contract=ANALYSIS_COPY, analysis_layer_quotes=quotes,
-                            analysis_link=confirmed.get("canonical_url"))
-                item.update(compose(item))
+            item.update(analysis_copy_contract=NINE_LAYER_COPY, analysis_layer_quotes=quotes,
+                        analysis_layer_gaps=plan_layer_candidates(plan)[1], analysis_link=confirmed.get("canonical_url"))
+            item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
                 rendered.append({"key":item["key"],"kind":item["kind"],"status":"EDITORIAL_INPUT_REQUIRED",
@@ -749,7 +750,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                         "failed_field": "posts." + item["key"] + ".destinations",
                         "contract_version": version}
             rendered.append({"key": item["key"], "kind": item["kind"], "text": item["text"],
-                             "destinations": copies})
+                             "destinations": copies, **({"analysis_layer_gaps": item["analysis_layer_gaps"]}
+                             if "analysis_layer_gaps" in item else {})})
         if item["key"] in prior:
             already.append(item["key"])
             continue
@@ -758,7 +760,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                                    target_surface="MULTI_PLATFORM", work_item_id=posts.WORK_ITEM_ID)
             store.register_outbox_message(message_id=item["key"], work_item_id=posts.WORK_ITEM_ID,
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
-        queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text")})
+        queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text", "analysis_layer_gaps")
+                       if k in item})
     from .plan_reader_editorial_v1 import active_page_plan_ids
 
     return {"status": "OK", "dry_run": dry_run, "format": FORMAT, **freshness,
@@ -797,19 +800,24 @@ def _discord_channel_update(row):
 def _destination_dispatches(store, row, destination, root):
     key = row["key"]
     copies = [(key, _dispatch(store, key, destination) or {})]
-    if destination != "discord" or not _discord_channel_update(row):
-        return copies
-    channel_key = f"{key}-part-{DISCORD_CHANNEL_PART}"
-    channel = _dispatch(store, channel_key, destination)
-    if channel:
-        copies.append((channel_key, channel))
-    elif root is not None:
+    discord_update = destination == "discord" and _discord_channel_update(row)
+    layer_copy = row.get("analysis_copy_contract") == NINE_LAYER_COPY
+    context = {}
+    if root is not None and (discord_update or layer_copy):
         context_path = Path(root) / key / "run_context_v1.json"
         if context_path.is_file():
             context = json.loads(context_path.read_bytes())
-            parent = (context.get("status_post_parents") or {}).get("discord") or {}
-            if parent.get("channel_reply"):
-                copies.append((channel_key, {}))
+    if discord_update:
+        channel_key = f"{key}-part-{DISCORD_CHANNEL_PART}"
+        channel = _dispatch(store, channel_key, destination)
+        parent = (context.get("status_post_parents") or {}).get("discord") or {}
+        if channel or parent.get("channel_reply"):
+            copies.append((channel_key, channel or {}))
+    if layer_copy and copies[0][1].get("status") == "DISPATCH_CONFIRMED":
+        count = (context.get("status_post_layer_reply_counts") or {}).get(destination, 0)
+        for part in range(ANALYSIS_FIRST_PART, ANALYSIS_FIRST_PART + count):
+            reply_key = f"{key}-part-{part}"
+            copies.append((reply_key, _dispatch(store, reply_key, destination) or {}))
     return copies
 
 
@@ -955,7 +963,12 @@ def _ready_destinations(store, row, root=None):
             continue
         copies = _destination_dispatches(store, row, destination, root)
         dispatch = copies[0][1]
-        if any(copy.get("status") not in SETTLED_DISPATCHES for _, copy in copies[1:]):
+        channel_suffix = f"-part-{DISCORD_CHANNEL_PART}"
+        channel = [copy for key, copy in copies[1:] if key.endswith(channel_suffix)]
+        layers = [copy for key, copy in copies[1:] if not key.endswith(channel_suffix)]
+        next_layer = next((copy for copy in layers if copy.get("status") != "DISPATCH_CONFIRMED"), None)
+        if (any(copy.get("status") not in SETTLED_DISPATCHES for copy in channel)
+                or next_layer is not None and next_layer.get("status") not in SETTLED_DISPATCHES):
             ready.append(destination)
             continue
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
@@ -1128,6 +1141,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         limits["telegram"] = 4096
     if row.get("analysis_copy_contract"):
         limits["telegram"] = 4096
+    reply_limits = limits.copy()
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
     thread_link = ""
@@ -1139,11 +1153,20 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         if destination in LINKEDIN_DESTINATIONS and linkedin_analysis_url and not row.get("analysis_link"):
             body, notices = posts._split(text)
             text = body + "\nFull analysis: " + linkedin_analysis_url + "\n\n" + notices
+        layer_parts = None
+        if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
+            from .plan_state_alerts_v1 import nine_layer_parts
+
+            body, notices = posts._split(text)
+            layer_parts = nine_layer_parts(row, body, notices, destination=destination,
+                                           limit=limits[destination], reply_limit=reply_limits[destination])
         if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
             body, notices = posts._split(text)
-            if row.get("analysis_copy_contract"):
+            if layer_parts is not None:
+                parts = layer_parts
+            elif row.get("analysis_copy_contract"):
                 from .plan_state_alerts_v1 import analysis_thread_parts
                 parts = analysis_thread_parts(row, body, notices, destination=destination, limit=limits[destination])
             else:
@@ -1177,12 +1200,15 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             text = body + "\n" + caption + "\n\n" + NOTICES
         if destination == "x":
             body, notices = posts._split(text)
-            if row.get("analysis_copy_contract"):
+            if layer_parts is not None:
+                chunks = layer_parts
+            elif row.get("analysis_copy_contract"):
                 from .plan_state_alerts_v1 import analysis_thread_parts
                 chunks = analysis_thread_parts(row, body, notices, destination=destination, limit=limits["x"])
             else:
                 chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
-            if any(posts._x_length(part) > limits["x"] for part in chunks):
+            if any(posts._x_length(part) > (reply_limits["x"] if layer_parts and index else limits["x"])
+                   for index, part in enumerate(chunks)):
                 raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:x")
             payload = {"destination": "x", "text": chunks[0], "root_text": chunks[0],
                 "full_text": "\n\n".join(chunks), "reply_texts": chunks[1:], "media_asset_ids": [card_id],
@@ -1195,7 +1221,9 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             continue
         room = limits[destination] - len(NOTICES) - 2
         body = text.rsplit("\n\n", 1)[0]
-        if len(body) > room:
+        if layer_parts is not None:
+            text = layer_parts[0]
+        elif len(body) > room:
             # The full card image retains every supplied field. Short copies
             # keep the conditional call, its id and the structured levels first.
             body = row["lead"]
@@ -1228,7 +1256,10 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         check_publication_copy({"body": text}, conditional_calls=row.get("conditional_calls") or [])
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id]}
-        if destination == "telegram" and len(text) > 1024:
+        if layer_parts and len(layer_parts) > 1 and not discord_channel_reply:
+            payload["parts"] = [text, *layer_parts[1:]]
+            payload["full_text"] = "\n\n".join(payload["parts"])
+        if destination == "telegram" and (len(text) + (len(credit) if layer_parts else 0) > 1024):
             payload["telegram_text_with_card_preview"] = True
         if destination == "instagram_business" and carousel:
             payload["media_asset_ids"] = [a["asset_id"] for a in carousel]
@@ -1270,6 +1301,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             first = payload["text"]
             payload["text"] = first + credit
             payload["full_text"] = payload["text"] + payload["full_text"][len(first):]
+            if payload.get("parts"):
+                payload["parts"][0] = payload["text"]
             if "root_text" in payload:
                 payload["root_text"] += credit
             if payload.get("posts"):
@@ -1278,6 +1311,33 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             payload["media_asset_ids"] = []
             for part in payload.get("posts") or []:
                 part["media_asset_ids"] = []
+    return result
+
+
+def analysis_reply_payloads(store, row, payloads, part):
+    """Resolve the overflow under the exact confirmed post, or its owning comment thread."""
+    index = part - ANALYSIS_FIRST_PART + 1
+    result = {}
+    for destination, payload in payloads.items():
+        parts = payload.get("parts") or ()
+        if index >= len(parts):
+            continue
+        ref = _reference(store, row["key"], destination)
+        if not ref:
+            continue
+        parent_id, parent_url = str(ref["public_object_id"]), ref["public_object_url"]
+        if destination in {"facebook_page", "instagram_business"} and payload.get("own_call_comment"):
+            parent_id, parent_url = payload["reply_to_id"], payload["reply_to_url"]
+        text = parts[index]
+        reply = {"destination": destination, "text": text, "full_text": text, "media_asset_ids": [],
+                 "plan_layer_reply": True,
+                 "reply_to_id": parent_id, "reply_to_url": parent_url}
+        if destination in {"facebook_page", "instagram_business"}:
+            reply["own_call_comment"] = True
+        elif destination == "discord":
+            reply.update(discord_thread_parent_id=payload.get("discord_thread_parent_id", parent_id),
+                         discord_thread_name="Calls · " + _clock(row["registered_at_utc"]))
+        result[destination] = reply
     return result
 
 
@@ -1534,10 +1594,18 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+    if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
+        context = previous if frozen else context
+        counts = context.setdefault("status_post_layer_reply_counts", {})
+        for destination in chosen:
+            if parts := payloads[destination].get("parts"):
+                counts[destination] = len(parts) - 1
+        context_path.write_bytes(canonical_bytes(context))
+    roots = posts._part_payloads(payloads)
     plan_rows = []
     for destination in chosen:
         registration = registration_for_destination(destination)
-        text = payloads[destination]["full_text"]
+        text = roots[destination]["full_text"]
         plan_rows.append({"destination": destination, "platform": registration.platform,
             "surface": registration.surface, "transport_type": registration.transport_type,
             "transport_registry_version": REGISTRY_VERSION, "payload": text,
@@ -1556,13 +1624,28 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
         channel = discord_channel_payload(row, card_id=plan["status_post_card_id"],
                                           parents=parents, chart_credit=chart_credit)
         if channel:
-            child = f"{key}-part-{DISCORD_CHANNEL_PART}"
             text = channel["discord"]["full_text"]
-            plan["continuations"] = [{**plan, "plan_status_part": DISCORD_CHANNEL_PART,
-                "work_item_id": child, "story_identity": child, "article_identity": child, "package_identity": child,
-                "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
-                "destinations": [{**discord, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()}]}]
+            plan["continuations"].append(_card_continuation(plan, DISCORD_CHANNEL_PART, [
+                {**discord, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()}]))
+    reply_count = max((len(payloads[d]["parts"]) - 1 for d in chosen if payloads[d].get("parts")), default=0)
+    for part in range(ANALYSIS_FIRST_PART, ANALYSIS_FIRST_PART + reply_count):
+        children = []
+        for entry in plan_rows:
+            parts = payloads[entry["destination"]].get("parts") or ()
+            index = part - ANALYSIS_FIRST_PART + 1
+            if index < len(parts):
+                text = parts[index]
+                children.append({**entry, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()})
+        plan["continuations"].append(_card_continuation(plan, part, children))
     return plan
+
+
+def _card_continuation(plan, part, destinations):
+    child = f"{plan['plan_status_post']}-part-{part}"
+    return {**plan, "plan_status_part": part, "continuations": [], "work_item_id": child,
+            "story_identity": child, "article_identity": child, "package_identity": child,
+            "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+            "destinations": destinations}
 
 
 
@@ -1588,6 +1671,9 @@ def validate_parent_intent(store, row, intent, *, parent_route=None):
         validate_reader_row(store, row)
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
+    if intent.get("plan_status_part", 0) >= ANALYSIS_FIRST_PART:
+        # The caller recomputes the exact reply route from the confirmed dispatch.
+        return
     if not row.get("parent_key"):
         return
     payload = intent["native_payload"]
@@ -1672,8 +1758,9 @@ def _publish_card_plan(store, row, plan, coordinator_for, *, parallel, immediate
     if row.get("state_alert_contract") == "CC543_V1":
         plan["state_alert_contract"] = row["state_alert_contract"]
         plan["defer_alert_recovery"] = immediate
-    title = "Discord plan reply in #announcements" if plan.get("plan_status_part") else (
-        "Call run" if row["kind"] == "run" else "Call card")
+    part = plan.get("plan_status_part")
+    title = ("Plan analysis continuation" if part is not None and part >= ANALYSIS_FIRST_PART else
+             "Discord plan reply in #announcements" if part else "Call run" if row["kind"] == "run" else "Call card")
     store.create_work_item(story_id=key, title=title, target_surface="MULTI_PLATFORM", work_item_id=key)
 
     def scoped_coordinator():
@@ -1686,6 +1773,14 @@ def _publish_card_plan(store, row, plan, coordinator_for, *, parallel, immediate
     if parallel:
         return coordinator.execute_plan(key, plan, alert_worker_for=scoped_coordinator)
     return coordinator.execute_plan(key, plan)
+
+
+def _analysis_reply_destinations(store, row, plan):
+    part = plan["plan_status_part"]
+    parent = row["key"] if part == ANALYSIS_FIRST_PART else f"{row['key']}-part-{part - 1}"
+    return [entry for entry in plan["destinations"] if _reference(store, parent, entry["destination"])
+            and (_dispatch(store, plan["work_item_id"], entry["destination"]) or {}).get("status")
+            not in SETTLED_DISPATCHES]
 
 
 def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False,
@@ -1825,8 +1920,15 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                                                  immediate=destinations is not None)
                     per_destination.update(outcome.get("per_destination") or {})
                     for continuation in plan["continuations"]:
-                        channel_reply = _publish_discord_channel_reply(store, row, continuation, coordinator_for,
-                                                                       immediate=destinations is not None)
+                        if continuation["plan_status_part"] == DISCORD_CHANNEL_PART:
+                            channel_reply = _publish_discord_channel_reply(store, row, continuation, coordinator_for,
+                                                                            immediate=destinations is not None)
+                            continue
+                        replies = _analysis_reply_destinations(store, row, continuation)
+                        if replies:
+                            reply_outcome = _publish_card_plan(store, row, {**continuation, "destinations": replies},
+                                coordinator_for, parallel=parallel, immediate=destinations is not None)
+                            per_destination.update(reply_outcome.get("per_destination") or {})
                     attempted = True
 
             skipped_details = list(media.values())

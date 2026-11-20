@@ -1,10 +1,22 @@
 from copy import deepcopy
+from datetime import timedelta
+from hashlib import sha256
 import json
+import sys
 
 import pytest
 
 from live_contentops import plan_reader_copy_v1 as reader
 from live_contentops import plan_reader_editorial_v1 as editorial
+from live_contentops import plan_call_cards_v1 as cards
+from live_contentops import plan_state_alerts_v1 as alerts
+from live_contentops import plan_status_posts_v1 as posts
+from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+from test_plan_analysis_distribution_cc435 import confirm
+from test_plan_state_alerts_cc543 import event, main_root, replay, rows, write  # noqa: F401
+from test_plan_status_publication_cc306 import fake_host
+from test_public_decision_checks_cc690 import checks, published
+from test_publication_coordinator_v1 import FixtureTransport
 
 
 def frozen_layers():
@@ -87,3 +99,115 @@ def test_antigravity_rewrites_only_verified_source_notation_and_falls_back_per_l
     tampered = {**quotes, "macro": expected.replace("rose 5", "fell 6")}
     with pytest.raises(ValueError, match="CC688_LAYER_NOT_QUOTED_FROM_PLAN:macro"):
         reader.verified_analysis_lines(deepcopy(plan), tampered, contract=reader.NINE_LAYER_COPY)
+
+
+@pytest.mark.parametrize("with_gaps", [False, True])
+def test_minute_queue_renders_the_frozen_layers_on_the_setup_fill_and_result(replay, main_root, with_gaps):
+    store, folder, raw, now = replay
+    raw.update(frozen_layers())
+    if with_gaps:
+        missing = {"event_and_cause", "cross_asset_and_contagion", "technical"}
+        raw["layers"] = [entry for entry in raw["layers"] if entry["layer"] not in missing]
+    transitions = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+    write(folder, [raw], transitions, generated_at_utc=now.isoformat())
+    assert posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)["status"] == "OK"
+    setup, = rows(store)
+    frozen = store.get_outbox_message(setup["key"])["payload"]
+    key = setup["key"]
+    store.create_work_item(story_id=key, title="Fixture setup", target_surface="MULTI_PLATFORM", work_item_id=key)
+    confirm(store, key, sha256(("plan-status-post:" + key).encode()).hexdigest(), "telegram", "700",
+            "https://t.me/CapitalChronicle/700")
+    store.set_outbox_status(key, "PUBLISHED")
+
+    fill_at = now + timedelta(minutes=1)
+    transitions.append(event(raw["plan_id"], "FILLED", fill_at.isoformat()))
+    update = {**raw, "status": "FILLED"}
+    write(folder, [update], transitions, generated_at_utc=fill_at.isoformat())
+    assert posts.queue_posts(store, folder, now=fill_at, main_root=main_root, python=sys.executable)["status"] == "OK"
+
+    close_at = fill_at + timedelta(minutes=1)
+    transitions.append(event(raw["plan_id"], "CLOSED", close_at.isoformat()))
+    update = {**raw, "status": "CLOSED", "outcome": {"state": "SCORED", "result": "HIT",
+        "outcome_id": "fixture-result", "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"],
+        "outcome_id": "fixture-result", "result": "HIT", "resolved_at_utc": close_at.isoformat()}}}
+    write(folder, [update], transitions, generated_at_utc=close_at.isoformat())
+    assert posts.queue_posts(store, folder, now=close_at, main_root=main_root, python=sys.executable)["status"] == "OK"
+    stored = rows(store)
+    assert {row["kind"] for row in stored} >= {"setup", "update", "result"}
+    for row in stored:
+        assert row["analysis_copy_contract"] == reader.NINE_LAYER_COPY
+        assert row["analysis_layer_gaps"] == (dict.fromkeys(missing, "EXPORT_FIELD_ABSENT") if with_gaps else {})
+        alerts.validate(row, store=store)
+        lines = alerts.analysis_lines(row)
+        labels = [line.split(":", 1)[0] + ":" for line in lines]
+        assert len(lines) == (6 if with_gaps else 9)
+        payloads = cards.destination_payloads(row, card_id="chart", chart_credit=True, complete_levels=True)
+        assert set(payloads) == set(cards.DESTINATIONS)
+        for payload in payloads.values():
+            rendered = payload["full_text"]
+            assert [rendered.index(label) for label in labels] == sorted(rendered.index(label) for label in labels)
+            assert all(rendered.count(line) == 1 for line in lines)
+            assert rendered.count(posts.PUBLIC_NOTICE) == rendered.count(posts.CONFLICTS_NOTICE) == 1
+    assert store.get_outbox_message(key)["payload"] == frozen
+
+
+def test_long_export_reaches_the_durable_discord_thread_as_an_exact_reply(replay, main_root, tmp_path):
+    store, folder, raw, now = replay
+    raw.update(frozen_layers())
+    for line in raw["layers"]:
+        line["text"] = line["text"].rstrip(".") + " as " + 9 * "liquidity moved through the market and " + "volatility fell."
+    write(folder, [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])], generated_at_utc=now.isoformat())
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    assert queued["status"] == "OK"
+    row, = rows(store)
+
+    class Recorded(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.intents = []
+
+        def publish(self, *, destination, intent, authorization_context):
+            self.intents.append(deepcopy(intent))
+            return {"status": "SUCCESS", "id": str(len(self.intents)),
+                    "public_url": f"https://example.test/{destination}/{len(self.intents)}"}
+
+    transport = Recorded()
+
+    def coordinator_for(*_):
+        return DurablePublicationCoordinator(store=store, transport_runtime=transport, clock=lambda: now,
+            readiness_provider=lambda _: {"readiness_state": "READY_NON_BROWSER_BINDING"})
+
+    for _ in range(2):
+        result = cards.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=coordinator_for, destinations=("discord",), alert_filter=True)
+    discord = [intent for intent in transport.intents if intent["destination_plan"]["destination"] == "discord"]
+    assert len(discord) > 1, result
+    root, *replies = discord
+    assert all(reply["native_payload"]["discord_thread_parent_id"] == "1" for reply in replies)
+    assert all(not reply["native_payload"]["media_asset_ids"] for reply in replies)
+    assert root["native_payload"]["media_asset_ids"]
+    assert len({intent["work_item_id"] for intent in discord}) == len(discord)
+    texts = [intent["native_payload"]["text"] for intent in discord]
+    assert all(len(text) <= 2000 for text in texts)
+    assert all("\n".join(texts).count(line) == 1 for line in alerts.analysis_lines(row))
+
+
+def test_evening_audit_counts_export_gaps_once_and_reads_the_confirmed_continuations(tmp_path):
+    raw = frozen_layers()
+    raw["layers"] = [line for line in raw["layers"] if line["layer"] != "technical"]
+    source = {"kind": "result", "key": "gold-result", "plan_id": "plan_gold",
+              "analysis_copy_contract": reader.NINE_LAYER_COPY, "source_plan": raw,
+              "analysis_layer_quotes": editorial.prepare_plan_layers(raw, contract=reader.NINE_LAYER_COPY),
+              "analysis_layer_gaps": reader.plan_layer_candidates(raw)[1]}
+    page = "https://capitalchronicle.substack.com/p/gold-analysis"
+    lines = alerts.analysis_lines(source)
+    audit = checks(tmp_path)
+    published(audit, "gold-result", "telegram", source=source, text="\n".join([*lines[:5], page]))
+    published(audit, "gold-result-part-2", "telegram", source=source, text="\n".join(lines[5:]),
+              intent={"plan_status_part": cards.ANALYSIS_FIRST_PART})
+    published(audit, "gold-result", "threads", source=source, text="\n".join([*lines[:-1], page]))
+    output = audit.finish({}, {"plan_gold": page})
+    assert output["analysis_layer_gaps"] == [{"layer": "technical", "first_cause": "EXPORT_FIELD_ABSENT", "count": 1}]
+    analysis_issues = [issue for issue in output["issues"] if issue["decision"] == "113"]
+    assert [(issue["platform"], issue["first_cause"], issue["missing_layers"]) for issue in analysis_issues] == [
+        ("threads", "EXPORTED_PLAN_LAYER_MISSING", ["Scenarios"])]
