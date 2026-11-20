@@ -31,6 +31,7 @@ REPLY_PREFIX = "internal:x-reply-bot-"
 PRIVATE_KEY = re.compile(r"chat|token|secret|webhook|phone|user_id|binding", re.I)
 CODE = re.compile(r"[A-Z][A-Z0-9_]{1,159}\Z")
 MAX_PAGE_BYTES = 2 * 1024 * 1024
+PLAN_DELIVERY_TARGET_SECONDS = 300
 
 
 def utc(value):
@@ -633,7 +634,7 @@ def _plan_copy_queue(conn, now, store_path):
             queued_at = utc(copy["created_at"] if copy else plan["created_at"])
             age = (now - queued_at).total_seconds()
             pending += 1
-            if age > 300:
+            if age > PLAN_DELIVERY_TARGET_SECONDS:
                 overdue.append({"plan_post": plan["message_id"], "platform": destination,
                     "status": status, "queued_at_utc": iso(queued_at), "age_seconds": round(age, 1)})
     return {"observed_at_utc": iso(now), "ready_or_waiting": pending,
@@ -729,6 +730,10 @@ def _plan_delivery(conn, window, store_path):
         settled = cards.read_settled_destinations(conn, row)
         skipped = {d["destination"]: d["cause"] for d in cards._skipped_images(root, row)}
         native = _native_observations(conn, key, iso(end))
+        try:
+            source_at = utc(row["at_utc"])
+        except (KeyError, ValueError):
+            source_at = None
         observed, clocks = [], []
         for destination in named:
             route = routes.get(destination)
@@ -763,12 +768,17 @@ def _plan_delivery(conn, window, store_path):
             ready_at = utc(route["created_at"] if route else plan["created_at"])
             observed.append({"plan_post": key, "platform": destination, "status": status,
                 "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
+                 "source_at_utc": iso(source_at) if source_at else None,
                 "confirmed_dispatch_at_utc": iso(dispatch_at) if confirmed else None,
                 "observed_published_at_utc": iso(published_at) if published_at else None,
                 "first_verified_readback_at_utc": iso(verified_at) if verified_at else None,
+                 "source_to_published_seconds": (published_at - source_at).total_seconds()
+                     if source_at and published_at else None,
+                 "source_to_first_verified_seconds": (verified_at - source_at).total_seconds()
+                     if source_at and verified_at else None,
                 "public_url": safe_url(route["public_object_url"]) if confirmed else None,
                 "x_ready_over_five_minutes": destination == "x" and status == "READY"
-                    and (end - ready_at).total_seconds() > 300})
+                     and (end - ready_at).total_seconds() > PLAN_DELIVERY_TARGET_SECONDS})
             clocks.append(published_at or verified_at or (dispatch_at if confirmed else None))
         first = min((clock for clock in clocks if clock is not None), default=None)
         for copy, clock in zip(observed, clocks, strict=True):
@@ -1014,10 +1024,16 @@ def markdown(report):
                           "| --- | --- | --- | --- | --- | --- |"])
         for row in delivery["copies"]:
             timing = []
+            publish_delay = row.get("source_to_published_seconds")
+            verify_delay = row.get("source_to_first_verified_seconds")
             if row.get("observed_published_at_utc"):
                 timing.append(f"Published at {local(row['observed_published_at_utc'])}")
-            elif row.get("first_verified_readback_at_utc"):
+            if row.get("first_verified_readback_at_utc"):
                 timing.append(f"Verified at {local(row['first_verified_readback_at_utc'])}")
+            if publish_delay is not None and publish_delay > PLAN_DELIVERY_TARGET_SECONDS:
+                timing.append(f"Published {publish_delay:.1f}s after Main change (over 5 min)")
+            if publish_delay is None and verify_delay is not None and verify_delay > PLAN_DELIVERY_TARGET_SECONDS:
+                timing.append("First verified over 5 min after Main change. Publication time unrecorded.")
             if row["behind_over_ten_minutes"]:
                 timing.append("Over 10 min behind first confirmed copy")
             if row["x_ready_over_five_minutes"]:

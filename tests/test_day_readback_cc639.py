@@ -127,7 +127,8 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
     _, store, _, _ = recorded
     key = "plan-status-post-delivery-fixture"
     created = "2026-11-17T09:00:00Z"
-    row = {"key": key, "format": 4, "kind": "update", "state_alert_contract": "CC543_V1"}
+    row = {"key": key, "format": 4, "kind": "update", "state_alert_contract": "CC543_V1",
+           "at_utc": "2026-11-17T08:59:00Z"}
     digest = sha256(("plan-status-post:" + key).encode()).hexdigest()
     with sqlite3.connect(store) as conn:
         conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
@@ -135,6 +136,7 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
         for destination, status, dispatched_at, object_id in [
             ("telegram", "DISPATCH_CONFIRMED", "2026-11-17T09:00:15Z", "221"),
             ("discord", "DISPATCH_CONFIRMED", "2026-11-17T09:01:00Z", "222"),
+            ("facebook_page", "DISPATCH_CONFIRMED", "2026-11-17T09:01:05Z", "224"),
             ("x", "READY", None, None),
             ("linkedin", "DEFINITE_NO_WRITE", "2026-11-17T09:03:00Z", None),
             ("threads", "DISPATCH_CONFIRMED", "2026-11-17T10:00:01Z", "223"),
@@ -151,6 +153,10 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
                     ("discord-published-clock", ids["dispatch_id"], json.dumps({"readback": {
                         "verified": True, "observed_published_at_utc": "2026-11-17T09:11:59Z"}}),
                      "2026-11-17T09:13:00Z"))
+            if destination == "facebook_page":
+                conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)",
+                    ("facebook-first-verified", ids["dispatch_id"], json.dumps({"readback": {"verified": True}}),
+                     "2026-11-17T09:06:01Z"))
             if destination == "linkedin":
                 conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)",
                     (DurablePublicationCoordinator._retry_incident_id(ids["dispatch_id"]), key,
@@ -178,6 +184,11 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
     assert routes["discord"]["observed_published_at_utc"] == "2026-11-17T09:11:59+00:00"
     assert routes["discord"]["first_verified_readback_at_utc"] == "2026-11-17T09:13:00+00:00"
     assert routes["discord"]["seconds_after_first_confirmed"] == 704
+    assert routes["discord"]["source_at_utc"] == "2026-11-17T08:59:00+00:00"
+    assert routes["discord"]["source_to_published_seconds"] == 779
+    assert routes["discord"]["source_to_first_verified_seconds"] == 840
+    assert routes["facebook_page"]["source_to_published_seconds"] is None
+    assert routes["facebook_page"]["source_to_first_verified_seconds"] == 421
     assert routes["x"]["x_ready_over_five_minutes"] and routes["x"]["first_cause"] == "DESTINATION_FAILED_ET_DAY_SKIP"
     assert routes["linkedin"]["retry_recorded"] and routes["linkedin"]["first_cause"] == "LINKEDIN_MEDIA_PROCESSING"
     assert routes["instagram_business"]["first_cause"] == "TRADINGVIEW_PRICE_SCALE_MISMATCH"
@@ -186,6 +197,8 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
     table = readback.markdown(report)
     assert "Plan post delivery" in table and "X READY over 5 min" in table
     assert "Over 10 min behind first confirmed copy" in table
+    assert "Published 779.0s after Main change (over 5 min)" in table
+    assert "First verified over 5 min after Main change. Publication time unrecorded." in table
 
 
 def test_nov16_piece_channels_and_digest_are_consumed(recorded):
