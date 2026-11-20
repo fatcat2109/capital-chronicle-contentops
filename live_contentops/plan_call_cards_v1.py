@@ -1475,39 +1475,17 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         return (0 if row["kind"] == "run" or refused_parent else 1, -posts._utc(row["at_utc"]).timestamp(),
                 {"run": 0, "setup": 1, "update": 2, "result": 3}[row["kind"]])
     pending.sort(key=priority)
-    results, calls, browser_only, readback_count = [], 0, 0, 0
+    results, retired, calls, browser_only = [], [], 0, 0
     for outbox, row in pending:
         key = row["key"]
         refusal = posts.publication_refusal(store, row, now=now, latest_states=latest_states)
         if refusal:
-            readbacks = []
+            outcome = {"key": key, "status": refusal[0], "cause": refusal[1], "readbacks": []}
+            results.append(outcome)
             if _can_retire_unstarted(store, row):
                 store.set_outbox_status(key, refusal[0])
-            else:
-                # Age forbids another send, never exact reconciliation of a
-                # possibly sent copy. This method cannot publish or retry.
-                from .publication_coordinator_v1 import UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING
-                coordinator = None
-                for destination in destinations_for(row):
-                    dispatch = _dispatch(store, key, destination) or {}
-                    if dispatch.get("status") not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
-                        continue
-                    if readback_count >= limit:
-                        break
-                    readback_count += 1
-                    try:
-                        coordinator = coordinator or coordinator_for(key, Path(root) / key)
-                        readbacks.append(coordinator.readback_existing_dispatch(dispatch["dispatch_id"]))
-                    except (OSError, ValueError, KeyError, TypeError) as exc:
-                        readbacks.append({"destination": destination, "dispatch_id": dispatch["dispatch_id"],
-                            "status": "READBACK_PENDING", "cause": str(exc)[:200], "publish_called": False})
-                settle_pending(store, outbox, row, now=now, root=root)
-                if row.get("state_alert_contract"):
-                    # Close fresh-write work on every destination once the
-                    # state has moved on. Issued dispatches keep their exact
-                    # receipts and readback even when the parent row closes.
-                    store.set_outbox_status(key, refusal[0])
-            results.append({"key": key, "status": refusal[0], "cause": refusal[1], "readbacks": readbacks})
+            elif destinations is None:
+                retired.append((outbox, row, outcome))
             continue
         settled = settle_pending(store, outbox, row, now=now, root=root)
         if settled:
@@ -1653,4 +1631,27 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 status = posts.SUPERSEDED
                 store.set_outbox_status(key, status)
             results.append({"key": key, "status": status, "cause": cause})
+    # The API-only pass leaves issued copies for the existing full fanout.
+    # Within that pass, an expired copy's network readback follows fresh sends.
+    from .publication_coordinator_v1 import UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING
+    readback_count = 0
+    for outbox, row, outcome in retired:
+        key = row["key"]
+        coordinator = None
+        for destination in destinations_for(row):
+            if readback_count >= limit:
+                break
+            dispatch = _dispatch(store, key, destination) or {}
+            if dispatch.get("status") not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
+                continue
+            readback_count += 1
+            try:
+                coordinator = coordinator or coordinator_for(key, Path(root) / key)
+                outcome["readbacks"].append(coordinator.readback_existing_dispatch(dispatch["dispatch_id"]))
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                outcome["readbacks"].append({"destination": destination, "dispatch_id": dispatch["dispatch_id"],
+                    "status": "READBACK_PENDING", "cause": str(exc)[:200], "publish_called": False})
+        settle_pending(store, outbox, row, now=now, root=root)
+        if row.get("state_alert_contract"):
+            store.set_outbox_status(key, outcome["status"])
     return {"status": "OK", "posts": results}

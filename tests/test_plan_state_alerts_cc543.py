@@ -298,7 +298,7 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
     assert store.get_outbox_message(invalid["key"])["payload"] == invalid_bytes
 
 
-@pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout"])
+@pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout", "superseded-with-uncertain-x"])
 def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure):
     from hashlib import sha256
     from threading import Event
@@ -316,6 +316,8 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             "https://discord.com/channels/42/1519311669216673802/600")
     if failure == "refused-telegram":
         dispatch(store, setup, "telegram", "DEFINITE_NO_WRITE")
+    elif failure == "superseded-with-uncertain-x":
+        old_x = dispatch(store, setup, "x", "UNKNOWN_WRITE")
     else:
         store.set_outbox_status(setup_key, posts.SUPERSEDED)
 
@@ -346,9 +348,18 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
         readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
         published_content_path=tmp_path / "published.jsonl")
+    retired_readbacks = []
+    if failure == "superseded-with-uncertain-x":
+        def remember_readback(dispatch_id):
+            assert "x" in runtime.publish_calls, "An old readback ran before the new alert's X copy"
+            retired_readbacks.append(dispatch_id)
+            return {"status": "UNKNOWN_WRITE", "publish_called": False}
+
+        coordinator.readback_existing_dispatch = remember_readback
     options = {"now": now, "latest_states": queued["latest_states"], "root": tmp_path / "posts",
                "host": fake_host, "coordinator_for": lambda *args: coordinator}
     posts.publish_ready(store, **options, immediate_only=True)
+    assert not retired_readbacks
     discord = cards._dispatch(store, key, "discord")
     assert discord["status"] == "DISPATCH_CONFIRMED"
     telegram = cards._dispatch(store, key, "telegram")
@@ -370,6 +381,9 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             assert "reply_to_id" not in intent["native_payload"]
     assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
     assert store.get_outbox_message(setup_key)["status"] == posts.SUPERSEDED
+    if failure == "superseded-with-uncertain-x":
+        assert retired_readbacks == [old_x["dispatch_id"]]
+        assert store.get_platform_dispatch(old_x["dispatch_id"])["status"] == "UNKNOWN_WRITE"
     posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
     assert len(runtime.publish_calls) == len(cards.destinations_for(ending))
 
