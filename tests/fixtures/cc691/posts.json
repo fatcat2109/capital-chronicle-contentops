@@ -1,0 +1,139 @@
+{
+  "charts": {
+    "gold": {
+      "evidence": {
+        "work_item_id": "cc603-gold-timing-correction-20261112",
+        "dispatch_id": "dispatch_2efa41366563bf34af3fa815f9697772",
+        "readback_id": "readback_076bfe850ca4942b3727831d592b8313",
+        "public_url": "https://t.me/CapitalChronicle/184",
+        "dispatched_at_utc": "2026-11-15T19:18:00.008964+00:00",
+        "artifact": "daily_app_outputs/call-followups/cc603-gold-timing-correction-20261112/run_context_v1.json",
+        "sha256": "f98519e7bf337d78c048c70d8cbad886b7bcbf55c1c4164a084769893b93d695"
+      },
+      "market": "XAUUSD",
+      "asset": {
+        "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+        "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+        "width": 1524,
+        "height": 858,
+        "modality": "tradingview_chart_snapshot",
+        "credit": "Chart: TradingView",
+        "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+        "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+        "caption": "Gold: 1h chart of Gold spot / US dollar (ICE). Chart: TradingView.",
+        "alt_text": "TradingView 1h chart of Gold spot / US dollar (ICE), captured 11:28 ET on 12 November 2026.",
+        "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=60",
+        "tradingview_snapshot": {
+          "sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+          "tv_symbol": "FX_IDC:XAUUSD",
+          "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=60",
+          "interval": "60",
+          "captured_at_utc": "2026-11-12T16:28:30.085830+00:00",
+          "policy": "contentops.tradingview_snapshot.v1",
+          "levels_drawn": [],
+          "target_drawn": false,
+          "framing": {
+            "height": 858,
+            "original_box": [
+              0,
+              1,
+              1524,
+              857
+            ],
+            "ratio": "16:9",
+            "width": 1524
+          },
+          "path": "xauusd-original.png"
+        },
+        "path": "xauusd-post.png"
+      }
+    },
+    "bitcoin": {
+      "evidence": {
+        "work_item_id": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+        "dispatch_id": "dispatch_7a36c6323cfa9933b450f512f26d9d25",
+        "readback_id": "readback_eb68145c0b8d0751f9207f92b9507877",
+        "public_url": "https://t.me/CapitalChronicle/185",
+        "dispatched_at_utc": "2026-11-16T00:22:53.329383+00:00",
+        "artifact": "daily_app_outputs/call-followups/reviewed-media/bc7fdc84eb93f52a72eb3b1443c0502a49811c0b468452556060733fd9431416/cc603-followup-5da8be4c6a0f24959930f9bd8870753f/run_context_v1.json",
+        "sha256": "919d3d69020962b5e2bf5a13fd6ac25138505e0caf0f18fb55919c72acfaad59"
+      },
+      "market": "BTCUSD",
+      "asset": {
+        "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+        "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+        "width": 1524,
+        "height": 858,
+        "modality": "tradingview_chart_snapshot",
+        "credit": "Chart: TradingView",
+        "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+        "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+        "caption": "Bitcoin / US dollar (Coinbase), 15-minute bars through 12 Nov 2026, 19:45 ET. Chart: TradingView.",
+        "alt_text": "Coinbase spot Bitcoin / US dollar, 15-minute candles from 10 Nov 13:00 ET through 12 Nov 19:45 ET, showing the decline after the original conditional view. Captured 15 Nov 2026, 19:12 ET.",
+        "source_page_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+        "tradingview_snapshot": {
+          "sha256": "5e4e53d7dfd6aa4176a0c01cbd356f6789a0ec5b6ac47ebe8bb9213aba057bcf",
+          "tv_symbol": "COINBASE:BTCUSD",
+          "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+          "interval": "15",
+          "captured_at_utc": "2026-11-16T00:12:13.394014+00:00",
+          "policy": "contentops.tradingview_snapshot.v1",
+          "levels_drawn": [],
+          "target_drawn": false,
+          "framing": {
+            "height": 858,
+            "original_box": [
+              0,
+              1,
+              1524,
+              857
+            ],
+            "ratio": "16:9",
+            "width": 1524
+          },
+          "path": "btcusd-original.png"
+        },
+        "path": "btcusd-post.png"
+      }
+    }
+  },
+  "timed_plan_update": {
+    "evidence": {
+      "work_item_id": "plan-status-post-7e284f364a945bc2b95bdb16fb6a9d38",
+      "dispatch_id": "dispatch_ede14b03191d1d631016cf46776b583e",
+      "readback_id": "readback_5c0ed3693c0b9d1bc264ef5f9364e974",
+      "public_url": "https://t.me/CapitalChronicle/214",
+      "dispatched_at_utc": "2026-11-20T05:45:20.207976+00:00"
+    },
+    "text": "Gold: an entry filled; the position is open.\nUpdated 20 Nov 00:36 ET.",
+    "event_utc": "2026-11-20T05:36:53.385000Z",
+    "rendered_timestamp": "Updated 20 Nov 00:36 ET."
+  },
+  "plan_analysis_reply": {
+    "evidence": {
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "dispatch_id": "dispatch_192b7ee231b687c54c42b3c213ed2aeb",
+      "readback_id": "readback_9ff943b74c9ea08ca2bbeb1247d5f2b2",
+      "public_url": "https://t.me/CapitalChronicle/182",
+      "dispatched_at_utc": "2026-11-12T18:00:13.650039+00:00",
+      "artifact": "daily_app_outputs/plan_analysis/plan-analysis-plan_230a9464a193ca7a377d0c41/page.json",
+      "sha256": "7e6e50060327f0adc256a7025fcecc10db8107745a8cab56aefb2cbc0b45d0fa"
+    },
+    "source": {
+      "summary": {
+        "macro": "We account for euro area growth during the window and finish before United States producer inflation.",
+        "priced_in": "We see repricing already underway, tempered by the extent of the decline and unresolved talks.",
+        "positioning": "We retain buying by investors closing bearish bets as a reversal mechanism without claiming those holdings are crowded.",
+        "fear": "We see failed talks and buying by bearish investors as reasons gold could rebound.",
+        "story": "We retain the bearish explanation while acknowledging that the supplied historical review did not establish a dependable advantage.",
+        "scenarios": "We retain Main at 55% and leave the supplied rebound alternative unquantified."
+      },
+      "title": "Gold: Our bearish plan, 3954–3964 entry, 4004 invalidation.",
+      "reader_contract": "CC466_V1",
+      "reader_revision": 2,
+      "asset_id": "XAUUSD"
+    },
+    "public_analysis_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+    "text": "Gold: Our bearish plan, 3954–3964 entry, 4004 invalidation.\nMacro: We account for euro area growth during the window and finish before United States producer inflation.\nPriced in: We see repricing already underway, tempered by the extent of the decline and unresolved talks.\nPositioning: We retain buying by investors closing bearish bets as a reversal mechanism without claiming those holdings are crowded.\nFear: We see failed talks and buying by bearish investors as reasons gold could rebound.\nStory: We retain the bearish explanation while acknowledging that the supplied historical review did not establish a dependable advantage.\nScenarios: We retain Main at 55% and leave the supplied rebound alternative unquantified.\nFull analysis: https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  }
+}
