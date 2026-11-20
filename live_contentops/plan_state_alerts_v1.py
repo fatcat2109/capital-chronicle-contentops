@@ -1,10 +1,8 @@
-"""CC-543: deterministic state alerts in the existing plan publication path.
-
-Analysis retains its own page and reply. Neither is an input to these alerts.
-"""
+"""Source-bound state alerts in the existing plan publication path."""
 from __future__ import annotations
 
 from decimal import Decimal
+import re
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import check_publication_copy, conditional_call_text
@@ -90,9 +88,58 @@ def compose(row):
         lines.append("Registered " + cards._clock(row["registered_at_utc"]) + ".")
     if row.get("delayed_at_utc"):
         lines.insert(0, "Delayed update as of " + cards._clock(row["delayed_at_utc"]) + ".")
+    if row.get("analysis_copy_contract"):
+        from .plan_reader_copy_v1 import analysis_scenario_lines, verified_analysis_lines
+        raw = row["source_plan"]
+        layers = verified_analysis_lines(raw, row["analysis_layer_quotes"])
+        scenarios = analysis_scenario_lines(raw) if row["kind"] == "setup" else []
+        lines = [*layers, *scenarios, *lines]
+        if row.get("analysis_link"):
+            lines.append("Full analysis: " + row["analysis_link"])
     text = "\n".join(lines) + "\n\n" + cards.NOTICES
     check_publication_copy({"body": text}, conditional_calls=calls)
     return {"lead": lead, "text": text, "conditional_calls": calls, "detail_lines": lines[1:]}
+
+
+def analysis_thread_parts(row, body, notices, *, destination, limit):
+    """Keep complete source lines and plan sentences on the two short routes."""
+    from .plan_reader_copy_v1 import analysis_scenario_lines, verified_analysis_lines
+
+    width = posts._x_length if destination == "x" else len
+    link = "Full analysis: " + row["analysis_link"] if row.get("analysis_link") else ""
+    layer_lines = verified_analysis_lines(row["source_plan"], row["analysis_layer_quotes"])
+    if row["kind"] == "setup":
+        layer_lines += analysis_scenario_lines(row["source_plan"])
+    detail = body.splitlines()[len(layer_lines):]
+    if link and detail[-1:] == [link]:
+        detail.pop()
+
+    def pack(lines):
+        parts = []
+        for line in lines:
+            # An exact call can contain several sentences. Sentence boundaries
+            # let short destinations carry the full condition and both clocks.
+            sentences = [line] if width(line) <= limit else re.split(r"(?<=[.!?])\s+(?=[A-Z])", line)
+            for sentence in sentences:
+                if width(sentence) > limit:
+                    raise posts.PlanPostError("CC688_COMPLETE_SENTENCE_TOO_LONG:" + destination)
+                joined = parts[-1] + "\n" + sentence if parts else sentence
+                if parts and width(joined) <= limit:
+                    parts[-1] = joined
+                else:
+                    parts.append(sentence)
+        return parts
+
+    if destination == "x" and link:
+        parts = pack(layer_lines)
+        if parts:
+            return [parts[0], link + "\n\n" + notices, *parts[1:], *pack(detail)]
+        parts = pack(detail)
+        return [parts[0], link + "\n\n" + notices, *parts[1:]]
+    # The root holds the chart credit. Keeping the call sentences together
+    # avoids interrupting their exact wording with that credit or the notices.
+    tail = [*detail, *([link] if link else []), notices]
+    return [*pack(layer_lines), *pack(tail)]
 
 
 def _inherits_target_omission(row, store):
@@ -139,6 +186,11 @@ def validate(row, *, store=None):
                            ("entry_deadline_utc", "entry_deadline_utc"), ("time_exit_utc", "time_exit_utc")):
             if row.get(field) != terms[key]:
                 raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
+    if row.get("analysis_link") and store is not None:
+        from .plan_analysis_pages_v1 import confirmed_publication
+        publication = confirmed_publication(store, raw) or {}
+        if publication.get("canonical_url") != row["analysis_link"]:
+            raise posts.PlanPostError("CC688_CANONICAL_PLAN_LINK_CHANGED")
     if row["text"] != compose(row)["text"]:
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_COPY_CHANGED")
 

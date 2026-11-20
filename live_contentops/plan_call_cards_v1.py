@@ -487,7 +487,7 @@ def _refresh_unissued_no_entry_result(store, message, result, source):
 
 
 def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False,
-                instagram_profile_reader=None, **reader):
+                instagram_profile_reader=None, analysis_copy_root=None, **reader):
     if render_all and not dry_run:
         raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
@@ -701,6 +701,22 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                         (row.get("kind") == "run" and card_keys.intersection(row.get("card_keys") or []))]
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
+        if item["key"] not in prior and item.get("state_alert_contract"):
+            from .plan_reader_copy_v1 import ANALYSIS_COPY
+            from .plan_reader_editorial_v1 import prepare_plan_layers
+
+            plan = item["source_plan"]
+            original = cards.get(item["plan_id"]) or {}
+            quotes = original.get("analysis_layer_quotes")
+            if quotes is None or original.get("source_plan_registration") != plan["registration_hash"]:
+                folder = (Path(analysis_copy_root) / plan["plan_id"]
+                          if analysis_copy_root is not None and not dry_run else None)
+                quotes = prepare_plan_layers(plan, output_dir=folder)
+            confirmed = confirmed_publication(store, plan) or {}
+            if quotes or confirmed or analysis_copy_root is not None:
+                item.update(analysis_copy_contract=ANALYSIS_COPY, analysis_layer_quotes=quotes,
+                            analysis_link=confirmed.get("canonical_url"))
+                item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
                 rendered.append({"key":item["key"],"kind":item["kind"],"status":"EDITORIAL_INPUT_REQUIRED",
@@ -996,15 +1012,21 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         # Decision 113: use Telegram's text allowance with the hosted card as
         # its explicit large preview, rather than the photo caption allowance.
         limits["telegram"] = 4096
+    if row.get("analysis_copy_contract"):
+        limits["telegram"] = 4096
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
-        if destination == "threads" and row["kind"] != "run" and complete_levels:
+        if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
-            body = posts._split(text)[0]
-            parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
+            body, notices = posts._split(text)
+            if row.get("analysis_copy_contract"):
+                from .plan_state_alerts_v1 import analysis_thread_parts
+                parts = analysis_thread_parts(row, body, notices, destination=destination, limit=limits[destination])
+            else:
+                parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
             payload = {"destination": destination, "text": parts[0], "root_text": parts[0],
                        "full_text": "\n\n".join(parts), "reply_texts": parts[1:], "media_asset_ids": [card_id]}
             ref = (parents or {}).get(destination)
@@ -1034,7 +1056,11 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             text = body + "\n" + caption + "\n\n" + NOTICES
         if destination == "x":
             body, notices = posts._split(text)
-            chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
+            if row.get("analysis_copy_contract"):
+                from .plan_state_alerts_v1 import analysis_thread_parts
+                chunks = analysis_thread_parts(row, body, notices, destination=destination, limit=limits["x"])
+            else:
+                chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
             if any(posts._x_length(part) > limits["x"] for part in chunks):
                 raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:x")
             payload = {"destination": "x", "text": chunks[0], "root_text": chunks[0],
@@ -1177,7 +1203,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                      if not postable_run_members(store, row, d, root=root)]
         chosen = [d for d in chosen if postable_run_members(store, row, d, root=root)]
     x_analysis = previous.get("status_post_x_analysis")
-    if (row.get("x_analysis_thread") and "x" in chosen and not x_analysis
+    if (row.get("x_analysis_thread") and "x" in chosen and not x_analysis and not row.get("analysis_copy_contract")
             and not fast_alert and not _dispatch(store, key, "x")):
         from .plan_analysis_pages_v1 import confirmed_publication
         from .plan_reader_editorial_v1 import prepare_social_copy

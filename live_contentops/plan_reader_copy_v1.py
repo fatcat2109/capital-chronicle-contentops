@@ -19,6 +19,21 @@ THREAD_CONTRACT = "CC549_V1"
 LEVEL_CONTRACT = "CC584_V1"
 LEVEL_EFFECTIVE = datetime(2026, 11, 14, tzinfo=timezone.utc)
 EFFECTIVE = datetime(2026, 11, 11, 16, 30, tzinfo=timezone.utc)
+ANALYSIS_COPY = "CC688_V1"
+ANALYSIS_LAYERS = (
+    ("macro", "Macro"), ("fundamental", "Fundamentals"), ("positioning_sentiment", "Positioning and sentiment"),
+    ("options_gamma", "Options and gamma"), ("priced_in", "Priced in"), ("technical", "Technical"),
+)
+_LAYER_ALIASES = {"fundamentals": "fundamental", "positioning": "positioning_sentiment",
+                  "sentiment": "positioning_sentiment", "options": "options_gamma", "gamma": "options_gamma"}
+_FUNDAMENTAL = re.compile(r"\b(?:earnings|revenue|valuations?|inventor(?:y|ies)|stockpiles?|barrels|"
+                          r"supply|demand|production|output|shipments?|rate differential|net inflows?)\b", re.I)
+_OPTIONS = re.compile(r"\b(?:options?|gamma|gex|implied volatility|strikes?|skew)\b", re.I)
+_STRUCTURE = re.compile(r"\b(?:highs?|lows?|trend|brea(?:k|ch)\w*|levels?|shelf|"
+                         r"close[ds]?|entry|support|resistance|price|band)\b", re.I)
+_UNAVAILABLE_LAYER = re.compile(r"\b(?:unavailable|stale|not (?:read|used|available|consulted)|"
+                                r"no (?:usable|fresh|current|reliable) (?:input|data|read|options|gamma))\b", re.I)
+_LAYER_SPAN = re.compile(r"(?<=[.!?])\s+|\s*[;\n]\s*")
 LAYERS = (("macro", "Macro"), ("priced_in", "Priced in"),
           ("positioning", "Positioning"), ("fundamental", "Fundamentals"),
           ("geopolitical", "Geopolitics"), ("technical", "Structure"))
@@ -200,6 +215,118 @@ def check_text(text, *, source, max_chars=None, check_numbers=True, prose=True, 
     sourced = {word for word in capitals if re.search(r"\b" + word + r"\b", source)}
     return {"status": "PASS", "automatic_acronyms": sorted(sourced - base),
             "unknown_acronyms": sorted(capitals - base - sourced)}
+
+
+def analysis_layer_options(plan):
+    """Public, directly quotable sentences and source pointers from the frozen export."""
+    from .plan_analysis_pages_v1 import check_reader_claim
+
+    name_by_layer = dict(ANALYSIS_LAYERS)
+    sources = {layer: [] for layer in name_by_layer}
+
+    def add(layer, value, pointer, *, match=None, legacy=False):
+        if not isinstance(value, str):
+            return
+        for span in _LAYER_SPAN.split(value.strip()):
+            span = " ".join(span.split()).strip(" ,;:")
+            if legacy:
+                span = re.sub(r"^(?:ACCEPTED|AMBIGUOUS|REJECTED)[,: ]+\s*", "", span)
+            if (not span or _UNAVAILABLE_LAYER.search(span) or (match and not match.search(span))
+                    or re.search(r"\b(?:bullish|bearish)\b", span, re.I)):
+                continue
+            # Uppercasing the initial and supplying terminal punctuation leave
+            # the quote text and its figures intact.
+            text = span[0].upper() + span[1:]
+            if text[-1] not in ".?!":
+                text += "."
+            if len(text) > 220 or any(item["text"] == text for item in sources[layer]):
+                continue
+            try:
+                check_text(text, source=value, prose=False)
+                check_thread_text(text, force=True)
+                check_reader_claim(text, source=span)
+            except ValueError:
+                continue
+            sources[layer].append({"text": text, "ref": {"file": "plan-export", "pointer": pointer}})
+
+    explicit = plan.get("analysis_layers")
+    if isinstance(explicit, (dict, list)):
+        entries = (explicit.items() if isinstance(explicit, dict)
+                   else ((str(index), value) for index, value in enumerate(explicit)))
+        for key, value in entries:
+            label = key if isinstance(explicit, dict) else value.get("layer") if isinstance(value, dict) else None
+            label = str(label).lower().replace("-", "_").replace(" ", "_")
+            layer = _LAYER_ALIASES.get(label, label)
+            if layer not in sources:
+                continue
+            pointer = "/analysis_layers/" + key.replace("~", "~0").replace("/", "~1")
+            if isinstance(value, dict):
+                if value.get("used") is False or value.get("available") is False or str(value.get("status", "")).lower() in {
+                    "unavailable", "missing", "stale", "not_used", "not_available"
+                }:
+                    continue
+                field = "text" if "text" in value else "line"
+                add(layer, value.get(field), pointer + "/" + field)
+            else:
+                add(layer, value, pointer)
+    else:
+        # Older exports bundled the analyst's actual observations in the
+        # scenario fields. A named input alone is not an analyst observation.
+        scenario = plan.get("scenario_analysis") or {}
+
+        def legacy(layer, fields, pattern=None):
+            for field in fields:
+                add(layer, scenario.get(field), "/scenario_analysis/" + field, match=pattern, legacy=True)
+
+        legacy("macro", ("driver",))
+        legacy("fundamental", ("fundamental", "fundamentals", "mechanism", "driver", "positioning"), _FUNDAMENTAL)
+        legacy("positioning_sentiment", ("positioning", "sentiment"))
+        legacy("options_gamma", ("options", "gamma", "priced", "mechanism", "positioning"), _OPTIONS)
+        legacy("priced_in", ("priced",))
+        legacy("technical", ("acceptance", "confirmations", "mechanism", "zone_reason"), _STRUCTURE)
+    # A five-layer plan gets all five. Keep the extra legacy priced-in line
+    # where it adds depth without displacing an explicitly used layer.
+    if sum(bool(sources[key]) for key in sources if key != "priced_in") == 5:
+        sources["priced_in"] = []
+    return {key: options for key, options in sources.items() if options}
+
+
+def validate_analysis_line(options, layer, text):
+    if not isinstance(text, str) or not any(text == item["text"] for item in options.get(layer, ())):
+        raise ValueError("CC688_LAYER_NOT_QUOTED_FROM_PLAN:" + str(layer))
+
+
+def verified_analysis_lines(plan, quotes):
+    options = analysis_layer_options(plan)
+    if not isinstance(quotes, dict) or set(quotes) != set(options):
+        raise ValueError("CC688_LAYER_SET_CHANGED")
+    for layer, text in quotes.items():
+        validate_analysis_line(options, layer, text)
+    return [f"{label}: {quotes[layer]}" for layer, label in ANALYSIS_LAYERS if layer in quotes]
+
+
+def analysis_scenario_lines(plan):
+    from .plan_analysis_pages_v1 import check_reader_claim
+
+    scenario = plan.get("scenario_analysis") or {}
+    lines = []
+    for key, label in (("base_case", "Main"), ("main_alternative", "Alternative")):
+        branch = scenario.get(key) or {}
+        probability = branch.get("probability_pct")
+        if isinstance(probability, bool) or not isinstance(probability, (int, float)) or not 0 <= probability <= 100:
+            continue
+        summary = branch.get("market_move", "")
+        try:
+            if (not isinstance(summary, str) or not summary.strip()
+                    or re.search(r"\b(?:bullish|bearish)\b", summary, re.I)):
+                raise ValueError("SCENARIO_PROSE_NOT_PUBLIC")
+            check_text(summary, source=summary, max_chars=175, prose=False)
+            check_reader_claim(summary, source=summary)
+        except ValueError:
+            summary = ""
+        odds = f"{label} scenario ({probability:g}%)"
+        lines.append((odds + ": " + summary.strip()).rstrip(".") + "." if summary else odds + ".")
+    return lines
 
 
 def page_footer(plan, freeze, *, legacy=False):

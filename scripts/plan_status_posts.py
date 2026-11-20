@@ -104,7 +104,9 @@ def main(argv=None) -> int:
         # The existing task has a five-minute lifetime; a previous slow slice
         # therefore cannot consume this plan's entire ten-minute deadline.
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run, main_root=args.main_root, python=child_python())
+                             render_all=args.dry_run, main_root=args.main_root, python=child_python(),
+                             analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
+                             if args.publish and not args.dry_run else None)
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                 active_recoveries=result.get("active_recoveries"), immediate_only=True)

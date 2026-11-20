@@ -25,6 +25,62 @@ PAGE_LEASE = "cc466-plan-page-editorial"
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
+def prepare_plan_layers(plan, *, output_dir=None, call=None):
+    """Choose one public quote per layer before any status copy is issued."""
+    from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
+
+    options = reader.analysis_layer_options(plan)
+    quotes = {layer: candidates[0]["text"] for layer, candidates in options.items()}
+    if not quotes or output_dir is None:
+        return quotes
+    choices = {layer: [item["text"] for item in candidates] for layer, candidates in options.items()}
+    root = Path(output_dir) / ("layer-lines-" + sha256(canonical_bytes(choices)).hexdigest()[:20])
+    log = root / "light-call.json"
+    if log.is_file():
+        previous = json.loads(log.read_bytes())
+        selected = previous.get("checked_quotes")
+        if selected is not None:
+            reader.verified_analysis_lines(plan, selected)
+            return selected
+        # A run that stopped after its model call still owes the code fallback.
+        return quotes
+    prompt = (
+        "Do not call any tool. Select one exact supplied string for each layer of this market plan. "
+        "Choose the clearest concrete finding and avoid repeating the same observation under two labels. "
+        "Do not rewrite, combine or add words. Return one JSON object with the layer keys and selected strings.\n"
+        + json.dumps(choices, ensure_ascii=False)
+    )
+    call = call or call_light
+    answer, record = call(prompt, root=root, job="plan_layer_lines", callers=("antigravity",),
+                          timeout_cause=f"AGY_PLAN_LAYER_TIMEOUT_{AGY_TIMEOUT}S",
+                          empty_cause="AGY_PLAN_LAYER_EMPTY")
+    accepted = 0
+    findings = {}
+    if answer:
+        try:
+            drafted = json_answer(answer)
+            if not isinstance(drafted, dict):
+                raise ValueError("CC688_LAYER_OBJECT_REQUIRED")
+            for layer in options:
+                try:
+                    text = drafted.get(layer)
+                    reader.validate_analysis_line(options, layer, text)
+                except ValueError as exc:
+                    findings[layer] = str(exc)
+                else:
+                    quotes[layer] = text
+                    accepted += 1
+        except (UnicodeError, ValueError) as exc:
+            findings["answer"] = str(exc)
+    reader.verified_analysis_lines(plan, quotes)
+    record.update(job="plan_layer_lines", result="PASS" if accepted == len(options) and not findings else "FALLBACK",
+                  fallback=None if accepted == len(options) else "frozen_plan",
+                  lines_expected=len(options), lines_passed=accepted, findings=findings, checked_quotes=quotes)
+    root.mkdir(parents=True, exist_ok=True)
+    log.write_bytes(canonical_bytes(record))
+    return quotes
+
+
 def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, writer_deadline=None,
               retry_minute_timeout=False):
     from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run

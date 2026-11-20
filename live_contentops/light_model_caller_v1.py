@@ -204,7 +204,8 @@ def _codex_observations(raw, record):
     return messages[-1].encode() if messages else b""
 
 
-def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=None, schema=None):
+def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=None, schema=None,
+               callers=("antigravity", "codex"), job=None, codex_effort=CODEX_EFFORT, timeout_seconds=None):
     """Return (answer bytes, record); retain the first cause if both calls fail."""
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -215,6 +216,8 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
     record = {"policy": POLICY, "status": "FAILED", "started_at_utc": _now(),
         "prompt_sha256": sha256(prompt.encode()).hexdigest(), "prompt_bytes": len(prompt.encode()),
         "attempts": [], "answered_by": None, "configuration_status": "CONFIGURED_NOT_OBSERVED"}
+    if job:
+        record["job"] = job
     if image is not None:
         record["image_sha256"] = sha256(image.read_bytes()).hexdigest()
         record["image_bytes"] = image.stat().st_size
@@ -223,12 +226,13 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
         schema_path = root / "output.schema.json"
         _save(schema_path, schema)
     start, answer = perf_counter(), b""
-    for caller in ("antigravity", "codex"):
+    for caller in callers:
         run = runner or (_run if caller == "antigravity" else _run_codex)
-        limit = AGY_TIMEOUT if caller == "antigravity" else CODEX_IMAGE_TIMEOUT if image is not None else CODEX_TIMEOUT
+        limit = timeout_seconds or (AGY_TIMEOUT if caller == "antigravity"
+                                    else CODEX_IMAGE_TIMEOUT if image is not None else CODEX_TIMEOUT)
         attempt = {"caller": caller, "started_at_utc": _now(), "status": "FAILED",
             "configured_model": MODEL if caller == "antigravity" else CODEX_MODEL,
-            "configured_effort": EFFORT if caller == "antigravity" else CODEX_EFFORT,
+            "configured_effort": EFFORT if caller == "antigravity" else codex_effort,
             "configuration_status": "CONFIGURED_NOT_OBSERVED",
             "timeout_seconds": limit}
         raw, err, then, eligible = b"", b"", perf_counter(), False
@@ -238,7 +242,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
             with tempfile.TemporaryDirectory(prefix="cc512-light-", ignore_cleanup_errors=True) as cwd:
                 if caller == "antigravity":
                     args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
-                        "--print-timeout", str(AGY_TIMEOUT) + "s", "--input-format", "stream-json",
+                        "--print-timeout", str(limit) + "s", "--input-format", "stream-json",
                         "--output-format", "stream-json", "--print", ""]
                     if image is not None:
                         # AGY 1.5.5 cannot attach images. Retain the already supported
@@ -253,7 +257,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                 else:
                     result_path = Path(cwd) / "codex-answer.txt"
                     args = [codex_executable(), "exec", "--model", CODEX_MODEL,
-                        "-c", 'model_reasoning_effort="' + CODEX_EFFORT + '"',
+                        "-c", 'model_reasoning_effort="' + codex_effort + '"',
                         "--ignore-user-config", "--ephemeral", "--skip-git-repo-check", "--sandbox", "read-only",
                         "-c", 'approval_policy="never"', "-c", 'forced_login_method="chatgpt"',
                         "-c", 'web_search="disabled"', "--disable", "shell_tool", "--disable", "multi_agent",
@@ -310,7 +314,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
             if not eligible:
                 break
         else:
-            record["fallback_cause"] = attempt["cause"]
+            record["fallback_cause" if "cause" in record else "cause"] = attempt["cause"]
     record.update(ended_at_utc=_now(), elapsed_seconds=perf_counter() - start, artifact_path=str(root / "light-call.json"))
     if record["status"] == "RETURNED":
         if "cause" in record:

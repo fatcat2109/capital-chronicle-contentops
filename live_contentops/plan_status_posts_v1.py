@@ -1576,6 +1576,10 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         # The call can span complete-sentence replies. The exact stored copy
         # is checked above; here validate the ordered terms across post breaks.
         public_text = " ".join(public_text.split())
+    if row.get("analysis_copy_contract"):
+        from .plan_state_alerts_v1 import validate as validate_alert
+        validate_alert(row, store=store)
+        public_text = " ".join(public_text.split())
     check_publication_copy({"post": public_text},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [],
                            require_call_text=not (row.get("cc603_contract") and
