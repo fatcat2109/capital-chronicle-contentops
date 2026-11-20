@@ -57,6 +57,12 @@ def endpoint(*, fault=None):
                             ['New post','Comment','Post','Add post','Choose Files','CC436 image upload'])]+
                             [{"role":"textbox","name":"Post text" if page==1 else "What's on your mind?","ref":"edit"}],
                             "url":"https://x.com/Capitalnicle" if page==1 else "https://substack.com/@capitalchronicle","text":"fixture"}
+                        if dest == "x" and fault == "signed_out":
+                            value["url"] = "https://x.com/i/flow/login"
+                        if dest == "x" and fault == "challenge":
+                            value["url"] = "https://x.com/account/access"
+                        if dest == "x" and fault == "rate_limit":
+                            value["refs"].append({"role": "alert", "name": "Rate limit exceeded."})
                     else:
                         args_in=json.loads(code.split('const input=',1)[1].split(';\n',1)[0]); phase=args_in['phase']
                         if phase=='identity': value={"authenticated":fault!='account',"observed_identity":args_in['expected_identity'] if fault!='account' else None,
@@ -155,6 +161,33 @@ def test_wrong_account_or_changed_composer_makes_no_public_post(tmp_path,fault):
         result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
         assert result['status']=='DEFINITE_NO_WRITE',result
         assert not state['posts']
+
+
+@pytest.mark.parametrize("fault,cause", [
+    ("signed_out", "X_SIGNED_OUT"),
+    ("rate_limit", "X_RATE_LIMITED"),
+    ("challenge", "X_PLATFORM_RESTRICTION"),
+])
+def test_cc672_x_day_hold_requires_observed_platform_response(tmp_path, monkeypatch, fault, cause):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+
+    suspended = tmp_path / "suspended_routes.json"
+    monkeypatch.setattr(handoff, "SUSPENDED_ROUTES_FILE", suspended)
+    store = copied_store(tmp_path)
+    ids, intent = message(store, "x")
+    with endpoint(fault=fault) as (url, state):
+        coordinator, _ = bound(store, tmp_path, intent["work_item_id"], url)
+        result = coordinator._dispatch_message(store.get_outbox_message(ids["message_id"]),
+                                               canonical_url=intent["canonical_url"])
+        assert result["status"] == "DEFINITE_NO_WRITE", result
+        assert result["safe_error_classification"] == cause
+        assert coordinator._destination_day_failure("x")["safe_error_classification"] == cause
+        assert not state["posts"]
+        assert not any(name == "act" for name, _ in state["calls"])
+        if fault == "challenge":
+            assert json.loads(suspended.read_text(encoding="utf-8")) == {"x": cause}
+        else:
+            assert not suspended.exists()
 
 
 def test_lost_publish_return_recovers_by_readback_without_reposting(tmp_path):
@@ -945,8 +978,10 @@ def test_composer_preparation_does_not_mute_unrelated_posts_when_definitely_unse
     c=Coordinator(store=store,transport_runtime=None)
     detail={'status':status,'safe_error_classification':'NEO_COMPOSER_PREPARATION_FAILED'}
     c._record_destination_day_failure(value,destination,detail)
-    assert (c._destination_day_failure(destination) is None) is (status=='DEFINITE_NO_WRITE')
-    if status=='UNKNOWN_WRITE': return
+    local = status == 'DEFINITE_NO_WRITE' or destination == 'x'
+    assert (c._destination_day_failure(destination) is None) is local
+    if not local:
+        return
     # Preserve and interpret incidents made by the previously installed code.
     incident_id,_=c._destination_failure_key(destination)
     original=json.dumps(detail,sort_keys=True)

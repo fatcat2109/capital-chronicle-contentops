@@ -188,7 +188,7 @@ def test_quote_absence_reader_requires_loaded_own_profile_and_older_last_post():
     assert "target_post_absent" not in NeoBrowserDriver(Reader()).readback(request,1)
 
 
-def test_local_begin_circuit_repair_requires_exact_original_claim_and_reconciled_absence(prepared,tmp_path):
+def test_interrupted_quote_begin_keeps_its_claim_without_stopping_x(prepared,tmp_path):
     from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator,NativeNeoInputRequired
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
@@ -205,13 +205,15 @@ def test_local_begin_circuit_repair_requires_exact_original_claim_and_reconciled
     request["request_sha256"]=sha256_of({k:v for k,v in request.items() if k!="request_sha256"})
     with pytest.raises(NativeNeoInputRequired):e(request)
     e._put(request["request_sha256"],"started",{"begun_at_utc":now.isoformat()},row["key"])
-    c._record_destination_day_failure(intent,"x",{"dispatch_id":ids["dispatch_id"],"safe_error_classification":"KeyError","status":"UNKNOWN_WRITE"})
-    with pytest.raises(ValueError,match="BEGIN_FAILURE_AND_ABSENCE"):
-        c.resolve_unregistered_quote_begin_failure(ids["dispatch_id"],native_executor=e)
-    store.set_dispatch_status(ids["dispatch_id"],"RECONCILED_ABSENT_SAFE_TO_RETRY")
-    result=c.resolve_unregistered_quote_begin_failure(ids["dispatch_id"],native_executor=e)
-    assert result["severity"]=="RESOLVED_LOCAL_PREWRITE" and c._destination_day_failure("x") is None
-    assert store.get_platform_dispatch(ids["dispatch_id"])["status"]=="RECONCILED_ABSENT_SAFE_TO_RETRY"
+    incident, _ = c._destination_failure_key("x")
+    store.register_incident(incident_id=incident, work_item_id=row["key"], severity="DISPATCH_FAILURE",
+        description=json.dumps({"dispatch_id": ids["dispatch_id"], "safe_error_classification": "KeyError",
+                                "status": "UNKNOWN_WRITE"}))
+    assert c._destination_day_failure("x") is None
+    outcome = c._dispatch_message(store.get_outbox_message(ids["message_id"]), canonical_url=None)
+    assert not outcome["publish_called"]
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "UNKNOWN_WRITE"
+    assert e._get(request["request_sha256"], "response") is None
 
 
 @pytest.mark.parametrize("quote_views,ordinary_views,decision",[(30,10,"KEEP"),(1,10,"STOP"),(None,10,None)])

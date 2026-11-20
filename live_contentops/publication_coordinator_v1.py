@@ -405,13 +405,11 @@ LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
 })
 
 
-def _local_quote_preclick_failure(destination, detail):
-    cause = detail.get("reason_code") or detail.get("safe_error_classification")
-    return destination == "x" and detail.get("status") == DEFINITE_NO_WRITE and cause in {
-        "CC467_QUOTED_SOURCE_OR_CHART_MISSING", "CC467_QUOTE_CARD_NOT_VERIFIED",
-        "CC467_CHART_PREVIEW_NOT_LOADED", "CC467_SOURCE_OUTSIDE_FIVE_MINUTES",
-        "CC467_QUOTE_PRECLICK_OBSERVATION_FAILED", "CC467_QUOTE_SUBMIT_NOT_READY",
-    }
+def _x_platform_day_failure(detail):
+    causes = str(detail.get("reason_code") or detail.get("safe_error_classification") or "").split(";")
+    return detail.get("status") == DEFINITE_NO_WRITE and any(
+        cause in {"X_PLATFORM_RESTRICTION", "X_RATE_LIMITED", "X_SIGNED_OUT"} for cause in causes
+    )
 
 
 def _local_missing_threads_text(destination, detail):
@@ -2849,11 +2847,14 @@ class DurablePublicationCoordinator:
                     (incident_id + "_local_prewrite_resolved",)).fetchone()
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
+                if destination == "x" and failure and not _x_platform_day_failure(failure):
+                    # Retain old incidents as per-post evidence without holding unrelated X copies.
+                    incident_id += "_after_local_prewrite_repair"
+                    continue
                 local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                     or self._transient_readiness_failure(failure)
                     or _local_missing_threads_text(destination, failure) or _local_identity_refusal(destination, failure)
-                    or _local_instagram_validation_failure(destination, failure)
-                    or _local_quote_preclick_failure(destination, failure))
+                    or _local_instagram_validation_failure(destination, failure))
                 if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
                         "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}:
                     local = failure.get("status") == DEFINITE_NO_WRITE
@@ -2959,40 +2960,15 @@ class DurablePublicationCoordinator:
                 "dispatch_id":dispatch["dispatch_id"],"request_hash":request_hash,
                 "public_write_performed":False,"retry_performed":False}))
 
-    def resolve_unregistered_quote_begin_failure(self, dispatch_id, *, native_executor):
-        """Release this local X circuit only after the existing absence owner settles it."""
-        dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
-        failure = self._destination_day_failure("x") or {}
-        if (dispatch.get("status") != RECONCILED_ABSENT_SAFE_TO_RETRY
-                or failure.get("dispatch_id") != dispatch_id or failure.get("safe_error_classification") != "KeyError"):
-            raise ValueError("CC467_EXACT_LOCAL_BEGIN_FAILURE_AND_ABSENCE_REQUIRED")
-        message = self.store.get_outbox_message(dispatch["message_id"])
-        for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=message["work_item_id"]):
-            packet = json.loads(row["payload"])
-            request = packet.get("request") or {}
-            if (request.get("action") == "PUBLISH" and request.get("destination") == "x"
-                    and request.get("surface") == "X_QUOTE_POST" and request.get("quote_parent")
-                    and request.get("dispatch_attempt_identity") == dispatch_id):
-                key = request["request_sha256"]
-                if not native_executor._get(key,"started") or native_executor._get(key,"response"):
-                    raise ValueError("CC467_EXACT_INTERRUPTED_BEGIN_REQUIRED")
-                incident_id, _, _ = self._destination_failure_cursor("x")
-                return self.store.register_incident(incident_id=incident_id+"_local_prewrite_resolved",
-                    work_item_id=request["work_item_id"], severity="RESOLVED_LOCAL_PREWRITE",
-                    description=_canonical_json({"cause":"CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM",
-                        "dispatch_id":dispatch_id,"request_sha256":key,"reconciled_absent":True,
-                        "public_write_performed":False,"retry_performed":False}))
-        raise ValueError("CC467_EXACT_UNREGISTERED_SURFACE_REQUEST_REQUIRED")
-
     def _record_destination_day_failure(self, intent, destination, detail, instant=None):
         # CC-401: reuse the incident table as the daily circuit, with first cause
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
-        if (self._transient_readiness_failure(detail)
+        if ((destination == "x" and not _x_platform_day_failure(detail))
+                or self._transient_readiness_failure(detail)
                 or _local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)
-                or _local_instagram_validation_failure(destination, detail)
-                or _local_quote_preclick_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                or _local_instagram_validation_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                 and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
                      or detail.get("status") == DEFINITE_NO_WRITE)):
             return

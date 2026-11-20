@@ -392,6 +392,28 @@ class NeoBrowserDriver:
         """Observe objections without clicking a checkpoint or optional verification."""
         snapshot = self.client.snapshot(page)
         text, url = snapshot.get("text", ""), snapshot.get("url", "")
+        destination = request["destination"]
+        x_path = ""
+        if destination == "x":
+            parsed = urlsplit(url)
+            if parsed.hostname not in {"x.com", "www.x.com"}:
+                return None
+            x_path = parsed.path.rstrip("/")
+            # A post's text can mention a rate limit or an account restriction.
+            # Use visible platform notices and sign-in/checkpoint URLs as proof.
+            text = "\n".join(str(ref.get("name") or "") for ref in snapshot.get("refs", [])
+                if ref.get("role") in {"alert", "dialog", "heading"})
+            rate_limit = re.search(
+                r"^(?:rate limit exceeded|you are over the daily limit for sending posts)[.!]?$",
+                text, re.I | re.M,
+            )
+            cause = ("X_SIGNED_OUT" if x_path in {"/login", "/i/flow/login"}
+                     else "X_RATE_LIMITED" if rate_limit else None)
+            if cause:
+                return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "public_write_performed": False, "stage": "BEFORE_PUBLISH_CLICK",
+                    "reason_code": cause, "platform_wording": rate_limit.group(0) if rate_limit else None,
+                    "page_url": url}
         patterns = (
             r"[^\n]*(?:your account (?:has been|is) (?:temporarily )?(?:restricted|suspended)|"
             r"your channel (?:has been|is) (?:removed|suspended|terminated)|"
@@ -400,18 +422,19 @@ class NeoBrowserDriver:
         )
         wording = next((m.group(0).strip() for p in patterns if (m := re.search(p, text, re.I))), None)
         external_verification = None
-        if request["destination"] == "youtube":
+        if destination == "youtube":
             external_verification = self.client.run(page, "article_restriction")
             if external_verification.get("verification_required"):
                 wording = external_verification["platform_wording"]
-        checkpoint = bool(re.search(r"/(?:checkpoint|challenge|verify)(?:/|\?|$)", url, re.I))
+        checkpoint = bool(re.search(r"/(?:checkpoint|challenge|verify)(?:/|\?|$)", url, re.I)
+                          or x_path == "/account/access")
         if not wording and not checkpoint:
             return None
-        cause = {"linkedin_company":"LINKEDIN", "youtube":"YOUTUBE", "x":"X"}[request["destination"]] + "_PLATFORM_RESTRICTION"
+        cause = {"linkedin_company":"LINKEDIN", "youtube":"YOUTUBE", "x":"X"}[destination] + "_PLATFORM_RESTRICTION"
         if external_verification and external_verification.get("verification_required"):
             cause = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
         from .neo_destination_handoff_v1 import suspend_route
-        suspend_route(request["destination"], cause)
+        suspend_route(destination, cause)
         return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
             "public_write_performed": False, "stage": "BEFORE_PUBLISH_CLICK",
             "reason_code": cause, "platform_wording": wording or text[:1500], "page_url": url}
@@ -916,7 +939,7 @@ class NeoBrowserDriver:
             page = self.client.open(destination, profile)
             if request["action"] == "READBACK":
                 return {"result":self.readback(request,page),"identity":identity}
-            if request.get("quote_parent"):
+            if destination == "x":
                 refused = self.article_guard(request, page)
                 if refused:
                     return {"result":refused, "identity":identity}

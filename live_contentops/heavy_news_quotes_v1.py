@@ -254,10 +254,6 @@ def refresh_due(store, *, feed_path=FEED, root=ROOT, now=None, call=None, captur
             result = replies.publish(store, row["key"], coordinator=coordinator, root=root, now=now if call else None)
             for dispatch in store.get_dispatches_for_work_item(row["key"]):
                 if dispatch["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY":
-                    executor = getattr(getattr(coordinator.transport_runtime,"_neo_transport",None),"native_executor",None)
-                    failure = coordinator._destination_day_failure("x") or {}
-                    if executor and failure.get("dispatch_id") == dispatch["dispatch_id"] and failure.get("safe_error_classification") == "KeyError":
-                        coordinator.resolve_unregistered_quote_begin_failure(dispatch["dispatch_id"],native_executor=executor)
                     store.set_outbox_status(row["key"],"SOURCE_EXPIRED_AFTER_RECONCILED_ABSENCE")
                     for reserved in store.list_outbox_messages(destination=replies.RESERVATIONS):
                         if json.loads(reserved["payload"]).get("key") == row["key"]:

@@ -126,6 +126,50 @@ def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, m
         ("discord", "2026-11-09"), ("threads", "2026-11-09"), ("discord", "2026-11-10")]
 
 
+@pytest.mark.parametrize("first_status,cause", [
+    ("DEFINITE_NO_WRITE", "CC467_VISIBLE_SOURCE_CHANGED"),
+    ("UNKNOWN_WRITE", "NEO_RPC_DEADLINE_EXCEEDED"),
+])
+def test_cc672_x_quote_failure_leaves_next_x_copy_eligible(tmp_path, first_status, cause):
+    class QuoteFailure(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if intent["work_item_id"] == "work-1":
+                self.publish_calls.append(destination)
+                if first_status == DEFINITE_NO_WRITE:
+                    return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "reason_code": cause}
+                return {"status": UNKNOWN_WRITE, "reason_code": cause}
+            return super().publish(destination=destination, intent=intent,
+                                   authorization_context=authorization_context)
+
+        def readback(self, **request):
+            if request["intent"]["work_item_id"] == "work-1":
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(**request)
+
+    store, runtime, coordinator = _coordinator(tmp_path, runtime=QuoteFailure())
+    first, = coordinator.register_plan("work-1", _plan("x"))["registered"]
+    first_message = store.get_outbox_message(first["message_id"])
+    refused = coordinator._dispatch_message(first_message, canonical_url=None)
+    assert refused["status"] == first_status
+    assert coordinator._destination_day_failure("x") is None
+
+    incident_id, _ = coordinator._destination_failure_key("x")
+    legacy = json.dumps({"status": first_status, "safe_error_classification": cause,
+                         "dispatch_id": first["dispatch_id"]})
+    store.register_incident(incident_id=incident_id, work_item_id="work-1",
+                            severity="DISPATCH_FAILURE", description=legacy)
+    store.create_work_item(story_id="next-plan", title="Next plan", target_surface="MULTI_PLATFORM",
+                           work_item_id="next-plan")
+    next_copy, = coordinator.register_plan("next-plan", _plan("x"))["registered"]
+    sent = coordinator._dispatch_message(store.get_outbox_message(next_copy["message_id"]), canonical_url=None)
+    assert sent["status"] == DISPATCH_CONFIRMED
+    assert not coordinator._dispatch_message(first_message, canonical_url=None)["publish_called"]
+    assert store.get_platform_dispatch(first["dispatch_id"])["status"] == first_status
+    assert runtime.publish_calls == ["x", "x"]
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()[0] == legacy
+
+
 def test_transient_readiness_probe_rechecks_the_same_unclaimed_copy(cc401_copied_store, monkeypatch):
     from datetime import timedelta
     from live_contentops.destination_transport_registry_v1 import DestinationReadinessManager, _base_row
@@ -221,13 +265,13 @@ def test_substack_dashboard_probe_recovers_without_waiting_for_the_next_day(tmp_
 def test_cc536_native_return_failure_releases_only_exact_reconciled_absence(cc401_copied_store, dispatch_status, reconciliation_status, released, cause):
     store=cc401_copied_store
     coordinator=DurablePublicationCoordinator(store=store,transport_runtime=FixtureTransport())
-    row=coordinator.register_plan("work-1",_plan("x"))["registered"][0]
-    store.register_platform_dispatch(dispatch_id=row["dispatch_id"],message_id=row["message_id"],platform="x",status=dispatch_status)
+    row=coordinator.register_plan("work-1",_plan("substack"))["registered"][0]
+    store.register_platform_dispatch(dispatch_id=row["dispatch_id"],message_id=row["message_id"],platform="substack",status=dispatch_status)
     store.register_reconciliation(reconciliation_id=row["reconciliation_id"],work_item_id="work-1",status=reconciliation_status)
-    incident,_=coordinator._destination_failure_key("x")
+    incident,_=coordinator._destination_failure_key("substack")
     store.register_incident(incident_id=incident,work_item_id="work-1",severity="DISPATCH_FAILURE",
         description=json.dumps({"status":"UNKNOWN_WRITE","safe_error_classification":cause,"dispatch_id":row["dispatch_id"]}))
-    assert (coordinator._destination_day_failure("x") is None) is released
+    assert (coordinator._destination_day_failure("substack") is None) is released
 
 
 @pytest.mark.parametrize("claimed", [False, True])
