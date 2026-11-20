@@ -101,10 +101,24 @@ def main(argv=None) -> int:
         # CC-543: the plan's API alerts precede every model/browser operation.
         # The existing task has a five-minute lifetime; a previous slow slice
         # therefore cannot consume this plan's entire ten-minute deadline.
-        result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run, main_root=args.main_root, python=child_python(),
-                             analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
-                             if args.publish and not args.dry_run else None)
+        from live_contentops.plan_queue_clock_v1 import PlanQueueClock
+        run_folder = args.store.parent / posts.RUN_RECORD_FOLDER
+        queue_clock = None if args.dry_run else PlanQueueClock(store, run_folder, posts.record_run)
+        try:
+            result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
+                                 render_all=args.dry_run, main_root=args.main_root, python=child_python(),
+                                 queue_clock=queue_clock,
+                                 analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
+                                 if args.publish and not args.dry_run else None)
+        except Exception as exc:
+            if queue_clock is not None:
+                cause = str(exc) if isinstance(exc, posts.PlanPostError) else "PLAN_QUEUE_ERROR:" + type(exc).__name__
+                queue_clock.finish({"cause": cause})
+            raise
+        if queue_clock is not None:
+            queue_clock.finish(result)
+            if queue_clock.error:
+                result["plan_export_queue_record_error"] = queue_clock.error
         page_root = args.store.parent / "daily_app_outputs/plan_analysis"
         page_worker = None
         if args.publish and not args.dry_run and result["status"] == "OK":

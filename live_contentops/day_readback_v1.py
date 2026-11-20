@@ -1127,6 +1127,10 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     if report["digest"]["public_readback"]:
         for issue in report["digest"]["public_readback"]["exceptions"]:
             exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
+    from .plan_queue_clock_v1 import read_queue_events
+    from .plan_status_posts_v1 import RUN_RECORD_FOLDER
+
+    checks.plan_queue(read_queue_events(Path(store_path).parent / RUN_RECORD_FOLDER, checks.start, checks.end))
     report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls,
         plan_export=plan_export, announced=announced, plan_source_error=plan_source_error,
         plan_cutoff=plan_cutoff)
@@ -1225,7 +1229,10 @@ def markdown(report):
     lines.append("")
     lines.append(f"Exceptions: {report['exception_count']}.")
     for item in report["exceptions"]:
-        lines.append(f"- {plain(item['piece_id'])} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
+        label = plain(item["piece_id"])
+        if item.get("decision") == "CC-732":
+            label = f"{plain(item['plan_id'])} / {plain(item['state'])} · {item['gap_seconds']:g}s ({label})"
+        lines.append(f"- {label} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
                      f"{item['first_cause']}; {item['public_url'] or 'no public URL'}.")
     if decisions := report.get("decision_checks"):
         lines.extend(["", "## Decision checks", "",

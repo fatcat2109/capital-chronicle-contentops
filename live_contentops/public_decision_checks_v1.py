@@ -18,7 +18,7 @@ from .x_reply_trading_dates_v1 import trading_date
 
 WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_page",
                "instagram_business", "threads", "linkedin", "linkedin_company", "x")
-DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83")
+DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83", "CC-732")
 PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
 LATE_LINE = "this page was published after the plan ended"
 LAYER_PREFIX = re.compile(
@@ -301,6 +301,16 @@ class DecisionChecks:
         if cause:
             self.issue(decision, copy.piece, copy.platform, cause, url=copy.url,
                        evidence=copy.evidence, status=status, **details)
+
+    def plan_queue(self, events):
+        from .plan_queue_clock_v1 import DECISION
+
+        self.counts[DECISION] = len({event.get("source_transition_id") or event["key"] for event in events})
+        for event in events:
+            if event["alarm"]:
+                self.issue(DECISION, event.get("source_transition_id") or event["key"], "internal",
+                           event["first_cause"], evidence=event,
+                           plan_id=event["plan_id"], state=event["state"], gap_seconds=event["gap_seconds"])
 
     def _wraps(self):
         by_kind = defaultdict(list)
