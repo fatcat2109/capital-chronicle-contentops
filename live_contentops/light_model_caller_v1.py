@@ -204,7 +204,8 @@ def _codex_observations(raw, record):
     return messages[-1].encode() if messages else b""
 
 
-def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=None, schema=None):
+def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=None, schema=None,
+               callers=("antigravity", "codex"), codex_effort=CODEX_EFFORT, codex_timeout=None):
     """Return (answer bytes, record); retain the first cause if both calls fail."""
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -223,12 +224,14 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
         schema_path = root / "output.schema.json"
         _save(schema_path, schema)
     start, answer = perf_counter(), b""
-    for caller in ("antigravity", "codex"):
+    for caller in callers:
         run = runner or (_run if caller == "antigravity" else _run_codex)
         limit = AGY_TIMEOUT if caller == "antigravity" else CODEX_IMAGE_TIMEOUT if image is not None else CODEX_TIMEOUT
+        if caller == "codex" and codex_timeout is not None:
+            limit = codex_timeout
         attempt = {"caller": caller, "started_at_utc": _now(), "status": "FAILED",
             "configured_model": MODEL if caller == "antigravity" else CODEX_MODEL,
-            "configured_effort": EFFORT if caller == "antigravity" else CODEX_EFFORT,
+            "configured_effort": EFFORT if caller == "antigravity" else codex_effort,
             "configuration_status": "CONFIGURED_NOT_OBSERVED",
             "timeout_seconds": limit}
         raw, err, then, eligible = b"", b"", perf_counter(), False
@@ -253,7 +256,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                 else:
                     result_path = Path(cwd) / "codex-answer.txt"
                     args = [codex_executable(), "exec", "--model", CODEX_MODEL,
-                        "-c", 'model_reasoning_effort="' + CODEX_EFFORT + '"',
+                        "-c", 'model_reasoning_effort="' + codex_effort + '"',
                         "--ignore-user-config", "--ephemeral", "--skip-git-repo-check", "--sandbox", "read-only",
                         "-c", 'approval_policy="never"', "-c", 'forced_login_method="chatgpt"',
                         "-c", 'web_search="disabled"', "--disable", "shell_tool", "--disable", "multi_agent",
@@ -309,6 +312,8 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
             record["cause"] = attempt["cause"]
             if not eligible:
                 break
+        elif caller == callers[0]:
+            record["cause"] = attempt["cause"]
         else:
             record["fallback_cause"] = attempt["cause"]
     record.update(ended_at_utc=_now(), elapsed_seconds=perf_counter() - start, artifact_path=str(root / "light-call.json"))

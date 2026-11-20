@@ -1,10 +1,11 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from hashlib import sha256
 import json
 
 import pytest
 
 from live_contentops import market_wrap_sources_v1 as sources
+from live_contentops import market_wrap_editorial_v1 as editorial
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 
 
@@ -98,3 +99,75 @@ def test_normal_day_is_measured_on_its_own_instrument():
     assert sources.move("XAUUSD", end, start, basis="since the last wrap", normal_day=4)["normal_days"] == -2.5
     with pytest.raises(ValueError, match="INSTRUMENT_MISMATCH"):
         sources.move("XAUUSD", {**end, "symbol": "XAU="}, start, basis="since the last wrap")
+
+
+@pytest.fixture
+def pack(cash):
+    now = at("2026-11-23T13:00Z")
+    first = {"symbol": "GC=F", "value": 100, "date": "2026-11-20"}
+    quote = {"symbol": "GC=F", "value": 99, "observed_at_utc": now.isoformat()}
+    return {
+        "slot": sources.slot_at(now, cash),
+        "markets": {"XAUUSD": sources.move("XAUUSD", quote, first, basis="since the last wrap", normal_day=4)},
+        "analysis": {"at_utc": "2026-11-23T12:00Z", "layers": {
+            "XAUUSD": {"Macro and catalysts": "Higher yields weighed on gold.", "Options": "Skew rose."}},
+            "outlooks": {}},
+        "data_cutoff_utc": now.isoformat(), "snapshots": {"XAUUSD": quote},
+        "events": [{"id": "US_GDP_20261123", "name": "Gross Domestic Product", "time": "Mon 23 Nov, 8:30 AM ET",
+                    "qualifier": "", "source_url": "https://www.bea.gov/news"}],
+        "weekend_events": [], "plans": {"rows": [{"id": "plan_1", "text": "Gold, Waiting for entry."}]},
+        "gaps": {"quote:US500": "unavailable"}, "weekly_calls": None,
+    }
+
+
+def select_first(prompt, **kwargs):
+    options = json.loads(prompt.split("\n", 1)[1])
+    result = {section: [{"id": key, "text": lines[0]} for key, lines in rows.items()]
+              for section, rows in options.items()}
+    return json.dumps(result).encode(), {"answered_by": kwargs["callers"][0]}
+
+
+def test_edition_writer_binds_moves_and_events_to_exact_rows(tmp_path, pack):
+    def wrong(prompt, **kwargs):
+        answer, record = select_first(prompt, **kwargs)
+        if kwargs["callers"] == ("codex",):
+            return answer, record
+        value = json.loads(answer)
+        value["changes"][0]["text"] = value["changes"][0]["text"].replace("-1.00%", "+1.00%")
+        value["events"][0]["text"] = value["events"][0]["text"].replace("8:30", "9:30")
+        return json.dumps(value).encode(), record
+
+    manuscript = editorial.draft(pack, tmp_path, call=wrong)
+    article, markets = editorial.article_for(pack, manuscript)
+    assert not markets
+    assert "9:30" not in article["substack_body_markdown"]
+    assert "+1.00%" not in article["substack_body_markdown"]
+    assert "Gold, Waiting for entry." in article["substack_body_markdown"]
+    assert json.loads((tmp_path / "wrap-changes/light-call.json").read_bytes())["result"] == "FAIL"
+
+
+def test_codex_capacity_returns_desk_sections_to_antigravity(tmp_path, pack):
+    callers = []
+
+    def call(prompt, **kwargs):
+        callers.extend(kwargs["callers"])
+        if kwargs["callers"] == ("codex",):
+            assert kwargs["codex_effort"] == "max"
+            return b"", {"cause": "CODEX_QUOTA"}
+        return select_first(prompt, **kwargs)
+
+    manuscript = editorial.draft(pack, tmp_path, call=call)
+    article, markets = editorial.article_for(pack, manuscript)
+    assert callers == ["antigravity", "codex", "antigravity"]
+    assert "Gross Domestic Product" in article["substack_body_markdown"]
+    assert "Higher yields weighed on gold." in article["substack_body_markdown"]
+    hit = article["substack_body_markdown"].count("Higher yields weighed on gold.")
+    assert hit == 1
+    asset = editorial.chart_for(pack, markets, tmp_path)
+    assert (asset["width"], asset["height"]) == (1080, 1350)
+    assert "Gold -0.25" in asset["alt_text"]
+    link = "https://capitalchronicle.substack.com/p/pre-us-wrap"
+    for route in ("x", "substack_notes", "instagram_business", "linkedin_company", "discord"):
+        payload = editorial.derivative_payload(article, asset, link, route)
+        assert link in payload["text"]
+        assert payload["media_asset_ids"] == [asset["asset_id"]]

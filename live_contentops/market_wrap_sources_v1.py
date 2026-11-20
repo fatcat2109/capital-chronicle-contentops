@@ -88,12 +88,20 @@ def safe_prose(value):
         line, _ = _clean(value)
         if line and not any(len(words(s)) > 35 for s in sentences(line)):
             from .plan_analysis_pages_v1 import public_filter
+            from .public_instruments_v1 import POLICY, validate_payload
             public_filter(line)
+            validate_payload({"public_instrument_policy": POLICY}, {"text": line})
             check_publication_copy({"body": line}, require_notice=False)
             return line
     except (ValueError, IndexError):
         return None
     return None
+
+
+def public_sentences(value):
+    # A private or internal sentence does not take adjacent public analysis
+    # out of the wrap. Sentence spans are still the analyst's own words.
+    return [line for span in sentences(value) if (line := safe_prose(span))] if isinstance(value, str) else []
 
 
 def _market(candidate_id):
@@ -107,23 +115,25 @@ def project_main(value):
     primary = value.get("primary_analysis") or {}
     layers = {key: {} for key in MARKETS}
     outlooks = {}
-    for row in primary.get("candidate_evaluations") or []:
-        market = _market(row.get("candidate_id"))
-        if market:
-            line = safe_prose(row.get("mechanism_and_transmission"))
-            if line:
-                layers[market]["Macro and catalysts"] = line
+    for entries, field in (("causal_reasoning", "supporting_mechanism"),
+                           ("candidate_evaluations", "mechanism_and_transmission")):
+        for row in primary.get(entries) or []:
+            market = _market(row.get("candidate_id"))
+            lines = public_sentences(row.get(field))
+            if market and lines:
+                layers[market].setdefault("Macro and catalysts", lines[0])
     for row in synthesis.get("candidates") or []:
         market = _market(row.get("candidate_id"))
         if not market:
             continue
-        line = safe_prose(row.get("rationale"))
-        if line:
-            outlooks[market] = line
-    for row in primary.get("claims") or []:
-        line = safe_prose(row.get("claim"))
-        if not line:
-            continue
+        lines = public_sentences(row.get("rationale"))
+        if lines:
+            outlooks[market] = lines[0]
+    field_lines = [(line, [row.get("candidate_id")]) for row in synthesis.get("candidates") or []
+                   for line in public_sentences(row.get("rationale"))]
+    field_lines += [(line, row.get("candidate_ids") or []) for row in primary.get("claims") or []
+                    for line in public_sentences(row.get("claim"))]
+    for line, candidates in field_lines:
         # Classify only lines that name the layer themselves. A causal claim
         # can inform more than one market when Main binds those candidate IDs.
         for label, pattern in (
@@ -133,12 +143,11 @@ def project_main(value):
             ("Technical", r"\b(?:support|resistance|breakout|moving average|trend)\b"),
         ):
             if re.search(pattern, line, re.I):
-                for candidate_id in row.get("candidate_ids") or []:
+                for candidate_id in candidates:
                     market = _market(candidate_id)
                     if market:
                         layers[market].setdefault(label, line)
-    summaries = [line for row in synthesis.get("summary") or []
-                 if (line := safe_prose(row.get("text")))]
+    summaries = [line for row in synthesis.get("summary") or [] for line in public_sentences(row.get("text"))]
     return {"layers": layers, "outlooks": outlooks, "summary": summaries[:2]}
 
 
@@ -194,7 +203,8 @@ def project_plans(export, as_of):
         if label is None and row.get("status") is None and until and utc(until) > as_of:
             label = "Status unavailable"
         if label:
-            instrument = MARKETS.get(market, (market,))[0]
+            from .plan_status_posts_v1 import TITLES
+            instrument = MARKETS.get(market, (TITLES.get(market, market),))[0]
             horizon = {"MID": "mid-term", "SHORT": "short-term", "LONG": "long-term"}.get(row.get("horizon_lane"))
             registered = et(row["registered_at_utc"]) if row.get("registered_at_utc") else None
             description = ", ".join(x for x in (instrument, horizon, label,
@@ -206,19 +216,19 @@ def project_plans(export, as_of):
         cases = []
         for key, name in (("base_case", "Main"), ("main_alternative", "Alternative")):
             case = scenario.get(key) or {}
-            text = safe_prose(case.get("market_move"))
-            if not text:
+            lines = public_sentences(case.get("market_move"))
+            if not lines:
                 break
             odds = case.get("probability_pct")
             probability = format(odds, "g") if type(odds) in (int, float) and 0 < odds < 100 else None
             if key == "base_case" and probability is None:
                 break
             checks = (
-                ("Confirmation", safe_prose(case.get("confirmation"))),
-                ("Invalidation", safe_prose(scenario.get("invalidation_text")
-                                          or scenario.get("invalidation_reason"))),
+                ("Confirmation", next(iter(public_sentences(case.get("confirmation"))), None)),
+                ("Invalidation", next(iter(public_sentences(scenario.get("invalidation_text")
+                                                           or scenario.get("invalidation_reason"))), None)),
             )
-            cases.append({"name": name, "probability": probability, "text": text,
+            cases.append({"name": name, "probability": probability, "text": lines[0],
                           "checks": dict((label, v) for label, v in checks if v)})
         if len(cases) == 2 and row.get("registered_at_utc") and utc(row["registered_at_utc"]) <= as_of:
             scenarios.append({"market": market, "id": plan_id, "registered_at_utc": row["registered_at_utc"],
@@ -262,6 +272,8 @@ def calendar_events(raw, start, end, *, as_of):
                 timestamp = None
                 label = f"{scheduled:%a} {scheduled.day} {scheduled:%b} (date only)"
             check_publication_copy({"title": title}, require_notice=False)
+            from .plan_analysis_pages_v1 import public_filter
+            public_filter(title, source_locator=url)
         except (KeyError, ValueError, TypeError, AttributeError):
             continue
         qualifier = " (if needed)" if row["schedule_status"].endswith("IF_NECESSARY") else ""
@@ -351,15 +363,34 @@ def normal_day(bars, before):
     return sum(ranges) / len(ranges) or None
 
 
+def prior_stops(export, day, as_of):
+    from .plan_status_posts_v1 import TITLES
+    source = export["status"]
+    if source.get("scored_call_count") is None:
+        return None
+    rows = []
+    for plan in source["plans"]:
+        outcome = plan.get("outcome") or {}
+        score = outcome.get("score") or {}
+        if outcome.get("state") != "SCORED" or score.get("result") != "STOPPED":
+            continue
+        resolved = utc(score["resolved_at_utc"])
+        if resolved.astimezone(ET).date() == day and utc(score["scored_at_utc"]) <= as_of:
+            market = plan["asset_id"]
+            name = MARKETS.get(market, (TITLES.get(market, market),))[0]
+            rows.append(f"- Main recorded a stopped {name} plan on {et(resolved)}.")
+    return "\n".join(rows) or "Main recorded no scored stops from the last completed cash session."
+
+
 def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             history=market_history, plans=read_export, main=latest_main, calendar=CALENDAR,
-            clock=quotes.utcnow):
+            clock=quotes.utcnow, releases=None):
     """Collect each source once. A defect affects only dependent rows."""
     now = utc(now)
     weekly = slot["edition"] == "weekly"
     day = date.fromisoformat(slot["day_et"])
     last = last_session(day - timedelta(days=2 if weekly else 1), cash_calendar)
-    prior = last_session(last - timedelta(days=7), cash_calendar) if weekly else None
+    prior = last_session(day - timedelta(days=9), cash_calendar) if weekly else None
     gaps, rows, snapshots = {}, {}, {}
     for market, (_, key, _) in MARKETS.items():
         try:
@@ -406,23 +437,30 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
         calendar_hash = sha256(raw_calendar).hexdigest()
         upcoming = calendar_events(raw_calendar, now, now + timedelta(days=7 if weekly else 1), as_of=now)
         if weekly:
-            friday_close = datetime.combine(last, time(16), ET)
+            friday_close = cash_close(last, cash_calendar)
             weekend = calendar_events(raw_calendar, friday_close, now, as_of=now)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         gaps["calendar"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
 
     score = None
+    stops = None
+    plan_record = {"rows": [], "scenario": None}
     try:
         export = plans()
         # The producer may update during I/O. Its generation clock remains
         # distinct from the quote and Main clocks.
         plan_cutoff = max(now, utc(clock()))
         plan_record = project_plans(export, plan_cutoff)
-        if weekly:
-            score = weekly_calls(export, cutoff_utc=plan_cutoff.isoformat())
     except (OSError, ValueError, KeyError, TypeError) as exc:
         gaps["plans"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
-        plan_record = {"rows": [], "scenario": None}
+    else:
+        try:
+            if weekly:
+                score = weekly_calls(export, cutoff_utc=plan_cutoff.isoformat())
+            else:
+                stops = prior_stops(export, last, plan_cutoff)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            gaps["call_results"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
     report = main(now)
     if report.get("cause"):
         gaps["main"] = report["cause"]
@@ -430,9 +468,16 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
                         if obs.get("observed_at_utc")), default=None)
     # Sunday uses the explicitly dated last completed session, with its own
     # release deadline. A replay or reread does not make a quote newer.
-    data_clock = datetime.combine(last, time(16), ET) if weekly else latest_quote
+    data_clock = cash_close(last, cash_calendar) if weekly else latest_quote
     return {"slot": slot, "markets": rows, "snapshots": snapshots, "previous_wrap": (
             previous["slot"]["id"] if previous else None), "analysis": report, "plans": plan_record,
             "events": upcoming, "weekend_events": weekend, "calendar_sha256": calendar_hash,
-            "weekly_calls": score, "gaps": gaps,
+            "weekly_calls": score, "prior_stops_text": stops, "gaps": gaps,
+            "released_facts": releases(cash_close(last, cash_calendar) if weekly else
+                                      datetime.combine(last, time(), ET), now) if releases else [],
             "data_cutoff_utc": data_clock.astimezone(UTC).isoformat() if data_clock else None}
+
+
+def cash_close(day, calendar):
+    early = calendar["years"][str(day.year)]["early_close_13_et"]
+    return datetime.combine(day, time(13 if day.isoformat() in early else 16), ET)
