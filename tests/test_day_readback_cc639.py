@@ -772,7 +772,8 @@ def test_internal_and_contradictory_outbox_uncertainty_are_explicit(recorded):
     assert any(e["message_id"] == "private-uncertainty" and e["first_cause"] == "SEND_TIMED_OUT" for e in report["exceptions"])
 
 
-def test_evening_cli_finds_missing_first_post_from_main_and_uses_prior_confirmation(recorded, monkeypatch, capsys):
+@pytest.mark.parametrize("live", [False, True])
+def test_evening_cli_finds_missing_first_post_from_main_and_uses_prior_confirmation(recorded, monkeypatch, capsys, live):
     from scripts import run_day_readback as cli
     from live_contentops import plan_status_posts_v1 as posts
 
@@ -787,7 +788,8 @@ def test_evening_cli_finds_missing_first_post_from_main_and_uses_prior_confirmat
     announced = {**btc, "plan_id": "plan_posted", "status": "TRIGGERED",
                  "registered_at_utc": "2026-11-14T10:00:00Z", "public_instrument": None}
     refused = {**btc, "plan_id": "plan_refused", "public_instrument": None}
-    snapshot = {"status": {"generated_at_utc": "2026-11-16T12:15:00Z",
+    captured = "2026-11-16T13:55:00Z" if live else "2026-11-16T12:15:00Z"
+    snapshot = {"status": {"generated_at_utc": captured,
                            "plans": [btc, watch, announced, refused]},
                 "transitions": {"transitions": []}}
     monkeypatch.setattr(posts, "read_export", lambda export_dir: snapshot)
@@ -802,13 +804,23 @@ def test_evening_cli_finds_missing_first_post_from_main_and_uses_prior_confirmat
                      ("dispatch-older", "confirmed-copy", "telegram", "DISPATCH_CONFIRMED", old, "1",
                       "https://t.me/CapitalChronicle/1", None))
 
+    supplied_export = ["--plan-export-dir", str(run)]
+    if live:
+        monkeypatch.setattr(readback, "PRODUCTION_STORE", store)
+        real_build = readback.build_report
+        monkeypatch.setattr(cli, "build_report", lambda *args, **kwargs: real_build(
+            *args, **kwargs, now=readback.utc("2026-11-16T13:56:00Z")))
+        supplied_export = []
     before = sha256(store.read_bytes()).hexdigest()
     assert cli.main(["--run-dir", str(run), "--store", str(store), "--feed", str(feed),
-                     "--plan-export-dir", str(run), "--stored-only"]) == 0
+                     "--stored-only", *supplied_export]) == 0
     notice = json.loads(capsys.readouterr().out)
     sidecar = json.loads((run / "decision_checks.json").read_bytes())
     found = [r for r in sidecar["issues"] if r["first_cause"] == "BROKER_PLAN_FIRST_POST_MISSING"]
     assert [(r["piece_id"], r["broker_evidence"]) for r in found] == [("plan_btc", "submitted_ibkr_ticket")]
+    if live:
+        assert readback.utc(sidecar["window"]["until_utc"]) < readback.utc(captured)
+        assert readback.utc(found[0]["checked_as_of_utc"]) == readback.utc(captured)
     assert any(r["piece_id"] == "plan_btc" and r["decision"] == "CC-672" for r in notice["exceptions"])
     assert "BROKER_PLAN_FIRST_POST_MISSING" in (run / "day_readback.md").read_text(encoding="utf-8")
     assert sha256(store.read_bytes()).hexdigest() == before

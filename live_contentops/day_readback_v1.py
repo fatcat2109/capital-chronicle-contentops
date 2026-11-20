@@ -929,8 +929,16 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     decision_copies = {}
     checks = DecisionChecks(window, Path(store_path).parent)
     plan_export, plan_source_error = None, None
-    if plan_export_dir is not None or (until is None and Path(store_path).resolve() == PRODUCTION_STORE.resolve()):
+    live_plan_audit = until is None and Path(store_path).resolve() == PRODUCTION_STORE.resolve()
+    plan_cutoff = end
+    if plan_export_dir is not None or live_plan_audit:
         plan_export, plan_source_error = _read_plan_export(plan_export_dir)
+        if plan_export and live_plan_audit:
+            captured = utc(plan_export["status"]["generated_at_utc"])
+            # Step 8 runs after the digest result is written. Keep that result's
+            # report window and use Main's newer observation for live plans.
+            if end < captured <= now:
+                plan_cutoff = captured
 
     def exception(cause, piece, platform=None, row=None, status=None):
         report["exceptions"].append({"piece_id": piece, "platform": platform,
@@ -1086,7 +1094,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         report["plan_delivery"] = _plan_delivery(conn, window, store_path)
         _earlier_wrap_copies(conn, checks, groups)
         analysis_urls = _confirmed_analysis_urls(conn, checks.copies, window["until_utc"])
-        announced = _confirmed_plan_announcements(conn, plan_export, window["until_utc"])
+        announced = _confirmed_plan_announcements(conn, plan_export, iso(plan_cutoff))
         seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
         # A contradictory outbox status, or an uncertain private reply delivery,
         # is still an exception even when it has no public dispatch row.
@@ -1120,7 +1128,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         for issue in report["digest"]["public_readback"]["exceptions"]:
             exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
     report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls,
-        plan_export=plan_export, announced=announced, plan_source_error=plan_source_error)
+        plan_export=plan_export, announced=announced, plan_source_error=plan_source_error,
+        plan_cutoff=plan_cutoff)
     report["decision_checks"]["antigravity"] = daily_metrics(
         Path(store_path).parent, window, checks.estimated_jobs(report["plan_delivery"]),
         {Path(copy.intent["output_dir"]).resolve() for copy in checks.copies if copy.intent.get("output_dir")})

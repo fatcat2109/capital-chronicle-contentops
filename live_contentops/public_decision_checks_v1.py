@@ -431,7 +431,7 @@ class DecisionChecks:
                        seconds_after_source=source_lag.total_seconds() if source_lag is not None else None,
                        seconds_after_first_confirmed=copy.get("seconds_after_first_confirmed"))
 
-    def _first_posts(self, export, announced, source_error):
+    def _first_posts(self, export, announced, source_error, cutoff):
         if source_error:
             self.issue("CC-672", "plan-status", "all", source_error, status="UNVERIFIED",
                        evidence="main_public_plan_export")
@@ -442,23 +442,23 @@ class DecisionChecks:
 
         snapshot = export["status"]
         observed = clock(snapshot["generated_at_utc"])
-        if observed > self.end or self.end - observed > PLAN_DELIVERY_LIMIT:
-            cause = "MAIN_PLAN_EXPORT_POSTDATES_CUTOFF" if observed > self.end else "MAIN_PLAN_EXPORT_STALE"
+        if observed > cutoff or cutoff - observed > PLAN_DELIVERY_LIMIT:
+            cause = "MAIN_PLAN_EXPORT_POSTDATES_CUTOFF" if observed > cutoff else "MAIN_PLAN_EXPORT_STALE"
             self.issue("CC-672", "plan-status", "all", cause, status="UNVERIFIED",
                        evidence="main_public_plan_export", observed_at_utc=observed.isoformat())
         # Dated fills are usable even when the snapshot was generated just after the cutoff.
         filled = {transition["plan_id"] for transition in export["transitions"]["transitions"]
-                  if transition["status"] == "FILLED" and self.start < clock(transition["at_utc"]) <= self.end}
+                  if transition["status"] == "FILLED" and self.start < clock(transition["at_utc"]) <= cutoff}
 
         for plan in snapshot["plans"]:
             registered = clock(plan.get("registered_at_utc"))
-            if not registered or registered > self.end or not plan.get("asset_id"):
+            if not registered or registered > cutoff or not plan.get("asset_id"):
                 continue
             state = plan.get("status")
             status_at = clock(plan.get("status_at_utc"))
-            if plan["plan_id"] in filled or (state == "FILLED" and status_at and status_at <= self.end):
+            if plan["plan_id"] in filled or (state == "FILLED" and status_at and status_at <= cutoff):
                 basis = "recorded_fill"
-            elif observed <= self.end:
+            elif observed <= cutoff:
                 instrument = plan.get("public_instrument") or {}
                 # Main supplies these levels only from a joined submitted IBKR ticket.
                 submitted = (instrument.get("levels_first_cause") is None
@@ -478,7 +478,8 @@ class DecisionChecks:
                 self.issue("CC-672", plan["plan_id"], "all", "BROKER_PLAN_FIRST_POST_MISSING",
                            evidence="main_public_plan_export", broker_evidence=basis,
                            market=plan["asset_id"], plan_status=state,
-                           registered_at_utc=registered.isoformat(), observed_at_utc=observed.isoformat())
+                           registered_at_utc=registered.isoformat(), observed_at_utc=observed.isoformat(),
+                           checked_as_of_utc=cutoff.isoformat())
 
     def _discord(self, copy, channel_arrivals):
         source = copy.source
@@ -566,10 +567,11 @@ class DecisionChecks:
                 self.issue("136", copy.piece, copy.platform, "PUBLISHED_OBJECT_DELETE_CONFIRMED",
                            url=copy.url, evidence="stored_readback", observed_at_utc=read_at)
 
-    def finish(self, delivery, analysis_urls, *, plan_export=None, announced=(), plan_source_error=None):
+    def finish(self, delivery, analysis_urls, *, plan_export=None, announced=(), plan_source_error=None,
+               plan_cutoff=None):
         self._wraps()
         self._coverage(delivery)
-        self._first_posts(plan_export, announced, plan_source_error)
+        self._first_posts(plan_export, announced, plan_source_error, plan_cutoff or self.end)
         groups = defaultdict(list)
         discord = defaultdict(list)
         for copy in self.copies:
