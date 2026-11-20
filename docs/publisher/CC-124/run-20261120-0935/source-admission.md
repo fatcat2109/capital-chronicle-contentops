@@ -11,3 +11,9 @@ The installed Main report projector admitted the Asian-session metals report wit
 The report distinguishes the metals and Bitcoin selloff from the limited transmission to US equity markets. It supplies two model estimates for silver and separate base and alternative moves for each of the six tracked markets. The requested article focuses on transmission and preserves the distinction between the silver estimates and the individual market alternatives. The other timely report covers an existing EUR/USD plan's trigger, so the metals report offers a broader reader question.
 
 The live production-day counter returned zero reconciled originals before entry. The Publisher run was configured for gpt-6.2-sol at max effort (`CONFIGURED_NOT_OBSERVED`). This record covers source admission before any publication.
+
+## Native selection and source image
+
+The standing newsroom froze one operation, `cc124-asian-metals-20261120-v1`, in the live store. It accepted the Light selection return for request `8d4c427817e8554cb5abc3222cb7f1f5a738fb95c368ac554e5f9cacc0e9712c`. The returned JSON hashed to `f764929365226fafac8e3af5e1f9f371cf9e2ee56f6bbbbcd1ab7a265c3b6a96`. The native task configured gpt-6.2-sol at low effort. The recorded invocation came from the actual task context and model and effort remain `CONFIGURED_NOT_OBSERVED`.
+
+The operating media folder holds the 15-minute ICE gold chart downloaded from TradingView in the run's Neo tab. The PNG is 1,018 × 1,514 pixels and 276,018 bytes. Original SHA-256 `da722f6dbec395d3b597f22c6c32cc4e433badadf9c8bc528c4e2a3033560da8`. The installed snapshot validator passed the framed copy and verified that it retains all original pixels and attribution.
