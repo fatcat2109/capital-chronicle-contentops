@@ -134,7 +134,7 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
                      (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(row), "PUBLISHING", created))
         for destination, status, dispatched_at, object_id in [
             ("telegram", "DISPATCH_CONFIRMED", "2026-11-17T09:00:15Z", "221"),
-            ("discord", "DISPATCH_CONFIRMED", "2026-11-17T09:11:59Z", "222"),
+            ("discord", "DISPATCH_CONFIRMED", "2026-11-17T09:01:00Z", "222"),
             ("x", "READY", None, None),
             ("linkedin", "DEFINITE_NO_WRITE", "2026-11-17T09:03:00Z", None),
             ("threads", "DISPATCH_CONFIRMED", "2026-11-17T10:00:01Z", "223"),
@@ -146,6 +146,11 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
                 conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
                     (ids["dispatch_id"], ids["message_id"], destination, status, dispatched_at, object_id,
                      "https://t.me/CapitalChronicle/221" if destination == "telegram" else None, None))
+            if destination == "discord":
+                conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)",
+                    ("discord-published-clock", ids["dispatch_id"], json.dumps({"readback": {
+                        "verified": True, "observed_published_at_utc": "2026-11-17T09:11:59Z"}}),
+                     "2026-11-17T09:13:00Z"))
             if destination == "linkedin":
                 conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)",
                     (DurablePublicationCoordinator._retry_incident_id(ids["dispatch_id"]), key,
@@ -169,6 +174,10 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
     assert set(routes) == set(cards.DESTINATIONS) and len(delivery["copies"]) == 8
     assert routes["telegram"]["confirmed"] and routes["telegram"]["seconds_after_first_confirmed"] == 0
     assert routes["discord"]["confirmed"] and routes["discord"]["behind_over_ten_minutes"]
+    assert routes["discord"]["confirmed_dispatch_at_utc"] == "2026-11-17T09:01:00+00:00"
+    assert routes["discord"]["observed_published_at_utc"] == "2026-11-17T09:11:59+00:00"
+    assert routes["discord"]["first_verified_readback_at_utc"] == "2026-11-17T09:13:00+00:00"
+    assert routes["discord"]["seconds_after_first_confirmed"] == 704
     assert routes["x"]["x_ready_over_five_minutes"] and routes["x"]["first_cause"] == "DESTINATION_FAILED_ET_DAY_SKIP"
     assert routes["linkedin"]["retry_recorded"] and routes["linkedin"]["first_cause"] == "LINKEDIN_MEDIA_PROCESSING"
     assert routes["instagram_business"]["first_cause"] == "TRADINGVIEW_PRICE_SCALE_MISMATCH"

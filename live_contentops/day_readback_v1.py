@@ -679,6 +679,18 @@ def _plan_cause(value):
     return None
 
 
+def _plan_copy_clocks(history):
+    verified_at = None
+    for read_at, value in history:
+        proof = value.get("readback", value)
+        if proof.get("verified") is not True:
+            continue
+        verified_at = verified_at or utc(read_at)
+        if published_at := proof.get("observed_published_at_utc"):
+            return utc(published_at), verified_at
+    return None, verified_at
+
+
 def _plan_delivery(conn, window, store_path):
     """Account for every named copy, even when its public intent was never registered."""
     from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
@@ -717,7 +729,7 @@ def _plan_delivery(conn, window, store_path):
         settled = cards.read_settled_destinations(conn, row)
         skipped = {d["destination"]: d["cause"] for d in cards._skipped_images(root, row)}
         native = _native_observations(conn, key, iso(end))
-        observed = []
+        observed, clocks = [], []
         for destination in named:
             route = routes.get(destination)
             dispatch_at = utc(route["dispatched_at"]) if route and route["dispatched_at"] else None
@@ -726,16 +738,19 @@ def _plan_delivery(conn, window, store_path):
                 status = (route["status"] or route["outbox_status"]) if not dispatch_at or dispatch_at <= end else "READY"
             confirmed = bool(dispatch_at and status == "DISPATCH_CONFIRMED" and route["public_object_id"])
             retry, cause = False, None
+            published_at, verified_at = None, None
             if route and route["dispatch_id"]:
                 dispatch_id = route["dispatch_id"]
                 retry_id = DurablePublicationCoordinator._retry_incident_id(dispatch_id)
                 retry = conn.execute("""SELECT 1 FROM incidents
                     WHERE incident_id=? AND julianday(created_at) <= julianday(?)""",
                     (retry_id, iso(end))).fetchone() is not None
-                diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, [])
-                diagnostics.extend(histories.get(dispatch_id, []))
+                history = histories.get(dispatch_id, [])
+                diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, []) + history
                 cause = next((c for _, value in sorted(diagnostics, key=lambda item: utc(item[0]))
                               if (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
+                if confirmed:
+                    published_at, verified_at = _plan_copy_clocks(history)
             if not confirmed:
                 closure = settled.get(destination) or {}
                 if closure and (not closure.get("recorded_at_utc") or utc(closure["recorded_at_utc"]) <= end):
@@ -749,12 +764,15 @@ def _plan_delivery(conn, window, store_path):
             observed.append({"plan_post": key, "platform": destination, "status": status,
                 "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
                 "confirmed_dispatch_at_utc": iso(dispatch_at) if confirmed else None,
+                "observed_published_at_utc": iso(published_at) if published_at else None,
+                "first_verified_readback_at_utc": iso(verified_at) if verified_at else None,
                 "public_url": safe_url(route["public_object_url"]) if confirmed else None,
                 "x_ready_over_five_minutes": destination == "x" and status == "READY"
                     and (end - ready_at).total_seconds() > 300})
-        first = min((utc(r["confirmed_dispatch_at_utc"]) for r in observed if r["confirmed"]), default=None)
-        for copy in observed:
-            finish = utc(copy["confirmed_dispatch_at_utc"]) if copy["confirmed"] else end
+            clocks.append(published_at or verified_at or (dispatch_at if confirmed else None))
+        first = min((clock for clock in clocks if clock is not None), default=None)
+        for copy, clock in zip(observed, clocks, strict=True):
+            finish = clock or end
             lag = round((finish - first).total_seconds(), 1) if first else None
             copy["seconds_after_first_confirmed"] = lag
             copy["behind_over_ten_minutes"] = lag is not None and lag > 600
@@ -932,12 +950,14 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
         # A contradictory outbox status, or an uncertain private reply delivery,
         # is still an exception even when it has no public dispatch row.
+        # Restrict candidate identities before accessing payloads in the main table.
         for row in conn.execute("""SELECT message_id,work_item_id,destination,status,
             json_extract(payload,'$.reason_code') AS reason_code,
             json_extract(payload,'$.cause') AS cause
             FROM outbox_messages WHERE (status IN ('UNKNOWN_WRITE','DEFINITE_NO_WRITE')
-            OR status LIKE 'RECONCILED_ABSENT%') AND julianday(created_at) > julianday(?)
-            AND julianday(created_at) <= julianday(?) ORDER BY created_at,message_id""",
+            OR status LIKE 'RECONCILED_ABSENT%') AND message_id IN (
+                SELECT message_id FROM outbox_messages WHERE julianday(created_at) > julianday(?)
+                AND julianday(created_at) <= julianday(?)) ORDER BY created_at,message_id""",
             (window["since_utc"], window["until_utc"])):
             if (row["message_id"], row["status"]) not in seen:
                 exception(first_cause(dict(row)) or quote_causes.get(row["work_item_id"]) or "FIRST_CAUSE_NOT_RECORDED", row["work_item_id"],
@@ -994,6 +1014,10 @@ def markdown(report):
                           "| --- | --- | --- | --- | --- | --- |"])
         for row in delivery["copies"]:
             timing = []
+            if row.get("observed_published_at_utc"):
+                timing.append(f"Published at {local(row['observed_published_at_utc'])}")
+            elif row.get("first_verified_readback_at_utc"):
+                timing.append(f"Verified at {local(row['first_verified_readback_at_utc'])}")
             if row["behind_over_ten_minutes"]:
                 timing.append("Over 10 min behind first confirmed copy")
             if row["x_ready_over_five_minutes"]:
