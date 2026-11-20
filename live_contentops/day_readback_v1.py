@@ -561,10 +561,12 @@ def _reply_bot(conn, window):
         json_extract(payload,'$.post_id') AS post_id,
         json_extract(payload,'$.kind') AS kind,
         json_extract(payload,'$.delivered_at_utc') AS delivered_at_utc
-        FROM outbox_messages WHERE destination LIKE 'internal:x-reply-bot-%'
+        FROM outbox_messages WHERE destination >= ? AND destination < ?
         AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
         ORDER BY created_at,message_id"""
-    for row in conn.execute(query, (window["since_utc"], window["until_utc"])):
+    # The destination index bounds this literal prefix without scanning other owners' payloads.
+    prefix_end = REPLY_PREFIX.removesuffix("-") + "."
+    for row in conn.execute(query, (REPLY_PREFIX, prefix_end, window["since_utc"], window["until_utc"])):
         kind = row["destination"].removeprefix(REPLY_PREFIX)
         status = code(row["status"]) or "UNRECOGNIZED_STATUS"
         counts[kind][status] += 1
