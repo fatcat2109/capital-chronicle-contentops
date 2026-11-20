@@ -1506,11 +1506,11 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     card_id = (context["media"]["assets"][0]["asset_id"] if context["media"]["assets"] else None)
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
-        return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
+        render_row = {**row, "linkedin_analysis_url": context.get("status_post_linkedin_analysis_url")}
+        return row, card_payloads(render_row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
                                   portrait_id=context.get("status_post_threads_image"),
                                  x_analysis=context.get("status_post_x_analysis"),
-                                 linkedin_analysis_url=context.get("status_post_linkedin_analysis_url"),
                                  chart_credit=bool(context.get("chart_credit")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
