@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from functools import cache
 import hashlib
 import json
 from pathlib import Path
@@ -456,7 +457,7 @@ def _result_rows(export):
     return result
 
 
-def _refresh_unissued_no_entry_result(store, message, result, source):
+def _refresh_unissued_no_entry_result(store, message, result, source_for):
     """Correct the same draft before the coordinator has registered any copy."""
     if message["status"] != posts.READY:
         return
@@ -464,8 +465,10 @@ def _refresh_unissued_no_entry_result(store, message, result, source):
     legacy_words = draft.get("lead", "").partition(": ")[2]
     if (draft.get("state_alert_contract") != "CC543_V1"
             or not legacy_words.startswith(("not triggered", "triggered, not traded"))
-            or not (result["untriggered"] or result["triggered_not_traded"] or result["not_executed"])
-            or source.get("registration_hash") != draft.get("source_plan_registration")):
+            or not (result["untriggered"] or result["triggered_not_traded"] or result["not_executed"])):
+        return
+    source = source_for(result["plan_id"])
+    if source.get("registration_hash") != draft.get("source_plan_registration"):
         return
     updated = {**draft, **{field: result[field] for field in (
         "untriggered", "triggered_not_traded", "not_executed", "result", "scored",
@@ -499,12 +502,6 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
         source_rows = posts.rows_from_export(export, include_results=False)
         sources = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("asset_id") in posts.MARKETS}
-        # CC-432's confirmed page is the Publisher-owned projection of the exact
-        # Main plan. Never write it back into Main or alter historical packets.
-        from .plan_analysis_pages_v1 import confirmed_publication
-        sources = {pid: {**raw, **({"analysis_publication": publication} if
-                   (publication := confirmed_publication(store, raw)) else {})}
-                   for pid, raw in sources.items()}
         records = record_line(export["status"])
     except posts.PlanExportContractError as exc:
         return posts.rejected_export(store, exc, dry_run=dry_run)
@@ -516,6 +513,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     announced_cards = set()
     for r in existing_rows:
         p = json.loads(r["payload"])
+        pid = p.get("plan_id")
+        if pid not in sources:
+            continue
         p.setdefault("key", r["message_id"])
         is_card = p.get("kind") == "setup" or (p.get("state") == "WAITING" and not p.get("why_follow_up")) \
             or (p.get("state") in {"TRIGGERED", "FILLED"} and p.get("conditional_calls"))
@@ -528,7 +528,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             if announced:
                 announced_cards.add(r["message_id"])
             if r["status"] == posts.READY or announced:
-                cards.setdefault(p.get("plan_id"), p)
+                cards.setdefault(pid, p)
     latest = {}
     for row in sorted(source_rows, key=lambda r: posts._utc(r["at_utc"])):
         if row["symbol"] in posts.MARKETS:
@@ -549,8 +549,18 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     # forum/media channels. Existing cards keep their original thread binding.
     discord_delivery = "bot_thread" if read_secret("DISCORD_BOT_TOKEN") else "channel"
 
+    from .plan_analysis_pages_v1 import confirmed_publication
+
+    @cache
+    def source_for(plan_id):
+        # Look up the exact confirmed page when a new or corrected payload uses
+        # it. An idle tick has no reason to reopen pages for the export history.
+        raw = sources[plan_id]
+        publication = confirmed_publication(store, raw)
+        return {**raw, "analysis_publication": publication} if publication else raw
+
     def payload(row, kind):
-        raw = sources[row["plan_id"]]
+        raw = source_for(row["plan_id"])
         plan = card_plan(raw)
         item = {"schema_version": posts.SCHEMA, "format": FORMAT, "key": row["key"],
                 "plan_id": row["plan_id"], "symbol": row["symbol"], "state": row["to"], "kind": kind,
@@ -643,7 +653,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             continue
         if row["key"] in prior:
             if row["to"] == "RESULT" and not dry_run:
-                _refresh_unissued_no_entry_result(store, prior[row["key"]], row, sources[pid])
+                _refresh_unissued_no_entry_result(store, prior[row["key"]], row, source_for)
             already.append(row["key"])
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":
@@ -684,7 +694,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             if kind == "result":
                 # Keep the original thread's levels while admitting the later
                 # exact public outcome, including its explicitly exported R.
-                item.update(outcome_source_plan=sources[pid], outcome_source_sha256=_hash(sources[pid]))
+                outcome_source = source_for(pid)
+                item.update(outcome_source_plan=outcome_source, outcome_source_sha256=_hash(outcome_source))
         item.update(compose(item))
         payloads.append(item)
 

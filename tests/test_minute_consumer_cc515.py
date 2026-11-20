@@ -115,6 +115,35 @@ def test_unknown_transition_sets_aside_its_plan_and_preserves_other_plans(tmp_pa
     assert set(result["latest_states"]) == {"good"}
 
 
+def test_minute_reads_the_confirmed_page_only_for_a_plan_it_queues(tmp_path, sealed_reader, monkeypatch):
+    from live_contentops import plan_analysis_pages_v1 as pages
+
+    active = call("active", registration_hash="b" * 64)
+    ended = call("ended", status="CANCELLED")
+    folder, _, _ = sealed_export(tmp_path, [active, ended])
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    reads = []
+    publication = {"plan_id": "active", "registration_hash": active["registration_hash"],
+                   "canonical_url": "https://capitalchronicle.substack.com/p/confirmed-plan",
+                   "summary": {"macro": "The direction is conditional."}}
+
+    def confirmed_page(_store, plan):
+        reads.append(plan["plan_id"])
+        return publication if plan["plan_id"] == "active" else None
+
+    monkeypatch.setattr(pages, "confirmed_publication", confirmed_page)
+    first = queue(store, folder, sealed_reader)
+    key = next(row["key"] for row in first["queued"] if row["kind"] == "setup")
+    frozen = store.get_outbox_message(key)["payload"]
+    assert json.loads(frozen)["analysis_publication"]["canonical_url"] == publication["canonical_url"]
+    assert reads == ["active"]
+
+    second = queue(store, folder, sealed_reader)
+    assert second["status"] == "OK" and not second["queued"]
+    assert reads == ["active"]
+    assert store.get_outbox_message(key)["payload"] == frozen
+
+
 def test_producer_only_row_validation_is_isolated_with_original_source_hashes(tmp_path, sealed_reader):
     path=sealed_reader / "schemas/publication/CapitalChroniclePlanStatusV1.schema.json"
     schema=json.loads(path.read_bytes())
