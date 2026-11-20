@@ -299,7 +299,7 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
 
 
 @pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout", "superseded-with-uncertain-x"])
-def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure):
+def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure, monkeypatch):
     from hashlib import sha256
     from threading import Event
     from test_minute_consumer_cc515 import dispatch
@@ -371,6 +371,15 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
 
     now += timedelta(minutes=1)
     options["now"] = now
+    post_image = posts._post_image
+
+    def capture_after_landscape(row, *args, **kwargs):
+        if row["key"] == key and kwargs.get("ratio") == "4:5":
+            for destination in set(cards.destinations_for(ending)) - {"instagram_business"}:
+                assert cards._dispatch(store, key, destination)["status"] == "DISPATCH_CONFIRMED"
+        return post_image(row, *args, **kwargs)
+
+    monkeypatch.setattr(posts, "_post_image", capture_after_landscape)
     recovered = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
     assert set(runtime.publish_calls) == set(cards.destinations_for(ending)), recovered
     for destination in cards.destinations_for(ending):
