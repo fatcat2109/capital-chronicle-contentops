@@ -26,7 +26,9 @@ TIMEOUT = 5
 # Routing market, actual source instrument, public name and units are separate.
 SYMBOLS = {
     "US500": ("YAHOO", "^GSPC", "S&P 500 cash index", "points", "INDEX"),
+    "US500_FUTURES": ("YAHOO", "ES=F", "S&P 500 E-mini futures", "points", "FUTURE"),
     "XAUUSD": ("CNBC", "XAU=", "Gold spot", "USD per troy ounce", "INDEX"),
+    "GOLD_FUTURES": ("YAHOO", "GC=F", "COMEX gold futures", "USD per troy ounce", "FUTURE"),
     "EURUSD": ("YAHOO", "EURUSD=X", "EUR/USD spot", "USD per EUR", "CURRENCY"),
     # Yahoo redirects JPY=X to USDJPY=X in its response. Request the canonical
     # pair so the exact-symbol check accepts it without permitting other pairs.
