@@ -582,6 +582,34 @@ def test_coordinator_still_requires_a_passing_review(tmp_path, failed_points):
     assert runtime.publish_calls==[]
 
 
+def test_failed_plan_template_review_holds_the_same_capture_without_a_fallback_card(tmp_path, monkeypatch):
+    from live_contentops import plan_status_posts_v1 as posts
+
+    row = {"key": "checked-call", "kind": "setup", "state": "WAITING", "symbol": "USDJPY",
+           "at_utc": NOW.isoformat(), "horizon": "MID",
+           "levels": {"zone_low": 158, "zone_high": 158.3, "invalidation_level": 159,
+                      "direction": "bearish", "image_source_plan": {"horizon": "MID"}}}
+    captured = capture(tmp_path)
+    calls = []
+
+    def take(market, interval, folder):
+        calls.append(market)
+        return captured
+
+    def refuse(*args, **kwargs):
+        raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
+
+    monkeypatch.setattr(quality, "prepare_asset", refuse)
+    monkeypatch.setattr(tv, "record_outcome", lambda *_: None)
+    monkeypatch.setattr(tv, "fallback_card", lambda **_: pytest.fail("A vision refusal is not a capture failure"))
+    for _ in range(2):
+        with pytest.raises(tv.TemplateImageRefused, match="IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED"):
+            posts._post_image(row, tmp_path, snapshot=take, required_chart=True, plan_post=True)
+    state = json.loads((tmp_path / "tradingview_capture_cc465_v1.json").read_bytes())
+    assert state["status"] == "IMAGE_HELD" and state["snapshot"]["sha256"] == captured["sha256"]
+    assert calls == ["USDJPY"]
+
+
 def test_reader_copy_and_frozen_validation_select_native_portrait_without_changing_text(tmp_path,monkeypatch):
     from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
     from test_plan_reader_copy_cc466 import source_and_fields

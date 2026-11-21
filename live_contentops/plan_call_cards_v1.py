@@ -1707,7 +1707,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
                             status_post_alert_portrait=alert_portrait,
                             status_post_instagram_chart_credit=instagram_chart_credit)
-            if assets[0].get("image_template"):
+            if "threads" in alert_portrait_destinations or portrait.get("image_template"):
                 previous["status_post_threads_image"] = alert_portrait
         except tv.SnapshotUnavailable as exc:
             skipped.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)

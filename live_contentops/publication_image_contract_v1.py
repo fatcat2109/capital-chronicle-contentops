@@ -340,7 +340,8 @@ def _validate_plan_card(asset, row, folder, destination):
     from .tradingview_snapshot_v1 import _sha256
 
     binding = asset.get("plan_chart_fallback") or {}
-    ratio = "4:5" if destination == "instagram_business" else "16:9"
+    ratio = ("4:5" if destination == "instagram_business" or
+             (destination == "threads" and binding.get("ratio") == "4:5") else "16:9")
     if (not row or row.get("format") != 4 or binding.get("key") != row["key"]
             or binding.get("market") != row["symbol"] or binding.get("ratio") != ratio):
         raise ImageContractError("PLAN_CHART_FALLBACK_BINDING_INVALID")

@@ -80,6 +80,10 @@ class TemplateSnapshotNotFit(SnapshotError):
         self.snapshot = snapshot
 
 
+class TemplateImageRefused(ValueError):
+    """The exact template failed a publication check after a valid chart capture."""
+
+
 PLAN_CACHE_SECONDS = 15 * 60
 PLAN_WAIT_SECONDS = 5 * 60
 PLAN_ATTEMPTS = 2
@@ -114,9 +118,9 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
                 card = prepare_asset(image_input, "W" if ratio == "16:9" else "T", media, taken,
                                      sample_after_publication=sample_after_publication)
             except ValueError as exc:
-                if sample_after_publication and str(exc) in TEMPLATE_FIT_CAUSES:
+                if str(exc) in TEMPLATE_FIT_CAUSES:
                     raise TemplateSnapshotNotFit(str(exc), taken) from exc
-                raise
+                raise TemplateImageRefused(str(exc)) from exc
             return {**card, "media_role": "delivery_only", "article_inclusion": False,
                     "canonical_article_media": False, "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE"}
         return snapshot_asset(market,title,taken,media,ratio)
@@ -223,8 +227,13 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             return asset
         except TemplateSnapshotNotFit:
             raise
+        except TemplateImageRefused as exc:
+            state.update(status="IMAGE_HELD", snapshot=taken, cause=str(exc))
+            save()
+            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+            raise
         except Exception as exc:
-            if sample_after_publication and str(exc) == "IMAGE_CHART_CAPTURE_SHAPE":
+            if image_input and str(exc) == "IMAGE_CHART_CAPTURE_SHAPE":
                 raise TemplateSnapshotNotFit(str(exc)) from exc
             state.setdefault("first_cause", str(exc)[:200])
             state["cause"] = str(exc)[:200]
