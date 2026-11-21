@@ -636,10 +636,16 @@ class NativeNeoExecutor:
                 "native_tool_observation": observation, "native_tool_return_sha256": sha256_of(response)}}, work)
         return rb_hash
 
+    @property
+    def _identity_work_item_id(self):
+        return "native-neo-operation-" + sha256_of(self.operation_id)
+
     def _fresh_identity_return(self, destination, surface, expected_identity, *, expected_stable_id=None):
         # Probe epochs deduplicate requests; actual observation time controls
         # freshness. Crossing a bucket must not discard a seconds-old proof.
-        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
+        # Read through the work-item index. The destination index would load
+        # unrelated retained Neo packets and their media for every first send.
+        for row in reversed(self.store.list_outbox_messages(work_item_id=self._identity_work_item_id)):
             if row["destination"] != DESTINATION:
                 continue
             packet = json.loads(row["payload"])
@@ -764,7 +770,7 @@ class NativeNeoExecutor:
         from live_contentops.neo_destination_handoff_v1 import IDENTITIES, ROOTS
         registration = SURFACE_REGISTRY[surface]
         destination = registration.destination_key
-        work = "native-neo-operation-" + sha256_of(self.operation_id)
+        work = self._identity_work_item_id
         self.store.create_work_item(story_id=work, work_item_id=work,
                                    title="Native Neo exact identity observation", target_surface="CONTENTOPS_READ_ONLY")
         request = {"schema_version": "contentops.neo_identity_probe.v1", "destination": destination,

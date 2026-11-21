@@ -139,11 +139,28 @@ def isolated_control(monkeypatch):
 
 
 @pytest.mark.parametrize('destination',['x','substack_notes'])
-def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path,destination):
+def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path, destination, monkeypatch):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
     store=copied_store(tmp_path);ids,value=message(store,destination)
+    operation = value["work_item_id"]
+    identity_work_item = "native-neo-operation-" + sha256_of(operation)
+    original_list = store.list_outbox_messages
+    identity_reads = []
+
+    def scoped_lookup(*, status=None, destination=None, work_item_id=None):
+        if destination == "internal:native-neo-tool":
+            assert work_item_id, "The alert must not load unrelated Neo packets"
+        if work_item_id == identity_work_item:
+            identity_reads.append(work_item_id)
+        return original_list(status=status, destination=destination, work_item_id=work_item_id)
+
     with endpoint() as (url,state):
-        coordinator,executor=bound(store,tmp_path,value['work_item_id'],url)
-        result=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        coordinator,executor=bound(store,tmp_path,operation,url)
+        with monkeypatch.context() as patch:
+            patch.setattr(store, "list_outbox_messages", scoped_lookup)
+            result=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert identity_reads
         assert result['status']=='DISPATCH_CONFIRMED',json.dumps(result,indent=2)
         assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
         again=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
