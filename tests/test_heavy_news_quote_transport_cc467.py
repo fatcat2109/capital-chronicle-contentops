@@ -265,12 +265,14 @@ def test_fourteen_day_decision_consumes_our_actual_daily_views_not_follower_coun
     start=datetime.now(timezone.utc)-timedelta(days=15)
     class Store:
         def list_outbox_messages(self,**kw):return [{"payload":json.dumps({"heavy_news_quote":quotes.POLICY,"key":"quote"})}]
-        def list_platform_dispatches(self):return [{"platform":"x","status":"DISPATCH_CONFIRMED","dispatched_at":start.isoformat(),
-            "work_item_id":key,"message_id":key,"dispatch_id":key} for key in ["quote","ordinary"]]
+        def list_platform_dispatches(self):return [{"platform":"x","status":"DISPATCH_CONFIRMED","dispatched_at":at.isoformat(),
+            "work_item_id":key,"message_id":key,"dispatch_id":key}
+            for key,at in [("quote",start-timedelta(seconds=5)),("ordinary",start)]]
         def get_outbox_message(self,key):return {"payload":"{}"}
         def list_performance_observations(self):return [{"dispatch_id":key,"observation_window":"DAILY","collected_at_utc":start.isoformat(),
             "metrics_native_json":json.dumps({"views":value})} for key,value in [("quote",quote_views),("ordinary",ordinary_views)]]
-    monkeypatch.setattr(replies,"report_one",lambda s,r:{"key":"quote","readback_url":"https://x.com/Capitalnicle/status/1","posted_at_utc":start.isoformat()})
+    monkeypatch.setattr(quotes,"quote_report",lambda s,r:{"key":"quote","readback_url":"https://x.com/Capitalnicle/status/1",
+        "observed_published_at_utc":start.isoformat()})
     result=quotes.audience_review(Store())
     assert result.get("decision")==decision
     assert result["views_per_post"]["quotes"]==quote_views
