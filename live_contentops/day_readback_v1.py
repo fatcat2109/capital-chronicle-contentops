@@ -1271,7 +1271,10 @@ def markdown(report):
             gaps = item.get("missing_layers") or {}
             if gaps:
                 cause += " (" + ", ".join(f"{key}={value}" for key, value in gaps.items()) + ")"
-            lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
+            label = plain(item["piece_id"])
+            if item["decision"] == "CC-732":
+                label = f"{plain(item['plan_id'])} / {plain(item['state'])} · {item['gap_seconds']:g}s"
+            lines.append(f"- {item['decision']} · {label} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
         for copy in decisions.get("plan_analysis", []):
             unavailable = [f"{key}={item['cause']}" for key, item in copy["layers"].items()
