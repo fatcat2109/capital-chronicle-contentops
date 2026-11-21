@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 
 from . import public_market_quote_v1 as quotes
 from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+from .daily_trend_board_v1 import SOURCE as TREND_BOARD, trading_age
 from .event_article_guard_v1 import check_publication_copy
 from .main_report_projection_source_v1 import NATIVE_MAIN_ANALYSIS_ROOT
 from .plan_reader_copy_v1 import et
@@ -427,9 +428,70 @@ def prior_stops(export, day, as_of):
     return "\n".join(rows) or "Main recorded no scored stops from the last completed cash session."
 
 
+def morning_map_sources(snapshots, board_path, *, now, last_close, quote, clock, gaps):
+    """Bind the map to the chart instruments and each market's completed trend bar."""
+    board = json.loads(Path(board_path).read_bytes())
+    content = {key: value for key, value in board.items() if key != "content_hash"}
+    if (board.get("schema") != "CapitalChronicleDeskBoardPublicV1"
+            or sha256_of(content) != board.get("content_hash")):
+        raise ValueError("BOARD_PUBLIC_PROJECTION_INVALID")
+    board_at = utc(board["as_of_utc"])
+    if board_at > now:
+        raise ValueError("BOARD_FROM_FUTURE")
+    if trading_age(board_at.astimezone(ET).date(), now.astimezone(ET).date()) > 1:
+        raise ValueError("BOARD_OLDER_THAN_ONE_TRADING_DAY")
+    states = {"UP": "Trending up", "DOWN": "Trending down", "MIXED": "Mixed trend"}
+    rows = {}
+    for market in MARKETS:
+        try:
+            yardstick = (board["markets"].get(market) or {}).get("yardstick") or {}
+            state = states.get(yardstick.get("yardstick"))
+            if yardstick.get("state") != "AVAILABLE" or not state or not yardstick.get("last_completed_bar_utc"):
+                raise ValueError("BOARD_MARKET_TREND_UNAVAILABLE")
+            completed = utc(yardstick["last_completed_bar_utc"]) + timedelta(days=1)
+            if completed > board_at:
+                raise ValueError("BOARD_BAR_NOT_COMPLETED")
+            if trading_age(completed.astimezone(ET).date(), last_close.astimezone(ET).date()) > 1:
+                raise ValueError("BOARD_MARKET_DATA_OLDER_THAN_ONE_TRADING_DAY")
+
+            snapshot = snapshots.get(market) or {}
+            expected_symbol = quotes.SYMBOLS[market][1]
+            if snapshot.get("symbol") != expected_symbol:
+                # The wrap can discuss futures moves. The map's gold and S&P
+                # rows use the spot/cash instruments shown on their charts.
+                quote_options = {"max_age_seconds": 3600}
+                if market == "US500":
+                    # Cash is closed at the pre-US wrap. The provider can
+                    # stamp the last session's index quote after its close.
+                    quote_options.update(reference_at=last_close + timedelta(hours=1), max_age_seconds=3660)
+                try:
+                    observed = quote(market, fetch=False, **quote_options)
+                except (OSError, ValueError):
+                    observed = quote(market, **quote_options)
+                snapshot = wrap_quote(observed)
+            if snapshot.get("symbol") != expected_symbol or not snapshot.get("sha256"):
+                raise ValueError("MORNING_MAP_QUOTE_SYMBOL_MISMATCH")
+            if not utc(snapshot["observed_at_utc"]) <= utc(snapshot["known_at_utc"]) <= utc(clock()):
+                raise ValueError("MORNING_MAP_QUOTE_FUTURE_CLOCK")
+            change = move(market, snapshot, {**snapshot, "value": snapshot["prior_close"]},
+                          basis="from the provider's prior close")["change_pct"]
+            rows[market] = {"quote": snapshot, "last": snapshot["value"], "change_1d_pct": change,
+                            "state_word": state, "trend_completed_at_utc": completed.isoformat()}
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            gaps[f"morning_map:{market}"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
+    return {"rows": rows, "trend_sha256": board["content_hash"], "trend_as_of_utc": board_at.isoformat()}
+
+
+def wrap_quote(observation):
+    return {"symbol": observation["source_symbol"], "value": observation["value"],
+            "prior_close": observation["prior_close"], "observed_at_utc": observation["observed_at_utc"],
+            "known_at_utc": observation["known_at_utc"], "source": observation["source"],
+            "url": observation["source_url"], "sha256": observation["observation_sha256"]}
+
+
 def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             history=market_history, plans=read_export, main=latest_main, calendar=CALENDAR,
-            clock=quotes.utcnow, releases=public_release_facts):
+            clock=quotes.utcnow, releases=public_release_facts, trend_board=TREND_BOARD):
     """Collect each source once. A defect affects only dependent rows."""
     now = utc(now)
     weekly = slot["edition"] == "weekly"
@@ -459,10 +521,7 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
                     observation = quote(key, fetch=False, max_age_seconds=120)
                 except (OSError, ValueError):
                     observation = quote(key, max_age_seconds=3600)
-                end = {"symbol": observation["source_symbol"], "value": observation["value"],
-                       "observed_at_utc": observation["observed_at_utc"], "known_at_utc": observation["known_at_utc"],
-                       "source": observation["source"], "url": observation["source_url"],
-                       "sha256": observation["observation_sha256"]}
+                end = wrap_quote(observation)
                 held = (previous or {}).get("snapshots", {}).get(market)
                 if (held and held["symbol"] == ticker
                         and (utc(held["observed_at_utc"]) < utc(end["observed_at_utc"])
@@ -481,6 +540,14 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             snapshots[market] = end
         except (OSError, ValueError, KeyError, TypeError) as exc:
             gaps[f"quote:{market}"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
+
+    map_sources = None
+    if not weekly and trend_board is not None:
+        try:
+            map_sources = morning_map_sources(snapshots, trend_board, now=max(now, utc(clock())),
+                                              last_close=last_close, quote=quote, clock=clock, gaps=gaps)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            gaps["morning_map"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
 
     score = None
     stops = None
@@ -533,6 +600,7 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             previous["slot"]["id"] if previous else None), "analysis": report, "plans": plan_record,
             "events": upcoming, "weekend_events": weekend, "calendar_sha256": calendar_hash,
             "weekly_calls": score, "prior_stops_text": stops, "gaps": gaps,
+            **({"morning_map_sources": map_sources} if map_sources else {}),
             "released_facts": release_facts,
             "source_pack_as_of_utc": source_cutoff.isoformat(),
             "market_close_date": last.isoformat() if weekly else None,

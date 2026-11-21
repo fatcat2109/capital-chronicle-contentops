@@ -144,7 +144,7 @@ def test_daily_pack_uses_retained_moves_and_separate_source_clocks(tmp_path, cas
         "US500": {"symbol": "ES=F", "value": 100, "date": "2026-11-20"}}}
     pack = sources.collect(sources.slot_at(start, cash), now=start, cash_calendar=cash, previous=previous,
                            quote=quote, history=history, plans=plans, main=main, calendar=calendar,
-                           releases=lambda *_: [], clock=lambda: captured)
+                           releases=lambda *_: [], clock=lambda: captured, trend_board=None)
     assert set(pack["markets"]) == set(sources.MARKETS)
     assert pack["markets"]["US500"]["basis"] == "since the last wrap"
     assert pack["markets"]["US500"]["change_pct"] == 2
@@ -461,6 +461,78 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(
     assert set(resumed["publication"]["unconfirmed_wrap_destinations"]) == ({unavailable} if unavailable else set())
     assert len(transport.writes) == len(job.WRAP_DESTINATIONS) - bool(unavailable)
     assert job.read_json(job.output_path(rollout, pack["slot"]) / "wrap-result.json") == resumed
+
+
+def test_daily_wrap_delivers_held_market_map_chart_first(tmp_path, pack, cash, monkeypatch):
+    from live_contentops import image_quality_v1 as quality, tradingview_snapshot_v1 as tv
+    from live_contentops.image_template_inputs_v1 import ORDER
+    from live_contentops.neo_destination_handoff_v1 import _payload_binding
+    from test_image_templates_cc465 import capture, yes_review
+
+    now = at("2026-11-23T13:10Z")
+    friday_close = at("2026-11-20T21:00Z")
+    board_path = tmp_path / "desk-board.json"
+    board = {"schema": "CapitalChronicleDeskBoardPublicV1", "as_of_utc": "2026-11-21T18:00:00Z",
+             "markets": {market: {"yardstick": {"state": "AVAILABLE",
+                         "yardstick": "MIXED" if market == "USDJPY" else "DOWN",
+                         "last_completed_bar_utc": "2026-11-20T00:00:00Z" if market == "USDJPY"
+                                                   else "2026-11-19T00:00:00Z"}}
+                         for market in ORDER}}
+    board_path.write_text(json.dumps({**board, "content_hash": sha256_of(board)}), encoding="utf-8")
+    quote_reads = []
+
+    def quote(market, **options):
+        quote_reads.append((market, options.get("reference_at")))
+        return {"source_symbol": sources.quotes.SYMBOLS[market][1], "value": 158.2,
+                "prior_close": 153 if market == "USDJPY" else 158,
+                "observed_at_utc": (friday_close if market == "US500" else now).isoformat(),
+                "known_at_utc": now.isoformat(), "source": "Attributed test quote",
+                "source_url": "https://example.test/quote", "observation_sha256": market.lower()}
+
+    snapshots = {market: sources.wrap_quote(quote(market)) for market in ORDER if market not in {"XAUUSD", "US500"}}
+    snapshots.update({"XAUUSD": {"symbol": "GC=F"}, "US500": {"symbol": "ES=F"}})
+    quote_reads.clear()
+    gaps = {}
+    pack["morning_map_sources"] = sources.morning_map_sources(
+        snapshots, board_path, now=now, last_close=friday_close, quote=quote, clock=lambda: now, gaps=gaps)
+    assert not gaps
+    assert quote_reads == [("XAUUSD", None), ("US500", friday_close + timedelta(hours=1))]
+    assert pack["morning_map_sources"]["rows"]["USDJPY"]["state_word"] == "Mixed trend"
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    monkeypatch.setattr(tv, "capture", snapshot)
+    monkeypatch.setattr(quality, "review_vision",
+                        lambda image, **_: {**yes_review(image)["vision"], "status": "REVIEWED"})
+    from live_contentops import llm_operator_control_v1 as controls
+    monkeypatch.setattr(controls, "llm_operator_pause_active", lambda *args, **kwargs: False)
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    transport = LocalTransport()
+    folder = tmp_path / "wrap"
+    packet = job.stage(store, pack, editorial.draft(pack, folder, call=select_first), folder)
+
+    def factory(store, plan, **kwargs):
+        coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+            readiness_provider=lambda _d: {"readiness_state": "READY_NON_BROWSER_BINDING"},
+            clock=lambda: now, published_content_path=tmp_path / "published.jsonl")
+        coordinator.recovery_scope = {"work_item_id": plan["market_wrap"], "plan": plan, "exact_work_item_only": True}
+        coordinator.allow_prior_confirmed_distribution = True
+        return coordinator
+
+    publication = job.continue_wrap(store, packet, clock=lambda: now, factory=factory)
+    assert not publication["unconfirmed_wrap_destinations"]
+    assert {destination for destination, _ in transport.writes} == set(job.WRAP_DESTINATIONS)
+    by_id = {asset["asset_id"]: asset for asset in packet["media_assets"]}
+    for destination, intent in transport.writes:
+        _, binding = _payload_binding(intent, destination)
+        chart, table = [by_id[item["asset_id"]] for item in binding["media_manifest"]]
+        assert chart["tradingview_snapshot"]["tv_symbol"] == tv.SYMBOLS["USDJPY"]
+        assert table["image_template"]["image_number"] == 2
+        master = "T" if destination in {"instagram_business", "threads"} else "W"
+        assert {asset["image_template"]["master"] for asset in (chart, table)} == {master}
+        assert [row["market"] for row in table["image_template"]["input"]["map"]["rows"]] == list(ORDER)
 
 
 def test_late_resume_reconciles_other_surfaces_when_one_readback_is_pending():

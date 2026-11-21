@@ -52,15 +52,37 @@ def dispatch_deadline(pack):
     return deadline
 
 
-def select_media(assets, destination):
+def select_media(assets, destination, *, article=None):
+    if (article or {}).get("image_input_v1", {}).get("template") == "map":
+        route = {"linkedin_company": "linkedin", "substack_notes": "telegram"}.get(destination, destination)
+        ids = article["native_destination_media"][route]
+        by_id = {asset["asset_id"]: asset for asset in assets}
+        return [by_id[asset_id] for asset_id in ids]
     return next((asset for asset in assets if bool(asset.get("derivative_only")) ==
                  (destination == "instagram_business" and any(a.get("derivative_only") for a in assets))), None)
 
 
 def prepare_media(pack, article, markets, folder):
     if article.get("market_asset"):
+        from .image_quality_v1 import TEMPLATE_FIT_CAUSES
         from .tradingview_snapshot_v1 import prepare_contract_article
-        return prepare_contract_article(article, [], output_dir=folder)
+
+        try:
+            prepared, assets = prepare_contract_article(article, [], output_dir=folder)
+        except ValueError as exc:
+            if not article.get("morning_map") or str(exc) not in TEMPLATE_FIT_CAUSES:
+                raise
+            plain = {key: value for key, value in article.items() if key != "morning_map"}
+            plain["morning_map_layout_cause"] = str(exc)
+            return prepare_contract_article(plain, [], output_dir=folder)
+        if (prepared.get("image_input_v1") or {}).get("template") == "map":
+            observations = article["morning_map"]["quote_and_trend_source"]["rows"].values()
+            source_names = ", ".join(sorted({row["quote"]["source"] for row in observations}))
+            for asset in assets:
+                if not asset["image_template"]["chart"]:
+                    asset["caption"] = (f"Quotes from {source_names}. Changes use each provider's reference close. "
+                                        "Trends use Capital Chronicle's completed daily bars.")
+        return prepared, assets
     # A daily wrap without a single lead market uses its bound market data.
     return article, [editorial.chart_for(pack, markets, folder)]
 
@@ -118,7 +140,7 @@ def stage(store, pack, manuscript, folder, *, media=prepare_media):
     article, markets = editorial.article_for(pack, manuscript)
     article, assets = media(pack, article, markets, folder)
     plan = make_plan(pack, article, assets, folder)
-    article_payloads = {destination: editorial.derivative_payload(article, select_media(assets, destination),
+    article_payloads = {destination: editorial.derivative_payload(article, select_media(assets, destination, article=article),
         "https://capitalchronicle.substack.com/p/pending-publication", destination)
         for destination in (*ROUTES[1:], "linkedin_company")}
     files = {"article_manifest_v1.json": article, "wrap-pack.json": pack, "wrap-manuscript.json": manuscript,
@@ -168,8 +190,8 @@ def before_write(coordinator, intent, destination):
         if not canonical or intent.get("canonical_url") != canonical:
             raise ValueError("WRAP_CANONICAL_LINK_UNCONFIRMED")
         article = read_json(Path(plan["output_dir"]) / "article_manifest_v1.json")
-        expected = editorial.derivative_payload(article, select_media(packet["media_assets"], destination),
-                                                canonical, destination)
+        assets = select_media(packet["media_assets"], destination, article=article)
+        expected = editorial.derivative_payload(article, assets, canonical, destination)
         actual = intent.get("native_payload")
         if actual != expected:
             raise ValueError("WRAP_DERIVATIVE_TEXT_OR_MEDIA_CHANGED")

@@ -167,6 +167,31 @@ def draft(pack, root, *, call=call_light):
     return {"sections": output, "calls": records}
 
 
+def morning_map(pack, day):
+    """Map source-bound daily moves and dated trend states to the shared layout."""
+    from .image_template_inputs_v1 import MARKETS as MAP_MARKETS, ORDER
+
+    source = pack.get("morning_map_sources") or {}
+    observations = source.get("rows") or {}
+    if set(observations) != set(ORDER):
+        return None
+    lead = max(ORDER, key=lambda market: abs(observations[market]["change_1d_pct"]))
+    analysis = pack["analysis"]
+    rows = []
+    for market in ORDER:
+        row = observations[market]
+        outlook = analysis.get("outlooks", {}).get(market) or ""
+        driver = analysis.get("layers", {}).get(market, {}).get("Macro and catalysts") or ""
+        rows.append({"market": market, "last": row["last"], "change_1d_pct": row["change_1d_pct"],
+                     "state_word": row["state_word"],
+                     "view_line": outlook if 0 < len(outlook) <= 34 else "See the wrap" if outlook else "No view",
+                     "driver_line": driver if len(driver) <= 34 else ""})
+    return {"lead_market": lead, "date_et": f"{day:%a} {day.day} {day:%b}",
+            "lead_line": f"{MAP_MARKETS[lead]} had the largest daily move.",
+            "rows": rows, "quote_and_trend_source": source,
+            "analysis_source": {key: analysis.get(key) for key in ("sha256", "at_utc")}}
+
+
 def article_for(pack, manuscript):
     sections = manuscript["sections"]
     choices = source_choices(pack)
@@ -257,8 +282,10 @@ def article_for(pack, manuscript):
     title = heading + " — " + public_date(datetime.combine(day, time(), ET))
     # The cash S&P 500 chart stays at the last completed session on Sunday.
     # A live crypto chart would put weekend prices into the Friday comparison.
-    chart_market = "US500" if weekly else summary["market"] if summary else None
+    market_map = None if weekly else morning_map(pack, day)
+    chart_market = "US500" if weekly else (market_map or {}).get("lead_market") or (summary or {}).get("market")
     article = {"title": title, "subtitle": standfirst, "dek": standfirst, "article_type": "ARTICLE",
+               **({"morning_map": market_map} if market_map else {}),
                "rights_class": "CC_OWN_ANALYSIS", "substack_body_markdown": "\n\n".join(body),
                "public_instrument_policy": INSTRUMENT_POLICY, "conditional_calls": [],
                **({"market_asset": chart_market} if chart_market else {})}
@@ -321,12 +348,14 @@ def chart_for(pack, markets, root):
             "source_sha256": sha256_of(markets), "placement_after": "introduction"}
 
 
-def derivative_payload(article, asset, canonical_url, destination):
-    # One exact visible link and chart on each route, including the X root
-    # and the Note. Allocate space for the actual link before rendering.
+def derivative_payload(article, assets, canonical_url, destination):
+    # Frozen earlier wrap packets and callers have one chart.
+    if isinstance(assets, dict):
+        assets = [assets]
+    assets = assets or []
     text = article["subtitle"]
-    media = [asset["asset_id"]] if asset else []
-    credit = " " + asset["credit"] + "." if asset and asset.get("credit") else ""
+    media = [asset["asset_id"] for asset in assets]
+    credit = " " + assets[0]["credit"] + "." if assets and assets[0].get("credit") else ""
     notices = PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE
     if destination == "x":
         root = text.split(". That is ", 1)[0].rstrip(".") + "." + credit

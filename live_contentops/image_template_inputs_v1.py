@@ -197,7 +197,7 @@ def for_morning_map(article):
             or not record.get("lead_line") or len(rows) != len(ORDER)
             or {row.get("market") for row in rows} != set(ORDER)):
         return None
-    allowed_states = {"Trending up", "Trending down", "Range", "Squeeze", "Breakout"}
+    allowed_states = {"Trending up", "Trending down", "Mixed trend", "Range", "Squeeze", "Breakout"}
     if any(row.get("last") is None or row.get("change_1d_pct") is None or row.get("state_word") not in allowed_states
            or any(key not in row for key in ("view_line", "driver_line")) for row in rows):
         return None
