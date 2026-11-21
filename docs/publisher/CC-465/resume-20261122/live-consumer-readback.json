@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-11-21T20:09:04.571775+00:00",
+  "source_head": "0987dd92d3779badfef61474f85fa11622fa5947",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "live_tag": "contentops-live-20261122-cc465",
+  "rollback_tag": "contentops-rollback-20261122-cc465",
+  "runtime_observation": {
+    "read_only": true,
+    "consumer_restarted": false,
+    "schedule_changed": false,
+    "latest_log": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261121.jsonl",
+    "latest_record": {
+      "at_utc": "2026-11-21T20:08:33.756275Z",
+      "status": "OK",
+      "cause": null,
+      "phase": "PLAN_COPY_READBACK",
+      "publication": null,
+      "queued": 0,
+      "export_generated_at_utc": "2026-11-21T20:03:37.916338Z",
+      "export_age_seconds": 170.5,
+      "posts_by_status": {},
+      "failed_field": null,
+      "contract_version": "2.0.0"
+    },
+    "latest_record_is_before_this_integration": true,
+    "note": "The latest retained consumer record predates the 22 Nov integration. No schedule or process was started to manufacture a post-integration run."
+  },
+  "publication_register": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+    "sha256": "c4e563a25ba3555a5f9ea6fa22d60d022584b10ccdc7d1ba6f4e29e864992fdd",
+    "records": 1341,
+    "state_counts": {
+      "PUBLISHED": 1309,
+      "RESERVED": 26,
+      "ABSENT": 6
+    },
+    "records_with_template_or_contract": 13,
+    "records_with_cc465_text": 0
+  },
+  "consumer_contract_evidence": {
+    "focused_test_xml": "A:\\Capital Chronicle\\ContentOps\\local-evidence\\cc-465\\operating-root-20261122-focused.xml",
+    "focused_tests_passed": 126,
+    "pytest_processes": 1,
+    "workers": 0
+  }
+}
