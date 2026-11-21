@@ -96,6 +96,92 @@ def build(recorded, **kwargs):
     return report, calls
 
 
+def test_rolling_sweep_reads_exact_public_copy_and_keeps_the_old_notes_watch(recorded, tmp_path):
+    data, store, feed, _ = recorded
+    dispatched = {row["platform"]: row for row in data["platform_dispatches"][:10]}
+    x_dispatch = dispatched["x"]
+    telegram = dispatched["telegram"]
+    message = next(row for row in data["outbox_messages"] if row["message_id"] == telegram["message_id"])
+    expected = readback._expected(json.loads(message["payload"]))
+    post_number = int(telegram["public_object_url"].rsplit("/", 1)[-1])
+    notes_dispatch = readback.CC692_NOTES_DISPATCH
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO platform_dispatches VALUES (?,?,?,?,?,?,?,?)", (
+            notes_dispatch, "old-cc584-note", "substack_notes", "UNKNOWN_WRITE",
+            "2026-11-12T00:00:00Z", None, None, None))
+        conn.execute("INSERT INTO readbacks VALUES (?,?,?,?)", (
+            "old-note-read", notes_dispatch, json.dumps({"reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"}),
+            "2026-11-13T00:00:00Z"))
+        conn.execute("INSERT INTO readbacks VALUES (?,?,?,?)", (
+            "fresh-x-exact", x_dispatch["dispatch_id"], json.dumps({"readback": {
+                "verified": True, "observed_public_object_id": x_dispatch["public_object_id"],
+                "observed_public_object_url": x_dispatch["public_object_url"]}}), "2026-11-16T12:19:00Z"))
+        conn.execute("INSERT INTO readbacks VALUES (?,?,?,?)", (
+            "wrong-id-x", x_dispatch["dispatch_id"], json.dumps({"readback": {
+                "verified": True, "observed_public_object_id": "wrong-id"}}), "2026-11-16T12:20:00Z"))
+    hash_before = sha256(store.read_bytes()).digest()
+    get_original, calls = getter_for(data)
+    telegram_calls = []
+    channel = readback.TELEGRAM_PUBLIC_CHANNEL
+
+    def get(platform, url):
+        if platform != "telegram_channel":
+            return get_original(platform, url)
+        telegram_calls.append(url)
+        if url == f"{channel}?before={post_number + 1}":
+            html = (f'<div data-post="CapitalChronicle/{post_number}">'
+                    '<div class="tgme_widget_message_text">Wrong public copy</div></div>'
+                    f'<div data-post="CapitalChronicle/{post_number + 1}">'
+                    f'<div class="tgme_widget_message_text">{escape(expected)}</div></div>')
+        else:
+            html = f'<div data-post="AnotherChannel/{post_number}">{escape(expected)}</div>'
+        return {"http_status": 200, "html": html}
+
+    output = tmp_path / "sweep"
+    report = readback.build_report(output, store_path=store, feed_path=feed, fetcher=get, sweep=True,
+        until="2026-11-16T12:30:00Z", sweep_started_at="2026-11-16T12:18:00Z")
+    assert report["window"] == {"since_utc": "2026-11-15T12:30:00+00:00",
+        "until_utc": "2026-11-16T12:30:00+00:00", "cut_source": "EXPLICIT"}
+    sweep = report["sweep"]
+    assert [row["platform"] for row in sweep["platforms"]] == list(readback.ROUTES)
+    by_platform = {row["platform"]: row for row in sweep["platforms"]}
+    assert by_platform["x"]["exact_refreshed"] == 1
+    assert by_platform["threads"]["exact_retained"] == 1
+    assert by_platform["telegram"]["fresh_public"] == 1
+    assert telegram_calls.count(channel) == 1
+    assert telegram_calls.count(f"{channel}?before={post_number + 1}") == 1
+    assert all(platform in {"substack", "substack_notes"} for platform, _ in calls)
+    assert sweep["notes_watch"]["status"] == "UNKNOWN_WRITE"
+    assert sweep["notes_watch"]["first_cause"] == "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"
+    assert notes_dispatch in {row["dispatch_id"] for row in sweep["readback_targets"]}
+    assert x_dispatch["dispatch_id"] not in {row["dispatch_id"] for row in sweep["readback_targets"]}
+    assert any(group["example"]["first_cause"] == "PUBLIC_TEXT_MISMATCH"
+               and group["example"]["dispatch_id"] == telegram["dispatch_id"] for group in sweep["defect_groups"])
+    assert {"82", "113", "CC-672"} <= {row["decision"] for row in report["decision_checks"]["checks"]}
+    duration = readback.utc(sweep["next_due_utc"]) - readback.utc(sweep["completed_at_utc"])
+    assert 6 * 3600 <= duration.total_seconds() < 6 * 3600 + 60
+    json_path, md_path = readback.write_report(output, report)
+    assert json.loads(json_path.read_bytes())["sweep"] == sweep
+    assert "CC-692 sweep completed" in md_path.read_text(encoding="utf-8")
+    assert (output / readback.DECISION_CHECKS_NAME).is_file()
+    assert sha256(store.read_bytes()).digest() == hash_before
+
+
+def test_sweep_cli_consumes_its_report_without_an_evening_result(recorded, tmp_path, capsys):
+    from scripts.run_day_readback import main
+
+    _, store, feed, _ = recorded
+    output = tmp_path / "rolling"
+    assert main(["--sweep", "--stored-only", "--output-dir", str(output), "--store", str(store),
+                 "--feed", str(feed), "--until", "2026-11-16T12:30:00Z"]) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result["state"] == "SWEEP_WRITTEN"
+    assert result["notes_watch"]["status"] == "WATCH_DISPATCH_NOT_FOUND_AT_CUTOFF"
+    assert all(row["fresh_public"] == 0 for row in result["platforms"])
+    assert readback.public_get_url("telegram_channel", "https://web.telegram.org/") is None
+    assert readback.public_get_url("telegram_channel", readback.TELEGRAM_PUBLIC_CHANNEL + "?before=0") is None
+
+
 def test_evening_file_reports_ready_and_never_registered_plan_copies(recorded):
     from live_contentops import plan_status_posts_v1 as posts
 
