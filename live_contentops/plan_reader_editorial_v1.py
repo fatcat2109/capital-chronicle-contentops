@@ -25,6 +25,7 @@ PAGE_LEASE = "cc466-plan-page-editorial"
 PAGE_DRAFT_LEASE = "cc688-plan-page-draft"
 DRAFT_MANUSCRIPT = "page-manuscript-cc688.json"
 PAGE_AGY_TIMEOUT = 100
+PAGE_COPY_REVISION = 6
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
@@ -281,7 +282,7 @@ def check_manuscript(value, source, plan, run):
     return {"numeric_bindings":bound,"checks":reports,"word_count":word_count}
 
 
-def _plan_page_sources(plan, run):
+def _plan_page_sources(plan, run, *, revision=PAGE_COPY_REVISION):
     """Offer public excerpts from the frozen plan and its sealed analyst result."""
     private_texts = pages.private_source_texts(run)
     sections = {key: [] for key, _ in pages.READER_SECTIONS}
@@ -297,6 +298,8 @@ def _plan_page_sources(plan, run):
                 continue
             try:
                 pages.public_filter(text, private_texts=private_texts)
+                if revision >= PAGE_COPY_REVISION:
+                    reader.require_reader_plan_terms(text)
                 reader.check_text(text, source=raw, prose=False)
                 reader.check_thread_text(text)
                 pages.check_reader_claim(text, source=text)
@@ -346,7 +349,7 @@ def _plan_page_sources(plan, run):
     return sections
 
 
-def _page_from_selection(plan, run, sources, selection):
+def _page_from_selection(plan, run, sources, selection, *, revision=PAGE_COPY_REVISION):
     from .plan_status_posts_v1 import TITLES
 
     if not isinstance(selection, dict) or set(selection) != {section for section, entries in sources.items() if entries}:
@@ -366,7 +369,7 @@ def _page_from_selection(plan, run, sources, selection):
     subtitle = "The original market view and the conditions behind it."
     available = (paragraph["text"] for section in sections.values() for paragraph in section["paragraphs"])
     title, introduction = TITLES[plan["asset_id"]] + ": the original plan", next(available)
-    bindings = {"reader_contract": reader.CONTRACT, "reader_revision": 5, "analysis_copy_contract": reader.ANALYSIS_COPY,
+    bindings = {"reader_contract": reader.CONTRACT, "reader_revision": revision, "analysis_copy_contract": reader.ANALYSIS_COPY,
                 "plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"], "draft_selection": selection}
     if plan.get("zone") and plan.get("invalidation_conditions"):
         terms = reader.page_thread_terms(plan, run, level_contract=reader.LEVEL_CONTRACT)
@@ -393,7 +396,9 @@ def _page_from_selection(plan, run, sources, selection):
 
 
 def validate_plan_page_quotes(manuscript, plan, run):
-    expected = _page_from_selection(plan, run, _plan_page_sources(plan, run), manuscript.get("draft_selection"))
+    revision = manuscript.get("reader_revision", 5)
+    sources = _plan_page_sources(plan, run, revision=revision)
+    expected = _page_from_selection(plan, run, sources, manuscript.get("draft_selection"), revision=revision)
     if any(manuscript.get(key) != value for key, value in expected.items()):
         raise ValueError("CC688_PAGE_COPY_CHANGED_FROM_FROZEN_PLAN")
 
@@ -811,6 +816,10 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                 try:
                     if cached_only:
                         manuscript = json.loads((folder / DRAFT_MANUSCRIPT).read_bytes())
+                        if (manuscript.get("analysis_copy_contract") == reader.ANALYSIS_COPY
+                                and manuscript.get("reader_revision", 0) < PAGE_COPY_REVISION):
+                            manuscript = repair_cached_page_quotes(plan, pages.load_run(plan), manuscript,
+                                                                   cause="CC688_PAGE_PUBLIC_TERMS")
                         try:
                             packet = pages.render(plan, manuscript, output_dir=folder, **options)
                         except ValueError as exc:

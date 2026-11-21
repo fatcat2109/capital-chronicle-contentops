@@ -223,6 +223,53 @@ def test_minute_repairs_an_unissued_draft_using_its_still_valid_frozen_excerpts(
     assert path.read_bytes() == draft_bytes
 
 
+def test_page_resume_removes_internal_labels_after_a_proven_preclick_refusal(source, tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
+
+    run_root, _, raw, _ = source
+    public_observation = "Traders had already priced in the policy move."
+    raw["scenario_analysis"] = {"priced": "The priced_in field is MISSING. " + public_observation}
+    run = pages.load_run(raw, run_root=run_root)
+    earlier_sources = editorial._plan_page_sources(raw, run, revision=5)
+    assert len(earlier_sources["priced_in"]) == 2
+    selection = {key: list(range(len(items))) for key, items in earlier_sources.items() if items}
+    old_draft = editorial._page_from_selection(raw, run, earlier_sources, selection, revision=5)
+    store = ContentOpsDurableStore(tmp_path / "page.sqlite3")
+    page = pages.register_page(store, pages.render(raw, old_draft, run_root=run_root, output_dir=tmp_path / "page"))
+    old_packet = store.get_outbox_message(page["page_id"])["payload"]
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(page["page_id"], page["plan"])
+    ids = coordinator._ids(page["page_id"], page["plan"]["plan_hash"], "substack")
+    old_intent = store.get_outbox_message(ids["message_id"])["payload"]
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="DEFINITE_NO_WRITE")
+    sent = []
+
+    def publish(work_id, new_plan):
+        coordinator.register_plan(work_id, new_plan)
+        new_ids = coordinator._ids(work_id, new_plan["plan_hash"], "substack")
+        assert new_ids != ids
+        intent = json.loads(store.get_outbox_message(new_ids["message_id"])["payload"])
+        sent.append(pages.validate_intent(store, intent))
+        return {"status": "READY"}
+
+    monkeypatch.setattr(coordinator, "publish_plan", publish)
+    monkeypatch.setattr(native_desktop_publication_v1, "live_publication_policy", lambda rollout: None)
+    monkeypatch.setattr(llm_operator_control_v1, "assert_llm_operator_execution_enabled", lambda: None)
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator",
+                        lambda *a, **k: (coordinator, SimpleNamespace(pending=lambda: [])))
+    pages.continue_page(store, page, invocation_id="plan-copy-repair", rollout={"store_path": store.db_path})
+    checked, = sent
+    body = checked["native_payload"]["body_markdown"]
+    assert public_observation in body and "priced_in" not in body and "MISSING" not in body
+    assert checked["manuscript"]["reader_revision"] == editorial.PAGE_COPY_REVISION
+    prior, = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+    assert prior["payload"] == old_packet
+    assert store.get_outbox_message(ids["message_id"])["payload"] == old_intent
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DEFINITE_NO_WRITE"
+
+
 def test_page_image_gate_accepts_its_own_setup_and_result_and_refuses_another_registration(source, tmp_path):
     from live_contentops import article_publication_quality_v1 as quality, tradingview_snapshot_v1 as tv
     from test_tradingview_plan_overlay_cc459 import captured

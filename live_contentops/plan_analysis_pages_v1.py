@@ -840,6 +840,31 @@ def refresh_active_page(store, packet, *, now):
     return replace_unpublished_copy(store, packet, revised)
 
 
+def refresh_page_reader_terms(store, packet):
+    """Repair reader-facing copy only on a page that has not been sent."""
+    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_editorial_v1 import PAGE_COPY_REVISION, repair_cached_page_quotes
+
+    held = packet["manuscript"]
+    if held.get("analysis_copy_contract") != ANALYSIS_COPY or held.get("reader_revision", 0) >= PAGE_COPY_REVISION:
+        return packet
+    raw = packet["source_plan"]
+    run = load_run(raw, run_root=Path(packet["run_root"]))
+    if run["manifest"] != packet["source_manifest"]:
+        raise ValueError("PLAN_ANALYSIS_SOURCE_BYTES_CHANGED")
+    manuscript = repair_cached_page_quotes(raw, run, held, cause="CC688_PAGE_PUBLIC_TERMS")
+    bindings = validate_manuscript(raw, manuscript, run)
+    check_new_page_copy(manuscript, run)
+    options = {key: packet.get(key) for key in ("market_update", "active_status", "final_status")}
+    payload, _, geometry = _assemble(raw, manuscript, run, **options)
+    if payload == packet["native_payload"]:
+        return packet
+    summary = {key: manuscript["sections"][key]["summary"] for key, _ in sections_for(manuscript)}
+    revised = {**packet, "native_payload": payload, "manuscript": manuscript, "summary": summary,
+               "numeric_bindings": bindings + geometry, "authorship": manuscript["authorship"]}
+    return replace_unpublished_copy(store, packet, revised)
+
+
 def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None,
                   automatic=False):
     from .native_desktop_publication_v1 import live_publication_policy
@@ -875,6 +900,8 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
             ids = coordinator._ids(packet["page_id"], packet["plan"]["plan_hash"], "substack")
             result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
         else:
+            if status in {None, "DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}:
+                packet = refresh_page_reader_terms(store, packet)
             if ended:
                 packet = refresh_ended_page(store, packet, now=now)
             elif (raw.get("zone") and packet["manuscript"].get("reader_revision", 1) >= 3

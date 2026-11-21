@@ -324,10 +324,17 @@ def validate_analysis_line(options, layer, text):
         raise ValueError("CC688_LAYER_NOT_QUOTED_FROM_PLAN:" + str(layer))
 
 
+def require_reader_plan_terms(text):
+    from .plan_scenario_lines_v1 import BARE_UTC, INTERNAL_CAPS
+
+    if BARE_UTC.search(text) or INTERNAL_CAPS.search(text) or _PLAN_INTERNAL_REF.search(text):
+        raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
+
+
 def _public_plan_quote(span, plan):
     """Translate only source notation whose meaning the code can verify."""
     from .plan_analysis_pages_v1 import check_reader_claim, public_filter
-    from .plan_scenario_lines_v1 import BARE_UTC, INTERNAL_CAPS, ISO_TIME
+    from .plan_scenario_lines_v1 import ISO_TIME
 
     # Check before removing notation so a rewrite cannot hide a restricted input.
     public_filter(span)
@@ -380,8 +387,9 @@ def _public_plan_quote(span, plan):
     text = re.sub(r"^(long|short) positions\b", r"\1s", text, flags=re.I)
     text = text.strip()
     text = text[0].upper() + text[1:] if text else text
-    if not text or BARE_UTC.search(text) or INTERNAL_CAPS.search(text) or _PLAN_INTERNAL_REF.search(text):
+    if not text:
         raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
+    require_reader_plan_terms(text)
     check_text(text, source="\n".join([span, *converted_clocks]), prose=False)
     check_thread_text(text, force=True)
     check_publication_copy({"body": text}, require_notice=False)
