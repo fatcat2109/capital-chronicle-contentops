@@ -430,15 +430,22 @@ if (input.phase === 'note_inline_copy') {
 if (input.phase === 'quote_source') {
   return unwrap(await page.evaluateInPage(parent => {
     const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
+    const expectedUrl = parent.public_object_url.toLowerCase();
     const times = Array.from(document.querySelectorAll('article[data-testid="tweet"] a[href] time'));
-    const clock = times.find(t => t.getClientRects().length &&
-      t.closest('a').href.toLowerCase() === parent.public_object_url.toLowerCase());
+    const exactPage = (location.origin + location.pathname).toLowerCase() === expectedUrl;
+    const clock = exactPage ? times.find(t => t.getClientRects().length &&
+      t.closest('a').href.toLowerCase() === expectedUrl) : null;
     const source = clock?.closest('article[data-testid="tweet"]');
     const text = source?.querySelector('[data-testid="tweetText"]');
     const button = source?.querySelector('[data-testid="retweet"]');
-    const matches = !!clock && Math.abs(Date.parse(clock.getAttribute('datetime')) -
-      Date.parse(parent.source_posted_at_utc)) < 1000 && [text?.innerText, text?.textContent].some(t =>
-      !!t && norm(t) === norm(parent.source_text));
+    const expected = norm(parent.source_text);
+    // The list and native quote card can retain the same excerpt while X
+    // expands the original permalink. The card still requires the exact
+    // bound excerpt before Post, even when the permalink shows more text.
+    const bodyMatches = [text?.innerText, text?.textContent].map(norm).some(body =>
+      expected && (body === expected || body.startsWith(expected + ' ')));
+    const matches = !!clock && Math.floor(Date.parse(clock.getAttribute('datetime')) / 1000) ===
+      Math.floor(Date.parse(parent.source_posted_at_utc) / 1000) && bodyMatches;
     if (matches && button) button.setAttribute('aria-label','CC467 source quote menu');
     const url = clock?.closest('a').href;
     return {matches, menu_available:!!button, public_object_url:matches ? parent.public_object_url : url,
@@ -469,7 +476,8 @@ const quoteCard = async (parent, publicUrl, posts) => unwrap(await page.evaluate
         // X wraps a rendered link over multiple lines inside a non-link span.
         .some(t => [t.innerText, t.textContent].some(text => !!text && norm(text) === norm(parent.source_text)))
         && e.innerText.toLowerCase().includes('@'+handle.toLowerCase())
-        && Array.from(e.querySelectorAll('time')).some(t => Math.abs(Date.parse(t.getAttribute('datetime'))-Date.parse(parent.source_posted_at_utc)) < 1000));
+        && Array.from(e.querySelectorAll('time')).some(t => Math.floor(Date.parse(t.getAttribute('datetime')) / 1000) ===
+          Math.floor(Date.parse(parent.source_posted_at_utc) / 1000)));
     const link = card && Array.from(card.querySelectorAll('a[href*="/status/"] time')).map(t => t.closest('a').href)[0];
     const matches = !!card && (!link || link.toLowerCase() === parent.public_object_url.toLowerCase());
     if (matches && !link && data.publicUrl) card.setAttribute('aria-label','CC467 observed quote source');
@@ -528,14 +536,23 @@ if ((input.phase === 'publish' || input.phase === 'validate') && input.quote_par
   }
   if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES', observed.pre_click_posts);
   if (input.phase === 'validate') return {status:'PREPARED', post_count:1, quote_card_verified:true, chart_loaded:true};
-  const dispatched_at_utc = new Date().toISOString();
+  const attempt = {stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc:new Date().toISOString(),
+    pre_click_posts:observed.pre_click_posts};
   try {
     await page.click(button.ref);
   } catch (_) {
-    return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_CLICK_RETURN_INCOMPLETE',
-      stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc, pre_click_posts:observed.pre_click_posts};
+    return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_CLICK_RETURN_INCOMPLETE', ...attempt};
   }
-  return {status:'CLICKED', stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc, pre_click_posts:observed.pre_click_posts};
+  // Navigating from the still-open quote dialog can interrupt the send or
+  // trigger beforeunload. Wait for X to clear it before profile readback.
+  try {
+    const closed = await page.waitForSelector(
+      'body:not(:has([role="dialog"] [data-testid="tweetTextarea_0"]))', {timeout:5000});
+    if (closed.matched) return {status:'CLICKED', ...attempt};
+  } catch (_) {
+    // The click has already happened. The coordinator owns exact recovery.
+  }
+  return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_COMPOSER_STILL_OPEN_AFTER_CLICK', ...attempt};
 }
 
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
