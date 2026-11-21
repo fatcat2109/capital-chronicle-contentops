@@ -223,6 +223,44 @@ def test_minute_repairs_an_unissued_draft_using_its_still_valid_frozen_excerpts(
     assert path.read_bytes() == draft_bytes
 
 
+def test_page_image_gate_accepts_its_own_setup_and_result_and_refuses_another_registration(source, tmp_path):
+    from live_contentops import article_publication_quality_v1 as quality, tradingview_snapshot_v1 as tv
+    from test_tradingview_plan_overlay_cc459 import captured
+
+    run_root, _, raw, manuscript = source
+    store = ContentOpsDurableStore(tmp_path / "page.sqlite3")
+    now = posts._utc("2026-11-21T13:32:00Z")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None, clock=lambda: now,
+                                                  published_content_path=tmp_path / "published.jsonl")
+    _, source_image = captured(raw["asset_id"])
+    image = tv.snapshot_asset(raw["asset_id"], manuscript["title"], source_image["tradingview_snapshot"], tmp_path)
+    packet = pages.render(raw, manuscript, run_root=run_root, output_dir=tmp_path / "page")
+    packet = pages.register_page(store, {**packet, "media_assets": [image]})
+    coordinator.register_plan(packet["page_id"], packet["plan"])
+    intent_row, = store.list_outbox_messages(destination="substack")
+    intent = json.loads(intent_row["payload"])
+    register = quality.image_register(coordinator)
+
+    def hold_alert(kind, registration):
+        key = kind + "-" + registration
+        store.create_work_item(story_id=key, work_item_id=key, title=kind, target_surface="MULTI_PLATFORM")
+        store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
+            payload=json.dumps({"kind": kind, "state_alert_contract": "CC543_V1", "plan_id": raw["plan_id"],
+                                "source_plan_registration": registration}), status="PUBLISHED")
+        piece = quality.piece_id(store, {"work_item_id": key})
+        prior = {r["piece_id"] for r in register.records()}
+        register.reserve(piece_id=piece, assets=[image], lead_asset_id=image["asset_id"], now=now,
+                         enforce_cap=False, related_piece_ids=prior)
+        register.settle(piece, state="PUBLISHED", now=now)
+
+    hold_alert("setup", raw["registration_hash"])
+    hold_alert("result", raw["registration_hash"])
+    assert quality.before_article_write(coordinator, intent, "substack")["lead_asset_id"] == image["asset_id"]
+    hold_alert("result", "different-registration")
+    with pytest.raises(ValueError, match="IMAGE_REUSED"):
+        quality.before_article_write(coordinator, intent, "substack")
+
+
 def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp_path, monkeypatch):
     now = posts._utc("2026-11-20T04:30:00Z")
     store = ContentOpsDurableStore(tmp_path / "worker.sqlite3")
