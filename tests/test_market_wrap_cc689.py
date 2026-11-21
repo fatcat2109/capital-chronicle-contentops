@@ -37,6 +37,9 @@ def test_due_windows_follow_the_cash_open_and_close_calendar(cash):
     assert monday["deadline_utc"] == "2026-11-23T13:45:00+00:00"
     friday = sources.slot_at(at("2026-11-27T13:00Z"), cash)
     assert friday["id"] == "cc689-daily-2026-11-27"
+    first_sunday = sources.slot_at(at("2026-11-22T12:00Z"), cash)
+    assert first_sunday["start_utc"] == "2026-11-22T12:00:00+00:00"
+    assert first_sunday["deadline_utc"] == "2026-11-22T18:00:00+00:00"
     sunday = sources.slot_at(at("2026-11-29T15:00Z"), cash)
     assert sunday["start_utc"] == "2026-11-29T15:00:00+00:00"
     assert sunday["deadline_utc"] == "2026-11-29T18:00:00+00:00"
@@ -184,6 +187,7 @@ def test_sunday_pack_keeps_dated_closes_and_calendar_windows(tmp_path, cash):
     assert pack["gaps"] == {}
     article, markets = editorial.article_for(pack, editorial.draft(pack, tmp_path, call=select_first))
     assert "sessions dated November 27, 2026" in article["substack_body_markdown"]
+    assert article["market_asset"] == "US500"
     assert "Scored calls: 0. Hits: 0. Stops: 0." in article["substack_body_markdown"]
     assert all(market["change_pct"] == 4 for market in markets.values())
 
@@ -240,6 +244,8 @@ def test_codex_capacity_returns_desk_sections_to_antigravity(tmp_path, pack):
         callers.extend(kwargs["callers"])
         if kwargs["callers"] == ("codex",):
             assert kwargs["codex_effort"] == "max"
+            assert kwargs["timeout_seconds"] == 240
+            assert kwargs["job"] == "market_wrap_desk"
             return b"", {"cause": "CODEX_QUOTA"}
         return select_first(prompt, **kwargs)
 
@@ -283,6 +289,51 @@ class LocalTransport(CanonicalDestinationTransportRuntimeV1):
         return {"status": "SUCCESS", "verified": True, "public_object_id": public_object_id,
                 "public_object_url": public_object_url,
                 "published_at_utc": "2026-11-23T13:09:00Z"}
+
+
+def test_weekly_wrap_binds_the_closed_cash_chart_to_both_linkedin_requests(tmp_path, pack, cash, monkeypatch):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    from live_contentops.publication_image_contract_v1 import comparison_clock
+
+    sunday = at("2026-11-22T12:00Z")
+    friday_close = at("2026-11-20T21:00Z")
+    weekly = {**pack, "slot": sources.slot_at(sunday, cash), "market_close_date": "2026-11-20",
+              "last_cash_close_utc": friday_close.isoformat(), "data_cutoff_utc": None,
+              "markets": {}, "snapshots": {}, "analysis": {**pack["analysis"], "at_utc": friday_close.isoformat()}}
+
+    def prepare_chart(article, assets, *, output_dir):
+        market = article["market_asset"]
+        assert not assets
+        assert tv.SYMBOLS[market] == "SP:SPX"
+        assert comparison_clock(market, sunday) == (friday_close, True)
+        chart = editorial.chart_for(weekly, {}, output_dir)
+        return article, [{**chart, "modality": "tradingview_chart_snapshot"}]
+
+    monkeypatch.setattr(tv, "prepare_contract_article", prepare_chart)
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    article_dir = tmp_path / "weekly"
+    packet = job.stage(store, weekly, editorial.draft(weekly, article_dir, call=select_first), article_dir)
+    plan = packet["plan"]
+    runtime = CanonicalDestinationTransportRuntimeV1()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime, clock=lambda: sunday)
+    coordinator.register_plan(packet["identity"], plan)
+    canonical = "https://capitalchronicle.substack.com/p/weekend-wrap-20261122"
+    handoff = NeoDestinationHandoff(store=store)
+    for destination in ("linkedin", "linkedin_company"):
+        ids = coordinator._ids(packet["identity"], plan["plan_hash"], destination)
+        queued = json.loads(store.get_outbox_message(ids["message_id"])["payload"])
+        intent = runtime.finalize_intent(destination=destination, intent=queued, canonical_url=canonical)
+        assert intent["cc684_linkedin"]
+        request = handoff.request(destination=destination, action="PUBLISH", intent=intent, authorization_context={
+            "schema_version": "contentops.canonical_machine_authorization.v1", "operating_mode": "AUTONOMOUS_DEFAULT",
+            "destination": destination, "work_item_id": packet["identity"], "dispatch_attempt_identity": ids["dispatch_id"],
+            "payload_hash": intent["destination_plan"]["payload_hash"],
+        })
+        assert request["canonical_url"] in request["native_payload"]["text"]
+        chart, = request["content_binding"]["media_manifest"]
+        assert chart["sha256"] == packet["media_assets"][0]["sha256"]
+        assert Path(chart["path"]).is_relative_to(article_dir / "media")
 
 
 @pytest.mark.parametrize("unavailable", [None, "x", "substack_notes"])
@@ -430,7 +481,8 @@ const deadline = '2026-11-23T13:45:00Z';
 const cases = [
   ['plan_substack_publish', 'substack', 'Publish now', [true]],
   ['plan_substack_confirm', 'substack', 'Publish on web only', []],
-  ['article_publish', 'linkedin_company', 'Post', [['Bound copy']]],
+  ['article_publish', 'linkedin', 'Post', [['Bound copy'], true]],
+  ['article_publish', 'linkedin_company', 'Post', [['Bound copy'], true]],
   ['publish', 'substack_notes', 'Post', [{count:1,matches:true}, ['Bound copy'], {marked:true}]],
   ['publish', 'x', 'Post', [{count:1,matches:true}, ['Bound copy'], {marked:true}]],
 ];
@@ -441,13 +493,18 @@ const cases = [
       Date.now = () => Date.parse(deadline) - (elapsed ? 0 : 1);
       const clicks = [];
       let index = 0;
+      const refs = [{role:'button', name, ref:'submit'}];
+      if (destination === 'linkedin') {
+        refs.push({role:'button', name:'Jim Pham'}, {role:'button', name:'Post to Anyone'});
+      }
       const page = {
-        snapshot: async () => ({refs:[{role:'button', name, ref:'submit'}]}),
+        snapshot: async () => ({url:'https://www.linkedin.com/feed/', refs}),
         evaluateInPage: async () => ({value:values[index++]}),
         waitForSelector: async () => ({matched:true}),
         click: async (ref) => clicks.push(ref),
       };
-      const result = await run(page, {phase, destination, wrap_deadline_utc:deadline, posts:['Bound copy']});
+      const result = await run(page, {phase, destination, wrap_deadline_utc:deadline, posts:['Bound copy'],
+                                     require_media:phase === 'article_publish'});
       results.push({phase, destination, elapsed, clicks, result});
     }
   }
@@ -456,7 +513,7 @@ const cases = [
 """
     source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
     checks = json.loads(check_output(["node", "-e", script, str(source)], timeout=10))
-    assert len(checks) == 10
+    assert len(checks) == 12
     for check in checks:
         if check["elapsed"]:
             assert check["clicks"] == [], check

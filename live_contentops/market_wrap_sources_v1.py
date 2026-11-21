@@ -67,7 +67,12 @@ def slot_at(now, calendar):
         return None
     if not weekly and not session_day(day, calendar):
         return None
-    start = datetime.combine(day, time(15), UTC) if weekly else datetime.combine(day, time(8), ET)
+    if weekly:
+        # Ops Product moved the first Sunday wrap forward while the PC stays on.
+        start_hour = 12 if day == START - timedelta(days=1) else 15
+        start = datetime.combine(day, time(start_hour), UTC)
+    else:
+        start = datetime.combine(day, time(8), ET)
     deadline = (datetime.combine(day, time(18), UTC) if weekly
                 else datetime.combine(day, time(8, 45), ET))
     edition = "weekly" if weekly else "daily"

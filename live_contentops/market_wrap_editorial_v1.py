@@ -255,10 +255,13 @@ def article_for(pack, manuscript):
                                 else "Watch the next official releases for new evidence."),
                  PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE])
     title = heading + " — " + public_date(datetime.combine(day, time(), ET))
+    # The cash S&P 500 chart stays at the last completed session on Sunday.
+    # A live crypto chart would put weekend prices into the Friday comparison.
+    chart_market = "US500" if weekly else summary["market"] if summary else None
     article = {"title": title, "subtitle": standfirst, "dek": standfirst, "article_type": "ARTICLE",
                "rights_class": "CC_OWN_ANALYSIS", "substack_body_markdown": "\n\n".join(body),
                "public_instrument_policy": INSTRUMENT_POLICY, "conditional_calls": [],
-               **({"market_asset": summary["market"]} if summary and not weekly else {})}
+               **({"market_asset": chart_market} if chart_market else {})}
     check_publication_copy({"title": title, "body": article["substack_body_markdown"]})
     validate_article(article)
     require_public_time(article["substack_body_markdown"])

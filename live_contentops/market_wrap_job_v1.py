@@ -61,8 +61,7 @@ def prepare_media(pack, article, markets, folder):
     if article.get("market_asset"):
         from .tradingview_snapshot_v1 import prepare_contract_article
         return prepare_contract_article(article, [], output_dir=folder)
-    # The weekly visual describes the Friday closes, including crypto. A
-    # Sunday live snapshot could show prices after the period being measured.
+    # A daily wrap without a single lead market uses its bound market data.
     return article, [editorial.chart_for(pack, markets, folder)]
 
 
