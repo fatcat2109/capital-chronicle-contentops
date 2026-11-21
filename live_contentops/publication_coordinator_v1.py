@@ -2075,11 +2075,7 @@ class DurablePublicationCoordinator:
     def _full_v1_distribution_preflight(
         self, work_item_id: str, plan: Mapping[str, Any]
     ) -> dict[str, Any]:
-        """Validate required packages and current Substack/X identity before distribution.
-
-        Decision 112 restores X with a fresh identity proof. Other derivative readiness
-        stays at its existing destination boundary.
-        """
+        """Validate the required packages and Substack's canonical readiness."""
 
         destinations = [
             str(row.get("destination") or "")
@@ -2118,12 +2114,10 @@ class DurablePublicationCoordinator:
         plan_hash = str(plan.get("plan_hash") or _hash(_canonical_json(plan)))
         readiness_rows: dict[str, Any] = {}
         readiness_blockers: list[str] = []
-        from .native_neo_executor_v1 import NativeNeoInputRequired
         confirmed_canonical = self._confirmed_canonical_url_for_work_item(work_item_id, plan_hash=plan_hash)
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
             item = item_by_destination.get(destination, {})
-            if destination not in {"substack", "x"} or (
-                    destination == "substack" and plan.get("distribution_policy") == "SITE_FIRST_V1"):
+            if destination != "substack" or plan.get("distribution_policy") == "SITE_FIRST_V1":
                 readiness_rows[destination] = {
                     "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
                     "identity_match": None,
@@ -2142,13 +2136,6 @@ class DurablePublicationCoordinator:
                 }
                 continue
             try:
-                if destination == "x":
-                    executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
-                    if getattr(executor, "native_neo_protocol", False):
-                        # Queue the existing read-only identity request if no fresh
-                        # actual observation exists; a deferred composed check alone
-                        # cannot release all seven derivatives under decision 112.
-                        executor.readiness(str(item.get("surface") or "X_POST"))
                 if self.readiness_manager is not None:
                     row = dict(
                         self.readiness_manager.verify_destination_jit(
@@ -2205,9 +2192,7 @@ class DurablePublicationCoordinator:
             ),
             "structural_blockers": structural_blockers,
             "readiness_blockers": readiness_blockers,
-            "derivative_readiness_deferred": list(
-                d for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d != "x"
-            ),
+            "derivative_readiness_deferred": list(V1_REQUIRED_DERIVATIVE_DESTINATIONS),
             "per_destination": readiness_rows,
             "public_write_performed": False,
         }
@@ -3032,6 +3017,36 @@ class DurablePublicationCoordinator:
             work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
             description=_canonical_json({**detail, "destination": destination, "et_day": day}))
 
+    def _article_x_readiness(self, registration, item, dispatch_id):
+        # Decision 112 still requires the exact read-only identity proof before
+        # an X article send. CC-124 puts that check at the X dispatch itself.
+        executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+        if getattr(executor, "native_neo_protocol", False):
+            proof = executor.readiness(registration.surface)
+            if not (
+                proof.get("authenticated") is True
+                and proof.get("native_executor_bound") is True
+                and proof.get("proof_fresh") is True
+                and proof.get("public_handle") == registration.expected_public_handle
+            ):
+                return "SESSION_UNAVAILABLE"
+        if self.readiness_manager is not None:
+            row = self.readiness_manager.verify_destination_jit(
+                "x", reason="PUBLICATION", persist=True, attempt_identity=dispatch_id
+            ) or {}
+        elif callable(self.readiness_provider):
+            row = self.readiness_provider("x") or {}
+        else:
+            return self._readiness("x", item)
+
+        state = str(row.get("readiness_state") or row.get("status") or "")
+        if state in READY_STATES and (
+            row.get("identity_match") in (False, 0, "false", "False")
+            or row.get("write_eligible") in (False, 0, "false", "False")
+        ):
+            return "SESSION_UNAVAILABLE"
+        return state
+
     def _dispatch_message(self, message, *, canonical_url, explicit_reconciled_absent_retry=False,
                           explicit_transport_correction_retry=False, recovery_public_object_url=None):
         outcome = self._dispatch_message_once(message, canonical_url=canonical_url,
@@ -3382,6 +3397,15 @@ class DurablePublicationCoordinator:
             # Only consume the same durable request/return. Its Desktop action claim checks
             # current mode itself; a lost claimed return becomes UNKNOWN, never another click.
             readiness = "READY_AUTHENTICATED"
+        elif destination == "x" and self._full_v1_distribution_required(intent):
+            try:
+                readiness = self._article_x_readiness(registration, item, ids["dispatch_id"])
+            except NativeNeoInputRequired as pending:
+                return {"destination": destination, "status": NATIVE_NEO_PENDING,
+                        "native_tool_request": pending.request, "publish_called": False}
+            except Exception as exc:
+                return {"destination": destination, "status": "READINESS_CHECK_FAILED",
+                        "safe_error_classification": type(exc).__name__, "publish_called": False}
         elif (destination == "linkedin" and registration.transport_type == "BROWSEROS_NEO_MCP"
                 and not intent.get("cc684_linkedin")):
             executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
@@ -4047,8 +4071,10 @@ class DurablePublicationCoordinator:
         try:
             message = next((m for m in messages if m["destination"] == "substack"), None)
             if message:
-                pending_social = any(o.get("status") in {NATIVE_NEO_PENDING, UNKNOWN_WRITE, ATTEMPT_STARTED}
-                    and o.get("reconciliation_status") != RECONCILED_CONFIRMED for o in outcomes.values())
+                pending_social = any(destination != "x"
+                    and o.get("status") in {NATIVE_NEO_PENDING, UNKNOWN_WRITE, ATTEMPT_STARTED}
+                    and o.get("reconciliation_status") != RECONCILED_CONFIRMED
+                    for destination, o in outcomes.items())
                 if pending_social:
                     outcomes["substack"] = {"status": "SUBSTACK_AFTER_SOCIAL_PASS", "publish_called": False}
                 else:
@@ -4185,7 +4211,8 @@ class DurablePublicationCoordinator:
                      and (plan.get("plan_status_post")
                          or json.loads(str(m["payload"])).get("routine_company_copy") is True)))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
-        messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
+        messages.sort(key=lambda m: (m["destination"] != "substack",
+            quality_preflight is not None and m["destination"] == "x", m["destination"]))
         alert_recovery = set()
         if state_alert:
             selected = {row["destination"] for row in plan["destinations"]}
@@ -4650,6 +4677,7 @@ class DurablePublicationCoordinator:
                 key=lambda entry: (
                     str(entry[0].get("work_item_id") or ""),
                     0 if str(entry[0]["destination"]) == "substack" else 1,
+                    entry[0]["destination"] == "x",
                     str(entry[0]["destination"]),
                 )
             )
