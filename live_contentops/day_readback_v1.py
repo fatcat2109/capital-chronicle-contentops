@@ -396,6 +396,9 @@ def _public_rows(conn, window, feed):
         work_ids.update(row[0] for row in conn.execute("""
             SELECT o.work_item_id FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
             WHERE d.public_object_url=? AND o.destination='substack'""", (url,)))
+    # A continuation can arrive in a later window than its root.
+    work_ids.update(work.rsplit("-part-", 1)[0] for work in tuple(work_ids)
+                    if work.startswith("plan-") and re.search(r"-part-\d+$", work))
     by_id = {}
     end = utc(window["until_utc"])
     for work_id in sorted(work_ids):
@@ -581,24 +584,28 @@ def _native_observations(conn, work_id, until):
     return by_platform
 
 
-def _dispatch_outcomes(conn, work_id, dispatch_id, until):
-    if not dispatch_id:
-        return []
-    outcomes = []
+def _dispatch_outcomes(conn, work_ids, dispatch_ids, until):
+    outcomes = defaultdict(list)
+    if not dispatch_ids:
+        return outcomes
     for row in conn.execute("""SELECT severity, description, created_at FROM incidents
-        WHERE work_item_id=? AND severity IN ('DISPATCH_OUTCOME','RESOLVED_LOCAL_PREWRITE')
-        AND julianday(created_at) <= julianday(?) ORDER BY created_at,incident_id""", (work_id, until)):
+        WHERE work_item_id IN (SELECT value FROM json_each(?))
+        AND severity IN ('DISPATCH_OUTCOME','RESOLVED_LOCAL_PREWRITE')
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at,incident_id""",
+        (json.dumps(list(work_ids)), until)):
         value = json.loads(row["description"])
-        if value.get("dispatch_id") != dispatch_id:
+        dispatch_id = value.get("dispatch_id")
+        if dispatch_id not in dispatch_ids:
             continue
+        records = outcomes[dispatch_id]
         if (row["severity"] == "RESOLVED_LOCAL_PREWRITE"
                 and value.get("cause") == "CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM"):
-            for _, outcome in outcomes:
+            for _, outcome in records:
                 if outcome.get("safe_error_classification") == "KeyError":
                     outcome["first_cause"] = value["cause"]
                     break
         else:
-            outcomes.append((value.get("attempt_started_at_utc") or row["created_at"], value))
+            records.append((value.get("attempt_started_at_utc") or row["created_at"], value))
     return outcomes
 
 
@@ -804,14 +811,23 @@ def _plan_delivery(conn, window, store_path):
     runtime = Path(store_path).parent
     root = runtime / "daily_app_outputs" / "plan-status-posts"
     selected = []
-    for plan in conn.execute("""SELECT message_id,payload,status,created_at FROM outbox_messages
-        WHERE destination=? AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
-        ORDER BY created_at,message_id""", (posts.DESTINATION, iso(start), iso(end))):
+    for plan in conn.execute("""SELECT p.message_id,p.payload,p.status,p.created_at FROM outbox_messages p
+        WHERE p.destination=? AND julianday(p.created_at) <= julianday(?)
+        AND (julianday(p.created_at) > julianday(?) OR p.status IN (?, 'PUBLISHING')
+             OR p.message_id IN (
+                SELECT o.work_item_id FROM outbox_messages o
+                LEFT JOIN platform_dispatches d ON d.message_id=o.message_id
+                WHERE julianday(o.created_at) <= julianday(?)
+                  AND (julianday(o.created_at) > julianday(?)
+                       OR julianday(d.dispatched_at) > julianday(?)
+                       OR d.status IN ('UNKNOWN_WRITE', 'DISPATCH_ATTEMPT_STARTED'))))
+        ORDER BY p.created_at,p.message_id""",
+        (posts.DESTINATION, iso(end), iso(start), posts.READY, iso(end), iso(start), iso(start))):
         row = json.loads(plan["payload"])
-        if row.get("format") != cards.FORMAT or row.get("kind") not in {"setup", "update", "result"}:
+        if row.get("kind") not in {"setup", "update", "result"}:
             continue
         key = plan["message_id"]
-        named = cards.destinations_for(row)
+        named = cards.destinations_for(row) if row.get("format") == cards.FORMAT else posts.POST_DESTINATIONS
         routes = {}
         plan_hash = sha256(("plan-status-post:" + key).encode()).hexdigest()
         for route in conn.execute("""SELECT o.destination,o.status AS outbox_status,o.created_at,
@@ -820,13 +836,15 @@ def _plan_delivery(conn, window, store_path):
             WHERE o.work_item_id=? AND julianday(o.created_at) <= julianday(?)
             ORDER BY o.created_at,o.message_id""", (key, iso(end))):
             destination = route["destination"]
-            if destination in named and route["message_id"] == DurablePublicationCoordinator._ids(
+            if destination in ROUTES and route["message_id"] == DurablePublicationCoordinator._ids(
                     key, plan_hash, destination)["message_id"]:
                 routes[destination] = route
-        selected.append((plan, row, named, routes))
+        selected.append((plan, row, tuple(dict.fromkeys((*named, *routes))), routes))
 
-    histories = _readback_histories(conn, (route["dispatch_id"] for _, _, _, routes in selected
-                                           for route in routes.values()), end)
+    dispatch_ids = {route["dispatch_id"] for _, _, _, routes in selected for route in routes.values()
+                    if route["dispatch_id"]}
+    histories = _readback_histories(conn, dispatch_ids, end)
+    outcomes = _dispatch_outcomes(conn, (plan["message_id"] for plan, *_ in selected), dispatch_ids, iso(end))
     plan_rows, copies, need_cause = [], [], defaultdict(set)
     for plan, row, named, routes in selected:
         key = plan["message_id"]
@@ -837,7 +855,7 @@ def _plan_delivery(conn, window, store_path):
             source_at = utc(row["at_utc"])
         except (KeyError, ValueError):
             source_at = None
-        observed, clocks = [], []
+        observed, clocks, in_window = [], [], []
         for destination in named:
             route = routes.get(destination)
             dispatch_at = utc(route["dispatched_at"]) if route and route["dispatched_at"] else None
@@ -847,6 +865,7 @@ def _plan_delivery(conn, window, store_path):
             confirmed = bool(dispatch_at and status == "DISPATCH_CONFIRMED" and route["public_object_id"])
             retry, cause = False, None
             published_at, verified_at = None, None
+            closed_at = None
             if route and route["dispatch_id"]:
                 dispatch_id = route["dispatch_id"]
                 retry_id = DurablePublicationCoordinator._retry_incident_id(dispatch_id)
@@ -854,7 +873,7 @@ def _plan_delivery(conn, window, store_path):
                     WHERE incident_id=? AND julianday(created_at) <= julianday(?)""",
                     (retry_id, iso(end))).fetchone() is not None
                 history = histories.get(dispatch_id, [])
-                diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, []) + history
+                diagnostics = outcomes[dispatch_id] + native.get(destination, []) + history
                 cause = next((c for _, value in sorted(diagnostics, key=lambda item: utc(item[0]))
                               if (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
                 if confirmed:
@@ -862,6 +881,7 @@ def _plan_delivery(conn, window, store_path):
             if not confirmed:
                 closure = settled.get(destination) or {}
                 if closure and (not closure.get("recorded_at_utc") or utc(closure["recorded_at_utc"]) <= end):
+                    closed_at = utc(closure["recorded_at_utc"]) if closure.get("recorded_at_utc") else None
                     status = status if status in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"} else cards.SETTLED_POST
                     cause = cause or _plan_cause(closure.get("cause"))
                 if destination in skipped:
@@ -869,6 +889,12 @@ def _plan_delivery(conn, window, store_path):
                 if not cause:
                     need_cause[key].add(destination)
             ready_at = utc(route["created_at"] if route else plan["created_at"])
+            pending = (not confirmed and status not in {cards.SETTLED_POST, posts.STALE, posts.SUPERSEDED}
+                       and (plan["status"] in {posts.READY, "PUBLISHING"} or status in {
+                           "UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"}
+                           or bool(dispatch_at and dispatch_at > end)))
+            in_window.append(pending or any(at and start < at <= end for at in
+                (ready_at, dispatch_at, published_at, verified_at, closed_at)))
             observed.append({"plan_post": key, "platform": destination, "status": status,
                 "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
                  "source_at_utc": iso(source_at) if source_at else None,
@@ -889,8 +915,9 @@ def _plan_delivery(conn, window, store_path):
             lag = round((finish - first).total_seconds(), 1) if first else None
             copy["seconds_after_first_confirmed"] = lag
             copy["behind_over_ten_minutes"] = lag is not None and lag > 600
-        copies.extend(observed)
-        plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
+        if any(in_window):
+            copies.extend(copy for copy, include in zip(observed, in_window, strict=True) if include)
+            plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
 
     fallback = _plan_minute_causes(runtime / posts.RUN_RECORD_FOLDER, need_cause, start, end)
     states = {key: state for key, state, _ in plan_rows}
@@ -1027,8 +1054,9 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                     continue  # This run's digest has its own packet/page/delivery section.
                 quote = intent.get("quote_parent") if platform == "x" and work_id.startswith("heavy-quote-") else None
                 diagnostics = history + native.get(platform, [])
-                if quote:
-                    diagnostics += _dispatch_outcomes(conn, work_id, row["dispatch_id"], window["until_utc"])
+                if quote and row["dispatch_id"]:
+                    dispatch_id = row["dispatch_id"]
+                    diagnostics += _dispatch_outcomes(conn, (work_id,), {dispatch_id}, window["until_utc"])[dispatch_id]
                 diagnostics.sort(key=lambda item: utc(item[0]))
                 cause = next((c for _, value in diagnostics if (c := first_cause(value))), None)
                 status = row["status"] or row["outbox_status"]
@@ -1233,8 +1261,17 @@ def markdown(report):
         for item in decisions["issues"]:
             url = f" · {item['public_url']}" if item["public_url"] else ""
             cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
+            gaps = item.get("missing_layers") or {}
+            if gaps:
+                cause += " (" + ", ".join(f"{key}={value}" for key, value in gaps.items()) + ")"
             lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
+        for copy in decisions.get("plan_analysis", []):
+            unavailable = [f"{key}={item['cause']}" for key, item in copy["layers"].items()
+                           if item["state"] == "UNAVAILABLE"]
+            if unavailable:
+                lines.append(f"- 113 · {plain(copy['piece_id'])} / {copy['platform']} · "
+                             f"Unavailable in the frozen plan ({', '.join(unavailable)})")
         if assist := decisions.get("antigravity"):
             lines.extend(["", "### Antigravity", "",
                           "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",

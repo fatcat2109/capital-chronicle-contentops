@@ -249,9 +249,12 @@ def test_evening_audit_counts_export_gaps_once_and_reads_the_confirmed_continuat
     published(audit, "gold-result", "threads", source=source, text="\n".join([*lines[:-1], page]))
     output = audit.finish({}, {"plan_gold": page})
     assert output["analysis_layer_gaps"] == [{"layer": "technical", "first_cause": "EXPORT_FIELD_ABSENT", "count": 1}]
+    copies = {item["platform"]: item for item in output["plan_analysis"]}
+    assert copies["telegram"]["layers"]["technical"] == {"state": "UNAVAILABLE", "cause": "EXPORT_FIELD_ABSENT"}
+    assert copies["telegram"]["layers"]["scenarios"] == {"state": "PRINTED"}
     analysis_issues = [issue for issue in output["issues"] if issue["decision"] == "113"]
     assert [(issue["platform"], issue["first_cause"], issue["missing_layers"]) for issue in analysis_issues] == [
-        ("threads", "EXPORTED_PLAN_LAYER_MISSING", ["Scenarios"])]
+        ("threads", "PLAN_ANALYSIS_LAYERS_MISSING", {"scenarios": "EXPORTED_LAYER_NOT_PRINTED"})]
 
 
 def test_threads_root_only_observation_uses_only_a_verified_reply_chain(tmp_path):

@@ -201,6 +201,44 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
     assert "First verified over 5 min after Main change. Publication time unrecorded." in table
 
 
+def test_evening_checks_copies_sent_or_pending_after_an_older_plan_was_created(recorded):
+    from live_contentops import plan_status_posts_v1 as posts
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    _, store, _, _ = recorded
+    key = "plan-status-post-carryover"
+    created = "2026-11-17T07:00:00Z"
+    row = {"key": key, "format": 4, "kind": "update", "state": "TRIGGERED",
+           "state_alert_contract": "CC543_V1", "at_utc": "2026-11-17T06:59:00Z"}
+    digest = sha256(("plan-status-post:" + key).encode()).hexdigest()
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(row), "PUBLISHING", created))
+        for destination, dispatch_clock in (("discord", "2026-11-17T07:01:00Z"),
+                                            ("telegram", "2026-11-17T08:01:00Z"),
+                                            ("threads", "2026-11-17T10:01:00Z"), ("x", None)):
+            ids = DurablePublicationCoordinator._ids(key, digest, destination)
+            status = "DISPATCH_CONFIRMED" if dispatch_clock else "READY"
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                         (ids["message_id"], key, destination, "{}", status, created))
+            if dispatch_clock:
+                conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
+                             (ids["dispatch_id"], ids["message_id"], destination, status, dispatch_clock,
+                              "223", "https://t.me/CapitalChronicle/223" if destination == "telegram" else None, None))
+    report, _ = build(recorded, since="2026-11-17T08:00:00Z", until="2026-11-17T10:00:00Z")
+    routes = {r["platform"]: r for r in report["plan_delivery"]["copies"] if r["plan_post"] == key}
+    assert "discord" not in routes
+    assert routes["telegram"]["confirmed"] and routes["telegram"]["seconds_after_first_confirmed"] == 3600
+    assert routes["x"]["status"] == routes["threads"]["status"] == "READY"
+    assert routes["substack_notes"]["status"] == "WAITING"
+    issues = {(r["platform"], r["first_cause"]) for r in report["decision_checks"]["issues"]
+              if r["decision"] == "CC-672" and r["piece_id"] == key}
+    assert ("telegram", "PLAN_COPY_OVER_TEN_MINUTES_LATE") in issues
+    assert ("threads", "PLAN_COPY_UNCONFIRMED") in issues
+    assert all(platform != "discord" for platform, _ in issues)
+    assert "PLAN_ANALYSIS_LAYERS_MISSING (macro=EXPORT_GAP_NOT_RECORDED" in readback.markdown(report)
+
+
 def test_nov16_piece_channels_and_digest_are_consumed(recorded):
     report, calls = build(recorded)
     piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
