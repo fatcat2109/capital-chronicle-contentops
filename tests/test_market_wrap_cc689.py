@@ -218,6 +218,57 @@ def select_first(prompt, **kwargs):
     return json.dumps(result).encode(), {"answered_by": kwargs["callers"][0]}
 
 
+@pytest.mark.parametrize("weekly", [False, True], ids=["pre-us", "sunday"])
+def test_decision_98_wrap_renderer_keeps_reader_shape(pack, cash, weekly):
+    if weekly:
+        close = {"symbol": "GC=F", "value": 99, "date": "2026-11-20"}
+        prior = {"symbol": "GC=F", "value": 100, "date": "2026-11-13"}
+        move = sources.move("XAUUSD", close, prior, basis="since the prior Friday close", normal_day=4)
+        pack.update(
+            slot=sources.slot_at(at("2026-11-22T12:00Z"), cash),
+            market_close_date=close["date"],
+            markets={"XAUUSD": move},
+            snapshots={"XAUUSD": close},
+            data_cutoff_utc=None,
+        )
+        pack["analysis"]["at_utc"] = "2026-11-20T21:00Z"
+        pack["analysis"]["outlooks"]["XAUUSD"] = "Watch whether gold holds its Friday move."
+    pack["plans"]["scenario"] = {
+        "market": "XAUUSD",
+        "registered_at_utc": "2026-11-20T20:30Z",
+        "cases": [
+            {"name": "Base", "probability": 60, "text": "Gold stabilizes.", "checks": {}},
+            {"name": "Alternative", "probability": None, "text": "Gold falls further.", "checks": {}},
+        ],
+    }
+    sections = {
+        section: [{"id": key, "text": lines[0]} for key, lines in rows.items()]
+        for section, rows in editorial.source_choices(pack).items()
+    }
+    article, _ = editorial.article_for(pack, {"sections": sections})
+    body = article["substack_body_markdown"]
+    table = [line for line in body.splitlines() if line.startswith("| ")][2:]
+    markets = [line.split("|")[1].strip().partition(" (")[0] for line in table]
+    assert len(markets) == 6
+    assert set(markets) == {
+        "EUR/USD spot", "USD/JPY spot", "COMEX gold futures",
+        "WTI crude oil futures", "S&P 500 E-mini futures", "Bitcoin spot",
+    }
+    headings = [line for line in body.splitlines() if line.startswith("## ")]
+    assert "## What changed since the last wrap" in headings
+    assert "## Scenarios" in headings
+    assert "## Open plans" in headings
+    if weekly:
+        assert "The comparison ends with the sessions dated November 20, 2026." in body
+        assert "since the prior Friday close" in body
+        assert "Watch whether gold holds its Friday move." in body
+        assert "## What to watch at the open" in headings
+        assert "## Coming week's events" in headings
+    else:
+        assert "since the last wrap" in body
+        assert "## Next 24 hours" in headings
+
+
 def test_edition_writer_binds_moves_and_events_to_exact_rows(tmp_path, pack):
     def wrong(prompt, **kwargs):
         answer, record = select_first(prompt, **kwargs)

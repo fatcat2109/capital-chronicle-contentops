@@ -2,10 +2,13 @@
 
 ## Publisher integration tests — CC-691
 
-Include `python -m pytest -q tests/test_public_output_golden_cc691.py` in the
-targeted test run on every Publisher integration candidate before tagging it
-live. Fix any failing decision check before creating the tag. The suite replays
-confirmed posts from committed fixtures and uses temporary stores.
+Run these targeted tests on every Publisher integration candidate before tagging
+it live. They replay confirmed posts from committed fixtures and check the current
+wrap renderer using isolated inputs. Fix failing decision checks before tagging.
+
+```powershell
+python -m pytest -q tests/test_public_output_golden_cc691.py tests/test_market_wrap_cc689.py::test_decision_98_wrap_renderer_keeps_reader_shape
+```
 
 ## LinkedIn delivery — CC-684, 20 November 2026
 
