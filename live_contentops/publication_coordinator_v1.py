@@ -62,6 +62,12 @@ _PUBLICATION_CONFIRMED_RECONCILIATIONS = {
     RECONCILED_CONFIRMED,
     RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
 }
+_READER_MEDIA_REVISION_POLICIES = frozenset({
+    "JIM_DECISION_41_RELEASE_CHART_EDIT",
+    "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA",
+    "JIM_CC247_REVIEWED_MEDIA_REPAIR",
+    "JIM_DECISION_93_EVENT_MEDIA_ORDER",
+})
 _SUBSTACK_POST_WRITE_OUTCOME_SCHEMA = "contentops.substack_post_write_outcome.v1"
 _SUBSTACK_POST_WRITE_STATUS_CLASSES = frozenset(
     {"2XX", "4XX", "5XX", "NETWORK_ERROR", "TIMEOUT", "ABORTED", "UNKNOWN"}
@@ -959,7 +965,7 @@ class DurablePublicationCoordinator:
         intent = json.loads(self._dated_distribution_message(message)["payload"])
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         retained_media = _durable_intent_inputs(intent).get("media_assets", [])
-        if revision.get("policy") in {"JIM_DECISION_41_RELEASE_CHART_EDIT", "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA", "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}:
+        if revision.get("policy") in _READER_MEDIA_REVISION_POLICIES:
             retained_media = view.get("media_assets", [])
         if destination == "substack":
             from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
@@ -981,6 +987,9 @@ class DurablePublicationCoordinator:
         return intent, revision, view, acceptance
 
     def _effective_message(self, message):
+        return self._resolve_reader_presentation(message)[0]
+
+    def _resolve_reader_presentation(self, message):
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         key = "native-reader-presentation-" + sha256_of(message["message_id"])
         row = self.store.get_outbox_message(key)
@@ -988,10 +997,10 @@ class DurablePublicationCoordinator:
         if reference and reference["status"] == "PRESENTATION_EDIT_CONFIRMED":
             row = reference
         if not row or row["status"] not in {"PRESENTATION_EDIT_CONFIRMED", "PRESENTATION_MEDIA_BOUND"}:
-            return self._dated_distribution_message(message)
+            return self._dated_distribution_message(message), False
         edit = json.loads(row["payload"])
         intent, _, _, _ = self._reader_presentation_intent(message, edit["review_reference"])
-        return {**message, "payload": _canonical_json(intent)}
+        return {**message, "payload": _canonical_json(intent)}, row["status"] == "PRESENTATION_EDIT_CONFIRMED"
 
     def continue_reader_derivative(self, *, work_item_id, destination, review_reference):
         """Continue one exact amended social obligation through this coordinator.
@@ -1160,7 +1169,21 @@ class DurablePublicationCoordinator:
             raise ValueError("READER_REVISION_EXISTING_EDIT_IDENTITY_CHANGED")
         if prior and prior["status"] == "PRESENTATION_EDIT_CONFIRMED":
             return {"status": "PRESENTATION_EDIT_CONFIRMED", "edit_called": False, "new_post_calls": 0}
+        changes_media = revision.get("policy") in _READER_MEDIA_REVISION_POLICIES
         if not prior:
+            if changes_media:
+                from .publication_image_contract_v1 import validate_write, write_refusal
+                try:
+                    validate_write(self, intent, destination)
+                except Exception as error:
+                    refusal = write_refusal(error)
+                    result = {"action": "EDIT_EXISTING", "status": DEFINITE_NO_WRITE,
+                        "reason_code": str(refusal), "image_contract_details": refusal.details,
+                        "edit_called": False, "new_post_calls": 0}
+                    self.store.register_readback(readback_id=key + "-refused-" + sha256_of([review_reference, result]),
+                        dispatch_id=dispatch_id, readback_data=_canonical_json(result))
+                    return result
+            # Previously bound edits retain their exact requests and readback path.
             self.store.register_outbox_message(message_id=key, work_item_id=intent["work_item_id"],
                 destination="internal:native-reader-presentation", payload=_canonical_json(note), status="PRESENTATION_EDIT_PENDING")
         if self.readiness_manager is not None:
@@ -1188,16 +1211,18 @@ class DurablePublicationCoordinator:
         verified = observed.get("verified") is True
         self.store.register_readback(readback_id=key + "-observed-" + sha256_of(observed), dispatch_id=dispatch_id,
             readback_data=_canonical_json({"action": "EDIT_EXISTING", "result": raw, "readback": observed}))
-        if verified:
-            self.store.set_outbox_status(key, "PRESENTATION_EDIT_CONFIRMED")
+        if verified and changes_media:
             from live_contentops.article_publication_quality_v1 import observe_published_images
             try:
                 observe_published_images(self, intent, dispatch, observed_url=dispatch["public_object_url"],
-                    published_at_utc=observed.get("observed_at_utc") or self._clock().isoformat())
+                    published_at_utc=observed.get("observed_at_utc") or self._clock().isoformat(),
+                    presentation_edit=True)
             except (ValueError, OSError, KeyError, TypeError) as error:
                 self.store.register_incident(incident_id="image-register-edit-" + sha256_of([key, review_reference]),
                     work_item_id=intent["work_item_id"], severity="IMAGE_REGISTER_SYNC",
                     description=_canonical_json({"policy": "JIM_DECISION_93", "cause": type(error).__name__}))
+        if verified:
+            self.store.set_outbox_status(key, "PRESENTATION_EDIT_CONFIRMED")
         return {"status": "PRESENTATION_EDIT_CONFIRMED" if verified else "UNKNOWN_EDIT_READBACK_REQUIRED",
             "edit_called": not attempted, "verified": verified, "new_post_calls": 0, "readback": observed}
 
@@ -2582,8 +2607,9 @@ class DurablePublicationCoordinator:
     ) -> str:
         dispatch_id = str(dispatch["dispatch_id"])
         original_message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        confirmed_presentation_edit = False
         if original_message:
-            resolved = self._effective_message(original_message)
+            resolved, confirmed_presentation_edit = self._resolve_reader_presentation(original_message)
             if resolved["payload"] != original_message["payload"]:
                 intent = json.loads(resolved["payload"])
         destination = str(dispatch["platform"])
@@ -2769,7 +2795,9 @@ class DurablePublicationCoordinator:
             settle_article_images(self, intent, destination=destination,
                                   status=DEFINITE_NO_WRITE if cancelled_code else status, canonical_url=observed_url,
                                   published_at_utc=normalized.get("observed_published_at_utc"))
-            if status in {RECONCILED_CONFIRMED, RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE}:
+            # Edit confirmation owns its image event and its clock. A later
+            # readback of the same object is not another image publication.
+            if status in _PUBLICATION_CONFIRMED_RECONCILIATIONS and not confirmed_presentation_edit:
                 from live_contentops.article_publication_quality_v1 import observe_published_images
                 observe_published_images(self, intent, dispatch, observed_url=observed_url,
                                          published_at_utc=normalized.get("observed_published_at_utc"))
@@ -3384,22 +3412,15 @@ class DurablePublicationCoordinator:
         # destination probe or adapter call. Existing in-flight returns and
         # ambiguous writes still follow their original readback path.
         if not native_pending_resume:
-            from .publication_image_contract_v1 import ImageContractError, validate_write
+            from .publication_image_contract_v1 import validate_write, write_refusal
             try:
                 validate_write(self, intent, destination)
-            except Exception as image_error:
+            except Exception as error:
+                image_error = write_refusal(error)
                 reconciliation_reason = str(image_error)
-                if not isinstance(image_error, ImageContractError):
-                    details = {"exception_type": type(image_error).__name__,
-                               "first_cause": str(image_error)}
-                    if isinstance(image_error, OSError) and image_error.filename is not None:
-                        details["filename"] = str(image_error.filename)
-                    image_error = ImageContractError("PUBLICATION_IMAGE_CONTRACT_INVALID",
-                        **details)
-                    # The existing reconciliation is also the next run's
-                    # diagnosis: retain the exception and missing path there,
-                    # rather than only in this transient return value.
-                    reconciliation_reason = str(image_error) + ": " + _canonical_json(details)
+                if image_error is not error:
+                    # Persist the first error and path for the next run.
+                    reconciliation_reason += ": " + _canonical_json(image_error.details)
                 claimed = self.store.claim_platform_dispatch_attempt(
                     dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
                     expected_status=existing.get("status") if existing else None)

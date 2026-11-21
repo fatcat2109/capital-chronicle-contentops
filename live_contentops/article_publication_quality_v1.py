@@ -289,8 +289,9 @@ def settle_article_images(coordinator, intent, *, destination, status, canonical
             canonical_url=canonical_url, now=coordinator._clock(), published_at_utc=published_at_utc)
 
 
-def observe_published_images(coordinator, intent, dispatch, *, observed_url, published_at_utc=None):
-    """Register delivered status/digest images too, without changing their contracts."""
+def observe_published_images(coordinator, intent, dispatch, *, observed_url, published_at_utc=None,
+                             presentation_edit=False):
+    """Record the media delivered by a send or a confirmed media edit."""
     if coordinator.published_content_path is None or coordinator._clock() < EFFECTIVE_FROM:
         return
     article, assets, _ = article_inputs(intent)
@@ -298,7 +299,10 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
     selected = list(payload.get("media_asset_ids") or []) if isinstance(payload, dict) else []
     if isinstance(payload, dict):
         selected += [i for p in payload.get("posts") or [] if isinstance(p, dict) for i in p.get("media_asset_ids") or []]
-    if dispatch["platform"] != "substack" and selected:
+    if dispatch["platform"] == "substack":
+        assets = [a for a in assets if a.get("article_inclusion") is not False
+                  and a.get("canonical_article_media") is not False]
+    elif selected:
         by_id = {a.get("asset_id"): a for a in assets}
         assets = [by_id[i] for i in dict.fromkeys(selected) if i in by_id]
     from .publication_image_contract_v1 import POLICY as IMAGE_CONTRACT, validate_write, scope
@@ -310,11 +314,10 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
             return
     # The canonical reservation already binds its fingerprints and uncertain
     # clock interval. Extra observations must not erase that clock distinction.
-    edited = bool(intent.get("reader_presentation_review"))
-    if dispatch["platform"] == "substack" and applies(coordinator, intent) and not edited:
+    if dispatch["platform"] == "substack" and applies(coordinator, intent) and not presentation_edit:
         return
     reference = "coordinator:" + dispatch["dispatch_id"]
-    if edited:
+    if presentation_edit:
         reference += ":edit:" + sha256(json.dumps(intent["reader_presentation_review"], sort_keys=True).encode()).hexdigest()
     image_register(coordinator).seed(piece_id=piece_id(coordinator.store, intent),
         canonical_url=observed_url if dispatch["platform"] == "substack" else intent.get("canonical_url"),
@@ -323,5 +326,5 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
         destination=dispatch["platform"], market=article.get("market_asset") or (sorted(markets) if markets else None),
         image_contract=article.get("publication_image_contract") or (IMAGE_CONTRACT if text_fallback else None),
         text_fallback=text_fallback,
-        counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if edited else
+        counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if presentation_edit else
         "OBSERVED_PUBLICATION_CLOCK" if published_at_utc else "RETAINED_COORDINATOR_DISPATCH_CLOCK")

@@ -36,6 +36,15 @@ class ImageContractError(ValueError):
         self.details = details
 
 
+def write_refusal(error):
+    if isinstance(error, ImageContractError):
+        return error
+    details = {"exception_type": type(error).__name__, "first_cause": str(error)}
+    if isinstance(error, OSError) and error.filename is not None:
+        details["filename"] = str(error.filename)
+    return ImageContractError("PUBLICATION_IMAGE_CONTRACT_INVALID", **details)
+
+
 def utc(value):
     if isinstance(value, datetime):
         at = value
