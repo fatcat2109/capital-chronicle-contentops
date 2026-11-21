@@ -77,7 +77,7 @@ def test_queued_interim_alert_keeps_its_bytes_and_new_alerts_drop_interim_contra
     queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     assert queued["status"] == "OK", queued
     current, = rows(store)
-    assert current["analysis_copy_contract"] == "CC688_V1"
+    assert current["analysis_copy_contract"] == "CC730_V1"
     assert "analysis_lines_contract" not in current
     assert current["text"].startswith(interim_lines[0] + "\n")
     assert current["text"].count(interim_lines[0]) == 1
@@ -90,5 +90,6 @@ def test_queued_interim_alert_keeps_its_bytes_and_new_alerts_drop_interim_contra
     interim["text"] = frozen.replace("\nRegistered ", "\n" + "\n".join(interim_lines) + "\nRegistered ", 1)
     assert interim["text"] != frozen
     alerts.validate(interim, store=store)
-    payloads = cards.destination_payloads(interim, card_id="card-fixture")
+    interim["detail_lines"] = alerts.compose(interim)["detail_lines"]
+    payloads = cards.destination_payloads(interim, card_id="card-fixture", complete_levels=True)
     assert payloads and all(p["text"] for p in payloads.values())

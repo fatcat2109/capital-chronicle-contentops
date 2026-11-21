@@ -1,6 +1,7 @@
 """The installed plan consumer sends state alerts independently of analysis."""
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from hashlib import sha256
 import json
 from pathlib import Path
 import sys
@@ -189,27 +190,7 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     first_telegram = next(i for i in transport.intents if i.get("plan_status_post") and i["destination_plan"]["destination"] == "telegram")
     assert copies["telegram"] == first_telegram["native_payload"]
 
-    # The same live queue now feeds the variant writer and the original X
-    # dispatch. Confirming the page cannot issue a second X link job.
-    from test_plan_reader_copy_cc466 import source_and_fields
-    bound, fields = source_and_fields()
-    bound["level_contract"] = editorial.reader.LEVEL_CONTRACT
-    for evidence in bound["sources"]:
-        evidence["text"] = evidence["text"].replace("euro", "gold")
-    for field in (fields["hook"], fields["scenario_main"], fields["scenario_alt"], *fields["points"]):
-        field["text"] = field["text"].replace("euro", "gold")
-    fields["alt_text"] = {"text": "TradingView chart showing the gold plan.", "source_ids": ["0"]}
-    run = pages.load_run(plan, run_root=run_root)
-    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
-    monkeypatch.setattr(editorial.reader, "source_packet", lambda *a, **k: bound)
-    calls = []
-
-    def write_variants(prompt, *, root, writer, retry_failed):
-        calls.append(prompt)
-        assert not writer
-        return {"status": "RETURNED", "output": fields}
-
-    monkeypatch.setattr(editorial, "text_call", write_variants)
+    # A later page cannot replace the export's frozen scenario with its own odds.
     assert "x" in cards._ready_destinations(store, original)
     x_plan = cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",))
     assert [d["destination"] for d in x_plan["destinations"]] == ["x"]
@@ -217,20 +198,15 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     x_intent = json.loads(store.get_outbox_message(registered["message_id"])["payload"])
     posts.validate_status_post_intent(store, x_intent)
     x = x_intent["native_payload"]
-    assert "Main (50%)" in x["text"] and "Alternative (35%)" in x["text"]
+    assert "Scenarios: Alternative: A haven and short-covering squeeze" in x["full_text"]
+    assert "Main (50%)" not in x["full_text"] and "Alternative (35%)" not in x["full_text"]
     assert "https://" not in x["text"]
     assert x["posts"][0]["media_asset_ids"]
-    from live_contentops.neo_destination_handoff_v1 import _payload_binding
-    _, binding = _payload_binding(x_intent, "x")
-    assert binding["media_manifest"][0]["alt_text"] == fields["alt_text"]["text"]
-    assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" in x["reply_texts"][0]
+    assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" not in x["full_text"]
     assert posts.PUBLIC_NOTICE in x["reply_texts"][0]
-    assert x["reply_texts"][1].splitlines() == [
-        f"{dict(editorial.reader.LAYERS)[p['layer']]}: {p['text']}" for p in fields["points"]]
     assert cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",)) == x_plan
-    assert len(calls) == 1
     assert pages.register_link(store, packet, original_key=original["key"], destination="x")["state"] == (
-        "PLAN_ANALYSIS_X_THREAD_PENDING")
+        "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED")
     assert not store.get_outbox_message("plan-analysis-link-" + raw["plan_id"] + "-x")
     assert store.get_outbox_message(original["key"])["payload"] == frozen_payload
     assert posts._expected(store, original["key"], x_plan["output_dir"])[1]["telegram"] == first_telegram["native_payload"]
@@ -250,6 +226,101 @@ def test_missing_chart_sends_nothing_and_source_changes_fail(replay, main_root, 
     altered["levels"]["zone_low"] += 1
     with pytest.raises(ValueError, match="PLAN_ALERT_SOURCE_FIELD_CHANGED"):
         validate(altered)
+
+
+@pytest.mark.parametrize("cause", ["TRADINGVIEW_PRICE_SCALE_MISMATCH", "TRADINGVIEW_SNAPSHOT_TIMEOUT"])
+def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, main_root, monkeypatch, tmp_path, cause):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops.publication_image_contract_v1 import validate_write
+    from live_contentops.public_decision_checks_v1 import DecisionChecks, PublicCopy
+
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    row, = rows(store)
+    key = row["key"]
+    calls = []
+
+    def fail_capture(market, interval, folder, **options):
+        calls.append((options["ratio"], options["timeout"], options["reset_price_scale"]))
+        raise tv.SnapshotError(cause)
+
+    monkeypatch.setattr(tv, "capture", fail_capture)
+    transport = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    root = tmp_path / "posts"
+    options = dict(now=now, latest_states=queued["latest_states"], root=root, host=fake_host,
+                   coordinator_for=lambda *a: coordinator)
+    posts.publish_ready(store, **options, immediate_only=True)
+    result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    assert set(transport.publish_calls) == set(cards.destinations_for(row)), result
+    assert calls == [("16:9", 60, False), ("16:9", 90, True), ("4:5", 60, False), ("4:5", 90, True)]
+    for destination in cards.destinations_for(row):
+        dispatch = cards._dispatch(store, key, destination)
+        assert dispatch["status"] == "DISPATCH_CONFIRMED", result
+        intent = json.loads(store.get_outbox_message(dispatch["message_id"])["payload"])
+        assert tv.CREDIT not in intent["native_payload"]["full_text"]
+        assert validate_write(coordinator, intent, destination)["plan_chart_fallback_causes"] == [cause]
+    copy = PublicCopy(key, destination, dispatch["public_object_url"], "Plan", row["text"],
+                      intent, dispatch, [], {}, now, image_visible=True)
+    checks = DecisionChecks({"since_utc": row["at_utc"], "until_utc": now.isoformat()}, root)
+    checks._chart(copy, row["symbol"])
+    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_CHART_MISSING"
+    assert checks.issues[0]["chart_causes"] == [cause]
+
+
+def test_cc734_later_chart_replies_once_to_the_exact_original(replay, main_root, monkeypatch, tmp_path):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    row, = rows(store)
+    key = row["key"]
+    child = f"{key}-part-{cards.LATE_CHART_PART}"
+    capture = tv.capture
+    later = False
+
+    def snapshot(*args, **kwargs):
+        if not later or kwargs.get("ratio") == "4:5":
+            raise tv.SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT")
+        return capture(*args, **kwargs)
+
+    class Transport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if intent["work_item_id"] == child:
+                assert intent["native_payload"]["reply_to_id"] == f"{destination}-object-1"
+                media, = _durable_intent_inputs(intent)["media_assets"]
+                assert media["tradingview_snapshot"]["tv_symbol"] == tv.SYMBOLS[row["symbol"]]
+                self.publish_calls.append(destination)
+                return {"status": "SUCCESS", "id": f"{destination}-chart-reply",
+                        "public_url": f"https://example.test/{destination}/chart-reply"}
+            return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+
+    transport = Transport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    monkeypatch.setattr(tv, "capture", snapshot)
+    options = dict(now=now, latest_states=queued["latest_states"], root=tmp_path / "posts", host=fake_host,
+                   coordinator_for=lambda *a: coordinator)
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    parents = {d: cards._dispatch(store, key, d) for d in cards.destinations_for(row)}
+    originals = {d: store.get_outbox_message(dispatch["message_id"])["payload"] for d, dispatch in parents.items()}
+    context_path = options["root"] / key / "run_context_v1.json"
+    original_context = context_path.read_bytes()
+    later = True
+    result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    for destination in cards.LATE_CHART_DESTINATIONS.intersection(parents):
+        reply = cards._dispatch(store, child, destination)
+        assert reply and reply["status"] == "DISPATCH_CONFIRMED", result
+    for destination, parent in parents.items():
+        assert store.get_outbox_message(parent["message_id"])["payload"] == originals[destination]
+    assert context_path.read_bytes() == original_context
+    calls = transport.publish_calls[:]
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    assert transport.publish_calls == calls
 
 
 def test_later_states_use_the_same_api_consumer_without_editorial(replay, main_root, monkeypatch, tmp_path):
@@ -334,7 +405,6 @@ def test_source_refusal_does_not_take_the_next_ending_delivery_slot(replay, main
 
 @pytest.mark.parametrize("failure", ["refused-telegram", "superseded-before-fanout", "superseded-with-uncertain-x"])
 def test_current_state_reaches_every_destination_on_next_tick(replay, main_root, tmp_path, failure, monkeypatch):
-    from hashlib import sha256
     from threading import Event
     from test_minute_consumer_cc515 import dispatch
 
@@ -402,6 +472,10 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
     assert "reply_to_id" not in telegram_intent["native_payload"]
     discord_bytes = store.get_outbox_message(discord["message_id"])["payload"]
     assert json.loads(discord_bytes)["native_payload"]["reply_to_id"] == "600"
+    channel_reply = cards._dispatch(store, f"{key}-part-{cards.DISCORD_CHANNEL_PART}", "discord")
+    assert channel_reply["status"] == "DISPATCH_CONFIRMED"
+    channel_bytes = store.get_outbox_message(channel_reply["message_id"])["payload"]
+    assert json.loads(channel_bytes)["native_payload"]["discord_channel_reply"] is True
 
     now += timedelta(minutes=1)
     options["now"] = now
@@ -423,12 +497,14 @@ def test_current_state_reaches_every_destination_on_next_tick(replay, main_root,
             intent = json.loads(store.get_outbox_message(delivery["message_id"])["payload"])
             assert "reply_to_id" not in intent["native_payload"]
     assert store.get_outbox_message(discord["message_id"])["payload"] == discord_bytes
+    assert store.get_outbox_message(channel_reply["message_id"])["payload"] == channel_bytes
     assert store.get_outbox_message(setup_key)["status"] == posts.SUPERSEDED
     if failure == "superseded-with-uncertain-x":
         assert retired_readbacks == [old_x["dispatch_id"]]
         assert store.get_platform_dispatch(old_x["dispatch_id"])["status"] == "UNKNOWN_WRITE"
     posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
-    assert len(runtime.publish_calls) == len(cards.destinations_for(ending))
+    assert runtime.publish_calls.count("discord") == 2  # the thread entry and one channel reply
+    assert len(runtime.publish_calls) == len(cards.destinations_for(ending)) + 1
 
 
 @pytest.mark.parametrize("dry", [False, True])
@@ -503,6 +579,138 @@ def test_unknown_api_acceptance_is_read_back_without_republishing(replay, main_r
     assert sorted(runtime.publish_calls) == ["discord", "telegram"]
     row, = rows(store)
     assert all(cards._dispatch(store, row["key"], d)["status"] == "UNKNOWN_WRITE" for d in ("telegram", "discord"))
+
+
+@pytest.mark.parametrize("change,result,headline", [
+    ("FILLED", None, "an entry filled"),
+    ("CLOSED", "HIT", "hit its target"),
+    ("CLOSED", "STOPPED", "stopped at its invalidation level"),
+    ("CLOSED", "EXPIRED", "closed at its time exit"),
+    ("EXPIRED", "NOT_TRIGGERED", None),
+    ("VIEW_CHANGED", None, "the view changed"),
+])
+def test_minute_consumer_sends_major_discord_updates_to_the_channel_and_thread(
+        replay, main_root, tmp_path, change, result, headline):
+    store, folder, raw, now = replay
+    posts.queue_posts(store, folder, now=now, main_root=main_root)
+    setup, = rows(store)
+    store.create_work_item(story_id=setup["key"], title="Original call", target_surface="MULTI_PLATFORM",
+                           work_item_id=setup["key"])
+    channel, starter = "1519311669216673802", "700"
+    prefix = "https://discord.com/channels/42/"
+    card_id, card_channel = starter, channel
+    if result == "STOPPED":
+        # A retained card may live in the older shared run thread.
+        run = setup["run_key"]
+        store.create_work_item(story_id=run, title="Earlier call run", target_surface="MULTI_PLATFORM", work_item_id=run)
+        confirm(store, run, sha256(("plan-status-post:" + run).encode()).hexdigest(),
+                "discord", starter, f"{prefix}{channel}/{starter}")
+        card_id, card_channel = "701", starter
+    card_hash = sha256(("plan-status-post:" + setup["key"]).encode()).hexdigest()
+    confirm(store, setup["key"], card_hash, "discord", card_id, f"{prefix}{card_channel}/{card_id}")
+    store.set_outbox_status(setup["key"], "PUBLISHED")
+    previous = store.get_outbox_message(setup["key"])["payload"]
+
+    at = now + timedelta(minutes=1)
+    updated = deepcopy(raw)
+    updated.update(status=change)
+    if result:
+        outcome_id = "gold-result"
+        updated["outcome"] = {"state": "SCORED_UNTRIGGERED" if result == "NOT_TRIGGERED" else "SCORED",
+            "result": result, "outcome_id": outcome_id,
+            "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": outcome_id,
+                      "result": result, "resolved_at_utc": at.isoformat()}}
+    write(folder, [updated], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"]),
+                             event(raw["plan_id"], change, at.isoformat())], generated_at_utc=at.isoformat())
+    queued = posts.queue_posts(store, folder, now=at, main_root=main_root)
+    update = next(row for row in rows(store) if row["key"] != setup["key"])
+
+    class Recorded(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.discord = []
+            self.accepted = {}
+            self.channel_readback_available = change != "FILLED"
+            self.channel_readbacks = 0
+
+        def publish(self, *, destination, intent, authorization_context):
+            if destination != "discord":
+                return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+            payload = intent["native_payload"]
+            where = channel if payload.get("discord_channel_reply") else payload["discord_thread_parent_id"]
+            message = str(901 + len(self.discord))
+            self.discord.append(deepcopy(intent))
+            receipt = {"status": "SUCCESS", "id": message, "public_url": f"{prefix}{where}/{message}"}
+            self.accepted[intent["work_item_id"]] = receipt
+            if change == "FILLED" and where == channel:
+                raise TimeoutError("Discord accepted the reply and lost the response")
+            return receipt
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination != "discord":
+                return super().readback(destination=destination, public_object_id=public_object_id,
+                                        public_object_url=public_object_url, intent=intent)
+            if intent["native_payload"].get("discord_channel_reply"):
+                self.channel_readbacks += 1
+                if not self.channel_readback_available:
+                    return {"status": "READBACK_UNAVAILABLE", "verified": False}
+            receipt = self.accepted[intent["work_item_id"]]
+            return {"status": "SUCCESS", "verified": True,
+                    "public_object_id": receipt["id"], "public_object_url": receipt["public_url"]}
+
+    transport = Recorded()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: at)
+    runs = []
+    immediate_passes = (True, True, False) if change == "FILLED" else (True, True)
+    for attempt, immediate in enumerate(immediate_passes):
+        previous_readbacks = transport.channel_readbacks
+        run = posts.publish_ready(store, now=at, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda *a: coordinator, immediate_only=immediate, alert_filter=True)
+        runs.append(run)
+        if change == "FILLED" and immediate:
+            first, = run["posts"]
+            assert first["discord_channel_reply"]["status"] == "UNKNOWN_WRITE"
+            assert first["discord_channel_reply"]["reconciliation_status"] == "RECONCILIATION_PENDING"
+            assert coordinator._destination_day_failure("discord") is None
+            if attempt:
+                assert transport.channel_readbacks == previous_readbacks
+            transport.channel_readback_available = True
+
+    major = change != "VIEW_CHANGED"
+    assert len(transport.discord) == (2 if major else 1), runs
+    thread, *other = transport.discord
+    archive = thread["native_payload"]
+    assert archive["discord_thread_parent_id"] == starter
+    assert archive["reply_to_id"] == card_id
+    assert "Plan thread:" not in archive["text"]
+    assert store.get_outbox_message(setup["key"])["payload"] == previous
+    if headline:
+        assert headline in archive["text"]
+    if not major:
+        return
+
+    channel_intent, = other
+    payload = channel_intent["native_payload"]
+    assert payload["discord_channel_reply"] is True and "discord_thread_parent_id" not in payload
+    assert payload["reply_to_id"] == starter
+    assert payload["reply_to_url"] == f"{prefix}{channel}/{starter}"
+    thread_link = f"{prefix}{starter}" if starter == card_id else f"{prefix}{starter}/{card_id}"
+    assert f"Plan thread: <{thread_link}>" in payload["text"]
+    assert archive["media_asset_ids"] == payload["media_asset_ids"] and payload["media_asset_ids"]
+    assert payload["text"].replace(f"\n\nPlan thread: <{thread_link}>", "") == archive["text"]
+    for intent in (thread, channel_intent):
+        assert intent["plan_status_post"] == update["key"]
+        posts.validate_status_post_intent(store, intent)
+        dispatch = cards._dispatch(store, intent["work_item_id"], "discord")
+        assert dispatch["status"] == "DISPATCH_CONFIRMED"
+        assert dispatch["public_object_url"] == transport.accepted[intent["work_item_id"]]["public_url"]
+    assert any(post["discord_channel_reply"]["reconciliation_status"] == "RECONCILED_CONFIRMED"
+               for run in runs for post in run["posts"] if post.get("discord_channel_reply"))
+    altered = deepcopy(channel_intent)
+    altered["native_payload"]["reply_to_id"] = "unrelated"
+    with pytest.raises(ValueError, match="PLAN_CARD_DISCORD_CHANNEL_REPLY_PARENT_CHANGED"):
+        posts.validate_status_post_intent(store, altered)
 
 
 def test_fast_fanout_delivers_new_copies_before_reading_back_the_uncertain_copy(replay, main_root, tmp_path):

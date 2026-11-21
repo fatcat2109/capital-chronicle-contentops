@@ -157,7 +157,7 @@ def test_private_reference_book_cannot_become_a_numeric_source(piece):
         odds.number_report(piece, SOURCE / "source")
 
 
-@pytest.mark.parametrize("piece_number", [1, 2, 3])
+@pytest.mark.parametrize("piece_number", [1, 2, 3, 5])
 def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch, piece_number):
     store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
     file = SOURCE / "piece-1.json" if piece_number == 1 else SOURCE / f"piece-{piece_number}/piece-{piece_number}.json"
@@ -181,6 +181,16 @@ def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path
     assert calls[0]["assets"][0]["sha256"]==packet["piece"]["media_assets"][0]["sha256"]
     assert odds.register(store,file,tmp_path / "article")==packet
     assert len(store.list_outbox_messages(work_item_id=packet["identity"],destination="substack"))==1
+    if piece_number == 5:
+        from live_contentops.event_article_guard_v1 import PublicOutputError, check_publication_copy
+
+        public_body = packet["piece"]["article"]["substack_body_markdown"]
+        assert "The stop entry at 0.5 normal day farther had 1190 fills" in public_body
+        with pytest.raises(PublicOutputError, match="PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"):
+            check_publication_copy(odds.publication_check_copy({
+                "body": public_body,
+                "instruction": "Use a stop entry at 0.5 normal day farther.",
+            }, packet["plan"]))
     altered=deepcopy(packet["plan"]);altered["plan_hash"]="a"*64
     with pytest.raises(ValueError,match="ODDS_REGISTERED_PLAN_CHANGED"):
         coordinator.register_plan(packet["identity"],altered)
@@ -236,6 +246,90 @@ def test_registered_copy_and_source_manifest_are_immutable(tmp_path):
     path.write_text(json.dumps(value),encoding="utf-8")
     with pytest.raises(ValueError,match="ODDS_REGISTERED_ARTIFACT_CHANGED:source/manifest.json"):
         odds.validate_plan(store,packet["identity"],packet["plan"])
+
+
+def test_interrupted_threads_dispatch_recovers_only_its_exact_public_root(tmp_path, monkeypatch):
+    from live_contentops import threads_adapter_v6 as threads
+    from live_contentops.publication_coordinator_v1 import (
+        ATTEMPT_STARTED, DISPATCH_CONFIRMED, RECONCILIATION_PENDING,
+        RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE, CanonicalDestinationTransportRuntimeV1,
+    )
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    packet = odds.register(store, SOURCE / "piece-5/piece-5.json", tmp_path / "article")
+    runtime = CanonicalDestinationTransportRuntimeV1()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        published_content_path=tmp_path / "published.jsonl")
+    coordinator.register_plan(packet["identity"], packet["plan"])
+    ids = coordinator._ids(packet["identity"], packet["plan"]["plan_hash"], "threads")
+    message = store.get_outbox_message(ids["message_id"])
+    intent = runtime.finalize_intent(destination="threads", intent=json.loads(message["payload"]),
+        canonical_url="https://capitalchronicle.substack.com/p/fixture-article")
+    store.finalize_outbox_payload_before_dispatch(message_id=message["message_id"],
+        payload=odds.canonical_bytes(intent).decode(), status="READY")
+    assert store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+        message_id=ids["message_id"], platform="threads")
+    original = store.get_platform_dispatch(ids["dispatch_id"])
+    root_id = "1234567890123"
+    root_url = "https://www.threads.com/@official.capitalchronicle/post/exact-root"
+    root_text = packet["piece"]["article"]["social_hook"]
+    visible_text = "A different post on the same account."
+
+    def read_root(**kwargs):
+        assert kwargs["post_id"] == root_id
+        assert kwargs["expected_text"] == root_text
+        return {"status": "SUCCESS", "post_id": root_id, "public_url": root_url,
+                "visible_body_text": visible_text, "account_identity_verified": True,
+                "content_binding_checks": {"account_match": True, "text_match": True, "media_match": True}}
+
+    def forbid_send(**kwargs):
+        pytest.fail("Readback must never send a Threads post")
+
+    monkeypatch.setattr(threads, "readback_threads_post", read_root)
+    monkeypatch.setattr(threads, "readback_threads_chain", lambda **kw: {"status": "FAILED_THREADS_REPLY_CHAIN_READBACK"})
+    monkeypatch.setattr(threads, "execute_threads_post", forbid_send)
+    receipt = coordinator.readback_existing_dispatch(ids["dispatch_id"], observed_threads_root=(root_id, root_url))
+    assert receipt["reconciliation_status"] == RECONCILIATION_PENDING
+    assert store.get_platform_dispatch(ids["dispatch_id"]) == original
+    assert original["status"] == ATTEMPT_STARTED
+
+    visible_text = root_text
+    receipt = coordinator.readback_existing_dispatch(ids["dispatch_id"], observed_threads_root=(root_id, root_url))
+    assert receipt["reconciliation_status"] == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+    assert receipt["publish_called"] is False
+    current = store.get_platform_dispatch(ids["dispatch_id"])
+    assert (current["status"], current["public_object_id"], current["public_object_url"]) == (DISPATCH_CONFIRMED, root_id, root_url)
+    assert current["dispatched_at"] == original["dispatched_at"]
+
+    canonical = intent["canonical_url"]
+    substack_ids = coordinator._ids(packet["identity"], packet["plan"]["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=substack_ids["dispatch_id"], message_id=substack_ids["message_id"],
+        platform="substack", status=DISPATCH_CONFIRMED, public_object_id="456", public_object_url=canonical)
+    store.register_reconciliation(reconciliation_id=substack_ids["reconciliation_id"],
+        work_item_id=packet["identity"], status="RECONCILED_CONFIRMED")
+    list_outbox = store.list_outbox_messages
+
+    def list_bound_outbox(*, work_item_id):
+        assert work_item_id == packet["identity"]
+        return list_outbox(work_item_id=work_item_id)
+
+    def prepare_hosted_media(**kwargs):
+        pytest.fail("Text replies to the verified root need no new hosted-media preparation")
+
+    dispatched = []
+
+    def complete_bound_dispatch(message, **kwargs):
+        dispatched.append((message["message_id"], kwargs))
+        return {"status": "BOUND_REPLY_CORRECTION", "publish_called": True}
+
+    monkeypatch.setattr(store, "list_outbox_messages", list_bound_outbox)
+    monkeypatch.setattr(runtime, "prepare_delivery_media", prepare_hosted_media)
+    monkeypatch.setattr(coordinator, "_dispatch_message", complete_bound_dispatch)
+    result = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"],
+        correction_id="fixture-complete-threads-replies")
+    assert result["status"] == "BOUND_REPLY_CORRECTION"
+    assert dispatched == [(ids["message_id"], {"canonical_url": canonical, "explicit_transport_correction_retry": True,
+                                               "recovery_public_object_url": root_url})]
 
 
 def test_resuming_registered_piece_uses_its_saved_output_directory(tmp_path):
@@ -368,6 +462,51 @@ def test_threads_official_consumer_uses_bound_root_and_full_link_reply(tmp_path,
         public_object_url='https://www.threads.net/@official.capitalchronicle/post/test',intent={})
     assert roots[-1]['canonical_url'] is None
     assert len(chains)==2
+
+
+@pytest.mark.parametrize("complete_listing", [True, False])
+def test_threads_correction_only_completes_the_bound_reply_suffix(tmp_path, monkeypatch, piece, complete_listing):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import post_visuals_v1, threads_adapter_v6 as threads
+
+    canonical = "https://capitalchronicle.substack.com/p/method"
+    root_id = "1234567890123"
+    root_url = "https://www.threads.com/@official.capitalchronicle/post/exact-root"
+    payload = odds.compile_payloads(piece["article"], canonical, ["chart"])["threads"]
+    expected_replies = payload["reply_texts"]
+    data = {"output_dir": tmp_path, "article": piece["article"], "payloads": {"threads": payload},
+            "canonical_url": canonical, "local_media": "chart.png", "public_image_url": "", "media_assets": []}
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+    monkeypatch.setattr(post_visuals_v1, "require_publication_image", lambda *args: None)
+    monkeypatch.setattr(threads, "readback_threads_post", lambda **kw: {
+        "status": "SUCCESS", "post_id": root_id, "public_url": root_url, "visible_body_text": payload["root_text"],
+    })
+
+    def read_chain(**kwargs):
+        assert kwargs["root_id"] == root_id
+        assert [row["text"] for row in kwargs["reply_expectations"]] == expected_replies
+        if published:
+            return {"status": "SUCCESS"}
+        return {"complete_reply_listing": complete_listing,
+                "own_reply_ids_in_chronological_order": ["existing-link-reply"],
+                "ordered_replies": [{"id": "existing-link-reply", "parent_child_verified": True, "text_verified": True}]}
+
+    published = []
+
+    def publish(**kwargs):
+        assert kwargs["reply_to_id"] == root_id
+        published.append(kwargs["text"])
+        return {"status": "SUCCESS", "id": str(len(published))}
+
+    monkeypatch.setattr(threads, "readback_threads_chain", read_chain)
+    monkeypatch.setattr(threads, "execute_threads_post", publish)
+    result = pipeline._publish_one_destination_from_durable_intent(destination="threads",
+        intent={"attempt_identity": "attempt", "recovery_public_object_id": root_id,
+                "recovery_public_object_url": root_url},
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "attempt"})
+    assert result["id"] == root_id and result["public_url"] == root_url
+    assert result["provider_readback_verified"] is complete_listing
+    assert published == (expected_replies[1:] if complete_listing else [])
 
 
 def confirm_method(store, tmp_path):

@@ -1,6 +1,6 @@
 """CC-436: copied-store consumer -> local MCP -> publish/readback, without a model."""
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from io import BytesIO
@@ -139,11 +139,28 @@ def isolated_control(monkeypatch):
 
 
 @pytest.mark.parametrize('destination',['x','substack_notes'])
-def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path,destination):
+def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path, destination, monkeypatch):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
     store=copied_store(tmp_path);ids,value=message(store,destination)
+    operation = value["work_item_id"]
+    identity_work_item = "native-neo-operation-" + sha256_of(operation)
+    original_list = store.list_outbox_messages
+    identity_reads = []
+
+    def scoped_lookup(*, status=None, destination=None, work_item_id=None):
+        if destination == "internal:native-neo-tool":
+            assert work_item_id, "The alert must not load unrelated Neo packets"
+        if work_item_id == identity_work_item:
+            identity_reads.append(work_item_id)
+        return original_list(status=status, destination=destination, work_item_id=work_item_id)
+
     with endpoint() as (url,state):
-        coordinator,executor=bound(store,tmp_path,value['work_item_id'],url)
-        result=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        coordinator,executor=bound(store,tmp_path,operation,url)
+        with monkeypatch.context() as patch:
+            patch.setattr(store, "list_outbox_messages", scoped_lookup)
+            result=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert identity_reads
         assert result['status']=='DISPATCH_CONFIRMED',json.dumps(result,indent=2)
         assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
         again=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
@@ -230,6 +247,120 @@ def test_cc672_claimed_plan_root_gets_only_a_readback_extension(tmp_path):
     assert "plan_status_root_readback" not in write
 
 
+@pytest.mark.parametrize("destination", ["x", "substack_notes"])
+@pytest.mark.parametrize("page_state", ["found", "absent", "unreadable", "stale", "partial", "after_retry"])
+def test_cc735_exact_plan_copy_public_readback(tmp_path, destination, page_state):
+    store = copied_store(tmp_path)
+    ids, intent = message(store, destination, plan_status=True)
+    attempt = datetime.now(timezone.utc) - timedelta(minutes=20)
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+                                     platform=destination, status="UNKNOWN_WRITE")
+    with store.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET dispatched_at=? WHERE dispatch_id=?",
+                     (attempt.isoformat(), ids["dispatch_id"]))
+    if page_state == "after_retry":
+        store.register_incident(incident_id=Coordinator._retry_incident_id(ids["dispatch_id"]),
+            work_item_id=intent["work_item_id"], severity="RECOVERY_AUDIT", description="Retry already claimed.")
+
+    def public_row(number, text, offset):
+        suffix = str(number) if destination == "x" else "c-" + str(number)
+        path = "/status/" if destination == "x" else "/note/"
+        return {"public_object_id": suffix, "public_object_url": neo.ROOTS[destination] + path + suffix,
+                "observed_text": text, "published_at_utc": (attempt + timedelta(minutes=offset)).isoformat()}
+
+    matching = public_row(2, intent["payload"], 1)
+    before = public_row(1, "An earlier, unrelated post", -2)
+    after = public_row(3, "A newer, unrelated post", 2)
+    rows = {"found": [after, matching, before], "absent": [after, before], "stale": [before],
+            "after_retry": [after, before],
+            "partial": [after, {**before, "published_at_utc": None}]}
+
+    class PublicClient:
+        def initialize(self):
+            pass
+
+        def open(self, dest, url):
+            assert dest == destination
+            self.url = url
+            assert url.endswith("/Capitalnicle" if destination == "x" else "/notes")
+            return 1
+
+        def wait(self, page, selector):
+            pass
+
+        def call(self, action, params):
+            assert action == "navigate"
+            self.url = params["url"]
+
+        def run(self, page, phase, **kwargs):
+            if page_state == "unreadable":
+                raise neo.NeoEndpointError("FIXTURE_PUBLIC_FEED_UNAVAILABLE")
+            assert phase == ("x_public_embed" if destination == "x" and "syndication" in self.url else "readback")
+            values = ([matching] if self.url == matching["public_object_url"] else
+                      [] if self.url in neo.ROOTS.values() else rows[page_state])
+            return {"url": self.url, "tweets" if destination == "x" else "notes": values,
+                    "visible_note_count": len(values)}
+
+    coordinator, _ = bind_native_neo_coordinator(store, operation_id=intent["work_item_id"],
+        output_dir=tmp_path / "neo", native_invocation_id="fixture", automatic=True, endpoint_client=PublicClient())
+    result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"])
+    assert result["publish_called"] is False
+    if page_state == "found":
+        assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+        assert dispatch["public_object_url"] == matching["public_object_url"]
+    elif page_state == "absent":
+        assert result["reconciliation_status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY"
+        receipt = json.loads(store.list_readbacks_for_dispatch(ids["dispatch_id"])[0]["readback_data"])["readback"]
+        assert receipt["public_feed_absence"]["observed_feed_post_ids"] == [after["public_object_id"], before["public_object_id"]]
+    else:
+        assert result["reconciliation_status"] == "RECONCILIATION_PENDING"
+        assert dispatch["status"] == "UNKNOWN_WRITE"
+
+
+@pytest.mark.parametrize("destination", ["x", "substack_notes"])
+def test_cc735_minute_recovers_without_a_pending_packet_and_retries_once(tmp_path, monkeypatch, destination):
+    from live_contentops import native_neo_executor_v1, plan_status_posts_v1
+
+    store = copied_store(tmp_path)
+    ids, intent = message(store, destination, plan_status=True)
+    work = intent["work_item_id"]
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+                                     platform=destination, status="UNKNOWN_WRITE")
+    before = store.get_outbox_message(ids["message_id"])["payload"]
+    monkeypatch.setattr(plan_status_posts_v1, "validate_status_post_intent", lambda *args, **kwargs: None)
+    events = []
+
+    class Transport:
+        def readback(self, **kwargs):
+            events.append("public_absence")
+            return {"write_absent": True}
+
+        def publish(self, **kwargs):
+            events.append("retry")
+            assert kwargs["authorization_context"]["dispatch_attempt_identity"] == ids["dispatch_id"]
+            assert kwargs["intent"] == intent
+            return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
+
+    coordinator = Coordinator(store=store, transport_runtime=Transport(),
+                              readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"})
+    monkeypatch.setattr(coordinator, "_finalize_derivative_intent", lambda *args, **kwargs: "READY")
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator", lambda *a, **k: (coordinator, None))
+    first = neo.resume_stored_requests(store)["requests"]
+    assert first[0]["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    assert first[0]["cause"] == "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"
+    assert events == ["public_absence", "retry", "public_absence"]
+    final = neo.resume_stored_requests(store)["requests"]
+    assert final[0]["status"] == "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE"
+    assert neo.resume_stored_requests(store)["requests"] == []
+    assert events.count("retry") == 1
+    assert store.get_outbox_message(ids["message_id"])["payload"] == before
+    with store.get_read_only_connection() as conn:
+        history = conn.execute("SELECT description FROM incidents WHERE work_item_id=? AND severity='DISPATCH_OUTCOME'",
+                               (work,)).fetchone()
+        assert json.loads(history[0])["safe_error_classification"] == "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"
+
+
 @pytest.mark.parametrize('fault',['account','composer'])
 def test_wrong_account_or_changed_composer_makes_no_public_post(tmp_path,fault):
     store=copied_store(tmp_path);ids,value=message(store,'x')
@@ -247,6 +378,7 @@ def test_wrong_account_or_changed_composer_makes_no_public_post(tmp_path,fault):
 ])
 def test_cc672_x_day_hold_requires_observed_platform_response(tmp_path, monkeypatch, fault, cause):
     from live_contentops import neo_destination_handoff_v1 as handoff
+    from live_contentops import plan_status_posts_v1 as posts
 
     suspended = tmp_path / "suspended_routes.json"
     monkeypatch.setattr(handoff, "SUSPENDED_ROUTES_FILE", suspended)
@@ -265,6 +397,18 @@ def test_cc672_x_day_hold_requires_observed_platform_response(tmp_path, monkeypa
             assert json.loads(suspended.read_text(encoding="utf-8")) == {"x": cause}
         else:
             assert not suspended.exists()
+            later, _ = message(store, "x", work="later-article")
+            assert coordinator._dispatch_message(store.get_outbox_message(later["message_id"]),
+                canonical_url=None)["status"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+
+            monkeypatch.setattr(posts, "validate_status_post_intent", lambda *args, **kwargs: None)
+            plan, intent = message(store, "x", work="later-plan", plan_status=True)
+            plan_coordinator, _ = bound(store, tmp_path, intent["work_item_id"], url)
+            outcome = plan_coordinator._dispatch_message(store.get_outbox_message(plan["message_id"]),
+                canonical_url=intent["canonical_url"])
+            assert outcome["status"] == "DEFINITE_NO_WRITE", outcome
+            assert outcome["safe_error_classification"] == cause
+            assert not state["posts"]
 
 
 @pytest.mark.parametrize("retry_fails", [False, True])
@@ -503,37 +647,49 @@ def test_shortened_link_readback_requires_its_exact_bound_destination():
     assert not neo.NeoBrowserDriver._matches(request,text,observed)
 
 
-def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,monkeypatch,capsys):
+@pytest.mark.parametrize("export_status", ["OK", "EXPORT_STALE"])
+def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,monkeypatch,capsys,export_status):
     from scripts import plan_status_posts as cli
     from live_contentops import plan_status_posts_v1 as posts,plan_analysis_pages_v1 as pages
     from live_contentops import pinned_result_scorecard_v1,event_timestamp_v1,event_pack_v1
     from live_contentops import plan_reader_editorial_v1, x_reply_bot_v1, x_reply_tabs_v1
     from live_contentops import audience_collection_v1, model_invocation_usage_v1, call_followups_v1
+    from live_contentops import daily_trend_board_v1, heavy_news_quotes_v1, substack_daily_note_v1
     store=copied_store(tmp_path);seen=[]
     # New minute consumers are outside this transport test. In particular, no
     # real Main export or editorial CLI may be used by a controlled fixture.
     monkeypatch.setattr(posts,'read_export',lambda *a,**kw:{'status':{'plans':[]}})
     monkeypatch.setattr(plan_reader_editorial_v1,'run_due',lambda *a,**kw:{'status':'OK','pages':[]})
     monkeypatch.setattr(call_followups_v1,'minute_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(daily_trend_board_v1, 'run_due', lambda *a, **kw: {})
+    monkeypatch.setattr(heavy_news_quotes_v1, 'refresh_due', lambda *a, **kw: {})
+    monkeypatch.setattr(substack_daily_note_v1, 'run_due', lambda *a, **kw: {})
     monkeypatch.setattr(x_reply_bot_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
     monkeypatch.setattr(x_reply_bot_v1,'observe_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
     monkeypatch.setattr(x_reply_tabs_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
     monkeypatch.setattr(audience_collection_v1,'run_collection',lambda *a,**kw:{'collected':0})
     monkeypatch.setattr(model_invocation_usage_v1,'import_native_invocations',lambda *a,**kw:{'imported':0})
-    monkeypatch.setattr(neo,'resume_stored_requests',lambda *a,**kw:{'requests':[]})
-    monkeypatch.setattr(cli,'queue_posts',lambda *a,**kw:{'status':'OK','latest_states':{},'active_recoveries':{}})
+    recovery = []
+    monkeypatch.setattr(neo, 'resume_stored_requests', lambda s: recovery.append(s.db_path) or {'requests': []})
+    monkeypatch.setattr(cli,'queue_posts',lambda *a,**kw:{'status':export_status,'latest_states':{},'active_recoveries':{}})
     monkeypatch.setattr(pinned_result_scorecard_v1,'refresh_scorecard',lambda *a,**kw:{'status':'CONFIRMED'})
     monkeypatch.setattr(pages,'resume_discord_links',lambda *a,**kw:[])
     monkeypatch.setattr(event_timestamp_v1,'maintain_timestamps',lambda:{'status':'OK'})
     monkeypatch.setattr(event_pack_v1,'run_due_packs',lambda *a,**kw:{'status':'OK'})
     monkeypatch.setattr(posts,'publish_ready',lambda s,**kw:seen.append((s.db_path,kw)) or {'posts':[]})
-    assert cli.main(['--store',str(store.db_path),'--publish'])==0
-    assert len(seen)==2
+    assert cli.main(['--store',str(store.db_path),'--publish']) == (0 if export_status == 'OK' else 1)
+    assert recovery == [store.db_path]
+    if export_status == 'EXPORT_STALE':
+        assert seen == []
+        return
+    assert len(seen)==3
     assert all(path==store.db_path for path,_ in seen)
     # CC-543's API alerts precede editorial work; the later browser phase
     # still selects CC-436's endpoint executor without a Codex tool step.
     assert seen[0][1]['immediate_only'] is True
-    assert seen[1][1]['automatic_neo'] is True
+    assert seen[1][1]['automatic_neo'] is True and seen[1][1]['alert_filter'] is True
+    assert seen[2][1]['automatic_neo'] is True and seen[2][1]['alert_filter'] is False
+    assert json.loads(capsys.readouterr().out)['neo_stored_requests'] == {'requests': []}
 
 
 def test_larger_neo_dom_result_reads_only_documented_local_output(tmp_path,monkeypatch):
@@ -581,6 +737,39 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
                    'stage':'PUBLISH_CLICK_ATTEMPTED'}
         monkeypatch.setattr(e,'_get',lambda *a:{'result':ambiguous})
         assert e.fresh_publish_request(base) is None
+
+
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+def test_cc536_claimed_linkedin_retry_rechecks_identity_after_proven_no_write(tmp_path, destination):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
+    store = copied_store(tmp_path)
+    work = "cc536-measured-odds-5"
+    store.create_work_item(work_item_id=work, story_id=work, title="Article", target_surface="MULTI_PLATFORM")
+    executor = neo.EndpointNeoExecutor(store, operation_id=work, output_dir=tmp_path / "native",
+                                       native_invocation_id="test", allow_publish=True)
+    store.register_outbox_message(message_id="bound", work_item_id=work, destination=destination,
+        payload=json.dumps({"measured_odds_piece": work}), status="READY")
+    dispatch_id = "dispatch_bound"
+    assert store.claim_platform_dispatch_attempt(dispatch_id=dispatch_id, message_id="bound", platform=destination)
+    request = {"action": "PUBLISH", "destination": destination, "work_item_id": work,
+               "dispatch_attempt_identity": dispatch_id, "payload_hash": "same-copy"}
+    request_hash = sha256_of(request)
+    original = {"result": {"status": "FAILED_BEFORE_WRITE", "stage": "BEFORE_PUBLISH_CLICK",
+        "reason_code": "NEO_SIGNED_IN_ACCOUNT_MISMATCH", "definite_no_write": True, "public_write_performed": False,
+        "neo_executor_revision": executor.executor_revision, "native_tool_return_sha256": "retained-return"}}
+    executor._put(request_hash, "response", original, work)
+    assert executor.fresh_publish_request(request) is None
+    store.register_reconciliation(reconciliation_id="reconciliation_bound", work_item_id=work,
+                                  status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    renewed = executor.fresh_publish_request(request)
+    assert renewed == {**request, "supersedes_prewrite_no_write_sha256": sha256_of(original)}
+    renewed_hash = sha256_of(renewed)
+    executor._put(renewed_hash, "response", original, work)
+    assert executor.fresh_publish_request(request) == renewed
+    assert executor._get(request_hash, "response") == original
+    store.set_dispatch_status(dispatch_id, "UNKNOWN_WRITE")
+    assert executor.fresh_publish_request(request) is None
 
 
 @pytest.mark.parametrize("target_matches",[False,True])
@@ -804,8 +993,13 @@ def test_endpoint_names_a_preclaim_validation_failure_without_a_browser_action(t
         assert not any(name=='run' for name,args in state['calls'])
 
 
-def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(tmp_path):
-    store=copied_store(tmp_path);ids,value=message(store,'x')
+@pytest.mark.parametrize("plan_status, saved_return", [(False, False), (True, False), (True, True)])
+def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(tmp_path, monkeypatch,
+                                                                              plan_status, saved_return):
+    from live_contentops import plan_status_posts_v1
+
+    monkeypatch.setattr(plan_status_posts_v1, "validate_status_post_intent", lambda *args, **kwargs: None)
+    store=copied_store(tmp_path);ids,value=message(store,'x',plan_status=plan_status)
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',
         native_invocation_id='earlier-agent',allow_publish=True)
     first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
@@ -815,6 +1009,10 @@ def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(
         destination='internal:plan-status-post',payload=json.dumps({'kind':'result','at_utc':datetime.now(timezone.utc).isoformat()}),
         status='PUBLISHED')
     with endpoint() as (url,state):
+        if saved_return:
+            _, automatic = bound(store, tmp_path, value['work_item_id'], url)
+            assert automatic(packet['request'])['status'] == 'SUCCESS'
+            assert store.get_platform_dispatch(ids['dispatch_id'])['status'] == 'NATIVE_NEO_TOOL_PENDING'
         result=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
         assert result['requests'][0]['status']=='RECONCILED_CONFIRMED',result
         assert result['requests'][0]['request_sha256']==request_hash
@@ -825,6 +1023,7 @@ def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(
         assert again['requests']==[]
         assert len(state['calls'])==count
         assert state['posts'].keys()=={'x'}
+        assert sum(name == 'run' and '"phase": "publish"' in args.get('code', '') for name, args in state['calls']) == 1
 
 
 def test_expired_claimed_step_leaves_minute_work_but_keeps_explicit_readback_without_another_click(tmp_path):

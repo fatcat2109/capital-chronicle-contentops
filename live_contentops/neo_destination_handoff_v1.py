@@ -341,7 +341,7 @@ def _payload_binding(intent, destination):
     media = [{k: a[k] for k in ("asset_id", "path", "sha256", "rights", "rights_status", "caption", "alt_text",
               "attribution", "license_url", "source_page_url", "changes_description", "article_section",
               "canonical_article_section_association", "placement_after", "modality", "public_delivery_sha256",
-              "verified_public_delivery_url") if k in a}
+              "verified_public_delivery_url", "plan_chart_fallback") if k in a}
              for a in assets if isinstance(a, dict)]
     if destination == "substack":
         # 4 Nov SEC post: the image went above the first paragraph with no caption
@@ -425,6 +425,10 @@ class NeoDestinationHandoff:
             prefix = "incident_dispatch_outcome_" + sha256(ids["dispatch_id"].encode()).hexdigest()[:24] + "_%"
             with store.get_read_only_connection() as conn:
                 rows = conn.execute("SELECT description FROM incidents WHERE incident_id LIKE ?", (prefix,)).fetchall()
+                retry = conn.execute("SELECT created_at FROM incidents WHERE incident_id=?",
+                    (DurablePublicationCoordinator._retry_incident_id(ids["dispatch_id"]),)).fetchone()
+            if retry:
+                latest = max(latest, datetime.fromisoformat(retry["created_at"].replace("Z", "+00:00")))
             for row in rows:
                 outcome = json.loads(row[0])
                 if outcome.get("dispatch_id") == ids["dispatch_id"]:
@@ -497,7 +501,9 @@ class NeoDestinationHandoff:
             if not _canonical(url) or not any(url in segment for segment in content_binding["expected_text_segments"]):
                 raise ValueError("CC684_LINKEDIN_SUBSTACK_LINK_REQUIRED")
             media = content_binding["media_manifest"]
-            if not media or not all(a.get("modality") == "tradingview_chart_snapshot" for a in media):
+            if not media or not all(a.get("modality") == "tradingview_chart_snapshot"
+                    or (intent.get("plan_status_post") and a.get("modality") == "plan_fact_card"
+                        and a.get("plan_chart_fallback")) for a in media):
                 raise ValueError("CC684_LINKEDIN_TRADINGVIEW_CHART_REQUIRED")
             root = Path(intent["output_dir"]).resolve()
             media_dirs = (root / "media", root / "media_assets")
@@ -558,7 +564,9 @@ class NeoDestinationHandoff:
             value["steps"].insert(3, "Quote the exact visible quote_parent source through its Quote composer; "
                 "attach the bound chart. Recheck its deadline before the single Post click. Read back the "
                 "quoted source id and URL inside our exact own-account post, never infer a quote from a text link.")
-        if (destination == "substack_notes" or destination == "x" and intent.get("plan_analysis_link")) \
+        from .plan_call_cards_v1 import LATE_CHART_PART
+        chart_reply = bool(intent.get("plan_status_post") and intent.get("plan_status_part") == LATE_CHART_PART)
+        if (destination == "substack_notes" or destination == "x" and (intent.get("plan_analysis_link") or chart_reply)) \
                 and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
             parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
             if not _public_url(destination, parent_url, parent_id,
@@ -619,6 +627,19 @@ class NeoDestinationHandoff:
                             and intent.get("plan_status_post") and not value.get("reply_parent")
                             and value.get("entry_url") == ROOTS["x"]):
                         value["plan_status_root_readback"] = True
+                    from .publication_coordinator_v1 import _is_plan_copy
+                    if _is_plan_copy(intent):
+                        if destination in {"x", "substack_notes"} and value.get("reply_parent"):
+                            value["public_plan_feed_url"] = value["reply_parent"]["public_object_url"]
+                        elif destination == "x":
+                            value["public_plan_feed_url"] = (
+                                "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + identity.lstrip("@"))
+                        elif destination == "substack_notes":
+                            value["public_plan_feed_url"] = entry_url + "/notes"
+                        if value.get("public_plan_feed_url"):
+                            value["steps"][1] = (
+                                "Read the bound public_plan_feed_url and the exact permalink of a match. "
+                                "Only a complete, dated feed spanning the attempt can prove absence.")
             invocation = getattr(self.native_executor, "native_invocation_id", None)
             if invocation:
                 value["native_invocation_id"] = invocation
@@ -1008,6 +1029,10 @@ class NeoDestinationHandoff:
                          if destination == "telegram" else
                          result.get("authenticated") is True
                          and result.get("observed_profile_url") == request["entry_url"])
+            if request.get("public_plan_feed_url"):
+                from .native_neo_executor_v1 import _readback_absence_evidence
+                feed_read = (latest_attempt == request.get("latest_dispatch_attempt_at_utc")
+                             and _readback_absence_evidence(request, result))
             absent = (elapsed >= 600 and feed_read
                 and result.get("activity_feed_loaded") is True and bool(observed_text)
                 and result.get("observed_identity") == request["expected_identity"]

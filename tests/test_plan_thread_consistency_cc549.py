@@ -1,6 +1,6 @@
 """The gold thread's retained inputs flow into one new, source-bound thread."""
 from copy import deepcopy
-from datetime import timedelta
+from datetime import datetime, timedelta
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -16,9 +16,10 @@ from live_contentops import plan_state_alerts_v1 as alerts
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
-from test_plan_call_cards_cc399 import write, rows
+from test_plan_call_cards_cc399 import controlled_tradingview, write, rows  # noqa: F401
 from test_plan_analysis_pages_cc432 import source  # noqa: F401
 from test_plan_analysis_distribution_cc435 import confirm
+from test_plan_status_publication_cc306 import fake_host
 
 
 FIXTURES = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures"
@@ -204,7 +205,8 @@ def test_existing_issued_alert_and_page_keep_their_original_composer(gold):
     assert "supplied" in pages.structured_summary(packet, "telegram", "https://capitalchronicle.substack.com/p/gold-original")
 
 
-def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(gold, tmp_path, main_root):
+@pytest.fixture
+def long_alert(gold, tmp_path, main_root):
     raw, _ = gold
     raw.update(
         asset_id="BTCUSD", status="WAITING", registered_at_utc="2026-11-17T16:43:13Z",
@@ -223,21 +225,81 @@ def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(gold, tmp_
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     posts.queue_posts(store, folder, now=now, main_root=main_root)
     queued, = rows(store)
+    return store, folder, now, queued
+
+
+def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(long_alert, main_root):
+    store, folder, now, queued = long_alert
     key = queued["key"]
     frozen = store.get_outbox_message(key)["payload"]
 
     result = posts.queue_posts(store, folder, now=now, main_root=main_root, dry_run=True, render_all=True)
     assert result["status"] == "OK"
     preview, = result["rendered_posts"]
-    chart_thread = cards.destination_payloads(
+    copies = cards.destination_payloads(
         queued, card_id="dry-run-" + key, chart_credit=True, complete_levels=True,
-    )["threads"]
+    )
+    assert set(copies) == set(cards.DESTINATIONS)
+    for destination, payload in copies.items():
+        parts = [payload["text"], *payload.get("reply_texts", [])]
+        assert payload["full_text"] == "\n\n".join(parts), destination
+        for notice in (posts.PUBLIC_NOTICE, posts.CONFLICTS_NOTICE):
+            assert sum(part.count(notice) for part in parts) == 1, destination
+        assert payload["text"].count(posts.CHART_CREDIT) == 1, destination
+
+    chart_thread = copies["threads"]
     assert preview["destinations"]["threads"] == chart_thread
+    assert chart_thread["reply_texts"]  # A real split is needed to catch the repeated footer.
+    assert chart_thread["root_text"].count(cards.NOTICES) == 1
     assert all(len(text) <= 500 for text in [chart_thread["root_text"], *chart_thread["reply_texts"]])
     for phrase in ("63,885–65,160", "at or above 66,450 before entry", "above 66,415 after entry",
                    "Entry can start until Tue 17 Nov, 2:30 PM ET.", "Filled positions close by Wed 18 Nov, 1:30 PM ET."):
         assert phrase in chart_thread["full_text"]
     assert store.get_outbox_message(key)["payload"] == frozen
+
+
+@pytest.mark.parametrize("issued_destination", ["discord", "threads", "threads_ready"])
+def test_threads_notice_layout_respects_an_existing_intent(long_alert, tmp_path, monkeypatch, issued_destination):
+    from test_minute_consumer_cc515 import dispatch
+
+    store, _, now, queued = long_alert
+    key = queued["key"]
+    # Reproduce a retained row created before either layer-copy contract.
+    queued = {field: value for field, value in queued.items()
+              if field not in {"analysis_copy_contract", "analysis_layer_quotes", "analysis_layer_gaps", "analysis_link"}}
+    queued.update(alerts.compose(queued))
+    store.finalize_outbox_payload_before_dispatch(message_id=key, payload=json.dumps(queued), status=posts.READY)
+
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return now.astimezone(tz) if tz else now.replace(tzinfo=None)
+
+    monkeypatch.setattr(cards, "datetime", Clock)
+    options = {"root": tmp_path / "posts", "destinations": ("threads",), "host": fake_host}
+    initial = cards.prepare_post(store, key, **options)
+    context_path = Path(initial["output_dir"]) / "run_context_v1.json"
+    context = json.loads(context_path.read_bytes())
+    context.pop("status_post_threads_single_notice")  # A package prepared before CC-729.
+    context_path.write_text(json.dumps(context), encoding="utf-8")
+    legacy = cards.destination_payloads(queued, card_id=initial["status_post_card_id"],
+        chart_credit=True, complete_levels=True, repeat_threads_notices=True)["threads"]
+    assert legacy["full_text"].count(cards.NOTICES) > 1
+    store.create_work_item(story_id=key, work_item_id=key, title="Call card", target_surface="MULTI_PLATFORM")
+    if issued_destination == "threads_ready":
+        ids = cards._dispatch_ids(key, "threads")
+        store.register_outbox_message(message_id=ids["message_id"], work_item_id=key,
+            destination="threads", payload=json.dumps(legacy), status="READY")
+    else:
+        dispatch(store, queued, issued_destination, "UNKNOWN_WRITE")
+
+    plan = cards.prepare_post(store, key, **options)
+    checked = posts.validate_status_post_plan(store, key, plan)["payloads"]["threads"]
+    if issued_destination.startswith("threads"):
+        assert checked == legacy
+    else:
+        assert checked["full_text"] == initial["destinations"][0]["payload"]
+        assert checked["full_text"].count(cards.NOTICES) == 1
 
 
 def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path, main_root, monkeypatch):

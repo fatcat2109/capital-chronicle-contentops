@@ -89,10 +89,12 @@ if (input.phase === 'plan_substack_publish' || input.phase === 'plan_substack_co
     !Array.from(document.querySelectorAll('input[type=checkbox]')).some(e=>e.checked)));
   const button = find(await snap(), 'button', confirming ? 'Publish on web only' : 'Publish now');
   if (confirming && !button) return {status:'UNKNOWN_WRITE',stage:'PUBLISH_CLICK_ATTEMPTED'};
-  const inWindow = !input.plan_entry_deadline_utc || Date.now() < Date.parse(input.plan_entry_deadline_utc);
+  const deadline = input.wrap_deadline_utc || input.plan_entry_deadline_utc;
+  const inWindow = !deadline || Date.now() < Date.parse(deadline);
   if (!safe || !button || !inWindow) return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,
     public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:inWindow
-      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
+      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : input.wrap_deadline_utc
+        ? 'WRAP_PUBLICATION_DEADLINE_ELAPSED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
   const dispatched_at_utc=new Date().toISOString();await page.click(button.ref);
   return {status:'CLICKED',dispatched_at_utc};
 }
@@ -257,7 +259,7 @@ if (input.phase === 'article_publish') {
       reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH',pre_click_posts:editors};
   }
   if (input.destination === 'linkedin'
-      && (!/^https:\/\/www\.linkedin\.com\/sharing\/compose\/?(?:[?#].*)?$/.test(s.url)
+      && (!/^https:\/\/www\.linkedin\.com\/(?:feed|sharing\/compose)\/?(?:[?#].*)?$/.test(s.url)
           || !find(s, 'button', 'Jim Pham') || !find(s, 'button', 'Post to Anyone'))) {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_SIGNED_IN_ACCOUNT_MISMATCH'};
@@ -271,6 +273,10 @@ if (input.phase === 'article_publish') {
   }, linkedinDialog(input.destination)))) {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'LINKEDIN_CHART_PREVIEW_UNAVAILABLE'};
+  }
+  if (input.wrap_deadline_utc && !(Date.now() < Date.parse(input.wrap_deadline_utc))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'WRAP_PUBLICATION_DEADLINE_ELAPSED',pre_click_posts:editors};
   }
   const dispatched_at_utc=new Date().toISOString();
   await page.click(button.ref);
@@ -594,6 +600,10 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   button = settledButtons[settledButtons.length - 1];
   if (!button) return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
     reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
+  if (input.wrap_deadline_utc && !(Date.now() < Date.parse(input.wrap_deadline_utc))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'WRAP_PUBLICATION_DEADLINE_ELAPSED',pre_click_posts:editors};
+  }
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);
@@ -601,6 +611,30 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
     pre_click_posts:editors};
 }
 
+if (input.phase === 'x_public_embed') {
+  return unwrap(await page.evaluateInPage(() => {
+    const rows = Array.from(document.querySelectorAll('.timeline-Tweet, [data-testid="tweet"]'));
+    const tweets = rows.map(row => {
+      const time = row.querySelector('time');
+      const url = (time?.closest('a') || row.querySelector('.timeline-Tweet-timestamp'))?.href;
+      const text = row.querySelector('.timeline-Tweet-text, [data-testid="tweetText"]');
+      const permalink = url && new URL(url);
+      const id = permalink && ['https://x.com', 'https://twitter.com'].includes(permalink.origin)
+        && permalink.pathname.match(/^\/Capitalnicle\/status\/(\d+)$/i)?.[1];
+      return {
+        public_object_id: id,
+        public_object_url: id && 'https://x.com/Capitalnicle/status/' + id,
+        observed_text: text?.innerText || '',
+        published_at_utc: time?.dateTime,
+        text_truncated: /…$/.test(text?.innerText || '') || !!row.querySelector('[data-testid="tweet-text-show-more-link"]'),
+        links: Array.from(text?.querySelectorAll('a[href]') || []).map(a => ({url:a.href, text:a.innerText})),
+        public_image_urls: Array.from(row.querySelectorAll('img')).map(i => i.currentSrc || i.src)
+          .filter(url => /^https:\/\/pbs.twimg.com\/media\//.test(url)),
+      };
+    });
+    return {url:location.href, tweets};
+  }));
+}
 if (input.phase === 'readback') {
   // AX/read omit note paragraphs and do not expose image URLs or original clocks.
   // Read only the rendered object; never fetch a private endpoint in the page.
@@ -632,7 +666,8 @@ if (input.phase === 'readback') {
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));
     const permalink = document.querySelector('main [class*="feedPermalinkUnit"]');
     const parentUrl = permalink && links(permalink).find(a=>a.url === location.href)?.url;
-    const notes = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible).map(e => {
+    const noteElements = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible);
+    const notes = noteElements.map(e => {
       const root = e.closest('article,[class*="feedPermalinkUnit"]') || e.parentElement?.parentElement?.parentElement;
       const ancestors = [root,root.parentElement,root.parentElement?.parentElement].filter(Boolean);
       const noteUrl = value => {
@@ -650,10 +685,18 @@ if (input.phase === 'readback') {
       const replyParent = parentUrl && !permalink.contains(e) && !e.closest('article')
         && document.querySelector('main')?.contains(e) ? parentUrl : null;
       return {public_object_url:url,public_object_id:url?.match(/note\/(c-\d+)/)?.[1],
-        observed_text:e.innerText, links:links(owner), public_image_urls:imageUrls(owner),
+        observed_text:e.innerText,
+        published_at_utc:Array.from(owner.querySelectorAll('time[datetime]'))
+          .find(t=>t.closest('a')?.href===url)?.dateTime || owner.querySelector('time[datetime]')?.dateTime,
+        text_truncated:/…$/.test(e.innerText) || links(owner).some(l=>/^see more$/i.test(l.text)),
+        links:links(owner), public_image_urls:imageUrls(owner),
         ...(replyParent ? {reply_parent_url:replyParent,reply_parent_id:replyParent.match(/note\/(c-\d+)/)?.[1]} : {})};
     }).filter(e=>e.public_object_url);
-    return {url:location.href,tweets,notes};
+    const incompleteReplies = Array.from(document.querySelectorAll('main button, main a, main [aria-busy="true"]'))
+      .some(e=>visible(e) && (e.getAttribute('aria-busy') === 'true'
+        || /(?:show|load|view|see) (?:more|hidden|additional|\d+) (?:replies|comments)/i.test(e.innerText || '')));
+    return {url:location.href,tweets,notes,visible_note_count:noteElements.length,
+      note_reply_list_complete:!!parentUrl && !incompleteReplies};
   }, input.expected_identity));
 }
 throw new Error('NEO_UNSUPPORTED_PHASE');

@@ -138,6 +138,7 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
             ("discord", "DISPATCH_CONFIRMED", "2026-11-17T09:01:00Z", "222"),
             ("facebook_page", "DISPATCH_CONFIRMED", "2026-11-17T09:01:05Z", "224"),
             ("x", "READY", None, None),
+            ("substack_notes", "UNKNOWN_WRITE", "2026-11-17T08:59:00Z", None),
             ("linkedin", "DEFINITE_NO_WRITE", "2026-11-17T09:03:00Z", None),
             ("threads", "DISPATCH_CONFIRMED", "2026-11-17T10:00:01Z", "223"),
         ]:
@@ -164,6 +165,16 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
                 conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)",
                     ("li-first-cause", ids["dispatch_id"],
                      json.dumps({"reason_code": "LINKEDIN_MEDIA_PROCESSING"}), "2026-11-17T09:03:01Z"))
+            if destination == "substack_notes":
+                retry_at = "2026-11-17T09:10:00Z"
+                conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)",
+                    (DurablePublicationCoordinator._retry_incident_id(ids["dispatch_id"]), key,
+                     "RECOVERY_AUDIT", "One bounded absence-safe derivative retry was started.", retry_at))
+                for at, reason in [(dispatched_at, "NEO_REGISTERED_PROFILE_UNAVAILABLE"),
+                                   (retry_at, "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH")]:
+                    conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)", ("note-" + reason, key,
+                        "DISPATCH_OUTCOME", json.dumps({"dispatch_id": ids["dispatch_id"],
+                            "attempt_started_at_utc": at, "safe_error_classification": reason}), at))
         conn.execute("INSERT INTO incidents VALUES(?,?,?,?,?)",
             (cards._settlement_id(key, "instagram_business"), key, "RECOVERY_AUDIT",
              json.dumps({"cause": "TRADINGVIEW_PRICE_SCALE_MISMATCH", "recorded_at_utc": created}), created))
@@ -192,13 +203,54 @@ def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recor
     assert routes["x"]["x_ready_over_five_minutes"] and routes["x"]["first_cause"] == "DESTINATION_FAILED_ET_DAY_SKIP"
     assert routes["linkedin"]["retry_recorded"] and routes["linkedin"]["first_cause"] == "LINKEDIN_MEDIA_PROCESSING"
     assert routes["instagram_business"]["first_cause"] == "TRADINGVIEW_PRICE_SCALE_MISMATCH"
-    assert routes["substack_notes"]["first_cause"] == "DESTINATION_INTENT_NOT_REGISTERED"
+    note = routes["substack_notes"]
+    assert note["first_cause"] == "NEO_REGISTERED_PROFILE_UNAVAILABLE"
+    assert note["retry_failure_cause"] == "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"
+    assert note["unresolved_write_age_seconds"] == 3660
     assert not routes["threads"]["confirmed"] and routes["threads"]["status"] == "READY"
     table = readback.markdown(report)
     assert "Plan post delivery" in table and "X READY over 5 min" in table
     assert "Over 10 min behind first confirmed copy" in table
     assert "Published 779.0s after Main change (over 5 min)" in table
     assert "First verified over 5 min after Main change. Publication time unrecorded." in table
+
+
+def test_evening_checks_copies_sent_or_pending_after_an_older_plan_was_created(recorded):
+    from live_contentops import plan_status_posts_v1 as posts
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    _, store, _, _ = recorded
+    key = "plan-status-post-carryover"
+    created = "2026-11-17T07:00:00Z"
+    row = {"key": key, "format": 4, "kind": "update", "state": "TRIGGERED",
+           "state_alert_contract": "CC543_V1", "at_utc": "2026-11-17T06:59:00Z"}
+    digest = sha256(("plan-status-post:" + key).encode()).hexdigest()
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(row), "PUBLISHING", created))
+        for destination, dispatch_clock in (("discord", "2026-11-17T07:01:00Z"),
+                                            ("telegram", "2026-11-17T08:01:00Z"),
+                                            ("threads", "2026-11-17T10:01:00Z"), ("x", None)):
+            ids = DurablePublicationCoordinator._ids(key, digest, destination)
+            status = "DISPATCH_CONFIRMED" if dispatch_clock else "READY"
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                         (ids["message_id"], key, destination, "{}", status, created))
+            if dispatch_clock:
+                conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
+                             (ids["dispatch_id"], ids["message_id"], destination, status, dispatch_clock,
+                              "223", "https://t.me/CapitalChronicle/223" if destination == "telegram" else None, None))
+    report, _ = build(recorded, since="2026-11-17T08:00:00Z", until="2026-11-17T10:00:00Z")
+    routes = {r["platform"]: r for r in report["plan_delivery"]["copies"] if r["plan_post"] == key}
+    assert "discord" not in routes
+    assert routes["telegram"]["confirmed"] and routes["telegram"]["seconds_after_first_confirmed"] == 3600
+    assert routes["x"]["status"] == routes["threads"]["status"] == "READY"
+    assert routes["substack_notes"]["status"] == "WAITING"
+    issues = {(r["platform"], r["first_cause"]) for r in report["decision_checks"]["issues"]
+              if r["decision"] == "CC-672" and r["piece_id"] == key}
+    assert ("telegram", "PLAN_COPY_OVER_TEN_MINUTES_LATE") in issues
+    assert ("threads", "PLAN_COPY_UNCONFIRMED") in issues
+    assert all(platform != "discord" for platform, _ in issues)
+    assert "PLAN_ANALYSIS_LAYERS_MISSING (macro=EXPORT_GAP_NOT_RECORDED" in readback.markdown(report)
 
 
 def test_nov16_piece_channels_and_digest_are_consumed(recorded):

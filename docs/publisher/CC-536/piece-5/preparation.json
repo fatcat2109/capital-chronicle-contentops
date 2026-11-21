@@ -1,0 +1,139 @@
+{
+  "operation_id": "cc536-measured-odds-5",
+  "stage": "prepare",
+  "assignment_id": "cc536-measured-odds-5:prepare:42de028cd9688e9e6a920fb899ead93728e2ddc23dec0adfd80b4bca42bb46f4",
+  "role": {
+    "model": "gpt-6.2-sol",
+    "effort": "low",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "observation_limit": "Native runtime model and effort telemetry unavailable in this return."
+  },
+  "source": {
+    "table": "../piece-4/source/desk_odds_v1.json",
+    "table_sha256": "42de028cd9688e9e6a920fb899ead93728e2ddc23dec0adfd80b4bca42bb46f4",
+    "manifest": "../piece-4/source/manifest.json",
+    "manifest_sha256": "d8b239b5c769ce2e845995b752503cc650a012604e0fe9649685939c18153058",
+    "main_path": "data/research/desk-odds/desk_odds_v1.json",
+    "main_tag": "live-20261121-cc741-050030",
+    "main_commit": "aa516d6cebc1fc79f489a2845f2850a0cec6cb85",
+    "git_blob": "8a4c54fec1ea99e5bc406375ef956b2fd837049c",
+    "content_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "generated_at_utc": "2026-11-16T06:54:17.399006Z",
+    "verification": "Read the live tag target and compared the tagged table bytes with the retained source pack."
+  },
+  "angle": "Lead with opportunity cost. The nearer stop entry had the highest average per fill, while the next-open entry had the highest average per signal. A per-fill average answers how executed entries fared. A per-signal average includes opportunities that never filled and answers how the rule fared over the historical signal set.",
+  "basis": {
+    "pointer": "/construction/basis",
+    "value": "All six markets pooled; one trade with the yardstick on every fifth session (trades overlap).",
+    "side_label": "both sides together"
+  },
+  "sample": {
+    "period": "November 2016 to November 2026",
+    "period_pointer": "/what_this_is",
+    "market_windows_pointer": "/markets",
+    "next_open_fill_count": 1888,
+    "next_open_fill_count_pointer": "/construction/entry/rows/0/4",
+    "next_open_fill_share_pointer": "/construction/entry/rows/0/1",
+    "denominator_guidance": "Report 1,888 next-open fills with the table's 100% fill share; the entry export does not carry a separate signal-count field. Report each pending row's exported fills and rounded share. Do not derive missing counts from rounded shares or use the 1,893 trials per width from piece 4."
+  },
+  "entry": {
+    "note_pointer": "/construction/entry/note",
+    "note": "Decision-close ATR is frozen; fill bar counts as session 1 and can stop the trade (D1 adverse-path floor). Stop 1.5 normal days trailed, up to 10 sessions. per_signal counts an order that never filled as 0.",
+    "columns_pointer": "/construction/entry/columns",
+    "columns": [
+      "entry",
+      "filled_share",
+      "mean_r_per_signal",
+      "mean_r_per_fill",
+      "fills"
+    ],
+    "rows": [
+      {
+        "pointer": "/construction/entry/rows/0",
+        "values": [
+          "at the next open",
+          1.0,
+          0.117,
+          0.117,
+          1888
+        ]
+      },
+      {
+        "pointer": "/construction/entry/rows/1",
+        "values": [
+          "limit 0.5 normal day better, good for 3 sessions",
+          0.61,
+          0.058,
+          0.096,
+          1154
+        ]
+      },
+      {
+        "pointer": "/construction/entry/rows/2",
+        "values": [
+          "limit 1 normal day better, 3 sessions",
+          0.35,
+          0.019,
+          0.055,
+          658
+        ]
+      },
+      {
+        "pointer": "/construction/entry/rows/3",
+        "values": [
+          "stop entry 0.5 normal day further, 3 sessions",
+          0.63,
+          0.109,
+          0.173,
+          1190
+        ]
+      },
+      {
+        "pointer": "/construction/entry/rows/4",
+        "values": [
+          "stop entry 1 normal day further, 3 sessions",
+          0.38,
+          0.049,
+          0.13,
+          708
+        ]
+      }
+    ]
+  },
+  "limits": [
+    {
+      "pointers": [
+        "/construction/basis",
+        "/what_this_is"
+      ],
+      "meaning": "The six-market ten-year sample pools directions, includes a rising decade for gold, US shares and Bitcoin, and can contain overlapping trades. The wider audit examined 54 behaviour-by-market rows. These comparisons are retrospective and give neither a prospective fill probability nor a market-specific recommendation."
+    },
+    {
+      "pointers": [
+        "/construction/entry/note",
+        "/how_measured"
+      ],
+      "meaning": "The order comparison fixes a 1.5-normal-day trailing stop and a horizon of up to 10 sessions. A normal day is daily ATR14 as known at the signal close. The fill bar counts and can stop a trade. Modeled round-trip cost is 0.05 normal day. Daily bars and the adverse-path convention limit what the test can say about intraday fills or slippage."
+    },
+    {
+      "pointers": [
+        "/construction/entry/rows",
+        "/how_measured"
+      ],
+      "meaning": "The stop entry is an order that triggers in the signal direction. It is distinct from the trailing protective stop. Pending trigger distances refer to the signal close. Keep the comparisons on the pooled rows; the results do not resolve individual markets or directions."
+    }
+  ],
+  "visual": {
+    "status": "proposed",
+    "provider": "TradingView",
+    "instrument": "Gold futures, continuous COMEX contract (GC1!)",
+    "timeframe": "1D",
+    "overlays": [
+      "TradingView native SMA 20 on close",
+      "TradingView native SMA 50 on close"
+    ],
+    "sample_pointer": "/markets/XAUUSD",
+    "sample_end": "2026-11-10",
+    "framing": "Capture a fresh authentic TradingView daily image ending within the study window. Preserve visible contract, timeframe and TradingView attribution. Treat the image as market context for the pooled entry comparison and distinguish it from the Main census input series. Claim neither simulated fills nor an actual trade on the image."
+  }
+}

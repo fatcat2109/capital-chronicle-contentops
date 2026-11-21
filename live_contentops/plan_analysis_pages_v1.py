@@ -64,7 +64,7 @@ _NUM = re.compile(r"(?<![\w.])[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?(?!\w|\.\d)")
 _PIPELINE = re.compile(r"\b(?:supplied|provided)\s+(?:historical\s+)?(?:review|analysis|pack)|"
                        r"\bthe analyst['’]s comparison|\b(?:source[- ]bound|pipeline|writer input)\b", re.I)
 _PREDICTION = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[- ]markets?)\b", re.I)
-_PRICED = re.compile(r"\b(?:pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
+_PRICED = re.compile(r"\b(?:(?:un)?pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
 _PERCENT = re.compile(r"%|\bper\s*cent\b", re.I)
 
 
@@ -130,16 +130,20 @@ def open_page_deadline(packet):
     return entry_deadline(raw) if raw.get("zone") and not packet.get("final_status") else None
 
 
-def ended_plan_status(raw, current, *, now):
-    """Bind late copy to the terminal state of this exact Main registration."""
+def ended_plan_status(raw, current, *, now, keep_early_close=False):
+    """Bind a closed page to the observed end of this exact Main registration."""
     deadline = entry_deadline(raw)
     state, at = current.get("status"), current.get("status_at_utc")
-    if (not deadline or now < posts._utc(deadline) or state not in FINAL_STATES or not at
+    if (not deadline or state not in FINAL_STATES or not at
             or current.get("plan_id") != raw["plan_id"]
             or current.get("registration_hash") != raw["registration_hash"]
             or not posts._utc(raw["registered_at_utc"]) <= posts._utc(at) <= now):
         raise ValueError("PLAN_ANALYSIS_FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW")
-    return {"status": state, "status_at_utc": at}
+    final = {"status": state, "status_at_utc": at}
+    deadline_at = posts._utc(deadline)
+    if posts._utc(at) < deadline_at and (now < deadline_at or keep_early_close):
+        final["ended_before_entry_deadline"] = True
+    return final
 
 
 def _current_quote(raw, current, now):
@@ -227,14 +231,20 @@ def require_current_page(packet, *, now=None):
     current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
     deadline = entry_deadline(raw)
     final_status = packet.get("final_status")
-    if deadline and now >= posts._utc(deadline):
-        if not final_status:
-            raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
-        if final_status != ended_plan_status(raw, current, now=now):
-            raise ValueError("PLAN_ANALYSIS_FINAL_STATUS_CHANGED_REVIEW_REQUIRED")
-        return current
     if final_status:
-        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_STILL_OPEN")
+        observed = ended_plan_status(raw, current, now=now,
+                                     keep_early_close=final_status.get("ended_before_entry_deadline"))
+        if final_status != observed:
+            raise ValueError("PLAN_ANALYSIS_FINAL_STATUS_CHANGED_REVIEW_REQUIRED")
+        if final_status.get("ended_before_entry_deadline"):
+            closed_at = posts._utc(final_status["status_at_utc"])
+            for asset in packet.get("media_assets", []):
+                snapshot = asset.get("tradingview_snapshot")
+                if snapshot and posts._utc(snapshot["captured_at_utc"]) > closed_at:
+                    raise ValueError("PLAN_ANALYSIS_CHART_AFTER_CLOSE")
+        return current
+    if deadline and now >= posts._utc(deadline):
+        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
     options = current_page_options(raw, current, now=now)
     if options.get("active_status") != packet.get("active_status"):
         raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
@@ -447,6 +457,31 @@ def _public_geometry(plan, run):
     return lines, bindings
 
 
+def _closed_plan_chart(plan, folder, manuscript, final_status, setup_post_dir):
+    """Use an exact, already-held chart that predates the plan's terminal observation."""
+    from . import tradingview_snapshot_v1 as tv
+
+    market = plan["asset_id"]
+    closed_at = posts._utc(final_status["status_at_utc"])
+    candidates = [(folder, "plan-analysis-" + plan["plan_id"])]
+    if setup_post_dir is not None:
+        candidates.append((setup_post_dir, setup_post_dir.name))
+    for source, key in candidates:
+        try:
+            state = json.loads((source / "tradingview_capture_v1.json").read_bytes())
+        except (OSError, ValueError):
+            continue
+        snapshot = state.get("snapshot") or {}
+        at = snapshot.get("captured_at_utc")
+        if (state.get("key") != key or state.get("market") != market or not at
+                or posts._utc(at) > closed_at):
+            continue
+        asset = tv.snapshot_asset(market, manuscript["title"], snapshot, folder / "media_assets")
+        tv.validate_snapshot_asset(asset, {"market_asset": market})
+        return asset
+    raise ValueError("PLAN_ANALYSIS_PRE_CLOSE_CHART_UNAVAILABLE")
+
+
 def _card(plan, run, folder, manuscript):
     """One new owned diagram of this run's levels; no later price history."""
     from .publication_image_contract_v1 import EFFECTIVE_FROM
@@ -476,11 +511,15 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
         from .plan_reader_copy_v1 import et, page_thread_terms, LEVEL_CONTRACT
         if plan.get("zone") and plan.get("invalidation_conditions"):
             headline = page_thread_terms(plan, run, level_contract=LEVEL_CONTRACT)["title"]
+        state = FINAL_STATES[final_status['status']]
+        if final_status.get("ended_before_entry_deadline"):
+            headline += f" (plan {state})"
+            paragraphs.append("This page was published after the plan ended.")
+        else:
+            paragraphs.append("This page was published after the plan ended. The entry window closed "
+                              f"{et(entry_deadline(plan))}.")
         public_filter(headline)
-        paragraphs.append("This page was published after the plan ended. The entry window closed "
-                          f"{et(entry_deadline(plan))}.")
-        paragraphs.append(f"Status: {FINAL_STATES[final_status['status']]} "
-                          f"(updated {et(final_status['status_at_utc'])}).")
+        paragraphs.append(f"Status: {state} (updated {et(final_status['status_at_utc'])}).")
     if market_update:
         from .plan_reader_copy_v1 import et
         price = Decimal(str(market_update["price"]))
@@ -516,7 +555,7 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
 
 
 def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None, final_status=None,
-           active_status=None):
+           active_status=None, setup_post_dir=None):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
     check_new_page_copy(manuscript, run)
@@ -527,7 +566,12 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
     body = payload["body_markdown"]
     folder = Path(output_dir)
     folder.mkdir(parents=True, exist_ok=True)
-    card = _card(plan, run, folder, manuscript) if plan.get("asset_id") in posts.MARKETS and plan.get("zone") else None
+    card = None
+    if plan.get("asset_id") in posts.MARKETS and plan.get("zone"):
+        if final_status and final_status.get("ended_before_entry_deadline"):
+            card = _closed_plan_chart(plan, folder, manuscript, final_status, setup_post_dir)
+        else:
+            card = _card(plan, run, folder, manuscript)
     if card and manuscript.get("reader_contract") == "CC466_V1":
         card = {**card, "article_inclusion": True, "canonical_article_media": True,
                 "placement_after": manuscript["introduction"], "article_section": "introduction",
@@ -750,22 +794,31 @@ def confirmed_publication(store, plan):
             "canonical_url": status["canonical_url"], "summary": packet["summary"]}
 
 
-def refresh_ended_page(store, packet, *, now):
+def refresh_ended_page(store, packet, *, now, current=None):
     raw = packet["source_plan"]
-    current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
-    final = ended_plan_status(raw, current, now=now)
-    if final == packet.get("final_status"):
+    if current is None:
+        current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    prior = packet.get("final_status") or {}
+    final = ended_plan_status(raw, current, now=now, keep_early_close=prior.get("ended_before_entry_deadline"))
+    if final == prior:
         return packet
     validate_plan(store, packet["page_id"], packet["plan"])
     run = load_run(raw, run_root=Path(packet["run_root"]))
-    payload, _, _ = _assemble(raw, packet["manuscript"], run, market_update=packet.get("market_update"),
-                               final_status=final)
-    return replace_unpublished_copy(store, packet, {**packet, "native_payload": payload, "final_status": final})
+    revised = {**packet, "final_status": final}
+    market_update = revised.get("market_update")
+    if (final.get("ended_before_entry_deadline") and market_update
+            and posts._utc(market_update["quoted_at_utc"]) > posts._utc(final["status_at_utc"])):
+        revised.pop("market_update")
+    revised["native_payload"], _, _ = _assemble(raw, packet["manuscript"], run,
+                                               market_update=revised.get("market_update"), final_status=final)
+    return replace_unpublished_copy(store, packet, revised)
 
 
 def refresh_active_page(store, packet, *, now):
     raw = packet["source_plan"]
     current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    if current.get("status") in FINAL_STATES:
+        return refresh_ended_page(store, packet, now=now, current=current)
     options = current_page_options(raw, current, now=now)
     active = options.get("active_status")
     prior = packet.get("active_status")
@@ -787,6 +840,31 @@ def refresh_active_page(store, packet, *, now):
     return replace_unpublished_copy(store, packet, revised)
 
 
+def refresh_page_reader_terms(store, packet):
+    """Repair reader-facing copy only on a page that has not been sent."""
+    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_editorial_v1 import PAGE_COPY_REVISION, repair_cached_page_quotes
+
+    held = packet["manuscript"]
+    if held.get("analysis_copy_contract") != ANALYSIS_COPY or held.get("reader_revision", 0) >= PAGE_COPY_REVISION:
+        return packet
+    raw = packet["source_plan"]
+    run = load_run(raw, run_root=Path(packet["run_root"]))
+    if run["manifest"] != packet["source_manifest"]:
+        raise ValueError("PLAN_ANALYSIS_SOURCE_BYTES_CHANGED")
+    manuscript = repair_cached_page_quotes(raw, run, held, cause="CC688_PAGE_PUBLIC_TERMS")
+    bindings = validate_manuscript(raw, manuscript, run)
+    check_new_page_copy(manuscript, run)
+    options = {key: packet.get(key) for key in ("market_update", "active_status", "final_status")}
+    payload, _, geometry = _assemble(raw, manuscript, run, **options)
+    if payload == packet["native_payload"]:
+        return packet
+    summary = {key: manuscript["sections"][key]["summary"] for key, _ in sections_for(manuscript)}
+    revised = {**packet, "native_payload": payload, "manuscript": manuscript, "summary": summary,
+               "numeric_bindings": bindings + geometry, "authorship": manuscript["authorship"]}
+    return replace_unpublished_copy(store, packet, revised)
+
+
 def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None,
                   automatic=False):
     from .native_desktop_publication_v1 import live_publication_policy
@@ -797,7 +875,7 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
     now = datetime.now(timezone.utc)
     raw = packet["source_plan"]
     deadline = entry_deadline(raw) if raw.get("zone") else None
-    ended = deadline and now >= posts._utc(deadline)
+    ended = packet.get("final_status") or (deadline and now >= posts._utc(deadline))
     status = page_status(store, packet)["dispatch"].get("status")
     reading = command == "readback" or (command == "resume" and (
         status == "SUBSTACK_DRAFT_AWAITING_OWNER" or (ended and status in {
@@ -822,6 +900,8 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
             ids = coordinator._ids(packet["page_id"], packet["plan"]["plan_hash"], "substack")
             result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
         else:
+            if status in {None, "DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}:
+                packet = refresh_page_reader_terms(store, packet)
             if ended:
                 packet = refresh_ended_page(store, packet, now=now)
             elif (raw.get("zone") and packet["manuscript"].get("reader_revision", 1) >= 3
@@ -969,8 +1049,8 @@ def _analysis_parent(store, original_key, plan_id, destination):
 def _discord_analysis_thread(store, original, parent):
     """A bot card already lives in its run thread; Discord has no nested threads."""
     from .plan_call_cards_v1 import _reference
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
-    if original.get("analysis_copy_contract") == ANALYSIS_COPY:
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
+    if original.get("analysis_copy_contract") in STATUS_ANALYSIS_CONTRACTS:
         sent = _status_post_copy(store, original["key"], "discord")
         return str(sent.get("discord_thread_parent_id") or parent["public_object_id"])
     if original.get("kind") == "setup" and not original.get("parent_key"):
@@ -1007,7 +1087,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
                   original_analysis_root=False, canonical_image_url=None):
     from .plan_call_cards_v1 import _dispatch, _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
     status = page_status(store, packet)
     if not status["confirmed"]:
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
@@ -1016,7 +1096,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     original = store.get_outbox_message(original_key) or {}
     original_payload = json.loads(original.get("payload") or "{}")
     status_post_reply = bool(not original_analysis_root and not authored_summary and
-                             original_payload.get("analysis_copy_contract") == ANALYSIS_COPY)
+                             original_payload.get("analysis_copy_contract") in STATUS_ANALYSIS_CONTRACTS)
     if status_post_reply and (original_payload["plan_id"] != packet["plan_id"]
                               or original_payload["source_plan_registration"] != packet["registration_hash"]):
         raise ValueError("CC688_LINK_PLAN_REGISTRATION_CHANGED")
@@ -1107,7 +1187,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
 
 def validate_link_plan(store, work_item_id, plan):
     from .plan_call_cards_v1 import _reference
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
     row=store.get_outbox_message(work_item_id)
     value=json.loads(row["payload"]) if row else {}
     if value.get("link_id")!=work_item_id or value.get("plan")!=plan:
@@ -1148,7 +1228,7 @@ def validate_link_plan(store, work_item_id, plan):
     elif value.get("status_post_reply"):
         original = posts._row_payload(store, value["original_key"])
         parent = _reference(store, value["original_key"], value["destination"])
-        if (original.get("analysis_copy_contract") != ANALYSIS_COPY or original["plan_id"] != packet["plan_id"]
+        if (original.get("analysis_copy_contract") not in STATUS_ANALYSIS_CONTRACTS or original["plan_id"] != packet["plan_id"]
                 or original["source_plan_registration"] != packet["registration_hash"]
                 or not parent or parent != value["parent"]):
             raise ValueError("CC688_LINK_STATUS_POST_PARENT_CHANGED")
@@ -1487,12 +1567,12 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
     """
     cards, alerts, confirmed_runs = {}, {}, []
     from .plan_call_cards_v1 import _reference
-    from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
     for row in store.list_outbox_messages(destination=posts.DESTINATION):
         item = json.loads(row["payload"])
         if item.get("kind") == "setup" or item.get("state") == "WAITING":
             cards.setdefault(item.get("plan_id"), row["message_id"])
-        if item.get("analysis_copy_contract") == ANALYSIS_COPY:
+        if item.get("analysis_copy_contract") in STATUS_ANALYSIS_CONTRACTS:
             alerts.setdefault(item["plan_id"], []).append(row["message_id"])
         if item.get("kind") == "run" and _reference(store, row["message_id"], "linkedin"):
             confirmed_runs.append({a["canonical_url"] for a in item.get("analysis_publications", [])})

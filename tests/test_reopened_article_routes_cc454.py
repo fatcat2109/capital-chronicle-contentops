@@ -241,20 +241,19 @@ def test_cc536_company_identity_waits_for_its_hydrated_owner_controls(tmp_path):
     assert browser.calls.count("article_publish") == 1
 
 
-def test_cc536_company_bound_chart_replaces_only_its_draft_link_preview(tmp_path, monkeypatch):
-    store, c, executor, browser, message, row = article(tmp_path, "linkedin_company", "link_preview")
-    intent = json.loads(message["payload"])
-    intent["media_assets"] = [{"path":str(tmp_path / "media/chart.png"), "asset_id":"bound-chart", "sha256":"fixture"}]
-    message = {**message, "payload":json.dumps(intent)}
-    # Exercise the driver with the request's already-bound media rather than
-    # changing any durable/public production package.
-    request = {"destination":"linkedin_company", "expected_identity":"linkedin:company:143198922", "action":"PUBLISH",
-        "native_payload":{"text":"The approved text."}, "content_binding":{"media_manifest":intent["media_assets"]}}
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+def test_cc536_linkedin_uploads_the_bound_chart_before_the_canonical_url(tmp_path, monkeypatch, destination):
+    browser = ArticleBrowser(destination, "link_preview")
+    path = str(tmp_path / "media/chart.png")
+    request = {"destination":destination, "expected_identity":handoff.IDENTITIES[destination], "action":"PUBLISH",
+        "native_payload":{"text":"Approved copy. https://capitalchronicle.substack.com/p/method"},
+        "content_binding":{"media_manifest":[{"path":path, "asset_id":"bound-chart", "sha256":"fixture"}]}}
     driver = endpoint.NeoBrowserDriver(browser)
     monkeypatch.setattr(driver, "article_readback", lambda *args, **kwargs: {"public_object_id":"observed-post"})
     driver.perform({"request":request})
-    assert browser.preview_removed
-    assert any(isinstance(call,tuple) and call[0] == "upload" for call in browser.calls)
+    actions = [name for name, _ in (call for call in browser.calls if isinstance(call, tuple))]
+    assert actions.index("upload") < actions.index("fill")
+    assert browser.uploads == [path]
     assert browser.calls.count("article_publish") == 1
 
 

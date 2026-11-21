@@ -7,8 +7,8 @@
   "research_root": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\retained_research",
   "desk_record_exports": [
     {
-      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\main-cc-014-20261103T1938\\desk-record-cand9-smoke.json",
-      "sha256": "a7c272ef3e215b6186d137c5abef45e53edb64e34b7937d276cef87e0de0b6c1"
+      "source_type": "public_plan_status",
+      "path": "A:/Capital Chronicle/ResearchRuns/plan-status-v1/plan-status.public.json"
     }
   ]
 }

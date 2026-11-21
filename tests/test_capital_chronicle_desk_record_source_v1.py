@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from live_contentops.capital_chronicle_desk_record_source_v1 import (
-    desk_evidence, display_value, read_export, story_context, validate_article_citations,
+    desk_evidence, display_value, read_export, read_plan_status, story_context, validate_article_citations,
 )
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, sha256_of
 from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
@@ -149,6 +149,126 @@ def test_feed_freezes_projected_desk_records_in_the_existing_native_request(tmp_
     assert "myfxbook" not in request
     frozen = store.get_outbox_message("native-current-input-" + sha256_of(turn.run_id))
     assert json.loads(frozen["payload"])["feed_scan"]["desk_record_sources"]
+
+
+PLAN_CAPTURE = "2026-11-21T02:30:00Z"
+PLAN_KNOWN = "2026-11-21T02:29:00Z"
+PLAN_CUTOFF = "2026-11-21T02:33:00Z"
+
+
+def write_plan_status(path, *, generated=PLAN_CAPTURE, plan_changes=None, other_rows=()):
+    from live_contentops.plan_status_posts_v1 import _sha
+
+    plan = {"plan_id": "plan_cc043_example", "asset_id": "XAGUSD", "direction": "BEARISH",
+            "status": "WAITING", "status_at_utc": PLAN_KNOWN, "expires_at_utc": "2026-11-21T19:00:00Z",
+            "zone": {"minimum": 30.1, "maximum": 30.2}, "entry_mode": "TOUCH",
+            "invalidation_conditions": [{"field": "close", "operator": "GT", "threshold": 31.0}],
+            "entries": [{"kind": "LIMIT", "zone_low": 30.1, "zone_high": 30.2}],
+            "target_level": 25.111, "last_quote": {"bid": 28.222},
+            "scenario_analysis": {"base_case": {"market_move": "Silver tests support as yields rise.", "probability_pct": 61.0},
+                "main_alternative": {"market_move": "Silver finds support as yields ease.", "probability_pct": 24},
+                "positioning": "Account balance was 392.333.", "why_no_open": "Unreviewed value 492.444"},
+            "layers": [{"layer": "macro", "state": "AVAILABLE", "text": "Higher real yields weigh on silver."},
+                       {"layer": "technical", "state": "UNAVAILABLE", "text": "Unreviewed value 592.555"}]}
+    plan.update(plan_changes or {})
+    doc = {"schema": "CapitalChroniclePlanStatusV1", "schema_version": "1.0.0", "contract_version": "2.0.0",
+           "generated_at_utc": generated, "plans": [plan, *other_rows], "scored_calls": [{"private": 692.666}]}
+    doc["content_hash"] = _sha(doc)
+    path.write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+    return {"path": str(path), "source_type": "public_plan_status"}
+
+
+def test_plan_status_projects_exact_public_fields_and_uses_main_article_validation(tmp_path):
+    path = tmp_path / "plan-status.public.json"
+    pointer = write_plan_status(path, other_rows=[{"plan_id": "bad_row"}])
+    records, invalid = read_plan_status(pointer, cutoff_utc=PLAN_CUTOFF)
+    assert invalid == 1
+    record, = records
+    binding = record["binding"]
+    assert binding["asset_ids"] == ["XAGUSD"]
+    assert record["known_at_utc"] == PLAN_KNOWN
+    assert binding["source_generated_at_utc"] == PLAN_CAPTURE
+    assert binding["export_bytes_sha256"] == hashlib.sha256(path.read_bytes()).hexdigest()
+    public = json.dumps(record)
+    assert all(value not in public for value in ("25.111", "28.222", "392.333", "492.444", "592.555", "692.666"))
+    fields = {f["field_path"]: f for f in binding["fields"]}
+    main = fields["/scenario_analysis/base_case/probability_pct"]
+    alternative = fields["/scenario_analysis/main_alternative/probability_pct"]
+    assert main["display"] == "61.0" and main["decimals"] == 1
+    assert alternative["value"] == 24
+    assert fields["/layers/0/text"]["value"] == "Higher real yields weigh on silver."
+    assert fields["/entries/0/zone_low"]["display"] == "30.1"
+    assert fields["/invalidation_conditions/0/threshold"]["display"] == "31.0"
+    assert main["citation"] == binding["export_id"] + "#plan_cc043_example/scenario_analysis/base_case/probability_pct"
+
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+
+    evidence = desk_evidence(records, {"headline_ids": [record["headline_id"]]})
+    source, = _source_pack(evidence["evidence_documents"])
+    assert source["desk_record_binding"] == binding
+    assert source["data_cutoff_utc"] == PLAN_KNOWN
+    assert source["data_clock_binding"]["citation"] == fields["/status_at_utc"]["citation"]
+    article = {"substack_body_markdown": "Our base case has 61.0% odds (Capital Chronicle model estimate). "
+               "Capital Chronicle offers analysis only, not financial advice or recommendations. "
+               "Capital Chronicle may hold positions in the markets it covers.",
+               "desk_record_citations": [{k: main[k] for k in ("citation", "value", "display", "decimals", "unit")}]}
+    assert validate_article_citations(article, [{"binding": source["desk_record_binding"]}])["citation_count"] == 1
+    article["substack_body_markdown"] = article["substack_body_markdown"].replace("61.0%", "61%")
+    with pytest.raises(ValueError, match="UNBOUND_OR_CHANGED_NUMBER"):
+        validate_article_citations(article, records)
+
+
+def test_plan_status_snapshot_refresh_retains_story_identity_and_frozen_native_input(tmp_path):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired
+
+    path = tmp_path / "plan-status.public.json"
+    pointer = write_plan_status(path)
+    store = ContentOpsDurableStore(tmp_path / "copy.sqlite3")
+    feed = MainReportFeed(LatestReportDeliveryTracker(store), {"desk_record_exports": [pointer]}, headline_paths=[])
+    turn = NativeDesktopTurn(store, run_id="desk-plan-status", output_dir=tmp_path / "article", owner_manual_validation=True)
+    kwargs = dict(output_dir=tmp_path / "article", cutoff_utc=PLAN_CUTOFF, run_id=turn.run_id,
+                  rolling_input={"headlines": []}, llm_invoke=turn)
+    with pytest.raises(DesktopInputRequired) as pending:
+        feed.opportunity(**kwargs)
+    assert "plan_cc043_example" in json.dumps(pending.value.request)
+    frozen_key = "native-current-input-" + sha256_of(turn.run_id)
+    frozen = store.get_outbox_message(frozen_key)["payload"]
+    old, = json.loads(frozen)["feed_scan"]["desk_record_sources"]
+
+    write_plan_status(path, generated="2026-11-21T02:31:00Z")
+    refreshed, = feed.poll(cutoff_utc=PLAN_CUTOFF)["desk_record_sources"]
+    assert refreshed["headline_id"] == old["headline_id"]
+    assert refreshed["binding"]["record_content_sha256"] == old["binding"]["record_content_sha256"]
+    assert refreshed["binding"]["export_bytes_sha256"] != old["binding"]["export_bytes_sha256"]
+    write_plan_status(path, generated="2026-11-21T02:32:00Z",
+                      plan_changes={"status": "CANCELLED", "status_at_utc": "2026-11-21T02:31:30Z"})
+    changed, = feed.poll(cutoff_utc=PLAN_CUTOFF)["desk_record_sources"]
+    assert changed["headline_id"] != old["headline_id"]
+    assert changed["binding"]["record_id"] == old["binding"]["record_id"]
+
+    with pytest.raises(DesktopInputRequired) as resumed:
+        feed.opportunity(**kwargs)
+    assert resumed.value.request["request_sha256"] == pending.value.request["request_sha256"]
+    assert store.get_outbox_message(frozen_key)["payload"] == frozen
+
+
+def test_plan_status_respects_cutoff_and_source_seal(tmp_path):
+    path = tmp_path / "plan-status.public.json"
+    pointer = write_plan_status(path)
+    with pytest.raises(ValueError, match="DESK_PLAN_STATUS_AFTER_CUTOFF"):
+        read_plan_status(pointer, cutoff_utc=PLAN_KNOWN)
+    path.write_bytes(path.read_bytes().replace(b"WAITING", b"EXPIRED"))
+    with pytest.raises(ValueError, match="DESK_PLAN_STATUS_INTEGRITY_INVALID"):
+        read_plan_status(pointer, cutoff_utc=PLAN_CUTOFF)
+
+
+def test_live_article_bindings_point_to_the_public_plan_snapshot():
+    config = Path(__file__).resolve().parents[1] / "config"
+    for name in ("native_desktop_main_feed_binding_v1.json", "native_desktop_operator_main_feed_binding_v1.json"):
+        binding = json.loads((config / name).read_bytes())
+        assert binding["desk_record_exports"] == [{"source_type": "public_plan_status",
+            "path": "A:/Capital Chronicle/ResearchRuns/plan-status-v1/plan-status.public.json"}]
+        assert binding["public_export_root"]
 
 
 def test_story_context_keys_assets_events_and_current_reviewed_articles():

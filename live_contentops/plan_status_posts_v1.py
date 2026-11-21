@@ -177,7 +177,8 @@ def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, p
         raise PlanPostError("PLAN_EXPORT_UNREADABLE:" + re.sub(r"[^A-Za-z0-9_]", "", name)[:80])
 
 
-def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True) -> list[dict]:
+def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True,
+                     include_replaced_expiries: bool = False) -> list[dict]:
     plans = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("plan_id")}
     events = export["transitions"].get("transitions", [])
     filled = {e.get("plan_id"): _utc(e["at_utc"]) for e in events if e.get("status") == "FILLED"}
@@ -187,7 +188,8 @@ def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True)
         if plan is None:
             raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
         status = event.get("status")
-        if status == "EXPIRED" and (plan.get("outcome") or {}).get("state") == "NOT_SCORED_UNTRIGGERED":
+        replaced_expiry = status == "EXPIRED" and (plan.get("outcome") or {}).get("state") == "NOT_SCORED_UNTRIGGERED"
+        if replaced_expiry and not include_replaced_expiries:
             continue  # CC-322: one result post replaces the expiry status post.
         # CC-331 / decision 106: a fill confirms the model position at its own clock. Keep CC-360's existing
         # public TRIGGERED identity even when Main later backfills a separate trigger; this must not post twice.
@@ -199,6 +201,8 @@ def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True)
                    at_utc=event.get("at_utc"), cause=event.get("reason_code"),
                    plan=_built_plan(plan, state=status))
         row.update(source_state=source_state, source_transition_id=event.get("transition_id"))
+        if replaced_expiry:
+            row["replaced_expiry"] = True
         if (source_state == "TRIGGERED" and event["plan_id"] in filled
                 and _utc(row["at_utc"]) != filled[event["plan_id"]]):
             row["superseded_by_fill"] = True
@@ -744,7 +748,8 @@ def _recoverable(payload, recoveries, now) -> bool:
 
 def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
                 window_minutes: int = POSTING_WINDOW_MINUTES, dry_run: bool = False,
-                render_all: bool = False, instagram_profile_reader=None, **reader) -> dict:
+                render_all: bool = False, instagram_profile_reader=None, analysis_copy_root=None, queue_clock=None,
+                **reader) -> dict:
     """Register one outbox row per new transition for the six markets; repeats change nothing.
 
     The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
@@ -760,7 +765,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     if now >= cards.EFFECTIVE:
         return cards.queue_posts(store, export_dir, now=now, window_minutes=window_minutes,
                                  dry_run=dry_run, render_all=render_all,
-                                 instagram_profile_reader=instagram_profile_reader, **reader)
+                                 instagram_profile_reader=instagram_profile_reader,
+                                 analysis_copy_root=analysis_copy_root, queue_clock=queue_clock, **reader)
     limit = EXPORT_MAX_AGE_MINUTES
     freshness = {}
     try:
@@ -956,6 +962,10 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                                    for row in result.get("not_posted") or []]}
     if result.get("phase"):
         line["phase"] = result["phase"]
+    if "plan_export_queue" in result:
+        line["plan_export_queue"] = result["plan_export_queue"]
+    if result.get("plan_export_queue_record_error"):
+        line["plan_export_queue_record_error"] = result["plan_export_queue_record_error"]
     if result.get("plan_pages") is not None:
         line["plan_pages"] = result["plan_pages"]
     if "substack_daily_note" in result:
@@ -992,12 +1002,13 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                 **{k:event[k] for k in ("event_id", "identity", "stage", "cause") if k in event},
                 "publication_state": publication.get("state") or publication.get("status"),
                 "per_destination": {d:v.get("status") for d,v in per.items()}})
-    neo = (result.get("publication") or {}).get("neo_stored_requests")
+    neo = result.get("neo_stored_requests", (result.get("publication") or {}).get("neo_stored_requests"))
     if neo is not None:
         # CC-436: the installed pythonw tick has no stdout. Preserve its exact
         # drain outcome in the existing run record, without request copy/media.
         line["neo_stored_requests"] = {"status":neo.get("status"),"requests":[
-            {k:row[k] for k in ("operation_id","destination","request_sha256","status","cause") if k in row}
+            {k:row[k] for k in ("operation_id", "destination", "request_sha256", "dispatch_id", "status", "cause",
+                                "public_object_url") if k in row}
             for row in neo.get("requests") or []]}
     analysis = (result.get("publication") or {}).get("analysis_distribution")
     if analysis is not None:
@@ -1090,12 +1101,12 @@ def _excerpt(text: str, room: int) -> str:
 
 
 def _text_parts(body: str, notices: str, limit: int, credit: str = "", *, lines: bool = False,
-                rest_limit: int | None = None) -> list[str]:
-    """Full source text, bounded parts. Each part retains the public notices. With `lines` a part ends at a
-    line where it can; `rest_limit` bounds the parts after the first (a Telegram text message after the photo)."""
+                rest_limit: int | None = None, repeat_notices: bool = True) -> list[str]:
+    """Split source text within the first-part and continuation limits, preferring line breaks if requested."""
     parts = []
     while body:
-        suffix = "\n\n" + "\n\n".join(p for p in (credit if not parts else "", notices) if p)
+        footer = "\n\n".join(p for p in (credit if not parts else "", notices if repeat_notices or not parts else "") if p)
+        suffix = "\n\n" + footer if footer else ""
         room = (limit if not parts or rest_limit is None else rest_limit) - len(suffix)
         if room < 1:
             raise PlanPostError("PLAN_STATUS_NOTICES_EXCEED_LIMIT")
@@ -1357,38 +1368,52 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
 
 
 def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
-                ratio: str = "16:9", source_snapshot=None, required_chart=False) -> tuple[dict | None, bool]:
+                ratio: str = "16:9", source_snapshot=None, required_chart=False,
+                plan_post=False) -> tuple[dict | None, bool]:
     """Prepare the plan's TradingView chart under the caller's image policy."""
     from live_contentops import tradingview_snapshot_v1 as tv
     from .image_quality_v1 import TEMPLATE_FIT_CAUSES
     from .image_template_inputs_v1 import for_plan_post
     from .image_templates_v1 import CHART
 
-    options = dict(snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio, required_chart=required_chart)
+    options = dict(snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
+                   required_chart=required_chart, plan_post=plan_post)
     fast_alert = row.get("state_alert_contract") == "CC543_V1"
     try:
-        image_input = for_plan_post(row)
-        if image_input and source_snapshot:
-            _, y, width, bottom = CHART["W" if ratio == "16:9" else "T"]
-            w, h = source_snapshot["width"], source_snapshot["height"]
-            height = bottom - y
-            if min(w / width, h / height) < .97 or abs(w / h / (width / height) - 1) > .03:
-                raise tv.TemplateSnapshotNotFit("IMAGE_CHART_CAPTURE_SHAPE")
-        if image_input:
-            asset = tv.plan_snapshot(row, folder, image_input=image_input, source_snapshot=source_snapshot,
-                                     sample_after_publication=fast_alert, **options)
-            return asset, asset is not None
-    except (ValueError, tv.TemplateSnapshotNotFit) as exc:
-        if str(exc) not in TEMPLATE_FIT_CAUSES:
+        try:
+            image_input = for_plan_post(row)
+            if image_input and source_snapshot:
+                _, y, width, bottom = CHART["W" if ratio == "16:9" else "T"]
+                w, h = source_snapshot["width"], source_snapshot["height"]
+                height = bottom - y
+                if min(w / width, h / height) < .97 or abs(w / h / (width / height) - 1) > .03:
+                    raise tv.TemplateSnapshotNotFit("IMAGE_CHART_CAPTURE_SHAPE")
+            if image_input:
+                asset = tv.plan_snapshot(row, folder, image_input=image_input, source_snapshot=source_snapshot,
+                                         sample_after_publication=fast_alert, **options)
+                return asset, asset is not None
+        except (ValueError, tv.TemplateSnapshotNotFit) as exc:
+            if str(exc) not in TEMPLATE_FIT_CAUSES:
+                raise
+            tv.record_outcome({"key": row["key"], "market": row["symbol"], "status": "TEMPLATE_DID_NOT_FIT",
+                               "cause": str(exc), "ratio": ratio})
+            # A source-bound chart can still be used intact when its template
+            # cannot fit. Instagram needs a separate native capture in that case.
+            taken = getattr(exc, "snapshot", None)
+            if taken and ratio == "16:9":
+                source_snapshot = taken
+        asset = tv.plan_snapshot(row, folder, source_snapshot=source_snapshot, **options)
+    except tv.SnapshotUnavailable as exc:
+        if not plan_post:
             raise
-        tv.record_outcome({"key": row["key"], "market": row["symbol"], "status": "TEMPLATE_DID_NOT_FIT",
-                           "cause": str(exc), "ratio": ratio})
-        # A source-bound chart can still be used intact when its template
-        # cannot fit. Instagram needs a separate native capture in that case.
-        taken = getattr(exc, "snapshot", None)
-        if taken and ratio == "16:9":
-            source_snapshot = taken
-    asset = tv.plan_snapshot(row, folder, source_snapshot=source_snapshot, **options)
+        article = card_article(row)
+        asset = tv.fallback_card(title=article["title"], facts=plan_facts(row), dated_line=_when(row["at_utc"]),
+                                 out_dir=folder / "media_assets", ratio=ratio)
+        asset["plan_chart_fallback"] = {"key": row["key"], "market": row["symbol"],
+                                        "ratio": ratio, "cause": str(exc)}
+        return asset, False
+    if asset and (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"):
+        return asset, True
     if asset:
         from live_contentops import tradingview_plan_overlay_v1 as overlay
         try:
@@ -1522,13 +1547,25 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if linkedin_url := context.get("status_post_linkedin_analysis_url"):
         row["linkedin_analysis_url"] = linkedin_url
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import destination_payloads as card_payloads
-        return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
-                                 carousel=context.get("status_post_instagram_carousel"),
-                                  portrait_id=context.get("status_post_threads_image"),
-                                 x_analysis=context.get("status_post_x_analysis"),
-                                 chart_credit=bool(context.get("chart_credit")),
-                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+        from .plan_call_cards_v1 import (ANALYSIS_FIRST_PART, DISCORD_CHANNEL_PART, LATE_CHART_PART,
+                                         analysis_reply_payloads, discord_channel_payload,
+                                         late_chart_payloads, route_payloads)
+        if part == LATE_CHART_PART:
+            return row, late_chart_payloads(store, row, Path(output_dir), context)
+        if part == DISCORD_CHANNEL_PART:
+            return row, discord_channel_payload(row, card_id=card_id, parents=context.get("status_post_parents"),
+                                                chart_credit=bool(context.get("chart_credit")))
+        payloads = route_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
+                                carousel=context.get("status_post_instagram_carousel"),
+                                portrait_id=context.get("status_post_threads_image"),
+                                x_analysis=context.get("status_post_x_analysis"),
+                                chart_credit=bool(context.get("chart_credit")),
+                                instagram_chart_credit=context.get("status_post_instagram_chart_credit"),
+                                complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW",
+                                repeat_threads_notices=not context.get("status_post_threads_single_notice"))
+        if part >= ANALYSIS_FIRST_PART:
+            return row, analysis_reply_payloads(store, row, payloads, part)
+        return row, _part_payloads(payloads)
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part,
                               repeat_media=bool(row.get("cc603_contract")))
@@ -1562,6 +1599,14 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    from .plan_call_cards_v1 import ANALYSIS_FIRST_PART, LATE_CHART_PART
+    if row.get("format") == 4 and part == LATE_CHART_PART:
+        destination = (intent.get("destination_plan") or {}).get("destination")
+        if (destination not in payloads or intent.get("native_payload") != payloads[destination]
+                or intent.get("work_item_id") != f"{key}-part-{part}"):
+            raise PlanPostError("PLAN_LATE_CHART_REPLY_BINDING_CHANGED")
+        return
+    layer_reply = row.get("format") == 4 and part >= ANALYSIS_FIRST_PART
     if row.get("correction_reply_contract"):
         from .plan_result_correction_cc646 import validate
         validate(store, row)
@@ -1570,7 +1615,9 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
     assets = (context.get("media") or {}).get("assets") or []
     if ((row.get("state_alert_contract") and not assets)
-            or any(a.get("modality") != "tradingview_chart_snapshot" for a in assets)):
+            or any(a.get("modality") != "tradingview_chart_snapshot"
+                   and not (row.get("format") == 4 and a.get("modality") == "plan_fact_card"
+                            and a.get("plan_chart_fallback")) for a in assets)):
         raise PlanPostError("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     if row.get("format") == 4:
         # Frozen copy is the authority. A later formatter or disclosure change
@@ -1610,6 +1657,7 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         public_text = " ".join(public_text.split())
     check_publication_copy({"post": public_text},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [],
+                           require_notice=not layer_reply,
                            require_call_text=not (row.get("cc603_contract") and
                                (row.get("candidate") or {}).get("source_kind") == "ARTICLE"))
     if row.get("cc603_contract"):

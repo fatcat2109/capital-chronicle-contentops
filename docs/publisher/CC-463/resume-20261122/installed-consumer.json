@@ -1,0 +1,171 @@
+{
+  "observed_at_utc": "2026-11-21T18:18:16.727478+00:00",
+  "installed_observed_at_utc": "2026-11-21T18:16:23.374733+00:00",
+  "operating_head": "625cd165baa819c417cac61127fb73d5e4f647fd",
+  "source_sha256": {
+    "live_contentops/article_publication_quality_v1.py": "cba61400eb0a95913022a9aca50fc06851f3eb6b9d3cc4ff786663a420c24370",
+    "live_contentops/publication_coordinator_v1.py": "43647069cb2dcfb56a9b662ceacd1775805e3e74b9d7eeff17f4ca3288a96014",
+    "live_contentops/publication_image_contract_v1.py": "cc7e7afb63d0d91d9630046cfe864adbc5157e6538725c2b95869c2c222b25cf"
+  },
+  "operating_and_exec_wip_hashes_match_preflight": true,
+  "targeted_pytest": {
+    "candidate": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\evidence\\cc-463-20261122\\candidate.xml",
+      "sha256": "b1495b71dc96ad5e15902efb43b149c74e34be6776ef5f4050c9716dc3ba5bc3",
+      "tests": 106,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "installed": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\evidence\\cc-463-20261122\\installed.xml",
+      "sha256": "fdedb6482ba2eaf5cbeabf20c2f0b5e1788ade64ed4211dc9bdfad6f10dc176a",
+      "tests": 71,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "latest_minute_consumer_completion": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261121.jsonl",
+    "at_utc": "2026-11-21T18:16:53.567533Z",
+    "status": "OK",
+    "phase": "PLAN_COPY_READBACK",
+    "queued": 0,
+    "export_generated_at_utc": "2026-11-21T18:16:06.939986Z"
+  },
+  "exact_existing_article_edit": {
+    "dispatch": {
+      "dispatch_id": "dispatch_9aab37332626d663aadd8d8a631c300e",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-10T12:00:49.096662+00:00",
+      "public_object_id": "224293572",
+      "public_object_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+    },
+    "ledger_row": {
+      "record_id": "dedf48307069f7c50f15bed3998d1dd47406ea186f7e4a42892a0b6d1f5519fc",
+      "observation_ref": "coordinator:dispatch_9aab37332626d663aadd8d8a631c300e:edit:8f64f453acf22cfe88deae2ea5e9bf1df767ea8532679f8e5195943bc06468ac",
+      "published_at_utc": "2026-11-17T10:39:43.259708+00:00",
+      "publication_clock_basis": "OBSERVED_PRESENTATION_EDIT_CLOCK",
+      "lead_asset_id": "cc338-cpi-monthly-baseline",
+      "counts_as_article": false
+    },
+    "readback_id": "native-reader-presentation-36b0a7414b777007b91f4345e35680cb9b6629f0e075895073ff053682dfaa51-cc425-reference-observed-41963253add6d358706c626539e6d6a8409628a2230085a05c61b77bf5dc6334",
+    "readback_utc": "2026-11-17T10:39:43.235362+00:00",
+    "operation": "APPEND_ONE_REFERENCE_LINK",
+    "retained_order": [
+      {
+        "sha256": "7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94",
+        "alt": "Capital Chronicle model estimate: if October core CPI rises 0.3% month on month or more, gold falls at least 0.7% within 60 minutes of the release; at 0.1% or less, it rises at least 0.7%. The U.S. Bureau of Labor Statistics CPI release is scheduled for 10 November 2026 at 08:30 ET."
+      },
+      {
+        "sha256": "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+        "alt": "TradingView 4h candlestick chart of Gold spot / US dollar (ICE), captured 06:55 ET on 10 November 2026."
+      },
+      {
+        "sha256": "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+        "alt": "Twenty-four months of headline and core CPI monthly changes through September 2026, with missing months left as gaps."
+      },
+      {
+        "sha256": "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+        "alt": "September CPI effects: energy 0.377, core 0.265 and food 0.006 percentage points."
+      },
+      {
+        "sha256": "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd",
+        "alt": "A shopper holds a milk carton beside a mobile phone showing a WIC approval check."
+      }
+    ],
+    "original_canonical_publish_observed_utc": "2026-11-10T12:09:49.251000Z",
+    "same_object": true
+  },
+  "published_image_register_sha256": "c4e563a25ba3555a5f9ea6fa22d60d022584b10ccdc7d1ba6f4e29e864992fdd",
+  "retained_baseline": {
+    "production_day": "2026-11-16",
+    "market_posts": 12,
+    "market_chart_posts": 12,
+    "status": "PASS"
+  },
+  "prior_audit_violations": {
+    "2026-11-17": [
+      "dedf48307069f7c50f15bed3998d1dd47406ea186f7e4a42892a0b6d1f5519fc"
+    ]
+  },
+  "clean_observation": {
+    "full_window_required_days": 7,
+    "start_utc": "2026-11-21T19:00:00Z",
+    "end_utc": "2026-11-28T19:00:00+00:00",
+    "status": "OBSERVATION_PENDING",
+    "completed_days": 0,
+    "violations_by_day": {}
+  },
+  "published_chart_scale_2026_11_16_through_2026_11_21": {
+    "BTCUSD": {
+      "limit_pct": 0.4,
+      "distinct_delivered_images_with_scale_metadata": 19,
+      "basis_counts": {
+        "VISIBLE_WINDOW_CLOSE": 2,
+        "AT_CAPTURE": 17
+      },
+      "absolute_difference_pct_range": [
+        0.001209,
+        0.211676
+      ]
+    },
+    "EURUSD": {
+      "limit_pct": 0.15,
+      "distinct_delivered_images_with_scale_metadata": 8,
+      "basis_counts": {
+        "AT_CAPTURE": 6,
+        "NOT_COMPARED": 2
+      },
+      "absolute_difference_pct_range": [
+        0.007297,
+        0.042793
+      ]
+    },
+    "US500": {
+      "limit_pct": 0.15,
+      "distinct_delivered_images_with_scale_metadata": 6,
+      "basis_counts": {
+        "NOT_COMPARED": 6
+      },
+      "absolute_difference_pct_range": null
+    },
+    "USDJPY": {
+      "limit_pct": 0.15,
+      "distinct_delivered_images_with_scale_metadata": 6,
+      "basis_counts": {
+        "AT_CAPTURE": 6
+      },
+      "absolute_difference_pct_range": [
+        0.000628,
+        0.026389
+      ]
+    },
+    "USOIL": {
+      "limit_pct": 0.4,
+      "distinct_delivered_images_with_scale_metadata": 5,
+      "basis_counts": {
+        "NOT_COMPARED": 5
+      },
+      "absolute_difference_pct_range": null
+    },
+    "XAUUSD": {
+      "limit_pct": 0.15,
+      "distinct_delivered_images_with_scale_metadata": 18,
+      "basis_counts": {
+        "AT_CAPTURE": 17,
+        "NOT_COMPARED": 1
+      },
+      "absolute_difference_pct_range": [
+        0.002098,
+        0.107985
+      ]
+    }
+  },
+  "launch_model": "gpt-6.2-sol",
+  "launch_effort": "max",
+  "model_evidence": "CONFIGURED_NOT_OBSERVED",
+  "new_public_writes_by_this_run": 0,
+  "schedule_changed": false
+}

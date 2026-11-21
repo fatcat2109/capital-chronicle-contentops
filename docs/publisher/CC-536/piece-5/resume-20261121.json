@@ -1,0 +1,299 @@
+{
+  "item": "CC-536",
+  "piece": 5,
+  "operation": "cc536-measured-odds-5",
+  "observed_at_utc": "2026-11-21T06:57:35.652644+00:00",
+  "plan_hash": "0c5f2aad0cb876762dbadaf436aeecd031a1876d5d32fec5365b83e77b8e928c",
+  "source": {
+    "live_tag": "live-20261121-cc741-050030",
+    "main_commit": "aa516d6cebc1fc79f489a2845f2850a0cec6cb85",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  "installation": {
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "observed_operating_head": "5e0df5013389cfe0cfbdefd6941f873b25c7ccc1",
+    "source_commit": "5e0df5013389cfe0cfbdefd6941f873b25c7ccc1",
+    "live_tag": "contentops-live-20261121-cc536-piece5-r5",
+    "rollback_tag": "contentops-rollback-20261121-cc536-piece5-r5"
+  },
+  "destinations": {
+    "discord": {
+      "dispatch_id": "dispatch_4e52ba4b757c8bc6606626f943a35c77",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:54:31.571089+00:00",
+      "public_object_id": "1573547136715325561",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1573547136715325561",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "facebook_page": {
+      "dispatch_id": "dispatch_96e13a23bde3d664a10573e51c355b63",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:54:34.530191+00:00",
+      "public_object_id": "106091951705748_1461696379482111",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1461696379482111",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "instagram_business": {
+      "dispatch_id": "dispatch_5a841744391086ff428c969c6b9d4706",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:54:43.022464+00:00",
+      "public_object_id": "17890178352688808",
+      "public_object_url": "https://www.instagram.com/p/Df_T_Y8EmLH/",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "linkedin": {
+      "dispatch_id": "dispatch_c76eac00e721c77650d42d6d09bb7628",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "dispatched_at": "2026-11-21T03:56:32.745056+00:00",
+      "public_object_id": null,
+      "public_object_url": null,
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "native_publish_returns": [
+        {
+          "observed_at_utc": "2026-11-21T03:56:47.116735+00:00",
+          "request_sha256": "bf67a06f250760371800481af9d538f2760277f3c171e93518f39a8d43ad389c",
+          "status": "FAILED_BEFORE_WRITE",
+          "stage": "BEFORE_PUBLISH_CLICK",
+          "reason_code": "NEO_SIGNED_IN_ACCOUNT_MISMATCH",
+          "definite_no_write": true
+        },
+        {
+          "observed_at_utc": "2026-11-21T06:55:40.559343+00:00",
+          "request_sha256": "ae2908133fb0a01373de97ecae6fd1e3de50e093683ef8f536ddfe90bdce870a",
+          "status": "FAILED_BEFORE_WRITE",
+          "stage": "BEFORE_PUBLISH_CLICK",
+          "reason_code": "NEO_COMPOSER_PREPARATION_FAILED",
+          "safe_error_classification": "NEO_EXPECTED_BUTTON_MISSING",
+          "definite_no_write": true
+        }
+      ],
+      "linkedin-chart-first-recovery-20261121.json": {
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "safe_error_classification": "NEO_COMPOSER_PREPARATION_FAILED",
+        "public_object_url": null,
+        "publish_called": true
+      },
+      "linkedin_company-chart-first-recovery-20261121.json": {
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "safe_error_classification": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7529795721647075329/",
+        "publish_called": true
+      },
+      "linkedin_company-exact-identity-recovery-20261121.json": {
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "safe_error_classification": "LINKEDIN_CHART_PREVIEW_UNAVAILABLE",
+        "public_object_url": null,
+        "publish_called": true
+      },
+      "composer_observation": {
+        "stage": "Add media",
+        "visible_control": "Loading",
+        "control_enabled": false,
+        "file_input_present": false,
+        "next_enabled": false,
+        "cause": "NEO_EXPECTED_BUTTON_MISSING",
+        "public_write_observed": false
+      }
+    },
+    "linkedin_company": {
+      "dispatch_id": "dispatch_58e175e826efade7ce01f0f54e6d8663",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:57:10.133995+00:00",
+      "public_object_id": "urn:li:activity:7529795721647075329",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7529795721647075329/",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "native_publish_returns": [
+        {
+          "observed_at_utc": "2026-11-21T03:57:23.070189+00:00",
+          "request_sha256": "945e23eb2d14a8f2d30b47fe49299d6fbdc7e8fe18487e2a81bec327b05b776d",
+          "status": "FAILED_BEFORE_WRITE",
+          "stage": "BEFORE_PUBLISH_CLICK",
+          "reason_code": "NEO_SIGNED_IN_ACCOUNT_MISMATCH",
+          "definite_no_write": true
+        },
+        {
+          "observed_at_utc": "2026-11-21T06:15:10.508237+00:00",
+          "request_sha256": "50f786a2c0b058e1bcc0baaa51594397dca342b06c424d283fa8abe99d1ddcfd",
+          "status": "FAILED_BEFORE_WRITE",
+          "stage": "BEFORE_PUBLISH_CLICK",
+          "reason_code": "LINKEDIN_CHART_PREVIEW_UNAVAILABLE",
+          "definite_no_write": true
+        },
+        {
+          "observed_at_utc": "2026-11-21T06:39:56.362166+00:00",
+          "request_sha256": "47b942d5e5eab61c7c3bb9159f21e4b9dc479dd0301ec1fa521fa044a9857afc",
+          "status": "UNKNOWN_WRITE",
+          "stage": "PUBLISH_CLICK_ATTEMPTED",
+          "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"
+        }
+      ],
+      "linkedin_company-chart-first-recovery-20261121.json": {
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+        "safe_error_classification": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7529795721647075329/",
+        "publish_called": true
+      },
+      "linkedin_company-exact-identity-recovery-20261121.json": {
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "safe_error_classification": "LINKEDIN_CHART_PREVIEW_UNAVAILABLE",
+        "public_object_url": null,
+        "publish_called": true
+      },
+      "public_link_verified": true,
+      "public_chart_comparison": {
+        "source_dimensions": [
+          1720,
+          1272
+        ],
+        "provider_variants": [
+          {
+            "dimensions": [
+              1280,
+              946
+            ],
+            "visual_similarity": 0.9959
+          },
+          {
+            "dimensions": [
+              1720,
+              1272
+            ],
+            "visual_similarity": 0.9954
+          }
+        ],
+        "method": "Existing public chart visual similarity",
+        "coordinator_pixel_match": false,
+        "disposition": "Retain the exact public object and its chart."
+      }
+    },
+    "substack": {
+      "dispatch_id": "dispatch_e666b877d5b6ba7b38a395a6b57e231b",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:53:24.179606+00:00",
+      "public_object_id": "225884424",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "telegram": {
+      "dispatch_id": "dispatch_01217ae780b9d1f246627b3333da7eca",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:57:24.617802+00:00",
+      "public_object_id": "223",
+      "public_object_url": "https://t.me/CapitalChronicle/223",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "threads": {
+      "dispatch_id": "dispatch_5b85647091502514233151fb69c74211",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T03:57:27.943580+00:00",
+      "public_object_id": "17875167108643471",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df_UTYfE30t",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reply_proof": "threads-public-readback.json"
+    },
+    "x": {
+      "dispatch_id": "dispatch_f4072019180994a3656ffe05222ce2cb",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-21T04:12:41.548719+00:00",
+      "public_object_id": "2123993125190562072",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    "youtube": {
+      "dispatch_id": "dispatch_88369c5583a80eb8ac6bc4aaebfd2a4d",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatched_at": "2026-11-21T04:21:08.044422+00:00",
+      "public_object_id": null,
+      "public_object_url": null,
+      "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "prepared_action": "Jim completes the YouTube channel's one-time external-link verification.",
+      "channel_posts_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts"
+    }
+  },
+  "strict_derivative_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "telegram",
+    "threads",
+    "x"
+  ],
+  "public_numbers": {
+    "occurrences": 37,
+    "proof": "public-number-report.json",
+    "render_review": "visual-review.json"
+  },
+  "tests": {
+    "installed-consumer-tests.xml": 7,
+    "installed-threads-tests.xml": 5,
+    "installed-targeted-recovery-tests.xml": 1,
+    "linkedin-chart-recovery-tests.xml": 9,
+    "installed-linkedin-chart-tests.xml": 3
+  },
+  "series_acceptance": {
+    "pieces_1_and_2": [
+      {
+        "work_item_id": "cc536-measured-odds-1",
+        "platform": "substack",
+        "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "work_item_id": "cc536-measured-odds-1",
+        "platform": "x",
+        "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751",
+        "status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "work_item_id": "cc536-measured-odds-2",
+        "platform": "substack",
+        "public_object_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+        "status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "work_item_id": "cc536-measured-odds-2",
+        "platform": "x",
+        "public_object_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+        "status": "RECONCILED_CONFIRMED"
+      }
+    ],
+    "daily_board": {
+      "projection": "BOARD_FROM_FUTURE",
+      "market_sessions": null,
+      "missing_mean_levels": 12,
+      "missing_sample_periods": 28,
+      "source": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\desk-board.public.json",
+      "as_of_utc": "2026-11-21T06:58:52.795888Z",
+      "source_item": "CC-528",
+      "publisher_item": "CC-537"
+    },
+    "plan": {
+      "canonical_url": "https://capitalchronicle.substack.com/p/gold-spot-plan-cancelled-on-high",
+      "method_link_seen_on_canonical": false,
+      "settled_followup_causes": [
+        "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS"
+      ],
+      "confirmed_bound_method_link_copies": []
+    }
+  },
+  "resume": {
+    "piece": 6,
+    "not_before_gmt7": "22 Nov 2026 18:00 GMT+7",
+    "reason": "one series piece per day",
+    "piece_7_source_note": "The repaired Main table contains positive measured euro rows. Reframe the original premise using the applicable live tag and exact rows."
+  },
+  "launch": {
+    "pid": 35672,
+    "started_utc": "2026-11-21T06:32:55.131354Z",
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true,
+    "native_invocation_id": "01a1fc2b-0d17-7e01-84ea-02866719ed06"
+  }
+}

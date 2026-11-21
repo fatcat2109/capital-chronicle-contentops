@@ -212,8 +212,13 @@ def test_transient_readiness_probe_rechecks_the_same_unclaimed_copy(cc401_copied
 
 
 @pytest.mark.parametrize("status,local", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
-@pytest.mark.parametrize("destination,cause", [("threads", "missing:text"), ("youtube", "NEO_SIGNED_IN_ACCOUNT_MISMATCH")])
-def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_failure(cc401_copied_store, status, local, destination, cause):
+@pytest.mark.parametrize("destination,cause", [
+    ("threads", "missing:text"), ("youtube", "NEO_SIGNED_IN_ACCOUNT_MISMATCH"),
+    ("substack", "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"),
+])
+def test_destination_day_failure_preserves_unknown_and_releases_only_local_failure(
+    cc401_copied_store, status, local, destination, cause,
+):
     store = cc401_copied_store
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
     detail = {"status": status, "safe_error_classification": cause}
@@ -227,6 +232,19 @@ def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_fa
         assert coordinator._destination_day_failure(destination) is None
         with store.get_read_only_connection() as conn:
             assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident,)).fetchone()
+
+
+def test_substack_dispatch_runs_after_a_retained_preclick_draft_mismatch(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    incident, _ = coordinator._destination_failure_key("substack")
+    prior = json.dumps({"status": "DEFINITE_NO_WRITE", "safe_error_classification": "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"})
+    store.register_incident(incident_id=incident, work_item_id="work-1", severity="DISPATCH_FAILURE", description=prior)
+    registered, = coordinator.register_plan("work-1", _plan("substack"))["registered"]
+    result = coordinator._dispatch_message(store.get_outbox_message(registered["message_id"]), canonical_url=None)
+    assert result["reconciliation_status"] == RECONCILED_CONFIRMED
+    assert transport.publish_calls == ["substack"]
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident,)).fetchone()[0] == prior
 
 
 def test_substack_dashboard_probe_recovers_without_waiting_for_the_next_day(tmp_path):
@@ -729,11 +747,12 @@ def test_discovered_write_identity_can_clear_unknown_when_original_id_was_missin
     assert result["verified"] is False
 
 
+@pytest.mark.parametrize("destination", ["threads", "x"])
 def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
-    tmp_path,
+    tmp_path, destination,
 ):
     store, transport, coordinator = _coordinator(
-        tmp_path, readiness={"threads": "AUTH_INVALID"}
+        tmp_path, readiness={destination: "AUTH_INVALID"}
     )
 
     result = coordinator.execute_plan("work-1", _quality_plan())
@@ -744,18 +763,74 @@ def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
         PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
     )
     assert result["quality_preflight"]["readiness_blockers"] == []
-    assert result["quality_preflight"]["derivative_readiness_deferred"] == [
-        d for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d != "x"
-    ]
-    assert result["recovery_required_destinations"] == ["threads"]
-    assert result["per_destination"]["threads"]["status"] == "AUTH_INVALID"
-    assert result["per_destination"]["threads"]["publish_called"] is False
+    assert result["quality_preflight"]["derivative_readiness_deferred"] == list(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    assert result["recovery_required_destinations"] == [destination]
+    assert result["per_destination"][destination]["status"] == "AUTH_INVALID"
+    assert result["per_destination"][destination]["publish_called"] is False
     assert result["registered"]
     assert result["outbox_count"] == 10  # nine V1 surfaces plus the LinkedIn company-page copy
     assert transport.publish_calls[0] == "substack"
-    assert "threads" not in transport.publish_calls
+    assert destination not in transport.publish_calls
     assert len(transport.publish_calls) == 9  # canonical + eight derivatives + company, one held
     assert len(store.list_outbox_messages()) == 10
+
+
+@pytest.mark.parametrize("initial", ["pending", "wrong_identity", "timeout"])
+def test_article_sends_other_outlets_before_the_exact_x_identity_check(tmp_path, initial):
+    from types import SimpleNamespace
+
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired, PENDING
+
+    surface = registration_for_destination("x").surface
+    request = {"action": "VERIFY_IDENTITY", "destination": "x", "surface": surface}
+    other_outlets = (set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"x"}) | {"linkedin_company"}
+    transport = FixtureTransport()
+    checks = []
+
+    class IdentityExecutor:
+        native_neo_protocol = True
+        state = initial
+
+        def readiness(self, surface):
+            checks.append((surface, transport.publish_calls.copy()))
+            if self.state == "pending":
+                raise NativeNeoInputRequired(request)
+            if self.state == "timeout":
+                raise TimeoutError
+            return {
+                "authenticated": True,
+                "native_executor_bound": True,
+                "proof_fresh": True,
+                "public_handle": "@other" if self.state == "wrong_identity" else "@Capitalnicle",
+            }
+
+    executor = IdentityExecutor()
+    transport._neo_transport = SimpleNamespace(native_executor=executor)
+    store, _, coordinator = _coordinator(tmp_path, runtime=transport)
+    plan = _quality_plan()
+
+    first = coordinator.execute_plan("work-1", plan)
+
+    assert first["canonical_article_real_published"]
+    assert all(first["per_destination"][outlet]["reconciliation_status"] == RECONCILED_CONFIRMED
+               for outlet in other_outlets)
+    x = first["per_destination"]["x"]
+    assert x["status"] == {"pending": PENDING, "wrong_identity": "SESSION_UNAVAILABLE",
+                           "timeout": "READINESS_CHECK_FAILED"}[initial]
+    if initial == "pending":
+        assert x["native_tool_request"] == request
+    assert "x" not in {row["platform"] for row in store.list_platform_dispatches()}
+
+    executor.state = "ready"
+    resumed = coordinator.execute_plan("work-1", plan)
+    coordinator.execute_plan("work-1", plan)
+
+    assert resumed["per_destination"]["x"]["reconciliation_status"] == RECONCILED_CONFIRMED
+    assert transport.publish_calls[-1] == "x"
+    assert sorted(transport.publish_calls) == sorted(other_outlets | {"x"})
+    assert len(checks) == 2
+    assert all(checked_surface == surface and outlets[0] == "substack" and set(outlets) == other_outlets
+               for checked_surface, outlets in checks)
 
 
 def test_delivery_media_preparation_is_after_canonical_readback_and_before_derivatives(

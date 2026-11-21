@@ -1,0 +1,37 @@
+{
+  "item": "CC-536",
+  "piece": 5,
+  "branch": "backlog/cc-536-piece-5-entry-type",
+  "base_operating_head": "1b8442ac29cb6c9910d47cfc9982e85239f5f0c6",
+  "remote_master_at_start": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "top_level_calls": [
+    {
+      "pid": 45424,
+      "started_utc": "2026-11-21T02:27:49Z",
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "max",
+      "provenance": "CONFIGURED_NOT_OBSERVED",
+      "launch_arguments_read_back": true
+    },
+    {
+      "pid": 20684,
+      "started_utc": "2026-11-21T02:42:28Z",
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "max",
+      "provenance": "CONFIGURED_NOT_OBSERVED",
+      "launch_arguments_read_back": true
+    },
+    {
+      "pid": 10500,
+      "started_utc": "2026-11-21T03:34:00Z",
+      "session_id": "01a1fc2b-0d17-7e01-84ea-02866719ed06",
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "max",
+      "provenance": "CONFIGURED_NOT_OBSERVED",
+      "launch_arguments_read_back": true
+    }
+  ],
+  "session_id": "01a1fbee-6f0f-7d53-9d48-8fc867247f82",
+  "browser_group": "9228E3A3FB430BA10983668CA442F726",
+  "review_browser_group": "F1EC7C17665A002F87DD7A579B3FF155"
+}

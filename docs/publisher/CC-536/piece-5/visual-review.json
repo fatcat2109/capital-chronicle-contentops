@@ -1,0 +1,46 @@
+{
+  "decision": "ACCEPT",
+  "operation": "cc536-measured-odds-5",
+  "text_approved_at_utc": "2026-11-21T03:49:43.969485+00:00",
+  "piece_file_sha256": "18d41dfa0952d1a8bca04b8e93f56130e2a322f5cb2f9e7b81e1f350f57998ad",
+  "article_body_sha256": "0b2fa3ea1a090c434a5ace66e89dc1d0dfde8d755f6edd7e5a380b6dc7b76e19",
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "number_bindings_verified": 37,
+  "chart_sha256": "026b3b73b3cea81e39810e58a9d9acdaaa3dbd112a2ad3dbfcb13383108969a8",
+  "writer": {
+    "pid": 20684,
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Ops launch and resume argument readback",
+    "invocation_id": "01a1fbee-6f0f-7d53-9d48-8fc867247f82",
+    "operation": "cc536-measured-odds-5",
+    "role": "source-bound writing and editing",
+    "preparation_role": {
+      "task": "/root/entry_sources",
+      "model": "gpt-6.2-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "artifact": "preparation.json",
+      "artifact_sha256": "64badab1496a7a1582626b6e3286b8ac32310963167b2380e2a5e01da2d642ff"
+    }
+  },
+  "final_render_reviewer": {
+    "pid": 10500,
+    "started_utc": "2026-11-21T03:34:00Z",
+    "session_id": "01a1fc2b-0d17-7e01-84ea-02866719ed06",
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true
+  },
+  "renders_inspected": 18,
+  "render_manifest": "renders/manifest.json",
+  "repair_rounds": 0,
+  "findings": [
+    "Desktop and phone show the historical signal and fill comparison, its period, the method link, the table fingerprint and both notices.",
+    "All eight channel previews retain the authored summary, chart and notices. The X and Threads roots retain their five complete replies.",
+    "The original Bitstamp chart shows the two native closing-price averages, historical candles within the Bitcoin sample and the TradingView credit.",
+    "The preview link awaits the canonical Substack URL supplied by the coordinator after readback."
+  ]
+}

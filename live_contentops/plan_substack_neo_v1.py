@@ -1,6 +1,6 @@
 """CC-466 plan pages inside the CC-436 Neo transport and sole coordinator.
 
-Only bound WEB_ONLY plan pages and CC-536 research pieces are accepted. This is no alternate
+Only bound WEB_ONLY plan pages, CC-536 research pieces and CC-689 wraps are accepted. This is no alternate
 publisher: claims, exactly-once, pending codes and reconciliation stay native.
 """
 from __future__ import annotations
@@ -81,7 +81,7 @@ def request_action(packet):
 
 def supports_operation(operation_id):
     return (operation_id.startswith("plan-analysis-")
-            or re.fullmatch(r"cc536-measured-odds-[1-7]", operation_id) is not None)
+            or re.fullmatch(r"cc536-measured-odds-[1-7]|cc689-(?:daily|weekly)-\d{4}-\d{2}-\d{2}", operation_id) is not None)
 
 
 def body_text(text):
@@ -194,7 +194,7 @@ def _create_and_send(client,packet,state,page,identity):
         client.wait(page,".ProseMirror img")
         original_src=client.run(page,"plan_substack_uploaded")["src"]
     _paste_body(client,page,payload,media,original_src,
-                table_rows=packet["operation_id"].startswith("cc536-measured-odds-"))
+                table_rows=packet["operation_id"].startswith(("cc536-measured-odds-", "cc689-")))
     check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
     if check.get("verified") is not True:
         raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
@@ -228,8 +228,7 @@ def _send_saved_draft(client,packet,state,page,identity):
     # This phase refuses a still-enabled email or schedule before the one click.
     # Mark the boundary before the tool call: a lost click return is uncertain.
     from datetime import datetime, timezone
-    deadline = packet.get("plan_entry_deadline_utc")
-    window = {"plan_entry_deadline_utc": deadline} if deadline else {}
+    window = {key: packet[key] for key in ("wrap_deadline_utc", "plan_entry_deadline_utc") if packet.get(key)}
     state["dispatched_at_utc"]=datetime.now(timezone.utc).isoformat()
     published=client.run(page,"plan_substack_publish", **window)
     if published.get("status")!="CLICKED":
@@ -240,7 +239,7 @@ def _send_saved_draft(client,packet,state,page,identity):
     follow=wait_or_code(client,page,"Publish on web only")
     if "Check your email" in follow["text"]:
         return pending_code(client,page,published,identity)
-    if deadline:
+    if window:
         confirmed = client.run(page, "plan_substack_confirm", **window)
         if confirmed.get("status") != "CLICKED":
             if confirmed.get("definite_no_write") is True:
