@@ -100,9 +100,11 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
     from live_contentops import tradingview_snapshot_v1 as tv
     from .publication_image_contract_v1 import EFFECTIVE_FROM
     if (now or datetime.now(timezone.utc)) >= EFFECTIVE_FROM:
-        if source_documents and not article.get("image_input_v1"):
-            from .image_template_inputs_v1 import for_event_preview
-            data = for_event_preview(article, source_documents)
+        if not article.get("image_input_v1"):
+            from .image_template_inputs_v1 import for_event_preview, for_weekly_review
+            data = for_weekly_review(article) if not article.get("market_asset") else None
+            if not data and source_documents:
+                data = for_event_preview(article, source_documents)
             if data:
                 from .image_quality_v1 import TEMPLATE_FIT_CAUSES
                 try:

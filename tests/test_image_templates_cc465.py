@@ -82,7 +82,7 @@ def publication_message(tmp_path,image):
     intent=json.loads(message["payload"])
     context_path=Path(intent["output_dir"])/"run_context_v1.json"
     context=json.loads(context_path.read_bytes())
-    context["article"]["market_asset"]="USDJPY"
+    context["article"]["market_asset"] = None if image["image_template"]["template"] == "weekly" else "USDJPY"
     context_path.write_text(json.dumps(context),encoding="utf-8")
     return store,runtime,coordinator,message
 
@@ -412,7 +412,8 @@ def test_structured_article_templates_reach_the_media_owner_and_coordinator(tmp_
         folder.mkdir(parents=True, exist_ok=True)
         return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
 
-    article, assets = quality.prepare_article_media({"image_input_v1": input_record(template)}, [],
+    data = input_record(template)
+    article, assets = quality.prepare_article_media({"image_input_v1": data}, [],
         output_dir=tmp_path / "media", snapshot=snapshot, vision_runner=vision_response)
     validate_release_media({"article": article, "media_assets": assets}, require_pixel_review=False)
     for table in [a for a in assets if not a["image_template"]["chart"]]:
@@ -432,6 +433,27 @@ def test_structured_article_templates_reach_the_media_owner_and_coordinator(tmp_
     assert [image["image_quality"]["template"] for image in recorded] == [template, template]
     if template != "weekly":
         assert [image["image_type"] for image in recorded] == ["TRADINGVIEW_MARKET_CHART", "DRAWN_CARD"]
+
+
+def test_six_market_owner_uses_complete_map_input_in_fixed_order(tmp_path, monkeypatch):
+    from live_contentops.image_template_inputs_v1 import for_morning_map
+
+    data = input_record("map")
+    mapping = {**data["map"], "lead_market": data["market"], "rows": list(reversed(data["map"]["rows"]))}
+    article = {"market_asset": data["market"], "morning_map": mapping}
+    missing_state = deepcopy(article)
+    missing_state["morning_map"]["rows"][0]["state_word"] = None
+    assert for_morning_map(missing_state) is None
+    monkeypatch.setattr(quality, "review_vision", lambda image, **options: yes_review(image)["vision"])
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    prepared, assets = tv.prepare_contract_article(article, [], output_dir=tmp_path, snapshot=snapshot)
+    assert [row["market"] for row in prepared["image_input_v1"]["map"]["rows"]] == list(templates.ORDER)
+    assert [asset["image_template"]["chart"] for asset in assets] == [True, False, True, False]
+    assert all(asset["image_quality"]["passed"] for asset in assets)
 
 
 def test_unsupported_image_protocol_and_no_observed_pixel_read_never_create_scores(tmp_path):

@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import datetime
-from decimal import Decimal, InvalidOperation
+from datetime import datetime, timedelta
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from hashlib import sha256
 import json
 from zoneinfo import ZoneInfo
@@ -140,6 +140,73 @@ def for_event_preview(article, documents):
     return bind({"schema": "image_input_v1", "post_id": "preview-" + digest(source)[:24], "template": "event",
                  "market": market, "event_cutoff_utc": event["event_time_utc"],
                  "event": {"name": title, "time_et": et(event["event_time_utc"]), "scenarios": rows}}, source)
+
+
+def for_weekly_review(article):
+    """Project the already admitted whole-week call record into the scorecard."""
+    accepted = article.get("weekly_scored_calls") or {}
+    week = accepted.get("record") or {}
+    scored = [row for row in week.get("rows", []) if row["scored"] and row["result"] != "NOT_TRIGGERED"
+              and not row.get("not_executed")]
+    if not scored or any(row["market"] not in MARKETS or not row.get("image_result") for row in scored):
+        return None
+    rows = [{"market": row["market"], **row["image_result"]} for row in reversed(scored)]
+    start = datetime.fromisoformat(week["week_start_et"])
+    end = datetime.fromisoformat(week["week_end_exclusive_et"]) - timedelta(days=1)
+    total_r = sum(Decimal(str(row["r"])) for row in rows)
+    count = len(rows)
+    hit_rate = (Decimal(100 * sum(row["result"] == "HIT" for row in scored)) / count).quantize(
+        Decimal("0.1"), rounding=ROUND_HALF_UP)
+    stats = {"calls_closed": count, "hit_rate_pct": float(hit_rate),
+             "total_r": float(total_r), "avg_r": float(total_r / count)}
+    source = {"record": week, "computed_statistics": stats, "source_sha256": accepted["source_sha256"]}
+    return bind({"schema": "image_input_v1", "post_id": "week-" + digest(source)[:24], "template": "weekly",
+                 "week": {"start": f"{start.day} {start:%b}", "end": f"{end.day} {end:%b}",
+                          "rows": rows, **stats}}, source)
+
+
+def weekly_result_fields(plan):
+    """Display fields from the same public plan and scored outcome CC-379 uses."""
+    from .plan_reader_copy_v1 import result_r
+    from .tradingview_snapshot_v1 import interval_for
+
+    result = result_r(plan)
+    outcome = plan["outcome"]
+    label = {"HIT": "Target reached", "STOPPED": "Stopped at invalidation", "EXPIRED": "Time exit"}.get(outcome["result"])
+    if result is None or not label:
+        return None
+    scenario = plan.get("scenario_analysis") or {}
+    horizon = HORIZONS.get(plan.get("horizon"))
+    if not horizon:
+        start = plan.get("registered_at_utc")
+        end = plan.get("horizon_end_utc") or scenario.get("horizon_end_utc") or plan.get("expires_at_utc")
+        if not start or not end:
+            return None
+        horizon = {"60": "Short-term", "240": "Mid-term", "D": "Long-term"}[interval_for(end, start)]
+    return {"direction": {"BULLISH": "LONG", "BEARISH": "SHORT"}[plan["direction"]], "horizon_label": horizon,
+            "main_probability_pct": (scenario.get("base_case") or {}).get("probability_pct"),
+            "outcome_label": label, "r": float(result)}
+
+
+def for_morning_map(article):
+    """Use a complete structured six-market note supplied by the wrap's source owner."""
+    record = article.get("morning_map") or {}
+    market = article.get("market_asset")
+    rows = record.get("rows") or []
+    if (market not in MARKETS or record.get("lead_market") != market or not record.get("date_et")
+            or not record.get("lead_line") or len(rows) != len(ORDER)
+            or {row.get("market") for row in rows} != set(ORDER)):
+        return None
+    allowed_states = {"Trending up", "Trending down", "Range", "Squeeze", "Breakout"}
+    if any(row.get("last") is None or row.get("change_1d_pct") is None or row.get("state_word") not in allowed_states
+           or not row.get("view_line") or not row.get("driver_line") for row in rows):
+        return None
+    by_market = {row["market"]: row for row in rows}
+    fields = ("market", "last", "change_1d_pct", "state_word", "view_line", "driver_line")
+    data = {"date_et": record["date_et"], "lead_line": record["lead_line"],
+            "rows": [{key: by_market[symbol][key] for key in fields} for symbol in ORDER]}
+    return bind({"schema": "image_input_v1", "post_id": "map-" + digest(record)[:24], "template": "map",
+                 "market": market, "map": data}, record)
 
 
 def bind(image_input, source_record):

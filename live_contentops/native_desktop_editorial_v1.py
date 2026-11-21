@@ -1677,7 +1677,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
     from .publication_image_contract_v1 import _macro as macro_image_scope
-    if corrected_article.get("market_asset") or macro_image_scope(corrected_article, {}):
+    weekly = corrected_article.get("weekly_scored_calls") or {}
+    if (corrected_article.get("market_asset") or weekly.get("record") or macro_image_scope(corrected_article, {})):
         from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
         registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
         operation = json.loads(registered["payload"]) if registered else {}

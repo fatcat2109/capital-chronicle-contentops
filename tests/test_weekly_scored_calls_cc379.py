@@ -58,6 +58,29 @@ def test_whole_record_ignores_selective_feed_and_uses_et_resolution_week():
     assert weekly.PUBLIC_NOTICE in record["text"] and weekly.CONFLICTS_NOTICE in record["text"]
 
 
+def test_weekly_media_uses_the_validated_whole_week_with_explicit_signed_r(tmp_path, monkeypatch):
+    from live_contentops import image_quality_v1 as quality
+    from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
+    from test_image_templates_cc465 import yes_review
+
+    data = export()
+    for plan, r in zip(data["status"]["plans"], (1.8, -1, -1, 0.5)):
+        plan.update(horizon="MID")
+        plan["outcome"]["score"]["result_r"] = r
+    record = weekly.project(data, cutoff_utc=CUTOFF)
+    doc = weekly.document(record, "SOURCE_1")
+    article, result = newsroom._validate_article_against_source_pack(article_for(doc), [doc])
+    assert result["status"] == "PASS"
+    monkeypatch.setattr(quality, "review_vision", lambda image, **options: yes_review(image)["vision"])
+    prepared, assets = prepare_market_snapshot(article, [], output_dir=tmp_path, now=weekly._utc(CUTOFF),
+                                                source_documents=[doc])
+    week = prepared["image_input_v1"]["week"]
+    assert week["total_r"] == 0.3 and week["hit_rate_pct"] == 25
+    assert [row["r"] for row in week["rows"]] == [0.5, -1, -1, 1.8]
+    assert len(assets) == 4 and all(image["image_quality"]["passed"] for image in assets)
+    assert "1.8R" not in prepared["substack_body_markdown"]
+
+
 def test_empty_week_is_explicit_without_invented_results():
     data = export()
     data["status"].update(plans=[], scored_call_count=0)

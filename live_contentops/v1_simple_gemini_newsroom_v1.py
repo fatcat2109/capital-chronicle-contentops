@@ -1830,6 +1830,8 @@ def _validate_article_against_source_pack(
     article.pop("public_research_descriptors", None)
     article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
     article.pop("weekly_scored_calls", None)
+    article.pop("image_input_v1", None)
+    article.pop("morning_map", None)
     from live_contentops.cpi_reaction_page_v1 import bind_tables
     try:
         article = bind_tables(article, source_pack)

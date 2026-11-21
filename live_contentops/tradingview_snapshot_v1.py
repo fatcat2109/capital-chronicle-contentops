@@ -669,6 +669,11 @@ def _bound_article_snapshot(assets, article, folder, ratio):
 def prepare_contract_article(article, assets, *, output_dir, selected_candidate=None, snapshot=None):
     """Decision 124 using the existing bounded capture and image owner."""
     from copy import deepcopy
+    if article.get("morning_map") and not article.get("image_input_v1"):
+        from .image_template_inputs_v1 import for_morning_map
+        data = for_morning_map(article)
+        if data:
+            article = {**article, "image_input_v1": data}
     if article.get("image_input_v1"):
         from .image_quality_v1 import prepare_article_media
         return prepare_article_media(article, assets, output_dir=output_dir, snapshot=snapshot)

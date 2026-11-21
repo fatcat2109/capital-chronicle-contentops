@@ -389,6 +389,8 @@ def validate_write(coordinator, intent, destination):
             except ValueError as exc:
                 raise ImageContractError(str(exc), image_sha256=asset.get("sha256")) from exc
         first = assets[0].get("image_template") or {}
+        if (markets or macro) and first.get("template") == "weekly":
+            raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
         if first.get("template") != "weekly" and not first.get("chart"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
         if first.get("template") in {"event", "map"}:
