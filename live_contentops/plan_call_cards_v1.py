@@ -499,16 +499,18 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
         export = posts.read_export(export_dir, **reader)
+        seen_at = queue_clock.clock() if queue_clock is not None else None
         version = posts.validate_export_contract(export)
         quarantined = posts.record_row_failures(store, export, dry_run=dry_run)
         freshness = posts.export_freshness(export, now)
         stale = freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60
         if stale and queue_clock is None:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
-        observed_rows = posts.rows_from_export(export, include_results=False, include_replaced_expiries=True)
+        observed_rows = posts.rows_from_export(export, include_results=False,
+                                              include_replaced_expiries=queue_clock is not None)
         if queue_clock is not None:
             queue_clock.observe([r for r in observed_rows if r["symbol"] in posts.MARKETS],
-                                freshness["export_generated_at_utc"])
+                                freshness["export_generated_at_utc"], seen_at=seen_at)
         if stale:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
         source_rows = [r for r in observed_rows if not r.get("replaced_expiry")]

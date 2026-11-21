@@ -61,8 +61,8 @@ def _latest(folder, now):
 
 def queue_event(observation, checked_at, *, queued_at=None):
     """Compare like clocks. The transition's event time is provenance."""
-    elapsed = ((_time(queued_at) if queued_at else checked_at)
-               - _time(observation["first_seen_at_utc"])).total_seconds()
+    first_seen = _time(observation["first_seen_at_utc"])
+    elapsed = max(0.0, ((_time(queued_at) if queued_at else checked_at) - first_seen).total_seconds())
     alarm = elapsed > ALARM_SECONDS and not observation.get("alarm_at_utc")
     outcome = {
         **observation, "queued_at_utc": queued_at,
@@ -99,8 +99,8 @@ class PlanQueueClock:
                 if not row.get("first_cause") and not store.get_outbox_message(row["key"]):
                     row["first_cause"] = "PREVIOUS_QUEUE_COMPLETION_NOT_RECORDED"
 
-    def observe(self, rows, export_generated_at_utc):
-        at = self.clock()
+    def observe(self, rows, export_generated_at_utc, *, seen_at=None):
+        at = seen_at if seen_at is not None else self.clock()
         self.read_export = True
         current = {_identity(row): row for row in rows}
         new_keys = current.keys() - self.seen - self.pending.keys()

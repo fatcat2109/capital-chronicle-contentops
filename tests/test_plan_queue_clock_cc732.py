@@ -38,6 +38,14 @@ def test_own_outbox_clock_is_measured_after_exact_export_read(tmp_path, main_roo
     transition = event(plan["plan_id"], "WAITING", plan["registered_at_utc"])
     folder = write(tmp_path / "export", [plan], [transition], generated_at_utc=iso(NOW - timedelta(seconds=11)))
     at = NOW
+    record_row_failures = posts.record_row_failures
+
+    def slow_quarantine(*args, **kwargs):
+        nonlocal at
+        at += timedelta(seconds=20)
+        return record_row_failures(*args, **kwargs)
+
+    monkeypatch.setattr(posts, "record_row_failures", slow_quarantine)
     monitor = observation(store, lambda: at)
     result = posts.queue_posts(store, folder, now=at, main_root=main_root, python=sys.executable, queue_clock=monitor)
     at += timedelta(seconds=60)
@@ -113,7 +121,7 @@ def test_first_cause_and_one_alarm_survive_midnight_and_readback(recorded):
         "late-plan", "FILLED", 601, "PLAN_EXPORT_STALE")
     artifact = readback.write_decision_checks(run, report["decision_checks"])
     assert issue in json.loads(artifact.read_bytes())["issues"]
-    assert "late-plan / FILLED · 601s" in readback.markdown(report)
+    assert "CC-732 · late-plan / FILLED · 601s" in readback.markdown(report).split("## Decision checks")[1]
 
 
 def test_two_minute_target_and_ten_minute_alarm_use_own_clock():
@@ -124,6 +132,9 @@ def test_two_minute_target_and_ten_minute_alarm_use_own_clock():
     result = queue_event(seen, NOW + timedelta(minutes=10, seconds=1),
                          queued_at=iso(NOW + timedelta(minutes=10, seconds=1)))
     assert result["alarm"] and result["first_cause"] == "QUEUE_REGISTRATION_DELAY"
+    earlier_queue = iso(NOW - timedelta(seconds=10))
+    represented = queue_event(seen, NOW, queued_at=earlier_queue)
+    assert represented["queued_at_utc"] == earlier_queue and represented["gap_seconds"] == 0
 
 
 def test_november_19_retained_export_outbox_and_minute_records_show_three_delivery_delays():
