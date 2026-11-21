@@ -266,6 +266,8 @@ class ControlledTransport(CanonicalDestinationTransportRuntimeV1):
 
 
 def composed(store, binding, rollout, monkeypatch):
+    from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+
     executor = NativeNeoExecutor(
         store,
         operation_id=binding["run_id"],
@@ -276,7 +278,12 @@ def composed(store, binding, rollout, monkeypatch):
     monkeypatch.setattr(
         executor,
         "readiness",
-        lambda _: {"authenticated": True, "native_executor_bound": True},
+        lambda surface: {
+            "authenticated": True,
+            "native_executor_bound": True,
+            "proof_fresh": True,
+            "public_handle": SURFACE_REGISTRY[surface].expected_public_handle,
+        },
     )
     transport = ControlledTransport(executor)
     coordinator = DurablePublicationCoordinator(
@@ -557,7 +564,7 @@ def test_canonical_first_real_url_eight_native_packages_restart_dedupe(
     assert executor.pending()[0]["tool_request_sha256"] == packet["tool_request_sha256"]
     value, writes = finish(restarted, executor)
     assert value["publication"]["state"] == "RECONCILED", (value, transport.calls)
-    assert writes == ["substack", "x", "youtube"]
+    assert writes == ["substack", "youtube", "x"]
     # Six API sends plus the routine LinkedIn company-page copy (4 Nov).
     assert len(transport.calls) == 7 and len(set(transport.calls)) == 7
     assert len(transport.finalized) == 9  # eight derivatives plus the company-page copy
