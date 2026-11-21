@@ -56,6 +56,16 @@ def audit(register, outcomes, day, *, since, now=None):
     start = datetime.combine(datetime.fromisoformat(day).date(), time(2), zone)
     end = start + timedelta(days=1)
     rows = {row["record_id"]: row for row in PublishedImages(register).records()}
+    # A canonical article and its derivative copies can share a TradingView
+    # asset.  The derivative rows are marked ``counts_as_article=False`` for
+    # destination accounting, but they are still article media and do not
+    # belong in the plan-status coverage denominator.  Build this set before
+    # the coverage pass so a derivative without a price check cannot appear as
+    # a false plan-chart gap.
+    article_piece_ids = {
+        row.get("piece_id") for row in rows.values()
+        if row.get("piece_id") and row.get("counts_as_article", True)
+    }
     events = _outcomes(outcomes)
     samples, charts, absences = {}, {}, []
     for row in rows.values():
@@ -66,6 +76,7 @@ def audit(register, outcomes, day, *, since, now=None):
             if check.get("chart_sha256"):
                 samples[(check["chart_sha256"], check["captured_at_utc"])] = check
             if (row["day"] != day or row.get("counts_as_article", True)
+                    or row.get("piece_id") in article_piece_ids
                     or image.get("image_type") != "TRADINGVIEW_MARKET_CHART"):
                 continue
             # Notes, replies and result posts can register a shared capture as
