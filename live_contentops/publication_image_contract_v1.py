@@ -301,6 +301,36 @@ def _fred(asset):
 def bounded_text_fallback(article, output_dir, *, now=None):
     if article.get("publication_image_contract") != POLICY or not article.get("tradingview_text_fallback"):
         return None
+
+
+def _validate_plan_card(asset, row, folder, destination):
+    from PIL import Image
+    from .plan_status_posts_v1 import plan_facts
+    from .tradingview_snapshot_v1 import _sha256
+
+    binding = asset.get("plan_chart_fallback") or {}
+    ratio = "4:5" if destination == "instagram_business" else "16:9"
+    if (not row or row.get("format") != 4 or binding.get("key") != row["key"]
+            or binding.get("market") != row["symbol"] or binding.get("ratio") != ratio):
+        raise ImageContractError("PLAN_CHART_FALLBACK_BINDING_INVALID")
+    member = folder.parent / row["key"]
+    suffix = "_4x5" if ratio == "4:5" else ""
+    states = [member / f"tradingview_capture{suffix}{template}_v1.json" for template in ("", "_cc465")]
+    if not any(state.get("key") == row["key"] and state.get("market") == row["symbol"]
+               and state.get("status") == "PLAN_CARD" and state.get("cause") == binding.get("cause")
+               for path in states if path.is_file() for state in (json.loads(path.read_bytes()),)):
+        raise ImageContractError("PLAN_CHART_FALLBACK_CAPTURE_UNBOUND")
+    packet = asset.get("data_card_packet") or {}
+    path = Path(asset["path"]).resolve()
+    if (packet.get("facts") != [list(fact) for fact in plan_facts(row)]
+            or not path.is_relative_to((member / "media_assets").resolve())
+            or _sha256(path) != asset["sha256"]):
+        raise ImageContractError("PLAN_CHART_FALLBACK_CARD_CHANGED")
+    with Image.open(path) as image:
+        if image.format != "PNG" or image.size != (asset["width"], asset["height"]) or (
+                ratio == "4:5" and image.width * 5 != image.height * 4):
+            raise ImageContractError("PLAN_CHART_FALLBACK_IMAGE_INVALID")
+    return binding
     path = Path(str(article.get("tradingview_capture_state_path") or "")).resolve()
     if not path.is_relative_to(Path(output_dir).resolve()) or not path.is_file():
         return None
@@ -407,6 +437,13 @@ def validate_write(coordinator, intent, destination):
         raise ImageContractError("MACRO_SOURCE_GRAPH_REQUIRED" if macro else "TRADINGVIEW_FIRST_IMAGE_REQUIRED")
     from . import tradingview_snapshot_v1 as tv
     lead = assets[0]
+    fallbacks = []
+    plan_folder = Path(intent["output_dir"]) if intent.get("plan_status_post") else None
+    for asset in assets:
+        if plan_folder and asset.get("modality") == "plan_fact_card":
+            binding = asset.get("plan_chart_fallback") or {}
+            fallbacks.append(_validate_plan_card(asset, markets.get(binding.get("market")),
+                                                  plan_folder, destination))
     if macro and not templates:
         if image_type(lead) == "FRED_GRAPH":
             _fred(lead)
@@ -422,7 +459,7 @@ def validate_write(coordinator, intent, destination):
             return {"policy": POLICY, "markets": sorted(markets), "macro": True,
                     "first_image_type": "FRED_GRAPH"}
     else:
-        if image_type(lead) != "TRADINGVIEW_MARKET_CHART" or lead.get("preceding_card"):
+        if (image_type(lead) != "TRADINGVIEW_MARKET_CHART" and not lead.get("plan_chart_fallback")) or lead.get("preceding_card"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
         for asset in assets:
             if image_type(asset) != "TRADINGVIEW_MARKET_CHART":
@@ -432,6 +469,10 @@ def validate_write(coordinator, intent, destination):
             if not market:
                 raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
             tv.validate_snapshot_asset(asset, {"market_asset": market})
+            if (plan_folder and markets[market] and markets[market].get("format") == 4
+                    and snap.get("plain_price_scale_cause") == tv.PRICE_SCALE_MISMATCH
+                    and not asset.get("plan_overlay") and not asset.get("image_template")):
+                continue
             check = validate_scale(market, snap)
             row = markets[market]
             if row:
@@ -457,12 +498,13 @@ def validate_write(coordinator, intent, destination):
         if intent.get("plan_status_post") and not (intent.get("native_payload") or {}).get("reuse_run_carousel"):
             # A multi-market root represents every member, not an arbitrary
             # first market. Single-image routes keep their established lead.
-            if destination == "instagram_business" and set(markets) != {
-                    m for m in markets for a in assets if (a.get("tradingview_snapshot") or {}).get("tv_symbol") == tv.SYMBOLS[m]}:
+            if destination == "instagram_business" and set(markets) != ({
+                    m for m in markets for a in assets if (a.get("tradingview_snapshot") or {}).get("tv_symbol") == tv.SYMBOLS[m]}
+                    | {binding["market"] for binding in fallbacks}):
                 raise ImageContractError("TRADINGVIEW_RUN_MARKET_CHART_MISSING")
     if destination == "instagram_business":
         for asset in assets:
-            if asset.get("image_template"):
+            if asset.get("image_template") or asset.get("plan_chart_fallback"):
                 continue  # The native T master and chart box were checked above.
             snap = asset.get("tradingview_snapshot") or {}
             framing = snap.get("framing") or {}
@@ -471,4 +513,5 @@ def validate_write(coordinator, intent, destination):
                     or framing.get("original_box") != [0, 0, asset["width"], asset["height"]]):
                 raise ImageContractError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
     return {"policy": POLICY, "markets": sorted(markets), "macro": macro,
-            "first_image_type": image_type(lead)}
+            "first_image_type": image_type(lead),
+            **({"plan_chart_fallback_causes": sorted({item["cause"] for item in fallbacks})} if fallbacks else {})}

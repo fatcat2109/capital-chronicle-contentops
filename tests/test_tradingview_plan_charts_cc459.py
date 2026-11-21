@@ -98,7 +98,7 @@ def test_card_preparation_uses_tradingview_and_credits_every_destination(five, m
     posts.validate_status_post_plan(store, card["key"], prepared)
 
 
-def test_setup_with_exhausted_capture_closes_every_copy_with_the_first_cause(five, main_root, tmp_path, monkeypatch):
+def test_setup_with_exhausted_capture_prepares_cards_with_the_first_cause(five, main_root, tmp_path, monkeypatch):
     monkeypatch.setattr(cards, "_reference", lambda *a: {"public_object_id": "parent", "public_object_url": "https://example.test/parent"})
     store, folder, _, _ = five
     queue(store, folder, main_root)
@@ -107,18 +107,43 @@ def test_setup_with_exhausted_capture_closes_every_copy_with_the_first_cause(fiv
     for row in queued:
         if row["key"] != card["key"]:
             store.set_outbox_status(row["key"], posts.SUPERSEDED)
-    failures = iter(["TRADINGVIEW_SNAPSHOT_TIMEOUT", "TRADINGVIEW_SNAPSHOT_FILE_MISSING"])
+    failures = iter(["TRADINGVIEW_SNAPSHOT_TIMEOUT", "TRADINGVIEW_SNAPSHOT_FILE_MISSING"] * 2)
 
-    def failure(*args):
+    def failure(*args, **kwargs):
         raise tv.SnapshotError(next(failures))
 
-    result = cards.publish_ready(store, now=NOW, root=tmp_path / "posts", snapshot=failure,
-        coordinator_for=lambda *args: pytest.fail("no chart to publish"))
-    outcome, = result["posts"]
-    assert outcome["key"] == card["key"] and outcome["status"] == cards.SETTLED_POST
-    assert outcome["destination_causes"] == dict.fromkeys(cards.destinations_for(card), "TRADINGVIEW_SNAPSHOT_TIMEOUT")
-    assert store.get_outbox_message(card["key"])["status"] == cards.SETTLED_POST
-    assert store.get_dispatches_for_work_item(card["key"]) == []
+    plan = cards.prepare_post(store, card["key"], root=tmp_path / "posts", snapshot=failure, host=fake_host)
+    assets = json.loads((Path(plan["output_dir"]) / "run_context_v1.json").read_bytes())["media"]["assets"]
+    assert assets and all(a["plan_chart_fallback"]["cause"] == "TRADINGVIEW_SNAPSHOT_TIMEOUT" for a in assets)
+    assert not plan["skipped_destinations"]
+
+
+def test_cc734_uses_checked_plain_us500_download_when_overlay_scale_refuses(tmp_path, monkeypatch):
+    from live_contentops import publication_image_contract_v1 as contract
+
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    attempts = []
+
+    def mismatch(*a, **kw):
+        raise contract.ImageContractError(tv.PRICE_SCALE_MISMATCH)
+
+    def capture(market, interval, folder, **options):
+        if options["reset_price_scale"]:
+            raise tv.SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT")
+        return ORIGINAL_CAPTURE(market, interval, folder, worker=tradingview_worker(attempts),
+                                quote_provider=lambda *a: {}, **options)
+
+    monkeypatch.setattr(contract, "bind_scale", mismatch)
+    monkeypatch.setattr(tv, "capture", capture)
+    asset, credit = posts._post_image(sample(), tmp_path / "one", plan_post=True, required_chart=True)
+    assert credit and len(attempts) == 1
+    assert asset["tradingview_snapshot"]["tv_symbol"] == "SP:SPX"
+    assert asset["tradingview_snapshot"]["plain_price_scale_cause"] == tv.PRICE_SCALE_MISMATCH
+    assert "plan_overlay" not in asset
+    tv.validate_snapshot_asset(asset, {"market_asset": "US500"})
+    state = json.loads((tmp_path / "one/tradingview_capture_v1.json").read_bytes())
+    assert state["status"] == "PLAIN_SNAPSHOT" and state["attempts"] == 2
+    assert state["cause"] == tv.PRICE_SCALE_MISMATCH
 
 
 def test_threads_keeps_all_levels_windows_and_long_links_within_actual_character_limit(five, main_root):

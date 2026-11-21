@@ -1357,7 +1357,8 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
 
 
 def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
-                ratio: str = "16:9", source_snapshot=None, required_chart=False) -> tuple[dict | None, bool]:
+                ratio: str = "16:9", source_snapshot=None, required_chart=False,
+                plan_post=False) -> tuple[dict | None, bool]:
     """Prepare the plan's TradingView chart under the caller's image policy."""
     from live_contentops import tradingview_snapshot_v1 as tv
     image_input = None
@@ -1367,8 +1368,21 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
             and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}):
         from .image_template_inputs_v1 import from_plan, from_result
         image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
-    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
-                             image_input=image_input, source_snapshot=source_snapshot, required_chart=required_chart)
+    try:
+        asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
+                                 image_input=image_input, source_snapshot=source_snapshot,
+                                 required_chart=required_chart, plan_post=plan_post)
+    except tv.SnapshotUnavailable as exc:
+        if not plan_post:
+            raise
+        article = card_article(row)
+        asset = tv.fallback_card(title=article["title"], facts=plan_facts(row), dated_line=_when(row["at_utc"]),
+                                 out_dir=folder / "media_assets", ratio=ratio)
+        asset["plan_chart_fallback"] = {"key": row["key"], "market": row["symbol"],
+                                        "ratio": ratio, "cause": str(exc)}
+        return asset, False
+    if asset and (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"):
+        return asset, True
     if image_input:
         return asset, asset is not None
     if asset:
@@ -1504,12 +1518,13 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if linkedin_url := context.get("status_post_linkedin_analysis_url"):
         row["linkedin_analysis_url"] = linkedin_url
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, destination_payloads as card_payloads, discord_channel_payload
+        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, route_payloads, discord_channel_payload
         if part == DISCORD_CHANNEL_PART:
             return row, discord_channel_payload(row, card_id=card_id, parents=context.get("status_post_parents"),
                                                 chart_credit=bool(context.get("chart_credit")))
-        return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
+        return row, route_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
+                                 instagram_chart_credit=context.get("status_post_instagram_chart_credit"),
                                   portrait_id=context.get("status_post_threads_image"),
                                  x_analysis=context.get("status_post_x_analysis"),
                                  chart_credit=bool(context.get("chart_credit")),
@@ -1555,7 +1570,8 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
     assets = (context.get("media") or {}).get("assets") or []
     if ((row.get("state_alert_contract") and not assets)
-            or any(a.get("modality") != "tradingview_chart_snapshot" for a in assets)):
+            or any(a.get("modality") != "tradingview_chart_snapshot"
+                   and not (row.get("format") == 4 and a.get("plan_chart_fallback")) for a in assets)):
         raise PlanPostError("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     if row.get("format") == 4:
         # Frozen copy is the authority. A later formatter or disclosure change

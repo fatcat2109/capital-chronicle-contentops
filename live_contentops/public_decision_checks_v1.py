@@ -265,6 +265,9 @@ class PublicCopy:
             root = Path(folder).resolve()
             if root.is_relative_to(runtime):
                 assets = [*assets, *object_json(root / "delivery_media_manifest_v1.json").get("assets", [])]
+                if self.intent.get("plan_status_post") and ids:
+                    context = object_json(root / "run_context_v1.json")
+                    assets = [*assets, *((context.get("media") or {}).get("assets") or [])]
         if ids is not None:
             return [asset for asset in assets if (asset.get("media_asset_id") or asset.get("asset_id")) in ids]
         return [asset for asset in assets if asset.get("article_inclusion") is not False]
@@ -404,10 +407,15 @@ class DecisionChecks:
         if not expected:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
-        symbols = sorted({symbol for asset in copy.media(self.runtime) if (symbol := _media_symbol(asset))})
+        assets = copy.media(self.runtime)
+        symbols = sorted({symbol for asset in assets if (symbol := _media_symbol(asset))})
+        chart_causes = sorted({cause for asset in assets if (cause :=
+            (asset.get("plan_chart_fallback") or {}).get("cause")
+            or (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))})
         cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
                  else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols else None)
-        self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols)
+        self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols,
+                   **({"chart_causes": chart_causes} if chart_causes else {}))
 
     def _coverage(self, delivery):
         for copy in delivery.get("copies", []):

@@ -1294,6 +1294,13 @@ def discord_channel_payload(row, *, card_id, parents, chart_credit):
 def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
     """Reuse this exact plan's confirmed article chart for its social card."""
     if not row.get("analysis_publication") or not row.get("source_plan"):
+def route_payloads(row, *, instagram_chart_credit=None, **kwargs):
+    payloads = destination_payloads(row, **kwargs)
+    if (instagram_chart_credit is not None and "instagram_business" in payloads
+            and instagram_chart_credit != kwargs.get("chart_credit")):
+        payloads["instagram_business"] = destination_payloads(
+            row, **{**kwargs, "chart_credit": instagram_chart_credit})["instagram_business"]
+    return payloads
         return None
     from . import plan_analysis_pages_v1 as pages
     publication = pages.confirmed_publication(store, row["source_plan"])
@@ -1388,7 +1395,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             source_snapshot = _confirmed_page_snapshot(store, member)
             try:
                 card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
-                    snapshot_allowed=snapshot_allowed, source_snapshot=source_snapshot, required_chart=True)
+                    snapshot_allowed=snapshot_allowed, source_snapshot=source_snapshot,
+                    required_chart=True, plan_post=True)
             except tv.SnapshotUnavailable as exc:
                 if row["kind"] != "run":
                     raise
@@ -1419,7 +1427,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
                 # CC-463: a separate native portrait capture from the same
                 # service. A failed portrait affects only Instagram.
                 carousel_card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
-                    snapshot_allowed=snapshot_allowed, ratio="4:5")
+                    snapshot_allowed=snapshot_allowed, ratio="4:5", required_chart=True, plan_post=True)
                 if carousel_card is None:
                     all_carousel_images = False
                     for hosted in local_manifest["assets"]:
@@ -1448,7 +1456,10 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             skipped = [{"destination": "instagram_business", "cause": "TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED"}]
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
-        chart_credit = bool(assets)
+        chart_credit = bool(assets and assets[0].get("tradingview_snapshot"))
+        if carousel:
+            selected_ids = {item["asset_id"] for item in carousel}
+            instagram_chart_credit = any(a.get("tradingview_snapshot") for a in assets if a["asset_id"] in selected_ids)
         if row["kind"] == "run":
             image_unpostable = [d for d in chosen if not image_ready_keys.intersection(
                 m["key"] for m in postable_run_members(store, row, d, root=root))]
@@ -1464,7 +1475,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
         # already-issued payloads or their original chart.
         try:
             portrait, _ = posts._post_image(row, folder, snapshot=snapshot,
-                snapshot_allowed=snapshot_allowed, ratio="4:5")
+                snapshot_allowed=snapshot_allowed, ratio="4:5", required_chart=True, plan_post=True)
             if not portrait:
                 raise tv.SnapshotUnavailable("TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
             if host is None:
@@ -1474,6 +1485,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
                 raise posts.PlanPostError("PLAN_STATUS_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
             manifest = json.loads(manifest_path.read_bytes())
+    instagram_chart_credit = previous.get("status_post_instagram_chart_credit")
             manifest["assets"].extend(delivery["manifest"]["assets"])
             manifest_path.write_bytes(canonical_bytes(manifest))
             assets.append(portrait)
@@ -1482,7 +1494,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
                 "sha256": portrait["sha256"], "url": hosted["verified_public_delivery_url"]}]
             alert_portrait = portrait["asset_id"]
             previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
-                            status_post_alert_portrait=alert_portrait)
+                            status_post_alert_portrait=alert_portrait,
+                            status_post_instagram_chart_credit=instagram_chart_credit)
         except tv.SnapshotUnavailable as exc:
             skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
         except tv.SnapshotPending as exc:
@@ -1503,7 +1516,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             "selection": {}, "media": {"assets": assets}, "plan_status_post": key,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
-            "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id}
+            "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id,
+            "status_post_instagram_chart_credit": instagram_chart_credit}
         if alert_portrait:
             context["status_post_alert_portrait"] = alert_portrait
         if row.get("reader_contract") and not row.get("state_alert_contract"):
@@ -1530,7 +1544,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
     if frozen and linkedin_url and not previous.get("status_post_linkedin_analysis_url"):
         previous["status_post_linkedin_analysis_url"] = linkedin_url
         context_path.write_bytes(canonical_bytes(previous))
-    payloads = destination_payloads({**row, "linkedin_analysis_url": linkedin_url}, card_id=card["asset_id"] if card else None,
+    payloads = route_payloads({**row, "linkedin_analysis_url": linkedin_url}, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
@@ -1585,6 +1599,7 @@ def validate_parent_intent(store, row, intent, *, parent_route=None):
         validate_alert(row, store=store)
     elif row.get("reader_contract") == "CC466_V1":
         from .plan_reader_editorial_v1 import validate_reader_row
+            instagram_chart_credit = bool(portrait.get("tradingview_snapshot"))
         validate_reader_row(store, row)
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
@@ -1636,6 +1651,7 @@ def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *,
         coordinator = coordinator_for(key, Path(continuation["output_dir"]))
         outcome = coordinator.publication_state(key, continuation)
     else:
+                                  instagram_chart_credit=instagram_chart_credit,
         outcome = _publish_card_plan(store, row, continuation, coordinator_for,
                                      parallel=False, immediate=immediate)
     detail = (outcome.get("per_destination") or {}).get("discord") or {}

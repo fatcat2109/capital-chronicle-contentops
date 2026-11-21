@@ -219,6 +219,48 @@ def test_missing_chart_sends_nothing_and_source_changes_fail(replay, main_root, 
         validate(altered)
 
 
+@pytest.mark.parametrize("cause", ["TRADINGVIEW_PRICE_SCALE_MISMATCH", "TRADINGVIEW_SNAPSHOT_TIMEOUT"])
+def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, main_root, monkeypatch, tmp_path, cause):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops.publication_image_contract_v1 import validate_write
+    from live_contentops.public_decision_checks_v1 import DecisionChecks, PublicCopy
+
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    row, = rows(store)
+    key = row["key"]
+    calls = []
+
+    def fail_capture(market, interval, folder, **options):
+        calls.append((options["ratio"], options["timeout"], options["reset_price_scale"]))
+        raise tv.SnapshotError(cause)
+
+    monkeypatch.setattr(tv, "capture", fail_capture)
+    transport = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    root = tmp_path / "posts"
+    options = dict(now=now, latest_states=queued["latest_states"], root=root, host=fake_host,
+                   coordinator_for=lambda *a: coordinator)
+    posts.publish_ready(store, **options, immediate_only=True)
+    result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    assert set(transport.publish_calls) == set(cards.destinations_for(row)), result
+    assert calls == [("16:9", 60, False), ("16:9", 90, True), ("4:5", 60, False), ("4:5", 90, True)]
+    for destination in cards.destinations_for(row):
+        dispatch = cards._dispatch(store, key, destination)
+        assert dispatch["status"] == "DISPATCH_CONFIRMED", result
+        intent = json.loads(store.get_outbox_message(dispatch["message_id"])["payload"])
+        assert tv.CREDIT not in intent["native_payload"]["full_text"]
+        assert validate_write(coordinator, intent, destination)["plan_chart_fallback_causes"] == [cause]
+    copy = PublicCopy(key, destination, dispatch["public_object_url"], "Plan", row["text"],
+                      intent, dispatch, [], {}, now, image_visible=True)
+    checks = DecisionChecks({"since_utc": row["at_utc"], "until_utc": now.isoformat()}, root)
+    checks._chart(copy, row["symbol"])
+    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_CHART_MISSING"
+    assert checks.issues[0]["chart_causes"] == [cause]
+
+
 def test_later_states_use_the_same_api_consumer_without_editorial(replay, main_root, monkeypatch, tmp_path):
     store, folder, raw, now = replay
     runtime = FixtureTransport()
