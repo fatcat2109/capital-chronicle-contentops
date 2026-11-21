@@ -1,0 +1,70 @@
+{
+  "policy": "cc512-light-caller-v1",
+  "status": "RETURNED",
+  "started_at_utc": "2026-11-21T18:42:57.845040+00:00",
+  "prompt_sha256": "c3928f6418add6b17858912ca22e07a4affbc4ba2ce9ad2dbc2a4cf07e0eaa6f",
+  "prompt_bytes": 5384,
+  "attempts": [
+    {
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-21T18:42:57.846849+00:00",
+      "status": "TIMEOUT",
+      "configured_model": "gemini-3.8-flash-high",
+      "configured_effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "timeout_seconds": 65,
+      "cause": "AGY_VISION_TIMEOUT_125S",
+      "ended_at_utc": "2026-11-21T18:44:03.424300+00:00",
+      "elapsed_seconds": 65.57734550000168,
+      "stdout_bytes": 3650,
+      "stderr_bytes": 78,
+      "output_sha256": "d0da0c619d445d5ad13a54fee6767a4659b11e32ad8d758b87ff585e0915267d",
+      "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459"
+    },
+    {
+      "caller": "codex",
+      "started_at_utc": "2026-11-21T18:44:03.426174+00:00",
+      "status": "RETURNED",
+      "configured_model": "gpt-6.2-sol",
+      "configured_effort": "low",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "timeout_seconds": 120,
+      "turn_completed_seconds": 11.84609079999791,
+      "observed_session_id": "01a1ff6c-35cc-70e1-ae67-14daf36c1e06",
+      "observed_usage": {
+        "input_tokens": 19705,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 397,
+        "reasoning_output_tokens": 53
+      },
+      "image_attached": true,
+      "returncode": 0,
+      "ended_at_utc": "2026-11-21T18:44:16.247136+00:00",
+      "elapsed_seconds": 12.820940999998129,
+      "stdout_bytes": 1695,
+      "stderr_bytes": 0,
+      "output_sha256": "46005f0a9ab155bc072c9023711141699417d1c157501c3a141bde1c8a658a6b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "answered_by": "codex",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "image_sha256": "a60f528dc43dafcd10f911173e6fb5371576a8abbd02d2908c2bd3d51d4c03f5",
+  "image_bytes": 133954,
+  "answer_seconds": 12.820940999998129,
+  "configured_model": "gpt-6.2-sol",
+  "configured_effort": "low",
+  "observed_session_id": "01a1ff6c-35cc-70e1-ae67-14daf36c1e06",
+  "observed_usage": {
+    "input_tokens": 19705,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 397,
+    "reasoning_output_tokens": 53
+  },
+  "ended_at_utc": "2026-11-21T18:44:16.248428+00:00",
+  "elapsed_seconds": 78.40147509999952,
+  "artifact_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-465-live-integration-20261122\\docs\\publisher\\CC-465\\resume-20261122\\media\\map-7a77aa5cef949d9d33307df4-map-2-T.vision\\20261121T184257840752Z\\light-call.json",
+  "first_cause": "AGY_VISION_TIMEOUT_125S"
+}

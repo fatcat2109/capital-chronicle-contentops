@@ -456,6 +456,57 @@ def test_six_market_owner_uses_complete_map_input_in_fixed_order(tmp_path, monke
     assert all(asset["image_quality"]["passed"] for asset in assets)
 
 
+def test_instagram_publishes_and_reads_back_the_native_chart_and_table(tmp_path, monkeypatch):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import instagram_adapter_v6 as instagram
+
+    market_map = input_record("map")
+    chart = templates.render(market_map, "T", tmp_path, capture(tmp_path, "T"))
+    table = templates.render(market_map, "T", tmp_path, image_number=2)
+    images = [chart, table]
+    context = {"article": {}, "media": {"assets": images}}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps(context), encoding="utf-8")
+    delivery = [{"sha256": a["sha256"], "public_delivery_sha256": a["sha256"],
+                 "local_public_hash_continuity": True, "verified_public_delivery_url": f"https://example.test/{i}.png"}
+                for i, a in enumerate(images)]
+    manifest = tmp_path / "delivery_media_manifest_v1.json"
+    caption = "Morning map. https://capitalchronicle.substack.com/p/pre-us-wrap"
+    intent = {"output_dir": str(tmp_path), "destination_plan": {"destination": "instagram_business"},
+              "native_payload": {"text": caption, "media_asset_ids": [a["asset_id"] for a in images]},
+              "canonical_url": "https://capitalchronicle.substack.com/p/pre-us-wrap", "attempt_identity": "attempt"}
+    authorization = {"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "attempt"}
+    calls = []
+
+    def write(*, caption, images):
+        calls.append(("publish", caption, images))
+        return {"status": "SUCCESS", "id": "carousel-id"}
+
+    def read(*, media_id, expected_images, expected_caption):
+        assert media_id == "carousel-id"
+        calls.append(("readback", expected_caption, expected_images))
+        return {"status": "SUCCESS", "verified": True, "public_object_id": media_id,
+                "public_url": "https://www.instagram.com/p/carousel"}
+
+    monkeypatch.setattr(instagram, "execute_instagram_carousel", write)
+    monkeypatch.setattr(instagram, "readback_call_carousel", read)
+    manifest.write_text(json.dumps({"assets": delivery[:1]}), encoding="utf-8")
+    blocked = pipeline._publish_one_destination_from_durable_intent(
+        destination="instagram_business", intent=intent, authorization_context=authorization)
+    assert blocked["reason_code"] == "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE" and not calls
+
+    manifest.write_text(json.dumps({"assets": delivery}), encoding="utf-8")
+    result = pipeline._publish_one_destination_from_durable_intent(
+        destination="instagram_business", intent=intent, authorization_context=authorization)
+    assert result["id"] == "carousel-id"
+    observed = pipeline._readback_one_destination_from_durable_intent(
+        destination="instagram_business", public_object_id=result["id"], public_object_url=None, intent=intent)
+    assert observed["status"] == "SUCCESS"
+    assert [call[0] for call in calls] == ["publish", "readback"]
+    for _, text, assets in calls:
+        assert text == caption
+        assert [asset["sha256"] for asset in assets] == [chart["sha256"], table["sha256"]]
+
+
 def test_unsupported_image_protocol_and_no_observed_pixel_read_never_create_scores(tmp_path):
     image=asset(tmp_path)
     def rejected(args,**kwargs):
@@ -693,7 +744,7 @@ def test_weekly_phone_pagination_keeps_every_call_without_empty_tail_pages(tmp_p
     assert seen==count
 
 
-def test_article_consumer_delivers_all_weekly_phone_pages_to_each_destination(tmp_path):
+def test_article_consumer_selects_weekly_pages_for_each_transport(tmp_path):
     article,images=quality.prepare_article_media({"image_input_v1":input_record("weekly")},[],
         output_dir=tmp_path,vision_runner=vision_response)
     assert len(images)==4
@@ -703,7 +754,7 @@ def test_article_consumer_delivers_all_weekly_phone_pages_to_each_destination(tm
         assert sum(sum(t["field"]=="week.market" for t in i["image_template"]["texts"]) for i in selected)==6
     by_id={i["asset_id"]:i for i in images}
     for destination,ids in article["native_destination_media"].items():
-        assert len(ids)==2
+        assert len(ids) == (1 if destination in quality.SINGLE_IMAGE_DESTINATIONS else 2)
         assert all(by_id[i]["image_template"]["master"]==("T" if destination in {"instagram_business","threads"} else "W") for i in ids)
 
 

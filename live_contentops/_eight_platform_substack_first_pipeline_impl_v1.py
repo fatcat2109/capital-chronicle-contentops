@@ -4386,6 +4386,15 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         ),
         {},
     )
+    template_carousel = []
+    if destination == "instagram_business" and len(media_assets) > 1 and all(
+            asset.get("image_template") for asset in media_assets):
+        hosted = {row.get("sha256"): row["verified_public_delivery_url"] for row in delivery_assets
+                  if row.get("sha256") and row.get("sha256") == row.get("public_delivery_sha256")
+                  and row.get("local_public_hash_continuity") is True
+                  and str(row.get("verified_public_delivery_url") or "").startswith("https://")}
+        template_carousel = [{"path": asset["path"], "sha256": asset["sha256"], "url": hosted.get(asset["sha256"])}
+                             for asset in media_assets]
     return {
         "output_dir": output_dir,
         "article": article,
@@ -4394,6 +4403,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         "delivery_only_assets": delivery_only_assets,
         "payloads": payloads,
         "local_media": local_media,
+        "template_carousel": template_carousel,
         "delivery_local_media": str(primary.get("absolute_local_source_path") or ""),
         "public_image_url": str(primary.get("verified_public_delivery_url") or ""),
         "primary_media": primary,
@@ -4755,6 +4765,12 @@ def _publish_one_destination_from_durable_intent(
             text=text, canonical_url=canonical_url, media=data["primary_media"],
         )
     if destination == "instagram_business":
+        if images := data.get("template_carousel"):
+            if not all(image["url"] for image in images):
+                return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                        "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE"}
+            from .instagram_adapter_v6 import execute_instagram_carousel
+            return execute_instagram_carousel(caption=text, images=images)
         if intent.get("plan_status_post") and payloads[destination].get("carousel_images"):
             from .instagram_adapter_v6 import execute_instagram_carousel
             return execute_instagram_carousel(caption=text, images=payloads[destination]["carousel_images"])
@@ -4912,6 +4928,10 @@ def _readback_one_destination_from_durable_intent(
             canonical_url=canonical_url,
             expect_media=bool(image_path),
         )
+    elif destination == "instagram_business" and public_object_id and data.get("template_carousel"):
+        from .instagram_adapter_v6 import readback_call_carousel
+        result = readback_call_carousel(media_id=public_object_id,
+            expected_images=data["template_carousel"], expected_caption=text)
     elif destination == "instagram_business" and public_object_id and (
             (payloads.get(destination) or {}).get("carousel_images") or (payloads.get(destination) or {}).get("reuse_run_carousel")):
         from .instagram_adapter_v6 import readback_call_carousel

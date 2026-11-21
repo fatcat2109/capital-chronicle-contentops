@@ -22,6 +22,8 @@ from .image_template_inputs_v1 import digest
 MANDATORY = {1, 2, 3, 5, 7, 9}
 VISION_POLICY = "cc465-image-roles-v5"
 VISION_SAMPLE_PENDING = "SAMPLE_PENDING"
+# These installed API adapters send one photo; their canonical link carries the complete table.
+SINGLE_IMAGE_DESTINATIONS = frozenset({"telegram", "discord", "facebook_page", "threads"})
 SAMPLE_NOT_SCORED = {VISION_SAMPLE_PENDING, "REVIEW_UNAVAILABLE"}
 TEMPLATE_FIT_CAUSES = frozenset({
     "IMAGE_CHART_CAPTURE_SHAPE", "IMAGE_CHART_CAPTURE_TOO_SMALL", "IMAGE_PRICE_GEOMETRY_REQUIRED",
@@ -454,7 +456,10 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
         choices[master]=[image["asset_id"] for image in prepared]
         images.extend(prepared)
     from .destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    channels={d:choices["T" if d in {"threads","instagram_business"} else "W"] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    channels = {}
+    for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
+        master = "T" if destination in {"threads", "instagram_business"} else "W"
+        channels[destination] = choices[master][:1] if destination in SINGLE_IMAGE_DESTINATIONS else choices[master]
     article.update(lead_image_asset_id=choices["W"][0],native_destination_media=channels,
                    post_visual_destination_media=channels,publication_image_contract=POLICY)
     return article,images+[a for a in assets if not a.get("image_template")]

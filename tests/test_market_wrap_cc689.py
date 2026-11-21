@@ -527,12 +527,15 @@ def test_daily_wrap_delivers_held_market_map_chart_first(tmp_path, pack, cash, m
     by_id = {asset["asset_id"]: asset for asset in packet["media_assets"]}
     for destination, intent in transport.writes:
         _, binding = _payload_binding(intent, destination)
-        chart, table = [by_id[item["asset_id"]] for item in binding["media_manifest"]]
-        assert chart["tradingview_snapshot"]["tv_symbol"] == tv.SYMBOLS["USDJPY"]
-        assert table["image_template"]["image_number"] == 2
+        assets = [by_id[item["asset_id"]] for item in binding["media_manifest"]]
+        assert assets[0]["tradingview_snapshot"]["tv_symbol"] == tv.SYMBOLS["USDJPY"]
         master = "T" if destination in {"instagram_business", "threads"} else "W"
-        assert {asset["image_template"]["master"] for asset in (chart, table)} == {master}
-        assert [row["market"] for row in table["image_template"]["input"]["map"]["rows"]] == list(ORDER)
+        assert {asset["image_template"]["master"] for asset in assets} == {master}
+        if destination in quality.SINGLE_IMAGE_DESTINATIONS:
+            assert len(assets) == 1
+        else:
+            assert [asset["image_template"]["image_number"] for asset in assets] == [1, 2]
+            assert [row["market"] for row in assets[1]["image_template"]["input"]["map"]["rows"]] == list(ORDER)
 
 
 def test_late_resume_reconciles_other_surfaces_when_one_readback_is_pending():

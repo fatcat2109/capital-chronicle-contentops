@@ -1,0 +1,716 @@
+{
+  "asset_id": "cc465-cfdf286e43a04f81d7653af0",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-465-live-integration-20261122\\docs\\publisher\\CC-465\\resume-20261122\\media\\map-7a77aa5cef949d9d33307df4-map-1-W.png",
+  "sha256": "cfdf286e43a04f81d7653af011f216c6f07d8b58b66eec5830de32b1dff3ac03",
+  "width": 1600,
+  "height": 900,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of S&P 500.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "map",
+    "master": "W",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "map-7a77aa5cef949d9d33307df4",
+      "template": "map",
+      "market": "US500",
+      "map": {
+        "date_et": "Sat 21 Nov",
+        "lead_line": "S&P 500 had the largest daily move.",
+        "rows": [
+          {
+            "market": "XAUUSD",
+            "last": 3532.29,
+            "change_1d_pct": 0.0,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "US500",
+            "last": 6910.39,
+            "change_1d_pct": -3.7,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "EURUSD",
+            "last": 1.0975,
+            "change_1d_pct": 0.02,
+            "state_word": "Trending down",
+            "view_line": "No view",
+            "driver_line": ""
+          },
+          {
+            "market": "USDJPY",
+            "last": 158.512,
+            "change_1d_pct": -0.68,
+            "state_word": "Mixed trend",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "USOIL",
+            "last": 83.41,
+            "change_1d_pct": 1.18,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "BTCUSD",
+            "last": 59973.67,
+            "change_1d_pct": 1.99,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          }
+        ]
+      },
+      "source_binding": {
+        "input_sha256": "f138eff11ee02b592729685d755fd004df8f37ef51d16c4c49fe992daefb86ae",
+        "source_sha256": "7a77aa5cef949d9d33307df4f611fd8cfd14afafc026d89156fc781d081589b1",
+        "record": {
+          "lead_market": "US500",
+          "date_et": "Sat 21 Nov",
+          "lead_line": "S&P 500 had the largest daily move.",
+          "rows": [
+            {
+              "market": "XAUUSD",
+              "last": 3532.29,
+              "change_1d_pct": 0.0,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "US500",
+              "last": 6910.39,
+              "change_1d_pct": -3.7,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "EURUSD",
+              "last": 1.0975,
+              "change_1d_pct": 0.02,
+              "state_word": "Trending down",
+              "view_line": "No view",
+              "driver_line": ""
+            },
+            {
+              "market": "USDJPY",
+              "last": 158.512,
+              "change_1d_pct": -0.68,
+              "state_word": "Mixed trend",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "USOIL",
+              "last": 83.41,
+              "change_1d_pct": 1.18,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "BTCUSD",
+              "last": 59973.67,
+              "change_1d_pct": 1.99,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            }
+          ],
+          "quote_and_trend_source": {
+            "rows": {
+              "EURUSD": {
+                "quote": {
+                  "symbol": "EURUSD=X",
+                  "value": 1.0975,
+                  "prior_close": 1.0973,
+                  "observed_at_utc": "2026-11-20T22:29:46+00:00",
+                  "known_at_utc": "2026-11-21T18:17:06.633844+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/EURUSD%3DX?range=1d&interval=1m",
+                  "sha256": "afa02f332c9c5ce279631eeed7c5eabd4deee8d402a5c4a345d1f3c917387fdb"
+                },
+                "last": 1.0975,
+                "change_1d_pct": 0.02,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "USDJPY": {
+                "quote": {
+                  "symbol": "USDJPY=X",
+                  "value": 158.512,
+                  "prior_close": 159.601,
+                  "observed_at_utc": "2026-11-20T21:59:58+00:00",
+                  "known_at_utc": "2026-11-21T18:17:07.090718+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/USDJPY%3DX?range=1d&interval=1m",
+                  "sha256": "87cfd10dd5803afdf680a799d4b7902d1624c1c2b39d2a17995555782099a7bf"
+                },
+                "last": 158.512,
+                "change_1d_pct": -0.68,
+                "state_word": "Mixed trend",
+                "trend_completed_at_utc": "2026-11-21T00:00:00+00:00"
+              },
+              "XAUUSD": {
+                "quote": {
+                  "symbol": "XAU=",
+                  "value": 3532.29,
+                  "prior_close": 3532.29,
+                  "observed_at_utc": "2026-11-21T06:38:37.334000+00:00",
+                  "known_at_utc": "2026-11-21T18:17:08.073375+00:00",
+                  "source": "CNBC",
+                  "url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+                  "sha256": "e780dc06e883ec3d2c22b486a065d3a50f327cc92f4b8bea7124ed920710c3d8"
+                },
+                "last": 3532.29,
+                "change_1d_pct": 0.0,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "USOIL": {
+                "quote": {
+                  "symbol": "CL=F",
+                  "value": 83.41,
+                  "prior_close": 82.44,
+                  "observed_at_utc": "2026-11-20T21:59:59+00:00",
+                  "known_at_utc": "2026-11-21T16:05:09.487860+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/CL%3DF?range=1d&interval=1m",
+                  "sha256": "e8125d1e3f0c05049e5a49a388f8dd42f27c595207bb31e85e41a9d8aea205e7"
+                },
+                "last": 83.41,
+                "change_1d_pct": 1.18,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "US500": {
+                "quote": {
+                  "symbol": "^GSPC",
+                  "value": 6910.39,
+                  "prior_close": 7175.83,
+                  "observed_at_utc": "2026-11-20T21:35:54+00:00",
+                  "known_at_utc": "2026-11-21T17:42:06.423356+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=1d&interval=1m",
+                  "sha256": "972a83284fb9939750ac9618a681f04ccc0d2c8a8413d3b000c349979eaa160b"
+                },
+                "last": 6910.39,
+                "change_1d_pct": -3.7,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "BTCUSD": {
+                "quote": {
+                  "symbol": "BTC-USD",
+                  "value": 59973.67,
+                  "prior_close": 58802.6,
+                  "observed_at_utc": "2026-11-21T18:00:53+00:00",
+                  "known_at_utc": "2026-11-21T18:00:57.773189+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1d&interval=1m",
+                  "sha256": "92f831ab8b1c665c42d506995772aac105261d034c624b2db97b17f9c6dba14e"
+                },
+                "last": 59973.67,
+                "change_1d_pct": 1.99,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-21T00:00:00+00:00"
+              }
+            },
+            "trend_sha256": "c4e6246cef35950404d85b3a34f5aae84c5bd6d4467e28345ecaac532078e9c5",
+            "trend_as_of_utc": "2026-11-21T18:41:23.468171+00:00"
+          },
+          "analysis_source": {
+            "sha256": "2dc4a29a3dce8fa4538f409433667950631f0450c673ce536442c0584eb3cefa",
+            "at_utc": "2026-11-21T13:32:01.073356+00:00"
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "docs/publisher/CC-465/media/originals/US500/W/SPX_2026-11-11_16-43-03.png",
+      "sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+      "width": 1600,
+      "height": 700,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          1524,
+          612
+        ],
+        "axis_origin": [
+          1524,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -0.7890299153965781,
+        "intercept": 6275.230522048884,
+        "max_label_error_px": 0.34734535900679475,
+        "grid_checks": [
+          {
+            "price": 7200.0,
+            "page_y_in_download": 594.2066065055964,
+            "grid_y": 594,
+            "error_px": 0.20660650559636906
+          },
+          {
+            "price": 7240.0,
+            "page_y_in_download": 562.6441425630906,
+            "grid_y": 563,
+            "error_px": 0.3558574369094458
+          },
+          {
+            "price": 7280.0,
+            "page_y_in_download": 531.0816786205849,
+            "grid_y": 531,
+            "error_px": 0.08167862058485298
+          },
+          {
+            "price": 7320.0,
+            "page_y_in_download": 499.519214678079,
+            "grid_y": 499,
+            "error_px": 0.5192146780789813
+          },
+          {
+            "price": 7360.0,
+            "page_y_in_download": 467.95675073557317,
+            "grid_y": 468,
+            "error_px": 0.043249264426833633
+          },
+          {
+            "price": 7400.0,
+            "page_y_in_download": 436.3942867930674,
+            "grid_y": 436,
+            "error_px": 0.3942867930674083
+          },
+          {
+            "price": 7440.0,
+            "page_y_in_download": 404.8318228505616,
+            "grid_y": 405,
+            "error_px": 0.16817714943840656
+          },
+          {
+            "price": 7480.0,
+            "page_y_in_download": 373.2693589080558,
+            "grid_y": 373,
+            "error_px": 0.26935890805577856
+          },
+          {
+            "price": 7520.0,
+            "page_y_in_download": 341.70689496554996,
+            "grid_y": 342,
+            "error_px": 0.29310503445003633
+          },
+          {
+            "price": 7560.0,
+            "page_y_in_download": 310.14443102304415,
+            "grid_y": 310,
+            "error_px": 0.1444310230441488
+          },
+          {
+            "price": 7600.0,
+            "page_y_in_download": 278.58196708053833,
+            "grid_y": 278,
+            "error_px": 0.5819670805383339
+          },
+          {
+            "price": 7640.0,
+            "page_y_in_download": 247.01950313803252,
+            "grid_y": 247,
+            "error_px": 0.01950313803251902
+          },
+          {
+            "price": 7680.0,
+            "page_y_in_download": 215.45703919552676,
+            "grid_y": 215,
+            "error_px": 0.457039195526761
+          },
+          {
+            "price": 7720.0,
+            "page_y_in_download": 183.89457525302095,
+            "grid_y": 184,
+            "error_px": 0.10542474697905391
+          },
+          {
+            "price": 7760.0,
+            "page_y_in_download": 152.33211131051513,
+            "grid_y": 152,
+            "error_px": 0.3321113105151312
+          },
+          {
+            "price": 7800.0,
+            "page_y_in_download": 120.76964736800926,
+            "grid_y": 121,
+            "error_px": 0.23035263199074052
+          },
+          {
+            "price": 7840.0,
+            "page_y_in_download": 89.20718342550344,
+            "grid_y": 89,
+            "error_px": 0.2071834255034446
+          },
+          {
+            "price": 7880.0,
+            "page_y_in_download": 57.64471948299763,
+            "grid_y": 58,
+            "error_px": 0.3552805170023703
+          }
+        ],
+        "source_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1986,
+        "height": 694
+      },
+      "tv_symbol": "SP:SPX",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "SPX 7,610.90 ▲ +1.2%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+      "suggested_filename": "SPX_2026-11-11_16-43-03.png",
+      "captured_at_utc": "2026-11-11T16:43:03.417102+00:00",
+      "seconds": 7.9,
+      "template_chart_size": [
+        1600,
+        700
+      ],
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "US500",
+        "tv_symbol": "SP:SPX",
+        "chart_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+        "captured_at_utc": "2026-11-11T16:43:03.417102+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
+    },
+    "framing": {
+      "box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "original_size": [
+        1600,
+        700
+      ],
+      "paste_box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": false,
+      "levels_visible": true
+    },
+    "texts": [
+      {
+        "text": "Morning map",
+        "box": [
+          76,
+          20,
+          427,
+          71
+        ],
+        "zone": [
+          76,
+          20,
+          1552,
+          92
+        ],
+        "size": 56,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Morning map",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "Sat 21 Nov",
+        "box": [
+          1292.0,
+          36,
+          1552.0,
+          76
+        ],
+        "zone": [
+          1292.0,
+          36,
+          1552,
+          98
+        ],
+        "size": 52,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Sat 21 Nov",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "S&P 500 had the largest daily move.",
+        "box": [
+          48,
+          804,
+          923,
+          852
+        ],
+        "zone": [
+          48,
+          804,
+          1552,
+          852
+        ],
+        "size": 52,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "S&P ",
+            "mono": false
+          },
+          {
+            "text": "500",
+            "mono": true
+          },
+          {
+            "text": " had the largest daily move.",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          1174.0,
+          852,
+          1552.0,
+          880
+        ],
+        "zone": [
+          1174.0,
+          852,
+          1552,
+          893
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of S&P 500.",
+    "chart": true,
+    "template_revision": "d8616490f024ffb60d34a515f590f6f6b5dfa790e32c7551c3b6fec4ee02491b"
+  },
+  "tradingview_snapshot": {
+    "path": "docs/publisher/CC-465/media/originals/US500/W/SPX_2026-11-11_16-43-03.png",
+    "sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+    "width": 1600,
+    "height": 700,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        1524,
+        612
+      ],
+      "axis_origin": [
+        1524,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -0.7890299153965781,
+      "intercept": 6275.230522048884,
+      "max_label_error_px": 0.34734535900679475,
+      "grid_checks": [
+        {
+          "price": 7200.0,
+          "page_y_in_download": 594.2066065055964,
+          "grid_y": 594,
+          "error_px": 0.20660650559636906
+        },
+        {
+          "price": 7240.0,
+          "page_y_in_download": 562.6441425630906,
+          "grid_y": 563,
+          "error_px": 0.3558574369094458
+        },
+        {
+          "price": 7280.0,
+          "page_y_in_download": 531.0816786205849,
+          "grid_y": 531,
+          "error_px": 0.08167862058485298
+        },
+        {
+          "price": 7320.0,
+          "page_y_in_download": 499.519214678079,
+          "grid_y": 499,
+          "error_px": 0.5192146780789813
+        },
+        {
+          "price": 7360.0,
+          "page_y_in_download": 467.95675073557317,
+          "grid_y": 468,
+          "error_px": 0.043249264426833633
+        },
+        {
+          "price": 7400.0,
+          "page_y_in_download": 436.3942867930674,
+          "grid_y": 436,
+          "error_px": 0.3942867930674083
+        },
+        {
+          "price": 7440.0,
+          "page_y_in_download": 404.8318228505616,
+          "grid_y": 405,
+          "error_px": 0.16817714943840656
+        },
+        {
+          "price": 7480.0,
+          "page_y_in_download": 373.2693589080558,
+          "grid_y": 373,
+          "error_px": 0.26935890805577856
+        },
+        {
+          "price": 7520.0,
+          "page_y_in_download": 341.70689496554996,
+          "grid_y": 342,
+          "error_px": 0.29310503445003633
+        },
+        {
+          "price": 7560.0,
+          "page_y_in_download": 310.14443102304415,
+          "grid_y": 310,
+          "error_px": 0.1444310230441488
+        },
+        {
+          "price": 7600.0,
+          "page_y_in_download": 278.58196708053833,
+          "grid_y": 278,
+          "error_px": 0.5819670805383339
+        },
+        {
+          "price": 7640.0,
+          "page_y_in_download": 247.01950313803252,
+          "grid_y": 247,
+          "error_px": 0.01950313803251902
+        },
+        {
+          "price": 7680.0,
+          "page_y_in_download": 215.45703919552676,
+          "grid_y": 215,
+          "error_px": 0.457039195526761
+        },
+        {
+          "price": 7720.0,
+          "page_y_in_download": 183.89457525302095,
+          "grid_y": 184,
+          "error_px": 0.10542474697905391
+        },
+        {
+          "price": 7760.0,
+          "page_y_in_download": 152.33211131051513,
+          "grid_y": 152,
+          "error_px": 0.3321113105151312
+        },
+        {
+          "price": 7800.0,
+          "page_y_in_download": 120.76964736800926,
+          "grid_y": 121,
+          "error_px": 0.23035263199074052
+        },
+        {
+          "price": 7840.0,
+          "page_y_in_download": 89.20718342550344,
+          "grid_y": 89,
+          "error_px": 0.2071834255034446
+        },
+        {
+          "price": 7880.0,
+          "page_y_in_download": 57.64471948299763,
+          "grid_y": 58,
+          "error_px": 0.3552805170023703
+        }
+      ],
+      "source_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1986,
+      "height": 694
+    },
+    "tv_symbol": "SP:SPX",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "SPX 7,610.90 ▲ +1.2%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+    "suggested_filename": "SPX_2026-11-11_16-43-03.png",
+    "captured_at_utc": "2026-11-11T16:43:03.417102+00:00",
+    "seconds": 7.9,
+    "template_chart_size": [
+      1600,
+      700
+    ],
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "US500",
+      "tv_symbol": "SP:SPX",
+      "chart_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+      "captured_at_utc": "2026-11-11T16:43:03.417102+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true
+}

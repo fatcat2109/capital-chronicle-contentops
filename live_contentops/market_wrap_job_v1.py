@@ -54,7 +54,7 @@ def dispatch_deadline(pack):
 
 def select_media(assets, destination, *, article=None):
     if (article or {}).get("image_input_v1", {}).get("template") == "map":
-        route = {"linkedin_company": "linkedin", "substack_notes": "telegram"}.get(destination, destination)
+        route = {"linkedin_company": "linkedin", "substack_notes": "x"}.get(destination, destination)
         ids = article["native_destination_media"][route]
         by_id = {asset["asset_id"]: asset for asset in assets}
         return [by_id[asset_id] for asset_id in ids]

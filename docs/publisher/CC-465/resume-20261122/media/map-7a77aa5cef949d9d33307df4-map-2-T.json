@@ -1,0 +1,1270 @@
+{
+  "asset_id": "cc465-a60f528dc43dafcd10f91117",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\cc-465-live-integration-20261122\\docs\\publisher\\CC-465\\resume-20261122\\media\\map-7a77aa5cef949d9d33307df4-map-2-T.png",
+  "sha256": "a60f528dc43dafcd10f911173e6fb5371576a8abbd02d2908c2bd3d51d4c03f5",
+  "width": 1080,
+  "height": 1350,
+  "mime_type": "image/png",
+  "alt_text": "Six markets, their daily moves and today's drivers.",
+  "modality": "source_bound_data_card",
+  "credit": "Capital Chronicle",
+  "rights_basis": "Capital Chronicle's own source-bound analysis.",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "map",
+    "master": "T",
+    "image_number": 2,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "map-7a77aa5cef949d9d33307df4",
+      "template": "map",
+      "market": "US500",
+      "map": {
+        "date_et": "Sat 21 Nov",
+        "lead_line": "S&P 500 had the largest daily move.",
+        "rows": [
+          {
+            "market": "XAUUSD",
+            "last": 3532.29,
+            "change_1d_pct": 0.0,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "US500",
+            "last": 6910.39,
+            "change_1d_pct": -3.7,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "EURUSD",
+            "last": 1.0975,
+            "change_1d_pct": 0.02,
+            "state_word": "Trending down",
+            "view_line": "No view",
+            "driver_line": ""
+          },
+          {
+            "market": "USDJPY",
+            "last": 158.512,
+            "change_1d_pct": -0.68,
+            "state_word": "Mixed trend",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "USOIL",
+            "last": 83.41,
+            "change_1d_pct": 1.18,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          },
+          {
+            "market": "BTCUSD",
+            "last": 59973.67,
+            "change_1d_pct": 1.99,
+            "state_word": "Trending down",
+            "view_line": "See the wrap",
+            "driver_line": ""
+          }
+        ]
+      },
+      "source_binding": {
+        "input_sha256": "f138eff11ee02b592729685d755fd004df8f37ef51d16c4c49fe992daefb86ae",
+        "source_sha256": "7a77aa5cef949d9d33307df4f611fd8cfd14afafc026d89156fc781d081589b1",
+        "record": {
+          "lead_market": "US500",
+          "date_et": "Sat 21 Nov",
+          "lead_line": "S&P 500 had the largest daily move.",
+          "rows": [
+            {
+              "market": "XAUUSD",
+              "last": 3532.29,
+              "change_1d_pct": 0.0,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "US500",
+              "last": 6910.39,
+              "change_1d_pct": -3.7,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "EURUSD",
+              "last": 1.0975,
+              "change_1d_pct": 0.02,
+              "state_word": "Trending down",
+              "view_line": "No view",
+              "driver_line": ""
+            },
+            {
+              "market": "USDJPY",
+              "last": 158.512,
+              "change_1d_pct": -0.68,
+              "state_word": "Mixed trend",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "USOIL",
+              "last": 83.41,
+              "change_1d_pct": 1.18,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            },
+            {
+              "market": "BTCUSD",
+              "last": 59973.67,
+              "change_1d_pct": 1.99,
+              "state_word": "Trending down",
+              "view_line": "See the wrap",
+              "driver_line": ""
+            }
+          ],
+          "quote_and_trend_source": {
+            "rows": {
+              "EURUSD": {
+                "quote": {
+                  "symbol": "EURUSD=X",
+                  "value": 1.0975,
+                  "prior_close": 1.0973,
+                  "observed_at_utc": "2026-11-20T22:29:46+00:00",
+                  "known_at_utc": "2026-11-21T18:17:06.633844+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/EURUSD%3DX?range=1d&interval=1m",
+                  "sha256": "afa02f332c9c5ce279631eeed7c5eabd4deee8d402a5c4a345d1f3c917387fdb"
+                },
+                "last": 1.0975,
+                "change_1d_pct": 0.02,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "USDJPY": {
+                "quote": {
+                  "symbol": "USDJPY=X",
+                  "value": 158.512,
+                  "prior_close": 159.601,
+                  "observed_at_utc": "2026-11-20T21:59:58+00:00",
+                  "known_at_utc": "2026-11-21T18:17:07.090718+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/USDJPY%3DX?range=1d&interval=1m",
+                  "sha256": "87cfd10dd5803afdf680a799d4b7902d1624c1c2b39d2a17995555782099a7bf"
+                },
+                "last": 158.512,
+                "change_1d_pct": -0.68,
+                "state_word": "Mixed trend",
+                "trend_completed_at_utc": "2026-11-21T00:00:00+00:00"
+              },
+              "XAUUSD": {
+                "quote": {
+                  "symbol": "XAU=",
+                  "value": 3532.29,
+                  "prior_close": 3532.29,
+                  "observed_at_utc": "2026-11-21T06:38:37.334000+00:00",
+                  "known_at_utc": "2026-11-21T18:17:08.073375+00:00",
+                  "source": "CNBC",
+                  "url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+                  "sha256": "e780dc06e883ec3d2c22b486a065d3a50f327cc92f4b8bea7124ed920710c3d8"
+                },
+                "last": 3532.29,
+                "change_1d_pct": 0.0,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "USOIL": {
+                "quote": {
+                  "symbol": "CL=F",
+                  "value": 83.41,
+                  "prior_close": 82.44,
+                  "observed_at_utc": "2026-11-20T21:59:59+00:00",
+                  "known_at_utc": "2026-11-21T16:05:09.487860+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/CL%3DF?range=1d&interval=1m",
+                  "sha256": "e8125d1e3f0c05049e5a49a388f8dd42f27c595207bb31e85e41a9d8aea205e7"
+                },
+                "last": 83.41,
+                "change_1d_pct": 1.18,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "US500": {
+                "quote": {
+                  "symbol": "^GSPC",
+                  "value": 6910.39,
+                  "prior_close": 7175.83,
+                  "observed_at_utc": "2026-11-20T21:35:54+00:00",
+                  "known_at_utc": "2026-11-21T17:42:06.423356+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=1d&interval=1m",
+                  "sha256": "972a83284fb9939750ac9618a681f04ccc0d2c8a8413d3b000c349979eaa160b"
+                },
+                "last": 6910.39,
+                "change_1d_pct": -3.7,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+              },
+              "BTCUSD": {
+                "quote": {
+                  "symbol": "BTC-USD",
+                  "value": 59973.67,
+                  "prior_close": 58802.6,
+                  "observed_at_utc": "2026-11-21T18:00:53+00:00",
+                  "known_at_utc": "2026-11-21T18:00:57.773189+00:00",
+                  "source": "Yahoo Finance",
+                  "url": "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1d&interval=1m",
+                  "sha256": "92f831ab8b1c665c42d506995772aac105261d034c624b2db97b17f9c6dba14e"
+                },
+                "last": 59973.67,
+                "change_1d_pct": 1.99,
+                "state_word": "Trending down",
+                "trend_completed_at_utc": "2026-11-21T00:00:00+00:00"
+              }
+            },
+            "trend_sha256": "c4e6246cef35950404d85b3a34f5aae84c5bd6d4467e28345ecaac532078e9c5",
+            "trend_as_of_utc": "2026-11-21T18:41:23.468171+00:00"
+          },
+          "analysis_source": {
+            "sha256": "2dc4a29a3dce8fa4538f409433667950631f0450c673ce536442c0584eb3cefa",
+            "at_utc": "2026-11-21T13:32:01.073356+00:00"
+          }
+        }
+      }
+    },
+    "snapshot": null,
+    "framing": null,
+    "levels": null,
+    "texts": [
+      {
+        "text": "Morning map",
+        "box": [
+          68,
+          28,
+          469,
+          86
+        ],
+        "zone": [
+          68,
+          28,
+          1040,
+          104
+        ],
+        "size": 64,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Morning map",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "Sat 21 Nov",
+        "box": [
+          850.0,
+          113,
+          1040.0,
+          142
+        ],
+        "zone": [
+          850.0,
+          113,
+          1040,
+          168
+        ],
+        "size": 38,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Sat 21 Nov",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Gold",
+        "box": [
+          52,
+          194,
+          128,
+          221
+        ],
+        "zone": [
+          52,
+          194,
+          350,
+          240
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Gold",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.market"
+      },
+      {
+        "text": "3,532",
+        "box": [
+          340,
+          194,
+          440,
+          223
+        ],
+        "zone": [
+          340,
+          194,
+          590,
+          240
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "3,532",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "map.last"
+      },
+      {
+        "text": "0.0%",
+        "box": [
+          590,
+          194,
+          670,
+          219
+        ],
+        "zone": [
+          590,
+          194,
+          760,
+          240
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "0.0%",
+            "mono": true
+          }
+        ],
+        "colour": "muted",
+        "field": "map.change"
+      },
+      {
+        "text": "Trending down",
+        "box": [
+          780,
+          194,
+          1015,
+          226
+        ],
+        "zone": [
+          780,
+          194,
+          1028,
+          240
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Trending down",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.state"
+      },
+      {
+        "text": "View: See the wrap",
+        "box": [
+          52,
+          242,
+          353,
+          274
+        ],
+        "zone": [
+          52,
+          242,
+          1028,
+          286
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "View: See the wrap",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.view"
+      },
+      {
+        "text": "Today: —",
+        "box": [
+          52,
+          292,
+          202,
+          324
+        ],
+        "zone": [
+          52,
+          292,
+          1028,
+          338
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Today: —",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.driver"
+      },
+      {
+        "text": "S&P 500",
+        "box": [
+          52,
+          366,
+          194,
+          392
+        ],
+        "zone": [
+          52,
+          366,
+          350,
+          412
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "S&P 500",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.market"
+      },
+      {
+        "text": "6,910",
+        "box": [
+          340,
+          366,
+          440,
+          395
+        ],
+        "zone": [
+          340,
+          366,
+          590,
+          412
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "6,910",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "map.last"
+      },
+      {
+        "text": "−3.7%",
+        "box": [
+          590,
+          366,
+          690,
+          391
+        ],
+        "zone": [
+          590,
+          366,
+          760,
+          412
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "−3.7%",
+            "mono": true
+          }
+        ],
+        "colour": "red",
+        "field": "map.change"
+      },
+      {
+        "text": "Trending down",
+        "box": [
+          780,
+          366,
+          1015,
+          398
+        ],
+        "zone": [
+          780,
+          366,
+          1028,
+          412
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Trending down",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.state"
+      },
+      {
+        "text": "View: See the wrap",
+        "box": [
+          52,
+          414,
+          353,
+          446
+        ],
+        "zone": [
+          52,
+          414,
+          1028,
+          458
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "View: See the wrap",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.view"
+      },
+      {
+        "text": "Today: —",
+        "box": [
+          52,
+          464,
+          202,
+          496
+        ],
+        "zone": [
+          52,
+          464,
+          1028,
+          510
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Today: —",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.driver"
+      },
+      {
+        "text": "EUR/USD",
+        "box": [
+          52,
+          538,
+          204,
+          564
+        ],
+        "zone": [
+          52,
+          538,
+          350,
+          584
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "EUR/USD",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.market"
+      },
+      {
+        "text": "1.0975",
+        "box": [
+          340,
+          538,
+          460,
+          563
+        ],
+        "zone": [
+          340,
+          538,
+          590,
+          584
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "1.0975",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "map.last"
+      },
+      {
+        "text": "+0.0%",
+        "box": [
+          590,
+          538,
+          690,
+          563
+        ],
+        "zone": [
+          590,
+          538,
+          760,
+          584
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "+0.0%",
+            "mono": true
+          }
+        ],
+        "colour": "green",
+        "field": "map.change"
+      },
+      {
+        "text": "Trending down",
+        "box": [
+          780,
+          538,
+          1015,
+          570
+        ],
+        "zone": [
+          780,
+          538,
+          1028,
+          584
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Trending down",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.state"
+      },
+      {
+        "text": "View: No view",
+        "box": [
+          52,
+          586,
+          269,
+          612
+        ],
+        "zone": [
+          52,
+          586,
+          1028,
+          630
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "View: No view",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.view"
+      },
+      {
+        "text": "Today: —",
+        "box": [
+          52,
+          636,
+          202,
+          668
+        ],
+        "zone": [
+          52,
+          636,
+          1028,
+          682
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Today: —",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.driver"
+      },
+      {
+        "text": "USD/JPY",
+        "box": [
+          52,
+          710,
+          193,
+          736
+        ],
+        "zone": [
+          52,
+          710,
+          350,
+          756
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "USD/JPY",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.market"
+      },
+      {
+        "text": "158.51",
+        "box": [
+          340,
+          710,
+          460,
+          735
+        ],
+        "zone": [
+          340,
+          710,
+          590,
+          756
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "158.51",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "map.last"
+      },
+      {
+        "text": "−0.7%",
+        "box": [
+          590,
+          710,
+          690,
+          735
+        ],
+        "zone": [
+          590,
+          710,
+          760,
+          756
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "−0.7%",
+            "mono": true
+          }
+        ],
+        "colour": "red",
+        "field": "map.change"
+      },
+      {
+        "text": "Mixed trend",
+        "box": [
+          780,
+          710,
+          969,
+          737
+        ],
+        "zone": [
+          780,
+          710,
+          1028,
+          756
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mixed trend",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.state"
+      },
+      {
+        "text": "View: See the wrap",
+        "box": [
+          52,
+          758,
+          353,
+          790
+        ],
+        "zone": [
+          52,
+          758,
+          1028,
+          802
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "View: See the wrap",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.view"
+      },
+      {
+        "text": "Today: —",
+        "box": [
+          52,
+          808,
+          202,
+          840
+        ],
+        "zone": [
+          52,
+          808,
+          1028,
+          854
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Today: —",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.driver"
+      },
+      {
+        "text": "WTI crude oil",
+        "box": [
+          52,
+          882,
+          264,
+          909
+        ],
+        "zone": [
+          52,
+          882,
+          350,
+          928
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "WTI crude oil",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.market"
+      },
+      {
+        "text": "83.41",
+        "box": [
+          340,
+          882,
+          440,
+          907
+        ],
+        "zone": [
+          340,
+          882,
+          590,
+          928
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "83.41",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "map.last"
+      },
+      {
+        "text": "+1.2%",
+        "box": [
+          590,
+          882,
+          690,
+          907
+        ],
+        "zone": [
+          590,
+          882,
+          760,
+          928
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "+1.2%",
+            "mono": true
+          }
+        ],
+        "colour": "green",
+        "field": "map.change"
+      },
+      {
+        "text": "Trending down",
+        "box": [
+          780,
+          882,
+          1015,
+          914
+        ],
+        "zone": [
+          780,
+          882,
+          1028,
+          928
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Trending down",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.state"
+      },
+      {
+        "text": "View: See the wrap",
+        "box": [
+          52,
+          930,
+          353,
+          962
+        ],
+        "zone": [
+          52,
+          930,
+          1028,
+          974
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "View: See the wrap",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.view"
+      },
+      {
+        "text": "Today: —",
+        "box": [
+          52,
+          980,
+          202,
+          1012
+        ],
+        "zone": [
+          52,
+          980,
+          1028,
+          1026
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Today: —",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.driver"
+      },
+      {
+        "text": "Bitcoin",
+        "box": [
+          52,
+          1054,
+          165,
+          1080
+        ],
+        "zone": [
+          52,
+          1054,
+          350,
+          1100
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Bitcoin",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.market"
+      },
+      {
+        "text": "59,974",
+        "box": [
+          340,
+          1054,
+          460,
+          1083
+        ],
+        "zone": [
+          340,
+          1054,
+          590,
+          1100
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "59,974",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "map.last"
+      },
+      {
+        "text": "+2.0%",
+        "box": [
+          590,
+          1054,
+          690,
+          1079
+        ],
+        "zone": [
+          590,
+          1054,
+          760,
+          1100
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "+2.0%",
+            "mono": true
+          }
+        ],
+        "colour": "green",
+        "field": "map.change"
+      },
+      {
+        "text": "Trending down",
+        "box": [
+          780,
+          1054,
+          1015,
+          1086
+        ],
+        "zone": [
+          780,
+          1054,
+          1028,
+          1100
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Trending down",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.state"
+      },
+      {
+        "text": "View: See the wrap",
+        "box": [
+          52,
+          1102,
+          353,
+          1134
+        ],
+        "zone": [
+          52,
+          1102,
+          1028,
+          1146
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "View: See the wrap",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.view"
+      },
+      {
+        "text": "Today: —",
+        "box": [
+          52,
+          1152,
+          202,
+          1184
+        ],
+        "zone": [
+          52,
+          1152,
+          1028,
+          1198
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Today: —",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "map.driver"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          640.0,
+          1302,
+          1040.0,
+          1331
+        ],
+        "zone": [
+          640.0,
+          1302,
+          1040,
+          1343
+        ],
+        "size": 38,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "Six markets, their daily moves and today's drivers.",
+    "chart": false,
+    "template_revision": "d8616490f024ffb60d34a515f590f6f6b5dfa790e32c7551c3b6fec4ee02491b"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true
+}

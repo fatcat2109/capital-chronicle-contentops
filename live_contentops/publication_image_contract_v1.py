@@ -427,7 +427,7 @@ def validate_write(coordinator, intent, destination):
         if (any(a["image_template"].get("chart") for a in templates)
                 and (article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"})):
             raise ImageContractError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
-        from .image_quality_v1 import SAMPLE_NOT_SCORED, sampled_review, validate_asset
+        from .image_quality_v1 import SINGLE_IMAGE_DESTINATIONS, SAMPLE_NOT_SCORED, sampled_review, validate_asset
         reviewed = []
         for asset in templates:
             needs_vision = True
@@ -454,7 +454,8 @@ def validate_write(coordinator, intent, destination):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
         if first.get("template") != "weekly" and not first.get("chart"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
-        if first.get("template") in {"event", "map"}:
+        single_image = len(assets) == 1 and destination in SINGLE_IMAGE_DESTINATIONS
+        if first.get("template") in {"event", "map"} and not single_image:
             second = (assets[1].get("image_template") or {}) if len(assets) > 1 else {}
             if (second.get("template") != first["template"] or second.get("input") != first["input"]
                     or second.get("chart") or second.get("image_number") != 2):
