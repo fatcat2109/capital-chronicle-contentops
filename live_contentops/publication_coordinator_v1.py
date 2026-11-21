@@ -407,12 +407,22 @@ def normalize_readback_result(
 # Refusals made locally, before any platform call; they never skip a destination for the ET day (CC-401).
 LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
     "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
-    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED",
     "NEO_PUBLICATION_SURFACE_UNREGISTERED",
     "CC684_LINKEDIN_MEMBER_API_RETIRED", "CC684_LINKEDIN_SUBSTACK_LINK_REQUIRED",
     "CC684_LINKEDIN_TRADINGVIEW_CHART_REQUIRED", "CC684_LINKEDIN_CHART_OUTSIDE_ITEM_MEDIA_FOLDER",
     "LINKEDIN_CHART_PREVIEW_UNAVAILABLE",
 })
+
+COMPOSER_REFUSALS_BEFORE_WRITE = frozenset({
+    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED", "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH",
+})
+
+
+def _local_dispatch_refusal(detail):
+    cause = detail.get("reason_code") or detail.get("safe_error_classification")
+    if cause in COMPOSER_REFUSALS_BEFORE_WRITE:
+        return detail.get("status") == DEFINITE_NO_WRITE
+    return cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
 
 
 def _x_platform_day_failure(detail):
@@ -2922,14 +2932,11 @@ class DurablePublicationCoordinator:
                     # A plan Note's uncertain send remains on that exact dispatch.
                     incident_id += "_after_local_prewrite_repair"
                     continue
-                local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                local = failure and (_local_dispatch_refusal(failure)
                     or self._transient_readiness_failure(failure)
                     or failure.get("plan_preclick_retry") is True
                     or _local_missing_threads_text(destination, failure) or _local_identity_refusal(destination, failure)
                     or _local_instagram_validation_failure(destination, failure))
-                if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
-                        "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}:
-                    local = failure.get("status") == DEFINITE_NO_WRITE
                 confirmed = False
                 if failure and failure.get("dispatch_id"):
                     dispatch_id = failure["dispatch_id"]
@@ -3050,9 +3057,8 @@ class DurablePublicationCoordinator:
                 or self._transient_readiness_failure(detail)
                 or detail.get("plan_preclick_retry") is True
                 or _local_missing_threads_text(destination, detail) or _local_identity_refusal(destination, detail)
-                or _local_instagram_validation_failure(destination, detail)) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
-                and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
-                     or detail.get("status") == DEFINITE_NO_WRITE)):
+                or _local_instagram_validation_failure(destination, detail)
+                or _local_dispatch_refusal(detail)):
             return
         incident_id, day, _ = self._destination_failure_cursor(destination, instant)
         self.store.register_incident(incident_id=incident_id,
