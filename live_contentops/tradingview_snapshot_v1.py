@@ -11,7 +11,7 @@ machine processing of TradingView content: one snapshot per post, displayed only
 
 CC-459: plan posts share one capture per market for 15 minutes. Two capture attempts fit within
 a five-minute wait; the run budget defers capture, never substitutes a drawn levels picture.
-After failure, text-capable destinations use text and image-required destinations are skipped.
+New plan cards keep a plain checked download or a source-bound fact card when capture fails.
 
 TradingView's guest chart refuses native drawings ("Cannot create shape"). CC-459 instead
 places Capital Chronicle's supplied public plan levels on a copy of the download, against
@@ -53,6 +53,8 @@ RATIOS = {"16:9": (16, 9), "4:5": (4, 5)}
 VIEWPORT = {"width": 1910, "height": 850}
 PORTRAIT_VIEWPORT = {"width": 1472, "height": 1350}
 TIMEOUT_SECONDS = 60
+PLAN_RETRY_TIMEOUT_SECONDS = 90
+PRICE_SCALE_MISMATCH = "TRADINGVIEW_PRICE_SCALE_MISMATCH"
 PLAYWRIGHT_PYTHON = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v1-runtime\venv\Scripts\python.exe")
 OUTCOMES = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\tradingview_snapshot_outcomes_v1.jsonl")
 RIGHTS_BASIS = ("TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in "
@@ -79,7 +81,7 @@ PLAN_ATTEMPTS = 2
 
 def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
                   now: datetime | None = None, ratio: str = "16:9", image_input=None,
-                  source_snapshot=None, required_chart=False) -> dict | None:
+                  source_snapshot=None, required_chart=False, plan_post=False) -> dict | None:
     """Use the shared cache or make a bounded capture for this plan and ratio.
 
     Only image artifacts are cached; this is not another scheduler or publication store.
@@ -116,6 +118,9 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     def save():
         state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
 
+    def plain_asset():
+        return snapshot_asset(market, title, state["plain_snapshot"], media, ratio)
+
     cache_file = folder.parent / "tradingview_cache" / (market.replace(":", "-") + suffix + ".json")
     taken = None
     try:
@@ -123,6 +128,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         captured = _utc(cached.get("captured_at_utc"))
         if (captured and 0 <= (now - captured).total_seconds() < PLAN_CACHE_SECONDS
                 and cached.get("tv_symbol") == tv_symbol
+                and (not plan_post or cached.get("interval") == interval)
                 and Path(cached["path"]).is_file() and _sha256(Path(cached["path"])) == cached["sha256"]):
             taken = cached
     except (OSError, ValueError, KeyError, TypeError):
@@ -141,7 +147,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         prior = state["snapshot"]
         if prior.get("tv_symbol") == tv_symbol and _sha256(Path(prior["path"])) == prior["sha256"]:
             taken = prior
-    if taken:
+    if taken and not (plan_post and state.get("status") in {"PLAIN_SNAPSHOT", "PLAN_CARD"}):
         asset = image_asset(taken)
         validate_snapshot_asset(asset)
         if state.get("status") != "CAPTURED":
@@ -162,6 +168,10 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             if image_input:
                 raise SnapshotPending(cause)
             return None
+    if plan_post and state.get("status") == "PLAIN_SNAPSHOT":
+        return plain_asset()
+    if plan_post and state.get("status") == "PLAN_CARD":
+        raise SnapshotUnavailable(state["cause"])
     deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
     while state["attempts"] < PLAN_ATTEMPTS and datetime.now(timezone.utc) < deadline:
         if snapshot_allowed is not None and not snapshot_allowed():
@@ -177,22 +187,38 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
                          snapshot(market, interval, media / "4x5", ratio=ratio))
             else:
                 remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
-                taken = capture(market, interval, media / "4x5" if suffix else media,
-                    timeout=min(TIMEOUT_SECONDS, max(1, remaining)), ratio=ratio,
+                retry = plan_post and state["attempts"] > 1
+                capture_dir = media / "4x5" if suffix else media
+                if plan_post:
+                    capture_dir = capture_dir / f"attempt-{state['attempts']}"
+                taken = capture(market, interval, capture_dir,
+                    timeout=min(PLAN_RETRY_TIMEOUT_SECONDS if retry else TIMEOUT_SECONDS, max(1, remaining)),
+                    ratio=ratio, **({"allow_plain_scale_mismatch": True, "reset_price_scale": retry} if plan_post else {}),
                     **({"chart_size":(1600,700) if ratio=="16:9" else (1080,850)} if image_input else {}))
+            if plan_post and taken.get("plain_price_scale_cause") == PRICE_SCALE_MISMATCH:
+                state["plain_snapshot"] = taken
+                raise SnapshotError(PRICE_SCALE_MISMATCH)
             asset = image_asset(taken)
             validate_snapshot_asset(asset)
             state.update(status="CAPTURED", snapshot=taken, cache_hit=False)
             save()
             cache_file.parent.mkdir(parents=True, exist_ok=True)
             cache_file.write_text(json.dumps(taken, sort_keys=True), encoding="utf-8")
-            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+            record_outcome({k: v for k, v in state.items() if k not in {"snapshot", "plain_snapshot"}})
             return asset
         except Exception as exc:
             state.setdefault("first_cause", str(exc)[:200])
             state["cause"] = str(exc)[:200]
             save()
     state.update(status="TEXT_ONLY", cause=state.get("first_cause") or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED")
+    if plan_post:
+        plain = state.get("plain_snapshot")
+        state["status"] = "PLAIN_SNAPSHOT" if plain else "PLAN_CARD"
+        save()
+        record_outcome({k: v for k, v in state.items() if k != "plain_snapshot"})
+        if plain:
+            return plain_asset()
+        raise SnapshotUnavailable(state["cause"])
     if image_input:
         state["status"] = "IMAGE_HELD"
     save()
@@ -205,6 +231,60 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
 
 
 # Jim decision 87 (CC-316): memory measurements never gate capture.
+
+
+def late_plan_snapshot(row, folder, late, *, snapshot=None, snapshot_allowed=None):
+    """Use a new checked chart for the confirmed copy, with one later capture if needed."""
+    market = row["symbol"]
+    interval = interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
+    failures = [json.loads(path.read_bytes()) for path in folder.glob("tradingview_capture*_v1.json")]
+    failed_at = min((_utc(s["started_at_utc"]) for s in failures
+                     if s.get("status") in {"PLAN_CARD", "PLAIN_SNAPSHOT"}), default=None)
+    if failed_at is None:
+        return None
+    state_path = late / "tradingview_capture_v1.json"
+    prior = json.loads(state_path.read_bytes()) if state_path.is_file() else {}
+    cache = folder.parent / "tradingview_cache"
+    cached = [json.loads(path.read_bytes()) for path in (cache / (market + ".json"),
+                                                        cache / (market + "_cc465.json")) if path.is_file()]
+
+    def asset(taken):
+        from .publication_image_contract_v1 import validate_scale
+
+        if (not taken or taken.get("tv_symbol") != SYMBOLS[market] or taken.get("interval") != interval
+                or (captured := _utc(taken.get("captured_at_utc"))) is None or captured <= failed_at
+                or taken.get("plain_price_scale_cause")):
+            return None
+        validate_scale(market, taken)
+        image = snapshot_asset(market, row["instrument_title"], taken, late / "media_assets")
+        validate_snapshot_asset(image, {"market_asset": market})
+        return image
+
+    for taken in (prior.get("snapshot"), *cached):
+        try:
+            if image := asset(taken):
+                return image
+        except (OSError, ValueError, KeyError):
+            continue
+    if prior or (snapshot_allowed is not None and not snapshot_allowed()):
+        return None
+    late.mkdir(parents=True, exist_ok=True)
+    try:
+        with state_path.open("x", encoding="utf-8") as handle:
+            json.dump({"status": "STARTED"}, handle)
+    except FileExistsError:
+        return None
+    try:
+        media = late / "media_assets"
+        taken = (snapshot(market, interval, media) if snapshot else
+                 capture(market, interval, media, timeout=PLAN_RETRY_TIMEOUT_SECONDS, reset_price_scale=True))
+        image = asset(taken)
+        state = {"status": "CAPTURED", "snapshot": taken} if image else {"status": "FAILED", "cause": "LATE_CHART_CAPTURE_UNBOUND"}
+    except (OSError, ValueError, RuntimeError, KeyError) as exc:
+        image = None
+        state = {"status": "FAILED", "cause": str(exc)[:200]}
+    state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+    return image
 
 
 def _utc(value: Any) -> datetime | None:
@@ -324,7 +404,8 @@ def _run_worker(args: dict, *, timeout: float, python: str | None) -> dict:
 
 def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEOUT_SECONDS,
             worker=None, python: str | None = None, ratio: str = "16:9", quote_provider=None,
-            chart_size: tuple[int, int] | None = None) -> dict:
+            chart_size: tuple[int, int] | None = None, reset_price_scale=False,
+            allow_plain_scale_mismatch=False) -> dict:
     """One TradingView Download image of the market at the interval, checked before use."""
     economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(market)))
     if (market not in SYMBOLS and not economic) or interval not in INTERVAL_LABELS or ratio not in RATIOS:
@@ -337,6 +418,8 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
         prepare_chart_quote(market)
     args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir),
             "budget_ms": int(timeout * 1000) - 8000, "ratio": ratio}
+    if reset_price_scale:
+        args["reset_price_scale"] = True
     if chart_size is not None:
         if tuple(chart_size) not in {(1600, 700), (1080, 850)}:
             raise SnapshotError("IMAGE_CHART_CAPTURE_SIZE_UNSUPPORTED")
@@ -389,6 +472,10 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
             record_outcome({"status": "PRICE_SCALE_REFUSED", "market": market,
                 "cause": str(error), "captured_at_utc": taken["captured_at_utc"],
                 "price_scale_check": error.details, "chart_sha256": taken["sha256"]})
+            if allow_plain_scale_mismatch and str(error) == PRICE_SCALE_MISMATCH:
+                # The download already passed ticker, interval, format and size checks.
+                # The unsafe scale is retained as evidence and never used to draw levels.
+                return {**taken, "plain_price_scale_cause": str(error)}
             raise
         record_outcome({"status": "PRICE_SCALE_CHECKED", "market": market,
             "captured_at_utc": taken["captured_at_utc"],
@@ -725,18 +812,20 @@ def prepare_contract_article(article, assets, *, output_dir, selected_candidate=
 
 
 def fallback_card(*, title: str, facts: list[tuple[str, str]], dated_line: str, out_dir: Path,
-                  kicker: str = "Plan status") -> dict:
+                  kicker: str = "Plan status", ratio: str = "16:9") -> dict:
     """CC-290's fact card with the plan's own numbers, as a delivery-only post image."""
-    from live_contentops.fact_card_design_v1 import CardSpec, X_SIZE, render_fact_card
+    from live_contentops.fact_card_design_v1 import CardSpec, INSTAGRAM_SIZE, X_SIZE, render_fact_card
     packet = {"policy": POLICY, "kind": "PLAN_FACT_CARD", "title": title, "facts": [list(f) for f in facts],
               "dated_line": dated_line, "kicker": kicker}
     digest = hashlib.sha256(json.dumps(packet, sort_keys=True).encode("utf-8")).hexdigest()
-    path = Path(out_dir).resolve() / f"plan-fact-card-{digest[:20]}.png"
+    path = Path(out_dir).resolve() / f"plan-fact-card-{digest[:20]}-{ratio.replace(':', 'x')}.png"
+    size = INSTAGRAM_SIZE if ratio == "4:5" else X_SIZE
     render_fact_card(path, CardSpec(title=title, facts=tuple(facts), kicker=kicker, dated_line=dated_line),
-                     size=X_SIZE)
-    width, height = X_SIZE
+                     size=size)
+    width, height = size
     alt = title + ". " + ". ".join(f"{k}: {v}" for k, v in facts) + ". " + dated_line
-    return {"asset_id": "plan-fact-card-" + digest[:20], "path": str(path), "sha256": _sha256(path),
+    return {"asset_id": "plan-fact-card-" + digest[:20] + "-" + ratio.replace(":", "x"),
+            "path": str(path), "sha256": _sha256(path),
             "width": width, "height": height, "mime_type": "image/png",
             "modality": "plan_fact_card", "card_kind": "PLAN_FACT_CARD",
             "media_role": "delivery_only", "role": "plan_facts", "delivery_only": True,
@@ -794,6 +883,9 @@ def _worker(args: dict) -> dict:
             page.wait_for_function(
                 "() => { const t = document.title || ''; return /\\d/.test(t); }", timeout=budget // 4)
             page.wait_for_timeout(2500)  # last bars paint
+            if args.get("reset_price_scale"):
+                page.locator('[data-name="price-axis-A"] canvas').first.dblclick(timeout=5000)
+                page.wait_for_timeout(500)
             legend = page.evaluate("""() => {
                 const q = s => [...document.querySelectorAll(s)].map(e => e.innerText.trim()).filter(Boolean);
                 return [...q('[data-name="legend-source-title"]'), ...q('[data-qa-id="legend-source-title"]'),

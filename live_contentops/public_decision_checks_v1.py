@@ -435,6 +435,9 @@ class PublicCopy:
             root = Path(folder).resolve()
             if root.is_relative_to(runtime):
                 assets = [*assets, *object_json(root / "delivery_media_manifest_v1.json").get("assets", [])]
+                if self.intent.get("plan_status_post") and ids:
+                    context = object_json(root / "run_context_v1.json")
+                    assets = [*assets, *((context.get("media") or {}).get("assets") or [])]
         if ids is not None:
             return [asset for asset in assets if (asset.get("media_asset_id") or asset.get("asset_id")) in ids]
         return [asset for asset in assets if asset.get("article_inclusion") is not False]
@@ -643,14 +646,20 @@ class DecisionChecks:
         if not expected:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
-        symbols = sorted({symbol for asset in copy.media(self.runtime) if (symbol := _media_symbol(asset))})
+        assets = copy.media(self.runtime)
+        symbols = sorted({symbol for asset in assets if (symbol := _media_symbol(asset))})
+        chart_causes = sorted({cause for asset in assets if (cause :=
+            (asset.get("plan_chart_fallback") or {}).get("cause")
+            or (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))})
         cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
-                 else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols else None)
+                 else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols
+                 else "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED" if chart_causes else None)
         if not cause and plan_post and copy.observed_image is not True:
             self.check("82", copy, "MARKET_TRADINGVIEW_CHART_UNVERIFIED", status="UNVERIFIED", market=market,
                        expected_symbol=expected)
         else:
-            self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols)
+            self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols,
+                       **({"chart_causes": chart_causes} if chart_causes else {}))
 
     def _coverage(self, delivery):
         for copy in delivery.get("copies", []):
@@ -812,7 +821,7 @@ class DecisionChecks:
 
     def finish(self, delivery, analysis_urls, *, plan_export=None, announced=(), plan_source_error=None,
                plan_cutoff=None):
-        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART
+        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, LATE_CHART_PART
         from .plan_reader_copy_v1 import NINE_LAYER_COPY
 
         self._wraps()
@@ -829,7 +838,8 @@ class DecisionChecks:
                 discord[copy.source.get("key") or copy.piece].append(copy)
             part = copy.intent.get("plan_status_part")
             key = copy.source.get("key")
-            if (key and type(part) is int and part > 0 and copy.piece == f"{key}-part-{part}"
+            if (key and type(part) is int and part > 0 and part != LATE_CHART_PART
+                    and copy.piece == f"{key}-part-{part}"
                     and not (copy.platform == "discord" and part == DISCORD_CHANNEL_PART
                              and (copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post")))):
                 parts[(key, copy.platform)].append((part, copy))
@@ -838,7 +848,8 @@ class DecisionChecks:
         for chain in replies.values():
             chain.sort(key=lambda copy: (copy.published_at or copy.dispatched_at or copy.verified_at, copy.piece))
         channel_arrivals = {key for key, copies in discord.items()
-                            if any(copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post")
+                            if any(copy.intent.get("plan_status_part") != LATE_CHART_PART
+                                   and (copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
                                    for copy in copies)}
         fills_and_results = set()
         counted_gaps = set()
@@ -856,7 +867,8 @@ class DecisionChecks:
             source = copy.source
             plan = source.get("source_plan") or {}
             plan_post = source.get("kind") in PLAN_POST_KINDS
-            channel_copy = copy.platform == "discord" and (
+            late_chart = plan_post and copy.intent.get("plan_status_part") == LATE_CHART_PART
+            channel_copy = copy.platform == "discord" and not late_chart and (
                 copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
             plan_part = plan_post and bool(copy.intent.get("plan_status_part")) and not channel_copy
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
@@ -876,7 +888,7 @@ class DecisionChecks:
                 if copy.platform == "discord":
                     self._discord(copy, channel_arrivals)
             market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
-            if not plan_part:
+            if not plan_part or late_chart:
                 self._chart(copy, market, plan_post=plan_post)
             text = copy.visible_text + "\n" + copy.title
             self.check("90", copy, "PUBLIC_TIMEZONE_ET_REQUIRED"

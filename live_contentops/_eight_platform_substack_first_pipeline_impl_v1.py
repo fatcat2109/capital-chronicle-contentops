@@ -4698,6 +4698,10 @@ def _publish_one_destination_from_durable_intent(
             public_screenshot_path=output_dir / "public_youtube_community_readback.png",
         )
     if destination == "telegram":
+        from .plan_call_cards_v1 import LATE_CHART_PART
+        status_post = intent.get("plan_status_post")
+        if status_post and intent.get("plan_status_part") == LATE_CHART_PART:
+            status_post = intent["work_item_id"]
         long_card = payloads[destination].get("telegram_text_with_card_preview")
         if long_card and not data.get("public_image_url"):
             return {"status":"FAILED_BEFORE_WRITE","definite_no_write":True,
@@ -4720,8 +4724,7 @@ def _publish_one_destination_from_durable_intent(
             # post itself (the link plus the post key, never shown); an exact re-send of the
             # same post is still refused.
             # Decision 83: a status post carries no link; its guard identity is the channel plus the post key.
-            guard_canonical_url=(f"https://t.me/CapitalChronicle?status_post={intent['plan_status_post']}"
-                                 if intent.get("plan_status_post") else None),
+            guard_canonical_url=(f"https://t.me/CapitalChronicle?status_post={status_post}" if status_post else None),
             **({"reply_to_message_id": payloads[destination]["reply_to_id"]}
                if payloads[destination].get("reply_to_id") else {}),
         )
@@ -4918,7 +4921,9 @@ def _readback_one_destination_from_durable_intent(
             expected_caption=text if package.get("carousel_images") else None)
     elif destination in {"facebook_page", "instagram_business"} and public_object_id and (payloads.get(destination) or {}).get("own_call_comment"):
         from .plan_call_cards_v1 import readback_own_comment
-        result = readback_own_comment(destination, public_object_id, payloads[destination]["reply_to_id"], text)
+        from .plan_call_cards_v1 import LATE_CHART_PART
+        result = readback_own_comment(destination, public_object_id, payloads[destination]["reply_to_id"], text,
+            **({"chart_path": image_path} if intent.get("plan_status_part") == LATE_CHART_PART else {}))
     elif destination == "facebook_page" and public_object_id:
         from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
         result = readback_facebook_post(

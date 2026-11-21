@@ -314,6 +314,44 @@ def bounded_text_fallback(article, output_dir, *, now=None):
     return state
 
 
+def _plan_capture_states(row, folder, ratio):
+    member = folder.parent / row["key"]
+    suffix = "_4x5" if ratio == "4:5" else ""
+    for template in ("", "_cc465"):
+        path = member / f"tradingview_capture{suffix}{template}_v1.json"
+        if path.is_file():
+            state = json.loads(path.read_bytes())
+            if state.get("key") == row["key"] and state.get("market") == row["symbol"]:
+                yield state
+
+
+def _validate_plan_card(asset, row, folder, destination):
+    from PIL import Image
+    from .plan_status_posts_v1 import plan_facts
+    from .tradingview_snapshot_v1 import _sha256
+
+    binding = asset.get("plan_chart_fallback") or {}
+    ratio = "4:5" if destination == "instagram_business" else "16:9"
+    if (not row or row.get("format") != 4 or binding.get("key") != row["key"]
+            or binding.get("market") != row["symbol"] or binding.get("ratio") != ratio):
+        raise ImageContractError("PLAN_CHART_FALLBACK_BINDING_INVALID")
+    member = folder.parent / row["key"]
+    if not any(state.get("status") == "PLAN_CARD" and state.get("cause") == binding.get("cause")
+               for state in _plan_capture_states(row, folder, ratio)):
+        raise ImageContractError("PLAN_CHART_FALLBACK_CAPTURE_UNBOUND")
+    packet = asset.get("data_card_packet") or {}
+    path = Path(asset["path"]).resolve()
+    if (packet.get("facts") != [list(fact) for fact in plan_facts(row)]
+            or not path.is_relative_to((member / "media_assets").resolve())
+            or _sha256(path) != asset["sha256"]):
+        raise ImageContractError("PLAN_CHART_FALLBACK_CARD_CHANGED")
+    with Image.open(path) as image:
+        if image.format != "PNG" or image.size != (asset["width"], asset["height"]) or (
+                ratio == "4:5" and image.width * 5 != image.height * 4):
+            raise ImageContractError("PLAN_CHART_FALLBACK_IMAGE_INVALID")
+    return binding
+
+
 def validate_write(coordinator, intent, destination):
     """Check actual transport-selected media, once, for every fresh post type."""
     if coordinator._clock() < EFFECTIVE_FROM:
@@ -326,12 +364,17 @@ def validate_write(coordinator, intent, destination):
         article, _, _ = article_inputs(intent)
     else:
         article = intent.get("article") or {}
+    late_chart = False
     if intent.get("plan_status_post"):
-        from .plan_call_cards_v1 import ANALYSIS_FIRST_PART, _reference
+        from .plan_call_cards_v1 import ANALYSIS_FIRST_PART, LATE_CHART_PART, _reference
         from .plan_reader_copy_v1 import NINE_LAYER_COPY
         from .plan_status_posts_v1 import _row_payload, validate_status_post_intent
         row = _row_payload(coordinator.store, intent["plan_status_post"])
-        if row.get("analysis_copy_contract") == NINE_LAYER_COPY and intent.get("plan_status_part", 0) >= ANALYSIS_FIRST_PART:
+        part = intent.get("plan_status_part", 0)
+        late_chart = row.get("format") == 4 and part == LATE_CHART_PART
+        if late_chart:
+            validate_status_post_intent(coordinator.store, intent)
+        elif row.get("analysis_copy_contract") == NINE_LAYER_COPY and part >= ANALYSIS_FIRST_PART:
             # The exact continuation belongs to the already illustrated plan post.
             # Check the frozen text and confirmed parent before reusing that binding.
             validate_status_post_intent(coordinator.store, intent)
@@ -415,6 +458,13 @@ def validate_write(coordinator, intent, destination):
         raise ImageContractError("MACRO_SOURCE_GRAPH_REQUIRED" if macro else "TRADINGVIEW_FIRST_IMAGE_REQUIRED")
     from . import tradingview_snapshot_v1 as tv
     lead = assets[0]
+    fallbacks = []
+    plan_folder = Path(intent["output_dir"]) if intent.get("plan_status_post") else None
+    for asset in assets:
+        if plan_folder and asset.get("modality") == "plan_fact_card":
+            binding = asset.get("plan_chart_fallback") or {}
+            fallbacks.append(_validate_plan_card(asset, markets.get(binding.get("market")),
+                                                  plan_folder, destination))
     if macro and not templates:
         if image_type(lead) == "FRED_GRAPH":
             _fred(lead)
@@ -430,7 +480,8 @@ def validate_write(coordinator, intent, destination):
             return {"policy": POLICY, "markets": sorted(markets), "macro": True,
                     "first_image_type": "FRED_GRAPH"}
     else:
-        if image_type(lead) != "TRADINGVIEW_MARKET_CHART" or lead.get("preceding_card"):
+        lead_is_plan_card = lead.get("modality") == "plan_fact_card" and bool(fallbacks)
+        if (image_type(lead) != "TRADINGVIEW_MARKET_CHART" and not lead_is_plan_card) or lead.get("preceding_card"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
         for asset in assets:
             if image_type(asset) != "TRADINGVIEW_MARKET_CHART":
@@ -440,7 +491,17 @@ def validate_write(coordinator, intent, destination):
             if not market:
                 raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
             tv.validate_snapshot_asset(asset, {"market_asset": market})
+            if (plan_folder and markets[market] and markets[market].get("format") == 4
+                    and snap.get("plain_price_scale_cause") == tv.PRICE_SCALE_MISMATCH
+                    and not asset.get("plan_overlay") and not asset.get("image_template")):
+                if not any(state.get("status") == "PLAIN_SNAPSHOT"
+                           and (state.get("plain_snapshot") or {}).get("sha256") == snap.get("sha256")
+                           for state in _plan_capture_states(markets[market], plan_folder, snap["capture_ratio"])):
+                    raise ImageContractError("PLAN_PLAIN_TRADINGVIEW_SNAPSHOT_UNBOUND")
+                continue
             check = validate_scale(market, snap)
+            if late_chart:
+                continue  # The reply shows the market without any plan-price overlay.
             row = markets[market]
             if row:
                 levels = row.get("levels") or {}
@@ -465,12 +526,13 @@ def validate_write(coordinator, intent, destination):
         if intent.get("plan_status_post") and not (intent.get("native_payload") or {}).get("reuse_run_carousel"):
             # A multi-market root represents every member, not an arbitrary
             # first market. Single-image routes keep their established lead.
-            if destination == "instagram_business" and set(markets) != {
-                    m for m in markets for a in assets if (a.get("tradingview_snapshot") or {}).get("tv_symbol") == tv.SYMBOLS[m]}:
+            if destination == "instagram_business" and set(markets) != ({
+                    m for m in markets for a in assets if (a.get("tradingview_snapshot") or {}).get("tv_symbol") == tv.SYMBOLS[m]}
+                    | {binding["market"] for binding in fallbacks}):
                 raise ImageContractError("TRADINGVIEW_RUN_MARKET_CHART_MISSING")
     if destination == "instagram_business":
         for asset in assets:
-            if asset.get("image_template"):
+            if asset.get("image_template") or asset.get("plan_chart_fallback"):
                 continue  # The native T master and chart box were checked above.
             snap = asset.get("tradingview_snapshot") or {}
             framing = snap.get("framing") or {}
@@ -479,4 +541,5 @@ def validate_write(coordinator, intent, destination):
                     or framing.get("original_box") != [0, 0, asset["width"], asset["height"]]):
                 raise ImageContractError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
     return {"policy": POLICY, "markets": sorted(markets), "macro": macro,
-            "first_image_type": image_type(lead)}
+            "first_image_type": image_type(lead),
+            **({"plan_chart_fallback_causes": sorted({item["cause"] for item in fallbacks})} if fallbacks else {})}
