@@ -395,6 +395,34 @@ def test_stored_browser_budget_goes_to_the_newest_live_post(tmp_path, monkeypatc
     assert len(result["requests"]) == 1 and result["requests"][0]["operation_id"] == reached[0]
 
 
+def test_cc735_unreadable_copy_yields_to_the_next_copy(tmp_path, monkeypatch):
+    from live_contentops import native_neo_executor_v1
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    other = dispatch(store, retained(store, "other", hours=2), "substack_notes", "UNKNOWN_WRITE")
+    latest = dispatch(store, retained(store, "latest", hours=1), "x", "UNKNOWN_WRITE")
+    for ids in (latest, other):
+        row = store.get_outbox_message(ids["message_id"])
+        store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+            work_item_id=row["work_item_id"], status="RECONCILIATION_PENDING")
+
+    class Coordinator:
+        def recover_plan_copy(self, dispatch_id):
+            store.register_readback(readback_id="unreadable-" + dispatch_id, dispatch_id=dispatch_id,
+                readback_data=json.dumps({"readback": {"reason_code": "PUBLIC_PLAN_FEED_COVERAGE_UNVERIFIED"}}))
+            return {"reconciliation_status": "RECONCILIATION_PENDING"}
+
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator",
+        lambda *args, **kwargs: (Coordinator(), None))
+    first = neo.resume_stored_requests(store, limit=1)["requests"][0]
+    assert first["dispatch_id"] == latest["dispatch_id"]
+    assert first["cause"] == "PUBLIC_PLAN_FEED_COVERAGE_UNVERIFIED"
+    second = neo.resume_stored_requests(store, limit=1)["requests"][0]
+    assert second["dispatch_id"] == other["dispatch_id"]
+    assert all(store.get_platform_dispatch(ids["dispatch_id"])["status"] == "UNKNOWN_WRITE"
+               for ids in (latest, other))
+
+
 def test_minute_record_reports_live_queue_after_settlement_without_losing_recent_work(tmp_path, monkeypatch):
     from live_contentops import plan_analysis_pages_v1 as pages
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")

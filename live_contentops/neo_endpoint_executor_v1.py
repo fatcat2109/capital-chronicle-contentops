@@ -1419,7 +1419,9 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
     started = time.monotonic()
     outcomes, processed_dispatches = [], set()
     with store.get_read_only_connection() as conn:
-        owed = [dict(row) for row in conn.execute("""SELECT d.dispatch_id, d.platform, o.work_item_id
+        owed = [dict(row) for row in conn.execute("""SELECT d.dispatch_id, d.platform, o.work_item_id,
+            COALESCE((SELECT MAX(b.read_at) FROM readbacks b WHERE b.dispatch_id=d.dispatch_id),
+                r.reconciled_at) AS last_read_at
             FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
             LEFT JOIN reconciliations r ON r.reconciliation_id='reconciliation_' || substr(d.dispatch_id, 10)
             WHERE d.platform IN ('x', 'substack_notes') AND (
@@ -1429,7 +1431,7 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
                  OR json_extract(o.payload,'$.plan_analysis_link') GLOB 'plan-analysis-*')
             AND o.status<>'PLAN_POST_SETTLED'
             AND d.platform NOT IN (SELECT value FROM json_each(?))
-            ORDER BY r.reconciled_at IS NOT NULL, julianday(r.reconciled_at), d.dispatched_at DESC, d.dispatch_id LIMIT ?""",
+            ORDER BY last_read_at IS NOT NULL, julianday(last_read_at), d.dispatched_at DESC, d.dispatch_id LIMIT ?""",
             (json.dumps(list(barred_browser_destinations())), limit))]
     for row in owed:
         if time.monotonic() - started >= budget_seconds:
@@ -1441,8 +1443,15 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         processed_dispatches.add(dispatch_id)
         try:
             result = coordinator.recover_plan_copy(dispatch_id)
-            outcome = {"status": result.get("reconciliation_status") or result.get("status"),
-                       "cause": result.get("reason_code") or result.get("safe_error_classification"),
+            status = result.get("reconciliation_status") or result.get("status")
+            cause = result.get("reason_code") or result.get("safe_error_classification")
+            if not cause and status == "RECONCILIATION_PENDING":
+                observations = store.list_readbacks_for_dispatch(dispatch_id)
+                if observations:
+                    reason = json.loads(observations[-1]["readback_data"]).get("readback", {}).get("reason_code")
+                    if isinstance(reason, str) and re.fullmatch(r"PUBLIC_PLAN_[A-Z0-9_]{1,100}", reason):
+                        cause = reason
+            outcome = {"status": status, "cause": cause,
                        "public_object_url": (store.get_platform_dispatch(dispatch_id) or {}).get("public_object_url")}
         except (ValueError, OSError, NeoEndpointError) as exc:
             outcome = {"status": "NOT_COMPLETED", "cause": str(exc)[:160]}
