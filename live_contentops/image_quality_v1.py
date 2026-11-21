@@ -22,6 +22,7 @@ from .image_template_inputs_v1 import digest
 MANDATORY = {1, 2, 3, 5, 7, 9}
 VISION_POLICY = "cc465-image-roles-v5"
 VISION_SAMPLE_PENDING = "SAMPLE_PENDING"
+SAMPLE_NOT_SCORED = {VISION_SAMPLE_PENDING, "REVIEW_UNAVAILABLE"}
 TEMPLATE_FIT_CAUSES = frozenset({
     "IMAGE_CHART_CAPTURE_SHAPE", "IMAGE_CHART_CAPTURE_TOO_SMALL", "IMAGE_PRICE_GEOMETRY_REQUIRED",
     "IMAGE_LEVELS_OUT_OF_VIEW", "IMAGE_LEVEL_LABEL_DOES_NOT_FIT", "IMAGE_LEVEL_LABEL_COLLISION",
@@ -295,7 +296,7 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     else:
         review=review_vision(asset,runner=vision_runner)
     asset["image_quality"]=combine(code,review)
-    pending = sample_after_publication and review.get("status") == VISION_SAMPLE_PENDING
+    pending = sample_after_publication and review.get("status") in SAMPLE_NOT_SCORED
     if pending:
         asset["image_quality"]["image_record_path"] = str(record_path)
     record_path.write_text(json.dumps(asset,ensure_ascii=False,indent=2),encoding="utf-8")
@@ -304,6 +305,39 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     if not pending and not asset["image_quality"]["passed"]:
         raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
     return asset
+
+
+def sampled_review(image, *, run_vision=False, vision_runner=None):
+    """Resolve or complete an exact-pixel review in the existing image sidecar."""
+    registered = image["image_quality"]
+    if (registered.get("vision") or {}).get("status") != VISION_SAMPLE_PENDING:
+        return registered
+    try:
+        path = Path(registered["image_record_path"])
+        asset = json.loads(path.read_bytes())
+        quality = asset["image_quality"]
+        if (path.resolve() != Path(asset["path"]).with_suffix(".json").resolve()
+                or asset["sha256"] != image["sha256"] or quality["image_sha256"] != image["sha256"]
+                or any(quality[key] != registered[key] for key in ("template", "master"))):
+            raise ValueError("IMAGE_SAMPLE_RECORD_BINDING_CHANGED")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {**registered, "sample_cause": str(exc) if str(exc) == "IMAGE_SAMPLE_RECORD_BINDING_CHANGED"
+                else "IMAGE_SAMPLE_RECORD_UNAVAILABLE"}
+    if not run_vision or quality["vision"]["status"] != VISION_SAMPLE_PENDING:
+        return quality
+    code = code_check(asset)
+    review = (review_vision(asset, runner=vision_runner) if code["passed"] else
+              {"points": {}, "status": "CODE_REFUSED", "cause": code["causes"][0]})
+    quality = {**combine(code, review), "image_record_path": str(path)}
+    asset["image_quality"] = quality
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as handle:
+        updated = Path(handle.name)
+        json.dump(asset, handle, ensure_ascii=False, indent=2)
+    try:
+        updated.replace(path)
+    finally:
+        updated.unlink(missing_ok=True)
+    return quality
 
 
 def daily_sample(records,day,*,rng=None):
@@ -317,8 +351,10 @@ def daily_sample(records,day,*,rng=None):
             q=image.get("image_quality") or {};key=image.get("sha256")
             if q.get("template") and key not in seen:
                 candidates.setdefault(q["template"],[]).append(image);seen.add(key)
-    chooser=rng or random.SystemRandom()
-    return [chooser.choice(values) for _,values in sorted(candidates.items())]
+    # The weekly check must choose the same images as the daily check.
+    chooser=rng or random.Random(day)
+    return [chooser.choice(sorted(values, key=lambda image: image["sha256"]))
+            for _,values in sorted(candidates.items())]
 
 
 def weekly_sample(reviews):
@@ -328,13 +364,17 @@ def weekly_sample(reviews):
             "images":[r["image_sha256"] for r in values]}
 
 
-def publication_sample(records,day,*,rng=None):
+def publication_sample(records,day,*,rng=None,run_vision=False,vision_runner=None):
     """Only observed publications in this seven-day window can prove the week."""
     end=date.fromisoformat(day)
     days=[(end-timedelta(days=i)).isoformat() for i in reversed(range(7))]
-    selected=[image for at in days for image in daily_sample(records,at,rng=rng)]
-    return {"day":day,"images":daily_sample(records,day,rng=rng),
-            "weekly":{**weekly_sample([i["image_quality"] for i in selected]),
+    selected = {at: [{**image, "image_quality": sampled_review(image, run_vision=run_vision and at == day,
+                                                              vision_runner=vision_runner)}
+                     for image in daily_sample(records, at, rng=rng)] for at in days}
+    reviewed = [image["image_quality"] for images in selected.values() for image in images
+                if (image["image_quality"].get("vision") or {}).get("status") in {"REVIEWED", None}]
+    return {"day":day,"images":selected[day],
+            "weekly":{**weekly_sample(reviewed),
                       "start_day":days[0],"end_day":day}}
 
 

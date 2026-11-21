@@ -106,6 +106,7 @@ def main():
     r=sub.add_parser("render");r.add_argument("--manifest",type=Path,required=True);r.add_argument("--output",type=Path,required=True);r.add_argument("--vision",action="store_true")
     v=sub.add_parser("review");v.add_argument("--asset",type=Path,required=True)
     a=sub.add_parser("sample");a.add_argument("--register",type=Path,required=True);a.add_argument("--day",required=True);a.add_argument("--output",type=Path,required=True)
+    a.add_argument("--vision", action="store_true", help="review the day's selected exact published PNGs")
     args=parser.parse_args()
     if args.command=="capture":capture_previews(args.output.resolve(),args.markets,args.masters)
     elif args.command=="render":args.output.mkdir(parents=True,exist_ok=True);build(args.manifest,args.output.resolve(),vision=args.vision)
@@ -114,7 +115,7 @@ def main():
         print(json.dumps({"asset":str(args.asset),"score":asset["image_quality"]["score"],"passed":asset["image_quality"]["passed"],"vision":asset["image_quality"]["vision"]["status"]}))
     else:
         records=[json.loads(line) for line in args.register.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
-        sample=publication_sample(records,args.day)
+        sample=publication_sample(records,args.day,run_vision=args.vision)
         write(args.output,sample)
         print(json.dumps({"selected":len(sample["images"]),"output":str(args.output)}))
 

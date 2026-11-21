@@ -366,7 +366,7 @@ def validate_write(coordinator, intent, destination):
         if (any(a["image_template"].get("chart") for a in templates)
                 and (article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"})):
             raise ImageContractError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
-        from .image_quality_v1 import VISION_SAMPLE_PENDING, validate_asset
+        from .image_quality_v1 import SAMPLE_NOT_SCORED, sampled_review, validate_asset
         reviewed = []
         for asset in templates:
             needs_vision = True
@@ -374,7 +374,12 @@ def validate_write(coordinator, intent, destination):
                 from .image_template_inputs_v1 import for_plan_post
                 if for_plan_post(row) != asset["image_template"]["input"]:
                     raise ImageContractError("IMAGE_TEMPLATE_PLAN_SOURCE_CHANGED")
-                needs_vision = ((asset.get("image_quality") or {}).get("vision") or {}).get("status") != VISION_SAMPLE_PENDING
+                quality = asset.get("image_quality") or {}
+                if (quality.get("vision") or {}).get("status") in SAMPLE_NOT_SCORED:
+                    review = sampled_review(asset)
+                    needs_vision = (review.get("vision") or {}).get("status") in {"REVIEWED", "CODE_REFUSED"}
+                    if needs_vision:
+                        asset = {**asset, "image_quality": review}
             try:
                 result = validate_asset(asset, destination=destination, require_vision=needs_vision)
                 reviewed.append(result["score"] if needs_vision else None)

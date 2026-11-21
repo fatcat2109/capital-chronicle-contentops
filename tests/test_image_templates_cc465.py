@@ -592,3 +592,28 @@ def test_weekly_consumer_excludes_reservations_old_rows_and_future_publications(
     assert len(sample['images'])==1
     assert sample['weekly']['observed']==1 and not sample['weekly']['passed']
     assert sample['weekly']['start_day']=='2026-11-06'
+
+
+def test_daily_sample_resolves_the_exact_published_asset_once_and_reuses_it_for_the_week(tmp_path, monkeypatch):
+    data = input_record("call")
+    image = quality.prepare_asset(data, "W", tmp_path, capture(tmp_path), sample_after_publication=True)
+    registered = {"image_quality": image["image_quality"], "sha256": image["sha256"]}
+    rows = [{"state": "PUBLISHED", "day": "2026-11-12", "images": [registered]}]
+    original = Path(image["path"]).read_bytes()
+    seen = []
+
+    def review(candidate, **options):
+        seen.append(candidate["sha256"])
+        result = yes_review(candidate)["vision"]
+        return {**result, "status": "REVIEWED"}
+
+    monkeypatch.setattr(quality, "review_vision", review)
+    assert quality.publication_sample(rows, "2026-11-12")["weekly"]["observed"] == 0
+    daily = quality.publication_sample(rows, "2026-11-12", run_vision=True)
+    assert daily["images"][0]["image_quality"]["score"] == 10
+    assert daily["weekly"]["images"] == [image["sha256"]]
+    assert quality.publication_sample(rows, "2026-11-13", run_vision=True)["weekly"] == {
+        **daily["weekly"], "start_day": "2026-11-07", "end_day": "2026-11-13"}
+    assert quality.publication_sample(rows, "2026-11-12", run_vision=True)["weekly"] == daily["weekly"]
+    assert seen == [image["sha256"]]
+    assert Path(image["path"]).read_bytes() == original
