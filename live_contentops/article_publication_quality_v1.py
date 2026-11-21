@@ -95,11 +95,23 @@ def validate_snapshot_asset(asset, *, market=None, now=None):
             raise ImagePolicyError("TRADINGVIEW_SNAPSHOT_STALE")
 
 
-def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=None):
+def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=None, source_documents=()):
     """Wire CC-316 before review/registration, so media identities freeze once."""
     from live_contentops import tradingview_snapshot_v1 as tv
     from .publication_image_contract_v1 import EFFECTIVE_FROM
     if (now or datetime.now(timezone.utc)) >= EFFECTIVE_FROM:
+        if source_documents and not article.get("image_input_v1"):
+            from .image_template_inputs_v1 import for_event_preview
+            data = for_event_preview(article, source_documents)
+            if data:
+                from .image_quality_v1 import TEMPLATE_FIT_CAUSES
+                try:
+                    return tv.prepare_contract_article({**article, "image_input_v1": data}, assets,
+                                                       output_dir=output_dir, snapshot=capture)
+                except (ValueError, tv.SnapshotError) as exc:
+                    if str(exc) not in TEMPLATE_FIT_CAUSES:
+                        raise
+                    article = {**article, "image_template_fit_cause": str(exc)}
         return tv.prepare_contract_article(article, assets, output_dir=output_dir, snapshot=capture)
     market = article.get("market_asset")
     if market not in tv.SYMBOLS:

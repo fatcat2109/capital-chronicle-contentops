@@ -370,6 +370,9 @@ def validate_write(coordinator, intent, destination):
         reviewed = []
         for asset in templates:
             needs_vision = True
+            bound = article.get("image_input_v1")
+            if bound and asset["image_template"]["input"] != bound:
+                raise ImageContractError("IMAGE_TEMPLATE_ARTICLE_SOURCE_CHANGED")
             if row and row.get("state_alert_contract") == "CC543_V1":
                 from .image_template_inputs_v1 import for_plan_post
                 if for_plan_post(row) != asset["image_template"]["input"]:
@@ -388,6 +391,11 @@ def validate_write(coordinator, intent, destination):
         first = assets[0].get("image_template") or {}
         if first.get("template") != "weekly" and not first.get("chart"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
+        if first.get("template") in {"event", "map"}:
+            second = (assets[1].get("image_template") or {}) if len(assets) > 1 else {}
+            if (second.get("template") != first["template"] or second.get("input") != first["input"]
+                    or second.get("chart") or second.get("image_number") != 2):
+                raise ImageContractError("IMAGE_TEMPLATE_SECOND_TABLE_REQUIRED")
         for asset in templates:
             meta = asset["image_template"]
             if meta["chart"] and markets and meta["input"].get("market") not in markets:

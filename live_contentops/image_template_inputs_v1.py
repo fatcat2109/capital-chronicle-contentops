@@ -106,6 +106,42 @@ def for_plan_post(row):
     return None
 
 
+def for_event_preview(article, documents):
+    """Use the existing event clock and the article's source-bound Main scenarios."""
+    market = article.get("market_asset")
+    event = article.get("frozen_public_record") or {}
+    if (article.get("article_type") != "EVENT_PREVIEW" or market not in MARKETS
+            or not event.get("event_id") or not event.get("event_time_utc") or not article.get("scenario_analysis")):
+        return None
+    title = next((doc["event_name"] for doc in documents
+                  if doc.get("event_id") == event["event_id"] and doc.get("event_name")), article.get("title") or "")
+    if not title or len(title) > 28:
+        return None
+    from .article_scenarios_v1 import validate_article_scenarios
+    validate_article_scenarios(article, documents)
+    approved = sorted(article["scenario_analysis"], key=lambda row: row["role"] != "base_case")
+    rows = []
+    arrows = {"up": "up", "bullish": "up", "down": "down", "bearish": "down", "flat": "flat"}
+    for scenario in approved:
+        probability = Decimal(scenario["probability"][:-1])
+        reading = scenario["market_moves"][market]
+        if (probability != int(probability) or len(scenario["name"]) > 14
+                or len(scenario["confirmation"]) > 30 or len(reading) > 72):
+            return None
+        reactions = []
+        for key in (market, *(key for key in ORDER if key != market)):
+            arrow = arrows.get(scenario["market_moves"][key].strip().casefold())
+            if arrow:
+                reactions.append({"market": key, "direction": arrow})
+        rows.append({"name": scenario["name"], "trigger": scenario["confirmation"], "reading": reading,
+                     "probability_pct": int(probability), "reactions": reactions[:3]})
+    source = {"event": event, "name": title, "scenarios": approved,
+              "probability_pct": [row["probability_pct"] for row in rows]}
+    return bind({"schema": "image_input_v1", "post_id": "preview-" + digest(source)[:24], "template": "event",
+                 "market": market, "event_cutoff_utc": event["event_time_utc"],
+                 "event": {"name": title, "time_et": et(event["event_time_utc"]), "scenarios": rows}}, source)
+
+
 def bind(image_input, source_record):
     """Bind the projection and original record, outside reader-facing pixels."""
     value = deepcopy(image_input)

@@ -226,6 +226,12 @@ def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False,
                 validate_contextual_photo(row, require_pixel_review=False)
             except ValueError as exc:
                 blockers.append(f"article_media_rights_invalid:{asset_id}:{exc}")
+        elif row.get("modality") == "source_bound_data_card" and row.get("image_template"):
+            from live_contentops.image_quality_v1 import validate_asset
+            try:
+                validate_asset(row)
+            except (ValueError, OSError, KeyError) as exc:
+                blockers.append(f"article_image_template_invalid:{asset_id}:{exc}")
         elif row.get("modality") == "source_bound_data_card":
             # Reuse the article's source/rights/byte validator for an owned card.
             # A modality label alone never grants reuse of filing expression.

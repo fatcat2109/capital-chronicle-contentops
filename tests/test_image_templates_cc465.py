@@ -357,6 +357,83 @@ def test_structured_article_owner_builds_native_masters_and_platform_choices(tmp
     assert all(a["image_quality"]["passed"] for a in images)
 
 
+def test_native_media_uses_the_bound_event_preview_scenarios_and_release_clock(tmp_path, monkeypatch):
+    from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
+    from live_contentops.article_scenarios_v1 import MODEL_LABEL, NOTICES
+
+    bindings = []
+    passages = []
+    for name, role, odds, trigger, reading in (
+        ("Cool", "alternative", "30%", "Core at 0.1%", "Lower yields weigh on the dollar."),
+        ("Hot", "base_case", "55%", "Core at 0.3%", "Higher yields support the dollar."),
+    ):
+        moves = dict.fromkeys(templates.ORDER, "flat")
+        moves["USDJPY"] = reading
+        source = {"probability": odds, "confirmation": trigger, "invalidation": "A contrary release.",
+                  **{"market_moves." + key: value for key, value in moves.items()}}
+        passage = " ".join((name, MODEL_LABEL, *source.values()))
+        passages.append(passage)
+        bindings.append({"name": name, "role": role, "probability": odds, "confirmation": trigger,
+                         "market_moves": moves, "invalidation": source["invalidation"],
+                         "source_bindings": {key: {"document_id": "main-report", "support_excerpt": passage}
+                                             for key in source}})
+    content = "\n".join(passages)
+    docs = [{"document_id": "main-report", "publisher": "Capital Chronicle", "event_id": "cpi",
+             "event_name": "US CPI, October", "canonical_content_text": content,
+             "canonical_content_sha256": sha256(content.encode()).hexdigest()}]
+    article = {"title": "A longer conditional preview about October inflation", "market_asset": "USDJPY",
+               "article_type": "EVENT_PREVIEW", "frozen_public_record": {"event_id": "cpi",
+                   "event_time_utc": "2026-11-13T13:30:00+00:00"}, "scenario_analysis": bindings,
+               "substack_body_markdown": "## Scenarios\n" + content + "\n" + "\n".join(NOTICES),
+               "social_scenarios": {"base_case": "Base case: 55%.", "alternative": "Alternative: 30%."}}
+    monkeypatch.setattr(quality, "review_vision", lambda image, **options: yes_review(image)["vision"])
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    prepared, assets = prepare_market_snapshot(article, [], output_dir=tmp_path, capture=snapshot,
+                                                source_documents=docs, now=NOW)
+    image_input = prepared["image_input_v1"]
+    assert image_input["event"]["name"] == "US CPI, October"
+    assert image_input["event"]["time_et"] == "13 Nov, 8:30 AM ET"
+    assert [row["probability_pct"] for row in image_input["event"]["scenarios"]] == [55, 30]
+    assert [asset["image_template"]["image_number"] for asset in assets] == [1, 2, 1, 2]
+
+
+@pytest.mark.parametrize("template", ["event", "weekly", "map"])
+def test_structured_article_templates_reach_the_media_owner_and_coordinator(tmp_path, template):
+    from live_contentops.article_publication_quality_v1 import image_register
+    from live_contentops.cloudinary_delivery_media_v1 import _validated_local_asset
+    from live_contentops.native_desktop_editorial_v1 import validate_release_media
+    from test_publication_image_contract_cc463 import message_with
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    article, assets = quality.prepare_article_media({"image_input_v1": input_record(template)}, [],
+        output_dir=tmp_path / "media", snapshot=snapshot, vision_runner=vision_response)
+    validate_release_media({"article": article, "media_assets": assets}, require_pixel_review=False)
+    for table in [a for a in assets if not a["image_template"]["chart"]]:
+        _, blockers = _validated_local_asset(table, article_asset=True, article=article, source_documents=[])
+        assert blockers == []
+
+    _, runtime, coordinator, message = message_with(tmp_path / "run", assets,
+        image_input_v1=article["image_input_v1"])
+    path = Path(json.loads(message["payload"])["output_dir"]) / "run_context_v1.json"
+    context = json.loads(path.read_bytes())
+    context["article"]["market_asset"] = None if template == "weekly" else "USDJPY"
+    path.write_text(json.dumps(context), encoding="utf-8")
+    result = coordinator._dispatch_message(message, canonical_url=None)
+    assert result["status"] == "DISPATCH_CONFIRMED", result
+    assert runtime.publish_calls == ["substack"]
+    recorded = image_register(coordinator).records()[-1]["images"]
+    assert [image["image_quality"]["template"] for image in recorded] == [template, template]
+    if template != "weekly":
+        assert [image["image_type"] for image in recorded] == ["TRADINGVIEW_MARKET_CHART", "DRAWN_CARD"]
+
+
 def test_unsupported_image_protocol_and_no_observed_pixel_read_never_create_scores(tmp_path):
     image=asset(tmp_path)
     def rejected(args,**kwargs):

@@ -401,6 +401,9 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
     from .image_templates_v1 import CHART, WEEKLY_CAPACITY
     article=deepcopy(article)
     data=article["image_input_v1"]
+    if data["template"] != "weekly" and (article.get("paid") or article.get("paywall")
+            or article.get("audience") in {"paid", "paid_subscribers"}):
+        raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
     if article.get("retrospective") and not data.get("event_cutoff_utc"):
         raise ValueError("IMAGE_RETROSPECTIVE_CUTOFF_REQUIRED")
     images=[];choices={}
@@ -418,11 +421,16 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
             capacity=WEEKLY_CAPACITY[master]
             for page in range(1,(len(data["week"]["rows"])+capacity-1)//capacity):
                 prepared.append(prepare_asset(data,master,Path(output_dir)/"media"/"cc465",page=page,vision_runner=vision_runner))
-        if master=="T":
-            for image in prepared:image.update(derivative_only=True,article_inclusion=False,canonical_article_media=False)
+        for image in prepared:
+            image.update(media_role="delivery_only", provenance_status="VERIFIED_SOURCE_BOUND_IMAGE_TEMPLATE")
+            if image["image_template"]["chart"]:
+                image.update(source_page_url=chart["chart_url"], caption=image["alt_text"] + " Chart: TradingView.")
+            if master=="T":
+                image.update(derivative_only=True,article_inclusion=False,canonical_article_media=False)
         choices[master]=[image["asset_id"] for image in prepared]
         images.extend(prepared)
     from .destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     channels={d:choices["T" if d in {"threads","instagram_business"} else "W"] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
-    article.update(lead_image_asset_id=choices["W"][0],native_destination_media=channels,post_visual_destination_media=channels)
+    article.update(lead_image_asset_id=choices["W"][0],native_destination_media=channels,
+                   post_visual_destination_media=channels,publication_image_contract=POLICY)
     return article,images+[a for a in assets if not a.get("image_template")]
