@@ -6,11 +6,9 @@ gold card, its thread and the full-analysis reply. The old run thread has no
 card messages. CC-466 now removes count posts: new plans use their own card
 and thread, while issued objects keep their original route and bytes.
 
-The 18 November readback confirms the Micro Bitcoin ending under its original
-card on Telegram and Discord. The existing minute publisher sent the Telegram
-reply after recovering the confirmed parent. The next eligible Main plan is
-needed to verify a fresh full-analysis page and linked reply. See the
-[18 November readback](#resume--18-november-2026).
+The 21 November readback confirms the original five-card Telegram run and the
+current plan threads. Bitcoin's analysis page and both Telegram and Discord
+replies are live. See the [21 November readback](#resume--21-november-2026).
 
 The earlier ending-selection fix keeps a confirmed card available as a parent
 after its internal queue row becomes SETTLED or SUPERSEDED_NOT_POSTED. Its
@@ -303,3 +301,47 @@ is outside decision 79's first-phase list. When Main next registers an eligible
 plan, the existing minute publisher can prepare the page. Publisher then reads
 back its Substack page and linked reply under the original card.
 [Export and page state](resume-20261118/eligibility.json).
+
+## Resume — 21 November 2026
+
+The original run and the current per-plan threads both have public readback.
+The operating root contains `d75088f3f321f09b82fed64e5d71c1d122c8cad8`
+under the existing live tag. The Windows task
+`CapitalChronicle-PlanStatusPosts-V1` still invokes the plan-status consumer
+from that operating root. The observations below match the consumer's
+confirmed dispatches in the production outbox.
+
+- The 10 November run announcement is [Telegram 122](https://t.me/CapitalChronicle/122).
+  Its five cards, [123](https://t.me/CapitalChronicle/123) through
+  [127](https://t.me/CapitalChronicle/127), each quote that announcement.
+  The [Discord announcement](https://discord.com/channels/1519310996030750782/1519311669216673802/1569598929002176564)
+  is still visible. The stored Discord sends for its five cards are definite
+  no-writes from the earlier bot gap. CC-466 removed count posts for new plans.
+- The CC-673 candidates each have a fill and an ending under their own card.
+  Euro's [fill 206](https://t.me/CapitalChronicle/206) and
+  [time exit 219](https://t.me/CapitalChronicle/219) quote [205](https://t.me/CapitalChronicle/205).
+  Gold's [fill 210](https://t.me/CapitalChronicle/210) and
+  [target ending 212](https://t.me/CapitalChronicle/212) quote [209](https://t.me/CapitalChronicle/209).
+  The 20 November Gold [time exit 220](https://t.me/CapitalChronicle/220)
+  quotes [213](https://t.me/CapitalChronicle/213) and carries the exported +0.1R.
+  The corresponding Discord fills and endings are in their own card threads.
+- The 21 November Bitcoin plan has [setup 221](https://t.me/CapitalChronicle/221),
+  [ending 222](https://t.me/CapitalChronicle/222), and
+  [analysis reply 224](https://t.me/CapitalChronicle/224). Both replies quote
+  221. The ending uses CC-647's no-entry words. The
+  [Substack page](https://capitalchronicle.substack.com/p/bitcoin-bearish-below-56500-wrong)
+  gives the final cancelled status and says it was published after the plan ended.
+  Discord's [ending](https://discord.com/channels/1519310996030750782/1573474881419477056/1573488597301067836)
+  and [analysis reply](https://discord.com/channels/1519310996030750782/1573474881419477056/1573703272340914379)
+  are in the thread started by its
+  [setup card](https://discord.com/channels/1519310996030750782/1519311669216673802/1573474881419477056).
+  The analysis reply carries that exact Substack URL.
+
+The [readback record](resume-20261121/readback.json) binds 18 public Telegram
+messages and 14 Discord GET observations to their stored identities and
+separate clocks. Media evidence covers visibility. Ten focused tests passed
+on the operating root, including the copied-store run, current per-plan
+output, ending parents and canonical links. Two older gold replay cases on
+the same root returned `SOURCE_PAGE_PENDING / KeyError:'folder'` because the
+mocked analysis lacks the run folder. The current page and reply tests passed,
+and the live Bitcoin page and both platform threads were read back directly.
