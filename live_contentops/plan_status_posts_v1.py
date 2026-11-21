@@ -1513,6 +1513,7 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
                                   portrait_id=context.get("status_post_threads_image"),
                                  x_analysis=context.get("status_post_x_analysis"),
                                  chart_credit=bool(context.get("chart_credit")),
+                                 facebook_reply_images=bool(context.get("status_post_facebook_reply_images")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part,

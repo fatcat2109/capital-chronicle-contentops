@@ -519,9 +519,11 @@ def test_rendered_chart_is_bound_to_exact_call_levels_and_source(five, main_root
     assert asset["delivery_only"] and Path(asset["path"]).stat().st_size > 10000
 
 
-def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main_root, tmp_path):
+def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main_root, tmp_path, monkeypatch):
     from test_publication_coordinator_v1 import FixtureTransport, _set_mode
     from test_plan_status_publication_cc306 import fake_host
+    from live_contentops import facebook_page_adapter_v6
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _publish_one_destination_from_durable_intent
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
 
     class Recorded(FixtureTransport):
@@ -583,6 +585,33 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
         if destination == "discord":
             assert package["discord_thread_parent_id"] == cards._reference(store, run["key"], destination)["public_object_id"]
         posts.validate_status_post_intent(store, intent)
+    facebook_replies = [i for i in runtime.intents[first_count:]
+                        if i["destination_plan"]["destination"] == "facebook_page"]
+    assert len(facebook_replies) == 2
+    sent = []
+    def comment(**kwargs):
+        sent.append(kwargs)
+        return {"status": "SUCCESS", "id": "fixture-comment"}
+    monkeypatch.setattr(facebook_page_adapter_v6, "execute_facebook_comment", comment)
+    for intent in facebook_replies:
+        package = intent["native_payload"]
+        assert package["comment_card_image"] is True
+        assert posts.CHART_CREDIT in package["text"]
+        _publish_one_destination_from_durable_intent(destination="facebook_page", intent=intent,
+            authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT",
+                "dispatch_attempt_identity": intent.get("attempt_identity")})
+        assert sent[-1]["image_url"].startswith("https://")
+        assert sent[-1]["post_id"] == package["reply_to_id"]
+    assert len(sent) == 2
+    ending = next(r for r in rows(store) if r["kind"] == "result")
+    parent = {"facebook_page": cards._reference(store, ending["parent_key"], "facebook_page")}
+    fallback = cards.destination_payloads(ending, card_id=None, parents=parent, chart_credit=True,
+                                          facebook_reply_images=True, destinations=("facebook_page",))
+    assert posts.CHART_CREDIT not in fallback["facebook_page"]["text"]
+    retained = cards.destination_payloads(ending, card_id="legacy", parents=parent, chart_credit=True,
+                                          destinations=("facebook_page",))
+    assert retained["facebook_page"]["comment_card_image"] is False
+    assert posts.CHART_CREDIT in retained["facebook_page"]["text"]
 
 
 def test_unconfirmed_parent_defers_only_its_destination(five, main_root, tmp_path, monkeypatch):
