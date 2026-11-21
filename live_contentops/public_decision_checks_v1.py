@@ -413,7 +413,8 @@ class DecisionChecks:
             (asset.get("plan_chart_fallback") or {}).get("cause")
             or (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))})
         cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
-                 else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols else None)
+                 else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols
+                 else "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED" if chart_causes else None)
         self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols,
                    **({"chart_causes": chart_causes} if chart_causes else {}))
 

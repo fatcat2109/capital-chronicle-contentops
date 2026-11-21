@@ -560,7 +560,9 @@ class NeoDestinationHandoff:
             value["steps"].insert(3, "Quote the exact visible quote_parent source through its Quote composer; "
                 "attach the bound chart. Recheck its deadline before the single Post click. Read back the "
                 "quoted source id and URL inside our exact own-account post, never infer a quote from a text link.")
-        if (destination == "substack_notes" or destination == "x" and intent.get("plan_analysis_link")) \
+        from .plan_call_cards_v1 import LATE_CHART_PART
+        chart_reply = bool(intent.get("plan_status_post") and intent.get("plan_status_part") == LATE_CHART_PART)
+        if (destination == "substack_notes" or destination == "x" and (intent.get("plan_analysis_link") or chart_reply)) \
                 and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
             parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
             if not _public_url(destination, parent_url, parent_id,

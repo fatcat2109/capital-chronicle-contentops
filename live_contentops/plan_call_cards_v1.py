@@ -34,6 +34,9 @@ SETTLED_DISPATCHES = frozenset({"DISPATCH_CONFIRMED", "DEFINITE_NO_WRITE",
 SETTLED_POST = "SETTLED"
 SETTLED_COPY = "PLAN_POST_SETTLED"
 DISCORD_CHANNEL_PART = 1
+LATE_CHART_PART = 2
+# These existing transports can attach an image to an exact own-post reply.
+LATE_CHART_DESTINATIONS = frozenset({"telegram", "discord", "threads", "facebook_page", "x", "substack_notes"})
 GLOSSARY = {
     "DXY": "the US dollar index", "COT": "the futures positioning report",
     "M15": "short-interval", "M5": "short-interval", "H1": "hourly",
@@ -1291,9 +1294,6 @@ def discord_channel_payload(row, *, card_id, parents, chart_credit):
                                 destinations=("discord",), discord_channel_reply=anchor)
 
 
-def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
-    """Reuse this exact plan's confirmed article chart for its social card."""
-    if not row.get("analysis_publication") or not row.get("source_plan"):
 def route_payloads(row, *, instagram_chart_credit=None, **kwargs):
     payloads = destination_payloads(row, **kwargs)
     if (instagram_chart_credit is not None and "instagram_business" in payloads
@@ -1301,6 +1301,119 @@ def route_payloads(row, *, instagram_chart_credit=None, **kwargs):
         payloads["instagram_business"] = destination_payloads(
             row, **{**kwargs, "chart_credit": instagram_chart_credit})["instagram_business"]
     return payloads
+
+
+def _late_chart_parent(store, row, destination, context):
+    if destination not in LATE_CHART_DESTINATIONS:
+        return None
+    dispatch = _dispatch(store, row["key"], destination) or {}
+    if (dispatch.get("status") != "DISPATCH_CONFIRMED" or not dispatch.get("public_object_id")
+            or (destination in {"x", "substack_notes"} and not dispatch.get("public_object_url"))):
+        return None
+    issued = store.get_outbox_message(dispatch["message_id"])
+    if not issued:
+        return None
+    native = json.loads(issued["payload"])["native_payload"]
+    selected = set(native.get("media_asset_ids") or [])
+    if native.get("own_call_comment") and destination == "facebook_page":
+        return None  # Graph's image comment route targets a post, not another comment.
+    if not any(a["asset_id"] in selected and (a.get("plan_chart_fallback") or
+            (a.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))
+            for a in context["media"]["assets"]):
+        return None
+    parent = {"reply_to_id": str(dispatch["public_object_id"]), "reply_to_url": dispatch.get("public_object_url")}
+    if destination == "discord":
+        if thread := native.get("discord_thread_parent_id"):
+            parent.update(discord_thread_parent_id=thread, discord_thread_name="Plan chart")
+        else:
+            parent["discord_channel_reply"] = True
+    elif destination == "facebook_page":
+        parent.update(own_call_comment=True, comment_card_image=True)
+    return parent
+
+
+def late_chart_payloads(store, row, folder, context):
+    from . import tradingview_snapshot_v1 as tv
+
+    assets = context["media"]["assets"]
+    chart, = assets
+    snap = chart["tradingview_snapshot"]
+    if (chart.get("plan_overlay") or snap.get("plain_price_scale_cause")
+            or tv._utc(snap["captured_at_utc"]) <= posts._utc(row["at_utc"])):
+        raise posts.PlanPostError("PLAN_LATE_CHART_CAPTURE_INVALID")
+    text = f"Updated chart for {row['instrument_title']}.\n\n{tv.CREDIT}"
+    original = json.loads((folder.parent / "run_context_v1.json").read_bytes())
+    return {d: {"destination": d, "text": text, "full_text": text,
+                "media_asset_ids": [chart["asset_id"]], **parent}
+            for d in destinations_for(row)
+            if (parent := _late_chart_parent(store, row, d, original))}
+
+
+def _publish_late_chart(store, row, folder, coordinator_for, *, host, snapshot, snapshot_allowed):
+    from . import tradingview_snapshot_v1 as tv
+    from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+
+    key = row["key"]
+    child = f"{key}-part-{LATE_CHART_PART}"
+    path = folder / "run_context_v1.json"
+    if not path.is_file():
+        return None
+    original = json.loads(path.read_bytes())
+    if not any(a.get("plan_chart_fallback") or (a.get("tradingview_snapshot") or {}).get("plain_price_scale_cause")
+               for a in original["media"]["assets"]):
+        return None
+    chosen = [d for d in destinations_for(row) if _late_chart_parent(store, row, d, original)
+              and (_dispatch(store, child, d) or {}).get("status") not in SETTLED_DISPATCHES]
+    if not chosen:
+        return None
+    late = folder / "late-chart"
+    context_path = late / "run_context_v1.json"
+    if context_path.is_file():
+        context = json.loads(context_path.read_bytes())
+    else:
+        state_path = late / "tradingview_capture_v1.json"
+        first_later_attempt = not state_path.is_file()
+        chart = tv.late_plan_snapshot(row, folder, late, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+        if not chart:
+            if first_later_attempt and state_path.is_file():
+                state = json.loads(state_path.read_bytes())
+                if state.get("status") == "FAILED":
+                    return {"status": "PLAN_LATE_CHART_CAPTURE_FAILED", "cause": state["cause"]}
+            return None
+        article = {"title": f"{row['instrument_title']} chart update", "body": tv.CREDIT}
+        if host is None:
+            from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
+        delivery = host(work_item_id=child, delivery_only_assets=[chart], existing_manifest=None,
+                        article_assets=[], article=article, source_documents=[])
+        if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+            raise posts.PlanPostError("PLAN_LATE_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
+        (late / "delivery_media_manifest_v1.json").write_bytes(canonical_bytes(delivery["manifest"]))
+        context = {"article": article, "media": {"assets": [chart]}, "plan_status_post": key}
+        context_path.write_bytes(canonical_bytes(context))
+    payloads = late_chart_payloads(store, row, late, context)
+    destinations = []
+    for destination in chosen:
+        registration = registration_for_destination(destination)
+        text = payloads[destination]["full_text"]
+        destinations.append({"destination": destination, "platform": registration.platform,
+            "surface": registration.surface, "transport_type": registration.transport_type,
+            "transport_registry_version": REGISTRY_VERSION, "payload": text,
+            "payload_hash": hashlib.sha256(text.encode()).hexdigest(), "canonical_url": None,
+            "expected_destination_identity": registration.expected_identity})
+    plan = {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
+        "plan_status_part": LATE_CHART_PART, "work_item_id": child,
+        "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+        "story_identity": child, "article_identity": child, "package_identity": child,
+        "publication_window": {"window_identity": child}, "output_dir": str(late.resolve()),
+        "transport_registry_version": REGISTRY_VERSION, "policy_mode_version": "AUTONOMOUS_DEFAULT:cc399.v1",
+        "destinations": destinations}
+    return _publish_card_plan(store, row, plan, coordinator_for, parallel=False, immediate=False)
+
+
+def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
+    """Reuse this exact plan's confirmed article chart for its social card."""
+    if not row.get("analysis_publication") or not row.get("source_plan"):
         return None
     from . import plan_analysis_pages_v1 as pages
     publication = pages.confirmed_publication(store, row["source_plan"])
@@ -1377,6 +1490,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
     # cannot create a new drawn image; fresh packages always use CC-314.
     frozen = bool(previous and any(_dispatch(store, key, d) for d in destinations_for(row)))
     assets, carousel, skipped = [], [], _skipped_images(root, row)
+    instagram_chart_credit = previous.get("status_post_instagram_chart_credit")
     first_image_failure = None
     manifest_path = folder / "delivery_media_manifest_v1.json"
     if frozen:
@@ -1485,7 +1599,6 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
                 raise posts.PlanPostError("PLAN_STATUS_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
             manifest = json.loads(manifest_path.read_bytes())
-    instagram_chart_credit = previous.get("status_post_instagram_chart_credit")
             manifest["assets"].extend(delivery["manifest"]["assets"])
             manifest_path.write_bytes(canonical_bytes(manifest))
             assets.append(portrait)
@@ -1493,6 +1606,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             carousel = [{"asset_id": portrait["asset_id"], "path": portrait["path"],
                 "sha256": portrait["sha256"], "url": hosted["verified_public_delivery_url"]}]
             alert_portrait = portrait["asset_id"]
+            instagram_chart_credit = bool(portrait.get("tradingview_snapshot"))
             previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
                             status_post_alert_portrait=alert_portrait,
                             status_post_instagram_chart_credit=instagram_chart_credit)
@@ -1546,6 +1660,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
         context_path.write_bytes(canonical_bytes(previous))
     payloads = route_payloads({**row, "linkedin_analysis_url": linkedin_url}, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
+                                  instagram_chart_credit=instagram_chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     plan_rows = []
@@ -1599,7 +1714,6 @@ def validate_parent_intent(store, row, intent, *, parent_route=None):
         validate_alert(row, store=store)
     elif row.get("reader_contract") == "CC466_V1":
         from .plan_reader_editorial_v1 import validate_reader_row
-            instagram_chart_credit = bool(portrait.get("tradingview_snapshot"))
         validate_reader_row(store, row)
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
@@ -1651,7 +1765,6 @@ def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *,
         coordinator = coordinator_for(key, Path(continuation["output_dir"]))
         outcome = coordinator.publication_state(key, continuation)
     else:
-                                  instagram_chart_credit=instagram_chart_credit,
         outcome = _publish_card_plan(store, row, continuation, coordinator_for,
                                      parallel=False, immediate=immediate)
     detail = (outcome.get("per_destination") or {}).get("discord") or {}
@@ -1661,7 +1774,7 @@ def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *,
             "cause": posts.destination_causes(outcome).get("discord")}
 
 
-def readback_own_comment(destination, comment_id, parent_id, text):
+def readback_own_comment(destination, comment_id, parent_id, text, *, chart_path=None):
     """Read the exact comment in its confirmed business card's comment list."""
     if destination == "facebook_page":
         from . import facebook_page_adapter_v6 as adapter
@@ -1672,12 +1785,21 @@ def readback_own_comment(destination, comment_id, parent_id, text):
     else:
         raise posts.PlanPostError("PLAN_CARD_COMMENT_DESTINATION_INVALID")
     try:
+        fields = f"id,{field},attachment" if chart_path else f"id,{field}"
         data = adapter._get_json(f"https://graph.facebook.com/{adapter.GRAPH_VERSION}/{parent_id}/comments",
-                                {"access_token": token, "fields": f"id,{field}", "limit": 100})
+                                {"access_token": token, "fields": fields, "limit": 100})
         match = next((r for r in data.get("data") or [] if str(r.get("id")) == str(comment_id)), None)
-        verified = bool(match and match.get(field) == text)
+        text_matches = bool(match and match.get(field) == text)
+        if chart_path and text_matches:
+            attachment = ((match.get("attachment") or {}).get("media") or {}).get("image") or {}
+            chart_url = attachment.get("src")
+            verified = bool(chart_url and adapter.visual_similarity_to_local_file(
+                adapter.read_public_image_bytes(chart_url), chart_path) >= adapter.PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)
+        else:
+            verified = text_matches
         return {"status": "SUCCESS" if verified else "READBACK_UNAVAILABLE", "verified": verified,
-                "public_object_id": comment_id, "body_text_visible": verified, "reply_parent_verified": bool(match)}
+                "public_object_id": comment_id, "body_text_visible": text_matches, "reply_parent_verified": bool(match),
+                **({"meaningful_media_visible": verified} if chart_path else {})}
     except Exception as exc:
         return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "safe_error_classification": type(exc).__name__}
@@ -1712,13 +1834,18 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             from .native_neo_executor_v1 import bind_native_neo_coordinator
             return bind_native_neo_coordinator(store, operation_id=key, output_dir=folder / "native-neo",
                 native_invocation_id="plan-status-posts-cc399", allow_publish=True, automatic=automatic_neo)[0]
-    pending = []
+    pending, late_charts = [], []
     for outbox in store.list_outbox_messages(destination=posts.DESTINATION):
         row = json.loads(outbox["payload"])
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
             alert = row.get("state_alert_contract") == "CC543_V1"
             if alert_filter is None or alert == alert_filter:
                 pending.append((outbox, row))
+        if (destinations is None and automatic_neo and row.get("format") == FORMAT
+                and row.get("kind") != "run" and outbox["status"] in {"PUBLISHED", "PUBLISHING", SETTLED_POST}
+                and (alert_filter is None or alert_filter == bool(row.get("state_alert_contract")))
+                and posts._age_minutes(row, now) <= posts.LATE_STATE_HOURS * 60):
+            late_charts.append(row)
     def priority(pair):
         _, row = pair
         # Run roots can supply replies. An alert recovering from a refused
@@ -1919,4 +2046,13 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         settle_pending(store, outbox, row, now=now, root=root)
         if row.get("state_alert_contract"):
             store.set_outbox_status(row["key"], outcome["status"])
+    for row in reversed(late_charts):
+        try:
+            reply = _publish_late_chart(store, row, Path(root) / row["key"], coordinator_for,
+                                        host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            reply = {"status": "PLAN_LATE_CHART_UNCONFIRMED", "cause": str(exc)[:200]}
+        if reply:
+            results.append({"key": row["key"], "late_chart_reply": reply})
+            break  # This optional attachment follows the ordinary fanout, one per tick.
     return {"status": "OK", "posts": results}

@@ -1518,7 +1518,10 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if linkedin_url := context.get("status_post_linkedin_analysis_url"):
         row["linkedin_analysis_url"] = linkedin_url
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, route_payloads, discord_channel_payload
+        from .plan_call_cards_v1 import (DISCORD_CHANNEL_PART, LATE_CHART_PART, discord_channel_payload,
+                                         late_chart_payloads, route_payloads)
+        if part == LATE_CHART_PART:
+            return row, late_chart_payloads(store, row, Path(output_dir), context)
         if part == DISCORD_CHANNEL_PART:
             return row, discord_channel_payload(row, card_id=card_id, parents=context.get("status_post_parents"),
                                                 chart_credit=bool(context.get("chart_credit")))
@@ -1562,6 +1565,13 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    from .plan_call_cards_v1 import LATE_CHART_PART
+    if row.get("format") == 4 and part == LATE_CHART_PART:
+        destination = (intent.get("destination_plan") or {}).get("destination")
+        if (destination not in payloads or intent.get("native_payload") != payloads[destination]
+                or intent.get("work_item_id") != f"{key}-part-{part}"):
+            raise PlanPostError("PLAN_LATE_CHART_REPLY_BINDING_CHANGED")
+        return
     if row.get("correction_reply_contract"):
         from .plan_result_correction_cc646 import validate
         validate(store, row)
@@ -1571,7 +1581,8 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     assets = (context.get("media") or {}).get("assets") or []
     if ((row.get("state_alert_contract") and not assets)
             or any(a.get("modality") != "tradingview_chart_snapshot"
-                   and not (row.get("format") == 4 and a.get("plan_chart_fallback")) for a in assets)):
+                   and not (row.get("format") == 4 and a.get("modality") == "plan_fact_card"
+                            and a.get("plan_chart_fallback")) for a in assets)):
         raise PlanPostError("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     if row.get("format") == 4:
         # Frozen copy is the authority. A later formatter or disclosure change

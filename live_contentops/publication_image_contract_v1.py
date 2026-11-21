@@ -303,6 +303,17 @@ def bounded_text_fallback(article, output_dir, *, now=None):
         return None
 
 
+def _plan_capture_states(row, folder, ratio):
+    member = folder.parent / row["key"]
+    suffix = "_4x5" if ratio == "4:5" else ""
+    for template in ("", "_cc465"):
+        path = member / f"tradingview_capture{suffix}{template}_v1.json"
+        if path.is_file():
+            state = json.loads(path.read_bytes())
+            if state.get("key") == row["key"] and state.get("market") == row["symbol"]:
+                yield state
+
+
 def _validate_plan_card(asset, row, folder, destination):
     from PIL import Image
     from .plan_status_posts_v1 import plan_facts
@@ -314,11 +325,8 @@ def _validate_plan_card(asset, row, folder, destination):
             or binding.get("market") != row["symbol"] or binding.get("ratio") != ratio):
         raise ImageContractError("PLAN_CHART_FALLBACK_BINDING_INVALID")
     member = folder.parent / row["key"]
-    suffix = "_4x5" if ratio == "4:5" else ""
-    states = [member / f"tradingview_capture{suffix}{template}_v1.json" for template in ("", "_cc465")]
-    if not any(state.get("key") == row["key"] and state.get("market") == row["symbol"]
-               and state.get("status") == "PLAN_CARD" and state.get("cause") == binding.get("cause")
-               for path in states if path.is_file() for state in (json.loads(path.read_bytes()),)):
+    if not any(state.get("status") == "PLAN_CARD" and state.get("cause") == binding.get("cause")
+               for state in _plan_capture_states(row, folder, ratio)):
         raise ImageContractError("PLAN_CHART_FALLBACK_CAPTURE_UNBOUND")
     packet = asset.get("data_card_packet") or {}
     path = Path(asset["path"]).resolve()
@@ -459,7 +467,8 @@ def validate_write(coordinator, intent, destination):
             return {"policy": POLICY, "markets": sorted(markets), "macro": True,
                     "first_image_type": "FRED_GRAPH"}
     else:
-        if (image_type(lead) != "TRADINGVIEW_MARKET_CHART" and not lead.get("plan_chart_fallback")) or lead.get("preceding_card"):
+        lead_is_plan_card = lead.get("modality") == "plan_fact_card" and bool(fallbacks)
+        if (image_type(lead) != "TRADINGVIEW_MARKET_CHART" and not lead_is_plan_card) or lead.get("preceding_card"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
         for asset in assets:
             if image_type(asset) != "TRADINGVIEW_MARKET_CHART":
@@ -472,6 +481,10 @@ def validate_write(coordinator, intent, destination):
             if (plan_folder and markets[market] and markets[market].get("format") == 4
                     and snap.get("plain_price_scale_cause") == tv.PRICE_SCALE_MISMATCH
                     and not asset.get("plan_overlay") and not asset.get("image_template")):
+                if not any(state.get("status") == "PLAIN_SNAPSHOT"
+                           and (state.get("plain_snapshot") or {}).get("sha256") == snap.get("sha256")
+                           for state in _plan_capture_states(markets[market], plan_folder, snap["capture_ratio"])):
+                    raise ImageContractError("PLAN_PLAIN_TRADINGVIEW_SNAPSHOT_UNBOUND")
                 continue
             check = validate_scale(market, snap)
             row = markets[market]

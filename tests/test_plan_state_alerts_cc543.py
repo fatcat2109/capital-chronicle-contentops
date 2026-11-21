@@ -261,6 +261,59 @@ def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, ma
     assert checks.issues[0]["chart_causes"] == [cause]
 
 
+def test_cc734_later_chart_replies_once_to_the_exact_original(replay, main_root, monkeypatch, tmp_path):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    row, = rows(store)
+    key = row["key"]
+    child = f"{key}-part-{cards.LATE_CHART_PART}"
+    capture = tv.capture
+    later = False
+
+    def snapshot(*args, **kwargs):
+        if not later or kwargs.get("ratio") == "4:5":
+            raise tv.SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT")
+        return capture(*args, **kwargs)
+
+    class Transport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if intent["work_item_id"] == child:
+                assert intent["native_payload"]["reply_to_id"] == f"{destination}-object-1"
+                media, = _durable_intent_inputs(intent)["media_assets"]
+                assert media["tradingview_snapshot"]["tv_symbol"] == tv.SYMBOLS[row["symbol"]]
+                self.publish_calls.append(destination)
+                return {"status": "SUCCESS", "id": f"{destination}-chart-reply",
+                        "public_url": f"https://example.test/{destination}/chart-reply"}
+            return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+
+    transport = Transport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    monkeypatch.setattr(tv, "capture", snapshot)
+    options = dict(now=now, latest_states=queued["latest_states"], root=tmp_path / "posts", host=fake_host,
+                   coordinator_for=lambda *a: coordinator)
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    parents = {d: cards._dispatch(store, key, d) for d in cards.destinations_for(row)}
+    originals = {d: store.get_outbox_message(dispatch["message_id"])["payload"] for d, dispatch in parents.items()}
+    context_path = options["root"] / key / "run_context_v1.json"
+    original_context = context_path.read_bytes()
+    later = True
+    result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    for destination in cards.LATE_CHART_DESTINATIONS.intersection(parents):
+        reply = cards._dispatch(store, child, destination)
+        assert reply and reply["status"] == "DISPATCH_CONFIRMED", result
+    for destination, parent in parents.items():
+        assert store.get_outbox_message(parent["message_id"])["payload"] == originals[destination]
+    assert context_path.read_bytes() == original_context
+    calls = transport.publish_calls[:]
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    assert transport.publish_calls == calls
+
+
 def test_later_states_use_the_same_api_consumer_without_editorial(replay, main_root, monkeypatch, tmp_path):
     store, folder, raw, now = replay
     runtime = FixtureTransport()

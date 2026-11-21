@@ -11,7 +11,7 @@ machine processing of TradingView content: one snapshot per post, displayed only
 
 CC-459: plan posts share one capture per market for 15 minutes. Two capture attempts fit within
 a five-minute wait; the run budget defers capture, never substitutes a drawn levels picture.
-After failure, text-capable destinations use text and image-required destinations are skipped.
+New plan cards keep a plain checked download or a source-bound fact card when capture fails.
 
 TradingView's guest chart refuses native drawings ("Cannot create shape"). CC-459 instead
 places Capital Chronicle's supplied public plan levels on a copy of the download, against
@@ -147,7 +147,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         prior = state["snapshot"]
         if prior.get("tv_symbol") == tv_symbol and _sha256(Path(prior["path"])) == prior["sha256"]:
             taken = prior
-    if taken:
+    if taken and not (plan_post and state.get("status") in {"PLAIN_SNAPSHOT", "PLAN_CARD"}):
         asset = image_asset(taken)
         validate_snapshot_asset(asset)
         if state.get("status") != "CAPTURED":
@@ -231,6 +231,60 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
 
 
 # Jim decision 87 (CC-316): memory measurements never gate capture.
+
+
+def late_plan_snapshot(row, folder, late, *, snapshot=None, snapshot_allowed=None):
+    """Use a new checked chart for the confirmed copy, with one later capture if needed."""
+    market = row["symbol"]
+    interval = interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
+    failures = [json.loads(path.read_bytes()) for path in folder.glob("tradingview_capture*_v1.json")]
+    failed_at = min((_utc(s["started_at_utc"]) for s in failures
+                     if s.get("status") in {"PLAN_CARD", "PLAIN_SNAPSHOT"}), default=None)
+    if failed_at is None:
+        return None
+    state_path = late / "tradingview_capture_v1.json"
+    prior = json.loads(state_path.read_bytes()) if state_path.is_file() else {}
+    cache = folder.parent / "tradingview_cache"
+    cached = [json.loads(path.read_bytes()) for path in (cache / (market + ".json"),
+                                                        cache / (market + "_cc465.json")) if path.is_file()]
+
+    def asset(taken):
+        from .publication_image_contract_v1 import validate_scale
+
+        if (not taken or taken.get("tv_symbol") != SYMBOLS[market] or taken.get("interval") != interval
+                or (captured := _utc(taken.get("captured_at_utc"))) is None or captured <= failed_at
+                or taken.get("plain_price_scale_cause")):
+            return None
+        validate_scale(market, taken)
+        image = snapshot_asset(market, row["instrument_title"], taken, late / "media_assets")
+        validate_snapshot_asset(image, {"market_asset": market})
+        return image
+
+    for taken in (prior.get("snapshot"), *cached):
+        try:
+            if image := asset(taken):
+                return image
+        except (OSError, ValueError, KeyError):
+            continue
+    if prior or (snapshot_allowed is not None and not snapshot_allowed()):
+        return None
+    late.mkdir(parents=True, exist_ok=True)
+    try:
+        with state_path.open("x", encoding="utf-8") as handle:
+            json.dump({"status": "STARTED"}, handle)
+    except FileExistsError:
+        return None
+    try:
+        media = late / "media_assets"
+        taken = (snapshot(market, interval, media) if snapshot else
+                 capture(market, interval, media, timeout=PLAN_RETRY_TIMEOUT_SECONDS, reset_price_scale=True))
+        image = asset(taken)
+        state = {"status": "CAPTURED", "snapshot": taken} if image else {"status": "FAILED", "cause": "LATE_CHART_CAPTURE_UNBOUND"}
+    except (OSError, ValueError, RuntimeError, KeyError) as exc:
+        image = None
+        state = {"status": "FAILED", "cause": str(exc)[:200]}
+    state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+    return image
 
 
 def _utc(value: Any) -> datetime | None:
@@ -364,6 +418,8 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
         prepare_chart_quote(market)
     args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir),
             "budget_ms": int(timeout * 1000) - 8000, "ratio": ratio}
+    if reset_price_scale:
+        args["reset_price_scale"] = True
     if chart_size is not None:
         if tuple(chart_size) not in {(1600, 700), (1080, 850)}:
             raise SnapshotError("IMAGE_CHART_CAPTURE_SIZE_UNSUPPORTED")
@@ -414,10 +470,12 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
                 quote=quote_provider(market, taken["captured_at_utc"]) if quote_provider else None)
         except ImageContractError as error:
             record_outcome({"status": "PRICE_SCALE_REFUSED", "market": market,
-    if reset_price_scale:
-        args["reset_price_scale"] = True
                 "cause": str(error), "captured_at_utc": taken["captured_at_utc"],
                 "price_scale_check": error.details, "chart_sha256": taken["sha256"]})
+            if allow_plain_scale_mismatch and str(error) == PRICE_SCALE_MISMATCH:
+                # The download already passed ticker, interval, format and size checks.
+                # The unsafe scale is retained as evidence and never used to draw levels.
+                return {**taken, "plain_price_scale_cause": str(error)}
             raise
         record_outcome({"status": "PRICE_SCALE_CHECKED", "market": market,
             "captured_at_utc": taken["captured_at_utc"],
@@ -468,10 +526,6 @@ def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any]
         raise ValueError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
     if ((article or {}).get("paid") or (article or {}).get("paywall")
             or (article or {}).get("audience") in {"paid", "paid_subscribers"}):
-            if allow_plain_scale_mismatch and str(error) == PRICE_SCALE_MISMATCH:
-                # The download already passed ticker, interval, format and size checks.
-                # The unsafe scale is retained as evidence and never used to draw levels.
-                return {**taken, "plain_price_scale_cause": str(error)}
         raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
     economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(snap.get("tv_symbol") or "")))
     # CC-536's bound method illustration uses its retained Bitstamp download.
@@ -829,6 +883,9 @@ def _worker(args: dict) -> dict:
             page.wait_for_function(
                 "() => { const t = document.title || ''; return /\\d/.test(t); }", timeout=budget // 4)
             page.wait_for_timeout(2500)  # last bars paint
+            if args.get("reset_price_scale"):
+                page.locator('[data-name="price-axis-A"] canvas').first.dblclick(timeout=5000)
+                page.wait_for_timeout(500)
             legend = page.evaluate("""() => {
                 const q = s => [...document.querySelectorAll(s)].map(e => e.innerText.trim()).filter(Boolean);
                 return [...q('[data-name="legend-source-title"]'), ...q('[data-qa-id="legend-source-title"]'),
@@ -879,9 +936,6 @@ def _worker(args: dict) -> dict:
             # Save this download's metadata before Chromium closes its context.
             if args.get("worker_result_path"):
                 result_path = Path(args["worker_result_path"])
-            if args.get("reset_price_scale"):
-                page.locator('[data-name="price-axis-A"] canvas').first.dblclick(timeout=5000)
-                page.wait_for_timeout(500)
                 staged = result_path.with_suffix(".tmp")
                 staged.write_text(json.dumps(result), encoding="utf-8")
                 staged.replace(result_path)
