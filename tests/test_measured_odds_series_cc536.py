@@ -301,6 +301,36 @@ def test_interrupted_threads_dispatch_recovers_only_its_exact_public_root(tmp_pa
     assert (current["status"], current["public_object_id"], current["public_object_url"]) == (DISPATCH_CONFIRMED, root_id, root_url)
     assert current["dispatched_at"] == original["dispatched_at"]
 
+    canonical = intent["canonical_url"]
+    substack_ids = coordinator._ids(packet["identity"], packet["plan"]["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=substack_ids["dispatch_id"], message_id=substack_ids["message_id"],
+        platform="substack", status=DISPATCH_CONFIRMED, public_object_id="456", public_object_url=canonical)
+    store.register_reconciliation(reconciliation_id=substack_ids["reconciliation_id"],
+        work_item_id=packet["identity"], status="RECONCILED_CONFIRMED")
+    list_outbox = store.list_outbox_messages
+
+    def list_bound_outbox(*, work_item_id):
+        assert work_item_id == packet["identity"]
+        return list_outbox(work_item_id=work_item_id)
+
+    def prepare_hosted_media(**kwargs):
+        pytest.fail("Text replies to the verified root need no new hosted-media preparation")
+
+    dispatched = []
+
+    def complete_bound_dispatch(message, **kwargs):
+        dispatched.append((message["message_id"], kwargs))
+        return {"status": "BOUND_REPLY_CORRECTION", "publish_called": True}
+
+    monkeypatch.setattr(store, "list_outbox_messages", list_bound_outbox)
+    monkeypatch.setattr(runtime, "prepare_delivery_media", prepare_hosted_media)
+    monkeypatch.setattr(coordinator, "_dispatch_message", complete_bound_dispatch)
+    result = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"],
+        correction_id="fixture-complete-threads-replies")
+    assert result["status"] == "BOUND_REPLY_CORRECTION"
+    assert dispatched == [(ids["message_id"], {"canonical_url": canonical, "explicit_transport_correction_retry": True,
+                                               "recovery_public_object_url": root_url})]
+
 
 def test_resuming_registered_piece_uses_its_saved_output_directory(tmp_path):
     store=ContentOpsDurableStore(tmp_path/'store.sqlite3')

@@ -3800,9 +3800,8 @@ class DurablePublicationCoordinator:
             }
         intents = [
             json.loads(str(row["payload"]))
-            for row in self.store.list_outbox_messages()
-            if str(row.get("work_item_id") or "") == work_item_id
-            and str(row.get("destination") or "") in V1_REQUIRED_PUBLICATION_DESTINATIONS
+            for row in self.store.list_outbox_messages(work_item_id=work_item_id)
+            if str(row.get("destination") or "") in V1_REQUIRED_PUBLICATION_DESTINATIONS
         ]
         intents = [row for row in intents if row.get("plan_hash") == intent.get("plan_hash")]
         correction_plan = {
@@ -3828,7 +3827,9 @@ class DurablePublicationCoordinator:
                 "quality_preflight": quality_preflight,
             }
         delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
-        if callable(delivery_preparer):
+        # A Threads correction only adds text replies to the already verified
+        # root. Its adapter still checks that root against the bound local chart.
+        if destination != "threads" and callable(delivery_preparer):
             delivery = dict(
                 delivery_preparer(
                     work_item_id=work_item_id,
