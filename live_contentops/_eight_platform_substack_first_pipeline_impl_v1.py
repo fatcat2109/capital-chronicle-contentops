@@ -1366,7 +1366,8 @@ def _publish_telegram_text_verified(
 def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str,
                               image_path: str | None = None, thread_parent_id: str | None = None,
                               thread_name: str | None = None, reply_to_message_id: str | None = None,
-                              require_media: bool = True, channel_reply: bool = False) -> dict[str, Any]:
+                              require_media: bool = True, channel_reply: bool = False,
+                              observe_images: bool = False) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
     # Text-only analysis replies already carry the canonical in their body.
@@ -1403,6 +1404,7 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         try:
             observed = readback_discord_post(message_id=message_id, expected_text=text,
                 canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path) if image_path else None,
+                **({"observe_images": True} if observe_images else {}),
                 **({"require_media": False} if not require_media else {}),
                 **({"thread_id": thread_parent_id} if thread_parent_id else {}),
                 **({"channel_reply": True} if channel_reply else {}),
@@ -1462,6 +1464,7 @@ def _publish_facebook_photo_verified(
     text: str,
     canonical_url: str,
     media: Mapping[str, Any],
+    observe_images: bool = False,
 ) -> dict[str, Any]:
     from live_contentops.facebook_page_adapter_v6 import execute_facebook_photo, readback_facebook_post
 
@@ -1481,6 +1484,7 @@ def _publish_facebook_photo_verified(
             expected_text=text,
             canonical_url=canonical_url,
             expected_media_local_path=str(media["absolute_local_source_path"]),
+            **({"observe_images": True} if observe_images else {}),
         )
         if readback.get("status") == "SUCCESS":
             break
@@ -1500,6 +1504,7 @@ def _publish_instagram_media_verified(
     caption: str,
     canonical_url: str,
     media: Mapping[str, Any],
+    observe_images: bool = False,
 ) -> dict[str, Any]:
     from live_contentops.instagram_adapter_v6 import execute_instagram_post, readback_instagram_media
 
@@ -1519,6 +1524,7 @@ def _publish_instagram_media_verified(
             expected_caption=caption,
             canonical_url=canonical_url,
             expected_media_local_path=str(media["absolute_local_source_path"]),
+            **({"observe_images": True} if observe_images else {}),
         )
         if readback.get("status") == "SUCCESS":
             break
@@ -4732,6 +4738,7 @@ def _publish_one_destination_from_durable_intent(
             image_url=public_image_url if image_path else None,
             title=str(article.get("title") or ""),
             image_path=image_path or None,
+            observe_images=True,
             **({"require_media": False} if intent.get("plan_analysis_link") and not image_path else {}),
             **({"thread_parent_id": delivery["discord_thread_parent_id"]}
                if delivery.get("discord_thread_parent_id") else {}),
@@ -4748,7 +4755,7 @@ def _publish_one_destination_from_durable_intent(
         if not image_path:
             return _publish_facebook_text_verified(text=text, canonical_url=canonical_url)
         return _publish_facebook_photo_verified(
-            text=text, canonical_url=canonical_url, media=data["primary_media"],
+            text=text, canonical_url=canonical_url, media=data["primary_media"], observe_images=True,
         )
     if destination == "instagram_business":
         if intent.get("plan_status_post") and payloads[destination].get("carousel_images"):
@@ -4773,7 +4780,7 @@ def _publish_one_destination_from_durable_intent(
                 "reason_code": "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE",
             }
         return _publish_instagram_media_verified(
-            caption=text, canonical_url=canonical_url, media=data["primary_media"],
+            caption=text, canonical_url=canonical_url, media=data["primary_media"], observe_images=True,
         )
     if destination == "threads":
         from live_contentops.threads_adapter_v6 import (
@@ -4812,6 +4819,7 @@ def _publish_one_destination_from_durable_intent(
             root_readback = readback_threads_post(
                 post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
                 canonical_url=root_canonical, expected_media_local_path=image_path or None,
+                observe_images=True,
                 **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
             )
             expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
@@ -4898,21 +4906,22 @@ def _readback_one_destination_from_durable_intent(
         package = payloads[destination]
         result = readback_call_carousel(media_id=public_object_id,
             expected_images=package.get("carousel_images") or [{"path": image_path, "index": package["carousel_index"]}],
-            expected_caption=text if package.get("carousel_images") else None)
+            expected_caption=text if package.get("carousel_images") else None, observe_images=True)
     elif destination in {"facebook_page", "instagram_business"} and public_object_id and (payloads.get(destination) or {}).get("own_call_comment"):
         from .plan_call_cards_v1 import readback_own_comment
-        result = readback_own_comment(destination, public_object_id, payloads[destination]["reply_to_id"], text)
+        result = readback_own_comment(destination, public_object_id, payloads[destination]["reply_to_id"], text,
+                                      observe_images=True)
     elif destination == "facebook_page" and public_object_id:
         from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
         result = readback_facebook_post(
             post_id=public_object_id, expected_text=text, canonical_url=canonical_url,
-            expected_media_local_path=image_path,
+            expected_media_local_path=image_path, observe_images=True,
         )
     elif destination == "instagram_business" and public_object_id:
         from live_contentops.instagram_adapter_v6 import readback_instagram_media
         result = readback_instagram_media(
             media_id=public_object_id, expected_caption=text, canonical_url=canonical_url,
-            expected_media_local_path=data["delivery_local_media"],
+            expected_media_local_path=data["delivery_local_media"], observe_images=True,
         )
     elif destination == "instagram_business" and data["primary_media"]:
         from live_contentops.instagram_adapter_v6 import find_recent_instagram_media
@@ -4920,6 +4929,7 @@ def _readback_one_destination_from_durable_intent(
             expected_caption=text,
             canonical_url=canonical_url,
             expected_media_local_path=data["delivery_local_media"],
+            observe_images=True,
         )
     elif destination == "discord" and public_object_id:
         from live_contentops.discord_live_adapter_v6 import readback_discord_post
@@ -4928,6 +4938,7 @@ def _readback_one_destination_from_durable_intent(
             message_id=public_object_id,
             expected_text=text,
             canonical_url=canonical_url,
+            observe_images=True,
             **({"require_media": False} if intent.get("plan_analysis_link") and not data["primary_media"] else {}),
             **({"thread_id": delivery["discord_thread_parent_id"], "expected_parent_id": delivery.get("reply_to_id")}
                if delivery.get("discord_thread_parent_id") else {}),
@@ -4946,6 +4957,7 @@ def _readback_one_destination_from_durable_intent(
             expected_image_sha256=(next(iter(data["media_assets"]), {}) if delivery.get("discord_channel_reply")
                                    else data["primary_media"] or {}).get("sha256"),
             require_media=not (intent.get("plan_analysis_link") and not data["primary_media"]),
+            observe_images=True,
         )
     elif destination == "threads" and public_object_id:
         from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
@@ -4958,6 +4970,7 @@ def _readback_one_destination_from_durable_intent(
         result = readback_threads_post(
             post_id=public_object_id, expected_text=root_text, canonical_url=root_canonical,
             expected_media_local_path=image_path or None,
+            observe_images=True,
             **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
         )
         reply_texts = package.get("reply_texts") or []

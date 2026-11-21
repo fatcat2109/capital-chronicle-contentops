@@ -375,6 +375,9 @@ def normalize_readback_result(
         normalized["content_binding_checks"] = normalized_checks
     if type(raw.get("meaningful_media_visible")) is bool:
         normalized["meaningful_media_visible"] = raw["meaningful_media_visible"]
+    chart = raw.get("posted_chart_readback")
+    if matching and isinstance(chart, dict) and chart.get("public_object_id") == observed_id:
+        normalized["posted_chart_readback"] = chart
     observed_at = (raw.get("native_tool_observation") or {}).get("observed_at_utc")
     if observed_at:
         from live_contentops.published_content_v1 import utc
@@ -5276,12 +5279,31 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
+        result = self._readback_destination(destination=destination, public_object_id=public_object_id,
+                                            public_object_url=public_object_url, intent=intent)
+        from live_contentops.posted_chart_readback_v1 import observe
+
+        try:
+            chart = observe(destination, intent, result, object_id=public_object_id, public_url=public_object_url)
+        except (OSError, KeyError, TypeError, ValueError):
+            chart = None  # The evening check records unavailable pixels. Publication identity still stands.
+        # API adapters supply ephemeral CDN URLs for the comparison only.
+        public = {key: value for key, value in result.items() if key not in {
+            "observed_image_urls", "observed_image_sha256", "observed_image_slots", "posted_chart_readback"}}
+        if chart is not None:
+            public["posted_chart_readback"] = chart
+            if "observed_image_urls" in result:
+                public["write_exists"] = True
+        return public
+
+    def _readback_destination(self, *, destination: str, public_object_id: Optional[str],
+                              public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
         if intent.get("reader_presentation_review") and destination == "discord":
             from live_contentops.discord_live_adapter_v6 import readback_discord_post
             chosen = intent["native_payload"].get("media_asset_ids", [])
             asset = next((a for a in intent.get("media_assets", []) if a["asset_id"] in chosen), {})
             return readback_discord_post(message_id=public_object_id, expected_text=intent["native_payload"]["text"],
-                canonical_url=intent["canonical_url"], expected_image_sha256=asset.get("sha256"))
+                canonical_url=intent["canonical_url"], expected_image_sha256=asset.get("sha256"), observe_images=True)
         if intent.get("reader_presentation_review") and destination not in {"facebook_page", "telegram"}:
             return self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
@@ -5332,7 +5354,8 @@ class CanonicalDestinationTransportRuntimeV1:
                 "public_object_id": public_object_id,
                 "public_object_url": public_object_url,
                 "readback_source": "STRICT_PROVIDER_OR_BROWSER_RESULT_FROM_CURRENT_ATTEMPT",
-                **{key: proof[key] for key in ("meaningful_media_visible", "content_binding_checks")
+                **{key: proof[key] for key in ("meaningful_media_visible", "content_binding_checks",
+                                               "observed_image_urls", "observed_image_sha256", "observed_image_slots")
                    if key in proof},
             }
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (

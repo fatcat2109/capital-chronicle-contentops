@@ -346,18 +346,28 @@ def compare_public_images(request, observed, *, http=None):
     media = (request.get("content_binding") or {}).get("media_manifest") or []
     observed = dict(observed)
     hashes, comparisons = [], []
-    for url in observed.get("public_image_urls") or []:
-        parsed = urlsplit(url)
+    for url in dict.fromkeys(observed.get("public_image_urls") or []):
+        try:
+            parsed = urlsplit(url)
+        except (ValueError, TypeError):
+            continue
         host = parsed.hostname or ""
         allowed = (request["destination"] == "x" and host == "pbs.twimg.com" and parsed.path.startswith("/media/")) or (
             request["destination"] in {"substack_notes", "substack"} and (
                 host == "substack-post-media.s3.amazonaws.com" or host == "substackcdn.com" or host.endswith(".substackcdn.com"))) or (
             request["destination"] in LINKEDIN_DESTINATIONS and host == "media.licdn.com") or (
-            request["destination"] == "youtube" and host == "yt3.ggpht.com")
-        if parsed.scheme != "https" or not allowed:
+            request["destination"] == "youtube" and host == "yt3.ggpht.com") or (
+            request["destination"] == "discord" and (
+                host in {"cdn.discordapp.com", "media.discordapp.net", "res.cloudinary.com"}
+                or re.fullmatch(r"images-ext-[0-9]+\.discordapp\.net", host))) or (
+            request["destination"] in {"facebook_page", "instagram_business", "threads"}
+            and host.endswith((".fbcdn.net", ".cdninstagram.com"))) or (
+            request["destination"] == "telegram" and host.endswith((".telegram-cdn.org", ".cdn-telegram.org", ".telesco.pe")))
+        if parsed.scheme != "https" or parsed.username or parsed.password or parsed.netloc != host or not allowed:
             continue
+        response = None
         try:
-            retrieved_url=url
+            retrieved_url = url
             if request["destination"]=="x":
                 # X's displayed small/900x900 variants rescale letters. Its
                 # public original is the same observed asset path, at full
@@ -388,14 +398,18 @@ def compare_public_images(request, observed, *, http=None):
             digest = sha256(data).hexdigest()
             hashes.append(digest)
             for asset in media:
-                source = Path(asset["path"]).read_bytes()
+                path = asset.get("path") or asset.get("absolute_local_source_path")
+                if not path:
+                    continue
+                source = Path(path).read_bytes()
                 if sha256(source).hexdigest() != asset["sha256"]:
                     continue
                 with Image.open(BytesIO(data)) as delivered, Image.open(BytesIO(source)) as original:
                     a = ImageOps.exif_transpose(original).convert("RGB")
                     b = ImageOps.exif_transpose(delivered).convert("RGB")
-                    if abs(a.width / a.height - b.width / b.height) > .005 or min(b.size) < 200:
+                    if min(b.size) < 200:
                         continue
+                    same_aspect = abs(a.width / a.height - b.width / b.height) <= .005
                     if a.size != b.size: a = a.resize(b.size, Image.Resampling.LANCZOS)
                     diff = ImageChops.difference(a.filter(ImageFilter.GaussianBlur(.75)),
                                                 b.filter(ImageFilter.GaussianBlur(.75)))
@@ -403,15 +417,25 @@ def compare_public_images(request, observed, *, http=None):
                     rms = max(ImageStat.Stat(diff).rms)
                     worst = max(max(ImageStat.Stat(diff.crop((x,y,min(x+32,b.width),min(y+32,b.height)))).rms)
                         for y in range(0,b.height,32) for x in range(0,b.width,32))
-                    matched = digest == asset["sha256"] or (rms <= 3.5 and worst <= 10 and max_luma <= 60)
+                    matched = digest == asset["sha256"] or (
+                        same_aspect and rms <= 3.5 and worst <= 10 and max_luma <= 60)
                 comparisons.append({"source_asset_sha256": asset.get("public_delivery_sha256") or asset["sha256"],
+                    "local_source_asset_sha256": asset["sha256"],
                     "platform_sha256": digest, "public_image_url": retrieved_url,"observed_image_url":url,
                     "public_object_url": observed.get("public_object_url"), "pixels_inspected": True,
                     "source_pixels_match": matched, "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
                     "rms": round(rms, 4), "worst_tile_rms": round(worst, 4),"max_luma_delta":max_luma})
-        except (OSError, ValueError, requests.RequestException):
+        except (OSError, ValueError, Image.DecompressionBombError, requests.RequestException):
             continue
+        finally:
+            close_response = getattr(response, "close", None)
+            if close_response:
+                close_response()
     observed.update(observed_media_sha256=hashes, media_comparisons=comparisons)
+    if (observed.get("public_image_urls") == [] and observed.get("public_object_id")
+            and observed.get("public_object_url") and observed.get("observed_text")
+            and any(asset.get("modality") == "tradingview_chart_snapshot" for asset in media)):
+        observed.update(media_check_state="MISSING_REQUIRED_MEDIA", missing_required_media_observed=True)
     return observed
 
 

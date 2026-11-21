@@ -1225,16 +1225,36 @@ def markdown(report):
     lines.append("")
     lines.append(f"Exceptions: {report['exception_count']}.")
     for item in report["exceptions"]:
+        if item.get("chart_readback"):
+            continue  # The exact-object alert belongs in Decision checks.
         lines.append(f"- {plain(item['piece_id'])} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
                      f"{item['first_cause']}; {item['public_url'] or 'no public URL'}.")
     if decisions := report.get("decision_checks"):
         lines.extend(["", "## Decision checks", "",
                       f"{decisions['failure_count']} failures and {decisions['unverified_count']} unverified checks."])
         for item in decisions["issues"]:
+            if item.get("chart_readback"):
+                continue
             url = f" · {item['public_url']}" if item["public_url"] else ""
             cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
             lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
+        if charts := decisions.get("posted_chart_readbacks"):
+            replies = {(r["platform"], r["reply_to_id"]): r["correction_id"]
+                       for r in decisions["chart_correction_replies"]}
+            lines.extend(["", "### Posted charts", ""])
+            alerted = set()
+            for chart in charts:
+                ref = (chart["platform"], chart["public_object_id"])
+                if chart["status"] in {"MISSING", "MISMATCH"}:
+                    if ref in alerted:
+                        continue
+                    alerted.add(ref)
+                reply = replies.get(ref)
+                details = [chart["status"], chart.get("first_cause"),
+                           f"reply prepared for Codex Publisher ({reply})" if reply else chart.get("correction_cause"),
+                           chart["public_url"] or plain(chart["public_object_id"])]
+                lines.append(f"- {plain(chart['piece_id'])} / {chart['platform']} · " + " · ".join(filter(None, details)))
         if assist := decisions.get("antigravity"):
             lines.extend(["", "### Antigravity", "",
                           "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",

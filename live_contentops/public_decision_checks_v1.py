@@ -281,6 +281,8 @@ class DecisionChecks:
         self.wraps_due = Counter()
         self.issues = []
         self.seen = set()
+        self.chart_readbacks = []
+        self.chart_replies = {}
 
     def add(self, piece, platform, url, title, text, intent, row, history, source):
         copy = PublicCopy(piece, platform, url, title, text, intent, row, history, source, self.end)
@@ -289,7 +291,7 @@ class DecisionChecks:
 
     def issue(self, decision, piece, platform, cause, *, url=None, evidence=None,
               status="FAIL", **details):
-        key = (decision, piece, platform, cause, url)
+        key = (decision, piece, platform, cause, url, details.get("public_object_id"))
         if key not in self.seen:
             self.seen.add(key)
             self.issues.append({"decision": decision, "piece_id": piece, "platform": platform,
@@ -397,10 +399,27 @@ class DecisionChecks:
         self.check("83", copy, PREVIEW_LINK_REASON if find_forbidden_link(*values) else None)
 
     def _chart(self, copy, market):
+        from .posted_chart_readback_v1 import report_copy
+
+        market = market.upper() if isinstance(market, str) else None
+        expected = SYMBOLS.get(market)
+        chart, reply = report_copy(copy, self.runtime, market, expected)
+        if chart is not None:
+            self.chart_readbacks.append(chart)
+            if reply:
+                key = reply["correction_id"]
+                previous = self.chart_replies.get(key)
+                if previous:
+                    media = {asset["sha256"]: asset for asset in [*previous["media_assets"], *reply["media_assets"]]}
+                    previous["media_assets"] = list(media.values())
+                else:
+                    self.chart_replies[key] = reply
+            self.check("82", copy, chart["first_cause"], chart_readback=True,
+                       status="UNVERIFIED" if chart["status"] == "UNVERIFIED" else "FAIL",
+                       public_object_id=chart["public_object_id"])
+            return
         if not isinstance(market, str) or not market:
             return
-        market = market.upper()
-        expected = SYMBOLS.get(market)
         if not expected:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
@@ -581,7 +600,14 @@ class DecisionChecks:
                             if any(copy.native.get("discord_channel_reply") for copy in copies)}
         fills_and_results = set()
         for copy in self.copies:
+            source = copy.source
+            plan = source.get("source_plan") or {}
+            market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
             if not copy.confirmed:
+                # Some confirmed comments return an object ID without a permalink.
+                if (copy.row.get("status") == "DISPATCH_CONFIRMED" and copy.row.get("public_object_id")
+                        and copy.dispatched_at and self.start < copy.dispatched_at <= self.end):
+                    self._chart(copy, market)
                 continue
             times = (copy.published_at, copy.verified_at, copy.dispatched_at)
             if not any(at and self.start < at <= self.end for at in times):
@@ -589,8 +615,6 @@ class DecisionChecks:
                 if any(self.start < clock(at) <= self.end for at, _ in copy.history):
                     self._immutable(copy)
                 continue
-            source = copy.source
-            plan = source.get("source_plan") or {}
             plan_post = source.get("kind") in {"setup", "update", "result"}
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
             if plan_post:
@@ -601,7 +625,6 @@ class DecisionChecks:
                     fills_and_results.add(source.get("key") or copy.piece)
                 if copy.platform == "discord":
                     self._discord(copy, channel_arrivals)
-            market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
             self._chart(copy, market)
             text = copy.visible_text + "\n" + copy.title
             self.check("90", copy, "PUBLIC_TIMEZONE_ET_REQUIRED"
@@ -636,6 +659,8 @@ class DecisionChecks:
                            for decision in DECISIONS],
                 "failure_count": sum(row["status"] == "FAIL" for row in issues),
                 "unverified_count": sum(row["status"] == "UNVERIFIED" for row in issues),
+                "posted_chart_readbacks": self.chart_readbacks,
+                "chart_correction_replies": list(self.chart_replies.values()),
                 "issues": issues}
 
     def estimated_jobs(self, delivery):

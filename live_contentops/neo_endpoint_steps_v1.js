@@ -324,7 +324,14 @@ if (input.phase === 'article_readback') {
         observed_identity:author?(destination==='linkedin'?'linkedin:jimcc':
           destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
         ...(destination==='linkedin_company'&&author?{observed_stable_id:'143198922'}:{}),links:ls,
-        public_image_urls:Array.from(e.querySelectorAll('img')).filter(visible).flatMap(i=>{
+        public_image_urls:Array.from(e.querySelectorAll(linkedin
+          ? 'img' : '#content-attachment img, ytd-backstage-image-renderer img')).filter(i => {
+          if (!visible(i)) return false;
+          if (!linkedin) return true;
+          const anchor = i.closest('a[href]');
+          return !(anchor && ownerPattern.test(anchor.href))
+            && !i.closest('.update-components-actor, .comments-comment-item, .feed-shared-article');
+        }).flatMap(i=>{
           const urls=[i.currentSrc||i.src];
           if (linkedin && i.getAttribute('srcset')) {
             const variants=i.getAttribute('srcset').split(',').map(s=>{
@@ -334,7 +341,10 @@ if (input.phase === 'article_readback') {
           }
           return [...new Set(urls)];
         })
-          .filter(u=>linkedin?/^https:\/\/media\.licdn\.com\//.test(u):/^https:\/\/yt3\.ggpht\.com\//.test(u))};
+          .filter(u=>linkedin
+            ? /^https:\/\/media\.licdn\.com\//.test(u)
+              && !/\/(profile-displayphoto|profile-framedphoto|company-logo|article-cover_image)[-_]/i.test(u)
+            : /^https:\/\/yt3\.ggpht\.com\//.test(u))};
     }).filter(p=>p.public_object_id && p.observed_identity);
     return {posts};
   }, input.destination));

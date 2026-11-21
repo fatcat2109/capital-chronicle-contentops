@@ -1652,7 +1652,7 @@ def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *,
             "cause": posts.destination_causes(outcome).get("discord")}
 
 
-def readback_own_comment(destination, comment_id, parent_id, text):
+def readback_own_comment(destination, comment_id, parent_id, text, *, observe_images=False):
     """Read the exact comment in its confirmed business card's comment list."""
     if destination == "facebook_page":
         from . import facebook_page_adapter_v6 as adapter
@@ -1663,12 +1663,18 @@ def readback_own_comment(destination, comment_id, parent_id, text):
     else:
         raise posts.PlanPostError("PLAN_CARD_COMMENT_DESTINATION_INVALID")
     try:
+        extra = ",attachment{type,media}" if observe_images and destination == "facebook_page" else ""
         data = adapter._get_json(f"https://graph.facebook.com/{adapter.GRAPH_VERSION}/{parent_id}/comments",
-                                {"access_token": token, "fields": f"id,{field}", "limit": 100})
+                                {"access_token": token, "fields": f"id,{field}{extra}", "limit": 100})
         match = next((r for r in data.get("data") or [] if str(r.get("id")) == str(comment_id)), None)
         verified = bool(match and match.get(field) == text)
+        attachment = (match or {}).get("attachment")
+        media = (attachment or {}).get("media") or {}
+        image_url = (media.get("image") or {}).get("src")
         return {"status": "SUCCESS" if verified else "READBACK_UNAVAILABLE", "verified": verified,
-                "public_object_id": comment_id, "body_text_visible": verified, "reply_parent_verified": bool(match)}
+                "public_object_id": comment_id, "body_text_visible": verified, "reply_parent_verified": bool(match),
+                **({"observed_image_urls": [image_url] if image_url else []}
+                   if observe_images and verified and (image_url or not attachment) else {})}
     except Exception as exc:
         return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "safe_error_classification": type(exc).__name__}
