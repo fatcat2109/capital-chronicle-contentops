@@ -583,6 +583,39 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
         assert e.fresh_publish_request(base) is None
 
 
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+def test_cc536_claimed_linkedin_retry_rechecks_identity_after_proven_no_write(tmp_path, destination):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
+    store = copied_store(tmp_path)
+    work = "cc536-measured-odds-5"
+    store.create_work_item(work_item_id=work, story_id=work, title="Article", target_surface="MULTI_PLATFORM")
+    executor = neo.EndpointNeoExecutor(store, operation_id=work, output_dir=tmp_path / "native",
+                                       native_invocation_id="test", allow_publish=True)
+    store.register_outbox_message(message_id="bound", work_item_id=work, destination=destination,
+        payload=json.dumps({"measured_odds_piece": work}), status="READY")
+    dispatch_id = "dispatch_bound"
+    assert store.claim_platform_dispatch_attempt(dispatch_id=dispatch_id, message_id="bound", platform=destination)
+    request = {"action": "PUBLISH", "destination": destination, "work_item_id": work,
+               "dispatch_attempt_identity": dispatch_id, "payload_hash": "same-copy"}
+    request_hash = sha256_of(request)
+    original = {"result": {"status": "FAILED_BEFORE_WRITE", "stage": "BEFORE_PUBLISH_CLICK",
+        "reason_code": "NEO_SIGNED_IN_ACCOUNT_MISMATCH", "definite_no_write": True, "public_write_performed": False,
+        "neo_executor_revision": executor.executor_revision, "native_tool_return_sha256": "retained-return"}}
+    executor._put(request_hash, "response", original, work)
+    assert executor.fresh_publish_request(request) is None
+    store.register_reconciliation(reconciliation_id="reconciliation_bound", work_item_id=work,
+                                  status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    renewed = executor.fresh_publish_request(request)
+    assert renewed == {**request, "supersedes_prewrite_no_write_sha256": sha256_of(original)}
+    renewed_hash = sha256_of(renewed)
+    executor._put(renewed_hash, "response", original, work)
+    assert executor.fresh_publish_request(request) == renewed
+    assert executor._get(request_hash, "response") == original
+    store.set_dispatch_status(dispatch_id, "UNKNOWN_WRITE")
+    assert executor.fresh_publish_request(request) is None
+
+
 @pytest.mark.parametrize("target_matches",[False,True])
 def test_cc536_linkedin_exit_page_follows_only_the_exact_visible_canonical(monkeypatch,target_matches):
     c=neo.NeoMcpClient();short='https://lnkd.in/exact';canonical='https://capitalchronicle.substack.com/p/method'

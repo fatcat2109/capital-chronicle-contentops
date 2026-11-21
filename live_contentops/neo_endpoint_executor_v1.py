@@ -1135,10 +1135,10 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         return revised
 
     def fresh_publish_request(self, request):
-        """A repaired transport can supersede its proven pre-click refusal once.
+        """An exact recovery can supersede its proven pre-click refusal once.
 
-        Keep every old request/return. An unchanged transport or any attempted
-        click keeps its original outcome and cannot obtain a fresh write claim.
+        Keep every old request and return. A claimed write still requires
+        the existing exact absence proof before a new native claim.
         """
         from .capital_chronicle_latest_report_consumer_v1 import sha256_of
         refreshed = dict(request)
@@ -1180,13 +1180,16 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                 break
             if (result.get("neo_executor_revision") == self.executor_revision and request.get("action") != "EDIT_EXISTING"
                     and (refreshed.get("supersedes_prewrite_no_write_sha256")
-                         or not self._claimed_plan_copy_retry(request, result))):
+                         or not self._claimed_preclick_retry(request, result))):
                 break
             refreshed["supersedes_prewrite_no_write_sha256"] = sha256_of(previous)
         return refreshed if refreshed != request else None
 
-    def _claimed_plan_copy_retry(self, request, result):
-        if not retryable_unsent_plan_copy(result):
+    def _claimed_preclick_retry(self, request, result):
+        linkedin_identity = (request.get("destination") in LINKEDIN_DESTINATIONS
+            and result.get("reason_code") == "NEO_SIGNED_IN_ACCOUNT_MISMATCH"
+            and not (result.get("public_object_id") or result.get("public_object_url")))
+        if not linkedin_identity and not retryable_unsent_plan_copy(result):
             return False
         from .publication_coordinator_v1 import DurablePublicationCoordinator
 
@@ -1196,7 +1199,18 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                 or dispatch["platform"] != request.get("destination")):
             return False
         message = self.store.get_outbox_message(dispatch["message_id"])
-        if not message or json.loads(message["payload"]).get("plan_status_post") != request.get("work_item_id"):
+        if not message or message["work_item_id"] != request.get("work_item_id"):
+            return False
+        intent = json.loads(message["payload"])
+        if linkedin_identity:
+            if (intent.get("measured_odds_piece") != message["work_item_id"]
+                    or dispatch.get("public_object_id") or dispatch.get("public_object_url")):
+                return False
+            reconciliation_id = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
+            return any(row["reconciliation_id"] == reconciliation_id
+                       and row["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY"
+                       for row in self.store.get_reconciliations_for_work_item(message["work_item_id"]))
+        if intent.get("plan_status_post") != message["work_item_id"]:
             return False
         with self.store.get_read_only_connection() as conn:
             return conn.execute("SELECT 1 FROM incidents WHERE incident_id=? AND work_item_id=?", (
