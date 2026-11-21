@@ -257,7 +257,7 @@ if (input.phase === 'article_publish') {
       reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH',pre_click_posts:editors};
   }
   if (input.destination === 'linkedin'
-      && (!/^https:\/\/www\.linkedin\.com\/sharing\/compose\/?(?:[?#].*)?$/.test(s.url)
+      && (!/^https:\/\/www\.linkedin\.com\/(?:feed|sharing\/compose)\/?(?:[?#].*)?$/.test(s.url)
           || !find(s, 'button', 'Jim Pham') || !find(s, 'button', 'Post to Anyone'))) {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_SIGNED_IN_ACCOUNT_MISMATCH'};
