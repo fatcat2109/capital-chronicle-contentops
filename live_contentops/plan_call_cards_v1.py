@@ -16,7 +16,7 @@ from typing import Mapping
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
-from .plan_reader_copy_v1 import THREAD_CONTRACT
+from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, THREAD_CONTRACT
 from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
@@ -584,7 +584,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
-            from .plan_reader_copy_v1 import LEVEL_CONTRACT, LEVEL_EFFECTIVE, thread_terms
+            from .plan_reader_copy_v1 import LEVEL_EFFECTIVE, thread_terms
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
@@ -594,7 +594,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 item["x_analysis_thread"] = True
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
                 if now >= LEVEL_EFFECTIVE:
-                    item["level_contract"] = LEVEL_CONTRACT
+                    item["level_contract"] = CURRENT_LEVEL_CONTRACT
                 terms = thread_terms(raw, level_contract=item.get("level_contract"))
                 item.update(thread_contract=THREAD_CONTRACT, instrument_title=terms["market"],
                             entry_deadline_utc=terms["entry_deadline_utc"], time_exit_utc=terms["time_exit_utc"])
@@ -694,7 +694,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
                 item[field] = card[field]
-            if card.get("level_contract"):
+            if card.get("level_contract") and not item.get("level_contract"):
                 item["level_contract"] = card["level_contract"]
             if kind == "result":
                 # Keep the original thread's levels while admitting the later
@@ -1364,6 +1364,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
     if row.get("reader_contract") and not row.get("state_alert_contract"):
         title = row["reader_fields"]["hook"]["text"]
+    if row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
+        title = row["lead"]
     article = {"title": title, "dek": row["lead"], "body": row["text"], "plan_publication_kind": row["kind"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     # Registered packages keep exact bytes for readback/reconciliation. This

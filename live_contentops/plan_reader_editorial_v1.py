@@ -359,9 +359,9 @@ def _page_from_selection(plan, run, sources, selection):
     bindings = {"reader_contract": reader.CONTRACT, "reader_revision": 5, "analysis_copy_contract": reader.ANALYSIS_COPY,
                 "plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"], "draft_selection": selection}
     if plan.get("zone") and plan.get("invalidation_conditions"):
-        terms = reader.page_thread_terms(plan, run, level_contract=reader.LEVEL_CONTRACT)
+        terms = reader.page_thread_terms(plan, run, level_contract=reader.CURRENT_LEVEL_CONTRACT)
         title, introduction = terms["title"], terms["call_line"]
-        bindings.update(level_contract=reader.LEVEL_CONTRACT, thread_contract=reader.THREAD_CONTRACT)
+        bindings.update(level_contract=reader.CURRENT_LEVEL_CONTRACT, thread_contract=reader.THREAD_CONTRACT)
         for key, text in (("plan", introduction), ("invalidation", terms["invalidation"] + ".")):
             paragraph = {"text": text, "refs": terms["refs"], "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
                          "source_name": "Capital Chronicle"}
@@ -456,7 +456,7 @@ def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, r
     folder=Path(output_dir)
     run=pages.load_run(plan,run_root=run_root)
     source=reader.source_packet(plan,run,thread=bool(plan.get("zone") and plan.get("invalidation_conditions")),
-                                level_contract=reader.LEVEL_CONTRACT)
+                                level_contract=reader.CURRENT_LEVEL_CONTRACT)
     prompt=manuscript_prompt(source)
     records=[]
     for attempt in range(2):
@@ -502,7 +502,7 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
         "technical last and at most once. Omit absent layers. Each point is <=90 characters, preferably 25-35 for X. "
         + ("The first three labelled points plus chart credit must total <=280 X-weighted characters. "
            "Code carries the exact call conditions and clocks in complete-sentence continuation replies. "
-           if source.get("level_contract") == reader.LEVEL_CONTRACT else
+           if source.get("level_contract") in reader.PHASE_LEVEL_CONTRACTS else
            "The first three labelled points PLUS the exact supplied call_line and chart credit must total <=280 X-weighted characters. ") +
         "The hook is <=96 characters. Each scenario is <=90; hook plus scenarios <=280. "
         "Main must start Main (odds%):. Alternative must start Alternative (odds%):. "

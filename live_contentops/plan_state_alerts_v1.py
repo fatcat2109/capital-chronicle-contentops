@@ -9,25 +9,47 @@ import re
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import check_publication_copy, conditional_call_text
+from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, PHASE_LEVEL_CONTRACTS, result_r
 
 CONTRACT = "CC543_V1"
 IMMEDIATE_DESTINATIONS = ("telegram", "discord")
 
 
+def result_headline(row):
+    """Read the scored ending and its public level on the original call's basis."""
+    from . import plan_call_cards_v1 as cards
+
+    ending = cards.ending_words(row)
+    levels = row["levels"]
+    if row.get("scored") and ending == "hit its target":
+        # A scored target hit identifies a single published plan level.
+        # A range, a time exit, or a missing level gives no public exit price.
+        targets = levels.get("target") or []
+        if len(targets) == 1:
+            ending = f"hit its {cards.level(targets[0], levels)} target"
+    elif row.get("scored") and ending == "stopped at its invalidation level" and levels.get("price_basis") == "instrument":
+        # The mapped stop is after entry. The spot cancel trigger is separate.
+        ending = f"stopped at its {cards.level(levels['invalidation_level'], levels)} invalidation level"
+    lead = f"{row['instrument_title']}: {ending}."
+    value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {})
+    return lead if value is None else f"{lead} Result: {value:+.1f}R."
+
+
 def compose(row):
     from . import plan_call_cards_v1 as cards
-    from .plan_reader_copy_v1 import result_r
     plan = row["levels"]
     title = row["instrument_title"]
     at = cards._clock(row["at_utc"])
     calls = []
     thread = row.get("thread_contract") == "CC549_V1"
+    conditional = row.get("level_contract") == CURRENT_LEVEL_CONTRACT
+    result_first = conditional and row["kind"] == "result"
     if thread:
         from .plan_reader_copy_v1 import thread_terms, check_thread_text
         terms = thread_terms(row["source_plan"], level_contract=row.get("level_contract"))
         if row["kind"] == "setup":
             lead = title + ": new plan."
-            if row.get("level_contract") == "CC584_V1" and row.get("state") == "WAITING":
+            if row.get("level_contract") in PHASE_LEVEL_CONTRACTS and row.get("state") == "WAITING":
                 condition = terms["call"]["condition"].replace("price trades", "price to trade")
                 lead = title + ": armed, waiting for " + condition + "."
             calls = [terms["call"]]
@@ -36,15 +58,20 @@ def compose(row):
                 lines.append("An entry filled; the position is open.")
         else:
             words = {"FILLED": "an entry filled; the position is open", "TRIGGERED": "an entry filled; the position is open",
-                     "CANCELLED": "the plan was withdrawn", "VIEW_CHANGED": "the view changed",
+                     "CANCELLED": "the plan was cancelled" if conditional else "the plan was withdrawn",
+                     "VIEW_CHANGED": "the view changed",
                      "INVALIDATED": "the invalidation condition was reached", "CLOSED": "the position closed",
                      "EXPIRED": "the entry window ended"}
-            lead = title + ": " + (cards.ending_words(row) if row["kind"] == "result" else words[row["state"]]) + "."
+            if result_first:
+                lead = result_headline(row)
+            else:
+                lead = title + ": " + (cards.ending_words(row) if row["kind"] == "result" else words[row["state"]]) + "."
             lines = [lead, "Updated " + at + ".", "Entry condition: " + terms["call"]["condition"] + ".",
                      terms["invalidation"] + ".", *terms["clocks"]]
-            value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {}) if row["kind"] == "result" else None
-            if value is not None:
-                lines.append(f"Result: {value:+.1f}R.")
+            if row["kind"] == "result" and not result_first:
+                value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {})
+                if value is not None:
+                    lines.append(f"Result: {value:+.1f}R.")
         check_thread_text("\n".join(lines))
     elif row["kind"] == "setup":
         lead = title + ": new plan."
@@ -80,7 +107,7 @@ def compose(row):
             lines.append(f"Result: {value:+.1f}R.")
     if row.get("price_basis") == "plan" and not thread:
         lines.append("Levels use the plan's prices.")
-    if plan.get("target"):
+    if plan.get("target") and not result_first:
         lines.append("Target level: " + "–".join(dict.fromkeys(cards.level(v, plan) for v in plan["target"])) + ".")
     until = row.get("entry_deadline_utc") or plan.get("valid_until_utc")
     if until and not thread:
@@ -101,7 +128,7 @@ def compose(row):
         raw = row["source_plan"]
         layers = verified_analysis_lines(raw, row["analysis_layer_quotes"])
         scenarios = analysis_scenario_lines(raw) if row["kind"] == "setup" else []
-        lines = [*layers, *scenarios, *lines]
+        lines = [lead, *layers, *lines[1:]] if result_first else [*layers, *scenarios, *lines]
         if row.get("analysis_link"):
             lines.append("Full analysis: " + row["analysis_link"])
     text = "\n".join(lines) + "\n\n" + cards.NOTICES
@@ -118,7 +145,9 @@ def analysis_thread_parts(row, body, notices, *, destination, limit):
     layer_lines = verified_analysis_lines(row["source_plan"], row["analysis_layer_quotes"])
     if row["kind"] == "setup":
         layer_lines += analysis_scenario_lines(row["source_plan"])
-    detail = body.splitlines()[len(layer_lines):]
+    body_lines = body.splitlines()
+    result_first = row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT
+    detail = body_lines[len(layer_lines) + int(result_first):]
     if link and detail[-1:] == [link]:
         detail.pop()
 
@@ -138,6 +167,10 @@ def analysis_thread_parts(row, body, notices, *, destination, limit):
                     parts.append(sentence)
         return parts
 
+    if result_first:
+        if destination == "x" and link:
+            return [body_lines[0], link + "\n\n" + notices, *pack([*layer_lines, *detail])]
+        return pack([body_lines[0], *layer_lines, *detail, *([link] if link else []), notices])
     if destination == "x" and link:
         parts = pack(layer_lines)
         if parts:
