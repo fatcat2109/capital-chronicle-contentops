@@ -55,6 +55,7 @@ def test_plan_quotes_exact_link_chart_discord_and_linkedin_are_checked_per_copy(
         "plan_post": "gold-result", "platform": "x", "status": "WAITING",
         "confirmed": False, "behind_over_ten_minutes": True, "public_url": None,
         "first_cause": "CARD_PARENT_NOT_CONFIRMED",
+        "retry_failure_cause": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "unresolved_write_age_seconds": 3700,
     }]}, {"plan_gold": page})
     problems = {(r["decision"], r["platform"], r["first_cause"]) for r in output["issues"]}
     assert {
@@ -68,6 +69,8 @@ def test_plan_quotes_exact_link_chart_discord_and_linkedin_are_checked_per_copy(
     } <= problems
     coverage = next(r for r in output["issues"] if r["decision"] == "CC-672")
     assert coverage["delivery_cause"] == "CARD_PARENT_NOT_CONFIRMED"
+    assert coverage["retry_failure_cause"] == "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"
+    assert coverage["unresolved_write_age_seconds"] == 3700
 
 
 def test_actual_post_body_overrides_intent_and_is_not_serialized(tmp_path):

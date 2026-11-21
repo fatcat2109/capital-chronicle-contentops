@@ -276,7 +276,7 @@ class NeoMcpClient:
                     match = re.match(r"\[(\d+)\] (https://\S+)", line)
                     if match and match[1] in owned:
                         host = urlsplit(match[2]).hostname
-                        if host == "x.com": self.pages.setdefault("x", int(match[1]))
+                        if host in {"x.com", "syndication.twitter.com"}: self.pages.setdefault("x", int(match[1]))
                         if host == "substack.com": self.pages.setdefault("substack_notes", int(match[1]))
                         if host == "www.linkedin.com":
                             path = urlsplit(match[2]).path
@@ -763,7 +763,7 @@ class NeoBrowserDriver:
                 and _note_missing_link_reply_text(request, p.get("observed_text"))]
             missing_link_reply = bool(matches)
         if len(matches) != 1:
-            if own_x_root and not url and candidates and texts:
+            if own_x_root and not request.get("public_plan_feed_url") and not url and candidates and texts:
                 # A quote or standalone plan copy lives on the own Posts feed. A
                 # feed whose newest post predates the attempt can prove absence;
                 # the existing owner still enforces its ten-minute wait.
@@ -875,6 +875,87 @@ class NeoBrowserDriver:
                 "public_object_url":root["public_object_url"]} for link in root.get("links",[])
                 if link["url"] == card and link.get("card_visible") is True]
         return compare_public_images(request, result, http=getattr(self.client,"image_http",None))
+
+    def public_plan_readback(self, request, page):
+        """Find a published copy or prove absence on the bound account's public feed."""
+        from .neo_destination_handoff_v1 import _public_url, _text
+
+        destination = request["destination"]
+        feed = request["public_plan_feed_url"]
+        identity = request["expected_identity"]
+        x = destination == "x"
+        parent = request.get("reply_parent") or {}
+        embed = x and not parent
+        phase = "x_public_embed" if embed else "readback"
+        selector = ('.timeline-Tweet, [data-testid="tweet"]' if embed else
+                    'article[data-testid="tweet"]' if x else '.FeedProseMirror')
+        self.client.wait(page, selector)
+        data = self.client.run(page, phase, expected_identity=identity)
+        posts = data["tweets" if x else "notes"]
+        unavailable = {"status": "READBACK_UNAVAILABLE", "verified": False,
+                       "reason_code": "PUBLIC_PLAN_FEED_COVERAGE_UNVERIFIED"}
+        if data.get("url") != feed or not posts:
+            return unavailable
+        texts = expected_posts(request)
+        if not texts:
+            return unavailable
+        attempt = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"])
+        dated = {}
+        complete = x or data.get("visible_note_count") == len(posts)
+        if parent:
+            if not any(post.get("public_object_url") == parent["public_object_url"] for post in posts):
+                return unavailable
+            # X may omit replies from a public thread. Only the exact Notes
+            # thread's dated direct replies can supply absence evidence.
+            complete = not x and complete and data.get("note_reply_list_complete") is True
+            posts = [post for post in posts if post.get("public_object_url") != parent["public_object_url"]
+                     and (x or post.get("reply_parent_url") == parent["public_object_url"])]
+        for post in posts:
+            object_id, url = post.get("public_object_id"), post.get("public_object_url")
+            if not object_id or not _public_url(destination, url, object_id, expected_identity=identity):
+                complete = False
+                continue
+            try:
+                stamp = datetime.fromisoformat(post.get("published_at_utc") or "")
+                if stamp.tzinfo is None or not _text(post.get("observed_text")) or post.get("text_truncated"):
+                    raise ValueError("PUBLIC_PLAN_FEED_ROW_INCOMPLETE")
+            except ValueError:
+                complete = False
+                continue
+            if object_id in dated:
+                complete = False
+            dated[object_id] = (stamp, post)
+        self._resolve_links(request, [post for _, post in dated.values()])
+        matches = [post for stamp, post in dated.values() if stamp >= attempt and self._matches(request, texts[0], post)]
+        if len(matches) == 1:
+            root = matches[0]
+            exact_request = {**request, "public_object_url": root["public_object_url"]}
+            try:
+                exact = self.readback(exact_request, page)
+                if (exact.get("public_object_id") == root["public_object_id"]
+                        and (not parent or exact.get("observed_reply_parent_url") == parent["public_object_url"])):
+                    return exact
+            except NeoEndpointError:
+                pass
+            # The exact public feed match is enough to rule out a resend. The
+            # coordinator can still distinguish incomplete media/thread proof.
+            if parent and x:
+                return unavailable  # The thread excerpt cannot bind this reply's parent.
+            return {**root, "status": "SUCCESS", "content_verified": False,
+                    "reason_code": "PUBLIC_PLAN_PERMALINK_READBACK_INCOMPLETE",
+                    "observed_identity": identity, "request_sha256": request["request_sha256"]}
+        prefix = _text(texts[0])[:100]
+        if not complete or not dated or matches or not prefix or any(
+                prefix in _text(post["observed_text"]) for _, post in dated.values()):
+            return unavailable
+        stamps = [stamp for stamp, _ in dated.values()]
+        if stamps != sorted(stamps, reverse=True) or not min(stamps) < attempt < max(stamps):
+            return unavailable
+        return {"status": "READBACK_COMPLETE", "verified": False, "target_post_absent": True,
+                "activity_feed_loaded": True, "observed_profile_url": feed, "observed_identity": identity,
+                "observed_text": "\n\n".join(post["observed_text"] for _, post in dated.values()),
+                "observed_feed_post_ids": list(dated), "oldest_feed_post_at_utc": min(stamps).isoformat(),
+                "newest_feed_post_at_utc": max(stamps).isoformat(), "request_sha256": request["request_sha256"]}
 
     def _resolve_links(self, request, candidates):
         from .neo_destination_handoff_v1 import _bound_link_targets
@@ -1020,12 +1101,34 @@ class NeoBrowserDriver:
             return perform(self.client, packet)
         if destination in ARTICLE_ROUTES:
             return self.article_perform(packet)
-        profile = request["entry_url"] if request["action"] == "READBACK" else ROOTS[destination]
+        public_feed = request.get("public_plan_feed_url") if request["action"] == "READBACK" else None
+        profile = (public_feed or request["entry_url"]) if request["action"] == "READBACK" else ROOTS[destination]
         identity={"authenticated":False,"observed_identity":None,
             "observed_at_utc":datetime.now(timezone.utc).isoformat()}
         try:
             page = self.client.open(destination, profile)
             if request["action"] == "READBACK":
+                if public_feed:
+                    try:
+                        public = self.public_plan_readback(request, page)
+                    except NeoEndpointError:
+                        public = {"status": "READBACK_UNAVAILABLE", "verified": False,
+                                  "reason_code": "PUBLIC_PLAN_FEED_UNREADABLE"}
+                    if public.get("public_object_id") or public.get("target_post_absent"):
+                        return {"result": public, "identity": identity}
+                    # The existing exact reader may still find a copy when the
+                    # public feed is truncated. It cannot authorize a retry.
+                    try:
+                        exact = self.readback(request, page)
+                    except NeoEndpointError:
+                        exact = {}
+                    try:
+                        published = datetime.fromisoformat(exact.get("published_at_utc") or "")
+                        fresh_match = (exact.get("content_verified") is True
+                            and published >= datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"]))
+                    except (ValueError, TypeError):
+                        fresh_match = False
+                    return {"result": exact if fresh_match else public, "identity": identity}
                 return {"result":self.readback(request,page),"identity":identity}
             if destination == "x":
                 refused = self.article_guard(request, page)
@@ -1307,10 +1410,54 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
     from live_contentops.native_neo_executor_v1 import DESTINATION, SCHEMA, bind_native_neo_coordinator
     from live_contentops.plan_analysis_pages_v1 import DESTINATION as LINK_DESTINATION, settle_late_link
     from live_contentops.plan_call_cards_v1 import SETTLED_POST, settled_destinations, settle_pending
-    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator, _is_plan_copy
+
+    # A lost return can leave a dispatch with no unfinished native packet.
+    # Select by dispatch state before draining saved packets. New obligations
+    # come first, then least recently observed, so unreadable feeds rotate.
+    started = time.monotonic()
+    outcomes, processed_dispatches = [], set()
+    with store.get_read_only_connection() as conn:
+        owed = [dict(row) for row in conn.execute("""SELECT d.dispatch_id, d.platform, o.work_item_id
+            FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
+            LEFT JOIN reconciliations r ON r.reconciliation_id='reconciliation_' || substr(d.dispatch_id, 10)
+            WHERE d.platform IN ('x', 'substack_notes') AND (
+                d.status IN ('UNKNOWN_WRITE', 'RECONCILED_ABSENT_SAFE_TO_RETRY') OR (
+                    d.status='DISPATCH_ATTEMPT_STARTED' AND datetime(d.dispatched_at)<=datetime('now','-10 minutes')))
+            AND (json_extract(o.payload,'$.plan_status_post') IS NOT NULL
+                 OR json_extract(o.payload,'$.plan_analysis_link') GLOB 'plan-analysis-*')
+            AND o.status<>'PLAN_POST_SETTLED'
+            AND d.platform NOT IN (SELECT value FROM json_each(?))
+            ORDER BY r.reconciled_at IS NOT NULL, julianday(r.reconciled_at), d.dispatched_at DESC, d.dispatch_id LIMIT ?""",
+            (json.dumps(list(barred_browser_destinations())), limit))]
+    for row in owed:
+        if time.monotonic() - started >= budget_seconds:
+            break
+        operation, destination, dispatch_id = row["work_item_id"], row["platform"], row["dispatch_id"]
+        coordinator, _ = bind_native_neo_coordinator(store, operation_id=operation,
+            output_dir=Path(output_root or posts.POST_ROOT) / operation / "native-neo",
+            native_invocation_id="minute-stored-requests", allow_publish=True, automatic=True, endpoint_client=client)
+        processed_dispatches.add(dispatch_id)
+        try:
+            result = coordinator.recover_plan_copy(dispatch_id)
+            outcome = {"status": result.get("reconciliation_status") or result.get("status"),
+                       "cause": result.get("reason_code") or result.get("safe_error_classification"),
+                       "public_object_url": (store.get_platform_dispatch(dispatch_id) or {}).get("public_object_url")}
+        except (ValueError, OSError, NeoEndpointError) as exc:
+            outcome = {"status": "NOT_COMPLETED", "cause": str(exc)[:160]}
+        outcomes.append({"operation_id": operation, "destination": destination, "dispatch_id": dispatch_id, **outcome})
+    if len(outcomes) >= limit or time.monotonic() - started >= budget_seconds:
+        return {"status": "OK", "requests": outcomes}
+
     # Walk the indexed plan and link work items before reading native packets.
     # Long legacy notes can store a request on the plan's -part-N work item.
     with store.get_read_only_connection() as conn:
+        pending_plan_writes = {row[0] for row in conn.execute("""SELECT d.dispatch_id
+            FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
+            WHERE d.platform IN ('x', 'substack_notes') AND d.status='NATIVE_NEO_TOOL_PENDING'
+            AND (json_extract(o.payload,'$.plan_status_post') IS NOT NULL
+                 OR json_extract(o.payload,'$.plan_analysis_link') GLOB 'plan-analysis-*')""")}
         rows = conn.execute("""WITH operations AS (
             SELECT message_id FROM outbox_messages WHERE destination IN (?, ?)
         ), owned_work AS (
@@ -1362,15 +1509,16 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         request = packet["request"]
         operation = packet["operation_id"]
         source_payload, settled = eligible_source(operation)
-        if source_payload is None or request["destination"] in settled or response_key in completed:
+        pending_plan_write = (request["action"] == "PUBLISH"
+                              and request.get("dispatch_attempt_identity") in pending_plan_writes)
+        if (source_payload is None or request["destination"] in settled
+                or (response_key in completed and not pending_plan_write)):
             continue
         key=(operation,request["destination"])
         prior=chosen.get(key)
-        if not prior or request["action"]=="READBACK" or prior[0]["request"]["action"]!="READBACK":
+        if not prior or request["action"] == "READBACK" or prior[0]["request"]["action"] != "READBACK":
             chosen[key]=(packet,source_payload)
-    started=time.monotonic()
-    outcomes=[]
-    processed=0
+    processed=len(outcomes)
     for (operation,destination),(packet,source) in sorted(chosen.items(), key=lambda item:
             item[1][1].get("at_utc") or item[1][0].get("created_at") or "", reverse=True):
         if processed>=limit or time.monotonic()-started>=budget_seconds:
@@ -1388,8 +1536,17 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         intent=json.loads(coordinator._effective_message(message)["payload"])
         ids=DurablePublicationCoordinator._ids(request["work_item_id"],intent["plan_hash"],destination)
         dispatch=store.get_platform_dispatch(ids["dispatch_id"])
-        if not dispatch:
+        if not dispatch or ids["dispatch_id"] in processed_dispatches:
             continue
+        plan_pending = dispatch["status"] == "NATIVE_NEO_TOOL_PENDING" and _is_plan_copy(intent)
+        if plan_pending and request["action"] != "PUBLISH":
+            # A public read is available separately once the write is unknown.
+            # A still-pending dispatch consumes its original write packet.
+            pending = next((p["request"] for p, _ in reversed(requests)
+                if p["operation_id"] == operation and p["request"].get("action") == "PUBLISH"
+                and p["request"].get("dispatch_attempt_identity") == ids["dispatch_id"]), None)
+            if pending:
+                request, request_hash = pending, pending["request_sha256"]
         if dispatch["status"] == "DISPATCH_CONFIRMED":
             reconciliation = next((r for r in store.get_reconciliations_for_work_item(request["work_item_id"])
                 if r["reconciliation_id"] == ids["reconciliation_id"]), {})
@@ -1421,6 +1578,14 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
                         "request_sha256":request_hash,"status":"PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"})
                     continue
             processed+=1
+            if plan_pending and request["action"] == "PUBLISH":
+                result = coordinator._dispatch_message(message, canonical_url=intent.get("canonical_url"))
+                outcomes.append({"operation_id": operation, "destination": destination, "request_sha256": request_hash,
+                    "dispatch_id": ids["dispatch_id"], "status": result.get("reconciliation_status") or result.get("status"),
+                    "cause": (result.get("reason_code") or result.get("safe_error_classification")
+                              or (result.get("native_tool_request") or {}).get("endpoint_cause")),
+                    "public_object_url": result.get("public_object_url")})
+                continue
             result=executor(request)
             if request["action"]=="PUBLISH" and result.get("status")=="SUCCESS":
                 outcome=coordinator.reconcile_completed_native_publish(ids["dispatch_id"],request_hash=request_hash)

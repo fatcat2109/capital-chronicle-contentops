@@ -362,6 +362,12 @@ def normalize_readback_result(
         "identity_match": matching,
         "source_status": str(raw.get("status") or raw.get("classification") or "") or None,
     }
+    reason = raw.get("reason_code")
+    if isinstance(reason, str) and reason.startswith("PUBLIC_PLAN_"):
+        normalized["reason_code"] = reason
+    if absent and raw.get("oldest_feed_post_at_utc") and raw.get("newest_feed_post_at_utc"):
+        normalized["public_feed_absence"] = {key: raw.get(key) for key in (
+            "observed_profile_url", "observed_feed_post_ids", "oldest_feed_post_at_utc", "newest_feed_post_at_utc")}
     # CC-199: retain the reason an existing object is incomplete. Provider
     # bodies, signed media URLs and authentication material never enter this
     # summary; only the named boolean checks survive.
@@ -414,6 +420,17 @@ def _x_platform_day_failure(detail):
     return detail.get("status") == DEFINITE_NO_WRITE and any(
         cause in {"X_PLATFORM_RESTRICTION", "X_RATE_LIMITED", "X_SIGNED_OUT"} for cause in causes
     )
+
+
+def _is_plan_copy(intent):
+    # The daily market Note and trend board also use the link transport.
+    return bool(intent.get("plan_status_post") or
+                str(intent.get("plan_analysis_link") or "").startswith("plan-analysis-"))
+
+
+def _single_plan_copy_retry(intent, destination):
+    return bool(intent.get("plan_status_post") or
+                (destination in {"x", "substack_notes"} and _is_plan_copy(intent)))
 
 
 def _local_missing_threads_text(destination, detail):
@@ -3207,7 +3224,15 @@ class DurablePublicationCoordinator:
                 and str(existing.get("status") or "") == RECONCILED_ABSENT_SAFE_TO_RETRY
                 and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
                 and (destination != "substack" or recovery_object_id)
+                and (not _single_plan_copy_retry(intent, destination)
+                     or not (recovery_object_id or existing.get("public_object_url")))
             )
+            if retry_eligible and destination == "substack_notes" and _single_plan_copy_retry(intent, destination):
+                from .neo_destination_handoff_v1 import IDENTITIES, NeoDestinationHandoff
+                original = NeoDestinationHandoff(store=self.store)._readback_identity(destination, intent, None)
+                if original != IDENTITIES[destination]:
+                    return {"destination": destination, "status": RECONCILED_ABSENT_SAFE_TO_RETRY,
+                            "reason_code": "PLAN_NOTE_ORIGINAL_AUTHOR_CHANGED", "publish_called": False}
             retry_eligible = retry_eligible or restored_x_no_write
             # CC-453 / decision 119: an owner reopening the account's route
             # releases only its definite pre-send suspension refusal. A prior
@@ -3304,7 +3329,7 @@ class DurablePublicationCoordinator:
                 }
         # Existing ambiguous writes and native claims are consumed/read back by
         # their original recovery path. Only fresh/definitely absent writes skip.
-        if not native_pending_resume:
+        if not (native_pending_resume or _is_plan_copy(intent)):
             failure = self._destination_day_failure(destination)
             if failure and not (repaired_composer_no_write and failure.get("dispatch_id") == ids["dispatch_id"]):
                 return {"destination": destination, "status": "DESTINATION_FAILED_ET_DAY_SKIP",
@@ -3479,7 +3504,7 @@ class DurablePublicationCoordinator:
         except (ValueError, OSError, KeyError, TypeError) as quality_error:
             cause = str(quality_error) if isinstance(quality_error, ValueError) else type(quality_error).__name__
             return {"destination": destination, "status": cause, "reason_code": cause, "publish_called": False}
-        single_plan_retry = bool(intent.get("plan_status_post")
+        single_plan_retry = bool(_single_plan_copy_retry(intent, destination)
                                  and (explicit_reconciled_absent_retry or repaired_composer_no_write))
         claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
             message_id=ids["message_id"], platform=destination,
@@ -4682,7 +4707,8 @@ class DurablePublicationCoordinator:
                 # ``retry_reconciled_absent_substack`` route because a preserved draft ID may
                 # be deliberately non-public.
                 if str(message["destination"]) != "substack":
-                    if self._retry_already_attempted(str(dispatch["dispatch_id"]), strict=bool(intent.get("plan_status_post"))):
+                    if self._retry_already_attempted(str(dispatch["dispatch_id"]),
+                            strict=_single_plan_copy_retry(intent, message["destination"])):
                         self.store.set_dispatch_status(
                             str(dispatch["dispatch_id"]),
                             DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE,
@@ -4841,7 +4867,8 @@ class DurablePublicationCoordinator:
                 summary["safe_resumes"] += 1
                 summary["safely_attempted"] += 1
                 summary["publish_calls"] += int(bool(outcome.get("publish_called")))
-                if explicit_retry and outcome.get("publish_called") is True and not intent.get("plan_status_post"):
+                if (explicit_retry and outcome.get("publish_called") is True
+                        and not _single_plan_copy_retry(intent, destination)):
                     dispatch = self.store.get_platform_dispatch(
                         self._ids(
                             str(intent["work_item_id"]),
@@ -5035,6 +5062,47 @@ class DurablePublicationCoordinator:
         return {"dispatch_id": dispatch_id, "destination": dispatch["platform"],
                 "reconciliation_status": status, "public_write_performed": False,
                 "publish_called": False}
+
+    def recover_plan_copy(self, dispatch_id: str) -> dict[str, Any]:
+        """Read an already attempted X/Notes plan copy and resume its exact retry."""
+        from .plan_status_posts_v1 import STALE, SUPERSEDED, _age_minutes, _x_freshness_limit
+
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        if not dispatch:
+            raise ValueError("EXACT_PLAN_COPY_REQUIRED")
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        intent = json.loads(self._effective_message(message)["payload"])
+        destination = dispatch["platform"]
+        if destination not in {"x", "substack_notes"} or not _single_plan_copy_retry(intent, destination):
+            raise ValueError("EXACT_PLAN_COPY_REQUIRED")
+        if self._dispatch_quarantine(dispatch) or self._recovery_is_quarantined(intent["work_item_id"]):
+            return {"status": "QUARANTINED_UNKNOWN_WRITE_READBACK_OWED", "publish_called": False}
+        if dispatch["status"] in {UNKNOWN_WRITE, ATTEMPT_STARTED}:
+            readback = self.readback_existing_dispatch(dispatch_id)
+            if readback["reconciliation_status"] != RECONCILED_ABSENT_SAFE_TO_RETRY:
+                return readback
+        elif dispatch["status"] != RECONCILED_ABSENT_SAFE_TO_RETRY:
+            return {"status": dispatch["status"], "publish_called": False}
+
+        # A closed copy still gets a public readback, but its prior closure
+        # cannot be erased by learning it was absent.
+        source = self.store.get_outbox_message(intent.get("plan_status_post") or intent["work_item_id"])
+        source_payload = json.loads(source["payload"]) if source else {}
+        now = self._clock()
+        expired_status_post = (intent.get("plan_status_post") and source_payload.get("at_utc")
+            and _age_minutes(source_payload, now) > _x_freshness_limit(source_payload, now))
+        expired_link = False
+        if intent.get("plan_analysis_link") and source_payload.get("link_id") == intent["work_item_id"]:
+            from .plan_analysis_pages_v1 import settle_late_link
+            expired_link = bool(settle_late_link(self.store, source_payload, now=now))
+        if (message["status"] == "PLAN_POST_SETTLED" or expired_status_post or expired_link
+                or (source and source["status"] in {"SETTLED", STALE, SUPERSEDED})):
+            self._expire_stale_derivative(message, dispatch)
+            return {"status": DERIVATIVE_EXPIRED_STALE_NO_WRITE, "publish_called": False}
+        self.recovery_scope = {"work_item_id": intent["work_item_id"], "exact_work_item_only": True}
+        result = self.recover_pending(only_messages={message["message_id"]})["per_destination"].get(destination)
+        refreshed = self.store.get_platform_dispatch(dispatch_id)
+        return result or {"status": refreshed["status"], "publish_called": False}
 
     def readback(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
         """Production wiring seam: readback is owned by this coordinator/router."""

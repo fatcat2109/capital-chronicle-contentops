@@ -145,6 +145,14 @@ def main(argv=None) -> int:
             posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"],
                               **({"plan_pages": {"draft_worker": page_worker}} if page_worker else {})},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
+        if args.publish and not args.dry_run:
+            # Exact copies already attempted need readback even with a stale
+            # Main export. Do it before independently slow browser/editor work.
+            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
+            result["neo_stored_requests"] = resume_stored_requests(store)
+            if result["neo_stored_requests"].get("requests"):
+                posts.record_run({**result, "phase": "PLAN_COPY_READBACK"},
+                                 args.store.parent / posts.RUN_RECORD_FOLDER)
         # Decision 124's private delivery still precedes the slow editorial and
         # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
@@ -212,8 +220,7 @@ def main(argv=None) -> int:
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
-            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
-            result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
+            result["publication"]["neo_stored_requests"] = result["neo_stored_requests"]
         if args.publish and not args.dry_run:
             # CC-468 reads confirmed pages already in the store and checks their
             # original capture clocks. An unrelated stale status export must
