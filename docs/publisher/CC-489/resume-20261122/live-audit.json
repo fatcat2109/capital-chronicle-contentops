@@ -1,0 +1,666 @@
+{
+  "calibration_since_utc": "2026-11-17T00:00:00+00:00",
+  "code_commit": "86c942ac9183ff5bd56ffd9574b918afae3b1834",
+  "conclusion": {
+    "complete_day_meeting_95_percent": [
+      "2026-11-17"
+    ],
+    "missing_quote_refusal_days": [],
+    "pending_markets": [
+      "US500",
+      "EURUSD",
+      "USDJPY",
+      "USOIL"
+    ],
+    "three_day_calibration_status": "THREE_DAY_SAMPLE_INCOMPLETE"
+  },
+  "days": {
+    "2026-11-17": {
+      "calibration": {
+        "from_utc": "2026-11-17T00:00:00+00:00",
+        "markets": {
+          "BTCUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 12,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.2116763882343859,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.2116763882343859,
+            "three_day_observations_present": true
+          },
+          "EURUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 4,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.03188485014119072,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.03188485014119072,
+            "three_day_observations_present": false
+          },
+          "US500": {
+            "closed_market_comparisons": 0,
+            "compared_images": 7,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.3698936367909535,
+            "measured_above_limit": 5,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3698936367909535,
+            "three_day_observations_present": false
+          },
+          "USDJPY": {
+            "closed_market_comparisons": 0,
+            "compared_images": 5,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.008164598301748989,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.008164598301748989,
+            "three_day_observations_present": false
+          },
+          "USOIL": {
+            "closed_market_comparisons": 0,
+            "compared_images": 2,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.3562513632067432,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3562513632067432,
+            "three_day_observations_present": false
+          },
+          "XAUUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 15,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.09044507508130148,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.09044507508130148,
+            "three_day_observations_present": true
+          }
+        },
+        "pending_markets": [
+          "US500",
+          "EURUSD",
+          "USDJPY",
+          "USOIL"
+        ],
+        "status": "THREE_DAY_SAMPLE_INCOMPLETE",
+        "until_utc": "2026-11-20T00:00:00+00:00",
+        "whole_three_day_window_elapsed": true
+      },
+      "compared_percent": 100.0,
+      "compared_plan_charts": 5,
+      "missing_quote_refusals": [],
+      "not_compared": [],
+      "plan_charts": 5,
+      "status": "PASS",
+      "whole_live_day_elapsed": true
+    },
+    "2026-11-18": {
+      "calibration": {
+        "from_utc": "2026-11-17T00:00:00+00:00",
+        "markets": {
+          "BTCUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 12,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.2116763882343859,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.2116763882343859,
+            "three_day_observations_present": true
+          },
+          "EURUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 4,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.03188485014119072,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.03188485014119072,
+            "three_day_observations_present": false
+          },
+          "US500": {
+            "closed_market_comparisons": 0,
+            "compared_images": 7,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.3698936367909535,
+            "measured_above_limit": 5,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3698936367909535,
+            "three_day_observations_present": false
+          },
+          "USDJPY": {
+            "closed_market_comparisons": 0,
+            "compared_images": 5,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.008164598301748989,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.008164598301748989,
+            "three_day_observations_present": false
+          },
+          "USOIL": {
+            "closed_market_comparisons": 0,
+            "compared_images": 2,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.3562513632067432,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3562513632067432,
+            "three_day_observations_present": false
+          },
+          "XAUUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 15,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.09044507508130148,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.09044507508130148,
+            "three_day_observations_present": true
+          }
+        },
+        "pending_markets": [
+          "US500",
+          "EURUSD",
+          "USDJPY",
+          "USOIL"
+        ],
+        "status": "THREE_DAY_SAMPLE_INCOMPLETE",
+        "until_utc": "2026-11-20T00:00:00+00:00",
+        "whole_three_day_window_elapsed": true
+      },
+      "compared_percent": 73.07692307692307,
+      "compared_plan_charts": 19,
+      "missing_quote_refusals": [],
+      "not_compared": [
+        {
+          "captured_at_utc": "2026-11-18T09:29:48.203322+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "XAUUSD",
+          "piece_id": "622abeab97ed3745383e3a3daf2b67ecebc53445f2c213794e26b9d50c2c6cdb"
+        },
+        {
+          "captured_at_utc": "2026-11-18T10:31:13.675747+00:00",
+          "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+          "market": "US500",
+          "piece_id": "4e40966cebf467ee0e750cf024f3db20718c145a3c2b84713c9b78f6173bfaae"
+        },
+        {
+          "captured_at_utc": "2026-11-18T10:32:42.772280+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USOIL",
+          "piece_id": "ae6fd8eb1cde474cd72ad9d2f949cdb69551be507baa5b3928415b9305fa9af4"
+        },
+        {
+          "captured_at_utc": "2026-11-18T10:35:19.441908+00:00",
+          "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+          "market": "US500",
+          "piece_id": "4e40966cebf467ee0e750cf024f3db20718c145a3c2b84713c9b78f6173bfaae"
+        },
+        {
+          "captured_at_utc": "2026-11-18T10:38:18.530144+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USOIL",
+          "piece_id": "ae6fd8eb1cde474cd72ad9d2f949cdb69551be507baa5b3928415b9305fa9af4"
+        },
+        {
+          "captured_at_utc": "2026-11-18T17:16:46.656904+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "EURUSD",
+          "piece_id": "2749fd786c17b29fdec5bd26659516d764779bf112fed88a9f117b174a6b9dc5"
+        },
+        {
+          "captured_at_utc": "2026-11-18T17:17:56.086693+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "EURUSD",
+          "piece_id": "2749fd786c17b29fdec5bd26659516d764779bf112fed88a9f117b174a6b9dc5"
+        }
+      ],
+      "plan_charts": 26,
+      "status": "FAIL",
+      "whole_live_day_elapsed": true
+    },
+    "2026-11-19": {
+      "calibration": {
+        "from_utc": "2026-11-17T00:00:00+00:00",
+        "markets": {
+          "BTCUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 12,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.2116763882343859,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.2116763882343859,
+            "three_day_observations_present": true
+          },
+          "EURUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 4,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.03188485014119072,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.03188485014119072,
+            "three_day_observations_present": false
+          },
+          "US500": {
+            "closed_market_comparisons": 0,
+            "compared_images": 7,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.3698936367909535,
+            "measured_above_limit": 5,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3698936367909535,
+            "three_day_observations_present": false
+          },
+          "USDJPY": {
+            "closed_market_comparisons": 0,
+            "compared_images": 5,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.008164598301748989,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.008164598301748989,
+            "three_day_observations_present": false
+          },
+          "USOIL": {
+            "closed_market_comparisons": 0,
+            "compared_images": 2,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.3562513632067432,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3562513632067432,
+            "three_day_observations_present": false
+          },
+          "XAUUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 15,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.09044507508130148,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.09044507508130148,
+            "three_day_observations_present": true
+          }
+        },
+        "pending_markets": [
+          "US500",
+          "EURUSD",
+          "USDJPY",
+          "USOIL"
+        ],
+        "status": "THREE_DAY_SAMPLE_INCOMPLETE",
+        "until_utc": "2026-11-20T00:00:00+00:00",
+        "whole_three_day_window_elapsed": true
+      },
+      "compared_percent": 50.0,
+      "compared_plan_charts": 3,
+      "missing_quote_refusals": [],
+      "not_compared": [
+        {
+          "captured_at_utc": "2026-11-19T16:03:47.832589+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USOIL",
+          "piece_id": "6b06cc1c00e5b92f0001f89a9cef619f8d85134cb4a5035c55b10f91ec1958c0"
+        },
+        {
+          "captured_at_utc": "2026-11-19T16:04:25.254635+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USOIL",
+          "piece_id": "6b06cc1c00e5b92f0001f89a9cef619f8d85134cb4a5035c55b10f91ec1958c0"
+        },
+        {
+          "captured_at_utc": "2026-11-18T17:16:46.656904+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "EURUSD",
+          "piece_id": "2749fd786c17b29fdec5bd26659516d764779bf112fed88a9f117b174a6b9dc5"
+        }
+      ],
+      "plan_charts": 6,
+      "status": "FAIL",
+      "whole_live_day_elapsed": true
+    },
+    "2026-11-20": {
+      "calibration": {
+        "from_utc": "2026-11-17T00:00:00+00:00",
+        "markets": {
+          "BTCUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 12,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.2116763882343859,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.2116763882343859,
+            "three_day_observations_present": true
+          },
+          "EURUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 4,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.03188485014119072,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.03188485014119072,
+            "three_day_observations_present": false
+          },
+          "US500": {
+            "closed_market_comparisons": 0,
+            "compared_images": 7,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.3698936367909535,
+            "measured_above_limit": 5,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3698936367909535,
+            "three_day_observations_present": false
+          },
+          "USDJPY": {
+            "closed_market_comparisons": 0,
+            "compared_images": 5,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.008164598301748989,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.008164598301748989,
+            "three_day_observations_present": false
+          },
+          "USOIL": {
+            "closed_market_comparisons": 0,
+            "compared_images": 2,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.3562513632067432,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3562513632067432,
+            "three_day_observations_present": false
+          },
+          "XAUUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 15,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.09044507508130148,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.09044507508130148,
+            "three_day_observations_present": true
+          }
+        },
+        "pending_markets": [
+          "US500",
+          "EURUSD",
+          "USDJPY",
+          "USOIL"
+        ],
+        "status": "THREE_DAY_SAMPLE_INCOMPLETE",
+        "until_utc": "2026-11-20T00:00:00+00:00",
+        "whole_three_day_window_elapsed": true
+      },
+      "compared_percent": 73.33333333333333,
+      "compared_plan_charts": 11,
+      "missing_quote_refusals": [],
+      "not_compared": [
+        {
+          "captured_at_utc": "2026-11-20T06:06:56.258033+00:00",
+          "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+          "market": "US500",
+          "piece_id": "df7be8ce8fcaba1948baa17c062c507ee7d9e48d7669e90cb92a8cfcc57c82d3"
+        },
+        {
+          "captured_at_utc": "2026-11-20T06:07:51.611434+00:00",
+          "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+          "market": "US500",
+          "piece_id": "df7be8ce8fcaba1948baa17c062c507ee7d9e48d7669e90cb92a8cfcc57c82d3"
+        },
+        {
+          "captured_at_utc": "2026-11-20T07:28:05.248265+00:00",
+          "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+          "market": "US500",
+          "piece_id": "41788421277470ebbd145b2806ec87555554c7c19b521417af346340df5102ea"
+        },
+        {
+          "captured_at_utc": "2026-11-20T07:28:56.231842+00:00",
+          "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+          "market": "US500",
+          "piece_id": "41788421277470ebbd145b2806ec87555554c7c19b521417af346340df5102ea"
+        }
+      ],
+      "plan_charts": 15,
+      "status": "FAIL",
+      "whole_live_day_elapsed": true
+    },
+    "2026-11-21": {
+      "calibration": {
+        "from_utc": "2026-11-17T00:00:00+00:00",
+        "markets": {
+          "BTCUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 12,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.2116763882343859,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.2116763882343859,
+            "three_day_observations_present": true
+          },
+          "EURUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 4,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.03188485014119072,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.03188485014119072,
+            "three_day_observations_present": false
+          },
+          "US500": {
+            "closed_market_comparisons": 0,
+            "compared_images": 7,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.3698936367909535,
+            "measured_above_limit": 5,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3698936367909535,
+            "three_day_observations_present": false
+          },
+          "USDJPY": {
+            "closed_market_comparisons": 0,
+            "compared_images": 5,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.008164598301748989,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18"
+            ],
+            "p95_difference_pct": 0.008164598301748989,
+            "three_day_observations_present": false
+          },
+          "USOIL": {
+            "closed_market_comparisons": 0,
+            "compared_images": 2,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.4,
+            "maximum_observed_difference_pct": 0.3562513632067432,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.3562513632067432,
+            "three_day_observations_present": false
+          },
+          "XAUUSD": {
+            "closed_market_comparisons": 0,
+            "compared_images": 15,
+            "limit_basis": "APPROVED_STARTING_LIMIT",
+            "limit_pct": 0.15,
+            "maximum_observed_difference_pct": 0.09044507508130148,
+            "measured_above_limit": 0,
+            "observed_et_dates": [
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19"
+            ],
+            "p95_difference_pct": 0.09044507508130148,
+            "three_day_observations_present": true
+          }
+        },
+        "pending_markets": [
+          "US500",
+          "EURUSD",
+          "USDJPY",
+          "USOIL"
+        ],
+        "status": "THREE_DAY_SAMPLE_INCOMPLETE",
+        "until_utc": "2026-11-20T00:00:00+00:00",
+        "whole_three_day_window_elapsed": true
+      },
+      "compared_percent": 85.71428571428571,
+      "compared_plan_charts": 6,
+      "missing_quote_refusals": [],
+      "not_compared": [
+        {
+          "captured_at_utc": "2026-11-20T20:26:08.003476+00:00",
+          "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+          "market": "USOIL",
+          "piece_id": "2e8bff0a28ece3636be93f462ad4247cfdfd63918c1dd093a6e0f42873dc68bd"
+        }
+      ],
+      "plan_charts": 7,
+      "status": "FAIL",
+      "whole_live_day_elapsed": true
+    }
+  },
+  "inputs": {
+    "published_images": {
+      "bytes": 1461109,
+      "last_write_utc": "2026-11-21T14:27:17.278062+00:00",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+      "sha256": "c4e563a25ba3555a5f9ea6fa22d60d022584b10ccdc7d1ba6f4e29e864992fdd"
+    },
+    "snapshot_outcomes": {
+      "bytes": 308916,
+      "last_write_utc": "2026-11-21T18:01:19.991574+00:00",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\tradingview_snapshot_outcomes_v1.jsonl",
+      "sha256": "abd02fc231ba146df3d2c57a7aaf22c4f63c1f4eda99c0a97ab2009c44a6506d"
+    }
+  },
+  "live_tag": "contentops-live-20261122-cc489-r1",
+  "observed_at_utc": "2026-11-21T20:41:45.799333+00:00",
+  "rollback_tag": "contentops-rollback-20261122-cc489-r1",
+  "schema": "contentops.cc489.live_audit.v1"
+}
