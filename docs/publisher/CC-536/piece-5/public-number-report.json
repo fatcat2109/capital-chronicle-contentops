@@ -1,0 +1,632 @@
+{
+  "operation": "cc536-measured-odds-5",
+  "observed_at_utc": "2026-11-21T05:11:34.045917+00:00",
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "number_count_by_field": {
+    "substack_body_markdown": 27,
+    "social_summary": 10
+  },
+  "source_chart_sha256": "026b3b73b3cea81e39810e58a9d9acdaaa3dbd112a2ad3dbfcb13383108969a8",
+  "dispatches": {
+    "substack": {
+      "destination": "substack",
+      "public_object_id": "225884424",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "dispatch_id": "dispatch_e666b877d5b6ba7b38a395a6b57e231b",
+      "status": "RECONCILED_CONFIRMED",
+      "observed_chart_sha256": "026b3b73b3cea81e39810e58a9d9acdaaa3dbd112a2ad3dbfcb13383108969a8",
+      "chart_pixels_match": true
+    },
+    "x": {
+      "destination": "x",
+      "public_object_id": "2123993125190562072",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "dispatch_id": "dispatch_f4072019180994a3656ffe05222ce2cb",
+      "status": "RECONCILED_CONFIRMED",
+      "observed_chart_sha256": "c7d175b909488a4499963289ffa1e203657420c5e026d2d8de80f8d94afa4e46",
+      "chart_pixels_match": true
+    }
+  },
+  "numbers": [
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The sample spans November 2016 to November 2026.",
+      "number": "2016",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "table_value": "November 2016 to November 2026",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The sample spans November 2016 to November 2026.",
+      "number": "2026",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "table_value": "November 2016 to November 2026",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "Pending orders waited up to 3 sessions, both sides together.",
+      "number": "3",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1/0",
+      "table_value": "limit 0.5 normal day better, good for 3 sessions",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "A normal day measures the average range over 14 daily bars, including gaps.",
+      "number": "14",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "table_value": "D1 ATR14",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "We used a trailing stop of 1.5 normal days and held up to 10 sessions, both sides together.",
+      "number": "1.5",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/note",
+      "table_value": "Decision-close ATR is frozen; fill bar counts as session 1 and can stop the trade (D1 adverse-path floor). Stop 1.5 normal days trailed, up to 10 sessions. per_signal counts an order that never filled as 0.",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "We used a trailing stop of 1.5 normal days and held up to 10 sessions, both sides together.",
+      "number": "10",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/note",
+      "table_value": "Decision-close ATR is frozen; fill bar counts as session 1 and can stop the trade (D1 adverse-path floor). Stop 1.5 normal days trailed, up to 10 sessions. per_signal counts an order that never filled as 0.",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The test charged 0.05 of a normal day per round trip.",
+      "number": "0.05",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "table_value": "cost 0.05 of a normal day",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The next open filled all 1888 signals, both sides together. It averaged 0.117R per signal and 0.117R per fill.",
+      "number": "1888",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0",
+      "table_value": [
+        "at the next open",
+        1.0,
+        0.117,
+        0.117,
+        1888
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The next open filled all 1888 signals, both sides together. It averaged 0.117R per signal and 0.117R per fill.",
+      "number": "0.117",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0",
+      "table_value": [
+        "at the next open",
+        1.0,
+        0.117,
+        0.117,
+        1888
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The next open filled all 1888 signals, both sides together. It averaged 0.117R per signal and 0.117R per fill.",
+      "number": "0.117",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0",
+      "table_value": [
+        "at the next open",
+        1.0,
+        0.117,
+        0.117,
+        1888
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The limit at 0.5 normal day better had 1154 fills, both sides together. It averaged 0.058R per signal and 0.096R per fill.",
+      "number": "0.5",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1",
+      "table_value": [
+        "limit 0.5 normal day better, good for 3 sessions",
+        0.61,
+        0.058,
+        0.096,
+        1154
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The limit at 0.5 normal day better had 1154 fills, both sides together. It averaged 0.058R per signal and 0.096R per fill.",
+      "number": "1154",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1",
+      "table_value": [
+        "limit 0.5 normal day better, good for 3 sessions",
+        0.61,
+        0.058,
+        0.096,
+        1154
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The limit at 0.5 normal day better had 1154 fills, both sides together. It averaged 0.058R per signal and 0.096R per fill.",
+      "number": "0.058",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1",
+      "table_value": [
+        "limit 0.5 normal day better, good for 3 sessions",
+        0.61,
+        0.058,
+        0.096,
+        1154
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The limit at 0.5 normal day better had 1154 fills, both sides together. It averaged 0.058R per signal and 0.096R per fill.",
+      "number": "0.096",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1",
+      "table_value": [
+        "limit 0.5 normal day better, good for 3 sessions",
+        0.61,
+        0.058,
+        0.096,
+        1154
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day better, the limit had 658 fills, both sides together. It averaged 0.019R per signal and 0.055R per fill.",
+      "number": "1",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/2",
+      "table_value": [
+        "limit 1 normal day better, 3 sessions",
+        0.35,
+        0.019,
+        0.055,
+        658
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day better, the limit had 658 fills, both sides together. It averaged 0.019R per signal and 0.055R per fill.",
+      "number": "658",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/2",
+      "table_value": [
+        "limit 1 normal day better, 3 sessions",
+        0.35,
+        0.019,
+        0.055,
+        658
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day better, the limit had 658 fills, both sides together. It averaged 0.019R per signal and 0.055R per fill.",
+      "number": "0.019",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/2",
+      "table_value": [
+        "limit 1 normal day better, 3 sessions",
+        0.35,
+        0.019,
+        0.055,
+        658
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day better, the limit had 658 fills, both sides together. It averaged 0.019R per signal and 0.055R per fill.",
+      "number": "0.055",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/2",
+      "table_value": [
+        "limit 1 normal day better, 3 sessions",
+        0.35,
+        0.019,
+        0.055,
+        658
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The stop entry at 0.5 normal day farther had 1190 fills, both sides together. It averaged 0.109R per signal and 0.173R per fill.",
+      "number": "0.5",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The stop entry at 0.5 normal day farther had 1190 fills, both sides together. It averaged 0.109R per signal and 0.173R per fill.",
+      "number": "1190",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The stop entry at 0.5 normal day farther had 1190 fills, both sides together. It averaged 0.109R per signal and 0.173R per fill.",
+      "number": "0.109",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The stop entry at 0.5 normal day farther had 1190 fills, both sides together. It averaged 0.109R per signal and 0.173R per fill.",
+      "number": "0.173",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day farther, the stop entry had 708 fills, both sides together. It averaged 0.049R per signal and 0.13R per fill.",
+      "number": "1",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/4",
+      "table_value": [
+        "stop entry 1 normal day further, 3 sessions",
+        0.38,
+        0.049,
+        0.13,
+        708
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day farther, the stop entry had 708 fills, both sides together. It averaged 0.049R per signal and 0.13R per fill.",
+      "number": "708",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/4",
+      "table_value": [
+        "stop entry 1 normal day further, 3 sessions",
+        0.38,
+        0.049,
+        0.13,
+        708
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day farther, the stop entry had 708 fills, both sides together. It averaged 0.049R per signal and 0.13R per fill.",
+      "number": "0.049",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/4",
+      "table_value": [
+        "stop entry 1 normal day further, 3 sessions",
+        0.38,
+        0.049,
+        0.13,
+        708
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "At 1 normal day farther, the stop entry had 708 fills, both sides together. It averaged 0.049R per signal and 0.13R per fill.",
+      "number": "0.13",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/4",
+      "table_value": [
+        "stop entry 1 normal day further, 3 sessions",
+        0.38,
+        0.049,
+        0.13,
+        708
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "substack_body_markdown",
+      "public_span": "The wider study examined 54 market-and-rule combinations, giving luck more chances to make a result look strong.",
+      "number": "54",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "table_value": "out of 54 by chance",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "readback_request_sha256": "91e9c081366d6ce766bd0f7f8ef6e7db6936fe01e0f061b760af56af61201668"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "Across six markets from November 2016 to November 2026, we compared the next open with limit and stop entries, both sides together.",
+      "number": "2016",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "table_value": "November 2016 to November 2026",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "Across six markets from November 2016 to November 2026, we compared the next open with limit and stop entries, both sides together.",
+      "number": "2026",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "table_value": "November 2016 to November 2026",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The next open filled all 1888 signals, both sides together, and averaged 0.117R per signal.",
+      "number": "1888",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0",
+      "table_value": [
+        "at the next open",
+        1.0,
+        0.117,
+        0.117,
+        1888
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The next open filled all 1888 signals, both sides together, and averaged 0.117R per signal.",
+      "number": "0.117",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0",
+      "table_value": [
+        "at the next open",
+        1.0,
+        0.117,
+        0.117,
+        1888
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The nearer stop entry had 1190 fills, both sides together. It averaged 0.173R per fill and 0.109R per signal.",
+      "number": "1190",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The nearer stop entry had 1190 fills, both sides together. It averaged 0.173R per fill and 0.109R per signal.",
+      "number": "0.173",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The nearer stop entry had 1190 fills, both sides together. It averaged 0.173R per fill and 0.109R per signal.",
+      "number": "0.109",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3",
+      "table_value": [
+        "stop entry 0.5 normal day further, 3 sessions",
+        0.63,
+        0.109,
+        0.173,
+        1190
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The nearer limit had 1154 fills, both sides together, and averaged 0.058R per signal.",
+      "number": "1154",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1",
+      "table_value": [
+        "limit 0.5 normal day better, good for 3 sessions",
+        0.61,
+        0.058,
+        0.096,
+        1154
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "The nearer limit had 1154 fills, both sides together, and averaged 0.058R per signal.",
+      "number": "0.058",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1",
+      "table_value": [
+        "limit 0.5 normal day better, good for 3 sessions",
+        0.61,
+        0.058,
+        0.096,
+        1154
+      ],
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    },
+    {
+      "field": "social_summary",
+      "public_span": "Gold, shares and Bitcoin rose over the decade, and the wider study examined 54 market-and-rule combinations.",
+      "number": "54",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "table_value": "out of 54 by chance",
+      "side": null,
+      "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "readback_request_sha256": "e242e0d280fc7dcc522d5c142a6116423a562a3e0c298338bb9a38a4545d2082"
+    }
+  ]
+}
