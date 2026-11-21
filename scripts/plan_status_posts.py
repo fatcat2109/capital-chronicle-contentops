@@ -98,6 +98,7 @@ def main(argv=None) -> int:
             python=child_python(), dry_run=args.dry_run)}
         result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
+        from live_contentops.public_draft_claims_v1 import review_plan_copy
         # CC-543: the plan's API alerts precede every model/browser operation.
         # The existing task has a five-minute lifetime; a previous slow slice
         # therefore cannot consume this plan's entire ten-minute deadline.
@@ -109,7 +110,7 @@ def main(argv=None) -> int:
         page_worker = None
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                active_recoveries=result.get("active_recoveries"), immediate_only=True)
+                active_recoveries=result.get("active_recoveries"), immediate_only=True, claim_checker=review_plan_copy)
             # Save the API receipts even if the later browser work outlives the tick.
             posts.record_run({**result, "phase": "IMMEDIATE_ALERTS", "publication": result["immediate_publication"]},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
@@ -127,7 +128,7 @@ def main(argv=None) -> int:
                 if draft["status"] != "NO_DUE_PAGE_DRAFT":
                     page_worker = draft
             result["plan_alert_fanout"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                automatic_neo=True, alert_filter=True)
+                automatic_neo=True, alert_filter=True, claim_checker=review_plan_copy)
             posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"],
                               **({"plan_pages": {"draft_worker": page_worker}} if page_worker else {})},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
@@ -163,7 +164,7 @@ def main(argv=None) -> int:
             from live_contentops.call_followups_v1 import minute_due as followups_due
             try:
                 result["call_followups"] = followups_due(store, lambda: posts.read_export(
-                    args.export_dir, main_root=args.main_root, python=child_python()))
+                    args.export_dir, main_root=args.main_root, python=child_python()), claim_checker=review_plan_copy)
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 result["call_followups"] = {"status": "NOT_COMPLETED", "cause": str(exc)[:200]}
         if args.publish and not args.dry_run:
@@ -190,7 +191,8 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run and result["status"] == "OK":
             from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                active_recoveries=result.get("active_recoveries"), automatic_neo=True, alert_filter=False)
+                active_recoveries=result.get("active_recoveries"), automatic_neo=True, alert_filter=False,
+                claim_checker=review_plan_copy)
             result["publication"]["posts"] = (result["plan_alert_fanout"]["posts"]
                 + result["publication"].get("posts", []))
             result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,

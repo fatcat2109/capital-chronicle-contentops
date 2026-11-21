@@ -1689,7 +1689,8 @@ def _publish_card_plan(store, row, plan, coordinator_for, *, parallel, immediate
 
 
 def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False,
-                  snapshot=None, snapshot_allowed=None, destinations=None, alert_filter=None):
+                  snapshot=None, snapshot_allowed=None, destinations=None, alert_filter=None, claim_checker=None):
+    from .public_draft_claims_v1 import try_plan_check
     from .tradingview_snapshot_v1 import SnapshotPending, SnapshotUnavailable
     if coordinator_for is None:
         def coordinator_for(key, folder):
@@ -1821,10 +1822,12 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 media.update({d["destination"]: d for d in plan.get("skipped_destinations") or []})
                 deferred.extend(plan["deferred_destinations"])
                 if plan["destinations"]:
+                    try_plan_check(claim_checker, store, row, plan)
                     outcome = _publish_card_plan(store, row, plan, coordinator_for, parallel=parallel,
                                                  immediate=destinations is not None)
                     per_destination.update(outcome.get("per_destination") or {})
                     for continuation in plan["continuations"]:
+                        try_plan_check(claim_checker, store, row, continuation, key=continuation["work_item_id"])
                         channel_reply = _publish_discord_channel_reply(store, row, continuation, coordinator_for,
                                                                        immediate=destinations is not None)
                     attempted = True

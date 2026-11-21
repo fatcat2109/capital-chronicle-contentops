@@ -23,7 +23,7 @@ from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
-from live_contentops.agy_decision_metrics_v1 import daily_metrics
+from live_contentops.agy_decision_metrics_v1 import daily_metrics, draft_claims
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
 from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
@@ -1133,6 +1133,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     report["decision_checks"]["antigravity"] = daily_metrics(
         Path(store_path).parent, window, checks.estimated_jobs(report["plan_delivery"]),
         {Path(copy.intent["output_dir"]).resolve() for copy in checks.copies if copy.intent.get("output_dir")})
+    report["decision_checks"]["claims"] = draft_claims(
+        Path(store_path).parent, window, checks.copies, report["decision_checks"]["antigravity"])
     report["exceptions"].extend({
         **item, "message_id": None, "dispatch_id": None,
         "first_cause": f"{item['decision']} {item['first_cause']}"
@@ -1235,6 +1237,16 @@ def markdown(report):
             cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
             lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
+        if claims := decisions.get("claims"):
+            lines.extend(["", "### Claims", "", f"{claims['checked']} drafts reviewed. "
+                          f"{claims['public_drafts']} public drafts observed."])
+            for row in claims["drafts"]:
+                actions = ", ".join(f"{flag['cause']} / {flag['action']}" for flag in row["flags"])
+                detail = " · " + " · ".join(filter(None, (row["cause"], actions))) if row["cause"] or actions else ""
+                lines.append(f"- {plain(row['draft_id'])} · {row['kind']} · {row['status']}{detail}")
+            for reply in claims["correcting_replies"]:
+                lines.append(f"- Correcting reply for Publisher · {reply['platform']} · {reply['parent_url']} · "
+                             f"{plain(reply['reply_text'])}")
         if assist := decisions.get("antigravity"):
             lines.extend(["", "### Antigravity", "",
                           "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",

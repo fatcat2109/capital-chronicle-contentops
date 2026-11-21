@@ -46,9 +46,10 @@ def ready(source, tmp_path):  # noqa: F811 - imported pytest fixture
             "tv_symbol": tv.SYMBOLS["EURUSD"], "interval": "240", "interval_label": "4h",
             "chart_url": tv.chart_url(tv.SYMBOLS["EURUSD"], "240"), "captured_at_utc": now.isoformat(),
             "page_title": "EURUSD 1.12", "capture_ratio": "16:9"}
-    from live_contentops.publication_image_contract_v1 import bind_scale
+    from live_contentops.publication_image_contract_v1 import bind_scale, comparison_clock
+    comparison_at, _ = comparison_clock("EURUSD", snap["captured_at_utc"])
     snap = bind_scale("EURUSD", snap, quote={"market": "EURUSD", "instrument": "EURUSD", "price": 1.12,
-        "quoted_at_utc": now.isoformat(), "known_at_utc": now.isoformat(), "source_path": "controlled-quote.json",
+        "quoted_at_utc": comparison_at.isoformat(), "known_at_utc": now.isoformat(), "source_path": "controlled-quote.json",
         "source_sha256": "a" * 64, "price_basis": "plan_feed"})
     packet["media_assets"] = [tv.snapshot_asset("EURUSD", "Euro", snap, tmp_path / "chart")]
     store = ContentOpsDurableStore(tmp_path / "notes.sqlite3")
@@ -93,7 +94,12 @@ def test_installed_minute_consumer_prepares_one_note_and_reuses_frozen_writer(re
         assert "PUBLIC MAIN ANALYSES" in prompt and "400 characters" in prompt
         assert kwargs["writer"] is True
         return authored, {"configured_model": "gpt-6.1-sol", "configured_effort": "max"}
-    first = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer, publish=False)
+    def claims(prompt, **options):
+        assert "US yields reached 5%" in prompt and options["job"] == "public_draft_claim_check"
+        return b'{"claims":[]}', {"answered_by": "antigravity"}
+
+    first = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer,
+                          claim_call=claims, publish=False)
     assert first["state"] == "NOTE_PREPARED"
     second = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer, publish=False)
     assert second == first and len(calls) == 1

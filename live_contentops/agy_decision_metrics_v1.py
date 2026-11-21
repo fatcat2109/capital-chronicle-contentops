@@ -3,9 +3,11 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
+from hashlib import sha256
 from pathlib import Path
 
 from .public_decision_checks_v1 import clock, object_json
+from .public_draft_claims_v1 import JOB, RECORD
 
 
 JOBS = {
@@ -14,6 +16,7 @@ JOBS = {
     "daily_wrap_sections": "Pre-US wraps due",
     "weekend_wrap_sections": "Sunday wraps due",
     "article_claim_check": "Canonical article packages due",
+    JOB: "Public drafts presented for claim review",
     "x_reply_ranking": "Retained X reply ranking requests",
 }
 PASS_RATE = 90.0
@@ -46,20 +49,81 @@ def _receipt_paths(root, runtime, start, end, output_folders):
                 reply_requests += 1
             if _contained(receipt, runtime):
                 files.add(receipt)
+            files.update(path for path in folder.glob("editorial/writer/claim-review/*/light-call.json")
+                         if _contained(path, runtime))
+        for folder in (root / "x_reply_pack" / "neo-refresh").glob(day.strftime("%Y%m%d") + "T*"):
+            files.update(path for path in folder.glob("agy/claim-review/*/light-call.json")
+                         if _contained(path, runtime))
         day += timedelta(days=1)
-    for parent in ("plan_analysis", "plan-status-posts", "plan_status_posts", "owner-manual", "weekly"):
+    for parent in ("plan_analysis", "plan-status-posts", "plan_status_posts", "owner-manual", "weekly",
+                   "substack-daily-notes", "market-wraps"):
         folder = root / parent
         for pattern in ("*/layer-lines-*/light-call.json", "*/full-analysis-*/*/light-call.json",
                         "*/page-writer-cc688/*/*/light-call.json",
-                        "*/daily-note-first-draft/*/result.json", "*/" + LEGACY_CLAIM):
+                        "*/daily-note-first-draft/*/result.json", "*/" + LEGACY_CLAIM,
+                        "*/claim-review/*/light-call.json"):
             files.update(path for path in folder.glob(pattern) if _contained(path, runtime))
     for folder in output_folders:
         if not folder.is_relative_to(runtime):
             continue
         for pattern in (LEGACY_CLAIM, "daily-note-first-draft/*/result.json",
-                        "*/*/light-call.json", "*/light-call.json"):
+                        "*/*/light-call.json", "*/light-call.json", "claim-review/*/light-call.json"):
             files.update(path for path in folder.glob(pattern) if _contained(path, runtime))
     return sorted(files), reply_requests
+
+
+def draft_claims(runtime, window, copies, metrics):
+    runtime = Path(runtime).resolve()
+    start, end = (clock(window[key]) for key in ("since_utc", "until_utc"))
+    folders = {Path(copy.intent["output_dir"]).resolve() for copy in copies if copy.intent.get("output_dir")}
+    paths, _ = _receipt_paths(runtime / "daily_app_outputs", runtime, start, end, folders)
+    recorded = {}
+    for path in paths:
+        review = path.with_name(RECORD)
+        if not _contained(review, runtime):
+            continue
+        record = object_json(review)
+        opened, closed = clock(record.get("started_at_utc")), clock(record.get("ended_at_utc"))
+        if not opened or not closed or not start < closed <= end:
+            continue
+        recorded[record["draft_id"], record["input_sha256"]] = record
+    rows = []
+    recorded_ids = set()
+    corrections = {}
+    for (draft_id, _), record in sorted(recorded.items()):
+        recorded_ids.add(draft_id)
+        flags = [{"cause": str(flag["cause"]), "action": str(flag["action"])} for flag in record["flags"]]
+        rows.append({"draft_id": draft_id, "kind": record["kind"], "status": record["status"],
+                     "cause": record.get("cause"), "flag_count": len(flags), "flags": flags})
+        if record["kind"] == "plan_post":
+            repairs = {record["passages"][flag["passage"]]["text"]: record["corrected"][flag["passage"]]
+                       for flag in record["flags"] if flag["action"] == "SOURCE_VALUE_RESTORED"}
+            for copy in copies:
+                if copy.piece != draft_id or not copy.confirmed or not (copy.verified_at or copy.public_text):
+                    continue
+                snippets = sorted({(before, after) for before, after in repairs.items()
+                                   if before in copy.visible_text})
+                if snippets:
+                    key = sha256((draft_id + "|" + copy.url).encode()).hexdigest()
+                    fixes = corrections.setdefault(key, {"draft_id": draft_id, "platform": copy.platform,
+                        "parent_url": copy.url, "reply_action": "FIRST_PUBLISHER_STREAM_DECISION_136", "repairs": []})
+                    for _, after in snippets:
+                        if after not in fixes["repairs"]:
+                            fixes["repairs"].append(after)
+    public = {copy.piece for copy in copies if copy.confirmed and (
+        copy.source.get("kind") in {"setup", "update", "result", "daily_note"}
+        or copy.intent.get("plan_analysis_page") or copy.intent.get("market_wrap"))
+        and any(at and start < at <= end for at in (copy.published_at, copy.dispatched_at))}
+    for draft_id in sorted(public - recorded_ids):
+        rows.append({"draft_id": draft_id, "kind": "published_draft", "status": "REVIEW_RECEIPT_NOT_OBSERVED",
+                     "cause": None, "flag_count": 0, "flags": []})
+    for job in metrics["jobs"]:
+        if job["job"] == JOB:
+            job["posts_due"] = len(public | recorded_ids)
+    return {"drafts": rows, "checked": len(recorded_ids), "public_drafts": len(public),
+            "correcting_replies": [{"correction_id": key, **value,
+                                    "reply_text": "Correction to our earlier post. " + " ".join(value["repairs"])}
+                                   for key, value in sorted(corrections.items())]}
 
 
 def _legacy_record(path, row):
