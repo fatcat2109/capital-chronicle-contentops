@@ -398,6 +398,26 @@ def validate_plan_page_quotes(manuscript, plan, run):
         raise ValueError("CC688_PAGE_COPY_CHANGED_FROM_FROZEN_PLAN")
 
 
+def repair_cached_page_quotes(plan, run, manuscript, *, cause):
+    """Keep usable authored choices when a held draft loses a public excerpt."""
+    if (manuscript.get("analysis_copy_contract") != reader.ANALYSIS_COPY
+            or manuscript.get("plan_id") != plan["plan_id"]
+            or manuscript.get("registration_hash") != plan["registration_hash"]):
+        raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
+    sources = _plan_page_sources(plan, run)
+    selection = {}
+    for key, items in sources.items():
+        if not items:
+            continue
+        held = manuscript["sections"][key]["paragraphs"]
+        retained = dict.fromkeys(items.index(paragraph) for paragraph in held if paragraph in items)
+        selection[key] = list(retained or range(len(items)))
+    repaired = _page_from_selection(plan, run, sources, selection)
+    repaired["authorship"] = {**manuscript.get("authorship", {}), "quote_recheck": {"cause": cause,
+        "held_manuscript_sha256": sha256(canonical_bytes(manuscript)).hexdigest()}}
+    return repaired
+
+
 def draft_plan_page(plan, run, *, output_dir, call=None):
     """Two checked Antigravity attempts, Codex high, then the analyst's own sections."""
     from .light_model_caller_v1 import call_light, json_answer
@@ -565,10 +585,14 @@ def publication_packet(store, plan):
     return json.loads(row["payload"]) if row else None
 
 
-def frozen_page_sources(store):
+def _frozen_page_setups(store):
     alerts = (json.loads(row["payload"]) for row in store.list_outbox_messages(destination="internal:plan-status-post"))
-    return {row["plan_id"]: row["source_plan"] for row in alerts
+    return {row["plan_id"]: row for row in alerts
             if row.get("kind") == "setup" and row.get("thread_contract") == reader.THREAD_CONTRACT}
+
+
+def frozen_page_sources(store):
+    return {plan_id: row["source_plan"] for plan_id, row in _frozen_page_setups(store).items()}
 
 
 def _dated_plans(export, now):
@@ -743,7 +767,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
         # Retained failures rotate; a cached refusal cannot starve the week.
         plans.sort(key=lambda p: (now-datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00")) >= timedelta(minutes=10),
             attempt_clock(p["plan_id"]), p["registered_at_utc"]))
-        frozen = frozen_page_sources(store)
+        setups = _frozen_page_setups(store)
         new_plans = _new_plan_ids(store) if cached_only else set()
         draft_due = False
         if writer_deadline is not None:
@@ -751,7 +775,8 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
         for plan in plans:
             # A public thread retains its first alert's exact price basis and
             # clocks, including when Main later enriches the same registration.
-            plan = frozen.get(plan["plan_id"], plan)
+            setup = setups.get(plan["plan_id"], {})
+            plan = setup.get("source_plan", plan)
             packet=publication_packet(store,plan)
             if packet and pages.page_status(store,packet)["confirmed"]:
                 continue
@@ -775,15 +800,26 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                         if current.get("status") in ACTIVE:
                             options = pages.current_page_options(plan, current, now=now)
                         else:
-                            options = {"final_status": pages.ended_plan_status(plan, current, now=now)}
+                            final = pages.ended_plan_status(plan, current, now=now)
+                            options = {"final_status": final}
+                            if final.get("ended_before_entry_deadline") and setup.get("key"):
+                                options["setup_post_dir"] = (store.db_path.parent / "daily_app_outputs"
+                                                             / "plan-status-posts" / setup["key"])
                     except ValueError as exc:
                         waiting.append({"plan_id": plan["plan_id"], "cause": str(exc)})
                         continue
                 try:
                     if cached_only:
                         manuscript = json.loads((folder / DRAFT_MANUSCRIPT).read_bytes())
-                        prepared = {"status": "PREPARED",
-                                    "packet": pages.render(plan, manuscript, output_dir=folder, **options)}
+                        try:
+                            packet = pages.render(plan, manuscript, output_dir=folder, **options)
+                        except ValueError as exc:
+                            if not str(exc).startswith("CC688_PAGE_"):
+                                raise
+                            run = pages.load_run(plan)
+                            repaired = repair_cached_page_quotes(plan, run, manuscript, cause=str(exc))
+                            packet = pages.render(plan, repaired, output_dir=folder, **options)
+                        prepared = {"status": "PREPARED", "packet": packet}
                     else:
                         prepared = prepare_page(plan, output_dir=folder, call=call, **options)
                 except (OSError,ValueError,KeyError,TypeError) as exc:

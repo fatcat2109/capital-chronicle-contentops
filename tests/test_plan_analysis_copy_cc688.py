@@ -187,6 +187,42 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
         pages.validate_manuscript(plan, manuscript, pages.load_run(plan, run_root=run_root))
 
 
+def test_minute_repairs_an_unissued_draft_using_its_still_valid_frozen_excerpts(source, tmp_path, monkeypatch):
+    run_root, _, plan, _ = source
+    now = posts._utc("2026-11-20T04:30:00Z")
+    supported = "Rate traders had already priced in the policy move."
+    plan.update(registered_at_utc="2026-11-20T04:28:00Z", status="WAITING", analysis_layers=LAYERS,
+                scenario_analysis={"priced": "Markets price a 91% chance of a rate increase. " + supported})
+    load_run = pages.load_run
+    monkeypatch.setattr(pages, "load_run", lambda plan, **_: load_run(plan, run_root=run_root))
+    run = pages.load_run(plan)
+    with monkeypatch.context() as prior:
+        prior.setattr(pages, "check_reader_claim", lambda *a, **k: None)
+        old_sources = editorial._plan_page_sources(plan, run)
+        assert len(old_sources["priced_in"]) == 2
+        selection = {key: list(range(len(items))) for key, items in old_sources.items() if items}
+        draft = editorial._page_from_selection(plan, run, old_sources, selection)
+    draft["authorship"] = {"writer": "antigravity", "calls": []}
+    root = tmp_path / "pages"
+    folder = root / ("plan-analysis-" + plan["plan_id"])
+    folder.mkdir(parents=True)
+    path = folder / editorial.DRAFT_MANUSCRIPT
+    draft_bytes = json.dumps(draft).encode()
+    path.write_bytes(draft_bytes)
+    store = ContentOpsDurableStore(tmp_path / "retained.sqlite3")
+
+    outcome = editorial.run_due(store, {"status": {"plans": [plan]}}, root=root, rollout={},
+                                now=now, publish=False, cached_only=True)
+    assert outcome["pages"][0].get("publication", {}).get("status") == "PREPARED", outcome
+    packet = editorial.publication_packet(store, plan)
+    checked = pages.validate_plan(store, packet["page_id"], packet["plan"])
+    assert supported in checked["native_payload"]["body_markdown"]
+    assert "91%" not in checked["native_payload"]["body_markdown"]
+    assert checked["authorship"]["writer"] == "antigravity"
+    assert checked["authorship"]["quote_recheck"]["cause"] == "CC688_PAGE_QUOTE_NOT_IN_SECTION:priced_in"
+    assert path.read_bytes() == draft_bytes
+
+
 def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp_path, monkeypatch):
     now = posts._utc("2026-11-20T04:30:00Z")
     store = ContentOpsDurableStore(tmp_path / "worker.sqlite3")
