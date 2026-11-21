@@ -85,6 +85,46 @@ def check_fresh(clock, now):
         raise ValueError("NOTE_DATA_CUTOFF_EXPIRED_OR_FUTURE")
 
 
+def _chart(page):
+    return next((asset for asset in page.get("media_assets", [])
+                 if asset.get("modality") == "tradingview_chart_snapshot"), None)
+
+
+def _data_clock(page, analysis_clock):
+    """Use the newest data shown in the Note and keep Main's own capture clock."""
+    asset = _chart(page)
+    snapshot = (asset or {}).get("tradingview_snapshot") or {}
+    quote = (snapshot.get("price_scale_check") or {}).get("quote")
+    if not quote:
+        return analysis_clock
+    observed = utc(quote["quoted_at_utc"])
+    if observed <= utc(analysis_clock["data_cutoff_utc"]):
+        return analysis_clock
+
+    from .publication_image_contract_v1 import validate_scale
+    validate_scale(page["source_plan"]["asset_id"], snapshot)
+    known = utc(quote["known_at_utc"])
+    captured = utc(snapshot["captured_at_utc"])
+    if not observed <= known <= captured:
+        raise ValueError("NOTE_CHART_QUOTE_NOT_KNOWN_AT_CAPTURE")
+    return {"data_cutoff_utc": observed.isoformat(), "basis": "TRADINGVIEW_BOUND_QUOTE",
+            "quote_source_path": quote["source_path"], "quote_source_sha256": quote["source_sha256"],
+            "quote_known_at_utc": known.isoformat(), "chart_captured_at_utc": captured.isoformat(),
+            "chart_sha256": snapshot["sha256"]}
+
+
+def _check_source(page, analysis_clock, data_clock, now):
+    check_fresh(data_clock, now)
+    if data_clock != analysis_clock:
+        if utc(data_clock["chart_captured_at_utc"]) > utc(now):
+            raise ValueError("NOTE_CHART_CAPTURE_IN_FUTURE")
+        # A recent quote does not restore an ended plan or an outdated plan status.
+        if utc(now) - utc(analysis_clock["data_cutoff_utc"]) > timedelta(minutes=60):
+            if page.get("final_status"):
+                raise ValueError("NOTE_SOURCE_PLAN_ENDED")
+            pages.require_current_page(page, now=now)
+
+
 def validate_copy(authored, page):
     sentences = authored.get("sentences") or []
     if not 2 <= len(sentences) <= 4:
@@ -149,7 +189,8 @@ def writer_prompt(candidates):
         "figure, our conditional view and the level that ends it. Copy a supporting source_excerpt verbatim from "
         "the selected section's paragraph for each sentence. fact_date is the exact public date, e.g. '3 Nov', "
         "in that excerpt and sentence; omit it on other sentences. Every number and analytical claim comes from "
-        "the supplied analysis. Preserve its sign, units, horizon and conditions. Never manufacture a scenario, "
+        "the supplied analysis. Preserve its date, sign, units, horizon and conditions. The chart may show a newer "
+        "price. It does not move the analysis date or extend its horizon. Never manufacture a scenario, "
         "odds, date, causal explanation or new invalidation. view and invalidation are exact substrings of your "
         "sentences. Use plain reader language, no internal terms, model labels, ellipses or clipped sentences. "
         "The chart and the two notices are attached by code. Banned terms: " + ", ".join(BANNED)
@@ -158,7 +199,7 @@ def writer_prompt(candidates):
 
 def _copy_chart(page, folder):
     from .tradingview_snapshot_v1 import validate_snapshot_asset
-    asset = next((a for a in page.get("media_assets", []) if a.get("modality") == "tradingview_chart_snapshot"), None)
+    asset = _chart(page)
     if not asset:
         raise ValueError("NOTE_TRADINGVIEW_CHART_REQUIRED")
     asset = deepcopy(asset)
@@ -186,8 +227,9 @@ def register_note(store, page, authored, *, output_root, now):
     status = pages.page_status(store, page)
     if not status["confirmed"]:
         raise ValueError("NOTE_SOURCE_PAGE_NOT_CONFIRMED")
-    clock = capture_clock(page)
-    check_fresh(clock, now)
+    analysis_clock = capture_clock(page)
+    clock = _data_clock(page, analysis_clock)
+    _check_source(page, analysis_clock, clock, now)
     body = validate_copy(authored, page)
     folder = Path(output_root).resolve() / day
     folder.mkdir(parents=True, exist_ok=True)
@@ -206,7 +248,7 @@ def register_note(store, page, authored, *, output_root, now):
     plan["plan_hash"] = sha256_of(plan)
     value = {"policy": POLICY, "kind": "daily_note", "link_id": key, "day_et": day,
         "page_id": page["page_id"], "plan_id": page["plan_id"], "destination": "substack_notes",
-        "canonical_url": status["canonical_url"], "source_clock": clock,
+        "canonical_url": status["canonical_url"], "source_clock": clock, "analysis_clock": analysis_clock,
         "source_page_sha256": sha256_of(page), "authored": authored, "body": body,
         "native_payload": payload, "media_assets": [asset], "plan": plan}
     context = {"article": {"title": "Daily market Note", "market_asset": page["source_plan"]["asset_id"]},
@@ -222,9 +264,13 @@ def register_note(store, page, authored, *, output_root, now):
 def validate_note(store, value, *, now=None):
     page = json.loads(store.get_outbox_message(value["page_id"])["payload"])
     pages.validate_plan(store, page["page_id"], page["plan"])
+    analysis_clock = capture_clock(page)
+    # Issued Notes predate the new data clock and retain their exact old source.
+    clock = _data_clock(page, analysis_clock) if "analysis_clock" in value else analysis_clock
     if (value.get("policy") != POLICY or value["link_id"] != identity(value["day_et"])
             or sha256_of(page) != value["source_page_sha256"]
-            or capture_clock(page) != value["source_clock"]
+            or analysis_clock != value.get("analysis_clock", analysis_clock)
+            or clock != value["source_clock"]
             or pages.page_status(store, page)["canonical_url"] != value["canonical_url"]):
         raise ValueError("NOTE_SOURCE_BINDING_CHANGED")
     body = validate_copy(value["authored"], page)
@@ -241,7 +287,7 @@ def validate_note(store, value, *, now=None):
             or destination["canonical_url"] != value["canonical_url"]):
         raise ValueError("NOTE_COPY_OR_CHART_CHANGED")
     if now is not None:
-        check_fresh(value["source_clock"], now)
+        _check_source(page, analysis_clock, clock, now)
         if day_at(now) != value["day_et"]:
             raise ValueError("NOTE_PUBLIC_DAY_EXPIRED")
     return value
@@ -268,23 +314,25 @@ def run_due(store, *, output_root, now=None, writer=None, publish=True, automati
                 if row["message_id"] != page.get("page_id"):
                     continue
                 try:
-                    clock = capture_clock(page)
-                    check_fresh(clock, now)
+                    analysis_clock = capture_clock(page)
+                    clock = _data_clock(page, analysis_clock)
+                    _check_source(page, analysis_clock, clock, now)
                     if not pages.page_status(store, page)["confirmed"]:
                         continue
                     pages.validate_plan(store, page["page_id"], page["plan"])
-                    if not any(a.get("modality") == "tradingview_chart_snapshot" for a in page.get("media_assets", [])):
+                    if not _chart(page):
                         raise ValueError("NOTE_TRADINGVIEW_CHART_REQUIRED")
-                    candidates.append(page)
+                    candidates.append((clock["data_cutoff_utc"], page))
                 except (OSError, ValueError, KeyError, TypeError) as exc:
                     causes.append({"page_id": page.get("page_id"), "cause": str(exc)[:160]})
             if not candidates:
                 return {"state": "NOTE_WAITING_SOURCE", "day_et": day_at(now), "source_causes": causes}
             # Freshest edition of each market; the actual writer chooses today's
             # main market on the public argument, not a hard-coded market rank.
-            candidates.sort(key=lambda p: (p["freeze"]["frozen_at_utc"], p["page_id"]), reverse=True)
+            candidates.sort(key=lambda item: (utc(item[0]), item[1]["freeze"]["frozen_at_utc"], item[1]["page_id"]),
+                            reverse=True)
             latest = {}
-            for page in candidates:
+            for _, page in candidates:
                 latest.setdefault(page["source_plan"]["asset_id"], page)
             candidates = list(latest.values())
             edition = sha256_of([p["page_id"] + sha256_of(p) for p in candidates])

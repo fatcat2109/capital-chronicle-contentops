@@ -19,9 +19,18 @@ from test_tradingview_snapshot_cc314 import FIXTURE
 
 
 @pytest.fixture
-def ready(source, tmp_path):  # noqa: F811 - imported pytest fixture
+def ready(source, tmp_path, request, monkeypatch):  # noqa: F811 - imported pytest fixture
     root, folder, plan, manuscript = source
-    now = datetime.now(timezone.utc)
+    options = getattr(request, "param", {})
+    now = options.get("now", datetime(2026, 11, 18, 14, 30, tzinfo=timezone.utc))
+    analysis_age = options.get("analysis_age", timedelta(minutes=2))
+
+    class FixtureClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return now.astimezone(tz) if tz else now.replace(tzinfo=None)
+
+    monkeypatch.setattr(pages, "datetime", FixtureClock)
     date = now.astimezone(notes.ET).strftime("%d %b").lstrip("0")
     fact = f"US yields reached 5% on {date}; higher rates weigh on the euro."
     view = "We are bearish only below 1.12."
@@ -34,7 +43,7 @@ def ready(source, tmp_path):  # noqa: F811 - imported pytest fixture
     freeze = json.loads((folder / "final-decision-freeze.json").read_bytes())
     freeze.update(qualitative_result_hash=sha256_of(result), frozen_at_utc=now.isoformat())
     (folder / "final-decision-freeze.json").write_bytes(canonical_bytes(freeze))
-    capture = canonical_bytes({"known_at_utc": (now - timedelta(minutes=2)).isoformat()})
+    capture = canonical_bytes({"known_at_utc": (now - analysis_age).isoformat()})
     (folder / "capture.json").write_bytes(capture)
     (folder / "role-pack.json").write_bytes(canonical_bytes({"sources": {
         "capture.json": {"sha256": sha256(capture).hexdigest(), "bytes": len(capture)}}}))
@@ -46,9 +55,11 @@ def ready(source, tmp_path):  # noqa: F811 - imported pytest fixture
             "tv_symbol": tv.SYMBOLS["EURUSD"], "interval": "240", "interval_label": "4h",
             "chart_url": tv.chart_url(tv.SYMBOLS["EURUSD"], "240"), "captured_at_utc": now.isoformat(),
             "page_title": "EURUSD 1.12", "capture_ratio": "16:9"}
-    from live_contentops.publication_image_contract_v1 import bind_scale
+    from live_contentops.publication_image_contract_v1 import bind_scale, comparison_clock
+    quote_at, _ = comparison_clock("EURUSD", now)
+    quote_at -= timedelta(seconds=30)
     snap = bind_scale("EURUSD", snap, quote={"market": "EURUSD", "instrument": "EURUSD", "price": 1.12,
-        "quoted_at_utc": now.isoformat(), "known_at_utc": now.isoformat(), "source_path": "controlled-quote.json",
+        "quoted_at_utc": quote_at.isoformat(), "known_at_utc": quote_at.isoformat(), "source_path": "controlled-quote.json",
         "source_sha256": "a" * 64, "price_basis": "plan_feed"})
     packet["media_assets"] = [tv.snapshot_asset("EURUSD", "Euro", snap, tmp_path / "chart")]
     store = ContentOpsDurableStore(tmp_path / "notes.sqlite3")
@@ -145,10 +156,37 @@ def test_wrong_public_copy_is_refused_before_registration(ready, tmp_path, mutat
     assert not store.get_outbox_message(notes.identity(notes.day_at(now)))
 
 
-def test_old_capture_cannot_be_refreshed_by_a_new_page_or_chart(ready, tmp_path):
+@pytest.mark.parametrize("ready", [{"now": datetime(2026, 11, 21, 14, 30, tzinfo=timezone.utc),
+                                   "analysis_age": timedelta(hours=2)}], indirect=True)
+def test_weekend_chart_cannot_refresh_the_last_close_or_old_analysis(ready, tmp_path):
     store, page, authored, now = ready
     with pytest.raises(ValueError, match="NOTE_DATA_CUTOFF_EXPIRED"):
-        notes.register_note(store, page, authored, now=now + timedelta(hours=2), output_root=tmp_path / "notes")
+        notes.register_note(store, page, authored, now=now, output_root=tmp_path / "notes")
+
+
+@pytest.mark.parametrize("ready", [{"analysis_age": timedelta(hours=2)}], indirect=True)
+@pytest.mark.parametrize("final_page", [False, True])
+def test_new_quote_cannot_republish_an_ended_plan(ready, tmp_path, monkeypatch, final_page):
+    store, page, authored, now = ready
+
+    def ended(packet, *, now):
+        assert packet == page
+        assert not final_page
+        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
+
+    monkeypatch.setattr(pages, "require_current_page", ended)
+    if final_page:
+        page = {**page, "final_status": {"status": "STOPPED"}}
+    with pytest.raises(ValueError, match="NOTE_SOURCE_PLAN_ENDED" if final_page else "PLAN_ANALYSIS_ENTRY_WINDOW_ENDED"):
+        notes.register_note(store, page, authored, now=now, output_root=tmp_path / "notes")
+
+
+def test_issued_note_keeps_its_legacy_capture_clock(ready, tmp_path):
+    store, page, authored, now = ready
+    value = notes.register_note(store, page, authored, now=now, output_root=tmp_path / "notes")
+    assert value["source_clock"] != value["analysis_clock"]
+    value["source_clock"] = value.pop("analysis_clock")
+    assert notes.validate_note(store, value) == value
 
 
 def test_confirmed_note_keeps_readback_available_after_the_day_ends(ready, tmp_path):
@@ -192,7 +230,8 @@ def test_invalid_copy_gets_one_bounded_rewrite_with_the_same_source(ready, tmp_p
 
 
 @pytest.mark.parametrize("export_state,dry", [("OK", False), ("EXPORT_STALE", False), ("OK", True)])
-def test_actual_minute_entry_consumes_the_fresh_page_independently_of_status_export(ready, tmp_path, monkeypatch, export_state, dry):
+@pytest.mark.parametrize("ready", [{"analysis_age": timedelta(hours=2)}], indirect=True)
+def test_actual_minute_entry_uses_the_fresh_quote_and_keeps_main_clock(ready, tmp_path, monkeypatch, export_state, dry):
     import io
     import sys
     from scripts import plan_status_posts as cli
@@ -241,7 +280,12 @@ def test_actual_minute_entry_consumes_the_fresh_page_independently_of_status_exp
         assert calls == [] and held is None
     else:
         assert len(calls) == 1 and calls[0]["automatic_neo"] is True
-        assert json.loads(held["payload"])["page_id"] == page["page_id"]
+        value = json.loads(held["payload"])
+        assert value["page_id"] == page["page_id"]
+        assert value["analysis_clock"]["data_cutoff_utc"] == (now - timedelta(hours=2)).isoformat()
+        assert value["source_clock"]["data_cutoff_utc"] == (now - timedelta(seconds=30)).isoformat()
+        assert value["source_clock"]["chart_captured_at_utc"] == now.isoformat()
+        assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
         assert json.loads(output.getvalue())["substack_daily_note"]["state"] == "NOTE_PREPARED"
 
 
