@@ -278,6 +278,7 @@ class DecisionChecks:
         self.runtime = Path(runtime).resolve()
         self.copies = []
         self.counts = Counter()
+        self.layer_gaps = Counter()
         self.wraps_due = Counter()
         self.issues = []
         self.seen = set()
@@ -349,14 +350,44 @@ class DecisionChecks:
                        status="UNVERIFIED" if cause.endswith("_UNVERIFIED") else "FAIL",
                        deadline_utc=deadline.isoformat())
 
-    def _analysis(self, copy, analysis_urls):
+    def _analysis(self, copy, analysis_urls, related=()):
+        from .plan_reader_copy_v1 import NINE_LAYER_COPY, PLAN_LAYER_ORDER
+
         source = copy.source.get("source_plan") or {}
         plan_id = copy.source.get("plan_id")
         canonical = analysis_urls.get(plan_id)
-        layers = quoted_layer_count(copy.visible_text, source)
-        self.check("113", copy, "PLAN_LAYER_QUOTES_BELOW_THREE" if layers < 3 else None,
-                   quoted_layers=layers)
-        if not copy.has_link(canonical):
+        if copy.source.get("analysis_copy_contract") == NINE_LAYER_COPY:
+            from .plan_state_alerts_v1 import analysis_lines
+
+            related = sorted((child for child in related if child.verified_at or child.public_text is not None),
+                             key=lambda child: child.intent.get("plan_status_part", 0))
+            observed = [copy.visible_text, *(child.visible_text for child in related)]
+            observed.extend(str(post.get("observed_text") or "") for post in copy.verified_thread())
+            if (copy.platform == "threads" and copy.verified_at
+                    and (copy.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+                observed.extend(copy.native.get("reply_texts") or ())
+            body = normalized(re.sub(r"(?:\*\*|__)", "", "\n".join(observed)))
+            try:
+                expected = analysis_lines(copy.source)
+            except (KeyError, ValueError):
+                self.check("113", copy, "PLAN_LAYER_RECORD_INVALID")
+                return
+            if copy.platform in {"linkedin", "linkedin_company"}:
+                official = copy.native.get("text") or ""
+                prefixes = tuple(label + ": " for _, label in PLAN_LAYER_ORDER)
+                compact = [line for line in official.splitlines() if line.startswith(prefixes)]
+                if len(compact) == len(expected):
+                    # LinkedIn's reviewed excerpts are bound to these same lines.
+                    expected = compact
+            missing = [line.split(":", 1)[0] for line in expected if normalized(line) not in body]
+            if copy.public_text is None and not copy.verified_at:
+                self.check("113", copy, "PLAN_LAYER_READBACK_UNAVAILABLE", status="UNVERIFIED")
+            else:
+                self.check("113", copy, "EXPORTED_PLAN_LAYER_MISSING" if missing else None, missing_layers=missing)
+        else:
+            layers = quoted_layer_count(copy.visible_text, source)
+            self.check("113", copy, "PLAN_LAYER_QUOTES_BELOW_THREE" if layers < 3 else None, quoted_layers=layers)
+        if not (copy.has_link(canonical) or any(child.has_link(canonical) for child in related)):
             self.issue("113", copy.piece, copy.platform, "FULL_ANALYSIS_LINK_MISSING" if canonical
                        else "CONFIRMED_FULL_ANALYSIS_PAGE_UNAVAILABLE", url=copy.url, evidence=copy.evidence)
 
@@ -569,17 +600,25 @@ class DecisionChecks:
 
     def finish(self, delivery, analysis_urls, *, plan_export=None, announced=(), plan_source_error=None,
                plan_cutoff=None):
+        from .plan_call_cards_v1 import ANALYSIS_FIRST_PART, DISCORD_CHANNEL_PART
+        from .plan_reader_copy_v1 import NINE_LAYER_COPY
+
         self._wraps()
         self._coverage(delivery)
         self._first_posts(plan_export, announced, plan_source_error, plan_cutoff or self.end)
         groups = defaultdict(list)
         discord = defaultdict(list)
+        related = defaultdict(list)
         for copy in self.copies:
+            if (copy.confirmed and copy.source.get("analysis_copy_contract") == NINE_LAYER_COPY
+                    and copy.intent.get("plan_status_part") != DISCORD_CHANNEL_PART):
+                related[(copy.source.get("key") or copy.piece, copy.platform)].append(copy)
             if copy.confirmed and copy.platform == "discord":
                 discord[copy.source.get("key") or copy.piece].append(copy)
         channel_arrivals = {key for key, copies in discord.items()
                             if any(copy.native.get("discord_channel_reply") for copy in copies)}
         fills_and_results = set()
+        counted_gaps = set()
         for copy in self.copies:
             if not copy.confirmed:
                 continue
@@ -593,9 +632,19 @@ class DecisionChecks:
             plan = source.get("source_plan") or {}
             plan_post = source.get("kind") in {"setup", "update", "result"}
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
+            layer_part = (source.get("analysis_copy_contract") == NINE_LAYER_COPY
+                          and copy.intent.get("plan_status_part", 0) >= ANALYSIS_FIRST_PART)
+            if layer_part:
+                self._preview_link(copy)
+                self._immutable(copy)
+                continue
             if plan_post:
-                self._analysis(copy, analysis_urls)
-                if source.get("kind") == "setup":
+                key = source.get("key") or copy.piece
+                if key not in counted_gaps:
+                    counted_gaps.add(key)
+                    self.layer_gaps.update((source.get("analysis_layer_gaps") or {}).items())
+                self._analysis(copy, analysis_urls, [child for child in related[(key, copy.platform)] if child is not copy])
+                if source.get("kind") == "setup" and source.get("analysis_copy_contract") != NINE_LAYER_COPY:
                     self._first_analysis(copy)
                 if source.get("kind") == "result" or str(source.get("state")).upper() == "FILLED":
                     fills_and_results.add(source.get("key") or copy.piece)
@@ -636,6 +685,8 @@ class DecisionChecks:
                            for decision in DECISIONS],
                 "failure_count": sum(row["status"] == "FAIL" for row in issues),
                 "unverified_count": sum(row["status"] == "UNVERIFIED" for row in issues),
+                "analysis_layer_gaps": [{"layer": layer, "first_cause": cause, "count": count}
+                                        for (layer, cause), count in sorted(self.layer_gaps.items())],
                 "issues": issues}
 
     def estimated_jobs(self, delivery):

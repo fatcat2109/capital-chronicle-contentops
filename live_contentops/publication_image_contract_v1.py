@@ -327,8 +327,16 @@ def validate_write(coordinator, intent, destination):
     else:
         article = intent.get("article") or {}
     if intent.get("plan_status_post"):
-        from .plan_status_posts_v1 import _row_payload
+        from .plan_call_cards_v1 import ANALYSIS_FIRST_PART, _reference
+        from .plan_reader_copy_v1 import NINE_LAYER_COPY
+        from .plan_status_posts_v1 import _row_payload, validate_status_post_intent
         row = _row_payload(coordinator.store, intent["plan_status_post"])
+        if row.get("analysis_copy_contract") == NINE_LAYER_COPY and intent.get("plan_status_part", 0) >= ANALYSIS_FIRST_PART:
+            # The exact continuation belongs to the already illustrated plan post.
+            # Check the frozen text and confirmed parent before reusing that binding.
+            validate_status_post_intent(coordinator.store, intent)
+            parent = _reference(coordinator.store, row["key"], destination)
+            return {"policy": POLICY, "illustrated_parent_url": parent["public_object_url"]}
         if row.get("kind") == "missing_links_reply" and row.get("cc603_contract") == "CC603_V1":
             # CC-603, Ops Product 16 Nov: one missing-line reply under the
             # already illustrated Note, preserving the original and its chart.

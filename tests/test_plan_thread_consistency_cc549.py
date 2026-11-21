@@ -264,6 +264,11 @@ def test_threads_notice_layout_respects_an_existing_intent(long_alert, tmp_path,
 
     store, _, now, queued = long_alert
     key = queued["key"]
+    # Reproduce a retained row created before either layer-copy contract.
+    queued = {field: value for field, value in queued.items()
+              if field not in {"analysis_copy_contract", "analysis_layer_quotes", "analysis_layer_gaps", "analysis_link"}}
+    queued.update(alerts.compose(queued))
+    store.finalize_outbox_payload_before_dispatch(message_id=key, payload=json.dumps(queued), status=posts.READY)
 
     class Clock(datetime):
         @classmethod

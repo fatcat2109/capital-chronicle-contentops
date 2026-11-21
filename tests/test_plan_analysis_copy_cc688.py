@@ -107,15 +107,16 @@ def test_minute_queue_and_all_status_payloads_use_the_same_frozen_lines(replay, 
     assert result["status"] == "OK"
     assert result["active_page_plan_ids"] == [raw["plan_id"]]
     row, = rows(store)
-    assert row["analysis_copy_contract"] == reader.ANALYSIS_COPY
+    assert row["analysis_copy_contract"] == reader.NINE_LAYER_COPY
     alerts.validate(row, store=store)
     rendered = cards.destination_payloads(row, card_id="fixture-chart", chart_credit=True, complete_levels=True)
     assert set(rendered) == set(cards.DESTINATIONS)
-    layer_lines = reader.verified_analysis_lines(raw, row["analysis_layer_quotes"])
-    assert len(layer_lines) == (5 if confirmed else 4)
+    layer_lines = alerts.analysis_lines(row)
+    assert len(layer_lines) == (6 if confirmed else 4)
     for destination, copy in rendered.items():
         assert copy["text"].startswith(layer_lines[0]), destination
-        assert all(copy["full_text"].count(line) == 1 for line in layer_lines), destination
+        full = " ".join(copy["full_text"].split())
+        assert all(full.count(" ".join(line.split())) == 1 for line in layer_lines), destination
         assert (LINK in copy["full_text"]) == confirmed, destination
         assert "Target level:" in copy["full_text"], destination
         assert copy["media_asset_ids"] == ["fixture-chart"]
@@ -249,7 +250,8 @@ def test_page_consumer_reads_the_sealed_mid_horizon_archive(source, tmp_path):
         pages.load_run({**plan, "analysis_result_hash": "0" * 64}, run_root=daily)
 
 
-def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(source, tmp_path):
+@pytest.mark.parametrize("contract", reader.STATUS_ANALYSIS_CONTRACTS)
+def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(source, tmp_path, contract):
     run_root, _, plan, manuscript = source
     store = ContentOpsDurableStore(tmp_path / "links.sqlite3")
     packet = pages.register_page(store, pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path / "page"))
@@ -259,7 +261,7 @@ def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(so
     for kind, key in roots.items():
         row = {"key": key, "plan_id": plan["plan_id"], "source_plan_registration": plan["registration_hash"],
                "kind": kind, "symbol": "EURUSD", "schema_version": posts.SCHEMA,
-               "analysis_copy_contract": reader.ANALYSIS_COPY}
+               "analysis_copy_contract": contract}
         store.create_work_item(story_id=key, work_item_id=key, title=kind, target_surface="MULTI_PLATFORM")
         store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
                                       payload=json.dumps(row), status="PUBLISHED")
@@ -331,6 +333,7 @@ def test_linkedin_uses_the_late_confirmed_link_with_existing_chart_and_frozen_si
     assert payloads["telegram"] == before
     for destination in linkedin:
         assert LINK in payloads[destination]["text"]
+        assert all(line in payloads[destination]["text"] for line in alerts.analysis_lines(row))
         assert payloads[destination]["media_asset_ids"] == before["media_asset_ids"]
     assert {item["destination"]: (item["transport_type"], item["canonical_url"])
             for item in prepared["destinations"]} == {d: ("BROWSEROS_NEO_MCP", LINK) for d in linkedin}
