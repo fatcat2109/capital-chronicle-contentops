@@ -1,8 +1,10 @@
 # CC-489 continuation — 22 November 2026
 
-The live Publisher root is at `86c942ac9183ff5bd56ffd9574b918afae3b1834` and
-is tagged `contentops-live-20261122-cc489-r1`. The rollback tag is
-`contentops-rollback-20261122-cc489-r1`. The focused consumer and audit checks
+The CC-489 implementation is at `86c942ac9183ff5bd56ffd9574b918afae3b1834`
+and is tagged `contentops-live-20261122-cc489-r1`. This evidence package is
+integrated in operating-root commit `0beb6253c6ce24cec27122e50791fc2d24fc410e`
+under `contentops-live-20261122-cc489-r2`, with rollback
+`contentops-rollback-20261122-cc489-r2`. The focused consumer and audit checks
 pass with 48 tests.
 
 The audit now excludes derivative rows for a canonical article from the plan
