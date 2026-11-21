@@ -1,0 +1,362 @@
+{
+  "item": "CC-322",
+  "observed_at_utc": "2026-11-21T16:52:28.938720+00:00",
+  "operating_head_at_observation": "7ad4f92ae19b404c940c08c14b58873dd40731ed",
+  "configured_model": "gpt-6.2-sol",
+  "configured_effort": "high",
+  "model_effort_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "launch_pid": 28708,
+  "live_and_rollback_tags": {
+    "contentops-live-20261109-cc322": "9940fec91be67705ca9602bda8cf2a887e2ca610",
+    "contentops-rollback-20261109-cc322": "52adbf3442645a1ffc2fd098eaf85b942baaa6cc"
+  },
+  "source": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "contract_version": "2.0.0",
+    "export_generated_at_utc": "2026-11-21T16:52:11.309847Z",
+    "export_age_seconds": 17.6,
+    "content_hash": "c87230f83f006c35ea9ee0470775fb95f6932a52ce3cfbc7a498893a73d1a59a",
+    "scored_call_count": 15,
+    "six_market_scored_result_rows_by_outcome": {
+      "EXPIRED": 6,
+      "HIT": 2,
+      "STOPPED": 5
+    }
+  },
+  "cases": {
+    "gold_target": {
+      "asset_id": "XAUUSD",
+      "result": "HIT",
+      "plan_id": "plan_a5749b44e7c886ca7220670f",
+      "outcome_id": "outcome_7af1f8a0dfef1cef3779361d8f333c0b",
+      "score_content_hash": "593e3ef50e411f9c146cec2da52ec7f1f91cdce641420ab7edab87b05940df97",
+      "resolved_at_utc": "2026-11-19T21:24:24.796000Z",
+      "scored_at_utc": "2026-11-20T02:05:30.288134Z",
+      "outbox_key": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "outbox_status": "PUBLISHED",
+      "queued_at_utc": "2026-11-20T02:07:31.211678+00:00",
+      "frozen_outcome_source_sha256": "db008e682f7a5d0ec3570b189c5c758f5241e838495ee84c1d0d7a40e99baa8f",
+      "public_result_line_in_outbox": "Result: +1.6R.",
+      "api_destinations": {
+        "telegram": {
+          "dispatch_id": "dispatch_ec10fd3190747d4fe92c2ca17c5c9c1e",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "212",
+          "public_object_url": "https://t.me/CapitalChronicle/212",
+          "dispatched_at": "2026-11-20T02:08:25.901407+00:00",
+          "matching_readbacks": [
+            {
+              "readback_id": "readback_bf4ad3e1fd3163e8e783081aa24c9c74",
+              "read_at_utc": "2026-11-20T02:08:28.313702+00:00",
+              "verified": true,
+              "identity_match": true,
+              "source_status": "SUCCESS",
+              "meaningful_media_visible": true,
+              "write_exists_receipt_flag": false
+            }
+          ]
+        },
+        "discord": {
+          "dispatch_id": "dispatch_8bc34eeade0a015bb003078a36456c2e",
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1573158025609355417",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1572910313811083264/1573158025609355417",
+          "dispatched_at": "2026-11-20T02:08:19.633451+00:00",
+          "matching_readbacks": [
+            {
+              "readback_id": "readback_be1420c743b7ad95d756f40540fd2f8e",
+              "read_at_utc": "2026-11-20T02:08:23.236159+00:00",
+              "verified": true,
+              "identity_match": true,
+              "source_status": "SUCCESS",
+              "meaningful_media_visible": true,
+              "write_exists_receipt_flag": true
+            }
+          ]
+        },
+        "threads": {
+          "dispatch_id": "dispatch_4826881bb610653bd82618b9c68f2c4f",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18121556590995869",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df8jEpOk1m8",
+          "dispatched_at": "2026-11-20T02:08:47.806734+00:00",
+          "matching_readbacks": [
+            {
+              "readback_id": "readback_3454f935aa846b3379f5da2cede1465e",
+              "read_at_utc": "2026-11-20T02:09:03.793743+00:00",
+              "verified": true,
+              "identity_match": true,
+              "source_status": "SUCCESS",
+              "meaningful_media_visible": true,
+              "write_exists_receipt_flag": true
+            }
+          ]
+        }
+      }
+    },
+    "bitcoin_time_exit": {
+      "asset_id": "BTCUSD",
+      "result": "EXPIRED",
+      "plan_id": "plan_1ff891e0f778736fc3f89c02",
+      "outcome_id": "outcome_d574e4bf76aa2a26fd572910d8bd2727",
+      "score_content_hash": "9258538af77b1a8448fe7f5aecc05a1d7eaf45ec623b9ef296fd23006c745290",
+      "resolved_at_utc": "2026-11-20T07:00:20.579000Z",
+      "scored_at_utc": "2026-11-20T07:01:01.869878Z",
+      "outbox_key": "plan-result-post-a1dbbcf4eeedb39404cd5d480139a997",
+      "outbox_status": "SETTLED",
+      "queued_at_utc": "2026-11-20T07:01:28.718400+00:00",
+      "frozen_outcome_source_sha256": "d1e9565c3aa62c6daccda7d1a33ed5c3f31b705d3a43230a582d68088e36b7ea",
+      "public_result_line_in_outbox": "Result: +1.3R.",
+      "api_destinations": {
+        "telegram": {
+          "dispatch_id": "dispatch_8d864035fec4c826f2f7f8c5abc68f89",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "216",
+          "public_object_url": "https://t.me/CapitalChronicle/216",
+          "dispatched_at": "2026-11-20T07:02:01.401630+00:00",
+          "matching_readbacks": [
+            {
+              "readback_id": "readback_24a31011f2e980694d83305cae1a8507",
+              "read_at_utc": "2026-11-20T07:02:03.768233+00:00",
+              "verified": true,
+              "identity_match": true,
+              "source_status": "SUCCESS",
+              "meaningful_media_visible": true,
+              "write_exists_receipt_flag": false
+            }
+          ]
+        },
+        "discord": {
+          "dispatch_id": "dispatch_00412b512c953548cf62c9f6a0c8d47c",
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1573231906458173562",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1572517071848214599/1573231906458173562",
+          "dispatched_at": "2026-11-20T07:01:54.496371+00:00",
+          "matching_readbacks": [
+            {
+              "readback_id": "readback_8c043e06751f936c25e8601499cefd4a",
+              "read_at_utc": "2026-11-20T07:01:58.835828+00:00",
+              "verified": true,
+              "identity_match": true,
+              "source_status": "SUCCESS",
+              "meaningful_media_visible": true,
+              "write_exists_receipt_flag": true
+            }
+          ]
+        },
+        "threads": {
+          "dispatch_id": "dispatch_28a07fae60bd6ac4f43b9a97c133caa6",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "17975463873177579",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df9Eq5wE2JM",
+          "dispatched_at": "2026-11-20T07:02:22.978972+00:00",
+          "matching_readbacks": [
+            {
+              "readback_id": "readback_0ac3d838114ee374b869ed424a874b23",
+              "read_at_utc": "2026-11-20T07:02:48.777801+00:00",
+              "verified": true,
+              "identity_match": true,
+              "source_status": "SUCCESS",
+              "meaningful_media_visible": true,
+              "write_exists_receipt_flag": false
+            }
+          ]
+        }
+      },
+      "x_settlement": {
+        "dispatch_id": "dispatch_c58ca121140dec40fe9c881367a8d70f",
+        "dispatch_status": "UNKNOWN_WRITE",
+        "cause": "PUBLISHING_OLDER_THAN_24_HOURS"
+      }
+    },
+    "later_sp500_target": {
+      "asset_id": "US500",
+      "result": "HIT",
+      "plan_id": "plan_4892f80c61706947c3c75832",
+      "outcome_id": "outcome_0bde9eee686e09d069dc9a85b1adc64b",
+      "score_content_hash": "91e5c617ec8ef265ac072a3efb3ce22675cc96fabd13caa459586128e0b0b028",
+      "resolved_at_utc": "2026-11-20T19:22:50.059000Z",
+      "scored_at_utc": "2026-11-20T19:24:03.290952Z",
+      "outbox_key": "plan-result-post-5553c490c46da1122fd0557458e99ed9",
+      "outbox_status": "SETTLED",
+      "queued_at_utc": "2026-11-20T19:24:28.184510+00:00",
+      "frozen_outcome_source_sha256": "1fff88b26c4de13369617691861aba530a2bafe32cef0dd662719fe7a9526229",
+      "public_result_line_in_outbox": "Result: +1.5R.",
+      "api_destinations": {
+        "telegram": {
+          "cause": "TRADINGVIEW_PRICE_SCALE_MISMATCH",
+          "automatic_work_closed": true,
+          "public_write_performed": false
+        },
+        "discord": {
+          "cause": "TRADINGVIEW_PRICE_SCALE_MISMATCH",
+          "automatic_work_closed": true,
+          "public_write_performed": false
+        },
+        "threads": {
+          "cause": "TRADINGVIEW_PRICE_SCALE_MISMATCH",
+          "automatic_work_closed": true,
+          "public_write_performed": false
+        }
+      },
+      "x_settlement": {
+        "dispatch_id": null,
+        "dispatch_status": null,
+        "cause": "TRADINGVIEW_PRICE_SCALE_MISMATCH"
+      }
+    }
+  },
+  "prior_cc646_corrections": {
+    "telegram": {
+      "public_object_id": "192",
+      "dispatch_id": "dispatch_40255bb2df6eb26c6bf7d7d2cf3a0c4f",
+      "public_object_url": "https://t.me/CapitalChronicle/192",
+      "status": "DISPATCH_CONFIRMED",
+      "readback_count": 1
+    },
+    "discord": {
+      "public_object_id": "1572231357072015371",
+      "dispatch_id": "dispatch_71f22afb4456f294101dc454a21e5a7c",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572231357072015371",
+      "status": "DISPATCH_CONFIRMED",
+      "readback_count": 1
+    }
+  },
+  "acceptance": {
+    "selective_hit": "gold_target",
+    "additional_outcome_named_on_20_nov": "bitcoin_time_exit",
+    "route": "CC-399 plan_call_cards_v1 through the installed status-post consumer",
+    "evidence": "Bound public score and frozen outbox matched to one coordinator dispatch and verified platform readback per named API destination.",
+    "receipt_flags": "The verifier's success and identity check, exact observed ID and URL, and confirmed dispatch establish readback. The separate write_exists flag is retained as stored.",
+    "later_chart_failure": "S&P 500 result has three pre-send API closures; CC-734 owns chart fallback recovery.",
+    "public_writes_by_this_run": 0,
+    "installed_focused_tests": {
+      "file": "tests/test_plan_result_posts_cc322.py",
+      "passed": 12,
+      "seconds": 37.54
+    }
+  },
+  "installed_queue_dry_run": {
+    "observed_at_utc": "2026-11-21T16:52:50.991115+00:00",
+    "source_content_hash": "c87230f83f006c35ea9ee0470775fb95f6932a52ce3cfbc7a498893a73d1a59a",
+    "source_generated_at_utc": "2026-11-21T16:52:11.309847Z",
+    "format": 4,
+    "status": "OK",
+    "named_results_already_queued": [
+      "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "plan-result-post-a1dbbcf4eeedb39404cd5d480139a997"
+    ],
+    "named_result_duplicate_candidates": 0,
+    "result_refusals_by_cause": {
+      "PLAN_NEVER_ANNOUNCED": 25
+    },
+    "result_refusals": [
+      {
+        "key": "plan-result-post-7083fcc0f935afff2a828e8b30743ce1",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-769e790e2d16946dfd90340368555707",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-78236d46a1d5f3efd06447ace20d3af3",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-07a4366e582a0f75b638b890322e420c",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-0fff22c7f31885f5ccbca12b565bf4c8",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-c275820ce45b6323dd0b3695dfdbbdac",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-e14669297a595775f4cb15f81b720a1c",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-692a326bca965e241a1a1a872edb268f",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-2f91e42dfa3735ced86cce7afa56d6fe",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-2d4a2fd56601b68098b1e55b9df7ccfc",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-d03d2a9ac73144d627b781f62733bf16",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-4a6f5701a5f17f1556001a6d477e0e74",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-cb15c2cb43d0db21231c84a5fed533a0",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-7538d12492aa074c31c7c78a443ce482",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-1d8e540f4f55948c98989ca89d2f8795",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-6c208e7105442bef6270fceee6517178",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-20f9c696d927c72f9b61da057c64810b",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-35e19118d9626be60dfcfe3657c2a878",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-79f7c54182fd8c52626f89bc39f1a8c1",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-856119b6ea71a75b89ea14a52e6d3f3d",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-af614b12725b250f688ec0696df67672",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-7548211405064c7f80bd96c17a9af760",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-6b5144c3c3881c260a8f984b3e98b6b7",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-38fa7dd0a4fd5867780863d89d7b86de",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      },
+      {
+        "key": "plan-result-post-5d886832c5494b6efe2e12b8371c16ec",
+        "cause": "PLAN_NEVER_ANNOUNCED"
+      }
+    ]
+  }
+}
