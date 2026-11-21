@@ -157,7 +157,7 @@ def test_private_reference_book_cannot_become_a_numeric_source(piece):
         odds.number_report(piece, SOURCE / "source")
 
 
-@pytest.mark.parametrize("piece_number", [1, 2, 3])
+@pytest.mark.parametrize("piece_number", [1, 2, 3, 5])
 def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch, piece_number):
     store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
     file = SOURCE / "piece-1.json" if piece_number == 1 else SOURCE / f"piece-{piece_number}/piece-{piece_number}.json"
@@ -181,6 +181,16 @@ def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path
     assert calls[0]["assets"][0]["sha256"]==packet["piece"]["media_assets"][0]["sha256"]
     assert odds.register(store,file,tmp_path / "article")==packet
     assert len(store.list_outbox_messages(work_item_id=packet["identity"],destination="substack"))==1
+    if piece_number == 5:
+        from live_contentops.event_article_guard_v1 import PublicOutputError, check_publication_copy
+
+        public_body = packet["piece"]["article"]["substack_body_markdown"]
+        assert "The stop entry at 0.5 normal day farther had 1190 fills" in public_body
+        with pytest.raises(PublicOutputError, match="PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"):
+            check_publication_copy(odds.publication_check_copy({
+                "body": public_body,
+                "instruction": "Use a stop entry at 0.5 normal day farther.",
+            }, packet["plan"]))
     altered=deepcopy(packet["plan"]);altered["plan_hash"]="a"*64
     with pytest.raises(ValueError,match="ODDS_REGISTERED_PLAN_CHANGED"):
         coordinator.register_plan(packet["identity"],altered)

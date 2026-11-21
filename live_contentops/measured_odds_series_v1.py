@@ -263,14 +263,25 @@ def publication_check_copy(copy, plan):
     if (plan["measured_odds_piece"] != "cc536-measured-odds-" + str(piece["piece"])
             or _read(root / "article_manifest_v1.json") != piece["article"]):
         raise ValueError("ODDS_CHECK_ARTICLE_BINDING_CHANGED")
-    validate_piece(piece, root / "source")
+    report = validate_piece(piece, root / "source")
     spans = {}
-    for binding in piece["number_bindings"]:
-        span = binding["span"]
-        historical = re.sub(r"\b(long|short)\b", r"\1-side", span, flags=re.I)
-        historical = re.sub(r"(?<!\w)[+−-]?\d+(?:\.\d+)?\s*r\b",
-                            "Main-bound historical mean", historical, flags=re.I)
-        spans[span] = historical
+    for row in report:
+        span = row["public_span"]
+        if span not in spans:
+            historical = re.sub(r"\b(long|short)\b", r"\1-side", span, flags=re.I)
+            spans[span] = re.sub(r"(?<!\w)[+−-]?\d+(?:\.\d+)?\s*r\b",
+                                 "Main-bound historical mean", historical, flags=re.I)
+        if (row["file"] == "desk_odds_v1.json"
+                and re.fullmatch(r"/construction/entry/rows/\d+", row["pointer"])):
+            label, _, _, _, fills = row["table_value"]
+            distance = row["number"]
+            if label.startswith(f"stop entry {distance} normal day "):
+                # The verified retrospective fill sentence states a distance,
+                # not an instruction to enter at a price.
+                spans[span] = re.sub(
+                    rf"\bThe stop entry at {re.escape(distance)} normal day (?:farther|further)"
+                    rf"(?= had {fills} fills, both sides together\b)",
+                    "The historical stop entry", spans[span], flags=re.I)
     def scan(value):
         if isinstance(value, str):
             for span, historical in sorted(spans.items(), key=lambda item: -len(item[0])):
@@ -450,7 +461,7 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             if (store.get_outbox_message(d["message_id"]) or {}).get("work_item_id")==packet["identity"]]},
             "pending_requests":[]}
     from .neo_endpoint_executor_v1 import NeoMcpClient
-    client = NeoMcpClient(task_name="cc536 measured odds",group_title="codex/cc536-measured-odds") if automatic else None
+    client = NeoMcpClient(task_name="cc536 measured-odds",group_title="codex/cc536-measured-odds") if automatic else None
     if draft_url:
         if not automatic:
             raise ValueError("ODDS_RETAINED_DRAFT_REQUIRES_BOUND_TRANSPORT")
