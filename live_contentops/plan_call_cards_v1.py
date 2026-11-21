@@ -387,7 +387,7 @@ def entry_condition_facts(plan):
     return traded, cause
 
 
-def no_entry_words(plan):
+def no_entry_words(plan, *, withdrawn=False):
     traded, cause = entry_condition_facts(plan)
     if traded is False:
         return "price did not reach the entry zone"
@@ -397,7 +397,7 @@ def no_entry_words(plan):
         if category in {"SOFTWARE_OR_PROCESS_DEFECT", "PROTECTION_OR_RECONCILIATION_BLOCK"}:
             words += " because of a fault on our side"
         return words
-    return "the entry window ended with no entry"
+    return "the plan was withdrawn without an entry" if withdrawn else "the entry window ended with no entry"
 
 
 def ending_words(row):
@@ -406,7 +406,8 @@ def ending_words(row):
     not_executed = (row.get("not_executed") is True or outcome.get("not_executed") is True
                     or (outcome.get("score") or {}).get("not_executed") is True)
     if row.get("untriggered") or row.get("triggered_not_traded") or row.get("result") == "NOT_TRIGGERED" or not_executed:
-        words = no_entry_words(source)
+        withdrawn = row.get("result_copy_version") == 2 and source.get("status") == "CANCELLED"
+        words = no_entry_words(source, withdrawn=withdrawn)
         market_path = {"HIT": "hit the target", "STOPPED": "reached the invalidation level",
                        "EXPIRED": "ended at the time exit"}
         if not_executed and row.get("result") in market_path:
@@ -730,7 +731,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 # Keep the original thread's levels while admitting the later
                 # exact public outcome, including its explicitly exported R.
                 outcome_source = source_for(pid)
-                item.update(outcome_source_plan=outcome_source, outcome_source_sha256=_hash(outcome_source))
+                item.update(outcome_source_plan=outcome_source, outcome_source_sha256=_hash(outcome_source),
+                            result_copy_version=2)
         item.update(compose(item))
         payloads.append(item)
 

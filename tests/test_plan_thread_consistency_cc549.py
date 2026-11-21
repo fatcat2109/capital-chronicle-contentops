@@ -456,7 +456,8 @@ def test_minute_page_slice_uses_later_quote_and_skips_the_stale_plan(gold, tmp_p
     assert posts._utc(lease["expires_at"]) - posts._utc(lease["acquired_at"]) == timedelta(minutes=5)
 
 
-def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root):
+@pytest.mark.parametrize("cancelled_before_entry", [False, True])
+def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root, cancelled_before_entry):
     raw, _ = gold
     raw.update(status="WAITING")
     raw.pop("outcome", None)
@@ -470,20 +471,40 @@ def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_ro
     frozen = store.get_outbox_message(first["key"])["payload"]
     later = deepcopy(raw)
     at = now + timedelta(minutes=1)
-    later.update(status="CLOSED", outcome={"state": "SCORED", "result": "HIT", "outcome_id": "gold-result",
-        "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": "gold-result",
-                  "result": "HIT", "resolved_at_utc": at.isoformat(), "result_r": 1.2}})
+    if cancelled_before_entry:
+        assert at < posts._utc(raw["entry_deadline_utc"])
+        later.update(status="CANCELLED", status_at_utc=at.isoformat(),
+                     outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+        events.append(event(raw["plan_id"], "CANCELLED", at.isoformat()))
+    else:
+        later.update(status="CLOSED", outcome={"state": "SCORED", "result": "HIT", "outcome_id": "gold-result",
+            "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": "gold-result",
+                      "result": "HIT", "resolved_at_utc": at.isoformat(), "result_r": 1.2}})
+        events += [event(raw["plan_id"], "FILLED", now.isoformat()), event(raw["plan_id"], "CLOSED", at.isoformat())]
     later["public_instrument"]["invalidation_level"] = 4999
-    events += [event(raw["plan_id"], "FILLED", now.isoformat()), event(raw["plan_id"], "CLOSED", at.isoformat())]
     write(folder, [later], events, generated_at_utc=at.isoformat())
     posts.queue_posts(store, folder, now=at, main_root=main_root)
     ending = next(row for row in rows(store) if row["kind"] == "result")
-    assert "Result: +1.2R." in ending["text"]
+    if cancelled_before_entry:
+        assert "the plan was withdrawn without an entry" in ending["text"]
+        assert "the entry window ended" not in ending["text"]
+        for text in (first["text"], ending["text"]):
+            assert "Entry can start until Fri 13 Nov, 1:00 AM ET." in text
+            assert "Filled positions close by Fri 13 Nov, 8:15 AM ET." in text
+        legacy = {key: value for key, value in ending.items() if key != "result_copy_version"}
+        legacy.update(alerts.compose(legacy))
+        assert "the entry window ended with no entry" in legacy["text"]
+        alerts.validate(legacy)
+    else:
+        assert "Result: +1.2R." in ending["text"]
     assert "4,004.4" in ending["text"] and "4,999" not in ending["text"]
     assert ending["source_plan"] == first["source_plan"]
     assert store.get_outbox_message(first["key"])["payload"] == frozen
     alerts.validate(ending)
     altered = deepcopy(ending)
-    altered["outcome_source_plan"]["outcome"]["score"]["result_r"] = 9
+    if cancelled_before_entry:
+        altered["outcome_source_plan"]["status"] = "EXPIRED"
+    else:
+        altered["outcome_source_plan"]["outcome"]["score"]["result_r"] = 9
     with pytest.raises(ValueError, match="PLAN_ALERT_OUTCOME_SOURCE_BYTES_CHANGED"):
         alerts.validate(altered)
