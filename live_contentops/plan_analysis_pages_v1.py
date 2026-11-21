@@ -914,6 +914,14 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
     return {"publication": result, **page_status(store, packet), "pending_requests": executor.pending()}
 
 
+def _original_setup_text(packet):
+    from .plan_reader_copy_v1 import check_thread_text
+
+    text = packet["manuscript"]["introduction"]
+    check_thread_text(text)
+    return "Original setup\n" + text
+
+
 def structured_summary(packet, destination, canonical_url, authored_summary=None, *, version=1):
     """Use the bound reader contract; preserve the original seven-section dialect."""
     limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000,
@@ -939,8 +947,11 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         maximum = 3 if destination in {"x", "threads"} else 5
         if packet["manuscript"].get("reader_revision", 1) >= 3:
             from .plan_reader_copy_v1 import thread_terms, check_thread_text
-            terms = thread_terms(packet["source_plan"], level_contract=packet["manuscript"].get("level_contract"))
-            lead += "\n" + "\n".join(terms["clocks"])
+            if version == 3:
+                lead += "\n\n" + _original_setup_text(packet)
+            else:
+                terms = thread_terms(packet["source_plan"], level_contract=packet["manuscript"].get("level_contract"))
+                lead += "\n" + "\n".join(terms["clocks"])
             for key, _ in force_labels:
                 if summary.get(key):
                     check_thread_text(summary[key], force=True)
@@ -1076,9 +1087,11 @@ def _status_post_copy(store, key, destination):
     return json.loads(message.get("payload") or "{}").get("native_payload") or {}
 
 
-def _status_post_link_text(packet, canonical_url):
+def _status_post_link_text(packet, canonical_url, *, version=2):
     market = posts.TITLES[packet["source_plan"]["asset_id"]]
     text = f"{market} | Full analysis: {canonical_url}\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+    if version == 3:
+        text = _original_setup_text(packet) + "\n\n" + text
     public_filter(text)
     return text
 
@@ -1087,7 +1100,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
                   original_analysis_root=False, canonical_image_url=None):
     from .plan_call_cards_v1 import _dispatch, _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
-    from .plan_reader_copy_v1 import STATUS_ANALYSIS_CONTRACTS
+    from .plan_reader_copy_v1 import LEVEL_CONTRACT, STATUS_ANALYSIS_CONTRACTS, THREAD_CONTRACT
     status = page_status(store, packet)
     if not status["confirmed"]:
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
@@ -1149,8 +1162,17 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
         discord_delivery = "bot_thread"
     thread_parent = (_discord_analysis_thread(store, original_payload, parent)
                      if destination == "discord" and discord_delivery != "channel" else None)
-    text = (_status_post_link_text(packet, status["canonical_url"]) if status_post_reply else
-            structured_summary(packet, destination, status["canonical_url"], authored_summary, version=2))
+    manuscript = packet["manuscript"]
+    summary_version = 2
+    # The page title states the call and its stop. An analysis reply under
+    # the Telegram setup also needs the cancellation condition and clocks.
+    if (destination == "telegram" and not authored_summary
+            and manuscript.get("thread_contract") == THREAD_CONTRACT
+            and manuscript.get("level_contract") == LEVEL_CONTRACT
+            and (not status_post_reply or original_payload["kind"] == "setup")):
+        summary_version = 3
+    text = (_status_post_link_text(packet, status["canonical_url"], version=summary_version) if status_post_reply else
+            structured_summary(packet, destination, status["canonical_url"], authored_summary, version=summary_version))
     payload = _link_payload(packet, destination, text, status["canonical_url"], parent,
                             discord_delivery=discord_delivery, discord_thread_parent_id=thread_parent,
                             status_post_reply=status_post_reply)
@@ -1170,7 +1192,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     plan["plan_hash"] = sha256_of(plan)
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
-           "original_analysis_root":original_analysis_root, "summary_version": 2,
+           "original_analysis_root":original_analysis_root, "summary_version": summary_version,
            **({"status_post_reply": True} if status_post_reply else {}),
            **({"method_page_reference":method_reference} if method_reference else {}),
            **({"discord_delivery": discord_delivery} if discord_delivery else {}),
@@ -1239,9 +1261,10 @@ def validate_link_plan(store, work_item_id, plan):
         parent=_analysis_parent(store,value["original_key"],value["plan_id"],value["destination"])
         if not parent or parent!=value["parent"]:
             raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
-    expected = (_status_post_link_text(packet, value["canonical_url"]) if value.get("status_post_reply") else
+    summary_version = value.get("summary_version", 1)
+    expected = (_status_post_link_text(packet, value["canonical_url"], version=summary_version) if value.get("status_post_reply") else
                 structured_summary(packet, value["destination"], value["canonical_url"], value.get("authored_summary"),
-                                   version=value.get("summary_version", 1)))
+                                   version=summary_version))
     thread_parent = value.get("discord_thread_parent_id")
     if thread_parent:
         original = json.loads(store.get_outbox_message(value["original_key"])["payload"])

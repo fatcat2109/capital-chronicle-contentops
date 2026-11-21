@@ -335,11 +335,13 @@ def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path
 
 
 @pytest.mark.parametrize("fills_during_writing", [False, True])
+@pytest.mark.parametrize("status_post_reply", [False, True])
 def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
-        gold, tmp_path, main_root, monkeypatch, fills_during_writing):
+        gold, tmp_path, main_root, monkeypatch, fills_during_writing, status_post_reply):
     from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
 
     raw, reasoning = gold
+    reasoning["folder"] = tmp_path / "runs" / "requests" / "retained-gold"
     raw.update(status="WAITING", status_at_utc=raw["registered_at_utc"])
     registered = posts._utc(raw["registered_at_utc"])
     filled_at = registered + timedelta(minutes=1)
@@ -349,6 +351,12 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     posts.queue_posts(store, folder, now=registered, main_root=main_root)
     first, = rows(store)
+    first["level_contract"] = reader.LEVEL_CONTRACT
+    if not status_post_reply:
+        first.pop("analysis_copy_contract", None)
+    first.update(alerts.compose(first))
+    store.finalize_outbox_payload_before_dispatch(
+        message_id=first["key"], payload=json.dumps(first), status=posts.READY)
     frozen = store.get_outbox_message(first["key"])["payload"]
     store.create_work_item(story_id=first["key"], work_item_id=first["key"], title="Gold setup",
                            target_surface="MULTI_PLATFORM")
@@ -368,7 +376,7 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
 
     def prepare(plan, *, output_dir, call, **options):
         assert plan == first["source_plan"]
-        source = reader.source_packet(plan, reasoning, thread=True)
+        source = reader.source_packet(plan, reasoning, thread=True, level_contract=reader.LEVEL_CONTRACT)
         manuscript = editorial.bind_manuscript(authored(source), source, plan)
         return {"status": "PREPARED", "packet": pages.render(plan, manuscript, output_dir=output_dir, **options)}
 
@@ -386,7 +394,7 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
     result = editorial.run_due(store, export, root=tmp_path / "pages",
                                rollout={"store_path": store.db_path}, now=now)
     observed, = result["pages"]
-    assert observed["publication"]["canonical_url"] == canonical
+    assert observed.get("publication", {}).get("canonical_url") == canonical, observed
     packet = editorial.publication_packet(store, raw)
     assert packet["source_plan"] == first["source_plan"]
     assert packet["active_status"] == {"status": "FILLED", "status_at_utc": filled_at.isoformat()}
@@ -400,12 +408,21 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
     else:
         assert prior == []
     reply = pages.register_link(store, packet, original_key=first["key"], destination="telegram")
+    assert reply.get("status_post_reply", False) == status_post_reply
+    assert reply["summary_version"] == 3
     assert reply["native_payload"]["reply_to_id"] == "901"
     assert reply["canonical_url"] == canonical
-    assert canonical in reply["native_payload"]["text"]
+    reply_text = reply["native_payload"]["text"]
+    assert canonical in reply_text
     assert pages.validate_link_plan(store, reply["link_id"], reply["plan"]) == reply
-    for text in (first["text"], page["title"], reply["native_payload"]["text"]):
-        assert "3,972.6" in text and "4,004.4" in text and "4,999" not in text
+    assert "wrong above 4,004.4" in page["title"]
+    for text in (first["text"], page["body_markdown"], reply_text):
+        assert "Spot plan cancelled on close above 3,972.6 before entry" in text
+        assert "MGC plan wrong above 4,004.4 after entry" in text
+        assert "Entry can start until Fri 13 Nov, 1:00 AM ET." in text
+        assert "Filled positions close by Fri 13 Nov, 8:15 AM ET." in text
+        assert "4,999" not in text
+        reader.check_thread_text(text)
     assert store.get_outbox_message(first["key"])["payload"] == frozen
 
 
