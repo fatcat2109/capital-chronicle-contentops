@@ -1,0 +1,250 @@
+{
+  "schema": "contentops.cc124.standing_run_source_check.v1",
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-21T21:16:53.0585385Z",
+  "classification": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "freshness_rule": "Publish within 60 minutes of Main data cutoff; later completion, retrieval, plan export, media refresh and this check do not restart it.",
+  "latest_completed_main": {
+    "report_id": "shocks/shock-20261121T133042Z/decision91",
+    "data_cutoff_utc": "2026-11-21T13:32:01.073356Z",
+    "completion_utc": "2026-11-21T13:58:03.975606Z",
+    "publication_deadline_utc": "2026-11-21T14:32:01.073356Z",
+    "report_sha256": "2dc4a29a3dce8fa4538f409433667950631f0450c673ce536442c0584eb3cefa",
+    "capture_sha256": "44a8bb3cd4d65d0c3623795b513ebc519c26a16f7708cbf902b8ec1659982226",
+    "completion_receipt_sha256": "fb12463e50dd7467ba10b4e74110da56ff4c4d943dbd5f18c0c85fb8e732367d"
+  },
+  "latest_completed_deadline_age_seconds": 24292.0,
+  "newer_completed_main_receipt_observed": false,
+  "held_daily_tree_latest_files": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\entry-action-disposition.json",
+      "modified_utc": "2026-11-20T15:30:50.5148431Z",
+      "sha256": "f64e0c7ee9cde27f406328b8d0d799b9c4d73de327aa31fce353466cd663472d",
+      "name": "entry-action-disposition.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\ibkr-entry-step.json",
+      "modified_utc": "2026-11-20T15:29:35.8200872Z",
+      "sha256": "cf8e988b0c2899321295788161363fef09967d47aecc578d80f7d1d5bac100b1",
+      "name": "ibkr-entry-step.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\ibkr-short\\view-cand_macro_btcusd.json",
+      "modified_utc": "2026-11-20T15:29:25.5082706Z",
+      "sha256": "463d713b131537c831d086f8af495df13bf9417204250d35a1876cbcd3de94e5",
+      "name": "view-cand_macro_btcusd.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\ibkr-short\\j1-history-BTCUSD.json",
+      "modified_utc": "2026-11-20T15:29:25.5032241Z",
+      "sha256": "1d2f3d955838ba53dec9cd4ab8509385173ade27e1c57803872a6d1423899611",
+      "name": "j1-history-BTCUSD.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\ibkr-short\\j1-read-20261120T152922Z\\intraday-capture.json",
+      "modified_utc": "2026-11-20T15:29:25.3425279Z",
+      "sha256": "d3659619588852f3e113018e65d1ce18ae95bfbb0ebe4fe38be062aa280f821a",
+      "name": "intraday-capture.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\arm-step.json",
+      "modified_utc": "2026-11-20T15:29:21.638407Z",
+      "sha256": "0310e856ad2e3a8a44d982318e4717948664707b62095b9e00562c39cf56498f",
+      "name": "arm-step.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\gpt-forecast.json",
+      "modified_utc": "2026-11-20T15:29:21.1742585Z",
+      "sha256": "327643a26963be435f2e9155932f2409250f319487f80d41beffd9625ba97ab4",
+      "name": "gpt-forecast.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\gpt-direction-forecast.json",
+      "modified_utc": "2026-11-20T15:29:21.1664724Z",
+      "sha256": "1f9dadf7bddfb3ca33ed6190b84796d215f88f6ba7868951dfeb30a50b87f0a4",
+      "name": "gpt-direction-forecast.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\forecast-sheet.json",
+      "modified_utc": "2026-11-20T15:29:17.854763Z",
+      "sha256": "95704b988deed42a100c78512f72d6edeffd626561d3f943b21670c7dc73659f",
+      "name": "forecast-sheet.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\research-entry-policy.json",
+      "modified_utc": "2026-11-20T15:29:16.6155347Z",
+      "sha256": "d747402fcb6b8a4034a9a2595027af4a6419fb10021055e89e5e3f59c7f45fbf",
+      "name": "research-entry-policy.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\watch-registration-step.json",
+      "modified_utc": "2026-11-20T15:29:15.5985391Z",
+      "sha256": "25ca5c299b54a82a62a4bd2acbc54443289f30c0d4cba9a11941e6cd332b0c05",
+      "name": "watch-registration-step.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\gpt-forecast-worker.json",
+      "modified_utc": "2026-11-20T15:29:09.1972685Z",
+      "sha256": "0ed3169f7cc275c29cb97f9e5eb4b8c5801234f1d6edb98a3824730d30d90f4e",
+      "name": "gpt-forecast-worker.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\stand-aside-calls.json",
+      "modified_utc": "2026-11-20T15:29:05.737785Z",
+      "sha256": "e4645e62cbbee88068c52b4e5e197a1c9d179134d745a21bef37d831156351b0",
+      "name": "stand-aside-calls.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\runtime-candidates.json",
+      "modified_utc": "2026-11-20T15:29:05.6920893Z",
+      "sha256": "c7f2a1702009c5bcb5d1beec2c864c97e3b9731d9bf05cc8f51d6143de94c484",
+      "name": "runtime-candidates.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\native-output-provenance.json",
+      "modified_utc": "2026-11-20T15:29:00.9063932Z",
+      "sha256": "9dba459e6bb6daee49529615bf5f75859a40bf88443cee79279ec758c575da9e",
+      "name": "native-output-provenance.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\completion-result.json",
+      "modified_utc": "2026-11-20T15:28:04.69062Z",
+      "sha256": "d32eb726a2ae57a8d1dc362b7ce1d93c7e07ce7a262491b76442ed16faff18c5",
+      "name": "completion-result.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\decision-evaluation.json",
+      "modified_utc": "2026-11-20T15:28:04.6582701Z",
+      "sha256": "4f56dab18d756118d04fa49ae28d1c0b34e1e34490ab4949c01bc9e52b748249",
+      "name": "decision-evaluation.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\final-execution-packet.json",
+      "modified_utc": "2026-11-20T15:28:04.6385436Z",
+      "sha256": "b5c73c1fa0ff0fd7ec25100b1c6613d64e2752eac01cee89076b1fa92f8ce77f",
+      "name": "final-execution-packet.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\final-decision-freeze.json",
+      "modified_utc": "2026-11-20T15:28:04.6352513Z",
+      "sha256": "35383ef5420bb9e8c2ee579d60c2c09f78538f46ac03b4dd62619aa8f76d0e51",
+      "name": "final-decision-freeze.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\native-hybrid-decision.json",
+      "modified_utc": "2026-11-20T15:28:04.2985404Z",
+      "sha256": "dcc66e2f8a9a3b6edc82d725b495d95508b1503defa366ce396fef1073e91543",
+      "name": "native-hybrid-decision.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\integrated-qualitative-evaluation.json",
+      "modified_utc": "2026-11-20T15:28:04.2843683Z",
+      "sha256": "c7448980c1c675a1091b69eb39a2afd837841c57f8958a9d30d4bb60410517cc",
+      "name": "integrated-qualitative-evaluation.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\desktop-manual-result.json",
+      "modified_utc": "2026-11-20T15:28:04.2820383Z",
+      "sha256": "3823c53b26c70dbcb2c19ae9940aa31d280ae79549173554aa6e9e4fc91afd45",
+      "name": "desktop-manual-result.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\watch-validation-step.json",
+      "modified_utc": "2026-11-20T15:28:04.2767168Z",
+      "sha256": "362aef9a8bbbef48e316da1f98d7a8214188c13b9742c399689ef11e7219de49",
+      "name": "watch-validation-step.json"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d581810242dbe0fa\\native-result-submitted.json",
+      "modified_utc": "2026-11-20T15:27:56.7911884Z",
+      "sha256": "6e26d4c108d34a4cce43fa67833163496f90509f9c387c25225cea206200355d",
+      "name": "native-result-submitted.json"
+    }
+  ],
+  "completion_named_files": null,
+  "plan_status_context": {
+    "generated_at_utc": "2026-11-21T21:16:05.711271Z",
+    "content_hash": "11af62114c90169083e0529e8232ee5de50a870635f6a505740cf74b7267fd16",
+    "export_run_started_at_utc": "2026-11-21T21:16:51.664286Z",
+    "export_run_state": "STARTED",
+    "is_main_article_report": false,
+    "use": "context only; no fresh Main article receipt"
+  },
+  "store_readback": {
+    "observed_at_utc": "2026-11-21T21:16:17.78071Z",
+    "active_leases": [
+      {
+        "lease_id": "lease_afee2f138504b620",
+        "lease_key": "x-reply-tabs-refresh",
+        "status": "ACTIVE",
+        "expires_at": "2026-11-22T04:21:26.423815+07:00"
+      },
+      {
+        "lease_id": "lease_7256c29c88ec60d2",
+        "lease_key": "heavy-news-quotes-minute",
+        "status": "ACTIVE",
+        "expires_at": "2026-11-22T04:19:57.273124+07:00"
+      }
+    ],
+    "cc124_dispatches": []
+  },
+  "publication_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "sha256": "47f6c8fd52d17b612536dfaf7d457a025b4e700bca7ba89d50ee2e5616014459",
+    "row_count": 26,
+    "latest_rows": [
+      {
+        "content_id": "substack:224849463",
+        "title": "How we measure a trading rule before trusting it",
+        "published_at_utc": "2026-11-14T13:01:31.721+07:00"
+      },
+      {
+        "content_id": "substack:225143229",
+        "title": "Following the trend worked unevenly",
+        "published_at_utc": "2026-11-16T14:44:03.233+07:00"
+      },
+      {
+        "content_id": "substack:225334659",
+        "title": "Five sessions did not settle the trend question",
+        "published_at_utc": "2026-11-17T18:45:29.396+07:00"
+      },
+      {
+        "content_id": "substack:225607069",
+        "title": "What a tight stop cost in our historical test",
+        "published_at_utc": "2026-11-19T12:17:44.84+07:00"
+      },
+      {
+        "content_id": "substack:225884424",
+        "title": "What waiting to enter cost in our historical test",
+        "published_at_utc": "2026-11-21T10:53:58.906+07:00"
+      }
+    ]
+  },
+  "production_day": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-21-bangkok\\newsroom_production_day_v1.json",
+    "sha256": "09c548e2e7d22204cdda7d894915d771a50a1ce6f625f7dfbb95293dd89b5d1f",
+    "distinct_canonical_items_published": 1,
+    "confirmed_copies_by_channel": {
+      "discord": 1,
+      "facebook_page": 1,
+      "instagram_business": 1,
+      "substack": 1,
+      "telegram": 1,
+      "threads": 1,
+      "x": 1
+    },
+    "reader_counts_availability": "UNAVAILABLE"
+  },
+  "outcome": {
+    "new_articles": 0,
+    "new_editorial_role_calls": 0,
+    "new_media": 0,
+    "new_destination_drafts": 0,
+    "public_writes": 0,
+    "browser_actions": 0,
+    "schedule_changes": 0,
+    "chat_messages": 0,
+    "pytest_processes_started": 0
+  }
+}
