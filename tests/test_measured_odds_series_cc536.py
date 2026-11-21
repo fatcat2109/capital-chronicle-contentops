@@ -434,6 +434,51 @@ def test_threads_official_consumer_uses_bound_root_and_full_link_reply(tmp_path,
     assert len(chains)==2
 
 
+@pytest.mark.parametrize("complete_listing", [True, False])
+def test_threads_correction_only_completes_the_bound_reply_suffix(tmp_path, monkeypatch, piece, complete_listing):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import post_visuals_v1, threads_adapter_v6 as threads
+
+    canonical = "https://capitalchronicle.substack.com/p/method"
+    root_id = "1234567890123"
+    root_url = "https://www.threads.com/@official.capitalchronicle/post/exact-root"
+    payload = odds.compile_payloads(piece["article"], canonical, ["chart"])["threads"]
+    expected_replies = payload["reply_texts"]
+    data = {"output_dir": tmp_path, "article": piece["article"], "payloads": {"threads": payload},
+            "canonical_url": canonical, "local_media": "chart.png", "public_image_url": "", "media_assets": []}
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda _: data)
+    monkeypatch.setattr(post_visuals_v1, "require_publication_image", lambda *args: None)
+    monkeypatch.setattr(threads, "readback_threads_post", lambda **kw: {
+        "status": "SUCCESS", "post_id": root_id, "public_url": root_url, "visible_body_text": payload["root_text"],
+    })
+
+    def read_chain(**kwargs):
+        assert kwargs["root_id"] == root_id
+        assert [row["text"] for row in kwargs["reply_expectations"]] == expected_replies
+        if published:
+            return {"status": "SUCCESS"}
+        return {"complete_reply_listing": complete_listing,
+                "own_reply_ids_in_chronological_order": ["existing-link-reply"],
+                "ordered_replies": [{"id": "existing-link-reply", "parent_child_verified": True, "text_verified": True}]}
+
+    published = []
+
+    def publish(**kwargs):
+        assert kwargs["reply_to_id"] == root_id
+        published.append(kwargs["text"])
+        return {"status": "SUCCESS", "id": str(len(published))}
+
+    monkeypatch.setattr(threads, "readback_threads_chain", read_chain)
+    monkeypatch.setattr(threads, "execute_threads_post", publish)
+    result = pipeline._publish_one_destination_from_durable_intent(destination="threads",
+        intent={"attempt_identity": "attempt", "recovery_public_object_id": root_id,
+                "recovery_public_object_url": root_url},
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "attempt"})
+    assert result["id"] == root_id and result["public_url"] == root_url
+    assert result["provider_readback_verified"] is complete_listing
+    assert published == (expected_replies[1:] if complete_listing else [])
+
+
 def confirm_method(store, tmp_path):
     packet = odds.register(store,SOURCE / "piece-1.json",tmp_path / "method")
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=None)

@@ -498,6 +498,10 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             else:
                 result = coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"],
                     **({"observed_threads_root": observed_threads_root} if observed_threads_root else {}))
+        elif command=="complete-threads":
+            ids = coordinator._ids(packet["identity"], packet["plan"]["plan_hash"], "threads")
+            result = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"],
+                correction_id=packet["identity"] + ":complete-threads-replies")
         elif command=="dispatch":
             if destination not in registered_destinations - {"substack"}:
                 raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")
@@ -529,7 +533,7 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
 def main():
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command",choices=("check","register","resume","dispatch","readback","status","begin","submit"))
+    parser.add_argument("command",choices=("check","register","resume","dispatch","readback","complete-threads","status","begin","submit"))
     parser.add_argument("--piece",type=Path,required=True)
     parser.add_argument("--output-dir",type=Path)
     parser.add_argument("--rollout",type=Path,default=Path("config/native_desktop_rollout_v1.json"))

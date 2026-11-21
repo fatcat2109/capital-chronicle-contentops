@@ -291,10 +291,8 @@ def readback_threads_chain(
             }
         )
     expected_ids = [str(item.get("id") or "") for item in ordered]
-    chronological_ids = [
-        str(row.get("id") or "")
-        for row in sorted(rows, key=lambda row: str(row.get("timestamp") or ""))
-    ]
+    chronological_rows = sorted(rows, key=lambda row: str(row.get("timestamp") or ""))
+    chronological_ids = [str(row.get("id") or "") for row in chronological_rows]
     provider_positions = [chronological_ids.index(reply_id) for reply_id in expected_ids if reply_id in chronological_ids]
     provider_order_verified = len(provider_positions) == len(expected_ids) and provider_positions == sorted(provider_positions)
     success = bool(
@@ -309,6 +307,9 @@ def readback_threads_chain(
         "root_id": root_id,
         "reply_ids_in_provider_order": edge_ids,
         "reply_ids_in_chronological_order": chronological_ids,
+        "own_reply_ids_in_chronological_order": [str(row.get("id") or "") for row in chronological_rows
+            if str(row.get("username") or "").casefold() == "official.capitalchronicle"],
+        "complete_reply_listing": isinstance(edge.get("data"), list) and not (edge.get("paging") or {}).get("next"),
         "provider_order_verified": provider_order_verified,
         "ordered_replies": ordered,
         "complete_article_visual_count": 1 + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),

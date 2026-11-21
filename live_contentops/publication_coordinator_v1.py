@@ -3262,6 +3262,13 @@ class DurablePublicationCoordinator:
                 explicit_transport_correction_retry and intent.get("reader_presentation_review")
                 and existing.get("status") == DERIVATIVE_EXPIRED_STALE_NO_WRITE
                 and not existing.get("public_object_id"))
+            threads_reply_recovery = bool(
+                explicit_transport_correction_retry and destination == "threads"
+                and intent.get("measured_odds_piece") == intent["work_item_id"]
+                and existing["status"] == DISPATCH_CONFIRMED
+                and reconciliation_status == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+                and existing.get("public_object_id") and existing.get("public_object_url"))
+            correction_retry_eligible = correction_retry_eligible or threads_reply_recovery
             if not (retry_eligible or correction_retry_eligible or native_pending_resume):
                 return {
                     "destination": destination,
@@ -3273,6 +3280,9 @@ class DurablePublicationCoordinator:
                 }
             if destination == "substack" and not native_pending_resume:
                 intent = {**intent, "recovery_public_object_id": recovery_object_id}
+            elif threads_reply_recovery:
+                intent = {**intent, "recovery_public_object_id": recovery_object_id,
+                          "recovery_public_object_url": existing["public_object_url"]}
             elif correction_retry_eligible and destination == "x":
                 intent = {
                     **intent,
@@ -3738,7 +3748,7 @@ class DurablePublicationCoordinator:
             }
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         destination = str((message or {}).get("destination") or "")
-        if not message or destination not in {"x", "facebook_page", "instagram_business", "linkedin"}:
+        if not message or destination not in {"x", "facebook_page", "instagram_business", "linkedin", "threads"}:
             return {
                 "status": "CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED",
                 "publish_called": False,
@@ -3760,6 +3770,8 @@ class DurablePublicationCoordinator:
             }
         intent = json.loads(str(message["payload"]))
         work_item_id = str(intent.get("work_item_id") or "")
+        if destination == "threads" and intent.get("measured_odds_piece") != work_item_id:
+            return {"status": "CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED", "publish_called": False}
         if not self._full_v1_distribution_required(intent):
             return {
                 "status": "CORRECTION_BLOCKED_NOT_FULL_V1_OBLIGATION",

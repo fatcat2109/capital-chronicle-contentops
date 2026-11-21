@@ -4781,23 +4781,44 @@ def _publish_one_destination_from_durable_intent(
         )
         package = payloads.get("threads") or {}
         text = str(package.get("root_text") or text)
+        expected_replies = package.get("reply_texts") or []
         # A reviewed thread can carry the link in an own reply. The complete
         # reply readback below verifies that exact text and canonical URL.
         root_canonical = canonical_url
         if canonical_url and canonical_url not in text and any(
-                canonical_url in str(reply) for reply in package.get("reply_texts") or []):
+                canonical_url in str(reply) for reply in expected_replies):
             root_canonical = None
-        root = execute_threads_post(
-            text=text, image_url=(public_image_url or None) if image_path else None,
-            dry_run=False,
-            **({"reply_to_id": payloads[destination]["reply_to_id"]}
-               if payloads[destination].get("reply_to_id") else {}),
-        )
-        root_id = str(root.get("id") or "")
-        if root.get("status") not in SUCCESS_STATUSES or not root_id:
-            return root
+        root_checks = {"expected_text": text, "canonical_url": root_canonical,
+                       "expected_media_local_path": image_path or None}
+        if package.get("reply_to_id"):
+            root_checks["expected_parent_id"] = package["reply_to_id"]
         replies = []
-        for index, reply_text in enumerate((payloads.get("threads") or {}).get("reply_texts") or [], start=1):
+        root_id = str(intent.get("recovery_public_object_id") or "")
+        if root_id:
+            root_url = intent["recovery_public_object_url"]
+            root = {"status": "SUCCESS", "id": root_id, "public_url": root_url}
+            confirmed = readback_threads_post(post_id=root_id, **root_checks)
+            chain = readback_threads_chain(root_id=root_id,
+                reply_expectations=[{"text": reply} for reply in expected_replies])
+            own_ids = chain.get("own_reply_ids_in_chronological_order") or []
+            prefix = (chain.get("ordered_replies") or [])[:len(own_ids)]
+            if (confirmed.get("status") != "SUCCESS" or confirmed.get("post_id") != root_id
+                    or confirmed.get("public_url") != root_url
+                    or str(confirmed.get("visible_body_text") or "").split() != text.split()
+                    or chain.get("complete_reply_listing") is not True
+                    or [row["id"] for row in prefix] != own_ids
+                    or any(not (row["parent_child_verified"] and row["text_verified"]) for row in prefix)):
+                return {**root, "provider_readback_verified": False,
+                        "safe_error_classification": "THREADS_RECOVERY_ROOT_OR_REPLY_PREFIX_UNVERIFIED"}
+            replies = [{"id": row["id"], "status": "SUCCESS", "order": index,
+                        "text": expected_replies[index - 1]} for index, row in enumerate(prefix, start=1)]
+        else:
+            root = execute_threads_post(text=text, image_url=(public_image_url or None) if image_path else None,
+                dry_run=False, **({"reply_to_id": package["reply_to_id"]} if package.get("reply_to_id") else {}))
+            root_id = str(root.get("id") or "")
+            if root.get("status") not in SUCCESS_STATUSES or not root_id:
+                return root
+        for index, reply_text in enumerate(expected_replies[len(replies):], start=len(replies) + 1):
             try:
                 reply = execute_threads_post(
                     text=str(reply_text), reply_to_id=root_id, dry_run=False,
@@ -4809,12 +4830,7 @@ def _publish_one_destination_from_durable_intent(
             if str(reply.get("status") or "") not in SUCCESS_STATUSES:
                 break
         try:
-            root_readback = readback_threads_post(
-                post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
-                canonical_url=root_canonical, expected_media_local_path=image_path or None,
-                **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
-            )
-            expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
+            root_readback = readback_threads_post(post_id=root_id, **root_checks)
             chain = readback_threads_chain(
                 root_id=root_id,
                 reply_expectations=[{"id": row.get("id"), "text": row.get("text"),
