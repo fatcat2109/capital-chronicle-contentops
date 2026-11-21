@@ -1090,12 +1090,12 @@ def _excerpt(text: str, room: int) -> str:
 
 
 def _text_parts(body: str, notices: str, limit: int, credit: str = "", *, lines: bool = False,
-                rest_limit: int | None = None) -> list[str]:
-    """Full source text, bounded parts. Each part retains the public notices. With `lines` a part ends at a
-    line where it can; `rest_limit` bounds the parts after the first (a Telegram text message after the photo)."""
+                rest_limit: int | None = None, repeat_notices: bool = True) -> list[str]:
+    """Split source text within the first-part and continuation limits, preferring line breaks if requested."""
     parts = []
     while body:
-        suffix = "\n\n" + "\n\n".join(p for p in (credit if not parts else "", notices) if p)
+        footer = "\n\n".join(p for p in (credit if not parts else "", notices if repeat_notices or not parts else "") if p)
+        suffix = "\n\n" + footer if footer else ""
         room = (limit if not parts or rest_limit is None else rest_limit) - len(suffix)
         if room < 1:
             raise PlanPostError("PLAN_STATUS_NOTICES_EXCEED_LIMIT")
@@ -1513,7 +1513,8 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
                                   portrait_id=context.get("status_post_threads_image"),
                                  x_analysis=context.get("status_post_x_analysis"),
                                  chart_credit=bool(context.get("chart_credit")),
-                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW",
+                                 repeat_threads_notices=not context.get("status_post_threads_single_notice"))
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part,
                               repeat_media=bool(row.get("cc603_contract")))
