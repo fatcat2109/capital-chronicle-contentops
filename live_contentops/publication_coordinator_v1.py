@@ -2541,6 +2541,7 @@ class DurablePublicationCoordinator:
         *,
         provider_outcome: Mapping[str, Any] | None = None,
         pending_owner_screen: Mapping[str, Any] | None = None,
+        observed_threads_root: tuple[str, str] | None = None,
     ) -> str:
         dispatch_id = str(dispatch["dispatch_id"])
         original_message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
@@ -2555,6 +2556,9 @@ class DurablePublicationCoordinator:
             key = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
             return next((r["status"] for r in rows if r["reconciliation_id"] == key), RECONCILIATION_PENDING)
         object_id = str(dispatch.get("public_object_id") or "") or None
+        object_url = str(dispatch.get("public_object_url") or "") or None
+        if observed_threads_root:
+            object_id, object_url = observed_threads_root
         awaiting_owner = destination == "substack" and (
             dispatch.get("status") == "SUBSTACK_DRAFT_AWAITING_OWNER" or pending_owner_screen is not None
         )
@@ -2600,10 +2604,21 @@ class DurablePublicationCoordinator:
                 raw = self.transport_runtime.readback(
                     destination=destination,
                     public_object_id=object_id,
-                    public_object_url=str(dispatch.get("public_object_url") or "") or None,
+                    public_object_url=object_url,
                     intent=intent,
                 )
             normalized = normalize_readback_result(raw or {}, public_object_id=object_id, destination=destination)
+            if observed_threads_root:
+                expected = (intent.get("native_payload") or {}).get("root_text") or ""
+                checks = normalized.get("content_binding_checks", {})
+                exact_root = (normalized["identity_match"]
+                    and normalized["observed_public_object_url"] == object_url
+                    and expected.split() == str(raw.get("visible_body_text") or "").split()
+                    and all(checks.get(key) is True for key in ("account_match", "text_match", "media_match")))
+                normalized["write_absent"] = False
+                if not exact_root:
+                    normalized.update(verified=False, write_exists=False, identity_match=False,
+                                      error_class="OBSERVED_THREADS_ROOT_MISMATCH")
         except NativeNeoInputRequired:
             # Waiting for the active Desktop tool is not an observed readback failure.
             # Keep all existing public identity and reconciliation evidence intact.
@@ -4963,7 +4978,9 @@ class DurablePublicationCoordinator:
     def publish_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         return self.execute_plan(work_item_id, plan)
 
-    def readback_existing_dispatch(self, dispatch_id: str) -> dict[str, Any]:
+    def readback_existing_dispatch(
+        self, dispatch_id: str, *, observed_threads_root: tuple[str, str] | None = None,
+    ) -> dict[str, Any]:
         """Refresh one already persisted object through the existing strict reconciliation.
 
         This operation never calls publish, saves a draft or allocates a new dispatch. It
@@ -4980,7 +4997,17 @@ class DurablePublicationCoordinator:
         survivor_id = self._survivor_dispatch_id(expected["dispatch_id"], dispatch.get("public_object_id"))
         if dispatch_id not in {expected["dispatch_id"], survivor_id} or expected["message_id"] != dispatch["message_id"]:
             raise ValueError("EXISTING_DISPATCH_INTENT_BINDING_MISMATCH")
-        status = self._reconcile(dispatch, intent)
+        if observed_threads_root:
+            from .neo_destination_handoff_v1 import _public_url
+            object_id, object_url = observed_threads_root
+            if (dispatch["platform"] != "threads" or dispatch["status"] not in {ATTEMPT_STARTED, UNKNOWN_WRITE}
+                    or dispatch.get("public_object_id") or dispatch.get("public_object_url")
+                    or not (intent.get("native_payload") or {}).get("root_text")
+                    or not re.fullmatch(r"[0-9]+", object_id) or not _public_url("threads", object_url)):
+                raise ValueError("EXACT_UNBOUND_THREADS_DISPATCH_REQUIRED")
+            status = self._reconcile(dispatch, intent, observed_threads_root=observed_threads_root)
+        else:
+            status = self._reconcile(dispatch, intent)
         return {"dispatch_id": dispatch_id, "destination": dispatch["platform"],
                 "reconciliation_status": status, "public_write_performed": False,
                 "publish_called": False}

@@ -248,6 +248,60 @@ def test_registered_copy_and_source_manifest_are_immutable(tmp_path):
         odds.validate_plan(store,packet["identity"],packet["plan"])
 
 
+def test_interrupted_threads_dispatch_recovers_only_its_exact_public_root(tmp_path, monkeypatch):
+    from live_contentops import threads_adapter_v6 as threads
+    from live_contentops.publication_coordinator_v1 import (
+        ATTEMPT_STARTED, DISPATCH_CONFIRMED, RECONCILIATION_PENDING,
+        RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE, CanonicalDestinationTransportRuntimeV1,
+    )
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    packet = odds.register(store, SOURCE / "piece-5/piece-5.json", tmp_path / "article")
+    runtime = CanonicalDestinationTransportRuntimeV1()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        published_content_path=tmp_path / "published.jsonl")
+    coordinator.register_plan(packet["identity"], packet["plan"])
+    ids = coordinator._ids(packet["identity"], packet["plan"]["plan_hash"], "threads")
+    message = store.get_outbox_message(ids["message_id"])
+    intent = runtime.finalize_intent(destination="threads", intent=json.loads(message["payload"]),
+        canonical_url="https://capitalchronicle.substack.com/p/fixture-article")
+    store.finalize_outbox_payload_before_dispatch(message_id=message["message_id"],
+        payload=odds.canonical_bytes(intent).decode(), status="READY")
+    assert store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+        message_id=ids["message_id"], platform="threads")
+    original = store.get_platform_dispatch(ids["dispatch_id"])
+    root_id = "1234567890123"
+    root_url = "https://www.threads.com/@official.capitalchronicle/post/exact-root"
+    root_text = packet["piece"]["article"]["social_hook"]
+    visible_text = "A different post on the same account."
+
+    def read_root(**kwargs):
+        assert kwargs["post_id"] == root_id
+        assert kwargs["expected_text"] == root_text
+        return {"status": "SUCCESS", "post_id": root_id, "public_url": root_url,
+                "visible_body_text": visible_text, "account_identity_verified": True,
+                "content_binding_checks": {"account_match": True, "text_match": True, "media_match": True}}
+
+    def forbid_send(**kwargs):
+        pytest.fail("Readback must never send a Threads post")
+
+    monkeypatch.setattr(threads, "readback_threads_post", read_root)
+    monkeypatch.setattr(threads, "readback_threads_chain", lambda **kw: {"status": "FAILED_THREADS_REPLY_CHAIN_READBACK"})
+    monkeypatch.setattr(threads, "execute_threads_post", forbid_send)
+    receipt = coordinator.readback_existing_dispatch(ids["dispatch_id"], observed_threads_root=(root_id, root_url))
+    assert receipt["reconciliation_status"] == RECONCILIATION_PENDING
+    assert store.get_platform_dispatch(ids["dispatch_id"]) == original
+    assert original["status"] == ATTEMPT_STARTED
+
+    visible_text = root_text
+    receipt = coordinator.readback_existing_dispatch(ids["dispatch_id"], observed_threads_root=(root_id, root_url))
+    assert receipt["reconciliation_status"] == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+    assert receipt["publish_called"] is False
+    current = store.get_platform_dispatch(ids["dispatch_id"])
+    assert (current["status"], current["public_object_id"], current["public_object_url"]) == (DISPATCH_CONFIRMED, root_id, root_url)
+    assert current["dispatched_at"] == original["dispatched_at"]
+
+
 def test_resuming_registered_piece_uses_its_saved_output_directory(tmp_path):
     store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
     packet=odds.register(store,SOURCE/'piece-1.json',tmp_path/'article')

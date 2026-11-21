@@ -447,7 +447,7 @@ def register(store, piece_file, output_dir):
 
 
 def continue_piece(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None, automatic=False,
-                   draft_url=None, destination=None, retry_reconciled_absent=False):
+                   draft_url=None, destination=None, retry_reconciled_absent=False, observed_threads_root=None):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     live_publication_policy(rollout)
@@ -496,7 +496,8 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             if request_hash:
                 result = coordinator.reconcile_completed_native_publish(dispatch_ids["dispatch_id"], request_hash=request_hash)
             else:
-                result = coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
+                result = coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"],
+                    **({"observed_threads_root": observed_threads_root} if observed_threads_root else {}))
         elif command=="dispatch":
             if destination not in registered_destinations - {"substack"}:
                 raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")
@@ -539,9 +540,13 @@ def main():
     parser.add_argument("--automatic",action="store_true")
     parser.add_argument("--draft-url",help="Exact retained draft after a confirmed pre-click no-write")
     parser.add_argument("--destination",help="One derivative in this already registered publication plan")
+    parser.add_argument("--observed-threads-root", nargs=2, metavar=("GRAPH_ID", "PUBLIC_URL"),
+                        help="Read back a known public Threads root for an interrupted dispatch")
     parser.add_argument("--retry-reconciled-absent",action="store_true",
                         help="Retry only an exact dispatch the coordinator has reconciled absent")
     args=parser.parse_args()
+    if args.observed_threads_root and (args.command != "readback" or args.destination != "threads" or args.request_hash):
+        parser.error("--observed-threads-root requires readback --destination threads")
     if args.command=="check":
         result={"status":"PASS","numbers":validate_piece(_read(args.piece),args.piece.parent/"source")}
     else:
@@ -554,7 +559,8 @@ def main():
         result=packet if args.command=="register" else continue_piece(store,packet,invocation_id=args.invocation_id,
             rollout=rollout,command=args.command,request_hash=args.request_hash,
             response=_read(args.response) if args.response else None,automatic=args.automatic,draft_url=args.draft_url,
-            destination=args.destination,retry_reconciled_absent=args.retry_reconciled_absent)
+            destination=args.destination,retry_reconciled_absent=args.retry_reconciled_absent,
+            observed_threads_root=args.observed_threads_root)
     args.result.parent.mkdir(parents=True,exist_ok=True)
     args.result.write_bytes(canonical_bytes(result))
     print(json.dumps({"result_path":str(args.result),"state":result.get("state",result.get("status","SAVED"))}))
