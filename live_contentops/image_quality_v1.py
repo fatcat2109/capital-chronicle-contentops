@@ -29,7 +29,7 @@ TEMPLATE_FIT_CAUSES = frozenset({
     "IMAGE_WRITER_REVISION_REQUIRED", "IMAGE_TEXT_DOES_NOT_FIT", "IMAGE_HEADER_COLLISION",
     "IMAGE_RESULT_PATH_CAPTURE_CHANGED", "IMAGE_RESULT_PATH_NOT_IN_VIEW", "IMAGE_RESULT_PATH_TIMEFRAME_REQUIRED",
     "IMAGE_R_RESULT_NOT_EXPORTED", "IMAGE_RESULT_OUTCOME_NOT_MAPPED", "RESULT_CAPTURE_TIME_COORDINATES_REQUIRED",
-    "IMAGE_TEMPLATE_WTI_BASIS_REQUIRED",
+    "IMAGE_TEMPLATE_WTI_BASIS_REQUIRED", "IMAGE_EMPTY_BAND_TOO_TALL",
 })
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
@@ -310,6 +310,8 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
 def sampled_review(image, *, run_vision=False, vision_runner=None):
     """Resolve or complete an exact-pixel review in the existing image sidecar."""
     registered = image["image_quality"]
+    if registered.get("image_sha256") != image.get("sha256"):
+        return {**registered, "passed": False, "sample_cause": "IMAGE_SAMPLE_RECORD_BINDING_CHANGED"}
     if (registered.get("vision") or {}).get("status") != VISION_SAMPLE_PENDING:
         return registered
     try:
@@ -372,7 +374,7 @@ def publication_sample(records,day,*,rng=None,run_vision=False,vision_runner=Non
                                                               vision_runner=vision_runner)}
                      for image in daily_sample(records, at, rng=rng)] for at in days}
     reviewed = [image["image_quality"] for images in selected.values() for image in images
-                if (image["image_quality"].get("vision") or {}).get("status") in {"REVIEWED", None}]
+                if (image["image_quality"].get("vision") or {}).get("status") not in SAMPLE_NOT_SCORED]
     return {"day":day,"images":selected[day],
             "weekly":{**weekly_sample(reviewed),
                       "start_day":days[0],"end_day":day}}

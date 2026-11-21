@@ -489,7 +489,9 @@ def _table(canvas,data,page):
                 canvas.text(value,(m+12,second,w-m-12,y+height-4),size=56,wrap=2,key="week.row")
             else:
                 values=[MARKETS[row['market']]+" · "+row['direction'],row['horizon_label']]
-                values.extend([chance_text, row['outcome_label']])
+                if chance_text or week.get("reserve_odds_row"):
+                    values.append(chance_text)
+                values.append(row['outcome_label'])
                 step=height/len(values)
                 canvas.text(values[0],(m+12,y,w-m-230,y+step),size=52,key="week.market",center_y=True)
                 canvas.text(result,(w-m-220,y,w-m-12,y+step),size=64,mono=True,key="week.r",center_y=True)

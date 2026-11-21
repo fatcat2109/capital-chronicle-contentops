@@ -162,7 +162,7 @@ def for_weekly_review(article):
     source = {"record": week, "computed_statistics": stats, "source_sha256": accepted["source_sha256"]}
     return bind({"schema": "image_input_v1", "post_id": "week-" + digest(source)[:24], "template": "weekly",
                  "week": {"start": f"{start.day} {start:%b}", "end": f"{end.day} {end:%b}",
-                          "rows": rows, **stats}}, source)
+                          "rows": rows, "reserve_odds_row": True, **stats}}, source)
 
 
 def weekly_result_fields(plan):
@@ -199,7 +199,7 @@ def for_morning_map(article):
         return None
     allowed_states = {"Trending up", "Trending down", "Range", "Squeeze", "Breakout"}
     if any(row.get("last") is None or row.get("change_1d_pct") is None or row.get("state_word") not in allowed_states
-           or not row.get("view_line") or not row.get("driver_line") for row in rows):
+           or any(key not in row for key in ("view_line", "driver_line")) for row in rows):
         return None
     by_market = {row["market"]: row for row in rows}
     fields = ("market", "last", "change_1d_pct", "state_word", "view_line", "driver_line")
