@@ -37,6 +37,17 @@ FAMILIES = {
     "empsit": ("NFP_PAYROLL_CHANGE", "UNEMPLOYMENT_RATE", "AHE_MOM"),
     "ppi": ("PPI_FINAL_DEMAND_MOM",),
 }
+DESK_MEASURES = {"MONTH_ON_MONTH": "MOM", "TWELVE_MONTH_CHANGE": "YOY",
+    "MONTHLY_LEVEL_DIFFERENCE": "MOM_CHANGE", "LEVEL": "LEVEL"}
+DESK_CHART_LABELS = {
+    "CPI_HEADLINE_YOY": "Headline CPI, year over year", "CPI_CORE_YOY": "Core CPI, year over year",
+    "CPI_HEADLINE_MOM": "Headline CPI, month over month", "CPI_CORE_MOM": "Core CPI, month over month",
+    "NFP_PAYROLL_CHANGE": "Change in nonfarm payrolls", "UNEMPLOYMENT_RATE": "Unemployment rate",
+    "AHE_MOM": "Average hourly earnings, month over month",
+    "PPI_FINAL_DEMAND_MOM": "Final demand PPI, month over month",
+    "PPI_CORE_EX_FOOD_ENERGY_TRADE_MOM": "Final demand PPI excluding food, energy and trade services",
+}
+FIRST_PRINT = "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
 HISTORY_CONFIG_PATH = Path(__file__).resolve().parents[1] / "config/official_release_history_v1.json"
 
 
@@ -49,6 +60,177 @@ def _time(value):
 
 def _digest(raw):
     return hashlib.sha256(raw).hexdigest()
+
+
+def _bls_release_family(url):
+    parsed = urlsplit(url)
+    if parsed.scheme == "https" and parsed.netloc == "www.bls.gov":
+        match = re.fullmatch(r"/news.release/(?:archives/)?(cpi|empsit|ppi)(?:_\d{8}|\.nr0)?\.htm", parsed.path)
+        if match:
+            return match[1]
+
+
+def _desk_point_record(point, *, name, family, series_id, unit, adjustment, measure):
+    if point.get("public_eligible") is not True or point.get("rights_class") != BLS_RIGHTS:
+        raise ValueError("DESK_ADAPTER_PUBLIC_POINT_RIGHTS_REQUIRED")
+    lineage = point.get("lineage")
+    if not isinstance(lineage, list) or len(lineage) != 1 or not isinstance(lineage[0], dict):
+        raise ValueError("DESK_ADAPTER_FIRST_PRINT_LINEAGE_REQUIRED")
+    source = lineage[0]
+    period, value, state = point.get("x"), point.get("value"), point.get("state")
+    if (source.get("source_id") != "cc010-first-print" or source.get("source_series") != series_id
+            or source.get("vintage") != FIRST_PRINT or source.get("archive_correction_notice") is not False
+            or source.get("capture_hash_verified") is not True
+            or not all(re.fullmatch(r"[0-9a-f]{64}", str(source.get(k, "")))
+                       for k in ("capture_sha256", "input_sha256"))
+            or _bls_release_family(source.get("source_url") or "") != family
+            or not re.fullmatch(r"/news.release/archives/(?:cpi|empsit|ppi)_\d{8}\.htm",
+                                urlsplit(source["source_url"]).path)
+            or (source.get("window") or {}).get("reference_period") != period):
+        raise ValueError("DESK_ADAPTER_FIRST_PRINT_LINEAGE_REQUIRED")
+    missing_reason = point.get("missing_reason")
+    is_observation = (state in {"OBSERVED", "DERIVED"} and type(value) in {int, float}
+                      and math.isfinite(value))
+    is_reported_gap = (state == "MISSING" and value is None
+                       and isinstance(missing_reason, str) and bool(re.fullmatch(r"[A-Z0-9_]+", missing_reason)))
+    if not (is_observation or is_reported_gap) or not all(
+            isinstance(source.get(k), str) for k in ("published_at_utc", "captured_at_utc", "known_at_utc")):
+        raise ValueError("DESK_ADAPTER_TYPED_OBSERVATION_REQUIRED")
+    for key in ("published_at_utc", "captured_at_utc", "known_at_utc"):
+        _time(source[key])
+    return {"family": family, "series": name, "reference_period": period, "value": value,
+        "native_value": str(value) if is_observation else None, "missing_reason": missing_reason,
+        "unit": unit, "seasonal_adjustment": adjustment, "measure": measure,
+        "availability": state, "release_datetime_utc": source["published_at_utc"],
+        "retrieved_at_utc": source["captured_at_utc"], "known_at_utc": source["known_at_utc"],
+        "source_url": source["source_url"], "source_series": series_id, "rights_tag": BLS_RIGHTS,
+        "vintage": FIRST_PRINT, "source_sha256": source["capture_sha256"],
+        "cc145_input_sha256": source["input_sha256"], "cc145_extraction_method": source.get("extraction_method"),
+        "historical_possession_proven": False, "archive_correction_notice": False}
+
+
+def load_public_desk_history(export_path, *, family, cutoff_utc, months=24, end_period=None):
+    """Read the CC-145 public export through the existing release-chart schema."""
+    raw = Path(export_path).read_bytes()
+    export = json.loads(raw)
+    if (export.get("schema") != "NewsroomDeskChartDataV1" or export.get("status") != "READY"
+            or export.get("audience") != "public" or export.get("public_export") is not True
+            or not isinstance(export.get("series"), list)):
+        raise ValueError("DESK_ADAPTER_PUBLIC_PROJECTION_REQUIRED")
+    names, cutoff = FAMILIES[family], _time(cutoff_utc)
+    desk_family = "nfp" if family == "empsit" else family
+    latest_period = cutoff.strftime("%Y-%m")
+    if end_period and end_period > latest_period:
+        raise ValueError("HISTORY_PERIOD_AFTER_EVENT")
+    selected, gaps = {}, {}
+    for series in export["series"]:
+        name = series.get("series_id")
+        if name not in names:
+            continue
+        official_id, unit, adjustment, measure = SERIES[name]
+        if (name in selected or series.get("family") != desk_family
+                or series.get("vintage") != FIRST_PRINT or series.get("unit") != unit
+                or series.get("seasonal_adjustment") != adjustment or series.get("measure") != DESK_MEASURES[measure]):
+            raise ValueError("DESK_ADAPTER_SERIES_IDENTITY_OR_DIMENSION_CHANGED")
+        records = {}
+        for point in series["points"]:
+            period = point.get("x")
+            if not isinstance(period, str) or not re.fullmatch(r"\d{4}-(?:0[1-9]|1[0-2])", period):
+                raise ValueError("DESK_ADAPTER_TYPED_OBSERVATION_REQUIRED")
+            if period > (end_period or latest_period):
+                continue
+            record = _desk_point_record(point, name=name, family=family, series_id=official_id,
+                unit=unit, adjustment=adjustment, measure=measure)
+            if _time(record["release_datetime_utc"]) > cutoff:
+                continue
+            if period in records:
+                raise ValueError("HISTORY_AMBIGUOUS_FIRST_PRINT")
+            records[period] = record
+        selected[name] = records
+        # Producer gaps are never converted to numeric values or carried over as arbitrary text.
+        gaps[name] = {gap["x"] for gap in series["gaps"]
+                      if gap.get("state") == "MISSING" and gap.get("value") is None}
+    if set(selected) != set(names) or any(not records for records in selected.values()):
+        raise ValueError("DESK_ADAPTER_RELEASE_HISTORY_UNAVAILABLE_AT_CUTOFF")
+    periods = month_window(end_period or max(max(records) for records in selected.values()), months)
+    result, captures = [], {}
+    for name in names:
+        official_id, unit, adjustment, measure = SERIES[name]
+        observations = []
+        for period in periods:
+            record = selected[name].get(period)
+            reason = ("NO_SAVED_OBSERVATION_FOR_PERIOD" if period in gaps[name]
+                      else "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT")
+            observations.append({"period": period, "value": record["value"] if record else None,
+                "availability": record["availability"] if record else "MISSING",
+                "missing_reason": record["missing_reason"] if record else reason, "source_record": record})
+            if record:
+                captures[record["source_sha256"]] = {"url": record["source_url"],
+                    "capture_sha256": record["source_sha256"], "retrieved_at_utc": record["retrieved_at_utc"]}
+        if not any(o["value"] is not None for o in observations):
+            raise ValueError("HISTORY_SERIES_HAS_NO_ADMISSIBLE_OBSERVATIONS:" + name)
+        result.append({"name": name, "official_series_id": official_id, "measure": measure,
+            "unit": unit, "seasonal_adjustment": adjustment, "observations": observations})
+    return {"schema_version": SCHEMA, "producer": "CC-145", "family": family, "dataset_sha256": _digest(raw),
+        "cutoff_utc": cutoff_utc, "window": [periods[0], periods[-1]], "periods": periods, "series": result,
+        "captures": list(captures.values()), "components": None, "new_source_requests": 0,
+        "historical_possession_proven": False, "vintage_basis": "DATED_RELEASE_FIRST_PRINTS_NOT_CURRENT_REVISED_HISTORY"}
+
+
+def _preserve_verified_release_context(history, *, family, binding):
+    """Keep CPI components and the CC-216 PPI parser corrections bound to their captures."""
+    context = binding.get("verified_release_context", {}).get(family)
+    if not context:
+        return history
+    root = HISTORY_CONFIG_PATH.parent.parent.resolve()
+    path = (root / context["path"]).resolve()
+    if not path.is_relative_to(root):
+        raise ValueError("HISTORY_RETAINED_PROJECTION_OUTSIDE_REPOSITORY")
+    retained = json.loads(path.read_bytes())
+    if sha256_of(retained) != context["canonical_sha256"]:
+        raise ValueError("HISTORY_RETAINED_PROJECTION_CHANGED")
+    history["verified_release_context_sha256"] = context["canonical_sha256"]
+    series = history["series"][0]
+    end_record = series["observations"][-1]["source_record"]
+    if components := retained.get("components"):
+        if (end_record and components["period"] == end_record["reference_period"]
+                and components["capture_sha256"] == end_record["source_sha256"]):
+            history["components"] = components
+    if family != "ppi":
+        return history
+
+    # CC-216 measured the producer's PPI parser taking values from the wrong
+    # month. Only rows checked against the original passage can serve the chart.
+    verified = {o["period"]: o for o in retained["series"][0]["observations"]}
+    for point in series["observations"]:
+        if not (record := point["source_record"]):
+            continue
+        checked = verified.get(point["period"], {}).get("source_record") or {}
+        original = checked.get("producer_record_preserved", checked)
+        if (record["source_sha256"] != checked.get("source_sha256")
+                or record["value"] != original.get("value")):
+            point.update(value=None, availability="MISSING",
+                         missing_reason="CC216_PPI_SOURCE_PASSAGE_UNVERIFIED", source_record=None)
+        elif correction := checked.get("source_projection_correction"):
+            point.update(value=checked["value"], source_record={**record, "value": checked["value"],
+                "native_value": checked["native_value"], "source_projection_correction": correction})
+    if not any(o["source_record"] for o in series["observations"]):
+        raise ValueError("CC216_PPI_NO_VERIFIED_SOURCE_PASSAGES_IN_WINDOW")
+    headline = {o["period"]: o for o in series["observations"] if o["source_record"]}
+    for supplement in retained["series"][1:]:
+        points = {o["period"]: o for o in supplement["observations"] if o["source_record"]}
+        observations = []
+        for period in history["periods"]:
+            point = points.get(period)
+            basis = (headline.get(period) or {}).get("source_record") or {}
+            if point and point["source_record"]["source_sha256"] == basis.get("source_sha256"):
+                observations.append(point)
+            else:
+                observations.append({"period": period, "value": None, "availability": "MISSING",
+                    "missing_reason": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT", "source_record": None})
+        if any(o["source_record"] for o in observations):
+            history["series"].append({**supplement, "observations": observations})
+    return history
 
 
 def month_window(end, count=24):
@@ -252,6 +434,7 @@ def load_cc010_history(archive_root, *, series, end_period, cutoff_utc, months=2
 def history_documents(history):
     """Compact typed producer projections; every point retains its release/capture."""
     docs = []
+    desk = history["producer"] == "CC-145"
     for series in history["series"]:
         rows = [o for o in series["observations"] if o["value"] is not None]
         records = [o["source_record"] for o in rows]
@@ -262,10 +445,10 @@ def history_documents(history):
         text = "\n".join(lines)
         docs.append({"document_id": "official-history-" + sha256_of([history["dataset_sha256"], series])[:24],
             "url": records[-1]["source_url"], "source_url": records[-1]["source_url"],
-            "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+            "publisher": "U.S. Bureau of Labor Statistics (" + ("CC-145 desk export" if desk else "CC-010 first-print projection") + ")",
             "published_at_utc": records[-1]["release_datetime_utc"],
             "source_authority_class": "official_release_history_from_cc010",
-            "retrieval_method": "READ_ONLY_HASH_VERIFIED_CC010_PROJECTION",
+            "retrieval_method": "READ_ONLY_CC145_PUBLIC_EXPORT" if desk else "READ_ONLY_HASH_VERIFIED_CC010_PROJECTION",
             "canonical_content_text": text, "canonical_content_sha256": _digest(text.encode()),
             "raw_sha256": history["dataset_sha256"],
             "source_reuse_constraints": {"attribution_required": True,
@@ -275,7 +458,7 @@ def history_documents(history):
                 "source_capture_sha256": history["dataset_sha256"]},
             "official_release_history": {"dataset_sha256": history["dataset_sha256"],
                 "series": series, "window": history["window"], "cutoff_utc": history["cutoff_utc"],
-                "historical_possession_proven": False}})
+                "historical_possession_proven": False, **({"producer": "CC-145"} if desk else {})}})
     if components := history.get("components"):
         lines = [f"BLS {e['official_series_id']} {e['name']}; {e['period']}; "
             f"{e['native_value']} percentage points; SA; Table 6 reported effect on All Items" for e in components["effects"]]
@@ -299,6 +482,7 @@ def history_chart_packet(history, *, series_names, asset_id, title, question, pl
     """Bind the editor's chosen series/argument to existing deterministic charts."""
     docs = history_documents(history)
     packets = []
+    desk = history["producer"] == "CC-145"
     for name in series_names:
         doc = next(d for d in docs if (d.get("official_release_history") or {}).get("series", {}).get("name") == name)
         series = doc["official_release_history"]["series"]
@@ -315,35 +499,35 @@ def history_chart_packet(history, *, series_names, asset_id, title, question, pl
                         "value_text": f"{observation['value']:g}", "source_period_text": observation["period"],
                         "source_content_sha256": doc["canonical_content_sha256"], "metric": name,
                         "unit": series["unit"], "prepared_period": observation["period"],
-                        "period_basis": {"basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                        "period_basis": {"basis": "CC145_PUBLIC_FIRST_PRINT_OBSERVATION" if desk else "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
                             "official_series_id": series["official_series_id"],
                             "capture_sha256": observation["source_record"]["source_sha256"],
-                            "release_datetime_utc": observation["source_record"]["release_datetime_utc"]}}])
+                            "release_datetime_utc": observation["source_record"]["release_datetime_utc"],
+                            **({"dataset_sha256": history["dataset_sha256"], "rights_class": BLS_RIGHTS} if desk else {})}}])
             points.append(point)
-        packets.append({"name": name, "points": points})
+        packets.append({"name": DESK_CHART_LABELS[name] if desk else name, "points": points})
     units = {SERIES[name][1] for name in series_names}
     if len(units) != 1:
         raise ValueError("HISTORY_CHART_COMPARABLE_UNITS_REQUIRED")
     return {"asset_id": asset_id, "chart_type": "line", "title": title, "question": question,
         "placement_after": placement_after, "unit": next(iter(units)), "series": packets,
-        "source_caption": "Source: BLS dated first releases (CC-010 archive). Missing months are gaps; no interpolation.",
+        "source_caption": "Source: BLS dated first releases. Missing months are shown as gaps." if desk else
+            "Source: BLS dated first releases (CC-010 archive). Missing months are gaps; no interpolation.",
         "missingness": [{"series": s["name"], "period": o["period"], "reason": o["missing_reason"]}
             for s in history["series"] if s["name"] in series_names for o in s["observations"] if o["value"] is None],
         "history_lineage": {"dataset_sha256": history["dataset_sha256"], "window": history["window"],
             "cutoff_utc": history["cutoff_utc"], "vintage_basis": history["vintage_basis"],
+            **({"producer": "CC-145"} if desk else {}),
             "series": [{"name": s["name"], "official_series_id": s["official_series_id"],
                 "seasonal_adjustment": s["seasonal_adjustment"], "observations": s["observations"]}
                 for s in history["series"] if s["name"] in series_names]}}
 
 
-def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
-    """Recognize supported release families from exact official source identities."""
+def _release_scope(source_pack, cutoff_utc):
     families, releases = set(), []
     for doc in source_pack:
-        url = urlsplit(doc.get("url") or doc.get("source_url") or "")
-        match = re.fullmatch(r"/news.release/(?:archives/)?(cpi|empsit|ppi)(?:_\d{8}|\.nr0)?\.htm", url.path)
-        if url.scheme == "https" and url.netloc == "www.bls.gov" and match:
-            families.add(match[1])
+        if release_family := _bls_release_family(doc.get("url") or doc.get("source_url") or ""):
+            families.add(release_family)
             if not doc.get("published_at_utc"):
                 raise ValueError("HISTORY_EXACT_RELEASE_CLOCK_REQUIRED")
             releases.append(_time(doc["published_at_utc"]))
@@ -351,8 +535,22 @@ def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
         return None
     if len(families) != 1:
         raise ValueError("HISTORY_EXACT_RELEASE_FAMILY_REQUIRED")
-    family = next(iter(families))
-    cutoff_utc = min(_time(cutoff_utc), max(releases)).isoformat()
+    return next(iter(families)), min(_time(cutoff_utc), max(releases)).isoformat()
+
+
+def history_for_source_pack(source_pack, *, cutoff_utc, archive_root, desk_binding=None):
+    """Recognize supported release families from exact official source identities."""
+    scope = _release_scope(source_pack, cutoff_utc)
+    if scope is None:
+        return None
+    family, cutoff_utc = scope
+    desk_error = None
+    if desk_binding:
+        try:
+            history = load_public_desk_history(desk_binding["public_export_path"], family=family, cutoff_utc=cutoff_utc)
+            return _preserve_verified_release_context(history, family=family, binding=desk_binding)
+        except (OSError, ValueError) as exc:
+            desk_error = exc
     if not (Path(archive_root) / "archive_manifest.json").is_file():
         # CC-216's accepted producer projection survives scratch-folder removal.
         # Preserve its original vintage/window; today's release stays separate.
@@ -379,6 +577,8 @@ def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
                 "canonical_sha256": retained["canonical_sha256"], "accepted_owner": retained["accepted_owner"],
                 "original_history_cutoff_preserved": True, "new_acquisition": False}
             return history
+        if desk_error:
+            raise desk_error
     manifest = json.loads((Path(archive_root) / "archive_manifest.json").read_bytes())
     dataset = (Path(archive_root) / "first_release_actuals.jsonl").read_bytes()
     if _digest(dataset) != manifest.get("dataset_sha256"):
@@ -388,36 +588,6 @@ def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
     if not periods:
         raise ValueError("HISTORY_RELEASE_NOT_AVAILABLE_AT_CUTOFF")
     return load_cc010_history(archive_root, series=FAMILIES[family], end_period=max(periods), cutoff_utc=cutoff_utc)
-
-
-def newsroom_desk_projection(history, *, archive_root, config_path=None):
-    """Use CC-145's existing delivered adapter, without copying its data engine."""
-    import importlib.util
-    config_path = Path(config_path or Path(__file__).resolve().parents[1] / "config/official_release_history_v1.json")
-    config = json.loads(config_path.read_bytes())
-    binding = config.get("newsroom_desk_adapter")
-    if not binding:
-        return None
-    catalog = Path(binding["catalog_path"])
-    catalog_value = json.loads(catalog.read_bytes())
-    # A relocated/test archive must not accidentally consume the host's data.
-    if not any(row.get("kind") == "first_print" and Path(row["root"]).resolve() == Path(archive_root).resolve()
-               for row in catalog_value.get("sources", [])):
-        return None
-    module_path = Path(binding["module_path"])
-    spec = importlib.util.spec_from_file_location("contentops_cc145_delivered_adapter", module_path)
-    adapter = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(adapter)
-    names = [row["name"] for row in history["series"]]
-    family = "cpi" if names[0].startswith("CPI_") else "ppi" if names[0].startswith("PPI_") else "nfp"
-    value = adapter.project(catalog, family=family, series=tuple(names), audience="public",
-        start=history["window"][0], end=history["window"][1], event_cutoff_utc=history["cutoff_utc"])
-    if value.get("schema") != "NewsroomDeskChartDataV1" or value.get("audience") != "public" or value.get("public_export") is not True:
-        raise ValueError("DESK_ADAPTER_PUBLIC_PROJECTION_REQUIRED")
-    if any(point.get("public_eligible") is not True for series in value.get("series", []) for point in series.get("points", [])):
-        raise ValueError("DESK_ADAPTER_PUBLIC_POINT_RIGHTS_REQUIRED")
-    return {"producer": "CC-145", "module_path": str(module_path),
-        "module_sha256": _digest(module_path.read_bytes()), "catalog_path": str(catalog), "data": value}
 
 
 def preserve_prewrite_history_correction(turn, history, documents):
@@ -451,14 +621,27 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
     path = turn.root / "official_release_history_v1.json"
     if turn.frozen_request("write") and not path.is_file():
         return source_pack  # Preserve an already issued packet, including old policy.
+    retained = json.loads(path.read_bytes()) if path.is_file() else None
+    desk_binding = None
     if archive_root is None:
-        config_path = Path(__file__).resolve().parents[1] / "config/official_release_history_v1.json"
-        archive_root = json.loads(config_path.read_bytes())["cc010_archive_root"]
-    history = history_for_source_pack(source_pack, cutoff_utc=cutoff_utc, archive_root=archive_root)
+        config = json.loads(HISTORY_CONFIG_PATH.read_bytes())
+        archive_root = config["cc010_archive_root"]
+        desk_binding = config.get("newsroom_desk_adapter")
+    # A daily refresh must never change already admitted series or chart inputs.
+    if retained and retained.get("producer") == "CC-145":
+        scope = _release_scope(source_pack, cutoff_utc)
+        if scope is None:
+            return source_pack
+        family, release_cutoff = scope
+        if retained["cutoff_utc"] != release_cutoff or retained["family"] != family:
+            raise ValueError("HISTORY_FROZEN_SOURCE_PROJECTION_CHANGED")
+        history = retained
+    else:
+        history = history_for_source_pack(source_pack, cutoff_utc=cutoff_utc, archive_root=archive_root,
+            desk_binding=desk_binding if retained is None else None)
     if history is None:
         return source_pack
-    if path.is_file():
-        retained = json.loads(path.read_bytes())
+    if retained:
         for key in ("newsroom_desk_projection", "newsroom_desk_projection_error", "supersedes_projection_sha256"):
             if key in retained:
                 history[key] = retained[key]
@@ -477,14 +660,6 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
             original.write_bytes(old_raw)
             history["supersedes_projection_sha256"] = old_hash
             path.write_bytes(canonical_bytes(history))
-    else:
-        try:
-            if projection := newsroom_desk_projection(history, archive_root=archive_root):
-                history["newsroom_desk_projection"] = projection
-        except (OSError, ValueError) as exc:
-            # The existing verified CC-010 history is still usable. An optional
-            # projection failure never walls it off or admits failed/private data.
-            history["newsroom_desk_projection_error"] = str(exc)
     if not path.is_file():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(history))

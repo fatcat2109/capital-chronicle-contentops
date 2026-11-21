@@ -217,62 +217,144 @@ def test_missing_month_is_rendered_as_a_gap_and_cannot_be_filled(archive, tmp_pa
         _editorial_data_values(bad, [doc])
 
 
-def test_source_stage_feeds_delivered_desk_series_to_writer_and_preserves_frozen_packet(archive, tmp_path, monkeypatch):
+@pytest.fixture
+def desk_export(archive, tmp_path, monkeypatch):
     import live_contentops.official_release_history_v1 as owner
-    captured = {}
-    projection = {"producer": "CC-145", "module_sha256": "a" * 64,
-        "data": {"schema": "NewsroomDeskChartDataV1", "audience": "public", "public_export": True,
-                 "series": [{"series_id": name, "points": [{"x": "2026-09", "value": 2.3,
-                             "public_eligible": True}], "gaps": []} for name in NAMES]}}
-    def query(history, *, archive_root):
-        captured.update(window=history["window"], root=archive_root)
-        return deepcopy(projection)
-    monkeypatch.setattr(owner, "newsroom_desk_projection", query)
-    turn = SimpleNamespace(root=tmp_path / "operation", frozen_request=lambda stage: None)
-    source = [{"url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm", "published_at_utc": CUTOFF}]
-    docs = enrich_source_pack(turn, source_pack=source, article_mode="STANDARD_NEWS_ANALYSIS",
-                             cutoff_utc=CUTOFF, archive_root=archive)
-    joined = [d for d in docs if d.get("newsroom_desk_projection")]
-    assert len(joined) == 4 and captured["window"] == ["2024-10", "2026-09"]
-    assert {d["newsroom_desk_projection"]["data"]["series"][0]["series_id"] for d in joined} == set(NAMES)
-    assert all(len(d["newsroom_desk_projection"]["data"]["series"]) == 1 for d in joined)
-    before = (turn.root / "official_release_history_v1.json").read_bytes()
-    monkeypatch.setattr(owner, "newsroom_desk_projection", lambda *a, **k: pytest.fail("Frozen source must not requery"))
-    assert enrich_source_pack(turn, source_pack=source, article_mode="STANDARD_NEWS_ANALYSIS",
-                              cutoff_utc=CUTOFF, archive_root=archive) == docs
-    assert (turn.root / "official_release_history_v1.json").read_bytes() == before
+
+    raw = (archive / "first_release_actuals.jsonl").read_bytes()
+    rows = [json.loads(line) for line in raw.splitlines()]
+    series = []
+    for name in NAMES:
+        official_id, unit, adjustment, measure = SERIES[name]
+        points, gaps = [], []
+        for row in rows:
+            if row["series"] != name:
+                continue
+            period = row["reference_period"]
+            gap = period == "2025-10"
+            if gap:
+                gaps.append({"x": period, "state": "MISSING", "value": None})
+                continue
+            points.append({"x": period, "value": row["value"], "state": row["availability"],
+                "missing_reason": "TWO_MONTH_CHANGE_IS_NOT_MOM" if row["value"] is None else None,
+                "rights_class": BLS_RIGHTS, "public_eligible": True, "lineage": [{
+                    "source_id": "cc010-first-print", "source_series": official_id,
+                    "source_url": row["source_url"], "vintage": row["vintage"],
+                    "window": {"reference_period": period},
+                    "capture_hash_verified": True, "archive_correction_notice": False,
+                    "published_at_utc": row["release_datetime_utc"],
+                    "captured_at_utc": row["retrieved_at_utc"], "known_at_utc": row["retrieved_at_utc"],
+                    "capture_sha256": row["source_sha256"], "input_sha256": hashlib.sha256(raw).hexdigest(),
+                }]})
+        series.append({"family": "cpi", "series_id": name, "unit": unit, "seasonal_adjustment": adjustment,
+            "vintage": owner.FIRST_PRINT, "measure": owner.DESK_MEASURES[measure], "points": points, "gaps": gaps})
+    delivery = tmp_path / "producer-deliveries" / "cc-145"
+    delivery.mkdir(parents=True)
+    export = delivery / "public.json"
+    export.write_text(json.dumps({"schema": "NewsroomDeskChartDataV1", "audience": "public",
+        "public_export": True, "status": "READY", "series": series}), encoding="utf-8")
+    (delivery / "private.json").write_text("THIS_MUST_NEVER_BE_READ", encoding="utf-8")
+    config = tmp_path / "official_release_history_v1.json"
+    config.write_text(json.dumps({"cc010_archive_root": str(tmp_path / "absent-archive"),
+        "newsroom_desk_adapter": {"public_export_path": str(export)}}), encoding="utf-8")
+    monkeypatch.setattr(owner, "HISTORY_CONFIG_PATH", config)
+    return export
 
 
-def test_desk_adapter_is_reused_and_only_its_public_projection_enters(archive, tmp_path):
-    from live_contentops.official_release_history_v1 import newsroom_desk_projection
-    module = tmp_path / "delivered_adapter.py"
-    module.write_text("def project(catalog, **kwargs):\n"
-        "    assert kwargs['audience'] == 'public' and kwargs['event_cutoff_utc']\n"
-        "    assert kwargs['start'] == '2024-10' and kwargs['end'] == '2026-09'\n"
-        "    return {'schema':'NewsroomDeskChartDataV1','audience':'public','public_export':True,"
-        "'series':[{'series_id':'CPI_HEADLINE_YOY','points':[{'public_eligible':True,'value':2.3}]}]}\n")
-    catalog = tmp_path / "catalog.json"
-    catalog.write_text(json.dumps({"sources": [{"kind": "first_print", "root": str(archive)}]}))
-    config = tmp_path / "config.json"
-    config.write_text(json.dumps({"newsroom_desk_adapter": {"module_path": str(module), "catalog_path": str(catalog)}}))
-    value = newsroom_desk_projection(load(archive), archive_root=archive, config_path=config)
-    assert value["data"]["series"][0]["points"][0]["value"] == 2.3
-    assert value["module_sha256"] == hashlib.sha256(module.read_bytes()).hexdigest()
-    module.write_text(module.read_text().replace("'public_eligible':True", "'public_eligible':False"))
-    with pytest.raises(ValueError, match="PUBLIC_POINT_RIGHTS"):
-        newsroom_desk_projection(load(archive), archive_root=archive, config_path=config)
+RELEASE_SOURCE = [{"url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+                   "published_at_utc": CUTOFF}]
 
 
-def test_unavailable_desk_adapter_keeps_existing_verified_history_in_live_source_stage(archive, tmp_path, monkeypatch):
-    import live_contentops.official_release_history_v1 as owner
-    def unavailable(*args, **kwargs):
-        raise FileNotFoundError("CC145_DELIVERED_MODULE_UNAVAILABLE")
-    monkeypatch.setattr(owner, "newsroom_desk_projection", unavailable)
-    turn = SimpleNamespace(root=tmp_path / "operation", frozen_request=lambda stage: None)
-    source = [{"url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm", "published_at_utc": CUTOFF}]
-    docs = enrich_source_pack(turn, source_pack=source, article_mode="STANDARD_NEWS_ANALYSIS",
-                             cutoff_utc=CUTOFF, archive_root=archive)
-    assert len([d for d in docs if d.get("official_release_history")]) == 4
-    saved = json.loads((turn.root / "official_release_history_v1.json").read_bytes())
-    assert saved["newsroom_desk_projection_error"] == "CC145_DELIVERED_MODULE_UNAVAILABLE"
-    assert all(not d.get("newsroom_desk_projection") for d in docs)
+def test_desk_export_drives_native_source_and_release_chart(desk_export, tmp_path):
+    from pathlib import Path
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, validate_release_media
+    from live_contentops.official_release_history_v1 import history_chart_packet
+
+    turn = SimpleNamespace(root=tmp_path / "operation", frozen_request=lambda _: None)
+    kwargs = dict(source_pack=RELEASE_SOURCE, article_mode="STANDARD_NEWS_ANALYSIS", cutoff_utc=CUTOFF)
+    docs = NativeDesktopTurn.release_history_sources(turn, **kwargs)
+    history_path = turn.root / "official_release_history_v1.json"
+    frozen_bytes = history_path.read_bytes()
+    history = json.loads(frozen_bytes)
+    assert history["producer"] == "CC-145"
+    assert history["dataset_sha256"] == hashlib.sha256(desk_export.read_bytes()).hexdigest()
+    assert history["window"] == ["2024-10", "2026-09"]
+    assert {d["official_release_history"]["series"]["name"] for d in docs[1:]} == set(NAMES)
+    yoy = [n for n in NAMES if n.endswith("_YOY")]
+    packet = history_chart_packet(history, series_names=yoy, asset_id="cpi-yoy-history",
+        title="Headline and core inflation", question="How did inflation change over time?",
+        placement_after="Inflation trend")
+    assert packet["history_lineage"]["producer"] == "CC-145"
+    for series in packet["series"]:
+        assert len(series["points"]) == 24
+        assert series["points"][12]["value"] is None
+        last = series["points"][-1]["inputs"][0]["period_basis"]
+        assert last["dataset_sha256"] == history["dataset_sha256"]
+        assert last["rights_class"] == BLS_RIGHTS and len(last["capture_sha256"]) == 64
+    chart = build_editorial_data_chart(packet, docs, output_dir=tmp_path / "render")
+    assert Path(chart["path"]).is_file()
+    result = {"article": {"news_item_kind": "ANALYSIS"}, "media_assets": [chart], "evidence": docs}
+    assert validate_release_media(result, require_pixel_review=False, prewriter=True)["chart_count"] == 1
+    wrong_capture = deepcopy(packet)
+    wrong_capture["series"][0]["points"][0]["inputs"][0]["period_basis"]["capture_sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="CC145_OBSERVATION_UNBOUND"):
+        _editorial_data_values(wrong_capture, docs)
+    desk_export.unlink()
+    turn.frozen_request = lambda _: {"already_issued": True}
+    assert NativeDesktopTurn.release_history_sources(turn, **kwargs) == docs
+    assert history_path.read_bytes() == frozen_bytes
+
+
+@pytest.mark.parametrize("fault, error", [
+    ("public_marker", "PUBLIC_PROJECTION"), ("rights", "PUBLIC_POINT_RIGHTS"),
+    ("eligibility", "PUBLIC_POINT_RIGHTS"), ("capture", "FIRST_PRINT_LINEAGE"),
+    ("dimensions", "SERIES_IDENTITY_OR_DIMENSION"), ("duplicate", "AMBIGUOUS_FIRST_PRINT"),
+])
+def test_desk_export_rejects_bad_public_bindings(desk_export, fault, error):
+    from live_contentops.official_release_history_v1 import load_public_desk_history
+
+    export = json.loads(desk_export.read_bytes())
+    series = export["series"][0]
+    point = series["points"][-1]
+    if fault == "public_marker":
+        export["audience"] = "private"
+    elif fault == "rights":
+        point["rights_class"] = "LICENSE_REQUIRED"
+    elif fault == "eligibility":
+        point["public_eligible"] = False
+    elif fault == "capture":
+        point["lineage"][0]["capture_hash_verified"] = False
+    elif fault == "dimensions":
+        series["unit"] = "index"
+    elif fault == "duplicate":
+        series["points"].append(deepcopy(point))
+    desk_export.write_text(json.dumps(export), encoding="utf-8")
+    with pytest.raises(ValueError, match=error):
+        load_public_desk_history(desk_export, family="cpi", cutoff_utc=CUTOFF)
+
+
+def test_desk_history_uses_release_cutoff_and_preserves_reported_missingness(desk_export):
+    from live_contentops.official_release_history_v1 import load_public_desk_history
+
+    history = load_public_desk_history(desk_export, family="cpi",
+        cutoff_utc="2026-10-14T12:29:59Z", end_period="2026-09")
+    for series in history["series"]:
+        last = series["observations"][-1]
+        assert last["period"] == "2026-09" and last["value"] is None and last["source_record"] is None
+        first = next(o for o in series["observations"] if o["value"] is not None)["source_record"]
+        assert first["release_datetime_utc"] < CUTOFF < first["known_at_utc"]
+        missing = series["observations"][13]
+        if series["name"].endswith("_MOM"):
+            assert missing["value"] is None
+            assert missing["missing_reason"] == "TWO_MONTH_CHANGE_IS_NOT_MOM"
+            assert missing["source_record"]["source_sha256"]
+
+
+def test_desk_export_failure_preserves_verified_archive_chart_source(desk_export, archive):
+    from live_contentops.official_release_history_v1 import history_for_source_pack
+
+    desk_export.unlink()
+    history = history_for_source_pack(RELEASE_SOURCE, cutoff_utc=CUTOFF, archive_root=archive,
+        desk_binding={"public_export_path": str(desk_export)})
+    assert history["producer"] == "MAIN_CC010_FIRST_PRINT_ARCHIVE"
+    assert history["window"] == ["2024-10", "2026-09"]
