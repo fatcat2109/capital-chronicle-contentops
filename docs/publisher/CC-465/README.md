@@ -1,3 +1,49 @@
+## 21 November 2026 · Template coverage
+
+The 21 November backlog amendment removes the initial approval artifact from
+preparation and publication. The code still checks the exact PNG, market,
+size, attribution, visible levels and text. For images with a vision review,
+the per-image threshold is 8/10 with all mandatory points. New CC-543 alerts
+use fitting call or result templates without adding a model call to the fast
+Telegram and Discord path. The existing sample command evaluates their exact
+published PNGs, and a completed failed review holds fresh sends of that image.
+When a template cannot fit the layout or has insufficient fields, the alert uses
+the validated TradingView chart if available.
+
+The article media owner uses source-bound event preview scenarios and the
+validated weekly call record. It also accepts a complete `morning_map` from the
+wrap producer. Tests pass the event, weekly and map assets through the actual
+media validator and coordinator with isolated transports. Event and map posts
+place their table second. The real [six-market gallery](resume-20261116/media/gallery/gallery.html)
+shows all five layouts and records the earlier map example's incomplete fields.
+
+The held public quotes contain daily moves for all six markets, and Main's
+public desk board contains all six trend directions. The active wrap producer
+still needs to assemble and pass its dated, source-bound `morning_map` through
+the media owner. CC-689's wrap branch was awaiting integration during this
+build. The public plan export at `2026-11-21T01:47:05.223839Z` had signed R
+for all 15 scored outcomes and zero capture-bound entry/exit paths. It can
+support the scorecard, while an entered result card needs exact path data.
+
+The published-image register read for the 14–20 November production days
+contained 203 image records and zero scored template samples. Register SHA-256
+at readback was `a51e42f7d2c7af84a92c0f8eab6868220a1e801e031c7a9d8ad989ab34291d0a`.
+After integration, the existing `scripts/image_templates_cc465.py sample`
+command with `--vision` samples one exact published PNG per template on a
+completed production day. The weekly result uses those daily selections.
+
+Targeted checks at source commit `5050990fce5c86e4e23f2d67a718f77d36fff38b`:
+
+| Files | Passed |
+| --- | ---: |
+| `test_image_templates_cc465.py`, `test_publication_image_contract_cc463.py` | 133 |
+| `test_plan_state_alerts_cc543.py`, `test_weekly_scored_calls_cc379.py` | 63 |
+
+The first Publisher stream owns integration and live readback. The dispatch
+configured `gpt-6.2-sol` at `max` (`CONFIGURED_NOT_OBSERVED`).
+
+## 16 November continuation record
+
 16 November 2026 continuation: the profit-target removal, readable templates, signed-R result adapter and corrected image-role reviews are live at `6ac02514`. The final installed checks pass (144 image/consumer checks, then 36 final review/attribution/target checks). The [continuation evidence](resume-20261116/README.md) and [one-page gallery](resume-20261116/media/gallery/gallery.html) record 34 real previews, 30 code passes and six exact-PNG 10/10 vision samples. The full item remains BLOCKED on source-complete initial acceptance and the observed published week (0/20); the retained morning-map input still lacks daily moves/state. Older R-absence and timeout results below retain their original dates and are superseded by this continuation.
 
 CC-465 builds the five designs in Ops Product's `fork_overhaul_plan_20261111/20_IMAGE_TEMPLATES_SPEC_EN.md`, with the 11 November amendments for blue entry bands, up to 3% paper margins and CC-463's measured scale tolerances. Its branch starts at operating HEAD `0628a86bc474fdc2839e38ba0cc6eabd44f67bf1`.
