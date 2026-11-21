@@ -1,0 +1,37 @@
+{
+  "schema": "contentops.cc199.main_source_readback.v1",
+  "item": "CC-199",
+  "observed_at_utc": "2026-11-21T21:39:42Z",
+  "latest_verified_completed_main": {
+    "report_id": "shocks/shock-20261121T133042Z/decision91",
+    "data_cutoff_utc": "2026-11-21T13:32:01.073356Z",
+    "completion_utc": "2026-11-21T13:58:03.975606Z",
+    "publication_deadline_utc": "2026-11-21T14:32:01.073356Z",
+    "deadline_age_seconds_at_observation": 25660.926644,
+    "report_sha256": "2dc4a29a3dce8fa4538f409433667950631f0450c673ce536442c0584eb3cefa",
+    "capture_sha256": "44a8bb3cd4d65d0c3623795b513ebc519c26a16f7708cbf902b8ec1659982226",
+    "completion_receipt_sha256": "fb12463e50dd7467ba10b4e74110da56ff4c4d943dbd5f18c0c85fb8e732367d",
+    "evidence_path": "../CC-124/run-20261122-0411/source-check.json"
+  },
+  "newer_completed_main_receipt_observed": false,
+  "current_main_shock_run": {
+    "brain_run": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261121T213139Z-shock",
+    "report_run": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261121T213041Z\\decision91",
+    "precheck_status": "READY_FOR_EXISTING_RESEARCH_DECISION",
+    "native_prepare_status": "COMPLETE",
+    "native_prepare_finished_at_utc": null,
+    "completion_result_present": false,
+    "analysis_native_present": false,
+    "codex_role_answer_bytes": 0,
+    "role_evidence_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261121T213139Z-shock\\codex-roles\\analysis-1\\codex-answer.txt",
+    "source_decision": "NO_ABNORMAL_MOVE_OR_NEW_ADMITTED_FACT",
+    "cannot_supply_article_report": true
+  },
+  "classification": "MAIN_COMPLETION_RECEIPT_ABSENT",
+  "first_cause": "MAIN_COMPLETION_RECEIPT_ABSENT",
+  "consumer_rule": "Do not treat a capture, plan export, native-preparation artifact, or in-progress role as a completed Main article report.",
+  "public_or_runtime_writes": 0,
+  "browser_actions": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0
+}
