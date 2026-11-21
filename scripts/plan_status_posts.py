@@ -101,10 +101,24 @@ def main(argv=None) -> int:
         # CC-543: the plan's API alerts precede every model/browser operation.
         # The existing task has a five-minute lifetime; a previous slow slice
         # therefore cannot consume this plan's entire ten-minute deadline.
-        result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run, main_root=args.main_root, python=child_python(),
-                             analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
-                             if args.publish and not args.dry_run else None)
+        from live_contentops.plan_queue_clock_v1 import PlanQueueClock
+        run_folder = args.store.parent / posts.RUN_RECORD_FOLDER
+        queue_clock = None if args.dry_run else PlanQueueClock(store, run_folder, posts.record_run)
+        try:
+            result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
+                                 render_all=args.dry_run, main_root=args.main_root, python=child_python(),
+                                 queue_clock=queue_clock,
+                                 analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
+                                 if args.publish and not args.dry_run else None)
+        except Exception as exc:
+            if queue_clock is not None:
+                cause = str(exc) if isinstance(exc, posts.PlanPostError) else "PLAN_QUEUE_ERROR:" + type(exc).__name__
+                queue_clock.finish({"cause": cause})
+            raise
+        if queue_clock is not None:
+            queue_clock.finish(result)
+            if queue_clock.error:
+                result["plan_export_queue_record_error"] = queue_clock.error
         page_root = args.store.parent / "daily_app_outputs/plan_analysis"
         page_worker = None
         if args.publish and not args.dry_run and result["status"] == "OK":
@@ -131,6 +145,14 @@ def main(argv=None) -> int:
             posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"],
                               **({"plan_pages": {"draft_worker": page_worker}} if page_worker else {})},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
+        if args.publish and not args.dry_run:
+            # Exact copies already attempted need readback even with a stale
+            # Main export. Do it before independently slow browser/editor work.
+            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
+            result["neo_stored_requests"] = resume_stored_requests(store)
+            if result["neo_stored_requests"].get("requests"):
+                posts.record_run({**result, "phase": "PLAN_COPY_READBACK"},
+                                 args.store.parent / posts.RUN_RECORD_FOLDER)
         # Decision 124's private delivery still precedes the slow editorial and
         # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
@@ -198,8 +220,7 @@ def main(argv=None) -> int:
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
-            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
-            result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
+            result["publication"]["neo_stored_requests"] = result["neo_stored_requests"]
         if args.publish and not args.dry_run:
             # CC-468 reads confirmed pages already in the store and checks their
             # original capture clocks. An unrelated stale status export must

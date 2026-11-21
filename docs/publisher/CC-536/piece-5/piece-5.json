@@ -1,0 +1,222 @@
+{
+  "policy": "CC536_MEASURED_ODDS_SERIES_V1",
+  "piece": 5,
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "article": {
+    "title": "What waiting to enter cost in our historical test",
+    "subtitle": "In our historical test, the next open earned the most per signal. A nearby stop entry earned the most per fill.",
+    "dek": "In our historical test, the next open earned the most per signal. A nearby stop entry earned the most per fill.",
+    "social_hook": "An order can look better among the trades it fills. In our six-market test, the next open earned the most per signal. A nearby stop entry earned the most per fill.",
+    "social_summary": "Across six markets from November 2016 to November 2026, we compared the next open with limit and stop entries, both sides together.\n\nThe next open filled all 1888 signals, both sides together, and averaged 0.117R per signal. The nearer stop entry had 1190 fills, both sides together. It averaged 0.173R per fill and 0.109R per signal.\n\nThe nearer limit had 1154 fills, both sides together, and averaged 0.058R per signal. Moving either waiting order farther from the signal close cut fills and the average per signal.\n\nR is the initial stop distance. Unfilled orders count as zero per signal. Trades can overlap. Gold, shares and Bitcoin rose over the decade, and the wider study examined 54 market-and-rule combinations.",
+    "social_bullets": [],
+    "substack_body_markdown": "We found that entering at the next open earned the most per signal in our six-market historical test. The nearer stop entry did best among trades that filled. Waiting changed which signals turned into trades.\n\n## What counted as an entry\n\nThe sample spans November 2016 to November 2026. We took signals with the trend every fifth session, both sides together. Simulated trades could overlap.\n\nMarket entry used the next open. A limit waited for a better price. A stop entry waited for price to move farther in the signal’s direction. Pending orders waited up to 3 sessions, both sides together.\n\nA normal day measures the average range over 14 daily bars, including gaps. We fixed that measure at the signal close. We used a trailing stop of 1.5 normal days and held up to 10 sessions, both sides together. The test charged 0.05 of a normal day per round trip.\n\n## What the orders earned\n\nR is the initial stop distance. Per-fill averages use the trades that filled. Per-signal averages include unfilled orders at zero.\n\nThe next open filled all 1888 signals, both sides together. It averaged 0.117R per signal and 0.117R per fill.\n\nThe limit at 0.5 normal day better had 1154 fills, both sides together. It averaged 0.058R per signal and 0.096R per fill. At 1 normal day better, the limit had 658 fills, both sides together. It averaged 0.019R per signal and 0.055R per fill.\n\nThe stop entry at 0.5 normal day farther had 1190 fills, both sides together. It averaged 0.109R per signal and 0.173R per fill. At 1 normal day farther, the stop entry had 708 fills, both sides together. It averaged 0.049R per signal and 0.13R per fill.\n\n## What daily prices leave open\n\nA fill counted from the day it occurred. The test allowed an exit on that same bar. Daily prices leave the order of those intraday moves uncertain. The model used a single cost assumption across all six markets.\n\nGold, shares and Bitcoin rose over the decade. The wider study examined 54 market-and-rule combinations, giving luck more chances to make a result look strong. Futures roll gaps and the euro and yen close proxies also affect the sample.\n\nSo what: Judge a waiting order over all the signals it receives. A stronger average among completed trades can hide the opportunities it skipped.\n\nThese are hypothetical historical tests. Read [how we measure historical odds](https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before) for the design and its limits. Table fingerprint `4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41`.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "search_title": "What waiting to enter cost in our historical test",
+    "meta_description": "A six-market historical test compares market, limit and stop entries, counting the signals that never filled.",
+    "article_type": "ARTICLE",
+    "resolved_article_mode": "EVERGREEN_EXPLAINER",
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_article_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "MEASURED_ODDS_SERIES",
+      "authority_ref": "BACKLOG_CC536_DATED_METHOD_SERIES",
+      "source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+      "source_sample_periods": {
+        "EURUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USDJPY": {
+          "from": "2016-11-11",
+          "through": "2026-11-09"
+        },
+        "XAUUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USOIL": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "US500": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "BTCUSD": {
+          "from": "2016-11-12",
+          "through": "2026-11-10"
+        }
+      }
+    },
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "paid": false,
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1"
+  },
+  "number_bindings": [
+    {
+      "field": "substack_body_markdown",
+      "span": "The sample spans November 2016 to November 2026.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "November 2016 to November 2026"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Pending orders waited up to 3 sessions, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1/0"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "A normal day measures the average range over 14 daily bars, including gaps.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "source_excerpt": "D1 ATR14"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "We used a trailing stop of 1.5 normal days and held up to 10 sessions, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/note"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The test charged 0.05 of a normal day per round trip.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "source_excerpt": "cost 0.05 of a normal day"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The next open filled all 1888 signals, both sides together. It averaged 0.117R per signal and 0.117R per fill.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The limit at 0.5 normal day better had 1154 fills, both sides together. It averaged 0.058R per signal and 0.096R per fill.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "At 1 normal day better, the limit had 658 fills, both sides together. It averaged 0.019R per signal and 0.055R per fill.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/2"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The stop entry at 0.5 normal day farther had 1190 fills, both sides together. It averaged 0.109R per signal and 0.173R per fill.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "At 1 normal day farther, the stop entry had 708 fills, both sides together. It averaged 0.049R per signal and 0.13R per fill.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/4"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The wider study examined 54 market-and-rule combinations, giving luck more chances to make a result look strong.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "out of 54 by chance"
+    },
+    {
+      "field": "social_summary",
+      "span": "Across six markets from November 2016 to November 2026, we compared the next open with limit and stop entries, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "November 2016 to November 2026"
+    },
+    {
+      "field": "social_summary",
+      "span": "The next open filled all 1888 signals, both sides together, and averaged 0.117R per signal.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/0"
+    },
+    {
+      "field": "social_summary",
+      "span": "The nearer stop entry had 1190 fills, both sides together. It averaged 0.173R per fill and 0.109R per signal.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/3"
+    },
+    {
+      "field": "social_summary",
+      "span": "The nearer limit had 1154 fills, both sides together, and averaged 0.058R per signal.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/entry/rows/1"
+    },
+    {
+      "field": "social_summary",
+      "span": "Gold, shares and Bitcoin rose over the decade, and the wider study examined 54 market-and-rule combinations.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "out of 54 by chance"
+    }
+  ],
+  "editorial_call": {
+    "pid": 20684,
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Ops launch and resume argument readback",
+    "invocation_id": "01a1fbee-6f0f-7d53-9d48-8fc867247f82",
+    "operation": "cc536-measured-odds-5",
+    "role": "source-bound writing and editing",
+    "preparation_role": {
+      "task": "/root/entry_sources",
+      "model": "gpt-6.2-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "artifact": "preparation.json",
+      "artifact_sha256": "64badab1496a7a1582626b6e3286b8ac32310963167b2380e2a5e01da2d642ff"
+    }
+  },
+  "media_assets": [
+    {
+      "asset_id": "cc536-piece5-btc-native-20-50",
+      "path": "media/BTCUSD_2026-11-21_09-47-16.png",
+      "sha256": "026b3b73b3cea81e39810e58a9d9acdaaa3dbd112a2ad3dbfcb13383108969a8",
+      "width": 1720,
+      "height": 1272,
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "role": "context_chart",
+      "article_inclusion": true,
+      "canonical_article_media": true,
+      "placement_after": "What counted as an entry",
+      "attribution": "Chart created with TradingView",
+      "caption": "Bitcoin daily candles with twenty- and fifty-session simple averages. Bitstamp via TradingView. The chart illustrates the historical trend rule across part of the study window.",
+      "alt_text": "Bitcoin daily candles and two closing-price averages. The candles show a rebound in late summer, followed by a decline in October.",
+      "rights_basis": "TradingView original download with full attribution on a free public page under Jim decision 82.",
+      "source_url": "https://www.tradingview.com/widgetembed/?symbol=BITSTAMP%3ABTCUSD&interval=D",
+      "source_links": [
+        "https://www.tradingview.com/"
+      ],
+      "native_study": {
+        "name": "MA ribbon",
+        "type": "SMA",
+        "source": "Close",
+        "enabled_lengths": [
+          20,
+          50
+        ],
+        "disabled_lengths": [
+          100,
+          200
+        ]
+      },
+      "captured_at_utc": "2026-11-21T02:47:16Z",
+      "inspected_pixels": true,
+      "chart_sample": {
+        "from_utc": "2026-05-22T00:00:00Z",
+        "through_utc": "2026-10-31T00:00:00Z",
+        "main_bitcoin_sample_through": "2026-11-10",
+        "capture_observation": "The TradingView chart time scale reported the visible daily range. The original download retains source attribution and hides the current price, OHLC and changes."
+      }
+    }
+  ]
+}

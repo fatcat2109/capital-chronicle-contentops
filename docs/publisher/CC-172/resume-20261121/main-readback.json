@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-21T13:32:01.073356+00:00",
+  "completed_at_utc": "2026-11-21T13:58:03.975606+00:00",
+  "run_id": "decision91",
+  "sha256": "2dc4a29a3dce8fa4538f409433667950631f0450c673ce536442c0584eb3cefa",
+  "completion_sha256": "fb12463e50dd7467ba10b4e74110da56ff4c4d943dbd5f18c0c85fb8e732367d",
+  "capture_sha256": "44a8bb3cd4d65d0c3623795b513ebc519c26a16f7708cbf902b8ec1659982226",
+  "observed_at_utc": "2026-11-21T15:02:00.505775+00:00",
+  "age_seconds": 5399.432,
+  "publication_deadline_utc": "2026-11-21T14:32:01.073356+00:00",
+  "within_60_minutes_at_readback": false,
+  "newer_captures": [
+    {
+      "capture_path": "shocks/shock-20261121T145042Z/decision91/capture.json",
+      "data_cutoff_utc": "2026-11-21T14:52:59.392188+00:00",
+      "has_completion_receipt": false
+    },
+    {
+      "capture_path": "shocks/shock-20261121T140542Z/decision91/capture.json",
+      "data_cutoff_utc": "2026-11-21T14:07:20.738095+00:00",
+      "has_completion_receipt": false
+    }
+  ]
+}

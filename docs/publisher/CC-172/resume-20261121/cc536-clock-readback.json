@@ -1,0 +1,151 @@
+{
+  "operation": "cc536-measured-odds-5",
+  "review_sha256": "98a6927e65da91a34a47444dc024158f421a95eb64d5b407281551fac004d4af",
+  "reviewed_piece_sha256_matches": true,
+  "reviewed_body_sha256_matches": true,
+  "live_body_sha256_matches": true,
+  "first_text_approval_recorded_at_utc": "2026-11-21T03:49:43.969485+00:00",
+  "15_minute_dispatch_deadline_utc": "2026-11-21T04:04:43.969485+00:00",
+  "channels": [
+    {
+      "dispatch_id": "dispatch_e666b877d5b6ba7b38a395a6b57e231b",
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "225884424",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:53:24.179606+00:00",
+      "native_attempt_results": [
+        "SUCCESS"
+      ],
+      "observed_native_send_utc": "2026-11-21T03:53:54.587Z",
+      "first_exact_verified_readback_utc": "2026-11-21T03:54:20.051808+00:00",
+      "observed_publication_utc": "2026-11-21T03:53:58.906000+00:00",
+      "seconds_from_approval": 250.618,
+      "seconds_basis": "OBSERVED_NATIVE_SEND"
+    },
+    {
+      "dispatch_id": "dispatch_4e52ba4b757c8bc6606626f943a35c77",
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1573547136715325561",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:54:31.571089+00:00",
+      "native_attempt_results": [],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": "2026-11-21T03:54:33.878998+00:00",
+      "observed_publication_utc": null,
+      "seconds_from_approval": 289.91,
+      "seconds_basis": "EXACT_VERIFIED_READBACK_UPPER_BOUND"
+    },
+    {
+      "dispatch_id": "dispatch_96e13a23bde3d664a10573e51c355b63",
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1461696379482111",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:54:34.530191+00:00",
+      "native_attempt_results": [],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": "2026-11-21T03:54:42.361623+00:00",
+      "observed_publication_utc": null,
+      "seconds_from_approval": 298.392,
+      "seconds_basis": "EXACT_VERIFIED_READBACK_UPPER_BOUND"
+    },
+    {
+      "dispatch_id": "dispatch_5a841744391086ff428c969c6b9d4706",
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17890178352688808",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:54:43.022464+00:00",
+      "native_attempt_results": [],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": "2026-11-21T03:54:58.038399+00:00",
+      "observed_publication_utc": null,
+      "seconds_from_approval": 314.069,
+      "seconds_basis": "EXACT_VERIFIED_READBACK_UPPER_BOUND"
+    },
+    {
+      "dispatch_id": "dispatch_c76eac00e721c77650d42d6d09bb7628",
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:56:32.745056+00:00",
+      "native_attempt_results": [
+        "FAILED_BEFORE_WRITE",
+        "NEO_EXPECTED_BUTTON_MISSING"
+      ],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": null,
+      "observed_publication_utc": null,
+      "seconds_from_approval": null,
+      "seconds_basis": null
+    },
+    {
+      "dispatch_id": "dispatch_58e175e826efade7ce01f0f54e6d8663",
+      "destination": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7529795721647075329",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:57:10.133995+00:00",
+      "native_attempt_results": [
+        "FAILED_BEFORE_WRITE",
+        "UNKNOWN_WRITE"
+      ],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": null,
+      "observed_publication_utc": null,
+      "seconds_from_approval": null,
+      "seconds_basis": null
+    },
+    {
+      "dispatch_id": "dispatch_01217ae780b9d1f246627b3333da7eca",
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:57:24.617802+00:00",
+      "native_attempt_results": [],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": "2026-11-21T03:57:27.111302+00:00",
+      "observed_publication_utc": null,
+      "seconds_from_approval": 463.142,
+      "seconds_basis": "EXACT_VERIFIED_READBACK_UPPER_BOUND"
+    },
+    {
+      "dispatch_id": "dispatch_5b85647091502514233151fb69c74211",
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17875167108643471",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T03:57:27.943580+00:00",
+      "native_attempt_results": [],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": "2026-11-21T06:03:17.414840+00:00",
+      "observed_publication_utc": null,
+      "seconds_from_approval": 8013.445,
+      "seconds_basis": "EXACT_VERIFIED_READBACK_UPPER_BOUND"
+    },
+    {
+      "dispatch_id": "dispatch_f4072019180994a3656ffe05222ce2cb",
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2123993125190562072",
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T04:12:41.548719+00:00",
+      "native_attempt_results": [
+        "SUCCESS"
+      ],
+      "observed_native_send_utc": "2026-11-21T04:13:15.020Z",
+      "first_exact_verified_readback_utc": "2026-11-21T04:13:44.739359+00:00",
+      "observed_publication_utc": "2026-11-21T04:13:17+00:00",
+      "seconds_from_approval": 1411.051,
+      "seconds_basis": "OBSERVED_NATIVE_SEND"
+    },
+    {
+      "dispatch_id": "dispatch_88369c5583a80eb8ac6bc4aaebfd2a4d",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "coordinator_attempt_recorded_at_utc": "2026-11-21T04:21:08.044422+00:00",
+      "native_attempt_results": [],
+      "observed_native_send_utc": null,
+      "first_exact_verified_readback_utc": null,
+      "observed_publication_utc": null,
+      "seconds_from_approval": null,
+      "seconds_basis": null
+    }
+  ]
+}

@@ -107,15 +107,16 @@ def test_minute_queue_and_all_status_payloads_use_the_same_frozen_lines(replay, 
     assert result["status"] == "OK"
     assert result["active_page_plan_ids"] == [raw["plan_id"]]
     row, = rows(store)
-    assert row["analysis_copy_contract"] == reader.ANALYSIS_COPY
+    assert row["analysis_copy_contract"] == reader.NINE_LAYER_COPY
     alerts.validate(row, store=store)
     rendered = cards.destination_payloads(row, card_id="fixture-chart", chart_credit=True, complete_levels=True)
     assert set(rendered) == set(cards.DESTINATIONS)
-    layer_lines = reader.verified_analysis_lines(raw, row["analysis_layer_quotes"])
-    assert len(layer_lines) == (5 if confirmed else 4)
+    layer_lines = alerts.analysis_lines(row)
+    assert len(layer_lines) == (6 if confirmed else 4)
     for destination, copy in rendered.items():
         assert copy["text"].startswith(layer_lines[0]), destination
-        assert all(copy["full_text"].count(line) == 1 for line in layer_lines), destination
+        full = " ".join(copy["full_text"].split())
+        assert all(full.count(" ".join(line.split())) == 1 for line in layer_lines), destination
         assert (LINK in copy["full_text"]) == confirmed, destination
         assert "Target level:" in copy["full_text"], destination
         assert copy["media_asset_ids"] == ["fixture-chart"]
@@ -186,6 +187,127 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
         pages.validate_manuscript(plan, manuscript, pages.load_run(plan, run_root=run_root))
 
 
+def test_minute_repairs_an_unissued_draft_using_its_still_valid_frozen_excerpts(source, tmp_path, monkeypatch):
+    run_root, _, plan, _ = source
+    now = posts._utc("2026-11-20T04:30:00Z")
+    supported = "Rate traders had already priced in the policy move."
+    plan.update(registered_at_utc="2026-11-20T04:28:00Z", status="WAITING", analysis_layers=LAYERS,
+                scenario_analysis={"priced": "Markets price a 91% chance of a rate increase. " + supported})
+    load_run = pages.load_run
+    monkeypatch.setattr(pages, "load_run", lambda plan, **_: load_run(plan, run_root=run_root))
+    run = pages.load_run(plan)
+    with monkeypatch.context() as prior:
+        prior.setattr(pages, "check_reader_claim", lambda *a, **k: None)
+        old_sources = editorial._plan_page_sources(plan, run)
+        assert len(old_sources["priced_in"]) == 2
+        selection = {key: list(range(len(items))) for key, items in old_sources.items() if items}
+        draft = editorial._page_from_selection(plan, run, old_sources, selection)
+    draft["authorship"] = {"writer": "antigravity", "calls": []}
+    root = tmp_path / "pages"
+    folder = root / ("plan-analysis-" + plan["plan_id"])
+    folder.mkdir(parents=True)
+    path = folder / editorial.DRAFT_MANUSCRIPT
+    draft_bytes = json.dumps(draft).encode()
+    path.write_bytes(draft_bytes)
+    store = ContentOpsDurableStore(tmp_path / "retained.sqlite3")
+
+    outcome = editorial.run_due(store, {"status": {"plans": [plan]}}, root=root, rollout={},
+                                now=now, publish=False, cached_only=True)
+    assert outcome["pages"][0].get("publication", {}).get("status") == "PREPARED", outcome
+    packet = editorial.publication_packet(store, plan)
+    checked = pages.validate_plan(store, packet["page_id"], packet["plan"])
+    assert supported in checked["native_payload"]["body_markdown"]
+    assert "91%" not in checked["native_payload"]["body_markdown"]
+    assert checked["authorship"]["writer"] == "antigravity"
+    assert checked["authorship"]["quote_recheck"]["cause"] == "CC688_PAGE_QUOTE_NOT_IN_SECTION:priced_in"
+    assert path.read_bytes() == draft_bytes
+
+
+def test_page_resume_removes_internal_labels_after_a_proven_preclick_refusal(source, tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
+
+    run_root, _, raw, _ = source
+    public_observation = "Traders had already priced in the policy move."
+    raw["scenario_analysis"] = {"priced": "The priced_in field is MISSING. " + public_observation}
+    run = pages.load_run(raw, run_root=run_root)
+    earlier_sources = editorial._plan_page_sources(raw, run, revision=5)
+    assert len(earlier_sources["priced_in"]) == 2
+    selection = {key: list(range(len(items))) for key, items in earlier_sources.items() if items}
+    old_draft = editorial._page_from_selection(raw, run, earlier_sources, selection, revision=5)
+    store = ContentOpsDurableStore(tmp_path / "page.sqlite3")
+    page = pages.register_page(store, pages.render(raw, old_draft, run_root=run_root, output_dir=tmp_path / "page"))
+    old_packet = store.get_outbox_message(page["page_id"])["payload"]
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(page["page_id"], page["plan"])
+    ids = coordinator._ids(page["page_id"], page["plan"]["plan_hash"], "substack")
+    old_intent = store.get_outbox_message(ids["message_id"])["payload"]
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status="DEFINITE_NO_WRITE")
+    sent = []
+
+    def publish(work_id, new_plan):
+        coordinator.register_plan(work_id, new_plan)
+        new_ids = coordinator._ids(work_id, new_plan["plan_hash"], "substack")
+        assert new_ids != ids
+        intent = json.loads(store.get_outbox_message(new_ids["message_id"])["payload"])
+        sent.append(pages.validate_intent(store, intent))
+        return {"status": "READY"}
+
+    monkeypatch.setattr(coordinator, "publish_plan", publish)
+    monkeypatch.setattr(native_desktop_publication_v1, "live_publication_policy", lambda rollout: None)
+    monkeypatch.setattr(llm_operator_control_v1, "assert_llm_operator_execution_enabled", lambda: None)
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator",
+                        lambda *a, **k: (coordinator, SimpleNamespace(pending=lambda: [])))
+    pages.continue_page(store, page, invocation_id="plan-copy-repair", rollout={"store_path": store.db_path})
+    checked, = sent
+    body = checked["native_payload"]["body_markdown"]
+    assert public_observation in body and "priced_in" not in body and "MISSING" not in body
+    assert checked["manuscript"]["reader_revision"] == editorial.PAGE_COPY_REVISION
+    prior, = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+    assert prior["payload"] == old_packet
+    assert store.get_outbox_message(ids["message_id"])["payload"] == old_intent
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == "DEFINITE_NO_WRITE"
+
+
+def test_page_image_gate_accepts_its_own_setup_and_result_and_refuses_another_registration(source, tmp_path):
+    from live_contentops import article_publication_quality_v1 as quality, tradingview_snapshot_v1 as tv
+    from test_tradingview_plan_overlay_cc459 import captured
+
+    run_root, _, raw, manuscript = source
+    store = ContentOpsDurableStore(tmp_path / "page.sqlite3")
+    now = posts._utc("2026-11-21T13:32:00Z")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None, clock=lambda: now,
+                                                  published_content_path=tmp_path / "published.jsonl")
+    _, source_image = captured(raw["asset_id"])
+    image = tv.snapshot_asset(raw["asset_id"], manuscript["title"], source_image["tradingview_snapshot"], tmp_path)
+    packet = pages.render(raw, manuscript, run_root=run_root, output_dir=tmp_path / "page")
+    packet = pages.register_page(store, {**packet, "media_assets": [image]})
+    coordinator.register_plan(packet["page_id"], packet["plan"])
+    intent_row, = store.list_outbox_messages(destination="substack")
+    intent = json.loads(intent_row["payload"])
+    register = quality.image_register(coordinator)
+
+    def hold_alert(kind, registration):
+        key = kind + "-" + registration
+        store.create_work_item(story_id=key, work_item_id=key, title=kind, target_surface="MULTI_PLATFORM")
+        store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
+            payload=json.dumps({"kind": kind, "state_alert_contract": "CC543_V1", "plan_id": raw["plan_id"],
+                                "source_plan_registration": registration}), status="PUBLISHED")
+        piece = quality.piece_id(store, {"work_item_id": key})
+        prior = {r["piece_id"] for r in register.records()}
+        register.reserve(piece_id=piece, assets=[image], lead_asset_id=image["asset_id"], now=now,
+                         enforce_cap=False, related_piece_ids=prior)
+        register.settle(piece, state="PUBLISHED", now=now)
+
+    hold_alert("setup", raw["registration_hash"])
+    hold_alert("result", raw["registration_hash"])
+    assert quality.before_article_write(coordinator, intent, "substack")["lead_asset_id"] == image["asset_id"]
+    hold_alert("result", "different-registration")
+    with pytest.raises(ValueError, match="IMAGE_REUSED"):
+        quality.before_article_write(coordinator, intent, "substack")
+
+
 def test_minute_detaches_the_page_worker_and_active_lease_prevents_duplicate(tmp_path, monkeypatch):
     now = posts._utc("2026-11-20T04:30:00Z")
     store = ContentOpsDurableStore(tmp_path / "worker.sqlite3")
@@ -249,7 +371,8 @@ def test_page_consumer_reads_the_sealed_mid_horizon_archive(source, tmp_path):
         pages.load_run({**plan, "analysis_result_hash": "0" * 64}, run_root=daily)
 
 
-def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(source, tmp_path):
+@pytest.mark.parametrize("contract", reader.STATUS_ANALYSIS_CONTRACTS)
+def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(source, tmp_path, contract):
     run_root, _, plan, manuscript = source
     store = ContentOpsDurableStore(tmp_path / "links.sqlite3")
     packet = pages.register_page(store, pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path / "page"))
@@ -259,7 +382,7 @@ def test_reconciled_page_supplies_one_exact_reply_per_issued_status_and_route(so
     for kind, key in roots.items():
         row = {"key": key, "plan_id": plan["plan_id"], "source_plan_registration": plan["registration_hash"],
                "kind": kind, "symbol": "EURUSD", "schema_version": posts.SCHEMA,
-               "analysis_copy_contract": reader.ANALYSIS_COPY}
+               "analysis_copy_contract": contract}
         store.create_work_item(story_id=key, work_item_id=key, title=kind, target_surface="MULTI_PLATFORM")
         store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
                                       payload=json.dumps(row), status="PUBLISHED")
@@ -331,6 +454,7 @@ def test_linkedin_uses_the_late_confirmed_link_with_existing_chart_and_frozen_si
     assert payloads["telegram"] == before
     for destination in linkedin:
         assert LINK in payloads[destination]["text"]
+        assert all(line in payloads[destination]["text"] for line in alerts.analysis_lines(row))
         assert payloads[destination]["media_asset_ids"] == before["media_asset_ids"]
     assert {item["destination"]: (item["transport_type"], item["canonical_url"])
             for item in prepared["destinations"]} == {d: ("BROWSEROS_NEO_MCP", LINK) for d in linkedin}

@@ -156,27 +156,7 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     first_telegram = next(i for i in transport.intents if i.get("plan_status_post") and i["destination_plan"]["destination"] == "telegram")
     assert copies["telegram"] == first_telegram["native_payload"]
 
-    # The same live queue now feeds the variant writer and the original X
-    # dispatch. Confirming the page cannot issue a second X link job.
-    from test_plan_reader_copy_cc466 import source_and_fields
-    bound, fields = source_and_fields()
-    bound["level_contract"] = editorial.reader.LEVEL_CONTRACT
-    for evidence in bound["sources"]:
-        evidence["text"] = evidence["text"].replace("euro", "gold")
-    for field in (fields["hook"], fields["scenario_main"], fields["scenario_alt"], *fields["points"]):
-        field["text"] = field["text"].replace("euro", "gold")
-    fields["alt_text"] = {"text": "TradingView chart showing the gold plan.", "source_ids": ["0"]}
-    run = pages.load_run(plan, run_root=run_root)
-    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
-    monkeypatch.setattr(editorial.reader, "source_packet", lambda *a, **k: bound)
-    calls = []
-
-    def write_variants(prompt, *, root, writer, retry_failed):
-        calls.append(prompt)
-        assert not writer
-        return {"status": "RETURNED", "output": fields}
-
-    monkeypatch.setattr(editorial, "text_call", write_variants)
+    # A later page cannot replace the export's frozen scenario with its own odds.
     assert "x" in cards._ready_destinations(store, original)
     x_plan = cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",))
     assert [d["destination"] for d in x_plan["destinations"]] == ["x"]
@@ -184,20 +164,15 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     x_intent = json.loads(store.get_outbox_message(registered["message_id"])["payload"])
     posts.validate_status_post_intent(store, x_intent)
     x = x_intent["native_payload"]
-    assert "Main (50%)" in x["text"] and "Alternative (35%)" in x["text"]
+    assert "Scenarios: Alternative: A haven and short-covering squeeze" in x["full_text"]
+    assert "Main (50%)" not in x["full_text"] and "Alternative (35%)" not in x["full_text"]
     assert "https://" not in x["text"]
     assert x["posts"][0]["media_asset_ids"]
-    from live_contentops.neo_destination_handoff_v1 import _payload_binding
-    _, binding = _payload_binding(x_intent, "x")
-    assert binding["media_manifest"][0]["alt_text"] == fields["alt_text"]["text"]
-    assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" in x["reply_texts"][0]
+    assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" not in x["full_text"]
     assert posts.PUBLIC_NOTICE in x["reply_texts"][0]
-    assert x["reply_texts"][1].splitlines() == [
-        f"{dict(editorial.reader.LAYERS)[p['layer']]}: {p['text']}" for p in fields["points"]]
     assert cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",)) == x_plan
-    assert len(calls) == 1
     assert pages.register_link(store, packet, original_key=original["key"], destination="x")["state"] == (
-        "PLAN_ANALYSIS_X_THREAD_PENDING")
+        "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED")
     assert not store.get_outbox_message("plan-analysis-link-" + raw["plan_id"] + "-x")
     assert store.get_outbox_message(original["key"])["payload"] == frozen_payload
     assert posts._expected(store, original["key"], x_plan["output_dir"])[1]["telegram"] == first_telegram["native_payload"]
@@ -217,6 +192,101 @@ def test_missing_chart_sends_nothing_and_source_changes_fail(replay, main_root, 
     altered["levels"]["zone_low"] += 1
     with pytest.raises(ValueError, match="PLAN_ALERT_SOURCE_FIELD_CHANGED"):
         validate(altered)
+
+
+@pytest.mark.parametrize("cause", ["TRADINGVIEW_PRICE_SCALE_MISMATCH", "TRADINGVIEW_SNAPSHOT_TIMEOUT"])
+def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, main_root, monkeypatch, tmp_path, cause):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops.publication_image_contract_v1 import validate_write
+    from live_contentops.public_decision_checks_v1 import DecisionChecks, PublicCopy
+
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    row, = rows(store)
+    key = row["key"]
+    calls = []
+
+    def fail_capture(market, interval, folder, **options):
+        calls.append((options["ratio"], options["timeout"], options["reset_price_scale"]))
+        raise tv.SnapshotError(cause)
+
+    monkeypatch.setattr(tv, "capture", fail_capture)
+    transport = FixtureTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    root = tmp_path / "posts"
+    options = dict(now=now, latest_states=queued["latest_states"], root=root, host=fake_host,
+                   coordinator_for=lambda *a: coordinator)
+    posts.publish_ready(store, **options, immediate_only=True)
+    result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    assert set(transport.publish_calls) == set(cards.destinations_for(row)), result
+    assert calls == [("16:9", 60, False), ("16:9", 90, True), ("4:5", 60, False), ("4:5", 90, True)]
+    for destination in cards.destinations_for(row):
+        dispatch = cards._dispatch(store, key, destination)
+        assert dispatch["status"] == "DISPATCH_CONFIRMED", result
+        intent = json.loads(store.get_outbox_message(dispatch["message_id"])["payload"])
+        assert tv.CREDIT not in intent["native_payload"]["full_text"]
+        assert validate_write(coordinator, intent, destination)["plan_chart_fallback_causes"] == [cause]
+    copy = PublicCopy(key, destination, dispatch["public_object_url"], "Plan", row["text"],
+                      intent, dispatch, [], {}, now, image_visible=True)
+    checks = DecisionChecks({"since_utc": row["at_utc"], "until_utc": now.isoformat()}, root)
+    checks._chart(copy, row["symbol"])
+    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_CHART_MISSING"
+    assert checks.issues[0]["chart_causes"] == [cause]
+
+
+def test_cc734_later_chart_replies_once_to_the_exact_original(replay, main_root, monkeypatch, tmp_path):
+    from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    row, = rows(store)
+    key = row["key"]
+    child = f"{key}-part-{cards.LATE_CHART_PART}"
+    capture = tv.capture
+    later = False
+
+    def snapshot(*args, **kwargs):
+        if not later or kwargs.get("ratio") == "4:5":
+            raise tv.SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT")
+        return capture(*args, **kwargs)
+
+    class Transport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if intent["work_item_id"] == child:
+                assert intent["native_payload"]["reply_to_id"] == f"{destination}-object-1"
+                media, = _durable_intent_inputs(intent)["media_assets"]
+                assert media["tradingview_snapshot"]["tv_symbol"] == tv.SYMBOLS[row["symbol"]]
+                self.publish_calls.append(destination)
+                return {"status": "SUCCESS", "id": f"{destination}-chart-reply",
+                        "public_url": f"https://example.test/{destination}/chart-reply"}
+            return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+
+    transport = Transport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    monkeypatch.setattr(tv, "capture", snapshot)
+    options = dict(now=now, latest_states=queued["latest_states"], root=tmp_path / "posts", host=fake_host,
+                   coordinator_for=lambda *a: coordinator)
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    parents = {d: cards._dispatch(store, key, d) for d in cards.destinations_for(row)}
+    originals = {d: store.get_outbox_message(dispatch["message_id"])["payload"] for d, dispatch in parents.items()}
+    context_path = options["root"] / key / "run_context_v1.json"
+    original_context = context_path.read_bytes()
+    later = True
+    result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    for destination in cards.LATE_CHART_DESTINATIONS.intersection(parents):
+        reply = cards._dispatch(store, child, destination)
+        assert reply and reply["status"] == "DISPATCH_CONFIRMED", result
+    for destination, parent in parents.items():
+        assert store.get_outbox_message(parent["message_id"])["payload"] == originals[destination]
+    assert context_path.read_bytes() == original_context
+    calls = transport.publish_calls[:]
+    posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
+    assert transport.publish_calls == calls
 
 
 def test_later_states_use_the_same_api_consumer_without_editorial(replay, main_root, monkeypatch, tmp_path):

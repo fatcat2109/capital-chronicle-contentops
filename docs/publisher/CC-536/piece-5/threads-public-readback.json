@@ -1,0 +1,54 @@
+{
+  "operation": "cc536-measured-odds-5",
+  "dispatch_id": "dispatch_5b85647091502514233151fb69c74211",
+  "original_root_dispatched_at_utc": "2026-11-21T03:57:27.943580+00:00",
+  "public_object_id": "17875167108643471",
+  "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df_UTYfE30t",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "readback_id": "readback_574073888bdf4594d51863a3d28261e4",
+  "durable_readback_at_utc": "2026-11-21T06:03:17.414840+00:00",
+  "official_api_observed_at_utc": "2026-11-21T06:06:55.208927+00:00",
+  "provider_listing_complete": true,
+  "reply_order_verified": true,
+  "replies": [
+    {
+      "order": 1,
+      "id": "17891184723620783",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df_dlVPkxfN",
+      "parent_child_verified": true,
+      "text_verified": true
+    },
+    {
+      "order": 2,
+      "id": "18128211875292329",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df_dnAJE9Rp",
+      "parent_child_verified": true,
+      "text_verified": true
+    },
+    {
+      "order": 3,
+      "id": "18105309080532645",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df_doMsE151",
+      "parent_child_verified": true,
+      "text_verified": true
+    },
+    {
+      "order": 4,
+      "id": "18100316513545452",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df_dpctE4Ui",
+      "parent_child_verified": true,
+      "text_verified": true
+    },
+    {
+      "order": 5,
+      "id": "18149657437589552",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df_ird0E_vA",
+      "parent_child_verified": true,
+      "text_verified": true
+    }
+  ],
+  "new_replies_this_resume": 1,
+  "new_roots_this_resume": 0,
+  "recovery_code_commit": "ee1a3ee46d1bd084ad2964a33ed9d66aa3d24d90",
+  "current_installed_test": "installed-targeted-recovery-tests.xml"
+}
