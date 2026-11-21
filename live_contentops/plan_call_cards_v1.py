@@ -1354,7 +1354,9 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
     if not assets:
         raise tv.SnapshotUnavailable(first_image_failure or "EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper())
     alert_portrait = previous.get("status_post_alert_portrait")
-    if row.get("state_alert_contract") and "instagram_business" in chosen and not alert_portrait:
+    alert_portrait_destinations = [d for d in chosen if d == "instagram_business"
+                                   or d == "threads" and assets and assets[0].get("image_template")]
+    if row.get("state_alert_contract") and alert_portrait_destinations and not alert_portrait:
         # The fast API pass freezes its landscape bytes. Complete Instagram's
         # separate portrait afterwards; append media without changing those
         # already-issued payloads or their original chart.
@@ -1379,13 +1381,15 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             alert_portrait = portrait["asset_id"]
             previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
                             status_post_alert_portrait=alert_portrait)
+            if assets[0].get("image_template"):
+                previous["status_post_threads_image"] = alert_portrait
         except tv.SnapshotUnavailable as exc:
-            skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
+            skipped.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)
         except tv.SnapshotPending as exc:
-            deferred.append({"destination": "instagram_business", "cause": str(exc)[:200]})
-            chosen.remove("instagram_business")
+            deferred.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)
+            chosen = [d for d in chosen if d not in alert_portrait_destinations]
         except (OSError, ValueError, KeyError, TypeError) as exc:
-            skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
+            skipped.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)
         if frozen:
             previous["status_post_skipped_destinations"] = skipped
             context_path.write_bytes(canonical_bytes(previous))

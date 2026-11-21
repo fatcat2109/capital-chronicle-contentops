@@ -326,6 +326,7 @@ def validate_write(coordinator, intent, destination):
         article, _, _ = article_inputs(intent)
     else:
         article = intent.get("article") or {}
+    row = None
     if intent.get("plan_status_post"):
         from .plan_status_posts_v1 import _row_payload
         row = _row_payload(coordinator.store, intent["plan_status_post"])
@@ -365,11 +366,18 @@ def validate_write(coordinator, intent, destination):
         if (any(a["image_template"].get("chart") for a in templates)
                 and (article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"})):
             raise ImageContractError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
-        from .image_quality_v1 import validate_asset
+        from .image_quality_v1 import VISION_SAMPLE_PENDING, validate_asset
         reviewed = []
         for asset in templates:
+            needs_vision = True
+            if row and row.get("state_alert_contract") == "CC543_V1":
+                from .image_template_inputs_v1 import for_plan_post
+                if for_plan_post(row) != asset["image_template"]["input"]:
+                    raise ImageContractError("IMAGE_TEMPLATE_PLAN_SOURCE_CHANGED")
+                needs_vision = ((asset.get("image_quality") or {}).get("vision") or {}).get("status") != VISION_SAMPLE_PENDING
             try:
-                reviewed.append(validate_asset(asset, destination=destination))
+                result = validate_asset(asset, destination=destination, require_vision=needs_vision)
+                reviewed.append(result["score"] if needs_vision else None)
             except ValueError as exc:
                 raise ImageContractError(str(exc), image_sha256=asset.get("sha256")) from exc
         first = assets[0].get("image_template") or {}
@@ -380,7 +388,7 @@ def validate_write(coordinator, intent, destination):
             if meta["chart"] and markets and meta["input"].get("market") not in markets:
                 raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
         return {"policy": "CC465_IMAGE_TEMPLATES_V1", "images": len(templates),
-                "scores": [review["score"] for review in reviewed]}
+                "scores": reviewed}
     if not markets and not macro:
         return None
     if not assets:

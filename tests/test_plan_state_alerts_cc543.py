@@ -70,7 +70,9 @@ def test_gold_replay_queues_a_complete_alert_without_page_or_variants(replay, ma
     assert "MGC" not in row["text"]  # No instrument prices were exported in this older snapshot.
 
 
-def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, main_root, monkeypatch, tmp_path, source):
+@pytest.mark.parametrize("fits_template", [False, True])
+def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, main_root, monkeypatch, tmp_path, source,
+                                                                    fits_template):
     store, folder, raw, now = replay
     def failed(*a, **k):
         raise AssertionError("Every model and browser step is unavailable")
@@ -80,6 +82,23 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     from live_contentops import image_quality_v1, light_model_caller_v1
     monkeypatch.setattr(image_quality_v1, "review_vision", failed)
     monkeypatch.setattr(light_model_caller_v1, "call_light", failed)
+    if fits_template:
+        from live_contentops import publication_image_contract_v1 as contract, tradingview_snapshot_v1 as tv
+        from test_image_templates_cc465 import capture
+
+        def native_chart(market, interval, folder, *, chart_size=None, ratio="16:9", **kwargs):
+            assert chart_size == ((1600, 700) if ratio == "16:9" else (1080, 850))
+            folder.mkdir(parents=True, exist_ok=True)
+            data = capture(folder, "W" if ratio == "16:9" else "T", market)
+            data.update(capture_ratio=ratio, interval=interval, interval_label=tv.INTERVAL_LABELS[interval],
+                        chart_url=tv.chart_url(tv.SYMBOLS[market], interval), page_title="XAUUSD 3958",
+                        captured_at_utc=now.isoformat())
+            data["chart_geometry"].update(slope=-10, intercept=39940)
+            return contract.bind_scale(market, data, quote={"market":market,"instrument":market,"price":3958,
+                "quoted_at_utc":now.isoformat(),"known_at_utc":now.isoformat(),"source_path":"controlled-quote.json",
+                "source_sha256":"a"*64})
+
+        monkeypatch.setattr(tv, "capture", native_chart)
     queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
     class Recorded(FixtureTransport):
         def __init__(self):
@@ -112,7 +131,13 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     assert (now - posts._utc(raw["registered_at_utc"])).total_seconds() < 600
     for intent in transport.intents:
         context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
-        assert context["media"]["assets"][0]["modality"] == "tradingview_chart_snapshot"
+        chart = context["media"]["assets"][0]
+        assert chart["modality"] == "tradingview_chart_snapshot"
+        assert bool(chart.get("image_template")) is fits_template
+        if fits_template:
+            assert chart["image_template"]["template"] == "call"
+            assert chart["image_quality"]["code"]["passed"]
+            assert chart["image_quality"]["vision"]["status"] == image_quality_v1.VISION_SAMPLE_PENDING
         posts.validate_status_post_intent(store, intent)
     posts.publish_ready(store, now=now, root=tmp_path / "posts", host=fake_host,
         coordinator_for=lambda *a: coordinator, immediate_only=True)
@@ -124,6 +149,15 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     missing_page = cards.prepare_post(store, original["key"], root=tmp_path / "posts", destinations=("x",))
     assert [d["destination"] for d in missing_page["destinations"]] == ["x"]
     assert not missing_page["deferred_destinations"]
+    if fits_template:
+        portrait_plan = cards.prepare_post(store, original["key"], root=tmp_path / "posts", host=fake_host,
+                                           destinations=("threads", "instagram_business"))
+        context = json.loads((Path(portrait_plan["output_dir"]) / "run_context_v1.json").read_bytes())
+        assert {d["destination"] for d in portrait_plan["destinations"]} == {"threads", "instagram_business"}
+        portrait_id = context["status_post_threads_image"]
+        portrait = next(a for a in context["media"]["assets"] if a["asset_id"] == portrait_id)
+        assert portrait["image_template"]["master"] == "T"
+        assert context["media"]["assets"][0] == chart
     # The external page completes later. Its controlled source fixture tests the
     # existing exact page/link consumer, without performing a browser write.
     run_root, _, plan, manuscript = source

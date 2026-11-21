@@ -1360,17 +1360,35 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
                 ratio: str = "16:9", source_snapshot=None, required_chart=False) -> tuple[dict | None, bool]:
     """Prepare the plan's TradingView chart under the caller's image policy."""
     from live_contentops import tradingview_snapshot_v1 as tv
-    image_input = None
-    # CC-543 uses the existing CC-463 chart/scale/attribution checks. Its plain
-    # TradingView image must not wait for CC-465's model-reviewed template.
-    if (not source_snapshot and not row.get("state_alert_contract")
-            and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}):
-        from .image_template_inputs_v1 import from_plan, from_result
-        image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
-    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
-                             image_input=image_input, source_snapshot=source_snapshot, required_chart=required_chart)
-    if image_input:
-        return asset, asset is not None
+    from .image_quality_v1 import TEMPLATE_FIT_CAUSES
+    from .image_template_inputs_v1 import for_plan_post
+    from .image_templates_v1 import CHART
+
+    options = dict(snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio, required_chart=required_chart)
+    fast_alert = row.get("state_alert_contract") == "CC543_V1"
+    try:
+        image_input = for_plan_post(row)
+        if image_input and source_snapshot:
+            _, y, width, bottom = CHART["W" if ratio == "16:9" else "T"]
+            w, h = source_snapshot["width"], source_snapshot["height"]
+            height = bottom - y
+            if min(w / width, h / height) < .97 or abs(w / h / (width / height) - 1) > .03:
+                raise tv.TemplateSnapshotNotFit("IMAGE_CHART_CAPTURE_SHAPE")
+        if image_input:
+            asset = tv.plan_snapshot(row, folder, image_input=image_input, source_snapshot=source_snapshot,
+                                     sample_after_publication=fast_alert, **options)
+            return asset, asset is not None
+    except (ValueError, tv.TemplateSnapshotNotFit) as exc:
+        if str(exc) not in TEMPLATE_FIT_CAUSES:
+            raise
+        tv.record_outcome({"key": row["key"], "market": row["symbol"], "status": "TEMPLATE_DID_NOT_FIT",
+                           "cause": str(exc), "ratio": ratio})
+        # A source-bound chart can still be used intact when its template
+        # cannot fit. Instagram needs a separate native capture in that case.
+        taken = getattr(exc, "snapshot", None)
+        if taken and ratio == "16:9":
+            source_snapshot = taken
+    asset = tv.plan_snapshot(row, folder, source_snapshot=source_snapshot, **options)
     if asset:
         from live_contentops import tradingview_plan_overlay_v1 as overlay
         try:

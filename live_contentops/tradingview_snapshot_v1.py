@@ -72,6 +72,12 @@ class SnapshotUnavailable(SnapshotPending):
     """The required capture exhausted its attempts with a named cause."""
 
 
+class TemplateSnapshotNotFit(SnapshotError):
+    def __init__(self, cause, snapshot=None):
+        super().__init__(cause)
+        self.snapshot = snapshot
+
+
 PLAN_CACHE_SECONDS = 15 * 60
 PLAN_WAIT_SECONDS = 5 * 60
 PLAN_ATTEMPTS = 2
@@ -79,7 +85,7 @@ PLAN_ATTEMPTS = 2
 
 def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
                   now: datetime | None = None, ratio: str = "16:9", image_input=None,
-                  source_snapshot=None, required_chart=False) -> dict | None:
+                  source_snapshot=None, required_chart=False, sample_after_publication=False) -> dict | None:
     """Use the shared cache or make a bounded capture for this plan and ratio.
 
     Only image artifacts are cached; this is not another scheduler or publication store.
@@ -100,8 +106,16 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         suffix += "_cc465"
     def image_asset(taken):
         if image_input:
-            from .image_quality_v1 import prepare_asset
-            return prepare_asset(image_input,"W" if ratio=="16:9" else "T",media,taken)
+            from .image_quality_v1 import TEMPLATE_FIT_CAUSES, prepare_asset
+            try:
+                card = prepare_asset(image_input, "W" if ratio == "16:9" else "T", media, taken,
+                                     sample_after_publication=sample_after_publication)
+            except ValueError as exc:
+                if sample_after_publication and str(exc) in TEMPLATE_FIT_CAUSES:
+                    raise TemplateSnapshotNotFit(str(exc), taken) from exc
+                raise
+            return {**card, "media_role": "delivery_only", "article_inclusion": False,
+                    "canonical_article_media": False, "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE"}
         return snapshot_asset(market,title,taken,media,ratio)
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
     initial = {
@@ -123,6 +137,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         captured = _utc(cached.get("captured_at_utc"))
         if (captured and 0 <= (now - captured).total_seconds() < PLAN_CACHE_SECONDS
                 and cached.get("tv_symbol") == tv_symbol
+                and (not image_input or cached.get("interval") == interval)
                 and Path(cached["path"]).is_file() and _sha256(Path(cached["path"])) == cached["sha256"]):
             taken = cached
     except (OSError, ValueError, KeyError, TypeError):
@@ -188,7 +203,11 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             cache_file.write_text(json.dumps(taken, sort_keys=True), encoding="utf-8")
             record_outcome({k: v for k, v in state.items() if k != "snapshot"})
             return asset
+        except TemplateSnapshotNotFit:
+            raise
         except Exception as exc:
+            if sample_after_publication and str(exc) == "IMAGE_CHART_CAPTURE_SHAPE":
+                raise TemplateSnapshotNotFit(str(exc)) from exc
             state.setdefault("first_cause", str(exc)[:200])
             state["cause"] = str(exc)[:200]
             save()

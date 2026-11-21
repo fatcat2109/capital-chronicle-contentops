@@ -21,6 +21,15 @@ from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
 VISION_POLICY = "cc465-image-roles-v5"
+VISION_SAMPLE_PENDING = "SAMPLE_PENDING"
+TEMPLATE_FIT_CAUSES = frozenset({
+    "IMAGE_CHART_CAPTURE_SHAPE", "IMAGE_CHART_CAPTURE_TOO_SMALL", "IMAGE_PRICE_GEOMETRY_REQUIRED",
+    "IMAGE_LEVELS_OUT_OF_VIEW", "IMAGE_LEVEL_LABEL_DOES_NOT_FIT", "IMAGE_LEVEL_LABEL_COLLISION",
+    "IMAGE_WRITER_REVISION_REQUIRED", "IMAGE_TEXT_DOES_NOT_FIT", "IMAGE_HEADER_COLLISION",
+    "IMAGE_RESULT_PATH_CAPTURE_CHANGED", "IMAGE_RESULT_PATH_NOT_IN_VIEW", "IMAGE_RESULT_PATH_TIMEFRAME_REQUIRED",
+    "IMAGE_R_RESULT_NOT_EXPORTED", "IMAGE_RESULT_OUTCOME_NOT_MAPPED", "RESULT_CAPTURE_TIME_COORDINATES_REQUIRED",
+    "IMAGE_TEMPLATE_WTI_BASIS_REQUIRED",
+})
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
     "Image 1 is the correct market's TradingView snapshot; weekly is the table exception",
@@ -121,7 +130,11 @@ def code_check(asset, *, destination=None):
             if not (meta.get("levels") or {}).get("levels_visible"):fail(5,"IMAGE_LEVELS_OUT_OF_VIEW")
             try:
                 from .publication_image_contract_v1 import validate_scale
-                validate_scale(meta["input"]["market"],snap)
+                market = meta["input"]["market"]
+                check = validate_scale(market, snap)
+                if market == "USOIL" and meta["input"].get("plan") and (
+                        check["level_offset"] or check["comparison_basis"] == "NOT_COMPARED"):
+                    fail(6,"IMAGE_TEMPLATE_WTI_BASIS_REQUIRED")
             except (ValueError,KeyError,TypeError) as exc:fail(6,str(exc))
             framing=meta["framing"];box=framing["paste_box"]
             if (box[2]-box[0])*(box[3]-box[1])/(asset["width"]*asset["height"]) < .6:fail(10,"IMAGE_CHART_TOO_SMALL")
@@ -250,7 +263,8 @@ def validate_asset(asset,*,destination=None,require_vision=True):
     return code
 
 
-def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,vision_runner=None):
+def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,vision_runner=None,
+                  sample_after_publication=False):
     """Prepare one exact PNG on the existing editorial path, without a send."""
     from .image_templates_v1 import render
     asset=render(data,master,folder,snapshot,image_number=image_number,page=page)
@@ -258,7 +272,14 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     record_path=Path(asset["path"]).with_suffix(".json")
     previous=json.loads(record_path.read_bytes()) if record_path.is_file() else {}
     old=previous.get("image_quality") or {}
-    if old.get("image_sha256")==asset["sha256"]:
+    if not code["passed"]:
+        review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
+    elif sample_after_publication:
+        # CC-543's minute alerts render and check their chart without a model
+        # call. Keep the exact asset available to the existing daily sample.
+        review=(old.get("vision") or {}) if old.get("image_sha256")==asset["sha256"] else {}
+        review=review or {"points":{},"status":VISION_SAMPLE_PENDING}
+    elif old.get("image_sha256")==asset["sha256"]:
         review=old.get("vision") or {}
         from .light_model_caller_v1 import POLICY
         # A pre-CC-512 failed review never ran the second caller. Continue it
@@ -271,13 +292,17 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
             if not retained.exists():retained.write_bytes(previous_bytes)
             review=review_vision(asset,runner=vision_runner)
             review["retained_prior_failure_path"]=str(retained)
-    elif code["passed"]:
-        review=review_vision(asset,runner=vision_runner)
     else:
-        review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
+        review=review_vision(asset,runner=vision_runner)
     asset["image_quality"]=combine(code,review)
+    pending = sample_after_publication and review.get("status") == VISION_SAMPLE_PENDING
+    if pending:
+        asset["image_quality"]["image_record_path"] = str(record_path)
     record_path.write_text(json.dumps(asset,ensure_ascii=False,indent=2),encoding="utf-8")
-    validate_asset(asset)
+    if not code["passed"]:
+        raise ValueError(code["causes"][0])
+    if not pending and not asset["image_quality"]["passed"]:
+        raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
     return asset
 
 

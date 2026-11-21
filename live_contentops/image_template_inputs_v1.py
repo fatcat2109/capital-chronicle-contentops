@@ -75,7 +75,7 @@ def from_result(row):
     if not no_entry and r_value is None:
         raise ValueError("IMAGE_R_RESULT_NOT_EXPORTED")
     label="Expired, no entry" if no_entry else {"STOPPED":"Stopped at invalidation","TIME_EXIT":"Time exit",
-        "TARGET":"Target reached","CLOSED_EARLY":"Closed early"}.get(result)
+        "HIT":"Target reached","TARGET":"Target reached","CLOSED_EARLY":"Closed early"}.get(result)
     if not no_entry and result=="EXPIRED" and score.get("triggered_at_utc"):
         label="Time exit"
     if not label:raise ValueError("IMAGE_RESULT_OUTCOME_NOT_MAPPED")
@@ -84,6 +84,26 @@ def from_result(row):
         "held_text":score.get("held_text"),"best_r":score.get("best_r"),"worst_r":score.get("worst_r"),
         "path":score.get("chart_path")})
     return bind(value,row)
+
+
+def for_plan_post(row):
+    """Choose the existing call or result layout for a matching public state."""
+    levels = row.get("levels") or {}
+    if not (row.get("source_plan") or levels.get("image_source_plan")):
+        return None
+    if any(levels.get(key) is None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
+        return None
+    instrument = levels.get("public_instrument") or {}
+    if levels.get("price_basis") == "instrument" and instrument.get("kind") == "FUT" and row["symbol"] != "USOIL":
+        return None  # The CC-463 spot/cash chart cannot plot these futures levels.
+    if row.get("kind") == "result":
+        data = from_result(row)
+        if data["result"]["r"] is not None and not data["result"]["path"]:
+            raise ValueError("RESULT_CAPTURE_TIME_COORDINATES_REQUIRED")
+        return data
+    if row.get("kind") in {"setup", "update"} and row.get("state") in STATES:
+        return from_plan(row)
+    return None
 
 
 def bind(image_input, source_record):
