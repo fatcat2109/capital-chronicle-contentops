@@ -1830,7 +1830,10 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                                  alert_filter=alert_filter, claim_checker=claim_checker,
                                  snapshot=snapshot, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     from .plan_analysis_pages_v1 import distribute_links
-    links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
+    link_options = {"automatic_neo": True} if automatic_neo else {}
+    if claim_checker:
+        link_options["claim_checker"] = claim_checker
+    links = distribute_links(store, **link_options)
     return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links,
             "pending_post_queue": pending_post_queue(store, now)}
 

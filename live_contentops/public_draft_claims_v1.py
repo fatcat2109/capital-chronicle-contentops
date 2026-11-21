@@ -197,6 +197,7 @@ def start_plan_check(draft_id, kind, texts, source, *, output_dir, originals=(),
 def review_plan_copy(store, row, plan, *, key=None, launch=None):
     """Bind new destination copy to the plan's own frozen public inputs."""
     from . import plan_reader_copy_v1 as reader
+    from . import plan_status_posts_v1 as posts
 
     key = key or row["key"]
     source_plan = row.get("source_plan") or {}
@@ -208,6 +209,17 @@ def review_plan_copy(store, row, plan, *, key=None, launch=None):
         if name in levels}, "analyst_excerpts": originals,
         "plan_terms": row.get("conditional_calls") or [], "public_summary": (row.get("analysis_publication") or {}).get("summary"),
         "public_result": {name: row[name] for name in ("result", "record_line", "short_id") if name in row}}
+    for group in (source_plan, row, levels):
+        for name in ("at_utc", "registered_at_utc", "time_exit_utc", "entry_deadline_utc", "valid_until_utc",
+                     "delayed_at_utc"):
+            if not group.get(name):
+                continue
+            try:
+                at = posts._utc(group[name]).astimezone(posts.PUBLIC_TZ)
+                sources.setdefault("public_clocks", []).extend(
+                    (reader.et(at), posts._when(at), f"{at.day} {at:%b %H:%M} ET"))
+            except (ValueError, TypeError):
+                continue
     if source_plan:
         sources["source_outcome"] = {name: source_plan["outcome"][name] for name in
             ("entry_price", "exit_price", "result_r", "score") if name in (source_plan.get("outcome") or {})
@@ -224,7 +236,8 @@ def review_plan_copy(store, row, plan, *, key=None, launch=None):
              if entry["destination"] not in issued and entry.get("platform") not in issued
              and isinstance(entry.get("payload"), str)]
     if texts:
-        start_plan_check(key, "plan_post", texts, sources, output_dir=plan["output_dir"], originals=originals, launch=launch)
+        kind = "substack_note" if all(entry["destination"] == "substack_notes" for entry in plan["destinations"]) else "plan_post"
+        start_plan_check(key, kind, texts, sources, output_dir=plan["output_dir"], originals=originals, launch=launch)
 
 
 def try_plan_check(checker, store, row, plan, *, key=None):

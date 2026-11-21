@@ -1479,7 +1479,7 @@ def _validate_run_link(store, value):
     return value
 
 
-def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
+def distribute_links(store, *, limit=None, publish=True, automatic_neo=False, claim_checker=None):
     """The installed status-post run consumes confirmed pages in its own store.
 
     Frozen links are resumed, not rewritten. A later page in the same Main run
@@ -1488,6 +1488,7 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
     cards, alerts, confirmed_runs = {}, {}, []
     from .plan_call_cards_v1 import _reference
     from .plan_reader_copy_v1 import ANALYSIS_COPY
+    from .public_draft_claims_v1 import try_plan_check
     for row in store.list_outbox_messages(destination=posts.DESTINATION):
         item = json.loads(row["payload"])
         if item.get("kind") == "setup" or item.get("state") == "WAITING":
@@ -1507,6 +1508,10 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
             for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
                 try:
                     value = register_link(store, packet, original_key=key, destination=destination)
+                    if publish and value.get("plan"):
+                        claim_row = {"key": value["link_id"], "source_plan": packet["source_plan"],
+                                     "analysis_publication": {"summary": packet["summary"]}}
+                        try_plan_check(claim_checker, store, claim_row, value["plan"])
                     outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
                     results.append({"page_id": packet["page_id"], "destination": destination,
                                     "link_id": value.get("link_id"), "outcome": outcome,
