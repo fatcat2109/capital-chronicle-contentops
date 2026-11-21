@@ -314,6 +314,14 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(
     def write(pack, root):
         return editorial.draft(pack, root, call=select_first)
 
+    checks = []
+
+    def claim_check(identity, kind, passages, sources, *, output_dir):
+        checks.append((identity, kind))
+        assert kind == "daily_wrap" and output_dir.is_relative_to(tmp_path)
+        assert any("Gross Domestic Product" in text for text in sources["events"])
+        return {"corrected": [p["text"] for p in passages]}
+
     def media(pack, article, markets, folder):
         # Production daily editions use the existing TradingView capture. The
         # isolated transport fixture exercises the real weekly chart bytes.
@@ -321,7 +329,8 @@ def test_normal_job_publishes_via_real_coordinator_and_reuses_retained_bytes(
 
     rollout = {"editorial_output_root": str(tmp_path)}
     out = job.run_due(store, rollout=rollout, now=now, clock=lambda: now, cash_calendar=cash,
-        gather=lambda *_a, **_kw: pack, writer=write, publish=publish, media=media)
+        gather=lambda *_a, **_kw: pack, writer=write, publish=publish, media=media, claim_check=claim_check)
+    assert checks == [(pack["slot"]["id"], "daily_wrap")]
     publication = out["publication"]
     assert publication["canonical_url"] == "https://capitalchronicle.substack.com/p/pre-us-wrap-20261123", publication
     assert transport.writes[0][0] == "substack"

@@ -110,12 +110,14 @@ def make_plan(pack, article, assets, folder):
     return {**plan, "plan_hash": sha256_of(plan)}
 
 
-def stage(store, pack, manuscript, folder, *, media=prepare_media):
+def stage(store, pack, manuscript, folder, *, media=prepare_media, claim_check=None):
     identity = pack["slot"]["id"]
     if not is_wrap_id(identity):
         raise ValueError("WRAP_SLOT_ID_INVALID")
     if held := store.get_outbox_message(identity):
         return json.loads(held["payload"])
+    if claim_check:
+        manuscript = editorial.review_claims(pack, manuscript, folder, call=claim_check)
     article, markets = editorial.article_for(pack, manuscript)
     article, assets = media(pack, article, markets, folder)
     plan = make_plan(pack, article, assets, folder)
@@ -267,7 +269,7 @@ def continue_wrap(store, packet, *, clock=utcnow, factory=publication_coordinato
 
 
 def run_due(store, *, rollout, now=None, clock=utcnow, cash_calendar=None, gather=sources.collect,
-            writer=editorial.draft, publish=continue_wrap, media=prepare_media, resume=None):
+            writer=editorial.draft, publish=continue_wrap, media=prepare_media, resume=None, claim_check=None):
     now = sources.utc(now or clock())
     if resume:
         if not is_wrap_id(resume):
@@ -316,7 +318,10 @@ def run_due(store, *, rollout, now=None, clock=utcnow, cash_calendar=None, gathe
                 save(draft_file, manuscript)
             if clock() >= dispatch_deadline(pack):
                 return {"state": "WRAP_EDITORIAL_WINDOW_EXPIRED", "slot": slot, "source_gaps": pack["gaps"]}
-            packet = stage(store, pack, manuscript, folder, media=media)
+            if claim_check is None and writer is editorial.draft:
+                from .public_draft_claims_v1 import check_draft
+                claim_check = check_draft
+            packet = stage(store, pack, manuscript, folder, media=media, claim_check=claim_check)
         else:
             return {"state": "WRAP_WINDOW_ELAPSED_WITHOUT_PACKET", "slot": slot}
         result = {"slot": slot, "identity": identity, "data_cutoff_utc": pack["data_cutoff_utc"],

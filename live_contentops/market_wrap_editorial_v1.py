@@ -170,6 +170,34 @@ def draft(pack, root, *, call=call_light):
     return {"sections": output, "calls": records}
 
 
+def review_claims(pack, manuscript, folder, *, call):
+    """Check the chosen draft lines before the wrap renders and freezes."""
+    choices = source_choices(pack)
+    slots, passages, evidence = [], [], {}
+    for section, rows in manuscript["sections"].items():
+        evidence[section] = []
+        for row in rows:
+            options = choices.get(section, {}).get(row["id"], [])
+            text = row["text"]
+            # Prefer the source-only move when the selected line adds a driver.
+            fallback = options[-1] if options and options[-1] != text else ""
+            evidence[section].extend(options)
+            slots.append((section, row))
+            passages.append({"text": text, "fallback": fallback,
+                "origin": "antigravity" if section in CHANGE_SECTIONS else "rendered"})
+    identity = pack["slot"]["id"]
+    kind = "weekend_wrap" if pack["slot"]["edition"] == "weekly" else "daily_wrap"
+    try:
+        review = call(identity, kind, passages, evidence, output_dir=folder)
+    except OSError:
+        return manuscript  # The exact source-row validator still checks the copy.
+    repaired = {section: [] for section in manuscript["sections"]}
+    for (section, row), text in zip(slots, review["corrected"], strict=True):
+        if text:
+            repaired[section].append({**row, "text": text})
+    return {**manuscript, "sections": repaired}
+
+
 def article_for(pack, manuscript):
     sections = manuscript["sections"]
     choices = source_choices(pack)
