@@ -37,6 +37,14 @@ def main(argv=None):
                               since=args.since, until=args.until, plan_export_dir=args.plan_export_dir, **source)
         folder = args.output_dir or args.run_dir
         decisions = report["decision_checks"]
+        from live_contentops.image_quality_v1 import completed_day_sample
+
+        try:
+            decisions["image_templates"] = completed_day_sample(
+                args.feed.parent / "published_images_v1.jsonl", as_of=report["window"]["until_utc"],
+                run_vision=not args.stored_only and args.store.resolve() == PRODUCTION_STORE.resolve())
+        except (OSError, ValueError) as exc:
+            decisions["image_templates"] = {"state": "IMAGE_SAMPLE_READ_FAILED", "cause": type(exc).__name__}
         if args.decisions_only:
             paths = (write_decision_checks(folder, decisions),)
         else:

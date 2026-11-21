@@ -716,3 +716,35 @@ def test_daily_sample_resolves_the_exact_published_asset_once_and_reuses_it_for_
     assert quality.publication_sample(rows, "2026-11-12", run_vision=True)["weekly"] == daily["weekly"]
     assert seen == [image["sha256"]]
     assert Path(image["path"]).read_bytes() == original
+
+
+def test_evening_readback_samples_only_the_completed_production_day(tmp_path, monkeypatch):
+    from scripts import run_day_readback
+
+    image = quality.prepare_asset(input_record("call"), "W", tmp_path, capture(tmp_path),
+                                  sample_after_publication=True)
+    register = tmp_path / "published_images_v1.jsonl"
+    rows = [{"schema_version": "contentops.published_image.v1", "state": "PUBLISHED",
+             "day": day, "images": [{"sha256": image["sha256"], "image_quality": image["image_quality"]}]}
+            for day in ("2026-11-12", "2026-11-13")]
+    from live_contentops.published_images_v1 import SCHEMA
+    register.write_text("".join(json.dumps({**row, "schema_version": SCHEMA}) + "\n" for row in rows))
+    store = tmp_path / "fixture.sqlite3"
+    monkeypatch.setattr(run_day_readback, "PRODUCTION_STORE", store)
+    monkeypatch.setattr(run_day_readback, "build_report", lambda *args, **kwargs: {
+        "window": {"until_utc": "2026-11-13T08:00:00Z"}, "pieces": [], "exceptions": [],
+        "exception_count": 0, "decision_checks": {"failure_count": 0},
+    })
+    seen = []
+
+    def review(candidate, **options):
+        seen.append(candidate["sha256"])
+        return {**yes_review(candidate)["vision"], "status": "REVIEWED"}
+
+    monkeypatch.setattr(quality, "review_vision", review)
+    assert run_day_readback.main(["--run-dir", str(tmp_path), "--store", str(store),
+                                 "--feed", str(tmp_path / "published.jsonl"), "--decisions-only"]) == 0
+    report = json.loads((tmp_path / "decision_checks.json").read_bytes())["image_templates"]
+    assert report["day"] == "2026-11-12"
+    assert report["weekly"]["observed"] == report["weekly"]["selected"] == 1
+    assert report["images"][0]["score"] == 10 and seen == [image["sha256"]]

@@ -373,11 +373,33 @@ def publication_sample(records,day,*,rng=None,run_vision=False,vision_runner=Non
     selected = {at: [{**image, "image_quality": sampled_review(image, run_vision=run_vision and at == day,
                                                               vision_runner=vision_runner)}
                      for image in daily_sample(records, at, rng=rng)] for at in days}
-    reviewed = [image["image_quality"] for images in selected.values() for image in images
-                if (image["image_quality"].get("vision") or {}).get("status") not in SAMPLE_NOT_SCORED]
-    return {"day":day,"images":selected[day],
-            "weekly":{**weekly_sample(reviewed),
-                      "start_day":days[0],"end_day":day}}
+    # Fix the sample before looking at the scores. A missing review must not
+    # let a later pass replace an image that was selected for the weekly check.
+    unique = {image["sha256"]: image["image_quality"]
+              for images in selected.values() for image in images}
+    chosen = list(unique.values())[-20:]
+    reviewed = [review for review in chosen
+                if (review.get("vision") or {}).get("status") not in SAMPLE_NOT_SCORED]
+    return {"day": day, "images": selected[day],
+            "weekly": {**weekly_sample(reviewed), "selected": len(chosen),
+                       "start_day": days[0], "end_day": day}}
+
+
+def completed_day_sample(register, *, as_of, run_vision=False):
+    """Read the last completed production day for the existing evening report."""
+    from .published_images_v1 import PublishedImages, day_of
+
+    day = date.fromisoformat(day_of(as_of)) - timedelta(days=1)
+    report = publication_sample(PublishedImages(register).records(), day.isoformat(), run_vision=run_vision)
+    images = []
+    for image in report["images"]:
+        review = image["image_quality"]
+        vision = review.get("vision") or {}
+        status = vision.get("status") or "RETAINED_SCORE"
+        images.append({"image_sha256": image["sha256"], "template": review["template"], "status": status,
+                       "score": review["score"] if status not in SAMPLE_NOT_SCORED else None,
+                       "passed": review["passed"], "cause": review.get("sample_cause") or vision.get("cause")})
+    return {"day": report["day"], "images": images, "weekly": report["weekly"]}
 
 
 def template_acceptance(reviews,template,revision):
