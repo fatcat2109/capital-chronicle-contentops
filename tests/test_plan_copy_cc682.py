@@ -1,15 +1,23 @@
 """Replay the public 19 November gold plan through the minute publisher."""
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
+from hashlib import sha256
+import json
 import sys
+from types import SimpleNamespace
 
+from PIL import Image
 import pytest
 
 from live_contentops import plan_analysis_pages_v1 as pages
 from live_contentops import plan_call_cards_v1 as cards
 from live_contentops import plan_reader_copy_v1 as reader
+from live_contentops import plan_reader_editorial_v1 as editorial
 from live_contentops import plan_state_alerts_v1 as alerts
 from live_contentops import plan_status_posts_v1 as posts
+from live_contentops import publication_image_contract_v1 as images
 from live_contentops import secret_store_v1
+from live_contentops import tradingview_plan_overlay_v1 as overlay
+from live_contentops import tradingview_snapshot_v1 as tv
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_plan_call_cards_cc399 import rows, write
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
@@ -107,6 +115,26 @@ def test_phase_wording_preserves_the_close_rule_and_futures_stop(gold_export):
     assert legacy["invalidation"] == "Spot plan cancelled on close below 3,700 before entry; MGC plan wrong above 3,832.9 after entry"
 
 
+def test_new_plan_page_uses_the_condition_and_stored_pages_validate_with_their_original_copy(gold_export, tmp_path):
+    run = {"source_plan": gold_export, "documents": {"desktop-manual-result.json": {}},
+           "freeze": {"frozen_at_utc": "2026-11-19T09:40:54.826235Z", "immutable_hash": "controlled"}}
+    selection = {"macro": [0]}
+
+    def select_sources(*args, **kwargs):
+        return json.dumps(selection).encode(), {"status": "RETURNED"}
+
+    draft = editorial.draft_plan_page(gold_export, run, output_dir=tmp_path, call=select_sources)
+    payload, _, _ = pages._assemble(gold_export, draft, run)
+    assert draft["level_contract"] == reader.CURRENT_LEVEL_CONTRACT
+    assert GOLD_CANCEL in payload["body_markdown"] and "cancelled" not in payload["body_markdown"].lower()
+    assert payload["title"] == "Gold: bearish at 3,722–3,752"
+
+    stored = editorial._page_from_selection(gold_export, run, editorial._plan_page_sources(gold_export, run),
+                                            selection, level_contract=reader.LEVEL_CONTRACT)
+    assert "Spot plan cancelled on high" in stored["introduction"]
+    pages.validate_manuscript(gold_export, stored, run)
+
+
 def test_actual_cancellation_can_say_cancelled(replay_gold):
     _, fill, _ = replay_gold
     cancelled = alerts.compose({**fill, "state": "CANCELLED"})
@@ -118,3 +146,102 @@ def test_time_exit_uses_the_public_r_without_substituting_the_plan_target(replay
     _, _, result = replay_gold
     row = {**result, "score_basis": "BROKER_TIME_EXIT", "direction_correct": True}
     assert alerts.result_headline(row) == "Gold: closed at its time exit, on our side of the entry. Result: +1.6R."
+
+
+@pytest.fixture
+def gold_chart(tmp_path, monkeypatch):
+    """Controlled canvas and price-axis registration for the saved gold levels."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "snapshot-outcomes.jsonl")
+    path = tmp_path / "source-gold.png"
+    with Image.new("RGB", (800, 450), "white") as image:
+        image.putpixel((20, 20), (0, 0, 0))
+        image.save(path)
+    digest = sha256(path.read_bytes()).hexdigest()
+
+    def snapshot(market, interval, folder):
+        symbol = tv.SYMBOLS[market]
+        return {"path": str(path), "sha256": digest, "capture_ratio": "16:9",
+                "tv_symbol": symbol, "interval": interval, "interval_label": tv.INTERVAL_LABELS[interval],
+                "chart_url": tv.chart_url(symbol, interval),
+                "captured_at_utc": datetime.now(timezone.utc).isoformat(),
+                "chart_geometry": {"policy": overlay.POLICY, "source_sha256": digest,
+                                   "mode": "linear", "slope": -2, "intercept": 7800,
+                                   "pane_box": [12, 32, 734, 395]}}
+    return snapshot
+
+
+def test_publisher_draws_gold_plan_and_fill_levels_then_the_result(replay_gold, gold_chart, tmp_path):
+    for row in replay_gold:
+        asset, credited = posts._post_image(row, tmp_path / row["key"], snapshot=gold_chart, required_chart=True)
+        assert credited
+        overlay.validate(asset, row)
+        tv.validate_snapshot_asset(asset, {"market_asset": "XAUUSD"})
+        rendered = asset["plan_overlay"]
+        assert rendered["target_drawn"] is False
+        with Image.open(asset["path"]) as image:
+            assert image.getpixel((20, 20)) == (0, 0, 0)  # protected header pixels
+            if row["kind"] == "result":
+                assert rendered["source"]["result_text"] == GOLD_ENDING
+                assert GOLD_ENDING in asset["alt_text"]
+                assert "phase_terms" not in rendered["source"]
+                assert rendered["markers"] == []
+                assert image.getpixel((40, 99)) != (255, 255, 255)  # result banner
+            else:
+                assert rendered["source"]["phase_terms"] == GOLD_CANCEL
+                by_label = {m["label"]: m for m in rendered["markers"]}
+                assert by_label["Entry low"]["y"] == 356 and by_label["Entry high"]["y"] == 296
+                assert by_label["Cancel before entry"]["y"] == 216
+                assert image.getpixel((50, 330)) != (255, 255, 255)  # shaded entry band
+                assert image.getpixel((50, 216)) == (175, 40, 57)  # cancellation line
+
+
+def test_a_result_keeps_its_annotation_when_the_price_axis_is_unavailable(replay_gold, gold_chart, tmp_path):
+    _, _, result = replay_gold
+    snap = gold_chart("XAUUSD", "60", tmp_path)
+    del snap["chart_geometry"]
+    plain = tv.snapshot_asset("XAUUSD", "Gold", snap, tmp_path)
+    asset = overlay.apply(plain, result)
+    overlay.validate(asset, result)
+    assert asset["plan_overlay"]["source"]["result_text"] == GOLD_ENDING
+    assert asset["sha256"] != plain["sha256"]
+
+
+def test_mapped_futures_numbers_are_not_plotted_on_the_spot_axis(replay_gold, gold_chart, tmp_path):
+    setup, _, _ = replay_gold
+    raw = setup["source_plan"]
+    mapped = {**raw, "public_instrument": {**raw["public_instrument"], "zone_low": 3723.1,
+                                         "zone_high": 3753.1, "invalidation_level": 3832.9, "tick_size": 0.1}}
+    row = {**setup, "source_plan": mapped, "levels": cards.card_plan(mapped)}
+    snap = gold_chart("XAUUSD", "60", tmp_path)
+    snap["price_scale_check"] = images.not_compared("XAUUSD", snap, "controlled fixture")
+    plain = tv.snapshot_asset("XAUUSD", "Gold", snap, tmp_path)
+    asset = overlay.apply(plain, row)
+    overlay.validate(asset, row)
+    source = asset["plan_overlay"]["source"]
+    assert source["phase_terms"] == GOLD_CANCEL + ". Wrong above 3,832.9 after entry on MGC"
+    assert {m["price"] for m in asset["plan_overlay"]["markers"]} == {3722, 3752, 3792}
+    store = SimpleNamespace(get_outbox_message=lambda key: {"destination": posts.DESTINATION, "payload": json.dumps(row)})
+    coordinator = SimpleNamespace(store=store, _clock=lambda: posts._utc("2026-11-21T00:00:00Z"))
+    intent = {"plan_status_post": row["key"], "media_assets": [asset]}
+    assert images.validate_write(coordinator, intent, "telegram")["markets"] == ["XAUUSD"]
+    source["levels"]["zone_low"] = 3723.1
+    with pytest.raises(ValueError, match="SOURCE_OR_SCALE_CHANGED"):
+        overlay.validate(asset, row)
+
+
+def test_wti_chart_quote_does_not_map_plan_levels_to_futures(gold_chart, tmp_path):
+    raw = {"asset_id": "USOIL", "direction": "BEARISH", "plan_id": "controlled-wti",
+           "zone": {"minimum": 79, "maximum": 80}, "expires_at_utc": "2026-11-21T13:15:00Z",
+           "invalidation_conditions": [{"field": "close", "operator": "GTE", "threshold": 81}]}
+    snap = gold_chart("USOIL", "60", tmp_path)
+    snap["page_title"] = "CL1! 80"
+    comparison_at, _ = images.comparison_clock("USOIL", images.utc(snap["captured_at_utc"]))
+    snap = images.bind_scale("USOIL", snap, quote={"market": "USOIL", "instrument": "USOIL", "price": 80,
+        "quoted_at_utc": comparison_at.isoformat(), "known_at_utc": snap["captured_at_utc"],
+        "source_path": "controlled-wti.json", "source_sha256": "a" * 64, "price_basis": "chart_futures"})
+    row = {"key": "controlled-wti", "kind": "setup", "symbol": "USOIL",
+           "source_plan": raw, "levels": cards.card_plan(raw), "level_contract": reader.CURRENT_LEVEL_CONTRACT}
+    asset = overlay.apply(tv.snapshot_asset("USOIL", "WTI", snap, tmp_path), row)
+    overlay.validate(asset, row)
+    assert asset["plan_overlay"]["markers"] == []
+    assert asset["plan_overlay"]["source"]["phase_terms"] == "Cancel if price closes at or above 81 before entry"

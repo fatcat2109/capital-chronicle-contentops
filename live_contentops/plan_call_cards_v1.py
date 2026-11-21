@@ -395,7 +395,7 @@ def no_entry_words(plan):
     return "the entry window ended with no entry"
 
 
-def ending_words(row):
+def ending_words(row, *, include_levels=False):
     source = row.get("outcome_source_plan") or row.get("source_plan") or row
     outcome = source.get("outcome") or {}
     not_executed = (row.get("not_executed") is True or outcome.get("not_executed") is True
@@ -410,8 +410,19 @@ def ending_words(row):
     if row.get("result") == "HIT":
         if "TIME_EXIT" in str(row.get("score_basis") or ""):
             return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
+        if include_levels and row.get("scored"):
+            levels = row["levels"]
+            targets = tuple(dict.fromkeys(levels.get("target") or []))
+            # A single plan target is a level reached, not an execution price.
+            if len(targets) == 1:
+                return f"hit its {level(targets[0], levels)} target"
         return "hit its target"
     if row.get("result") == "STOPPED":
+        if include_levels and row.get("scored"):
+            levels = row["levels"]
+            # The mapped stop applies after entry. The plan's cancel level does not.
+            if levels.get("price_basis") == "instrument":
+                return f"stopped at its {level(levels['invalidation_level'], levels)} invalidation level"
         return "stopped at its invalidation level"
     if row.get("result") == "EXPIRED":
         side = row.get("direction_correct")

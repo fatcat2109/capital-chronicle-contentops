@@ -19,18 +19,7 @@ def result_headline(row):
     """Read the scored ending and its public level on the original call's basis."""
     from . import plan_call_cards_v1 as cards
 
-    ending = cards.ending_words(row)
-    levels = row["levels"]
-    if row.get("scored") and ending == "hit its target":
-        # A scored target hit identifies a single published plan level.
-        # A range, a time exit, or a missing level gives no public exit price.
-        targets = levels.get("target") or []
-        if len(targets) == 1:
-            ending = f"hit its {cards.level(targets[0], levels)} target"
-    elif row.get("scored") and ending == "stopped at its invalidation level" and levels.get("price_basis") == "instrument":
-        # The mapped stop is after entry. The spot cancel trigger is separate.
-        ending = f"stopped at its {cards.level(levels['invalidation_level'], levels)} invalidation level"
-    lead = f"{row['instrument_title']}: {ending}."
+    lead = f"{row['instrument_title']}: {cards.ending_words(row, include_levels=True)}."
     value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {})
     return lead if value is None else f"{lead} Result: {value:+.1f}R."
 

@@ -336,7 +336,7 @@ def _plan_page_sources(plan, run):
     return sections
 
 
-def _page_from_selection(plan, run, sources, selection):
+def _page_from_selection(plan, run, sources, selection, *, level_contract=reader.CURRENT_LEVEL_CONTRACT):
     from .plan_status_posts_v1 import TITLES
 
     if not isinstance(selection, dict) or set(selection) != {section for section, entries in sources.items() if entries}:
@@ -359,9 +359,9 @@ def _page_from_selection(plan, run, sources, selection):
     bindings = {"reader_contract": reader.CONTRACT, "reader_revision": 5, "analysis_copy_contract": reader.ANALYSIS_COPY,
                 "plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"], "draft_selection": selection}
     if plan.get("zone") and plan.get("invalidation_conditions"):
-        terms = reader.page_thread_terms(plan, run, level_contract=reader.CURRENT_LEVEL_CONTRACT)
+        terms = reader.page_thread_terms(plan, run, level_contract=level_contract)
         title, introduction = terms["title"], terms["call_line"]
-        bindings.update(level_contract=reader.CURRENT_LEVEL_CONTRACT, thread_contract=reader.THREAD_CONTRACT)
+        bindings.update(level_contract=level_contract, thread_contract=reader.THREAD_CONTRACT)
         for key, text in (("plan", introduction), ("invalidation", terms["invalidation"] + ".")):
             paragraph = {"text": text, "refs": terms["refs"], "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
                          "source_name": "Capital Chronicle"}
@@ -383,7 +383,9 @@ def _page_from_selection(plan, run, sources, selection):
 
 
 def validate_plan_page_quotes(manuscript, plan, run):
-    expected = _page_from_selection(plan, run, _plan_page_sources(plan, run), manuscript.get("draft_selection"))
+    stored_contract = manuscript.get("level_contract", reader.LEVEL_CONTRACT)
+    expected = _page_from_selection(plan, run, _plan_page_sources(plan, run), manuscript.get("draft_selection"),
+                                    level_contract=stored_contract)
     if any(manuscript.get(key) != value for key, value in expected.items()):
         raise ValueError("CC688_PAGE_COPY_CHANGED_FROM_FROZEN_PLAN")
 
