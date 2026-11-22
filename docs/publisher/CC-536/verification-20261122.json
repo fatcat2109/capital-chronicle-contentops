@@ -1,0 +1,48 @@
+{
+  "item": "CC-536",
+  "checked_at_utc": "2026-11-22T02:43:57Z",
+  "branch": "backlog/cc-536-piece-5-entry-type",
+  "branch_head_before_evidence": "62dad7eb06d7810d5a60f91a80238ddc89605562",
+  "targeted_tests": {
+    "command": "python -m pytest -q tests/test_measured_odds_series_cc536.py tests/test_reopened_article_routes_cc454.py --junitxml=docs/publisher/CC-536/verification-20261122.xml",
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "junit": "docs/publisher/CC-536/verification-20261122.xml",
+    "junit_sha256": "0E5196B5CC3D2A34DBC8A890DEE19011DAF103AB901F8BC90B2B9799AD7D1BB5"
+  },
+  "live_evidence": {
+    "piece_1": {
+      "artifact": "docs/publisher/CC-536/piece-1-closeout.json",
+      "substack": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+      "x": "https://x.com/Capitalnicle/status/2121503636216049751",
+      "native_chart_observed": true
+    },
+    "piece_2": {
+      "artifact": "docs/publisher/CC-536/piece-2/resume-20261116.json",
+      "substack": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+      "x": "https://x.com/Capitalnicle/status/2122235588179079329",
+      "native_chart_observed": true,
+      "strictly_confirmed_surface_count": 8
+    },
+    "piece_5": {
+      "artifact": "docs/publisher/CC-536/piece-5/resume-20261121.json",
+      "substack": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+      "x": "https://x.com/Capitalnicle/status/2123993125190562072",
+      "chart_sha256": "026b3b73b3cea81e39810e58a9d9acdaaa3dbd112a2ad3dbfcb13383108969a8"
+    }
+  },
+  "acceptance": {
+    "source_bound_numbers": "PASS",
+    "piece_1_and_piece_2_public_readbacks": "PASS",
+    "daily_board_link_to_piece_1": "NOT_MET",
+    "next_plan_live_link_to_piece_1": "NOT_VERIFIED"
+  },
+  "blocker": {
+    "code": "CC528_PUBLIC_BOARD_MISSING_MEAN_LEVELS_AND_SAMPLE_PERIODS",
+    "owner": "Codex Main / CC-528",
+    "evidence": "docs/publisher/CC-537/live-result.json",
+    "detail": "CC-537 has no published daily board and reports 0 of 3 required public days because the held board lacks mean_close_20, mean_close_50 and exact sample periods."
+  },
+  "status": "BLOCKED"
+}
