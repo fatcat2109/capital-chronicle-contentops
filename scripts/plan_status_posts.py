@@ -157,6 +157,18 @@ def main(argv=None) -> int:
         # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
         if args.publish and not args.dry_run:
+            # CC-748: Jim's posting desk (packs, the local page, the private bot's
+            # pushes and /packs answers). Reads the store read-only, no model and no
+            # browser, so it runs before the slow slices that can outlive this task's
+            # five-minute lifetime. A desk failure is recorded, never raised.
+            try:
+                from live_contentops.manual_desk_v1 import minute_hook as desk_hook
+                result["manual_desk"] = desk_hook(args.store, desk_root=args.store.parent / "manual_desk",
+                    binding_path=args.store.parent / "control/x_reply_bot_binding.json")
+            except Exception as exc:
+                result["manual_desk"] = {"status": "DESK_FAILED", "cause": type(exc).__name__,
+                                         "public_submit_actions": 0}
+        if args.publish and not args.dry_run:
             # CC-467's source-to-post deadline is five minutes. Its single
             # bounded slice precedes slower reply/page work in this same task.
             from live_contentops.heavy_news_quotes_v1 import refresh_due as quotes_due
