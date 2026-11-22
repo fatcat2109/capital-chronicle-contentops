@@ -1,0 +1,297 @@
+{
+  "schema_version": "contentops.cc681.evening_chart_readback_evidence.v1",
+  "generated_at_utc": "2026-11-22T01:28:14.594809+00:00",
+  "work_item_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+  "window": {
+    "since_utc": "2026-11-20T02:00:00+00:00",
+    "until_utc": "2026-11-20T04:30:00+00:00"
+  },
+  "live_consumer": "live_contentops.public_decision_checks_v1.DecisionChecks._chart",
+  "operating_root_commit": "cc58538897a18f11469e1400055bdfa1b9032cfe",
+  "dispatches": [
+    {
+      "platform": "discord",
+      "dispatch_id": "dispatch_8bc34eeade0a015bb003078a36456c2e",
+      "dispatched_at_utc": "2026-11-20T02:08:19.633451+00:00",
+      "public_object_id": "1573158025609355417",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1572910313811083264/1573158025609355417",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "telegram",
+      "dispatch_id": "dispatch_ec10fd3190747d4fe92c2ca17c5c9c1e",
+      "dispatched_at_utc": "2026-11-20T02:08:25.901407+00:00",
+      "public_object_id": "212",
+      "public_object_url": "https://t.me/CapitalChronicle/212",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "threads",
+      "dispatch_id": "dispatch_4826881bb610653bd82618b9c68f2c4f",
+      "dispatched_at_utc": "2026-11-20T02:08:47.806734+00:00",
+      "public_object_id": "18121556590995869",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df8jEpOk1m8",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "facebook_page",
+      "dispatch_id": "dispatch_ee832931cd4620ff15d9198f5704803f",
+      "dispatched_at_utc": "2026-11-20T02:08:47.829855+00:00",
+      "public_object_id": "1459855219666227_3419178481618589",
+      "public_object_url": null,
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "instagram_business",
+      "dispatch_id": "dispatch_966ec468342039b4cbfb5372822ccb5e",
+      "dispatched_at_utc": "2026-11-20T02:08:48.056757+00:00",
+      "public_object_id": "17995050339026608",
+      "public_object_url": "https://www.instagram.com/p/Df8jE0ski5U/",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-29369d5a7b554458034c"
+      ],
+      "bound_asset_sha256": [
+        "58ee39747881101a9eb8f6dad3ab5fa981430c9499b7f334687dfb027aa343b9"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "linkedin",
+      "dispatch_id": "dispatch_fbaf4e1b197b5d92eaf47180b4dc0848",
+      "dispatched_at_utc": "2026-11-20T02:08:50.385678+00:00",
+      "public_object_id": "urn:li:share:7529365112219082753",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7529365112219082753/",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "substack_notes",
+      "dispatch_id": "dispatch_3589966e093f0118af75dd77be5b5024",
+      "dispatched_at_utc": "2026-11-20T02:08:56.069860+00:00",
+      "public_object_id": "c-392091570",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-392091570",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    },
+    {
+      "platform": "x",
+      "dispatch_id": "dispatch_29657efbbf45e59f9ec0b0e4a26debed",
+      "dispatched_at_utc": "2026-11-20T04:14:51.240997+00:00",
+      "public_object_id": "2123631201286308023",
+      "public_object_url": "https://x.com/Capitalnicle/status/2123631201286308023",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "bound_asset_ids": [
+        "tradingview-plan-7db270f546ac4ce907d7"
+      ],
+      "bound_asset_sha256": [
+        "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c"
+      ],
+      "stored_readback_evidence": "not re-read in this bounded file; prior store rows confirmed identity/media visibility without CC-681 image bytes"
+    }
+  ],
+  "posted_chart_readbacks": [
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "discord",
+      "public_url": "https://discord.com/channels/1519310996030750782/1572910313811083264/1573158025609355417",
+      "public_object_id": "1573158025609355417",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "telegram",
+      "public_url": "https://t.me/CapitalChronicle/212",
+      "public_object_id": "212",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "threads",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/Df8jEpOk1m8",
+      "public_object_id": "18121556590995869",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "facebook_page",
+      "public_url": null,
+      "public_object_id": "1459855219666227_3419178481618589",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "instagram_business",
+      "public_url": "https://www.instagram.com/p/Df8jE0ski5U/",
+      "public_object_id": "17995050339026608",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-29369d5a7b554458034c",
+          "expected_sha256": "58ee39747881101a9eb8f6dad3ab5fa981430c9499b7f334687dfb027aa343b9",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "linkedin",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:share:7529365112219082753/",
+      "public_object_id": "urn:li:share:7529365112219082753",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "substack_notes",
+      "public_url": "https://substack.com/@capitalchronicle/note/c-392091570",
+      "public_object_id": "c-392091570",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    },
+    {
+      "piece_id": "plan-result-post-580a244ff31eb610ac567a5f53621814",
+      "platform": "x",
+      "public_url": "https://x.com/Capitalnicle/status/2123631201286308023",
+      "public_object_id": "2123631201286308023",
+      "status": "UNVERIFIED",
+      "first_cause": "POSTED_CHART_READBACK_UNAVAILABLE",
+      "market": "XAUUSD",
+      "expected_symbol": "FX_IDC:XAUUSD",
+      "observed_at_utc": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-7db270f546ac4ce907d7",
+          "expected_sha256": "9a52da14e5dbbdf8d14a72c576afc40663d4039a57d22ee5bca39522343df79c",
+          "tradingview_symbol": "FX_IDC:XAUUSD",
+          "status": "UNVERIFIED",
+          "observed_sha256": []
+        }
+      ]
+    }
+  ],
+  "chart_correction_replies": [],
+  "limitation": "The retained pre-CC-681 readbacks expose identity and meaningful-media visibility but no observed image URL or pixel/hash comparison. Every reached destination is therefore UNVERIFIED with POSTED_CHART_READBACK_UNAVAILABLE. No correcting reply is prepared without a confirmed mismatch or missing chart."
+}
