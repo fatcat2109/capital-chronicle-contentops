@@ -178,6 +178,19 @@ def write_plan_status(path, *, generated=PLAN_CAPTURE, plan_changes=None, other_
     return {"path": str(path), "source_type": "public_plan_status"}
 
 
+def test_plan_status_projects_layers_main_marks_used(tmp_path):
+    # Ops Product, 23 Nov 2026: Main's export writes USED for a layer the analyst used; the feed dropped every one.
+    path = tmp_path / "plan-status.public.json"
+    pointer = write_plan_status(path, plan_changes={"layers": [
+        {"layer": "macro", "state": "USED", "text": "Higher real yields weigh on silver."},
+        {"layer": "technical", "state": "UNAVAILABLE", "text": "Unreviewed value 592.555"}]})
+    records, invalid = read_plan_status(pointer, cutoff_utc=PLAN_CUTOFF)
+    record, = records
+    fields = {f["field_path"]: f for f in record["binding"]["fields"]}
+    assert fields["/layers/0/text"]["value"] == "Higher real yields weigh on silver."
+    assert "592.555" not in json.dumps(record)
+
+
 def test_plan_status_projects_exact_public_fields_and_uses_main_article_validation(tmp_path):
     path = tmp_path / "plan-status.public.json"
     pointer = write_plan_status(path, other_rows=[{"plan_id": "bad_row"}])

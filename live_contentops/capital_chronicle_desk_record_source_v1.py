@@ -253,7 +253,8 @@ def _plan_fields(plan, clock_key):
         fields["layers"] = {
             str(i): {"layer": field(layer["layer"]), "text": field(layer["text"], estimate=True)}
             for i, layer in enumerate(layers)
-            if isinstance(layer, dict) and layer.get("state") == "AVAILABLE"
+            # Main's export marks a layer the analyst used as USED (AVAILABLE in the first contract).
+            if isinstance(layer, dict) and layer.get("state") in {"AVAILABLE", "USED"}
             and isinstance(layer.get("layer"), str) and layer["layer"] in _PLAN_LAYERS
             and public_text(layer.get("text"))
         }
