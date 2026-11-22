@@ -381,37 +381,49 @@ def _piece_heading(group, expected, end):
 
 
 def _sweep_rows(conn, window):
-    # Compute the recent event sets once. Match them to public intents before
-    # loading payloads, which can be large on the shared outbox table.
-    return [dict(row) for row in conn.execute("""
-        WITH recent_reads AS MATERIALIZED (
-            SELECT DISTINCT dispatch_id FROM readbacks
-            WHERE julianday(read_at) > julianday(:since_utc)
-              AND julianday(read_at) <= julianday(:until_utc)
-        ), recent_reconciliations AS MATERIALIZED (
-            SELECT DISTINCT work_item_id FROM reconciliations
-            WHERE julianday(reconciled_at) > julianday(:since_utc)
-              AND julianday(reconciled_at) <= julianday(:until_utc)
-        ), dispatches AS MATERIALIZED (
-            SELECT message_id,dispatch_id,status,dispatched_at,public_object_id,public_object_url
-            FROM platform_dispatches
-            WHERE julianday(dispatched_at) <= julianday(:until_utc)
-        ), selected AS MATERIALIZED (
-            SELECT m.message_id,d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url
-            FROM outbox_messages m
-            LEFT JOIN dispatches d ON d.message_id=m.message_id
-            LEFT JOIN recent_reads r ON r.dispatch_id=d.dispatch_id
-            LEFT JOIN recent_reconciliations q ON q.work_item_id=m.work_item_id
-            WHERE m.destination IN (SELECT value FROM json_each(:routes))
-              AND julianday(m.created_at) <= julianday(:until_utc)
-              AND (julianday(m.created_at) > julianday(:since_utc)
-                OR julianday(d.dispatched_at) > julianday(:since_utc)
-                OR r.dispatch_id IS NOT NULL OR q.work_item_id IS NOT NULL)
-        )
-        SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,
-            d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url
-        FROM selected d JOIN outbox_messages m ON m.message_id=d.message_id
-        """, {**window, "routes": json.dumps(ROUTES)})]
+    start, end = utc(window["since_utc"]), utc(window["until_utc"])
+    work_ids = set()
+    recent_dispatch_ids = set()
+    reconciled_work = set()
+    marks = ",".join("?" for _ in ROUTES)
+    # The destination/created-at index narrows the large outbox table. The
+    # Python clock check retains correct handling for rows with UTC offsets.
+    for row in conn.execute(
+        f"SELECT work_item_id,created_at FROM outbox_messages "
+        f"WHERE destination IN ({marks}) AND created_at >= ? AND created_at <= ?",
+        (*ROUTES, start.date().isoformat(), end.date().isoformat() + "T23:59:59+00:00")):
+        if start < utc(row["created_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+    for row in conn.execute("SELECT o.work_item_id,d.dispatch_id,d.dispatched_at FROM platform_dispatches d "
+                           "JOIN outbox_messages o ON o.message_id=d.message_id"):
+        if row["dispatched_at"] and start < utc(row["dispatched_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+            recent_dispatch_ids.add(row["dispatch_id"])
+    for row in conn.execute("SELECT o.work_item_id,r.dispatch_id,r.read_at FROM readbacks r "
+                           "JOIN platform_dispatches d ON d.dispatch_id=r.dispatch_id "
+                           "JOIN outbox_messages o ON o.message_id=d.message_id"):
+        if start < utc(row["read_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+            recent_dispatch_ids.add(row["dispatch_id"])
+    for row in conn.execute("SELECT work_item_id,reconciled_at FROM reconciliations"):
+        if start < utc(row["reconciled_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+            reconciled_work.add(row["work_item_id"])
+    base = ("SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,"
+            "d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url "
+            "FROM outbox_messages m LEFT JOIN platform_dispatches d ON m.message_id=d.message_id ")
+    rows = []
+    for work_id in sorted(work_ids):
+        for row in conn.execute(base + f"WHERE m.work_item_id=? AND m.destination IN ({marks})", (work_id, *ROUTES)):
+            created_in_window = start < utc(row["created_at"]) <= end
+            dispatched_in_window = bool(row["dispatched_at"] and start < utc(row["dispatched_at"]) <= end)
+            if created_in_window or dispatched_in_window or row["dispatch_id"] in recent_dispatch_ids or work_id in reconciled_work:
+                value = dict(row)
+                if value["dispatched_at"] and utc(value["dispatched_at"]) > end:
+                    value.update(dispatch_id=None, status=None, dispatched_at=None,
+                                 public_object_id=None, public_object_url=None)
+                rows.append(value)
+    return rows
 
 
 def _public_rows(conn, window, feed):
