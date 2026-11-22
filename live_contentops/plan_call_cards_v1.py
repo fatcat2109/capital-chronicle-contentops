@@ -48,6 +48,12 @@ GLOSSARY = {
 }
 
 
+# Jim, 23 Nov 2026 about 05:30 GMT+7 ("Keep targets off"): decision 40 keeps profit targets off public copy.
+# Rows queued from this time carry the policy; earlier rows keep their exact bytes for validate().
+NO_TARGET_POLICY = "DECISION_40_NO_TARGET"
+NO_TARGET_EFFECTIVE = datetime(2026, 11, 22, 22, 30, tzinfo=timezone.utc)
+
+
 def _hash(value):
     return posts._sha(value)
 
@@ -294,7 +300,7 @@ def compose(row):
             lead = "Delayed update to the plan registered " + _clock(registered) + ":\n" + lead
         extra = []
         target = plan.get("target")
-        if target:
+        if target and row.get("target_policy") != NO_TARGET_POLICY:
             extra.append("Model target level: " + "–".join(dict.fromkeys(level(v, plan) for v in target)) + ".")
         if row.get("entry_deadline_utc"):
             extra.append("Entry window to " + _clock(row["entry_deadline_utc"]) + ".")
@@ -321,7 +327,7 @@ def compose(row):
     if kind != "setup":
         extra.extend(["Entry zone: " + level(plan["zone_low"], plan) + "–" + level(plan["zone_high"], plan) + ".",
                       "Invalidation: " + level(plan["invalidation_level"], plan) + "."])
-        if plan.get("target"):
+        if plan.get("target") and row.get("target_policy") != NO_TARGET_POLICY:
             extra.append("Model target level: " + "–".join(dict.fromkeys(level(v, plan) for v in plan["target"])) + ".")
         if row.get("entry_deadline_utc"):
             extra.append("Entry window to " + _clock(row["entry_deadline_utc"]) + ".")
@@ -600,6 +606,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 "source_contract_version": version,
                 "source_plan_hash": raw.get("registration_hash"), "reasons": [],
                 "discord_delivery": discord_delivery, "analysis_distribution_version": 1}
+        if now >= NO_TARGET_EFFECTIVE:
+            # Jim, 23 Nov 2026 about 05:30 GMT+7: "Keep targets off." Decision 40 stands for every new row.
+            item["target_policy"] = NO_TARGET_POLICY
         if kind != "setup" and row["plan_id"] in cards and discord_delivery == "channel":
             item["discord_delivery"] = cards[row["plan_id"]].get("discord_delivery", "bot_thread")
         if kind == "setup" and (now - posts._utc(row["at_utc"])).total_seconds() > window_minutes * 60:

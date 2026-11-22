@@ -91,7 +91,7 @@ def compose(row):
             lines.append(f"Result: {value:+.1f}R.")
     if row.get("price_basis") == "plan" and not thread:
         lines.append("Levels use the plan's prices.")
-    if plan.get("target"):
+    if plan.get("target") and row.get("target_policy") != cards.NO_TARGET_POLICY:
         lines.append("Target level: " + "–".join(dict.fromkeys(cards.level(v, plan) for v in plan["target"])) + ".")
     until = row.get("entry_deadline_utc") or plan.get("valid_until_utc")
     if until and not thread:
