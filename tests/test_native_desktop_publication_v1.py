@@ -336,12 +336,14 @@ def observed(packet):
         "substack": "controlled-article",
         "x": "123456789",
         "youtube": "UgControlled",
+        "linkedin": "urn:li:activity:123456788",
         "linkedin_company": "urn:li:share:123456789",
     }[d]
     url = {
         "substack": CANONICAL,
         "x": "https://x.com/Capitalnicle/status/123456789",
         "youtube": "https://www.youtube.com/post/UgControlled",
+        "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:123456788/",
         "linkedin_company": "https://www.linkedin.com/feed/update/urn:li:share:123456789/",
     }[d]
     return {
@@ -362,6 +364,8 @@ def observed(packet):
             "content_verified": True,
             "observed_text": "\n\n".join(b["expected_text_segments"]),
             "observed_media_sha256": [a["sha256"] for a in b["media_manifest"]],
+            **({"links": [{"url": r["canonical_url"]}]}
+               if d in {"linkedin", "linkedin_company"} and r.get("canonical_url") else {}),
             "observed_thread": [
                 {
                     "public_object_id": str(123456789 + i),

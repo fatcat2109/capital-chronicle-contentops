@@ -377,6 +377,24 @@ class NeoDestinationHandoff:
         self.native_executor = native_executor
         self.store = store
 
+    def _linkedin_media_roots(self, intent):
+        root = Path(intent["output_dir"]).resolve()
+        roots = [root]
+        # Native handoff plans point to a sealed revision directory. The same
+        # article's reviewed chart stays under the registered editorial root.
+        store = self.store or getattr(self.native_executor, "store", None)
+        if store is not None and (root.name == "reviewed-handoff" or root.parent.name == "reviewed-handoff"):
+            from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+            from .native_manual_candidate_v1 import manual_output_root
+            run_id = intent["work_item_id"]
+            row = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+            binding = json.loads(row["payload"]) if row else {}
+            if binding.get("run_id") == run_id and binding.get("output_dir"):
+                item = manual_output_root(store, binding).resolve()
+                if item / "reviewed-handoff" in (root, root.parent):
+                    roots.append(item)
+        return tuple(base / folder for base in roots for folder in ("media", "media_assets"))
+
     def _readback_identity(self, destination, intent, public_object_url):
         """Keep an issued Note's author; a new account's empty feed proves no absence."""
         if destination != "substack_notes":
@@ -505,8 +523,7 @@ class NeoDestinationHandoff:
                     or (intent.get("plan_status_post") and a.get("modality") == "plan_fact_card"
                         and a.get("plan_chart_fallback")) for a in media):
                 raise ValueError("CC684_LINKEDIN_TRADINGVIEW_CHART_REQUIRED")
-            root = Path(intent["output_dir"]).resolve()
-            media_dirs = (root / "media", root / "media_assets")
+            media_dirs = self._linkedin_media_roots(intent)
             if not all(a.get("path") and any(Path(a["path"]).resolve().is_relative_to(folder)
                        for folder in media_dirs) for a in media):
                 raise ValueError("CC684_LINKEDIN_CHART_OUTSIDE_ITEM_MEDIA_FOLDER")
