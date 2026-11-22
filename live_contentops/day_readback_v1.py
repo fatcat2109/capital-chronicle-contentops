@@ -391,18 +391,18 @@ def _public_rows(conn, window, feed):
     work_ids = {row[0] for row in conn.execute(f"""
         SELECT work_item_id FROM outbox_messages
         WHERE destination IN ({marks}, 'internal:native-neo-tool')
-          AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
+          AND created_at > ? AND created_at <= ?
         UNION
         SELECT o.work_item_id FROM platform_dispatches d
         JOIN outbox_messages o ON o.message_id=d.message_id
-        WHERE julianday(d.dispatched_at) > julianday(?) AND julianday(d.dispatched_at) <= julianday(?)
+        WHERE d.dispatched_at > ? AND d.dispatched_at <= ?
         UNION
         SELECT o.work_item_id FROM readbacks r JOIN platform_dispatches d ON d.dispatch_id=r.dispatch_id
         JOIN outbox_messages o ON o.message_id=d.message_id
-        WHERE julianday(r.read_at) > julianday(?) AND julianday(r.read_at) <= julianday(?)
+        WHERE r.read_at > ? AND r.read_at <= ?
         UNION
         SELECT work_item_id FROM reconciliations
-        WHERE julianday(reconciled_at) > julianday(?) AND julianday(reconciled_at) <= julianday(?)
+        WHERE reconciled_at > ? AND reconciled_at <= ?
         """, (*ROUTES, *span, *span, *span, *span))}
     urls = [o["url"] for f in feed for o in f["outlets"] if o["name"] == "substack"]
     for url in urls:
