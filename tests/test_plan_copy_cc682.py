@@ -226,7 +226,9 @@ def test_mapped_futures_numbers_are_not_plotted_on_the_spot_axis(replay_gold, go
     assert {m["price"] for m in asset["plan_overlay"]["markers"]} == {3722, 3752, 3792}
     store = SimpleNamespace(get_outbox_message=lambda key: {"destination": posts.DESTINATION, "payload": json.dumps(row)})
     coordinator = SimpleNamespace(store=store, _clock=lambda: posts._utc("2026-11-21T00:00:00Z"))
-    intent = {"plan_status_post": row["key"], "media_assets": [asset]}
+    # A live plan-post intent names its post folder; validate_write reads the post's media from its run context.
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media": {"assets": [asset]}}), encoding="utf-8")
+    intent = {"plan_status_post": row["key"], "output_dir": str(tmp_path), "media_assets": [asset]}
     assert images.validate_write(coordinator, intent, "telegram")["markets"] == ["XAUUSD"]
     source["levels"]["zone_low"] = 3723.1
     with pytest.raises(ValueError, match="SOURCE_OR_SCALE_CHANGED"):

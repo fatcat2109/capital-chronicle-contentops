@@ -1200,6 +1200,9 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         from .plan_state_alerts_v1 import analysis_lines, nine_layer_parts
 
         layers = analysis_lines(row)
+        if row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
+            # CC-682: the result leads the body (plan_state_alerts_v1.compose), so it opens the first object too.
+            layers = [row["text"].splitlines()[0], *layers]
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
         if destination in LINKEDIN_DESTINATIONS and linkedin_analysis_url and not row.get("analysis_link"):
@@ -1223,21 +1226,23 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
                 # CC-682's condition and its two clocks are source-bound
                 # sentences. Keep each line whole before the shared notices
                 # and chart-credit suffix are added to the first reply.
+                # CC-729: a package prepared after it carries the notices once, on its first part.
                 room = limits[destination] - len(notices) - 2
                 parts, current = [], []
                 for line in body.splitlines():
                     if current and len("\n".join([*current, line])) > room:
-                        parts.append("\n".join(current) + "\n\n" + notices)
+                        parts.append("\n".join(current) + ("\n\n" + notices if repeat_threads_notices or not parts else ""))
                         current = []
                     if len(line) > room:
                         if current:
-                            parts.append("\n".join(current) + "\n\n" + notices)
+                            parts.append("\n".join(current) + ("\n\n" + notices if repeat_threads_notices or not parts else ""))
                             current = []
-                        parts.extend(posts._text_parts(line, notices, limits[destination]))
+                        parts.extend(posts._text_parts(line, notices if repeat_threads_notices or not parts else "",
+                                                        limits[destination], repeat_notices=repeat_threads_notices))
                     else:
                         current.append(line)
                 if current:
-                    parts.append("\n".join(current) + "\n\n" + notices)
+                    parts.append("\n".join(current) + ("\n\n" + notices if repeat_threads_notices or not parts else ""))
             else:
                 parts = posts._text_parts(body, NOTICES, limits[destination], lines=True,
                                           repeat_notices=repeat_threads_notices)
