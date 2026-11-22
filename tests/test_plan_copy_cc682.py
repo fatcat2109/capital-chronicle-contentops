@@ -96,6 +96,8 @@ def test_gold_plan_fill_and_result_render_for_each_destination(replay_gold):
         for destination, copy in copies.items():
             assert "cancelled" not in copy["full_text"].lower(), destination
             assert GOLD_CANCEL in copy["full_text"], destination
+            if row["kind"] in {"setup", "update"}:
+                assert "Filled positions close by" in copy["full_text"], destination
             if row["kind"] == "result":
                 assert copy["text"].startswith(GOLD_ENDING), destination
                 assert "Macro: Fed path via real yields." in copy["full_text"]

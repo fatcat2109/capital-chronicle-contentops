@@ -16,7 +16,7 @@ from typing import Mapping
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
-from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, THREAD_CONTRACT
+from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, PHASE_LEVEL_CONTRACTS, THREAD_CONTRACT
 from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
@@ -1157,6 +1157,25 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             if row.get("analysis_copy_contract"):
                 from .plan_state_alerts_v1 import analysis_thread_parts
                 parts = analysis_thread_parts(row, body, notices, destination=destination, limit=limits[destination])
+            elif row.get("thread_contract") == THREAD_CONTRACT and row.get("level_contract") in PHASE_LEVEL_CONTRACTS:
+                # CC-682's condition and its two clocks are source-bound
+                # sentences. Keep each line whole before the shared notices
+                # and chart-credit suffix are added to the first reply.
+                room = limits[destination] - len(notices) - 2
+                parts, current = [], []
+                for line in body.splitlines():
+                    if current and len("\n".join([*current, line])) > room:
+                        parts.append("\n".join(current) + "\n\n" + notices)
+                        current = []
+                    if len(line) > room:
+                        if current:
+                            parts.append("\n".join(current) + "\n\n" + notices)
+                            current = []
+                        parts.extend(posts._text_parts(line, notices, limits[destination]))
+                    else:
+                        current.append(line)
+                if current:
+                    parts.append("\n".join(current) + "\n\n" + notices)
             else:
                 parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
             payload = {"destination": destination, "text": parts[0], "root_text": parts[0],
