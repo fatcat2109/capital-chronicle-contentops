@@ -131,7 +131,23 @@ def process_updates(store, *, binding_path=BINDING, bot=None, now=None):
         raise BotError("TELEGRAM_WEBHOOK_ALREADY_SET")
     updates = bot.call("getUpdates", {"offset": binding.get("update_offset", 0), "timeout": 0,
         "limit": 100, "allowed_updates": ["message", "callback_query"]})
-    causes, skipped, bound_now = Counter(), 0, False
+    causes, skipped, bound_now, desk_updates = Counter(), 0, False, 0
+    # CC-748: the manual posting desk shares this one reader; there is no second getUpdates.
+    desk_root = Path(binding_path).parent.parent / "manual_desk"
+
+    def desk(update):
+        try:
+            from live_contentops.manual_desk_v1 import accept_update
+            return accept_update(update, desk_root=desk_root, now=now)
+        except Exception as exc:  # a desk fault never stops the reply drafts
+            causes["DESK_UPDATE_FAILED_" + type(exc).__name__] += 1
+            return None
+
+    def from_bound_chat(chat, sender):
+        bound = binding.get("bound_chat_id")
+        return (bool(bound) and chat.get("type") == "private" and str(chat.get("id")) == str(bound)
+                and str(sender.get("id")) == str(bound))
+
     for update in updates:
         binding["update_offset"] = max(binding.get("update_offset", 0), update["update_id"] + 1)
         message = update.get("message", {})
@@ -149,6 +165,8 @@ def process_updates(store, *, binding_path=BINDING, bot=None, now=None):
                            start_nonce=None, acknowledgement="PENDING")
             packs.save_json(binding_path, binding)
             bound_now = True
+        elif message and from_bound_chat(chat, message.get("from", {})) and desk(update):
+            desk_updates += 1
         callback = update.get("callback_query", {})
         if callback:
             cchat = callback.get("message", {}).get("chat", {})
@@ -157,6 +175,15 @@ def process_updates(store, *, binding_path=BINDING, bot=None, now=None):
                     or str(cchat.get("id")) != str(binding["bound_chat_id"])
                     or str(callback.get("from", {}).get("id")) != str(binding["bound_chat_id"])):
                 causes["CALLBACK_OUTSIDE_BOUND_PRIVATE_CHAT"] += 1
+                continue
+            if data.startswith("dk:"):
+                acknowledgement = desk(update)
+                desk_updates += 1
+                try:
+                    bot.call("answerCallbackQuery", {"callback_query_id": callback["id"],
+                                                     "text": acknowledgement or "Not recorded"})
+                except BotError:
+                    causes["DESK_ACKNOWLEDGEMENT_UNCONFIRMED"] += 1
                 continue
             key = data.removeprefix("skip:")
             delivery = store.get_outbox_message(key) if data.startswith("skip:") else None
@@ -188,6 +215,7 @@ def process_updates(store, *, binding_path=BINDING, bot=None, now=None):
         packs.save_json(binding_path, binding)
     return {"status": "BOUND" if binding.get("bound_chat_id") else "PENDING_JIM_BOT_START",
             "bound_now": bound_now, "updates_processed": len(updates), "skipped": skipped,
+            "desk_updates": desk_updates,
             "causes": dict(causes), "public_submit_actions": 0}
 
 
