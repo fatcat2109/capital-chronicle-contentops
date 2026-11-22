@@ -693,7 +693,7 @@ if (input.phase === 'readback') {
         links:postLinks, public_image_urls:Array.from(e.querySelectorAll('img'))
           .filter(i=>!quoted?.contains(i)).map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));
-    const permalink = document.querySelector('main [class*="feedPermalinkUnit"]');
+    const permalink = typeof document.querySelector === 'function' ? document.querySelector('main [class*="feedPermalinkUnit"]') : null;
     const parentUrl = permalink && links(permalink).find(a=>a.url === location.href)?.url;
     const noteElements = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible);
     const notes = noteElements.map(e => {
@@ -716,7 +716,7 @@ if (input.phase === 'readback') {
       return {public_object_url:url,public_object_id:url?.match(/note\/(c-\d+)/)?.[1],
         observed_text:e.innerText,
         published_at_utc:Array.from(owner.querySelectorAll('time[datetime]'))
-          .find(t=>t.closest('a')?.href===url)?.dateTime || owner.querySelector('time[datetime]')?.dateTime,
+          .find(t=>t.closest('a')?.href===url)?.dateTime || owner.querySelector?.('time[datetime]')?.dateTime,
         text_truncated:/…$/.test(e.innerText) || links(owner).some(l=>/^see more$/i.test(l.text)),
         links:links(owner), public_image_urls:imageUrls(owner),
         ...(replyParent ? {reply_parent_url:replyParent,reply_parent_id:replyParent.match(/note\/(c-\d+)/)?.[1]} : {})};
