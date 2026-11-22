@@ -1,0 +1,103 @@
+{
+  "observed_at_utc": "2026-11-22T03:33:05.313619Z",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "active_leases": [
+    {
+      "lease_id": "lease_93aaf226c6705a1f",
+      "lease_key": "internal:native-editorial:cc715-us-open-wrap-20261120-v3",
+      "expires_at": "2026-11-20T16:16:43.202963+00:00",
+      "status": "ACTIVE"
+    }
+  ],
+  "unexpired_lease_keys": [],
+  "newsroom_lease_held": false,
+  "cc124_dispatches": [],
+  "recent_outbox_tail": [
+    {
+      "message_id": "native-neo-2904aeaf9e33b3e0f86a7693f48865e9b30a5ba6640a24a876b7909db3bd5c0e",
+      "work_item_id": "plan-status-post-2696e75fd567c7fe308225be6bef7d68",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:29:54.009704+00:00"
+    },
+    {
+      "message_id": "native-neo-2c55b969fe4e7e64c08ea1ca0fab8260c47989e137ec5762743791e75aa44c51",
+      "work_item_id": "plan-status-post-2696e75fd567c7fe308225be6bef7d68",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:29:35.446425+00:00"
+    },
+    {
+      "message_id": "native-neo-983e6a9a49c87a0cd45f21d89c3c9f985ff5d78064d585639bef8fc7a9886f8a",
+      "work_item_id": "plan-status-post-2696e75fd567c7fe308225be6bef7d68",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:29:35.233840+00:00"
+    },
+    {
+      "message_id": "native-neo-bede6f6dfd782567fbaaf7ff1590a1ad3678340beba7d02f9b2062e70b8db2e6",
+      "work_item_id": "plan-status-post-7e284f364a945bc2b95bdb16fb6a9d38",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:23:34.119902+00:00"
+    },
+    {
+      "message_id": "native-neo-f53363953ae78f362ada5788eae264e2aafed601683e4f03bfd72b155430463e",
+      "work_item_id": "plan-status-post-7e284f364a945bc2b95bdb16fb6a9d38",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:23:26.768180+00:00"
+    },
+    {
+      "message_id": "native-neo-19f40d36fd0b9c3f9b0180dbafad49c8f5b468c003b08b017ff4e1b2be38f00b",
+      "work_item_id": "plan-status-post-7e284f364a945bc2b95bdb16fb6a9d38",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:23:26.641554+00:00"
+    },
+    {
+      "message_id": "native-neo-f3a1e6c977159941f17a2da0398f22e0882471a301c854fdf5d15e4e02e0469b",
+      "work_item_id": "plan-status-post-f5c31cea9e685249e77837187480105d",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:07:01.556400+00:00"
+    },
+    {
+      "message_id": "native-neo-0bfd9ef1be50d0d0e500050dee29749ff00c8aa601625fb1c141bba3ae725f84",
+      "work_item_id": "plan-status-post-f5c31cea9e685249e77837187480105d",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:06:43.130519+00:00"
+    },
+    {
+      "message_id": "native-neo-23e366f2ea256216c890e2df1fdd28b30e6b38e47c2fa2c881198192a2e641fb",
+      "work_item_id": "plan-status-post-f5c31cea9e685249e77837187480105d",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T03:06:42.259911+00:00"
+    },
+    {
+      "message_id": "native-neo-aa5aaeba40473d4454892d3311dba5394d46f81337647d8b2bf8e3b02dd34297",
+      "work_item_id": "plan-status-post-2696e75fd567c7fe308225be6bef7d68",
+      "destination": "internal:native-neo-tool",
+      "status": "NATIVE_NEO_INTERNAL",
+      "created_at": "2026-11-22T02:58:38.427880+00:00"
+    }
+  ],
+  "publication_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "sha256": "47f6c8fd52d17b612536dfaf7d457a025b4e700bca7ba89d50ee2e5616014459",
+    "row_count": 26
+  },
+  "production_day": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-22-bangkok\\newsroom_production_day_v1.json",
+    "state": "MISSING"
+  },
+  "previous_production_day": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-21-bangkok\\newsroom_production_day_v1.json",
+    "sha256": "09c548e2e7d22204cdda7d894915d771a50a1ce6f625f7dfbb95293dd89b5d1f",
+    "distinct_canonical_items_published": null,
+    "confirmed_copies_by_channel": null,
+    "reader_counts_availability": null
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "contentops.cc124.standing_run_source_check.v1",
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-22T03:33:05.313619Z",
+  "classification": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "freshness_rule": "Publish within 60 minutes of Main data cutoff; later completion, retrieval, plan export, media refresh and this check do not restart it.",
+  "latest_completed_main": {
+    "report_id": "shocks/shock-20261122T020542Z/decision91",
+    "data_cutoff_utc": "2026-11-22T02:07:32Z",
+    "completion_utc": "2026-11-22T02:49:31.397607Z",
+    "publication_deadline_utc": "2026-11-22T03:07:32Z",
+    "report_sha256": "d092da5e315bf4905b04aff4ce5acc0055bcc21ee1583d5777b40d650036c469",
+    "capture_sha256": "c90d77dd5abc82b999f47aefdd2d363258b525aef68233fb1998da7728c80647",
+    "completion_receipt_sha256": "a504b9c74e8a1d3a3cb3f28c7e812658e13b338eebb9227d5d4f73f429c4f9c8",
+    "report_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261122T020542Z\\decision91\\analysis-native.json",
+    "completion_receipt_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261122T020542Z\\decision91\\analysis-end.json"
+  },
+  "latest_completed_deadline_age_seconds": 1533,
+  "newer_completed_main_receipt_observed": false,
+  "newer_trigger_without_article_report": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-22\\20261122T032543Z\\decision.json",
+    "checked_at_utc": "2026-11-22T03:25:43Z",
+    "verdict": "REFUSED_HEADLINE_ONLY_C7",
+    "cause": "headlines below the burst rule (0 fast-squawk posts from 0 accounts in 5 min); no quote move or admitted fact; headline text never arms",
+    "working_run": {
+      "created_utc": "2026-11-22T03:08:17Z",
+      "name": "run-20261122T030817Z-shock",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261122T030817Z-shock"
+    },
+    "article_report_created": false
+  },
+  "plan_status_context": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "generated_at_utc": "2026-11-22T03:29:11.686702Z",
+    "content_hash": "aeba4e54b81963177dee5f2ee1c399f8efe3de5caa9407e04d5dcf314ec82066",
+    "is_main_article_report": false,
+    "use": "context only; no fresh Main article receipt"
+  },
+  "outcome": {
+    "new_articles": 0,
+    "new_editorial_role_calls": 0,
+    "new_media": 0,
+    "new_destination_drafts": 0,
+    "public_writes": 0,
+    "browser_actions": 0,
+    "schedule_changes": 0,
+    "chat_messages": 0,
+    "pytest_processes_started": 0
+  }
+}
