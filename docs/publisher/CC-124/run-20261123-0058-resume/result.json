@@ -1,0 +1,171 @@
+{
+  "schema": "contentops.cc124.standing_run_source_check.v1",
+  "item": "CC-124",
+  "initial_launch_utc": "2026-11-22T17:58:18Z",
+  "resume_utc": "2026-11-22T20:35:44Z",
+  "resume_source_read_utc": "2026-11-22T20:39:57.775961+00:00",
+  "readback_utc": "2026-11-22T20:49:00.976553+00:00",
+  "next_due_utc": "2026-11-22T23:59:00+00:00",
+  "next_due_basis": "Six hours from the original dispatch, rounded up to the next minute",
+  "articles_published": 0,
+  "first_cause_at_initial_launch": "ARTICLE_DATA_CUTOFF_EXPIRED:4516s",
+  "first_cause_on_resume": "SCENARIO_SIX_MARKETS_REQUIRED",
+  "owner_decisions": [
+    89,
+    93,
+    98
+  ],
+  "reports": [
+    {
+      "report_id": "shocks/shock-20261122T164042Z/decision91",
+      "report_sha256": "91b0ed8241ac851ca73279fe3df6615090a6c7673f3db634ae3dc375e52a4606",
+      "completed_output_canonical_sha256": "b69a2ae751f3bbebf30e1ef21994086af120bcdab749b06221975cc82b5b064e",
+      "completion_receipt_sha256": "3dfd9559d122fdc4dd6a3ccfc6667cc683c63b56e645c776efef3d6904c82985",
+      "capture_sha256": "453913a4025a57672717091ca447df97beb1494f0e2b2f904aa47968f49f5080",
+      "capture_basis": "capture.json#/known_at_utc",
+      "original_data_cutoff_utc": "2026-11-22T16:43:01.347519Z",
+      "completed_at_utc": "2026-11-22T17:10:28.096363Z",
+      "publication_deadline_utc": "2026-11-22T17:43:01.347519+00:00",
+      "clock_at_original_start": "ARTICLE_DATA_CUTOFF_EXPIRED:4516s",
+      "clock_at_resume_source_read": "ARTICLE_DATA_CUTOFF_EXPIRED:14216s"
+    },
+    {
+      "report_id": "mid/requests/request-4003b5d99d5beb61",
+      "report_sha256": "ea403a925831659ac4cee7141c1f43fceabac073a1b61b3f78ae5844a0571de1",
+      "completed_output_canonical_sha256": "d6fe4d3fb168eb56d0c79022342e3d0d9b3619be05c13234e29244ab29a99986",
+      "completion_receipt_sha256": "4407b4ae0c209468bbce9dbed54e9e2f84ca66d5fca4d8d5ddad4c4459f4ca93",
+      "capture_sha256": "74d56a55b18328be08015f3f0d73b9019fc7f4bbc40cb134d5fb842cddee2825",
+      "capture_basis": "capture.json#/known_at_utc",
+      "original_data_cutoff_utc": "2026-11-22T18:33:56.059896Z",
+      "completed_at_utc": "2026-11-22T19:19:27.837424Z",
+      "publication_deadline_utc": "2026-11-22T19:33:56.059896+00:00",
+      "clock_at_original_start": "REPORT_COMPLETED_AFTER_START",
+      "clock_at_resume_source_read": "ARTICLE_DATA_CUTOFF_EXPIRED:7561s"
+    },
+    {
+      "report_id": "shocks/shock-20261122T194542Z",
+      "report_sha256": "ce5e95a909d31d26aa9d704bdfdcfe17d1251e6f8305541bb53bdca7f993a960",
+      "completed_output_canonical_sha256": "73f384b30e6d265e1649dc9a0d03dab5c78bc06c64978e52af8f10b9ad2aa9c2",
+      "completion_receipt_sha256": "db7994976f9d1ec5bdaf89bb73e6fec42ba2f76d26d7514f3291997182b344ee",
+      "capture_sha256": "a5fbc4e3f8b68ea7295e922af734fd7b56a6a9537b4bf759bdec97ad90166a24",
+      "capture_basis": "capture.json#/known_at_utc",
+      "original_data_cutoff_utc": "2026-11-22T19:47:57.512693Z",
+      "completed_at_utc": "2026-11-22T20:05:20.499811Z",
+      "publication_deadline_utc": "2026-11-22T20:47:57.512693+00:00",
+      "clock_at_original_start": "REPORT_COMPLETED_AFTER_START",
+      "clock_at_resume_source_read": "WITHIN_60_MINUTES"
+    }
+  ],
+  "main_completion_receipts_checked": 77,
+  "newer_main_completion_found": false,
+  "installed_projection_check": {
+    "document_sha256": "7b647937bc4a13d11e9768cb077722865ab3e43e28f0d64fdd8d39d03fea460e",
+    "original_data_cutoff_read_back_utc": "2026-11-22T19:47:57.512693Z"
+  },
+  "scenario_scope": {
+    "coverage": [
+      "BTCUSD",
+      "USDJPY"
+    ],
+    "required_implications_absent_for_this_shock": [
+      "EURUSD",
+      "US500",
+      "USOIL",
+      "XAUUSD"
+    ],
+    "main_candidate_verdicts": {
+      "BTCUSD": "ABSTAIN",
+      "USDJPY": "ABSTAIN"
+    },
+    "other_plans_bound_to_shock": 0,
+    "plan_status_generated_at_utc": "2026-11-22T20:46:15.467581Z",
+    "plan_status_sha256": "4d61ec0068806e7c7c2b2a618a1593c2b7d636daefe1ddd3b3fee6593f14f10a",
+    "other_plan_scenarios": [
+      {
+        "market": "XAUUSD",
+        "scenario_plan_count": 23,
+        "latest_scenario_run_id": "request-ed89f5d691f30e14",
+        "latest_scenario_registration_utc": "2026-11-20T05:33:26.532223Z"
+      },
+      {
+        "market": "US500",
+        "scenario_plan_count": 10,
+        "latest_scenario_run_id": "shock-20261120T054542Z",
+        "latest_scenario_registration_utc": "2026-11-20T06:05:15.649964Z"
+      },
+      {
+        "market": "EURUSD",
+        "scenario_plan_count": 15,
+        "latest_scenario_run_id": "request-a112364ecae5a6a3",
+        "latest_scenario_registration_utc": "2026-11-18T16:48:56.338712Z"
+      },
+      {
+        "market": "USDJPY",
+        "scenario_plan_count": 8,
+        "latest_scenario_run_id": "request-d1ecb80725052cc9",
+        "latest_scenario_registration_utc": "2026-11-20T08:14:00.934204Z"
+      },
+      {
+        "market": "USOIL",
+        "scenario_plan_count": 18,
+        "latest_scenario_run_id": "shock-20261119T094541Z",
+        "latest_scenario_registration_utc": "2026-11-19T10:16:19.948814Z"
+      },
+      {
+        "market": "BTCUSD",
+        "scenario_plan_count": 18,
+        "latest_scenario_run_id": "request-4003b5d99d5beb61",
+        "latest_scenario_registration_utc": "2026-11-22T19:22:20.178675Z"
+      }
+    ]
+  },
+  "latest_completed_trigger_check": {
+    "checked_at_utc": "2026-11-22T20:45:42Z",
+    "verdict": "REFUSED_HEADLINE_ONLY_C7",
+    "cause": "headlines below the burst rule (0 fast-squawk posts from 0 accounts in 5 min); no quote move or admitted fact; headline text never arms",
+    "model_calls": 1,
+    "artifact_id": "20261122T204542Z/decision.json",
+    "sha256": "5295dc08fbf79ed7f6eeb9c1da89ed5e60c5759224449abe7c72c60152f303d9"
+  },
+  "production": {
+    "database_mode": "READ_ONLY",
+    "sealed_feed_sha256": "3a8f0e2ac2c2f84fa8a0b640dcb0ae45aed409e2eff3e7ff820f2723e3b5fbd0",
+    "sealed_feed_total_rows": 27,
+    "article_cap": 2,
+    "production_day_and_feed_readback": [
+      {
+        "day_id": "newsroom-production-day-2026-11-22-bangkok",
+        "distinct_substack_articles_in_sealed_feed": 1,
+        "production_day_record_state": "MISSING",
+        "production_day_record_sha256": null
+      },
+      {
+        "day_id": "newsroom-production-day-2026-11-23-bangkok",
+        "distinct_substack_articles_in_sealed_feed": 0,
+        "production_day_record_state": "MISSING",
+        "production_day_record_sha256": null
+      }
+    ],
+    "unexpired_leases": [
+      {
+        "lease_key": "x-reply-tabs-refresh",
+        "expires_at_utc": "2026-11-22T20:51:22.555773+00:00"
+      }
+    ],
+    "cc124_dispatches_since_start": {},
+    "cc124_unknown_writes": {},
+    "cc122_consumer": "Reads the persisted production-day file and store. The next 07:00 digest was still due."
+  },
+  "publisher": {
+    "launch_model": "gpt-6.2-sol",
+    "launch_effort": "max",
+    "resume_model": "gpt-6.2-sol",
+    "resume_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "editorial_role_calls": 0,
+    "article_operations_started": 0,
+    "drafts_created": 0,
+    "public_writes": 0,
+    "pytest_processes": 0
+  }
+}
