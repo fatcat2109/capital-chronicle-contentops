@@ -293,12 +293,12 @@ def readback(client,request,page):
     from .neo_endpoint_executor_v1 import compare_public_images
     observed=compare_public_images(request,result,http=getattr(client,"image_http",None))
     captions=[a.get("caption","") for a in request["content_binding"].get("media_manifest",[])]
-    comparison=_text(result.get("observed_text",""))
+    comparison=_substack_rendered_text(result.get("observed_text",""))
     for caption in captions:
         comparison=_text(comparison.replace(_text(caption)," "))
     expected=request["content_binding"].get("media_manifest",[])
     actual=result.get("media",[])
-    article=_text(result.get("article_text",""))
+    article=_substack_rendered_text(result.get("article_text",""))
     for caption in captions:
         article=_text(article.replace(_text(caption)," "))
     observed["content_verified"]=(all(_substack_rendered_text(s) in comparison

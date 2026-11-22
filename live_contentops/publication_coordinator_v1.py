@@ -2607,6 +2607,7 @@ class DurablePublicationCoordinator:
         provider_outcome: Mapping[str, Any] | None = None,
         pending_owner_screen: Mapping[str, Any] | None = None,
         observed_threads_root: tuple[str, str] | None = None,
+        observed_wrap_root: tuple[str, str] | None = None,
     ) -> str:
         dispatch_id = str(dispatch["dispatch_id"])
         original_message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
@@ -2625,6 +2626,8 @@ class DurablePublicationCoordinator:
         object_url = str(dispatch.get("public_object_url") or "") or None
         if observed_threads_root:
             object_id, object_url = observed_threads_root
+        if observed_wrap_root:
+            object_id, object_url = observed_wrap_root
         awaiting_owner = destination == "substack" and (
             dispatch.get("status") == "SUBSTACK_DRAFT_AWAITING_OWNER" or pending_owner_screen is not None
         )
@@ -2674,6 +2677,11 @@ class DurablePublicationCoordinator:
                     intent=intent,
                 )
             normalized = normalize_readback_result(raw or {}, public_object_id=object_id, destination=destination)
+            if observed_wrap_root:
+                normalized["write_absent"] = False
+                if normalized["observed_public_object_url"] != object_url:
+                    normalized.update(verified=False, write_exists=False, identity_match=False,
+                                      error_class="OBSERVED_WRAP_ROOT_MISMATCH")
             if observed_threads_root:
                 expected = (intent.get("native_payload") or {}).get("root_text") or ""
                 checks = normalized.get("content_binding_checks", {})
@@ -5061,6 +5069,7 @@ class DurablePublicationCoordinator:
 
     def readback_existing_dispatch(
         self, dispatch_id: str, *, observed_threads_root: tuple[str, str] | None = None,
+        observed_wrap_root: tuple[str, str] | None = None,
     ) -> dict[str, Any]:
         """Refresh one already persisted object through the existing strict reconciliation.
 
@@ -5078,7 +5087,21 @@ class DurablePublicationCoordinator:
         survivor_id = self._survivor_dispatch_id(expected["dispatch_id"], dispatch.get("public_object_id"))
         if dispatch_id not in {expected["dispatch_id"], survivor_id} or expected["message_id"] != dispatch["message_id"]:
             raise ValueError("EXISTING_DISPATCH_INTENT_BINDING_MISMATCH")
-        if observed_threads_root:
+        if observed_wrap_root:
+            from .market_wrap_job_v1 import validated_plan
+            from .neo_destination_handoff_v1 import _public_url
+
+            object_id, object_url = observed_wrap_root
+            if (observed_threads_root or dispatch["platform"] != "substack"
+                    or intent.get("market_wrap") != intent.get("work_item_id")
+                    or not re.fullmatch(r"[0-9]+", object_id)
+                    or not _public_url("substack", object_url, object_id)
+                    or dispatch.get("public_object_id") not in {None, object_id}
+                    or dispatch.get("public_object_url") not in {None, object_url}):
+                raise ValueError("EXACT_WRAP_PUBLIC_OBJECT_REQUIRED")
+            validated_plan(self.store, intent["work_item_id"], intent["plan_hash"])
+            status = self._reconcile(dispatch, intent, observed_wrap_root=observed_wrap_root)
+        elif observed_threads_root:
             from .neo_destination_handoff_v1 import _public_url
             object_id, object_url = observed_threads_root
             if (dispatch["platform"] != "threads" or dispatch["status"] not in {ATTEMPT_STARTED, UNKNOWN_WRITE}

@@ -342,6 +342,30 @@ class LocalTransport(CanonicalDestinationTransportRuntimeV1):
                 "published_at_utc": "2026-11-23T13:09:00Z"}
 
 
+def test_wrap_can_read_back_its_observed_canonical_without_another_write(tmp_path, pack):
+    from live_contentops.publication_coordinator_v1 import RECONCILED_CONFIRMED, RECONCILED_ABSENT_SAFE_TO_RETRY
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    transport = LocalTransport()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport)
+    packet = job.stage(store, pack, editorial.draft(pack, tmp_path, call=select_first), tmp_path,
+                       media=lambda pack, article, markets, folder: (
+                           article, [editorial.chart_for(pack, markets, folder)]))
+    identity, plan = packet["identity"], packet["plan"]
+    coordinator.register_plan(identity, plan)
+    ids = coordinator._ids(identity, plan["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+                                     platform="substack", status=RECONCILED_ABSENT_SAFE_TO_RETRY)
+    canonical = "https://capitalchronicle.substack.com/p/wrap"
+    with pytest.raises(ValueError, match="EXACT_WRAP_PUBLIC_OBJECT_REQUIRED"):
+        coordinator.readback_existing_dispatch(ids["dispatch_id"], observed_wrap_root=("123", "https://example.test/draft"))
+    result = coordinator.readback_existing_dispatch(ids["dispatch_id"], observed_wrap_root=("123", canonical))
+    assert result["reconciliation_status"] == RECONCILED_CONFIRMED
+    assert coordinator._confirmed_canonical_url_for_work_item(identity, plan_hash=plan["plan_hash"]) == canonical
+    assert transport.reads == ["substack"]
+    assert transport.writes == []
+
+
 def test_weekly_wrap_binds_the_closed_cash_chart_to_both_linkedin_requests(tmp_path, pack, cash, monkeypatch):
     from live_contentops import tradingview_snapshot_v1 as tv
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff

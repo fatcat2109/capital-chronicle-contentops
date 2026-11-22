@@ -860,6 +860,7 @@ class NeoDestinationHandoff:
         observed_text = _text(result.get("observed_text"))
         comparison_text = observed_text
         if destination == "substack":
+            comparison_text = _substack_rendered_text(result.get("observed_text"))
             # The accepted body remains contiguous after removing only its exact
             # reviewed figure captions, which every native article inserts between
             # blocks. Fresh articles need the same comparison as reviewed edits.
@@ -900,9 +901,8 @@ class NeoDestinationHandoff:
                        and link.get("public_object_url") == public_object_url
                        for link in result.get("observed_link_resolutions") or []))
         if destination == "substack":
-            # Substack renders Markdown list markers as list nodes, so innerText
-            # contains the item text without its leading '- '. Keep numeric minus
-            # signs and every item, value and ordering requirement intact.
+            # The editor can render the same item as a list node or a paragraph
+            # with a literal bullet. Keep each signed value and the row order.
             text_match = (bool(segments) and all(
                 _substack_rendered_text(s) in comparison_text
                 for s in segments)
