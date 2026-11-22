@@ -68,7 +68,9 @@ if (input.phase === 'plan_substack_paste') {
 }
 if (input.phase === 'plan_substack_check') {
   return unwrap(await page.evaluateInPage(data=>{
-    const n=t=>String(t).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
+    const n=t=>String(t).replace(/[‘’]/g,"'").replace(/[“”]/g,'"')
+      .split(/\n/).map(line=>line.replace(/^\s*[-+]\s+/,'')).join(' ')
+      .replace(/\s+/g,' ').trim();
     const e=document.querySelector('.ProseMirror');const text=n(e.innerText);
     const images=Array.from(e.querySelectorAll('img'));
     let body=text;for(const a of data.media)body=n(body.replace(n(a.caption),' '));

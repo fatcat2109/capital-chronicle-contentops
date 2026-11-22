@@ -351,6 +351,27 @@ def test_table_and_minus_sign_survive_render_and_comparison():
     assert plan_neo.body_text(body)=="Scenarios Case Odds Main 50% Alternative 35% Result: -1.0R."
 
 
+def test_browser_check_treats_rendered_list_bullets_as_markdown_prefixes():
+    source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
+    script = r"""
+const fs = require('fs');
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction('page', 'input', fs.readFileSync(process.argv[1], 'utf8'));
+const page = {
+  evaluateInPage: async (fn, data) => {
+    global.document = {
+      querySelector: () => ({innerText: '- Gold result.', querySelectorAll: () => []}),
+    };
+    return {value: fn(data)};
+  },
+};
+run(page, {phase: 'plan_substack_check', expected_text: 'Gold result.', media: []})
+  .then(result => console.log(JSON.stringify(result)));
+"""
+    result = json.loads(subprocess.check_output(["node", "-e", script, str(source)], text=True, timeout=5))
+    assert result["verified"] is True
+
+
 def test_measured_tables_reach_the_editor_as_native_rows(packet):
     packet["operation_id"]="cc536-measured-odds-2"
     packet["request"]["native_payload"]["body_markdown"]=(
