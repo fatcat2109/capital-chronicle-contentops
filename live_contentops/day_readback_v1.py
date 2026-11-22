@@ -380,7 +380,41 @@ def _piece_heading(group, expected, end):
     return first_line, None if undispatched else iso(first_clock)
 
 
-def _public_rows(conn, window, feed, *, recent_only=False):
+def _sweep_rows(conn, window):
+    # Compute the recent event sets once. Match them to public intents before
+    # loading payloads, which can be large on the shared outbox table.
+    return [dict(row) for row in conn.execute("""
+        WITH recent_reads AS MATERIALIZED (
+            SELECT DISTINCT dispatch_id FROM readbacks
+            WHERE julianday(read_at) > julianday(:since_utc)
+              AND julianday(read_at) <= julianday(:until_utc)
+        ), recent_reconciliations AS MATERIALIZED (
+            SELECT DISTINCT work_item_id FROM reconciliations
+            WHERE julianday(reconciled_at) > julianday(:since_utc)
+              AND julianday(reconciled_at) <= julianday(:until_utc)
+        ), dispatches AS MATERIALIZED (
+            SELECT message_id,dispatch_id,status,dispatched_at,public_object_id,public_object_url
+            FROM platform_dispatches
+            WHERE julianday(dispatched_at) <= julianday(:until_utc)
+        ), selected AS MATERIALIZED (
+            SELECT m.message_id,d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url
+            FROM outbox_messages m
+            LEFT JOIN dispatches d ON d.message_id=m.message_id
+            LEFT JOIN recent_reads r ON r.dispatch_id=d.dispatch_id
+            LEFT JOIN recent_reconciliations q ON q.work_item_id=m.work_item_id
+            WHERE m.destination IN (SELECT value FROM json_each(:routes))
+              AND julianday(m.created_at) <= julianday(:until_utc)
+              AND (julianday(m.created_at) > julianday(:since_utc)
+                OR julianday(d.dispatched_at) > julianday(:since_utc)
+                OR r.dispatch_id IS NOT NULL OR q.work_item_id IS NOT NULL)
+        )
+        SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,
+            d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url
+        FROM selected d JOIN outbox_messages m ON m.message_id=d.message_id
+        """, {**window, "routes": json.dumps(ROUTES)})]
+
+
+def _public_rows(conn, window, feed):
     marks = ",".join("?" for _ in ROUTES)
     base = ("SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,"
             "d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url "
@@ -391,18 +425,18 @@ def _public_rows(conn, window, feed, *, recent_only=False):
     work_ids = {row[0] for row in conn.execute(f"""
         SELECT work_item_id FROM outbox_messages
         WHERE destination IN ({marks}, 'internal:native-neo-tool')
-          AND created_at > ? AND created_at <= ?
+          AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
         UNION
         SELECT o.work_item_id FROM platform_dispatches d
         JOIN outbox_messages o ON o.message_id=d.message_id
-        WHERE d.dispatched_at > ? AND d.dispatched_at <= ?
+        WHERE julianday(d.dispatched_at) > julianday(?) AND julianday(d.dispatched_at) <= julianday(?)
         UNION
         SELECT o.work_item_id FROM readbacks r JOIN platform_dispatches d ON d.dispatch_id=r.dispatch_id
         JOIN outbox_messages o ON o.message_id=d.message_id
-        WHERE r.read_at > ? AND r.read_at <= ?
+        WHERE julianday(r.read_at) > julianday(?) AND julianday(r.read_at) <= julianday(?)
         UNION
         SELECT work_item_id FROM reconciliations
-        WHERE reconciled_at > ? AND reconciled_at <= ?
+        WHERE julianday(reconciled_at) > julianday(?) AND julianday(reconciled_at) <= julianday(?)
         """, (*ROUTES, *span, *span, *span, *span))}
     urls = [o["url"] for f in feed for o in f["outlets"] if o["name"] == "substack"]
     for url in urls:
@@ -412,17 +446,7 @@ def _public_rows(conn, window, feed, *, recent_only=False):
     by_id = {}
     end = utc(window["until_utc"])
     for work_id in sorted(work_ids):
-        where = f"WHERE m.work_item_id=? AND m.destination IN ({marks})"
-        params = (work_id, *ROUTES)
-        if recent_only:
-            where += " AND ((m.created_at > ? AND m.created_at <= ?)"
-            where += " OR (d.dispatched_at > ? AND d.dispatched_at <= ?)"
-            where += " OR EXISTS (SELECT 1 FROM readbacks r WHERE r.dispatch_id=d.dispatch_id"
-            where += " AND r.read_at > ? AND r.read_at <= ?)"
-            where += " OR EXISTS (SELECT 1 FROM reconciliations q WHERE q.work_item_id=m.work_item_id"
-            where += " AND q.reconciled_at > ? AND q.reconciled_at <= ?))"
-            params += (*span, *span, *span, *span)
-        for row in conn.execute(base + where, params):
+        for row in conn.execute(base + f"WHERE m.work_item_id=? AND m.destination IN ({marks})", (work_id, *ROUTES)):
             # Don't turn an outbox created after a historical report's end into that day's post.
             if utc(row["created_at"]) <= end:
                 by_id[(row["message_id"], row["dispatch_id"])] = dict(row)
@@ -1113,7 +1137,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         conn.execute("BEGIN")
         notes = _watched_notes(conn, end) if sweep else None
         engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None
-        rows = _public_rows(conn, window, feed, recent_only=sweep)
+        rows = _sweep_rows(conn, window) if sweep else _public_rows(conn, window, feed)
         histories = _readback_histories(conn, (row["dispatch_id"] for row in rows), end)
         groups = defaultdict(list)
         for row in rows:

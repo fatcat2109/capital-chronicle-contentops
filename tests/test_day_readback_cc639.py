@@ -182,6 +182,34 @@ def test_sweep_cli_consumes_its_report_without_an_evening_result(recorded, tmp_p
     assert readback.public_get_url("telegram_channel", readback.TELEGRAM_PUBLIC_CHANNEL + "?before=0") is None
 
 
+def test_sweep_selects_exact_copies_from_recent_events_without_future_dispatches(recorded):
+    _, store, _, _ = recorded
+    start = "2026-11-15T12:30:00+00:00"
+    end = "2026-11-16T12:30:00+00:00"
+    with sqlite3.connect(store) as conn:
+        conn.row_factory = sqlite3.Row
+        conn.executemany("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", [
+            ("offset", "sweep-fixture", "x", "{}", "READY", "2026-11-15T07:31:00-05:00"),
+            ("old", "sweep-fixture", "x", "{}", "READY", "2026-11-15T07:30:00-05:00"),
+            ("recent-read", "sweep-fixture", "x", "{}", "READY", "2026-11-14T00:00:00Z"),
+            ("reconciled", "sweep-reconciled", "x", "{}", "READY", "2026-11-14T00:00:00Z"),
+        ])
+        conn.executemany("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)", [
+            ("future", "offset", "x", "DISPATCH_CONFIRMED", "2026-11-16T07:31:00-05:00", "1", None, None),
+            ("retained", "recent-read", "x", "DISPATCH_CONFIRMED", "2026-11-14T00:01:00Z", "2", None, None),
+        ])
+        conn.executemany("INSERT INTO readbacks VALUES(?,?,?,?)", [
+            ("sweep-read-1", "retained", "{}", end),
+            ("sweep-read-2", "retained", "{}", end),
+        ])
+        conn.execute("INSERT INTO reconciliations VALUES(?,?,?,?)",
+                     ("sweep-rec", "sweep-reconciled", "RECONCILED_CONFIRMED", end))
+        rows = readback._sweep_rows(conn, {"since_utc": start, "until_utc": end})
+    assert sorted((r["message_id"], r["dispatch_id"]) for r in rows if r["work_item_id"].startswith("sweep-")) == [
+        ("offset", None), ("recent-read", "retained"), ("reconciled", None),
+    ]
+
+
 def test_evening_file_reports_ready_and_never_registered_plan_copies(recorded):
     from live_contentops import plan_status_posts_v1 as posts
 
