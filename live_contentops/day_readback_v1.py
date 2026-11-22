@@ -380,7 +380,7 @@ def _piece_heading(group, expected, end):
     return first_line, None if undispatched else iso(first_clock)
 
 
-def _public_rows(conn, window, feed):
+def _public_rows(conn, window, feed, *, recent_only=False):
     marks = ",".join("?" for _ in ROUTES)
     base = ("SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,"
             "d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url "
@@ -412,7 +412,17 @@ def _public_rows(conn, window, feed):
     by_id = {}
     end = utc(window["until_utc"])
     for work_id in sorted(work_ids):
-        for row in conn.execute(base + f"WHERE m.work_item_id=? AND m.destination IN ({marks})", (work_id, *ROUTES)):
+        where = f"WHERE m.work_item_id=? AND m.destination IN ({marks})"
+        params = (work_id, *ROUTES)
+        if recent_only:
+            where += " AND ((m.created_at > ? AND m.created_at <= ?)"
+            where += " OR (d.dispatched_at > ? AND d.dispatched_at <= ?)"
+            where += " OR EXISTS (SELECT 1 FROM readbacks r WHERE r.dispatch_id=d.dispatch_id"
+            where += " AND r.read_at > ? AND r.read_at <= ?)"
+            where += " OR EXISTS (SELECT 1 FROM reconciliations q WHERE q.work_item_id=m.work_item_id"
+            where += " AND q.reconciled_at > ? AND q.reconciled_at <= ?))"
+            params += (*span, *span, *span, *span)
+        for row in conn.execute(base + where, params):
             # Don't turn an outbox created after a historical report's end into that day's post.
             if utc(row["created_at"]) <= end:
                 by_id[(row["message_id"], row["dispatch_id"])] = dict(row)
@@ -1103,7 +1113,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         conn.execute("BEGIN")
         notes = _watched_notes(conn, end) if sweep else None
         engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None
-        rows = _public_rows(conn, window, feed)
+        rows = _public_rows(conn, window, feed, recent_only=sweep)
         histories = _readback_histories(conn, (row["dispatch_id"] for row in rows), end)
         groups = defaultdict(list)
         for row in rows:
