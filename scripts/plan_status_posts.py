@@ -156,18 +156,8 @@ def main(argv=None) -> int:
         # Decision 124's private delivery still precedes the slow editorial and
         # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
-        if args.publish and not args.dry_run:
-            # CC-748: Jim's posting desk (packs, the local page, the private bot's
-            # pushes and /packs answers). Reads the store read-only, no model and no
-            # browser, so it runs before the slow slices that can outlive this task's
-            # five-minute lifetime. A desk failure is recorded, never raised.
-            try:
-                from live_contentops.manual_desk_v1 import minute_hook as desk_hook
-                result["manual_desk"] = desk_hook(args.store, desk_root=args.store.parent / "manual_desk",
-                    binding_path=args.store.parent / "control/x_reply_bot_binding.json")
-            except Exception as exc:
-                result["manual_desk"] = {"status": "DESK_FAILED", "cause": type(exc).__name__,
-                                         "public_submit_actions": 0}
+        # CC-748: Jim's posting desk runs in its own task (scripts/manual_desk_tick.py), so this job's
+        # five-minute limit can never stop a phone push midway (Ops Product, 23 Nov 2026).
         if args.publish and not args.dry_run:
             # CC-467's source-to-post deadline is five minutes. Its single
             # bounded slice precedes slower reply/page work in this same task.

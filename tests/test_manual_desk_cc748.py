@@ -394,7 +394,7 @@ def test_the_store_is_opened_read_only(world):
     conn.close()
 
 
-def test_a_desk_failure_never_stops_the_minute_job(world, monkeypatch, capsys):
+def test_the_minute_job_never_runs_the_desk_and_a_desk_failure_is_recorded(world, monkeypatch, capsys):
     from scripts import plan_status_posts as entry
     from live_contentops import plan_status_posts_v1 as posts
     from live_contentops import (audience_collection_v1, call_followups_v1, daily_trend_board_v1,
@@ -430,9 +430,12 @@ def test_a_desk_failure_never_stops_the_minute_job(world, monkeypatch, capsys):
             monkeypatch.setattr(module, name, stub(module.__name__.rsplit(".", 1)[-1] + "." + name))
     assert entry.main(["--publish", "--store", str(store.db_path)]) == 1  # the stale export, not the desk
     output = json.loads(capsys.readouterr().out)
-    assert output["manual_desk"] == {"status": "DESK_FAILED", "cause": "RuntimeError", "public_submit_actions": 0}
-    assert order.index("desk") < order.index("x_reply_bot_v1.refresh_due")
+    # Ops Product, 23 Nov 2026: the desk runs in its own task (scripts/manual_desk_tick.py), never in this job.
+    assert "manual_desk" not in output and "desk" not in order
     assert "daily_trend_board_v1.run_due" in order and "substack_daily_note_v1.run_due" in order
+    assert desk.minute_hook(store.db_path, desk_root=store.db_path.parent / "manual_desk",
+                            binding_path=world["binding"]) == {"status": "DESK_FAILED", "cause": "RuntimeError",
+                                                              "public_submit_actions": 0}
     errors = (store.db_path.parent / "manual_desk" / "errors.jsonl").read_text(encoding="utf-8")
     assert "RuntimeError" in errors and "exploded" not in errors
 
