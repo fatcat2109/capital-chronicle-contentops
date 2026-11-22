@@ -104,7 +104,12 @@ def test_installed_minute_consumer_prepares_one_note_and_reuses_frozen_writer(re
         assert "PUBLIC MAIN ANALYSES" in prompt and "400 characters" in prompt
         assert kwargs["writer"] is True
         return authored, {"configured_model": "gpt-6.1-sol", "configured_effort": "max"}
-    first = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer, publish=False)
+    def claims(prompt, **options):
+        assert "US yields reached 5%" in prompt and options["job"] == "public_draft_claim_check"
+        return b'{"claims":[]}', {"answered_by": "antigravity"}
+
+    first = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer,
+                          claim_call=claims, publish=False)
     assert first["state"] == "NOTE_PREPARED"
     second = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer, publish=False)
     assert second == first and len(calls) == 1

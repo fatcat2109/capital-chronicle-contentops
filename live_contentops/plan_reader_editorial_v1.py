@@ -625,7 +625,7 @@ def _new_plan_ids(store):
             and item.get("analysis_copy_contract") in reader.STATUS_ANALYSIS_CONTRACTS}
 
 
-def draft_due_page(store, export, *, root, now, call=None, run_root=pages.RUN_ROOT):
+def draft_due_page(store, export, *, root, now, call=None, run_root=pages.RUN_ROOT, claim_call=None):
     """One bounded writer job. The minute publisher consumes its manuscript."""
     from .durable_operational_store_v1 import LeaseConflictError
     from .plan_status_posts_v1 import ACTIVE, _utc
@@ -659,6 +659,14 @@ def draft_due_page(store, export, *, root, now, call=None, run_root=pages.RUN_RO
         try:
             run = pages.load_run(plan, run_root=run_root)
             manuscript = draft_plan_page(plan, run, output_dir=folder, call=call)
+            if claim_call is not None or call is None:
+                from .public_draft_claims_v1 import check_draft
+                sources = _plan_page_sources(plan, run)
+                passages = [{"text": entry["text"], "origin": "analyst_quote"}
+                            for section in manuscript["sections"].values() for entry in section["paragraphs"]]
+                check_draft("plan-analysis-" + plan_id, "plan_page", passages,
+                    {"main_run": {key: [entry["text"] for entry in values] for key, values in sources.items()}},
+                    output_dir=folder, call=claim_call)
         except (OSError, ValueError, KeyError, TypeError) as exc:
             return {"status": "PAGE_DRAFT_PENDING", "plan_id": plan_id, "cause": type(exc).__name__ + ":" + str(exc)[:160]}
         temporary = folder / (DRAFT_MANUSCRIPT + ".tmp")

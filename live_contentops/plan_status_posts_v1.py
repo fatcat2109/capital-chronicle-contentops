@@ -1772,7 +1772,7 @@ def _api_confirmed(store, key: str, *, root: Path = POST_ROOT) -> bool:
 
 def publish_ready(store, *, latest_states=None, active_recoveries=None, now: datetime | None = None, coordinator_for=None,
                   root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False,
-                  immediate_only=False, alert_filter=None) -> dict:
+                  immediate_only=False, alert_filter=None, claim_checker=None) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
@@ -1782,6 +1782,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     whose API copies are not all confirmed yet is resumed (the coordinator reads back before any
     retry); a row with all three confirmed is done, so an idle run touches nothing.
     """
+    from .public_draft_claims_v1 import try_plan_check
     now = now or datetime.now(timezone.utc)
     if immediate_only or alert_filter is True:
         import time
@@ -1791,7 +1792,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         result = publish_cards(store, now=now, latest_states=latest_states, root=root, host=host,
             coordinator_for=coordinator_for, limit=limit, automatic_neo=automatic_neo and not immediate_only,
             destinations=IMMEDIATE_DESTINATIONS if immediate_only else None, snapshot=snapshot, alert_filter=True,
-            snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
+            claim_checker=claim_checker, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
         result["pending_post_queue"] = pending_post_queue(store, now)
         return result
     if coordinator_for is None:
@@ -1842,6 +1843,8 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         try:
             plan = prepare_post(store, key, root=root, host=host, destinations=API_DESTINATIONS, snapshot=snapshot,
                                 snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
+            if claim_checker:
+                try_plan_check(claim_checker, store, _row_payload(store, key), plan)
             store.create_work_item(story_id=key, title="Plan status post", target_surface="MULTI_PLATFORM",
                                    work_item_id=key)
             coordinator = coordinator_for(key, Path(plan["output_dir"]))
@@ -1852,6 +1855,8 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                    for d in API_DESTINATIONS):
                 for continuation in plan.get("continuations") or []:
                     child = continuation["work_item_id"]
+                    if claim_checker:
+                        try_plan_check(claim_checker, store, _row_payload(store, key), continuation, key=child)
                     store.create_work_item(story_id=child, title="Plan status continuation", target_surface="MULTI_PLATFORM",
                                            work_item_id=child)
                     scope_to_post(coordinator, child, continuation)
@@ -1868,6 +1873,8 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                             for d in API_DESTINATIONS)):
                 browser_plan = prepare_post(store, key, root=root, host=host,
                     destinations=("x", "substack_notes"), snapshot=snapshot)
+                if claim_checker:
+                    try_plan_check(claim_checker, store, _row_payload(store, key), browser_plan)
                 scope_to_post(coordinator, key, browser_plan)
                 coordinator.register_plan(key, browser_plan)
                 browser_result = coordinator.execute_plan(key, browser_plan)
@@ -1884,10 +1891,13 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
                                  host=host, coordinator_for=coordinator_for, limit=limit, automatic_neo=automatic_neo,
-                                 alert_filter=alert_filter,
+                                 alert_filter=alert_filter, claim_checker=claim_checker,
                                  snapshot=snapshot, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     from .plan_analysis_pages_v1 import distribute_links
-    links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
+    link_options = {"automatic_neo": True} if automatic_neo else {}
+    if claim_checker:
+        link_options["claim_checker"] = claim_checker
+    links = distribute_links(store, **link_options)
     return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links,
             "pending_post_queue": pending_post_queue(store, now)}
 

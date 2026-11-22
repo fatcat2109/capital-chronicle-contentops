@@ -344,7 +344,7 @@ def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, ti
         packs.save_json(root / "call.json", record_)
 
 
-def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=None):
+def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=None, claim_call=None):
     """AGY selects; one stronger call covers the remaining quality draft slots."""
     request = packs.read_json(request_path)
     root = Path(output_dir)
@@ -454,6 +454,13 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=No
                 or len(authored_ids) != len(set(authored_ids))):
             raise ValueError("WRITER_CHANGED_RANKED_TARGET")
         response["items"] = authored.get("items", [])
+        if claim_call is not None or writer is None:
+            from .public_draft_claims_v1 import review_x_reply
+            for item in response["items"]:
+                source = by_source.get(item.get("source_id"))
+                if not source or item["source_id"] not in writer_source_ids[str(item["post_id"])]:
+                    continue  # The reply pack validator records the unbound source.
+                review_x_reply(item, source, output_dir=root / "writer", origin="codex", call=claim_call)
         response["omissions"].extend(authored.get("omissions", []))
         for post in targets:
             if post["post_id"] not in authored_ids and not any(o.get("post_id") == post["post_id"] for o in response["omissions"]):

@@ -293,7 +293,7 @@ def validate_note(store, value, *, now=None):
     return value
 
 
-def run_due(store, *, output_root, now=None, writer=None, publish=True, automatic_neo=False):
+def run_due(store, *, output_root, now=None, writer=None, publish=True, automatic_neo=False, claim_call=None):
     """One bounded pass under the existing store lease; returns its exact cause."""
     from .durable_operational_store_v1 import LeaseConflictError
     now = utc(now or datetime.now(timezone.utc))
@@ -364,6 +364,21 @@ def run_due(store, *, output_root, now=None, writer=None, publish=True, automati
                 if authored.get("page_id") != page["page_id"]:
                     raise ValueError("NOTE_WRITER_SOURCE_PAGE_NOT_SELECTED")
                 validate_copy(authored, page)
+            if claim_call is not None or writer is None:
+                from .public_draft_claims_v1 import check_draft
+                review = check_draft(key, "substack_note",
+                    [{"text": item["text"], "fallback": item["source_excerpt"]} for item in authored["sentences"]],
+                    {"plan_page": [p["text"] for section in page["manuscript"]["sections"].values()
+                                   for p in section["paragraphs"]]},
+                    output_dir=Path(output_root) / day_at(now), call=claim_call)
+                repaired = {**authored, "sentences": [{**item, "text": text}
+                    for item, text in zip(authored["sentences"], review["corrected"]) if text]}
+                try:
+                    validate_copy(repaired, page)
+                except ValueError:
+                    pass  # The already validated copy keeps its view, dated fact and invalidation.
+                else:
+                    authored = repaired
             value = register_note(store, page, authored, output_root=output_root, now=now)
         if not publish:
             return {"state": "NOTE_PREPARED", "note_id": key, "day_et": value["day_et"]}

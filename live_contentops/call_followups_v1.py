@@ -751,10 +751,12 @@ def delivery_plan(store, row, asset, *, root, host, destinations):
     return plan
 
 
-def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars):
+def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars,
+            claim_checker=None):
     """One bounded slice in the existing minute task. No schedule, loop or second publisher."""
     now = now or datetime.now(timezone.utc)
     from .native_neo_executor_v1 import NativeNeoInputRequired
+    from .public_draft_claims_v1 import try_plan_check
     correction = prepare_gold_correction(store, now=now)
     results = []
     replies = pending_link_replies(store)
@@ -799,6 +801,7 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
         destinations = sorted(row["cc603_destinations"],key=lambda d:(d in {"x","substack_notes"},d))
         plan = (posts.prepare_post(store,key,root=root,host=host,destinations=tuple(destinations)) if link_reply
                 else delivery_plan(store,row,asset,root=root,host=host,destinations=destinations))
+        try_plan_check(claim_checker, store, row, plan)
         if coordinator_for:
             coordinator = coordinator_for(key,Path(plan["output_dir"]))
         else:
@@ -826,6 +829,7 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                    for d in continuation["destinations"]):
                 break
             child = continuation["work_item_id"]
+            try_plan_check(claim_checker, store, row, continuation, key=child)
             store.create_work_item(story_id=child,work_item_id=child,title=row["title"],target_surface="MULTI_PLATFORM")
             posts.scope_to_post(coordinator,child,continuation)
             child_outcome = coordinator.publish_plan(child,continuation)
