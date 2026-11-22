@@ -542,13 +542,17 @@ def validate_write(coordinator, intent, destination):
                 levels = row.get("levels") or {}
                 instrument = levels.get("public_instrument") or {}
                 if levels.get("price_basis") == "instrument" and instrument.get("kind") == "FUT" and market != "USOIL":
+                    from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, LEVEL_CONTRACT
+
                     overlay = asset.get("plan_overlay") or {}
                     source = overlay.get("source") or {}
-                    if (source.get("level_contract") != "CC584_V1" or not source.get("annotations_only")
-                            or overlay.get("markers")):
+                    contract = source.get("level_contract")
+                    legacy_annotations = (contract == LEVEL_CONTRACT and source.get("annotations_only")
+                                          and not overlay.get("markers"))
+                    if contract != CURRENT_LEVEL_CONTRACT and not legacy_annotations:
                         raise ImageContractError("TRADINGVIEW_PLAN_PRICE_BASIS_MISMATCH")
-                    # Both instruments are named in source-bound prose. No
-                    # futures price is plotted on the spot chart's axis.
+                    # The overlay validator re-derives the plotted levels from
+                    # the original market or verifies the legacy annotation.
                     from .tradingview_plan_overlay_v1 import validate as validate_overlay
                     validate_overlay(asset, row)
             if check["level_offset"] and row:

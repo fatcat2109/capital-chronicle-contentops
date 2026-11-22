@@ -17,7 +17,7 @@ from typing import Mapping
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
 from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
-from .plan_reader_copy_v1 import NINE_LAYER_COPY, THREAD_CONTRACT
+from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, NINE_LAYER_COPY, PHASE_LEVEL_CONTRACTS, THREAD_CONTRACT
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 LINKEDIN_PLAN_LINK_EFFECTIVE = datetime(2026, 11, 20, 4, 38, tzinfo=timezone.utc)
@@ -406,7 +406,7 @@ def no_entry_words(plan, *, withdrawn=False):
     return "the plan was withdrawn without an entry" if withdrawn else "the entry window ended with no entry"
 
 
-def ending_words(row):
+def ending_words(row, *, include_levels=False):
     source = row.get("outcome_source_plan") or row.get("source_plan") or row
     outcome = source.get("outcome") or {}
     not_executed = (row.get("not_executed") is True or outcome.get("not_executed") is True
@@ -424,6 +424,11 @@ def ending_words(row):
             return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
         return "hit its target"
     if row.get("result") == "STOPPED":
+        if include_levels and row.get("scored"):
+            levels = row["levels"]
+            # The mapped stop applies after entry. The plan's cancel level does not.
+            if levels.get("price_basis") == "instrument":
+                return f"stopped at its {level(levels['invalidation_level'], levels)} invalidation level"
         return "stopped at its invalidation level"
     if row.get("result") == "EXPIRED":
         side = row.get("direction_correct")
@@ -617,7 +622,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
-            from .plan_reader_copy_v1 import LEVEL_CONTRACT, LEVEL_EFFECTIVE, thread_terms
+            from .plan_reader_copy_v1 import LEVEL_EFFECTIVE, thread_terms
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
@@ -627,7 +632,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 item["x_analysis_thread"] = True
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
                 if now >= LEVEL_EFFECTIVE:
-                    item["level_contract"] = LEVEL_CONTRACT
+                    item["level_contract"] = CURRENT_LEVEL_CONTRACT
                 terms = thread_terms(raw, level_contract=item.get("level_contract"))
                 item.update(thread_contract=THREAD_CONTRACT, instrument_title=terms["market"],
                             entry_deadline_utc=terms["entry_deadline_utc"], time_exit_utc=terms["time_exit_utc"])
@@ -734,7 +739,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
                 item[field] = card[field]
-            if card.get("level_contract"):
+            if card.get("level_contract") and not item.get("level_contract"):
                 item["level_contract"] = card["level_contract"]
             if kind == "result":
                 # Keep the original thread's levels while admitting the later
@@ -1214,6 +1219,25 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             elif row.get("analysis_copy_contract"):
                 from .plan_state_alerts_v1 import analysis_thread_parts
                 parts = analysis_thread_parts(row, body, notices, destination=destination, limit=limits[destination])
+            elif row.get("thread_contract") == THREAD_CONTRACT and row.get("level_contract") in PHASE_LEVEL_CONTRACTS:
+                # CC-682's condition and its two clocks are source-bound
+                # sentences. Keep each line whole before the shared notices
+                # and chart-credit suffix are added to the first reply.
+                room = limits[destination] - len(notices) - 2
+                parts, current = [], []
+                for line in body.splitlines():
+                    if current and len("\n".join([*current, line])) > room:
+                        parts.append("\n".join(current) + "\n\n" + notices)
+                        current = []
+                    if len(line) > room:
+                        if current:
+                            parts.append("\n".join(current) + "\n\n" + notices)
+                            current = []
+                        parts.extend(posts._text_parts(line, notices, limits[destination]))
+                    else:
+                        current.append(line)
+                if current:
+                    parts.append("\n".join(current) + "\n\n" + notices)
             else:
                 parts = posts._text_parts(body, NOTICES, limits[destination], lines=True,
                                           repeat_notices=repeat_threads_notices)
@@ -1592,6 +1616,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
     if row.get("reader_contract") and not row.get("state_alert_contract"):
         title = row["reader_fields"]["hook"]["text"]
+    if row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
+        title = row["lead"]
     article = {"title": title, "dek": row["lead"], "body": row["text"], "plan_publication_kind": row["kind"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     # Registered packages keep exact bytes for readback/reconciliation. This

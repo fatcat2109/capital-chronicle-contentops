@@ -17,6 +17,8 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publi
 CONTRACT = "CC466_V1"
 THREAD_CONTRACT = "CC549_V1"
 LEVEL_CONTRACT = "CC584_V1"
+CURRENT_LEVEL_CONTRACT = "CC682_V1"
+PHASE_LEVEL_CONTRACTS = frozenset({LEVEL_CONTRACT, CURRENT_LEVEL_CONTRACT})
 LEVEL_EFFECTIVE = datetime(2026, 11, 14, tzinfo=timezone.utc)
 EFFECTIVE = datetime(2026, 11, 11, 16, 30, tzinfo=timezone.utc)
 ANALYSIS_COPY = "CC688_V1"
@@ -98,16 +100,32 @@ def thread_terms(raw, *, level_contract=None, original_stop=None):
     name = instrument["symbol"] if mapped else posts.TITLES[raw["asset_id"]]
     price_name = "Spot" if raw["asset_id"] in {"XAUUSD", "EURUSD", "USDJPY"} else posts.TITLES[raw["asset_id"]]
     operators = {"GT": "above ", "GTE": "at or above ", "LT": "below ", "LTE": "at or below "}
+    phases = level_contract in PHASE_LEVEL_CONTRACTS
+    conditional = level_contract == CURRENT_LEVEL_CONTRACT
     conditions, refs = [], []
     if mapped and instrument.get("contract_month"):
         refs.append({"file": "plan-export", "pointer": "/public_instrument/contract_month"})
     for index, condition in enumerate(raw.get("invalidation_conditions") or []):
-        if condition.get("field") not in {"close", "low", "high", "bid", "ask", "mid"} or condition.get("operator") not in operators:
+        field, operator = condition.get("field"), condition.get("operator")
+        if field not in {"close", "low", "high", "bid", "ask", "mid"} or operator not in operators:
             continue
-        before = level_contract == LEVEL_CONTRACT
-        conditions.append(f"{price_name} " + ("plan cancelled on " if before else "")
-            + f"{condition['field']} {operators[condition['operator']]}{posts._level(condition['threshold'])}"
-            + (" before entry" if before else ""))
+        relation = operators[operator] + posts._level(condition["threshold"])
+        if conditional:
+            price = "spot price" if price_name == "Spot" else "price"
+            describes_trade = (field == "high" and operator in {"GT", "GTE"}
+                               or field == "low" and operator in {"LT", "LTE"})
+            if describes_trade:
+                subject = f"{price} trades"
+            elif field == "close":
+                subject = f"{price} closes"
+            else:
+                label = {"bid": "bid", "ask": "ask", "mid": "midprice",
+                         "high": "high", "low": "low"}[field]
+                subject = f"the {'spot ' if price_name == 'Spot' else ''}{label} is"
+            conditions.append(f"Cancel if {subject} {relation} before entry")
+        else:
+            conditions.append(f"{price_name} " + ("plan cancelled on " if phases else "")
+                              + f"{field} {relation}" + (" before entry" if phases else ""))
         refs.append({"file": "plan-export", "pointer": f"/invalidation_conditions/{index}/threshold"})
     stop = (levels["invalidation_level"], {"file": "plan-export", "pointer": "/public_instrument/invalidation_level",
                                          "transform": "PUBLIC_TICK"}) if mapped else original_stop
@@ -117,8 +135,11 @@ def thread_terms(raw, *, level_contract=None, original_stop=None):
         side = "below" if Decimal(str(value)) < Decimal(str(levels["zone_low"])) else "above"
         price = cards.level(value, levels) if mapped else posts._level(value)
         stop_text = f"{side} {price}"
-        conditions.append(f"{name} " + ("plan wrong " if level_contract == LEVEL_CONTRACT else "invalidation ")
-            + stop_text + (" after entry" if level_contract == LEVEL_CONTRACT else ""))
+        if conditional:
+            conditions.append(f"Wrong {stop_text} after entry" + (f" on {name}" if mapped else ""))
+        else:
+            conditions.append(f"{name} " + ("plan wrong " if phases else "invalidation ")
+                              + stop_text + (" after entry" if phases else ""))
         refs.append(ref)
     if not conditions:
         raise ValueError("CC549_INVALIDATION_NOT_EXPORTED")
@@ -156,11 +177,11 @@ def thread_terms(raw, *, level_contract=None, original_stop=None):
     if end:
         clocks.append("Filled positions close by " + et(end) + ".")
         refs.append({"file": "plan-export", "pointer": end_ref, "transform": "ET12"})
-    invalidation = "; ".join(conditions)
+    invalidation = (". " if conditional else "; ").join(conditions)
     call = {"market": market, "direction": levels["direction"], "condition": posts._entry_condition(display),
             "horizon": " ".join(clocks).rstrip("."), "invalidation": invalidation}
     title = posts.TITLES[raw["asset_id"]] + ": " + invalidation
-    if level_contract == LEVEL_CONTRACT:
+    if phases:
         entries = levels.get("entries") or []
         limit = next((entry for entry in entries if entry["kind"] == "LIMIT"), None)
         if entries and limit is None:
@@ -184,7 +205,7 @@ def page_thread_terms(plan, run, *, level_contract):
     from .plan_analysis_pages_v1 import _owner_candidate
 
     original_stop = None
-    if level_contract == LEVEL_CONTRACT:
+    if level_contract in PHASE_LEVEL_CONTRACTS:
         try:
             candidate, filename, pointer = _owner_candidate(plan, run)
         except (KeyError, StopIteration):
@@ -666,7 +687,7 @@ def validate_fields(fields, source):
         refs = [sources[k] for k in value["source_ids"]]
         if source.get("thread_contract") == THREAD_CONTRACT:
             check_thread_text(value["text"])
-        if source.get("level_contract") == LEVEL_CONTRACT:
+        if source.get("level_contract") in PHASE_LEVEL_CONTRACTS:
             from .plan_analysis_pages_v1 import check_reader_claim
             check_reader_claim(value["text"], source="\n".join(s["text"] for s in refs),
                 source_name=value.get("source_name", ""), pricing_source=value.get("pricing_source"))
@@ -786,7 +807,7 @@ def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None
     # Attribution stays with the chart. It does not push the root's link back in.
     if credit:
         x_parts[2] += credit
-    if source.get("level_contract") == LEVEL_CONTRACT and call_line:
+    if source.get("level_contract") in PHASE_LEVEL_CONTRACTS and call_line:
         # The two exact phase conditions and clocks may exceed a single post.
         # Keep the link first and the points second; continue with complete
         # sentences rather than asking a writer to shorten frozen plan facts.
