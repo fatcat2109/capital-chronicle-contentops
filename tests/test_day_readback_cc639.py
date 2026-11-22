@@ -96,6 +96,98 @@ def build(recorded, **kwargs):
     return report, calls
 
 
+@pytest.mark.parametrize(("affected", "result", "cause"), [
+    ("x", "MISMATCH", "POSTED_CHART_MISMATCH"),
+    ("facebook_page", "MISSING", "POSTED_CHART_MISSING"),
+    ("discord", "UNVERIFIED", "POSTED_CHART_READBACK_UNAVAILABLE"),
+])
+def test_evening_records_every_posted_chart_and_prepares_one_exact_reply(
+        recorded, monkeypatch, affected, result, cause):
+    from io import BytesIO
+    from types import SimpleNamespace
+
+    from PIL import Image
+    from live_contentops import neo_endpoint_executor_v1 as neo, posted_chart_readback_v1 as charts
+    from live_contentops.tradingview_snapshot_v1 import SYMBOLS
+
+    data, store, feed, run = recorded
+    key = "plan-status-post-cc681-gold"
+    folder = store.parent / key
+    folder.mkdir()
+    path = folder / "gold.png"
+    Image.new("RGB", (480, 300), "navy").save(path)
+    digest = sha256(path.read_bytes()).hexdigest()
+    asset = {"asset_id": "gold-chart", "path": str(path), "sha256": digest,
+             "modality": "tradingview_chart_snapshot",
+             "tradingview_snapshot": {"tv_symbol": SYMBOLS["XAUUSD"]}}
+    (folder / "run_context_v1.json").write_text(json.dumps({"media": {"assets": [asset]}}), encoding="utf-8")
+    urls = {
+        "x": "https://x.com/Capitalnicle/status/111",
+        "facebook_page": None,  # A confirmed comment can lack a permalink.
+        "discord": "https://discord.com/channels/111/222/333",
+        "instagram_business": "https://www.instagram.com/p/fixture-gold/",
+        "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:111/",
+        "linkedin_company": "https://www.linkedin.com/feed/update/urn:li:share:112",
+        "substack_notes": "https://substack.com/@capitalchronicle/note/c-123",
+        "telegram": "https://t.me/CapitalChronicle/123",
+        "threads": "https://www.threads.net/@official.capitalchronicle/post/gold",
+    }
+    ids = {platform: str(680 + index) for index, platform in enumerate(urls)}
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO work_items VALUES(?,?,?)", (key, "Gold update", "2026-11-16T08:00:00Z"))
+        for platform, url in urls.items():
+            status = result if platform == affected else "MATCH"
+            payload = {"market_asset": "XAUUSD", "plan_status_post": key, "output_dir": str(folder),
+                       "native_payload": {"text": "Gold update", "media_asset_ids": ["gold-chart"]}}
+            dispatch = key + "-" + platform
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+                dispatch, key, platform, json.dumps(payload), "DISPATCH_CONFIRMED", "2026-11-16T08:00:00Z"))
+            conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)", (
+                dispatch, dispatch, platform, "DISPATCH_CONFIRMED", "2026-11-16T08:00:00Z", ids[platform], url, None))
+            observed = {"status": status, "expected_sha256": digest, "asset_id": "gold-chart",
+                        "observed_sha256": ["f" * 64] if status == "MISMATCH" else [digest] if status == "MATCH" else []}
+            if status == "MISMATCH":
+                wrong = BytesIO()
+                Image.new("RGB", (480, 300), "firebrick").save(wrong, format="PNG")
+                response = SimpleNamespace(status_code=200, raise_for_status=lambda: None,
+                                           iter_content=lambda size: iter([wrong.getvalue()]))
+                monkeypatch.setattr(neo.requests, "Session",
+                                    lambda: SimpleNamespace(get=lambda *args, **kwargs: response))
+                proof = charts.observe(platform, payload, {
+                    "public_object_id": ids[platform], "public_object_url": url, "write_exists": True,
+                    "public_image_urls": ["https://pbs.twimg.com/media/wrong.jpg"],
+                })
+                observed, = proof["assets"]
+            readback_result = {"verified": status == "MATCH", "write_exists": True, "identity_match": True,
+                               "observed_public_object_id": ids[platform], "posted_chart_readback": {
+                                   "public_object_id": ids[platform], "observed_at_utc": "2026-11-16T08:01:00Z",
+                                   "assets": [observed]}}
+            for index in range(2):
+                conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)", (
+                    f"{dispatch}-read-{index}", dispatch, json.dumps({"readback": readback_result}), "2026-11-16T08:01:00Z"))
+
+    report, _ = build(recorded)
+    decisions = report["decision_checks"]
+    checked = [row for row in decisions["posted_chart_readbacks"] if row["piece_id"] == key]
+    assert {row["platform"]: row["status"] for row in checked} == {
+        platform: result if platform == affected else "MATCH" for platform in urls}
+    assert next(row for row in checked if row["platform"] == affected)["first_cause"] == cause
+    replies = [entry for entry in decisions["chart_correction_replies"] if entry["piece_id"] == key]
+    if result == "UNVERIFIED":
+        assert replies == []
+    else:
+        reply, = replies
+        assert (reply["platform"], reply["reply_to_id"], reply["reply_to_url"], reply["owner"]) == (
+            affected, ids[affected], urls[affected], "Codex Publisher")
+        assert reply["media_assets"][0]["sha256"] == digest
+        assert reply["media_assets"][0]["path"] == str(path)
+    first = readback.write_report(run, report)
+    assert first[1].read_text(encoding="utf-8").count(cause) == 1
+    on_disk = json.loads((run / "decision_checks.json").read_bytes())
+    assert on_disk["chart_correction_replies"] == decisions["chart_correction_replies"]
+    assert build(recorded)[0]["decision_checks"]["chart_correction_replies"] == decisions["chart_correction_replies"]
+
+
 def test_evening_file_reports_ready_and_never_registered_plan_copies(recorded):
     from live_contentops import plan_status_posts_v1 as posts
 

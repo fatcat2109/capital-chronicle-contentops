@@ -1149,12 +1149,12 @@ def _parents(store, row, destinations, previous):
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
                          portrait_id=None, x_analysis=None, destinations=None, discord_channel_reply=None,
-                         repeat_threads_notices=False):
+                         repeat_threads_notices=False, facebook_reply_images=False):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
         result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
             chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id,
-            repeat_threads_notices=repeat_threads_notices)
+            repeat_threads_notices=repeat_threads_notices, facebook_reply_images=facebook_reply_images)
         if row.get("x_analysis_thread") and x_analysis:
             from .plan_reader_copy_v1 import payloads
             result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
@@ -1320,7 +1320,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
                     **({"reply_to_id": str(ref["public_object_id"])} if row["kind"] != "setup" else {}))
             elif destination == "facebook_page":
                 payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"),
-                    own_call_comment=True, comment_card_image=row["kind"] == "setup")
+                    own_call_comment=True,
+                    comment_card_image=bool(card_id) if facebook_reply_images else row["kind"] == "setup")
             elif destination == "instagram_business":
                 if row["kind"] == "setup":
                     payload.update(reuse_run_carousel=True, carousel_index=row.get("carousel_index", 0),
@@ -1336,7 +1337,9 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             payload["media_asset_ids"] = [portrait_id]
             if payload.get("posts"):
                 payload["posts"][0]["media_asset_ids"] = [portrait_id]
-        if credit:
+        imageless_facebook_reply = (facebook_reply_images and destination == "facebook_page"
+                                    and payload.get("own_call_comment") and not payload.get("comment_card_image"))
+        if credit and not imageless_facebook_reply:
             first = payload["text"]
             payload["text"] = first + credit
             payload["full_text"] = payload["text"] + payload["full_text"][len(first):]
@@ -1732,6 +1735,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             "selection": {}, "media": {"assets": assets}, "plan_status_post": key,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
             "status_post_threads_single_notice": True,
+            "status_post_facebook_reply_images": True,
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
             "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id,
             "status_post_instagram_chart_credit": instagram_chart_credit}
@@ -1772,7 +1776,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
                                   instagram_chart_credit=instagram_chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
                                   complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW",
-                                  repeat_threads_notices=not context.get("status_post_threads_single_notice"))
+                                   repeat_threads_notices=not context.get("status_post_threads_single_notice"),
+                                   facebook_reply_images=bool(context.get("status_post_facebook_reply_images")))
     if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
         counts = context.setdefault("status_post_layer_reply_counts", {})
         for destination in chosen:
@@ -1909,7 +1914,7 @@ def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *,
             "cause": posts.destination_causes(outcome).get("discord")}
 
 
-def readback_own_comment(destination, comment_id, parent_id, text, *, chart_path=None):
+def readback_own_comment(destination, comment_id, parent_id, text, *, chart_path=None, observe_images=False):
     """Read the exact comment in its confirmed business card's comment list."""
     if destination == "facebook_page":
         from . import facebook_page_adapter_v6 as adapter
@@ -1920,21 +1925,24 @@ def readback_own_comment(destination, comment_id, parent_id, text, *, chart_path
     else:
         raise posts.PlanPostError("PLAN_CARD_COMMENT_DESTINATION_INVALID")
     try:
-        fields = f"id,{field},attachment" if chart_path else f"id,{field}"
+        inspect_attachment = destination == "facebook_page" and (chart_path or observe_images)
+        fields = f"id,{field},attachment{{type,media}}" if inspect_attachment else f"id,{field}"
         data = adapter._get_json(f"https://graph.facebook.com/{adapter.GRAPH_VERSION}/{parent_id}/comments",
-                                {"access_token": token, "fields": fields, "limit": 100})
+                                 {"access_token": token, "fields": fields, "limit": 100})
         match = next((r for r in data.get("data") or [] if str(r.get("id")) == str(comment_id)), None)
         text_matches = bool(match and match.get(field) == text)
+        attachment = (match or {}).get("attachment")
+        image_url = (((attachment or {}).get("media") or {}).get("image") or {}).get("src")
+        verified = text_matches
         if chart_path and text_matches:
-            attachment = ((match.get("attachment") or {}).get("media") or {}).get("image") or {}
-            chart_url = attachment.get("src")
-            verified = bool(chart_url and adapter.visual_similarity_to_local_file(
-                adapter.read_public_image_bytes(chart_url), chart_path) >= adapter.PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)
-        else:
-            verified = text_matches
+            verified = bool(image_url and adapter.visual_similarity_to_local_file(
+                adapter.read_public_image_bytes(image_url), chart_path) >= adapter.PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)
+        observed = {}
+        if observe_images and inspect_attachment and text_matches and (image_url or not attachment):
+            observed["observed_image_urls"] = [image_url] if image_url else []
         return {"status": "SUCCESS" if verified else "READBACK_UNAVAILABLE", "verified": verified,
                 "public_object_id": comment_id, "body_text_visible": text_matches, "reply_parent_verified": bool(match),
-                **({"meaningful_media_visible": verified} if chart_path else {})}
+                **({"meaningful_media_visible": verified} if chart_path else {}), **observed}
     except Exception as exc:
         return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "safe_error_classification": type(exc).__name__}

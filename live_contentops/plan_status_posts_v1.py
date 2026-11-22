@@ -1562,7 +1562,8 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
                                 chart_credit=bool(context.get("chart_credit")),
                                 instagram_chart_credit=context.get("status_post_instagram_chart_credit"),
                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW",
-                                repeat_threads_notices=not context.get("status_post_threads_single_notice"))
+                                 repeat_threads_notices=not context.get("status_post_threads_single_notice"),
+                                 facebook_reply_images=bool(context.get("status_post_facebook_reply_images")))
         if part >= ANALYSIS_FIRST_PART:
             return row, analysis_reply_payloads(store, row, payloads, part)
         return row, _part_payloads(payloads)

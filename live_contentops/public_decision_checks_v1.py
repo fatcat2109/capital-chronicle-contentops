@@ -456,6 +456,8 @@ class DecisionChecks:
         self.issues = []
         self.seen = set()
         self.plan_analysis = []
+        self.chart_readbacks = []
+        self.chart_replies = {}
 
     def add(self, piece, platform, url, title, text, intent, row, history, source):
         copy = PublicCopy(piece, platform, url, title, text, intent, row, history, source, self.end)
@@ -464,7 +466,7 @@ class DecisionChecks:
 
     def issue(self, decision, piece, platform, cause, *, url=None, evidence=None,
               status="FAIL", **details):
-        key = (decision, piece, platform, cause, url)
+        key = (decision, piece, platform, cause, url, details.get("public_object_id"))
         if key not in self.seen:
             self.seen.add(key)
             self.issues.append({"decision": decision, "piece_id": piece, "platform": platform,
@@ -637,20 +639,41 @@ class DecisionChecks:
         self.check("83", copy, PREVIEW_LINK_REASON if find_forbidden_link(*values) else None)
 
     def _chart(self, copy, market, *, plan_post=False):
+        from .posted_chart_readback_v1 import report_copy
+
+        market = market.upper() if isinstance(market, str) else None
+        expected = SYMBOLS.get(market)
+        chart, reply = report_copy(copy, self.runtime, market, expected)
+        assets = copy.media(self.runtime) if market else []
+        chart_causes = sorted({cause for asset in assets if (cause :=
+            (asset.get("plan_chart_fallback") or {}).get("cause")
+            or (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))})
+        if chart is not None:
+            self.chart_readbacks.append(chart)
+            if reply:
+                key = reply["correction_id"]
+                previous = self.chart_replies.get(key)
+                if previous:
+                    media = {asset["sha256"]: asset for asset in [*previous["media_assets"], *reply["media_assets"]]}
+                    previous["media_assets"] = list(media.values())
+                else:
+                    self.chart_replies[key] = reply
+            self.check("82", copy, chart["first_cause"], chart_readback=True,
+                       status="UNVERIFIED" if chart["status"] == "UNVERIFIED" else "FAIL",
+                       public_object_id=chart["public_object_id"])
+            if chart["status"] == "MATCH" and chart_causes:
+                self.issue("82", copy.piece, copy.platform, "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED",
+                           url=copy.url, evidence=copy.evidence, chart_causes=chart_causes,
+                           market=market, expected_symbol=expected)
+            return
         if not isinstance(market, str) or not market:
             if plan_post:
                 self.check("82", copy, "PLAN_MARKET_UNAVAILABLE", status="UNVERIFIED")
             return
-        market = market.upper()
-        expected = SYMBOLS.get(market)
         if not expected:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
-        assets = copy.media(self.runtime)
         symbols = sorted({symbol for asset in assets if (symbol := _media_symbol(asset))})
-        chart_causes = sorted({cause for asset in assets if (cause :=
-            (asset.get("plan_chart_fallback") or {}).get("cause")
-            or (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))})
         cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
                  else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols
                  else "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED" if chart_causes else None)
@@ -834,7 +857,14 @@ class DecisionChecks:
         parts = defaultdict(list)
         replies = defaultdict(list)
         for copy in self.copies:
+            source = copy.source
+            plan = source.get("source_plan") or {}
+            market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
             if not copy.confirmed:
+                # Some confirmed comments return an object ID without a permalink.
+                if (copy.row.get("status") == "DISPATCH_CONFIRMED" and copy.row.get("public_object_id")
+                        and copy.dispatched_at and self.start < copy.dispatched_at <= self.end):
+                    self._chart(copy, market)
                 continue
             if copy.platform == "discord":
                 discord[copy.source.get("key") or copy.piece].append(copy)
@@ -929,6 +959,8 @@ class DecisionChecks:
                 "unverified_count": sum(row["status"] == "UNVERIFIED" for row in issues),
                 "analysis_layer_gaps": [{"layer": layer, "first_cause": cause, "count": count}
                                         for (layer, cause), count in sorted(self.layer_gaps.items())],
+                "posted_chart_readbacks": self.chart_readbacks,
+                "chart_correction_replies": list(self.chart_replies.values()),
                 "issues": issues}
 
     def estimated_jobs(self, delivery):
