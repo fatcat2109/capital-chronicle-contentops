@@ -637,7 +637,7 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
             thread=source.get("thread_contract") == reader.THREAD_CONTRACT,
             level_contract=source.get("level_contract"))
     call_fields=reader.attach_call(row) if row.get("kind")!="result" else {"reader_call_line":"","conditional_calls":[]}
-    alt_label=variant_alternative_label(packet["source_plan"])
+    alt_label=variant_alternative_label(packet.get("source_plan") or row.get("source_plan") or {})
     prompt=GUIDANCE+(
         "Write platform fields and alt text for this source-bound plan. Hook names today's market force, not its technical levels. "
         "Choose up to five complete force lines, ordered macro/policy, priced_in, positioning/flows, fundamental, geopolitical; "
@@ -833,9 +833,30 @@ def _expired_owner_pages(store, now):
             yield packet
 
 
+# Pre-relaunch (22 Nov 2026, 19:39Z): the minute job hit its five-minute limit in the middle of a page's
+# TradingView capture, and the next run found the capture window used up and published text only.
+# A page capture now starts only when one attempt can finish before the hosting job's limit; otherwise
+# the page waits for the next run (SOURCE_PAGE_PENDING), as the plan posts' run budget does.
+PAGE_JOB_LIFETIME_SECONDS = 300
+PAGE_CAPTURE_MARGIN_SECONDS = 20
+
+
+def page_capture_allowed(job_deadline, *, clock=monotonic):
+    """None (no limit) or a check: can one capture attempt plus the page write end before job_deadline?"""
+    if job_deadline is None:
+        return None
+    from . import tradingview_snapshot_v1 as tv
+    attempt = getattr(tv, "PLAN_ATTEMPT_TIMEOUT_SECONDS", tv.PLAN_RETRY_TIMEOUT_SECONDS)
+    return lambda: clock() + attempt + PAGE_CAPTURE_MARGIN_SECONDS <= job_deadline
+
+
 def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, limit=1, writer_deadline=None,
-            cached_only=False):
-    """One bounded slice per existing minute entry; no coordination polling."""
+            cached_only=False, job_deadline=None):
+    """One bounded slice per existing minute entry; no coordination polling.
+
+    job_deadline (time.monotonic()) is the hosting job's own limit; a page capture that cannot finish
+    before it waits for the next run.
+    """
     owner="cc466-"+uuid4().hex
     from .durable_operational_store_v1 import LeaseConflictError
     try:
@@ -845,6 +866,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
     except LeaseConflictError:
         return {"status":"ACTIVE_PAGE_SLICE","pages":[]}
     results, waiting = [], []
+    capture_token = pages.PAGE_CAPTURE_ALLOWED.set(page_capture_allowed(job_deadline))
     try:
         def result_path(plan_id):
             return Path(root) / ("plan-analysis-" + plan_id) / "editorial_result.json"
@@ -962,6 +984,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                 **({"draft_due": draft_due} if cached_only else {}),
                 **({"source_cause": source_failure} if source_failure else {})}
     finally:
+        pages.PAGE_CAPTURE_ALLOWED.reset(capture_token)
         store.release_lease(lease["lease_id"],owner,lease["fencing_token"])
 
 

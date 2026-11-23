@@ -6,6 +6,7 @@ then renders them; it does not invent an explanation or a missing scenario.
 """
 from __future__ import annotations
 
+from contextvars import ContextVar
 from decimal import Decimal
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -38,6 +39,8 @@ READER_SECTIONS = (
     ("macro", "Macro"), ("scenarios", "The scenarios"), ("plan", "The plan"),
     ("invalidation", "What would change our mind"),
 )
+# Set by plan_reader_editorial_v1.run_due for its slice: may a new TradingView capture start now?
+PAGE_CAPTURE_ALLOWED = ContextVar("plan_analysis_page_capture_allowed", default=None)
 FINAL_STATES = {"CANCELLED": "cancelled", "INVALIDATED": "invalidated", "EXPIRED": "expired",
                 "VIEW_CHANGED": "view changed", "CLOSED": "closed", "RESULT": "closed"}
 ENTRY_TRANSITIONS = {"WAITING": {"TRIGGERED", "FILLED"}, "TRIGGERED": {"FILLED"}}
@@ -587,7 +590,8 @@ def _card(plan, run, folder, manuscript):
                "levels": posts._display_plan(posts._built_plan(plan))}
         if manuscript.get("level_contract"):
             row.update(level_contract=manuscript["level_contract"], source_plan=plan)
-        return posts._post_image(row, folder)[0]
+        # A capture that cannot finish inside the hosting job is deferred (a ValueError), never started.
+        return posts._post_image(row, folder, snapshot_allowed=PAGE_CAPTURE_ALLOWED.get())[0]
     from .plan_analysis_media_v1 import render as render_card
     candidate, _, _ = _owner_candidate(plan, run)
     return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
