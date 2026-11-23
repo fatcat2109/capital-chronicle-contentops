@@ -145,7 +145,9 @@ def test_scheduled_source_recovery_rejects_wrong_identity_budget_or_freeze(tmp_p
     elif fault == "different_url":
         response["additional_source_requests"][0]["url"] += "?other"
     elif fault == "max_frozen":
-        turn._put("visual-edit", "request", {"request_sha256": "frozen"})
+        # 9d398110 (CC-124, 5 Nov): an unanswered visual-edit request is superseded and archived
+        # by the recovery; only an answered MAX visual edit freezes the sources.
+        turn._put("visual-edit", "response", {"request_sha256": "frozen"})
     elif fault == "tampered_pending":
         path = turn.root / "source_preparation_required.json"
         changed = json.loads(path.read_bytes())

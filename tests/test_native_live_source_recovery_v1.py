@@ -109,7 +109,14 @@ def seeded(tmp_path, monkeypatch, *, used=2, published="2026-10-30T09:00:00Z", s
         "invocation_id": "/root/CONTROLLED_TEST", "observation_source": "CONTROLLED_TEST_NOT_MODEL_PROOF"}
     turn.submit("select", {"request_sha256": request["request_sha256"], "output": selected,
         "invocation_observation": observation})
-    if source_missing:
+    if source_missing and scheduled:
+        # a117d523 (CC-124, 5 Nov) gave this fixture the manual-path branch below. A scheduled
+        # window still prepares the plan's source requests inside the run (74427ad6, 2 Nov),
+        # so its run stops at the "sources" stage instead of returning the blocked draft.
+        with pytest.raises(DesktopInputRequired) as media:
+            run()
+        assert media.value.request["stage"] == "sources"
+    elif source_missing:
         from live_contentops.native_desktop_editorial_v1 import request_source_preparation
         blocked = run()
         assert blocked["classification"] == "DRAFT_BLOCKED" and not blocked["writer_invoked"]
