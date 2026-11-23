@@ -273,7 +273,9 @@ def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, ma
                       intent, dispatch, [], {}, now, image_visible=True)
     checks = DecisionChecks({"since_utc": row["at_utc"], "until_utc": now.isoformat()}, root)
     checks._chart(copy, row["symbol"])
-    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_CHART_MISSING"
+    # Builder E, 23 Nov: decision 82 allows the recorded plan card; the check shows it with its cause, not FAIL.
+    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_FACT_CARD_FALLBACK"
+    assert checks.issues[0]["status"] == "FACT_CARD_FALLBACK"
     assert checks.issues[0]["chart_causes"] == [cause]
 
 
