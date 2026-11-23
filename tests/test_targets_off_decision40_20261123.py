@@ -21,8 +21,8 @@ def test_new_rows_print_no_target_and_old_rows_keep_their_bytes(replay, main_roo
     assert row["target_policy"] == cards.NO_TARGET_POLICY
     assert "target" not in row["text"].lower()
     alerts.validate(row, store=store)
-    legacy = {k: v for k, v in row.items() if k != "target_policy"}
-    assert "Target level: " in alerts.compose(legacy)["text"]
+    # A row queued before 22 Nov 22:30Z keeps its target line: the next test queues one on its own clock.
+    # (Since CC-755 the layer quotes depend on the voice, so a new row with fields deleted is no old row.)
 
 
 def test_rows_queued_before_the_decision_keep_the_target_line(replay, main_root):
