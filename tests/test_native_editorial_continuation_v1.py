@@ -126,9 +126,15 @@ def test_command_error_preserves_failure_instead_of_editorial_hold():
         consume_advance_result({"exit_code": 0, "output": ""})
 
 
-def test_writer_notice_survives_all_eight_derivatives_and_thread_limits():
+@pytest.mark.parametrize("written", [
+    "Capital Chronicle offers analysis only, not financial advice or recommendations.",
+    "Analysis, not financial advice. Readers decide whether to trade.",  # a stored item's old notice
+])
+def test_writer_notice_survives_all_eight_derivatives_and_thread_limits(written):
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
-    notice = "Analysis, not financial advice. Readers decide whether to trade."
+    # edac397c (CC-395, 10 Nov) made the current notice every public package's notice. An article
+    # body that still holds the old notice gets the current one in each derivative.
+    notice = "Capital Chronicle offers analysis only, not financial advice or recommendations."
     article = {
         "title": "Funding proposal remains subject to final terms",
         "dek": "The reported proposal does not establish that a financing has closed.",
@@ -136,7 +142,7 @@ def test_writer_notice_survives_all_eight_derivatives_and_thread_limits():
         "social_mechanism_summary": "A proposed transaction valuation does not establish operating performance.",
         "social_policy_summary": "The retained account describes a proposal rather than a completed financing.",
         "social_cross_asset_summary": "Confirmation of commitments and final terms would test the reported proposal.",
-        "substack_body_markdown": "A reported proposal remains unconfirmed. [[SOURCE:SOURCE_1]]\n\n" + notice,
+        "substack_body_markdown": "A reported proposal remains unconfirmed. [[SOURCE:SOURCE_1]]\n\n" + written,
         "reader_first_version": "DATA_JOURNALISM_V1",
         "visual_editorial_decision": {"channel_media": {d: [] for d in (
             "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}},
