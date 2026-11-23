@@ -26,7 +26,7 @@ PAGE_LEASE = "cc466-plan-page-editorial"
 PAGE_DRAFT_LEASE = "cc688-plan-page-draft"
 DRAFT_MANUSCRIPT = "page-manuscript-cc688.json"
 PAGE_AGY_TIMEOUT = 100
-PAGE_COPY_REVISION = 7
+PAGE_COPY_REVISION = 8
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
@@ -298,7 +298,13 @@ def _plan_page_sources(plan, run, *, revision=PAGE_COPY_REVISION):
             raw = pages._source_text(run, ref)
         except (KeyError, IndexError, TypeError, ValueError):
             return
-        for text in reader.verbatim_analysis_spans(select if select is not None else raw):
+        spans = list(reader.verbatim_analysis_spans(select if select is not None else raw))
+        if revision >= 8:
+            # Audit, 23 Nov: rejoin "8:30 a.m. | ET ..." splits, group thousands, and never
+            # offer a fragment, a relative day, a UTC clock or the desk's internal wording.
+            spans = [pages.group_thousands(text) for text in pages.join_abbreviation_spans(spans)
+                     if not pages.public_span_problem(text)]
+        for text in spans:
             if text in used or len(sections[section]) >= 4 or len(text) > 320:
                 continue
             try:
@@ -326,6 +332,17 @@ def _plan_page_sources(plan, run, *, revision=PAGE_COPY_REVISION):
     else:
         layers = reader.analysis_layer_options(plan)
     for layer, options in layers.items():
+        if revision >= 8:
+            # One layer sentence cut after "8:30 a.m." arrives as two options of one source.
+            merged = []
+            for option in options:
+                if (merged and merged[-1]["ref"] == option["ref"]
+                        and pages.join_abbreviation_spans([merged[-1]["text"], option["text"]]) != [
+                            merged[-1]["text"], option["text"]]):
+                    merged[-1] = {**merged[-1], "text": merged[-1]["text"] + " " + option["text"]}
+                else:
+                    merged.append(option)
+            options = merged
         for option in options:
             if layer in destinations:
                 add(destinations[layer], option["ref"], select=option["text"])
@@ -362,6 +379,41 @@ def _plan_page_sources(plan, run, *, revision=PAGE_COPY_REVISION):
     return sections
 
 
+def _case_content(text):
+    """A case line without its "Bull case driver:" or "What would undo the base case:" label."""
+    return re.sub(r"^(?:(?:Base|Bull|Bear|Alternative) case(?: \([\d.]+%\))?(?: driver)?|"
+                  r"What would (?:confirm|undo) the (?:base|bull|bear|alternative) case):\s*", "", text)
+
+
+def _words(text):
+    return set(re.findall(r"[a-z0-9]+", text.casefold()))
+
+
+def _public_cases(cases):
+    """Revision 8: grouped numbers; a support line that is a fragment or internal wording goes."""
+    result = []
+    for case in cases:
+        support = [pages.group_thousands(line) for line in case["support"]
+                   if not pages.public_span_problem(_case_content(line))]
+        result.append({**case, "heading": pages.group_thousands(case["heading"]), "support": support})
+    return result
+
+
+def _drop_case_repeats(sections, cases):
+    """Revision 8: an excerpt that repeats a case line (the same sentence, or the same one with
+    "shorts" reworded) is printed once, in the scenarios."""
+    shown = [_words(_case_content(line)) for case in cases for line in (case["heading"], *case["support"])]
+    for section in sections.values():
+        kept = []
+        for paragraph in section["paragraphs"]:
+            words = _words(paragraph["text"])
+            if any(words and len(words & case) / len(words | case) >= 0.6 for case in shown if case):
+                continue
+            kept.append(paragraph)
+        section["paragraphs"] = kept
+        section["summary"] = kept[0]["text"] if kept else ""
+
+
 def _page_from_selection(plan, run, sources, selection, *, revision=PAGE_COPY_REVISION,
                          level_contract=reader.CURRENT_LEVEL_CONTRACT):
     from .plan_status_posts_v1 import TITLES
@@ -380,6 +432,9 @@ def _page_from_selection(plan, run, sources, selection, *, revision=PAGE_COPY_RE
     cases = reader.scenario_case_copy(plan) if revision >= 7 else []
     if not selection and not cases:
         raise ValueError("CC688_PUBLIC_ANALYST_TEXT_NOT_FOUND")
+    if revision >= 8:
+        cases = _public_cases(cases)
+        _drop_case_repeats(sections, cases)
 
     subtitle = "The original market view and the conditions behind it."
     available = (paragraph["text"] for section in sections.values() for paragraph in section["paragraphs"])
@@ -445,7 +500,12 @@ def repair_cached_page_quotes(plan, run, manuscript, *, cause):
         if not items:
             continue
         held = manuscript["sections"][key]["paragraphs"]
-        retained = dict.fromkeys(items.index(paragraph) for paragraph in held if paragraph in items)
+
+        def same(paragraph):  # revision 8 only groups thousands; the held choice still stands
+            return {**paragraph, "text": re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", paragraph.get("text", ""))}
+
+        plain = [same(item) for item in items]
+        retained = dict.fromkeys(plain.index(same(paragraph)) for paragraph in held if same(paragraph) in plain)
         selection[key] = list(retained or range(len(items)))
     repaired = _page_from_selection(plan, run, sources, selection)
     repaired["authorship"] = {**manuscript.get("authorship", {}), "quote_recheck": {"cause": cause,

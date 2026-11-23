@@ -344,6 +344,8 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "When the evidence supports a conditional view, state a base, bull or bear case and what would "
         "change it. Prefer macro, fundamentals, sentiment or what is priced in to position shorthand. "
         "Use long, short, buy and sell sparingly. Omit profit targets and any unsupported case or chance."
+        " A reply is read later: name the day (for example 20 Nov); never write today, tonight, tomorrow "
+        "or yesterday."
     )
     request["request_sha256"] = digest(request)
     path = Path(output_root) / ("reply-pack-request-" + request["request_sha256"][:16] + ".json")
@@ -353,10 +355,22 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "public_write_performed": False}
 
 
+# Pre-relaunch audit (23 Nov 2026): a 20 Nov draft said "If Bitcoin closes down today". A reply
+# is read later, so a draft checked from the relaunch week on names its day instead.
+RELATIVE_DAY_FROM = datetime(2026, 11, 24, tzinfo=timezone.utc)
+RELATIVE_DAY = re.compile(r"\b(?:today|tonight|tomorrow|yesterday)(?:'s|’s)?(?!\w)", re.I)
+
+
+def _check_dated(text, now):
+    if clock(now) >= RELATIVE_DAY_FROM and RELATIVE_DAY.search(text):
+        raise ValueError("REPLY_RELATIVE_DAY_FORBIDDEN")
+
+
 def validate_draft(draft, post, source, *, now, published_urls=()):
     text = draft["draft_text"]
     if not text.strip() or len(text) > 280:
         raise ValueError("REPLY_PLATFORM_LENGTH_EXCEEDED")
+    _check_dated(text, now)
     if any(char.isalpha() and not ("a" <= char.lower() <= "z") for char in text):
         raise ValueError("REPLY_ENGLISH_REQUIRED")
     if clock(source["known_at_utc"]) > now:
@@ -400,6 +414,7 @@ def validate_mobile_draft(draft, post, source, *, now):
     text = draft["draft_text"]
     if not text.strip() or len(text) > 240:
         raise ValueError("REPLY_MOBILE_240_CHARACTERS")
+    _check_dated(text, now)
     sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z])", text.strip())
     if len(sentences) > 2 or any(len(s.split()) > 22 for s in sentences) or not text.endswith((".", "?")):
         raise ValueError("REPLY_TWO_SENTENCES_22_WORDS")

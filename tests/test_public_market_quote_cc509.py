@@ -235,7 +235,9 @@ def test_fresh_main_then_native_sources_precede_public_https(monkeypatch, tmp_pa
     bar(dbpath, price=101, end=NOW)
     post = target("EUR/USD rises")
     added, attempts, _ = facts.supplement([post], [], now=NOW)
-    assert added[0]["excerpt"].startswith("EURUSD Main quote: 100")
+    # Pre-relaunch audit: never the internal "Main" name; the price at EUR/USD's five places.
+    assert added[0]["excerpt"].startswith("EUR/USD price: 100.00000 ")
+    assert "Main" not in added[0]["excerpt"]
     assert len(attempts) == 1 and attempts[0]["source_kind"] == "PLAN_STATUS_EXPORT"
     prices.PLAN_STATUS_PATH.unlink()
     added, attempts, _ = facts.supplement([post], [], now=NOW)

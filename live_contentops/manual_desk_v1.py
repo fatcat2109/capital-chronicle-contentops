@@ -325,12 +325,21 @@ def _notice():
     return PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
 
 
-def _split_lines(text):
+# Pre-relaunch audit (23 Nov 2026): Jim posts a pack hours after the automatic copy, so an
+# analysis line with a relative day ("through today's retail sales") is left out of a fresh pack.
+# It is not re-dated: a result post re-quotes its setup's lines, written days earlier (seen on the
+# 22 Nov USD/JPY result, whose "today" was 17 Nov). The call line (the lead) is never dropped.
+_RELATIVE_DAY = re.compile(r"\b(?:today|tonight|tomorrow|yesterday)(?:'s|’s)?(?!\w)", re.I)
+
+
+def _split_lines(text, dated=False):
     """Body lines (links removed), plus the chart credit if the copy had one."""
     from .event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
     body, credit = [], None
     for raw in text.replace("\r\n", "\n").split("\n"):
         line = raw.strip()
+        if dated and _RELATIVE_DAY.search(line):
+            continue
         if _CREDIT.match(line):
             credit = "Chart: TradingView"
             continue
@@ -382,9 +391,9 @@ def _assemble(body, credit, link):
     return "\n\n".join(p for p in parts if p)
 
 
-def compose_text(base_text, *, lead, link, limit, calls=(), scenario_voice=False):
+def compose_text(base_text, *, lead, link, limit, calls=(), scenario_voice=False, dated=False):
     """One platform text: the call first, the analysis lines, the notice, the link last."""
-    body, credit = _split_lines(base_text)
+    body, credit = _split_lines(base_text, dated)
     body = _ordered_body(body, lead)
     protected = {lead} | {line for line in body for w in _call_wordings(calls) if w and w in line}
 
@@ -432,13 +441,13 @@ def _sentences(line, limit):
     return [p for p in pieces if p]
 
 
-def compose_x_thread(base_text, *, lead, link, limit=LIMITS["x"]):
+def compose_x_thread(base_text, *, lead, link, limit=LIMITS["x"], dated=False):
     """An X thread: each part within the limit, the call and credit in the root, the link last.
 
     A line longer than a part splits at sentence ends only; sentences of one line
     stay joined by a space inside a part, so the call wording reads as written.
     """
-    body, credit = _split_lines(base_text)
+    body, credit = _split_lines(base_text, dated)
     body = [line for line in _ordered_body(body, lead) if line]
     units = []  # (text, joiner to the previous unit)
     for line in body:
@@ -570,14 +579,15 @@ def build_pack(conn, piece, *, now):
         entry = {"base_source": base_from, "limit": LIMITS[platform], "label": LABELS[platform]}
         try:
             if platform == "x":
-                parts = compose_x_thread(received[base_from], lead=piece["lead"], link=url)
+                parts = compose_x_thread(received[base_from], lead=piece["lead"], link=url, dated=True)
                 entry.update(parts=parts, text="\n\n".join(parts), composer_url=x_intent(parts[0]))
                 # The thread is one copy for decision 40's call wording and the notice.
                 entry["check"] = check_copy(thread_as_copy(parts), calls=piece["conditional_calls"],
                                             source=source, received=received[base_from], scenario_voice=scenario_voice)
             else:
                 text = compose_text(received[base_from], lead=piece["lead"], link=url,
-                                     limit=LIMITS[platform], calls=piece["conditional_calls"], scenario_voice=scenario_voice)
+                                     limit=LIMITS[platform], calls=piece["conditional_calls"], scenario_voice=scenario_voice,
+                                     dated=True)
                 entry.update(text=text, composer_url=COMPOSERS[platform])
                 entry["check"] = check_copy(text, calls=piece["conditional_calls"], source=source,
                                             received=received[base_from], scenario_voice=scenario_voice)
