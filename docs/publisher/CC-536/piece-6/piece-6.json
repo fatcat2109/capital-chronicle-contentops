@@ -1,0 +1,196 @@
+{
+  "policy": "CC536_MEASURED_ODDS_SERIES_V1",
+  "piece": 6,
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "article": {
+    "title": "What happened when the stop followed daily closes",
+    "subtitle": "The trailing exit earned more per trade and won less often in our six-market historical test.",
+    "dek": "The trailing exit earned more per trade and won less often in our six-market historical test.",
+    "social_hook": "The exit that earned the most on average also won the least often in our historical test.",
+    "social_summary": "We compared fixed targets with a trailing stop across November 2016 to November 2026. The exit was the only rule we changed.\n\nEach comparison used 1888 simulated trades, both sides together. The widest fixed exit averaged 0.068R per trade, both sides together. The trailing stop averaged 0.117R per trade, both sides together. It won less often than every fixed-target version.\n\nR is the initial stop distance. Trades could overlap. Gold, shares and Bitcoin rose over the decade. The wider study examined 54 market-and-rule combinations. Daily bars leave the order of intraday touches uncertain.",
+    "social_bullets": [],
+    "substack_body_markdown": "We found that a stop following daily closes earned the most on average in our historical exit test. It also won less often than every version with a fixed target. The test held the entry rule constant, so we can compare the exits directly.\n\n## What we held constant\n\nThe sample spans November 2016 to November 2026. We took signals with the trend every fifth session, both sides together. Simulated trades could overlap.\n\nThe stop distance was 1.5 normal days, and each version could run up to 10 sessions, both sides together. A normal day is the average daily range over 14 sessions, including gaps. The test charged 0.05 of a normal day for each round trip.\n\nThe fixed versions closed at the target, the stop or the end of the holding window. The trailing version moved its stop after a favourable close and kept it there through any reversal.\n\n## What each exit earned\n\nEach comparison used 1888 simulated trades, both sides together. R is the initial stop distance. The averages below are after the test's estimated cost.\n\nThe widest fixed exit averaged 0.068R per trade, both sides together. The trailing stop averaged 0.117R per trade, both sides together. A trailing stop can leave a move running and still give back part of its gains before it closes the trade.\n\n## Where the comparison is fragile\n\nGold, shares and Bitcoin rose over the decade. The pooled result can reflect that rise and the mix of markets and directions. The wider study examined 54 market-and-rule combinations, giving luck more chances to make a result look strong.\n\nDaily bars leave the order of intraday touches uncertain. The test used one round-trip cost across markets, even though gaps and trading costs vary. A later sample would show whether the difference persists.\n\n## So what\n\nCompare exits by average return after costs as well as win rate. Our sample gives those two measures different rankings.\n\nThese are hypothetical historical tests. Read [how we measure historical odds](https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before) for the full design and its limits. Table fingerprint `4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41`.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "search_title": "What happened when the stop followed daily closes",
+    "meta_description": "Our historical test compares exits at fixed targets with a stop that follows daily closes, using the same trade signals.",
+    "article_type": "ARTICLE",
+    "resolved_article_mode": "EVERGREEN_EXPLAINER",
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_article_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "MEASURED_ODDS_SERIES",
+      "authority_ref": "BACKLOG_CC536_DATED_METHOD_SERIES",
+      "source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+      "source_sample_periods": {
+        "EURUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USDJPY": {
+          "from": "2016-11-11",
+          "through": "2026-11-09"
+        },
+        "XAUUSD": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "USOIL": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "US500": {
+          "from": "2016-11-14",
+          "through": "2026-11-10"
+        },
+        "BTCUSD": {
+          "from": "2016-11-12",
+          "through": "2026-11-10"
+        }
+      }
+    },
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "paid": false,
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1"
+  },
+  "number_bindings": [
+    {
+      "field": "substack_body_markdown",
+      "span": "November 2016 to November 2026",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "November 2016 to November 2026"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Each comparison used 1888 simulated trades, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/rows/4/1"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The widest fixed exit averaged 0.068R per trade, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/rows/3"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The trailing stop averaged 0.117R per trade, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/rows/4"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The wider study examined 54 market-and-rule combinations",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "out of 54"
+    },
+    {
+      "field": "social_summary",
+      "span": "November 2016 to November 2026",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "November 2016 to November 2026"
+    },
+    {
+      "field": "social_summary",
+      "span": "Each comparison used 1888 simulated trades, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/rows/4/1"
+    },
+    {
+      "field": "social_summary",
+      "span": "The widest fixed exit averaged 0.068R per trade, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/rows/3"
+    },
+    {
+      "field": "social_summary",
+      "span": "The trailing stop averaged 0.117R per trade, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/rows/4"
+    },
+    {
+      "field": "social_summary",
+      "span": "The wider study examined 54 market-and-rule combinations",
+      "file": "desk_odds_v1.json",
+      "pointer": "/what_this_is",
+      "source_excerpt": "out of 54"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The stop distance was 1.5 normal days, and each version could run up to 10 sessions, both sides together.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/construction/exit/note"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "average daily range over 14 sessions",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "source_excerpt": "D1 ATR14"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The test charged 0.05 of a normal day for each round trip.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured",
+      "source_excerpt": "cost 0.05 of a normal day"
+    }
+  ],
+  "editorial_call": {
+    "pid": 5612,
+    "model": "gpt-6.2-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Ops launch argument readback",
+    "invocation_id": "01a20625-68d5-75b0-bc00-285576e4213f",
+    "operation": "cc536-measured-odds-6",
+    "role": "source-bound writing and editing"
+  },
+  "media_assets": [
+    {
+      "asset_id": "cc536-piece6-gold-native-20-50",
+      "path": "media/XAUUSD_2026-11-23_09-41-49.png",
+      "sha256": "f7d61525a6f8a1aa4c9277f875f6e7c234d28630a6cfda0795337c330b7d0319",
+      "width": 2530,
+      "height": 1553,
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "role": "context_chart",
+      "article_inclusion": true,
+      "canonical_article_media": true,
+      "placement_after": "What we held constant",
+      "attribution": "Chart created with TradingView",
+      "caption": "Gold spot daily candles and twenty- and fifty-session simple averages. ICE via TradingView. The chart illustrates the trend rule within the study window.",
+      "alt_text": "Daily gold candles with two moving averages. The chart shows a strong rise into early 2026 and a lower range by October.",
+      "rights_basis": "TradingView original download with visible attribution on a free public page under Jim decision 82.",
+      "source_url": "https://www.tradingview.com/widgetembed/?symbol=FX_IDC%3AXAUUSD&interval=D",
+      "source_links": [
+        "https://www.tradingview.com/"
+      ],
+      "native_study": {
+        "name": "MA ribbon",
+        "type": "SMA",
+        "source": "Close",
+        "enabled_lengths": [
+          20,
+          50
+        ],
+        "disabled_lengths": [
+          100,
+          200
+        ]
+      },
+      "captured_at_utc": "2026-11-23T02:41:49Z",
+      "inspected_pixels": true,
+      "chart_sample": {
+        "from_utc": "2025-10-20T22:00:00Z",
+        "through_utc": "2026-10-06T22:00:00Z",
+        "main_gold_sample_through": "2026-11-10",
+        "capture_observation": "Dates are from the native visible time scale. The original download retains TradingView attribution and shows daily gold candles and two native closing-price means."
+      }
+    }
+  ]
+}

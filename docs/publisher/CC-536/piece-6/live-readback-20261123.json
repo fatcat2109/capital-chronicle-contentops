@@ -1,0 +1,297 @@
+{
+  "observed_at_utc": "2026-11-23T03:59:30.563630+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "382eb94655549c2e09453776f1bd61d668e77471",
+  "live_tag": "contentops-live-20261123-cc536-piece6",
+  "rollback_tag": "contentops-rollback-20261123-cc536-piece6",
+  "method": {
+    "identity": "cc536-measured-odds-1",
+    "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+    "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+  },
+  "series": [
+    {
+      "piece": 1,
+      "registered": true,
+      "destinations": {
+        "substack": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+          "reconciled": true
+        },
+        "x": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://x.com/Capitalnicle/status/2121503636216049751",
+          "reconciled": true
+        }
+      }
+    },
+    {
+      "piece": 2,
+      "registered": true,
+      "destinations": {
+        "substack": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "reconciled": true
+        },
+        "x": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://x.com/Capitalnicle/status/2122235588179079329",
+          "reconciled": true
+        }
+      }
+    },
+    {
+      "piece": 3,
+      "registered": true,
+      "destinations": {
+        "substack": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the",
+          "reconciled": true
+        },
+        "x": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://x.com/Capitalnicle/status/2122658263015772508",
+          "reconciled": true
+        }
+      }
+    },
+    {
+      "piece": 4,
+      "registered": true,
+      "destinations": {
+        "substack": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical",
+          "reconciled": true
+        },
+        "x": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://x.com/Capitalnicle/status/2123288779473797353",
+          "reconciled": true
+        }
+      }
+    },
+    {
+      "piece": 5,
+      "registered": true,
+      "destinations": {
+        "substack": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our",
+          "reconciled": true
+        },
+        "x": {
+          "status": "DISPATCH_CONFIRMED",
+          "url": "https://x.com/Capitalnicle/status/2123993125190562072",
+          "reconciled": true
+        }
+      }
+    },
+    {
+      "piece": 6,
+      "registered": false
+    }
+  ],
+  "board_acceptance": {
+    "required_consecutive_trading_days": 3,
+    "observed_consecutive_trading_days": 0,
+    "passed": false,
+    "days": [
+      {
+        "day_et": "2026-11-20",
+        "board_sha256": "e155ed5f9532402745f1ae5883fe5ef146f1794a9e25e4c9c7d3a1c17a173491",
+        "complete": false,
+        "channels": [
+          {
+            "destination": "discord",
+            "confirmed": false,
+            "status": "DISPATCH_CONFIRMED",
+            "dispatch_id": "dispatch_616584bbe8ca83e2baaaf0f9cea08d90",
+            "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+            "reconciled_at_utc": "2026-11-23T02:28:37.793731+00:00",
+            "public_object_id": "1574250283477897317",
+            "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1574250283477897317"
+          },
+          {
+            "destination": "discord",
+            "confirmed": true,
+            "status": "DISPATCH_CONFIRMED",
+            "dispatch_id": "dispatch_19f5136b3be070d95a24dcbf62b32a8f",
+            "reconciliation_status": "RECONCILED_CONFIRMED",
+            "reconciled_at_utc": "2026-11-23T02:28:45.484756+00:00",
+            "public_object_id": "1574250319016104047",
+            "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1574250319016104047"
+          },
+          {
+            "destination": "substack_notes",
+            "confirmed": false,
+            "status": "DEFINITE_NO_WRITE",
+            "dispatch_id": "dispatch_204f5518b5702c3ef37b219ddc28c52d",
+            "reconciliation_status": "JIM_POSTS_BY_HAND_20261123",
+            "reconciled_at_utc": "2026-11-23T02:28:46.618844+00:00",
+            "public_object_id": null,
+            "public_object_url": null
+          },
+          {
+            "destination": "x",
+            "confirmed": false,
+            "status": "DEFINITE_NO_WRITE",
+            "dispatch_id": "dispatch_d25aa5fcb9cda27b0372e4d0d48c3922",
+            "reconciliation_status": "JIM_POSTS_BY_HAND_20261123",
+            "reconciled_at_utc": "2026-11-23T02:28:47.790398+00:00",
+            "public_object_id": null,
+            "public_object_url": null
+          }
+        ]
+      }
+    ]
+  },
+  "boards": [
+    {
+      "board_id": "daily-trend-board-2026-11-20",
+      "day_et": "2026-11-20",
+      "frozen_sha256": "e155ed5f9532402745f1ae5883fe5ef146f1794a9e25e4c9c7d3a1c17a173491",
+      "links": [
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "confirmed": false,
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1574250283477897317",
+          "method_link": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "confirmed": true,
+          "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1574250319016104047",
+          "method_link": true
+        },
+        {
+          "destination": "substack_notes",
+          "status": "DEFINITE_NO_WRITE",
+          "confirmed": false,
+          "url": null,
+          "method_link": true
+        },
+        {
+          "destination": "x",
+          "status": "DEFINITE_NO_WRITE",
+          "confirmed": false,
+          "url": null,
+          "method_link": true
+        }
+      ]
+    }
+  ],
+  "next_plan_links": [
+    {
+      "message_id": "daily-trend-board-2026-11-20-x-0",
+      "created_at": "2026-11-23T02:28:47.650248+00:00",
+      "destination": "x",
+      "method_reference": null,
+      "method_link": true,
+      "status": "DEFINITE_NO_WRITE",
+      "confirmed": false,
+      "url": null
+    },
+    {
+      "message_id": "daily-trend-board-2026-11-20-substack_notes-0",
+      "created_at": "2026-11-23T02:28:46.482623+00:00",
+      "destination": "substack_notes",
+      "method_reference": null,
+      "method_link": true,
+      "status": "DEFINITE_NO_WRITE",
+      "confirmed": false,
+      "url": null
+    },
+    {
+      "message_id": "daily-trend-board-2026-11-20-discord-1",
+      "created_at": "2026-11-23T02:28:43.121981+00:00",
+      "destination": "discord",
+      "method_reference": null,
+      "method_link": true,
+      "status": "DISPATCH_CONFIRMED",
+      "confirmed": true,
+      "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1574250319016104047"
+    },
+    {
+      "message_id": "plan-analysis-link-plan_64c0b961e6d621d10de5e9d3-substack_notes",
+      "created_at": "2026-11-19T12:11:52.362948+00:00",
+      "destination": "substack_notes",
+      "method_reference": {
+        "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "identity": "cc536-measured-odds-1",
+        "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+        "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+      },
+      "method_link": true,
+      "status": null,
+      "confirmed": false,
+      "url": null
+    },
+    {
+      "message_id": "plan-analysis-link-plan_64c0b961e6d621d10de5e9d3-instagram_business",
+      "created_at": "2026-11-19T12:11:52.285877+00:00",
+      "destination": "instagram_business",
+      "method_reference": {
+        "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "identity": "cc536-measured-odds-1",
+        "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+        "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+      },
+      "method_link": true,
+      "status": null,
+      "confirmed": false,
+      "url": null
+    },
+    {
+      "message_id": "plan-analysis-link-plan_64c0b961e6d621d10de5e9d3-facebook_page",
+      "created_at": "2026-11-19T12:11:52.215551+00:00",
+      "destination": "facebook_page",
+      "method_reference": {
+        "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "identity": "cc536-measured-odds-1",
+        "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+        "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+      },
+      "method_link": true,
+      "status": null,
+      "confirmed": false,
+      "url": null
+    },
+    {
+      "message_id": "plan-analysis-link-plan_64c0b961e6d621d10de5e9d3-discord",
+      "created_at": "2026-11-19T12:11:52.113727+00:00",
+      "destination": "discord",
+      "method_reference": {
+        "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "identity": "cc536-measured-odds-1",
+        "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+        "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+      },
+      "method_link": true,
+      "status": null,
+      "confirmed": false,
+      "url": null
+    },
+    {
+      "message_id": "plan-analysis-link-plan_64c0b961e6d621d10de5e9d3-telegram",
+      "created_at": "2026-11-19T12:11:52.041370+00:00",
+      "destination": "telegram",
+      "method_reference": {
+        "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "identity": "cc536-measured-odds-1",
+        "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+        "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+      },
+      "method_link": true,
+      "status": null,
+      "confirmed": false,
+      "url": null
+    }
+  ]
+}

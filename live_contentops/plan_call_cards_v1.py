@@ -787,6 +787,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
         if item["key"] not in prior and item.get("state_alert_contract"):
+            from .measured_odds_series_v1 import confirmed_method_page
             from .plan_reader_copy_v1 import plan_layer_candidates
             from .plan_reader_editorial_v1 import prepare_plan_layers
 
@@ -801,6 +802,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             confirmed = confirmed_publication(store, plan) or {}
             item.update(analysis_copy_contract=NINE_LAYER_COPY, analysis_layer_quotes=quotes,
                         analysis_layer_gaps=plan_layer_candidates(plan)[1], analysis_link=confirmed.get("canonical_url"))
+            if item["kind"] == "setup":
+                method = confirmed_method_page(store)
+                if method:
+                    item["method_page_reference"] = method
             item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
