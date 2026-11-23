@@ -15,6 +15,7 @@ from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _bui
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.neo_destination_handoff_v1 import _payload_binding
 from live_contentops.plan_analysis_pages_v1 import public_filter, structured_summary
+from live_contentops.public_decision_checks_v1 import plan_scenario_flags, plan_target_present
 from live_contentops.public_time_v1 import public_datetime, public_timestamp, require_public_time
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
 from live_contentops.reader_article_contract_v1 import article_format
@@ -70,6 +71,34 @@ def test_decision_90_the_update_uses_new_york_time(saved_posts):
     broken = update["text"].replace(clock, "12:36 GMT+7")
     with pytest.raises(ValueError, match="PUBLIC_TIMEZONE_ET_REQUIRED"):
         require_public_time(broken)
+
+
+@pytest.mark.parametrize("line", [
+    "**Target level**: $3,985.10", "Model target level unavailable.",
+    "The target is near 3,985.", "TP1: 3,985.", "A $3,985 profit target.",
+    "Take-profit at 3,985.",
+])
+def test_decision_157_saved_plan_update_detects_added_targets(saved_posts, line):
+    text = saved_posts["timed_plan_update"]["text"]
+    assert not plan_target_present(text)
+    assert plan_target_present(f"{text}\n{line}")
+
+
+def test_decision_157_allows_macro_policy_targets_and_qualitative_outcomes(saved_posts):
+    text = saved_posts["timed_plan_update"]["text"]
+    assert not plan_target_present(
+        text + "\nInflation target: 2%. The Fed's 2% inflation target remains in place."
+        "\nThe plan hit its target. The result was reported at 12:30 ET."
+        "\nhttps://example.test/target-level-3985"
+    )
+
+
+def test_decision_158_flags_legacy_voice_and_accepts_a_split_case_label(saved_posts):
+    text = saved_posts["plan_analysis_reply"]["text"]
+    assert plan_scenario_flags(text) == ("SCENARIO_CASES_MISSING",)
+    scenario = "Base case (55%): The decline holds.\nBull case: Gold rebounds if talks fail."
+    assert plan_scenario_flags(f"{text}\n{scenario}") == ()
+    assert plan_scenario_flags(f"{text}\n{scenario}\nLong first, then sell.") == ("POSITION_WORDS_REPEATED",)
 
 
 def _assert_wrap_shape(kind, body):

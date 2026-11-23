@@ -18,7 +18,8 @@ from .x_reply_trading_dates_v1 import trading_date
 
 WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_page",
                "instagram_business", "threads", "linkedin", "linkedin_company", "x")
-DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83", "CC-732")
+DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83", "CC-732",
+             "157", "158")
 PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
 PLAN_FILL_STATES = {"TRIGGERED", "FILLED"}
 PLAN_POST_KINDS = {"setup", "update", "result"}
@@ -71,6 +72,66 @@ DAILY_WRAP = re.compile(
 WEEKEND_WRAP = re.compile(
     r"\b(?:weekend|weekly|week ahead|week in review)\b.{0,46}\b(?:wrap|recap|review|preview)\b"
     r"|\b(?:wrap|recap|review)\b.{0,30}\b(?:weekend|weekly)\b", re.I)
+
+
+# Look for the plan's target as a price, or an explicit target-level field.
+# A macro policy target and a qualitative result are both legitimate copy.
+_COPY_LINK = re.compile(r"https?://[^\s<>]+", re.I)
+_PRICE = r"(?:USD\s*)?[$€£]?\s*[+-]?\d+(?:,\d{3})*(?:\.\d+)?"
+_TARGET_LABEL = re.compile(
+    r"^\s*(?:[-*•>#]+\s*)?(?:model\s+)?target\s+level\b|\btarget\s+level\s*[:=]", re.I | re.M)
+_TARGET_PRICE = re.compile(
+    rf"\b(?:(?:profit|price|model)[ -]+)?(?:targets?|take[ -]+profits?|TP\d*)\b"
+    rf"(?:\s+(?:level|price|zone))?\s*(?:[:=@]|\b(?:is\s+)?(?:at|of|near|around|above|below)\b|\bis\b)?"
+    rf"\s*(?:[<>]=?\s*)?{_PRICE}(?!\d|[.,:]\d)", re.I)
+_TARGET_BEFORE_LABEL = re.compile(
+    rf"{_PRICE}\s+(?:(?:profit|price|model)[ -]+target|take[ -]+profit)\b", re.I)
+_POLICY_TARGET = re.compile(
+    r"\b(?:inflation|employment|unemployment|deficit|fed funds|policy rate|interest rate|yield)"
+    r"(?:\s+rate)?\s+$", re.I)
+_POSITION_WORD = re.compile(r"\b(?:long|short|buy|sell)\b(?![ -]term\b)", re.I)
+_SCENARIO_FORCES = tuple(re.compile(pattern, re.I) for pattern in (
+    r"\bmacro(?:economic)?\b", r"\bfundamentals?\b", r"\b(?:sentiment|positioning)\b",
+    r"\b(?:priced[ -]in|priced\s+into|pricing\s+in)\b",
+))
+_ENTRY_LEVEL = re.compile(
+    rf"\b(?:(?:buy|entry|sell|accumulation)[ -]+(?:zone|range|band|area)(?:\s+is)?\s*[:=]?\s*"
+    rf"(?:between\s+|around\s+|near\s+|at\s+)?|(?:bullish|bearish)\s+(?:(?:at|around|below|above)\s+)?|"
+    rf"(?:trades?|returns?|moves?|holds?|breaks?)\s+(?:into|between|above|below)\s+){_PRICE}"
+    rf"|{_PRICE}(?:\s*[-–—]\s*{_PRICE})?\s+(?:entry|buy\s+zone)\b", re.I)
+_INVALIDATION_LEVEL = re.compile(
+    rf"\b(?:invalidation(?:\s+level)?|(?:plan\s+)?wrong|invalid(?:ated)?|"
+    rf"(?:cancel|stop)[ -](?:level|loss))\s*[:=]?\s*"
+    rf"(?:if\s+)?(?:the\s+)?(?:price\s+(?:moves?\s+)?)?(?:(?:is|at|above|below|under|over)\s+)?"
+    rf"{_PRICE}|{_PRICE}\s+invalidation\b", re.I)
+SCENARIO_REVIEW_RULES = (
+    "SCENARIO_CASES_MISSING", "POSITION_WORDS_REPEATED", "SCENARIO_FORCES_TOO_FEW",
+    "ENTRY_ZONE_MISSING", "INVALIDATION_LEVEL_MISSING",
+)
+
+
+def _plan_copy_text(text):
+    return _COPY_LINK.sub("", re.sub(r"\*\*|__|\x60", "", unicodedata.normalize("NFKC", text)))
+
+
+def plan_target_present(text):
+    plain = _plan_copy_text(text)
+    return bool(_TARGET_LABEL.search(plain) or _TARGET_BEFORE_LABEL.search(plain) or any(
+        not _POLICY_TARGET.search(plain[:match.start()])
+        for match in _TARGET_PRICE.finditer(plain)
+    ))
+
+
+def plan_scenario_flags(text):
+    plain = _plan_copy_text(text)
+    checks = (
+        re.search(r"\bbase\s+case\b", plain, re.I) and re.search(r"\b(?:bull|bear)\s+case\b", plain, re.I),
+        len(_POSITION_WORD.findall(plain)) <= 1,
+        sum(bool(force.search(plain)) for force in _SCENARIO_FORCES) >= 2,
+        _ENTRY_LEVEL.search(plain),
+        _INVALIDATION_LEVEL.search(plain),
+    )
+    return tuple(rule for rule, passed in zip(SCENARIO_REVIEW_RULES, checks) if not passed)
 
 
 def clock(value):
@@ -572,6 +633,34 @@ class DecisionChecks:
                 layers[key] = {"state": "MISSING", "cause": "EXPORT_GAP_NOT_RECORDED"}
         return layers
 
+    @staticmethod
+    def _plan_copy_body(copy, continuations=()):
+        return "\n".join(filter(None, (
+            copy.root_text(),
+            *(str(post.get("observed_text") or "") for post in copy.thread_replies()),
+            *copy.bound_reply_texts(),
+            *(item.root_text() for item in continuations),
+        )))
+
+    def _plan_target(self, copy, text):
+        details = {"public_object_id": copy.row.get("public_object_id")}
+        if plan_target_present(text):
+            self.check("157", copy, "PUBLIC_PLAN_TARGET_PRESENT", **details)
+        elif not text.strip():
+            self.check("157", copy, "PLAN_COPY_TEXT_UNAVAILABLE", status="UNVERIFIED", **details)
+        else:
+            self.check("157", copy)
+
+    def _scenario_voice(self, copy, text):
+        details = {"public_object_id": copy.row.get("public_object_id")}
+        if not text.strip():
+            self.check("158", copy, "PLAN_COPY_TEXT_UNAVAILABLE", status="UNVERIFIED", **details)
+            return
+        self.check("158", copy)
+        for flag in plan_scenario_flags(text):
+            self.issue("158", copy.piece, copy.platform, flag, url=copy.url,
+                       evidence=copy.evidence, status="FLAGGED", **details)
+
     def _analysis(self, copy, analysis_urls, parts, replies):
         from .plan_reader_copy_v1 import NINE_LAYER_COPY
 
@@ -579,10 +668,7 @@ class DecisionChecks:
         plan_id = copy.source.get("plan_id")
         canonical = analysis_urls.get(plan_id)
         continuations = (*parts, *(reply for reply in replies if reply.intent.get("plan_analysis_link")))
-        text = "\n".join([copy.root_text(),
-                          *(str(post.get("observed_text") or "") for post in copy.thread_replies()),
-                          *copy.bound_reply_texts(),
-                          *(item.root_text() for item in continuations)])
+        text = self._plan_copy_body(copy, continuations)
         missing = {**_layer_entries(copy.source.get("missing_layers")),
                    **_layer_entries(copy.intent.get("missing_layers"))}
         missing = {key: (value.get("first_cause") or value.get("cause")) if isinstance(value, dict)
@@ -904,6 +990,13 @@ class DecisionChecks:
                 copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
             plan_part = plan_post and bool(copy.intent.get("plan_status_part")) and not channel_copy
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
+            if (plan_post and not late_chart) or plan_page:
+                body = self._plan_copy_body(copy)
+                # A continuation is a public object with its own target check. Use
+                # the whole platform copy for the scenario review below.
+                self._plan_target(copy, "\n".join(filter(None, (copy.title, body))) if body else body)
+                if plan_page:
+                    self._scenario_voice(copy, body)
             if plan_post and not plan_part:
                 key = source.get("key") or copy.piece
                 if key not in counted_gaps:
@@ -913,6 +1006,7 @@ class DecisionChecks:
                 own_replies = [reply for reply in replies[(copy.platform, str(copy.row.get("public_object_id")))]
                                if reply is not copy and reply.native.get("reply_to_url") in (None, copy.url)]
                 text = self._analysis(copy, analysis_urls, chain, own_replies)
+                self._scenario_voice(copy, text)
                 if source.get("kind") == "setup" and source.get("analysis_copy_contract") != NINE_LAYER_COPY:
                     self._first_analysis(copy, text)
                 if source.get("kind") == "result" or source.get("state") in PLAN_FILL_STATES:
@@ -948,7 +1042,17 @@ class DecisionChecks:
     def result(self):
         issues = sorted(self.issues, key=lambda row: (DECISIONS.index(row["decision"]), row["piece_id"],
                                                      row["platform"], row["first_cause"], row["public_url"] or ""))
+        voice = Counter(row["first_cause"] for row in issues if row["status"] == "FLAGGED")
+        voice_reviewed = self.counts["158"] - sum(row["decision"] == "158" and row["status"] == "UNVERIFIED"
+                                                for row in issues)
+        scenario_voice = {
+            "posts_reviewed": voice_reviewed,
+            "rules": [{"rule": rule, "flagged": voice[rule],
+                       "share_pct": round(100 * voice[rule] / voice_reviewed, 2) if voice_reviewed else None}
+                      for rule in SCENARIO_REVIEW_RULES],
+        }
         return {"schema_version": "contentops.decision_checks.v1", "window": self.window,
+                "scenario_voice": scenario_voice,
                 "plan_analysis": sorted(self.plan_analysis, key=lambda row: (
                     row["piece_id"], row["platform"], row["public_url"] or "")),
                 "checks": [{"decision": decision, "checked": self.counts[decision],

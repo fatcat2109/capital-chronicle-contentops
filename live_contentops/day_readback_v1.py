@@ -1297,6 +1297,13 @@ def markdown(report):
             if unavailable:
                 lines.append(f"- 113 · {plain(copy['piece_id'])} / {copy['platform']} · "
                              f"Unavailable in the frozen plan ({', '.join(unavailable)})")
+        if voice := decisions.get("scenario_voice"):
+            lines.extend(["", "### Scenario voice", "",
+                          f"{voice['posts_reviewed']} platform copies reviewed."])
+            for rule in voice["rules"]:
+                share = rule["share_pct"]
+                fraction = f"{share:g}%" if share is not None else "no copies reviewed"
+                lines.append(f"- {rule['rule']} · {rule['flagged']}/{voice['posts_reviewed']} flagged ({fraction})")
         if charts := decisions.get("posted_chart_readbacks"):
             replies = {(r["platform"], r["reply_to_id"]): r["correction_id"]
                        for r in decisions["chart_correction_replies"]}
