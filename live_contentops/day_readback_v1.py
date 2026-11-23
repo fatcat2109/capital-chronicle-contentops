@@ -472,6 +472,30 @@ def _read_plan_export(plan_export_dir):
         return None, "MAIN_PLAN_EXPORT_" + type(exc).__name__.upper()
 
 
+def _review_manual_plan_posts(checks, read_public):
+    from .manual_desk_v1 import posted_state
+    from .public_decision_checks_v1 import clock
+
+    automatic = {(copy.piece, copy.platform, copy.url) for copy in checks.copies if copy.confirmed}
+    seen = set()
+    for platforms in posted_state(checks.runtime / "manual_desk").values():
+        for platform, mark in platforms.items():
+            piece = mark.get("piece_id")
+            posted_at = clock(mark.get("posted_at_utc"))
+            if (not isinstance(piece, str)
+                    or not piece.startswith(("plan-status-post-", "plan-update-post-", "plan-result-post-"))
+                    or not posted_at or not checks.start < posted_at <= checks.end):
+                continue
+            url = safe_url(mark.get("public_url"))
+            identity = (piece, platform, url)
+            if identity in automatic or identity in seen:
+                continue
+            # A Posted mark confirms delivery. Its pack text can differ from
+            # what was pasted, so review the public copy when available.
+            checks.review_manual_plan_copy(piece, platform, url, read_public)
+            seen.add(identity)
+
+
 def _confirmed_plan_announcements(conn, export, end):
     if not export:
         return set()
@@ -950,30 +974,6 @@ def _plan_delivery(conn, window, store_path):
     return {"plan_posts": total, "all_destinations_confirmed": complete,
             "all_destinations_confirmed_pct": round(100 * complete / total, 2) if total else None,
             "copies": copies}
-
-
-def _review_manual_plan_posts(checks, read_public):
-    from .manual_desk_v1 import posted_state
-    from .public_decision_checks_v1 import clock
-
-    automatic = {(copy.piece, copy.platform, copy.url) for copy in checks.copies if copy.confirmed}
-    seen = set()
-    for platforms in posted_state(checks.runtime / "manual_desk").values():
-        for platform, mark in platforms.items():
-            piece = mark.get("piece_id")
-            posted_at = clock(mark.get("posted_at_utc"))
-            if (not isinstance(piece, str)
-                    or not piece.startswith(("plan-status-post-", "plan-update-post-", "plan-result-post-"))
-                    or not posted_at or not checks.start < posted_at <= checks.end):
-                continue
-            url = safe_url(mark.get("public_url"))
-            identity = (piece, platform, url)
-            if identity in automatic or identity in seen:
-                continue
-            # A Posted mark confirms delivery. Its pack text can differ from
-            # what was pasted, so review the public copy when available.
-            checks.review_manual_plan_copy(piece, platform, url, read_public)
-            seen.add(identity)
 
 
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
