@@ -261,7 +261,8 @@ def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, ma
     posts.publish_ready(store, **options, immediate_only=True)
     result = posts.publish_ready(store, **options, alert_filter=True, automatic_neo=True)
     assert set(transport.publish_calls) == set(cards.destinations_for(row)), result
-    assert calls == [("16:9", 60, False), ("16:9", 90, True), ("4:5", 60, False), ("4:5", 90, True)]
+    # Builder E, 23 Nov: a plan chart gets 90 s on every attempt (the BTC download landed at 61 s).
+    assert calls == [("16:9", 90, False), ("16:9", 90, True), ("4:5", 90, False), ("4:5", 90, True)]
     for destination in cards.destinations_for(row):
         dispatch = cards._dispatch(store, key, destination)
         assert dispatch["status"] == "DISPATCH_CONFIRMED", result
@@ -272,7 +273,9 @@ def test_cc734_failed_chart_retries_then_delivers_card_to_every_route(replay, ma
                       intent, dispatch, [], {}, now, image_visible=True)
     checks = DecisionChecks({"since_utc": row["at_utc"], "until_utc": now.isoformat()}, root)
     checks._chart(copy, row["symbol"])
-    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_CHART_MISSING"
+    # Builder E, 23 Nov: decision 82 allows the recorded plan card; the check shows it with its cause, not FAIL.
+    assert checks.issues[0]["first_cause"] == "MARKET_TRADINGVIEW_FACT_CARD_FALLBACK"
+    assert checks.issues[0]["status"] == "FACT_CARD_FALLBACK"
     assert checks.issues[0]["chart_causes"] == [cause]
 
 

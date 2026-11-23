@@ -54,6 +54,13 @@ VIEWPORT = {"width": 1910, "height": 850}
 PORTRAIT_VIEWPORT = {"width": 1472, "height": 1350}
 TIMEOUT_SECONDS = 60
 PLAN_RETRY_TIMEOUT_SECONDS = 90
+# Builder E, 23 Nov 2026: a plan's chart (a post or its analysis page) gets 90 seconds on every attempt. On 23 Nov
+# 04:01Z the BTC portrait download landed 61 s into a 60 s first attempt and was thrown away; two attempts of 90 s
+# still fit in the five-minute capture window.
+PLAN_ATTEMPT_TIMEOUT_SECONDS = 90
+# A capture whose run stopped mid-attempt (22 Nov 19:39Z: the minute job's five-minute limit) left no cause. The
+# next run records it and grants one more attempt, once, even after the five-minute window.
+CAPTURE_INTERRUPTED = "TRADINGVIEW_CAPTURE_INTERRUPTED"
 PRICE_SCALE_MISMATCH = "TRADINGVIEW_PRICE_SCALE_MISMATCH"
 PLAYWRIGHT_PYTHON = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v1-runtime\venv\Scripts\python.exe")
 OUTCOMES = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\tradingview_snapshot_outcomes_v1.jsonl")
@@ -126,7 +133,8 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         return snapshot_asset(market,title,taken,media,ratio)
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
     initial = {
-        "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0}
+        "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0,
+        "attempt_causes": []}
     required = required_chart or bool(row.get("state_alert_contract"))
     if required:
         initial["required_chart"] = True
@@ -136,6 +144,10 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
 
     def save():
         state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+
+    def attempt_ended(cause):
+        if isinstance(state.get("attempt_causes"), list) and len(state["attempt_causes"]) < state["attempts"]:
+            state["attempt_causes"].append(str(cause)[:200])
 
     def plain_asset():
         return snapshot_asset(market, title, state["plain_snapshot"], media, ratio)
@@ -192,7 +204,25 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     if plan_post and state.get("status") == "PLAN_CARD":
         raise SnapshotUnavailable(state["cause"])
     deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
-    while state["attempts"] < PLAN_ATTEMPTS and datetime.now(timezone.utc) < deadline:
+    allowed = PLAN_ATTEMPTS
+    if isinstance(state.get("attempt_causes"), list):
+        lost = state["attempts"] - len(state["attempt_causes"])
+        if lost > 0:
+            # The process stopped during an attempt (no cause was saved). Name it, then give it one more try.
+            state["attempt_causes"] += [CAPTURE_INTERRUPTED] * lost
+            state.setdefault("first_cause", CAPTURE_INTERRUPTED)
+            state["cause"] = CAPTURE_INTERRUPTED
+            save()
+        if CAPTURE_INTERRUPTED in state["attempt_causes"]:
+            allowed += 1
+            if state["attempts"] < allowed and "interrupted_retry_until_utc" not in state:
+                state["interrupted_retry_until_utc"] = (datetime.now(timezone.utc) + timedelta(
+                    seconds=PLAN_ATTEMPT_TIMEOUT_SECONDS + 30)).isoformat()
+                save()
+            if state.get("interrupted_retry_until_utc"):
+                deadline = max(deadline, _utc(state["interrupted_retry_until_utc"]))
+    plan_row = plan_post or bool(row.get("levels"))
+    while state["attempts"] < allowed and datetime.now(timezone.utc) < deadline:
         if snapshot_allowed is not None and not snapshot_allowed():
             state.update(status="DEFERRED", cause="TRADINGVIEW_CAPTURE_DEFERRED_RUN_TIME_BUDGET")
             save()
@@ -207,11 +237,12 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             else:
                 remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
                 retry = plan_post and state["attempts"] > 1
-                capture_dir = media / "4x5" if suffix else media
+                # Only a portrait goes under 4x5 (the 16:9 template capture used to share its attempt folders).
+                capture_dir = media / "4x5" if ratio == "4:5" else media
                 if plan_post:
                     capture_dir = capture_dir / f"attempt-{state['attempts']}"
                 taken = capture(market, interval, capture_dir,
-                    timeout=min(PLAN_RETRY_TIMEOUT_SECONDS if retry else TIMEOUT_SECONDS, max(1, remaining)),
+                    timeout=min(PLAN_ATTEMPT_TIMEOUT_SECONDS if plan_row else TIMEOUT_SECONDS, max(1, remaining)),
                     ratio=ratio, **({"allow_plain_scale_mismatch": True, "reset_price_scale": retry} if plan_post else {}),
                     **({"chart_size":(1600,700) if ratio=="16:9" else (1080,850)} if image_input else {}))
             if plan_post and taken.get("plain_price_scale_cause") == PRICE_SCALE_MISMATCH:
@@ -225,18 +256,25 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             cache_file.write_text(json.dumps(taken, sort_keys=True), encoding="utf-8")
             record_outcome({k: v for k, v in state.items() if k not in {"snapshot", "plain_snapshot"}})
             return asset
-        except TemplateSnapshotNotFit:
+        except TemplateSnapshotNotFit as exc:
+            attempt_ended(exc)
+            save()
             raise
         except TemplateImageRefused as exc:
+            attempt_ended(exc)
             state.update(status="IMAGE_HELD", snapshot=taken, cause=str(exc))
             save()
             record_outcome({k: v for k, v in state.items() if k != "snapshot"})
             raise
         except Exception as exc:
             if image_input and str(exc) == "IMAGE_CHART_CAPTURE_SHAPE":
+                attempt_ended(exc)
+                save()
                 raise TemplateSnapshotNotFit(str(exc)) from exc
             state.setdefault("first_cause", str(exc)[:200])
             state["cause"] = str(exc)[:200]
+            # The final cause stays the first one (CC-734 binds it); each attempt's own cause is kept.
+            attempt_ended(exc)
             save()
     state.update(status="TEXT_ONLY", cause=state.get("first_cause") or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED")
     if plan_post:
@@ -423,11 +461,57 @@ def _run_worker(args: dict, *, timeout: float, python: str | None) -> dict:
                 raise SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT") from None
         if result_path.is_file():
             return json.loads(result_path.read_bytes())
+    return _worker_output(process.returncode, out, err)
+
+
+def _worker_output(returncode: int, out: bytes, err: bytes) -> dict:
+    """The worker's result, or its named cause.
+
+    Before 23 Nov the cause was stderr's last line. For a Playwright error that is the call log
+    ("- waiting 500ms", the late BTC chart of 23 Nov 04:06Z), never the error itself.
+    """
     lines = [line for line in out.decode("utf-8", "replace").splitlines() if line.startswith("{")]
-    if process.returncode != 0 or not lines:
-        tail = err.decode("utf-8", "replace").strip().splitlines()[-1:] or ["no output"]
+    last = json.loads(lines[-1]) if lines else None
+    if isinstance(last, dict) and last.get("error"):
+        raise SnapshotError(str(last["error"])[:200])
+    if returncode != 0 or not lines:
+        text = [line.strip() for line in err.decode("utf-8", "replace").strip().splitlines() if line.strip()]
+        named = [line for line in text if re.match(r"^[\w.]+(?:Error|Exception)\b", line)]
+        tail = named[-1:] or text[-1:] or ["no output"]
         raise SnapshotError("TRADINGVIEW_SNAPSHOT_WORKER_FAILED:" + tail[0][:200])
-    return json.loads(lines[-1])
+    return last
+
+
+class _StepBudget:
+    """One deadline for the whole worker (Builder E, 23 Nov 2026).
+
+    The step waits used to be fractions of the budget that together came to about 1.6 times it
+    (goto 1/2, canvas 1/3, title 1/4, paint 2.5 s, download 20 s), so a slow page ran into the
+    parent's kill and left only TRADINGVIEW_SNAPSHOT_TIMEOUT. Each wait now gets at most what is
+    left, and a spent budget or a failed step names its step.
+    """
+
+    def __init__(self, budget_ms: int, clock=None):
+        import time
+        self.clock = clock or time.monotonic
+        self.deadline = self.clock() + budget_ms / 1000
+        self.step = "launch"
+
+    def at(self, step: str) -> "_StepBudget":
+        self.step = step
+        return self
+
+    def left(self, cap_ms: float) -> int:
+        remaining = int((self.deadline - self.clock()) * 1000)
+        if remaining <= 0:
+            raise SnapshotError("TRADINGVIEW_WORKER_BUDGET_SPENT:" + self.step)
+        return max(1, min(int(cap_ms), remaining))
+
+    def cause(self, exc: BaseException) -> str:
+        if isinstance(exc, SnapshotError):
+            return str(exc)
+        kind = "TIMEOUT" if "Timeout" in type(exc).__name__ else "FAILED"
+        return f"TRADINGVIEW_WORKER_STEP_{kind}:{self.step}"
 
 
 def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEOUT_SECONDS,
@@ -869,6 +953,51 @@ def fallback_card(*, title: str, facts: list[tuple[str, str]], dated_line: str, 
             "data_card_packet": packet, "publication_authority": False}
 
 
+# Decision 82 on a plan's analysis page (Builder E, 23 Nov 2026). The 22 Nov BTC page went out text-only after its
+# capture failed; a page now carries CC-290's fact card with the plan's own numbers instead. No target (40, 157).
+PAGE_STATUS_WORDS = {"WAITING": "Waiting for price to reach the entry zone", "TRIGGERED": "Entry filled",
+                     "FILLED": "Entry filled", "CANCELLED": "Plan cancelled", "INVALIDATED": "Plan invalidated",
+                     "EXPIRED": "Plan expired", "VIEW_CHANGED": "View changed", "CLOSED": "Plan closed",
+                     "RESULT": "Plan closed"}
+
+
+def page_card_facts(plan: Mapping[str, Any], status: Mapping[str, Any] | None = None) -> list[list[str]]:
+    """Zone, invalidation, status and time of one plan, from Main's own registration. Never a target."""
+    from .plan_status_posts_v1 import _built_plan, _display_plan, _instrument_title, _when, plan_facts
+
+    state = (status or {}).get("status") or plan.get("status") or "WAITING"
+    at = (status or {}).get("status_at_utc") or plan.get("status_at_utc") or plan["registered_at_utc"]
+    levels = _display_plan(_built_plan(plan, state=state))
+    row = {"instrument_title": _instrument_title(plan["asset_id"], levels), "price_basis": levels.get("price_basis"),
+           "levels": levels, "entries": levels.get("entries") or [], "state": state, "at_utc": at}
+    facts = [[label, PAGE_STATUS_WORDS.get(state, value) if label == "Status" else value]
+             for label, value in plan_facts(row)]
+    labels = {label for label, _ in facts}
+    if not {"Entry zone", "Invalidation", "Status", "As of"} <= labels:
+        raise ValueError("PLAN_PAGE_FACT_CARD_LEVELS_MISSING")
+    if any(re.search(r"target", label + " " + value, re.I) for label, value in facts):
+        raise ValueError("PLAN_PAGE_FACT_CARD_TARGET_REFUSED")
+    return facts
+
+
+def page_fact_card(plan: Mapping[str, Any], folder: Path, *, status: Mapping[str, Any] | None = None) -> dict | None:
+    """The page's fact card once its own bounded capture has ended text-only; otherwise None."""
+    from .plan_status_posts_v1 import TITLES
+
+    folder = Path(folder)
+    key, market = "plan-analysis-" + plan["plan_id"], plan["asset_id"]
+    path = folder / "tradingview_capture_v1.json"
+    state = json.loads(path.read_bytes()) if path.is_file() else {}
+    if (state.get("key") != key or state.get("market") != market or state.get("status") != "TEXT_ONLY"
+            or not state.get("cause")):
+        return None
+    facts = page_card_facts(plan, status)
+    asset = fallback_card(title=f"{TITLES[market]}: our plan's levels", facts=[tuple(f) for f in facts],
+                          dated_line=dict(facts)["As of"], out_dir=folder / "media_assets", kicker="Plan levels")
+    asset["plan_chart_fallback"] = {"key": key, "market": market, "ratio": "16:9", "cause": state["cause"]}
+    return asset
+
+
 # --- worker: runs in the Playwright venv, one snapshot, then exits -------------------------
 
 def _worker(args: dict) -> dict:
@@ -876,10 +1005,20 @@ def _worker(args: dict) -> dict:
     from playwright.sync_api import sync_playwright
     started = time.time()
     budget = max(15000, int(args.get("budget_ms") or 50000))
+    steps = _StepBudget(budget)
     out_dir = Path(args["out_dir"])
     viewport = dict(PORTRAIT_VIEWPORT if args.get("ratio") == "4:5" else VIEWPORT)
+    try:
+        return _worker_steps(args, steps, started, budget, out_dir, viewport, sync_playwright)
+    except Exception as exc:
+        raise SnapshotError(steps.cause(exc)) from exc
+
+
+def _worker_steps(args, steps, started, budget, out_dir, viewport, sync_playwright):
+    import time
+    reset_cause = None
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, channel="chromium")
+        browser = p.chromium.launch(headless=True, channel="chromium", timeout=steps.at("launch").left(30000))
         try:
             # A new context is a fresh, empty profile: guest chart, nothing saved, nothing shared.
             context = browser.new_context(viewport=viewport, accept_downloads=True, locale="en-US",
@@ -911,14 +1050,23 @@ def _worker(args: dict) -> dict:
                         return fill.call(this, text, x, y, ...rest);
                     };
                 })();""")
-            page.goto(args["url"], wait_until="domcontentloaded", timeout=budget // 2)
-            page.wait_for_selector("canvas", timeout=budget // 3)
+            page.goto(args["url"], wait_until="domcontentloaded", timeout=steps.at("open_chart").left(budget // 2))
+            page.wait_for_selector("canvas", timeout=steps.at("chart_canvas").left(budget // 3))
             page.wait_for_function(
-                "() => { const t = document.title || ''; return /\\d/.test(t); }", timeout=budget // 4)
-            page.wait_for_timeout(2500)  # last bars paint
+                "() => { const t = document.title || ''; return /\\d/.test(t); }",
+                timeout=steps.at("price_title").left(budget // 4))
+            page.wait_for_timeout(steps.at("paint").left(2500))  # last bars paint
             if args.get("reset_price_scale"):
-                page.locator('[data-name="price-axis-A"] canvas').first.dblclick(timeout=5000)
-                page.wait_for_timeout(500)
+                # Optional: the parent checks the price scale of every download anyway. A click that
+                # cannot land (an overlay, a slow axis) no longer fails the whole retry.
+                try:
+                    page.locator('[data-name="price-axis-A"] canvas').first.dblclick(
+                        timeout=steps.at("reset_price_scale").left(5000))
+                    page.wait_for_timeout(steps.left(500))
+                except SnapshotError:
+                    raise
+                except Exception as exc:
+                    reset_cause = steps.cause(exc)
             legend = page.evaluate("""() => {
                 const q = s => [...document.querySelectorAll(s)].map(e => e.innerText.trim()).filter(Boolean);
                 return [...q('[data-name="legend-source-title"]'), ...q('[data-qa-id="legend-source-title"]'),
@@ -940,7 +1088,7 @@ def _worker(args: dict) -> dict:
                     axis_png = page.locator('[data-name="price-axis-A"] canvas').first.evaluate("c => c.toDataURL('image/png').split(',')[1]")
                     axis_file = out_dir / "price-axis.png"
                     axis_file.write_bytes(base64.b64decode(axis_png))
-                with page.expect_download(timeout=20000) as download:
+                with page.expect_download(timeout=steps.at("download").left(20000)) as download:
                     page.keyboard.press("Control+Alt+KeyS")
                 name = download.value.suggested_filename
                 target = out_dir / name
@@ -960,11 +1108,12 @@ def _worker(args: dict) -> dict:
                 viewport = {"width": viewport["width"] + target_width - width,
                             "height": viewport["height"] + target_height - height}
                 page.set_viewport_size(viewport)
-                page.wait_for_timeout(500)  # bounded canvas repaint after resize
+                page.wait_for_timeout(steps.at("resize").left(500))  # bounded canvas repaint after resize
             result = {"path": str(target), "suggested_filename": name, "legend": legend, "page_title": page.title(),
                     "capture_ratio": args.get("ratio", "16:9"), "capture_viewport": viewport,
                     "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1),
-                    **({"geometry_probe": geometry_probe, "axis_path": str(axis_file)} if geometry_probe else {})}
+                    **({"geometry_probe": geometry_probe, "axis_path": str(axis_file)} if geometry_probe else {}),
+                    **({"price_scale_reset_cause": reset_cause} if reset_cause else {})}
             # The parent still checks the symbol, interval, PNG and price scale.
             # Save this download's metadata before Chromium closes its context.
             if args.get("worker_result_path"):
@@ -980,4 +1129,8 @@ def _worker(args: dict) -> dict:
 
 
 if __name__ == "__main__" and len(sys.argv) == 3 and sys.argv[1] == "--worker":
-    print(json.dumps(_worker(json.loads(sys.argv[2]))))
+    try:
+        print(json.dumps(_worker(json.loads(sys.argv[2]))))
+    except SnapshotError as error:
+        print(json.dumps({"error": str(error)[:200]}))
+        raise SystemExit(1)
