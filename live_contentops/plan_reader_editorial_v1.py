@@ -19,6 +19,7 @@ from uuid import uuid4
 
 from . import plan_reader_copy_v1 as reader
 from . import plan_analysis_pages_v1 as pages
+from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 
 PAGE_LEASE = "cc466-plan-page-editorial"
@@ -29,21 +30,24 @@ PAGE_COPY_REVISION = 6
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
-def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANALYSIS_COPY):
+def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANALYSIS_COPY, scenario_voice=False):
     """Choose one public quote per layer before any status copy is issued."""
     from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
 
     nine_layers = contract == reader.NINE_LAYER_COPY
-    options = reader.plan_layer_candidates(plan)[0] if nine_layers else reader.analysis_layer_options(plan)
+    options = (reader.plan_layer_candidates(plan, scenario_voice=scenario_voice)[0]
+               if nine_layers else reader.analysis_layer_options(plan))
     quotes = {layer: candidates[0]["text"] for layer, candidates in options.items()}
     choices = {layer: [item["text"] for item in candidates[:3]] for layer, candidates in options.items()
                if candidates[0]["text"]}
     if not choices or output_dir is None:
         return quotes
     if nine_layers:
+        guidance = voice.GUIDANCE if scenario_voice else ""
         prompt = (
             "Do not call tools. Draft one line per layer, using only this plan's own wording. "
             "Rewrite internal notation using the supplied public wording. Keep the meaning, figures and clocks. "
+            + guidance +
             "Return a JSON object mapping each layer to one exact public text or its zero-based index.\n"
             + json.dumps({layer: options[layer][:3] for layer in choices}, ensure_ascii=False, separators=(",", ":"))
         )
@@ -59,7 +63,7 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANA
         record = json.loads(log.read_bytes())
         selected = record.get("checked_quotes")
         if selected is not None:
-            reader.verified_analysis_lines(plan, selected, contract=contract)
+            reader.verified_analysis_lines(plan, selected, contract=contract, scenario_voice=scenario_voice)
             return selected
         answer_path = root / "answer.txt"
         answer = answer_path.read_bytes() if answer_path.is_file() else b""
@@ -90,7 +94,7 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANA
                     accepted += 1
         except (UnicodeError, ValueError) as exc:
             findings["answer"] = str(exc)
-    reader.verified_analysis_lines(plan, quotes, contract=contract)
+    reader.verified_analysis_lines(plan, quotes, contract=contract, scenario_voice=scenario_voice)
     record.update(job="plan_layer_lines", result="PASS" if accepted == len(choices) and not findings else "FALLBACK",
                   fallback=None if accepted == len(choices) else "frozen_plan",
                   lines_expected=len(choices), lines_passed=accepted, findings=findings, checked_quotes=quotes)

@@ -15,6 +15,7 @@ import re
 from typing import Mapping
 
 from . import plan_status_posts_v1 as posts
+from . import scenario_voice_v1 as voice
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
 from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
 from .plan_reader_copy_v1 import NINE_LAYER_COPY, THREAD_CONTRACT
@@ -609,6 +610,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         if now >= NO_TARGET_EFFECTIVE:
             # Jim, 23 Nov 2026 about 05:30 GMT+7: "Keep targets off." Decision 40 stands for every new row.
             item["target_policy"] = NO_TARGET_POLICY
+            item["scenario_voice"] = voice.CONTRACT
         if kind != "setup" and row["plan_id"] in cards and discord_delivery == "channel":
             item["discord_delivery"] = cards[row["plan_id"]].get("discord_delivery", "bot_thread")
         if kind == "setup" and (now - posts._utc(row["at_utc"])).total_seconds() > window_minutes * 60:
@@ -764,15 +766,19 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
 
             plan = item["source_plan"]
             original = cards.get(item["plan_id"]) or {}
-            if original.get("analysis_copy_contract") == NINE_LAYER_COPY and original.get("source_plan") == plan:
+            scenario_voice = item.get("scenario_voice") == voice.CONTRACT
+            if (original.get("analysis_copy_contract") == NINE_LAYER_COPY and original.get("source_plan") == plan
+                    and original.get("scenario_voice") == item.get("scenario_voice")):
                 quotes = original["analysis_layer_quotes"]
             else:
                 folder = (Path(analysis_copy_root) / plan["plan_id"]
                           if analysis_copy_root is not None and not dry_run else None)
-                quotes = prepare_plan_layers(plan, output_dir=folder, contract=NINE_LAYER_COPY)
+                quotes = prepare_plan_layers(plan, output_dir=folder, contract=NINE_LAYER_COPY,
+                                            scenario_voice=scenario_voice)
             confirmed = confirmed_publication(store, plan) or {}
             item.update(analysis_copy_contract=NINE_LAYER_COPY, analysis_layer_quotes=quotes,
-                        analysis_layer_gaps=plan_layer_candidates(plan)[1], analysis_link=confirmed.get("canonical_url"))
+                        analysis_layer_gaps=plan_layer_candidates(plan, scenario_voice=scenario_voice)[1],
+                        analysis_link=confirmed.get("canonical_url"))
             item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
@@ -800,7 +806,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                                    target_surface="MULTI_PLATFORM", work_item_id=posts.WORK_ITEM_ID)
             store.register_outbox_message(message_id=item["key"], work_item_id=posts.WORK_ITEM_ID,
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
-        queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text", "analysis_layer_gaps")
+        queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text", "analysis_layer_gaps",
+                                           "scenario_voice_findings")
                        if k in item})
     from .plan_reader_editorial_v1 import active_page_plan_ids
 
