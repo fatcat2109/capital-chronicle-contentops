@@ -79,9 +79,17 @@ def test_late_recovery_requires_validity_and_is_bounded_to_24_hours(tmp_path, ma
     folder = write_export(tmp_path / "export", [gold], [event("gold", "TRIGGERED", at)])
     result = queue(store, folder, main_root)
     if deadline is None:
-        # CC-400 rejects an invalid expiry before recovery evaluates its age.
-        assert result["status"] == "EXPORT_CONTRACT_REJECTED"
-        assert result["failed_field"] == "status.plans[0].expires_at_utc"
+        # The contract still refuses the missing expiry at its exact field (CC-400). Since bddc6ffb
+        # (CC-515, 12 Nov) the consumer isolates that row instead of rejecting the whole export; this
+        # stub Main root has no schemas for the row projection, so the run reads as unreadable here.
+        from live_contentops.plan_status_export_contract_v1 import PlanExportContractError, validate_export_contract
+        value = {"status": json.loads((folder / "plan-status.public.json").read_bytes()),
+                 "transitions": json.loads((folder / "plan-transitions.public.json").read_bytes())}
+        with pytest.raises(PlanExportContractError) as refused:
+            validate_export_contract(value)
+        assert refused.value.field == "status.plans[0].expires_at_utc"
+        assert result["status"] in {"EXPORT_UNREADABLE", "EXPORT_CONTRACT_REJECTED"}
+        assert not result.get("queued")
     else:
         assert result["queued"] == []
     assert store.list_outbox_messages(destination=posts.DESTINATION) == []

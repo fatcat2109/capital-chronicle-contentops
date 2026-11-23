@@ -231,7 +231,8 @@ def test_next_image_preparation_continues_legacy_failure_once_and_keeps_original
     path=Path(image["path"]).with_suffix('.json')
     original=json.dumps(image).encode();path.write_bytes(original)
     monkeypatch.setattr(templates,'render',lambda *a,**k:deepcopy(image))
-    monkeypatch.setattr(quality,'ACCEPTANCE_CONTROL',tmp_path/'absent-control.json')
+    # e4bd997a (CC-465, 21 Nov) removed the template acceptance artifact and ACCEPTANCE_CONTROL;
+    # the per-image checklist alone decides, so there is no control file to point away from.
     output={"image_seen":True,"points":{str(i):True for i in range(1,11)},
         "reasons":{str(i):"Observed attached image." for i in range(1,11)}}
     calls=[]

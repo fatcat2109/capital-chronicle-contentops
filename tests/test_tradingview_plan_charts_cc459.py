@@ -55,7 +55,9 @@ def test_budget_deferral_resumes_same_request_without_drawing_or_losing_attempts
     asset = tv.plan_snapshot(row, tmp_path / "one", snapshot=fresh_snapshot(calls))
     second = json.loads((tmp_path / "one/tradingview_capture_v1.json").read_bytes())
     assert asset and second["attempts"] == 1
-    assert first["started_at_utc"] == second["started_at_utc"]
+    # CC-777 piece 2 (Builder F's finding): a deferral starts no clock; the window counts from the first attempt.
+    assert second["first_deferred_at_utc"] == first["started_at_utc"]
+    assert second["started_at_utc"] >= first["started_at_utc"]
 
 
 def test_two_failures_retain_first_cause_and_resume_as_text_without_more_captures(tmp_path, monkeypatch):
