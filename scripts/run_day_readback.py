@@ -73,7 +73,9 @@ def main(argv=None):
     print(json.dumps({"state": "READBACK_WRITTEN", "files": [str(p) for p in paths],
                       "pieces": len(report["pieces"]), "exception_count": report["exception_count"],
                       "exceptions": sorted(report["exceptions"], key=lambda issue: "decision" not in issue),
-                      "decision_failure_count": decisions["failure_count"]}, ensure_ascii=False))
+                      "decision_failure_count": decisions["failure_count"],
+                      # Jim's posting pause: a day with no posts reports PAUSED and its cause, not failures.
+                      "pause": decisions.get("pause")}, ensure_ascii=False))
     return 0  # Named destination exceptions belong in the notice, not a retry loop.
 
 
