@@ -318,7 +318,10 @@ def test_shared_transport_preserves_installed_image_failure_fallback(monkeypatch
         lambda **kwargs: {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                          "reason_code": "CONTROLLED_TRANSPORT_REACHED"})
     owner = CanonicalDestinationTransportRuntimeV1(neo_transport=Transport(), linkedin_transport=Transport())
-    outcome = owner.publish(destination=destination, intent={}, authorization_context={})
+    # f4367ae1 (CC-684, 21 Nov) on purpose: a new LinkedIn member copy goes through Neo (as the company
+    # copy does); a member copy without that route is refused before any transport as API-retired.
+    intent = {"destination_plan": {"transport_type": "BROWSEROS_NEO_MCP"}} if destination == "linkedin" else {}
+    outcome = owner.publish(destination=destination, intent=intent, authorization_context={})
     assert "EVERY_POST_IMAGE_REQUIRED" not in str(outcome)
     assert "CONTROLLED_TRANSPORT_REACHED" in str(outcome)
 
