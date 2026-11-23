@@ -47,6 +47,11 @@ NAMES = {"XAUUSD": "Gold spot / US dollar (ICE)", "US500": "S&P 500 index",
 REVIEWED_MAP = Path(r"A:\Capital Chronicle\Worktrees\codex-web-cc254-clean\ui\src\product\public-desk"
                     r"\reviewed-tradingview-symbols.json")
 INTERVAL_LABELS = {"15": "15m", "60": "1h", "240": "4h", "D": "1D"}
+INTERVAL_SECONDS = {"15": 900, "60": 3600, "240": 14400, "D": 86400}
+# CC-778 (Builder K, 24 Nov 2026): a dated follow-up shows its move on a chart whose visible window runs from
+# before the original call to the bar that resolved it. The worker sets that range through the chart page's own
+# API, reads the range back, and the parent refuses any download whose window does not match or shows a later bar.
+HISTORICAL_RANGE_UNCONFIRMED = "TRADINGVIEW_VISIBLE_RANGE_NOT_CONFIRMED"
 # Ops Product, 5 Nov: 16:9 for X, Threads, Telegram, Discord, LinkedIn and Facebook; 4:5 for Instagram.
 RATIOS = {"16:9": (16, 9), "4:5": (4, 5)}
 # A 1910x850 page gives a snapshot of about 1524x856, already close to 16:9.
@@ -522,19 +527,32 @@ class _StepBudget:
 def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEOUT_SECONDS,
             worker=None, python: str | None = None, ratio: str = "16:9", quote_provider=None,
             chart_size: tuple[int, int] | None = None, reset_price_scale=False,
-            allow_plain_scale_mismatch=False) -> dict:
-    """One TradingView Download image of the market at the interval, checked before use."""
+            allow_plain_scale_mismatch=False, visible_range: Mapping[str, Any] | None = None) -> dict:
+    """One TradingView Download image of the market at the interval, checked before use.
+
+    visible_range (CC-778) asks for a historical window: {"from_utc", "show_from_utc", "last_bar_open_utc"}.
+    The download must show every bar from show_from_utc through the bar opening at last_bar_open_utc and no
+    later bar; its scale is then checked against quote_provider(market, visible_to_utc), the held close there.
+    """
     economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(market)))
     if (market not in SYMBOLS and not economic) or interval not in INTERVAL_LABELS or ratio not in RATIOS:
         raise SnapshotError("TRADINGVIEW_SNAPSHOT_MARKET_OR_INTERVAL_UNSUPPORTED")
     tv_symbol = market if economic else SYMBOLS[market]
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
+    if visible_range and (economic or quote_provider is None):
+        raise SnapshotError("TRADINGVIEW_HISTORICAL_WINDOW_NEEDS_HELD_CLOSE_PROVIDER")
     if not economic and worker is None and quote_provider is None:
         from .chart_price_reference_v1 import prepare_chart_quote
         prepare_chart_quote(market)
     args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir),
             "budget_ms": int(timeout * 1000) - 8000, "ratio": ratio}
+    if visible_range:
+        step = INTERVAL_SECONDS[interval]
+        last_open = int(_utc(visible_range["last_bar_open_utc"]).timestamp())
+        # The right edge sits just under half a bar past the last bar's open: that bar shows whole, the next none.
+        args["visible_range"] = {"from": int(_utc(visible_range["from_utc"]).timestamp()),
+                                 "to": last_open + int(step * .45), "last_bar_open": last_open, "step": step}
     if reset_price_scale:
         args["reset_price_scale"] = True
     if chart_size is not None:
@@ -580,6 +598,21 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
             "captured_at_utc": result.get("captured_at_utc"), "seconds": result.get("seconds")}
     if chart_size:
         taken["template_chart_size"] = list(chart_size)
+    if visible_range:
+        taken.update(historical_window(result, visible_range, interval))
+        from .publication_image_contract_v1 import bind_scale, not_compared
+        quote = quote_provider(market, taken["visible_to_utc"])
+        if quote is None or taken.get("visible_last_price") is None:
+            # Nothing to compare: the right symbol is still bound, and no level is offset (WTI draws no level).
+            cause = ("TRADINGVIEW_HISTORICAL_HELD_CLOSE_UNAVAILABLE" if quote is None
+                     else "TRADINGVIEW_HISTORICAL_LAST_CLOSE_UNREAD")
+            taken["price_scale_check"] = not_compared(market, taken, cause)
+            return taken
+        taken = bind_scale(market, taken, quote=quote)
+        record_outcome({"status": "PRICE_SCALE_CHECKED", "market": market,
+            "captured_at_utc": taken["captured_at_utc"], "visible_to_utc": taken["visible_to_utc"],
+            "price_scale_check": taken["price_scale_check"], "chart_sha256": taken["sha256"]})
+        return taken
     if not economic and (worker is None or quote_provider is not None):
         from .publication_image_contract_v1 import ImageContractError, bind_scale
         try:
@@ -598,6 +631,47 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
             "captured_at_utc": taken["captured_at_utc"],
             "price_scale_check": taken["price_scale_check"], "chart_sha256": taken["sha256"]})
     return taken
+
+
+def _displayed_number(text: Any) -> float | None:
+    """A value as the chart displays it (thousands commas, a typographic minus), or None."""
+    cleaned = str(text or "").strip().replace(",", "").replace("−", "-")
+    try:
+        value = float(cleaned)
+    except ValueError:
+        return None
+    return value if value == value and abs(value) != float("inf") else None
+
+
+def historical_window(result: Mapping[str, Any], visible_range: Mapping[str, Any], interval: str) -> dict:
+    """CC-778: the window the worker read back, checked against the request; refused when it differs.
+
+    The download shows every bar from show_from_utc (the original call's bar) through the bar that opens at
+    last_bar_open_utc, and no later bar. visible_to_utc is that last bar's close.
+    """
+    observed = result.get("visible_range_observed") or {}
+    if observed.get("error"):
+        raise SnapshotError(str(observed["error"])[:200])
+    step = INTERVAL_SECONDS[interval]
+    last_open = int(_utc(visible_range["last_bar_open_utc"]).timestamp())
+    show_from = int(_utc(visible_range["show_from_utc"]).timestamp())
+    try:
+        seen_from, seen_to = float(observed["from"]), float(observed["to"])
+    except (KeyError, TypeError, ValueError):
+        raise SnapshotError(HISTORICAL_RANGE_UNCONFIRMED) from None
+    if not (seen_from <= show_from and last_open <= seen_to < last_open + step / 2):
+        raise SnapshotError(HISTORICAL_RANGE_UNCONFIRMED)
+    def iso(epoch):
+        return datetime.fromtimestamp(epoch, timezone.utc).isoformat()
+    window = {"visible_from_utc": iso(int(seen_from)), "visible_to_utc": iso(last_open + step),
+              "last_bar_open_utc": iso(last_open), "visible_range_observed": {"from": seen_from, "to": seen_to},
+              "visible_last_price": _displayed_number(result.get("visible_last_close")),
+              "live_values_hidden": result.get("live_values_hidden") is True,
+              "method": "guest TradingView Download image; visible range set and read back through the chart "
+                        "page's own API; legend read on the window's last bar; original pixels unchanged"}
+    if result.get("visible_last_close_cause"):
+        window["visible_last_close_cause"] = str(result["visible_last_close_cause"])[:200]
+    return window
 
 
 def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir: Path,
@@ -1087,6 +1161,73 @@ def page_fact_card(plan: Mapping[str, Any], folder: Path, *, status: Mapping[str
 
 # --- worker: runs in the Playwright venv, one snapshot, then exits -------------------------
 
+_RANGE_SCRIPT = """async ({from, to}) => {
+    const api = window.TradingViewApi;
+    if (!api || typeof api.activeChart !== 'function') return {error: 'TRADINGVIEW_CHART_API_ABSENT'};
+    const chart = api.activeChart();
+    // Hide the live last-price line and label, so the historical window shows no current value.
+    const overrides = {'mainSeriesProperties.showPriceLine': false, 'scalesProperties.showSeriesLastValue': false,
+                       'mainSeriesProperties.showCountdown': false};
+    let hidden = false;
+    for (const target of [api, chart]) {
+        try {
+            if (typeof target.applyOverrides === 'function') { await target.applyOverrides(overrides); hidden = true; break; }
+        } catch (e) {}
+    }
+    try {
+        await chart.setVisibleRange({from, to}, {applyDefaultRightMargin: false, percentRightMargin: 0});
+    } catch (e) {
+        return {error: 'TRADINGVIEW_VISIBLE_RANGE_REFUSED'};
+    }
+    return {live_values_hidden: hidden};
+}"""
+
+
+def _read_visible_range(page) -> dict:
+    try:
+        return page.evaluate("""() => {
+            const range = window.TradingViewApi.activeChart().getVisibleRange();
+            return {from: range.from, to: range.to}; }""")
+    except Exception:
+        return {"error": HISTORICAL_RANGE_UNCONFIRMED}
+
+
+def _apply_visible_range(page, steps, window: Mapping[str, Any]) -> dict:
+    """CC-778: set the dated window through the chart page's own API; older bars load before the read-back."""
+    outcome = page.evaluate(_RANGE_SCRIPT, {"from": window["from"], "to": window["to"]})
+    if outcome.get("error"):
+        raise SnapshotError(outcome["error"])
+    page.wait_for_timeout(steps.at("historical_bars").left(2500))
+    return {"live_values_hidden": outcome.get("live_values_hidden") is True}
+
+
+def _hover_last_bar(page, steps, window: Mapping[str, Any]) -> dict:
+    """Rest the cursor on the window's last bar, so the legend shows that bar and never a live value."""
+    pane = page.evaluate("""() => {
+        const canvases = [...document.querySelectorAll('.chart-gui-wrapper canvas')]
+            .map(c => c.getBoundingClientRect()).filter(r => r.width > 200 && r.height > 200);
+        canvases.sort((a, b) => b.width * b.height - a.width * a.height);
+        const r = canvases[0];
+        return r ? [r.x, r.y, r.width, r.height] : null; }""")
+    if not pane:
+        return {"visible_last_close_cause": "TRADINGVIEW_CHART_PANE_NOT_FOUND"}
+    x, y, width, height = pane
+    bars = max(1.0, (window["to"] - window["from"]) / window["step"])
+    page.mouse.move(x + width - .45 * width / bars, y + height / 2)
+    page.wait_for_timeout(steps.at("legend_last_bar").left(600))
+    close = page.evaluate("""() => {
+        const items = [...document.querySelectorAll('[data-name="legend-series-item"] [class*="valueItem"]')];
+        for (const item of items) {
+            const title = item.querySelector('[class*="valueTitle"]');
+            const value = item.querySelector('[class*="valueValue"]');
+            if (title && value && title.innerText.trim() === 'C') return value.innerText.trim();
+        }
+        return null; }""")
+    if close is None:
+        return {"visible_last_close": None, "visible_last_close_cause": "TRADINGVIEW_LEGEND_CLOSE_NOT_FOUND"}
+    return {"visible_last_close": close, "visible_last_close_cause": None}
+
+
 def _worker(args: dict) -> dict:
     import time
     from playwright.sync_api import sync_playwright
@@ -1154,6 +1295,10 @@ def _worker_steps(args, steps, started, budget, out_dir, viewport, sync_playwrig
                     raise
                 except Exception as exc:
                     reset_cause = steps.cause(exc)
+            window_range = args.get("visible_range")
+            history = {}
+            if window_range:
+                history = _apply_visible_range(page, steps, window_range)
             legend = page.evaluate("""() => {
                 const q = s => [...document.querySelectorAll(s)].map(e => e.innerText.trim()).filter(Boolean);
                 return [...q('[data-name="legend-source-title"]'), ...q('[data-qa-id="legend-source-title"]'),
@@ -1163,7 +1308,13 @@ def _worker_steps(args, steps, started, budget, out_dir, viewport, sync_playwrig
             # viewport against its measured download dimensions; never pad or
             # crop a wide chart into a portrait. At most two geometry repairs.
             for shape_attempt in range(3):
-                page.mouse.move(viewport["width"] // 3, viewport["height"] // 2)
+                if window_range:
+                    if shape_attempt:
+                        # A resize moves the left edge; set the same window again before this download.
+                        history = _apply_visible_range(page, steps, window_range)
+                    history.update(_hover_last_bar(page, steps, window_range))
+                else:
+                    page.mouse.move(viewport["width"] // 3, viewport["height"] // 2)
                 geometry_probe = page.evaluate("""() => [...document.querySelectorAll('canvas')].map(c => {
                     const r = c.getBoundingClientRect();
                     return {width: c.width, height: c.height, rect: [r.x,r.y,r.width,r.height],
@@ -1200,7 +1351,10 @@ def _worker_steps(args, steps, started, budget, out_dir, viewport, sync_playwrig
                     "capture_ratio": args.get("ratio", "16:9"), "capture_viewport": viewport,
                     "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1),
                     **({"geometry_probe": geometry_probe, "axis_path": str(axis_file)} if geometry_probe else {}),
-                    **({"price_scale_reset_cause": reset_cause} if reset_cause else {})}
+                    **({"price_scale_reset_cause": reset_cause} if reset_cause else {}), **history}
+            if window_range:
+                # The window as it stood after the download, read once more for the parent's check.
+                result["visible_range_observed"] = _read_visible_range(page)
             # The parent still checks the symbol, interval, PNG and price scale.
             # Save this download's metadata before Chromium closes its context.
             if args.get("worker_result_path"):

@@ -751,8 +751,264 @@ def delivery_plan(store, row, asset, *, root, host, destinations):
     return plan
 
 
+# CC-778 (Builder K, 24 Nov 2026; Jim's 14 Nov request, CC-603): the prepared follow-ups post with a TradingView
+# chart of their own move, captured through the existing snapshot path, at most two a day, oldest call first, never
+# in Jim's pause or the hour after it ends. A failed capture keeps the follow-up waiting with its cause; it never
+# posts text only (decision 82). The plan's entry zone and invalidation are drawn where the chart's own axis places
+# them exactly; a target never is (decisions 40 and 157).
+MOVE_CHART = "CC778_MOVE_CHART_V1"
+BACKFILL_PER_DAY = 2
+BACKFILL_DAY = timedelta(hours=24)
+RESTORE_GRACE = timedelta(hours=1)
+CAPTURE_ROUND_ATTEMPTS = 2
+CAPTURE_RETRY_AFTER = timedelta(hours=6)
+VISIBLE_LEAD = timedelta(hours=1)
+VISIBLE_MIN_SPAN = timedelta(hours=12)
+# SP:SPX has bars in New York cash hours only (ET); a move that resolved outside them is not on that chart.
+CASH_SESSIONS = {"US500": ((9, 30), (16, 0))}
+INTERVAL_WORDS = {"15": "15-minute", "60": "hourly", "240": "4-hour", "D": "daily"}
+
+
+def _floor(at, step):
+    epoch = int(at.timestamp())
+    return datetime.fromtimestamp(epoch - epoch % step, timezone.utc)
+
+
+def overlay_levels(row):
+    """The levels CC-459's overlay binds for this follow-up (entry zone, invalidation; never a target)."""
+    from .tradingview_plan_overlay_v1 import source_binding
+    return source_binding({**row, "kind": "call_followup", "cc603_contract": CONTRACT})["levels"]
+
+
+def move_chart_request(row):
+    """The chart a follow-up needs: its market, interval, dated window and the plan levels to draw."""
+    from . import tradingview_snapshot_v1 as tv
+    candidate, check, symbol = row["candidate"], row["price_check"], row["symbol"]
+    published, resolved = posts._utc(candidate["published_at_utc"]), posts._utc(check["resolved_at_utc"])
+    span = resolved - published
+    interval = ("15" if span <= timedelta(days=4) else "60" if span <= timedelta(days=16)
+                else "240" if span <= timedelta(days=60) else "D")
+    step = tv.INTERVAL_SECONDS[interval]
+    show_from = _floor(published, step)
+    last_open = _floor(resolved - timedelta(seconds=1), step)
+    visible_to = last_open + timedelta(seconds=step)
+    # Some context before the call; a short move still fills a readable chart (about 48 bars at 15 minutes).
+    start = _floor(show_from - max(VISIBLE_LEAD, VISIBLE_MIN_SPAN - (visible_to - show_from)), step)
+    request = {"contract": MOVE_CHART, "key": row["key"], "symbol": symbol, "tv_symbol": tv.SYMBOLS[symbol],
+        "interval": interval, "published_at_utc": published.isoformat(), "resolved_at_utc": resolved.isoformat(),
+        "visible_range": {"from_utc": start.isoformat(), "show_from_utc": show_from.isoformat(),
+                          "last_bar_open_utc": last_open.isoformat()},
+        "visible_to_utc": visible_to.isoformat(),
+        "levels": overlay_levels(row),
+        "ratios": ["16:9", *(["4:5"] if "instagram_business" in row["cc603_destinations"] else [])]}
+    session = CASH_SESSIONS.get(symbol)
+    if session:
+        local = last_open.astimezone(scorecard.ET)
+        opens, closes = (local.replace(hour=h, minute=m, second=0, microsecond=0) for h, m in session)
+        if local.weekday() >= 5 or not (opens <= local and local + timedelta(seconds=step) <= closes):
+            request["refusal"] = "CC778_CHART_MARKET_CLOSED_AT_RESOLUTION:" + request["tv_symbol"]
+    return request
+
+
+def held_close_quote(symbol, at, *, bars_reader=read_bars):
+    """The held plan-feed close of the 15-minute bar ending at the chart window's close, or None."""
+    end = posts._utc(at)
+    opening = int(end.timestamp()) - 900
+    bars = [b for b in bars_reader(symbol, (end - timedelta(minutes=15)).isoformat(), end.isoformat())
+            if b["open_epoch"] == opening]
+    if not bars:
+        return None
+    bar = bars[-1]
+    known = bar.get("known_epoch")
+    return {"market": symbol, "instrument": symbol, "price": bar["close"], "quoted_at_utc": end.isoformat(),
+            "known_at_utc": (datetime.fromtimestamp(known, timezone.utc) if known else end).isoformat(),
+            "source_path": str(BAR_STORE), "source_sha256": bar["source_sha256"],
+            "source_record_sha256": _hash({k: bar[k] for k in sorted(bar)}),
+            "price_basis": "plan_bar_close", "source_kind": "HELD_M15_RESOLUTION_CLOSE"}
+
+
+def bind_move_chart(row, request, taken, media, ratio, *, now):
+    """The checked download as this follow-up's image, with the plan's levels where they place exactly."""
+    from . import tradingview_snapshot_v1 as tv
+    from . import tradingview_plan_overlay_v1 as overlay
+    from .publication_image_contract_v1 import validate_scale
+    from .public_time_v1 import public_timestamp
+    symbol = row["symbol"]
+    first, last = posts._utc(request["published_at_utc"]), posts._utc(request["resolved_at_utc"])
+    shown_from, shown_to = posts._utc(taken["visible_from_utc"]), posts._utc(taken["visible_to_utc"])
+    if not shown_from <= first < last <= shown_to or shown_to != posts._utc(request["visible_to_utc"]):
+        raise ValueError("CC603_CHART_DOES_NOT_SHOW_RESOLVED_MOVE")
+    validate_scale(symbol, taken)
+    title = posts.TITLES[symbol]
+    asset = tv.snapshot_asset(symbol, title, taken, media, ratio)
+    words = INTERVAL_WORDS[request["interval"]]
+    a, b = shown_from.astimezone(scorecard.ET), shown_to.astimezone(scorecard.ET)
+    asset.update(
+        caption=f"{title}: {words} bars from {a:%d %b %H:%M} ET to {b:%d %b %Y %H:%M} ET, from before our "
+                f"original view to the move it described. {tv.CREDIT}.",
+        alt_text=f"TradingView {words} chart of {tv.NAMES[symbol]}, from {a:%d %b %H:%M} ET through "
+                 f"{b:%d %b %H:%M} ET: the period from the original view to the move it described, with no later "
+                 f"bars. Captured {public_timestamp(posts._utc(taken['captured_at_utc']) or now)}.")
+    drawn, cause = [], None
+    if taken.get("chart_geometry"):
+        try:
+            # The stored row itself: the write boundary re-reads it and redraws these exact levels.
+            asset = overlay.apply(asset, row)
+            drawn = [m["label"] for m in asset["plan_overlay"]["markers"]]
+            if not drawn:
+                cause = "CC778_LEVELS_NOT_PLACEABLE_ON_THIS_CHART_BASIS"
+        except (ValueError, KeyError, OSError) as exc:
+            cause = str(exc)[:200]
+    else:
+        cause = taken.get("chart_geometry_cause") or "TRADINGVIEW_PRICE_SCALE_NOT_CAPTURED"
+    tv.validate_snapshot_asset(asset, {"market_asset": symbol})
+    check = taken["price_scale_check"]
+    review = {"kind": "CC778_AUTOMATIC_CHECKS", "checked_at_utc": now.isoformat(), "ratio": ratio,
+        "window": {"requested": request["visible_range"], "observed": taken.get("visible_range_observed"),
+                   "visible_to_utc": taken["visible_to_utc"]},
+        "price_scale": {k: check[k] for k in ("comparison_basis", "difference_pct", "maximum_difference_pct",
+                                              "level_offset", "quote_absent_cause") if k in check},
+        "levels_drawn": drawn, "target_drawn": False, "live_values_hidden": taken.get("live_values_hidden") is True,
+        **({"levels_cause": cause} if cause else {}),
+        "readback": "Ops Product reads back the first real capture after the relaunch (CC-778)."}
+    return asset, review
+
+
+def capture_move_chart(row, *, root=ROOT, now=None, ratio="16:9", worker=None, bars_reader=read_bars):
+    """One bounded capture attempt for a follow-up's chart; the result binds it or records why not.
+
+    Two attempts make a round; a round that fails waits CAPTURE_RETRY_AFTER before the next. The state file keeps
+    every attempt's cause beside the follow-up, as plan posts keep theirs.
+    """
+    from . import tradingview_snapshot_v1 as tv
+    now = now or datetime.now(timezone.utc)
+    folder = Path(root) / row["key"]
+    portrait = ratio != "16:9"
+    binding_path = folder / ("reviewed_portrait.json" if portrait else "reviewed_chart.json")
+    request = move_chart_request(row)
+    base = {"key": row["key"], "ratio": ratio, "media_request": {**{k: request[k] for k in (
+        "symbol", "tv_symbol", "interval", "visible_range", "visible_to_utc", "levels")},
+        "binding_path": str(binding_path), "visible_from_utc": request["visible_range"]["from_utc"]}}
+    if binding_path.is_file():
+        return {**base, "status": "BOUND", "attempted": False}
+    state_path = folder / ("move_chart_capture_4x5_v1.json" if portrait else "move_chart_capture_v1.json")
+    request_sha = _hash(request)
+    state = (json.loads(state_path.read_bytes()) if state_path.is_file() else
+             {"key": row["key"], "ratio": ratio, "request_sha256": request_sha, "attempts": 0, "round_attempts": 0,
+              "attempt_causes": [], "status": "PENDING", "started_at_utc": now.isoformat()})
+    if state.get("request_sha256") != request_sha or state.get("key") != row["key"]:
+        raise ValueError("CC778_MOVE_CHART_REQUEST_CHANGED")
+
+    def save():
+        folder.mkdir(parents=True, exist_ok=True)
+        staged = state_path.with_suffix(".tmp")
+        staged.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+        staged.replace(state_path)
+
+    def pending(attempted):
+        return {**base, "status": "MEDIA_PENDING", "cause": state["cause"], "attempted": attempted,
+                **({"retry_after_utc": state["retry_after_utc"]} if state.get("retry_after_utc") else {})}
+
+    lost = state["attempts"] - len(state["attempt_causes"])
+    if lost > 0:
+        # The run stopped during an attempt and saved no cause: name it, as plan_snapshot does.
+        state["attempt_causes"] += [tv.CAPTURE_INTERRUPTED] * lost
+        state.setdefault("first_cause", tv.CAPTURE_INTERRUPTED)
+        state["cause"] = tv.CAPTURE_INTERRUPTED
+        if state["round_attempts"] >= CAPTURE_ROUND_ATTEMPTS:
+            state.update(status="FAILED", retry_after_utc=(now + CAPTURE_RETRY_AFTER).isoformat())
+        save()
+    if request.get("refusal"):
+        if state.get("cause") != request["refusal"]:
+            state.update(status="FAILED", cause=request["refusal"])
+            state.setdefault("first_cause", request["refusal"])
+            save()
+            tv.record_outcome({"status": "MOVE_CHART_REFUSED", "key": row["key"], "ratio": ratio,
+                               "cause": request["refusal"]})
+        return pending(False)
+    if state["status"] == "FAILED":
+        if now < posts._utc(state["retry_after_utc"]):
+            return pending(False)
+        state.update(status="PENDING", round_attempts=0)
+    state["attempts"] += 1
+    state["round_attempts"] += 1
+    state["last_attempt_at_utc"] = now.isoformat()
+    save()
+    try:
+        taken = tv.capture(row["symbol"], request["interval"],
+            folder / "media_assets" / f"move{'-4x5' if portrait else ''}-attempt-{state['attempts']}",
+            timeout=tv.PLAN_ATTEMPT_TIMEOUT_SECONDS, worker=worker, ratio=ratio,
+            visible_range=request["visible_range"],
+            quote_provider=lambda market, at: held_close_quote(market, at, bars_reader=bars_reader))
+        asset, review = bind_move_chart(row, request, taken, folder / "media_assets", ratio, now=now)
+    except Exception as exc:  # every cause is recorded; the follow-up keeps waiting (decision 82)
+        cause = str(exc)[:200] or type(exc).__name__
+        state["attempt_causes"].append(cause)
+        state.setdefault("first_cause", cause)
+        state["cause"] = cause
+        if state["round_attempts"] >= CAPTURE_ROUND_ATTEMPTS:
+            state.update(status="FAILED", retry_after_utc=(now + CAPTURE_RETRY_AFTER).isoformat())
+        else:
+            state.update(status="RETRY")
+        save()
+        tv.record_outcome({"status": "MOVE_CHART_FAILED", "key": row["key"], "ratio": ratio, "cause": cause,
+                           "attempts": state["attempts"]})
+        return pending(True)
+    binding = {"contract": MOVE_CHART, "asset": asset, "visible_from_utc": taken["visible_from_utc"],
+               "visible_to_utc": taken["visible_to_utc"], "last_bar_open_utc": taken["last_bar_open_utc"],
+               "request_sha256": request_sha, "review": review}
+    staged = binding_path.with_suffix(".tmp")
+    staged.write_text(json.dumps(binding, sort_keys=True, ensure_ascii=False), encoding="utf-8")
+    staged.replace(binding_path)
+    state["attempt_causes"].append("CAPTURED")
+    state.update(status="CAPTURED", cause=None, binding_sha256=sha256(binding_path.read_bytes()).hexdigest(),
+                 asset_id=asset["asset_id"])
+    save()
+    tv.record_outcome({"status": "MOVE_CHART_CAPTURED", "key": row["key"], "ratio": ratio,
+                       "asset_id": asset["asset_id"], "levels_drawn": review["levels_drawn"]})
+    return {**base, "status": "CAPTURED", "attempted": True, "levels_drawn": review["levels_drawn"]}
+
+
+def backfill_hold(now, window):
+    """Why no backfill follow-up may post now, or None: Jim's pause, then the first hour after its restore."""
+    start, end = window
+    if now < start:
+        return None
+    if end >= datetime.max.replace(tzinfo=timezone.utc) - RESTORE_GRACE or now < end:
+        return "CC778_BACKFILL_PAUSED"
+    if now < end + RESTORE_GRACE:
+        return "CC778_BACKFILL_FIRST_HOUR_AFTER_RESTORE"
+    return None
+
+
+def backfill_order(store, keys, *, now, pause_window):
+    """Started follow-ups finish first; new ones start oldest call first, at most two in any 24 hours."""
+    hold = backfill_hold(now, pause_window)
+    if hold:
+        return [], [{"key": key, "status": "BACKFILL_HELD", "cause": hold} for key in keys]
+    starts = {}
+    for message in store.list_outbox_messages(destination=posts.DESTINATION):
+        if not message["message_id"].startswith("cc603-followup-"):
+            continue
+        if json.loads(message["payload"]).get("kind") != "call_followup":
+            continue
+        times = [posts._utc(d["dispatched_at"]) for d in store.get_dispatches_for_work_item(message["message_id"])]
+        if times:
+            starts[message["message_id"]] = min(times)
+    called = {key: posts._utc(posts._row_payload(store, key)["candidate"]["published_at_utc"]) for key in keys}
+    started = sorted((k for k in keys if k in starts), key=called.get)
+    fresh = sorted((k for k in keys if k not in starts), key=called.get)
+    # A start stamped after `now` (clock skew) still counts: pacing errs toward fewer posts.
+    recent = sorted(t for t in starts.values() if now - BACKFILL_DAY < t)
+    if len(recent) < BACKFILL_PER_DAY:
+        return started + fresh, []
+    next_due = (recent[-BACKFILL_PER_DAY] + BACKFILL_DAY).isoformat()
+    return started, [{"key": key, "status": "BACKFILL_PACED", "cause": "CC778_BACKFILL_TWO_A_DAY",
+                      "next_due_utc": next_due} for key in fresh]
+
+
 def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars,
-            claim_checker=None):
+            claim_checker=None, pause_window=None, move_chart_worker=None, move_charts=True):
     """One bounded slice in the existing minute task. No schedule, loop or second publisher."""
     now = now or datetime.now(timezone.utc)
     from .native_neo_executor_v1 import NativeNeoInputRequired
@@ -781,6 +1037,12 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                 results.append({"call_id":candidate["call_id"],"status":"NOT_COMPLETED","cause":str(exc)[:160]})
         keys = [r["message_id"] for r in store.list_outbox_messages(destination=posts.DESTINATION)
                 if r["status"] == "CC603_PREPARED" and json.loads(r["payload"]).get("kind") == "call_followup"]
+        if pause_window is None:
+            from .plan_call_cards_v1 import jim_pause_window
+            pause_window = jim_pause_window()
+        keys, held = backfill_order(store, keys, now=now, pause_window=pause_window)
+        results.extend(held)
+    captured_this_run = False
     for key in keys:
         row = posts._row_payload(store,key)
         if post_complete(store,row):
@@ -792,6 +1054,35 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                 "cause":"SUBSTACK_NOTES_DROPPED_ORIGINAL_LINK; ONE_REPLY_USED; NO_EDIT_DECISIONS_136_84"})
             break
         asset = None if link_reply else asset_for(row) if asset_for else held_chart(store,row,root=root)
+        capture = (move_charts and not asset_for and not link_reply and row.get("kind") == "call_followup"
+                   and not captured_this_run)
+        if not asset and capture:
+            # CC-778: one bounded capture per minute run. A bound chart posts in the next run; a failed one keeps
+            # waiting with its cause, and the next follow-up in line is tried.
+            try:
+                taken = capture_move_chart(row, root=root, now=now, worker=move_chart_worker, bars_reader=bars_reader)
+            except (ValueError, KeyError, TypeError, OSError) as exc:
+                results.append({"key":key,"status":"MEDIA_PENDING","cause":str(exc)[:160] or type(exc).__name__})
+                continue
+            captured_this_run = taken["attempted"]
+            results.append({"key":key,"status":"MEDIA_CAPTURED" if taken["status"] == "CAPTURED" else "MEDIA_PENDING",
+                **({} if taken["status"] == "CAPTURED" else
+                   {"cause":taken.get("cause") or "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED"}),
+                "media_request":taken["media_request"]})
+            if captured_this_run:
+                break
+            continue
+        if (asset and capture and "4:5" in move_chart_request(row)["ratios"]
+                and not (Path(root)/key/"reviewed_portrait.json").is_file()
+                and not any(p["destination"] == "instagram_business" for p in publications(store,key))):
+            # Instagram takes a native 4:5 chart of the same window (the BTC follow-up's refusal of 16 Nov).
+            portrait = capture_move_chart(row, root=root, now=now, ratio="4:5", worker=move_chart_worker,
+                                          bars_reader=bars_reader)
+            if portrait["attempted"]:
+                results.append({"key":key,"status":"PORTRAIT_"+portrait["status"],
+                    **({"cause":portrait["cause"]} if portrait.get("cause") else {}),
+                    "media_request":portrait["media_request"]})
+                break
         if not asset and not link_reply:
             results.append({"key":key,"status":"MEDIA_PENDING","cause":"CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
                 "media_request":{"symbol":row["symbol"],"binding_path":str(Path(root)/key/"reviewed_chart.json"),

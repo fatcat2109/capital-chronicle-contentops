@@ -116,6 +116,12 @@ def geometry(result):
 def source_binding(row):
     """The levels the overlay draws. Decision 82: a target is never drawn, so none is bound."""
     levels = row.get("levels") or {}
+    if not levels and row.get("kind") == "call_followup" and row.get("cc603_contract"):
+        # CC-778: a dated CC-603 follow-up draws its original call's public zone and invalidation, from the
+        # stored row the write boundary re-reads. Its resolution level is a target and is never bound.
+        candidate = row["candidate"]
+        levels = {"zone_low": candidate["zone_low"], "zone_high": candidate["zone_high"],
+                  "invalidation_level": candidate["invalidation"]["level"], "direction": candidate["direction"]}
     fields = ("zone_low", "zone_high", "invalidation_level", "tick_size", "valid_until_utc", "direction")
     bound = {k: levels[k] for k in fields if k in levels}
     source = {"key": row["key"], "symbol": row["symbol"], "source_content_hash": row.get("source_content_hash"),
