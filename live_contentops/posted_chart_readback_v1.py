@@ -172,6 +172,7 @@ def observe(destination, intent, result, *, object_id=None, public_url=None):
     # asset whose pixels or exact bytes were not checked by that route.
     unchecked = [asset for asset in charts if asset["sha256"] not in hashes
                  and not _asset_comparisons(asset["sha256"], comparisons, urls, public_url)]
+    measured_now = bool(urls and unchecked)
     if urls and unchecked:
         from .neo_endpoint_executor_v1 import compare_public_images
 
@@ -192,7 +193,13 @@ def observe(destination, intent, result, *, object_id=None, public_url=None):
             checks.append(_asset_check(asset, scoped_comparisons, [], candidates, public_url))
         else:
             checks.append(_asset_check(asset, comparisons, hashes, urls, public_url))
-    return {"public_object_id": observed_id, "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+    # CC-774: a browser read handed back again (the same incomplete observation) keeps its own
+    # observation time, so the coordinator records that observation once, not once per run.
+    observed_at = None
+    if not measured_now and destination not in API_IMAGE_ROUTES and destination != "telegram":
+        observed_at = (result.get("native_tool_observation") or {}).get("observed_at_utc")
+    return {"public_object_id": observed_id,
+            "observed_at_utc": str(observed_at) if observed_at else datetime.now(timezone.utc).isoformat(),
             "assets": checks}
 
 
