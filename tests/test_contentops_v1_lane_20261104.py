@@ -143,7 +143,8 @@ def test_digest_names_the_day_lists_live_articles_and_summaries(tmp_path):
     store, feed = _digest_store(tmp_path)
     packet = prepare_daily_digest(store, feed, now=datetime(2026, 11, 3, 12, 0, tzinfo=timezone.utc))["packet"]
     payload = packet["native_payload"]
-    assert payload["title"] == "Capital Chronicle daily digest — November 3, 2026"
+    # 41e3d138 (decision 90, 6 Nov): public dates name their ET time zone.
+    assert payload["title"] == "Capital Chronicle daily digest — November 3, 2026 (ET)"
     assert [a["url"] for a in packet["articles"]] == [
         "https://capitalchronicle.substack.com/p/fed", "https://capitalchronicle.substack.com/p/us-midterms"]
     assert "A 10-2 vote kept the target range." in payload["body_markdown"]

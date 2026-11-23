@@ -14,7 +14,7 @@ from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff, _s
 from live_contentops.plan_status_posts_v1 import API_DESTINATIONS, prepare_post, queue_posts
 from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link
 from test_plan_status_posts_cc306 import NOW, export as export_fixture, main_root  # noqa: F401
-from test_plan_status_publication_cc306 import fake_host, no_real_snapshot  # noqa: F401
+from test_plan_status_publication_cc306 import fake_host, no_real_snapshot, recorded_snapshot  # noqa: F401
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
 
 HOSTS = ["https://fatcat2109.github.io/capital-chronicle-preview/articles/" + "a" * 32 + "/",
@@ -50,7 +50,11 @@ def registered(tmp_path, export_fixture, main_root):
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     queued = queue_posts(store, export_fixture, now=NOW, main_root=main_root, python=sys.executable)
     key = queued["queued"][0]["key"]
-    plan = prepare_post(store, key, root=tmp_path / "posts", host=fake_host, destinations=API_DESTINATIONS)
+    # 7a12bea0 (CC-459, 11 Nov) dropped the plan post's fact-card fallback, and CC-584 (decision 82)
+    # refuses a plan post without its chart. The post carries CC-459's recorded TradingView capture,
+    # so the link guard, not the image rule, is the check these tests reach.
+    plan = prepare_post(store, key, root=tmp_path / "posts", host=fake_host, destinations=API_DESTINATIONS,
+                        snapshot=recorded_snapshot)
     store.create_work_item(story_id=key, title="Plan status post", target_surface="MULTI_PLATFORM", work_item_id=key)
     coordinator.register_plan(key, plan)
     return store, transport, coordinator, key

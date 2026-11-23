@@ -11,7 +11,9 @@ from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
 ])
 def test_fresh_substack_readback_removes_only_exact_approved_caption(middle, ending, verified):
     url = "https://capitalchronicle.substack.com/p/caption-test"
+    # 154d838c (CC-453, 11 Nov): readback checks the identity bound in the issued request itself.
     request = {"request_sha256": "request", "native_payload": {"title": "Yield watch"},
+        "expected_identity": "capitalchronicle.substack.com",
         "content_binding": {"expected_text_segments": ["Yield watch", "First paragraph. Second paragraph."],
             "media_manifest": [{"sha256": "image", "caption":
                 "Treasury's yield, 4 November. Source: [Treasury](https://home.treasury.gov/)."}],
