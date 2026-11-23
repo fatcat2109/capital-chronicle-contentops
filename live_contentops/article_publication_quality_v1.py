@@ -282,7 +282,7 @@ def before_article_write(coordinator, intent, destination):
             payload = _durable_intent_inputs(intent)["payloads"][destination]
         validate_social_scenarios(article, payload)
         validate_payload(article, payload)
-        if market:
+        if market and not _bound_card_lead(coordinator, intent, destination, assets, lead):
             from live_contentops.article_scenarios_v1 import payload_text
             from live_contentops.tradingview_snapshot_v1 import CREDIT
             if CREDIT not in payload_text(payload):
@@ -291,6 +291,19 @@ def before_article_write(coordinator, intent, destination):
         lead_asset_id=lead, now=coordinator._clock(), canonical_url=intent.get("canonical_url"),
         market=article.get("market_asset"), image_contract=article.get("publication_image_contract"),
         enforce_cap=destination == "substack")
+
+
+def _bound_card_lead(coordinator, intent, destination, assets, lead):
+    """CC-777: a post led by the article's own bound card shows no TradingView chart, so it owes no chart credit.
+
+    Only when no TradingView download is in the media and the write boundary accepts the card's binding.
+    """
+    by_id = {a.get("asset_id"): a for a in assets}
+    if (not (by_id.get(lead) or {}).get("article_chart_fallback")
+            or any(a.get("modality") == "tradingview_chart_snapshot" for a in assets)):
+        return False
+    from .publication_image_contract_v1 import validate_write
+    return bool((validate_write(coordinator, intent, destination) or {}).get("article_chart_fallback_causes"))
 
 
 def settle_article_images(coordinator, intent, *, destination, status, canonical_url=None, published_at_utc=None):

@@ -9,7 +9,7 @@ import sys
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from live_contentops.publication_image_contract_v1 import POLICY
+from live_contentops.publication_image_contract_v1 import ARTICLE_CARD_FALLBACK, POLICY
 from live_contentops.published_images_v1 import PublishedImages
 
 
@@ -20,7 +20,10 @@ def audit(path, day, *, now=None):
     complete = (now or datetime.now(timezone.utc)) >= end
     posts = report["observed_posts"]
     market_posts = [p for p in posts if p.get("market")]
-    violations = [p["record_id"] for p in market_posts if not p.get("text_fallback") and (
+    # CC-777 (decision 82): a post led by the article's own bound card after a failed capture is allowed, like
+    # the bounded text fallback, and likewise never proves a chart on every market post.
+    cards = [p for p in market_posts if p.get("lead_image_type") == ARTICLE_CARD_FALLBACK and not p.get("text_fallback")]
+    violations = [p["record_id"] for p in market_posts if not p.get("text_fallback") and p not in cards and (
         p.get("image_contract") != POLICY or p.get("lead_image_type") != "TRADINGVIEW_MARKET_CHART")]
     unknown = [p["record_id"] for p in posts if p.get("lead_image_type") == "UNKNOWN"]
     charts = [p for p in market_posts if p.get("lead_image_type") == "TRADINGVIEW_MARKET_CHART"]
@@ -28,7 +31,8 @@ def audit(path, day, *, now=None):
     return {**report, "status": "FAIL" if violations else "OBSERVATION_PENDING" if not complete else
         "NO_MARKET_POST_OBSERVED" if not market_posts else
         "NO_MARKET_CHART_OBSERVED" if not charts else "INCOMPLETE_IMAGE_TYPES" if unknown else
-        "TEXT_FALLBACK_OBSERVED" if any(p.get("text_fallback") for p in market_posts) else "PASS",
+        "TEXT_FALLBACK_OBSERVED" if any(p.get("text_fallback") for p in market_posts) else
+        "FACT_CARD_FALLBACK_OBSERVED" if cards else "PASS",
         "whole_day_elapsed": complete, "market_posts": len(market_posts), "market_chart_posts": len(charts),
         # Bounded text fallback is allowed. It still cannot prove the item's
         # stronger full-day claim that every market post carried a chart.
@@ -45,6 +49,7 @@ def audit(path, day, *, now=None):
             and abs(p["lead_image"]["width"] / p["lead_image"]["height"] - .8) <= .003],
         "violations": violations, "unknown_type_records": unknown,
         "text_fallback_posts": sum(bool(p.get("text_fallback")) for p in market_posts),
+        "fact_card_fallback_posts": len(cards),
         "public_write_performed": False, "schedule_changed": False}
 
 
