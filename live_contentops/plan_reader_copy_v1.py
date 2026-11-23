@@ -384,14 +384,13 @@ def _scenario_voice_quote(text, added):
 
     text = BROKER_SYMBOL.sub(market, text)
     text = _VOICE_LONG_NUMBER.sub(lambda match: format(int(match[1] or match[3]), ",") + (match[2] or ""), text)
-    # "Bullish" or "bearish" would read as an unconditional call (decision 40); a bet states the exposure plainly.
+    # "Bullish" or "bearish" would read as an unconditional call (decision 40). "Shorts" names traders in one
+    # source ("trapped shorts fuel a squeeze") and trades in another ("the desk's recent shorts have paid"):
+    # "bets on a fall" reads true for both, where CC-755's "traders positioned for losses" inverted the meaning.
     text = re.sub(r"\b(long|short) positions\b",
                   lambda match: "bets on a " + ("rise" if match[1].lower() == "long" else "fall"), text, flags=re.I)
     text = re.sub(r"\b(longs|shorts)\b",
-                  lambda match: "traders betting on a " + ("rise" if match[1].lower() == "longs" else "fall"),
-                  text, flags=re.I)
-    if len(text.split()) < 4:
-        raise ValueError("SCENARIO_VOICE_FRAGMENT")
+                  lambda match: "bets on a " + ("rise" if match[1].lower() == "longs" else "fall"), text, flags=re.I)
     return text
 
 
@@ -605,6 +604,23 @@ def scenario_quotes(value, plan):
                 continue
 
 
+def whole_scenario_quote(value, plan):
+    """Every sentence of one Main field, in order, while each passes; "" when its first one cannot be shown.
+
+    Audit of 23 Nov 2026: the first passing sentence alone gave fragments such as "BTC carries that through a
+    1.31 beta", whose subject was in the clause the checks had dropped.
+    """
+    if not isinstance(value, str):
+        return ""
+    kept = []
+    for span in verbatim_analysis_spans(value):
+        try:
+            kept.append(_public_plan_quote(span, plan, scenario_voice=True))
+        except ValueError:
+            break
+    return " ".join(kept)
+
+
 def scenario_case_copy(plan, *, quotes=None):
     """Case lines and their plan-export pointers, shared by the post, page and wrap."""
     scenario = _exported_scenarios(plan)
@@ -615,7 +631,7 @@ def scenario_case_copy(plan, *, quotes=None):
 
         def take(record, fields, path):
             for field in fields:
-                text = next(scenario_quotes(record.get(field), plan), "")
+                text = whole_scenario_quote(record.get(field), plan)
                 if text:
                     refs.append({"file": "plan-export", "pointer": f"{path}/{field}",
                                  "transform": voice.CONTRACT})
@@ -843,17 +859,20 @@ def validate_fields(fields, source):
             check_thread_text(point["text"], force=True)
     main = field(fields["scenario_main"], 90)
     alt = field(fields["scenario_alt"], 90) if fields.get("scenario_alt") else None
-    if not re.match(r"Main \(\d+%\): .+[.]$", main):
+    # Decision 158: "Base case (54%):" and "Bull case"/"Bear case" beside the earlier "Main"/"Alternative".
+    labels = {"base_case": r"(?:Main|Base case)", "main_alternative": r"(?:Alternative|Bull case|Bear case)"}
+    odds = r" \((\d+(?:\.\d+)?)%\): .+[.]$"
+    if not re.match(labels["base_case"] + odds, main):
         raise ValueError("CC466_MAIN_ODDS_REQUIRED")
     # Exact explicit odds only. An absent alternative never becomes a complement.
     for key, text in (("base_case", main), ("main_alternative", alt)):
         branch = source.get("scenario_analysis", {}).get(key) or {}
         probability = branch.get("probability_pct")
-        if text and not re.match(("Main" if key == "base_case" else "Alternative") + r" \(\d+%\): .+[.]$", text):
+        if text and not re.match(labels[key] + odds, text):
             raise ValueError("CC466_SCENARIO_LABEL_REQUIRED")
         if text and probability is None:
             raise ValueError("CC466_SCENARIO_ODDS_NOT_SUPPLIED")
-        if text and Decimal(re.search(r"\((\d+)%\)", text)[1]) != Decimal(str(probability)):
+        if text and Decimal(re.match(labels[key] + odds, text)[1]) != Decimal(str(probability)):
             raise ValueError("CC466_SCENARIO_ODDS_CHANGED")
     if (source.get("scenario_analysis", {}).get("main_alternative") or {}).get("probability_pct") is not None and not alt:
         raise ValueError("CC466_HELD_ALTERNATIVE_ODDS_OMITTED")

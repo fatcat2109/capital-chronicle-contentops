@@ -83,6 +83,12 @@ def jim_pause_window(*, live=None):
 
 
 OPEN_PAUSE_END = datetime.max.replace(tzinfo=timezone.utc)
+# Ops Product, 23 Nov 2026: a published correction promises these results "in its own post". Each posts once,
+# dated by its result frame, whenever Main scores it, whatever the pause window says.
+PROMISED_RESULT_PLANS = {
+    "plan_4bcfb1182f0fff4f8254172c": "USD/JPY plan of 20 Nov, promised by the correction on Telegram 232 and its "
+                                     "Discord thread, 23 Nov 04:23Z",
+}
 
 
 def inside_jim_pause(at_utc, now, window):
@@ -772,7 +778,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 _refresh_unissued_no_entry_result(store, prior[row["key"]], row, source_for)
             already.append(row["key"])
             continue
-        if row["to"] == "RESULT" and inside_jim_pause(row["at_utc"], now, pause):
+        if row["to"] == "RESULT" and pid not in PROMISED_RESULT_PLANS and inside_jim_pause(row["at_utc"], now, pause):
             skipped.append({"key": row["key"], "cause": "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD"})
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":

@@ -88,12 +88,14 @@ def btc():
 @pytest.mark.parametrize(("span", "expected"), [
     ("BTCUSD is below 60977.64 at 2026-11-25T03:00Z.", "Bitcoin is below 60,977.64 at Tue 24 Nov, 10:00 PM ET."),
     ("The rejected break is a spring and trapped shorts fuel a squeeze through 61581.46 toward 62571.63.",
-     "The rejected break is a spring and trapped traders betting on a fall fuel a squeeze through 61,581.46 toward 62,571.63."),
+     "The rejected break is a spring and trapped bets on a fall fuel a squeeze through 61,581.46 toward 62,571.63."),
     ("Speculators hold fewer net long positions than usual.", "Speculators hold fewer net bets on a rise than usual."),
     ("The incident is not officially confirmed in the frozen files, so no shock premium is assumed.",
      "The incident is not officially confirmed, so no shock premium is assumed."),
     ("A completed D1 close above 66095.46, or the broker stop at 68450.00.", "A completed daily close above 66,095.46."),
     ("A completed M15 high at or above 3609.00.", "A completed 15-minute high at or above 3,609.00."),
+    # Builder C, 23 Nov: on a page "shorts" were the desk's trades; "traders positioned for losses" inverted it.
+    ("The desk's own recent shorts in this market have paid.", "The desk's own recent bets on a fall in this market have paid."),
     ("BTC trades as high-beta equity, 60-day US500 beta 1.35 and correlation 0.63.",
      "BTC trades as high-beta equity, 60-day S&P 500 beta 1.35 and correlation 0.63."),
 ])
@@ -103,11 +105,10 @@ def test_scenario_voice_quotes_read_for_people(btc, span, expected):
 
 @pytest.mark.parametrize("span", [
     "68450.00 is above the 14 Nov high, above the lane's measured minimum 6,862.67, so ordinary noise does not reach it.",
-    "Stop tightening fact.",
     "The stop sits 2.41 normal days from the reference.",
 ])
 def test_scenario_voice_drops_desk_notes_and_fragments(btc, span):
-    with pytest.raises(ValueError, match="SCENARIO_VOICE_(?:DESK_TERM|FRAGMENT)|LAYER|CC466"):
+    with pytest.raises(ValueError, match="SCENARIO_VOICE_DESK_TERM|LAYER|CC466"):
         reader._public_plan_quote(span, btc, scenario_voice=True)
 
 
@@ -196,3 +197,97 @@ def test_linkedin_overflow_keeps_whole_sentences(btc):
     assert len(parts) == 1 and len(parts[0]) <= 3000 and "…" not in parts[0]
     assert parts[0].startswith("Scenarios: Base case") and parts[0].endswith(notices)
     assert "We are bearish on Bitcoin" in parts[0]
+
+
+def test_case_lines_never_open_on_a_clause_whose_subject_was_dropped(btc):
+    """Builder C, 23 Nov: "BTC carries that through a 1.31 beta" came from the second clause of a driver."""
+    plan = {**btc, "scenario_analysis": {**btc["scenario_analysis"],
+            "mechanism": "deleveraging priced per block cc442:0a549244c48a9832c461; BTC carries that through a 1.31 beta.",
+            "driver": "Rate expectations rose after the jobs report. Crypto funds saw outflows for a third week."}}
+    cases = reader.scenario_case_copy(plan)
+    lines = [line for case in cases for line in (case["heading"], *case["support"])]
+    assert not any("carries that" in line for line in lines)
+    # The 23 Nov plan's stop note ends in a list label; its first clause is a desk note, so no "undo" line is cut from it.
+    original = [line for case in reader.scenario_case_copy(btc) for line in (case["heading"], *case["support"])]
+    assert not any("Stop tightening" in line or "stop sits" in line for line in original)
+    assert ("Base case driver: Rate expectations rose after the jobs report. "
+            "Crypto funds saw outflows for a third week.") in lines
+
+
+def test_reader_fields_accept_the_scenario_voice_labels():
+    """Decision 158: the validator takes "Base case"/"Bull case" beside the earlier "Main"/"Alternative"."""
+    text = ("Base case (54%): Bitcoin stays below 60,977 at the exit. "
+            "Bull case (46%): Bitcoin holds 60,283 and turns higher.")
+    source = {"thread_contract": reader.THREAD_CONTRACT, "sources": [{"id": "s1", "layer": "scenarios", "text": text}],
+              "scenario_analysis": {"base_case": {"probability_pct": 54}, "main_alternative": {"probability_pct": 46}}}
+
+    def fields(main, alt):
+        return {"hook": {"text": "Bitcoin waits below 60,977.", "source_ids": ["s1"]}, "points": [],
+                "scenario_main": {"text": main, "source_ids": ["s1"]},
+                "scenario_alt": {"text": alt, "source_ids": ["s1"]}}
+
+    reader.validate_fields(fields("Base case (54%): Bitcoin stays below 60,977 at the exit.",
+                                  "Bull case (46%): Bitcoin holds 60,283 and turns higher."), source)
+    reader.validate_fields(fields("Main (54%): Bitcoin stays below 60,977 at the exit.",
+                                  "Alternative (46%): Bitcoin holds 60,283 and turns higher."), source)
+    with pytest.raises(ValueError, match="CC466_SCENARIO_ODDS_CHANGED"):
+        reader.validate_fields(fields("Base case (54%): Bitcoin stays below 60,977 at the exit.",
+                                      "Bull case (54%): Bitcoin holds 60,283 and turns higher."), source)
+    with pytest.raises(ValueError, match="CC466_MAIN_ODDS_REQUIRED"):
+        reader.validate_fields(fields("Bitcoin stays below 60,977 at the exit.",
+                                      "Bull case (46%): Bitcoin holds 60,283 and turns higher."), source)
+
+
+PROMISED = "plan_4bcfb1182f0fff4f8254172c"
+
+
+@pytest.mark.parametrize(("plan_id", "resolved_at", "posts_it"), [
+    (PROMISED, "2026-11-23T03:00:13Z", True),   # the real close, before the pause
+    (PROMISED, "2026-11-24T12:00:00Z", True),   # scored with a clock inside the pause: still promised
+    ("plan_a5749b44e7c886ca7220670f", "2026-11-24T12:00:00Z", False),  # any other plan: the scorecard shows it
+])
+def test_a_result_promised_by_a_published_correction_posts_a_week_later(
+        gold_export, tmp_path, main_root, monkeypatch, plan_id, resolved_at, posts_it):
+    """Ops Product, 23 Nov: Telegram 232 promised the 20 Nov USD/JPY result "in its own post"."""
+    import sys
+    from live_contentops import plan_analysis_pages_v1 as pages
+    from live_contentops import secret_store_v1
+    from test_plan_call_cards_cc399 import rows, write
+    from test_plan_status_posts_cc306 import event
+    monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
+    monkeypatch.setattr(pages, "confirmed_publication", lambda *args: None)
+    store = ContentOpsDurableStore(tmp_path / "promised.sqlite3")
+    plan = {**gold_export, "plan_id": plan_id}
+    events = [event(plan_id, "WAITING", plan["registered_at_utc"])]
+
+    def queue(raw, now):
+        folder = write(tmp_path / "export", [raw], events, generated_at_utc=now.isoformat())
+        run = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        assert run["status"] == "OK", run
+        return run
+
+    setup_run = queue(plan, posts._utc(plan["registered_at_utc"]) + timedelta(seconds=1))
+    setup_key, = [row["key"] for row in setup_run["queued"]]
+    store.set_outbox_status(setup_key, "PUBLISHED")
+    events.append(event(plan_id, "FILLED", "2026-11-19T09:44:07Z"))
+    events.append(event(plan_id, "CLOSED", resolved_at))
+    outcome_id = "outcome_promised_" + plan_id[-6:]
+    score = {"asset_id": "XAUUSD", "plan_id": plan_id, "outcome_id": outcome_id, "result": "EXPIRED",
+             "score_basis": "TIME_EXIT", "triggered_at_utc": "2026-11-19T09:44:07Z", "resolved_at_utc": resolved_at}
+    closed = {**plan, "status": "CLOSED", "outcome": {"state": "SCORED", "result": "EXPIRED", "outcome_id": outcome_id,
+                                                      "result_r": -0.3, "score": score}}
+    week_later = posts._utc("2026-11-30T18:00:00Z")
+    run = queue(closed, week_later)
+    results = [row for row in rows(store) if row["kind"] == "result"]
+    if not posts_it:
+        assert results == []
+        assert any(item["cause"] == "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD" for item in run["not_posted"])
+        return
+    result, = results
+    dates = cards.plan_dates(plan["registered_at_utc"], resolved_at)
+    assert result["text"].startswith(f"Gold, plan of {dates}: closed at its time exit")
+    alerts.validate(result, store=store)
+    # Queued a week after its ending, it still reaches every destination, once.
+    held = store.get_outbox_message(result["key"])
+    assert cards.settle_pending(store, held, result, now=week_later + timedelta(minutes=1)) is None
+    assert queue(closed, week_later + timedelta(minutes=1))["queued"] == []
