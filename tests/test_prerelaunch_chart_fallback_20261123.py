@@ -240,3 +240,34 @@ def test_worker_failure_names_the_error_not_the_playwright_call_log():
     with pytest.raises(tv.SnapshotError, match="WORKER_FAILED:playwright._impl._errors.TimeoutError: Locator.dblclick"):
         tv._worker_output(1, b"", err)
     assert tv._worker_output(0, b'{"path": "a.png"}\n', b"") == {"path": "a.png"}
+
+
+@pytest.mark.parametrize("media,delivery,status,cause", [
+    # 23 Nov BTC setup post: two TRADINGVIEW_SNAPSHOT_TIMEOUT attempts, then the plan card (decision 82 allows it).
+    (True, "IMAGE_ATTACHED", "FACT_CARD_FALLBACK", "MARKET_TRADINGVIEW_FACT_CARD_FALLBACK"),
+    # The card was recorded but the public copy shows no image: still a failure.
+    (True, "TEXT_ONLY", "FAIL", "MARKET_TRADINGVIEW_CHART_MISSING"),
+    # 22 Nov BTC page: text only, no card: still a failure.
+    (False, "TEXT_ONLY", "FAIL", "MARKET_TRADINGVIEW_CHART_MISSING"),
+])
+def test_decision_82_check_counts_a_recorded_fact_card_fallback_with_its_cause(tmp_path, media, delivery,
+                                                                             status, cause):
+    from test_prerelaunch_decision_checks_20261123 import NOTICES, by_decision, checks, posted
+
+    audit = checks(tmp_path)
+    card = {"asset_id": "plan-fact-card-a43067804f6221acb5a9-16x9", "modality": "plan_fact_card",
+            "plan_chart_fallback": {"key": "plan-status-post-btc", "market": "BTCUSD", "ratio": "16:9",
+                                    "cause": "TRADINGVIEW_SNAPSHOT_TIMEOUT"}}
+    posted(audit, "plan-status-post-btc", "telegram", text="Bitcoin: new plan.\n" + NOTICES,
+           source={"kind": "setup", "key": "plan-status-post-btc", "symbol": "BTCUSD"}, object_id="231",
+           native={"media_asset_ids": [card["asset_id"]] if media else []},
+           intent={"media_assets": [card] if media else []}, readback_fields={"image_delivery": delivery})
+    result = audit.finish({}, {})
+    assert ("telegram", status, cause) in by_decision(result, "82")
+    row = next(row for row in result["issues"] if row["decision"] == "82")
+    summary = next(item for item in result["checks"] if item["decision"] == "82")
+    if status == "FACT_CARD_FALLBACK":
+        assert row["chart_causes"] == ["TRADINGVIEW_SNAPSHOT_TIMEOUT"]
+        assert summary["failed"] == 0 and summary["fact_card_fallback"] == 1
+    else:
+        assert summary["failed"] == 1

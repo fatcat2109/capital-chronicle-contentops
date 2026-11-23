@@ -23,7 +23,10 @@ DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136"
 # Statuses that never count as a failure or an unverified check. BEFORE_POLICY: the copy was frozen before
 # the decision it breaks took effect. EXPECTED: a named, deliberate non-send (Jim posts that route by hand,
 # or a later plan state replaced the copy). PAUSED: Jim's posting pause held it.
-NOT_COUNTED = ("FLAGGED", "BEFORE_POLICY", "EXPECTED", "PAUSED")
+NOT_COUNTED = ("FLAGGED", "BEFORE_POLICY", "EXPECTED", "PAUSED", "FACT_CARD_FALLBACK")
+# Decision 82 allows CC-290's fact card when the capture failed (decision 42: the post still goes out). A copy whose
+# only image is that recorded fallback meets the decision; the report shows it with its capture cause, not as FAIL.
+FACT_CARD_FALLBACK = "MARKET_TRADINGVIEW_FACT_CARD_FALLBACK"
 # Jim, 23 Nov 03:04 GMT+7: X, Substack Notes and the LinkedIn company page are his by hand, suspended in
 # suspended_routes.json from 22 Nov 20:31Z (23 Nov 03:31 GMT+7; BACKLOG CC-731 and CC-748 lines).
 HAND_POSTING_FROM = {"JIM_POSTS_BY_HAND_20261123": datetime(2026, 11, 22, 20, 31, tzinfo=timezone.utc)}
@@ -938,6 +941,12 @@ class DecisionChecks:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
         symbols = sorted({symbol for asset in assets if (symbol := _media_symbol(asset))})
+        fact_card_causes = sorted({cause for asset in assets if asset.get("modality") == "plan_fact_card"
+                                   and (cause := (asset.get("plan_chart_fallback") or {}).get("cause"))})
+        if not symbols and fact_card_causes and copy.observed_image is not False:
+            self.check("82", copy, FACT_CARD_FALLBACK, status="FACT_CARD_FALLBACK", market=market,
+                       expected_symbol=expected, chart_causes=fact_card_causes)
+            return
         cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
                  else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols
                  else "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED" if chart_causes else None)
