@@ -6,6 +6,7 @@ then renders them; it does not invent an explanation or a missing scenario.
 """
 from __future__ import annotations
 
+from contextvars import ContextVar
 from decimal import Decimal
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -38,6 +39,8 @@ READER_SECTIONS = (
     ("macro", "Macro"), ("scenarios", "The scenarios"), ("plan", "The plan"),
     ("invalidation", "What would change our mind"),
 )
+# Set by plan_reader_editorial_v1.run_due for its slice: may a new TradingView capture start now?
+PAGE_CAPTURE_ALLOWED = ContextVar("plan_analysis_page_capture_allowed", default=None)
 FINAL_STATES = {"CANCELLED": "cancelled", "INVALIDATED": "invalidated", "EXPIRED": "expired",
                 "VIEW_CHANGED": "view changed", "CLOSED": "closed", "RESULT": "closed"}
 ENTRY_TRANSITIONS = {"WAITING": {"TRIGGERED", "FILLED"}, "TRIGGERED": {"FILLED"}}
@@ -200,6 +203,20 @@ def open_page_deadline(packet):
     return entry_deadline(raw) if raw.get("zone") and not packet.get("final_status") else None
 
 
+def _ended_without_entry(state, current):
+    """An untriggered plan that Main ended without a market cancel reads 'expired, no entry'.
+
+    Main's INVALIDATED is the plan's own cancel level, and a CANCELLED with a cancel_kind (a runaway
+    before the pullback) is a market cancel; both keep their word. Any other untriggered end (the
+    entry window or the contract ran out, or our own order path stopped it) never had an entry.
+    Seen 21 Nov 2026: Bitcoin plan_caf370e4 was exported CANCELLED at 00:00:44Z with price far from its
+    cancel level, and its page said "cancelled"; Main now exports it EXPIRED, untriggered, no cancel.
+    """
+    outcome = current.get("outcome") if isinstance(current.get("outcome"), dict) else {}
+    return (state in {"CANCELLED", "EXPIRED"} and outcome.get("state") == "NOT_SCORED_UNTRIGGERED"
+            and not (state == "CANCELLED" and current.get("cancel_kind")))
+
+
 def ended_plan_status(raw, current, *, now, keep_early_close=False):
     """Bind a closed page to the observed end of this exact Main registration."""
     deadline = entry_deadline(raw)
@@ -210,6 +227,10 @@ def ended_plan_status(raw, current, *, now, keep_early_close=False):
             or not posts._utc(raw["registered_at_utc"]) <= posts._utc(at) <= now):
         raise ValueError("PLAN_ANALYSIS_FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW")
     final = {"status": state, "status_at_utc": at}
+    if _ended_without_entry(state, current):
+        final = {"status": "EXPIRED", "status_at_utc": at, "no_entry": True}
+        if state != "EXPIRED":
+            final["export_status"] = state  # Main's own word stays on the record
     deadline_at = posts._utc(deadline)
     if posts._utc(at) < deadline_at and (now < deadline_at or keep_early_close):
         final["ended_before_entry_deadline"] = True
@@ -569,7 +590,8 @@ def _card(plan, run, folder, manuscript):
                "levels": posts._display_plan(posts._built_plan(plan))}
         if manuscript.get("level_contract"):
             row.update(level_contract=manuscript["level_contract"], source_plan=plan)
-        return posts._post_image(row, folder)[0]
+        # A capture that cannot finish inside the hosting job is deferred (a ValueError), never started.
+        return posts._post_image(row, folder, snapshot_allowed=PAGE_CAPTURE_ALLOWED.get())[0]
     from .plan_analysis_media_v1 import render as render_card
     candidate, _, _ = _owner_candidate(plan, run)
     return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
@@ -589,6 +611,8 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
         if plan.get("zone") and plan.get("invalidation_conditions"):
             headline = page_thread_terms(plan, run, level_contract=LEVEL_CONTRACT)["title"]
         state = FINAL_STATES[final_status['status']]
+        if final_status.get("no_entry"):
+            state += ", no entry"  # a page stored before 23 Nov 2026 has no such mark and keeps its bytes
         if final_status.get("ended_before_entry_deadline"):
             headline += f" (plan {state})"
             paragraphs.append("This page was published after the plan ended.")

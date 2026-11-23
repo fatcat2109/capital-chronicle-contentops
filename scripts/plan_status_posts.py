@@ -46,6 +46,8 @@ def child_python() -> str:
 
 
 def main(argv=None) -> int:
+    import time
+    started = time.monotonic()  # the task's five-minute limit counts from here (page capture budget)
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="validate the export and render posts without writes")
     parser.add_argument("--export-dir", type=Path, default=EXPORT_DIR)
@@ -196,9 +198,11 @@ def main(argv=None) -> int:
             try:
                 now = datetime.now(timezone.utc)
                 rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
+                from live_contentops.plan_reader_editorial_v1 import PAGE_JOB_LIFETIME_SECONDS
                 plan_pages = run_due(store, lambda: posts.read_export(
                     args.export_dir, main_root=args.main_root, python=child_python()),
-                    root=page_root, rollout=rollout, now=now, cached_only=True)
+                    root=page_root, rollout=rollout, now=now, cached_only=True,
+                    job_deadline=started + PAGE_JOB_LIFETIME_SECONDS)
                 if plan_pages.get("draft_due") and page_worker is None:
                     page_worker = start_page_draft_worker(store, python=child_python(),
                         export_dir=args.export_dir, main_root=args.main_root, root=page_root, now=now)

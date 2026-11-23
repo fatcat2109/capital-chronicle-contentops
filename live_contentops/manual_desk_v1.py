@@ -5,6 +5,8 @@ store rows and the payloads the automatic platforms already received. Each pack
 holds one checked text per hand-posted platform (X as a thread, Substack Notes,
 the LinkedIn company page, the YouTube community post), each ending with the
 piece's confirmed Substack link, plus the full Substack text and the chart file.
+A new plan in the six markets also gets a TradingView idea pack (CC-469,
+tradingview_idea_v1): title, description and chart instructions, with no link.
 
 Outputs, all under one desk folder (a parameter, so tests use a temporary one):
   index.html    a static page the minute job rewrites; no server, no port
@@ -33,6 +35,7 @@ from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
 from . import scenario_voice_v1 as voice
+from . import tradingview_idea_v1 as tv_idea
 
 DESK_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\manual_desk")
 SCHEMA = "contentops.manual_desk_pack.v1"
@@ -275,7 +278,9 @@ def collect_pieces(conn, *, now, lookback=LOOKBACK):
             "page_work_item": "plan-analysis-" + value["plan_id"],
             "conditional_calls": value.get("conditional_calls") or [],
             "scenario_voice": value.get("scenario_voice"),
-            "source_text": value.get("text") or ""}
+            "source_text": value.get("text") or "",
+            # CC-469: a new plan in the six markets gets its TradingView idea from its own fields.
+            "tradingview_idea": tv_idea.idea_entry(value)}
     for row in conn.execute("SELECT * FROM outbox_messages WHERE destination = 'internal:market-wrap' "
                             "AND created_at >= ? ORDER BY created_at", (cutoff,)):
         value = _payload(row)
@@ -603,7 +608,11 @@ def build_pack(conn, piece, *, now):
             "page_state": page_state, "released": page_state != "WAITING_FOR_PAGE",
             "image_path": image, "full_text": full_text, "platforms": platforms,
             "public_submit_actions": 0}
-    pack["content_sha256"] = sha256(json.dumps({k: pack[k] for k in ("substack_url", "platforms", "image_path")},
+    hashed = ("substack_url", "platforms", "image_path")
+    if piece.get("tradingview_idea"):
+        pack["tradingview_idea"] = piece["tradingview_idea"]
+        hashed += ("tradingview_idea",)
+    pack["content_sha256"] = sha256(json.dumps({k: pack[k] for k in hashed},
                                                sort_keys=True).encode("utf-8")).hexdigest()
     return pack
 
@@ -794,6 +803,7 @@ def render_page(packs, *, now):
                 out.append(f' · <a href="{escape(entry["public_url"])}" target="_blank" rel="noopener">the post</a>')
             out.append("</div>")
         out.append("</div>")
+        out.extend(_idea_html(pack.get("tradingview_idea"), index))
         if pack.get("full_text"):
             ident = f"t{index}-full"
             out.append(f'<details><summary>Full Substack text</summary><pre id="{ident}">{escape(pack["full_text"])}</pre>'
@@ -801,6 +811,28 @@ def render_page(packs, *, now):
         out.append("</section>")
     out.append("</main><script>" + _PAGE_JS + "</script></body></html>")
     return "\n".join(out)
+
+
+def _idea_html(idea, index):
+    """CC-469: the TradingView idea block, posted by hand like the other platforms."""
+    if not idea:
+        return []
+    out = ['<div class="plat" style="margin-top:12px"><h3>TradingView idea</h3>']
+    if idea.get("status") != "READY":
+        out.append(f'<div class="withheld">Withheld: {escape(idea.get("cause", ""))}</div></div>')
+        return out
+    chart = idea["chart"]
+    out.append(f'<div class="meta">{escape(idea["how_to_post"])}</div>')
+    draw = "; ".join(f'{d["label"]}: {d.get("low", "")}{"–" + d["high"] if d.get("high") else ""}{d.get("level", "")}'
+                     for d in chart["draw"])
+    out.append(f'<div class="meta">Chart {escape(chart["symbol"])}, {escape(chart["timeframe"])}. '
+               f'Draw {escape(draw)}. No other lines.</div>')
+    for part in ("title", "description"):
+        ident = f"t{index}-tv-{part}"
+        out.append(f'<pre id="{ident}">{escape(idea[part])}</pre>'
+                   f'<button type="button" data-copy="{ident}">Copy the {part}</button> ')
+    out.append("</div>")
+    return out
 
 
 def write_page(packs, *, desk_root, now):
@@ -831,8 +863,24 @@ def _chunks(text, limit=TELEGRAM_CHUNK):
     return [c for c in chunks if c]
 
 
-def _pack_messages(pack, *, platforms, note=None):
-    """Messages for one pack: a header, then one plain message per platform text."""
+def _idea_messages(idea):
+    """CC-469: the how-to with the chart, then the title, then the description, each its own message."""
+    chart = idea["chart"]
+    draw = "; ".join(f'{d["label"]} {d.get("low", "")}{"–" + d["high"] if d.get("high") else ""}{d.get("level", "")}'
+                     for d in chart["draw"])
+    head = (f"TRADINGVIEW IDEA · {idea['how_to_post']}\nChart: {chart['symbol']}, {chart['timeframe']}. "
+            f"Draw: {draw}. No other lines.")
+    return [{"platform": "tradingview", "text": head, "reply_markup": None, "part": 0},
+            {"platform": "tradingview", "text": idea["title"], "reply_markup": None, "part": 1},
+            *({"platform": "tradingview", "text": text, "reply_markup": None, "part": 2 + n}
+              for n, text in enumerate(_chunks(idea["description"])))]
+
+
+def _pack_messages(pack, *, platforms, note=None, idea=False):
+    """Messages for one pack: a header, then one plain message per platform text.
+
+    With idea=True a READY TradingView idea (CC-469) follows the platform texts.
+    """
     header = [f"POSTING PACK · {pack['kind_label']}: {pack['title']}"]
     if note:
         header.append(note)
@@ -857,6 +905,9 @@ def _pack_messages(pack, *, platforms, note=None):
         for n, text in enumerate(texts):
             markup = _keyboard([[opener, posted]]) if n == 0 else None
             messages.append({"platform": platform, "text": text, "reply_markup": markup, "part": n})
+    tradingview = pack.get("tradingview_idea") or {}
+    if idea and tradingview.get("status") == "READY":
+        messages.extend(_idea_messages(tradingview))
     return messages
 
 
@@ -864,7 +915,7 @@ def _ledger(desk_root):
     return _read_jsonl(Path(desk_root) / "sent.jsonl")
 
 
-def send_pack(pack, *, bot, chat_id, desk_root, version_key, platforms, note=None, now):
+def send_pack(pack, *, bot, chat_id, desk_root, version_key, platforms, note=None, now, idea=False):
     """Send one pack version. The SENDING line is written first: a restart never re-sends it."""
     from .x_reply_bot_v1 import BotError
     ledger = Path(desk_root) / "sent.jsonl"
@@ -880,7 +931,7 @@ def send_pack(pack, *, bot, chat_id, desk_root, version_key, platforms, note=Non
                                        "image": True})
             except BotError as exc:
                 _append_jsonl(ledger, {"kind": "image_unconfirmed", "version_key": version_key, "cause": str(exc)})
-        for message in _pack_messages(pack, platforms=platforms, note=note):
+        for message in _pack_messages(pack, platforms=platforms, note=note, idea=idea):
             payload = {"chat_id": chat_id, "text": message["text"], "link_preview_options": {"is_disabled": True}}
             if message["reply_markup"]:
                 payload["reply_markup"] = message["reply_markup"]
@@ -915,12 +966,15 @@ def push_new(packs, *, bot, chat_id, desk_root, now, max_packs=MAX_PUSH_PER_TICK
             platforms = list(pack["unposted_platforms"])
             note = ("The Substack page is now live: these texts carry its link."
                     if pending_key in started else None)
+            # The TradingView idea carries no link: it goes with the pack's first send only.
             results.append(send_pack(pack, bot=bot, chat_id=chat_id, desk_root=desk_root,
-                                     version_key=linked_key, platforms=platforms, note=note, now=now))
+                                     version_key=linked_key, platforms=platforms, note=note, now=now,
+                                     idea=pending_key not in started))
         elif pending_key not in started and linked_key not in started:
             results.append(send_pack(pack, bot=bot, chat_id=chat_id, desk_root=desk_root,
                                      version_key=pending_key, platforms=list(pack["unposted_platforms"]),
-                                     note="Released after 30 minutes without a confirmed Substack page.", now=now))
+                                     note="Released after 30 minutes without a confirmed Substack page.", now=now,
+                                     idea=True))
     return results
 
 
@@ -1017,7 +1071,8 @@ def accept_update(update, *, desk_root=DESK_ROOT, now=None):
     reply_to = (message.get("reply_to_message") or {}).get("message_id")
     if reply_to is not None:
         for row in _ledger(root):
-            if row.get("kind") == "message" and row.get("message_id") == reply_to and row.get("platform"):
+            if (row.get("kind") == "message" and row.get("message_id") == reply_to
+                    and row.get("platform") in HAND_PLATFORMS):
                 target = packs.get(_short(row["pack_id"]))
                 platform = row["platform"]
                 break
