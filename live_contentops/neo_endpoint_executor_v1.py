@@ -18,6 +18,10 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, unquote
 import requests
 
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, expected_posts
+from live_contentops.native_neo_executor_v1 import (
+    READBACK_ENDPOINT_UNAVAILABLE, READBACK_NO_ROUTE, READBACK_RETRY_AFTER, READBACK_TRIES_PER_DAY,
+    unrunnable_readback_cause,
+)
 from live_contentops.neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS, LINKEDIN_MEMBER_COMPOSER, ROOTS
 
 ENDPOINT_SURFACE = "NEO_ENDPOINT_EXECUTOR"
@@ -410,10 +414,23 @@ def compare_public_images(request, observed, *, http=None):
                     if min(b.size) < 200:
                         continue
                     same_aspect = abs(a.width / a.height - b.width / b.height) <= .005
-                    if a.size != b.size: a = a.resize(b.size, Image.Resampling.LANCZOS)
-                    diff = ImageChops.difference(a.filter(ImageFilter.GaussianBlur(.75)),
-                                                b.filter(ImageFilter.GaussianBlur(.75)))
-                    max_luma=ImageChops.difference(a.convert("L"),b.convert("L")).getextrema()[1]
+                    method = "RGB_BLUR075_TILE32_LUMA60_V1"
+                    if a.size != b.size:
+                        # The platform resized our image (Telegram 229: 1600x900 chart served at
+                        # 800x450 JPEG). Its resampling filter and re-encoding differ from ours at
+                        # every edge, so compare both at half the served size, after a wider blur;
+                        # a changed level or label still moves a 32-pixel tile past the limit.
+                        common = (max(1, b.width // 2), max(1, b.height // 2))
+                        a = a.resize(common, Image.Resampling.LANCZOS)
+                        b = b.resize(common, Image.Resampling.LANCZOS)
+                        blurred = (a.filter(ImageFilter.GaussianBlur(1.5)), b.filter(ImageFilter.GaussianBlur(1.5)))
+                        method = "RGB_RESIZED_HALF_BLUR15_TILE32_LUMA60_V1"
+                        diff = ImageChops.difference(*blurred)
+                        max_luma=ImageChops.difference(blurred[0].convert("L"),blurred[1].convert("L")).getextrema()[1]
+                    else:
+                        diff = ImageChops.difference(a.filter(ImageFilter.GaussianBlur(.75)),
+                                                    b.filter(ImageFilter.GaussianBlur(.75)))
+                        max_luma=ImageChops.difference(a.convert("L"),b.convert("L")).getextrema()[1]
                     rms = max(ImageStat.Stat(diff).rms)
                     worst = max(max(ImageStat.Stat(diff.crop((x,y,min(x+32,b.width),min(y+32,b.height)))).rms)
                         for y in range(0,b.height,32) for x in range(0,b.width,32))
@@ -423,7 +440,7 @@ def compare_public_images(request, observed, *, http=None):
                     "local_source_asset_sha256": asset["sha256"],
                     "platform_sha256": digest, "public_image_url": retrieved_url,"observed_image_url":url,
                     "public_object_url": observed.get("public_object_url"), "pixels_inspected": True,
-                    "source_pixels_match": matched, "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+                    "source_pixels_match": matched, "comparison_method": method,
                     "rms": round(rms, 4), "worst_tile_rms": round(worst, 4),"max_luma_delta":max_luma})
         except (OSError, ValueError, Image.DecompressionBombError, requests.RequestException):
             continue
@@ -1256,6 +1273,9 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         # Standalone fully automatic callers retain the endpoint's own id.
         if automatic_destinations is None:
             kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
+        # CC-683: only a standalone automatic executor knows that nothing else will run a read.
+        # Under a native parent, the parent performs the reads this executor does not route.
+        self.standalone_automatic = automatic_destinations is None
         super().__init__(*args,**kwargs)
         self.client=client or (NeoMcpClient(task_name="cc467 news quotes",group_title="codex/cc467-news-quotes")
             if self.operation_id.startswith("heavy-quote-") else
@@ -1360,9 +1380,64 @@ class EndpointNeoExecutor(NativeNeoExecutor):
             return conn.execute("SELECT 1 FROM incidents WHERE incident_id=? AND work_item_id=?", (
                 DurablePublicationCoordinator._retry_incident_id(dispatch_id), message["work_item_id"])).fetchone() is not None
 
+    def _readback_route(self, request):
+        from .plan_substack_neo_v1 import supports_operation
+        return (request.get("destination") in self.automatic_destinations
+                or (request.get("destination") == "substack" and supports_operation(self.operation_id)))
+
+    def _readback_context(self, request):
+        """What decides whether this executor can run a read: its route and its reader code."""
+        return {"route": "AUTOMATIC" if self._readback_route(request) else "NONE",
+                "reader_revision": self.executor_revision}
+
+    def _ended_readback(self, request):
+        """CC-683: reuse today's end of this exact read instead of writing another request.
+
+        Returns None when the read may run (no end yet, a changed route or reader, the endpoint
+        answering again, or the one later try). A read that nothing can run re-raises its first
+        issued request, so it stays the one pending request.
+        """
+        if request.get("action") != "READBACK" or not request.get("request_sha256") or not request.get("work_item_id"):
+            return None
+        if not self._readback_route(request) and not self.standalone_automatic:
+            return None
+        if self._get(request["request_sha256"], "request") is not None:
+            return None  # An issued request keeps its own claim and return.
+        ends = self._readback_ends(request, self._readback_context(request))
+        if not ends:
+            return None
+        last = ends[-1]
+        cause = last["result"]["reason_code"]
+        if cause == READBACK_ENDPOINT_UNAVAILABLE:
+            try:
+                self.client.initialize()
+                return None  # The endpoint answers again: the cause has changed.
+            except (NeoEndpointError, requests.RequestException):
+                pass
+        elif cause != READBACK_NO_ROUTE and len(ends) < READBACK_TRIES_PER_DAY:
+            if self.clock() - datetime.fromisoformat(last["ended_at_utc"]) >= READBACK_RETRY_AFTER:
+                return None
+        if cause in {READBACK_NO_ROUTE, READBACK_ENDPOINT_UNAVAILABLE}:
+            packet = self._get(last["result"]["request_sha256"], "request")
+            if packet:
+                raise NativeNeoInputRequired({**packet, "readback_end": last["result"],
+                    "request_path": str(self.root / (last["result"]["request_sha256"] + ".request.json"))})
+        return {**last["result"], "verified": False, "write_absent": False, "write_exists": False}
+
+    def _finish_readback(self, request, result):
+        """CC-683: an issued read that observed nothing records its cause once."""
+        if request.get("action") == "READBACK" and request.get("request_sha256"):
+            cause = unrunnable_readback_cause(result)
+            if cause and self._get(request["request_sha256"], "request") is not None:
+                self._end_readback(request, cause, self._readback_context(request))
+        return result
+
     def __call__(self,request):
+        ended=self._ended_readback(request)
+        if ended is not None:
+            return ended
         try:
-            return super().__call__(request)
+            return self._finish_readback(request, super().__call__(request))
         except NativeNeoInputRequired as waiting:
             from .plan_substack_neo_v1 import supports_operation
             plan_page = request.get("destination") == "substack" and supports_operation(self.operation_id)
@@ -1370,6 +1445,9 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                                    and request.get('approved_presentation_restore'))
             if (request.get("destination") not in self.automatic_destinations and not plan_page) or (
                     request.get("action") == "EDIT_EXISTING" and not approved_note_restore):
+                if request.get("action") == "READBACK" and self.standalone_automatic:
+                    # 20 Nov: LinkedIn had no automatic route; its read was asked again every run.
+                    self._end_readback(request, READBACK_NO_ROUTE, self._readback_context(request))
                 raise
             pending=waiting
         # Connect before claiming: an unavailable endpoint has made no public attempt.
@@ -1379,6 +1457,8 @@ class EndpointNeoExecutor(NativeNeoExecutor):
             # No action claim exists. Preserve the same pending request for the
             # next existing minute tick instead of settling a transient outage.
             pending.request["endpoint_cause"]="NEO_ENDPOINT_UNAVAILABLE"
+            if request.get("action") == "READBACK":
+                self._end_readback(request, READBACK_ENDPOINT_UNAVAILABLE, self._readback_context(request))
             raise pending
         request_hash=request["request_sha256"]
         try:
@@ -1393,10 +1473,10 @@ class EndpointNeoExecutor(NativeNeoExecutor):
             cause=str(exc)
             if not re.fullmatch(r"[A-Z][A-Z0-9_]{2,150}",cause):
                 cause="LOCAL_VALIDATION_ERROR"
-            return {"status":"FAILED_BEFORE_WRITE","definite_no_write":True,
+            return self._finish_readback(request, {"status":"FAILED_BEFORE_WRITE","definite_no_write":True,
                 "public_write_performed":False,"stage":"BEFORE_PUBLISH_CLICK",
                 "reason_code":cause,"request_sha256":request_hash,
-                "observed_identity":request["expected_identity"],"identity_observed":False}
+                "observed_identity":request["expected_identity"],"identity_observed":False})
         try:
             observed=NeoBrowserDriver(self.client).perform(packet)
             result={"request_sha256":request_hash,**observed["result"],"neo_executor_revision":self.executor_revision}
@@ -1410,15 +1490,16 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                 "result":result,"composed":{"identity":observed["identity"],
                     "pre_click_posts":observed.get("pre_click_posts"),"readback":observed.get("readback")}}
             self.submit(request_hash,response)
-            return super().__call__(request)
+            return self._finish_readback(request, super().__call__(request))
         except (NeoEndpointError,OSError,ValueError,KeyError,requests.RequestException) as exc:
             # No repeat after a claimed action, including a lost click/return.
             cause = "NEO_ENDPOINT_OBSERVATION_INCOMPLETE"
             if isinstance(exc, NeoEndpointError) and re.fullmatch(r"[A-Z0-9_]{3,150}", str(exc)):
                 cause = str(exc)
-            return {"status":"UNKNOWN_WRITE" if request["action"] == "PUBLISH" else "READBACK_UNAVAILABLE",
+            return self._finish_readback(request, {
+                "status":"UNKNOWN_WRITE" if request["action"] == "PUBLISH" else "READBACK_UNAVAILABLE",
                 "retry_permitted":False,"reason_code":cause,
-                "request_sha256":request_hash}
+                "request_sha256":request_hash})
 
 
 def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, output_root=None):
