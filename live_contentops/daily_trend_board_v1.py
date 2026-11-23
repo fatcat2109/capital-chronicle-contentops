@@ -110,7 +110,7 @@ def project(board, *, now):
         else:
             # CC-528 defines this as D1 bar OPEN; completion is one day later.
             completed = utc(opened) + timedelta(days=1)
-            if completed > now:
+            if completed > captured:
                 raise BoardSourceError("BOARD_BAR_NOT_COMPLETED", market=symbol)
             sessions[symbol] = completed.astimezone(ET).date().isoformat()
         means = {}
@@ -152,9 +152,18 @@ def project(board, *, now):
                              "mean_r": number(mean, signed=True), "sample_period": deepcopy(period)})
         # MIXED can legitimately have no qualifying historical row.
         markets[symbol] = {"state": state, "means": means, "rows": measured}
-    if len(set(sessions.values())) > 1:
+    weekday_sessions = {session for symbol, session in sessions.items() if symbol != "BTCUSD"}
+    if len(weekday_sessions) > 1:
         raise BoardSourceError("BOARD_MARKET_SESSIONS_DIFFER", market_sessions=sessions)
-    day = next(iter(sessions.values()), None)
+    day = next(iter(weekday_sessions), None)
+    bitcoin_day = sessions.get("BTCUSD")
+    if day and bitcoin_day and bitcoin_day != day:
+        # The weekday markets last closed Friday. Bitcoin's newer bar is part
+        # of the same published snapshot, with its own completed-session date.
+        if (bitcoin_day < day or date.fromisoformat(bitcoin_day).weekday() < 5
+                or trading_age(day, bitcoin_day) != 0):
+            raise BoardSourceError("BOARD_MARKET_SESSIONS_DIFFER", market_sessions=sessions)
+        markets["BTCUSD"]["session_date_et"] = bitcoin_day
     if day and (day > latest_close(now) or date.fromisoformat(day).weekday() >= 5):
         raise BoardSourceError("BOARD_NEW_YORK_CLOSE_NOT_DUE", day_et=day, latest_close_et=latest_close(now))
     session_age = trading_age(day, latest_close(now)) if day else None
@@ -163,7 +172,8 @@ def project(board, *, now):
     if missing:
         raise BoardSourceError("BOARD_PUBLIC_FIELDS_ABSENT", missing_fields=missing,
                                as_of_utc=board["as_of_utc"], day_et=day, age_seconds=age_seconds)
-    if any(r["sample_period"]["end"] > day for m in markets.values() for r in m["rows"]):
+    if any(r["sample_period"]["end"] > sessions[symbol]
+           for symbol, market in markets.items() for r in market["rows"]):
         raise BoardSourceError("BOARD_SAMPLE_ENDS_AFTER_SESSION", day_et=day)
     return {"policy": POLICY, "day_et": day, "as_of_utc": board["as_of_utc"],
             "board_content_hash": board["content_hash"], "yardstick_rule": board["yardstick_rule"],
@@ -176,6 +186,9 @@ def compose(current, previous=None):
     headline = ("; ".join(MARKETS[s] + " turns " + current["markets"][s]["state"] for s in changes)
                 if changes else "Daily trend board")
     dated = date.fromisoformat(current["day_et"]).strftime("%d %b %Y") + " close, ET"
+    bitcoin_day = current["markets"]["BTCUSD"].get("session_date_et")
+    if bitcoin_day:
+        dated += " (Bitcoin through " + date.fromisoformat(bitcoin_day).strftime("%d %b %Y") + ", ET)"
     summary = "; ".join(MARKETS[s] + " " + current["markets"][s]["state"] for s in MARKETS)
     changed = ("Changed since the previous session: " + "; ".join(MARKETS[s] + " " +
                previous["markets"][s]["state"] + " to " + current["markets"][s]["state"] for s in changes) + "."

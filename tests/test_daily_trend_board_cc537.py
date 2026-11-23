@@ -208,6 +208,30 @@ def test_repeated_or_corrected_same_day_source_keeps_the_issued_bytes_and_chart(
     assert asset["data_card_packet"]["facts"][0][1] == "DOWN; 20-session mean 100; 50-session mean 120"
 
 
+def test_weekend_bitcoin_uses_its_own_date_in_the_delivered_board(ready, tmp_path, monkeypatch):
+    store, root = ready
+    runtime = BoardTransport()
+    now = datetime(2026, 11, 23, 2, 18, tzinfo=timezone.utc)
+    value = source("2026-11-20")
+    value["as_of_utc"] = now.isoformat()
+    bitcoin = value["markets"]["BTCUSD"]
+    bitcoin["yardstick"]["last_completed_bar_utc"] = "2026-11-22T00:00:00Z"
+    bitcoin["rows_whose_condition_holds_now"][0]["sample_period"]["end"] = "2026-11-21"
+    clock(monkeypatch, now)
+    result = board.run_due(store, board_path=write(tmp_path, seal(value)), output_root=root, now=now,
+                           snapshot=no_snapshot, deliver=delivery(runtime, now))
+
+    assert result["day_et"] == "2026-11-20"
+    assert result["state"] == "BOARD_COORDINATOR_RETURNED", result
+    assert all(outcome["readback"]["confirmed"] for outcome in result["outcomes"])
+    issued = json.loads(store.get_outbox_message(result["board_id"])["payload"])
+    assert issued["current"]["markets"]["BTCUSD"]["session_date_et"] == "2026-11-22"
+    for link in issued["links"]:
+        text = link["native_payload"]["full_text"]
+        assert "20 Nov 2026 close, ET (Bitcoin through 22 Nov 2026, ET)" in text
+        assert "https://capitalchronicle.substack.com/p/method-and-limits" in text
+
+
 def test_each_day_reaches_the_real_coordinator_once_and_three_fixture_days_require_all_readbacks(ready, tmp_path, monkeypatch):
     store, root = ready
     runtime = BoardTransport()
