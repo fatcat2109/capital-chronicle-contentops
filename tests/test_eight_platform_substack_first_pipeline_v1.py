@@ -23,19 +23,28 @@ def _article() -> dict:
     return {"title": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues", "subtitle": "FRED's latest reading keeps the policy-transmission question in focus."}
 
 
-def test_required_derivatives_follow_decisions_109_and_112():
+# 280439b3 (CC-454, Jim's decision 121, 11 Nov) reopened the YouTube Community Neo route, so YouTube
+# is a required derivative again; no Neo destination is barred now (Instagram posts by its API).
+# The retired-route tests below keep covering that branch with a controlled YouTube bar.
+RETIRED_YOUTUBE = {"youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"}
+
+
+def test_required_derivatives_follow_decisions_109_112_and_121():
     assert set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == {
-        "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads"}
+        "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
 
 
 def test_release_preflight_does_not_probe_retired_browser_routes(monkeypatch):
     calls = []
     monkeypatch.setattr(pipeline, "probe_authenticated_platform_session",
                         lambda port, platform: calls.append(platform) or {"authenticated": True})
+    assert "youtube" in pipeline._release_account_preflight(9223) and "youtube" in calls
+    calls.clear()
+    monkeypatch.setattr(pipeline, "barred_browser_destinations", lambda: dict(RETIRED_YOUTUBE))
     rows = pipeline._release_account_preflight(9223)
     assert "youtube" not in calls and "x" in calls
     assert rows["youtube"] == {"platform": "youtube", "status": "NOT_POSTED",
-                               "reason_code": barred_browser_destinations()["youtube"]}
+                               "reason_code": RETIRED_YOUTUBE["youtube"]}
 
 
 def test_every_derivative_carries_notices_and_overflow_remains_a_valid_thread(monkeypatch):
@@ -872,7 +881,7 @@ def test_native_payloads_are_distinct_and_carry_canonical_url():
     assert canonical_url in payloads["discord"]["text"]
     assert canonical_url in payloads["telegram"]["text"]
     assert set(payloads) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
-    assert "youtube" not in payloads and "x" in payloads
+    assert "youtube" in payloads and "x" in payloads  # 280439b3 (CC-454): YouTube Community is required again.
     assert payloads["telegram"]["format"] == "channel_photo_with_caption"
     assert payloads["x"]["format"] != payloads["linkedin"]["format"]
     assert payloads["discord"]["text"] != payloads["facebook_page"]["text"]
@@ -1314,9 +1323,20 @@ def test_classification_requires_current_destinations_and_preserves_retired_unce
     assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
     results["tiktok"] = {"status": "BLOCKED_TIKTOK_LOGIN_REQUIRED"}
     assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+    # 280439b3 (CC-454): YouTube is a current destination again, so its block is a partial run and
+    # its uncertain write fails the run; a retired (barred) route keeps its uncertainty without failing.
     results["youtube"] = {"status": "BLOCKED_YOUTUBE_COMMUNITY_NOT_AVAILABLE"}
-    assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+    assert _classification(results) == "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
     results["youtube"] = {"status": "UNKNOWN_WRITE", "id": "retained-uncertain-attempt"}
+    assert _classification(results) == "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+    original = pipeline.barred_browser_destinations, pipeline.TEXT_IMAGE_PASS_DESTINATIONS
+    pipeline.barred_browser_destinations = lambda: dict(RETIRED_YOUTUBE)
+    pipeline.TEXT_IMAGE_PASS_DESTINATIONS = tuple(d for d in EXPECTED_DESTINATIONS if d != "youtube")
+    try:
+        assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+    finally:
+        pipeline.barred_browser_destinations, pipeline.TEXT_IMAGE_PASS_DESTINATIONS = original
+    results["youtube"] = {"status": "SUCCESS"}
     assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
     results["threads"] = {"status": "NOT_POSTED"}
     assert _classification(results) == "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
@@ -1883,6 +1903,10 @@ def test_retired_youtube_resume_preserves_observations_without_browser_actions(t
     for name in ("browser_doctor", "build_delivery_media_manifest", "publish_substack_article_via_edge",
                  "publish_youtube_community_post_via_edge", "readback_youtube_community_post_via_edge"):
         monkeypatch.setattr(pipeline, name, forbidden)
+    # 280439b3 (CC-454) reopened YouTube; a controlled bar keeps the retired-route branch covered.
+    monkeypatch.setattr(pipeline, "barred_browser_destinations", lambda: dict(RETIRED_YOUTUBE))
+    monkeypatch.setattr(pipeline, "TEXT_IMAGE_PASS_DESTINATIONS",
+                        tuple(d for d in EXPECTED_DESTINATIONS if d != "youtube"))
 
     for _ in range(2):
         resumed = pipeline._resume_eight_platform_derivatives(output_dir=tmp_path, cdp_port=9223, platforms=["youtube"])
@@ -1890,7 +1914,7 @@ def test_retired_youtube_resume_preserves_observations_without_browser_actions(t
         assert resumed["results"] == results
         assert resumed["results"]["youtube"] == prior
         assert resumed["derivative_resume_not_posted"] == {"youtube": {
-            "status": "NOT_POSTED", "reason_code": barred_browser_destinations()["youtube"]}}
+            "status": "NOT_POSTED", "reason_code": RETIRED_YOUTUBE["youtube"]}}
         assert resumed["derivative_resume"]["targets"] == []
         assert resumed["derivative_resume"]["canonical_republished"] is False
         assert resumed["derivative_resume"]["successful_destinations_frozen"] is True

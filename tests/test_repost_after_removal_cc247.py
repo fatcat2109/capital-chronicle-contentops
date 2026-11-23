@@ -26,6 +26,16 @@ class CapturingTransport(FixtureTransport):
         return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
 
 
+def _cc247_linkedin_review(monkeypatch):
+    """f4367ae1 (CC-684, 21 Nov) put the LinkedIn member copy on Neo, so its reviewed repost now goes
+    through the Neo exact-review branch, which accepts only the native CC-247 media-repair review.
+    This controlled review stands in for that native acceptance, as the fixture already does for
+    the reviewed copy itself."""
+    from live_contentops import native_desktop_editorial_v1 as editorial
+    monkeypatch.setattr(editorial, "reader_presentation_acceptance",
+        lambda store, *, run_id, reference: ({"policy": "JIM_CC247_REVIEWED_MEDIA_REPAIR"}, None, None))
+
+
 def _setup(tmp_path, destination="telegram", *, removed=True, verified=True):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     store.create_work_item(work_item_id="sec", story_id="sec", title="SEC", target_surface="test")
@@ -113,7 +123,9 @@ def test_repost_refuses_a_changed_canonical(tmp_path):
 
 
 @pytest.mark.parametrize("destination", ["facebook_page", "instagram_business", "youtube", "linkedin"])
-def test_dated_route_reposts_verified_removed_object_with_reviewed_media(tmp_path, destination):
+def test_dated_route_reposts_verified_removed_object_with_reviewed_media(tmp_path, destination, monkeypatch):
+    if destination == "linkedin":
+        _cc247_linkedin_review(monkeypatch)
     store, co, transport, original = _setup(tmp_path, destination)
     outcome = co.complete_dated_distribution_recovery(original["message_id"],
         review_reference={"request_sha256": "a" * 64})
@@ -126,7 +138,8 @@ def test_dated_route_reposts_verified_removed_object_with_reviewed_media(tmp_pat
     assert again["publish_called"] is False and transport.publish_calls == [destination]
 
 
-def test_reviewed_first_copy_can_leave_expired_no_write_state_once(tmp_path):
+def test_reviewed_first_copy_can_leave_expired_no_write_state_once(tmp_path, monkeypatch):
+    _cc247_linkedin_review(monkeypatch)
     store, co, transport, original = _setup(tmp_path, "linkedin", removed=False)
     with store.get_connection() as conn:
         conn.execute("UPDATE platform_dispatches SET status='DERIVATIVE_EXPIRED_STALE_NO_WRITE', public_object_id=NULL, public_object_url=NULL WHERE dispatch_id=?",

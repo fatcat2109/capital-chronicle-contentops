@@ -7,10 +7,10 @@ from live_contentops import neo_destination_handoff_v1 as handoff
 
 
 def test_platform_prohibitions_apply_to_neo_only():
+    # 280439b3 (CC-454, decision 121, 11 Nov) reopened the LinkedIn company page and YouTube
+    # Community Neo routes; f4367ae1 (CC-684, 21 Nov) reopened the LinkedIn member account.
+    # Instagram's browser bar is the one left.
     assert handoff.NON_API_AUTOMATION_PROHIBITED == {
-        "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
-        "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
-        "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
         "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED",
     }
     for destination in ("x", "substack", "substack_notes"):
