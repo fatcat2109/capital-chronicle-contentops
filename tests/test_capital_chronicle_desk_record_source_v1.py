@@ -30,7 +30,9 @@ def article():
     field = next(f for f in record["binding"]["fields"] if f["field_path"] == "/measures/eci_civilian_compensation_12m_nsa/actual")
     citation = {k: field[k] for k in ("citation", "value", "display", "decimals", "unit") if k in field}
     return {"title": "Dated compensation data", "substack_body_markdown":
-        "Fixture, not current data. The retained annual rate is 3.4 percent. Analysis, not financial advice. "
+        # The current public notice (edac397c, CC-395, 10 Nov); the check still accepts the old one on stored items.
+        "Fixture, not current data. The retained annual rate is 3.4 percent. "
+        "Capital Chronicle offers analysis only, not financial advice or recommendations. "
         "Derived analysis attributed to the U.S. Bureau of Labor Statistics (BLS). No BLS emblem is used, and BLS does not endorse this publication.",
         "desk_record_citations": [citation]}
 
@@ -320,12 +322,21 @@ def test_fixture_is_refused_before_publication_preparation(tmp_path, monkeypatch
 @pytest.mark.parametrize("key", ["attribution", "disclaimer"])
 def test_mandatory_source_credit_is_preserved(key):
     value = article()
-    source = next(s for r in sources() for s in r["binding"]["sources"] if s["source_id"] == "src:bls:eci:2026q3")
+    records = sources()
+    source = next(s for r in records for s in r["binding"]["sources"] if s["source_id"] == "src:bls:eci:2026q3")
     if key == "disclaimer":
         value["substack_body_markdown"] += " " + source["attribution"]
     value["substack_body_markdown"] = value["substack_body_markdown"].replace(source[key], "")
+    if key == "disclaimer":
+        # d43abc7e (CC-338, 10 Nov) on purpose: a BLS source the article names in full needs no
+        # export disclaimer footer. Every other official source still needs its disclaimer.
+        assert validate_article_citations(value, records)["citation_count"] == 1
+        for record in records:
+            for item in record["binding"]["sources"]:
+                if item["source_id"] == source["source_id"]:
+                    item["rights_class"] = "BEA_OFFICIAL_PUBLIC_DERIVED"
     with pytest.raises(ValueError, match="SOURCE_" + key.upper()):
-        validate_article_citations(value, sources())
+        validate_article_citations(value, records)
 
 
 def test_selected_event_joins_only_explicitly_linked_public_context():
@@ -425,7 +436,7 @@ def test_desk_field_contract_does_not_invent_legacy_report_scope_notice():
 
 
 
-def test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt(tmp_path):
+def test_dated_new_desk_writer_resumes_exact_prompt_and_refuses_changed_input(tmp_path):
     from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn
     from live_contentops.native_newsroom_volume_v1 import volume_policy
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
@@ -440,7 +451,12 @@ def test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt(t
     with pytest.raises(DesktopInputRequired) as resumed: turn(**args)
     assert first.value.request == resumed.value.request
     assert "CC-144 / Jim decision 42: Every post and destination carries an image." in resumed.value.request["prompt"]
-    with pytest.raises(ValueError, match="CONFLICT"): turn(**{**args, "prompt": "Changed controlled request"})
+    # 121e15fb (CC-338, 10 Nov) on purpose: a writer whose governed input is unchanged replays its
+    # issued prompt after a template change; only changed source input conflicts.
+    with pytest.raises(DesktopInputRequired) as changed_prompt: turn(**{**args, "prompt": "Changed controlled request"})
+    assert changed_prompt.value.request == first.value.request
+    with pytest.raises(ValueError, match="CONFLICT"):
+        turn(**{**args, "governed_input": {"CONTROLLED_TEST_ONLY": True, "changed": True}})
 
 
 def test_series_observation_display_retains_declared_trailing_zeroes():
