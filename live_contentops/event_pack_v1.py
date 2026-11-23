@@ -309,6 +309,11 @@ def validate_intent(store, intent):
     value = json.loads(row["payload"])
     validate_plan(store, value["identity"], value["plan"])
     destination = intent["destination_plan"]["destination"]
+    if (destination == "linkedin_company" and intent.get("routine_company_copy")
+            and "linkedin_company" not in (value.get("payloads") or {})):
+        # CC-684 (f4367ae1): the coordinator adds the company page copy of the member's LinkedIn
+        # intent, with the same reviewed copy. The pack holds that copy under "linkedin".
+        destination = "linkedin"
     expected = value["payloads"][destination] if value.get("payloads") else value["native_payload"]
     if intent.get("native_payload") != expected:
         raise ValueError("EVENT_PACK_INTENT_CHANGED")
