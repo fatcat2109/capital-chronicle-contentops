@@ -163,8 +163,10 @@ def test_f5_weekly_unscored_expiry_uses_the_same_rule():
                                                 "at_utc": "2026-11-12T14:00:00Z"})
     record = weekly.project(data, cutoff_utc=CUTOFF)
     line = next(r["line"] for r in record["rows"] if r["plan_id"] == "legacy-expiry")
+    # 0a1c8c6e (17 Nov, "describe expired plans without inferring a missed zone") made the weekly
+    # record use cards.no_entry_words; with no zone-touch facts that reads "the entry window ended".
     assert line == ("- Thu 12 Nov ET: EUR/USD; original direction was bullish; entry zone 1.12346–1.12389; "
-                    "expired without entry; not scored.")
+                    "the entry window ended with no entry; not scored.")
 
 
 # F1 (decision 82) --------------------------------------------------------------------------------
