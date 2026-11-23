@@ -59,8 +59,10 @@ def test_named_branches_keep_their_own_chances_and_take_precedence():
 def test_target_is_hard_and_position_words_are_flagged():
     assert not voice.validate_copy("Short-term positioning is crowded. Gold could move toward 3,900 if yields fall.")
     assert not voice.validate_copy("The Fed kept its inflation target of 2%.")
-    with pytest.raises(ValueError, match="TARGET_FORBIDDEN"):
-        voice.validate_copy("Base case (58%): Gold weakens. Target level: 3,900.")
+    assert not voice.validate_copy("The Fed kept its inflation target of 2 percent.")
+    for target in ("Target level: 3,900.", "The plan has a target near 3,900.", "Gold target 3,900."):
+        with pytest.raises(ValueError, match="TARGET_FORBIDDEN"):
+            voice.validate_copy("Base case (58%): Gold weakens. " + target)
     assert voice.validate_copy("Long positions buy the breakout and sell the dip.") == ["SCENARIO_VOICE_POSITION_WORDS"]
     assert voice.validate_copy("Positioning remains long.") == []
 

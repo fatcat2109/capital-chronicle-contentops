@@ -542,6 +542,39 @@ def test_dated_positioning_description_is_not_a_new_unconditional_call(setup):
         packs.validate_mobile_draft(draft, request["candidates"][0], request["sources"][0], now=NOW)
 
 
+def test_cc755_reply_writer_and_pack_use_causal_copy_and_refuse_a_target(setup):
+    store, _, root = setup
+    feed = mobile_input(setup)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    request = packs.read_json(ready["request_path"])
+    response = authored(request)
+    draft = response["items"][0]
+    given = draft["draft_text"].split(". ", 1)[0]
+    draft["addition"] = "Base case: crowded positioning weighs on the yen if rate support fades."
+    draft["draft_text"] = f"{given}. {draft['addition']}"
+
+    def rank(_prompt, **_options):
+        return {"ranking": [{"post_id": "123", "quality_score": 92}]}, {}
+
+    def write(prompt, **_options):
+        assert "what would change it" in prompt and "Omit profit targets" in prompt
+        return response, {}
+
+    path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native",
+                                  ranker=rank, writer=write, now=NOW)
+    options = dict(request_path=ready["request_path"], response_path=path, feed_path=feed, output_root=root, now=NOW)
+    pack = packs.read_json(packs.build(store, **options)["pack_path"])
+    [item] = pack["items"]
+    assert item["draft_text"] == draft["draft_text"]
+    assert item.get("scenario_voice_findings", []) == []
+
+    draft["draft_text"] = f"{given}. Target level: 150."
+    packs.save_json(path, response)
+    refused = packs.read_json(packs.build(store, **options)["pack_path"])
+    assert refused["items"] == []
+    assert {"post_id": "123", "cause": "SCENARIO_VOICE_TARGET_FORBIDDEN"} in refused["omissions"]
+
+
 def test_reconciliation_preserves_actual_writer_clock_instead_of_rebuild_time(setup):
     store, _, root = setup
     feed = mobile_input(setup)

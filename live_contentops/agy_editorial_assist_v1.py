@@ -14,6 +14,8 @@ import re
 import subprocess
 import tempfile
 
+from . import scenario_voice_v1 as voice
+
 AGY = r"C:\Users\bullw\.gemini\bin\agy.exe"
 MODEL = "gemini-3.8-flash-high"
 EFFORT = "high"
@@ -132,6 +134,7 @@ def prompt_for(draft, source_pack, assets):
         "Do not invent or alter a number, date, level, source, probability or certainty. "
         "Write an accurate alt text for EVERY supplied image/chart from its spec and caption only. "
         "Write social variants for x, threads, telegram and discord using only the draft's facts. "
+        + voice.GUIDANCE +
         "x and threads are arrays of complete-sentence posts (limits 280 and 500 per post); "
         "telegram and discord are strings (limits 4096 and 2000). Leave 300 characters of headroom "
         "in long variants for the compiler's link and mandatory notices. No links in your variants: "
@@ -232,6 +235,11 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
     prompt, packet = prompt_for(draft, source_pack, assets)
     key = sha256(prompt.encode()).hexdigest()
     path = root / "agy-light-assist" / key / NAME
+    # A previously issued prompt for these exact inputs keeps its own return.
+    prior_key = sha256(prompt.replace(voice.GUIDANCE, "", 1).encode()).hexdigest()
+    prior = root / "agy-light-assist" / prior_key / NAME
+    if not path.is_file() and prior.is_file():
+        path = prior
     if path.is_file():
         record = json.loads(path.read_bytes())
         _write(root / NAME, record)
@@ -239,6 +247,7 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
     path.parent.mkdir(parents=True, exist_ok=True)
     run = runner or _run
     record = {"schema_version": "contentops.agy_light_assist.v1", "status": "AGY_UNAVAILABLE",
+              "scenario_voice": voice.CONTRACT,
               "agy": AGY, "agy_version": None, "model": MODEL, "effort": EFFORT,
               "configuration_status": "CONFIGURED_NOT_OBSERVED", "started_utc": _now(),
               "prompt_sha256": key, "artifact_path": str(path), "publisher_decisions": [],
@@ -350,6 +359,8 @@ def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_
             for alt in record["output"]["alt_text"]:
                 try:
                     _public(alt["text"])
+                    if record.get("scenario_voice") == voice.CONTRACT:
+                        voice.validate_copy(alt["text"])
                     if alt["asset_id"] not in by_id or len(alt["text"]) > 1000:
                         raise ValueError("AGY_ALT_ASSET_INVALID")
                     basis = record["asset_specs"].get(alt["asset_id"], {})
@@ -378,6 +389,10 @@ def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_
                             _check_light_text(post, source_basis)
                         if len(post) > LIMITS[destination] - (300 if destination in {"telegram", "discord"} else 0):
                             raise ValueError("AGY_VARIANT_LIMIT:" + destination)
+                    if record.get("scenario_voice") == voice.CONTRACT:
+                        findings = voice.validate_copy("\n".join(posts))
+                        if findings:
+                            usage.setdefault("scenario_voice_findings", {})[destination] = findings
                     variants[destination] = text
                 except (ValueError, TypeError) as exc:
                     usage["rejected_suggestions"].append(str(exc))

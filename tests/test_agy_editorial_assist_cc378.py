@@ -186,6 +186,19 @@ def test_changed_draft_does_not_use_stale_suggestions(tmp_path):
     assert media == assets
 
 
+def test_cc755_light_copy_checks_targets_and_preserves_other_variant_work(tmp_path):
+    draft, sources, assets = packet()
+    prompt, _ = agy.prompt_for(draft, sources, assets)
+    assert "Base case and its stated chance" in prompt and "Keep profit targets out" in prompt
+    output = recorded_output()
+    output["variants"]["telegram"] = "Target level: 2."
+    record = prepare(tmp_path, output)
+    approve(tmp_path, record)
+    article, _ = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert set(article["publisher_light_variants"]) == {"x", "threads", "discord"}
+    assert "SCENARIO_VOICE_TARGET_FORBIDDEN" in article["agy_light_assist"]["rejected_suggestions"]
+
+
 def test_reader_adapter_preserves_selected_variants():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
     draft = packet()[0]; draft["publisher_light_variants"] = recorded_output()["variants"]

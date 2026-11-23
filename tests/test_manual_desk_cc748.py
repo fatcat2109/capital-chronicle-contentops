@@ -167,6 +167,7 @@ def test_pack_texts_fit_lead_with_the_call_and_end_with_the_link(world):
         assert entry["status"] == "READY", (platform, entry.get("cause"))
         assert entry["text"].startswith(LEAD)
         assert entry["text"].endswith("Full analysis: " + LINK)
+        assert "3,900" not in entry["text"]
         assert CALL_LINE in desk.thread_as_copy([entry["text"]]) or platform == "x"
         assert entry["chars"] <= desk.LIMITS[platform]
     x = pack["platforms"]["x"]
@@ -175,9 +176,33 @@ def test_pack_texts_fit_lead_with_the_call_and_end_with_the_link(world):
     assert x["parts"][-1].endswith("Full analysis: " + LINK)
     assert CALL_LINE in desk.thread_as_copy(x["parts"])
     assert unquote(x["composer_url"].removeprefix(desk.X_INTENT)) == x["parts"][0]
-    # The 1000-character YouTube post drops whole optional lines, never the call.
+    # Omitting the target leaves space for the macro line. The longer cross-asset line still drops whole.
     youtube = pack["platforms"]["youtube"]["text"]
-    assert CALL_LINE in youtube and len(youtube) <= 1000 and "Macro:" not in youtube
+    assert CALL_LINE in youtube and len(youtube) <= 1000
+    assert "Macro:" in youtube and "Cross-asset and contagion:" not in youtube
+
+
+def test_cc755_pack_follows_the_published_scenario_lead(world):
+    base = "Scenarios: Base case (55%): Higher yields weigh on gold."
+    alternative = "Bull case: Gold rebounds if yields ease."
+    text = "\n".join([base, alternative, "Macro: Yields rose after the release.",
+                      "Fundamentals: Physical demand slowed.", CALL_LINE, NOTICE, "Chart: TradingView"])
+    add_plan_post(world, text=text)
+    conn = world["store"].conn
+    row = conn.execute("SELECT payload FROM outbox_messages WHERE message_id = 'plan-status-post-gold'").fetchone()
+    value = json.loads(row[0])
+    value.update(lead=base, scenario_voice="CC755_V1")
+    conn.execute("UPDATE outbox_messages SET payload = ? WHERE message_id = 'plan-status-post-gold'", (json.dumps(value),))
+    conn.commit()
+    confirm_page(world)
+
+    refresh(world, FIRST_POST + timedelta(minutes=6))
+    [pack] = read_packs(world)
+    for route in ("x", "youtube"):
+        output = pack["platforms"][route]["text"]
+        assert output.startswith(base)
+        assert alternative in output and LINK in output
+        assert pack["platforms"][route]["check"] == "PASS"
 
 
 def test_the_public_check_withholds_copy_it_would_refuse(world):

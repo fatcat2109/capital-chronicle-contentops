@@ -32,6 +32,8 @@ import tempfile
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
+from . import scenario_voice_v1 as voice
+
 DESK_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\manual_desk")
 SCHEMA = "contentops.manual_desk_pack.v1"
 LOCAL = ZoneInfo("Asia/Bangkok")
@@ -272,6 +274,7 @@ def collect_pieces(conn, *, now, lookback=LOOKBACK):
             "lead": (value.get("lead") or "").strip(), "created_at": row["created_at"],
             "page_work_item": "plan-analysis-" + value["plan_id"],
             "conditional_calls": value.get("conditional_calls") or [],
+            "scenario_voice": value.get("scenario_voice"),
             "source_text": value.get("text") or ""}
     for row in conn.execute("SELECT * FROM outbox_messages WHERE destination = 'internal:market-wrap' "
                             "AND created_at >= ? ORDER BY created_at", (cutoff,)):
@@ -336,6 +339,11 @@ def _split_lines(text):
             rest = _SUBSTACK_LINK.sub("", line).strip(" :-–—")
             # "Full analysis: <link>" and bare links go; a sentence keeps its words.
             line = "" if len(rest) <= 40 and not re.search(r"[.!?]$", rest) else _SUBSTACK_LINK.sub("", line).strip()
+        try:
+            voice.validate_copy(line)
+        except ValueError:
+            # The prior post keeps its bytes. A fresh pasteable copy never reuses its target line.
+            continue
         if line or (body and body[-1]):
             body.append(line)
     while body and not body[-1]:
@@ -374,17 +382,25 @@ def _assemble(body, credit, link):
     return "\n\n".join(p for p in parts if p)
 
 
-def compose_text(base_text, *, lead, link, limit, calls=()):
+def compose_text(base_text, *, lead, link, limit, calls=(), scenario_voice=False):
     """One platform text: the call first, the analysis lines, the notice, the link last."""
     body, credit = _split_lines(base_text)
     body = _ordered_body(body, lead)
     protected = {lead} | {line for line in body for w in _call_wordings(calls) if w and w in line}
+
+    def drop_priority(line):
+        leads_analysis = re.match(r"(?:Scenarios: |(?:Base|Bull|Bear) case\b|Event and cause: |"
+                                  r"Macro: |Fundamentals: |Positioning and sentiment: |Priced in: )",
+                                  line, re.I)
+        return (not (scenario_voice and leads_analysis), len(line))
+
     text = _assemble(body, credit, link)
     while len(text) > limit:
         candidates = [line for line in body if line and line not in protected]
         if not candidates:
             raise DeskError("TEXT_DOES_NOT_FIT_" + str(limit))
-        body.remove(max(candidates, key=len))  # drop the longest optional line, never cut one
+        # Keep scenario and causal lines ahead of ancillary commentary when space is tight.
+        body.remove(max(candidates, key=drop_priority))
         text = _assemble(body, credit, link)
     return text
 
@@ -458,7 +474,7 @@ def thread_as_copy(parts):
     return " ".join(" ".join(line for line in part.split("\n") if line) for part in parts)
 
 
-def check_copy(text, *, calls, source, received):
+def check_copy(text, *, calls, source, received, scenario_voice=False):
     """The existing public checks on one text: decisions 40/109 and the rights filter,
     then CC-466's reader check (numbers bound to the received copy, no cut sentences).
 
@@ -476,7 +492,10 @@ def check_copy(text, *, calls, source, received):
         public_filter(text)
     except ValueError as exc:
         raise DeskError("PUBLIC_FILTER_" + str(exc).split(":")[0]) from None
-    notes = []
+    try:
+        notes = voice.validate_copy(text, plan=scenario_voice)
+    except ValueError as exc:
+        raise DeskError(str(exc)) from None
     try:
         check_publication_copy({"text": text}, conditional_calls=list(calls), require_call_text=bool(calls))
     except PublicOutputError as exc:
@@ -542,6 +561,7 @@ def build_pack(conn, piece, *, now):
         received = {"substack": fallback}
     source = "\n".join([*received.values(), piece.get("source_text") or "", url or "", piece["title"], full_text or ""])
     platforms = {}
+    scenario_voice = piece.get("scenario_voice") == voice.CONTRACT
     for platform in HAND_PLATFORMS:
         # X re-threads the complete Telegram copy: X's stored full text is its parts
         # joined, which can place the chart credit inside a sentence (seen 17 Nov).
@@ -554,13 +574,13 @@ def build_pack(conn, piece, *, now):
                 entry.update(parts=parts, text="\n\n".join(parts), composer_url=x_intent(parts[0]))
                 # The thread is one copy for decision 40's call wording and the notice.
                 entry["check"] = check_copy(thread_as_copy(parts), calls=piece["conditional_calls"],
-                                            source=source, received=received[base_from])
+                                            source=source, received=received[base_from], scenario_voice=scenario_voice)
             else:
                 text = compose_text(received[base_from], lead=piece["lead"], link=url,
-                                    limit=LIMITS[platform], calls=piece["conditional_calls"])
+                                     limit=LIMITS[platform], calls=piece["conditional_calls"], scenario_voice=scenario_voice)
                 entry.update(text=text, composer_url=COMPOSERS[platform])
                 entry["check"] = check_copy(text, calls=piece["conditional_calls"], source=source,
-                                            received=received[base_from])
+                                            received=received[base_from], scenario_voice=scenario_voice)
             entry["chars"] = max(len(p) for p in entry["parts"]) if platform == "x" else len(entry["text"])
             entry["status"] = "READY"
         except DeskError as exc:

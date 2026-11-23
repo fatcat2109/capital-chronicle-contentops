@@ -21,6 +21,7 @@ from live_contentops.event_article_guard_v1 import (
 from live_contentops.preview_link_guard_v1 import find_forbidden_link
 from live_contentops.public_time_v1 import public_timestamp, require_public_time
 from live_contentops.sourced_replies_v1 import clock, digest
+from live_contentops import scenario_voice_v1 as voice
 from live_contentops import x_reply_fact_policy_v1 as fact_policy
 from live_contentops.x_reply_topics_v1 import driver_links
 from tools.product.desk_record_projection_v1 import (
@@ -337,6 +338,13 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         )
     for source in sources:
         source["public_timestamp"] = public_timestamp(source["known_at_utc"])
+    request["scenario_voice"] = voice.CONTRACT
+    request["instructions"] += (
+        " Use the second sentence to explain how the event or evidence affects the asset. "
+        "When the evidence supports a conditional view, state a base, bull or bear case and what would "
+        "change it. Prefer macro, fundamentals, sentiment or what is priced in to position shorthand. "
+        "Use long, short, buy and sell sparingly. Omit profit targets and any unsupported case or chance."
+    )
     request["request_sha256"] = digest(request)
     path = Path(output_root) / ("reply-pack-request-" + request["request_sha256"][:16] + ".json")
     save_json(path, request)
@@ -519,6 +527,8 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
             bound = next((s for s in request["sources"] if s["source_id"] == draft.get("source_id")), None)
             if not source or not bound or source["store_payload_sha256"] != bound["store_payload_sha256"]:
                 raise ValueError("REPLY_SOURCE_BINDING_CHANGED")
+            findings = (voice.validate_copy(draft["draft_text"])
+                        if request.get("scenario_voice") == voice.CONTRACT else [])
             text = (validate_mobile_draft(draft, post, source, now=now) if mobile else
                     validate_draft(draft, post, source, now=now, published_urls=published_urls))
             author = post["author_handle"].casefold()
@@ -546,6 +556,7 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
                 "sources": [{k: source[k] for k in ("source_id", "label", "known_at_utc", "rights_class", "kind",
                                                     "store_message_id", "store_payload_sha256", "parent_source_id", "artifact_binding") if k in source}],
                 "point": draft["point"], "reply_shape": draft.get("reply_shape"),
+                **({"scenario_voice_findings": findings} if findings else {}),
                 "editorial_call": response.get("editorial_call", {}),
             })
         except (ValueError, KeyError) as exc:

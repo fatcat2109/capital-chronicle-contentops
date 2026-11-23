@@ -17,13 +17,14 @@ GUIDANCE = (
 
 _LINK = re.compile(r"https?://[^\s<>]+", re.I)
 _TARGET = re.compile(
-    r"\b(?:profit[- ]target|take[- ]profit|model target level)s?\b"
+    r"\b(?:profit[- ]target|take[- ]profit|price target|model target level)s?\b"
     r"|\btarget (?:level|price|zone)\s*(?:[:=]|(?:is|at|of)\s+[-+$€£]?\d)"
     r"|(?m:^\s*(?:[-*•>]\s*)?(?:#{1,6}\s*)?(?:model\s+)?target(?:\s+(?:level|price|zone))?\s*[:=])"
-    r"|\b(?:our|the plan(?:'s|’s)|exit) (?:price )?target\b"
-    r"|\btarget\s+(?:of|at|is)\s+[$€£]?\d[\d,.]*(?![\d.,%])",
+    r"|\b(?:our|the plan(?:'s|’s)|exit) (?:price )?target\b",
     re.I,
 )
+_NUMERIC_TARGET = re.compile(r"\btarget\s+(?:(?:of|at|is|near|around)\s+)?[$€£]?\d[\d,.]*(?![\d.,%])", re.I)
+_POLICY_TARGET = re.compile(r"\b(?:inflation|rates?|yield|federal funds|employment|deficit)\s+$", re.I)
 _POSITION = re.compile(r"\b(?:longs?|shorts?|buy|sell)\b(?![- ]term\b)", re.I)
 _FORCES = (
     re.compile(r"\bmacro(?:economic)?\b", re.I),
@@ -42,13 +43,19 @@ def case_records(plan):
     scenario = plan.get("scenario_analysis")
     if not isinstance(scenario, Mapping):
         return []
+
+    def has_case(branch):
+        return isinstance(branch, Mapping) and (
+            bool(str(branch.get("market_move") or "").strip()) or _probability(branch.get("probability_pct"))
+        )
+
     cases = []
     for key, label in (("base_case", "Base case"), ("bull_case", "Bull case"), ("bear_case", "Bear case")):
         branch = scenario.get(key)
-        if isinstance(branch, Mapping) and branch:
+        if has_case(branch):
             cases.append((key, label, branch))
     alternative = scenario.get("main_alternative")
-    if isinstance(alternative, Mapping) and alternative and not any(key != "base_case" for key, _, _ in cases):
+    if has_case(alternative) and not any(key != "base_case" for key, _, _ in cases):
         explicit = str(alternative.get("direction") or "").upper()
         base_branch = scenario.get("base_case")
         base_direction = base_branch.get("direction") if isinstance(base_branch, Mapping) else None
@@ -59,8 +66,12 @@ def case_records(plan):
     return cases
 
 
+def _probability(value):
+    return type(value) in (int, float) and 0 <= value <= 100
+
+
 def format_case(label, probability, text=""):
-    if type(probability) in (int, float) and 0 <= probability <= 100:
+    if _probability(probability):
         odds = format(Decimal(str(probability)).normalize(), "f")
         label += f" ({odds}%)"
     return f"{label}: {text}" if text else label + "."
@@ -69,7 +80,8 @@ def format_case(label, probability, text=""):
 def validate_copy(text, *, plan=False):
     """Reject profit targets. Return editorial findings for decision 158's preferences."""
     plain = _LINK.sub("", re.sub(r"[*_\x60]", "", text))
-    if _TARGET.search(plain):
+    if _TARGET.search(plain) or any(not _POLICY_TARGET.search(plain[:match.start()])
+                                    for match in _NUMERIC_TARGET.finditer(plain)):
         raise ValueError("SCENARIO_VOICE_TARGET_FORBIDDEN")
     findings = []
     if len(_POSITION.findall(plain)) > 1:
