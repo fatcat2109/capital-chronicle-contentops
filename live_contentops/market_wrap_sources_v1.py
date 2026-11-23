@@ -11,11 +11,12 @@ from urllib.parse import urlencode, urlsplit
 from zoneinfo import ZoneInfo
 
 from . import public_market_quote_v1 as quotes
+from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import sha256_of
 from .daily_trend_board_v1 import SOURCE as TREND_BOARD, trading_age
 from .event_article_guard_v1 import check_publication_copy
 from .main_report_projection_source_v1 import NATIVE_MAIN_ANALYSIS_ROOT
-from .plan_reader_copy_v1 import et
+from .plan_reader_copy_v1 import et, scenario_case_copy
 from .plan_scenario_lines_v1 import _clean
 from .plan_status_posts_v1 import MAIN_ROOT, read_export
 from .reader_article_contract_v1 import sentences, words
@@ -102,6 +103,7 @@ def safe_prose(value):
             public_filter(line)
             validate_payload({"public_instrument_policy": POLICY}, {"text": line})
             check_publication_copy({"body": line}, require_notice=False)
+            voice.validate_copy(line)
             return line
     except (ValueError, IndexError):
         return None
@@ -148,7 +150,8 @@ def project_main(value):
         # can inform more than one market when Main binds those candidate IDs.
         for label, pattern in (
             ("Fundamentals", r"\b(?:supply|demand|inventories|earnings|production)\b"),
-            ("Positioning and sentiment", r"\b(?:positioning|sentiment|crowding|flows|priced in)\b"),
+            ("Positioning and sentiment", r"\b(?:positioning|sentiment|crowding|flows)\b"),
+            ("Priced in", r"\b(?:priced in|already reflects?|discounted)\b"),
             ("Options", r"\b(?:options|gamma|skew|implied volatility)\b"),
             ("Technical", r"\b(?:support|resistance|breakout|moving average|trend)\b"),
         ):
@@ -220,29 +223,12 @@ def project_plans(export, as_of):
             description = ", ".join(x for x in (instrument, horizon, label,
                                                  f"registered {registered}" if registered else None) if x)
             result.append({"id": plan_id, "market": market, "text": description + "."})
-        scenario = row.get("scenario_analysis") or {}
-        if market not in MARKETS or not isinstance(scenario, dict):
+        if market not in MARKETS or not row.get("registered_at_utc") or utc(row["registered_at_utc"]) > as_of:
             continue
-        cases = []
-        for key, name in (("base_case", "Main"), ("main_alternative", "Alternative")):
-            case = scenario.get(key) or {}
-            lines = public_sentences(case.get("market_move"))
-            if not lines:
-                break
-            odds = case.get("probability_pct")
-            probability = format(odds, "g") if type(odds) in (int, float) and 0 < odds < 100 else None
-            if key == "base_case" and probability is None:
-                break
-            checks = (
-                ("Confirmation", next(iter(public_sentences(case.get("confirmation"))), None)),
-                ("Invalidation", next(iter(public_sentences(scenario.get("invalidation_text")
-                                                           or scenario.get("invalidation_reason"))), None)),
-            )
-            cases.append({"name": name, "probability": probability, "text": lines[0],
-                          "checks": dict((label, v) for label, v in checks if v)})
-        if len(cases) == 2 and row.get("registered_at_utc") and utc(row["registered_at_utc"]) <= as_of:
+        cases = scenario_case_copy(row)
+        if cases:
             scenarios.append({"market": market, "id": plan_id, "registered_at_utc": row["registered_at_utc"],
-                              "cases": cases})
+                              "cases": cases, "scenario_voice": voice.CONTRACT})
     current = max(scenarios, key=lambda row: utc(row["registered_at_utc"]), default=None)
     return {"rows": result, "scenario": current, "sha256": status["content_hash"],
             "generated_at_utc": published.isoformat(), "quarantined_rows": len(export.get("quarantined_rows", []))}

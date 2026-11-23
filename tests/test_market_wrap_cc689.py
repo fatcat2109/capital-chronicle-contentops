@@ -288,6 +288,36 @@ def test_edition_writer_binds_moves_and_events_to_exact_rows(tmp_path, pack):
     assert json.loads((tmp_path / "wrap-changes/light-call.json").read_bytes())["result"] == "FAIL"
 
 
+@pytest.mark.parametrize("edition", ["daily", "weekly"])
+def test_cc755_market_wrap_renders_main_cases_in_the_article_and_social_copy(tmp_path, pack, edition):
+    now = at(pack["data_cutoff_utc"])
+    pack["slot"]["edition"] = edition
+    raw = {"plan_id": "source-plan", "asset_id": "XAUUSD", "direction": "BEARISH",
+           "registered_at_utc": "2026-11-23T12:00Z", "status": "WAITING", "scenario_analysis": {
+               "base_case": {"market_move": "Gold falls as real yields rise.", "probability_pct": 57},
+               "main_alternative": {"market_move": "Gold rebounds if real yields fall.",
+                                    "invalidation": "The rebound fails if real yields rise again."},
+           }}
+    pack["plans"] = sources.project_plans({"status": {
+        "generated_at_utc": now.isoformat(), "content_hash": "main-export", "plans": [raw]}}, now)
+
+    def select(prompt, **kwargs):
+        assert "Base case and its stated chance" in prompt
+        return select_first(prompt, **kwargs)
+
+    article, _ = editorial.article_for(pack, editorial.draft(pack, tmp_path, call=select))
+    body = article["substack_body_markdown"]
+    assert body.index("Base case (57%)") < body.index("What changed since the last wrap")
+    assert "Bull case: Gold rebounds if real yields fall." in body
+    assert "What would undo the bull case: The rebound fails if real yields rise again." in body
+    assert "43%" not in body
+    link = "https://capitalchronicle.substack.com/p/wrap"
+    for route in ("x", "telegram"):
+        copy = editorial.derivative_payload(article, [], link, route)
+        assert "Base case (57%)" in copy["text"] and "Bull case" in copy["full_text"]
+        assert link in copy["full_text"]
+
+
 def test_codex_capacity_returns_desk_sections_to_antigravity(tmp_path, pack):
     callers = []
 

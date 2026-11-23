@@ -16,6 +16,7 @@ from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTI
 from live_contentops.image_template_inputs_v1 import weekly_result_fields
 from live_contentops.plan_call_cards_v1 import _result_rows, ending_words, no_entry_words
 from live_contentops.plan_status_posts_v1 import TITLES, _built_plan, _utc, read_export, result_rows_from_export
+from live_contentops.scenario_voice_v1 import GUIDANCE as SCENARIO_VOICE_GUIDANCE
 
 SCHEMA = "contentops.weekly_scored_calls.v1"
 ET = ZoneInfo("America/New_York")
@@ -28,7 +29,7 @@ WRITER_GUIDANCE = (
     "Retain every call, including stops and window-end closes, and the weekly counts. Bind claims to this "
     "source as usual. These are resolved conditional calls, not new trade instructions. "
     "Do not claim a track record, alpha, returns, win rate, R, money, size, account details or performance. "
-    "The usual Main-sourced scenarios and editorial roles still apply.\n"
+    "Apply the scenario voice to the prose around the exact weekly record. " + SCENARIO_VOICE_GUIDANCE + "\n"
 )
 
 
