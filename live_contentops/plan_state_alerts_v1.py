@@ -8,6 +8,7 @@ from decimal import Decimal
 import re
 
 from . import plan_status_posts_v1 as posts
+from . import scenario_voice_v1 as voice
 from .event_article_guard_v1 import check_publication_copy, conditional_call_text
 from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, PHASE_LEVEL_CONTRACTS, result_r
 
@@ -20,7 +21,8 @@ def analysis_lines(row):
 
     contract = row["analysis_copy_contract"]
     raw = row["source_plan"]
-    lines = verified_analysis_lines(raw, row["analysis_layer_quotes"], contract=contract)
+    lines = verified_analysis_lines(raw, row["analysis_layer_quotes"], contract=contract,
+                                    scenario_voice=row.get("scenario_voice") == voice.CONTRACT)
     if contract == ANALYSIS_COPY and row["kind"] == "setup":
         lines += analysis_scenario_lines(raw)
     return lines
@@ -47,6 +49,7 @@ def compose(row):
     plan = row["levels"]
     title = row["instrument_title"]
     at = cards._clock(row["at_utc"])
+    scenario_voice = row.get("scenario_voice") == voice.CONTRACT
     calls = []
     thread = row.get("thread_contract") == "CC549_V1"
     conditional = row.get("level_contract") == CURRENT_LEVEL_CONTRACT
@@ -138,6 +141,9 @@ def compose(row):
             lines = [lead, *layers, *lines]
         else:
             lines = [*layers, *lines]
+            if scenario_voice and layers:
+                # CC-755: the base case leads a scenario-voice setup or update.
+                lead = layers[0]
         if row.get("method_page_reference"):
             from .measured_odds_series_v1 import method_link_line
             lines.append(method_link_line(row["method_page_reference"]))
@@ -145,7 +151,9 @@ def compose(row):
             lines.append("Full analysis: " + row["analysis_link"])
     text = "\n".join(lines) + "\n\n" + cards.NOTICES
     check_publication_copy({"body": text}, conditional_calls=calls)
-    return {"lead": lead, "text": text, "conditional_calls": calls, "detail_lines": lines[1:]}
+    review = ({"scenario_voice_findings": voice.validate_copy(text, plan=True)}
+              if scenario_voice and row.get("analysis_copy_contract") else {})
+    return {"lead": lead, "text": text, "conditional_calls": calls, "detail_lines": lines[1:], **review}
 
 
 def analysis_thread_parts(row, body, notices, *, destination, limit):
@@ -328,7 +336,8 @@ def validate(row, *, store=None):
         if row["kind"] != "setup" or confirmed_method_page(store) != row["method_page_reference"]:
             raise posts.PlanPostError("PLAN_ANALYSIS_METHOD_REFERENCE_CHANGED")
     if (row.get("analysis_copy_contract") == NINE_LAYER_COPY
-            and row.get("analysis_layer_gaps") != plan_layer_candidates(raw)[1]):
+            and row.get("analysis_layer_gaps") != plan_layer_candidates(
+                raw, scenario_voice=row.get("scenario_voice") == voice.CONTRACT)[1]):
         raise posts.PlanPostError("CC730_LAYER_GAPS_CHANGED")
     if row["text"] != compose(row)["text"]:
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_COPY_CHANGED")

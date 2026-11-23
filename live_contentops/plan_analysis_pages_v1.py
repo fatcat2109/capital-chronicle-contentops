@@ -15,6 +15,7 @@ from pathlib import Path
 import re
 
 from . import plan_status_posts_v1 as posts
+from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 from .public_time_v1 import public_timestamp, require_public_time
@@ -43,6 +44,11 @@ ENTRY_TRANSITIONS = {"WAITING": {"TRIGGERED", "FILLED"}, "TRIGGERED": {"FILLED"}
 
 
 def sections_for(manuscript):
+    if manuscript.get("scenario_voice") == voice.CONTRACT:
+        sections = dict(READER_SECTIONS)
+        order = ("scenarios", "macro", "story", "priced_in", "positioning", "fear",
+                 "technical", "plan", "invalidation")
+        return [(key, sections[key]) for key in order]
     return READER_SECTIONS if manuscript.get("reader_contract") == "CC466_V1" else SECTIONS
 RIGHTS = {"CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "PUBLIC_DOMAIN_OFFICIAL_FACT", "SINGLE_ATTRIBUTED_FACT"}
 _PRIVATE = re.compile(
@@ -86,14 +92,20 @@ def check_reader_claim(text, *, source_name="", source_locator="", source="", pr
 def check_new_page_copy(manuscript, run):
     """Apply reader/source checks to new output, preserving historical readback."""
 
+    def claim_text(text):
+        if manuscript.get("scenario_voice") == voice.CONTRACT:
+            # The displayed odds bind to the case's probability, not the market's pricing.
+            return re.sub(r"^(?:Base|Bull|Bear|Alternative) case \(\d+(?:\.\d+)?%\):?\s*", "", text)
+        return text
+
     for section in manuscript.get("sections", {}).values():
         paragraphs = section.get("paragraphs") or []
         for paragraph in paragraphs:
             source = "\n".join(_source_text(run, ref) for ref in paragraph.get("refs") or [])
-            check_reader_claim(paragraph["text"], source_name=paragraph.get("source_name", ""),
+            check_reader_claim(claim_text(paragraph["text"]), source_name=paragraph.get("source_name", ""),
                   source_locator=paragraph.get("source_locator", ""), source=source,
                   pricing_source=paragraph.get("pricing_source"))
-        summary = section.get("summary", "")
+        summary = claim_text(section.get("summary", ""))
         # A summary cannot silently drop the attribution from the full paragraph.
         if _PERCENT.search(summary) and _PRICED.search(summary):
             names = [p.get("pricing_source") or {"name": p.get("source_name", "")} for p in paragraphs]
@@ -102,7 +114,7 @@ def check_new_page_copy(manuscript, run):
         else:
             check_reader_claim(summary)
     for field in ("title", "subtitle", "introduction"):
-        text = manuscript.get(field, "")
+        text = claim_text(manuscript.get(field, ""))
         check_reader_claim(text, source=" ".join(p["text"] for s in manuscript.get("sections", {}).values()
               for p in s.get("paragraphs", [])), pricing_source=manuscript.get("pricing_source"))
 
@@ -361,6 +373,9 @@ def _source_text(run, ref):
         return level(value, document["public_instrument"])
     if ref.get("transform") == "TIMEFRAME_WORDS":
         return re.sub(r"\bM(\d+)\b", r"\1-minute", str(value))
+    if ref.get("transform") == voice.CONTRACT and name == "plan-export":
+        from .plan_reader_copy_v1 import scenario_quotes
+        return "\n".join(scenario_quotes(value, document))
     if ref.get("transform"):
         raise ValueError("PLAN_ANALYSIS_SOURCE_TRANSFORM_INVALID")
     return str(value)
@@ -528,9 +543,12 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
         paragraphs.append(f"Since we fixed the plan, {name} was {relation} the original entry zone. "
                           f"Our quote at {et(market_update['quoted_at_utc'])} was {price:,f}.")
     for key, title in sections_for(manuscript):
-        if manuscript.get("analysis_copy_contract") == "CC688_V1" and not manuscript["sections"][key]["paragraphs"]:
+        lines = [p["text"] for p in manuscript["sections"][key]["paragraphs"]]
+        if manuscript.get("scenario_voice") == voice.CONTRACT and key == "scenarios":
+            lines = [text for text in lines if text != manuscript["introduction"]]
+        if manuscript.get("analysis_copy_contract") == "CC688_V1" and not lines:
             continue
-        paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
+        paragraphs += ["## " + title, *lines]
         if key == "technical":
             paragraphs += geometry
     if reader:
@@ -551,6 +569,8 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
             from .plan_reader_copy_v1 import check_thread_text
             check_thread_text(body)
     payload = {"title": headline, "subtitle": manuscript["subtitle"], "body_markdown": body}
+    if manuscript.get("scenario_voice") == voice.CONTRACT:
+        voice.validate_copy("\n".join(payload.values()))
     return payload, paragraphs, geometry_bindings
 
 

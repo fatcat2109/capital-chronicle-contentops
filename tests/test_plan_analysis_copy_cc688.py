@@ -178,13 +178,39 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
     assert not outcome["draft_due"] and outcome["pages"][0]["publication"]["status"] == "PREPARED", outcome
     packet = editorial.publication_packet(store, plan)
     assert packet["authorship"]["writer"] == terminal_writer
-    assert "Main scenario (55%)" in packet["native_payload"]["body_markdown"]
-    assert "Alternative scenario" not in packet["native_payload"]["body_markdown"]
+    assert packet["native_payload"]["body_markdown"].startswith("Base case (55%).")
+    assert "Alternative case" not in packet["native_payload"]["body_markdown"]
     assert packet_path.read_bytes() == draft_bytes
     manuscript = deepcopy(packet["manuscript"])
     manuscript["sections"]["macro"]["paragraphs"][0]["text"] = "Real yields fell after the data release."
     with pytest.raises(ValueError, match="CC688_PAGE_COPY_CHANGED_FROM_FROZEN_PLAN"):
         pages.validate_manuscript(plan, manuscript, pages.load_run(plan, run_root=run_root))
+
+
+def test_cc755_substack_page_carries_the_same_cases_and_main_evidence(source, tmp_path):
+    run_root, _, plan, _ = source
+    plan.update(direction="BULLISH", analysis_layers=LAYERS, scenario_analysis={
+        "base_case": {"probability_pct": 62, "market_move": "The euro can recover with some easing already priced in."},
+        "main_alternative": {"market_move": "The euro weakens if the dollar rebounds.",
+                             "invalidation": "A fall in the dollar would undo the pressure on the euro."},
+        "mechanism": "A weaker dollar lifts the euro after the inflation release.",
+    })
+    run = pages.load_run(plan, run_root=run_root)
+
+    def select(prompt, **kwargs):
+        assert kwargs["callers"] == ("antigravity",)
+        assert "Base case and its stated chance" in prompt
+        return json.dumps(_selection(prompt)).encode(), {"status": "RETURNED"}
+
+    manuscript = editorial.draft_plan_page(plan, run, output_dir=tmp_path, call=select)
+    page = pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path)
+    body = page["native_payload"]["body_markdown"]
+    assert body.startswith("Base case (62%): The euro can recover with some easing already priced in.")
+    assert "Bear case: The euro weakens if the dollar rebounds." in body
+    assert "What would undo the bear case: A fall in the dollar" in body
+    assert body.index("Bear case:") < body.index("## Macro")
+    assert any({"file": "plan-export", "pointer": "/scenario_analysis/base_case/probability_pct"} in row["refs"]
+               for row in page["numeric_bindings"])
 
 
 def test_minute_repairs_an_unissued_draft_using_its_still_valid_frozen_excerpts(source, tmp_path, monkeypatch):

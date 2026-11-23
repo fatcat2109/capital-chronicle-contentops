@@ -19,31 +19,35 @@ from uuid import uuid4
 
 from . import plan_reader_copy_v1 as reader
 from . import plan_analysis_pages_v1 as pages
+from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 
 PAGE_LEASE = "cc466-plan-page-editorial"
 PAGE_DRAFT_LEASE = "cc688-plan-page-draft"
 DRAFT_MANUSCRIPT = "page-manuscript-cc688.json"
 PAGE_AGY_TIMEOUT = 100
-PAGE_COPY_REVISION = 6
+PAGE_COPY_REVISION = 7
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
-def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANALYSIS_COPY):
+def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANALYSIS_COPY, scenario_voice=False):
     """Choose one public quote per layer before any status copy is issued."""
     from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
 
     nine_layers = contract == reader.NINE_LAYER_COPY
-    options = reader.plan_layer_candidates(plan)[0] if nine_layers else reader.analysis_layer_options(plan)
+    options = (reader.plan_layer_candidates(plan, scenario_voice=scenario_voice)[0]
+               if nine_layers else reader.analysis_layer_options(plan))
     quotes = {layer: candidates[0]["text"] for layer, candidates in options.items()}
     choices = {layer: [item["text"] for item in candidates[:3]] for layer, candidates in options.items()
                if candidates[0]["text"]}
     if not choices or output_dir is None:
         return quotes
     if nine_layers:
+        guidance = voice.GUIDANCE if scenario_voice else ""
         prompt = (
             "Do not call tools. Draft one line per layer, using only this plan's own wording. "
             "Rewrite internal notation using the supplied public wording. Keep the meaning, figures and clocks. "
+            + guidance +
             "Return a JSON object mapping each layer to one exact public text or its zero-based index.\n"
             + json.dumps({layer: options[layer][:3] for layer in choices}, ensure_ascii=False, separators=(",", ":"))
         )
@@ -59,7 +63,7 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANA
         record = json.loads(log.read_bytes())
         selected = record.get("checked_quotes")
         if selected is not None:
-            reader.verified_analysis_lines(plan, selected, contract=contract)
+            reader.verified_analysis_lines(plan, selected, contract=contract, scenario_voice=scenario_voice)
             return selected
         answer_path = root / "answer.txt"
         answer = answer_path.read_bytes() if answer_path.is_file() else b""
@@ -90,7 +94,7 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANA
                     accepted += 1
         except (UnicodeError, ValueError) as exc:
             findings["answer"] = str(exc)
-    reader.verified_analysis_lines(plan, quotes, contract=contract)
+    reader.verified_analysis_lines(plan, quotes, contract=contract, scenario_voice=scenario_voice)
     record.update(job="plan_layer_lines", result="PASS" if accepted == len(choices) and not findings else "FALLBACK",
                   fallback=None if accepted == len(choices) else "frozen_plan",
                   lines_expected=len(choices), lines_passed=accepted, findings=findings, checked_quotes=quotes)
@@ -193,14 +197,14 @@ GUIDANCE = (
 
 
 def manuscript_prompt(source):
-    return GUIDANCE + (
+    return GUIDANCE + voice.GUIDANCE + (
         "Edit the original analyst output into its own complete plan page, not a fresh independent analysis. "
         "Title at most 70 characters: market, view and key levels. Subtitle at most 120. "
         "Introduction is a three-line At a glance: view and horizon; entry and invalidation; stated odds. "
         "Use 600-1100 words when the source supports it; never fill gaps. Explain an unavailable layer in one honest sentence. "
         "The nine sections are in exactly this order: " + ", ".join(k for k,_ in pages.READER_SECTIONS) + ". "
         "Each section has paragraphs (text, source_ids), and a one-sentence summary. "
-        "Put the main and alternative odds in scenarios. They need not add to 100; remaining outcomes are other possibilities. "
+        "Keep the base and each held alternative's odds in scenarios. They need not add to 100. "
         "The plan section gives direction, entry, invalidation and time window, no target, size or money. "
         "For CC549_V1 use thread_terms.title and thread_terms.call_line exactly for the title and introduction. "
         "Keep each named instrument's levels on its own price basis. Distinguish the spot close condition from the instrument invalidation. "
@@ -276,6 +280,7 @@ def check_manuscript(value, source, plan, run):
             reader.check_thread_text(section["summary"])
     section_text = [text for key, heading in pages.sections_for(value)
                     for text in (heading, *(p["text"] for p in value["sections"][key]["paragraphs"]))]
+    voice.validate_copy("\n".join([value["title"], value["subtitle"], value["introduction"], *section_text]))
     word_count = len(" ".join([value["title"], value["subtitle"], value["introduction"], *section_text]).split())
     if not 600 <= word_count <= 1100:
         raise ValueError("CC466_PAGE_WORD_RANGE:"+str(word_count))
@@ -298,8 +303,10 @@ def _plan_page_sources(plan, run, *, revision=PAGE_COPY_REVISION):
                 continue
             try:
                 pages.public_filter(text, private_texts=private_texts)
-                if revision >= PAGE_COPY_REVISION:
+                if revision >= 6:
                     reader.require_reader_plan_terms(text)
+                if revision >= 7:
+                    voice.validate_copy(text)
                 reader.check_text(text, source=raw, prose=False)
                 reader.check_thread_text(text)
                 pages.check_reader_claim(text, source=text)
@@ -313,9 +320,15 @@ def _plan_page_sources(plan, run, *, revision=PAGE_COPY_REVISION):
         "macro": "macro", "fundamental": "story", "positioning_sentiment": "positioning",
         "options_gamma": "fear", "priced_in": "priced_in", "technical": "technical",
     }
-    for layer, options in reader.analysis_layer_options(plan).items():
+    if revision >= 7:
+        destinations.update(event_and_cause="story", cross_asset_and_contagion="story", scenarios="scenarios")
+        layers = reader.plan_layer_candidates(plan, scenario_voice=True)[0]
+    else:
+        layers = reader.analysis_layer_options(plan)
+    for layer, options in layers.items():
         for option in options:
-            add(destinations[layer], option["ref"], select=option["text"])
+            if layer in destinations:
+                add(destinations[layer], option["ref"], select=option["text"])
     scenario_fields = {
         "priced_in": ("priced",), "positioning": ("positioning",), "technical": ("acceptance", "confirmations", "zone_reason"),
         "story": ("mechanism",), "macro": ("driver",), "scenarios": ("opposite_mechanism",),
@@ -364,12 +377,14 @@ def _page_from_selection(plan, run, sources, selection, *, revision=PAGE_COPY_RE
             raise ValueError("CC688_PAGE_QUOTE_NOT_IN_SECTION:" + key)
         paragraphs = [items[index] for index in indices]
         sections[key] = {"paragraphs": paragraphs, "summary": paragraphs[0]["text"] if paragraphs else ""}
-    if not selection:
+    cases = reader.scenario_case_copy(plan) if revision >= 7 else []
+    if not selection and not cases:
         raise ValueError("CC688_PUBLIC_ANALYST_TEXT_NOT_FOUND")
 
     subtitle = "The original market view and the conditions behind it."
     available = (paragraph["text"] for section in sections.values() for paragraph in section["paragraphs"])
-    title, introduction = TITLES[plan["asset_id"]] + ": the original plan", next(available)
+    title = TITLES[plan["asset_id"]] + ": the original plan"
+    introduction = cases[0]["heading"] if cases else next(available)
     bindings = {"reader_contract": reader.CONTRACT, "reader_revision": revision, "analysis_copy_contract": reader.ANALYSIS_COPY,
                 "plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"], "draft_selection": selection}
     if plan.get("zone") and plan.get("invalidation_conditions"):
@@ -383,6 +398,18 @@ def _page_from_selection(plan, run, sources, selection, *, revision=PAGE_COPY_RE
             section["paragraphs"] = [paragraph, *section["paragraphs"]]
             if not section["summary"]:
                 section["summary"] = text
+    if revision >= 7:
+        bindings["scenario_voice"] = voice.CONTRACT
+        section = sections["scenarios"]
+        paragraphs = [{"text": text, "refs": case["refs"], "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+                       "source_name": "Capital Chronicle"}
+                      for case in cases for text in (case["heading"], *case["support"])]
+        if paragraphs:
+            section["paragraphs"] = paragraphs + section["paragraphs"]
+            section["summary"] = cases[0]["heading"]
+            introduction = cases[0]["heading"]
+        return {**bindings, "title": title, "subtitle": subtitle, "introduction": introduction, "sections": sections}
+
     scenarios = reader.analysis_scenario_lines(plan)
     for key, label in (("base_case", "Main"), ("main_alternative", "Alternative")):
         text = next((line for line in scenarios if line.startswith(label + " scenario")), None)
@@ -434,10 +461,14 @@ def draft_plan_page(plan, run, *, output_dir, call=None):
     public = {section: [item["text"] for item in items] for section, items in sources.items() if items}
     original = {section: list(range(len(items))) for section, items in public.items()}
     if not public:
-        raise ValueError("CC688_PUBLIC_ANALYST_TEXT_NOT_FOUND")
+        manuscript = _page_from_selection(plan, run, sources, original)
+        pages.validate_manuscript(plan, manuscript, run)
+        pages.check_new_page_copy(manuscript, run)
+        return {**manuscript, "authorship": {"writer": "frozen_plan", "calls": []}}
     prompt = (
         "Do not call any tool. Assemble the dated market analysis under the supplied headings. "
         "Write the page by selecting and ordering the analyst's best excerpts for each heading. "
+        + voice.GUIDANCE +
         "Keep every supplied heading and select at least one excerpt per heading. "
         "Return ONLY a JSON object with each heading mapped to a list of zero-based excerpt indices. "
         'Example: {"macro":[0,2],"technical":[1]}. Do not output new text, figures or prose.\n'
@@ -559,7 +590,7 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
         prompt=GUIDANCE+(
             "Write the result of the exact dated plan in signed R only, one decimal. No cash, volume or account. "
             "No running tally. Never infer R from stopped, hit or expired. Use the explicit exported R value. "
-            "The result_line has market, original long/short direction, original date, observed end time and Result: signed valueR. "
+            "The result_line has market, original bullish or bearish direction, original date, observed end time and Result: signed valueR. "
             "Add up to two short sourced review lines: what price did; what we read right or wrong. Omit absent observations. "
             'Schema: {"hook":{"text":"... .","source_ids":["s0"]},"result_line":{"text":"... Result: −1.0R.","source_ids":["s1"]},'
             '"points":[{"layer":"review","text":"... .","source_ids":["s0"]}]}\n'

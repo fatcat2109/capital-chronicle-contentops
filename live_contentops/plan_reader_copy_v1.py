@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy
+from . import scenario_voice_v1 as voice
 
 CONTRACT = "CC466_V1"
 THREAD_CONTRACT = "CC549_V1"
@@ -352,7 +353,7 @@ def require_reader_plan_terms(text):
         raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
 
 
-def _public_plan_quote(span, plan):
+def _public_plan_quote(span, plan, *, scenario_voice=False):
     """Translate only source notation whose meaning the code can verify."""
     from .plan_analysis_pages_v1 import check_reader_claim, public_filter
     from .plan_scenario_lines_v1 import ISO_TIME
@@ -405,7 +406,16 @@ def _public_plan_quote(span, plan):
     text = re.sub(r"\s*\((?:see\s+)?CC-?\d+(?:,\s*([^()]+))?\)",
                   lambda match: f" ({match[1]})" if match[1] else "", text, flags=re.I)
     text = re.sub(r"\s*\(KB:[\w./-]+\.md@[0-9a-f]{7,}\)", "", text, flags=re.I)
-    text = re.sub(r"^(long|short) positions\b", r"\1s", text, flags=re.I)
+    if scenario_voice:
+        text = re.sub(r"\b(long|short) positions\b",
+                      lambda match: "positions set for " + ("gains" if match[1].lower() == "long" else "losses"),
+                      text, flags=re.I)
+        text = re.sub(r"\b(longs|shorts)\b",
+                      lambda match: "traders positioned for " + ("gains" if match[1].lower() == "longs" else "losses"),
+                      text, flags=re.I)
+        voice.validate_copy(text)
+    else:
+        text = re.sub(r"^(long|short) positions\b", r"\1s", text, flags=re.I)
     text = text.strip()
     text = text[0].upper() + text[1:] if text else text
     if not text:
@@ -427,13 +437,13 @@ def _exported_scenarios(plan):
     return scenario if isinstance(scenario, dict) else {}
 
 
-def plan_layer_candidates(plan):
+def plan_layer_candidates(plan, *, scenario_voice=False):
     """Read the CC-717 ordered export, its CC-687 bridge and earlier rationale fields."""
     sources = {layer: [] for layer, _ in PLAN_LAYER_ORDER}
     causes = dict.fromkeys(sources, "EXPORT_FIELD_ABSENT")
     explicit = set()
 
-    def add(layer, value, *, pattern=None, status=None):
+    def add(layer, value, *, pattern=None, status=None, pointer=None):
         if not isinstance(value, str) or not value.strip():
             return
         for quote in verbatim_analysis_spans(value):
@@ -443,22 +453,25 @@ def plan_layer_candidates(plan):
                 causes[layer] = "ANALYST_REPORTED_UNAVAILABLE"
                 continue
             try:
-                text = _public_plan_quote(quote, plan)
+                text = _public_plan_quote(quote, plan, scenario_voice=scenario_voice)
             except ValueError as exc:
                 causes[layer] = str(exc).split(":", 1)[0]
                 continue
             if all(candidate["text"] != text for candidate in sources[layer]):
-                sources[layer].append({"quote": quote, "text": text})
+                candidate = {"quote": quote, "text": text}
+                if scenario_voice and pointer:
+                    candidate["ref"] = {"file": "plan-export", "pointer": pointer, "transform": voice.CONTRACT}
+                sources[layer].append(candidate)
 
     for field in ("layers", "analysis_layers"):
         block = plan.get(field)
         if isinstance(block, list):
-            entries = ((row.get("layer"), row) for row in block if isinstance(row, dict))
+            entries = ((row.get("layer"), row, str(index)) for index, row in enumerate(block) if isinstance(row, dict))
         elif isinstance(block, dict):
-            entries = block.items()
+            entries = ((name, row, name.replace("~", "~0").replace("/", "~1")) for name, row in block.items())
         else:
             continue
-        for name, row in entries:
+        for name, row, key in entries:
             if not isinstance(name, str):
                 continue
             name = name.lower().replace("-", "_").replace(" ", "_")
@@ -466,15 +479,17 @@ def plan_layer_candidates(plan):
             if layer not in sources or layer in explicit:
                 continue
             explicit.add(layer)
+            pointer = f"/{field}/{key}"
             if isinstance(row, dict):
                 state = str(row.get("state") or row.get("status") or "").lower()
                 if row.get("used") is False or row.get("available") is False or state in _UNAVAILABLE_LAYER_STATES:
                     cause = row.get("first_cause")
                     causes[layer] = str(cause) if cause else "ANALYST_REPORTED_UNAVAILABLE"
                     continue
-                add(layer, row.get("text", row.get("line")), status=state)
+                field_name = "text" if "text" in row else "line"
+                add(layer, row.get(field_name), status=state, pointer=f"{pointer}/{field_name}")
             else:
-                add(layer, row)
+                add(layer, row, pointer=pointer)
 
     scenario = _exported_scenarios(plan)
     legacy = (
@@ -490,36 +505,46 @@ def plan_layer_candidates(plan):
     for layer, fields, pattern in legacy:
         if layer not in explicit:
             for field in fields:
-                add(layer, scenario.get(field), pattern=pattern)
+                add(layer, scenario.get(field), pattern=pattern, pointer=f"/scenario_analysis/{field}")
     if "event_and_cause" not in explicit and not sources["event_and_cause"]:
-        add("event_and_cause", scenario.get("mechanism"), pattern=_EVENT_CAUSE)
+        add("event_and_cause", scenario.get("mechanism"), pattern=None if scenario_voice else _EVENT_CAUSE,
+            pointer="/scenario_analysis/mechanism")
 
-    for case, _ in _SCENARIO_CASES:
+    branches = (voice.case_records(plan) if scenario_voice else
+                [(case, label, scenario.get(case)) for case, label in _SCENARIO_CASES])
+    for case, _, branch in branches:
         sources[case] = []
-        branch = scenario.get(case)
         if not isinstance(branch, dict):
             continue
-        add(case, branch.get("market_move"))
+        add(case, branch.get("market_move"), pointer=f"/scenario_analysis/{case}/market_move")
         if _scenario_probability(branch) is not None and not sources[case]:
             # The probability itself is useful even if the case has no quotable prose.
             sources[case].append({"quote": "", "text": ""})
-    if any(sources[case] for case, _ in _SCENARIO_CASES):
+    if any(sources[case] for case, _, _ in branches):
         causes.pop("scenarios")
     elif not sources["scenarios"]:
-        causes["scenarios"] = next((causes[case] for case, _ in _SCENARIO_CASES if case in causes),
+        causes["scenarios"] = next((causes[case] for case, _, _ in branches if case in causes),
                                    causes["scenarios"])
     return ({key: options for key, options in sources.items() if options},
             {key: causes[key] for key, _ in PLAN_LAYER_ORDER if key in causes and not sources.get(key)})
 
 
-def verified_analysis_lines(plan, quotes, *, contract=ANALYSIS_COPY):
-    options = plan_layer_candidates(plan)[0] if contract == NINE_LAYER_COPY else analysis_layer_options(plan)
+def verified_analysis_lines(plan, quotes, *, contract=ANALYSIS_COPY, scenario_voice=False):
+    options = (plan_layer_candidates(plan, scenario_voice=scenario_voice)[0]
+               if contract == NINE_LAYER_COPY else analysis_layer_options(plan))
     if not isinstance(quotes, dict) or set(quotes) != set(options):
         raise ValueError("CC688_LAYER_SET_CHANGED")
     for layer, text in quotes.items():
         validate_analysis_line(options, layer, text)
     order = PLAN_LAYER_ORDER if contract == NINE_LAYER_COPY else ANALYSIS_LAYERS
     lines = [f"{label}: {quotes[layer]}" for layer, label in order if layer in quotes and layer != "scenarios"]
+    if scenario_voice:
+        cases = scenario_case_copy(plan, quotes=quotes)
+        headings = [case["heading"] for case in cases]
+        if headings:
+            headings[0] = "Scenarios: " + headings[0]
+        support = [line for case in cases for line in case["support"]]
+        return [*headings, *support, *lines, *([quotes["scenarios"]] if "scenarios" in quotes else [])]
     cases = [quotes["scenarios"]] if "scenarios" in quotes else []
     for key, label in _SCENARIO_CASES:
         if key not in quotes:
@@ -531,6 +556,61 @@ def verified_analysis_lines(plan, quotes, *, contract=ANALYSIS_COPY):
     if cases:
         lines.append("Scenarios: " + " ".join(cases))
     return lines
+
+
+def scenario_quotes(value, plan):
+    """All checked public sentences from one exact Main field."""
+    if isinstance(value, str):
+        for span in verbatim_analysis_spans(value):
+            try:
+                yield _public_plan_quote(span, plan, scenario_voice=True)
+            except ValueError:
+                continue
+
+
+def scenario_case_copy(plan, *, quotes=None):
+    """Case lines and their plan-export pointers, shared by the post, page and wrap."""
+    scenario = _exported_scenarios(plan)
+    result = []
+    for key, label, branch in voice.case_records(plan):
+        prefix = f"/scenario_analysis/{key}"
+        refs = []
+
+        def take(record, fields, path):
+            for field in fields:
+                text = next(scenario_quotes(record.get(field), plan), "")
+                if text:
+                    refs.append({"file": "plan-export", "pointer": f"{path}/{field}",
+                                 "transform": voice.CONTRACT})
+                    return text
+            return ""
+
+        move = take(branch, ("market_move",), prefix) if quotes is None else quotes.get(key, "")
+        probability = _scenario_probability(branch)
+        if not move and probability is None:
+            continue
+        if probability is not None:
+            refs.append({"file": "plan-export", "pointer": f"{prefix}/probability_pct"})
+        driver = take(branch, ("causal_chain", "mechanism", "driver"), prefix)
+        if not driver:
+            if key == "base_case":
+                driver = take(scenario, ("mechanism", "driver"), "/scenario_analysis")
+            elif key == "main_alternative":
+                driver = take(scenario, ("opposite_mechanism",), "/scenario_analysis")
+        wrong = take(branch, ("invalidation", "invalidation_text", "what_proves_wrong"), prefix)
+        if not wrong and key == "base_case":
+            wrong = take(scenario, ("invalidation_text", "invalidation_reason"), "/scenario_analysis")
+        confirmation = take(branch, ("confirmation",), prefix)
+        heading = voice.format_case(label, probability, move)
+        support = []
+        if driver and driver != move:
+            support.append(f"{label} driver: {driver}")
+        if confirmation and confirmation not in (driver, move):
+            support.append(f"What would confirm the {label.lower()}: {confirmation}")
+        if wrong and wrong != move:
+            support.append(f"What would undo the {label.lower()}: {wrong}")
+        result.append({"heading": heading, "support": support, "refs": refs})
+    return result
 
 
 def analysis_scenario_lines(plan):
