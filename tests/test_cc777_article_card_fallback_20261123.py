@@ -217,3 +217,57 @@ def test_the_daily_image_audit_allows_a_card_post_but_never_counts_it_as_a_chart
         handle.write(json.dumps(row) + "\n")
     assert audit(path, "2026-11-12", now=later)["status"] == "FACT_CARD_FALLBACK_OBSERVED"
     assert audit(register(tmp_path, kind="DRAWN_CARD"), "2026-11-12", now=AUDIT_NOW)["status"] == "FAIL"
+
+
+def _page_row():
+    from datetime import timedelta
+    now = datetime.now(timezone.utc)
+    return {"key": "plan-analysis-plan_x", "symbol": "BTCUSD", "at_utc": now.isoformat(),
+            "levels": {"valid_until_utc": (now + timedelta(days=2)).isoformat(), "zone_low": 60000, "zone_high": 61400}}
+
+
+def test_a_deferred_page_capture_starts_no_clock_and_its_window_counts_from_the_first_attempt(tmp_path, monkeypatch):
+    """Builder F: several short runs deferring in a row used up the five-minute window with no capture tried."""
+    from datetime import timedelta
+
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    folder = tmp_path / "page"
+    state_path = folder / "tradingview_capture_v1.json"
+    with pytest.raises(tv.SnapshotPending, match="DEFERRED_RUN_TIME_BUDGET"):
+        tv.plan_snapshot(_page_row(), folder, snapshot=lambda *a, **k: pytest.fail("deferred"),
+                         snapshot_allowed=lambda: False)
+    # Ten minutes of deferring runs pass (the old clock would now be spent).
+    state = json.loads(state_path.read_bytes())
+    deferred_at = (datetime.now(timezone.utc) - timedelta(minutes=10)).isoformat()
+    state["started_at_utc"] = deferred_at
+    state_path.write_text(json.dumps(state), encoding="utf-8")
+    with pytest.raises(tv.SnapshotPending):
+        tv.plan_snapshot(_page_row(), folder, snapshot=lambda *a, **k: pytest.fail("deferred"),
+                         snapshot_allowed=lambda: False)
+    calls = []
+    before = datetime.now(timezone.utc)
+    assert tv.plan_snapshot(_page_row(), folder, snapshot=failing(calls), snapshot_allowed=lambda: True) is None
+    state = json.loads(state_path.read_bytes())
+    # Both real attempts ran; the window starts at the first of them, and the first deferral stays recorded.
+    assert len(calls) == tv.PLAN_ATTEMPTS and state["attempts"] == tv.PLAN_ATTEMPTS
+    assert state["status"] == "TEXT_ONLY" and state["cause"] == CAUSE
+    assert tv._utc(state["started_at_utc"]) >= before
+    assert state["first_deferred_at_utc"] == deferred_at
+    # The text fallback's own five-minute check counts from that first attempt too.
+    assert (tv._utc(state["started_at_utc"]) - tv._utc(deferred_at)).total_seconds() >= 600
+
+
+def test_a_capture_that_already_attempted_keeps_its_clock(tmp_path, monkeypatch):
+    from datetime import timedelta
+
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    folder = tmp_path / "page"
+    folder.mkdir()
+    started = (datetime.now(timezone.utc) - timedelta(minutes=8)).isoformat()
+    (folder / "tradingview_capture_v1.json").write_text(json.dumps({
+        "key": "plan-analysis-plan_x", "market": "BTCUSD", "attempts": 1, "attempt_causes": [CAUSE],
+        "first_cause": CAUSE, "cause": CAUSE, "status": "DEFERRED", "started_at_utc": started}))
+    assert tv.plan_snapshot(_page_row(), folder, snapshot=lambda *a, **k: pytest.fail("window spent"),
+                            snapshot_allowed=lambda: True) is None
+    state = json.loads((folder / "tradingview_capture_v1.json").read_bytes())
+    assert state["started_at_utc"] == started and state["status"] == "TEXT_ONLY"

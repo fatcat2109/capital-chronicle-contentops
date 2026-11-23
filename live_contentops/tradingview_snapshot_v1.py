@@ -203,6 +203,11 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         return plain_asset()
     if plan_post and state.get("status") == "PLAN_CARD":
         raise SnapshotUnavailable(state["cause"])
+    if state["attempts"] == 0 and state.get("status") == "DEFERRED":
+        # A deferral starts no clock (Builder F, 23 Nov): the five-minute window counts from the first real
+        # attempt, so several short runs in a row cannot use it up before any capture is tried.
+        state.setdefault("first_deferred_at_utc", state["started_at_utc"])
+        state["started_at_utc"] = datetime.now(timezone.utc).isoformat()
     deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
     allowed = PLAN_ATTEMPTS
     if isinstance(state.get("attempt_causes"), list):
