@@ -187,7 +187,7 @@ def render(rows, counts):
         selected.append(row["line"])
     if rows and not selected:
         raise ValueError("SCORECARD_RESULT_LINE_EXCEEDS_MESSAGE_LIMIT")
-    body = "\n".join(selected) if selected else "No resolved calls supplied by Main yet."
+    body = "\n".join(selected) if selected else "No resolved calls yet."  # decision 109: "Main" is internal
     text = header + body + footer
     if text_length(text) > LIMIT:
         raise ValueError("SCORECARD_MESSAGE_EXCEEDS_LIMIT")
