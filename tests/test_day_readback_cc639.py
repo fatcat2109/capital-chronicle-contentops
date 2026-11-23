@@ -332,7 +332,7 @@ def test_evening_publishes_target_failure_and_scenario_shares_to_both_files(reco
     _, store, _, _ = recorded
     key = "plan-status-post-cc756-fixture"
     at = "2026-11-17T09:54:00Z"
-    source = {"key": key, "kind": "setup"}
+    source = {"key": key, "kind": "setup", "target_policy": "DECISION_40_NO_TARGET"}
     with sqlite3.connect(store) as conn:
         conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
                      (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(source), "PUBLISHING", at))
@@ -384,7 +384,8 @@ def test_evening_reviews_manual_plan_marks_with_exact_body_or_unverified(recorde
     decisions = report["decision_checks"]
     assert {(r["platform"], r["status"], r["evidence"])
             for r in decisions["issues"] if r["decision"] == "157"} == {
-                ("substack_notes", "FAIL", "public_http"),
+                # Posted on 17 Nov, before decision 157 took effect (22 Nov 22:30Z): listed, not failed.
+                ("substack_notes", "BEFORE_POLICY", "public_http"),
                 ("x", "UNVERIFIED", "manual_desk_mark"),
             }
     assert decisions["scenario_voice"]["posts_reviewed"] == 1
