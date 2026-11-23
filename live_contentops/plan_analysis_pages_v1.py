@@ -73,6 +73,64 @@ _PREDICTION = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[
 _PRICED = re.compile(r"\b(?:(?:un)?pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
 _PERCENT = re.compile(r"%|\bper\s*cent\b", re.I)
 
+# Pre-relaunch audit (Ops Product Builder, 23 Nov 2026). New copy only: a page
+# manuscript of reader revision 8 or later, a wrap staged after this build, a
+# desk pack composed now. Stored pages keep their bytes (validate_plan re-renders).
+PUBLIC_COPY_REVISION = 8
+# Decision 157 (22 Nov 21:09:03Z): no profit target in any public output.
+TARGETS_OFF_FROM = datetime(2026, 11, 22, 21, 9, 3, tzinfo=timezone.utc)
+RELATIVE_DAY = re.compile(r"\b(?:today|tonight|tomorrow|yesterday)(?:'s|’s)?(?!\w)", re.I)
+_GROUPABLE = re.compile(r"(?<![\w.,/#@$:])(?<!\w-)(?<!\w−)(\d{4,})(\.\d+)?(?![\w/@]|[.,:]\d|[-−]\d)")
+# Desk states, order mechanics, lanes, the private book and internal source names.
+_INTERNAL_STATE = re.compile(r"\b(?:WATCH|STARTER|OPEN|ARMED|MISSING|ABSTAIN|ENTER|HOLD)\b")
+_INTERNAL_WORDING = re.compile(
+    r"\b(?:mid|short|long)[- ]lane\b|\blanes?\b|\bfrozen\b|\b(?:the|our) book\b|\brows?\b|\bthis pass\b|"
+    r"\bbroker stop\b|\bsized\b|\bcalibration\b|\bqualifier\b|\bclaim \d+\b|\bper (?:fill|signal)\b|"
+    r"\bstop-first\b|\bexpectancy\b|\bdesk(?:'s|’s) own\b|\bprinciple\b|\b(?:confirmation|price) leg\b|"
+    r"\b(?:sell|buy)[- ]stops?\b|\b(?:sell|buy) limits?\b|\bmarket order\b|\bMain(?:'s|’s)\b|"
+    r"\bMain (?:scenario|analysis|export|run|review)\b|\b[Cc][Cc]-?\d{3,}\b|\bKB:|\b[a-z]+_[a-z_]+\b|"
+    r"^\(\d+\)",
+    re.I,
+)
+_ABBREVIATION_END = re.compile(r"(?:\b[ap]\.m\.|\bU\.S\.|\be\.g\.|\bi\.e\.|\bvs\.)$")
+
+
+def group_thousands(text):
+    """Group the thousands of a price or count; a bare year (1900-2100) stays as written."""
+
+    def grouped(match):
+        whole, fraction = match[1], match[2] or ""
+        if len(whole) == 4 and not fraction and 1900 <= int(whole) <= 2100:
+            return match[0]
+        return f"{int(whole):,}" + fraction
+
+    return _GROUPABLE.sub(grouped, text)
+
+
+def join_abbreviation_spans(spans):
+    """Rejoin sentences a splitter cut after "a.m.", "p.m.", "U.S.", "e.g.", "i.e." or "vs."."""
+    joined = []
+    for span in spans:
+        if joined and _ABBREVIATION_END.search(joined[-1]) and (
+                not re.search(r"[ap]\.m\.$", joined[-1]) or re.match(r"(?:ET|EST|EDT)\b|[a-z]", span)):
+            joined[-1] = joined[-1] + " " + span
+        else:
+            joined.append(span)
+    return joined
+
+
+def public_span_problem(text):
+    """The first reason one analyst sentence cannot stand alone in public copy, or None."""
+    if len(re.findall(r"[A-Za-z0-9][\w'’,.%+−-]*", text)) < 4:
+        return "FRAGMENT"
+    if RELATIVE_DAY.search(text):
+        return "RELATIVE_DAY"
+    if _INTERNAL_STATE.search(text) or _INTERNAL_WORDING.search(text):
+        return "INTERNAL_WORDING"
+    if re.search(r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}|\b\d{1,2}:\d{2}(?::\d{2})?\s*(?:Z|UTC)\b", text):
+        return "UTC_CLOCK"
+    return None
+
 
 def check_reader_claim(text, *, source_name="", source_locator="", source="", pricing_source=None):
     """A public source attribution must itself occur in the bound evidence."""
@@ -452,6 +510,7 @@ def _owner_candidate(plan, run):
 def _public_geometry(plan, run):
     if not plan.get("zone"):
         return [], []
+    targets_off = posts._utc(run["freeze"]["frozen_at_utc"]) >= TARGETS_OFF_FROM
     candidate, filename, pointer = _owner_candidate(plan, run)
     lines, bindings = [], []
     for key in ("pullback", "breakout"):
@@ -462,11 +521,14 @@ def _public_geometry(plan, run):
             lines.append(key.capitalize() + " geometry was not fully priced in the original record; no missing level has been inferred.")
             continue
         low, high, stop, target = map(posts._level, fields)
-        text = f"Original {key} condition: price reaches {low}–{high}. Invalidation level: {stop}. Capital Chronicle model objective: {target}."
+        text = f"Original {key} condition: price reaches {low}–{high}. Invalidation level: {stop}."
+        if not targets_off:  # a page frozen before decision 157 keeps its rendered bytes
+            text += f" Capital Chronicle model objective: {target}."
         public_filter(text)
         lines.append(text)
         refs = [{"file": filename, "pointer": pointer + f"/directional_entries/{key}/" + path}
-                for path in ("entry_bounds/minimum", "entry_bounds/maximum", "stop_level", "target_level")]
+                for path in ("entry_bounds/minimum", "entry_bounds/maximum", "stop_level",
+                             *(() if targets_off else ("target_level",)))]
         bindings.append({"section": "technical", "paragraph": "structured_" + key,
                          "public_sha256": sha256(text.encode()).hexdigest(), "numbers": sorted(_numbers(text)), "refs": refs})
     return lines, bindings

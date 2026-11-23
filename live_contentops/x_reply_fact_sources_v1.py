@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal, ROUND_HALF_UP
 from hashlib import sha256
 import json
 import math
@@ -29,6 +30,13 @@ RATE_LABELS = {"US2Y": ("US2Y", "US 2-year yield"), "US10Y": ("US10Y", "US 10-ye
                "EFFR": ("RATES", "Effective federal funds rate"), "SOFR": ("RATES", "Secured overnight financing rate"),
                "JP2Y": ("JP2Y", "Japan 2-year yield"), "JP10Y": ("JP10Y", "Japan 10-year yield"),
                "EA2Y": ("EA2Y", "Euro area 2-year yield"), "EA10Y": ("EA10Y", "Euro area 10-year yield")}
+
+
+# Pre-relaunch audit (23 Nov 2026): sources built from this build on carry this marker in
+# their artifact binding and print the value at its market's precision. A held source
+# without it re-resolves to its exact original excerpt and identity.
+DISPLAY = "MARKET_PLACES_V1"
+PLACES = {"US500": 2, "XAUUSD": 2, "EURUSD": 5, "USDJPY": 3, "USOIL": 2, "BTCUSD": 2, "DXY": 3}
 
 
 def _digest(value):
@@ -102,8 +110,20 @@ def _bar_source(db, artifact, *, native=False):
             "observed_at_utc": observed.isoformat()}
     date_words = datetime.fromisoformat(day).strftime("%d %b %Y").lstrip("0")
     stamp = date_words if fact["kind"] == "daily" else observed.astimezone(policy.ET).strftime("%d %b %Y, %I:%M %p ET").lstrip("0")
+    if artifact.get("display") == DISPLAY:
+        value = display_value(value, market, unit)
     excerpt = f"{label}: {value} {unit} ({attribution}, {stamp})."
     return _source(excerpt, fact, attribution=attribution, known=known.isoformat(), artifact=artifact)
+
+
+def display_value(value, market, unit):
+    """A price at its market's precision (20 Nov drafts printed WTI at 82.86000061035156);
+    a yield in percent at most three places, trailing zeros dropped."""
+    number = Decimal(str(value))
+    if unit == "percent" or market not in PLACES:
+        text = format(number.quantize(Decimal("0.001"), rounding=ROUND_HALF_UP), "f")
+        return text.rstrip("0").rstrip(".") if "." in text else text
+    return format(number.quantize(Decimal(1).scaleb(-PLACES[market]), rounding=ROUND_HALF_UP), "f")
 
 
 def _reaction_sources(path, *, through_date):
@@ -185,14 +205,15 @@ def load(*, now, root=INTAKE):
                                          "ORDER BY open_epoch DESC LIMIT 1", (source["source_id"], now.timestamp())).fetchone()
                         if row:
                             sources.append(_bar_source(db, {"kind": kind, "path": str(path), "source_id": source["source_id"],
-                                                           "open_epoch": row["open_epoch"]}))
+                                                           "open_epoch": row["open_epoch"], "display": DISPLAY}))
                     if market in {"US500", "XAUUSD", "EURUSD", "USDJPY", "USOIL", "BTCUSD"}:
                         row = db.execute("SELECT open_epoch,source_sha256 FROM bars WHERE symbol=? AND series_id='NATIVE_BROKER' "
                                          "AND known_epoch<=? AND open_epoch<=? ORDER BY open_epoch DESC,known_epoch LIMIT 1",
                                          (market, now.timestamp(), now.timestamp()-900)).fetchone()
                         if row:
                             sources.append(_bar_source(db, {"kind": "native_bar", "path": str(path), "market": market,
-                                "open_epoch": row["open_epoch"], "source_sha256": row["source_sha256"]}, native=True))
+                                "open_epoch": row["open_epoch"], "source_sha256": row["source_sha256"],
+                                "display": DISPLAY}, native=True))
         except (OSError, sqlite3.Error, ValueError, KeyError) as exc:
             gaps.append({"source": str(path), "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__})
     else:
@@ -263,7 +284,12 @@ def _quote_source(observation):
     stamp = observed.astimezone(policy.ET).strftime("%d %b %Y, %I:%M %p ET").lstrip("0")
     value = observation.get("value_text", str(observation["value"]))
     change = observation.get("day_change")
-    change_text = (f", change from prior close {observation.get('day_change_text', str(change))} {observation.get('change_unit', observation['unit'])}"
+    change_value = observation.get("day_change_text", str(change))
+    if observation.get("display") == DISPLAY:  # absent on observations frozen before this build
+        value = display_value(observation["value"], market, observation["unit"])
+        if change is not None:
+            change_value = display_value(change, market, observation["unit"])
+    change_text = (f", change from prior close {change_value} {observation.get('change_unit', observation['unit'])}"
                    if change is not None else "")
     excerpt = (f"{observation['instrument_name']}: {value} {observation['unit']}{change_text} "
                f"({observation['source']}, {stamp}).")
@@ -314,9 +340,12 @@ def supplement(posts, sources, *, now):
                     # Native prices are named as CFDs; a future keeps its own name.
                     if kind == "BAR_STORE_M1_CLOSE":
                         label = LABELS.get(market, (market, market))[1] + " CFD"
+                    # Decision 109: the desk's internal name ("Main") is never public.
                     candidate = {"market": market, "value": q["price"], "unit": unit,
-                        "instrument_name": label if kind != "PLAN_STATUS_EXPORT" else market + " Main quote",
-                        "source": "Exness" if kind == "BAR_STORE_M1_CLOSE" else "Capital Chronicle Main",
+                        "instrument_name": label if kind != "PLAN_STATUS_EXPORT"
+                        else LABELS.get(market, (market, market))[1] + " price",
+                        "source": "Exness" if kind == "BAR_STORE_M1_CLOSE" else "Capital Chronicle",
+                        "display": DISPLAY,
                         "source_kind": kind, "observed_at_utc": q["quoted_at_utc"], "known_at_utc": q["known_at_utc"],
                         "source_binding": {k: v for k, v in q.items() if k not in {
                             "age_seconds", "capture_age_seconds", "comparison_at_utc", "comparison_basis"}},
@@ -354,6 +383,12 @@ def supplement(posts, sources, *, now):
                     continue
                 try:
                     observation = public.get(market, now=now)
+                    if observation.get("display") != DISPLAY and observation.get("observation_path"):
+                        # The same provider bytes, frozen once more with the display marker beside them.
+                        observation = public.freeze(
+                            {**{k: v for k, v in observation.items()
+                                if k not in {"observation_path", "observation_sha256"}}, "display": DISPLAY},
+                            root=Path(observation["observation_path"]).parent.parent)
                     now = max(now, policy.utc(observation["known_at_utc"]))
                     policy.check_fact(post, _quote_source(observation), now=now)
                     attempts.append({"market": market, "source_kind": "PUBLIC_ON_DEMAND_QUOTE", "status": "USED",

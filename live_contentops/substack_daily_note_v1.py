@@ -125,7 +125,12 @@ def _check_source(page, analysis_clock, data_clock, now):
             pages.require_current_page(page, now=now)
 
 
-def validate_copy(authored, page):
+# Pre-relaunch audit (23 Nov 2026): Notes for 24 Nov (ET) on also refuse a profit target
+# (decision 157) and a relative day; an earlier Note re-validates under its own rules.
+STRICT_FROM_DAY = "2026-11-24"
+
+
+def validate_copy(authored, page, *, strict=True):
     sentences = authored.get("sentences") or []
     if not 2 <= len(sentences) <= 4:
         raise ValueError("NOTE_TWO_TO_FOUR_SENTENCES_REQUIRED")
@@ -175,6 +180,11 @@ def validate_copy(authored, page):
                for k in ("view", "invalidation")):
         raise ValueError("NOTE_VIEW_AND_INVALIDATION_REQUIRED")
     pages.public_filter(body)
+    if strict:
+        from . import scenario_voice_v1 as voice
+        if pages.RELATIVE_DAY.search(body):
+            raise ValueError("NOTE_RELATIVE_DAY_FORBIDDEN")
+        voice.validate_copy(body)
     return body
 
 
@@ -193,6 +203,7 @@ def writer_prompt(candidates):
         "price. It does not move the analysis date or extend its horizon. Never manufacture a scenario, "
         "odds, date, causal explanation or new invalidation. view and invalidation are exact substrings of your "
         "sentences. Use plain reader language, no internal terms, model labels, ellipses or clipped sentences. "
+        "Name dates; never write today, tonight, tomorrow or yesterday. No profit target. "
         "The chart and the two notices are attached by code. Banned terms: " + ", ".join(BANNED)
         + "\nPUBLIC MAIN ANALYSES:\n" + json.dumps(public, ensure_ascii=False))
 
@@ -273,7 +284,7 @@ def validate_note(store, value, *, now=None):
             or clock != value["source_clock"]
             or pages.page_status(store, page)["canonical_url"] != value["canonical_url"]):
         raise ValueError("NOTE_SOURCE_BINDING_CHANGED")
-    body = validate_copy(value["authored"], page)
+    body = validate_copy(value["authored"], page, strict=value["day_et"] >= STRICT_FROM_DAY)
     text = body + "\n\n" + PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE + "\nChart: TradingView"
     asset, = value["media_assets"]
     original = next((a for a in page["media_assets"] if a["sha256"] == asset["sha256"]), None)

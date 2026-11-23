@@ -410,8 +410,8 @@ def prior_stops(export, day, as_of):
         if resolved.astimezone(ET).date() == day and utc(score["scored_at_utc"]) <= as_of:
             market = plan["asset_id"]
             name = MARKETS.get(market, (TITLES.get(market, market),))[0]
-            rows.append(f"- Main recorded a stopped {name} plan on {et(resolved)}.")
-    return "\n".join(rows) or "Main recorded no scored stops from the last completed cash session."
+            rows.append(f"- A {name} plan was stopped on {et(resolved)}.")
+    return "\n".join(rows) or "No plan was stopped in the last completed cash session."
 
 
 def morning_map_sources(snapshots, board_path, *, now, last_close, quote, clock, gaps):

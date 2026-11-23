@@ -36,6 +36,18 @@ BEHAVIOURS = {
     "FOLLOW_LARGE_DAY_3": "Follow a large day, 3 sessions",
     "FADE_LARGE_DAY_3": "Fade a large day, 3 sessions",
 }
+# Pre-relaunch audit, 23 Nov 2026 (decision 158: "long", "short", "buy" and "sell" used
+# rarely; decision 109: no "model" wording). Boards captured from 24 Nov (ET) name each
+# measured rule and side in scenario words; earlier boards keep their copy (VOICE_FROM_ET).
+VOICE_FROM_ET = date(2026, 11, 24)
+VOICE_BEHAVIOURS = {
+    **BEHAVIOURS,
+    "LONG_WHILE_UP_20": "Follow an uptrend, 20 sessions",
+    "SHORT_WHILE_DOWN_20": "Follow a downtrend, 20 sessions",
+    "BUY_PULLBACK_IN_UPTREND_10": "Pullback in an uptrend, 10 sessions",
+    "SELL_RALLY_IN_DOWNTREND_10": "Rally in a downtrend, 10 sessions",
+}
+VOICE_SIDES = {"LONG": "bullish", "SHORT": "bearish"}
 
 
 class BoardSourceError(ValueError):
@@ -187,9 +199,12 @@ def project(board, *, now):
     if any(r["sample_period"]["end"] > sessions[symbol]
            for symbol, market in markets.items() for r in market["rows"]):
         raise BoardSourceError("BOARD_SAMPLE_ENDS_AFTER_SESSION", day_et=day)
-    return {"policy": POLICY, "day_et": day, "as_of_utc": board["as_of_utc"],
-            "board_content_hash": board["content_hash"], "yardstick_rule": board["yardstick_rule"],
-            "table_hash": table.get("table_content_hash"), "markets": markets}
+    projected = {"policy": POLICY, "day_et": day, "as_of_utc": board["as_of_utc"],
+                 "board_content_hash": board["content_hash"], "yardstick_rule": board["yardstick_rule"],
+                 "table_hash": table.get("table_content_hash"), "markets": markets}
+    if captured.astimezone(ET).date() >= VOICE_FROM_ET:
+        projected["public_voice"] = "SCENARIO_WORDS_V1"  # absent on earlier boards: their copy is unchanged
+    return projected
 
 
 def compose(current, previous=None):
@@ -207,13 +222,16 @@ def compose(current, previous=None):
                if changes else "No state changes since the previous session." if previous
                else "Previous-session comparison is not available for this first board.")
     blocks = []
+    voiced = current.get("public_voice") == "SCENARIO_WORDS_V1"
+    names = VOICE_BEHAVIOURS if voiced else BEHAVIOURS
     for symbol, name in MARKETS.items():
         market = current["markets"][symbol]
         lines = [name + " " + market["state"] + ". Mean closes: 20 sessions " + market["means"]["mean_close_20"]
                  + "; 50 sessions " + market["means"]["mean_close_50"] + "."]
         for row in market["rows"]:
             period = row["sample_period"]
-            lines.append(BEHAVIOURS[row["behaviour"]] + " (" + row["side"].lower() + "): " + row["mean_r"]
+            side = VOICE_SIDES[row["side"]] if voiced else row["side"].lower()
+            lines.append(names[row["behaviour"]] + " (" + side + "): " + row["mean_r"]
                          + "R mean on " + str(row["n"]) + " cases, " + period["start"] + " to " + period["end"] + ".")
         if not market["rows"]:
             lines.append("No measured condition holds.")
@@ -238,7 +256,9 @@ def payloads(current, previous, reference, asset):
     copy = compose(current, previous)
     credit = "Chart: TradingView" if asset.get("tradingview_snapshot") else "Graphic: Capital Chronicle"
     method = "Method and limits: " + reference["canonical_url"]
-    explanation = "Historical model estimates after costs; R is the stop distance. Past results are not forecasts."
+    explanation = ("Historical estimates after costs; R is the stop distance. Past results are not forecasts."
+                   if current.get("public_voice") == "SCENARIO_WORDS_V1" else
+                   "Historical model estimates after costs; R is the stop distance. Past results are not forecasts.")
     body = "\n\n".join([copy["headline"], copy["dated"], copy["summary"], copy["changes"],
         current["yardstick_rule"], *copy["blocks"],
         explanation, method, PUBLIC_NOTICE, CONFLICTS_NOTICE, credit])

@@ -180,8 +180,8 @@ def authored(request):
     target = request["candidates"][0]
     return {"request_sha256": request["request_sha256"], "stage_seconds": {"ranking": 1.25, "drafting": 2.5},
         "items": [{"post_id": target["post_id"], "source_id": target["usable_source_ids"][0],
-            "draft_text": "S&P 500 futures traded at 7000.0 USD at 10:55 AM ET on 11 Nov (Yahoo Finance). That is a futures price.",
-            "fact_text": "7000.0 USD", "source_name": "Yahoo Finance", "date_text": "11 Nov",
+            "draft_text": "S&P 500 futures traded at 7000.00 USD at 10:55 AM ET on 11 Nov (Yahoo Finance). That is a futures price.",
+            "fact_text": "7000.00 USD", "source_name": "Yahoo Finance", "date_text": "11 Nov",
             "addition": "Futures price", "point": "Exact same-market observation", "reply_shape": "priced_in"}]}
 
 
@@ -312,7 +312,7 @@ def test_ranker_gets_actual_relevant_facts_without_internal_binding_ids(consumer
     sizes = []
     def rank(prompt, **kwargs):
         sizes.append(len(prompt))
-        assert "7000.0 USD" in prompt and "today, 10:55 AM ET" in prompt
+        assert "7000.00 USD" in prompt and "today, 10:55 AM ET" in prompt
         assert "reply_count" in prompt and "internal-binding-marker" not in prompt
         assert "private-attempt-marker" not in prompt and "private-context-marker" not in prompt
         assert request["sources"][0]["source_id"] not in prompt

@@ -5,6 +5,7 @@ from datetime import date, datetime, time
 from hashlib import sha256
 import json
 from pathlib import Path
+import re
 
 from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -15,6 +16,7 @@ from .plan_reader_copy_v1 import et
 from .public_instruments_v1 import POLICY as INSTRUMENT_POLICY, validate_article, validate_payload
 from .public_market_quote_v1 import save
 from .public_time_v1 import public_date, require_public_time
+from .plan_analysis_pages_v1 import group_thousands, public_span_problem
 
 CHANGE_SECTIONS = ("changes", "events", "weekend_events", "releases")
 DESK_SECTIONS = ("layers", "plans", "outlooks")
@@ -46,12 +48,35 @@ def event_line(row):
     return f"{row['time']} — {row['name']}{row['qualifier']}"
 
 
+# Pre-relaunch audit (23 Nov 2026), for wraps staged from this build on: the analyst's lines
+# name timeframes in words, group thousands, and a line about the desk's own book or its
+# internal wording is not offered (decisions 40 and 109); "Main" is never named in public.
+_TIMEFRAMES = {"M1": "1-minute", "M5": "5-minute", "M15": "15-minute", "M30": "30-minute",
+               "H1": "hourly", "H4": "4-hour", "D1": "daily", "W1": "weekly"}
+_OWN_BOOK = re.compile(r"\b(?:existing|open|current|our) (?:longs?|shorts?|positions?)\b|\badd(?:ing)? to\b|"
+                       r"\bincremental\b", re.I)
+
+
+def public_line(text):
+    """One analyst line as the wrap prints it, or None when it cannot be public."""
+    text = re.sub(r"\b(M1|M5|M15|M30|H1|H4|D1|W1)\b", lambda m: _TIMEFRAMES[m[1]], text)
+    if _OWN_BOOK.search(text) or public_span_problem(text) not in {None, "FRAGMENT"}:
+        return None
+    return group_thousands(text)
+
+
+def _case_line(text):
+    """A scenario line with timeframes in words and grouped thousands."""
+    return group_thousands(re.sub(r"\b(M1|M5|M15|M30|H1|H4|D1|W1)\b", lambda m: _TIMEFRAMES[m[1]], text))
+
+
 def source_choices(pack):
     choices = {section: {} for section in (*CHANGE_SECTIONS, *DESK_SECTIONS)}
     report = pack["analysis"]
     for market, move in pack["markets"].items():
         lines = [change_line(move)]
         driver = report["layers"].get(market, {}).get("Macro and catalysts")
+        driver = driver and public_line(driver)
         if driver:
             lines.insert(0, lines[0] + " Main's analysis points to this driver. " + driver)
         choices["changes"][market] = lines
@@ -62,11 +87,13 @@ def source_choices(pack):
         choices["releases"][row["id"]] = [row["text"]]
     for market, layers in report["layers"].items():
         for name, sentence in layers.items():
-            choices["layers"][market + "/" + name] = [f"{MARKETS[market][0]} — {name}. {sentence}"]
+            if sentence := public_line(sentence):
+                choices["layers"][market + "/" + name] = [f"{MARKETS[market][0]} — {name}. {sentence}"]
     for row in pack["plans"]["rows"]:
         choices["plans"][row["id"]] = [row["text"]]
     for market, text in report["outlooks"].items():
-        choices["outlooks"][market] = [f"{MARKETS[market][0]} — {text}"]
+        if text := public_line(text):
+            choices["outlooks"][market] = [f"{MARKETS[market][0]} — {text}"]
     return choices
 
 
@@ -216,9 +243,9 @@ def article_for(pack, manuscript):
     biggest = summary["instrument"] if summary else None
     intro = (f"We are watching {biggest} after its move {summary['basis']}." if summary
              else "We are watching the next official releases as fresh market readings come in.")
-    standfirst = change_line(summary) if summary else "Main's analysis, open plans and the official calendar."
+    standfirst = change_line(summary) if summary else "Our analysis, open plans and the official calendar."
     if report_clock := pack["analysis"].get("at_utc"):
-        intro += f" Our analysis draws on Main's market review as of {et(report_clock)}."
+        intro += f" Our market review is as of {et(report_clock)}."
     if pack["data_cutoff_utc"] and not weekly:
         intro += f" Quote observations run through {et(pack['data_cutoff_utc'])}."
     if weekly and pack.get("market_close_date"):
@@ -231,10 +258,13 @@ def article_for(pack, manuscript):
     if scenario and scenario.get("scenario_voice") == voice.CONTRACT:
         market = title_market(scenario["market"])
         when = et(scenario["registered_at_utc"])
-        body.extend(["## Scenarios", f"Our {market} view was set {when}. Chances are Capital Chronicle model estimates."])
+        body.extend(["## Scenarios", f"Our {market} view was set {when}. Chances are Capital Chronicle estimates."])
         for case in scenario["cases"]:
-            case_headings.append(case["heading"])
-            body.extend([case["heading"], *case["support"]])
+            heading = _case_line(case["heading"])
+            support = [line for line in map(_case_line, case["support"])
+                       if not public_span_problem(re.sub(r"^[^:]{1,60}:\s*", "", line))]
+            case_headings.append(heading)
+            body.extend([heading, *support])
     body.extend([intro, "\n".join(table), "## What changed since the last wrap"])
     driver_lines = []
     for key, text in accepted_changes.items():
@@ -257,17 +287,17 @@ def article_for(pack, manuscript):
     if scenario and not case_headings:
         body.append("## Scenarios")
         when = et(scenario["registered_at_utc"])
-        body.append(f"Main's plan for {title_market(scenario['market'])}, registered {when}.")
+        body.append(f"Our plan for {title_market(scenario['market'])}, registered {when}.")
         for case in scenario["cases"]:
-            label = case["name"]
+            label = {"Main": "Base case", "Alternative": "Alternative case"}.get(case["name"], case["name"])
             if case["probability"] is not None:
-                label += f" ({case['probability']}%, Capital Chronicle model estimate)"
-            body.append(label + ". " + case["text"] + " " + " ".join(
-                f"{name}. {line}" for name, line in case["checks"].items()))
+                label += f" ({case['probability']}%, Capital Chronicle estimate)"
+            body.append(_case_line(label + ". " + case["text"] + " " + " ".join(
+                f"{name}. {line}" for name, line in case["checks"].items())))
     plans = checked.get("plans", [])
     body.extend(["## Open plans", "\n".join("- " + r["text"] for r in plans)
                  or ("The plan-status export was unavailable." if "plans" in pack["gaps"]
-                     else "Main's export showed no open plans." if not pack["plans"]["rows"]
+                     else "No plans were open." if not pack["plans"]["rows"]
                      else "The source check could not clear these plan lines.")])
     for key, title in (("weekend_events", "Scheduled events since the last cash close"),
                        ("events", "Coming week's events" if weekly else "Next 24 hours")):
@@ -281,12 +311,13 @@ def article_for(pack, manuscript):
             else "The calendar lists no events for this period." if not source
             else "The source check could not clear the calendar lines.")])
     if weekly and pack.get("weekly_calls"):
-        body.append(pack["weekly_calls"]["text"])
+        # The record carries its own notice; the wrap prints the notice once, at its end.
+        body.append(pack["weekly_calls"]["text"].replace(PUBLIC_NOTICE + " " + CONFLICTS_NOTICE, "").rstrip())
     elif weekly:
-        body.append("## The week's call results\n\nMain's score export was unavailable.")
+        body.append("## The week's call results\n\nThe call record was unavailable for this edition.")
     if not weekly:
         body.append("## What we got wrong\n\n" + (pack.get("prior_stops_text")
-                    or "Main's scored results were unavailable for this edition."))
+                    or "Scored results were unavailable for this edition."))
     body.extend(["So what. " + (f"Watch whether the move in {biggest} holds through the next session." if biggest
                                 else "Watch the next official releases for new evidence."),
                  PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE])

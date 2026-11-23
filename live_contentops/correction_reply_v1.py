@@ -24,6 +24,25 @@ def text_for(body):
     return body + "\n\n" + posts.PUBLIC_NOTICE + " " + posts.CONFLICTS_NOTICE
 
 
+def check_body(body):
+    """Pre-relaunch audit (23 Nov 2026): a supplied body passes the public-copy rules every other
+    post passes (no target, account, size, AI label or relative day; ET times) before it is held.
+    A correction already registered keeps its exact text."""
+    from .event_article_guard_v1 import check_publication_copy
+    from .plan_analysis_pages_v1 import RELATIVE_DAY, public_filter
+    from .public_time_v1 import require_public_time
+    from . import scenario_voice_v1 as voice
+
+    if not str(body or "").strip():
+        raise ValueError("CORRECTION_BODY_REQUIRED")
+    if RELATIVE_DAY.search(body):
+        raise ValueError("CORRECTION_RELATIVE_DAY_FORBIDDEN")
+    public_filter(body)
+    voice.validate_copy(body)
+    require_public_time(body)
+    check_publication_copy({"body": text_for(body)})
+
+
 def _parents(store, original, destinations):
     """The original post's single confirmed public object on each destination, with its Discord thread."""
     message = store.get_outbox_message(original)
@@ -73,6 +92,7 @@ def prepare(store, spec, *, root=posts.POST_ROOT, media_source=None):
         raise ValueError("CORRECTION_DESTINATIONS_UNSUPPORTED")
     original_hash, parents, sources = _parents(store, spec["original"], destinations)
     if not store.get_outbox_message(key):
+        check_body(spec["body"])
         if media_source is None:
             folders = {s for s in sources.values() if s}
             if len(folders) != 1:
