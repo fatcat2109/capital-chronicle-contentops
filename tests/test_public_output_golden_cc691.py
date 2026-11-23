@@ -76,7 +76,7 @@ def test_decision_90_the_update_uses_new_york_time(saved_posts):
 @pytest.mark.parametrize("line", [
     "**Target level**: $3,985.10", "Model target level unavailable.",
     "The target is near 3,985.", "TP1: 3,985.", "A $3,985 profit target.",
-    "Take-profit at 3,985.",
+    "Take-profit at 3,985.", "Our $3,985 target.",
 ])
 def test_decision_157_saved_plan_update_detects_added_targets(saved_posts, line):
     text = saved_posts["timed_plan_update"]["text"]
@@ -87,7 +87,7 @@ def test_decision_157_saved_plan_update_detects_added_targets(saved_posts, line)
 def test_decision_157_allows_macro_policy_targets_and_qualitative_outcomes(saved_posts):
     text = saved_posts["timed_plan_update"]["text"]
     assert not plan_target_present(
-        text + "\nInflation target: 2%. The Fed's 2% inflation target remains in place."
+        text + "\nInflation target: 2%. The Fed's target of 2% remains in place."
         "\nThe plan hit its target. The result was reported at 12:30 ET."
         "\nhttps://example.test/target-level-3985"
     )

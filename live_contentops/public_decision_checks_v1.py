@@ -85,9 +85,10 @@ _TARGET_PRICE = re.compile(
     rf"(?:\s+(?:level|price|zone))?\s*(?:[:=@]|\b(?:is\s+)?(?:at|of|near|around|above|below)\b|\bis\b)?"
     rf"\s*(?:[<>]=?\s*)?{_PRICE}(?!\d|[.,:]\d)", re.I)
 _TARGET_BEFORE_LABEL = re.compile(
-    rf"{_PRICE}\s+(?:(?:profit|price|model)[ -]+target|take[ -]+profit)\b", re.I)
+    rf"{_PRICE}\s+(?:(?:(?:profit|price|model)[ -]+)?target|take[ -]+profit)\b", re.I)
 _POLICY_TARGET = re.compile(
-    r"\b(?:inflation|employment|unemployment|deficit|fed funds|policy rate|interest rate|yield)"
+    r"\b(?:inflation|employment|unemployment|deficit|fed funds|policy rate|interest rate|yield"
+    r"|(?:fed|ecb|boj|boe|central bank)'s)"
     r"(?:\s+rate)?\s+$", re.I)
 _POSITION_WORD = re.compile(r"\b(?:long|short|buy|sell)\b(?![ -]term\b)", re.I)
 _SCENARIO_FORCES = tuple(re.compile(pattern, re.I) for pattern in (
@@ -111,7 +112,7 @@ SCENARIO_REVIEW_RULES = (
 
 
 def _plan_copy_text(text):
-    return _COPY_LINK.sub("", re.sub(r"\*\*|__|\x60", "", unicodedata.normalize("NFKC", text)))
+    return _COPY_LINK.sub("", re.sub(r"\*\*|__|\x60", "", unicodedata.normalize("NFKC", text).replace("’", "'")))
 
 
 def plan_target_present(text):
@@ -378,6 +379,7 @@ class PublicCopy:
     public_links: tuple = ()
     image_visible: bool | None = None
     public_http_status: int | None = None
+    manual_posted: bool = False
     proof: dict = field(init=False)
     verified_at: datetime | None = field(init=False)
     published_at: datetime | None = field(init=False)
@@ -410,6 +412,7 @@ class PublicCopy:
     @property
     def evidence(self):
         return "public_http" if self.public_text is not None else (
+            "manual_desk_mark" if self.manual_posted else
             "stored_readback" if self.verified_at else "confirmed_dispatch")
 
     @property
@@ -641,6 +644,13 @@ class DecisionChecks:
             *copy.bound_reply_texts(),
             *(item.root_text() for item in continuations),
         )))
+
+    def review_manual_plan_copy(self, piece, platform, url, read_public):
+        copy = PublicCopy(piece, platform, url, "", "", {}, {}, [], {}, self.end, manual_posted=True)
+        read_public(platform, url, decision_copy=copy)
+        text = copy.root_text()
+        self._plan_target(copy, text)
+        self._scenario_voice(copy, text)
 
     def _plan_target(self, copy, text):
         details = {"public_object_id": copy.row.get("public_object_id")}
@@ -990,12 +1000,14 @@ class DecisionChecks:
                 copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
             plan_part = plan_post and bool(copy.intent.get("plan_status_part")) and not channel_copy
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
-            if (plan_post and not late_chart) or plan_page:
+            correction = source.get("kind") == "correction"
+            if plan_post or plan_page or correction:
                 body = self._plan_copy_body(copy)
                 # A continuation is a public object with its own target check. Use
                 # the whole platform copy for the scenario review below.
-                self._plan_target(copy, "\n".join(filter(None, (copy.title, body))) if body else body)
-                if plan_page:
+                target_text = f"{copy.title}\n{body}" if body and copy.public_text is None else body
+                self._plan_target(copy, target_text)
+                if plan_page or correction:
                     self._scenario_voice(copy, body)
             if plan_post and not plan_part:
                 key = source.get("key") or copy.piece

@@ -25,7 +25,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
 from live_contentops.agy_decision_metrics_v1 import daily_metrics
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
-from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
+from live_contentops.public_decision_checks_v1 import DecisionChecks, clock, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
 
 LOCAL = timezone(timedelta(hours=7))
@@ -952,6 +952,29 @@ def _plan_delivery(conn, window, store_path):
             "copies": copies}
 
 
+def _review_manual_plan_posts(checks, read_public):
+    from .manual_desk_v1 import posted_state
+
+    automatic = {(copy.piece, copy.platform, copy.url) for copy in checks.copies if copy.confirmed}
+    seen = set()
+    for platforms in posted_state(checks.runtime / "manual_desk").values():
+        for platform, mark in platforms.items():
+            piece = mark.get("piece_id")
+            posted_at = clock(mark.get("posted_at_utc"))
+            if (not isinstance(piece, str)
+                    or not piece.startswith(("plan-status-post-", "plan-update-post-", "plan-result-post-"))
+                    or not posted_at or not checks.start < posted_at <= checks.end):
+                continue
+            url = safe_url(mark.get("public_url"))
+            identity = (piece, platform, url)
+            if identity in automatic or identity in seen:
+                continue
+            # A Posted mark confirms delivery. Its pack text can differ from
+            # what was pasted, so review the public copy when available.
+            checks.review_manual_plan_copy(piece, platform, url, read_public)
+            seen.add(identity)
+
+
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
                  since=None, until=None, now=None, fetcher=fetch_public, run_result=None, plan_export_dir=None):
     now = now or datetime.now(timezone.utc)
@@ -1170,6 +1193,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     from .plan_status_posts_v1 import RUN_RECORD_FOLDER
 
     checks.plan_queue(read_queue_events(Path(store_path).parent / RUN_RECORD_FOLDER, checks.start, checks.end))
+    _review_manual_plan_posts(checks, http_check)
     report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls,
         plan_export=plan_export, announced=announced, plan_source_error=plan_source_error,
         plan_cutoff=plan_cutoff)
@@ -1297,6 +1321,11 @@ def markdown(report):
             if unavailable:
                 lines.append(f"- 113 · {plain(copy['piece_id'])} / {copy['platform']} · "
                              f"Unavailable in the frozen plan ({', '.join(unavailable)})")
+        target = next((item for item in decisions.get("checks", ()) if item["decision"] == "157"), None)
+        if target:
+            lines.extend(["", f"Decision 157 · {target['failed']} target failures across "
+                          f"{target['checked'] - target['unverified']} checked public objects "
+                          f"({target['unverified']} without retained copy text)."])
         if voice := decisions.get("scenario_voice"):
             lines.extend(["", "### Scenario voice", "",
                           f"{voice['posts_reviewed']} platform copies reviewed."])
