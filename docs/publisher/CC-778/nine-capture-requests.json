@@ -1,0 +1,261 @@
+{
+ "followups": [
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 1.11158,
+   "interval": "15",
+   "key": "cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6",
+   "levels": {
+    "direction": "bearish",
+    "invalidation_level": 1.1282,
+    "zone_high": 1.1245,
+    "zone_low": 1.1225
+   },
+   "published_at_utc": "2026-11-11T03:27:10.699521+00:00",
+   "ratios": [
+    "16:9",
+    "4:5"
+   ],
+   "resolved_at_utc": "2026-11-11T13:30:00+00:00",
+   "short_id": "576f57e9",
+   "symbol": "EURUSD",
+   "tv_symbol": "FX_IDC:EURUSD",
+   "visible_range": {
+    "from_utc": "2026-11-11T01:30:00+00:00",
+    "last_bar_open_utc": "2026-11-11T13:15:00+00:00",
+    "show_from_utc": "2026-11-11T03:15:00+00:00"
+   },
+   "visible_to_utc": "2026-11-11T13:30:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 4000.158,
+   "interval": "15",
+   "key": "cc603-followup-f49e1e0410897667ef56618fcf0f8d00",
+   "levels": {
+    "direction": "bearish",
+    "invalidation_level": 4110.0,
+    "zone_high": 4078.0,
+    "zone_low": 4068.0
+   },
+   "published_at_utc": "2026-11-11T06:34:13.611454+00:00",
+   "ratios": [
+    "16:9",
+    "4:5"
+   ],
+   "resolved_at_utc": "2026-11-11T16:45:00+00:00",
+   "short_id": "52a48ae1",
+   "symbol": "XAUUSD",
+   "tv_symbol": "FX_IDC:XAUUSD",
+   "visible_range": {
+    "from_utc": "2026-11-11T04:45:00+00:00",
+    "last_bar_open_utc": "2026-11-11T16:30:00+00:00",
+    "show_from_utc": "2026-11-11T06:30:00+00:00"
+   },
+   "visible_to_utc": "2026-11-11T16:45:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 159.449,
+   "interval": "15",
+   "key": "cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd",
+   "levels": {
+    "direction": "bullish",
+    "invalidation_level": 157.8,
+    "zone_high": 158.45,
+    "zone_low": 158.35
+   },
+   "published_at_utc": "2026-11-11T06:34:37.544714+00:00",
+   "ratios": [
+    "16:9",
+    "4:5"
+   ],
+   "resolved_at_utc": "2026-11-11T13:45:00+00:00",
+   "short_id": "8479dce1",
+   "symbol": "USDJPY",
+   "tv_symbol": "FX_IDC:USDJPY",
+   "visible_range": {
+    "from_utc": "2026-11-11T01:45:00+00:00",
+    "last_bar_open_utc": "2026-11-11T13:30:00+00:00",
+    "show_from_utc": "2026-11-11T06:30:00+00:00"
+   },
+   "visible_to_utc": "2026-11-11T13:45:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 87.441,
+   "interval": "15",
+   "key": "cc603-followup-35a552222e8a572fca26451a4c15858b",
+   "levels": {
+    "direction": "bearish",
+    "invalidation_level": 91.6,
+    "zone_high": 90.45,
+    "zone_low": 90.2
+   },
+   "published_at_utc": "2026-11-09T09:13:56.142951+00:00",
+   "ratios": [
+    "16:9"
+   ],
+   "resolved_at_utc": "2026-11-09T11:30:00+00:00",
+   "short_id": "5820e1f7",
+   "symbol": "USOIL",
+   "tv_symbol": "NYMEX:CL1!",
+   "visible_range": {
+    "from_utc": "2026-11-08T23:30:00+00:00",
+    "last_bar_open_utc": "2026-11-09T11:15:00+00:00",
+    "show_from_utc": "2026-11-09T09:00:00+00:00"
+   },
+   "visible_to_utc": "2026-11-09T11:30:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 1.12216,
+   "interval": "15",
+   "key": "cc603-followup-af988bdf8344f88829c6ecffa685fd7b",
+   "levels": {
+    "direction": "bullish",
+    "invalidation_level": 1.1144,
+    "zone_high": 1.117,
+    "zone_low": 1.1166
+   },
+   "published_at_utc": "2026-11-09T09:18:15.384073+00:00",
+   "ratios": [
+    "16:9"
+   ],
+   "resolved_at_utc": "2026-11-09T20:30:00+00:00",
+   "short_id": "ddf94be7",
+   "symbol": "EURUSD",
+   "tv_symbol": "FX_IDC:EURUSD",
+   "visible_range": {
+    "from_utc": "2026-11-09T08:15:00+00:00",
+    "last_bar_open_utc": "2026-11-09T20:15:00+00:00",
+    "show_from_utc": "2026-11-09T09:15:00+00:00"
+   },
+   "visible_to_utc": "2026-11-09T20:30:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 7577.4,
+   "interval": "15",
+   "key": "cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72",
+   "levels": {
+    "direction": "bullish",
+    "invalidation_level": 7478.0,
+    "zone_high": 7506.0,
+    "zone_low": 7500.0
+   },
+   "published_at_utc": "2026-11-10T03:17:06.207616+00:00",
+   "ratios": [
+    "16:9"
+   ],
+   "refusal": "CC778_CHART_MARKET_CLOSED_AT_RESOLUTION:SP:SPX",
+   "resolved_at_utc": "2026-11-10T06:30:00+00:00",
+   "short_id": "106875eb",
+   "symbol": "US500",
+   "tv_symbol": "SP:SPX",
+   "visible_range": {
+    "from_utc": "2026-11-09T18:30:00+00:00",
+    "last_bar_open_utc": "2026-11-10T06:15:00+00:00",
+    "show_from_utc": "2026-11-10T03:15:00+00:00"
+   },
+   "visible_to_utc": "2026-11-10T06:30:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 84.304,
+   "interval": "15",
+   "key": "cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d",
+   "levels": {
+    "direction": "bearish",
+    "invalidation_level": 86.8,
+    "zone_high": 86.05,
+    "zone_low": 85.95
+   },
+   "published_at_utc": "2026-11-10T03:17:37.024348+00:00",
+   "ratios": [
+    "16:9"
+   ],
+   "resolved_at_utc": "2026-11-10T06:45:00+00:00",
+   "short_id": "0bf2a58c",
+   "symbol": "USOIL",
+   "tv_symbol": "NYMEX:CL1!",
+   "visible_range": {
+    "from_utc": "2026-11-09T18:45:00+00:00",
+    "last_bar_open_utc": "2026-11-10T06:30:00+00:00",
+    "show_from_utc": "2026-11-10T03:15:00+00:00"
+   },
+   "visible_to_utc": "2026-11-10T06:45:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 1.11274,
+   "interval": "15",
+   "key": "cc603-followup-f260f6f4cfc6259accfef172c3e4ab93",
+   "levels": {
+    "direction": "bearish",
+    "invalidation_level": 1.1232,
+    "zone_high": 1.1202,
+    "zone_low": 1.1192
+   },
+   "published_at_utc": "2026-11-11T06:35:01.183861+00:00",
+   "ratios": [
+    "16:9",
+    "4:5"
+   ],
+   "resolved_at_utc": "2026-11-11T13:15:00+00:00",
+   "short_id": "acc5894c",
+   "symbol": "EURUSD",
+   "tv_symbol": "FX_IDC:EURUSD",
+   "visible_range": {
+    "from_utc": "2026-11-11T01:15:00+00:00",
+    "last_bar_open_utc": "2026-11-11T13:00:00+00:00",
+    "show_from_utc": "2026-11-11T06:30:00+00:00"
+   },
+   "visible_to_utc": "2026-11-11T13:15:00+00:00"
+  },
+  {
+   "held_chart_window_check": true,
+   "held_close_at_window_end": 3989.008,
+   "interval": "15",
+   "key": "cc603-followup-813c70c1a6848bcf9f9556f648b6c781",
+   "levels": {
+    "direction": "bearish",
+    "invalidation_level": 4090.0,
+    "zone_high": 4052.0,
+    "zone_low": 4048.0
+   },
+   "published_at_utc": "2026-11-11T16:26:16.601628+00:00",
+   "ratios": [
+    "16:9"
+   ],
+   "resolved_at_utc": "2026-11-11T19:30:00+00:00",
+   "short_id": "5a6538c6",
+   "symbol": "XAUUSD",
+   "tv_symbol": "FX_IDC:XAUUSD",
+   "visible_range": {
+    "from_utc": "2026-11-11T07:30:00+00:00",
+    "last_bar_open_utc": "2026-11-11T19:15:00+00:00",
+    "show_from_utc": "2026-11-11T16:15:00+00:00"
+   },
+   "visible_to_utc": "2026-11-11T19:30:00+00:00"
+  }
+ ],
+ "mode": "read-only",
+ "order_after_restore_example": {
+  "held": [],
+  "order": [
+   "cc603-followup-35a552222e8a572fca26451a4c15858b",
+   "cc603-followup-af988bdf8344f88829c6ecffa685fd7b",
+   "cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72",
+   "cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d",
+   "cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6",
+   "cc603-followup-f49e1e0410897667ef56618fcf0f8d00",
+   "cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd",
+   "cc603-followup-f260f6f4cfc6259accfef172c3e4ab93",
+   "cc603-followup-813c70c1a6848bcf9f9556f648b6c781"
+  ],
+  "restore_utc": "2026-11-30T02:00:00+00:00"
+ },
+ "read_at_utc": "2026-11-23T19:45:51.832351+00:00",
+ "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3"
+}
