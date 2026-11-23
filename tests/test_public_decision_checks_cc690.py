@@ -73,6 +73,50 @@ def test_plan_quotes_exact_link_chart_discord_and_linkedin_are_checked_per_copy(
     assert coverage["unresolved_write_age_seconds"] == 3700
 
 
+def test_plan_target_and_voice_use_each_platform_and_the_bound_continuation(tmp_path):
+    audit = checks(tmp_path)
+    piece = "plan-status-post-gold"
+    source = {"kind": "setup", "key": piece, "symbol": "XAUUSD"}
+    base = "Base case (55%): Gold steadies.\nMacro: Yields eased.\nFundamentals: ETF demand held."
+    levels = "Entry zone: 3,954–3,964. Plan wrong below 3,904."
+    good = f"{base}\nBull case: Gold rallies if yields fall further.\n{levels}"
+    published(audit, piece, "telegram", text=good, source=source)
+    x_copy = published(audit, piece, "x", text=good, source=source)
+    x_copy.public_text = base
+    continuation = published(audit, piece + "-part-1", "x", source=source,
+                             text="Model target level: 4,000.", intent={"plan_status_part": 1})
+    continuation.row["public_object_id"] = "x-reply"
+    published(audit, piece, "discord", source=source, text=good)
+    audit.copies[-1].public_text = ""
+    pending = published(audit, piece, "threads", text="Target level: 4,000.", source=source)
+    pending.row["status"] = "UNKNOWN_WRITE"
+    pending.verified_at = None
+
+    report = audit.finish({}, {})
+    issues = [issue for issue in report["issues"] if issue["decision"] in {"157", "158"}]
+    assert [(r["piece_id"], r["platform"], r["status"], r["first_cause"])
+            for r in issues if r["decision"] == "157"] == [
+                (piece, "discord", "UNVERIFIED", "PLAN_COPY_TEXT_UNAVAILABLE"),
+                (piece + "-part-1", "x", "FAIL", "PUBLIC_PLAN_TARGET_PRESENT"),
+            ]
+    assert {r["first_cause"] for r in issues if r["platform"] == "x" and r["status"] == "FLAGGED"} == {
+        "SCENARIO_CASES_MISSING", "ENTRY_ZONE_MISSING", "INVALIDATION_LEVEL_MISSING",
+    }
+    assert not any(r["platform"] in {"telegram", "threads"} for r in issues)
+    assert report["scenario_voice"]["posts_reviewed"] == 2
+    by_rule = {row["rule"]: row for row in report["scenario_voice"]["rules"]}
+    assert by_rule["SCENARIO_CASES_MISSING"]["share_pct"] == 50
+    assert by_rule["SCENARIO_FORCES_TOO_FEW"]["share_pct"] == 0
+    failed = {row["decision"]: row["failed"] for row in report["checks"]}
+    assert (failed["157"], failed["158"]) == (1, 0)
+
+
+def test_empty_evening_has_no_voice_percentage(tmp_path):
+    review = checks(tmp_path).finish({}, {})["scenario_voice"]
+    assert review["posts_reviewed"] == 0
+    assert all(r["share_pct"] is None and r["flagged"] == 0 for r in review["rules"])
+
+
 def test_actual_post_body_overrides_intent_and_is_not_serialized(tmp_path):
     audit = checks(tmp_path)
     source = {"kind": "setup", "symbol": "XAUUSD", "plan_id": "plan_gold", "source_plan": {

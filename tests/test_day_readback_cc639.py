@@ -326,6 +326,70 @@ def test_evening_file_reports_ready_and_never_registered_plan_copies(recorded):
     assert "6 of 7 ready or waiting plan copies were older than five minutes" in readback.markdown(report)
 
 
+def test_evening_publishes_target_failure_and_scenario_shares_to_both_files(recorded, tmp_path):
+    from live_contentops import plan_status_posts_v1 as posts
+
+    _, store, _, _ = recorded
+    key = "plan-status-post-cc756-fixture"
+    at = "2026-11-17T09:54:00Z"
+    source = {"key": key, "kind": "setup"}
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                     (key, posts.WORK_ITEM_ID, posts.DESTINATION, json.dumps(source), "PUBLISHING", at))
+        for platform, text in (
+            ("telegram", "Model target level: 4,000.\nMacro: Yields fell."),
+            ("discord", "Base case: Gold holds.\nBear case: Gold falls.\nFundamentals: ETF flows rose.\n"
+                        "Macro: Yields fell.\nEntry zone: 3,950–3,960. Invalidation below 3,900."),
+        ):
+            intent = {"native_payload": {"text": text}}
+            conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)",
+                         (platform, key, platform, json.dumps(intent), "DISPATCH_CONFIRMED", at))
+            conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)",
+                         ("cc756-" + platform, platform, platform, "DISPATCH_CONFIRMED", at,
+                          "756", f"https://t.me/CapitalChronicle/{platform}", None))
+
+    report, _ = build(recorded, since="2026-11-17T09:00:00Z", until="2026-11-17T10:00:00Z")
+    readback.write_report(tmp_path, report)
+    decisions = json.loads((tmp_path / "decision_checks.json").read_bytes())
+    issues = {r["decision"]: r for r in decisions["issues"] if r["first_cause"] in {
+        "PUBLIC_PLAN_TARGET_PRESENT", "SCENARIO_CASES_MISSING",
+    }}
+    assert (issues["157"]["status"], issues["158"]["status"]) == ("FAIL", "FLAGGED")
+    assert all((r["piece_id"], r["platform"]) == (key, "telegram") for r in issues.values())
+    assert decisions["scenario_voice"]["rules"][0]["share_pct"] == 50
+    evening = (tmp_path / "day_readback.md").read_text(encoding="utf-8")
+    assert f"157 · {key} / telegram · FAIL · PUBLIC_PLAN_TARGET_PRESENT" in evening
+    assert f"158 · {key} / telegram · FLAGGED · SCENARIO_CASES_MISSING" in evening
+    assert "SCENARIO_CASES_MISSING · 1/2 flagged (50%)" in evening
+
+
+def test_evening_reviews_manual_plan_marks_with_exact_body_or_unverified(recorded):
+    _, store, feed, run = recorded
+    desk = store.parent / "manual_desk"
+    desk.mkdir()
+    note = "https://substack.com/@capitalchronicle/note/c-123"
+    piece = "plan-status-post-manual"
+    marks = [{"pack_id": "manual-plan", "piece_id": piece, "platform": platform,
+              "posted_at_utc": "2026-11-17T09:54:00Z", "public_url": url}
+             for platform, url in (("substack_notes", note), ("x", None))]
+    (desk / "posted.jsonl").write_text("\n".join(map(json.dumps, marks)) + "\n", encoding="utf-8")
+
+    def get(platform, url):
+        if (platform, url) == ("substack_notes", note):
+            return {"http_status": 200, "html": "<div class='note-body'>Target level: 4000.</div>"}
+        return {"http_status": None}
+
+    report = readback.build_report(run, store_path=store, feed_path=feed, now=NOW, fetcher=get,
+                                   since="2026-11-17T09:00:00Z", until="2026-11-17T10:00:00Z")
+    decisions = report["decision_checks"]
+    assert {(r["platform"], r["status"], r["evidence"])
+            for r in decisions["issues"] if r["decision"] == "157"} == {
+                ("substack_notes", "FAIL", "public_http"),
+                ("x", "UNVERIFIED", "manual_desk_mark"),
+            }
+    assert decisions["scenario_voice"]["posts_reviewed"] == 1
+
+
 def test_evening_reports_every_named_plan_copy_with_exact_cause_and_delays(recorded):
     from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
