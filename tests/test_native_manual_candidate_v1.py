@@ -381,10 +381,11 @@ def test_active_candidate_preserves_media_writer_role_and_same_writer_guards(tmp
         "channel_media": {c: [] for c in ("telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}}
     response = {"request_sha256": visual["request_sha256"], "output": decision,
         "invocation_observation": {**OBS, "reasoning_effort": "max"}}
-    for field, value in [("model", "gpt-6-luna"), ("reasoning_effort", "low"), ("invocation_id", None)]:
-        with pytest.raises(ValueError):
-            module.operation(binding, command="submit", stage="visual-edit", response={**response,
-                "invocation_observation": {**response["invocation_observation"], field: value}})
+    # 49dd59f4 (CC-403, 10 Nov; Jim's decision 60): a different model or effort is recorded
+    # verbatim, never refused, so only a return without its invocation identity is refused here.
+    with pytest.raises(ValueError, match="NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED"):
+        module.operation(binding, command="submit", stage="visual-edit", response={**response,
+            "invocation_observation": {**response["invocation_observation"], "invocation_id": None}})
     module.operation(binding, command="submit", stage="visual-edit", response=response)
     packet = {"plan": {"native_plan_run_id": binding["run_id"], "native_plan_stage": "media-plan",
         "native_plan_request_sha256": media["request_sha256"], "story_plan": plan}, "assets": []}

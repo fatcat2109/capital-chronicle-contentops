@@ -80,7 +80,10 @@ def test_observed_mismatch_is_not_hidden_by_configured_fallback():
         {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
 
 
-def test_final_review_accepts_labelled_max_only_with_same_actual_writer(tmp_path, monkeypatch):
+# 5e66a899 (CC-425, 17 Nov; decisions 60 and 86): the final visual review no longer has to come
+# from the writer's own invocation. A current reviewer records its actual invocation and checks
+# the exact same bytes, so another reviewer invocation is accepted and kept verbatim.
+def test_final_review_accepts_labelled_max_and_records_its_current_reviewer(tmp_path, monkeypatch):
     from test_native_desktop_publication_v1 import seeded
     from native_final_visual_fixture_v1 import visual_request_fixture
     from live_contentops.native_desktop_editorial_v1 import validate_final_visual_return
@@ -90,6 +93,6 @@ def test_final_review_accepts_labelled_max_only_with_same_actual_writer(tmp_path
     observation["invocation_id"] = response["invocation_observation"]["invocation_id"]
     response["invocation_observation"] = observation
     validate_final_visual_return(turn, request, response)
-    response["invocation_observation"]["invocation_id"] = "WRONG_SAME_CONFIGURED_ROLE"
-    with pytest.raises(ValueError, match="SAME_SOL61_MAX"):
-        validate_final_visual_return(turn, request, response)
+    response["invocation_observation"]["invocation_id"] = "CURRENT_SAME_CONFIGURED_ROLE"
+    validate_final_visual_return(turn, request, response)
+    assert response["invocation_observation"]["invocation_id"] == "CURRENT_SAME_CONFIGURED_ROLE"
