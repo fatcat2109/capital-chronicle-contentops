@@ -9,15 +9,15 @@ test_isolation.install()
 
 
 @pytest.fixture(autouse=True)
-def _isolate_child_python(monkeypatch, tmp_path):
-    child_report = tmp_path / "live-io-violation.txt"
+def _report_test_isolation_violations(monkeypatch, tmp_path):
+    report = tmp_path / "live-io-violation.txt"
     support_root = Path(test_isolation.__file__).parent
     pythonpath = os.environ.get("PYTHONPATH")
     monkeypatch.setenv("PYTHONPATH", str(support_root) + (os.pathsep + pythonpath if pythonpath else ""))
-    monkeypatch.setenv(test_isolation.REPORT_ENV, str(child_report))
+    monkeypatch.setenv(test_isolation.REPORT_ENV, str(report))
     yield
-    if child_report.exists():
-        pytest.fail(child_report.read_text(encoding="utf-8").strip())
+    if report.exists():
+        pytest.fail(report.read_text(encoding="utf-8").strip())
 
 
 @pytest.fixture(autouse=True)

@@ -34,8 +34,9 @@ def _command_parts(command):
     return [os.fsdecode(part) for part in command]
 
 
-def install(report_path=None):
+def install():
     def refuse(message):
+        report_path = os.environ.get(REPORT_ENV)
         if report_path:
             with open(report_path, "a", encoding="utf-8") as report:
                 report.write(message + "\n")
@@ -63,5 +64,5 @@ def install(report_path=None):
     sys.addaudithook(audit)
 
 
-if report_path := os.environ.get(REPORT_ENV):
-    install(report_path)
+if __name__ == "sitecustomize" and os.environ.get(REPORT_ENV):
+    install()

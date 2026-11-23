@@ -14,12 +14,16 @@ from live_contentops.plan_status_posts_v1 import EXPORT_DIR
     [r"C:\fake path\codex.cmd", "exec"],
     [sys.executable, "plan_analysis_pages.py", "draft-due"],
 ])
-def test_process_guard_fails_before_launch(command):
+def test_process_guard_fails_before_launch(command, tmp_path, monkeypatch):
+    report = tmp_path / "expected-violation.txt"
+    monkeypatch.setenv(REPORT_ENV, str(report))
     with pytest.raises(IsolationError, match="Stub"):
         subprocess.Popen(command)
+    assert "Stub" in report.read_text(encoding="utf-8")
 
 
-def test_live_export_guard_fails_before_read_but_fixture_with_same_name_is_readable(tmp_path):
+def test_live_export_guard_fails_before_read_but_fixture_with_same_name_is_readable(tmp_path, monkeypatch):
+    monkeypatch.setenv(REPORT_ENV, str(tmp_path / "expected-violation.txt"))
     fixture = tmp_path / "plan-status-v1" / "plan-status.public.json"
     fixture.parent.mkdir()
     fixture.write_text("{}", encoding="utf-8")
