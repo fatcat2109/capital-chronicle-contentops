@@ -92,14 +92,25 @@ def test_fill_copy_uses_only_public_fields_even_when_private_fields_are_present(
             assert str(value) not in text
 
 
+def _checkpointed_sha256(path):
+    # The store runs in WAL mode: a checkpoint (for example when a garbage-collected connection
+    # closes) rewrites the main file without any new write. Checkpoint first, then hash, so only a
+    # committed change can alter the bytes. In the full suite the raw hash differed by GC timing.
+    import sqlite3
+    from contextlib import closing
+    with closing(sqlite3.connect(path)) as connection:
+        connection.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def test_frozen_export_dry_run_has_no_store_writes_and_repeat_keeps_exact_bytes(tmp_path, main_root):
     store_path = tmp_path / "store.sqlite3"
     store = ContentOpsDurableStore(store_path)
-    before = hashlib.sha256(store_path.read_bytes()).hexdigest()
+    before = _checkpointed_sha256(store_path)
     dry = queue(store, main_root, dry_run=True)
     assert dry["status"] == "OK" and dry["transitions_read"] == 5
     assert [(q["state"], q["at_utc"]) for q in dry["would_queue"]] == [("TRIGGERED", FILL_AT)]
-    assert hashlib.sha256(store_path.read_bytes()).hexdigest() == before
+    assert _checkpointed_sha256(store_path) == before
     assert store.list_outbox_messages(destination=posts.DESTINATION) == []
     result = queue(store, main_root)
     assert result["queued"] == dry["would_queue"]
