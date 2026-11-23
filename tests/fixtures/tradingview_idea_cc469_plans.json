@@ -1,0 +1,125 @@
+{
+ "source": "ContentOps store, destination internal:plan-status-post, read-only copy of 23 Nov 2026 (two stored plan posts, fields the TradingView pack reads)",
+ "plans": [
+  {
+   "store_created_at": "2026-11-20T08:16:28.808824+00:00",
+   "store_status": "PUBLISHED",
+   "key": "plan-status-post-71f219b709daeaf914b31ec2c1c1161a",
+   "kind": "setup",
+   "plan_id": "plan_4bcfb1182f0fff4f8254172c",
+   "symbol": "USDJPY",
+   "instrument_title": "USD/JPY",
+   "lead": "USD/JPY: armed, waiting for price breaks through 158.88 (breakout).",
+   "conditional_calls": [
+    {
+     "condition": "price breaks through 158.88 (breakout)",
+     "direction": "bearish",
+     "horizon": "Entry opens Fri 20 Nov, 3:15 AM ET. Entry can start until Fri 20 Nov, 3:45 PM ET. Filled positions close by Mon 23 Nov, 1:00 AM ET",
+     "invalidation": "Spot plan cancelled on close above 159.6 before entry",
+     "market": "USD/JPY"
+    }
+   ],
+   "registered_at_utc": "2026-11-20T08:14:00.934204Z",
+   "at_utc": "2026-11-20T08:14:00.934204Z",
+   "entry_deadline_utc": "2026-11-20T20:45:00Z",
+   "time_exit_utc": "2026-11-23T06:00:00Z",
+   "text": "USD/JPY: armed, waiting for price breaks through 158.88 (breakout).\nWe are bearish on USD/JPY if price breaks through 158.88 (breakout). Spot plan cancelled on close above 159.6 before entry. Entry opens Fri 20 Nov, 3:15 AM ET. Entry can start until Fri 20 Nov, 3:45 PM ET. Filled positions close by Mon 23 Nov, 1:00 AM ET.\nTarget level: 157.95.\nRegistered 20 Nov 03:14 ET.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+   "levels": {
+    "direction": "bearish",
+    "zone_low": 158.8,
+    "zone_high": 158.88,
+    "invalidation_level": 159.6,
+    "valid_until_utc": "2026-11-20T20:45:00Z",
+    "entry_deadline_utc": "2026-11-20T20:45:00Z",
+    "time_exit_utc": "2026-11-23T06:00:00Z",
+    "registered_at_utc": "2026-11-20T08:14:00.934204Z",
+    "chance_pct": 55.0,
+    "scenario_analysis": {
+     "base_case": {
+      "market_move": "USDJPY is below 159.114 at 2026-11-23T06:00Z, and a break of the 158.87-159.03 shelf runs toward lower levels.",
+      "probability_pct": 55.0
+     },
+     "main_alternative": {
+      "market_move": "USDJPY holds the 159 handle on carry demand and returns toward 159.6 after Waller.",
+      "probability_pct": 45.0
+     },
+     "mechanism": "risk-off repatriation, BoJ hike expectations and MoF warnings near 160 force carry longs out below the 17 Nov low 158.868.",
+     "opposite_mechanism": "a hawkish Waller lifts US yields and USDJPY with its 0.67 US10Y correlation.; intraday answer LONDON_RANGE_BREAK paid both halves after the full reserve (bar age 153.8 h).; Prior: shock-20261120T054542Z plan ddcbb22189868a2c28ec092e54050defb99ad420b3e00af71bfb445c496bac57 frozen 2026-11-20T06:03:35Z had 55% below 159.147 and named an H1 close below 158.90 as what would make a short worth pricing; the view is unchanged and this WATCH registers that level.; KB:markets/usdjpy.md@a9d846619ad3fe92f269aff499b9c91e21f3de85.",
+     "priced": "Fed hike 100%; BoJ 58% held (19 Nov), higher per an unconfirmed digest.",
+     "positioning": "carry longs added 11-19 Nov; their stops sit under 158.87.",
+     "confirmations": "an M15 close below 158.90.",
+     "invalidation_text": "an M15 close above 159.60 before entry.",
+     "horizon_end_utc": "2026-11-23T06:00:00Z"
+    }
+   },
+   "source_plan": {
+    "asset_id": "USDJPY",
+    "plan_id": "plan_4bcfb1182f0fff4f8254172c",
+    "direction": "BEARISH",
+    "horizon_lane": "SHORT",
+    "zone": {
+     "maximum": 158.88,
+     "minimum": 158.8
+    },
+    "registered_at_utc": "2026-11-20T08:14:00.934204Z",
+    "entry_deadline_utc": "2026-11-20T20:45:00Z"
+   }
+  },
+  {
+   "store_created_at": "2026-11-22T19:29:28.497094+00:00",
+   "store_status": "PUBLISHING",
+   "key": "plan-status-post-e646d4dd59ed8951ad6cc044978ed939",
+   "kind": "update",
+   "plan_id": "plan_add6d62299828744939aafc1",
+   "symbol": "BTCUSD",
+   "instrument_title": "Bitcoin",
+   "lead": "Bitcoin: an entry filled; the position is open.",
+   "conditional_calls": [],
+   "registered_at_utc": "2026-11-22T19:22:20.178675Z",
+   "at_utc": "2026-11-22T19:27:00.527000Z",
+   "entry_deadline_utc": "2026-11-23T08:00:00Z",
+   "time_exit_utc": "2026-12-09T18:00:00Z",
+   "text": "Macro: The US 10-year Treasury yield was 4.92% and the 10-year real yield 2.77% on 20 Nov, the real yield up from 2.63% two weeks earlier, and the 2-year yield was 4.63%, so markets expect the Federal Reserve to keep raising rates.\nEvent and cause: Forced selling is the flow behind the plan.\nCross-asset and contagion: Bitcoin has moved with US shares: over the last 60 sessions it moved about 1.35% for each 1% in the S&P 500, with a correlation of 0.63, and the desk's spillover measure shows it receiving shocks from shares rather than sending them.\nTechnical: The daily trend is down: the last close is 14% under its 20-day average, 22% under its 50-day and 17% under its 200-day.\nScenarios: Main (54%): BTCUSD is below 60600.84 at Wed 9 Dec, 1:00 PM ET. Alternative (46%): BTCUSD holds above 55063.63, squeezes through 61940.88 toward 66095.46 and is above 60600.84 at the exit.\nBitcoin: an entry filled; the position is open.\nUpdated 22 Nov 14:27 ET.\nEntry condition: price trades into 60,000–61,400.\nBitcoin plan cancelled on high at or above 68,450 before entry.\nEntry can start until Mon 23 Nov, 3:00 AM ET.\nFilled positions close by Wed 9 Dec, 1:00 PM ET.\nTarget level: 53,000.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+   "levels": {
+    "direction": "bearish",
+    "zone_low": 60000.0,
+    "zone_high": 61400.0,
+    "invalidation_level": 68450.0,
+    "valid_until_utc": "2026-11-23T08:00:00Z",
+    "entry_deadline_utc": "2026-11-23T08:00:00Z",
+    "time_exit_utc": "2026-12-09T18:00:00Z",
+    "registered_at_utc": "2026-11-22T19:22:20.178675Z",
+    "chance_pct": 54.0,
+    "scenario_analysis": {
+     "base_case": {
+      "market_move": "BTCUSD is below 60600.84 at 2026-12-09T18:00Z.",
+      "probability_pct": 54.0
+     },
+     "main_alternative": {
+      "market_move": "BTCUSD holds above 55063.63, squeezes through 61940.88 toward 66095.46 and is above 60600.84 at the exit.",
+      "probability_pct": 46.0
+     },
+     "mechanism": "deleveraging under a Federal Reserve that futures price to hike on 9 Dec, 86.3% on 20 Nov per block cc442:0a549244c48a9832c461, with the US 10-year real yield at 2.77% and US equities in a correction; BTC trades as high-beta equity, 60-day US500 beta 1.35 and correlation 0.63, and holders trapped above the broken floor sell rallies.",
+     "opposite_mechanism": "the 21 Nov low was a liquidation flush on record activity and falling equities soften the Federal Reserve.",
+     "priced": "DVOL 58.02 on 21 Nov per block cc415:2026-11-22T18:36:29Z, about 7,590 one sigma over the hold; prediction odds show no drift into 27 Nov and an easing year-end tail, with the priced_in gap MISSING, cause MATCHING_ASSET_IMPLIED_OUTCOME_PROBABILITY_NOT_HELD, so no gap or direction is stated and no mispricing is claimed.",
+     "positioning": "cot_crowding has non-commercial net long 1,528 contracts on 17 Nov, +0.87 SD on 156 weeks, five days old: longs left to sell and no crowded short; forced sellers sit under 57651.78 and 55063.63, short covering above 61581.46, 61940.88 and 62571.63.",
+     "confirmations": "a completed D1 close below 57651.78, then a low under 55063.63.",
+     "invalidation_text": "a completed D1 close above 66095.46, or the broker stop at 68450.00.",
+     "horizon_end_utc": "2026-12-09T18:00:00Z"
+    }
+   },
+   "source_plan": {
+    "asset_id": "BTCUSD",
+    "plan_id": "plan_add6d62299828744939aafc1",
+    "direction": "BEARISH",
+    "horizon_lane": "MID",
+    "zone": {
+     "maximum": 61400.0,
+     "minimum": 60000.0
+    },
+    "registered_at_utc": "2026-11-22T19:22:20.178675Z",
+    "entry_deadline_utc": "2026-11-23T08:00:00Z"
+   }
+  }
+ ]
+}
