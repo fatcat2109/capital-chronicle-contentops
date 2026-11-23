@@ -307,6 +307,7 @@ def test_cc755_market_wrap_renders_main_cases_in_the_article_and_social_copy(tmp
 
     article, _ = editorial.article_for(pack, editorial.draft(pack, tmp_path, call=select))
     body = article["substack_body_markdown"]
+    assert body.startswith("## Scenarios\n")
     assert body.index("Base case (57%)") < body.index("What changed since the last wrap")
     assert "Bull case: Gold rebounds if real yields fall." in body
     assert "What would undo the bull case: The rebound fails if real yields rise again." in body

@@ -190,7 +190,7 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
 def test_cc755_substack_page_carries_the_same_cases_and_main_evidence(source, tmp_path):
     run_root, _, plan, _ = source
     plan.update(direction="BULLISH", analysis_layers=LAYERS, scenario_analysis={
-        "base_case": {"probability_pct": 62, "market_move": "The euro can recover as the dollar falls."},
+        "base_case": {"probability_pct": 62, "market_move": "The euro can recover with some easing already priced in."},
         "main_alternative": {"market_move": "The euro weakens if the dollar rebounds.",
                              "invalidation": "A fall in the dollar would undo the pressure on the euro."},
         "mechanism": "A weaker dollar lifts the euro after the inflation release.",
@@ -205,7 +205,7 @@ def test_cc755_substack_page_carries_the_same_cases_and_main_evidence(source, tm
     manuscript = editorial.draft_plan_page(plan, run, output_dir=tmp_path, call=select)
     page = pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path)
     body = page["native_payload"]["body_markdown"]
-    assert body.startswith("Base case (62%): The euro can recover as the dollar falls.")
+    assert body.startswith("Base case (62%): The euro can recover with some easing already priced in.")
     assert "Bear case: The euro weakens if the dollar rebounds." in body
     assert "What would undo the bear case: A fall in the dollar" in body
     assert body.index("Bear case:") < body.index("## Macro")

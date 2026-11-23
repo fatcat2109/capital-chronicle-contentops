@@ -225,7 +225,7 @@ def article_for(pack, manuscript):
         close_date = date.fromisoformat(pack["market_close_date"])
         close_label = public_date(datetime.combine(close_date, time(), ET))
         intro += f" The comparison ends with the sessions dated {close_label}."
-    body = [intro]
+    body = []
     scenario = pack["plans"].get("scenario")
     case_headings = []
     if scenario and scenario.get("scenario_voice") == voice.CONTRACT:
@@ -235,7 +235,7 @@ def article_for(pack, manuscript):
         for case in scenario["cases"]:
             case_headings.append(case["heading"])
             body.extend([case["heading"], *case["support"]])
-    body.extend(["\n".join(table), "## What changed since the last wrap"])
+    body.extend([intro, "\n".join(table), "## What changed since the last wrap"])
     driver_lines = []
     for key, text in accepted_changes.items():
         parts = text.split(" Main's analysis points to this driver. ", 1)
@@ -395,9 +395,11 @@ def derivative_payload(article, assets, canonical_url, destination):
     limit = {"x": 280, "threads": 500, "youtube": 1000, "instagram_business": 2200,
              "discord": 2000, "telegram": 4096, "linkedin": 3000, "linkedin_company": 3000,
              "facebook_page": 63206, "substack_notes": 500}.get(destination, 500)
-    for case in reversed(cases):
-        if len(case) + len(payload) + 2 <= limit:
-            payload = case + "\n\n" + payload
+    opening = []
+    for case in cases:
+        if len("\n\n".join([*opening, case, payload])) <= limit:
+            opening.append(case)
+    payload = "\n\n".join([*opening, payload])
     if len(payload) > limit:
         payload = article["title"] + credit + "\n\n" + canonical_url + "\n\n" + notices
     check_publication_copy({"body": payload})

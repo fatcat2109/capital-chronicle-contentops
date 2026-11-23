@@ -92,19 +92,20 @@ def check_reader_claim(text, *, source_name="", source_locator="", source="", pr
 def check_new_page_copy(manuscript, run):
     """Apply reader/source checks to new output, preserving historical readback."""
 
+    def claim_text(text):
+        if manuscript.get("scenario_voice") == voice.CONTRACT:
+            # The displayed odds bind to the case's probability, not the market's pricing.
+            return re.sub(r"^(?:Base|Bull|Bear|Alternative) case \(\d+(?:\.\d+)?%\):?\s*", "", text)
+        return text
+
     for section in manuscript.get("sections", {}).values():
         paragraphs = section.get("paragraphs") or []
         for paragraph in paragraphs:
             source = "\n".join(_source_text(run, ref) for ref in paragraph.get("refs") or [])
-            text = paragraph["text"]
-            if manuscript.get("scenario_voice") == voice.CONTRACT:
-                # Page replay binds case odds to the named probability field.
-                # A model chance is not a percentage of the move already priced in.
-                text = re.sub(r"^(?:Base|Bull|Bear|Alternative) case \(\d+(?:\.\d+)?%\):?\s*", "", text)
-            check_reader_claim(text, source_name=paragraph.get("source_name", ""),
+            check_reader_claim(claim_text(paragraph["text"]), source_name=paragraph.get("source_name", ""),
                   source_locator=paragraph.get("source_locator", ""), source=source,
                   pricing_source=paragraph.get("pricing_source"))
-        summary = section.get("summary", "")
+        summary = claim_text(section.get("summary", ""))
         # A summary cannot silently drop the attribution from the full paragraph.
         if _PERCENT.search(summary) and _PRICED.search(summary):
             names = [p.get("pricing_source") or {"name": p.get("source_name", "")} for p in paragraphs]
@@ -113,7 +114,7 @@ def check_new_page_copy(manuscript, run):
         else:
             check_reader_claim(summary)
     for field in ("title", "subtitle", "introduction"):
-        text = manuscript.get(field, "")
+        text = claim_text(manuscript.get(field, ""))
         check_reader_claim(text, source=" ".join(p["text"] for s in manuscript.get("sections", {}).values()
               for p in s.get("paragraphs", [])), pricing_source=manuscript.get("pricing_source"))
 
