@@ -109,6 +109,51 @@ def _incomplete_readback_evidence(request, result):
                 and not result.get("observed_media_sha256") and not result.get("media_comparisons")))
 
 
+# CC-683: on 20 Nov 2026 the minute job wrote one LinkedIn READBACK request for the gold result
+# post (plan-result-post-580a244ff31eb610ac567a5f53621814) on every run from 02:08Z to 04:13Z,
+# 52 rows, and none ran: LinkedIn had no automatic route, and every run carried a new
+# invocation id, so every run made a new request. Across the store 97 post-destination-days
+# held more than two read-back requests, mostly one READBACK_UNAVAILABLE cause written every
+# minute. A read-back that cannot run now leaves one end row with its cause; the next run
+# reuses that end instead of writing another request, until its cause can have changed.
+READBACK_END_SCHEMA = "contentops.native_neo_readback_end.v1"
+READBACK_END_STATUS = "NATIVE_NEO_READBACK_ENDED"
+READBACK_ENDED = "READBACK_ENDED"
+READBACK_NO_ROUTE = "NEO_READBACK_NO_AUTOMATIC_ROUTE"
+READBACK_ENDPOINT_UNAVAILABLE = "NEO_ENDPOINT_UNAVAILABLE"
+# Two tries per read and UTC day at most: the first, and one more no sooner than 30 minutes
+# after it ended, for causes that clear with time (a feed that has no newer post yet).
+READBACK_TRIES_PER_DAY = 2
+READBACK_RETRY_AFTER = timedelta(minutes=30)
+_READBACK_PER_RUN_FIELDS = frozenset({"request_sha256", "native_invocation_id", "observation_epoch",
+    "readback_transport_revision", "owner_readback_invocation", "endpoint_cause"})
+_UNRUNNABLE_READBACK_STATUSES = frozenset({"READBACK_UNAVAILABLE", "SKIPPED", "BLOCKED", "FAILED_BEFORE_WRITE"})
+
+
+def readback_binding(request: Mapping[str, Any]) -> str:
+    """The read itself (object, copy, account, dispatch clock), without the per-run fields."""
+    clean = json.loads(json.dumps({k: v for k, v in request.items() if k not in _READBACK_PER_RUN_FIELDS}))
+    for artifact in (clean.get("content_binding") or {}).get("artifact_manifest", []):
+        # A rebuilt delivery receipt changes only its own hash (as fresh_readback_request).
+        if str(artifact.get("path", "")).replace("\\", "/").endswith("/delivery_media_manifest_v1.json"):
+            artifact.pop("sha256", None)
+    if isinstance(clean.get("digest_email_readback"), dict):
+        clean["digest_email_readback"].pop("observation_hour", None)
+    return sha256_of(clean)
+
+
+def unrunnable_readback_cause(result: Any) -> str | None:
+    """The cause of a read-back that observed nothing (refused, unreadable, not found), else None."""
+    if not isinstance(result, Mapping):
+        return None
+    status = str(result.get("status") or "")
+    if (status not in _UNRUNNABLE_READBACK_STATUSES or result.get("verified") is True
+            or result.get("target_post_absent") is True or result.get("public_object_id")
+            or result.get("public_object_url") or result.get("observed_text")):
+        return None
+    return str(result.get("reason_code") or result.get("safe_error_classification") or status)[:160]
+
+
 class NativeNeoExecutor:
     """Callable executor and readiness provider bound to one active Desktop operation."""
 
@@ -764,6 +809,46 @@ class NativeNeoExecutor:
                     or self._get(request_hash, "response") or self._get(request_hash, "started")):
                 continue
             self.store.set_outbox_status(row["message_id"], "NATIVE_NEO_SUPERSEDED")
+
+    def _readback_ends(self, request, context):
+        """CC-683: today's end rows for this exact read under the same route and reader, oldest first."""
+        binding = readback_binding(request)
+        day = self.clock().astimezone(timezone.utc).date().isoformat()
+        with self.store.get_read_only_connection() as conn:
+            rows = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=? AND status=?",
+                                (request.get("work_item_id"), DESTINATION, READBACK_END_STATUS)).fetchall()
+        ends = []
+        for row in rows:
+            value = json.loads(row[0])
+            if (value.get("schema_version") == READBACK_END_SCHEMA and value.get("operation_id") == self.operation_id
+                    and value.get("binding_sha256") == binding and value.get("context") == context
+                    and value.get("day_utc") == day):
+                ends.append(value)
+        return sorted(ends, key=lambda value: value["ended_at_utc"])
+
+    def _end_readback(self, request, cause, context):
+        """CC-683: one row per issued read-back that could not run, naming its cause.
+
+        The evening check reads it like a return: result.request_sha256 is the issued request.
+        """
+        key = "native-neo-readback-end-" + sha256_of([self.operation_id, request["request_sha256"]])
+        existing = self.store.get_outbox_message(key)
+        if existing:
+            return json.loads(existing["payload"])
+        now = self.clock().astimezone(timezone.utc)
+        tries = len(self._readback_ends(request, context)) + 1
+        final = tries >= READBACK_TRIES_PER_DAY or cause == READBACK_NO_ROUTE
+        value = {"schema_version": READBACK_END_SCHEMA, "operation_id": self.operation_id,
+                 "binding_sha256": readback_binding(request), "context": context,
+                 "day_utc": now.date().isoformat(), "ended_at_utc": now.isoformat(),
+                 "destination": request.get("destination"), "action": "READBACK",
+                 "result": {"request_sha256": request["request_sha256"], "status": READBACK_ENDED,
+                            "reason_code": cause, "readback_try": tries,
+                            "next_try": ("NEXT_UTC_DAY_OR_CHANGED_CAUSE" if final else
+                                         "AFTER_" + (now + READBACK_RETRY_AFTER).isoformat())}}
+        self.store.register_outbox_message(message_id=key, work_item_id=request["work_item_id"],
+            destination=DESTINATION, payload=canonical_bytes(value).decode(), status=READBACK_END_STATUS)
+        return value
 
     def readiness(self, surface):
         from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
