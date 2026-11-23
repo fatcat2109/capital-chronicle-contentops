@@ -77,9 +77,28 @@ def jim_pause_window(*, live=None):
         restored = json.loads(JIM_PAUSE_RECORD.read_text(encoding="utf-8-sig"))
         return JIM_PAUSE_START, posts._utc(restored["started_at_utc"])
     except FileNotFoundError:
-        return JIM_PAUSE_START, datetime.max.replace(tzinfo=timezone.utc)
+        return JIM_PAUSE_START, OPEN_PAUSE_END
     except (OSError, ValueError, KeyError, TypeError):
         return JIM_PAUSE_START, JIM_PAUSE_END
+
+
+OPEN_PAUSE_END = datetime.max.replace(tzinfo=timezone.utc)
+
+
+def inside_jim_pause(at_utc, now, window):
+    """A result that ended inside the pause stays off the feed (the pinned scorecard shows it).
+
+    Audit of 23 Nov 2026: if the minute job runs again while the restore record is absent (a restore that
+    stopped after enabling the tasks, or tasks enabled by hand), the window never closed and every later
+    result was skipped for good. A job that is running has resumed posting: once the earliest resume
+    (JIM_PAUSE_END) has passed, a result that ended within the posting window of this run is fresh news.
+    """
+    start, end = window
+    at = posts._utc(at_utc)
+    if not start <= at < end:
+        return False
+    fresh = 0 <= (now - at).total_seconds() <= posts.FRESHNESS_MINUTES * 60
+    return not (end == OPEN_PAUSE_END and at >= JIM_PAUSE_END and fresh)
 
 
 def plan_dates(start_utc, end_utc):
@@ -738,7 +757,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     confirmed_fills = {json.loads(r["payload"]).get("plan_id"): r["message_id"] for r in existing_rows
                       if json.loads(r["payload"]).get("state") in {"TRIGGERED", "FILLED"}
                       and r["status"] in {"PUBLISHING", "PUBLISHED"}}
-    pause_start, pause_end = jim_pause_window()
+    pause = jim_pause_window()
     for row in sorted(source_rows + outcomes, key=lambda r: posts._utc(r["at_utc"])):
         pid = row["plan_id"]
         if queue_clock is not None and pid in sources and row["to"] == "WAITING":
@@ -753,7 +772,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 _refresh_unissued_no_entry_result(store, prior[row["key"]], row, source_for)
             already.append(row["key"])
             continue
-        if row["to"] == "RESULT" and pause_start <= posts._utc(row["at_utc"]) < pause_end:
+        if row["to"] == "RESULT" and inside_jim_pause(row["at_utc"], now, pause):
             skipped.append({"key": row["key"], "cause": "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD"})
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":
@@ -776,6 +795,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item = payload(row, kind)
         if kind == "result":
             item.update({k: v for k, v in row.items() if k not in {"key", "plan_id", "symbol", "to", "at_utc", "kind"}})
+            # A dated result (a correction, or one queued at a relaunch) counts its 24-hour attempt limit from now.
+            item["result_queued_at_utc"] = now.isoformat().replace("+00:00", "Z")
         item.update(parent_key=card["key"], card_key=card["key"], run_key=card.get("run_key"))
         # Later posts preserve the exact card's public identity, rather than a
         # newly supplied alias or revised short id.
@@ -981,6 +1002,11 @@ def settle_pending(store, outbox, row, *, now, root=None, image_cause=None):
     """
     settled = settled_destinations(store, row)
     age = posts._age_minutes(row, now)
+    if row.get("kind") == "result" and row.get("result_queued_at_utc"):
+        # Audit of 23 Nov 2026: a dated result (a correction, or a result queued at a relaunch) reached
+        # Telegram and Discord in the immediate pass, then its other destinations were closed in the same
+        # minute because its ending was older than 24 hours. The attempt's age starts when it was queued.
+        age = min(age, (now - posts._utc(row["result_queued_at_utc"])).total_seconds() / 60)
     # Dated results remain owed (the publication freshness contract). CC-515
     # still closes an attempted PUBLISHING row after 24 hours and dead parents.
     late = age > posts.LATE_STATE_HOURS * 60 and not (row.get("kind") == "result" and outbox["status"] == posts.READY)
@@ -1258,10 +1284,12 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         thread_link = f"\n\nPlan thread: <{discord_channel_reply['thread_url']}>"
         limits["discord"] -= len(thread_link)
     layers = None
+    cases = 0
     if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
-        from .plan_state_alerts_v1 import analysis_lines, nine_layer_parts
+        from .plan_state_alerts_v1 import analysis_lines, nine_layer_parts, scenario_case_count
 
         layers = analysis_lines(row)
+        cases = scenario_case_count(row, layers)
         if row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
             # CC-682: the result leads the body (plan_state_alerts_v1.compose), so it opens the first object too.
             layers = [row["text"].splitlines()[0], *layers]
@@ -1274,7 +1302,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         if layers is not None:
             body, notices = posts._split(text)
             layer_parts = nine_layer_parts(layers, body, notices, destination=destination,
-                                           limit=limits[destination], reply_limit=reply_limits[destination])
+                                           limit=limits[destination], reply_limit=reply_limits[destination],
+                                           cases=cases, whole_lines=row.get("scenario_voice") == voice.CONTRACT)
         if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
