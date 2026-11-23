@@ -25,7 +25,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
 from live_contentops.agy_decision_metrics_v1 import daily_metrics
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
-from live_contentops.public_decision_checks_v1 import DecisionChecks, clock, public_link, wrap_kind
+from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
 
 LOCAL = timezone(timedelta(hours=7))
@@ -954,6 +954,7 @@ def _plan_delivery(conn, window, store_path):
 
 def _review_manual_plan_posts(checks, read_public):
     from .manual_desk_v1 import posted_state
+    from .public_decision_checks_v1 import clock
 
     automatic = {(copy.piece, copy.platform, copy.url) for copy in checks.copies if copy.confirmed}
     seen = set()
