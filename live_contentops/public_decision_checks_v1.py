@@ -19,7 +19,25 @@ from .x_reply_trading_dates_v1 import trading_date
 WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_page",
                "instagram_business", "threads", "linkedin", "linkedin_company", "x")
 DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83", "CC-732",
-             "157", "158")
+             "157", "158", "CC-729", "CC-768")
+# Statuses that never count as a failure or an unverified check. BEFORE_POLICY: the copy was frozen before
+# the decision it breaks took effect. EXPECTED: a named, deliberate non-send (Jim posts that route by hand,
+# or a later plan state replaced the copy). PAUSED: Jim's posting pause held it.
+NOT_COUNTED = ("FLAGGED", "BEFORE_POLICY", "EXPECTED", "PAUSED")
+# Jim, 23 Nov 03:04 GMT+7: X, Substack Notes and the LinkedIn company page are his by hand, suspended in
+# suspended_routes.json from 22 Nov 20:31Z (23 Nov 03:31 GMT+7; BACKLOG CC-731 and CC-748 lines).
+HAND_POSTING_FROM = {"JIM_POSTS_BY_HAND_20261123": datetime(2026, 11, 22, 20, 31, tzinfo=timezone.utc)}
+# Telegram, Facebook, Instagram and Threads serve a re-encoded, downscaled JPEG of the upload. On 23 Nov the
+# public Telegram 229 image (sha 6abae0f1..., 800x450) was the exact chart uploaded (1600x900), yet the pixel
+# rule read rms 7.8 / worst tile 19.9 and recorded MISMATCH. Exact or pixel MATCH still passes on these routes.
+RECOMPRESSED_IMAGE_ROUTES = frozenset({"telegram", "facebook_page", "instagram_business", "threads"})
+PAUSE_RECORD_GLOB = "control/pause-*/manifest.json"
+ABSENCE_CAUSES = frozenset({
+    "WRAP_PLATFORM_MISSING", "WRAP_PUBLISHED_LATE", "WRAP_PUBLICATION_TIME_UNVERIFIED",
+    "PLAN_COPY_UNCONFIRMED", "PLAN_COPY_OVER_TEN_MINUTES_LATE", "BROKER_PLAN_FIRST_POST_MISSING",
+    "LINKEDIN_ACCOUNT_COPY_MISSING", "DISCORD_FILL_OR_RESULT_CHANNEL_COPY_MISSING",
+})
+_MONTH_DATE = re.compile(r"\b\d{1,2}(?:\s*[-–]\s*\d{1,2})?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b")
 PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
 PLAN_FILL_STATES = {"TRIGGERED", "FILLED"}
 PLAN_POST_KINDS = {"setup", "update", "result"}
@@ -90,7 +108,9 @@ _POLICY_TARGET = re.compile(
     r"\b(?:inflation|employment|unemployment|deficit|fed funds|policy rate|interest rate|yield"
     r"|(?:fed|ecb|boj|boe|central bank)'s)"
     r"(?:\s+rate)?\s+$", re.I)
-_POSITION_WORD = re.compile(r"\b(?:long|short|buy|sell)\b(?![ -]term\b)", re.I)
+# "Net long", "net short", "short covering" and "short interest" report positioning data, not the desk's call.
+_POSITION_WORD = re.compile(
+    r"(?<!net )(?<!net-)\b(?:long|short|buy|sell)\b(?![ -](?:term|covering|squeeze|interest)\b)", re.I)
 _SCENARIO_FORCES = tuple(re.compile(pattern, re.I) for pattern in (
     r"\bmacro(?:economic)?\b", r"\bfundamentals?\b", r"\b(?:sentiment|positioning)\b",
     r"\b(?:priced[ -]in|priced\s+into|pricing\s+in)\b",
@@ -98,13 +118,16 @@ _SCENARIO_FORCES = tuple(re.compile(pattern, re.I) for pattern in (
 _ENTRY_LEVEL = re.compile(
     rf"\b(?:(?:buy|entry|sell|accumulation)[ -]+(?:zone|range|band|area)(?:\s+is)?\s*[:=]?\s*"
     rf"(?:between\s+|around\s+|near\s+|at\s+)?|(?:bullish|bearish)\s+(?:(?:at|around|below|above)\s+)?|"
-    rf"(?:trades?|returns?|moves?|holds?|breaks?)\s+(?:into|between|above|below)\s+){_PRICE}"
+    rf"(?:trades?|returns?|moves?|holds?|breaks?)\s+(?:into|between|above|below|through)\s+){_PRICE}"
     rf"|{_PRICE}(?:\s*[-–—]\s*{_PRICE})?\s+(?:entry|buy\s+zone)\b", re.I)
+# The plan's own cancel line ("Cancel if spot price trades at or above 3,609 before entry", "plan cancelled
+# on high at or above 68,450") is its invalidation level.
 _INVALIDATION_LEVEL = re.compile(
     rf"\b(?:invalidation(?:\s+level)?|(?:plan\s+)?wrong|invalid(?:ated)?|"
     rf"(?:cancel|stop)[ -](?:level|loss))\s*[:=]?\s*"
     rf"(?:if\s+)?(?:the\s+)?(?:price\s+(?:moves?\s+)?)?(?:(?:is|at|above|below|under|over)\s+)?"
-    rf"{_PRICE}|{_PRICE}\s+invalidation\b", re.I)
+    rf"{_PRICE}|{_PRICE}\s+invalidation\b"
+    rf"|\bcancel(?:led|s)?\b[^.\n]{{0,60}}?\b(?:above|below|under|over)\s+{_PRICE}", re.I)
 SCENARIO_REVIEW_RULES = (
     "SCENARIO_CASES_MISSING", "POSITION_WORDS_REPEATED", "SCENARIO_FORCES_TOO_FEW",
     "ENTRY_ZONE_MISSING", "INVALIDATION_LEVEL_MISSING",
@@ -133,6 +156,38 @@ def plan_scenario_flags(text):
         _INVALIDATION_LEVEL.search(plain),
     )
     return tuple(rule for rule, passed in zip(SCENARIO_REVIEW_RULES, checks) if not passed)
+
+
+def notice_counts(text):
+    """How often one public copy prints decision 40's analysis notice and its conflicts notice (CC-729)."""
+    from .event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
+
+    body = normalized(text or "")
+    return {"analysis_notice": body.count(normalized(PUBLIC_NOTICE)),
+            "conflicts_notice": body.count(normalized(CONFLICTS_NOTICE))}
+
+
+def pause_windows(runtime):
+    """Jim's posting pauses as (start, end or None, cause), read from the pause records under the runtime.
+
+    The pause starts when the routes were suspended (manifest paused_at_utc) and ends when the restore wrote
+    restored.json (its started_at_utc). No restored.json means the pause still holds.
+    """
+    windows = []
+    for path in sorted(Path(runtime).glob(PAUSE_RECORD_GLOB)):
+        record = object_json(path)
+        start = clock(record.get("paused_at_utc"))
+        cause = record.get("cause")
+        if not start or not (isinstance(cause, str) and LAYER_CAUSE.fullmatch(cause)):
+            continue
+        end = None
+        if path.with_name("restored.json").exists():
+            restored = object_json(path.with_name("restored.json"))
+            # An unreadable restore record falls back to the planned resume time.
+            end = (clock(restored.get("started_at_utc")) or clock(restored.get("ended_at_utc"))
+                   or clock(record.get("resume_at_utc")))
+        windows.append((start, end, cause))
+    return windows
 
 
 def clock(value):
@@ -475,9 +530,15 @@ class PublicCopy:
 
     def bound_reply_texts(self):
         # Some verified receipts retained the match flag, but no observed text.
-        if (self.verified_at and not self.verified_thread()
-                and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+        if self.verified_thread():
+            return []
+        matched = (self.proof.get("content_binding_checks") or {}).get("thread_match")
+        if self.verified_at and matched is True:
             return self.native.get("reply_texts") or []
+        # A Threads or X readback that verified only the root still sent the frozen replies in the same
+        # confirmed dispatch (the Threads splitter's second notice and the X target reply live there).
+        if matched is None and self.confirmed and self.row.get("status") == "DISPATCH_CONFIRMED":
+            return [text for text in self.native.get("reply_texts") or [] if isinstance(text, str)]
         return []
 
     def reply_parent(self):
@@ -522,6 +583,19 @@ class DecisionChecks:
         self.plan_analysis = []
         self.chart_readbacks = []
         self.chart_replies = {}
+        self.pauses = pause_windows(self.runtime)
+        self.posted = []
+
+    def paused_at(self, at):
+        """The cause of Jim's posting pause holding at this moment, or None."""
+        if at is None:
+            return None
+        return next((cause for start, end, cause in self.pauses if start <= at and (end is None or at < end)), None)
+
+    def paused_through_window(self):
+        """The pause cause when Jim's pause holds for the whole report window, or None."""
+        return next((cause for start, end, cause in self.pauses
+                     if start <= self.start and (end is None or end >= self.end)), None)
 
     def add(self, piece, platform, url, title, text, intent, row, history, source):
         copy = PublicCopy(piece, platform, url, title, text, intent, row, history, source, self.end)
@@ -529,8 +603,17 @@ class DecisionChecks:
         return copy
 
     def issue(self, decision, piece, platform, cause, *, url=None, evidence=None,
-              status="FAIL", **details):
+              status="FAIL", held_at=None, **details):
         key = (decision, piece, platform, cause, url, details.get("public_object_id"))
+        if cause in ABSENCE_CAUSES and status in {"FAIL", "UNVERIFIED"} and (pause := self.paused_at(held_at)):
+            # A copy due while Jim's pause held every route is the pause's result, not a delivery failure.
+            status, details = "PAUSED", {**details, "pause_cause": pause, "due_at_utc": held_at.isoformat()}
+        elif (cause in ABSENCE_CAUSES and status == "FAIL" and held_at and held_at <= self.start
+              and (pause := self.paused_through_window())):
+            # An older unresolved copy, already reported on the day it fell due. Its owners are stopped for
+            # the whole window, so it cannot change today: carried over, not a new failure of a paused day.
+            status, details = "PAUSED", {**details, "pause_cause": pause, "carried_over": True,
+                                         "due_at_utc": held_at.isoformat()}
         if key not in self.seen:
             self.seen.add(key)
             self.issues.append({"decision": decision, "piece_id": piece, "platform": platform,
@@ -596,9 +679,24 @@ class DecisionChecks:
                 cause = "WRAP_PUBLISHED_LATE" if all(copy.published_at for copy in confirmed) else "WRAP_PUBLICATION_TIME_UNVERIFIED"
             else:
                 cause = "WRAP_PLATFORM_MISSING"
-            self.issue("98", label, platform, cause, url=picked.url if picked else None,
-                       status="UNVERIFIED" if cause.endswith("_UNVERIFIED") else "FAIL",
-                       deadline_utc=deadline.isoformat())
+            hand = self._hand_posted(platform, deadline)
+            self.issue("98", label, platform, "WRAP_PLATFORM_HANDED_TO_JIM" if hand and not confirmed else cause,
+                       url=picked.url if picked else None,
+                       status="EXPECTED" if hand and not confirmed else
+                       "UNVERIFIED" if cause.endswith("_UNVERIFIED") else "FAIL",
+                       deadline_utc=deadline.isoformat(), held_at=deadline,
+                       **({"hand_cause": hand} if hand else {}))
+
+    def _hand_posted(self, platform, at):
+        """Jim's hand-posting cause for this route at this moment, from the suspension he set (CC-731)."""
+        routes = object_json(self.runtime / "control" / "suspended_routes.json")
+        for path in sorted(self.runtime.glob("control/pause-*/suspended_routes_before.json")):
+            # During a pause every route carries the pause cause; the hand routes are in the saved file.
+            routes = {**object_json(path), **{key: value for key, value in routes.items()
+                                              if value in HAND_POSTING_FROM}}
+        cause = routes.get(platform)
+        start = HAND_POSTING_FROM.get(cause)
+        return cause if start and at and at >= start else None
 
     def _current_layers(self, copy, text):
         from .plan_reader_copy_v1 import PLAN_LAYER_ORDER
@@ -645,31 +743,91 @@ class DecisionChecks:
             *(item.root_text() for item in continuations),
         )))
 
-    def review_manual_plan_copy(self, piece, platform, url, read_public):
-        copy = PublicCopy(piece, platform, url, "", "", {}, {}, [], {}, self.end, manual_posted=True)
+    def review_manual_plan_copy(self, piece, platform, url, read_public, posted_at=None):
+        # Jim's Posted mark is the copy's public clock (decision 157 binds from 22 Nov 22:30Z).
+        row = {"dispatched_at": posted_at} if posted_at else {}
+        copy = PublicCopy(piece, platform, url, "", "", {}, row, [], {}, self.end, manual_posted=True)
         read_public(platform, url, decision_copy=copy)
         text = copy.root_text()
         self._plan_target(copy, text)
         self._scenario_voice(copy, text)
 
+    def _frozen_at(self, copy):
+        """When the copy's text was frozen: its plan row's creation, else its own first public clock."""
+        return (clock(copy.source.get("decision_source_created_at_utc"))
+                or copy.published_at or copy.dispatched_at or clock(copy.row.get("created_at")))
+
+    def _target_policy(self, copy):
+        """Decision 157 binds rows marked DECISION_40_NO_TARGET and any copy frozen from 22 Nov 22:30Z."""
+        from .plan_call_cards_v1 import NO_TARGET_EFFECTIVE, NO_TARGET_POLICY
+
+        if copy.source.get("target_policy") == NO_TARGET_POLICY:
+            return True
+        frozen = self._frozen_at(copy)
+        return bool(frozen and frozen >= NO_TARGET_EFFECTIVE) or (frozen is None and self.end >= NO_TARGET_EFFECTIVE
+                                                                     and copy.manual_posted)
+
     def _plan_target(self, copy, text):
         details = {"public_object_id": copy.row.get("public_object_id")}
-        if plan_target_present(text):
+        if plan_target_present(text) and not self._target_policy(copy):
+            # Frozen before Jim's "Keep targets off" took effect: listed, never a decision 157 failure.
+            self.check("157", copy, "PUBLIC_PLAN_TARGET_PRESENT", status="BEFORE_POLICY", **details)
+        elif plan_target_present(text):
             self.check("157", copy, "PUBLIC_PLAN_TARGET_PRESENT", **details)
         elif not text.strip():
             self.check("157", copy, "PLAN_COPY_TEXT_UNAVAILABLE", status="UNVERIFIED", **details)
         else:
             self.check("157", copy)
 
-    def _scenario_voice(self, copy, text):
+    def _scenario_voice(self, copy, text, *, rules=SCENARIO_REVIEW_RULES):
         details = {"public_object_id": copy.row.get("public_object_id")}
         if not text.strip():
             self.check("158", copy, "PLAN_COPY_TEXT_UNAVAILABLE", status="UNVERIFIED", **details)
             return
         self.check("158", copy)
-        for flag in plan_scenario_flags(text):
+        for flag in (flag for flag in plan_scenario_flags(text) if flag in rules):
             self.issue("158", copy.piece, copy.platform, flag, url=copy.url,
                        evidence=copy.evidence, status="FLAGGED", **details)
+
+    def _notices(self, copy, text):
+        """CC-729: one platform copy (its root, thread replies and parts) prints each notice once."""
+        details = {"public_object_id": copy.row.get("public_object_id")}
+        if not text.strip():
+            self.check("CC-729", copy, "PLAN_COPY_TEXT_UNAVAILABLE", status="UNVERIFIED", **details)
+            return
+        counts = notice_counts(text)
+        repeated = {name: count for name, count in counts.items() if count > 1}
+        self.check("CC-729", copy, "PUBLIC_NOTICE_REPEATED" if repeated else None,
+                   **({"notice_counts": counts, **details} if repeated else {}))
+
+    def _result_frame(self, copy, text, *, correction):
+        """CC-768: a result queued from 23 Nov 04:00Z names its plan's dates; a corrected outcome says so."""
+        from .plan_call_cards_v1 import RESULT_FRAME_EFFECTIVE
+
+        details = {"public_object_id": copy.row.get("public_object_id")}
+        frame = copy.source.get("result_frame")
+        plain = normalized(re.sub(r"\*\*|__", "", text))
+        frozen = self._frozen_at(copy)
+        if not text.strip():
+            if frame or correction or (frozen and frozen >= RESULT_FRAME_EFFECTIVE):
+                self.check("CC-768", copy, "PLAN_COPY_TEXT_UNAVAILABLE", status="UNVERIFIED", **details)
+            return
+        if isinstance(frame, dict) and frame.get("plan_dates"):
+            missing = [part for part, present in (
+                ("plan_dates", normalized(frame["plan_dates"]) in plain),
+                ("correction_label", not frame.get("correction") or "correction to the" in plain),
+            ) if not present]
+            self.check("CC-768", copy, "RESULT_FRAME_NOT_PRINTED" if missing else None,
+                       **({"missing": missing, "plan_dates": frame["plan_dates"], **details} if missing else {}))
+        elif correction:
+            # A correction names what it corrects and the plan's dates.
+            labelled = re.search(r"\bcorrect(?:ion|ed|s)\b|\bnote on\b", plain)
+            missing = [part for part, present in (("correction_label", bool(labelled)),
+                                                  ("plan_dates", bool(_MONTH_DATE.search(text)))) if not present]
+            self.check("CC-768", copy, "CORRECTION_DATES_OR_LABEL_MISSING" if missing else None,
+                       **({"missing": missing, **details} if missing else {}))
+        elif frozen and frozen >= RESULT_FRAME_EFFECTIVE:
+            self.check("CC-768", copy, "RESULT_FRAME_MISSING", **details)
 
     def _analysis(self, copy, analysis_urls, parts, replies):
         from .plan_reader_copy_v1 import NINE_LAYER_COPY
@@ -685,7 +843,10 @@ class DecisionChecks:
                    else value for key, value in missing.items()}
         current = copy.source.get("analysis_copy_contract") == NINE_LAYER_COPY
         layers = self._current_layers(copy, text) if current else plan_layer_checks(text, source, missing)
-        has_link = copy.has_link(canonical, replies)
+        # The page is often confirmed after the post; its dedicated link reply then lands under the post,
+        # sometimes after an update reply. That reply is the post's analysis link wherever it sits.
+        has_link = copy.has_link(canonical, replies) or any(
+            reply.intent.get("plan_analysis_link") and reply.has_link(canonical) for reply in replies)
         self.plan_analysis.append({"piece_id": copy.piece, "platform": copy.platform, "public_url": copy.url,
                                    "evidence": copy.evidence, "layers": layers, "full_analysis_link": has_link})
         gaps = {key: item["cause"] for key, item in layers.items() if item["state"] == "MISSING"}
@@ -740,6 +901,13 @@ class DecisionChecks:
         market = market.upper() if isinstance(market, str) else None
         expected = SYMBOLS.get(market)
         chart, reply = report_copy(copy, self.runtime, market, expected)
+        if (chart is not None and chart["first_cause"] == "POSTED_CHART_MISMATCH"
+                and copy.platform in RECOMPRESSED_IMAGE_ROUTES
+                and (not expected or all(asset.get("tradingview_symbol") in ("", expected) for asset in chart["assets"]))):
+            # The platform re-encodes the upload; the stored pixel rule cannot tell that from a wrong chart.
+            # Never send a "here is the chart" correction on that evidence alone.
+            chart = {**chart, "status": "UNVERIFIED", "first_cause": "POSTED_CHART_RECOMPRESSED_UNVERIFIED"}
+            reply = None
         assets = copy.media(self.runtime) if market else []
         chart_causes = sorted({cause for asset in assets if (cause :=
             (asset.get("plan_chart_fallback") or {}).get("cause")
@@ -789,15 +957,25 @@ class DecisionChecks:
             source_lag = delivered - source if source and delivered else None
             waited = copy["behind_over_ten_minutes"] or bool(source and self.end - source > PLAN_DELIVERY_LIMIT)
             late = copy["behind_over_ten_minutes"] or bool(source_lag and source_lag > PLAN_DELIVERY_LIMIT)
+            status = "FAIL"
             if copy["confirmed"]:
                 if not late:
                     continue
                 cause = "PLAN_COPY_OVER_TEN_MINUTES_LATE"
             elif waited or copy.get("x_ready_over_five_minutes"):
                 cause = "PLAN_COPY_UNCONFIRMED"
+                delivery_cause = str(copy.get("first_cause") or "")
+                if delivery_cause in HAND_POSTING_FROM:
+                    # A route Jim posts by hand is expected to have no automated copy (CC-731, 23 Nov).
+                    status, cause = "EXPECTED", "PLAN_COPY_HANDED_TO_JIM"
+                elif copy.get("status") == "SUPERSEDED_NOT_POSTED":
+                    # The composer replaced this state with a later one (filled or cancelled) by design.
+                    status, cause = "EXPECTED", "PLAN_COPY_SUPERSEDED_BY_LATER_STATE"
             else:
                 continue
+            due = source + PLAN_DELIVERY_LIMIT if source else self.end
             self.issue("CC-672", copy["plan_post"], copy["platform"], cause, url=copy["public_url"],
+                       status=status, held_at=due,
                        delivery_cause=copy.get("first_cause"), delivery_state=copy["status"],
                        retry_failure_cause=copy.get("retry_failure_cause"),
                        unresolved_write_age_seconds=copy.get("unresolved_write_age_seconds"),
@@ -849,6 +1027,7 @@ class DecisionChecks:
             self.counts["CC-672"] += 1
             if plan["plan_id"] not in announced:
                 self.issue("CC-672", plan["plan_id"], "all", "BROKER_PLAN_FIRST_POST_MISSING",
+                           held_at=registered + PLAN_DELIVERY_LIMIT,
                            evidence="main_public_plan_export", broker_evidence=basis,
                            market=plan["asset_id"], plan_status=state,
                            registered_at_utc=registered.isoformat(), observed_at_utc=observed.isoformat(),
@@ -871,11 +1050,18 @@ class DecisionChecks:
         by_platform = defaultdict(list)
         for copy in copies:
             by_platform[copy.platform].append(copy)
+        first = min((at for copy in copies for at in (copy.published_at, copy.dispatched_at, copy.verified_at)
+                     if at), default=None)
+        due = first + PLAN_DELIVERY_LIMIT if first else None
         for platform in ("linkedin", "linkedin_company"):
             available = [copy for copy in by_platform[platform] if copy.confirmed]
             if not available:
                 self.counts["CC-684"] += 1
-                self.issue("CC-684", piece, platform, "LINKEDIN_ACCOUNT_COPY_MISSING")
+                if hand := self._hand_posted(platform, due):
+                    self.issue("CC-684", piece, platform, "LINKEDIN_COPY_HANDED_TO_JIM", status="EXPECTED",
+                               hand_cause=hand)
+                else:
+                    self.issue("CC-684", piece, platform, "LINKEDIN_ACCOUNT_COPY_MISSING", held_at=due)
             for copy in available:
                 self.check("CC-684", copy, "LINKEDIN_SUBSTACK_LINK_MISSING"
                            if not copy.has_link(canonical) else None)
@@ -1000,15 +1186,23 @@ class DecisionChecks:
                 copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
             plan_part = plan_post and bool(copy.intent.get("plan_status_part")) and not channel_copy
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
-            correction = source.get("kind") == "correction"
+            correction = source.get("kind") == "correction" or copy.piece.startswith("correction-")
+            self.posted.append(copy)
+            if (plan_post and not plan_part) or correction:
+                self._notices(copy, self._plan_copy_body(copy, chain))
+                if source.get("kind") == "result" or correction:
+                    self._result_frame(copy, self._plan_copy_body(copy, chain), correction=correction)
             if plan_post or plan_page or correction:
                 body = self._plan_copy_body(copy)
                 # A continuation is a public object with its own target check. Use
                 # the whole platform copy for the scenario review below.
                 target_text = f"{copy.title}\n{body}" if body and copy.public_text is None else body
                 self._plan_target(copy, target_text)
-                if plan_page or correction:
+                if plan_page:
                     self._scenario_voice(copy, body)
+                elif correction:
+                    # A correction note is no plan call: no cases, zone or invalidation to look for.
+                    self._scenario_voice(copy, body, rules=("POSITION_WORDS_REPEATED",))
             if plan_post and not plan_part:
                 key = source.get("key") or copy.piece
                 if key not in counted_gaps:
@@ -1041,7 +1235,10 @@ class DecisionChecks:
                 groups[source.get("key") or copy.piece].append(copy)
         for piece in sorted(fills_and_results - discord.keys()):
             self.counts["CC-685"] += 1
-            self.issue("CC-685", piece, "discord", "DISCORD_FILL_OR_RESULT_CHANNEL_COPY_MISSING")
+            first = min((at for copy in self.posted if (copy.source.get("key") or copy.piece) == piece
+                         for at in (copy.published_at, copy.dispatched_at, copy.verified_at) if at), default=None)
+            self.issue("CC-685", piece, "discord", "DISCORD_FILL_OR_RESULT_CHANNEL_COPY_MISSING",
+                       held_at=first + PLAN_DELIVERY_LIMIT if first else None)
         for piece, copies in groups.items():
             first = copies[0]
             canonical = (analysis_urls.get(first.source.get("plan_id"))
@@ -1064,12 +1261,15 @@ class DecisionChecks:
                       for rule in SCENARIO_REVIEW_RULES],
         }
         return {"schema_version": "contentops.decision_checks.v1", "window": self.window,
+                "pause": self.pause_summary(issues),
                 "scenario_voice": scenario_voice,
                 "plan_analysis": sorted(self.plan_analysis, key=lambda row: (
                     row["piece_id"], row["platform"], row["public_url"] or "")),
                 "checks": [{"decision": decision, "checked": self.counts[decision],
                             "failed": sum(row["decision"] == decision and row["status"] == "FAIL" for row in issues),
-                            "unverified": sum(row["decision"] == decision and row["status"] == "UNVERIFIED" for row in issues)}
+                            "unverified": sum(row["decision"] == decision and row["status"] == "UNVERIFIED" for row in issues),
+                            **{status.lower(): count for status in NOT_COUNTED[1:] if (count := sum(
+                                row["decision"] == decision and row["status"] == status for row in issues))}}
                            for decision in DECISIONS],
                 "failure_count": sum(row["status"] == "FAIL" for row in issues),
                 "unverified_count": sum(row["status"] == "UNVERIFIED" for row in issues),
@@ -1078,6 +1278,24 @@ class DecisionChecks:
                 "posted_chart_readbacks": self.chart_readbacks,
                 "chart_correction_replies": list(self.chart_replies.values()),
                 "issues": issues}
+
+    def pause_summary(self, issues):
+        """None when no posting pause touches the window; otherwise its cause, clocks and what it held.
+
+        PAUSED: no public copy went out in the window, so the day reports the pause, not failures.
+        PARTLY_PAUSED: copies went out before or after the pause; only copies due inside it are held.
+        """
+        overlapping = [(start, end, cause) for start, end, cause in self.pauses
+                       if start < self.end and (end is None or end > self.start)]
+        if not overlapping:
+            return None
+        start, end, cause = overlapping[-1]
+        published = sum(1 for copy in self.posted if any(
+            at and self.start < at <= self.end for at in (copy.published_at, copy.dispatched_at)))
+        return {"state": "PARTLY_PAUSED" if published else "PAUSED", "cause": cause,
+                "paused_at_utc": start.isoformat(), "restored_at_utc": end.isoformat() if end else None,
+                "public_copies_in_window": published,
+                "held_checks": sum(row["status"] == "PAUSED" for row in issues)}
 
     def estimated_jobs(self, delivery):
         new_plans = {copy.source.get("plan_id") for copy in self.copies

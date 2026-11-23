@@ -76,7 +76,7 @@ def test_plan_quotes_exact_link_chart_discord_and_linkedin_are_checked_per_copy(
 def test_plan_target_and_voice_use_each_platform_and_the_bound_continuation(tmp_path):
     audit = checks(tmp_path)
     piece = "plan-status-post-gold"
-    source = {"kind": "setup", "key": piece, "symbol": "XAUUSD"}
+    source = {"kind": "setup", "key": piece, "symbol": "XAUUSD", "target_policy": "DECISION_40_NO_TARGET"}
     base = "Base case (55%): Gold steadies.\nMacro: Yields eased.\nFundamentals: ETF demand held."
     levels = "Entry zone: 3,954–3,964. Plan wrong below 3,904."
     good = f"{base}\nBull case: Gold rallies if yields fall further.\n{levels}"
