@@ -481,8 +481,9 @@ def test_instagram_publishes_and_reads_back_the_native_chart_and_table(tmp_path,
         calls.append(("publish", caption, images))
         return {"status": "SUCCESS", "id": "carousel-id"}
 
-    def read(*, media_id, expected_images, expected_caption):
-        assert media_id == "carousel-id"
+    def read(*, media_id, expected_images, expected_caption, observe_images=False):
+        # cc585388 (CC-681, 22 Nov): every readback also observes the posted images.
+        assert media_id == "carousel-id" and observe_images is True
         calls.append(("readback", expected_caption, expected_images))
         return {"status": "SUCCESS", "verified": True, "public_object_id": media_id,
                 "public_url": "https://www.instagram.com/p/carousel"}

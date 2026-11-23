@@ -70,12 +70,22 @@ def test_new_webhook_only_cards_confirm_through_coordinator_and_keep_their_route
     assert len(runtime.intents) == before
 
 
+class _NoHeldRow:
+    """6ca6f4d8 (CC-584, 14 Nov) made validate_parent_intent run the shared freshness rule,
+    which reads the held outbox row; a row that was never held reads as None."""
+
+    def get_outbox_message(self, key):
+        return None
+
+
 def test_channel_route_refuses_a_substituted_thread_or_reply():
-    row = {"kind": "update", "parent_key": "our-card", "discord_delivery": "channel"}
+    # CC-584 (6ca6f4d8): the freshness rule needs the row's key and clock; a format-4 update stays owed.
+    row = {"kind": "update", "key": "our-update", "format": 4, "at_utc": NOW.isoformat(),
+           "parent_key": "our-card", "discord_delivery": "channel"}
     intent = {"destination_plan": {"destination": "discord"},
               "native_payload": {"discord_channel_post": True, "reply_to_id": "unrelated"}}
     with pytest.raises(posts.PlanPostError, match="DISCORD_CHANNEL_ROUTE_CHANGED"):
-        cards.validate_parent_intent(None, row, intent)
+        cards.validate_parent_intent(_NoHeldRow(), row, intent)
 
 
 def test_legacy_registered_cards_keep_exact_thread_parent(monkeypatch):
@@ -257,22 +267,25 @@ def test_expiry_omitted_from_post_events_does_not_revive_a_setup(five, main_root
 
 
 def test_frozen_copy_survives_a_formatter_change_but_changed_intents_and_private_copy_do_not(monkeypatch, tmp_path):
+    # CC-584: 6ca6f4d8 runs the freshness rule (held row, key and clock) before every write, and
+    # bed0c9c1 requires an image on every format-4 post (decision 82: the TradingView chart).
     row = {"format": 4, "kind": "update", "key": "frozen-update", "conditional_calls": [],
-           "text": "Gold: the call is active.\n\n" + cards.NOTICES}
+           "at_utc": NOW.isoformat(), "text": "Gold: the call is active.\n\n" + cards.NOTICES}
     native = {"full_text": row["text"]}
-    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media":{"assets":[]}}),encoding="utf-8")
+    chart = {"modality": "tradingview_chart_snapshot"}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media":{"assets":[chart]}}),encoding="utf-8")
     monkeypatch.setattr(posts, "_expected", lambda *a: (row, {"discord": native}))
     monkeypatch.setattr(cards, "compose", lambda *a: pytest.fail("frozen text must not be recomposed"))
     intent = {"plan_status_post": row["key"], "work_item_id": row["key"],
               "output_dir": str(tmp_path),
               "destination_plan": {"destination": "discord"}, "native_payload": dict(native)}
-    posts.validate_status_post_intent(None, intent)
+    posts.validate_status_post_intent(_NoHeldRow(), intent)
     with pytest.raises(posts.PlanPostError, match="INTENT_COPY_CHANGED"):
-        posts.validate_status_post_intent(None, {**intent, "native_payload": {"full_text": "Changed copy"}})
+        posts.validate_status_post_intent(_NoHeldRow(), {**intent, "native_payload": {"full_text": "Changed copy"}})
     row["text"] = "Positions we mention are model positions on a demo account.\n\n" + cards.NOTICES
     native["full_text"] = row["text"]
     with pytest.raises(ValueError, match="PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"):
-        posts.validate_status_post_intent(None, {**intent, "native_payload": dict(native)})
+        posts.validate_status_post_intent(_NoHeldRow(), {**intent, "native_payload": dict(native)})
 
 
 def _pending_update(tmp_path):
@@ -292,8 +305,9 @@ def test_ended_unstarted_fill_update_retires_before_preparation_without_changing
     before = store.get_outbox_message(row["key"])["payload"]
     monkeypatch.setattr(cards, "prepare_post", lambda *a, **kw: pytest.fail("an ended fill is not current news"))
     result = cards.publish_ready(store, now=NOW, latest_states={row["plan_id"]: "RESULT"}, root=tmp_path)
+    # bb09c3ed (CC-584) and 3df2d098 (CC-672) record each refused row's readbacks; an unstarted row has none.
     assert result["posts"] == [{"key": row["key"], "status": posts.SUPERSEDED,
-                                "cause": "PLAN_UPDATE_SUPERSEDED_BY_RESULT"}]
+                                "cause": "PLAN_UPDATE_SUPERSEDED_BY_RESULT", "readbacks": []}]
     assert store.get_outbox_message(row["key"])["payload"] == before
     assert store.get_outbox_message(row["key"])["status"] == posts.SUPERSEDED
 

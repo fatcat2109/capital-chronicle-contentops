@@ -323,6 +323,8 @@ console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
 ])
 @pytest.mark.parametrize("correct_author", [False,True])
 def test_linkedin_readback_binds_exact_activity_id_to_its_author(destination, entry, expected_id, correct_author):
+    # cc585388 (CC-681, 22 Nov) drops avatar and actor images with img.closest(...); every real DOM
+    # element has closest(), so the fake chart image now has one that finds no enclosing link or actor.
     import subprocess
     from pathlib import Path
     source=Path(endpoint.__file__).with_name('neo_endpoint_steps_v1.js')
@@ -333,7 +335,7 @@ global.location=new URL(entry);
 const body={innerText:'Our exact call. https://lnkd.in/bound',closest:()=>root};
 const author={href:correct?(member?'https://www.linkedin.com/in/jimcc/':'https://www.linkedin.com/company/capitalchronicle/'):'https://www.linkedin.com/company/other/',innerText:'Author'};
 const activity={href:'https://www.linkedin.com/analytics/post-summary/urn:li:activity:123/',innerText:'View analytics'};
-const img={getClientRects:()=>[{}],currentSrc:'https://media.licdn.com/chart-small',getAttribute:()=> 'https://media.licdn.com/chart-small 800w, https://media.licdn.com/chart-full 1400w'};
+const img={getClientRects:()=>[{}],closest:()=>null,currentSrc:'https://media.licdn.com/chart-small',getAttribute:()=> 'https://media.licdn.com/chart-small 800w, https://media.licdn.com/chart-full 1400w'};
 const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author,activity]:s==='img'?[img]:[]};
 global.document={querySelectorAll:s=>s.startsWith('main ')?[body]:[]};
 const page={evaluateInPage:async(fn,input)=>({value:fn(input)})};

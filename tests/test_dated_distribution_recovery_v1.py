@@ -63,8 +63,11 @@ def setup_recovery(tmp_path, monkeypatch):
             store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
                 status="DERIVATIVE_EXPIRED_STALE_NO_WRITE")
             store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=binding["run_id"], status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    # e0048b30 (CC-463, 11 Nov) put one image contract before every fresh write; it reads the run's
+    # media from this same reader, so the fake returns the media list as the real reader does.
     monkeypatch.setattr("live_contentops._eight_platform_substack_first_pipeline_impl_v1._durable_intent_inputs",
-        lambda intent: {"payloads": {intent["destination_plan"]["destination"]: {
+        lambda intent: {"media_assets": result["media_assets"],
+            "payloads": {intent["destination_plan"]["destination"]: {
             "text": "Controlled attributed brief. " + CANONICAL, "platform_limit": 2000,
             "media_asset_ids": [a["asset_id"] for a in result["media_assets"]]}}})
     recovery = build_dated_distribution_recovery(store, run_id=binding["run_id"], owner_authority_ref="human:CONTROLLED_APPROVAL")
@@ -179,10 +182,20 @@ def test_six_affected_viewports_are_required(tmp_path, monkeypatch):
         accepted_recovery(store, binding, result, recovery, tmp_path, missing_render=True)
 
 
-def test_wrong_model_cannot_accept_dated_recovery(tmp_path, monkeypatch):
+def _recorded_observation(store, binding, reference):
+    turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"],
+        owner_manual_validation=True)
+    return turn._get(reference["stage"], "response")["invocation_observation"]
+
+
+# 49dd59f4 (CC-403, 10 Nov) made validate_native_configuration record the actual model and effort
+# without vetoing the review (decision 60: labels never veto sourced work). The two tests below
+# asserted the old MODEL_MISMATCH / ROLE_EFFORT_MISMATCH refusals; they now check that the actual
+# values are kept verbatim (C5) and that accepting a review never sends anything by itself.
+def test_other_model_review_is_recorded_as_observed_without_a_send(tmp_path, monkeypatch):
     store, binding, result, _, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
-    with pytest.raises(ValueError, match="MODEL_MISMATCH|ACTUAL_SAME_SOL61_MAX"):
-        accepted_recovery(store, binding, result, recovery, tmp_path, model="gpt-6-luna")
+    reference = accepted_recovery(store, binding, result, recovery, tmp_path, model="gpt-6-luna")
+    assert _recorded_observation(store, binding, reference)["model"] == "gpt-6-luna"
     assert runtime.publish_calls == []
 
 
@@ -197,11 +210,12 @@ def test_dated_social_review_uses_current_max_run(tmp_path, monkeypatch):
     assert runtime.publish_calls == []
 
 
-def test_current_social_reviewer_still_requires_max(tmp_path, monkeypatch):
+def test_current_social_reviewer_effort_is_recorded_as_observed(tmp_path, monkeypatch):
     store, binding, result, _, runtime, recovery = setup_recovery(tmp_path, monkeypatch)
-    with pytest.raises(ValueError, match="NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH"):
-        accepted_recovery(store, binding, result, recovery, tmp_path,
-            reviewer="/root/current_run", effort="high")
+    reference = accepted_recovery(store, binding, result, recovery, tmp_path,
+        reviewer="/root/current_run", effort="high")
+    observed = _recorded_observation(store, binding, reference)
+    assert observed["invocation_id"] == "/root/current_run" and observed["reasoning_effort"] == "high"
     assert runtime.publish_calls == []
 
 

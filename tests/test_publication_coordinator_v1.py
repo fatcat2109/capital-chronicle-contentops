@@ -1302,9 +1302,11 @@ def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_p
 
     assert result["canonical_article_real_published"] is True
     assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
+    # f4367ae1 (CC-684, 21 Nov): a new LinkedIn copy also goes to the company page through Neo.
+    destinations = (*destinations, "linkedin_company")
     assert set(result["per_destination"]) == set(destinations)
-    assert result["derivative_attempted_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
-    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    assert result["derivative_attempted_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) + 1
+    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) + 1
     assert transport.publish_calls.count("substack") == 1
     assert all(transport.publish_calls.count(destination) == 1 for destination in destinations)
     assert len(store.list_platform_dispatches()) == len(destinations)
@@ -1333,7 +1335,9 @@ def test_one_derivative_failure_does_not_block_remaining_ready_derivatives(tmp_p
     assert result["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
     assert result["per_destination"]["x"]["status"] == DISPATCH_CONFIRMED
     assert result["distribution_status"] == "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
-    assert sorted(transport.publish_calls) == ["linkedin", "substack", "telegram", "x"]
+    # f4367ae1 (CC-684): the company-page copy is its own route; the member refusal stops only the member copy.
+    assert result["per_destination"]["linkedin_company"]["status"] == DISPATCH_CONFIRMED
+    assert sorted(transport.publish_calls) == ["linkedin", "linkedin_company", "substack", "telegram", "x"]
 
 
 def test_exact_write_exists_clears_unknown_without_claiming_strict_reconciliation(tmp_path):
@@ -1793,7 +1797,9 @@ def test_case_g_expired_destination_isolated(tmp_path):
     result = coordinator.execute_plan("work-1", _plan("linkedin", "telegram"))
     assert result["per_destination"]["linkedin"]["status"] == "REAUTH_REQUIRED"
     assert result["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
-    assert transport.publish_calls == ["telegram"]
+    # f4367ae1 (CC-684): the company page is a separate account; the member's expiry holds only the member copy.
+    assert "linkedin" not in transport.publish_calls
+    assert sorted(transport.publish_calls) == ["linkedin_company", "telegram"]
 
 
 def test_explicit_substack_retry_requires_reconciled_absent_exact_draft(tmp_path):
