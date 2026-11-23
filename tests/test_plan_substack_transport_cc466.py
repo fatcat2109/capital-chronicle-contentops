@@ -345,10 +345,56 @@ def test_readback_requires_the_complete_body_without_extra_copy(packet,fault,ver
     assert not client.clicked
 
 
+def test_wrap_readback_checks_rendered_bullets_and_signed_values(packet):
+    packet["operation_id"] = "cc689-weekly-2026-11-22"
+    body = "## Results\n\n- Gold stopped.\n- Oil moved -1.0%."
+    request = packet["request"]
+    request["native_payload"]["body_markdown"] = body
+    request["content_binding"]["expected_text_segments"] = [body]
+    request.update(action="READBACK", public_object_id="123",
+                   public_object_url="https://capitalchronicle.substack.com/p/own")
+    for move, verified in (("-1.0%", True), ("1.0%", False)):
+        client = Client(packet)
+        original = client.run
+
+        def run(page, phase, **kwargs):
+            if phase == "plan_substack_readback":
+                rendered = "Results\n\n- Gold stopped.\n- Oil moved " + move + "."
+                return {"status": "SUCCESS", "public_object_url": request["public_object_url"],
+                        "observed_text": rendered, "article_text": rendered, "media": []}
+            return original(page, phase, **kwargs)
+
+        client.run = run
+        result = neo.NeoBrowserDriver(client).perform(packet)["result"]
+        assert result["content_verified"] is verified
+        assert not client.clicked
+
+
 def test_table_and_minus_sign_survive_render_and_comparison():
     body="## Scenarios\n\n| Case | Odds |\n|---|---|\n| Main | 50% |\n| Alternative | 35% |\n\nResult: -1.0R."
     assert "<td>Main</td><td>50%</td>" in plan_neo.body_html(body)
     assert plan_neo.body_text(body)=="Scenarios Case Odds Main 50% Alternative 35% Result: -1.0R."
+
+
+def test_browser_check_treats_rendered_list_bullets_as_markdown_prefixes():
+    source = Path(neo.__file__).with_name("neo_endpoint_steps_v1.js")
+    script = r"""
+const fs = require('fs');
+const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const run = new AsyncFunction('page', 'input', fs.readFileSync(process.argv[1], 'utf8'));
+const page = {
+  evaluateInPage: async (fn, data) => {
+    global.document = {
+      querySelector: () => ({innerText: '- Gold result.', querySelectorAll: () => []}),
+    };
+    return {value: fn(data)};
+  },
+};
+run(page, {phase: 'plan_substack_check', expected_text: 'Gold result.', media: []})
+  .then(result => console.log(JSON.stringify(result)));
+"""
+    result = json.loads(subprocess.check_output(["node", "-e", script, str(source)], text=True, timeout=5))
+    assert result["verified"] is True
 
 
 def test_measured_tables_reach_the_editor_as_native_rows(packet):

@@ -96,6 +96,105 @@ def test_a_valid_chart_reaches_the_real_consumer_and_records_its_type(tmp_path):
     assert observed["publication_clock_basis"] == record["publication_clock_basis"]
 
 
+@pytest.fixture
+def confirmed_article(tmp_path):
+    from live_contentops.article_publication_quality_v1 import image_register, piece_id
+
+    path = tmp_path / "original-card.png"
+    Image.new("RGB", (800, 450), "red").save(path)
+    original = {"asset_id": "original-card", "path": str(path), "modality": "source_bound_data_card",
+                "sha256": sha256(path.read_bytes()).hexdigest()}
+    store, runtime, coordinator, message = message_with(tmp_path / "run", [original])
+    intent = json.loads(message["payload"])
+    ids = coordinator._ids(intent["work_item_id"], intent["plan_hash"], "substack")
+    dispatch_id = ids["dispatch_id"]
+    url = "https://capitalchronicle.substack.com/p/retained-article"
+    store.register_platform_dispatch(dispatch_id=dispatch_id, message_id=message["message_id"],
+        platform="substack", status="DISPATCH_CONFIRMED", public_object_id="123", public_object_url=url)
+    store.set_outbox_status(message["message_id"], "DISPATCH_CONFIRMED")
+    register = image_register(coordinator)
+    register.seed(piece_id=piece_id(store, intent), canonical_url=url, images=[original],
+        published_at="2026-11-10T12:09:49Z", observation_ref="original", destination="substack", market="US500")
+    edits = []
+
+    def amend(**request):
+        edits.append(request)
+        return {"status": "SUCCESS"}
+
+    runtime.amend_reader_presentation = amend
+    return store, runtime, coordinator, dispatch_id, message, register, original, edits
+
+
+def test_confirmed_text_append_keeps_the_original_image_day_on_edit_and_later_readback(confirmed_article, monkeypatch):
+    from live_contentops.cpi_reaction_page_v1 import LINK_POLICY
+
+    store, runtime, coordinator, dispatch_id, message, register, original, edits = confirmed_article
+    original_intent = json.loads(message["payload"])
+    reference = {"request_sha256": "a" * 64}
+    article = {"substack_body_markdown": "Original body.\n\nHistorical CPI comparisons."}
+    intent = {**original_intent, "reader_presentation_review": reference, "media_assets": [original],
+              "native_payload": {"body_markdown": article["substack_body_markdown"]}}
+    revision = {"policy": LINK_POLICY, "body_before": "Original body.", "article_identity": "retained",
+                "prior_revision": "retained", "objects": {"substack": {"message_id": message["message_id"]}}}
+    monkeypatch.setattr(coordinator, "_reader_presentation_intent",
+        lambda original_message, review: (intent, revision, {"article": article}, {}))
+
+    before = register.path.read_bytes()
+    result = coordinator.amend_reader_presentation(dispatch_id, review_reference=reference)
+    assert result["verified"] and result["new_post_calls"] == 0
+    assert len(edits) == 1 and edits[0]["public_object_id"] == "123"
+    assert register.path.read_bytes() == before
+    reread = coordinator.readback_existing_dispatch(dispatch_id)
+    assert reread["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert register.path.read_bytes() == before
+    assert store.get_outbox_message(message["message_id"])["payload"] == message["payload"]
+    assert runtime.publish_calls == []
+
+
+@pytest.mark.parametrize(("case", "cause"), [
+    ("drawn", "TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE"),
+    ("off_scale", "TRADINGVIEW_PRICE_SCALE_MISMATCH"),
+    ("valid", None),
+])
+def test_confirmed_article_media_edit_uses_the_same_chart_contract(confirmed_article, tmp_path, monkeypatch, case, cause):
+    from live_contentops.release_chart_revision_v1 import POLICY
+
+    store, runtime, coordinator, dispatch_id, message, register, original, edits = confirmed_article
+    asset = original if case == "drawn" else chart(tmp_path)
+    if case == "off_scale":
+        asset["tradingview_snapshot"]["page_title"] = "SPX 8,549.51"
+    original_intent = json.loads(message["payload"])
+    reference = {"request_sha256": "b" * 64}
+    article = {"market_asset": "US500", "publication_image_contract": contract.POLICY}
+    intent = {**original_intent, "reader_presentation_review": reference, "media_assets": [asset],
+              "reader_presentation_article": article, "native_payload": {"body_markdown": "Reviewed media."}}
+    revision = {"policy": POLICY, "article_identity": "retained", "prior_revision": "retained",
+                "objects": {"substack": {"message_id": message["message_id"]}}}
+    monkeypatch.setattr(coordinator, "_reader_presentation_intent",
+        lambda original_message, review: (intent, revision, {"article": article}, {}))
+
+    before = register.path.read_bytes()
+    result = coordinator.amend_reader_presentation(dispatch_id, review_reference=reference)
+    if cause:
+        assert result["status"] == "DEFINITE_NO_WRITE" and result["reason_code"] == cause
+        assert result["edit_called"] is False and edits == [] and runtime.readback_calls == []
+        assert register.path.read_bytes() == before
+        assert any(json.loads(row["readback_data"]).get("reason_code") == cause
+                   for row in store.list_readbacks_for_dispatch(dispatch_id))
+    else:
+        assert result["status"] == "PRESENTATION_EDIT_CONFIRMED" and len(edits) == 1
+        assert edits[0]["intent"]["media_assets"][0]["sha256"] == asset["sha256"]
+        records = register.records()
+        assert len(records) == 2 and records[0]["published_at_utc"] == "2026-11-10T12:09:49Z"
+        assert records[-1]["images"][0]["image_type"] == "TRADINGVIEW_MARKET_CHART"
+        assert records[-1]["publication_clock_basis"] == "OBSERVED_PRESENTATION_EDIT_CLOCK"
+        coordinator._clock = lambda: NOW + timedelta(days=1)
+        coordinator.readback_existing_dispatch(dispatch_id)
+        assert register.records() == records
+    assert runtime.publish_calls == []
+    assert store.get_platform_dispatch(dispatch_id)["status"] == "DISPATCH_CONFIRMED"
+
+
 @pytest.mark.parametrize("market", sorted(tv.SYMBOLS))
 def test_every_market_has_an_explicit_scale_threshold_and_refuses_excess(market):
     snap = {**snapshot(), "tv_symbol": tv.SYMBOLS[market], "page_title": "TICKER 100"}

@@ -159,3 +159,53 @@ reply still need a fresh eligible registration. Publisher will verify all
 three objects together when Main registers one. The exec launch specified
 `gpt-6.2-sol/max` with `CONFIGURED_NOT_OBSERVED` provenance. The test writer
 and transport responses were fixtures.
+
+
+## 22 November Telegram readback
+
+The Bitcoin setup, result, Substack page and its linked Telegram reply were
+read on the public destinations. The setup carries the entry deadline of
+27 November at 4:00 PM ET and the filled-position horizon of 9 December at
+7:00 AM ET. The page gives the bearish view below 56,500 and an after-entry
+stop above 63,600, with the recorded cancellation in its title. The price
+basis is Bitcoin spot. The entry is Main's `entries[0].level`, the separate
+pre-entry close above 61,940.88 is `invalidation_conditions[0].threshold`,
+and the stop is `stop_loss` in the sealed original candidate. The clocks come
+from `entry_deadline_utc` and `forecast_probabilities.horizon_end_utc`.
+[Setup 221](https://t.me/CapitalChronicle/221),
+[result 222](https://t.me/CapitalChronicle/222),
+[Substack page](https://capitalchronicle.substack.com/p/bitcoin-bearish-below-56500-wrong),
+[reply 224](https://t.me/CapitalChronicle/224).
+
+Reply 224 carries the canonical link under the right setup. It omits the plan
+terms. Result 222 says the entry window ended, although Main cancelled this
+plan at 2026-11-21T00:00:44.078717Z before its 2026-11-27T21:00:00Z entry
+deadline. The new Telegram analysis reply uses the page's checked original
+setup, with both price conditions, both clocks and the same canonical link.
+New results say the plan was withdrawn when Main records a cancellation and
+supplies no entry-touch finding. A read-only replay of the retained Bitcoin
+records rendered the new copy and validated the issued reply's original bytes.
+
+The fixes went live at 2026-11-21T22:51:54Z in
+`7a0cf54a1ce418de271ed8d1506907a45ccba0f6`.
+Live tag `contentops-live-20261122-cc549-telegram-terms`.
+Rollback tag `contentops-rollback-20261122-cc549-telegram-terms` at
+`446b58dbf3f35890ce1714bc4c3873c956042e70`. The existing
+`CapitalChronicle-PlanStatusPosts-V1` task ran from the operating root and
+recorded the immediate alert and fanout phases as OK at 22:53:30Z and
+22:53:31Z, and copy readback as OK at 22:54:35Z. Candidate and installed
+checks each passed 41 tests. The exec launch was `gpt-6.2-sol/max`
+(`CONFIGURED_NOT_OBSERVED`). These checks made no model calls.
+[Reply tests](telegram-copy-tests-20261122.xml),
+[cancellation clock tests](cancellation-clock-tests-20261122.xml),
+[installed tests](installed-telegram-clock-20261122.xml).
+
+USD/JPY setup 218 is the named live acceptance case. The publisher registered
+the held manuscript. Main still reported `FILLED` with a pending outcome at
+22:54:27Z on 21 November. Its entry window closed at 20:45Z on 20 November.
+The CC-584 check returns
+`PLAN_ANALYSIS_FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW` for that registration.
+The store has no confirmed page or analysis reply. Publisher will verify
+the page and its linked reply when Main supplies the final status. The next
+check is 13:05 GMT+7 on 23 November, five minutes after the recorded horizon.
+[USD/JPY setup 218](https://t.me/CapitalChronicle/218).

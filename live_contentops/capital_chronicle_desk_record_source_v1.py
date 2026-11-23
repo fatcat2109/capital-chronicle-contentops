@@ -9,7 +9,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-from live_contentops.capital_chronicle_latest_report_consumer_v1 import _load, _time, sha256_of
+from live_contentops.capital_chronicle_latest_report_consumer_v1 import _load, _private, _time, sha256_of
 from live_contentops.event_article_guard_v1 import (
     CONFLICTS_NOTICE, PUBLIC_NOTICE,
     NAMED_NUMBER, cited_date_pattern, iso_day,
@@ -30,6 +30,10 @@ SCHEMA_PATHS = {
     "1.4.0": SCHEMA_PATH.with_name("CapitalChronicleDeskRecordExportV1_4.schema.json"),
 }
 FIXTURE_NOTICE = "Fixture, not current data. Private acceptance preview; never publish."
+PLAN_STATUS_SOURCE = "public_plan_status"
+PLAN_STATUS_SCHEMA = "CapitalChroniclePlanStatusV1"
+MAX_DESK_RECORDS = 128
+_PLAN_LAYERS = frozenset({"macro", "positioning_and_sentiment", "options_and_gamma", "fundamental", "technical"})
 # List items reached by their producer id (citations never use array offsets). anchor_id and level_id are schema 1.4's
 # expectation anchors and modelled GEX key levels; an anchor also names its measure, so its own id comes first.
 _ITEM_IDS = ("anchor_id", "level_id", "measure_id", "metric_id", "update_id", "section_id", "scenario_id")
@@ -112,9 +116,14 @@ def read_export(spec, *, cutoff_utc):
         raise ValueError("DESK_EXPORT_AFTER_CUTOFF")
     if doc["fixture"] and spec.get("allow_fixture_private_preview") is not True:
         raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
-    # This exact producer projection precedes every headline, source span or model input.
+    return _projected_records(doc, spec, digest)
+
+
+def _projected_records(doc, spec, digest):
+    # This projection precedes every headline, source span or model input.
     public = project(doc, {"public"})
     sources = {s["source_id"]: s for s in public["sources"]}
+    projection_sha256 = sha256_of(public)
     records = []
     for kind in RECORD_LISTS:
         for record in public[kind]:
@@ -136,13 +145,14 @@ def read_export(spec, *, cutoff_utc):
             if isinstance(event_id, dict):
                 event_id = event_id.get("value")
             events = record.get("event_ids") or ([event_id] if event_id else [])
-            # No names/labels are inferred from structure. Fields alone supply readable text.
-            title = next((f["display"] for f in fields if f["field_path"] in {"/release/name", "/identity/name", "/title", "/name"}), fields[0]["display"])
-            identity = "cc-desk:" + sha256_of([public["export_id"], record["record_id"], fields])
+            title = record.get("editorial_title") or next(
+                (f["display"] for f in fields if f["field_path"] in {"/release/name", "/identity/name", "/title", "/name"}),
+                fields[0]["display"],
+            )
             text = "\n".join(f["citation"] + " = " + f["display"] + (" " + f["unit"] if f.get("unit") else "") for f in fields)
             binding = {"export_id": public["export_id"], "record_id": record["record_id"],
                 "record_type": record["record_type"], "export_bytes_sha256": digest,
-                "projection_sha256": sha256_of(public), "fixture": public["fixture"],
+                "projection_sha256": projection_sha256, "fixture": public["fixture"],
                 "asset_ids": assets, "event_ids": events, "fields": fields,
                 "sources": [sources[sid] for sid in ids],
                 **({"series": {k: record[k] for k in ("series_id", "series_code", "window", "unit", "decimals", "frequency", "seasonal_adjustment")}}
@@ -151,6 +161,14 @@ def read_export(spec, *, cutoff_utc):
                 "fields": [{k:v for k,v in f.items() if k != "citation"} for f in fields],
                 "sources": binding["sources"], "asset_ids": assets, "event_ids": events,
                 **({"series": binding["series"]} if "series" in binding else {})})
+            if public["schema"] == PLAN_STATUS_SCHEMA:
+                binding["source_generated_at_utc"] = public["generated_at_utc"]
+                # A new snapshot binds new citations. The same market state and
+                # analysis remain the same candidate across minute refreshes.
+                identity_parts = [record["record_id"], binding["record_content_sha256"]]
+            else:
+                identity_parts = [public["export_id"], record["record_id"], fields]
+            identity = "cc-desk:" + sha256_of(identity_parts)
             headline = {"headline_id": identity, "headline_text": title,
                 "source_identity": "Capital Chronicle", "source_platform": "CAPITAL_CHRONICLE_DESK_RECORD_EXPORT",
                 "source_account": "Capital Chronicle", "source_timestamp_utc": clock, "known_at_utc": clock,
@@ -165,6 +183,145 @@ def read_export(spec, *, cutoff_utc):
                 "known_at_utc": clock, "title": title, "headline_id": identity,
                 "record_revision": sha256_of(binding)})
     return records
+
+
+def _plan_fields(plan, clock_key):
+    """Admit named public facts and conditioned model analysis, with source field paths."""
+    from live_contentops.plan_status_posts_v1 import (
+        FORBIDDEN, INTERNAL, PRIVATE_RATIONALE, REASON_FIELDS,
+    )
+    from live_contentops.event_article_guard_v1 import public_execution_copy_forbidden
+
+    def public_text(value):
+        return (isinstance(value, str) and value.strip() and not (
+            _private(value) or public_text_problems(value) or PRIVATE_RATIONALE.search(value)
+            or INTERNAL.search(value) or FORBIDDEN.search(value) or public_execution_copy_forbidden(value)
+            or re.search(r"\b(?:bullish|bearish)\b", value, re.I)))
+
+    def field(value, *, estimate=False, unit=None):
+        data = {"value": value, "visibility": "public", "source_ids": ["main-public-plan-status"],
+                "rights_class": MODEL_ESTIMATE if estimate else "CC_OWN_ANALYSIS",
+                "use_label": "ANALYSIS_NOT_FINANCIAL_ADVICE"}
+        if estimate:
+            data.update(estimate_label=MODEL_ESTIMATE_LABEL, notices=list(MODEL_ESTIMATE_NOTICES))
+        if type(value) in (int, float):
+            data["decimals"] = max(0, -Decimal(str(value)).as_tuple().exponent)
+        if unit is not None:
+            data["unit"] = unit
+        return data
+
+    fields = {
+        "asset_id": field(plan["asset_id"]), "status": field(plan["status"]),
+        clock_key: field(plan[clock_key]),
+    }
+    invalidation = next((r for r in plan["invalidation_conditions"]
+                         if r["field"] in {"close", "price"} and r["operator"] in {"GT", "GTE", "LT", "LTE"}), None)
+    if invalidation is not None and plan["zone"]["minimum"] <= plan["zone"]["maximum"]:
+        fields["direction"] = field(plan["direction"], estimate=True)
+        fields["expires_at_utc"] = field(plan["expires_at_utc"], estimate=True)
+        fields["zone"] = {k: field(plan["zone"][k], estimate=True) for k in ("minimum", "maximum")}
+        fields["invalidation_conditions"] = {
+            str(plan["invalidation_conditions"].index(invalidation)): {
+                k: field(invalidation[k], estimate=True) for k in ("field", "operator", "threshold")
+            }
+        }
+        if plan.get("entry_mode") in ("TOUCH", "CLOSE", "MARKET"):
+            fields["entry_mode"] = field(plan["entry_mode"], estimate=True)
+        entries = {}
+        for i, entry in enumerate(plan.get("entries") or []):
+            level_keys = ("level",) if entry["kind"] == "BREAKOUT" else ("zone_low", "zone_high")
+            if all(k in entry for k in level_keys):
+                entries[str(i)] = {k: field(entry[k], estimate=True) for k in ("kind", *level_keys)}
+        if entries:
+            fields["entries"] = entries
+
+    scenario = plan.get("scenario_analysis") or {}
+    analysis = {k: field(scenario[k], estimate=True)
+                for k in (*REASON_FIELDS, "invalidation_text") if public_text(scenario.get(k))}
+    for key in ("base_case", "main_alternative"):
+        branch = scenario.get(key)
+        if not isinstance(branch, dict) or not public_text(branch.get("market_move")):
+            continue
+        analysis[key] = {"market_move": field(branch["market_move"], estimate=True)}
+        probability = branch.get("probability_pct")
+        if type(probability) in (int, float) and 0 <= probability <= 100:
+            analysis[key]["probability_pct"] = field(probability, estimate=True, unit="%")
+    if analysis:
+        fields["scenario_analysis"] = analysis
+    layers = plan.get("layers")
+    if isinstance(layers, list):
+        fields["layers"] = {
+            str(i): {"layer": field(layer["layer"]), "text": field(layer["text"], estimate=True)}
+            for i, layer in enumerate(layers)
+            # Main's export marks a layer the analyst used as USED (AVAILABLE in the first contract).
+            if isinstance(layer, dict) and layer.get("state") in {"AVAILABLE", "USED"}
+            and isinstance(layer.get("layer"), str) and layer["layer"] in _PLAN_LAYERS
+            and public_text(layer.get("text"))
+        }
+    return fields
+
+
+def read_plan_status(spec, *, cutoff_utc):
+    """Read one atomic Main public snapshot. Transitions belong to the status-post route."""
+    from live_contentops.plan_status_export_contract_v1 import PLAN_ROW, contract_version
+    from live_contentops.plan_status_posts_v1 import TITLES, _sha
+
+    with Path(spec["path"]).open("rb") as source:
+        raw = source.read(4_000_001)
+    status = _load(raw)
+    if (status.get("schema") != PLAN_STATUS_SCHEMA or status.get("schema_version") != "1.0.0"
+            or not isinstance(status.get("plans"), list)):
+        raise ValueError("DESK_PLAN_STATUS_SCHEMA_INVALID")
+    contract_version({"status": status})
+    digest = hashlib.sha256(raw).hexdigest()
+    if _sha({k: v for k, v in status.items() if k != "content_hash"}) != status.get("content_hash"):
+        raise ValueError("DESK_PLAN_STATUS_INTEGRITY_INVALID")
+    generated = status.get("generated_at_utc")
+    try:
+        generated_at = _time(generated)
+    except ValueError as exc:
+        raise ValueError("DESK_PLAN_STATUS_CLOCK_INVALID") from exc
+    if generated_at > _time(cutoff_utc):
+        raise ValueError("DESK_PLAN_STATUS_AFTER_CUTOFF")
+
+    validator = Draft202012Validator(PLAN_ROW, format_checker=FormatChecker())
+    records, seen, invalid = [], set(), 0
+    for plan in status["plans"]:
+        plan_id = plan.get("plan_id") if isinstance(plan, dict) else None
+        if isinstance(plan_id, str):
+            if plan_id in seen:
+                raise ValueError("DESK_PLAN_STATUS_DUPLICATE_PLAN_ID")
+            seen.add(plan_id)
+        if not isinstance(plan, dict) or not validator.is_valid(plan):
+            invalid += 1
+            continue
+        asset, state = plan["asset_id"], plan["status"]
+        if not state:
+            continue
+        if not re.fullmatch(r"[A-Za-z0-9:_-]{1,200}", plan_id) or not re.fullmatch(r"[A-Z][A-Z0-9._-]{0,19}", asset):
+            invalid += 1
+            continue
+        clock_key = "status_at_utc" if plan.get("status_at_utc") is not None else "registered_at_utc"
+        try:
+            known_at = _time(plan.get(clock_key))
+        except ValueError:
+            invalid += 1
+            continue
+        if known_at > generated_at:
+            invalid += 1
+            continue
+        fields = _plan_fields(plan, clock_key)
+        records.append({"record_type": "plan_status", "record_id": plan_id, "asset_ids": [asset],
+                        "known_at_utc": plan[clock_key], "editorial_title": f"Capital Chronicle’s {TITLES.get(asset, asset)} plan",
+                        **fields})
+    records.sort(key=lambda record: (_time(record["known_at_utc"]), record["record_id"]), reverse=True)
+    doc = {kind: [] for kind in RECORD_LISTS}
+    doc.update(schema=PLAN_STATUS_SCHEMA, schema_version=status["schema_version"],
+               export_id=f"plan-status:{status['content_hash']}", generated_at_utc=generated, fixture=False,
+               reports=records[:MAX_DESK_RECORDS],
+               sources=[{"source_id": "main-public-plan-status", "provider": "Capital Chronicle",
+                         "title": "Main public plan status", "rights_class": "CC_OWN_ANALYSIS"}])
+    return _projected_records(doc, spec, digest), invalid
 
 
 def desk_evidence(records, request):
@@ -190,6 +347,14 @@ def desk_evidence(records, request):
         "desk_record_binding": r["binding"], "retrieval_method": "MAIN_PUBLIC_DESK_RECORD_PROJECTION"} for r in selected]
     from live_contentops.cpi_reaction_page_v1 import record_projection
     for doc, record in zip(docs, selected):
+        if record["binding"]["record_type"] == "plan_status":
+            # The state change is the data being reported. A minute rewrite
+            # preserves that clock, including for older status changes.
+            field = next((f for f in record["binding"]["fields"] if f["field_path"] == "/status_at_utc"), None)
+            if field:
+                doc["data_cutoff_utc"] = field["value"]
+                doc["data_clock_binding"] = {"citation": field["citation"], "value": field["value"]}
+            continue
         if projection := record_projection(record):
             doc["cpi_reaction_page"] = projection
             if projection.get("data_cutoff_utc"):

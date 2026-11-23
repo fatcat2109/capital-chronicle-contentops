@@ -1,0 +1,353 @@
+{
+  "item": "CC-172",
+  "observed_at_utc": "2026-11-21T14:56:55.858702+00:00",
+  "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "store_access": "SQLITE_MODE_RO_QUERY_ONLY_CONSISTENT_SNAPSHOT",
+  "consumer": "installed native_desktop_publication_v1.publication_projection",
+  "native_review_count": 33,
+  "native_review_runs": 28,
+  "latest_native_review_utc": "2026-11-20T14:48:15.835160+00:00",
+  "articles": [
+    {
+      "run_id": "cc715-us-open-wrap-20261120-v1",
+      "state": "PREPARED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": "2026-11-20T14:48:15.835160+00:00",
+        "data_to_publication": {
+          "policy": "CC403_READER_ARTICLE_V1",
+          "data_cutoff_utc": "2026-11-20T13:57:05.096524+00:00",
+          "published_at_utc": null,
+          "seconds_from_data": null,
+          "within_60_minutes": null,
+          "timing_basis": null
+        },
+        "dispatch_deadline_utc": "2026-11-20T15:03:15.835160+00:00",
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "telegram",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "discord",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "x",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "facebook_page",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "instagram_business",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "threads",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "youtube",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": false,
+            "finished_piece_excluded_due_to": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+            "finished_piece_exclusion_authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7",
+            "skipped": false
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [
+            "substack",
+            "telegram",
+            "discord",
+            "x",
+            "linkedin",
+            "facebook_page",
+            "instagram_business",
+            "threads"
+          ],
+          "excluded_destinations": [
+            {
+              "destination": "youtube",
+              "cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+              "authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7"
+            }
+          ],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "OVERDUE_CONTINUE_PUBLICATION"
+      },
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_5abba691b0e3d8a1eb0b0809f29d2c8e",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_34eb051d0eb3c4626d3aa94d761fa2e7",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_ae79806d1318bcd5f769aaf3bdca5aa6",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_bbf390fcdecd0e5be4ff685f6efb1f9f",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_246c8ee5122865fdc0bcd82bdde1127a",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_01ac488af71c6345ab1b1a5562df4c9a",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_89934ecc3f7394b3835b76752588126b",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_d1aeda6bc963c2e4cf09b16b10ff6e49",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_eb4749b550735b8d73f2e1434551f0dd",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null,
+          "dispatch_recorded": false,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "NOT_REGISTERED"
+        }
+      ],
+      "dispatch_count": 0,
+      "readback_count": 0
+    },
+    {
+      "run_id": "cc715-us-open-wrap-20261120-v2",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [],
+      "dispatch_count": 0,
+      "readback_count": 0
+    },
+    {
+      "run_id": "cc715-us-open-wrap-20261120-v3",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [],
+      "dispatch_count": 0,
+      "readback_count": 0
+    }
+  ],
+  "passing_samples": 0,
+  "scope": "Native articles only; digest link indexes and plan/status posts have separate contracts. Durable observations, not new browser readbacks."
+}

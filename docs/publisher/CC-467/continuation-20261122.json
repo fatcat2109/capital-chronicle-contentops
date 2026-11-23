@@ -1,0 +1,77 @@
+{
+  "schema_version": "contentops.cc467.continuation.v1",
+  "item": "CC-467",
+  "branch": "backlog/cc-467-neo-quote-recovery-20261122",
+  "base_operating_head": "93b156ac5e444aeaa51de4defb9eb1da5c373e5c",
+  "delivery_commits": [
+    "e1d920d77a9022bdb9957572886701f508d26a15",
+    "cefdb1a7d156525d5bce0267d96cf03db71ef2d5"
+  ],
+  "tests": {
+    "quote_consumer_and_transport": {
+      "command": "python -m pytest -q tests/test_heavy_news_quotes_cc467.py tests/test_heavy_news_quote_transport_cc467.py",
+      "passed": 45,
+      "failed": 0
+    },
+    "publisher_integration_candidate": {
+      "command": "python -m pytest -q tests/test_public_output_golden_cc691.py tests/test_market_wrap_cc689.py::test_decision_98_wrap_renderer_keeps_reader_shape",
+      "passed": 12,
+      "failed": 0
+    }
+  },
+  "live_consumer_observation": {
+    "entrypoint": "scripts/plan_status_posts.py --publish",
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "observed_at_utc": "2026-11-21T23:45:48.011894Z",
+    "status": "OBSERVATION_PENDING",
+    "first_quote_at_utc": "2026-11-20T12:19:49Z",
+    "review_due_at_utc": "2026-12-04T12:19:49Z",
+    "confirmed_quotes": [
+      {
+        "source": "https://x.com/zerohedge/status/2123752076849148155",
+        "public_url": "https://x.com/Capitalnicle/status/2123753178453909934",
+        "source_to_post_seconds": 261.817,
+        "within_five_minutes": true
+      },
+      {
+        "source": "https://x.com/financialjuice/status/2123874781552341308",
+        "public_url": "https://x.com/Capitalnicle/status/2123875656916504862",
+        "source_to_post_seconds": 207.736,
+        "within_five_minutes": true
+      },
+      {
+        "source": "https://x.com/FirstSquawk/status/2124271237597897204",
+        "public_url": "https://x.com/Capitalnicle/status/2124272033152606390",
+        "source_to_post_seconds": 189.249,
+        "within_five_minutes": true
+      }
+    ],
+    "interpretation": "Three confirmed quote-posts satisfy the one-post-within-five-minutes acceptance sample. The fourteen-day views comparison is pending."
+  },
+  "source_composer_probe": {
+    "source_url": "https://x.com/DeItaone/status/2123129581758763249",
+    "exact_quote_card": true,
+    "chart_loaded": true,
+    "chart_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\heavy_news_quotes\\heavy-quote-2123129581758763249\\media\\tradingview-24c0f1796705e7b7-16x9.png",
+    "chart_bytes": 49726,
+    "chart_sha256": "1cb2a9e215592f06d4312c087c2474785c3399790a5788a580aa74144ae17b1a",
+    "validation_cause": "CC467_SOURCE_OUTSIDE_FIVE_MINUTES",
+    "public_submit_actions": 0
+  },
+  "retained_first_cause_evidence": [
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\route-1900\\20261118T121511Z\\day_readback.md",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\route-1900\\20261119T121522Z\\day_readback.md",
+    "docs/publisher/CC-467/first-cause-repair-20261119.xml"
+  ],
+  "model": {
+    "top_level": "gpt-6.2-sol/max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "editorial_roles": {
+      "filter": "gpt-6-luna/max",
+      "prepare": "gpt-6.2-sol/low",
+      "write": "gpt-6.2-sol/max"
+    }
+  },
+  "public_write_performed_by_probe": false
+}

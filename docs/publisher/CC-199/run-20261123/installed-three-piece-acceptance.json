@@ -1,0 +1,1522 @@
+{
+  "item": "CC-199",
+  "observed_at_utc": "2026-11-22T21:53:25.184747+00:00",
+  "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "store_access": "SQLITE_MODE_RO_QUERY_ONLY_CONSISTENT_SNAPSHOT",
+  "sample_starts_at_utc": "2026-11-15T18:25:00+00:00",
+  "sample_authority": "CC-199 Ops Product, 16 Nov 2026 01:25 GMT+7",
+  "selection": "First three original approvals after reopening; original clocks retained; source deadline and every required image/readback must pass.",
+  "native_review_count": 33,
+  "native_review_runs": 28,
+  "current_suspended_routes": {
+    "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+    "x": "JIM_POSTS_BY_HAND_20261123",
+    "linkedin_company": "JIM_POSTS_BY_HAND_20261123",
+    "substack_notes": "JIM_POSTS_BY_HAND_20261123"
+  },
+  "reviewed_pieces_since_reopening": 3,
+  "required_pieces": 3,
+  "passing_pieces": 0,
+  "pieces": [
+    {
+      "run_id": "cc425-cpi-reaction-history-20261111-v1",
+      "state": "PENDING_NATIVE",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": "2026-11-17T08:28:09.533286+00:00",
+        "data_to_publication": {
+          "policy": "CC403_READER_ARTICLE_V1",
+          "data_cutoff_utc": null,
+          "published_at_utc": "2026-11-17T10:06:46.417000+00:00",
+          "seconds_from_data": null,
+          "within_60_minutes": null,
+          "timing_basis": "OBSERVED_PUBLICATION_CLOCK"
+        },
+        "dispatch_deadline_utc": "2026-11-17T08:43:09.533286+00:00",
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-17T10:20:16.557000+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": 6727.023714,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-17T10:20:16.557000+00:00",
+            "readback_seconds_after_text_approval": 6727.023714,
+            "image_verified_readback_at_utc": "2026-11-17T10:20:16.557000+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "telegram",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T10:23:35.744979+00:00",
+            "dispatched_at_utc": "2026-11-17T10:23:35.744979+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 6926.211693,
+            "within_target": false,
+            "first_verified_readback_at_utc": "2026-11-17T10:23:38.035564+00:00",
+            "readback_seconds_after_text_approval": 6928.502278,
+            "image_verified_readback_at_utc": "2026-11-17T10:23:38.035564+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "discord",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T10:21:39.967766+00:00",
+            "dispatched_at_utc": "2026-11-17T10:21:39.967766+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 6810.43448,
+            "within_target": false,
+            "first_verified_readback_at_utc": "2026-11-17T10:21:41.849026+00:00",
+            "readback_seconds_after_text_approval": 6812.31574,
+            "image_verified_readback_at_utc": "2026-11-17T10:21:41.849026+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "x",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T10:40:12.500979+00:00",
+            "dispatched_at_utc": "2026-11-17T10:43:16.950Z",
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": 8107.416714,
+            "within_target": false,
+            "first_verified_readback_at_utc": "2026-11-17T10:48:25.676000+00:00",
+            "readback_seconds_after_text_approval": 8416.142714,
+            "image_verified_readback_at_utc": "2026-11-17T10:48:25.676000+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin",
+            "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "attempted_at_utc": "2026-11-17T10:22:26.801123+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "facebook_page",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T10:21:43.925720+00:00",
+            "dispatched_at_utc": "2026-11-17T10:21:43.925720+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 6814.392434,
+            "within_target": false,
+            "first_verified_readback_at_utc": "2026-11-17T10:21:50.209056+00:00",
+            "readback_seconds_after_text_approval": 6820.67577,
+            "image_verified_readback_at_utc": "2026-11-17T10:21:50.209056+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "instagram_business",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T11:08:15.352509+00:00",
+            "dispatched_at_utc": "2026-11-17T11:08:15.352509+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 9605.819223,
+            "within_target": false,
+            "first_verified_readback_at_utc": "2026-11-17T11:08:26.823423+00:00",
+            "readback_seconds_after_text_approval": 9617.290137,
+            "image_verified_readback_at_utc": "2026-11-17T11:08:26.823423+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "threads",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T10:23:40.158595+00:00",
+            "dispatched_at_utc": "2026-11-17T10:23:40.158595+00:00",
+            "timing_basis": "API_TRANSPORT_CALL",
+            "seconds_after_text_approval": 6930.625309,
+            "within_target": false,
+            "first_verified_readback_at_utc": "2026-11-17T10:24:04.550126+00:00",
+            "readback_seconds_after_text_approval": 6955.01684,
+            "image_verified_readback_at_utc": "2026-11-17T10:24:04.550126+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "youtube",
+            "status": "DEFINITE_NO_WRITE",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": false,
+            "finished_piece_excluded_due_to": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+            "finished_piece_exclusion_authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7",
+            "skipped": false
+          },
+          {
+            "destination": "linkedin_company",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-17T10:22:29.305172+00:00",
+            "dispatched_at_utc": "2026-11-17T10:54:39.480000+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": 8789.946714,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-17T10:54:39.480000+00:00",
+            "readback_seconds_after_text_approval": 8789.946714,
+            "image_verified_readback_at_utc": "2026-11-17T10:54:39.480000+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [
+            "substack",
+            "telegram",
+            "discord",
+            "x",
+            "linkedin",
+            "facebook_page",
+            "instagram_business",
+            "threads",
+            "linkedin_company"
+          ],
+          "excluded_destinations": [
+            {
+              "destination": "youtube",
+              "cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+              "authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7"
+            }
+          ],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "OVERDUE_CONTINUE_PUBLICATION"
+      },
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_873dddf89422b103efe92b1b5f469f1c",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "225323477",
+          "public_object_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and"
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_5050f915e8dc13968c08e1a1378dfed7",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "190",
+          "public_object_url": "https://t.me/CapitalChronicle/190"
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_6514c9b4bca308f05ab18f3712eafca2",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "1572195010357624906",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572195010357624906"
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_0de34c3031c450dc63122e941b362580",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "2122641720060100824",
+          "public_object_url": "https://x.com/Capitalnicle/status/2122641720060100824"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_28d69265b4602968e22a4a62bfabecc3",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_d7d5c9b995a5c082c00a461eaf382927",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "106091951705748_1457972769854472",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1457972769854472"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_6ff0d22221870a31362c21bf36b12801",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "17899779021412415",
+          "public_object_url": "https://www.instagram.com/p/Df1ybLuEsB3/"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_7b232e487b04542d00a37c8cceb16e10",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "17976073455155088",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df1tUkRk0I0"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_d9d04d336965fb4402e239f1b4599dd3",
+          "status": "DEFINITE_NO_WRITE",
+          "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "linkedin_company",
+          "dispatch_id": "dispatch_437f5a6f489f72398d70dc1cc7892383",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "urn:li:activity:7528407905289732096",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528407905289732096"
+        }
+      ],
+      "record_counts": {
+        "dispatches": 10,
+        "readbacks": 10
+      },
+      "passes_current_acceptance": false
+    },
+    {
+      "run_id": "cc124-asian-metals-20261120-v1",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": "2026-11-20T03:08:54.519631+00:00",
+        "data_to_publication": {
+          "policy": "CC403_READER_ARTICLE_V1",
+          "data_cutoff_utc": "2026-11-20T02:09:04.643687+00:00",
+          "published_at_utc": null,
+          "seconds_from_data": null,
+          "within_60_minutes": null,
+          "timing_basis": null
+        },
+        "dispatch_deadline_utc": "2026-11-20T03:23:54.519631+00:00",
+        "channels": [],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "OVERDUE_CONTINUE_PUBLICATION"
+      },
+      "destinations": [],
+      "record_counts": {
+        "dispatches": 0,
+        "readbacks": 0
+      },
+      "passes_current_acceptance": false
+    },
+    {
+      "run_id": "cc715-us-open-wrap-20261120-v1",
+      "state": "PREPARED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": "2026-11-20T14:48:15.835160+00:00",
+        "data_to_publication": {
+          "policy": "CC403_READER_ARTICLE_V1",
+          "data_cutoff_utc": "2026-11-20T13:57:05.096524+00:00",
+          "published_at_utc": null,
+          "seconds_from_data": null,
+          "within_60_minutes": null,
+          "timing_basis": null
+        },
+        "dispatch_deadline_utc": "2026-11-20T15:03:15.835160+00:00",
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "telegram",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "discord",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "x",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "facebook_page",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "instagram_business",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "threads",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "youtube",
+            "status": "NOT_DISPATCHED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": false,
+            "finished_piece_excluded_due_to": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+            "finished_piece_exclusion_authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7",
+            "skipped": false
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [
+            "substack",
+            "telegram",
+            "discord",
+            "x",
+            "linkedin",
+            "facebook_page",
+            "instagram_business",
+            "threads"
+          ],
+          "excluded_destinations": [
+            {
+              "destination": "youtube",
+              "cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+              "authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7"
+            }
+          ],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "OVERDUE_CONTINUE_PUBLICATION"
+      },
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_5abba691b0e3d8a1eb0b0809f29d2c8e",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_34eb051d0eb3c4626d3aa94d761fa2e7",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_ae79806d1318bcd5f769aaf3bdca5aa6",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_bbf390fcdecd0e5be4ff685f6efb1f9f",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_246c8ee5122865fdc0bcd82bdde1127a",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_01ac488af71c6345ab1b1a5562df4c9a",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_89934ecc3f7394b3835b76752588126b",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_d1aeda6bc963c2e4cf09b16b10ff6e49",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_eb4749b550735b8d73f2e1434551f0dd",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ],
+      "record_counts": {
+        "dispatches": 0,
+        "readbacks": 0
+      },
+      "passes_current_acceptance": false
+    }
+  ],
+  "retained_baseline": [
+    {
+      "run_id": "cc689-weekly-2026-11-22",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-22T13:03:23.011906+00:00",
+            "dispatched_at_utc": "2026-11-22T15:42:05.469162+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-22T15:42:05.469162+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-22T15:42:05.469162+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "discord",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-22T15:42:37.843996+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-22T15:42:37.843996+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-22T15:42:37.843996+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "facebook_page",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-22T15:42:47.596772+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-22T15:42:47.596772+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-22T15:42:47.596772+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "instagram_business",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-22T15:43:04.711983+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-22T15:43:04.711983+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-22T15:43:04.711983+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin",
+            "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "attempted_at_utc": "2026-11-22T15:43:05.409372+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin_company",
+            "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "attempted_at_utc": "2026-11-22T15:43:19.547045+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "substack_notes",
+            "status": "UNKNOWN_WRITE",
+            "attempted_at_utc": "2026-11-22T15:43:32.878149+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "telegram",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-22T15:45:27.119233+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-22T15:45:27.119233+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-22T15:45:27.119233+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "threads",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-22T15:46:48.504902+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-22T15:46:48.504902+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-22T15:46:48.504902+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "x",
+            "status": "READY",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "youtube",
+            "status": "DEFINITE_NO_WRITE",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [
+            "substack",
+            "discord",
+            "facebook_page",
+            "instagram_business",
+            "linkedin",
+            "linkedin_company",
+            "substack_notes",
+            "telegram",
+            "threads",
+            "x",
+            "youtube"
+          ],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_6aa47ffdb24a2ec46a47e356254df270",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "226039671",
+          "public_object_url": "https://capitalchronicle.substack.com/p/weekend-market-wrap-november-22-2026"
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_10eee2860cf70ef045c10e18f069457c",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "1574087705766273148",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1574087705766273148"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_722b039c4830e13d1893cf2ff50ae31e",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "106091951705748_1463275915990824",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1463275915990824"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_b32e99b31a6ca0f3c033568b5754efdb",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "18126037468730856",
+          "public_object_url": "https://www.instagram.com/p/DgDJ0y2EpNi/"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_1af67115dbad90d88c90ad3a1b795e78",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "linkedin_company",
+          "dispatch_id": "dispatch_3c8ae6a9788ac3639f110873c02f14de",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "substack_notes",
+          "dispatch_id": "dispatch_2e665d0718a5a80e94e7a8b7b0db67da",
+          "status": "UNKNOWN_WRITE",
+          "reconciliation_status": "RECONCILIATION_PENDING",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_6f5e832fce5f1979c4057aa868d216f6",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "225",
+          "public_object_url": "https://t.me/CapitalChronicle/225"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_cc9bc067edf119fcdb552b8b76f2ceda",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "18085022225387905",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DgDKLv-E8st"
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_cca7fca8e8af8078ec09a8d69e5fe7c8",
+          "status": "READY",
+          "reconciliation_status": null,
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_6408733c7829d8407cc687246000e4e5",
+          "status": "DEFINITE_NO_WRITE",
+          "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ],
+      "record_counts": {
+        "dispatches": 10,
+        "readbacks": 16
+      },
+      "passes_current_acceptance": false
+    },
+    {
+      "run_id": "cc536-measured-odds-5",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-21T03:53:24.731393+00:00",
+            "dispatched_at_utc": "2026-11-21T03:53:54.587Z",
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T03:54:20.051808+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T03:54:20.051808+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "discord",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-21T03:54:33.878998+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T03:54:33.878998+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T03:54:33.878998+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "facebook_page",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-21T03:54:42.361623+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T03:54:42.361623+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T03:54:42.361623+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "instagram_business",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-21T03:54:58.038399+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T03:54:58.038399+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T03:54:58.038399+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin",
+            "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+            "attempted_at_utc": "2026-11-21T06:55:14.023568+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin_company",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-21T06:39:38.170119+00:00",
+            "dispatched_at_utc": null,
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "telegram",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-21T03:57:27.111302+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T03:57:27.111302+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T03:57:27.111302+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "threads",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-21T06:03:17.414840+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T06:03:17.414840+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T06:03:17.414840+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "x",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-21T04:12:41.819150+00:00",
+            "dispatched_at_utc": "2026-11-21T04:13:15.020Z",
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-21T04:13:44.739359+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-21T04:13:44.739359+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "youtube",
+            "status": "DEFINITE_NO_WRITE",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [
+            "substack",
+            "discord",
+            "facebook_page",
+            "instagram_business",
+            "linkedin",
+            "linkedin_company",
+            "telegram",
+            "threads",
+            "x",
+            "youtube"
+          ],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_e666b877d5b6ba7b38a395a6b57e231b",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "225884424",
+          "public_object_url": "https://capitalchronicle.substack.com/p/what-waiting-to-enter-cost-in-our"
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_4e52ba4b757c8bc6606626f943a35c77",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "1573547136715325561",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1573547136715325561"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_96e13a23bde3d664a10573e51c355b63",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "106091951705748_1461696379482111",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1461696379482111"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_5a841744391086ff428c969c6b9d4706",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "17890178352688808",
+          "public_object_url": "https://www.instagram.com/p/Df_T_Y8EmLH/"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_c76eac00e721c77650d42d6d09bb7628",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "destination": "linkedin_company",
+          "dispatch_id": "dispatch_58e175e826efade7ce01f0f54e6d8663",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+          "public_object_id": "urn:li:activity:7529795721647075329",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7529795721647075329/"
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_01217ae780b9d1f246627b3333da7eca",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "223",
+          "public_object_url": "https://t.me/CapitalChronicle/223"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_5b85647091502514233151fb69c74211",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "17875167108643471",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df_UTYfE30t"
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_f4072019180994a3656ffe05222ce2cb",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "2123993125190562072",
+          "public_object_url": "https://x.com/Capitalnicle/status/2123993125190562072"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_88369c5583a80eb8ac6bc4aaebfd2a4d",
+          "status": "DEFINITE_NO_WRITE",
+          "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ],
+      "record_counts": {
+        "dispatches": 10,
+        "readbacks": 11
+      },
+      "passes_current_acceptance": false
+    },
+    {
+      "run_id": "cc536-measured-odds-4",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [
+          {
+            "destination": "substack",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-19T05:16:41.812739+00:00",
+            "dispatched_at_utc": "2026-11-19T05:30:00.404346+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:30:00.404346+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:30:00.404346+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "discord",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-19T05:30:36.877256+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:30:36.877256+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:30:36.877256+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "facebook_page",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-19T05:30:43.975586+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:30:43.975586+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:30:43.975586+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "instagram_business",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-19T05:35:22.427207+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:35:22.427207+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:35:22.427207+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "linkedin_company",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-19T05:30:48.350443+00:00",
+            "dispatched_at_utc": "2026-11-19T05:39:15.470253+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:39:15.470253+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:39:15.470253+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "telegram",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-19T05:31:51.353173+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:31:51.353173+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:31:51.353173+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "threads",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": "2026-11-19T05:33:13.890883+00:00",
+            "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:33:13.890883+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:33:13.890883+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "x",
+            "status": "DISPATCH_CONFIRMED",
+            "attempted_at_utc": "2026-11-19T05:33:28.403246+00:00",
+            "dispatched_at_utc": "2026-11-19T05:34:27.360Z",
+            "timing_basis": "NATIVE_ACTION_OBSERVED",
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": "2026-11-19T05:34:55.873389+00:00",
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": "2026-11-19T05:34:55.873389+00:00",
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          },
+          {
+            "destination": "youtube",
+            "status": "DEFINITE_NO_WRITE",
+            "attempted_at_utc": null,
+            "dispatched_at_utc": null,
+            "timing_basis": null,
+            "seconds_after_text_approval": null,
+            "within_target": null,
+            "first_verified_readback_at_utc": null,
+            "readback_seconds_after_text_approval": null,
+            "image_verified_readback_at_utc": null,
+            "finished_piece_within_30_minutes": false,
+            "finished_piece_required": true,
+            "skipped": false
+          }
+        ],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [
+            "substack",
+            "discord",
+            "facebook_page",
+            "instagram_business",
+            "linkedin",
+            "linkedin_company",
+            "telegram",
+            "threads",
+            "x",
+            "youtube"
+          ],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [
+        {
+          "destination": "substack",
+          "dispatch_id": "dispatch_3542636e7460eebd8664a7a142cdf593",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "225607069",
+          "public_object_url": "https://capitalchronicle.substack.com/p/what-a-tight-stop-cost-in-our-historical"
+        },
+        {
+          "destination": "discord",
+          "dispatch_id": "dispatch_9e8559cd4a20b19a3f99cf964094d4c8",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "1572846531382480920",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572846531382480920"
+        },
+        {
+          "destination": "facebook_page",
+          "dispatch_id": "dispatch_9ed2f63e184ae901b0c879c4cb27b20c",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "106091951705748_1459691526349263",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1459691526349263"
+        },
+        {
+          "destination": "instagram_business",
+          "dispatch_id": "dispatch_ebe01f8271492cf6419285d0a6647265",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "17866524345694868",
+          "public_object_url": "https://www.instagram.com/p/Df6V4-HEpdq/"
+        },
+        {
+          "destination": "linkedin",
+          "dispatch_id": "dispatch_a56012e0a198eb802f0f43c0d8f0eaf7",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": null,
+          "public_object_id": "urn:li:share:7529053537293496321",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:share:7529053537293496321/"
+        },
+        {
+          "destination": "linkedin_company",
+          "dispatch_id": "dispatch_64d2c6b623197f035c2f144ad9584dc6",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "urn:li:activity:7529053659016486913",
+          "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7529053659016486913/"
+        },
+        {
+          "destination": "telegram",
+          "dispatch_id": "dispatch_c8925304da070fe8d64798ecb39cb879",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "208",
+          "public_object_url": "https://t.me/CapitalChronicle/208"
+        },
+        {
+          "destination": "threads",
+          "dispatch_id": "dispatch_1d5756716747a2d463fb60666b4e1a05",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "18084089363352309",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df6VhQ4k3fO"
+        },
+        {
+          "destination": "x",
+          "dispatch_id": "dispatch_e5f876e29d66904bf02f123b1ded061a",
+          "status": "DISPATCH_CONFIRMED",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_object_id": "2123288779473797353",
+          "public_object_url": "https://x.com/Capitalnicle/status/2123288779473797353"
+        },
+        {
+          "destination": "youtube",
+          "dispatch_id": "dispatch_091078a170bfc051a2a5057b8859bc98",
+          "status": "DEFINITE_NO_WRITE",
+          "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ],
+      "record_counts": {
+        "dispatches": 10,
+        "readbacks": 12
+      },
+      "passes_current_acceptance": false
+    }
+  ],
+  "current_unapproved_operations": [
+    {
+      "operation_id": "cc124-asia-risk-20261117",
+      "binding": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-asia-risk-20261117\\binding.json",
+        "bytes": 3475,
+        "sha256": "e67244a73fbaccfb8d076b8d6505d3896951215cd4c37771786d876ac9cc01dc"
+      },
+      "run_id": "cc124-asia-risk-20261117",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [],
+      "record_counts": {
+        "dispatches": 0,
+        "readbacks": 0
+      },
+      "passes_current_acceptance": false
+    },
+    {
+      "operation_id": "cc124-btc-range-20261117-r2",
+      "binding": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\binding.json",
+        "bytes": 3601,
+        "sha256": "b66245cdcffb48f1b3f85f99c0d5396544a1c7938aba42a1c29e20ad3adf1ebe"
+      },
+      "run_id": "cc124-btc-range-20261117-r2",
+      "state": "REVIEWED_HANDOFF_REQUIRED",
+      "timing": {
+        "policy": "JIM_DECISION_53",
+        "target_minutes": 15,
+        "text_approved_at_utc": null,
+        "dispatch_deadline_utc": null,
+        "channels": [],
+        "all_channels_dispatched_within_target": false,
+        "finished_piece_acceptance": {
+          "item": "CC-199",
+          "target_minutes": 30,
+          "required_destinations": [],
+          "excluded_destinations": [],
+          "all_destinations_with_image_readbacks_within_target": false
+        },
+        "state": "TEXT_APPROVAL_NOT_OBSERVED"
+      },
+      "destinations": [],
+      "record_counts": {
+        "dispatches": 0,
+        "readbacks": 0
+      },
+      "passes_current_acceptance": false
+    }
+  ],
+  "installed_consumers": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+      "bytes": 45782,
+      "sha256": "50e0862384e5318d29d3265561ad59088e8c064806c254e28a93cebb0e562970"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_publication_latency_v1.py",
+      "bytes": 29753,
+      "sha256": "1614a28c328ecd1bc5b65f9644df5184d6f380670f965d510b722193767e5c07"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+      "bytes": 18274,
+      "sha256": "82f60802a8ee2f9b1bd17df321932023c11d7c19597d1a12beddd2a3eb9ddde5"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "bytes": 358449,
+      "sha256": "d3065295f1d26cbf83d0a58704d7d458ee267a1b5a01f6b9fab91c797f052e20"
+    }
+  ],
+  "limits": "Durable observations only; no new platform readback, editorial call or public/store write."
+}

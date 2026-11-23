@@ -94,7 +94,7 @@ def gallery(root,assets,failures):
     reasons="".join(f'<li>{escape(str(f["cause"]))}: {escape(str(f.get("field") or ""))}</li>' for f in failures)
     html='''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CC-465 · Five image templates</title><style>
 body{margin:0;background:#F5F5F0;color:#111;font:16px system-ui,sans-serif}main{max-width:1700px;padding:32px;margin:auto}h1{border-left:8px solid #FDCF09;padding-left:20px}nav{display:flex;gap:20px;flex-wrap:wrap}a{color:#1F5FBF}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}figure{margin:0;padding:12px;border:1px solid #D4D4CC;background:#fff}img{width:100%;height:auto}figcaption{line-height:1.5;overflow-wrap:anywhere}section{margin-top:48px}aside{background:#ECECE6;padding:20px}</style><main><h1>Five image templates</h1>
-<p>Private build preview. Open an image to inspect its original size. The image records retain source and capture clocks. A code score or local preview does not establish publication, owner acceptance or a completed weekly sample.</p>
+<p>Open an image to inspect it at full size. The image records carry the original source and capture times.</p>
 <nav><a href="#call">Call</a><a href="#event">Event</a><a href="#result">Result</a><a href="#weekly">Weekly scorecard</a><a href="#map">Morning map</a></nav>'''+"".join(sections)+(f'<aside><h2>Images returned for revision</h2><ul>{reasons}</ul></aside>' if failures else '')+'</main></html>'
     (root/"gallery.html").write_text(html,encoding="utf-8")
 
@@ -106,6 +106,7 @@ def main():
     r=sub.add_parser("render");r.add_argument("--manifest",type=Path,required=True);r.add_argument("--output",type=Path,required=True);r.add_argument("--vision",action="store_true")
     v=sub.add_parser("review");v.add_argument("--asset",type=Path,required=True)
     a=sub.add_parser("sample");a.add_argument("--register",type=Path,required=True);a.add_argument("--day",required=True);a.add_argument("--output",type=Path,required=True)
+    a.add_argument("--vision", action="store_true", help="review the day's selected exact published PNGs")
     args=parser.parse_args()
     if args.command=="capture":capture_previews(args.output.resolve(),args.markets,args.masters)
     elif args.command=="render":args.output.mkdir(parents=True,exist_ok=True);build(args.manifest,args.output.resolve(),vision=args.vision)
@@ -114,7 +115,7 @@ def main():
         print(json.dumps({"asset":str(args.asset),"score":asset["image_quality"]["score"],"passed":asset["image_quality"]["passed"],"vision":asset["image_quality"]["vision"]["status"]}))
     else:
         records=[json.loads(line) for line in args.register.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
-        sample=publication_sample(records,args.day)
+        sample=publication_sample(records,args.day,run_vision=args.vision)
         write(args.output,sample)
         print(json.dumps({"selected":len(sample["images"]),"output":str(args.output)}))
 

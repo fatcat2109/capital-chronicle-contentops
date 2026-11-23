@@ -1,10 +1,11 @@
 # CC-199: finished pieces reach every destination
 
-Latest continuation: [17 November installed acceptance reading](run-20261117/README.md).
-The reopened sample remains 0/3. The installed reader retains Ops Product's dated
-YouTube exception; 22 installed checks pass. The held Main outputs exceed the
-CC-403 publication deadline. Earlier repairs and readings below retain their
-original scope and clocks.
+Latest continuation: [21 November installed acceptance reading](run-20261121/README.md).
+The reopened sample is 0/3. The 20 November market wrap reached no destination.
+The existing article route now isolates X identity checks, and its installed
+replay passes. Three timely pieces with per-destination image readbacks are
+still due. See the [17 November reading](run-20261117/README.md) for the prior
+snapshot.
 
 The remaining dispatch fixes extend the existing coordinator, compiler, native
 executor and published feed. The current ContentOps operating HEAD was the base;

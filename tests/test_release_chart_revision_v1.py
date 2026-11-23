@@ -47,7 +47,7 @@ def chart_revision(archive, revised, tmp_path, monkeypatch):  # noqa: F811 - sha
         a["visual_review"] = {"asset_sha256": a["sha256"], "pixels_inspected": True,
             "labels_and_units_legible": True, "reviewer": "CONTROLLED_TEST_NOT_VISUAL_PROOF"}
     body = "\n\n".join(["## Section 0", "Controlled history.", "## Section 1", "Controlled pace.",
-        "## Section 2", "Controlled effects.", "Analysis, not financial advice. Readers decide whether to trade."])
+        "## Section 2", "Controlled effects.", "Capital Chronicle offers analysis only, not financial advice or recommendations."])
     request = tmp_path / "controlled-writer-request.json"
     request.write_text('{"controlled": true}', encoding="utf-8")
     request_sha = sha256(request.read_bytes()).hexdigest()

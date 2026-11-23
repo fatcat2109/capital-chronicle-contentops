@@ -201,3 +201,56 @@ def test_native_projection_uses_reopened_exception_without_changing_dispatch(tmp
     assert {c["destination"] for c in acceptance["excluded_destinations"]} == {"youtube"}
     assert {"substack", "linkedin", "linkedin_company", "threads", "instagram_business"} <= set(acceptance["required_destinations"])
     assert store.list_platform_dispatches() == before
+
+
+def test_manual_desk_routes_appear_in_live_timing_without_counting_as_public_delivery(monkeypatch):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    from live_contentops.native_desktop_publication_v1 import DESTINATION, publication_projection
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    monkeypatch.setattr(handoff, "suspended_routes", lambda: {
+        "x": "JIM_POSTS_BY_HAND_20261123",
+        "linkedin_company": "JIM_POSTS_BY_HAND_20261123",
+        "linkedin": "NEO_SIGNED_IN_ACCOUNT_MISMATCH",
+        "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+    })
+    _, reviews, _, _ = timing_packet()
+    reviews[0]["reviewed_at"] = "2026-11-22T21:00:00Z"
+    company = DurablePublicationCoordinator._ids("run", "plan", "linkedin_company")
+    rows = [
+        {"message_id": "binding", "destination": DESTINATION,
+         "payload": json.dumps({"run_id": "run", "plan_hash": "plan"})},
+        {"message_id": company["message_id"], "destination": "linkedin_company",
+         "work_item_id": "run", "payload": "{}", "status": "READY"},
+    ]
+    timing = publication_projection(rows, [], [], run_id="run", reviews=reviews)["timing"]
+    channels = {c["destination"]: c for c in timing["channels"]}
+    assert channels["x"]["manual_handoff"]["authority"] == "CC-748"
+    assert channels["linkedin_company"]["manual_handoff"]["cause"] == "JIM_POSTS_BY_HAND_20261123"
+    assert channels["x"]["status"] == "NOT_DISPATCHED"
+    assert channels["linkedin"]["finished_piece_required"] is True
+    acceptance = timing["finished_piece_acceptance"]
+    assert {"x", "linkedin_company"} <= set(acceptance["required_destinations"])
+    assert {"x", "linkedin_company"}.isdisjoint(acceptance["automated_required_destinations"])
+    assert "linkedin" in acceptance["automated_required_destinations"]
+
+
+@pytest.mark.parametrize("before_handoff", [True, False])
+def test_manual_desk_timing_keeps_original_approval_and_exact_public_proof(monkeypatch, before_handoff):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+
+    monkeypatch.setattr(handoff, "suspended_routes", lambda: {
+        "substack_notes": "JIM_POSTS_BY_HAND_20261123",
+    })
+    packet = tuple(json.loads(json.dumps(group).replace(
+        "2026-11-06T08:", "2026-11-22T20:" if before_handoff else "2026-11-22T21:"
+    )) for group in timing_packet())
+    if before_handoff:
+        packet[1].append({**packet[1][0], "reviewed_at": "2026-11-22T21:00:00Z"})
+    packet[2].append({"destination": "substack_notes", "status": "NOT_DISPATCHED"})
+    timing = report(packet)
+    acceptance = timing["finished_piece_acceptance"]
+    assert timing["all_channels_dispatched_within_target"] is (not before_handoff)
+    assert acceptance["all_automated_destinations_with_image_readbacks_within_target"] is (not before_handoff)
+    assert acceptance["all_destinations_with_image_readbacks_within_target"] is False
+    assert acceptance["required_destinations"] == ["substack", "substack_notes"]

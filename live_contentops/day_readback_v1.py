@@ -23,7 +23,7 @@ from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from live_contentops.channel_engagement_v1 import CHANNELS, engagement_readback_basis, piece_engagement
-from live_contentops.agy_decision_metrics_v1 import daily_metrics
+from live_contentops.agy_decision_metrics_v1 import daily_metrics, draft_claims
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
 from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
@@ -32,6 +32,8 @@ LOCAL = timezone(timedelta(hours=7))
 DECISION_CHECKS_NAME = "decision_checks.json"
 ROUTES = ("substack", "substack_notes", "telegram", "x", "discord", "linkedin",
           "linkedin_company", "facebook_page", "instagram_business", "threads", "youtube")
+TELEGRAM_PUBLIC_CHANNEL = "https://t.me/s/CapitalChronicle"
+CC692_NOTES_DISPATCH = "dispatch_52b74856711d9922bcacceba907a1974"
 REPLY_PREFIX = "internal:x-reply-bot-"
 PRIVATE_KEY = re.compile(r"chat|token|secret|webhook|phone|user_id|binding", re.I)
 CODE = re.compile(r"[A-Z][A-Z0-9_]{1,159}\Z")
@@ -100,6 +102,9 @@ def safe_url(value):
 
 
 def public_get_url(platform, value):
+    if platform == "telegram_channel":
+        pattern = re.escape(TELEGRAM_PUBLIC_CHANNEL) + r"(?:\?before=[1-9][0-9]{0,14})?"
+        return value if isinstance(value, str) and re.fullmatch(pattern, value) else None
     value = safe_url(value)
     if not value:
         return None
@@ -250,6 +255,14 @@ def check_public_text(platform, html, *, expected_text="", expected_title="", pa
     body = None
     attachments = ()
     if platform == "telegram":
+        if page_url.startswith(TELEGRAM_PUBLIC_CHANNEL + "/"):
+            # A channel page contains multiple posts and may quote another post.
+            # Scope text and media to the requested post's own wrapper.
+            identity = urlsplit(page_url).path.removeprefix("/s/").casefold()
+            post = next((n for n in nodes if (n.attrs.get("data-post") or "").casefold() == identity), None)
+            nodes = list(post.walk()) if post else []
+            if decision_copy is not None and post is not None:
+                decision_copy.image_visible = any(_with_class_prefix(nodes, "tgme_widget_message_photo_wrap"))
         # Reply embeds show the quoted parent before the reply's own text.
         body = next((n for n in reversed(nodes)
                      if "tgme_widget_message_text" in (n.attrs.get("class") or "").split()), None)
@@ -367,6 +380,52 @@ def _piece_heading(group, expected, end):
     return first_line, None if undispatched else iso(first_clock)
 
 
+def _sweep_rows(conn, window):
+    start, end = utc(window["since_utc"]), utc(window["until_utc"])
+    work_ids = set()
+    recent_dispatch_ids = set()
+    reconciled_work = set()
+    marks = ",".join("?" for _ in ROUTES)
+    # The destination/created-at index narrows the large outbox table. The
+    # Python clock check retains correct handling for rows with UTC offsets.
+    for row in conn.execute(
+        f"SELECT work_item_id,created_at FROM outbox_messages "
+        f"WHERE destination IN ({marks}) AND created_at >= ? AND created_at <= ?",
+        (*ROUTES, start.date().isoformat(), end.date().isoformat() + "T23:59:59+00:00")):
+        if start < utc(row["created_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+    for row in conn.execute("SELECT o.work_item_id,d.dispatch_id,d.dispatched_at FROM platform_dispatches d "
+                           "JOIN outbox_messages o ON o.message_id=d.message_id"):
+        if row["dispatched_at"] and start < utc(row["dispatched_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+            recent_dispatch_ids.add(row["dispatch_id"])
+    for row in conn.execute("SELECT o.work_item_id,r.dispatch_id,r.read_at FROM readbacks r "
+                           "JOIN platform_dispatches d ON d.dispatch_id=r.dispatch_id "
+                           "JOIN outbox_messages o ON o.message_id=d.message_id"):
+        if start < utc(row["read_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+            recent_dispatch_ids.add(row["dispatch_id"])
+    for row in conn.execute("SELECT work_item_id,reconciled_at FROM reconciliations"):
+        if start < utc(row["reconciled_at"]) <= end:
+            work_ids.add(row["work_item_id"])
+            reconciled_work.add(row["work_item_id"])
+    base = ("SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,"
+            "d.dispatch_id,d.status,d.dispatched_at,d.public_object_id,d.public_object_url "
+            "FROM outbox_messages m LEFT JOIN platform_dispatches d ON m.message_id=d.message_id ")
+    rows = []
+    for work_id in sorted(work_ids):
+        for row in conn.execute(base + f"WHERE m.work_item_id=? AND m.destination IN ({marks})", (work_id, *ROUTES)):
+            created_in_window = start < utc(row["created_at"]) <= end
+            dispatched_in_window = bool(row["dispatched_at"] and start < utc(row["dispatched_at"]) <= end)
+            if created_in_window or dispatched_in_window or row["dispatch_id"] in recent_dispatch_ids or work_id in reconciled_work:
+                value = dict(row)
+                if value["dispatched_at"] and utc(value["dispatched_at"]) > end:
+                    value.update(dispatch_id=None, status=None, dispatched_at=None,
+                                 public_object_id=None, public_object_url=None)
+                rows.append(value)
+    return rows
+
+
 def _public_rows(conn, window, feed):
     marks = ",".join("?" for _ in ROUTES)
     base = ("SELECT m.message_id,m.work_item_id,m.destination,m.status AS outbox_status,m.created_at,m.payload,"
@@ -396,6 +455,9 @@ def _public_rows(conn, window, feed):
         work_ids.update(row[0] for row in conn.execute("""
             SELECT o.work_item_id FROM platform_dispatches d JOIN outbox_messages o ON o.message_id=d.message_id
             WHERE d.public_object_url=? AND o.destination='substack'""", (url,)))
+    # A continuation can arrive in a later window than its root.
+    work_ids.update(work.rsplit("-part-", 1)[0] for work in tuple(work_ids)
+                    if work.startswith("plan-") and re.search(r"-part-\d+$", work))
     by_id = {}
     end = utc(window["until_utc"])
     for work_id in sorted(work_ids):
@@ -419,6 +481,20 @@ def _readback_histories(conn, dispatch_ids, end):
             if utc(row["read_at"]) <= end:
                 histories[row["dispatch_id"]].append((row["read_at"], json.loads(row["readback_data"])))
     return histories
+
+
+def _watched_notes(conn, end):
+    dispatch = conn.execute("""SELECT status,public_object_url
+        FROM platform_dispatches WHERE dispatch_id=? AND platform='substack_notes'
+          AND julianday(dispatched_at) <= julianday(?)""", (CC692_NOTES_DISPATCH, iso(end))).fetchone()
+    if dispatch is None:
+        return {"platform": "substack_notes", "dispatch_id": CC692_NOTES_DISPATCH,
+                "status": "WATCH_DISPATCH_NOT_FOUND_AT_CUTOFF", "public_url": None}
+    history = _readback_histories(conn, (CC692_NOTES_DISPATCH,), end).get(CC692_NOTES_DISPATCH, [])
+    return {"platform": "substack_notes", "dispatch_id": CC692_NOTES_DISPATCH,
+            "status": dispatch["status"], "public_url": safe_url(dispatch["public_object_url"]),
+            "last_readback_at_utc": history[-1][0] if history else None,
+            "first_cause": next((cause for _, row in history if (cause := first_cause(row))), None)}
 
 
 def _decision_source(conn, work_id, end, expected=""):
@@ -581,24 +657,28 @@ def _native_observations(conn, work_id, until):
     return by_platform
 
 
-def _dispatch_outcomes(conn, work_id, dispatch_id, until):
-    if not dispatch_id:
-        return []
-    outcomes = []
+def _dispatch_outcomes(conn, work_ids, dispatch_ids, until):
+    outcomes = defaultdict(list)
+    if not dispatch_ids:
+        return outcomes
     for row in conn.execute("""SELECT severity, description, created_at FROM incidents
-        WHERE work_item_id=? AND severity IN ('DISPATCH_OUTCOME','RESOLVED_LOCAL_PREWRITE')
-        AND julianday(created_at) <= julianday(?) ORDER BY created_at,incident_id""", (work_id, until)):
+        WHERE work_item_id IN (SELECT value FROM json_each(?))
+        AND severity IN ('DISPATCH_OUTCOME','RESOLVED_LOCAL_PREWRITE')
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at,incident_id""",
+        (json.dumps(list(work_ids)), until)):
         value = json.loads(row["description"])
-        if value.get("dispatch_id") != dispatch_id:
+        dispatch_id = value.get("dispatch_id")
+        if dispatch_id not in dispatch_ids:
             continue
+        records = outcomes[dispatch_id]
         if (row["severity"] == "RESOLVED_LOCAL_PREWRITE"
                 and value.get("cause") == "CC467_UNREGISTERED_SURFACE_AFTER_BEGIN_CLAIM"):
-            for _, outcome in outcomes:
+            for _, outcome in records:
                 if outcome.get("safe_error_classification") == "KeyError":
                     outcome["first_cause"] = value["cause"]
                     break
         else:
-            outcomes.append((value.get("attempt_started_at_utc") or row["created_at"], value))
+            records.append((value.get("attempt_started_at_utc") or row["created_at"], value))
     return outcomes
 
 
@@ -804,14 +884,23 @@ def _plan_delivery(conn, window, store_path):
     runtime = Path(store_path).parent
     root = runtime / "daily_app_outputs" / "plan-status-posts"
     selected = []
-    for plan in conn.execute("""SELECT message_id,payload,status,created_at FROM outbox_messages
-        WHERE destination=? AND julianday(created_at) > julianday(?) AND julianday(created_at) <= julianday(?)
-        ORDER BY created_at,message_id""", (posts.DESTINATION, iso(start), iso(end))):
+    for plan in conn.execute("""SELECT p.message_id,p.payload,p.status,p.created_at FROM outbox_messages p
+        WHERE p.destination=? AND julianday(p.created_at) <= julianday(?)
+        AND (julianday(p.created_at) > julianday(?) OR p.status IN (?, 'PUBLISHING')
+             OR p.message_id IN (
+                SELECT o.work_item_id FROM outbox_messages o
+                LEFT JOIN platform_dispatches d ON d.message_id=o.message_id
+                WHERE julianday(o.created_at) <= julianday(?)
+                  AND (julianday(o.created_at) > julianday(?)
+                       OR julianday(d.dispatched_at) > julianday(?)
+                       OR d.status IN ('UNKNOWN_WRITE', 'DISPATCH_ATTEMPT_STARTED'))))
+        ORDER BY p.created_at,p.message_id""",
+        (posts.DESTINATION, iso(end), iso(start), posts.READY, iso(end), iso(start), iso(start))):
         row = json.loads(plan["payload"])
-        if row.get("format") != cards.FORMAT or row.get("kind") not in {"setup", "update", "result"}:
+        if row.get("kind") not in {"setup", "update", "result"}:
             continue
         key = plan["message_id"]
-        named = cards.destinations_for(row)
+        named = cards.destinations_for(row) if row.get("format") == cards.FORMAT else posts.POST_DESTINATIONS
         routes = {}
         plan_hash = sha256(("plan-status-post:" + key).encode()).hexdigest()
         for route in conn.execute("""SELECT o.destination,o.status AS outbox_status,o.created_at,
@@ -820,13 +909,15 @@ def _plan_delivery(conn, window, store_path):
             WHERE o.work_item_id=? AND julianday(o.created_at) <= julianday(?)
             ORDER BY o.created_at,o.message_id""", (key, iso(end))):
             destination = route["destination"]
-            if destination in named and route["message_id"] == DurablePublicationCoordinator._ids(
+            if destination in ROUTES and route["message_id"] == DurablePublicationCoordinator._ids(
                     key, plan_hash, destination)["message_id"]:
                 routes[destination] = route
-        selected.append((plan, row, named, routes))
+        selected.append((plan, row, tuple(dict.fromkeys((*named, *routes))), routes))
 
-    histories = _readback_histories(conn, (route["dispatch_id"] for _, _, _, routes in selected
-                                           for route in routes.values()), end)
+    dispatch_ids = {route["dispatch_id"] for _, _, _, routes in selected for route in routes.values()
+                    if route["dispatch_id"]}
+    histories = _readback_histories(conn, dispatch_ids, end)
+    outcomes = _dispatch_outcomes(conn, (plan["message_id"] for plan, *_ in selected), dispatch_ids, iso(end))
     plan_rows, copies, need_cause = [], [], defaultdict(set)
     for plan, row, named, routes in selected:
         key = plan["message_id"]
@@ -837,7 +928,7 @@ def _plan_delivery(conn, window, store_path):
             source_at = utc(row["at_utc"])
         except (KeyError, ValueError):
             source_at = None
-        observed, clocks = [], []
+        observed, clocks, in_window = [], [], []
         for destination in named:
             route = routes.get(destination)
             dispatch_at = utc(route["dispatched_at"]) if route and route["dispatched_at"] else None
@@ -845,23 +936,32 @@ def _plan_delivery(conn, window, store_path):
             if route:
                 status = (route["status"] or route["outbox_status"]) if not dispatch_at or dispatch_at <= end else "READY"
             confirmed = bool(dispatch_at and status == "DISPATCH_CONFIRMED" and route["public_object_id"])
-            retry, cause = False, None
+            retry, cause, retry_failure_cause = False, None, None
             published_at, verified_at = None, None
+            closed_at = None
             if route and route["dispatch_id"]:
                 dispatch_id = route["dispatch_id"]
                 retry_id = DurablePublicationCoordinator._retry_incident_id(dispatch_id)
-                retry = conn.execute("""SELECT 1 FROM incidents
+                retry_record = conn.execute("""SELECT created_at FROM incidents
                     WHERE incident_id=? AND julianday(created_at) <= julianday(?)""",
-                    (retry_id, iso(end))).fetchone() is not None
+                    (retry_id, iso(end))).fetchone()
+                retry = retry_record is not None
                 history = histories.get(dispatch_id, [])
-                diagnostics = _dispatch_outcomes(conn, key, dispatch_id, iso(end)) + native.get(destination, []) + history
+                dispatch_outcomes = outcomes[dispatch_id]
+                diagnostics = dispatch_outcomes + native.get(destination, []) + history
                 cause = next((c for _, value in sorted(diagnostics, key=lambda item: utc(item[0]))
                               if (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
+                if retry and not confirmed and destination in {"x", "substack_notes"}:
+                    retry_started = utc(retry_record["created_at"])
+                    retry_failure_cause = next((c for at, value in reversed(dispatch_outcomes)
+                        if utc(at) >= retry_started and
+                        (c := first_cause(value) or _plan_cause(value.get("safe_error_classification")))), None)
                 if confirmed:
                     published_at, verified_at = _plan_copy_clocks(history)
             if not confirmed:
                 closure = settled.get(destination) or {}
                 if closure and (not closure.get("recorded_at_utc") or utc(closure["recorded_at_utc"]) <= end):
+                    closed_at = utc(closure["recorded_at_utc"]) if closure.get("recorded_at_utc") else None
                     status = status if status in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"} else cards.SETTLED_POST
                     cause = cause or _plan_cause(closure.get("cause"))
                 if destination in skipped:
@@ -869,8 +969,18 @@ def _plan_delivery(conn, window, store_path):
                 if not cause:
                     need_cause[key].add(destination)
             ready_at = utc(route["created_at"] if route else plan["created_at"])
+            pending = (not confirmed and status not in {cards.SETTLED_POST, posts.STALE, posts.SUPERSEDED}
+                       and (plan["status"] in {posts.READY, "PUBLISHING"} or status in {
+                           "UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED"}
+                           or bool(dispatch_at and dispatch_at > end)))
+            in_window.append(pending or any(at and start < at <= end for at in
+                (ready_at, dispatch_at, published_at, verified_at, closed_at)))
             observed.append({"plan_post": key, "platform": destination, "status": status,
                 "confirmed": confirmed, "retry_recorded": retry, "first_cause": cause,
+                **({"retry_failure_cause": retry_failure_cause} if retry_failure_cause else {}),
+                **({"unresolved_write_age_seconds": (end - dispatch_at).total_seconds()}
+                   if dispatch_at and destination in {"x", "substack_notes"} and status in {
+                       "UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING"} else {}),
                  "source_at_utc": iso(source_at) if source_at else None,
                 "confirmed_dispatch_at_utc": iso(dispatch_at) if confirmed else None,
                 "observed_published_at_utc": iso(published_at) if published_at else None,
@@ -889,8 +999,9 @@ def _plan_delivery(conn, window, store_path):
             lag = round((finish - first).total_seconds(), 1) if first else None
             copy["seconds_after_first_confirmed"] = lag
             copy["behind_over_ten_minutes"] = lag is not None and lag > 600
-        copies.extend(observed)
-        plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
+        if any(in_window):
+            copies.extend(copy for copy, include in zip(observed, in_window, strict=True) if include)
+            plan_rows.append((key, plan["status"], all(r["confirmed"] for r in observed)))
 
     fallback = _plan_minute_causes(runtime / posts.RUN_RECORD_FOLDER, need_cause, start, end)
     states = {key: state for key, state, _ in plan_rows}
@@ -914,14 +1025,96 @@ def _plan_delivery(conn, window, store_path):
             "copies": copies}
 
 
+def _exact_copy_readback_at(copy):
+    if copy is None or not copy.row.get("public_object_id"):
+        return None
+    for observed_at, record in reversed(copy.history):
+        proof = record.get("readback", record)
+        if (proof.get("verified") is True and not proof.get("write_absent")
+                and proof.get("identity_match") is not False
+                and proof.get("observed_public_object_id") == copy.row["public_object_id"]
+                and proof.get("observed_public_object_url") in (None, copy.url)):
+            return utc(observed_at)
+    return None
+
+
+def _sweep_summary(report, copies, notes, started, finished):
+    routes = {platform: Counter() for platform in ROUTES}
+    targets = {}
+    for piece in report["pieces"]:
+        for route in piece["platforms"]:
+            platform = route["platform"]
+            dispatch_id = route.get("dispatch_id")
+            copy = copies.get((route.get("message_id"), dispatch_id))
+            fresh = copy is not None and copy.public_text is not None
+            exact_at = _exact_copy_readback_at(copy)
+            refreshed = exact_at is not None and started <= exact_at
+            status = route["status"]
+            confirmed = status == "DISPATCH_CONFIRMED" or bool(copy and copy.confirmed)
+            counts = routes[platform]
+            counts["copies"] += 1
+            if fresh:
+                counts["fresh_public"] += 1
+            elif refreshed:
+                counts["exact_refreshed"] += 1
+            elif exact_at:
+                counts["exact_retained"] += 1
+            elif confirmed:
+                counts["unverified"] += 1
+            else:
+                counts["unconfirmed"] += 1
+            needs_owner_read = platform != "telegram" and not fresh
+            if dispatch_id and (status == "UNKNOWN_WRITE" or (confirmed and needs_owner_read and not refreshed)):
+                targets[dispatch_id] = {"dispatch_id": dispatch_id, "platform": platform,
+                    "public_url": route["public_url"], "status": status,
+                    "last_exact_readback_at_utc": iso(exact_at) if exact_at else None}
+    if notes["status"] == "UNKNOWN_WRITE":
+        targets[notes["dispatch_id"]] = notes
+
+    # Prefer evidence of a public defect over a transport symptom. Group matching
+    # failures so the runner can take one fix without filing one item per post.
+    groups = {}
+    for issue in report["exceptions"]:
+        cause = issue["first_cause"]
+        if "decision" not in issue and issue.get("status") not in {"MISSING_ROW", "DEFINITE_NO_WRITE", "UNKNOWN_WRITE"}:
+            if cause not in {"PUBLIC_LINK_MISSING", "PUBLIC_TEXT_CUT_OFF", "PUBLIC_TEXT_MISMATCH"}:
+                continue
+        key = (issue.get("decision", ""), issue.get("platform") or "all", cause)
+        if key not in groups:
+            groups[key] = {"count": 0, "example": issue}
+        groups[key]["count"] += 1
+    ranked = sorted(groups.values(), key=lambda group: (
+        group["example"].get("evidence") != "public_http"
+        and group["example"]["first_cause"] not in {"PUBLIC_LINK_MISSING", "PUBLIC_TEXT_CUT_OFF", "PUBLIC_TEXT_MISMATCH"},
+        -group["count"], group["example"]["first_cause"], group["example"].get("platform") or ""))
+    next_due = finished + timedelta(hours=6)
+    if next_due.second or next_due.microsecond:
+        next_due = next_due.replace(second=0, microsecond=0) + timedelta(minutes=1)
+    return {"started_at_utc": iso(started), "completed_at_utc": iso(finished), "next_due_utc": iso(next_due),
+            "platforms": [{"platform": platform, **{key: counts[key] for key in (
+                "copies", "fresh_public", "exact_refreshed", "exact_retained", "unverified", "unconfirmed")}}
+                for platform, counts in routes.items()],
+            "notes_watch": notes, "readback_targets": list(targets.values()),
+            "defect_groups": ranked}
+
+
 def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED,
-                 since=None, until=None, now=None, fetcher=fetch_public, run_result=None, plan_export_dir=None):
+                 since=None, until=None, now=None, fetcher=fetch_public, run_result=None, plan_export_dir=None,
+                 sweep=False, sweep_started_at=None):
     now = now or datetime.now(timezone.utc)
+    if sweep:
+        if since is not None or run_result:
+            raise ValueError("SWEEP_REQUIRES_ITS_OWN_24_HOUR_WINDOW")
+        since = iso((utc(until) if until else now) - timedelta(hours=24))
+        run_result = {}  # Include digests as ordinary pieces, without the evening run's clocks.
     window, result = report_window(run_dir, since=since, until=until, now=now, run_result=run_result)
     report = {"schema_version": "contentops.day_readback.v1", "observed_at_utc": iso(now),
               "window": window, "pieces": [], "exceptions": [],
               "store_open_mode": "ro", "public_writes": 0, "browser_opens": 0, "model_calls": 0}
     start, end = utc(window["since_utc"]), utc(window["until_utc"])
+    sweep_started = utc(sweep_started_at) if sweep_started_at else end
+    if sweep and not start < sweep_started <= end:
+        raise ValueError("SWEEP_START_OUTSIDE_WINDOW")
     engagement_cutoff = min(now, end)
     report["engagement"] = {"source": "performance_observations", "cutoff_utc": iso(engagement_cutoff)}
     collector_states = {row["destination"]: row["collector_state"] for row in current_metrics_capability_matrix()}
@@ -959,9 +1152,22 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         target = public_get_url(platform, url)
         if not target or fetcher is None:
             return None
+        fetch_platform, page_url = platform, target
+        if sweep and platform == "telegram":
+            fetch_platform = "telegram_channel"
+            page_url = TELEGRAM_PUBLIC_CHANNEL + "/" + urlsplit(target).path.rsplit("/", 1)[-1]
+            target = TELEGRAM_PUBLIC_CHANNEL
         if target not in cache:
-            cache[target] = {**fetcher(platform, target), "checked_at_utc": iso(datetime.now(timezone.utc))}
+            cache[target] = {**fetcher(fetch_platform, target), "checked_at_utc": iso(datetime.now(timezone.utc))}
         response = cache[target]
+        if fetch_platform == "telegram_channel" and response.get("http_status") == 200:
+            number = page_url.rsplit("/", 1)[-1]
+            marker = f'data-post="CapitalChronicle/{number}"'.casefold()
+            if marker not in response.get("html", "").casefold():
+                target = TELEGRAM_PUBLIC_CHANNEL + "?before=" + str(int(number) + 1)
+                if target not in cache:
+                    cache[target] = {**fetcher(fetch_platform, target), "checked_at_utc": iso(datetime.now(timezone.utc))}
+                response = cache[target]
         status = response.get("http_status")
         cause = code(response.get("first_cause"))
         checked = {"checked_at_utc": response["checked_at_utc"], "http_status": status}
@@ -972,15 +1178,16 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                     "first_line_matches": None, "text_complete": None, "links_match": None,
                     "exceptions": [cause or "PUBLIC_HTTP_UNAVAILABLE"]}
         return {**checked, **check_public_text(platform, response.get("html", ""),
-                                               expected_text=text, expected_title=title, page_url=target,
+                                               expected_text=text, expected_title=title, page_url=page_url,
                                                decision_copy=decision_copy)}
 
     with closing(sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True, timeout=5)) as conn:
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA query_only=ON")
         conn.execute("BEGIN")
+        notes = _watched_notes(conn, end) if sweep else None
         engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None
-        rows = _public_rows(conn, window, feed)
+        rows = _sweep_rows(conn, window) if sweep else _public_rows(conn, window, feed)
         histories = _readback_histories(conn, (row["dispatch_id"] for row in rows), end)
         groups = defaultdict(list)
         for row in rows:
@@ -1027,8 +1234,9 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                     continue  # This run's digest has its own packet/page/delivery section.
                 quote = intent.get("quote_parent") if platform == "x" and work_id.startswith("heavy-quote-") else None
                 diagnostics = history + native.get(platform, [])
-                if quote:
-                    diagnostics += _dispatch_outcomes(conn, work_id, row["dispatch_id"], window["until_utc"])
+                if quote and row["dispatch_id"]:
+                    dispatch_id = row["dispatch_id"]
+                    diagnostics += _dispatch_outcomes(conn, (work_id,), {dispatch_id}, window["until_utc"])[dispatch_id]
                 diagnostics.sort(key=lambda item: utc(item[0]))
                 cause = next((c for _, value in diagnostics if (c := first_cause(value))), None)
                 status = row["status"] or row["outbox_status"]
@@ -1127,18 +1335,26 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     if report["digest"]["public_readback"]:
         for issue in report["digest"]["public_readback"]["exceptions"]:
             exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
+    from .plan_queue_clock_v1 import read_queue_events
+    from .plan_status_posts_v1 import RUN_RECORD_FOLDER
+
+    checks.plan_queue(read_queue_events(Path(store_path).parent / RUN_RECORD_FOLDER, checks.start, checks.end))
     report["decision_checks"] = checks.finish(report["plan_delivery"], analysis_urls,
         plan_export=plan_export, announced=announced, plan_source_error=plan_source_error,
         plan_cutoff=plan_cutoff)
     report["decision_checks"]["antigravity"] = daily_metrics(
         Path(store_path).parent, window, checks.estimated_jobs(report["plan_delivery"]),
         {Path(copy.intent["output_dir"]).resolve() for copy in checks.copies if copy.intent.get("output_dir")})
+    report["decision_checks"]["claims"] = draft_claims(
+        Path(store_path).parent, window, checks.copies, report["decision_checks"]["antigravity"])
     report["exceptions"].extend({
         **item, "message_id": None, "dispatch_id": None,
         "first_cause": f"{item['decision']} {item['first_cause']}"
         + (f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""),
     } for item in report["decision_checks"]["issues"] if item["status"] == "FAIL")
     report["exception_count"] = len(report["exceptions"])
+    if sweep:
+        report["sweep"] = _sweep_summary(report, decision_copies, notes, sweep_started, datetime.now(timezone.utc))
     return report
 
 
@@ -1151,6 +1367,14 @@ def markdown(report):
         return plain(piece["title"] or piece.get("first_line") or piece["piece_id"])
     lines = [f"Day readback: {local(report['window']['since_utc'])} to {local(report['window']['until_utc'])}.",
              f"Store observed: {local(report['observed_at_utc'])}; public HTTP observed at report time."]
+    if sweep := report.get("sweep"):
+        lines.insert(0, f"CC-692 sweep completed {local(sweep['completed_at_utc'])}. "
+                     f"Next due {local(sweep['next_due_utc'])}.")
+        lines.extend(f"- {row['platform']}: {row['copies']} copies, {row['fresh_public']} fresh public reads, "
+                     f"{row['exact_refreshed']} exact refreshed, {row['exact_retained']} exact retained, {row['unverified']} unverified, "
+                     f"{row['unconfirmed']} unconfirmed." for row in sweep["platforms"])
+        notes = sweep["notes_watch"]
+        lines.append(f"Notes watch: {notes['dispatch_id']} {notes['status']}.")
     for piece in report["pieces"]:
         platforms = "; ".join(f"{r['platform']}={r['status']}" for r in piece["platforms"])
         clock = piece.get("first_dispatch_at_utc")
@@ -1225,16 +1449,61 @@ def markdown(report):
     lines.append("")
     lines.append(f"Exceptions: {report['exception_count']}.")
     for item in report["exceptions"]:
-        lines.append(f"- {plain(item['piece_id'])} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
+        if item.get("chart_readback"):
+            continue
+        label = plain(item["piece_id"])
+        if item.get("decision") == "CC-732":
+            label = f"{plain(item['plan_id'])} / {plain(item['state'])} · {item['gap_seconds']:g}s ({label})"
+        lines.append(f"- {label} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
                      f"{item['first_cause']}; {item['public_url'] or 'no public URL'}.")
     if decisions := report.get("decision_checks"):
         lines.extend(["", "## Decision checks", "",
                       f"{decisions['failure_count']} failures and {decisions['unverified_count']} unverified checks."])
         for item in decisions["issues"]:
+            if item.get("chart_readback"):
+                continue
             url = f" · {item['public_url']}" if item["public_url"] else ""
             cause = f" ({item['delivery_cause']})" if item.get("delivery_cause") else ""
-            lines.append(f"- {item['decision']} · {plain(item['piece_id'])} / {item['platform']} · "
+            gaps = item.get("missing_layers") or {}
+            if gaps:
+                cause += " (" + ", ".join(f"{key}={value}" for key, value in gaps.items()) + ")"
+            label = plain(item["piece_id"])
+            if item["decision"] == "CC-732":
+                label = f"{plain(item['plan_id'])} / {plain(item['state'])} · {item['gap_seconds']:g}s"
+            lines.append(f"- {item['decision']} · {label} / {item['platform']} · "
                          f"{item['status']} · {item['first_cause']}{cause}{url}")
+        for copy in decisions.get("plan_analysis", []):
+            unavailable = [f"{key}={item['cause']}" for key, item in copy["layers"].items()
+                           if item["state"] == "UNAVAILABLE"]
+            if unavailable:
+                lines.append(f"- 113 · {plain(copy['piece_id'])} / {copy['platform']} · "
+                             f"Unavailable in the frozen plan ({', '.join(unavailable)})")
+        if charts := decisions.get("posted_chart_readbacks"):
+            replies = {(r["platform"], r["reply_to_id"]): r["correction_id"]
+                       for r in decisions["chart_correction_replies"]}
+            lines.extend(["", "### Posted charts", ""])
+            alerted = set()
+            for chart in charts:
+                ref = (chart["platform"], chart["public_object_id"])
+                if chart["status"] in {"MISSING", "MISMATCH"}:
+                    if ref in alerted:
+                        continue
+                    alerted.add(ref)
+                reply = replies.get(ref)
+                details = [chart["status"], chart.get("first_cause"),
+                           f"reply prepared for Codex Publisher ({reply})" if reply else chart.get("correction_cause"),
+                           chart["public_url"] or plain(chart["public_object_id"])]
+                lines.append(f"- {plain(chart['piece_id'])} / {chart['platform']} · " + " · ".join(filter(None, details)))
+        if claims := decisions.get("claims"):
+            lines.extend(["", "### Claims", "", f"{claims['checked']} drafts reviewed. "
+                          f"{claims['public_drafts']} public drafts observed."])
+            for row in claims["drafts"]:
+                actions = ", ".join(f"{flag['cause']} / {flag['action']}" for flag in row["flags"])
+                detail = " · " + " · ".join(filter(None, (row["cause"], actions))) if row["cause"] or actions else ""
+                lines.append(f"- {plain(row['draft_id'])} · {row['kind']} · {row['status']}{detail}")
+            for reply in claims["correcting_replies"]:
+                lines.append(f"- Correcting reply for Publisher · {reply['platform']} · {reply['parent_url']} · "
+                             f"{plain(reply['reply_text'])}")
         if assist := decisions.get("antigravity"):
             lines.extend(["", "### Antigravity", "",
                           "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",

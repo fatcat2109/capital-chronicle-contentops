@@ -56,6 +56,32 @@ def test_real_consumer_freezes_quote_edge_figure_and_chart_then_reuses_confirmat
     assert transport.publish_calls == ["x"]
 
 
+def test_quote_report_uses_the_confirmed_objects_publication_clock(prepared, tmp_path, monkeypatch):
+    store, coordinator, transport, raw, now = prepared
+    published = now + timedelta(seconds=15)
+    readback = transport.readback
+    monkeypatch.setattr(transport, "readback", lambda **kwargs: {
+        **readback(**kwargs), "published_at_utc": published.isoformat(),
+    })
+    row = quotes.stage(store, raw, now=now)
+    dispatch = replies.publish(store, row["key"], coordinator=coordinator, root=tmp_path, now=now)
+    assert dispatch["reply"]["readback_url"]
+    dispatch_id = store.get_dispatches_for_work_item(row["key"])[0]["dispatch_id"]
+    store.register_readback(readback_id="unrelated-object", dispatch_id=dispatch_id, readback_data=json.dumps({
+        "readback": {"verified": True, "observed_public_object_id": "other",
+                     "observed_public_object_url": "https://x.com/Capitalnicle/status/2",
+                     "observed_published_at_utc": (published + timedelta(minutes=10)).isoformat()},
+    }))
+
+    result = quotes.audience_review(store, now=published + timedelta(minutes=1))
+    report = result["quotes"][0]
+    assert report["posted_at_utc"] != report["observed_published_at_utc"]
+    assert report["observed_published_at_utc"] == result["first_quote_at_utc"] == published.isoformat()
+    assert report["publication_readback_at_utc"]
+    assert report["within_five_minutes"] and report["source_to_post_seconds"] == 35
+    assert result["review_due_at_utc"] == (published + timedelta(days=14)).isoformat()
+
+
 def test_fresh_write_deadline_never_prevents_older_uncertain_write_readback(prepared, tmp_path):
     store, coordinator, transport, raw, now = prepared
     transport.raise_after_write, transport.ambiguous = True, True

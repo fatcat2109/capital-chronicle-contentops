@@ -489,13 +489,18 @@ def _table(canvas,data,page):
                 canvas.text(value,(m+12,second,w-m-12,y+height-4),size=56,wrap=2,key="week.row")
             else:
                 values=[MARKETS[row['market']]+" · "+row['direction'],row['horizon_label']]
-                if chance_text:values.append(chance_text)
+                if chance_text or week.get("reserve_odds_row"):
+                    values.append(chance_text)
                 values.append(row['outcome_label'])
                 step=height/len(values)
                 canvas.text(values[0],(m+12,y,w-m-230,y+step),size=52,key="week.market",center_y=True)
                 canvas.text(result,(w-m-220,y,w-m-12,y+step),size=64,mono=True,key="week.r",center_y=True)
                 for j,value in enumerate(values[1:],1):
-                    canvas.text(value,(m+12,y+j*step,w-m-12,y+(j+1)*step),size=64,key="week.row",center_y=True)
+                    cy = y+j*step
+                    if value:
+                        canvas.text(value,(m+12,cy,w-m-12,cy+step),size=64,key="week.row",center_y=True)
+                    else:
+                        canvas.draw.line((m+12,cy+step/2,w-m-12,cy+step/2),fill=COLOURS["rule"],width=2)
             canvas.draw.line((m,y+height,w-m,y+height),fill=COLOURS["rule"],width=2)
         if week.get("wrong_note"):
             note=field(week,"wrong_note",60,required=False)

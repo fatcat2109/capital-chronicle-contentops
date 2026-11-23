@@ -13,6 +13,7 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy
+from live_contentops.image_template_inputs_v1 import weekly_result_fields
 from live_contentops.plan_call_cards_v1 import _result_rows, ending_words, no_entry_words
 from live_contentops.plan_status_posts_v1 import TITLES, _built_plan, _utc, read_export, result_rows_from_export
 
@@ -91,15 +92,18 @@ def project(export, *, cutoff_utc):
         local = resolved.astimezone(ET)
         day = f"{local:%a} {local.day} {local:%b}"
         words = no_entry_words(plan) if result == "NOT_TRIGGERED" else RESULTS[result]
-        if outcome.get("not_executed") is True or score.get("not_executed") is True:
+        not_executed = outcome.get("not_executed") is True or score.get("not_executed") is True
+        if not_executed:
             words = ending_words({"source_plan": plan, "result": result})
         line = (f"- {day} ET: {TITLES.get(symbol, symbol)}; original direction was {direction}; "
                 f"{levels}{words}.")
+        image_result = None if not_executed else weekly_result_fields(plan)
         rows.append({"plan_id": plan["plan_id"], "outcome_id": outcome["outcome_id"],
                      "source_plan_hash": score.get("source_plan_hash"), "score_hash": score.get("content_hash"),
                      "resolved_at_utc": score["resolved_at_utc"], "scored_at_utc": score["scored_at_utc"],
                      "market": symbol, "direction": direction, "zone": dict(zone), "result": result,
-                     "scored": True, "line": line})
+                     "scored": True, "line": line, **({"image_result": image_result} if image_result else {}),
+                     **({"not_executed": True} if not_executed else {})})
     # CC-394's pinned message overflows into this same complete weekly record.
     # Preserve the reader's explicit legacy expiries as unscored, until Main
     # supplies scored NOT_TRIGGERED outcomes. Never count them as scored calls.
@@ -200,4 +204,6 @@ def validate_article(article, documents):
         raise ValueError("WEEKLY_CALL_COMPLETE_RECORD_REQUIRED")
     return {"source_id": doc["source_id"], "source_sha256": doc["canonical_content_sha256"],
             "week_start_et": doc["weekly_scored_calls"]["week_start_et"],
-            "counts": doc["weekly_scored_calls"]["counts"]}
+            "counts": doc["weekly_scored_calls"]["counts"],
+            **({"record": doc["weekly_scored_calls"]} if any(row.get("image_result")
+                                                         for row in doc["weekly_scored_calls"]["rows"]) else {})}

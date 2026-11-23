@@ -16,6 +16,8 @@ EFFECTIVE_FROM = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 MAX_SENTENCE_WORDS = 35
 DAILY_WORDS = 350
 DATA_TO_PUBLICATION_MINUTES = 60
+NEWEST_ADMITTED_DATA = "NEWEST_ADMITTED_DATA"
+OFFICIAL_RELEASE_CLOCKS = {"EXACT_OFFICIAL_LOCATOR_TIMESTAMP", "OFFICIAL_BYTES_HEADERS_OR_LOCATOR"}
 FIELDS = ("title", "subtitle", "dek", "search_title", "meta_description", "social_hook",
           "substack_body_markdown")
 MARKER = re.compile(r"\[\[SOURCE:(SOURCE_\d+)\]\]")
@@ -43,8 +45,9 @@ A WEEKLY_REVIEW is a long review, not a daily note. Include CC-379's whole score
 record exactly once, including losses and unscored expiries, and discuss what we got wrong.
 The daily note uses Antigravity's first draft (decision 114) and one Codex light editorial
 pass. The weekly review uses the existing Codex strong pass. Record actual calls and
-failures. Cards retain their own contract. Keep the original data cutoff: generation,
-retrieval, approval and a media refresh never restart the 60-minute publication clock.
+failures. Cards retain their own contract. The 60-minute clock uses the newest
+admitted data in the source pack. Cite its facts and keep Main's analysis clock
+separate. Generation, retrieval, approval and a media refresh never restart the clock.
 """
 
 
@@ -75,23 +78,39 @@ def article_format(governed, run_id=""):
     return "ARTICLE"
 
 
-def source_clock(documents, candidate=None):
-    """The current source's data clock; dated context cannot refresh that clock."""
-    candidate = candidate or {}
-    current = [d for d in documents if not d.get("context_only") and not d.get("weekly_scored_calls")]
-    primary = next((d for d in current if d.get("document_id") == candidate.get("headline_id")),
-                   current[0] if current else {})
-    lineage = primary.get("report_lineage") or {}
-    value = primary.get("data_cutoff_utc") or lineage.get("data_cutoff_utc") or lineage.get("known_at_cutoff_utc")
+def _document_data_clock(document, *, allow_publication=True):
+    lineage = document.get("report_lineage") or {}
+    value = document.get("data_cutoff_utc") or lineage.get("data_cutoff_utc") or lineage.get("known_at_cutoff_utc")
     if not value:
         observations = [e["observation_time_utc"] for claim in lineage.get("claims", [])
                         for e in claim.get("evidence", []) if e.get("observation_time_utc")]
         value = max(observations, key=utc) if observations else None
-    # A release's own publication is a data clock. A retained report's generation
-    # or a fresh read of it is not. The projection adapter supplies its capture.
-    if not value and "KNOWN_AT" not in str(primary.get("published_at_source") or ""):
-        value = primary.get("published_at_utc")
-    return utc(value).isoformat() if value else None
+    if not value and allow_publication and "KNOWN_AT" not in str(document.get("published_at_source") or ""):
+        value = document.get("published_at_utc")
+    return utc(value) if value else None
+
+
+def source_clock(documents, candidate=None, *, newest=False):
+    """Take the newest current data clock while keeping legacy contracts replayable."""
+    candidate = candidate or {}
+    current = [d for d in documents if not d.get("context_only") and not d.get("weekly_scored_calls")]
+    primary = next((d for d in current if d.get("document_id") == candidate.get("headline_id")),
+                   current[0] if current else {})
+    clock = _document_data_clock(primary)
+    if newest:
+        for document in current:
+            if document is primary or document.get("secondary_listing_only"):
+                continue
+            official_release = (document.get("source_authority_class") == "official_public_primary_source"
+                                and document.get("published_at_source") in OFFICIAL_RELEASE_CLOCKS)
+            try:
+                observed = _document_data_clock(document, allow_publication=official_release)
+            except ValueError:
+                # A supplementary source can inform the article without supplying a usable clock.
+                continue
+            if observed is not None and (clock is None or observed > clock):
+                clock = observed
+    return clock.isoformat() if clock is not None else None
 
 
 def contract_for(governed, run_id=""):
@@ -103,7 +122,8 @@ def contract_for(governed, run_id=""):
     return {"policy": POLICY, "format": article_format(governed, run_id),
             "source_pack_sha256": sha256_of(documents),
             "primary_document_id": primary.get("document_id"),
-            "data_cutoff_utc": source_clock(documents, candidate),
+            "data_clock_basis": NEWEST_ADMITTED_DATA,
+            "data_cutoff_utc": source_clock(documents, candidate, newest=True),
             "max_sentence_words": MAX_SENTENCE_WORDS, "daily_prose_words": DAILY_WORDS,
             "publication_target_minutes": DATA_TO_PUBLICATION_MINUTES}
 
@@ -185,7 +205,9 @@ def check_article(article, documents, *, contract=None):
     errors = []
     if contract.get("source_pack_sha256") != sha256_of(documents):
         errors.append("ARTICLE_READER_SOURCE_CHANGED")
-    if contract.get("data_cutoff_utc") != source_clock(documents, {"headline_id": contract.get("primary_document_id")}):
+    frozen_candidate = {"headline_id": contract.get("primary_document_id")}
+    newest = contract.get("data_clock_basis") == NEWEST_ADMITTED_DATA
+    if contract.get("data_cutoff_utc") != source_clock(documents, frozen_candidate, newest=newest):
         errors.append("ARTICLE_DATA_CLOCK_CHANGED")
     body = visible(article.get("substack_body_markdown"))
     text = "\n\n".join(visible(article.get(k)) for k in FIELDS)

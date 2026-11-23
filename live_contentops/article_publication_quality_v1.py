@@ -95,11 +95,25 @@ def validate_snapshot_asset(asset, *, market=None, now=None):
             raise ImagePolicyError("TRADINGVIEW_SNAPSHOT_STALE")
 
 
-def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=None):
+def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=None, source_documents=()):
     """Wire CC-316 before review/registration, so media identities freeze once."""
     from live_contentops import tradingview_snapshot_v1 as tv
     from .publication_image_contract_v1 import EFFECTIVE_FROM
     if (now or datetime.now(timezone.utc)) >= EFFECTIVE_FROM:
+        if not article.get("image_input_v1"):
+            from .image_template_inputs_v1 import for_event_preview, for_weekly_review
+            data = for_weekly_review(article) if not article.get("market_asset") else None
+            if not data and source_documents:
+                data = for_event_preview(article, source_documents)
+            if data:
+                from .image_quality_v1 import TEMPLATE_FIT_CAUSES
+                try:
+                    return tv.prepare_contract_article({**article, "image_input_v1": data}, assets,
+                                                       output_dir=output_dir, snapshot=capture)
+                except (ValueError, tv.SnapshotError) as exc:
+                    if str(exc) not in TEMPLATE_FIT_CAUSES:
+                        raise
+                    article = {**article, "image_template_fit_cause": str(exc)}
         return tv.prepare_contract_article(article, assets, output_dir=output_dir, snapshot=capture)
     market = article.get("market_asset")
     if market not in tv.SYMBOLS:
@@ -151,6 +165,9 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
 
 
 def before_article_write(coordinator, intent, destination):
+    if intent.get("market_wrap"):
+        from .market_wrap_job_v1 import before_write
+        return before_write(coordinator, intent, destination)
     if not applies(coordinator, intent):
         return None
     if intent.get("measured_odds_piece"):
@@ -176,15 +193,15 @@ def before_article_write(coordinator, intent, destination):
                     for key,leg in a["chart_spec"]["legs"].items()}},sort_keys=True).encode()).hexdigest()}
                     if a.get("chart_spec") else {})}
                   for a in assets]
-        # CC-543 sends the same plan's setup alert before its Substack page.
-        # Decision 93's image reuse rule applies between pieces, not between
-        # the setup and page bound to this exact Main plan registration.
+        # CC-543 can send the setup and its follow-ups before the Substack page.
+        # They are copies of the same Main registration for decision 93.
         related = set()
         if len(assets) == 1 and assets[0].get("modality") == "tradingview_chart_snapshot":
             from .plan_status_posts_v1 import DESTINATION
             for row in coordinator.store.list_outbox_messages(destination=DESTINATION):
                 alert = json.loads(row["payload"])
-                if (alert.get("kind") == "setup" and alert.get("state_alert_contract") == "CC543_V1"
+                if (alert.get("kind") in {"setup", "update", "result"}
+                        and alert.get("state_alert_contract") == "CC543_V1"
                         and alert.get("plan_id") == packet["plan_id"]
                         and alert.get("source_plan_registration") == packet["registration_hash"]):
                     related.add(piece_id(coordinator.store, {"work_item_id": row["message_id"]}))
@@ -286,8 +303,9 @@ def settle_article_images(coordinator, intent, *, destination, status, canonical
             canonical_url=canonical_url, now=coordinator._clock(), published_at_utc=published_at_utc)
 
 
-def observe_published_images(coordinator, intent, dispatch, *, observed_url, published_at_utc=None):
-    """Register delivered status/digest images too, without changing their contracts."""
+def observe_published_images(coordinator, intent, dispatch, *, observed_url, published_at_utc=None,
+                             presentation_edit=False):
+    """Record the media delivered by a send or a confirmed media edit."""
     if coordinator.published_content_path is None or coordinator._clock() < EFFECTIVE_FROM:
         return
     article, assets, _ = article_inputs(intent)
@@ -295,7 +313,10 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
     selected = list(payload.get("media_asset_ids") or []) if isinstance(payload, dict) else []
     if isinstance(payload, dict):
         selected += [i for p in payload.get("posts") or [] if isinstance(p, dict) for i in p.get("media_asset_ids") or []]
-    if dispatch["platform"] != "substack" and selected:
+    if dispatch["platform"] == "substack":
+        assets = [a for a in assets if a.get("article_inclusion") is not False
+                  and a.get("canonical_article_media") is not False]
+    elif selected:
         by_id = {a.get("asset_id"): a for a in assets}
         assets = [by_id[i] for i in dict.fromkeys(selected) if i in by_id]
     from .publication_image_contract_v1 import POLICY as IMAGE_CONTRACT, validate_write, scope
@@ -307,11 +328,10 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
             return
     # The canonical reservation already binds its fingerprints and uncertain
     # clock interval. Extra observations must not erase that clock distinction.
-    edited = bool(intent.get("reader_presentation_review"))
-    if dispatch["platform"] == "substack" and applies(coordinator, intent) and not edited:
+    if dispatch["platform"] == "substack" and applies(coordinator, intent) and not presentation_edit:
         return
     reference = "coordinator:" + dispatch["dispatch_id"]
-    if edited:
+    if presentation_edit:
         reference += ":edit:" + sha256(json.dumps(intent["reader_presentation_review"], sort_keys=True).encode()).hexdigest()
     image_register(coordinator).seed(piece_id=piece_id(coordinator.store, intent),
         canonical_url=observed_url if dispatch["platform"] == "substack" else intent.get("canonical_url"),
@@ -320,5 +340,5 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
         destination=dispatch["platform"], market=article.get("market_asset") or (sorted(markets) if markets else None),
         image_contract=article.get("publication_image_contract") or (IMAGE_CONTRACT if text_fallback else None),
         text_fallback=text_fallback,
-        counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if edited else
+        counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if presentation_edit else
         "OBSERVED_PUBLICATION_CLOCK" if published_at_utc else "RETAINED_COORDINATOR_DISPATCH_CLOCK")

@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import datetime
-from decimal import Decimal, InvalidOperation
+from datetime import datetime, timedelta
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from hashlib import sha256
 import json
 from zoneinfo import ZoneInfo
@@ -75,7 +75,7 @@ def from_result(row):
     if not no_entry and r_value is None:
         raise ValueError("IMAGE_R_RESULT_NOT_EXPORTED")
     label="Expired, no entry" if no_entry else {"STOPPED":"Stopped at invalidation","TIME_EXIT":"Time exit",
-        "TARGET":"Target reached","CLOSED_EARLY":"Closed early"}.get(result)
+        "HIT":"Target reached","TARGET":"Target reached","CLOSED_EARLY":"Closed early"}.get(result)
     if not no_entry and result=="EXPIRED" and score.get("triggered_at_utc"):
         label="Time exit"
     if not label:raise ValueError("IMAGE_RESULT_OUTCOME_NOT_MAPPED")
@@ -84,6 +84,129 @@ def from_result(row):
         "held_text":score.get("held_text"),"best_r":score.get("best_r"),"worst_r":score.get("worst_r"),
         "path":score.get("chart_path")})
     return bind(value,row)
+
+
+def for_plan_post(row):
+    """Choose the existing call or result layout for a matching public state."""
+    levels = row.get("levels") or {}
+    if not (row.get("source_plan") or levels.get("image_source_plan")):
+        return None
+    if any(levels.get(key) is None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
+        return None
+    instrument = levels.get("public_instrument") or {}
+    if levels.get("price_basis") == "instrument" and instrument.get("kind") == "FUT" and row["symbol"] != "USOIL":
+        return None  # The CC-463 spot/cash chart cannot plot these futures levels.
+    if row.get("kind") == "result":
+        data = from_result(row)
+        if data["result"]["r"] is not None and not data["result"]["path"]:
+            raise ValueError("RESULT_CAPTURE_TIME_COORDINATES_REQUIRED")
+        return data
+    if row.get("kind") in {"setup", "update"} and row.get("state") in STATES:
+        return from_plan(row)
+    return None
+
+
+def for_event_preview(article, documents):
+    """Use the existing event clock and the article's source-bound Main scenarios."""
+    market = article.get("market_asset")
+    event = article.get("frozen_public_record") or {}
+    if (article.get("article_type") != "EVENT_PREVIEW" or market not in MARKETS
+            or not event.get("event_id") or not event.get("event_time_utc") or not article.get("scenario_analysis")):
+        return None
+    title = next((doc["event_name"] for doc in documents
+                  if doc.get("event_id") == event["event_id"] and doc.get("event_name")), article.get("title") or "")
+    if not title or len(title) > 28:
+        return None
+    from .article_scenarios_v1 import validate_article_scenarios
+    validate_article_scenarios(article, documents)
+    approved = sorted(article["scenario_analysis"], key=lambda row: row["role"] != "base_case")
+    rows = []
+    arrows = {"up": "up", "bullish": "up", "down": "down", "bearish": "down", "flat": "flat"}
+    for scenario in approved:
+        probability = Decimal(scenario["probability"][:-1])
+        reading = scenario["market_moves"][market]
+        if (probability != int(probability) or len(scenario["name"]) > 14
+                or len(scenario["confirmation"]) > 30 or len(reading) > 72):
+            return None
+        reactions = []
+        for key in (market, *(key for key in ORDER if key != market)):
+            arrow = arrows.get(scenario["market_moves"][key].strip().casefold())
+            if arrow:
+                reactions.append({"market": key, "direction": arrow})
+        rows.append({"name": scenario["name"], "trigger": scenario["confirmation"], "reading": reading,
+                     "probability_pct": int(probability), "reactions": reactions[:3]})
+    source = {"event": event, "name": title, "scenarios": approved,
+              "probability_pct": [row["probability_pct"] for row in rows]}
+    return bind({"schema": "image_input_v1", "post_id": "preview-" + digest(source)[:24], "template": "event",
+                 "market": market, "event_cutoff_utc": event["event_time_utc"],
+                 "event": {"name": title, "time_et": et(event["event_time_utc"]), "scenarios": rows}}, source)
+
+
+def for_weekly_review(article):
+    """Project the already admitted whole-week call record into the scorecard."""
+    accepted = article.get("weekly_scored_calls") or {}
+    week = accepted.get("record") or {}
+    scored = [row for row in week.get("rows", []) if row["scored"] and row["result"] != "NOT_TRIGGERED"
+              and not row.get("not_executed")]
+    if not scored or any(row["market"] not in MARKETS or not row.get("image_result") for row in scored):
+        return None
+    rows = [{"market": row["market"], **row["image_result"]} for row in reversed(scored)]
+    start = datetime.fromisoformat(week["week_start_et"])
+    end = datetime.fromisoformat(week["week_end_exclusive_et"]) - timedelta(days=1)
+    total_r = sum(Decimal(str(row["r"])) for row in rows)
+    count = len(rows)
+    hit_rate = (Decimal(100 * sum(row["result"] == "HIT" for row in scored)) / count).quantize(
+        Decimal("0.1"), rounding=ROUND_HALF_UP)
+    stats = {"calls_closed": count, "hit_rate_pct": float(hit_rate),
+             "total_r": float(total_r), "avg_r": float(total_r / count)}
+    source = {"record": week, "computed_statistics": stats, "source_sha256": accepted["source_sha256"]}
+    return bind({"schema": "image_input_v1", "post_id": "week-" + digest(source)[:24], "template": "weekly",
+                 "week": {"start": f"{start.day} {start:%b}", "end": f"{end.day} {end:%b}",
+                          "rows": rows, "reserve_odds_row": True, **stats}}, source)
+
+
+def weekly_result_fields(plan):
+    """Display fields from the same public plan and scored outcome CC-379 uses."""
+    from .plan_reader_copy_v1 import result_r
+    from .tradingview_snapshot_v1 import interval_for
+
+    result = result_r(plan)
+    outcome = plan["outcome"]
+    label = {"HIT": "Target reached", "STOPPED": "Stopped at invalidation", "EXPIRED": "Time exit"}.get(outcome["result"])
+    if result is None or not label:
+        return None
+    scenario = plan.get("scenario_analysis") or {}
+    horizon = HORIZONS.get(plan.get("horizon"))
+    if not horizon:
+        start = plan.get("registered_at_utc")
+        end = plan.get("horizon_end_utc") or scenario.get("horizon_end_utc") or plan.get("expires_at_utc")
+        if not start or not end:
+            return None
+        horizon = {"60": "Short-term", "240": "Mid-term", "D": "Long-term"}[interval_for(end, start)]
+    return {"direction": {"BULLISH": "LONG", "BEARISH": "SHORT"}[plan["direction"]], "horizon_label": horizon,
+            "main_probability_pct": (scenario.get("base_case") or {}).get("probability_pct"),
+            "outcome_label": label, "r": float(result)}
+
+
+def for_morning_map(article):
+    """Use a complete structured six-market note supplied by the wrap's source owner."""
+    record = article.get("morning_map") or {}
+    market = article.get("market_asset")
+    rows = record.get("rows") or []
+    if (market not in MARKETS or record.get("lead_market") != market or not record.get("date_et")
+            or not record.get("lead_line") or len(rows) != len(ORDER)
+            or {row.get("market") for row in rows} != set(ORDER)):
+        return None
+    allowed_states = {"Trending up", "Trending down", "Mixed trend", "Range", "Squeeze", "Breakout"}
+    if any(row.get("last") is None or row.get("change_1d_pct") is None or row.get("state_word") not in allowed_states
+           or any(key not in row for key in ("view_line", "driver_line")) for row in rows):
+        return None
+    by_market = {row["market"]: row for row in rows}
+    fields = ("market", "last", "change_1d_pct", "state_word", "view_line", "driver_line")
+    data = {"date_et": record["date_et"], "lead_line": record["lead_line"],
+            "rows": [{key: by_market[symbol][key] for key in fields} for symbol in ORDER]}
+    return bind({"schema": "image_input_v1", "post_id": "map-" + digest(record)[:24], "template": "map",
+                 "market": market, "map": data}, record)
 
 
 def bind(image_input, source_record):

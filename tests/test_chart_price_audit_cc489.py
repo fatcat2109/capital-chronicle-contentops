@@ -74,6 +74,18 @@ def test_shared_capture_under_different_work_items_cannot_inflate_coverage(tmp_p
     assert set(chart["destinations"]) == {"telegram", "discord"}
 
 
+def test_article_derivative_without_check_is_not_a_plan_chart(tmp_path):
+    article = record(1, destination="canonical")
+    article["record_id"] = "1-canonical"
+    article["counts_as_article"] = True
+    derivative = record(1, compared=False, destination="telegram")
+    derivative["piece_id"] = article["piece_id"]
+    result = report(tmp_path, [article, derivative])
+    assert result["plan_charts"] == 0
+    assert result["compared_plan_charts"] == 0
+    assert result["status"] == "NO_PLAN_CHART_OBSERVED"
+
+
 def test_same_image_bytes_at_distinct_capture_clocks_remain_distinct_observations(tmp_path):
     rows = [record(1), record(1, at=NOW + timedelta(minutes=1), destination="discord")]
     result = report(tmp_path, rows)

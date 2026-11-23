@@ -22,8 +22,16 @@
     "api.fiscaldata.treasury.gov"
   ],
   "newsroom_desk_adapter": {
-    "module_path": "A:/Capital Chronicle/Worktrees/codex-data-cc145/tools/product/newsroom_desk_data_adapter_v1.py",
-    "catalog_path": "A:/Capital Chronicle/Worktrees/codex-data-cc145/docs/research/backlog/cc-145/host-catalog.example.json",
-    "producer_commit": "18383826b3"
+    "public_export_path": "A:/Capital Chronicle/Runtime/OfficialRates/cc-078-20261101/state/intake/producer-deliveries/cc-145/public.json",
+    "verified_release_context": {
+      "cpi": {
+        "path": "docs/publisher/CC-216/held-inputs/cpi-history.json",
+        "canonical_sha256": "3c3d7d3d39bfb5879303bea7ee216bf782e466ee1330ad45546782417269b49a"
+      },
+      "ppi": {
+        "path": "docs/publisher/CC-216/ppi-reconciled-history.json",
+        "canonical_sha256": "1be80dbad5516695ab1ae197c1b3e6b549223966a4d94fbaae08d1da04e09130"
+      }
+    }
   }
 }

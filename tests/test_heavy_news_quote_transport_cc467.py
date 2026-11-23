@@ -40,12 +40,41 @@ def test_handoff_requires_exact_stored_quote_and_proves_edge_instead_of_link(pre
     assert result["reason_code"] == "NEO_RUN_FAILED_PUBLISH" and result["retry_permitted"] is False
 
 
+@pytest.mark.parametrize("variant,matches", [
+    ("expanded", True), ("changed_copy", False), ("changed_clock", False), ("wrong_page", False),
+])
+def test_quote_opens_the_exact_permalink_when_x_expands_its_list_excerpt(variant, matches):
+    program = """
+const fs = require('fs');
+const variant = process.argv[2];
+const parent = {public_object_url:'https://x.com/FirstSquawk/status/123',
+  source_posted_at_utc:'2026-11-18T19:01:52.788Z', source_text:'The list excerpt'};
+const body = {innerText:variant==='changed_copy' ? 'A different story' : 'The list excerpt continues on the permalink.'};
+let menuMarked = false;
+const menu = {setAttribute:()=>{menuMarked=true;}};
+const root = {querySelector:selector=>selector.includes('tweetText') ? body : menu};
+const clock = {getClientRects:()=>[{}], closest:selector=>selector==='a' ? {href:parent.public_object_url} : root,
+  getAttribute:()=>variant==='changed_clock' ? '2026-11-18T19:01:53.000Z' : '2026-11-18T19:01:52.000Z'};
+const document = {querySelectorAll:()=>[clock]};
+const location = new URL(variant==='wrong_page' ? 'https://x.com/FirstSquawk/status/124' : parent.public_object_url);
+const page = {evaluateInPage:async(fn,arg)=>({value:fn(arg)})};
+const run = new (Object.getPrototypeOf(async function(){}).constructor)(
+  'input','page','document','location',fs.readFileSync(process.argv[1],'utf8'));
+run({phase:'quote_source',quote_parent:parent},page,document,location)
+  .then(result=>console.log(JSON.stringify({matches:result.matches,menuMarked})));
+"""
+    completed = subprocess.run(["node", "-e", program, str(STEPS), variant], capture_output=True, timeout=10, check=True)
+    assert json.loads(completed.stdout) == {"matches": matches, "menuMarked": matches}
+
+
 @pytest.mark.parametrize("fault,expected,clicks", [
     ("expired", "CC467_SOURCE_OUTSIDE_FIVE_MINUTES", 0),
     ("changed_card", "CC467_QUOTE_CARD_NOT_VERIFIED", 0),
+    ("changed_excerpt", "CC467_QUOTE_CARD_NOT_VERIFIED", 0),
     ("avatar_only", "CC467_CHART_PREVIEW_NOT_LOADED", 0),
     ("preview_timeout", "CC467_CHART_PREVIEW_NOT_LOADED", 0),
     ("lost_click_return", "CC467_QUOTE_CLICK_RETURN_INCOMPLETE", 1),
+    ("composer_still_open", "CC467_QUOTE_COMPOSER_STILL_OPEN_AFTER_CLICK", 1),
     (None, "CLICKED", 1),
 ])
 def test_actual_final_submit_program_checks_deadline_and_card_before_its_only_click(fault, expected, clicks):
@@ -57,7 +86,7 @@ const fs=require('fs');const input=JSON.parse(process.argv[2]);
 const {fault, ...request}=input;
 let clicked=0, label='Post', chartReady=false;
 const visible={getClientRects:()=>[{}]};
-const tweet=fault==='changed_card'?'Different.':'Bound headline.';
+const tweet=fault==='changed_card'?'Different.':fault==='changed_excerpt'?'Bound headline. With changed details.':'Bound headline.';
 const clock={getAttribute:()=>request.quote_parent.source_posted_at_utc};
 const card={...visible,innerText:'@FirstSquawk',getAttribute:()=>'button',contains:()=>false,
   querySelectorAll:selector=>({'[data-testid="tweetText"]':[{innerText:tweet+' https://\\nexample.com/long',
@@ -70,6 +99,10 @@ const editor={...visible,innerText:'Bound text.',closest:()=>dialog};
 const document={querySelectorAll:()=>[editor]};
 const page={snapshot:async()=>({refs:[{role:'button',name:label,ref:'submit'}]}),
   evaluateInPage:async(fn,args)=>({value:fn(args)}),waitForSelector:async selector=>{
+    if(selector.startsWith('body:not(')) {
+      if(clicked!==1)throw Error('Composer settlement checked before the Post click');
+      return {matched:fault!=='composer_still_open'};
+    }
     if(selector.includes('blob:'))chartReady=fault!=='preview_timeout';return {matched:chartReady};},
   click:async ref=>{if(ref!=='submit')throw Error('Wrong submit control');clicked++;
     if(fault==='lost_click_return')throw Error('Lost return');}};
@@ -232,12 +265,14 @@ def test_fourteen_day_decision_consumes_our_actual_daily_views_not_follower_coun
     start=datetime.now(timezone.utc)-timedelta(days=15)
     class Store:
         def list_outbox_messages(self,**kw):return [{"payload":json.dumps({"heavy_news_quote":quotes.POLICY,"key":"quote"})}]
-        def list_platform_dispatches(self):return [{"platform":"x","status":"DISPATCH_CONFIRMED","dispatched_at":start.isoformat(),
-            "work_item_id":key,"message_id":key,"dispatch_id":key} for key in ["quote","ordinary"]]
+        def list_platform_dispatches(self):return [{"platform":"x","status":"DISPATCH_CONFIRMED","dispatched_at":at.isoformat(),
+            "work_item_id":key,"message_id":key,"dispatch_id":key}
+            for key,at in [("quote",start-timedelta(seconds=5)),("ordinary",start)]]
         def get_outbox_message(self,key):return {"payload":"{}"}
         def list_performance_observations(self):return [{"dispatch_id":key,"observation_window":"DAILY","collected_at_utc":start.isoformat(),
             "metrics_native_json":json.dumps({"views":value})} for key,value in [("quote",quote_views),("ordinary",ordinary_views)]]
-    monkeypatch.setattr(replies,"report_one",lambda s,r:{"key":"quote","readback_url":"https://x.com/Capitalnicle/status/1","posted_at_utc":start.isoformat()})
+    monkeypatch.setattr(quotes,"quote_report",lambda s,r:{"key":"quote","readback_url":"https://x.com/Capitalnicle/status/1",
+        "observed_published_at_utc":start.isoformat()})
     result=quotes.audience_review(Store())
     assert result.get("decision")==decision
     assert result["views_per_post"]["quotes"]==quote_views

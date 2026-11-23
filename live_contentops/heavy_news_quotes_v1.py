@@ -322,24 +322,31 @@ def audience_review(store, *, now=None):
     rows = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.DESTINATION)
             if json.loads(r["payload"]).get("heavy_news_quote") == POLICY]
     reports = [quote_report(store, row) for row in rows]
-    posted = [r for r in reports if r["readback_url"] and r["posted_at_utc"]]
+    posted = {r["key"]: replies.clock(r["observed_published_at_utc"])
+              for r in reports if r["readback_url"] and r["observed_published_at_utc"]}
     if not posted:
-        return {"status": "FIRST_LIVE_QUOTE_PENDING", "quotes": reports}
-    start = min(replies.clock(r["posted_at_utc"]) for r in posted)
+        status = "X_PUBLICATION_CLOCK_UNAVAILABLE" if any(r["readback_url"] for r in reports) else "FIRST_LIVE_QUOTE_PENDING"
+        return {"status": status, "quotes": reports}
+    start = min(posted.values())
     due = start + timedelta(days=14)
     result = {"status": "OBSERVATION_PENDING" if now < due else "FOURTEEN_DAY_REVIEW_DUE",
         "first_quote_at_utc": start.isoformat(), "review_due_at_utc": due.isoformat(), "quotes": reports}
     if now < due:
         return result
-    quote_keys = {r["key"] for r in posted}
+    quote_keys = {r["key"] for r in reports}
     views = {"quotes": [], "ordinary": []}
     missing = {"quotes": 0, "ordinary": 0}
     observations = store.list_performance_observations()
     for dispatch in store.list_platform_dispatches():
-        if (dispatch["platform"] != "x" or dispatch["status"] != "DISPATCH_CONFIRMED"
-                or not dispatch.get("dispatched_at") or not start <= replies.clock(dispatch["dispatched_at"]) < due):
+        if dispatch["platform"] != "x" or dispatch["status"] != "DISPATCH_CONFIRMED":
             continue
-        group = "quotes" if dispatch["work_item_id"] in quote_keys else "ordinary"
+        work_id = dispatch["work_item_id"]
+        group = "quotes" if work_id in quote_keys else "ordinary"
+        stamp = posted.get(work_id)
+        if group == "ordinary" and dispatch.get("dispatched_at"):
+            stamp = replies.clock(dispatch["dispatched_at"])
+        if stamp is None or not start <= stamp < due:
+            continue
         message = store.get_outbox_message(dispatch["message_id"])
         if group == "ordinary" and message and json.loads(message["payload"]).get("sourced_reply"):
             continue  # Compare with ordinary posts, not manual/official reply interactions.
@@ -362,25 +369,27 @@ def audience_review(store, *, now=None):
 
 def quote_report(store, row):
     result = replies.report_one(store, row)
-    source_at = replies.clock(row["source_posted_at_utc"]) if row.get("source_posted_at_utc") else None
-    result.update(source_posted_at_utc=row.get("source_posted_at_utc"),
+    source_clock = row.get("source_posted_at_utc")
+    result.update(source_posted_at_utc=source_clock,
                   feed_seen_at_utc=row.get("feed_seen_at_utc"), observed_published_at_utc=None,
-                  source_to_post_seconds=None, within_five_minutes=None)
-    dispatches = store.get_dispatches_for_work_item(row["key"]) if hasattr(store,"get_dispatches_for_work_item") else []
-    def observed(value, identity):
-        if isinstance(value, dict):
-            if str(value.get("public_object_id")) == str(identity) and value.get("published_at_utc"):
-                yield value["published_at_utc"]
-            for child in value.values():
-                yield from observed(child, identity)
-        elif isinstance(value, list):
-            for child in value:
-                yield from observed(child, identity)
-    for dispatch in dispatches:
-        for readback in store.list_readbacks_for_dispatch(dispatch["dispatch_id"]):
-            clocks = list(observed(json.loads(readback["readback_data"]), dispatch["public_object_id"]))
-            if clocks and source_at and result["readback_url"]:
-                at = replies.clock(clocks[-1])
-                result.update(observed_published_at_utc=at.isoformat(), source_to_post_seconds=(at-source_at).total_seconds(),
-                              within_five_minutes=0 <= (at-source_at).total_seconds() <= MAX_SECONDS)
+                  publication_readback_at_utc=None, source_to_post_seconds=None, within_five_minutes=None)
+    if not (source_clock and result["readback_url"]):
+        return result
+    source_at = replies.clock(source_clock)
+    for dispatch in store.get_dispatches_for_work_item(row["key"]):
+        if (dispatch["platform"] != "x" or dispatch["status"] != "DISPATCH_CONFIRMED"
+                or dispatch["public_object_url"] != result["readback_url"]):
+            continue
+        for record in reversed(store.list_readbacks_for_dispatch(dispatch["dispatch_id"])):
+            proof = json.loads(record["readback_data"]).get("readback") or {}
+            published = proof.get("observed_published_at_utc")
+            if (proof.get("verified") is not True or not published
+                    or proof.get("observed_public_object_id") != dispatch["public_object_id"]
+                    or proof.get("observed_public_object_url") != dispatch["public_object_url"]):
+                continue
+            at = replies.clock(published)
+            delay = (at - source_at).total_seconds()
+            result.update(observed_published_at_utc=at.isoformat(), publication_readback_at_utc=record["read_at"],
+                          source_to_post_seconds=delay, within_five_minutes=0 <= delay <= MAX_SECONDS)
+            return result
     return result

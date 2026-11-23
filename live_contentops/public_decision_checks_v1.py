@@ -18,8 +18,10 @@ from .x_reply_trading_dates_v1 import trading_date
 
 WRAP_ROUTES = ("substack", "substack_notes", "telegram", "discord", "facebook_page",
                "instagram_business", "threads", "linkedin", "linkedin_company", "x")
-DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83")
+DECISIONS = ("98", "113", "82", "CC-672", "CC-685", "CC-684", "90", "109", "136", "CC-584", "83", "CC-732")
 PLAN_DELIVERY_LIMIT = timedelta(minutes=10)
+PLAN_FILL_STATES = {"TRIGGERED", "FILLED"}
+PLAN_POST_KINDS = {"setup", "update", "result"}
 LATE_LINE = "this page was published after the plan ended"
 LAYER_PREFIX = re.compile(
     r"\b(macro|fundamentals?|positioning and sentiment|positioning|sentiment|options and gamma|"
@@ -30,6 +32,29 @@ LAYER_ALIAS = {
     "gamma": "options", "gex": "options", "options and gamma": "options", "options gamma": "options",
     "structure": "technical",
     "geopolitical": "geopolitics", "scenarios": "scenario",
+}
+PLAN_LAYERS = {
+    "macro": ("macro",),
+    "event_cause": ("event and cause", "event cause", "event driven causal analysis", "geopolitics", "geopolitical"),
+    "fundamental": ("fundamentals", "fundamental"),
+    "priced_in": ("priced in",),
+    "positioning_sentiment": ("positioning and sentiment", "positioning sentiment", "positioning", "sentiment"),
+    "options_gamma": ("options and gamma", "options gamma", "options", "gamma", "gex"),
+    "cross_asset_contagion": ("cross asset and contagion", "cross asset contagion", "contagion cross asset",
+                              "cross asset", "contagion"),
+    "technical": ("technical", "structure"),
+    "scenarios": ("scenarios", "scenario"),
+}
+PLAN_LAYER_NAMES = {name: key for key, names in PLAN_LAYERS.items() for name in names}
+PLAN_LAYER_LABEL = re.compile(r"\b(" + "|".join(map(re.escape,
+    sorted(PLAN_LAYER_NAMES, key=len, reverse=True))) + r")\s*:\s*")
+SCENARIO_ODDS = re.compile(r"\b(main|base|alternative)(?:\s+(?:case|scenario))?\s*\((\d+(?:\.\d+)?)\s*%\)")
+LAYER_CAUSE = re.compile(r"[A-Z][A-Z0-9_]{1,79}\Z")
+LEGACY_PLAN_LAYERS = {
+    "macro": ("driver",), "event_cause": ("mechanism",), "fundamental": ("fundamental", "fundamentals"),
+    "priced_in": ("priced",), "positioning_sentiment": ("positioning", "sentiment"),
+    "options_gamma": ("options", "gamma"), "cross_asset_contagion": ("cross_asset_contagion",),
+    "technical": ("zone_reason", "acceptance", "confirmations"),
 }
 AI_LABEL = re.compile(
     r"\b(?:AI|artificial intelligence)[ -]+(?:generated|written|powered|assisted|"
@@ -143,6 +168,102 @@ def quoted_layer_count(text, source):
     return len(counted)
 
 
+def _layer_name(name):
+    return PLAN_LAYER_NAMES.get(re.sub(r"[_-]+", " ", normalized(str(name))))
+
+
+def _layer_entries(record):
+    if isinstance(record, dict):
+        entries = record.items()
+    elif isinstance(record, list):
+        entries = ((item.get("layer"), item) for item in record if isinstance(item, dict))
+    else:
+        return {}
+    return {key: value for name, value in entries if (key := _layer_name(name))}
+
+
+def _safe_cause(value):
+    return value if isinstance(value, str) and LAYER_CAUSE.fullmatch(value) else None
+
+
+def _layer_text(text):
+    return re.sub(r"(?<=[a-z])-(?=[a-z])", " ", normalized(re.sub(r"\*\*|__|\x60", "", text)))
+
+
+def _quoted(clause, candidates):
+    for raw in candidates:
+        if not isinstance(raw, str):
+            continue
+        for line in re.split(r"(?<=[.!?])\s+|[;\n]", raw):
+            quote = _layer_text(line).strip(" ,;:.!?")
+            if quote and re.match(re.escape(quote) + r"(?=\s*$|[.!?](?:\s|$))", clause):
+                return True
+    return False
+
+
+def _scenario_odds(scenario, text):
+    expected = {}
+    for key, label in (("base_case", "main"), ("main_alternative", "alternative")):
+        branch = scenario.get(key) or {}
+        value = branch.get("probability_pct")
+        if type(value) in (float, int) and 0 <= value <= 100:
+            expected[label] = value
+    actual = defaultdict(set)
+    for label, value in SCENARIO_ODDS.findall(text):
+        actual["main" if label == "base" else label].add(float(value))
+    return bool(expected and actual == {label: {value} for label, value in expected.items()})
+
+
+def plan_layer_checks(text, plan, missing):
+    body = _layer_text(text)
+    labels = list(PLAN_LAYER_LABEL.finditer(body))
+    clauses = defaultdict(list)
+    for index, label in enumerate(labels):
+        end = labels[index + 1].start() if index + 1 < len(labels) else len(body)
+        clauses[PLAN_LAYER_NAMES[label[1]]].append(body[label.end():end])
+
+    exported = _layer_entries(plan.get("analysis_layers"))
+    exported.update(_layer_entries(plan.get("layers")))
+    scenario = plan.get("scenario_analysis") or {}
+    result = {}
+    for key in PLAN_LAYERS:
+        entry = exported.get(key)
+        if isinstance(entry, dict):
+            state = str(entry.get("state") or entry.get("status") or "").upper()
+            unavailable = state in {"UNAVAILABLE", "MISSING", "STALE", "NOT_USED", "NOT_AVAILABLE"} or (
+                entry.get("used") is False or entry.get("available") is False)
+            if unavailable:
+                cause = _safe_cause(entry.get("first_cause") or entry.get("cause") or missing.get(key))
+                if clauses[key]:
+                    result[key] = {"state": "MISSING", "cause": "LAYER_TEXT_NOT_BOUND_TO_EXPORT"}
+                elif cause:
+                    result[key] = {"state": "UNAVAILABLE", "cause": cause}
+                else:
+                    result[key] = {"state": "MISSING", "cause": "EXPORT_GAP_WITHOUT_CAUSE"}
+                continue
+            entry = entry.get("text") or entry.get("line")
+        legacy = [scenario.get(field) for field in LEGACY_PLAN_LAYERS.get(key, ())]
+        candidates = [entry] if entry else [*(plan.get(name.replace(" ", "_")) for name in PLAN_LAYERS[key]), *legacy]
+        sourced = any(isinstance(line, str) and line.strip() for line in candidates)
+        if key == "scenarios":
+            # A prose line cannot substitute for the odds that the frozen plan holds.
+            odds_present = any((scenario.get(branch) or {}).get("probability_pct") is not None
+                               for branch in ("base_case", "main_alternative"))
+            printed = _scenario_odds(scenario, body) if odds_present else any(
+                _quoted(clause, candidates) for clause in clauses[key])
+            sourced = sourced or odds_present
+        else:
+            printed = any(_quoted(clause, candidates) for clause in clauses[key])
+        if printed:
+            result[key] = {"state": "PRINTED"}
+        elif not sourced and not clauses[key] and (cause := _safe_cause(missing.get(key))):
+            result[key] = {"state": "UNAVAILABLE", "cause": cause}
+        else:
+            result[key] = {"state": "MISSING", "cause": "EXPORTED_LAYER_NOT_PRINTED" if sourced else (
+                "LAYER_TEXT_NOT_BOUND_TO_EXPORT" if clauses[key] else "EXPORT_GAP_NOT_RECORDED")}
+    return result
+
+
 def _observations(history, row, end):
     """Only dated observations of this dispatch can establish publication."""
     verified_at = published_at = None
@@ -208,7 +329,9 @@ class PublicCopy:
 
     @property
     def confirmed(self):
-        return bool(self.url and (self.verified_at or (
+        has_identity = self.url or (self.source.get("kind") in PLAN_POST_KINDS
+                                    and self.row.get("public_object_id"))
+        return bool(has_identity and (self.verified_at or (
             self.dispatched_at and self.row.get("status") == "DISPATCH_CONFIRMED")))
 
     @property
@@ -219,7 +342,8 @@ class PublicCopy:
     def visible_text(self):
         if self.public_text is not None:
             return self.public_text
-        observed = self.proof.get("observed_public_text") or self.proof.get("observed_text")
+        observed = self.proof.get("observed_public_text", self.proof.get("observed_text",
+                                  self.proof.get("visible_body_text")))
         return observed if isinstance(observed, str) else self.text
 
     @property
@@ -229,32 +353,78 @@ class PublicCopy:
 
     @property
     def observed_image(self):
-        if self.image_visible is not None:
-            return self.image_visible
         delivery = self.proof.get("image_delivery")
         if delivery in {"TEXT_ONLY", "TEXT_FALLBACK", "IMAGE_ATTACHED"}:
-            return delivery == "IMAGE_ATTACHED"
-        return self.proof.get("meaningful_media_visible", self.proof.get("image_visible"))
+            observed = delivery == "IMAGE_ATTACHED"
+        else:
+            observed = self.proof.get("meaningful_media_visible", self.proof.get("image_visible"))
+        if self.image_visible is False or observed is False:
+            return False
+        return self.image_visible if self.image_visible is not None else observed
 
     def verified_thread(self):
-        if (self.platform == "x" and self.verified_at
-                and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+        if self.verified_at and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True:
             return self.proof.get("observed_thread") or self.proof.get("thread_posts") or []
         return []
 
-    def resolved_links(self, thread):
-        urls = {self.url, *(post.get("public_object_url") for post in thread)} - {None}
+    def root_text(self):
+        if self.public_text is not None:
+            return self.public_text
+        thread = self.verified_thread()
+        if root := next((post for post in thread if post.get("public_object_url") == self.url), None):
+            return str(root.get("observed_text") or "")
+        observed = self.proof.get("observed_public_text", self.proof.get("observed_text",
+                                  self.proof.get("visible_body_text")))
+        if not thread and isinstance(observed, str):
+            return observed
+        if (self.proof.get("content_binding_checks") or {}).get("text_match") is False:
+            return ""
+        return self.native.get("root_text") or self.native.get("text") or self.text
+
+    def resolved_links(self, thread, *, include_root=True):
+        urls = {post.get("public_object_url") for post in thread} - {None}
+        if include_root and self.url:
+            urls.add(self.url)
         return [link["target_url"] for link in self.proof.get("observed_link_resolutions") or []
                 if link.get("target_url") and link.get("target_verified") is True and link.get("public_object_url") in urls]
 
-    def has_link(self, canonical):
-        if contains_link(self.visible_text, canonical, self.public_links):
+    def has_link(self, canonical, replies=()):
+        if contains_link(self.root_text(), canonical, self.public_links):
             return True
-        if self.public_text is not None:
+        if self.public_text is None and contains_link("", canonical, self.resolved_links([])):
+            return True
+        first = next(iter(self.thread_replies()), None)
+        if first:
+            links = self.resolved_links([first], include_root=False)
+            return contains_link(str(first.get("observed_text") or ""), canonical, links)
+        if parts := self.bound_reply_texts():
+            return contains_link(parts[0], canonical)
+        if not replies:
             return False
-        thread = self.verified_thread()
-        return (any(contains_link(str(post.get("observed_text") or ""), canonical) for post in thread)
-                or contains_link("", canonical, self.resolved_links(thread)))
+        first = replies[0]
+        links = first.public_links if first.public_text is not None else (*first.public_links, *first.resolved_links([]))
+        return contains_link(first.root_text(), canonical, links)
+
+    def thread_replies(self):
+        return [post for post in self.verified_thread() if post.get("role") != "root"
+                and post.get("public_object_url") and post["public_object_url"] != self.url]
+
+    def bound_reply_texts(self):
+        # Some verified receipts retained the match flag, but no observed text.
+        if (self.verified_at and not self.verified_thread()
+                and (self.proof.get("content_binding_checks") or {}).get("thread_match") is True):
+            return self.native.get("reply_texts") or []
+        return []
+
+    def reply_parent(self):
+        expected = self.native.get("reply_to_id")
+        observed = self.proof.get("observed_reply_parent_id")
+        if (self.proof.get("content_binding_checks") or {}).get("reply_parent_match") is False:
+            return None
+        if observed is not None and expected is not None and str(observed) != str(expected):
+            return None
+        parent = observed if observed is not None else expected
+        return str(parent) if parent is not None else None
 
     def media(self, runtime):
         ids = self.native.get("media_asset_ids")
@@ -265,6 +435,9 @@ class PublicCopy:
             root = Path(folder).resolve()
             if root.is_relative_to(runtime):
                 assets = [*assets, *object_json(root / "delivery_media_manifest_v1.json").get("assets", [])]
+                if self.intent.get("plan_status_post") and ids:
+                    context = object_json(root / "run_context_v1.json")
+                    assets = [*assets, *((context.get("media") or {}).get("assets") or [])]
         if ids is not None:
             return [asset for asset in assets if (asset.get("media_asset_id") or asset.get("asset_id")) in ids]
         return [asset for asset in assets if asset.get("article_inclusion") is not False]
@@ -278,9 +451,13 @@ class DecisionChecks:
         self.runtime = Path(runtime).resolve()
         self.copies = []
         self.counts = Counter()
+        self.layer_gaps = Counter()
         self.wraps_due = Counter()
         self.issues = []
         self.seen = set()
+        self.plan_analysis = []
+        self.chart_readbacks = []
+        self.chart_replies = {}
 
     def add(self, piece, platform, url, title, text, intent, row, history, source):
         copy = PublicCopy(piece, platform, url, title, text, intent, row, history, source, self.end)
@@ -289,7 +466,7 @@ class DecisionChecks:
 
     def issue(self, decision, piece, platform, cause, *, url=None, evidence=None,
               status="FAIL", **details):
-        key = (decision, piece, platform, cause, url)
+        key = (decision, piece, platform, cause, url, details.get("public_object_id"))
         if key not in self.seen:
             self.seen.add(key)
             self.issues.append({"decision": decision, "piece_id": piece, "platform": platform,
@@ -301,6 +478,16 @@ class DecisionChecks:
         if cause:
             self.issue(decision, copy.piece, copy.platform, cause, url=copy.url,
                        evidence=copy.evidence, status=status, **details)
+
+    def plan_queue(self, events):
+        from .plan_queue_clock_v1 import DECISION
+
+        self.counts[DECISION] = len({event.get("source_transition_id") or event["key"] for event in events})
+        for event in events:
+            if event["alarm"]:
+                self.issue(DECISION, event.get("source_transition_id") or event["key"], "internal",
+                           event["first_cause"], evidence=event,
+                           plan_id=event["plan_id"], state=event["state"], gap_seconds=event["gap_seconds"])
 
     def _wraps(self):
         by_kind = defaultdict(list)
@@ -349,18 +536,75 @@ class DecisionChecks:
                        status="UNVERIFIED" if cause.endswith("_UNVERIFIED") else "FAIL",
                        deadline_utc=deadline.isoformat())
 
-    def _analysis(self, copy, analysis_urls):
+    def _current_layers(self, copy, text):
+        from .plan_reader_copy_v1 import PLAN_LAYER_ORDER
+        from .plan_state_alerts_v1 import analysis_lines
+
+        try:
+            expected = analysis_lines(copy.source)
+        except (KeyError, TypeError, ValueError):
+            return {key: {"state": "MISSING", "cause": "PLAN_LAYER_RECORD_INVALID"}
+                    for key, _ in PLAN_LAYER_ORDER}
+
+        if copy.platform in {"linkedin", "linkedin_company"}:
+            official = (copy.native.get("text") or "").splitlines()
+            prefixes = tuple(label + ": " for _, label in PLAN_LAYER_ORDER)
+            excerpts = [line for line in official if line.startswith(prefixes)]
+            if [line.split(":", 1)[0] for line in excerpts] == [line.split(":", 1)[0] for line in expected]:
+                # The frozen destination payload carries the reviewed excerpts for both accounts.
+                expected = excerpts
+
+        expected_by_label = {line.split(":", 1)[0]: _layer_text(line) for line in expected}
+        body = _layer_text(text)
+        gaps = copy.source.get("analysis_layer_gaps") or {}
+        layers = {}
+        for key, label in PLAN_LAYER_ORDER:
+            line = expected_by_label.get(label)
+            if line and re.search(r"(?<!\w)" + re.escape(line) + r"(?!\w)", body):
+                layers[key] = {"state": "PRINTED"}
+            elif line:
+                layers[key] = {"state": "MISSING", "cause": "EXPORTED_LAYER_NOT_PRINTED"}
+            elif re.search(r"(?<!\w)" + re.escape(_layer_text(label)) + r"\s*:", body):
+                layers[key] = {"state": "MISSING", "cause": "LAYER_TEXT_NOT_BOUND_TO_EXPORT"}
+            elif cause := _safe_cause(gaps.get(key)):
+                layers[key] = {"state": "UNAVAILABLE", "cause": cause}
+            else:
+                layers[key] = {"state": "MISSING", "cause": "EXPORT_GAP_NOT_RECORDED"}
+        return layers
+
+    def _analysis(self, copy, analysis_urls, parts, replies):
+        from .plan_reader_copy_v1 import NINE_LAYER_COPY
+
         source = copy.source.get("source_plan") or {}
         plan_id = copy.source.get("plan_id")
         canonical = analysis_urls.get(plan_id)
-        layers = quoted_layer_count(copy.visible_text, source)
-        self.check("113", copy, "PLAN_LAYER_QUOTES_BELOW_THREE" if layers < 3 else None,
-                   quoted_layers=layers)
-        if not copy.has_link(canonical):
+        continuations = (*parts, *(reply for reply in replies if reply.intent.get("plan_analysis_link")))
+        text = "\n".join([copy.root_text(),
+                          *(str(post.get("observed_text") or "") for post in copy.thread_replies()),
+                          *copy.bound_reply_texts(),
+                          *(item.root_text() for item in continuations)])
+        missing = {**_layer_entries(copy.source.get("missing_layers")),
+                   **_layer_entries(copy.intent.get("missing_layers"))}
+        missing = {key: (value.get("first_cause") or value.get("cause")) if isinstance(value, dict)
+                   else value for key, value in missing.items()}
+        current = copy.source.get("analysis_copy_contract") == NINE_LAYER_COPY
+        layers = self._current_layers(copy, text) if current else plan_layer_checks(text, source, missing)
+        has_link = copy.has_link(canonical, replies)
+        self.plan_analysis.append({"piece_id": copy.piece, "platform": copy.platform, "public_url": copy.url,
+                                   "evidence": copy.evidence, "layers": layers, "full_analysis_link": has_link})
+        gaps = {key: item["cause"] for key, item in layers.items() if item["state"] == "MISSING"}
+        if gaps:
+            self.check("113", copy, "PLAN_ANALYSIS_LAYERS_MISSING", missing_layers=gaps)
+        elif current and copy.public_text is None and not copy.verified_at:
+            self.check("113", copy, "PLAN_LAYER_READBACK_UNAVAILABLE", status="UNVERIFIED")
+        else:
+            self.check("113", copy)
+        if not has_link:
             self.issue("113", copy.piece, copy.platform, "FULL_ANALYSIS_LINK_MISSING" if canonical
                        else "CONFIRMED_FULL_ANALYSIS_PAGE_UNAVAILABLE", url=copy.url, evidence=copy.evidence)
+        return text
 
-    def _first_analysis(self, copy):
+    def _first_analysis(self, copy, text):
         from . import plan_scenario_lines_v1 as scenario
 
         created = clock(copy.source.get("decision_source_created_at_utc")) or clock(copy.row.get("created_at"))
@@ -376,15 +620,13 @@ class DecisionChecks:
             isinstance(line, dict) and line.get("state") == "USED"
             and isinstance(line.get("text"), str) and line["text"].strip()
             for line in public_layers)
-        body = normalized(re.sub(r"\*\*|__", "", copy.visible_text))
-        if (analyst_line_available and not quoted_layer_count(copy.visible_text, plan)
+        body = normalized(re.sub(r"\*\*|__", "", text))
+        if (analyst_line_available and not quoted_layer_count(text, plan)
                 and not any(normalized(quote) in body for quote in quotes)):
             self.check("113", copy, "FIRST_PLAN_POST_ANALYSIS_LINE_MISSING")
         else:
             self.check("113", copy)
-        thread = copy.verified_thread()
-        public_text = re.sub(r"https?://\S+", "", "\n".join(
-            [copy.visible_text, *(str(post.get("observed_text") or "") for post in thread)]))
+        public_text = re.sub(r"https?://\S+", "", text)
         if (scenario.BARE_UTC.search(public_text) or scenario.INTERNAL_CAPS.search(public_text)
                 or scenario.INTERNAL_WORDS.search(public_text)):
             self.issue("113", copy.piece, copy.platform, "FIRST_PLAN_POST_INTERNAL_TOKEN",
@@ -396,18 +638,51 @@ class DecisionChecks:
                   [post.get("observed_text") for post in thread])
         self.check("83", copy, PREVIEW_LINK_REASON if find_forbidden_link(*values) else None)
 
-    def _chart(self, copy, market):
-        if not isinstance(market, str) or not market:
-            return
-        market = market.upper()
+    def _chart(self, copy, market, *, plan_post=False):
+        from .posted_chart_readback_v1 import report_copy
+
+        market = market.upper() if isinstance(market, str) else None
         expected = SYMBOLS.get(market)
+        chart, reply = report_copy(copy, self.runtime, market, expected)
+        assets = copy.media(self.runtime) if market else []
+        chart_causes = sorted({cause for asset in assets if (cause :=
+            (asset.get("plan_chart_fallback") or {}).get("cause")
+            or (asset.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))})
+        if chart is not None:
+            self.chart_readbacks.append(chart)
+            if reply:
+                key = reply["correction_id"]
+                previous = self.chart_replies.get(key)
+                if previous:
+                    media = {asset["sha256"]: asset for asset in [*previous["media_assets"], *reply["media_assets"]]}
+                    previous["media_assets"] = list(media.values())
+                else:
+                    self.chart_replies[key] = reply
+            self.check("82", copy, chart["first_cause"], chart_readback=True,
+                       status="UNVERIFIED" if chart["status"] == "UNVERIFIED" else "FAIL",
+                       public_object_id=chart["public_object_id"])
+            if chart["status"] == "MATCH" and chart_causes:
+                self.issue("82", copy.piece, copy.platform, "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED",
+                           url=copy.url, evidence=copy.evidence, chart_causes=chart_causes,
+                           market=market, expected_symbol=expected)
+            return
+        if not isinstance(market, str) or not market:
+            if plan_post:
+                self.check("82", copy, "PLAN_MARKET_UNAVAILABLE", status="UNVERIFIED")
+            return
         if not expected:
             self.check("82", copy, "MARKET_TRADINGVIEW_SYMBOL_UNMAPPED", status="UNVERIFIED", market=market)
             return
-        symbols = sorted({symbol for asset in copy.media(self.runtime) if (symbol := _media_symbol(asset))})
+        symbols = sorted({symbol for asset in assets if (symbol := _media_symbol(asset))})
         cause = ("MARKET_TRADINGVIEW_CHART_MISSING" if not symbols or copy.observed_image is False
-                 else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols else None)
-        self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols)
+                 else "MARKET_TRADINGVIEW_SYMBOL_MISMATCH" if expected not in symbols
+                 else "MARKET_TRADINGVIEW_PRICE_SCALE_REFUSED" if chart_causes else None)
+        if not cause and plan_post and copy.observed_image is not True:
+            self.check("82", copy, "MARKET_TRADINGVIEW_CHART_UNVERIFIED", status="UNVERIFIED", market=market,
+                       expected_symbol=expected)
+        else:
+            self.check("82", copy, cause, market=market, expected_symbol=expected, observed_symbols=symbols,
+                       **({"chart_causes": chart_causes} if chart_causes else {}))
 
     def _coverage(self, delivery):
         for copy in delivery.get("copies", []):
@@ -428,6 +703,8 @@ class DecisionChecks:
                 continue
             self.issue("CC-672", copy["plan_post"], copy["platform"], cause, url=copy["public_url"],
                        delivery_cause=copy.get("first_cause"), delivery_state=copy["status"],
+                       retry_failure_cause=copy.get("retry_failure_cause"),
+                       unresolved_write_age_seconds=copy.get("unresolved_write_age_seconds"),
                        seconds_after_source=source_lag.total_seconds() if source_lag is not None else None,
                        seconds_after_first_confirmed=copy.get("seconds_after_first_confirmed"))
 
@@ -483,9 +760,9 @@ class DecisionChecks:
 
     def _discord(self, copy, channel_arrivals):
         source = copy.source
-        if source.get("kind") != "result" and str(source.get("state")).upper() != "FILLED":
+        if source.get("kind") != "result" and source.get("state") not in PLAN_FILL_STATES:
             return
-        channel_reply = copy.native.get("discord_channel_reply")
+        channel_reply = copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post")
         if (channel_reply or (source.get("key") or copy.piece) in channel_arrivals
                 or copy.proof.get("discord_channel_reply_verified") is True):
             self.check("CC-685", copy)
@@ -569,21 +846,51 @@ class DecisionChecks:
 
     def finish(self, delivery, analysis_urls, *, plan_export=None, announced=(), plan_source_error=None,
                plan_cutoff=None):
+        from .plan_call_cards_v1 import DISCORD_CHANNEL_PART, LATE_CHART_PART
+        from .plan_reader_copy_v1 import NINE_LAYER_COPY
+
         self._wraps()
         self._coverage(delivery)
         self._first_posts(plan_export, announced, plan_source_error, plan_cutoff or self.end)
         groups = defaultdict(list)
         discord = defaultdict(list)
+        parts = defaultdict(list)
+        replies = defaultdict(list)
         for copy in self.copies:
-            if copy.confirmed and copy.platform == "discord":
+            source = copy.source
+            plan = source.get("source_plan") or {}
+            market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
+            if not copy.confirmed:
+                # Some confirmed comments return an object ID without a permalink.
+                if (copy.row.get("status") == "DISPATCH_CONFIRMED" and copy.row.get("public_object_id")
+                        and copy.dispatched_at and self.start < copy.dispatched_at <= self.end):
+                    self._chart(copy, market)
+                continue
+            if copy.platform == "discord":
                 discord[copy.source.get("key") or copy.piece].append(copy)
+            part = copy.intent.get("plan_status_part")
+            key = copy.source.get("key")
+            if (key and type(part) is int and part > 0 and part != LATE_CHART_PART
+                    and copy.piece == f"{key}-part-{part}"
+                    and not (copy.platform == "discord" and part == DISCORD_CHANNEL_PART
+                             and (copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post")))):
+                parts[(key, copy.platform)].append((part, copy))
+            if parent := copy.reply_parent():
+                replies[(copy.platform, parent)].append(copy)
+        for chain in replies.values():
+            chain.sort(key=lambda copy: (copy.published_at or copy.dispatched_at or copy.verified_at, copy.piece))
         channel_arrivals = {key for key, copies in discord.items()
-                            if any(copy.native.get("discord_channel_reply") for copy in copies)}
+                            if any(copy.intent.get("plan_status_part") != LATE_CHART_PART
+                                   and (copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
+                                   for copy in copies)}
         fills_and_results = set()
+        counted_gaps = set()
         for copy in self.copies:
             if not copy.confirmed:
                 continue
-            times = (copy.published_at, copy.verified_at, copy.dispatched_at)
+            chain = [part for _, part in sorted(parts.get((copy.piece, copy.platform), []),
+                                                key=lambda pair: pair[0])]
+            times = (at for item in (copy, *chain) for at in (item.published_at, item.verified_at, item.dispatched_at))
             if not any(at and self.start < at <= self.end for at in times):
                 # Old posts can still acquire an edit/delete readback this evening.
                 if any(self.start < clock(at) <= self.end for at, _ in copy.history):
@@ -591,18 +898,30 @@ class DecisionChecks:
                 continue
             source = copy.source
             plan = source.get("source_plan") or {}
-            plan_post = source.get("kind") in {"setup", "update", "result"}
+            plan_post = source.get("kind") in PLAN_POST_KINDS
+            late_chart = plan_post and copy.intent.get("plan_status_part") == LATE_CHART_PART
+            channel_copy = copy.platform == "discord" and not late_chart and (
+                copy.native.get("discord_channel_reply") or copy.native.get("discord_channel_post"))
+            plan_part = plan_post and bool(copy.intent.get("plan_status_part")) and not channel_copy
             plan_page = copy.platform == "substack" and bool(copy.intent.get("plan_analysis_page") or source.get("page_id"))
-            if plan_post:
-                self._analysis(copy, analysis_urls)
-                if source.get("kind") == "setup":
-                    self._first_analysis(copy)
-                if source.get("kind") == "result" or str(source.get("state")).upper() == "FILLED":
+            if plan_post and not plan_part:
+                key = source.get("key") or copy.piece
+                if key not in counted_gaps:
+                    counted_gaps.add(key)
+                    self.layer_gaps.update((layer, cause) for layer, cause in
+                                           (source.get("analysis_layer_gaps") or {}).items() if _safe_cause(cause))
+                own_replies = [reply for reply in replies[(copy.platform, str(copy.row.get("public_object_id")))]
+                               if reply is not copy and reply.native.get("reply_to_url") in (None, copy.url)]
+                text = self._analysis(copy, analysis_urls, chain, own_replies)
+                if source.get("kind") == "setup" and source.get("analysis_copy_contract") != NINE_LAYER_COPY:
+                    self._first_analysis(copy, text)
+                if source.get("kind") == "result" or source.get("state") in PLAN_FILL_STATES:
                     fills_and_results.add(source.get("key") or copy.piece)
                 if copy.platform == "discord":
                     self._discord(copy, channel_arrivals)
             market = plan.get("asset_id") or source.get("symbol") or copy.intent.get("market_asset")
-            self._chart(copy, market)
+            if not plan_part or late_chart:
+                self._chart(copy, market, plan_post=plan_post)
             text = copy.visible_text + "\n" + copy.title
             self.check("90", copy, "PUBLIC_TIMEZONE_ET_REQUIRED"
                        if find_forbidden_public_time(text) or PUBLIC_CLOCK.search(text) else None)
@@ -611,7 +930,7 @@ class DecisionChecks:
             self._immutable(copy)
             if plan_page:
                 self._late(copy)
-            if (plan_post or copy.intent.get("full_v1_distribution_required") or copy.intent.get("resolved_article_mode")
+            if not plan_part and (plan_post or copy.intent.get("full_v1_distribution_required") or copy.intent.get("resolved_article_mode")
                     or wrap_kind(copy.title, None) or copy.platform in {"linkedin", "linkedin_company"}):
                 groups[source.get("key") or copy.piece].append(copy)
         for piece in sorted(fills_and_results - discord.keys()):
@@ -630,12 +949,18 @@ class DecisionChecks:
         issues = sorted(self.issues, key=lambda row: (DECISIONS.index(row["decision"]), row["piece_id"],
                                                      row["platform"], row["first_cause"], row["public_url"] or ""))
         return {"schema_version": "contentops.decision_checks.v1", "window": self.window,
+                "plan_analysis": sorted(self.plan_analysis, key=lambda row: (
+                    row["piece_id"], row["platform"], row["public_url"] or "")),
                 "checks": [{"decision": decision, "checked": self.counts[decision],
                             "failed": sum(row["decision"] == decision and row["status"] == "FAIL" for row in issues),
                             "unverified": sum(row["decision"] == decision and row["status"] == "UNVERIFIED" for row in issues)}
                            for decision in DECISIONS],
                 "failure_count": sum(row["status"] == "FAIL" for row in issues),
                 "unverified_count": sum(row["status"] == "UNVERIFIED" for row in issues),
+                "analysis_layer_gaps": [{"layer": layer, "first_cause": cause, "count": count}
+                                        for (layer, cause), count in sorted(self.layer_gaps.items())],
+                "posted_chart_readbacks": self.chart_readbacks,
+                "chart_correction_replies": list(self.chart_replies.values()),
                 "issues": issues}
 
     def estimated_jobs(self, delivery):

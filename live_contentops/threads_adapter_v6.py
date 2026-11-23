@@ -169,6 +169,7 @@ def readback_threads_post(
     expected_media_local_path: str | None = None,
     access_token: str | None = None,
     expected_parent_id: str | None = None,
+    observe_images: bool = False,
 ) -> dict[str, Any]:
     access_token = _threads_token(access_token)
     if not post_id or not access_token:
@@ -212,6 +213,8 @@ def readback_threads_post(
         parent_verified = edge.get("status") == "SUCCESS"
     verified = bool(text_verified and media_verified and link_verified and permalink
         and username.casefold() == "official.capitalchronicle" and parent_verified)
+    exact_own_post = (username.casefold() == "official.capitalchronicle" and
+                      str(value.get("id") or "") == str(post_id) and parent_verified)
     return {
         "status": "SUCCESS" if verified else "FAILED_THREADS_STRICT_READBACK",
         "platform": "threads",
@@ -225,6 +228,8 @@ def readback_threads_post(
         "meaningful_media_visible": meaningful_media_visible,
         "expected_chart_visual_similarity": similarity,
         "media_type": value.get("media_type"),
+        **({"observed_image_urls": [media_url] if media_url else []}
+           if observe_images and exact_own_post and (media_url or value.get("media_type") == "TEXT") else {}),
         "content_binding_checks": {
             "text_match": text_verified,
             **({"reply_parent_match":parent_verified} if expected_parent_id else {}),

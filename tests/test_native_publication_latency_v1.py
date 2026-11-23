@@ -296,6 +296,22 @@ def test_text_clock_excludes_visual_metadata_but_binds_every_copy_change():
 def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tmp_path, monkeypatch, saved_configuration):
     store, binding, rollout, result, _, _ = brief_packet(tmp_path, monkeypatch)
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, ROLE_ASSIGNMENTS
+    from live_contentops.tradingview_snapshot_v1 import snapshot_asset
+    from test_article_publication_quality_cc333 import captured_snapshot
+
+    # A short article can carry a chart without a rendered-pixel review. Use
+    # the retained chart fixture so CC-684's two real Neo routes are eligible.
+    run_id = binding["run_id"]
+    media = Path(binding["output_dir"]) / "media"
+    media.mkdir(exist_ok=True)
+    chart = snapshot_asset("US500", result["article"]["title"], captured_snapshot(media), media)
+    bind_editorial_media(store, run_id=run_id, article_identity=result["article_identity"],
+        assets=[chart], expected_package_revision=native_review_revision(result))
+    previous = read_reviews(store)[-1]
+    record_native_article_review(store, run_id=run_id, article_identity=result["article_identity"],
+        decision="KEEP", rationale="The controlled chart was bound to the unchanged approved text.",
+        expected_review_id=previous["review_id"])
+
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
     stage = "revise" if result.get("simple_result", {}).get("revision_performed") else "write"
     response = turn._get(stage, "response")
@@ -309,21 +325,23 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
     assert ROLE_ASSIGNMENTS["write"] == {"model": "gpt-6.2-sol", "reasoning_effort": "max"}
     accepted = require_current_final_visual_review(store, run_id=binding["run_id"])
     assert accepted["policy_id"] == SPEED_POLICY and accepted["pixels_inspected"] is False
+    assert accepted["text_approved_at_utc"] == json.loads(previous["notes"])["text_approved_at_utc"]
     assert accepted["automated_media_check"]["blocks_publication"] is False
     from live_contentops.native_desktop_publication_v1 import prepare_native_publication
     prepare_native_publication(store, binding)
     operation, executor, transport = composed(store, binding, rollout, monkeypatch)
-    # The legacy general fixture simulates every non-core destination as an
-    # API. Exercise the actual company-page Neo route in this timing test.
+    # Exercise both current LinkedIn Neo routes through the coordinator.
+    from live_contentops.neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
     from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
     publish, readback = transport.publish, transport.readback
     monkeypatch.setattr(transport, "publish", lambda **kw:
         CanonicalDestinationTransportRuntimeV1.publish(transport, **kw)
-        if kw["destination"] == "linkedin_company" else publish(**kw))
+        if kw["destination"] in LINKEDIN_DESTINATIONS else publish(**kw))
     monkeypatch.setattr(transport, "readback", lambda **kw:
         CanonicalDestinationTransportRuntimeV1.readback(transport, **kw)
-        if kw["destination"] == "linkedin_company" else readback(**kw))
-    value, _ = finish(operation, executor)
+        if kw["destination"] in LINKEDIN_DESTINATIONS else readback(**kw))
+    value, writes = finish(operation, executor)
+    assert all(writes.count(destination) == 1 for destination in LINKEDIN_DESTINATIONS), writes
     timing = value["publication"]["timing"]
     # Decision 83: no site link, so the plan takes its Substack route: Substack first, then
     # the social copies linking the confirmed Substack post, all inside the target.
@@ -336,6 +354,22 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
                if not c["skipped"] and c["destination"] != "substack"), timing["channels"]
     assert not any("final-visual" in json.loads(r["payload"]).get("stage", "") for r in store.list_outbox_messages())
     assert turn._get(stage, "response") == response
+
+    if saved_configuration is None:
+        destination = "linkedin_company"
+        intent = transport.finalized[destination]
+        root = Path(intent["output_dir"])
+        foreign_root = tmp_path / "other-article" / "reviewed-handoff" / root.name
+        foreign_root.mkdir(parents=True)
+        (foreign_root / "run_context_v1.json").write_bytes((root / "run_context_v1.json").read_bytes())
+        with pytest.raises(ValueError, match="CC684_LINKEDIN_CHART_OUTSIDE_ITEM_MEDIA_FOLDER"):
+            transport._neo_transport.request(destination=destination, action="PUBLISH",
+                intent={**intent, "output_dir": str(foreign_root)}, authorization_context={
+                    "schema_version": "contentops.canonical_machine_authorization.v1",
+                    "operating_mode": "AUTONOMOUS_DEFAULT", "destination": destination,
+                    "work_item_id": run_id, "dispatch_attempt_identity": intent["attempt_identity"],
+                    "payload_hash": intent["destination_plan"]["payload_hash"],
+                })
 
 
 def test_load_and_size_failure_is_logged_once_without_claiming_pixel_review(tmp_path):

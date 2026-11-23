@@ -236,6 +236,7 @@ def readback_facebook_post(
     expected_text: str,
     canonical_url: str,
     expected_media_local_path: str | None = None,
+    observe_images: bool = False,
     page_id: str | None = None,
     access_token: str | None = None,
 ) -> dict[str, Any]:
@@ -282,6 +283,7 @@ def readback_facebook_post(
         and permalink
         and page_identity_verified
     )
+    exact_own_post = (page_id and page_identity_verified and str(value.get("id") or "") == str(post_id))
     return {
         "status": "SUCCESS" if verified else "FAILED_FACEBOOK_STRICT_READBACK",
         "platform": "facebook_page",
@@ -296,6 +298,7 @@ def readback_facebook_post(
         "media_expected": media_expected,
         "expected_chart_visual_similarity": similarity,
         "public_image_url_present": bool(picture_url),
+        **({"observed_image_urls": [picture_url] if picture_url else []} if observe_images and exact_own_post else {}),
     }
 
 

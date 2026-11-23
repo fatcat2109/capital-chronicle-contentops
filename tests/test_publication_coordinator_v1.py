@@ -212,8 +212,13 @@ def test_transient_readiness_probe_rechecks_the_same_unclaimed_copy(cc401_copied
 
 
 @pytest.mark.parametrize("status,local", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
-@pytest.mark.parametrize("destination,cause", [("threads", "missing:text"), ("youtube", "NEO_SIGNED_IN_ACCOUNT_MISMATCH")])
-def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_failure(cc401_copied_store, status, local, destination, cause):
+@pytest.mark.parametrize("destination,cause", [
+    ("threads", "missing:text"), ("youtube", "NEO_SIGNED_IN_ACCOUNT_MISMATCH"),
+    ("substack", "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"),
+])
+def test_destination_day_failure_preserves_unknown_and_releases_only_local_failure(
+    cc401_copied_store, status, local, destination, cause,
+):
     store = cc401_copied_store
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
     detail = {"status": status, "safe_error_classification": cause}
@@ -227,6 +232,19 @@ def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_fa
         assert coordinator._destination_day_failure(destination) is None
         with store.get_read_only_connection() as conn:
             assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident,)).fetchone()
+
+
+def test_substack_dispatch_runs_after_a_retained_preclick_draft_mismatch(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    incident, _ = coordinator._destination_failure_key("substack")
+    prior = json.dumps({"status": "DEFINITE_NO_WRITE", "safe_error_classification": "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"})
+    store.register_incident(incident_id=incident, work_item_id="work-1", severity="DISPATCH_FAILURE", description=prior)
+    registered, = coordinator.register_plan("work-1", _plan("substack"))["registered"]
+    result = coordinator._dispatch_message(store.get_outbox_message(registered["message_id"]), canonical_url=None)
+    assert result["reconciliation_status"] == RECONCILED_CONFIRMED
+    assert transport.publish_calls == ["substack"]
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident,)).fetchone()[0] == prior
 
 
 def test_substack_dashboard_probe_recovers_without_waiting_for_the_next_day(tmp_path):

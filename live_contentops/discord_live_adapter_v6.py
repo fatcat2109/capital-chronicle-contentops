@@ -265,6 +265,7 @@ def readback_discord_post(
     expected_parent_id: str | None = None,
     require_media: bool = True,
     channel_reply: bool = False,
+    observe_images: bool = False,
 ) -> dict[str, Any]:
     """Read one exact webhook or bot message."""
     target_webhook = webhook_url or _get_default_webhook_url()
@@ -329,12 +330,14 @@ def readback_discord_post(
     attachments = [a for a in payload.get("attachments", []) if isinstance(a, Mapping)
                    and str(a.get("content_type") or "").startswith("image/") and a.get("url")]
     media_verified = media_verified or bool(attachments)
+    embed_images = [row["image"] for row in embeds if isinstance(row, Mapping)
+                    and isinstance(row.get("image"), Mapping) and row["image"].get("url")]
+    image_candidates = [*attachments, *embed_images]
     image_hash_match = None
     if expected_image_sha256:
         image_hash_match = False
         # Discord may move a multipart image into embed.image and return an empty
         # attachments list (CC-359, 9 Nov). Verify the delivered bytes either way.
-        image_candidates = [*attachments, *((row.get("image") or {}) for row in embeds if isinstance(row, Mapping))]
         for attachment in image_candidates:
             if not attachment.get("url"):
                 continue
@@ -377,6 +380,11 @@ def readback_discord_post(
         "attached_article_visual": bool(attachments),
         "image_sha256_match": image_hash_match,
         "thread_verified": thread_verified, "reply_parent_verified": parent_verified,
+        **({"observed_image_urls": list(dict.fromkeys(row["url"] if attachments else row.get("proxy_url") or row["url"]
+                for row in image_candidates)),
+            **({"observed_image_sha256": expected_image_sha256} if image_hash_match else {})}
+           if observe_images and exact_identity and text_verified and thread_verified and channel_verified
+           and parent_verified else {}),
         **({"channel_verified": channel_verified, "content_binding_checks": {
             "text_match": text_verified, "media_match": media_verified,
             "thread_match": channel_verified and parent_verified,
@@ -394,7 +402,7 @@ def find_discord_thread_post(*, thread_id, expected_text, canonical_url,
 
 def find_discord_bot_post(*, expected_text, canonical_url, thread_id=None,
                           expected_parent_id=None, expected_image_sha256=None,
-                          require_media=True, channel_reply=False):
+                          require_media=True, channel_reply=False, observe_images=False):
     """Recover a lost bot-message id in its registered channel or thread.
 
     A full 100-message page is incomplete evidence of absence. A wrong channel,
@@ -460,7 +468,8 @@ def find_discord_bot_post(*, expected_text, canonical_url, thread_id=None,
                                       else "COMPLETE_REGISTERED_DISCORD_THREAD_HISTORY") if complete else None}
         result = readback_discord_post(message_id=matches[0]["id"], expected_text=expected_text,
             canonical_url=canonical_url or "", thread_id=thread_id, expected_parent_id=expected_parent_id,
-            expected_image_sha256=expected_image_sha256, require_media=require_media, channel_reply=channel_reply)
+            expected_image_sha256=expected_image_sha256, require_media=require_media, channel_reply=channel_reply,
+            **({"observe_images": True} if observe_images else {}))
         return {**result, "id": matches[0]["id"], "messages_read": len(messages)}
     except (OSError, ValueError, KeyError, TypeError):
         return unavailable

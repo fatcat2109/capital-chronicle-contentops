@@ -1,0 +1,27 @@
+{
+  "image_seen": true,
+  "points": {
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
+    "9": true,
+    "10": true
+  },
+  "reasons": {
+    "1": "The supplied code checks pass the canvas, PNG, RGB, sRGB and file-size requirements.",
+    "2": "The S&P 500 Index TradingView chart matches the specified US500 market and 4-hour snapshot.",
+    "3": "The creation line, legend, date scale, price scale and TradingView logo are whole and uncovered.",
+    "4": "No template overlays appear inside the plot, and the newest candles, legend, attribution, logo and scales are unobscured.",
+    "5": "Not applicable because this morning map chart has no plan levels.",
+    "6": "NOT_COMPARED because no contemporaneous Main quote was available.",
+    "7": "All printed text fits without clipping, overlap or ellipsis.",
+    "8": "At 375 px wide, the template text scales to roughly 8–13 px and remains readable in dark type on a light background. The supplied code check passes the minimum font requirement.",
+    "9": "The printed date and lead line match the supplied copy. The timestamp and public market volume are original TradingView elements.",
+    "10": "The plot occupies about 68% of the canvas, and no empty horizontal band exceeds 8% of the canvas height."
+  }
+}

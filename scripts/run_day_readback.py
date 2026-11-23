@@ -1,4 +1,4 @@
-"""Write the evening digest run's readback and CC-690 decision checks.
+"""Write the evening readback or CC-692's standing 24-hour sweep.
 
 Run as the existing cc-contentops-digest-1900-bp task's final step, after result.json.
 This command does not publish, reconcile, change schedules or start a browser.
@@ -21,7 +21,9 @@ from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--run-dir", required=True, type=Path, help="This 19:15 run's existing route-1900/<stamp> folder")
+    parser.add_argument("--run-dir", type=Path, help="This 19:15 run's existing route-1900/<stamp> folder")
+    parser.add_argument("--sweep", action="store_true", help="Use CC-692's rolling 24-hour window and Notes watch")
+    parser.add_argument("--sweep-started-at", help="UTC start from the first pass, for classifying exact owner refreshes")
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
     parser.add_argument("--feed", type=Path, default=DEFAULT_FEED)
     parser.add_argument("--since", help="Exclusive UTC start; default is the preceding digest run's folder clock")
@@ -31,12 +33,26 @@ def main(argv=None):
     parser.add_argument("--decisions-only", action="store_true", help="Write only decision_checks.json")
     parser.add_argument("--output-dir", type=Path, help="Write to a replay folder instead of the existing run folder")
     args = parser.parse_args(argv)
+    if args.sweep:
+        if not args.output_dir or args.since or args.run_dir or args.decisions_only:
+            parser.error("--sweep requires --output-dir and sets its own report window")
+    elif args.run_dir is None or args.sweep_started_at:
+        parser.error("provide --run-dir for the evening report, or --sweep for the rolling window")
     try:
         source = {"fetcher": None} if args.stored_only else {}
-        report = build_report(args.run_dir, store_path=args.store, feed_path=args.feed,
-                              since=args.since, until=args.until, plan_export_dir=args.plan_export_dir, **source)
+        report = build_report(args.run_dir or args.output_dir, store_path=args.store, feed_path=args.feed,
+                              since=args.since, until=args.until, plan_export_dir=args.plan_export_dir,
+                              sweep=args.sweep, sweep_started_at=args.sweep_started_at, **source)
         folder = args.output_dir or args.run_dir
         decisions = report["decision_checks"]
+        from live_contentops.image_quality_v1 import completed_day_sample
+
+        try:
+            decisions["image_templates"] = completed_day_sample(
+                args.feed.parent / "published_images_v1.jsonl", as_of=report["window"]["until_utc"],
+                run_vision=not args.stored_only and args.store.resolve() == PRODUCTION_STORE.resolve())
+        except (OSError, ValueError) as exc:
+            decisions["image_templates"] = {"state": "IMAGE_SAMPLE_READ_FAILED", "cause": type(exc).__name__}
         if args.decisions_only:
             paths = (write_decision_checks(folder, decisions),)
         else:
@@ -45,6 +61,15 @@ def main(argv=None):
         # Exception strings may contain account paths, input copy or private URLs.
         print(json.dumps({"state": "READBACK_COMMAND_FAILED", "first_cause": type(exc).__name__}))
         return 1
+    if args.sweep:
+        sweep = report["sweep"]
+        print(json.dumps({"state": "SWEEP_WRITTEN", "files": [str(p) for p in paths],
+                          "window": report["window"], "started_at_utc": sweep["started_at_utc"],
+                          "next_due_utc": sweep["next_due_utc"], "platforms": sweep["platforms"],
+                          "readback_targets": len(sweep["readback_targets"]),
+                          "defect_groups": len(sweep["defect_groups"]),
+                          "notes_watch": sweep["notes_watch"]}, ensure_ascii=False))
+        return 0
     print(json.dumps({"state": "READBACK_WRITTEN", "files": [str(p) for p in paths],
                       "pieces": len(report["pieces"]), "exception_count": report["exception_count"],
                       "exceptions": sorted(report["exceptions"], key=lambda issue: "decision" not in issue),

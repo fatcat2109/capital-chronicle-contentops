@@ -282,9 +282,11 @@ def test_edited_object_readback_uses_accepted_revision_before_confirmation(chang
 def test_confirmed_edit_adds_image_fingerprints_without_rewriting_publication_clock(social, tmp_path):
     from datetime import datetime, timezone
     from live_contentops import article_publication_quality_v1 as quality
+    from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
 
-    store, run, result, _, reference = social
-    assets = result["media_assets"]
+    store, run, _, _, reference = social
+    _, accepted, _ = reader_presentation_acceptance(store, run_id=run, reference=reference)
+    assets = accepted["media_assets"]
     intent = {"work_item_id": run, "media_assets": assets, "reader_presentation_review": reference}
     co = SimpleNamespace(store=store, published_content_path=tmp_path / "published.jsonl",
         _clock=lambda: datetime(2026, 11, 10, 13, 0, tzinfo=timezone.utc))
@@ -296,7 +298,8 @@ def test_confirmed_edit_adds_image_fingerprints_without_rewriting_publication_cl
         published_at=original_clock, observation_ref="original")
     dispatch = {"platform": "substack", "dispatch_id": "existing", "dispatched_at": original_clock}
     for _ in range(2):
-        quality.observe_published_images(co, intent, dispatch, observed_url=url, published_at_utc=edit_clock)
+        quality.observe_published_images(co, intent, dispatch, observed_url=url, published_at_utc=edit_clock,
+                                         presentation_edit=True)
     rows = register.records()
     assert len(rows) == 2 and rows[0]["published_at_utc"] == original_clock
     assert len(rows[1]["images"]) == len(assets)

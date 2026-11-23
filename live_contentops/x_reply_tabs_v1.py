@@ -234,6 +234,12 @@ def _draft_post_with_agy(request_path, *, post, output_dir, runner=None):
         response["request_sha256"] = request["request_sha256"]
         for item in response["items"]:
             item["source_id"] = aliases.get(item.get("source_id"), item.get("source_id"))
+        if runner is None:
+            from .public_draft_claims_v1 import review_x_reply
+            allowed = {source["source_id"]: source for source in selected if source["source_id"] in aliases.values()}
+            for item in response["items"]:
+                if source := allowed.get(item.get("source_id")):
+                    review_x_reply(item, source, output_dir=root, origin="antigravity")
         response["editorial_call"] = dict(record)
         path = root / "response.json"
         packs.save_json(path, response)

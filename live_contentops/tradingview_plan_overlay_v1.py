@@ -14,6 +14,8 @@ from statistics import median
 
 from PIL import Image, ImageChops, ImageDraw
 
+from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, LEVEL_CONTRACT
+
 POLICY = "CC459_VISIBLE_PRICE_SCALE_V1"
 # Six real guest captures, both delivery ratios, checked 11 Nov 2026:
 # docs/publisher/CC-459/six-market-scale-proof.json (grid error <= .50 px).
@@ -118,7 +120,26 @@ def source_binding(row):
     bound = {k: levels[k] for k in fields if k in levels}
     source = {"key": row["key"], "symbol": row["symbol"], "source_content_hash": row.get("source_content_hash"),
               "levels": bound}
-    if row.get("level_contract") == "CC584_V1":
+    contract = row.get("level_contract")
+    if contract == CURRENT_LEVEL_CONTRACT:
+        from .plan_status_posts_v1 import _built_plan, _sha
+
+        raw = row["source_plan"]
+        source["level_contract"] = contract
+        if row.get("kind") == "result":
+            from .plan_state_alerts_v1 import result_headline
+
+            source.update(levels={}, result_text=result_headline(row),
+                          result_source_sha256=_sha(row.get("outcome_source_plan") or raw))
+        else:
+            from .plan_reader_copy_v1 import thread_terms
+
+            # Use the source plan's own levels on its market chart. The mapped
+            # contract's after-entry stop remains a separate annotation.
+            chart_plan = {**_built_plan(raw), "tick_size": raw.get("tick_size", raw.get("minimum_tick"))}
+            source.update(levels={k: chart_plan[k] for k in fields}, phase_source_sha256=_sha(raw),
+                          phase_terms=thread_terms(raw, level_contract=contract)["invalidation"])
+    elif contract == LEVEL_CONTRACT:
         from .plan_reader_copy_v1 import thread_terms
         from .plan_status_posts_v1 import _sha
         raw = row["source_plan"]
@@ -172,6 +193,25 @@ def _wrapped_lines(draw, text, font, width):
     return [*lines, line]
 
 
+def _annotation(draw, text, left, top, right, *, result=False):
+    from .fact_card_design_v1 import _font
+
+    font = _font("semibold", 21 if result else 17)
+    lines = _wrapped_lines(draw, text, font, min(680, (right - left) * 2 // 3))
+    width = max(draw.textbbox((0, 0), line, font=font)[2] for line in lines)
+    height = 28 if result else 24
+    draw.rounded_rectangle((left, top, left + width + 24, top + len(lines) * height + 14),
+                           radius=6, fill=(250, 252, 255, 246), outline=(198, 209, 223, 255))
+    for index, line in enumerate(lines):
+        draw.text((left + 12, top + 6 + index * height), line, font=font, fill=(31, 60, 80, 255))
+
+
+def _text_only(overlay):
+    source = overlay["source"]
+    return (source.get("annotations_only") or overlay.get("basis_only") or source.get("result_text")
+            or (source.get("level_contract") == CURRENT_LEVEL_CONTRACT and not overlay["scale"]))
+
+
 def _draw(image, overlay, box):
     from .fact_card_design_v1 import _font
     scale = overlay["scale"]
@@ -180,11 +220,12 @@ def _draw(image, overlay, box):
     # Preserve the entire TradingView legend, price axis, header and logo.
     left, top, right, bottom = left+16+ox, top+62+oy, right-16+ox, bottom-12+oy
     draw = ImageDraw.Draw(image, "RGBA")
-    levels = deepcopy(overlay["source"]["levels"])
+    source = overlay["source"]
+    levels = deepcopy(source["levels"])
     # Decision 82: "A target is never drawn", whatever the bound source carries.
     levels.pop("target", None)
     levels.pop("target_level", None)
-    annotations_only = overlay["source"].get("annotations_only")
+    annotations_only = source.get("annotations_only")
     if overlay.get("basis_label") and (overlay.get("basis_from_plan") or not annotations_only):
         font = _font("semibold", 16)
         label = overlay["basis_label"]
@@ -195,6 +236,13 @@ def _draw(image, overlay, box):
             draw.rectangle((left + 8, top, left + 8 + width, top + 25), fill=(255, 255, 255, 245))
             draw.text((left + 15, top + 2), line, font=font, fill=(31, 60, 80, 255))
             top += 30
+    if source.get("result_text"):
+        _annotation(draw, source["result_text"], left + 8, top, right, result=True)
+        return []
+    phase_terms = source.get("phase_terms") if source.get("level_contract") == CURRENT_LEVEL_CONTRACT else None
+    if phase_terms and _text_only(overlay):
+        _annotation(draw, phase_terms + ".", left + 8, top, right)
+        return []
     if annotations_only:
         # The chart and a mapped contract may have different price bases. Name
         # both exact conditions without plotting a foreign level on this axis.
@@ -213,10 +261,11 @@ def _draw(image, overlay, box):
                 levels[field] = float(levels[field]) + offset
     markers = []
     entry_colour = (31,95,191,255) if overlay.get("entry_colour") == "blue" else (25,110,95,255)
-    colors = {"Entry low": entry_colour, "Entry high": entry_colour, "Invalidation": (175,40,57,255)}
+    cancel = "Cancel before entry" if phase_terms else "Invalidation"
+    colors = {"Entry low": entry_colour, "Entry high": entry_colour, cancel: (175,40,57,255)}
     from .plan_call_cards_v1 import level as display_level
     for label, price in [("Entry low",levels.get("zone_low")), ("Entry high",levels.get("zone_high")),
-                         ("Invalidation",levels.get("invalidation_level"))]:
+                         (cancel,levels.get("invalidation_level"))]:
         if price is None:
             continue
         display = display_level(price, levels)
@@ -243,7 +292,7 @@ def _draw(image, overlay, box):
     for marker, ly in zip(markers,label_y):
         color = colors[marker["label"]]
         if not marker["edge"]:
-            draw.line((left,marker["y"],right,marker["y"]),fill=color,width=2 if marker["label"] == "Invalidation" else 1)
+            draw.line((left,marker["y"],right,marker["y"]),fill=color,width=2 if marker["label"] == cancel else 1)
         else:
             tip = top if marker["edge"] == "above view" else bottom
             direction = 1 if marker["edge"] == "above view" else -1
@@ -254,6 +303,8 @@ def _draw(image, overlay, box):
         tx = max(left+12,right-width-8)
         draw.rectangle((tx,ly,tx+width,ly+24),fill=(255,255,255,242))
         draw.text((tx+7,ly+2),text,font=font,fill=color)
+    if phase_terms:
+        _annotation(draw, phase_terms + ".", left + 8, top, right)
     return markers
 
 
@@ -271,9 +322,14 @@ def apply(asset, row, *, require_verified=True):
         check = validate_scale(row["symbol"], snap)
         overlay["price_scale_check"] = check
         if row["symbol"] == "USOIL":
+            basis_only = not scale or check["comparison_basis"] == "NOT_COMPARED"
+            if row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
+                # A chart futures quote checks the chart's own scale but gives
+                # no conversion for the original plan's prices.
+                basis_only = basis_only or check["quote"].get("price_basis") == "chart_futures"
             overlay.update(basis_label=wti_basis_label(row, check), basis_from_plan=True,
-                           basis_only=not scale or check["comparison_basis"] == "NOT_COMPARED")
-    text_only = overlay["source"].get("annotations_only") or overlay.get("basis_only")
+                           basis_only=basis_only)
+    text_only = _text_only(overlay)
     if not scale and not text_only:
         raise ValueError("TRADINGVIEW_PRICE_SCALE_NOT_CAPTURED_OR_BOUND")
     source = Path(asset["path"])
@@ -287,9 +343,12 @@ def apply(asset, row, *, require_verified=True):
         overlay["target_drawn"] = any(m["label"] == "Target" for m in overlay["markers"])
         target = source.with_name(source.stem+"-levels-"+_hash(overlay)[:16]+".png")
         image.save(target,format="PNG")
+    result_text = overlay["source"].get("result_text")
     result.update(path=str(target),sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                   asset_id="tradingview-plan-"+_hash(overlay)[:20],plan_overlay=overlay,
-                  caption=asset["caption"]+" Plan levels: Capital Chronicle.")
+                  caption=asset["caption"] + (" " + result_text if result_text else " Plan levels: Capital Chronicle."))
+    if result_text:
+        result["alt_text"] = asset["alt_text"] + " " + result_text
     validate(result)
     return result
 
@@ -303,7 +362,7 @@ def validate(asset, row=None):
         raise ValueError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
     if (overlay["policy"] != POLICY or scale != snap.get("chart_geometry")
             or (scale and scale["source_sha256"] != snap["sha256"])
-            or (not scale and not (overlay["source"].get("annotations_only") or overlay.get("basis_only")))
+            or (not scale and not _text_only(overlay))
             or (row and _hash(_drawn_binding(overlay["source"])) != _hash(source_binding(row)))):
         raise ValueError("TRADINGVIEW_OVERLAY_SOURCE_OR_SCALE_CHANGED")
     if overlay.get("price_scale_check") != snap.get("price_scale_check"):

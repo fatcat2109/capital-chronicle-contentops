@@ -16,8 +16,8 @@ from typing import Mapping
 
 from . import plan_status_posts_v1 as posts
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy, conditional_call_text
-from .plan_reader_copy_v1 import THREAD_CONTRACT
 from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
+from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, NINE_LAYER_COPY, PHASE_LEVEL_CONTRACTS, THREAD_CONTRACT
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 LINKEDIN_PLAN_LINK_EFFECTIVE = datetime(2026, 11, 20, 4, 38, tzinfo=timezone.utc)
@@ -34,6 +34,11 @@ SETTLED_DISPATCHES = frozenset({"DISPATCH_CONFIRMED", "DEFINITE_NO_WRITE",
 SETTLED_POST = "SETTLED"
 SETTLED_COPY = "PLAN_POST_SETTLED"
 DISCORD_CHANNEL_PART = 1
+ANALYSIS_FIRST_PART = 2
+# Reserve a separate identity from the numbered analysis continuations.
+LATE_CHART_PART = 1000
+# These existing transports can attach an image to an exact own-post reply.
+LATE_CHART_DESTINATIONS = frozenset({"telegram", "discord", "threads", "facebook_page", "x", "substack_notes"})
 GLOSSARY = {
     "DXY": "the US dollar index", "COT": "the futures positioning report",
     "M15": "short-interval", "M5": "short-interval", "H1": "hourly",
@@ -41,6 +46,12 @@ GLOSSARY = {
     "invalidation": "the level that proves the idea wrong",
     "priced": "already reflected in prices", "macro": "economic",
 }
+
+
+# Jim, 23 Nov 2026 about 05:30 GMT+7 ("Keep targets off"): decision 40 keeps profit targets off public copy.
+# Rows queued from this time carry the policy; earlier rows keep their exact bytes for validate().
+NO_TARGET_POLICY = "DECISION_40_NO_TARGET"
+NO_TARGET_EFFECTIVE = datetime(2026, 11, 22, 22, 30, tzinfo=timezone.utc)
 
 
 def _hash(value):
@@ -289,7 +300,7 @@ def compose(row):
             lead = "Delayed update to the plan registered " + _clock(registered) + ":\n" + lead
         extra = []
         target = plan.get("target")
-        if target:
+        if target and row.get("target_policy") != NO_TARGET_POLICY:
             extra.append("Model target level: " + "–".join(dict.fromkeys(level(v, plan) for v in target)) + ".")
         if row.get("entry_deadline_utc"):
             extra.append("Entry window to " + _clock(row["entry_deadline_utc"]) + ".")
@@ -316,7 +327,7 @@ def compose(row):
     if kind != "setup":
         extra.extend(["Entry zone: " + level(plan["zone_low"], plan) + "–" + level(plan["zone_high"], plan) + ".",
                       "Invalidation: " + level(plan["invalidation_level"], plan) + "."])
-        if plan.get("target"):
+        if plan.get("target") and row.get("target_policy") != NO_TARGET_POLICY:
             extra.append("Model target level: " + "–".join(dict.fromkeys(level(v, plan) for v in plan["target"])) + ".")
         if row.get("entry_deadline_utc"):
             extra.append("Entry window to " + _clock(row["entry_deadline_utc"]) + ".")
@@ -382,7 +393,7 @@ def entry_condition_facts(plan):
     return traded, cause
 
 
-def no_entry_words(plan):
+def no_entry_words(plan, *, withdrawn=False):
     traded, cause = entry_condition_facts(plan)
     if traded is False:
         return "price did not reach the entry zone"
@@ -392,16 +403,17 @@ def no_entry_words(plan):
         if category in {"SOFTWARE_OR_PROCESS_DEFECT", "PROTECTION_OR_RECONCILIATION_BLOCK"}:
             words += " because of a fault on our side"
         return words
-    return "the entry window ended with no entry"
+    return "the plan was withdrawn without an entry" if withdrawn else "the entry window ended with no entry"
 
 
-def ending_words(row):
+def ending_words(row, *, include_levels=False):
     source = row.get("outcome_source_plan") or row.get("source_plan") or row
     outcome = source.get("outcome") or {}
     not_executed = (row.get("not_executed") is True or outcome.get("not_executed") is True
                     or (outcome.get("score") or {}).get("not_executed") is True)
     if row.get("untriggered") or row.get("triggered_not_traded") or row.get("result") == "NOT_TRIGGERED" or not_executed:
-        words = no_entry_words(source)
+        withdrawn = row.get("result_copy_version") == 2 and source.get("status") == "CANCELLED"
+        words = no_entry_words(source, withdrawn=withdrawn)
         market_path = {"HIT": "hit the target", "STOPPED": "reached the invalidation level",
                        "EXPIRED": "ended at the time exit"}
         if not_executed and row.get("result") in market_path:
@@ -412,6 +424,11 @@ def ending_words(row):
             return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
         return "hit its target"
     if row.get("result") == "STOPPED":
+        if include_levels and row.get("scored"):
+            levels = row["levels"]
+            # The mapped stop applies after entry. The plan's cancel level does not.
+            if levels.get("price_basis") == "instrument":
+                return f"stopped at its {level(levels['invalidation_level'], levels)} invalidation level"
         return "stopped at its invalidation level"
     if row.get("result") == "EXPIRED":
         side = row.get("direction_correct")
@@ -493,17 +510,26 @@ def _refresh_unissued_no_entry_result(store, message, result, source_for):
 
 
 def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False,
-                instagram_profile_reader=None, analysis_copy_root=None, **reader):
+                instagram_profile_reader=None, analysis_copy_root=None, queue_clock=None, **reader):
     if render_all and not dry_run:
         raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
         export = posts.read_export(export_dir, **reader)
+        seen_at = queue_clock.clock() if queue_clock is not None else None
         version = posts.validate_export_contract(export)
         quarantined = posts.record_row_failures(store, export, dry_run=dry_run)
         freshness = posts.export_freshness(export, now)
-        if freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60:
+        stale = freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60
+        if stale and queue_clock is None:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
-        source_rows = posts.rows_from_export(export, include_results=False)
+        observed_rows = posts.rows_from_export(export, include_results=False,
+                                              include_replaced_expiries=queue_clock is not None)
+        if queue_clock is not None:
+            queue_clock.observe([r for r in observed_rows if r["symbol"] in posts.MARKETS],
+                                freshness["export_generated_at_utc"], seen_at=seen_at)
+        if stale:
+            return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
+        source_rows = [r for r in observed_rows if not r.get("replaced_expiry")]
         sources = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("asset_id") in posts.MARKETS}
         records = record_line(export["status"])
     except posts.PlanExportContractError as exc:
@@ -543,9 +569,18 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     current_states.update({pid: raw["status"] for pid, raw in sources.items()
                            if raw.get("status") in TERMINAL})
     outcomes = _result_rows(export)
-    ended_plans = {r["plan_id"] for r in outcomes}
+    result_keys = {r["plan_id"]: r["key"] for r in outcomes}
+    ended_plans = result_keys.keys()
     current_states.update({pid: "RESULT" for pid in ended_plans if current_states.get(pid) not in TERMINAL})
     payloads, skipped, already = [], [], []
+    if queue_clock is not None:
+        fill_keys = {r["plan_id"]: r["key"] for r in source_rows if r.get("source_state") == "FILLED"}
+        for row in observed_rows:
+            pid = row["plan_id"]
+            if row.get("replaced_expiry") or (row["to"] in TERMINAL and pid in ended_plans):
+                queue_clock.refuse(row, "PLAN_TRANSITION_REPLACED_BY_RESULT", replacement_key=result_keys.get(pid))
+            elif row.get("superseded_by_fill"):
+                queue_clock.refuse(row, "FILL_EVENT_SUPERSEDES_TRIGGER", replacement_key=fill_keys[pid])
     from .secret_store_v1 import read_secret
     # Freeze the route on NEW rows only. The registered announcement channel
     # cannot create threads through a webhook; Discord permits that only on
@@ -576,6 +611,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 "source_contract_version": version,
                 "source_plan_hash": raw.get("registration_hash"), "reasons": [],
                 "discord_delivery": discord_delivery, "analysis_distribution_version": 1}
+        if now >= NO_TARGET_EFFECTIVE:
+            # Jim, 23 Nov 2026 about 05:30 GMT+7: "Keep targets off." Decision 40 stands for every new row.
+            item["target_policy"] = NO_TARGET_POLICY
         if kind != "setup" and row["plan_id"] in cards and discord_delivery == "channel":
             item["discord_delivery"] = cards[row["plan_id"]].get("discord_delivery", "bot_thread")
         if kind == "setup" and (now - posts._utc(row["at_utc"])).total_seconds() > window_minutes * 60:
@@ -584,7 +622,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
-            from .plan_reader_copy_v1 import LEVEL_CONTRACT, LEVEL_EFFECTIVE, thread_terms
+            from .plan_reader_copy_v1 import LEVEL_EFFECTIVE, thread_terms
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
@@ -594,7 +632,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 item["x_analysis_thread"] = True
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
                 if now >= LEVEL_EFFECTIVE:
-                    item["level_contract"] = LEVEL_CONTRACT
+                    item["level_contract"] = CURRENT_LEVEL_CONTRACT
                 terms = thread_terms(raw, level_contract=item.get("level_contract"))
                 item.update(thread_contract=THREAD_CONTRACT, instrument_title=terms["market"],
                             entry_deadline_utc=terms["entry_deadline_utc"], time_exit_utc=terms["time_exit_utc"])
@@ -609,6 +647,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         until = card_plan(raw).get("time_exit_utc")
         if (not until or now >= posts._utc(until)
                 or not 0 <= (now - posts._utc(row["at_utc"])).total_seconds() <= posts.LATE_STATE_HOURS * 3600):
+            if queue_clock is not None:
+                queue_clock.refuse(row, "PLAN_SETUP_OUTSIDE_QUEUE_WINDOW")
             continue
         item = payload(row, "setup")
         if any(item["levels"].get(k) is None for k in ("zone_low", "zone_high", "invalidation_level", "direction")):
@@ -654,6 +694,11 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                       and r["status"] in {"PUBLISHING", "PUBLISHED"}}
     for row in sorted(source_rows + outcomes, key=lambda r: posts._utc(r["at_utc"])):
         pid = row["plan_id"]
+        if queue_clock is not None and pid in sources and row["to"] == "WAITING":
+            if latest[pid]["key"] != row["key"] or current_states.get(pid) not in posts.ACTIVE:
+                queue_clock.refuse(row, "PLAN_SETUP_SUPERSEDED")
+            elif pid in cards and cards[pid]["key"] != row["key"]:
+                queue_clock.refuse(row, "PLAN_SETUP_ALREADY_REPRESENTED", replacement_key=cards[pid]["key"])
         if pid not in sources or row["to"] == "WAITING" or (row["to"] in TERMINAL and pid in ended_plans):
             continue
         if row["key"] in prior:
@@ -694,13 +739,14 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
                 item[field] = card[field]
-            if card.get("level_contract"):
+            if card.get("level_contract") and not item.get("level_contract"):
                 item["level_contract"] = card["level_contract"]
             if kind == "result":
                 # Keep the original thread's levels while admitting the later
                 # exact public outcome, including its explicitly exported R.
                 outcome_source = source_for(pid)
-                item.update(outcome_source_plan=outcome_source, outcome_source_sha256=_hash(outcome_source))
+                item.update(outcome_source_plan=outcome_source, outcome_source_sha256=_hash(outcome_source),
+                            result_copy_version=2)
         item.update(compose(item))
         payloads.append(item)
 
@@ -718,21 +764,21 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
         if item["key"] not in prior and item.get("state_alert_contract"):
-            from .plan_reader_copy_v1 import ANALYSIS_COPY
+            from .plan_reader_copy_v1 import plan_layer_candidates
             from .plan_reader_editorial_v1 import prepare_plan_layers
 
             plan = item["source_plan"]
             original = cards.get(item["plan_id"]) or {}
-            quotes = original.get("analysis_layer_quotes")
-            if quotes is None or original.get("source_plan_registration") != plan["registration_hash"]:
+            if original.get("analysis_copy_contract") == NINE_LAYER_COPY and original.get("source_plan") == plan:
+                quotes = original["analysis_layer_quotes"]
+            else:
                 folder = (Path(analysis_copy_root) / plan["plan_id"]
                           if analysis_copy_root is not None and not dry_run else None)
-                quotes = prepare_plan_layers(plan, output_dir=folder)
+                quotes = prepare_plan_layers(plan, output_dir=folder, contract=NINE_LAYER_COPY)
             confirmed = confirmed_publication(store, plan) or {}
-            if quotes or confirmed or analysis_copy_root is not None:
-                item.update(analysis_copy_contract=ANALYSIS_COPY, analysis_layer_quotes=quotes,
-                            analysis_link=confirmed.get("canonical_url"))
-                item.update(compose(item))
+            item.update(analysis_copy_contract=NINE_LAYER_COPY, analysis_layer_quotes=quotes,
+                        analysis_layer_gaps=plan_layer_candidates(plan)[1], analysis_link=confirmed.get("canonical_url"))
+            item.update(compose(item))
         if render_all:
             if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
                 rendered.append({"key":item["key"],"kind":item["kind"],"status":"EDITORIAL_INPUT_REQUIRED",
@@ -749,7 +795,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                         "failed_field": "posts." + item["key"] + ".destinations",
                         "contract_version": version}
             rendered.append({"key": item["key"], "kind": item["kind"], "text": item["text"],
-                             "destinations": copies})
+                             "destinations": copies, **({"analysis_layer_gaps": item["analysis_layer_gaps"]}
+                             if "analysis_layer_gaps" in item else {})})
         if item["key"] in prior:
             already.append(item["key"])
             continue
@@ -758,7 +805,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                                    target_surface="MULTI_PLATFORM", work_item_id=posts.WORK_ITEM_ID)
             store.register_outbox_message(message_id=item["key"], work_item_id=posts.WORK_ITEM_ID,
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
-        queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text")})
+        queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text", "analysis_layer_gaps")
+                       if k in item})
     from .plan_reader_editorial_v1 import active_page_plan_ids
 
     return {"status": "OK", "dry_run": dry_run, "format": FORMAT, **freshness,
@@ -797,19 +845,24 @@ def _discord_channel_update(row):
 def _destination_dispatches(store, row, destination, root):
     key = row["key"]
     copies = [(key, _dispatch(store, key, destination) or {})]
-    if destination != "discord" or not _discord_channel_update(row):
-        return copies
-    channel_key = f"{key}-part-{DISCORD_CHANNEL_PART}"
-    channel = _dispatch(store, channel_key, destination)
-    if channel:
-        copies.append((channel_key, channel))
-    elif root is not None:
+    discord_update = destination == "discord" and _discord_channel_update(row)
+    layer_copy = row.get("analysis_copy_contract") == NINE_LAYER_COPY
+    context = {}
+    if root is not None and (discord_update or layer_copy):
         context_path = Path(root) / key / "run_context_v1.json"
         if context_path.is_file():
             context = json.loads(context_path.read_bytes())
-            parent = (context.get("status_post_parents") or {}).get("discord") or {}
-            if parent.get("channel_reply"):
-                copies.append((channel_key, {}))
+    if discord_update:
+        channel_key = f"{key}-part-{DISCORD_CHANNEL_PART}"
+        channel = _dispatch(store, channel_key, destination)
+        parent = (context.get("status_post_parents") or {}).get("discord") or {}
+        if channel or parent.get("channel_reply"):
+            copies.append((channel_key, channel or {}))
+    if layer_copy and copies[0][1].get("status") == "DISPATCH_CONFIRMED":
+        count = (context.get("status_post_layer_reply_counts") or {}).get(destination, 0)
+        for part in range(ANALYSIS_FIRST_PART, ANALYSIS_FIRST_PART + count):
+            reply_key = f"{key}-part-{part}"
+            copies.append((reply_key, _dispatch(store, reply_key, destination) or {}))
     return copies
 
 
@@ -955,7 +1008,12 @@ def _ready_destinations(store, row, root=None):
             continue
         copies = _destination_dispatches(store, row, destination, root)
         dispatch = copies[0][1]
-        if any(copy.get("status") not in SETTLED_DISPATCHES for _, copy in copies[1:]):
+        channel_suffix = f"-part-{DISCORD_CHANNEL_PART}"
+        channel = [copy for key, copy in copies[1:] if key.endswith(channel_suffix)]
+        layers = [copy for key, copy in copies[1:] if not key.endswith(channel_suffix)]
+        next_layer = next((copy for copy in layers if copy.get("status") != "DISPATCH_CONFIRMED"), None)
+        if (any(copy.get("status") not in SETTLED_DISPATCHES for copy in channel)
+                or next_layer is not None and next_layer.get("status") not in SETTLED_DISPATCHES):
             ready.append(destination)
             continue
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
@@ -1104,11 +1162,13 @@ def _parents(store, row, destinations, previous):
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
-                         portrait_id=None, x_analysis=None, destinations=None, discord_channel_reply=None):
+                         portrait_id=None, x_analysis=None, destinations=None, discord_channel_reply=None,
+                         repeat_threads_notices=False, facebook_reply_images=False):
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import payloads as alert_payloads
         result = alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
-            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id)
+            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id,
+            repeat_threads_notices=repeat_threads_notices, facebook_reply_images=facebook_reply_images)
         if row.get("x_analysis_thread") and x_analysis:
             from .plan_reader_copy_v1 import payloads
             result.update(payloads({**row, **x_analysis}, card_id, chart_credit=chart_credit, destinations=("x",)))
@@ -1128,26 +1188,64 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         limits["telegram"] = 4096
     if row.get("analysis_copy_contract"):
         limits["telegram"] = 4096
+    reply_limits = limits.copy()
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     limits = {d: n - len(credit) for d, n in limits.items()}
     thread_link = ""
     if discord_channel_reply:
         thread_link = f"\n\nPlan thread: <{discord_channel_reply['thread_url']}>"
         limits["discord"] -= len(thread_link)
+    layers = None
+    if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
+        from .plan_state_alerts_v1 import analysis_lines, nine_layer_parts
+
+        layers = analysis_lines(row)
+        if row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
+            # CC-682: the result leads the body (plan_state_alerts_v1.compose), so it opens the first object too.
+            layers = [row["text"].splitlines()[0], *layers]
     for destination in destinations if destinations is not None else destinations_for(row):
         text = row["text"]
         if destination in LINKEDIN_DESTINATIONS and linkedin_analysis_url and not row.get("analysis_link"):
             body, notices = posts._split(text)
             text = body + "\nFull analysis: " + linkedin_analysis_url + "\n\n" + notices
+        layer_parts = None
+        if layers is not None:
+            body, notices = posts._split(text)
+            layer_parts = nine_layer_parts(layers, body, notices, destination=destination,
+                                           limit=limits[destination], reply_limit=reply_limits[destination])
         if destination == "threads" and row["kind"] != "run" and (complete_levels or row.get("analysis_copy_contract")):
             # The image no longer carries the only copy of a level/window.
             # Preserve every supplied line in the platform's existing thread route.
             body, notices = posts._split(text)
-            if row.get("analysis_copy_contract"):
+            if layer_parts is not None:
+                parts = layer_parts
+            elif row.get("analysis_copy_contract"):
                 from .plan_state_alerts_v1 import analysis_thread_parts
                 parts = analysis_thread_parts(row, body, notices, destination=destination, limit=limits[destination])
+            elif row.get("thread_contract") == THREAD_CONTRACT and row.get("level_contract") in PHASE_LEVEL_CONTRACTS:
+                # CC-682's condition and its two clocks are source-bound
+                # sentences. Keep each line whole before the shared notices
+                # and chart-credit suffix are added to the first reply.
+                # CC-729: a package prepared after it carries the notices once, on its first part.
+                room = limits[destination] - len(notices) - 2
+                parts, current = [], []
+                for line in body.splitlines():
+                    if current and len("\n".join([*current, line])) > room:
+                        parts.append("\n".join(current) + ("\n\n" + notices if repeat_threads_notices or not parts else ""))
+                        current = []
+                    if len(line) > room:
+                        if current:
+                            parts.append("\n".join(current) + ("\n\n" + notices if repeat_threads_notices or not parts else ""))
+                            current = []
+                        parts.extend(posts._text_parts(line, notices if repeat_threads_notices or not parts else "",
+                                                        limits[destination], repeat_notices=repeat_threads_notices))
+                    else:
+                        current.append(line)
+                if current:
+                    parts.append("\n".join(current) + ("\n\n" + notices if repeat_threads_notices or not parts else ""))
             else:
-                parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
+                parts = posts._text_parts(body, NOTICES, limits[destination], lines=True,
+                                          repeat_notices=repeat_threads_notices)
             payload = {"destination": destination, "text": parts[0], "root_text": parts[0],
                        "full_text": "\n\n".join(parts), "reply_texts": parts[1:], "media_asset_ids": [card_id]}
             ref = (parents or {}).get(destination)
@@ -1157,11 +1255,13 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             continue
         if destination == "threads" and row["kind"] == "run" and row.get("analysis_publications"):
             root = row["lead"] + "\n\n" + NOTICES
+            reply_footer = "\n\n" + NOTICES if repeat_threads_notices else ""
             replies = [_run_summary({"analysis_publications": [analysis]}, "",
-                                    500 - len(NOTICES) - 2).lstrip() + "\n\n" + NOTICES
+                                    500 - len(reply_footer)).lstrip() + reply_footer
                        for analysis in row["analysis_publications"]]
-            for part in (root, *replies):
-                check_publication_copy({"body": part}, conditional_calls=[])
+            for index, part in enumerate((root, *replies)):
+                check_publication_copy({"body": part}, conditional_calls=[],
+                                       require_notice=index == 0 or repeat_threads_notices)
                 if len(part) > 500:
                     raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:threads")
             result[destination] = {"destination": destination, "text": root, "root_text": root,
@@ -1177,12 +1277,15 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             text = body + "\n" + caption + "\n\n" + NOTICES
         if destination == "x":
             body, notices = posts._split(text)
-            if row.get("analysis_copy_contract"):
+            if layer_parts is not None:
+                chunks = layer_parts
+            elif row.get("analysis_copy_contract"):
                 from .plan_state_alerts_v1 import analysis_thread_parts
                 chunks = analysis_thread_parts(row, body, notices, destination=destination, limit=limits["x"])
             else:
                 chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
-            if any(posts._x_length(part) > limits["x"] for part in chunks):
+            if any(posts._x_length(part) > (reply_limits["x"] if layer_parts and index else limits["x"])
+                   for index, part in enumerate(chunks)):
                 raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:x")
             payload = {"destination": "x", "text": chunks[0], "root_text": chunks[0],
                 "full_text": "\n\n".join(chunks), "reply_texts": chunks[1:], "media_asset_ids": [card_id],
@@ -1195,7 +1298,9 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             continue
         room = limits[destination] - len(NOTICES) - 2
         body = text.rsplit("\n\n", 1)[0]
-        if len(body) > room:
+        if layer_parts is not None:
+            text = layer_parts[0]
+        elif len(body) > room:
             # The full card image retains every supplied field. Short copies
             # keep the conditional call, its id and the structured levels first.
             body = row["lead"]
@@ -1228,7 +1333,10 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
         check_publication_copy({"body": text}, conditional_calls=row.get("conditional_calls") or [])
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id]}
-        if destination == "telegram" and len(text) > 1024:
+        if layer_parts and len(layer_parts) > 1 and not discord_channel_reply:
+            payload["parts"] = [text, *layer_parts[1:]]
+            payload["full_text"] = "\n\n".join(payload["parts"])
+        if destination == "telegram" and (len(text) + (len(credit) if layer_parts else 0) > 1024):
             payload["telegram_text_with_card_preview"] = True
         if destination == "instagram_business" and carousel:
             payload["media_asset_ids"] = [a["asset_id"] for a in carousel]
@@ -1250,7 +1358,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
                     **({"reply_to_id": str(ref["public_object_id"])} if row["kind"] != "setup" else {}))
             elif destination == "facebook_page":
                 payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"),
-                    own_call_comment=True, comment_card_image=row["kind"] == "setup")
+                    own_call_comment=True,
+                    comment_card_image=bool(card_id) if facebook_reply_images else row["kind"] == "setup")
             elif destination == "instagram_business":
                 if row["kind"] == "setup":
                     payload.update(reuse_run_carousel=True, carousel_index=row.get("carousel_index", 0),
@@ -1266,10 +1375,14 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             payload["media_asset_ids"] = [portrait_id]
             if payload.get("posts"):
                 payload["posts"][0]["media_asset_ids"] = [portrait_id]
-        if credit:
+        imageless_facebook_reply = (facebook_reply_images and destination == "facebook_page"
+                                    and payload.get("own_call_comment") and not payload.get("comment_card_image"))
+        if credit and not imageless_facebook_reply:
             first = payload["text"]
             payload["text"] = first + credit
             payload["full_text"] = payload["text"] + payload["full_text"][len(first):]
+            if payload.get("parts"):
+                payload["parts"][0] = payload["text"]
             if "root_text" in payload:
                 payload["root_text"] += credit
             if payload.get("posts"):
@@ -1281,6 +1394,33 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     return result
 
 
+def analysis_reply_payloads(store, row, payloads, part):
+    """Resolve the overflow under the exact confirmed post, or its owning comment thread."""
+    index = part - ANALYSIS_FIRST_PART + 1
+    result = {}
+    for destination, payload in payloads.items():
+        parts = payload.get("parts") or ()
+        if index >= len(parts):
+            continue
+        ref = _reference(store, row["key"], destination)
+        if not ref:
+            continue
+        parent_id, parent_url = str(ref["public_object_id"]), ref["public_object_url"]
+        if destination in {"facebook_page", "instagram_business"} and payload.get("own_call_comment"):
+            parent_id, parent_url = payload["reply_to_id"], payload["reply_to_url"]
+        text = parts[index]
+        reply = {"destination": destination, "text": text, "full_text": text, "media_asset_ids": [],
+                 "plan_layer_reply": True,
+                 "reply_to_id": parent_id, "reply_to_url": parent_url}
+        if destination in {"facebook_page", "instagram_business"}:
+            reply["own_call_comment"] = True
+        elif destination == "discord":
+            reply.update(discord_thread_parent_id=payload.get("discord_thread_parent_id", parent_id),
+                         discord_thread_name="Calls · " + _clock(row["registered_at_utc"]))
+        result[destination] = reply
+    return result
+
+
 def discord_channel_payload(row, *, card_id, parents, chart_credit):
     anchor = ((parents or {}).get("discord") or {}).get("channel_reply")
     if not anchor or not _discord_channel_update(row):
@@ -1289,6 +1429,123 @@ def discord_channel_payload(row, *, card_id, parents, chart_credit):
     compiled = {**row, "state_alert_contract": None, "reader_contract": None}
     return destination_payloads(compiled, card_id=card_id, chart_credit=chart_credit,
                                 destinations=("discord",), discord_channel_reply=anchor)
+
+
+def route_payloads(row, *, instagram_chart_credit=None, **kwargs):
+    payloads = destination_payloads(row, **kwargs)
+    if (instagram_chart_credit is not None and "instagram_business" in payloads
+            and instagram_chart_credit != kwargs.get("chart_credit")):
+        payloads["instagram_business"] = destination_payloads(
+            row, **{**kwargs, "chart_credit": instagram_chart_credit})["instagram_business"]
+    return payloads
+
+
+def _late_chart_parent(store, row, destination, context):
+    if destination not in LATE_CHART_DESTINATIONS:
+        return None
+    dispatch = _dispatch(store, row["key"], destination) or {}
+    if (dispatch.get("status") != "DISPATCH_CONFIRMED" or not dispatch.get("public_object_id")
+            or (destination in {"x", "substack_notes"} and not dispatch.get("public_object_url"))):
+        return None
+    issued = store.get_outbox_message(dispatch["message_id"])
+    if not issued:
+        return None
+    native = json.loads(issued["payload"])["native_payload"]
+    selected = set(native.get("media_asset_ids") or [])
+    if native.get("own_call_comment") and destination == "facebook_page":
+        return None  # Graph's image comment route targets a post, not another comment.
+    if not any(a["asset_id"] in selected and (a.get("plan_chart_fallback") or
+            (a.get("tradingview_snapshot") or {}).get("plain_price_scale_cause"))
+            for a in context["media"]["assets"]):
+        return None
+    parent = {"reply_to_id": str(dispatch["public_object_id"]), "reply_to_url": dispatch.get("public_object_url")}
+    if destination == "discord":
+        if thread := native.get("discord_thread_parent_id"):
+            parent.update(discord_thread_parent_id=thread, discord_thread_name="Plan chart")
+        else:
+            parent["discord_channel_reply"] = True
+    elif destination == "facebook_page":
+        parent.update(own_call_comment=True, comment_card_image=True)
+    return parent
+
+
+def late_chart_payloads(store, row, folder, context):
+    from . import tradingview_snapshot_v1 as tv
+
+    assets = context["media"]["assets"]
+    chart, = assets
+    snap = chart["tradingview_snapshot"]
+    if (chart.get("plan_overlay") or snap.get("plain_price_scale_cause")
+            or tv._utc(snap["captured_at_utc"]) <= posts._utc(row["at_utc"])):
+        raise posts.PlanPostError("PLAN_LATE_CHART_CAPTURE_INVALID")
+    text = f"Updated chart for {row['instrument_title']}.\n\n{tv.CREDIT}"
+    original = json.loads((folder.parent / "run_context_v1.json").read_bytes())
+    return {d: {"destination": d, "text": text, "full_text": text,
+                "media_asset_ids": [chart["asset_id"]], **parent}
+            for d in destinations_for(row)
+            if (parent := _late_chart_parent(store, row, d, original))}
+
+
+def _publish_late_chart(store, row, folder, coordinator_for, *, host, snapshot, snapshot_allowed):
+    from . import tradingview_snapshot_v1 as tv
+    from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+
+    key = row["key"]
+    child = f"{key}-part-{LATE_CHART_PART}"
+    path = folder / "run_context_v1.json"
+    if not path.is_file():
+        return None
+    original = json.loads(path.read_bytes())
+    if not any(a.get("plan_chart_fallback") or (a.get("tradingview_snapshot") or {}).get("plain_price_scale_cause")
+               for a in original["media"]["assets"]):
+        return None
+    chosen = [d for d in destinations_for(row) if _late_chart_parent(store, row, d, original)
+              and (_dispatch(store, child, d) or {}).get("status") not in SETTLED_DISPATCHES]
+    if not chosen:
+        return None
+    late = folder / "late-chart"
+    context_path = late / "run_context_v1.json"
+    if context_path.is_file():
+        context = json.loads(context_path.read_bytes())
+    else:
+        state_path = late / "tradingview_capture_v1.json"
+        first_later_attempt = not state_path.is_file()
+        chart = tv.late_plan_snapshot(row, folder, late, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+        if not chart:
+            if first_later_attempt and state_path.is_file():
+                state = json.loads(state_path.read_bytes())
+                if state.get("status") == "FAILED":
+                    return {"status": "PLAN_LATE_CHART_CAPTURE_FAILED", "cause": state["cause"]}
+            return None
+        article = {"title": f"{row['instrument_title']} chart update", "body": tv.CREDIT}
+        if host is None:
+            from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
+        delivery = host(work_item_id=child, delivery_only_assets=[chart], existing_manifest=None,
+                        article_assets=[], article=article, source_documents=[])
+        if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+            raise posts.PlanPostError("PLAN_LATE_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
+        (late / "delivery_media_manifest_v1.json").write_bytes(canonical_bytes(delivery["manifest"]))
+        context = {"article": article, "media": {"assets": [chart]}, "plan_status_post": key}
+        context_path.write_bytes(canonical_bytes(context))
+    payloads = late_chart_payloads(store, row, late, context)
+    destinations = []
+    for destination in chosen:
+        registration = registration_for_destination(destination)
+        text = payloads[destination]["full_text"]
+        destinations.append({"destination": destination, "platform": registration.platform,
+            "surface": registration.surface, "transport_type": registration.transport_type,
+            "transport_registry_version": REGISTRY_VERSION, "payload": text,
+            "payload_hash": hashlib.sha256(text.encode()).hexdigest(), "canonical_url": None,
+            "expected_destination_identity": registration.expected_identity})
+    plan = {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
+        "plan_status_part": LATE_CHART_PART, "work_item_id": child,
+        "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+        "story_identity": child, "article_identity": child, "package_identity": child,
+        "publication_window": {"window_identity": child}, "output_dir": str(late.resolve()),
+        "transport_registry_version": REGISTRY_VERSION, "policy_mode_version": "AUTONOMOUS_DEFAULT:cc399.v1",
+        "destinations": destinations}
+    return _publish_card_plan(store, row, plan, coordinator_for, parallel=False, immediate=False)
 
 
 def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
@@ -1364,12 +1621,16 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
     if row.get("reader_contract") and not row.get("state_alert_contract"):
         title = row["reader_fields"]["hook"]["text"]
+    if row["kind"] == "result" and row.get("level_contract") == CURRENT_LEVEL_CONTRACT:
+        title = row["lead"]
     article = {"title": title, "dek": row["lead"], "body": row["text"], "plan_publication_kind": row["kind"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     # Registered packages keep exact bytes for readback/reconciliation. This
     # cannot create a new drawn image; fresh packages always use CC-314.
-    frozen = bool(previous and any(_dispatch(store, key, d) for d in destinations_for(row)))
+    threads_intent = previous and store.get_outbox_message(_dispatch_ids(key, "threads")["message_id"])
+    frozen = bool(previous and (threads_intent or any(_dispatch(store, key, d) for d in destinations_for(row))))
     assets, carousel, skipped = [], [], _skipped_images(root, row)
+    instagram_chart_credit = previous.get("status_post_instagram_chart_credit")
     first_image_failure = None
     manifest_path = folder / "delivery_media_manifest_v1.json"
     if frozen:
@@ -1388,7 +1649,8 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             source_snapshot = _confirmed_page_snapshot(store, member)
             try:
                 card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
-                    snapshot_allowed=snapshot_allowed, source_snapshot=source_snapshot, required_chart=True)
+                    snapshot_allowed=snapshot_allowed, source_snapshot=source_snapshot,
+                    required_chart=True, plan_post=True)
             except tv.SnapshotUnavailable as exc:
                 if row["kind"] != "run":
                     raise
@@ -1419,7 +1681,7 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
                 # CC-463: a separate native portrait capture from the same
                 # service. A failed portrait affects only Instagram.
                 carousel_card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
-                    snapshot_allowed=snapshot_allowed, ratio="4:5")
+                    snapshot_allowed=snapshot_allowed, ratio="4:5", required_chart=True, plan_post=True)
                 if carousel_card is None:
                     all_carousel_images = False
                     for hosted in local_manifest["assets"]:
@@ -1448,7 +1710,10 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             skipped = [{"destination": "instagram_business", "cause": "TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED"}]
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
-        chart_credit = bool(assets)
+        chart_credit = bool(assets and assets[0].get("tradingview_snapshot"))
+        if carousel:
+            selected_ids = {item["asset_id"] for item in carousel}
+            instagram_chart_credit = any(a.get("tradingview_snapshot") for a in assets if a["asset_id"] in selected_ids)
         if row["kind"] == "run":
             image_unpostable = [d for d in chosen if not image_ready_keys.intersection(
                 m["key"] for m in postable_run_members(store, row, d, root=root))]
@@ -1458,13 +1723,15 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
     if not assets:
         raise tv.SnapshotUnavailable(first_image_failure or "EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper())
     alert_portrait = previous.get("status_post_alert_portrait")
-    if row.get("state_alert_contract") and "instagram_business" in chosen and not alert_portrait:
+    alert_portrait_destinations = [d for d in chosen if d == "instagram_business"
+                                   or d == "threads" and assets and assets[0].get("image_template")]
+    if row.get("state_alert_contract") and alert_portrait_destinations and not alert_portrait:
         # The fast API pass freezes its landscape bytes. Complete Instagram's
         # separate portrait afterwards; append media without changing those
         # already-issued payloads or their original chart.
         try:
             portrait, _ = posts._post_image(row, folder, snapshot=snapshot,
-                snapshot_allowed=snapshot_allowed, ratio="4:5")
+                snapshot_allowed=snapshot_allowed, ratio="4:5", required_chart=True, plan_post=True)
             if not portrait:
                 raise tv.SnapshotUnavailable("TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
             if host is None:
@@ -1481,15 +1748,19 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
             carousel = [{"asset_id": portrait["asset_id"], "path": portrait["path"],
                 "sha256": portrait["sha256"], "url": hosted["verified_public_delivery_url"]}]
             alert_portrait = portrait["asset_id"]
+            instagram_chart_credit = bool(portrait.get("tradingview_snapshot"))
             previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
-                            status_post_alert_portrait=alert_portrait)
+                            status_post_alert_portrait=alert_portrait,
+                            status_post_instagram_chart_credit=instagram_chart_credit)
+            if "threads" in alert_portrait_destinations or portrait.get("image_template"):
+                previous["status_post_threads_image"] = alert_portrait
         except tv.SnapshotUnavailable as exc:
-            skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
+            skipped.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)
         except tv.SnapshotPending as exc:
-            deferred.append({"destination": "instagram_business", "cause": str(exc)[:200]})
-            chosen.remove("instagram_business")
+            deferred.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)
+            chosen = [d for d in chosen if d not in alert_portrait_destinations]
         except (OSError, ValueError, KeyError, TypeError) as exc:
-            skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
+            skipped.extend({"destination": d, "cause": str(exc)[:200]} for d in alert_portrait_destinations)
         if frozen:
             previous["status_post_skipped_destinations"] = skipped
             context_path.write_bytes(canonical_bytes(previous))
@@ -1498,12 +1769,16 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
     card = assets[0] if assets else None
     portrait_id = previous.get("status_post_threads_image") if frozen else next(
         (a["asset_id"] for a in assets if (a.get("image_template") or {}).get("master") == "T"),None)
+    context = previous
     if not frozen:
         context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
             "selection": {}, "media": {"assets": assets}, "plan_status_post": key,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
+            "status_post_threads_single_notice": True,
+            "status_post_facebook_reply_images": True,
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
-            "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id}
+            "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id,
+            "status_post_instagram_chart_credit": instagram_chart_credit}
         if alert_portrait:
             context["status_post_alert_portrait"] = alert_portrait
         if row.get("reader_contract") and not row.get("state_alert_contract"):
@@ -1530,14 +1805,30 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
     if frozen and linkedin_url and not previous.get("status_post_linkedin_analysis_url"):
         previous["status_post_linkedin_analysis_url"] = linkedin_url
         context_path.write_bytes(canonical_bytes(previous))
-    payloads = destination_payloads({**row, "linkedin_analysis_url": linkedin_url}, card_id=card["asset_id"] if card else None,
+    # A sibling can freeze the package before Threads receives an intent.
+    # Only an issued Threads copy needs its original notice layout.
+    if (frozen and "threads" in chosen and not context.get("status_post_threads_single_notice")
+            and not threads_intent and not _dispatch(store, key, "threads")):
+        context["status_post_threads_single_notice"] = True
+        context_path.write_bytes(canonical_bytes(context))
+    payloads = route_payloads({**row, "linkedin_analysis_url": linkedin_url}, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
+                                  instagram_chart_credit=instagram_chart_credit,
                                   portrait_id=portrait_id, x_analysis=x_analysis,
-                                  complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
+                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW",
+                                   repeat_threads_notices=not context.get("status_post_threads_single_notice"),
+                                   facebook_reply_images=bool(context.get("status_post_facebook_reply_images")))
+    if row.get("analysis_copy_contract") == NINE_LAYER_COPY:
+        counts = context.setdefault("status_post_layer_reply_counts", {})
+        for destination in chosen:
+            if parts := payloads[destination].get("parts"):
+                counts[destination] = len(parts) - 1
+        context_path.write_bytes(canonical_bytes(context))
+    roots = posts._part_payloads(payloads)
     plan_rows = []
     for destination in chosen:
         registration = registration_for_destination(destination)
-        text = payloads[destination]["full_text"]
+        text = roots[destination]["full_text"]
         plan_rows.append({"destination": destination, "platform": registration.platform,
             "surface": registration.surface, "transport_type": registration.transport_type,
             "transport_registry_version": REGISTRY_VERSION, "payload": text,
@@ -1556,13 +1847,28 @@ def prepare_post(store, key, *, root, host=None, destinations=None,
         channel = discord_channel_payload(row, card_id=plan["status_post_card_id"],
                                           parents=parents, chart_credit=chart_credit)
         if channel:
-            child = f"{key}-part-{DISCORD_CHANNEL_PART}"
             text = channel["discord"]["full_text"]
-            plan["continuations"] = [{**plan, "plan_status_part": DISCORD_CHANNEL_PART,
-                "work_item_id": child, "story_identity": child, "article_identity": child, "package_identity": child,
-                "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
-                "destinations": [{**discord, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()}]}]
+            plan["continuations"].append(_card_continuation(plan, DISCORD_CHANNEL_PART, [
+                {**discord, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()}]))
+    reply_count = max((len(payloads[d]["parts"]) - 1 for d in chosen if payloads[d].get("parts")), default=0)
+    for part in range(ANALYSIS_FIRST_PART, ANALYSIS_FIRST_PART + reply_count):
+        children = []
+        for entry in plan_rows:
+            parts = payloads[entry["destination"]].get("parts") or ()
+            index = part - ANALYSIS_FIRST_PART + 1
+            if index < len(parts):
+                text = parts[index]
+                children.append({**entry, "payload": text, "payload_hash": hashlib.sha256(text.encode()).hexdigest()})
+        plan["continuations"].append(_card_continuation(plan, part, children))
     return plan
+
+
+def _card_continuation(plan, part, destinations):
+    child = f"{plan['plan_status_post']}-part-{part}"
+    return {**plan, "plan_status_part": part, "continuations": [], "work_item_id": child,
+            "story_identity": child, "article_identity": child, "package_identity": child,
+            "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+            "destinations": destinations}
 
 
 
@@ -1588,6 +1894,9 @@ def validate_parent_intent(store, row, intent, *, parent_route=None):
         validate_reader_row(store, row)
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
+    if intent.get("plan_status_part", 0) >= ANALYSIS_FIRST_PART:
+        # The caller recomputes the exact reply route from the confirmed dispatch.
+        return
     if not row.get("parent_key"):
         return
     payload = intent["native_payload"]
@@ -1645,7 +1954,7 @@ def _publish_discord_channel_reply(store, row, continuation, coordinator_for, *,
             "cause": posts.destination_causes(outcome).get("discord")}
 
 
-def readback_own_comment(destination, comment_id, parent_id, text):
+def readback_own_comment(destination, comment_id, parent_id, text, *, chart_path=None, observe_images=False):
     """Read the exact comment in its confirmed business card's comment list."""
     if destination == "facebook_page":
         from . import facebook_page_adapter_v6 as adapter
@@ -1656,12 +1965,24 @@ def readback_own_comment(destination, comment_id, parent_id, text):
     else:
         raise posts.PlanPostError("PLAN_CARD_COMMENT_DESTINATION_INVALID")
     try:
+        inspect_attachment = destination == "facebook_page" and (chart_path or observe_images)
+        fields = f"id,{field},attachment{{type,media}}" if inspect_attachment else f"id,{field}"
         data = adapter._get_json(f"https://graph.facebook.com/{adapter.GRAPH_VERSION}/{parent_id}/comments",
-                                {"access_token": token, "fields": f"id,{field}", "limit": 100})
+                                 {"access_token": token, "fields": fields, "limit": 100})
         match = next((r for r in data.get("data") or [] if str(r.get("id")) == str(comment_id)), None)
-        verified = bool(match and match.get(field) == text)
+        text_matches = bool(match and match.get(field) == text)
+        attachment = (match or {}).get("attachment")
+        image_url = (((attachment or {}).get("media") or {}).get("image") or {}).get("src")
+        verified = text_matches
+        if chart_path and text_matches:
+            verified = bool(image_url and adapter.visual_similarity_to_local_file(
+                adapter.read_public_image_bytes(image_url), chart_path) >= adapter.PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)
+        observed = {}
+        if observe_images and inspect_attachment and text_matches and (image_url or not attachment):
+            observed["observed_image_urls"] = [image_url] if image_url else []
         return {"status": "SUCCESS" if verified else "READBACK_UNAVAILABLE", "verified": verified,
-                "public_object_id": comment_id, "body_text_visible": verified, "reply_parent_verified": bool(match)}
+                "public_object_id": comment_id, "body_text_visible": text_matches, "reply_parent_verified": bool(match),
+                **({"meaningful_media_visible": verified} if chart_path else {}), **observed}
     except Exception as exc:
         return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "safe_error_classification": type(exc).__name__}
@@ -1672,8 +1993,10 @@ def _publish_card_plan(store, row, plan, coordinator_for, *, parallel, immediate
     if row.get("state_alert_contract") == "CC543_V1":
         plan["state_alert_contract"] = row["state_alert_contract"]
         plan["defer_alert_recovery"] = immediate
-    title = "Discord plan reply in #announcements" if plan.get("plan_status_part") else (
-        "Call run" if row["kind"] == "run" else "Call card")
+    part = plan.get("plan_status_part")
+    title = ("Plan chart update" if part == LATE_CHART_PART else
+             "Plan analysis continuation" if part is not None and part >= ANALYSIS_FIRST_PART else
+             "Discord plan reply in #announcements" if part else "Call run" if row["kind"] == "run" else "Call card")
     store.create_work_item(story_id=key, title=title, target_surface="MULTI_PLATFORM", work_item_id=key)
 
     def scoped_coordinator():
@@ -1688,21 +2011,35 @@ def _publish_card_plan(store, row, plan, coordinator_for, *, parallel, immediate
     return coordinator.execute_plan(key, plan)
 
 
+def _analysis_reply_destinations(store, row, plan):
+    part = plan["plan_status_part"]
+    parent = row["key"] if part == ANALYSIS_FIRST_PART else f"{row['key']}-part-{part - 1}"
+    return [entry for entry in plan["destinations"] if _reference(store, parent, entry["destination"])
+            and (_dispatch(store, plan["work_item_id"], entry["destination"]) or {}).get("status")
+            not in SETTLED_DISPATCHES]
+
+
 def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False,
-                  snapshot=None, snapshot_allowed=None, destinations=None, alert_filter=None):
+                  snapshot=None, snapshot_allowed=None, destinations=None, alert_filter=None, claim_checker=None):
+    from .public_draft_claims_v1 import try_plan_check
     from .tradingview_snapshot_v1 import SnapshotPending, SnapshotUnavailable
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from .native_neo_executor_v1 import bind_native_neo_coordinator
             return bind_native_neo_coordinator(store, operation_id=key, output_dir=folder / "native-neo",
                 native_invocation_id="plan-status-posts-cc399", allow_publish=True, automatic=automatic_neo)[0]
-    pending = []
+    pending, late_charts = [], []
     for outbox in store.list_outbox_messages(destination=posts.DESTINATION):
         row = json.loads(outbox["payload"])
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
             alert = row.get("state_alert_contract") == "CC543_V1"
             if alert_filter is None or alert == alert_filter:
                 pending.append((outbox, row))
+        if (destinations is None and automatic_neo and row.get("format") == FORMAT
+                and row.get("kind") != "run" and outbox["status"] in {"PUBLISHED", "PUBLISHING", SETTLED_POST}
+                and (alert_filter is None or alert_filter == bool(row.get("state_alert_contract")))
+                and posts._age_minutes(row, now) <= posts.LATE_STATE_HOURS * 60):
+            late_charts.append(row)
     def priority(pair):
         _, row = pair
         # Run roots can supply replies. An alert recovering from a refused
@@ -1821,12 +2158,21 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 media.update({d["destination"]: d for d in plan.get("skipped_destinations") or []})
                 deferred.extend(plan["deferred_destinations"])
                 if plan["destinations"]:
+                    try_plan_check(claim_checker, store, row, plan)
                     outcome = _publish_card_plan(store, row, plan, coordinator_for, parallel=parallel,
                                                  immediate=destinations is not None)
                     per_destination.update(outcome.get("per_destination") or {})
                     for continuation in plan["continuations"]:
-                        channel_reply = _publish_discord_channel_reply(store, row, continuation, coordinator_for,
-                                                                       immediate=destinations is not None)
+                        try_plan_check(claim_checker, store, row, continuation, key=continuation["work_item_id"])
+                        if continuation["plan_status_part"] == DISCORD_CHANNEL_PART:
+                            channel_reply = _publish_discord_channel_reply(store, row, continuation, coordinator_for,
+                                                                            immediate=destinations is not None)
+                            continue
+                        replies = _analysis_reply_destinations(store, row, continuation)
+                        if replies:
+                            reply_outcome = _publish_card_plan(store, row, {**continuation, "destinations": replies},
+                                coordinator_for, parallel=parallel, immediate=destinations is not None)
+                            per_destination.update(reply_outcome.get("per_destination") or {})
                     attempted = True
 
             skipped_details = list(media.values())
@@ -1903,4 +2249,13 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         settle_pending(store, outbox, row, now=now, root=root)
         if row.get("state_alert_contract"):
             store.set_outbox_status(row["key"], outcome["status"])
+    for row in reversed(late_charts):
+        try:
+            reply = _publish_late_chart(store, row, Path(root) / row["key"], coordinator_for,
+                                        host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            reply = {"status": "PLAN_LATE_CHART_UNCONFIRMED", "cause": str(exc)[:200]}
+        if reply:
+            results.append({"key": row["key"], "late_chart_reply": reply})
+            break  # This optional attachment follows the ordinary fanout, one per tick.
     return {"status": "OK", "posts": results}

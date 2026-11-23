@@ -1677,14 +1677,16 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
     from .publication_image_contract_v1 import _macro as macro_image_scope
-    if corrected_article.get("market_asset") or macro_image_scope(corrected_article, {}):
+    weekly = corrected_article.get("weekly_scored_calls") or {}
+    if (corrected_article.get("market_asset") or weekly.get("record") or macro_image_scope(corrected_article, {})):
         from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
         registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
         operation = json.loads(registered["payload"]) if registered else {}
         if not operation.get("output_dir"):
             raise ValueError("ARTICLE_MEDIA_OUTPUT_DIR_REQUIRED")
         corrected_article, assets = prepare_market_snapshot(corrected_article, assets,
-            output_dir=resolve_workspace_path(operation["output_dir"]) / "media" / "market-snapshot")
+            output_dir=resolve_workspace_path(operation["output_dir"]) / "media" / "market-snapshot",
+            source_documents=result.get("evidence") or [])
     allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
@@ -1707,6 +1709,10 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if corrected_article.get("lead_image_asset_id"):
         assets = sorted(assets, key=lambda a: a.get("asset_id") != corrected_article["lead_image_asset_id"])
     for asset in assets:
+        if asset.get("image_template"):
+            from live_contentops.image_quality_v1 import validate_asset
+            validate_asset(asset)
+            continue
         if asset.get("modality") == "tradingview_chart_snapshot":
             from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
             validate_snapshot_asset(asset, market=corrected_article.get("market_asset"))
@@ -1909,8 +1915,12 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    cards = [a for a in assets if a.get("modality") == "source_bound_data_card"]
+    cards = [a for a in assets if a.get("modality") == "source_bound_data_card" and not a.get("image_template")]
+    template_tables = [a for a in assets if a.get("modality") == "source_bound_data_card" and a.get("image_template")]
     snapshots = [a for a in assets if a.get("modality") == "tradingview_chart_snapshot"]
+    for table in template_tables:
+        from live_contentops.image_quality_v1 import validate_asset
+        validate_asset(table)
     for snapshot in snapshots:
         from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
         validate_snapshot_asset(snapshot, market=(result.get("article") or {}).get("market_asset"))
@@ -1943,12 +1953,10 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
         card_article = article if article.get("substack_body_markdown") else {
             "title": company_card_plan.get("title", ""), "substack_body_markdown": " ".join(selected)}
         validate_post_data_card(cards[0], card_article, result.get("evidence") or [])
-    if len(assets) != len(photos) + len(charts) + len(cards) + len(snapshots):
+    supported = len(photos) + len(charts) + len(cards) + len(snapshots) + len(template_tables)
+    if len(assets) != supported:
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
-    if text_first:
-        if len(assets) != len(photos) + len(charts) + len(cards) + len(snapshots):
-            raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
-    elif reader_first:
+    if not text_first and reader_first:
         if dropped_after_repair:
             original = disposition.get("original_visual_editorial_decision")
             validate_visual_decision(original)

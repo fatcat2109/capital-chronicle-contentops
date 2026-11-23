@@ -18,6 +18,9 @@ FINISHED_PIECE_MINUTES = 30
 FINISHED_PIECE_YOUTUBE_EXCEPTION_AT = "2026-11-15T18:25:00+00:00"
 FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
 FINISHED_PIECE_YOUTUBE_EXCEPTION_AUTHORITY = "CC-199_OPS_PRODUCT_20261116_0125_GMT7"
+# CC-748 moved these sends to Jim's desk at 03:31 GMT+7 on 23 November.
+MANUAL_DESK_HANDOFF_AT = "2026-11-22T20:31:00+00:00"
+MANUAL_DESK_HANDOFF_CAUSE = "JIM_POSTS_BY_HAND_20261123"
 SPEED_POLICY = "JIM_DECISION_53"
 TIME_SENSITIVE_MODES = {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE", "STANDARD_NEWS_ANALYSIS", "DATA_OR_DOCUMENT_LENS"}
 LONG_FORM_MODES = {"EVERGREEN_EXPLAINER", "CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING", "WEEK_AHEAD_OR_WATCH"}
@@ -335,7 +338,8 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
     latest = json.loads(own[-1]["notes"]) if own and own[-1]["decision"] == "KEEP" else {}
     approved = text_approval(reviews, run_id=run_id, article_identity=latest.get("article_identity"),
         revision=latest.get("text_revision_sha256")) if latest.get("text_revision_sha256") else None
-    deadline = _utc(approved) + timedelta(minutes=DISPATCH_MINUTES) if approved else None
+    approval_clock = _utc(approved) if approved else None
+    deadline = approval_clock + timedelta(minutes=DISPATCH_MINUTES) if approval_clock else None
     observations = []
     packets, claims, responses = {}, {}, {}
     for row in rows:
@@ -363,11 +367,15 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "status": response.get("status", "PENDING_NATIVE_RETURN"),
             "timing_basis": "NATIVE_ACTION_OBSERVED" if observation.get("dispatched_at_utc") else "NATIVE_RETURN_OBSERVED_UPPER_BOUND"})
     from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+    from live_contentops.manual_desk_v1 import HAND_PLATFORMS
     from live_contentops.neo_destination_handoff_v1 import suspended_routes
     barred = barred_browser_destinations()
-    youtube_exception = bool(approved
-        and _utc(approved) >= _utc(FINISHED_PIECE_YOUTUBE_EXCEPTION_AT)
-        and suspended_routes().get("youtube") == FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE)
+    reopened = approval_clock and approval_clock >= _utc(FINISHED_PIECE_YOUTUBE_EXCEPTION_AT)
+    routes = suspended_routes() if reopened else {}
+    youtube_exception = routes.get("youtube") == FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE
+    manual_routes = {destination for destination in HAND_PLATFORMS
+        if routes.get(destination) == MANUAL_DESK_HANDOFF_CAUSE} if (
+            approval_clock and approval_clock >= _utc(MANUAL_DESK_HANDOFF_AT)) else set()
     channels = []
     for entry in destinations:
         actual = [v for v in observations if v["destination"] == entry["destination"]
@@ -382,9 +390,9 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         upper_bound = not clock and first_readback is not None
         if upper_bound:
             clock = first_readback.isoformat()
-        elapsed = (_utc(clock) - _utc(approved)).total_seconds() if clock and approved else None
-        readback_elapsed = (first_readback - _utc(approved)).total_seconds() if first_readback and approved else None
-        image_elapsed = (image_readback - _utc(approved)).total_seconds() if image_readback and approved else None
+        elapsed = (_utc(clock) - approval_clock).total_seconds() if clock and approval_clock else None
+        readback_elapsed = (first_readback - approval_clock).total_seconds() if first_readback and approval_clock else None
+        image_elapsed = (image_readback - approval_clock).total_seconds() if image_readback and approval_clock else None
         within = 0 <= elapsed <= DISPATCH_MINUTES * 60 if elapsed is not None else None
         if upper_bound and within is False:
             within = None  # A late observation does not prove a late send.
@@ -405,15 +413,18 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             **({"finished_piece_excluded_due_to": FINISHED_PIECE_YOUTUBE_EXCEPTION_CAUSE,
                 "finished_piece_exclusion_authority": FINISHED_PIECE_YOUTUBE_EXCEPTION_AUTHORITY}
                if sample_exception else {}),
+            **({"manual_handoff": {"cause": MANUAL_DESK_HANDOFF_CAUSE, "authority": "CC-748"}}
+               if entry["destination"] in manual_routes else {}),
             "skipped": entry["status"].startswith("SKIPPED_") or policy_no_write,
             **({"excluded_from_timing_due_to": barred[entry["destination"]]} if policy_no_write else {})})
-    required = [c for c in channels if not c["skipped"]]
+    required = [c for c in channels if not c["skipped"] and "manual_handoff" not in c]
     # A typed media/channel skip is a truthful dispatch outcome, not evidence
     # that an authorized destination received an image (CC-199). Only an
     # explicit platform prohibition or the dated CC-199 YouTube exception
     # removes a destination from this acceptance reading. Dispatch/recovery
     # states remain intact; this view adds no publication gate.
     finished_required = [c for c in channels if c["finished_piece_required"]]
+    automated_required = [c for c in finished_required if "manual_handoff" not in c]
     complete = bool(required) and all(c["within_target"] is True for c in required)
     overdue = bool(deadline and (now or datetime.now(timezone.utc)) > deadline and not complete)
     data_timing = {}
@@ -448,6 +459,9 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         "channels": channels, "all_channels_dispatched_within_target": complete,
         "finished_piece_acceptance": {"item": "CC-199", "target_minutes": FINISHED_PIECE_MINUTES,
             "required_destinations": [c["destination"] for c in finished_required],
+             "automated_required_destinations": [c["destination"] for c in automated_required],
+             "all_automated_destinations_with_image_readbacks_within_target": bool(automated_required)
+                 and all(c["finished_piece_within_30_minutes"] for c in automated_required),
             "excluded_destinations": [{"destination": c["destination"],
                 "cause": c.get("finished_piece_excluded_due_to", c.get("excluded_from_timing_due_to")),
                 "authority": c.get("finished_piece_exclusion_authority")}

@@ -167,6 +167,46 @@ def test_clock_is_not_reset_by_generation_context_media_or_mutable_contract():
     assert "ARTICLE_DATA_CLOCK_CHANGED" in check_article(article, docs)
 
 
+@pytest.mark.parametrize("new_source", [
+    {"data_cutoff_utc": "2026-11-10T14:10:00Z"},
+    {"source_authority_class": "official_public_primary_source",
+     "published_at_source": "EXACT_OFFICIAL_LOCATOR_TIMESTAMP",
+     "published_at_utc": "2026-11-10T14:10:00Z"},
+])
+def test_newest_admitted_data_sets_the_clock_and_frozen_primary_clock_can_replay(new_source):
+    article, docs = daily()
+    primary_clock = "2026-11-10T14:00:00+00:00"
+    docs.extend([
+        {"source_id": "SOURCE_2", "document_id": "new-data",
+         "canonical_content_text": "The latest observation supports our view.", **new_source},
+        {"source_id": "SOURCE_3", "context_only": True, "data_cutoff_utc": "2026-11-10T14:28:00Z"},
+        {"source_id": "SOURCE_4", "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+         "published_at_utc": "2026-11-10T14:29:00Z", "retrieval_time_utc": "2026-11-10T14:30:00Z"},
+        {"source_id": "SOURCE_5", "source_authority_class": "official_public_primary_source",
+         "published_at_source": "EXACT_BOUND_DISCOVERY_TIMESTAMP", "published_at_utc": "2026-11-10T14:30:00Z"},
+        {"source_id": "SOURCE_6", "weekly_scored_calls": {"counts": {"scored_calls": 1}},
+         "data_cutoff_utc": "2026-11-10T14:30:00Z"},
+    ])
+    article["substack_body_markdown"] += "\n\nThe latest observation supports our view. [[SOURCE:SOURCE_2]]"
+    contract = contract_for({"selected_candidate": {"headline_id": "main-current", "reader_format": "DAILY_NOTE"},
+                             "source_pack": docs})
+    article["reader_article_contract"] = contract
+    assert contract["primary_document_id"] == "main-current"
+    assert contract["data_cutoff_utc"] == "2026-11-10T14:10:00+00:00"
+    validate_article(article, docs)
+    publication_clock = datetime(2026, 11, 10, 15, 5, tzinfo=timezone.utc)
+    validate_publication_clock(article, now=publication_clock, destination="substack")
+    assert publication_timing(article, published_at_utc=publication_clock.isoformat())["seconds_from_data"] == 3300
+
+    # An in-flight legacy contract retains the data clock that its review sealed.
+    legacy = {key: value for key, value in contract.items() if key != "data_clock_basis"}
+    legacy["data_cutoff_utc"] = primary_clock
+    article["reader_article_contract"] = legacy
+    validate_article(article, docs)
+    with pytest.raises(ValueError, match="ARTICLE_DATA_CUTOFF_EXPIRED:3900s"):
+        validate_publication_clock(article, now=publication_clock, destination="substack")
+
+
 @pytest.mark.parametrize("age,allowed", [(0, True), (3600, True), (3601, False), (-1, False)])
 def test_one_hour_is_checked_at_the_actual_new_canonical_write(age, allowed):
     article, _ = daily()
@@ -239,8 +279,12 @@ def test_live_coordinator_uses_the_reader_check_before_its_real_transport(tmp_pa
     path = tmp_path / "article/run_context_v1.json"
     context = json.loads(path.read_bytes())
     copy, docs = context["article"], context["source_documents"]
-    docs[0].update(source_id="SOURCE_1", data_cutoff_utc=(FIXTURE_NOW - timedelta(minutes=30)).isoformat())
-    copy["substack_body_markdown"] = "We think the conditional policy path matters.\n\n" + copy["substack_body_markdown"] + "\n\nSo what: We watch the next official release."
+    docs[0].update(source_id="SOURCE_1", data_cutoff_utc=(FIXTURE_NOW - timedelta(minutes=90)).isoformat())
+    docs.append({"source_id": "SOURCE_2", "document_id": "new-observation",
+                 "data_cutoff_utc": (FIXTURE_NOW - timedelta(minutes=30)).isoformat(),
+                 "canonical_content_text": "We watch the next official release."})
+    copy["substack_body_markdown"] = ("We think the conditional policy path matters.\n\n"
+        + copy["substack_body_markdown"] + "\n\nSo what: We watch the next official release. [[SOURCE:SOURCE_2]]")
     copy["reader_article_contract"] = contract_for({"source_pack": docs})
     if bad:
         copy["title"] += " DATED CAPITAL CHRONICLE REVIEW"

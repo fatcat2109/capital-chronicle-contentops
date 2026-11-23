@@ -292,6 +292,7 @@ def readback_instagram_media(
     canonical_url: str,
     expected_media_local_path: str,
     access_token: str | None = None,
+    observe_images: bool = False,
 ) -> dict[str, Any]:
     access_token = _instagram_token(access_token)
     if not media_id or not access_token:
@@ -347,6 +348,8 @@ def readback_instagram_media(
         "meaningful_media_visible": bool(similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM),
         "expected_chart_visual_similarity": similarity,
         "media_type": value.get("media_type"),
+        **({"observed_image_urls": [media_url]} if observe_images and media_url
+           and username.casefold() == "official.capitalchronicle" and str(value.get("id") or "") == str(media_id) else {}),
     }
 
 
@@ -359,6 +362,7 @@ def find_recent_instagram_media(
     access_token: str | None = None,
     attempts: int = 2,
     interval_seconds: float = 2.0,
+    observe_images: bool = False,
 ) -> dict[str, Any]:
     """Resolve an uncertain publish by exact recent caption before any retry."""
     ig_id = _instagram_id(ig_id)
@@ -403,6 +407,7 @@ def find_recent_instagram_media(
                 canonical_url=canonical_url,
                 expected_media_local_path=expected_media_local_path,
                 access_token=access_token,
+                **({"observe_images": True} if observe_images else {}),
             )
         if attempt < max(1, attempts):
             time.sleep(interval_seconds)
@@ -458,7 +463,7 @@ def execute_instagram_carousel(*, caption, images):
                 "safe_error_classification": type(exc).__name__}
 
 
-def readback_call_carousel(*, media_id, expected_images, expected_caption=None):
+def readback_call_carousel(*, media_id, expected_images, expected_caption=None, observe_images=False):
     """Check exact card slots and account; reusing a slot never writes a post."""
     try:
         value = _get_json(f"https://graph.facebook.com/{GRAPH_VERSION}/{media_id}", {
@@ -466,13 +471,23 @@ def readback_call_carousel(*, media_id, expected_images, expected_caption=None):
             "access_token": _instagram_token()})
         children = (value.get("children") or {}).get("data") or ([value] if value.get("media_type") == "IMAGE" else [])
         matched = bool(expected_images)
+        image_slots = []
         for index, expected in enumerate(expected_images):
             slot = expected.get("index", index)
             if not isinstance(slot, int) or isinstance(slot, bool) or not 0 <= slot < len(children):
                 matched = False
-                break
-            similarity = visual_similarity_to_local_file(read_public_image_bytes(children[slot]["media_url"]), expected["path"])
-            matched = matched and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+                image_slots.append("" if children else None)
+                continue
+            image_url = children[slot].get("media_url")
+            image_slots.append(image_url)
+            if not image_url:
+                matched = False
+                continue
+            try:
+                similarity = visual_similarity_to_local_file(read_public_image_bytes(image_url), expected["path"])
+                matched = matched and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+            except (OSError, ValueError):
+                matched = False
         caption_match = expected_caption is None or " ".join(expected_caption.split()) == " ".join(str(value.get("caption") or "").split())
         identity = str(value.get("username") or "").casefold() == "official.capitalchronicle" and str(value.get("id")) == str(media_id)
         verified = bool(identity and matched and caption_match and value.get("permalink"))
@@ -481,6 +496,8 @@ def readback_call_carousel(*, media_id, expected_images, expected_caption=None):
             "public_url": value.get("permalink"), "destination_identity": value.get("username"),
             "account_identity_verified": identity, "meaningful_media_visible": matched,
             "body_text_visible": caption_match, "visible_body_text": value.get("caption"),
+            **({"observed_image_urls": [url for url in image_slots if url], "observed_image_slots": image_slots}
+               if observe_images and identity and children else {}),
             "carousel_card_slots_verified": [e.get("index", i) for i, e in enumerate(expected_images)] if matched else []}
     except Exception as exc:
         return {"status": "READBACK_UNAVAILABLE", "verified": False, "safe_error_classification": type(exc).__name__}

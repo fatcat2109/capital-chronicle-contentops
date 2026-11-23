@@ -20,8 +20,19 @@ from .image_templates_v1 import POLICY, SIZE, compile_image, template_revision
 from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
-ACCEPTANCE_CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\image_template_acceptance_v1.json")
 VISION_POLICY = "cc465-image-roles-v5"
+VISION_SAMPLE_PENDING = "SAMPLE_PENDING"
+# These installed API adapters send one photo; their canonical link carries the complete table.
+SINGLE_IMAGE_DESTINATIONS = frozenset({"telegram", "discord", "facebook_page", "threads"})
+SAMPLE_NOT_SCORED = {VISION_SAMPLE_PENDING, "REVIEW_UNAVAILABLE"}
+TEMPLATE_FIT_CAUSES = frozenset({
+    "IMAGE_CHART_CAPTURE_SHAPE", "IMAGE_CHART_CAPTURE_TOO_SMALL", "IMAGE_PRICE_GEOMETRY_REQUIRED",
+    "IMAGE_LEVELS_OUT_OF_VIEW", "IMAGE_LEVEL_LABEL_DOES_NOT_FIT", "IMAGE_LEVEL_LABEL_COLLISION",
+    "IMAGE_WRITER_REVISION_REQUIRED", "IMAGE_TEXT_DOES_NOT_FIT", "IMAGE_HEADER_COLLISION",
+    "IMAGE_RESULT_PATH_CAPTURE_CHANGED", "IMAGE_RESULT_PATH_NOT_IN_VIEW", "IMAGE_RESULT_PATH_TIMEFRAME_REQUIRED",
+    "IMAGE_R_RESULT_NOT_EXPORTED", "IMAGE_RESULT_OUTCOME_NOT_MAPPED", "RESULT_CAPTURE_TIME_COORDINATES_REQUIRED",
+    "IMAGE_TEMPLATE_WTI_BASIS_REQUIRED", "IMAGE_EMPTY_BAND_TOO_TALL",
+})
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
     "Image 1 is the correct market's TradingView snapshot; weekly is the table exception",
@@ -122,7 +133,11 @@ def code_check(asset, *, destination=None):
             if not (meta.get("levels") or {}).get("levels_visible"):fail(5,"IMAGE_LEVELS_OUT_OF_VIEW")
             try:
                 from .publication_image_contract_v1 import validate_scale
-                validate_scale(meta["input"]["market"],snap)
+                market = meta["input"]["market"]
+                check = validate_scale(market, snap)
+                if market == "USOIL" and meta["input"].get("plan") and (
+                        check["level_offset"] or check["comparison_basis"] == "NOT_COMPARED"):
+                    fail(6,"IMAGE_TEMPLATE_WTI_BASIS_REQUIRED")
             except (ValueError,KeyError,TypeError) as exc:fail(6,str(exc))
             framing=meta["framing"];box=framing["paste_box"]
             if (box[2]-box[0])*(box[3]-box[1])/(asset["width"]*asset["height"]) < .6:fail(10,"IMAGE_CHART_TOO_SMALL")
@@ -239,35 +254,20 @@ def review_vision(asset,*,runner=None):
     return record
 
 
-def accepted_template(asset):
-    """Read the integrating owner's existing control area; never write it here."""
-    if asset.get("image_template_acceptance"):
-        return asset["image_template_acceptance"]
-    if ACCEPTANCE_CONTROL.is_file():
-        controls=json.loads(ACCEPTANCE_CONTROL.read_bytes())
-        return (controls.get("templates") or {}).get(asset["image_template"]["template"]) or {}
-    return {}
-
-
-def validate_asset(asset,*,destination=None,require_vision=True,require_template_acceptance=False):
+def validate_asset(asset,*,destination=None,require_vision=True):
     code=code_check(asset,destination=destination)
     if not code["passed"]:
         raise ValueError(code["causes"][0])
     if require_vision:
         review=asset.get("image_quality") or {}
-        accepted=accepted_template(asset)
-        checked=template_acceptance(accepted.get("reviews") or [],code["template"],code["template_revision"])
-        admitted=checked["passed"] and bool(accepted.get("accepted_at_utc"))
-        combined=combine(code,review.get("vision") or {},new_template=not admitted)
+        combined=combine(code,review.get("vision") or {})
         if not combined["passed"]:raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
-        if require_template_acceptance:
-            if not admitted:
-                raise ValueError("IMAGE_TEMPLATE_TWELVE_REAL_REVIEWS_REQUIRED")
         return combined
     return code
 
 
-def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,vision_runner=None):
+def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,vision_runner=None,
+                  sample_after_publication=False):
     """Prepare one exact PNG on the existing editorial path, without a send."""
     from .image_templates_v1 import render
     asset=render(data,master,folder,snapshot,image_number=image_number,page=page)
@@ -275,7 +275,14 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     record_path=Path(asset["path"]).with_suffix(".json")
     previous=json.loads(record_path.read_bytes()) if record_path.is_file() else {}
     old=previous.get("image_quality") or {}
-    if old.get("image_sha256")==asset["sha256"]:
+    if not code["passed"]:
+        review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
+    elif sample_after_publication:
+        # CC-543's minute alerts render and check their chart without a model
+        # call. Keep the exact asset available to the existing daily sample.
+        review=(old.get("vision") or {}) if old.get("image_sha256")==asset["sha256"] else {}
+        review=review or {"points":{},"status":VISION_SAMPLE_PENDING}
+    elif old.get("image_sha256")==asset["sha256"]:
         review=old.get("vision") or {}
         from .light_model_caller_v1 import POLICY
         # A pre-CC-512 failed review never ran the second caller. Continue it
@@ -288,22 +295,53 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
             if not retained.exists():retained.write_bytes(previous_bytes)
             review=review_vision(asset,runner=vision_runner)
             review["retained_prior_failure_path"]=str(retained)
-    elif code["passed"]:
-        review=review_vision(asset,runner=vision_runner)
     else:
-        review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
-    # Acceptance is an artifact beside the existing media, supplied by the
-    # integrating owner after twelve actual six-market W/T reviews. No model,
-    # scheduler or publication register can grant it by a score alone.
-    acceptance=Path(folder)/"image_template_acceptance_v1.json"
-    if acceptance.is_file():
-        asset["image_template_acceptance"]=json.loads(acceptance.read_bytes())
-    accepted=accepted_template(asset)
-    admitted=template_acceptance(accepted.get("reviews") or [],code["template"],code["template_revision"])["passed"] and bool(accepted.get("accepted_at_utc"))
-    asset["image_quality"]=combine(code,review,new_template=not admitted)
+        review=review_vision(asset,runner=vision_runner)
+    asset["image_quality"]=combine(code,review)
+    pending = sample_after_publication and review.get("status") in SAMPLE_NOT_SCORED
+    if pending:
+        asset["image_quality"]["image_record_path"] = str(record_path)
     record_path.write_text(json.dumps(asset,ensure_ascii=False,indent=2),encoding="utf-8")
-    validate_asset(asset)
+    if not code["passed"]:
+        raise ValueError(code["causes"][0])
+    if not pending and not asset["image_quality"]["passed"]:
+        raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
     return asset
+
+
+def sampled_review(image, *, run_vision=False, vision_runner=None):
+    """Resolve or complete an exact-pixel review in the existing image sidecar."""
+    registered = image["image_quality"]
+    if registered.get("image_sha256") != image.get("sha256"):
+        return {**registered, "passed": False, "sample_cause": "IMAGE_SAMPLE_RECORD_BINDING_CHANGED"}
+    if (registered.get("vision") or {}).get("status") != VISION_SAMPLE_PENDING:
+        return registered
+    try:
+        path = Path(registered["image_record_path"])
+        asset = json.loads(path.read_bytes())
+        quality = asset["image_quality"]
+        if (path.resolve() != Path(asset["path"]).with_suffix(".json").resolve()
+                or asset["sha256"] != image["sha256"] or quality["image_sha256"] != image["sha256"]
+                or any(quality[key] != registered[key] for key in ("template", "master"))):
+            raise ValueError("IMAGE_SAMPLE_RECORD_BINDING_CHANGED")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {**registered, "sample_cause": str(exc) if str(exc) == "IMAGE_SAMPLE_RECORD_BINDING_CHANGED"
+                else "IMAGE_SAMPLE_RECORD_UNAVAILABLE"}
+    if not run_vision or quality["vision"]["status"] != VISION_SAMPLE_PENDING:
+        return quality
+    code = code_check(asset)
+    review = (review_vision(asset, runner=vision_runner) if code["passed"] else
+              {"points": {}, "status": "CODE_REFUSED", "cause": code["causes"][0]})
+    quality = {**combine(code, review), "image_record_path": str(path)}
+    asset["image_quality"] = quality
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as handle:
+        updated = Path(handle.name)
+        json.dump(asset, handle, ensure_ascii=False, indent=2)
+    try:
+        updated.replace(path)
+    finally:
+        updated.unlink(missing_ok=True)
+    return quality
 
 
 def daily_sample(records,day,*,rng=None):
@@ -317,8 +355,10 @@ def daily_sample(records,day,*,rng=None):
             q=image.get("image_quality") or {};key=image.get("sha256")
             if q.get("template") and key not in seen:
                 candidates.setdefault(q["template"],[]).append(image);seen.add(key)
-    chooser=rng or random.SystemRandom()
-    return [chooser.choice(values) for _,values in sorted(candidates.items())]
+    # The weekly check must choose the same images as the daily check.
+    chooser=rng or random.Random(day)
+    return [chooser.choice(sorted(values, key=lambda image: image["sha256"]))
+            for _,values in sorted(candidates.items())]
 
 
 def weekly_sample(reviews):
@@ -328,14 +368,40 @@ def weekly_sample(reviews):
             "images":[r["image_sha256"] for r in values]}
 
 
-def publication_sample(records,day,*,rng=None):
+def publication_sample(records,day,*,rng=None,run_vision=False,vision_runner=None):
     """Only observed publications in this seven-day window can prove the week."""
     end=date.fromisoformat(day)
     days=[(end-timedelta(days=i)).isoformat() for i in reversed(range(7))]
-    selected=[image for at in days for image in daily_sample(records,at,rng=rng)]
-    return {"day":day,"images":daily_sample(records,day,rng=rng),
-            "weekly":{**weekly_sample([i["image_quality"] for i in selected]),
-                      "start_day":days[0],"end_day":day}}
+    selected = {at: [{**image, "image_quality": sampled_review(image, run_vision=run_vision and at == day,
+                                                              vision_runner=vision_runner)}
+                     for image in daily_sample(records, at, rng=rng)] for at in days}
+    # Fix the sample before looking at the scores. A missing review must not
+    # let a later pass replace an image that was selected for the weekly check.
+    unique = {image["sha256"]: image["image_quality"]
+              for images in selected.values() for image in images}
+    chosen = list(unique.values())[-20:]
+    reviewed = [review for review in chosen
+                if (review.get("vision") or {}).get("status") not in SAMPLE_NOT_SCORED]
+    return {"day": day, "images": selected[day],
+            "weekly": {**weekly_sample(reviewed), "selected": len(chosen),
+                       "start_day": days[0], "end_day": day}}
+
+
+def completed_day_sample(register, *, as_of, run_vision=False):
+    """Read the last completed production day for the existing evening report."""
+    from .published_images_v1 import PublishedImages, day_of
+
+    day = date.fromisoformat(day_of(as_of)) - timedelta(days=1)
+    report = publication_sample(PublishedImages(register).records(), day.isoformat(), run_vision=run_vision)
+    images = []
+    for image in report["images"]:
+        review = image["image_quality"]
+        vision = review.get("vision") or {}
+        status = vision.get("status") or "RETAINED_SCORE"
+        images.append({"image_sha256": image["sha256"], "template": review["template"], "status": status,
+                       "score": review["score"] if status not in SAMPLE_NOT_SCORED else None,
+                       "passed": review["passed"], "cause": review.get("sample_cause") or vision.get("cause")})
+    return {"day": report["day"], "images": images, "weekly": report["weekly"]}
 
 
 def template_acceptance(reviews,template,revision):
@@ -361,6 +427,9 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
     from .image_templates_v1 import CHART, WEEKLY_CAPACITY
     article=deepcopy(article)
     data=article["image_input_v1"]
+    if data["template"] != "weekly" and (article.get("paid") or article.get("paywall")
+            or article.get("audience") in {"paid", "paid_subscribers"}):
+        raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
     if article.get("retrospective") and not data.get("event_cutoff_utc"):
         raise ValueError("IMAGE_RETROSPECTIVE_CUTOFF_REQUIRED")
     images=[];choices={}
@@ -378,11 +447,19 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
             capacity=WEEKLY_CAPACITY[master]
             for page in range(1,(len(data["week"]["rows"])+capacity-1)//capacity):
                 prepared.append(prepare_asset(data,master,Path(output_dir)/"media"/"cc465",page=page,vision_runner=vision_runner))
-        if master=="T":
-            for image in prepared:image.update(derivative_only=True,article_inclusion=False,canonical_article_media=False)
+        for image in prepared:
+            image.update(media_role="delivery_only", provenance_status="VERIFIED_SOURCE_BOUND_IMAGE_TEMPLATE")
+            if image["image_template"]["chart"]:
+                image.update(source_page_url=chart["chart_url"], caption=image["alt_text"] + " Chart: TradingView.")
+            if master=="T":
+                image.update(derivative_only=True,article_inclusion=False,canonical_article_media=False)
         choices[master]=[image["asset_id"] for image in prepared]
         images.extend(prepared)
     from .destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    channels={d:choices["T" if d in {"threads","instagram_business"} else "W"] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
-    article.update(lead_image_asset_id=choices["W"][0],native_destination_media=channels,post_visual_destination_media=channels)
+    channels = {}
+    for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS:
+        master = "T" if destination in {"threads", "instagram_business"} else "W"
+        channels[destination] = choices[master][:1] if destination in SINGLE_IMAGE_DESTINATIONS else choices[master]
+    article.update(lead_image_asset_id=choices["W"][0],native_destination_media=channels,
+                   post_visual_destination_media=channels,publication_image_contract=POLICY)
     return article,images+[a for a in assets if not a.get("image_template")]

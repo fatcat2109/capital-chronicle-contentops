@@ -19,11 +19,6 @@ from live_contentops import tradingview_snapshot_v1 as tv
 NOW = datetime(2026,11,12,16,tzinfo=timezone.utc)
 
 
-@pytest.fixture(autouse=True)
-def isolate_template_acceptance(tmp_path,monkeypatch):
-    monkeypatch.setattr(quality,'ACCEPTANCE_CONTROL',tmp_path/'acceptance-control.json')
-
-
 def input_record(template="call", market="USDJPY"):
     data={"schema":"image_input_v1","post_id":"controlled-fixture","template":template,"market":market,
           "plan":{"market":market,"market_name":templates.MARKETS[market],"direction":"SHORT","horizon_label":"Mid-term",
@@ -83,17 +78,11 @@ def vision_response(args,*,cwd,timeout,input):
 
 def publication_message(tmp_path,image):
     from test_publication_image_contract_cc463 import message_with
-    # The isolated consumer fixture supplies an explicitly controlled template
-    # acceptance. Runtime never derives owner acceptance from one image score.
-    meta=image['image_template']
-    image['image_template_acceptance']={'accepted_at_utc':NOW.isoformat(),'reviews':[
-        {'template':meta['template'],'template_revision':meta['template_revision'],'score':10,'passed':True,
-         'real_snapshot':True,'market':m,'master':s,'image_sha256':'controlled-'+m+s} for m in templates.ORDER for s in ('W','T')]}
     store,runtime,coordinator,message=message_with(tmp_path,[image])
     intent=json.loads(message["payload"])
     context_path=Path(intent["output_dir"])/"run_context_v1.json"
     context=json.loads(context_path.read_bytes())
-    context["article"]["market_asset"]="USDJPY"
+    context["article"]["market_asset"] = None if image["image_template"]["template"] == "weekly" else "USDJPY"
     context_path.write_text(json.dumps(context),encoding="utf-8")
     return store,runtime,coordinator,message
 
@@ -368,6 +357,156 @@ def test_structured_article_owner_builds_native_masters_and_platform_choices(tmp
     assert all(a["image_quality"]["passed"] for a in images)
 
 
+def test_native_media_uses_the_bound_event_preview_scenarios_and_release_clock(tmp_path, monkeypatch):
+    from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
+    from live_contentops.article_scenarios_v1 import MODEL_LABEL, NOTICES
+
+    bindings = []
+    passages = []
+    for name, role, odds, trigger, reading in (
+        ("Cool", "alternative", "30%", "Core at 0.1%", "Lower yields weigh on the dollar."),
+        ("Hot", "base_case", "55%", "Core at 0.3%", "Higher yields support the dollar."),
+    ):
+        moves = dict.fromkeys(templates.ORDER, "flat")
+        moves["USDJPY"] = reading
+        source = {"probability": odds, "confirmation": trigger, "invalidation": "A contrary release.",
+                  **{"market_moves." + key: value for key, value in moves.items()}}
+        passage = " ".join((name, MODEL_LABEL, *source.values()))
+        passages.append(passage)
+        bindings.append({"name": name, "role": role, "probability": odds, "confirmation": trigger,
+                         "market_moves": moves, "invalidation": source["invalidation"],
+                         "source_bindings": {key: {"document_id": "main-report", "support_excerpt": passage}
+                                             for key in source}})
+    content = "\n".join(passages)
+    docs = [{"document_id": "main-report", "publisher": "Capital Chronicle", "event_id": "cpi",
+             "event_name": "US CPI, October", "canonical_content_text": content,
+             "canonical_content_sha256": sha256(content.encode()).hexdigest()}]
+    article = {"title": "A longer conditional preview about October inflation", "market_asset": "USDJPY",
+               "article_type": "EVENT_PREVIEW", "frozen_public_record": {"event_id": "cpi",
+                   "event_time_utc": "2026-11-13T13:30:00+00:00"}, "scenario_analysis": bindings,
+               "substack_body_markdown": "## Scenarios\n" + content + "\n" + "\n".join(NOTICES),
+               "social_scenarios": {"base_case": "Base case: 55%.", "alternative": "Alternative: 30%."}}
+    monkeypatch.setattr(quality, "review_vision", lambda image, **options: yes_review(image)["vision"])
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    prepared, assets = prepare_market_snapshot(article, [], output_dir=tmp_path, capture=snapshot,
+                                                source_documents=docs, now=NOW)
+    image_input = prepared["image_input_v1"]
+    assert image_input["event"]["name"] == "US CPI, October"
+    assert image_input["event"]["time_et"] == "13 Nov, 8:30 AM ET"
+    assert [row["probability_pct"] for row in image_input["event"]["scenarios"]] == [55, 30]
+    assert [asset["image_template"]["image_number"] for asset in assets] == [1, 2, 1, 2]
+
+
+@pytest.mark.parametrize("template", ["event", "weekly", "map"])
+def test_structured_article_templates_reach_the_media_owner_and_coordinator(tmp_path, template):
+    from live_contentops.article_publication_quality_v1 import image_register
+    from live_contentops.cloudinary_delivery_media_v1 import _validated_local_asset
+    from live_contentops.native_desktop_editorial_v1 import validate_release_media
+    from test_publication_image_contract_cc463 import message_with
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    data = input_record(template)
+    article, assets = quality.prepare_article_media({"image_input_v1": data}, [],
+        output_dir=tmp_path / "media", snapshot=snapshot, vision_runner=vision_response)
+    validate_release_media({"article": article, "media_assets": assets}, require_pixel_review=False)
+    for table in [a for a in assets if not a["image_template"]["chart"]]:
+        _, blockers = _validated_local_asset(table, article_asset=True, article=article, source_documents=[])
+        assert blockers == []
+
+    _, runtime, coordinator, message = message_with(tmp_path / "run", assets,
+        image_input_v1=article["image_input_v1"])
+    path = Path(json.loads(message["payload"])["output_dir"]) / "run_context_v1.json"
+    context = json.loads(path.read_bytes())
+    context["article"]["market_asset"] = None if template == "weekly" else "USDJPY"
+    path.write_text(json.dumps(context), encoding="utf-8")
+    result = coordinator._dispatch_message(message, canonical_url=None)
+    assert result["status"] == "DISPATCH_CONFIRMED", result
+    assert runtime.publish_calls == ["substack"]
+    recorded = image_register(coordinator).records()[-1]["images"]
+    assert [image["image_quality"]["template"] for image in recorded] == [template, template]
+    if template != "weekly":
+        assert [image["image_type"] for image in recorded] == ["TRADINGVIEW_MARKET_CHART", "DRAWN_CARD"]
+
+
+def test_six_market_owner_uses_complete_map_input_in_fixed_order(tmp_path, monkeypatch):
+    from live_contentops.image_template_inputs_v1 import for_morning_map
+
+    data = input_record("map")
+    mapping = {**data["map"], "lead_market": data["market"], "rows": list(reversed(data["map"]["rows"]))}
+    article = {"market_asset": data["market"], "morning_map": mapping}
+    missing_state = deepcopy(article)
+    missing_state["morning_map"]["rows"][0]["state_word"] = None
+    assert for_morning_map(missing_state) is None
+    monkeypatch.setattr(quality, "review_vision", lambda image, **options: yes_review(image)["vision"])
+
+    def snapshot(market, interval, folder, *, chart_size):
+        folder.mkdir(parents=True, exist_ok=True)
+        return capture(folder, "W" if chart_size == (1600, 700) else "T", market)
+
+    prepared, assets = tv.prepare_contract_article(article, [], output_dir=tmp_path, snapshot=snapshot)
+    assert [row["market"] for row in prepared["image_input_v1"]["map"]["rows"]] == list(templates.ORDER)
+    assert [asset["image_template"]["chart"] for asset in assets] == [True, False, True, False]
+    assert all(asset["image_quality"]["passed"] for asset in assets)
+
+
+def test_instagram_publishes_and_reads_back_the_native_chart_and_table(tmp_path, monkeypatch):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import instagram_adapter_v6 as instagram
+
+    market_map = input_record("map")
+    chart = templates.render(market_map, "T", tmp_path, capture(tmp_path, "T"))
+    table = templates.render(market_map, "T", tmp_path, image_number=2)
+    images = [chart, table]
+    context = {"article": {}, "media": {"assets": images}}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps(context), encoding="utf-8")
+    delivery = [{"sha256": a["sha256"], "public_delivery_sha256": a["sha256"],
+                 "local_public_hash_continuity": True, "verified_public_delivery_url": f"https://example.test/{i}.png"}
+                for i, a in enumerate(images)]
+    manifest = tmp_path / "delivery_media_manifest_v1.json"
+    caption = "Morning map. https://capitalchronicle.substack.com/p/pre-us-wrap"
+    intent = {"output_dir": str(tmp_path), "destination_plan": {"destination": "instagram_business"},
+              "native_payload": {"text": caption, "media_asset_ids": [a["asset_id"] for a in images]},
+              "canonical_url": "https://capitalchronicle.substack.com/p/pre-us-wrap", "attempt_identity": "attempt"}
+    authorization = {"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "attempt"}
+    calls = []
+
+    def write(*, caption, images):
+        calls.append(("publish", caption, images))
+        return {"status": "SUCCESS", "id": "carousel-id"}
+
+    def read(*, media_id, expected_images, expected_caption):
+        assert media_id == "carousel-id"
+        calls.append(("readback", expected_caption, expected_images))
+        return {"status": "SUCCESS", "verified": True, "public_object_id": media_id,
+                "public_url": "https://www.instagram.com/p/carousel"}
+
+    monkeypatch.setattr(instagram, "execute_instagram_carousel", write)
+    monkeypatch.setattr(instagram, "readback_call_carousel", read)
+    manifest.write_text(json.dumps({"assets": delivery[:1]}), encoding="utf-8")
+    blocked = pipeline._publish_one_destination_from_durable_intent(
+        destination="instagram_business", intent=intent, authorization_context=authorization)
+    assert blocked["reason_code"] == "VERIFIED_DELIVERY_MEDIA_UNAVAILABLE" and not calls
+
+    manifest.write_text(json.dumps({"assets": delivery}), encoding="utf-8")
+    result = pipeline._publish_one_destination_from_durable_intent(
+        destination="instagram_business", intent=intent, authorization_context=authorization)
+    assert result["id"] == "carousel-id"
+    observed = pipeline._readback_one_destination_from_durable_intent(
+        destination="instagram_business", public_object_id=result["id"], public_object_url=None, intent=intent)
+    assert observed["status"] == "SUCCESS"
+    assert [call[0] for call in calls] == ["publish", "readback"]
+    for _, text, assets in calls:
+        assert text == caption
+        assert [asset["sha256"] for asset in assets] == [chart["sha256"], table["sha256"]]
+
+
 def test_unsupported_image_protocol_and_no_observed_pixel_read_never_create_scores(tmp_path):
     image=asset(tmp_path)
     def rejected(args,**kwargs):
@@ -474,38 +613,52 @@ def test_paid_chart_and_wrong_platform_stay_refused_before_publish(tmp_path):
     assert runtime.publish_calls==[]
 
 
-def test_one_perfect_image_never_substitutes_for_initial_template_acceptance(tmp_path):
+def test_coordinator_uses_the_eight_point_review_without_an_approval_record(tmp_path):
     image=asset(tmp_path);image['image_quality']=yes_review(image)
-    store,runtime,coordinator,message=publication_message(tmp_path/'run',image)
-    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
-    context=json.loads(path.read_bytes());context['media']['assets'][0].pop('image_template_acceptance')
-    path.write_text(json.dumps(context),encoding='utf-8')
-    coordinator._readiness=lambda *a:pytest.fail('unaccepted template reached destination')
+    image['image_quality']['vision']['points'].update({'4':False,'10':False})
+    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
     result=coordinator._dispatch_message(message,canonical_url=None)
-    assert result['status']=='DEFINITE_NO_WRITE' and result['reason_code']=='IMAGE_TEMPLATE_TWELVE_REAL_REVIEWS_REQUIRED'
+    assert result['status']=='DISPATCH_CONFIRMED' and runtime.publish_calls==['substack']
+
+
+@pytest.mark.parametrize('failed_points', [('4','8','10'), ('3',)])
+def test_coordinator_still_requires_a_passing_review(tmp_path, failed_points):
+    image=asset(tmp_path);image['image_quality']=yes_review(image)
+    image['image_quality']['vision']['points'].update(dict.fromkeys(failed_points, False))
+    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
+    coordinator._readiness=lambda *a:pytest.fail('failed image review reached destination')
+    result=coordinator._dispatch_message(message,canonical_url=None)
+    assert result['status']=='DEFINITE_NO_WRITE'
+    assert result['reason_code']=='IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED'
     assert runtime.publish_calls==[]
 
 
-def test_accepted_template_uses_eight_point_routine_threshold_without_overriding_code(tmp_path):
-    image=asset(tmp_path);image['image_quality']=yes_review(image)
-    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
-    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
-    context=json.loads(path.read_bytes());held=context['media']['assets'][0]
-    held['image_quality']['vision']['points'].update({'4':False,'10':False})
-    path.write_text(json.dumps(context),encoding='utf-8')
-    result=coordinator._dispatch_message(message,canonical_url=None)
-    assert result['status']=='DISPATCH_CONFIRMED' and runtime.publish_calls==['substack']
+def test_failed_plan_template_review_holds_the_same_capture_without_a_fallback_card(tmp_path, monkeypatch):
+    from live_contentops import plan_status_posts_v1 as posts
 
+    row = {"key": "checked-call", "kind": "setup", "state": "WAITING", "symbol": "USDJPY",
+           "at_utc": NOW.isoformat(), "horizon": "MID",
+           "levels": {"zone_low": 158, "zone_high": 158.3, "invalidation_level": 159,
+                      "direction": "bearish", "image_source_plan": {"horizon": "MID"}}}
+    captured = capture(tmp_path)
+    calls = []
 
-def test_installed_consumer_reads_owner_template_acceptance_from_the_existing_control_area(tmp_path):
-    image=asset(tmp_path);image['image_quality']=yes_review(image)
-    _,runtime,coordinator,message=publication_message(tmp_path/'run',image)
-    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
-    context=json.loads(path.read_bytes());acceptance=context['media']['assets'][0].pop('image_template_acceptance')
-    quality.ACCEPTANCE_CONTROL.write_text(json.dumps({'templates':{'call':acceptance}}),encoding='utf-8')
-    path.write_text(json.dumps(context),encoding='utf-8')
-    result=coordinator._dispatch_message(message,canonical_url=None)
-    assert result['status']=='DISPATCH_CONFIRMED' and runtime.publish_calls==['substack']
+    def take(market, interval, folder):
+        calls.append(market)
+        return captured
+
+    def refuse(*args, **kwargs):
+        raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
+
+    monkeypatch.setattr(quality, "prepare_asset", refuse)
+    monkeypatch.setattr(tv, "record_outcome", lambda *_: None)
+    monkeypatch.setattr(tv, "fallback_card", lambda **_: pytest.fail("A vision refusal is not a capture failure"))
+    for _ in range(2):
+        with pytest.raises(tv.TemplateImageRefused, match="IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED"):
+            posts._post_image(row, tmp_path, snapshot=take, required_chart=True, plan_post=True)
+    state = json.loads((tmp_path / "tradingview_capture_cc465_v1.json").read_bytes())
+    assert state["status"] == "IMAGE_HELD" and state["snapshot"]["sha256"] == captured["sha256"]
+    assert calls == ["USDJPY"]
 
 
 def test_reader_copy_and_frozen_validation_select_native_portrait_without_changing_text(tmp_path,monkeypatch):
@@ -591,7 +744,7 @@ def test_weekly_phone_pagination_keeps_every_call_without_empty_tail_pages(tmp_p
     assert seen==count
 
 
-def test_article_consumer_delivers_all_weekly_phone_pages_to_each_destination(tmp_path):
+def test_article_consumer_selects_weekly_pages_for_each_transport(tmp_path):
     article,images=quality.prepare_article_media({"image_input_v1":input_record("weekly")},[],
         output_dir=tmp_path,vision_runner=vision_response)
     assert len(images)==4
@@ -601,7 +754,7 @@ def test_article_consumer_delivers_all_weekly_phone_pages_to_each_destination(tm
         assert sum(sum(t["field"]=="week.market" for t in i["image_template"]["texts"]) for i in selected)==6
     by_id={i["asset_id"]:i for i in images}
     for destination,ids in article["native_destination_media"].items():
-        assert len(ids)==2
+        assert len(ids) == (1 if destination in quality.SINGLE_IMAGE_DESTINATIONS else 2)
         assert all(by_id[i]["image_template"]["master"]==("T" if destination in {"instagram_business","threads"} else "W") for i in ids)
 
 
@@ -617,3 +770,60 @@ def test_weekly_consumer_excludes_reservations_old_rows_and_future_publications(
     assert len(sample['images'])==1
     assert sample['weekly']['observed']==1 and not sample['weekly']['passed']
     assert sample['weekly']['start_day']=='2026-11-06'
+
+
+def test_daily_sample_resolves_the_exact_published_asset_once_and_reuses_it_for_the_week(tmp_path, monkeypatch):
+    data = input_record("call")
+    image = quality.prepare_asset(data, "W", tmp_path, capture(tmp_path), sample_after_publication=True)
+    registered = {"image_quality": image["image_quality"], "sha256": image["sha256"]}
+    rows = [{"state": "PUBLISHED", "day": "2026-11-12", "images": [registered]}]
+    original = Path(image["path"]).read_bytes()
+    seen = []
+
+    def review(candidate, **options):
+        seen.append(candidate["sha256"])
+        result = yes_review(candidate)["vision"]
+        return {**result, "status": "REVIEWED"}
+
+    monkeypatch.setattr(quality, "review_vision", review)
+    assert quality.publication_sample(rows, "2026-11-12")["weekly"]["observed"] == 0
+    daily = quality.publication_sample(rows, "2026-11-12", run_vision=True)
+    assert daily["images"][0]["image_quality"]["score"] == 10
+    assert daily["weekly"]["images"] == [image["sha256"]]
+    assert quality.publication_sample(rows, "2026-11-13", run_vision=True)["weekly"] == {
+        **daily["weekly"], "start_day": "2026-11-07", "end_day": "2026-11-13"}
+    assert quality.publication_sample(rows, "2026-11-12", run_vision=True)["weekly"] == daily["weekly"]
+    assert seen == [image["sha256"]]
+    assert Path(image["path"]).read_bytes() == original
+
+
+def test_evening_readback_samples_only_the_completed_production_day(tmp_path, monkeypatch):
+    from scripts import run_day_readback
+
+    image = quality.prepare_asset(input_record("call"), "W", tmp_path, capture(tmp_path),
+                                  sample_after_publication=True)
+    register = tmp_path / "published_images_v1.jsonl"
+    rows = [{"schema_version": "contentops.published_image.v1", "state": "PUBLISHED",
+             "day": day, "images": [{"sha256": image["sha256"], "image_quality": image["image_quality"]}]}
+            for day in ("2026-11-12", "2026-11-13")]
+    from live_contentops.published_images_v1 import SCHEMA
+    register.write_text("".join(json.dumps({**row, "schema_version": SCHEMA}) + "\n" for row in rows))
+    store = tmp_path / "fixture.sqlite3"
+    monkeypatch.setattr(run_day_readback, "PRODUCTION_STORE", store)
+    monkeypatch.setattr(run_day_readback, "build_report", lambda *args, **kwargs: {
+        "window": {"until_utc": "2026-11-13T08:00:00Z"}, "pieces": [], "exceptions": [],
+        "exception_count": 0, "decision_checks": {"failure_count": 0},
+    })
+    seen = []
+
+    def review(candidate, **options):
+        seen.append(candidate["sha256"])
+        return {**yes_review(candidate)["vision"], "status": "REVIEWED"}
+
+    monkeypatch.setattr(quality, "review_vision", review)
+    assert run_day_readback.main(["--run-dir", str(tmp_path), "--store", str(store),
+                                 "--feed", str(tmp_path / "published.jsonl"), "--decisions-only"]) == 0
+    report = json.loads((tmp_path / "decision_checks.json").read_bytes())["image_templates"]
+    assert report["day"] == "2026-11-12"
+    assert report["weekly"]["observed"] == report["weekly"]["selected"] == 1
+    assert report["images"][0]["score"] == 10 and seen == [image["sha256"]]

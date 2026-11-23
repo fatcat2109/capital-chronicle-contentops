@@ -98,18 +98,33 @@ def main(argv=None) -> int:
             python=child_python(), dry_run=args.dry_run)}
         result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
+        from live_contentops.public_draft_claims_v1 import review_plan_copy
         # CC-543: the plan's API alerts precede every model/browser operation.
         # The existing task has a five-minute lifetime; a previous slow slice
         # therefore cannot consume this plan's entire ten-minute deadline.
-        result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run, main_root=args.main_root, python=child_python(),
-                             analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
-                             if args.publish and not args.dry_run else None)
+        from live_contentops.plan_queue_clock_v1 import PlanQueueClock
+        run_folder = args.store.parent / posts.RUN_RECORD_FOLDER
+        queue_clock = None if args.dry_run else PlanQueueClock(store, run_folder, posts.record_run)
+        try:
+            result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
+                                 render_all=args.dry_run, main_root=args.main_root, python=child_python(),
+                                 queue_clock=queue_clock,
+                                 analysis_copy_root=args.store.parent / "daily_app_outputs/plan_status_posts"
+                                 if args.publish and not args.dry_run else None)
+        except Exception as exc:
+            if queue_clock is not None:
+                cause = str(exc) if isinstance(exc, posts.PlanPostError) else "PLAN_QUEUE_ERROR:" + type(exc).__name__
+                queue_clock.finish({"cause": cause})
+            raise
+        if queue_clock is not None:
+            queue_clock.finish(result)
+            if queue_clock.error:
+                result["plan_export_queue_record_error"] = queue_clock.error
         page_root = args.store.parent / "daily_app_outputs/plan_analysis"
         page_worker = None
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                active_recoveries=result.get("active_recoveries"), immediate_only=True)
+                active_recoveries=result.get("active_recoveries"), immediate_only=True, claim_checker=review_plan_copy)
             # Save the API receipts even if the later browser work outlives the tick.
             posts.record_run({**result, "phase": "IMMEDIATE_ALERTS", "publication": result["immediate_publication"]},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
@@ -127,13 +142,23 @@ def main(argv=None) -> int:
                 if draft["status"] != "NO_DUE_PAGE_DRAFT":
                     page_worker = draft
             result["plan_alert_fanout"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                automatic_neo=True, alert_filter=True)
+                automatic_neo=True, alert_filter=True, claim_checker=review_plan_copy)
             posts.record_run({**result, "phase": "PLAN_ALERT_FANOUT", "publication": result["plan_alert_fanout"],
                               **({"plan_pages": {"draft_worker": page_worker}} if page_worker else {})},
                              args.store.parent / posts.RUN_RECORD_FOLDER)
+        if args.publish and not args.dry_run:
+            # Exact copies already attempted need readback even with a stale
+            # Main export. Do it before independently slow browser/editor work.
+            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
+            result["neo_stored_requests"] = resume_stored_requests(store)
+            if result["neo_stored_requests"].get("requests"):
+                posts.record_run({**result, "phase": "PLAN_COPY_READBACK"},
+                                 args.store.parent / posts.RUN_RECORD_FOLDER)
         # Decision 124's private delivery still precedes the slow editorial and
         # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
+        # CC-748: Jim's posting desk runs in its own task (scripts/manual_desk_tick.py), so this job's
+        # five-minute limit can never stop a phone push midway (Ops Product, 23 Nov 2026).
         if args.publish and not args.dry_run:
             # CC-467's source-to-post deadline is five minutes. Its single
             # bounded slice precedes slower reply/page work in this same task.
@@ -163,7 +188,7 @@ def main(argv=None) -> int:
             from live_contentops.call_followups_v1 import minute_due as followups_due
             try:
                 result["call_followups"] = followups_due(store, lambda: posts.read_export(
-                    args.export_dir, main_root=args.main_root, python=child_python()))
+                    args.export_dir, main_root=args.main_root, python=child_python()), claim_checker=review_plan_copy)
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 result["call_followups"] = {"status": "NOT_COMPLETED", "cause": str(exc)[:200]}
         if args.publish and not args.dry_run:
@@ -190,7 +215,8 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run and result["status"] == "OK":
             from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                active_recoveries=result.get("active_recoveries"), automatic_neo=True, alert_filter=False)
+                active_recoveries=result.get("active_recoveries"), automatic_neo=True, alert_filter=False,
+                claim_checker=review_plan_copy)
             result["publication"]["posts"] = (result["plan_alert_fanout"]["posts"]
                 + result["publication"].get("posts", []))
             result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
@@ -198,8 +224,7 @@ def main(argv=None) -> int:
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
-            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
-            result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
+            result["publication"]["neo_stored_requests"] = result["neo_stored_requests"]
         if args.publish and not args.dry_run:
             # CC-468 reads confirmed pages already in the store and checks their
             # original capture clocks. An unrelated stale status export must

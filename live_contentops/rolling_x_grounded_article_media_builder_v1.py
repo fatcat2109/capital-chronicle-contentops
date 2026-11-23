@@ -1479,6 +1479,24 @@ def _editorial_data_values(packet, documents):
                     ):
                         raise ValueError("EDITORIAL_CHART_SIGN_UNBOUND")
                     number = -number
+                history = doc.get("official_release_history") or {}
+                if history.get("producer") == "CC-145":
+                    from live_contentops.official_release_history_v1 import BLS_RIGHTS
+
+                    source_series = history["series"]
+                    period = operand["prepared_period"]
+                    observation = next((row for row in source_series["observations"]
+                                        if row["period"] == period), {})
+                    record = observation.get("source_record") or {}
+                    if (record.get("rights_tag") != BLS_RIGHTS
+                            or operand["metric"] != source_series["name"]
+                            or operand["unit"] != source_series["unit"]
+                            or operand["source_period_text"] != period
+                            or point["period"] != period
+                            or number != observation["value"]
+                            or (basis.get("capture_sha256") is not None
+                                and basis["capture_sha256"] != record["source_sha256"])):
+                        raise ValueError("EDITORIAL_CHART_CC145_OBSERVATION_UNBOUND")
                 bound.append(number)
             transform = point.get("transform", "IDENTITY")
             if transform == "IDENTITY" and len(bound) == 1:

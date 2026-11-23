@@ -68,7 +68,9 @@ if (input.phase === 'plan_substack_paste') {
 }
 if (input.phase === 'plan_substack_check') {
   return unwrap(await page.evaluateInPage(data=>{
-    const n=t=>String(t).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
+    const n=t=>String(t).replace(/[‘’]/g,"'").replace(/[“”]/g,'"')
+      .split(/\n/).map(line=>line.replace(/^\s*[-+]\s+/,'')).join(' ')
+      .replace(/\s+/g,' ').trim();
     const e=document.querySelector('.ProseMirror');const text=n(e.innerText);
     const images=Array.from(e.querySelectorAll('img'));
     let body=text;for(const a of data.media)body=n(body.replace(n(a.caption),' '));
@@ -89,10 +91,12 @@ if (input.phase === 'plan_substack_publish' || input.phase === 'plan_substack_co
     !Array.from(document.querySelectorAll('input[type=checkbox]')).some(e=>e.checked)));
   const button = find(await snap(), 'button', confirming ? 'Publish on web only' : 'Publish now');
   if (confirming && !button) return {status:'UNKNOWN_WRITE',stage:'PUBLISH_CLICK_ATTEMPTED'};
-  const inWindow = !input.plan_entry_deadline_utc || Date.now() < Date.parse(input.plan_entry_deadline_utc);
+  const deadline = input.wrap_deadline_utc || input.plan_entry_deadline_utc;
+  const inWindow = !deadline || Date.now() < Date.parse(deadline);
   if (!safe || !button || !inWindow) return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,
     public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:inWindow
-      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
+      ? 'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED' : input.wrap_deadline_utc
+        ? 'WRAP_PUBLICATION_DEADLINE_ELAPSED' : 'PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED'};
   const dispatched_at_utc=new Date().toISOString();await page.click(button.ref);
   return {status:'CLICKED',dispatched_at_utc};
 }
@@ -272,6 +276,10 @@ if (input.phase === 'article_publish') {
     return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'LINKEDIN_CHART_PREVIEW_UNAVAILABLE'};
   }
+  if (input.wrap_deadline_utc && !(Date.now() < Date.parse(input.wrap_deadline_utc))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'WRAP_PUBLICATION_DEADLINE_ELAPSED',pre_click_posts:editors};
+  }
   const dispatched_at_utc=new Date().toISOString();
   await page.click(button.ref);
   return {status:'CLICKED',stage:'PUBLISH_CLICK_ATTEMPTED',dispatched_at_utc,pre_click_posts:editors};
@@ -324,7 +332,14 @@ if (input.phase === 'article_readback') {
         observed_identity:author?(destination==='linkedin'?'linkedin:jimcc':
           destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
         ...(destination==='linkedin_company'&&author?{observed_stable_id:'143198922'}:{}),links:ls,
-        public_image_urls:Array.from(e.querySelectorAll('img')).filter(visible).flatMap(i=>{
+        public_image_urls:Array.from(e.querySelectorAll(linkedin
+          ? 'img' : '#content-attachment img, ytd-backstage-image-renderer img')).filter(i => {
+          if (!visible(i)) return false;
+          if (!linkedin) return true;
+          const anchor = i.closest('a[href]');
+          return !(anchor && ownerPattern.test(anchor.href))
+            && !i.closest('.update-components-actor, .comments-comment-item, .feed-shared-article');
+        }).flatMap(i=>{
           const urls=[i.currentSrc||i.src];
           if (linkedin && i.getAttribute('srcset')) {
             const variants=i.getAttribute('srcset').split(',').map(s=>{
@@ -334,7 +349,10 @@ if (input.phase === 'article_readback') {
           }
           return [...new Set(urls)];
         })
-          .filter(u=>linkedin?/^https:\/\/media\.licdn\.com\//.test(u):/^https:\/\/yt3\.ggpht\.com\//.test(u))};
+          .filter(u=>linkedin
+            ? /^https:\/\/media\.licdn\.com\//.test(u)
+              && !/\/(profile-displayphoto|profile-framedphoto|company-logo|article-cover_image)[-_]/i.test(u)
+            : /^https:\/\/yt3\.ggpht\.com\//.test(u))};
     }).filter(p=>p.public_object_id && p.observed_identity);
     return {posts};
   }, input.destination));
@@ -424,15 +442,22 @@ if (input.phase === 'note_inline_copy') {
 if (input.phase === 'quote_source') {
   return unwrap(await page.evaluateInPage(parent => {
     const norm = text => String(text || '').replace(/https?:\/\/\S+/g, '').replace(/\s+/g,' ').trim();
+    const expectedUrl = parent.public_object_url.toLowerCase();
     const times = Array.from(document.querySelectorAll('article[data-testid="tweet"] a[href] time'));
-    const clock = times.find(t => t.getClientRects().length &&
-      t.closest('a').href.toLowerCase() === parent.public_object_url.toLowerCase());
+    const exactPage = (location.origin + location.pathname).toLowerCase() === expectedUrl;
+    const clock = exactPage ? times.find(t => t.getClientRects().length &&
+      t.closest('a').href.toLowerCase() === expectedUrl) : null;
     const source = clock?.closest('article[data-testid="tweet"]');
     const text = source?.querySelector('[data-testid="tweetText"]');
     const button = source?.querySelector('[data-testid="retweet"]');
-    const matches = !!clock && Math.abs(Date.parse(clock.getAttribute('datetime')) -
-      Date.parse(parent.source_posted_at_utc)) < 1000 && [text?.innerText, text?.textContent].some(t =>
-      !!t && norm(t) === norm(parent.source_text));
+    const expected = norm(parent.source_text);
+    // The list and native quote card can retain the same excerpt while X
+    // expands the original permalink. The card still requires the exact
+    // bound excerpt before Post, even when the permalink shows more text.
+    const bodyMatches = [text?.innerText, text?.textContent].map(norm).some(body =>
+      expected && (body === expected || body.startsWith(expected + ' ')));
+    const matches = !!clock && Math.floor(Date.parse(clock.getAttribute('datetime')) / 1000) ===
+      Math.floor(Date.parse(parent.source_posted_at_utc) / 1000) && bodyMatches;
     if (matches && button) button.setAttribute('aria-label','CC467 source quote menu');
     const url = clock?.closest('a').href;
     return {matches, menu_available:!!button, public_object_url:matches ? parent.public_object_url : url,
@@ -463,7 +488,8 @@ const quoteCard = async (parent, publicUrl, posts) => unwrap(await page.evaluate
         // X wraps a rendered link over multiple lines inside a non-link span.
         .some(t => [t.innerText, t.textContent].some(text => !!text && norm(text) === norm(parent.source_text)))
         && e.innerText.toLowerCase().includes('@'+handle.toLowerCase())
-        && Array.from(e.querySelectorAll('time')).some(t => Math.abs(Date.parse(t.getAttribute('datetime'))-Date.parse(parent.source_posted_at_utc)) < 1000));
+        && Array.from(e.querySelectorAll('time')).some(t => Math.floor(Date.parse(t.getAttribute('datetime')) / 1000) ===
+          Math.floor(Date.parse(parent.source_posted_at_utc) / 1000)));
     const link = card && Array.from(card.querySelectorAll('a[href*="/status/"] time')).map(t => t.closest('a').href)[0];
     const matches = !!card && (!link || link.toLowerCase() === parent.public_object_url.toLowerCase());
     if (matches && !link && data.publicUrl) card.setAttribute('aria-label','CC467 observed quote source');
@@ -522,14 +548,23 @@ if ((input.phase === 'publish' || input.phase === 'validate') && input.quote_par
   }
   if (expired()) return refused('CC467_SOURCE_OUTSIDE_FIVE_MINUTES', observed.pre_click_posts);
   if (input.phase === 'validate') return {status:'PREPARED', post_count:1, quote_card_verified:true, chart_loaded:true};
-  const dispatched_at_utc = new Date().toISOString();
+  const attempt = {stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc:new Date().toISOString(),
+    pre_click_posts:observed.pre_click_posts};
   try {
     await page.click(button.ref);
   } catch (_) {
-    return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_CLICK_RETURN_INCOMPLETE',
-      stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc, pre_click_posts:observed.pre_click_posts};
+    return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_CLICK_RETURN_INCOMPLETE', ...attempt};
   }
-  return {status:'CLICKED', stage:'PUBLISH_CLICK_ATTEMPTED', dispatched_at_utc, pre_click_posts:observed.pre_click_posts};
+  // Navigating from the still-open quote dialog can interrupt the send or
+  // trigger beforeunload. Wait for X to clear it before profile readback.
+  try {
+    const closed = await page.waitForSelector(
+      'body:not(:has([role="dialog"] [data-testid="tweetTextarea_0"]))', {timeout:5000});
+    if (closed.matched) return {status:'CLICKED', ...attempt};
+  } catch (_) {
+    // The click has already happened. The coordinator owns exact recovery.
+  }
+  return {status:'UNKNOWN_WRITE', reason_code:'CC467_QUOTE_COMPOSER_STILL_OPEN_AFTER_CLICK', ...attempt};
 }
 
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
@@ -594,6 +629,10 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   button = settledButtons[settledButtons.length - 1];
   if (!button) return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
     reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
+  if (input.wrap_deadline_utc && !(Date.now() < Date.parse(input.wrap_deadline_utc))) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'WRAP_PUBLICATION_DEADLINE_ELAPSED',pre_click_posts:editors};
+  }
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);
@@ -601,6 +640,30 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
     pre_click_posts:editors};
 }
 
+if (input.phase === 'x_public_embed') {
+  return unwrap(await page.evaluateInPage(() => {
+    const rows = Array.from(document.querySelectorAll('.timeline-Tweet, [data-testid="tweet"]'));
+    const tweets = rows.map(row => {
+      const time = row.querySelector('time');
+      const url = (time?.closest('a') || row.querySelector('.timeline-Tweet-timestamp'))?.href;
+      const text = row.querySelector('.timeline-Tweet-text, [data-testid="tweetText"]');
+      const permalink = url && new URL(url);
+      const id = permalink && ['https://x.com', 'https://twitter.com'].includes(permalink.origin)
+        && permalink.pathname.match(/^\/Capitalnicle\/status\/(\d+)$/i)?.[1];
+      return {
+        public_object_id: id,
+        public_object_url: id && 'https://x.com/Capitalnicle/status/' + id,
+        observed_text: text?.innerText || '',
+        published_at_utc: time?.dateTime,
+        text_truncated: /…$/.test(text?.innerText || '') || !!row.querySelector('[data-testid="tweet-text-show-more-link"]'),
+        links: Array.from(text?.querySelectorAll('a[href]') || []).map(a => ({url:a.href, text:a.innerText})),
+        public_image_urls: Array.from(row.querySelectorAll('img')).map(i => i.currentSrc || i.src)
+          .filter(url => /^https:\/\/pbs.twimg.com\/media\//.test(url)),
+      };
+    });
+    return {url:location.href, tweets};
+  }));
+}
 if (input.phase === 'readback') {
   // AX/read omit note paragraphs and do not expose image URLs or original clocks.
   // Read only the rendered object; never fetch a private endpoint in the page.
@@ -630,9 +693,10 @@ if (input.phase === 'readback') {
         links:postLinks, public_image_urls:Array.from(e.querySelectorAll('img'))
           .filter(i=>!quoted?.contains(i)).map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));
-    const permalink = document.querySelector('main [class*="feedPermalinkUnit"]');
+    const permalink = typeof document.querySelector === 'function' ? document.querySelector('main [class*="feedPermalinkUnit"]') : null;
     const parentUrl = permalink && links(permalink).find(a=>a.url === location.href)?.url;
-    const notes = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible).map(e => {
+    const noteElements = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible);
+    const notes = noteElements.map(e => {
       const root = e.closest('article,[class*="feedPermalinkUnit"]') || e.parentElement?.parentElement?.parentElement;
       const ancestors = [root,root.parentElement,root.parentElement?.parentElement].filter(Boolean);
       const noteUrl = value => {
@@ -650,10 +714,18 @@ if (input.phase === 'readback') {
       const replyParent = parentUrl && !permalink.contains(e) && !e.closest('article')
         && document.querySelector('main')?.contains(e) ? parentUrl : null;
       return {public_object_url:url,public_object_id:url?.match(/note\/(c-\d+)/)?.[1],
-        observed_text:e.innerText, links:links(owner), public_image_urls:imageUrls(owner),
+        observed_text:e.innerText,
+        published_at_utc:Array.from(owner.querySelectorAll('time[datetime]'))
+          .find(t=>t.closest('a')?.href===url)?.dateTime || owner.querySelector?.('time[datetime]')?.dateTime,
+        text_truncated:/…$/.test(e.innerText) || links(owner).some(l=>/^see more$/i.test(l.text)),
+        links:links(owner), public_image_urls:imageUrls(owner),
         ...(replyParent ? {reply_parent_url:replyParent,reply_parent_id:replyParent.match(/note\/(c-\d+)/)?.[1]} : {})};
     }).filter(e=>e.public_object_url);
-    return {url:location.href,tweets,notes};
+    const incompleteReplies = Array.from(document.querySelectorAll('main button, main a, main [aria-busy="true"]'))
+      .some(e=>visible(e) && (e.getAttribute('aria-busy') === 'true'
+        || /(?:show|load|view|see) (?:more|hidden|additional|\d+) (?:replies|comments)/i.test(e.innerText || '')));
+    return {url:location.href,tweets,notes,visible_note_count:noteElements.length,
+      note_reply_list_complete:!!parentUrl && !incompleteReplies};
   }, input.expected_identity));
 }
 throw new Error('NEO_UNSUPPORTED_PHASE');

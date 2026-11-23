@@ -1,6 +1,6 @@
 """The gold thread's retained inputs flow into one new, source-bound thread."""
 from copy import deepcopy
-from datetime import timedelta
+from datetime import datetime, timedelta
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -16,9 +16,10 @@ from live_contentops import plan_state_alerts_v1 as alerts
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
-from test_plan_call_cards_cc399 import write, rows
+from test_plan_call_cards_cc399 import controlled_tradingview, write, rows  # noqa: F401
 from test_plan_analysis_pages_cc432 import source  # noqa: F401
 from test_plan_analysis_distribution_cc435 import confirm
+from test_plan_status_publication_cc306 import fake_host
 
 
 FIXTURES = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures"
@@ -204,7 +205,8 @@ def test_existing_issued_alert_and_page_keep_their_original_composer(gold):
     assert "supplied" in pages.structured_summary(packet, "telegram", "https://capitalchronicle.substack.com/p/gold-original")
 
 
-def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(gold, tmp_path, main_root):
+@pytest.fixture
+def long_alert(gold, tmp_path, main_root):
     raw, _ = gold
     raw.update(
         asset_id="BTCUSD", status="WAITING", registered_at_utc="2026-11-17T16:43:13Z",
@@ -223,21 +225,81 @@ def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(gold, tmp_
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     posts.queue_posts(store, folder, now=now, main_root=main_root)
     queued, = rows(store)
+    return store, folder, now, queued
+
+
+def test_long_plan_preview_renders_the_same_terms_as_the_chart_thread(long_alert, main_root):
+    store, folder, now, queued = long_alert
     key = queued["key"]
     frozen = store.get_outbox_message(key)["payload"]
 
     result = posts.queue_posts(store, folder, now=now, main_root=main_root, dry_run=True, render_all=True)
     assert result["status"] == "OK"
     preview, = result["rendered_posts"]
-    chart_thread = cards.destination_payloads(
+    copies = cards.destination_payloads(
         queued, card_id="dry-run-" + key, chart_credit=True, complete_levels=True,
-    )["threads"]
+    )
+    assert set(copies) == set(cards.DESTINATIONS)
+    for destination, payload in copies.items():
+        parts = [payload["text"], *payload.get("reply_texts", [])]
+        assert payload["full_text"] == "\n\n".join(parts), destination
+        for notice in (posts.PUBLIC_NOTICE, posts.CONFLICTS_NOTICE):
+            assert sum(part.count(notice) for part in parts) == 1, destination
+        assert payload["text"].count(posts.CHART_CREDIT) == 1, destination
+
+    chart_thread = copies["threads"]
     assert preview["destinations"]["threads"] == chart_thread
+    assert chart_thread["reply_texts"]  # A real split is needed to catch the repeated footer.
+    assert chart_thread["root_text"].count(cards.NOTICES) == 1
     assert all(len(text) <= 500 for text in [chart_thread["root_text"], *chart_thread["reply_texts"]])
     for phrase in ("63,885–65,160", "at or above 66,450 before entry", "above 66,415 after entry",
                    "Entry can start until Tue 17 Nov, 2:30 PM ET.", "Filled positions close by Wed 18 Nov, 1:30 PM ET."):
         assert phrase in chart_thread["full_text"]
     assert store.get_outbox_message(key)["payload"] == frozen
+
+
+@pytest.mark.parametrize("issued_destination", ["discord", "threads", "threads_ready"])
+def test_threads_notice_layout_respects_an_existing_intent(long_alert, tmp_path, monkeypatch, issued_destination):
+    from test_minute_consumer_cc515 import dispatch
+
+    store, _, now, queued = long_alert
+    key = queued["key"]
+    # Reproduce a retained row created before either layer-copy contract.
+    queued = {field: value for field, value in queued.items()
+              if field not in {"analysis_copy_contract", "analysis_layer_quotes", "analysis_layer_gaps", "analysis_link"}}
+    queued.update(alerts.compose(queued))
+    store.finalize_outbox_payload_before_dispatch(message_id=key, payload=json.dumps(queued), status=posts.READY)
+
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return now.astimezone(tz) if tz else now.replace(tzinfo=None)
+
+    monkeypatch.setattr(cards, "datetime", Clock)
+    options = {"root": tmp_path / "posts", "destinations": ("threads",), "host": fake_host}
+    initial = cards.prepare_post(store, key, **options)
+    context_path = Path(initial["output_dir"]) / "run_context_v1.json"
+    context = json.loads(context_path.read_bytes())
+    context.pop("status_post_threads_single_notice")  # A package prepared before CC-729.
+    context_path.write_text(json.dumps(context), encoding="utf-8")
+    legacy = cards.destination_payloads(queued, card_id=initial["status_post_card_id"],
+        chart_credit=True, complete_levels=True, repeat_threads_notices=True)["threads"]
+    assert legacy["full_text"].count(cards.NOTICES) > 1
+    store.create_work_item(story_id=key, work_item_id=key, title="Call card", target_surface="MULTI_PLATFORM")
+    if issued_destination == "threads_ready":
+        ids = cards._dispatch_ids(key, "threads")
+        store.register_outbox_message(message_id=ids["message_id"], work_item_id=key,
+            destination="threads", payload=json.dumps(legacy), status="READY")
+    else:
+        dispatch(store, queued, issued_destination, "UNKNOWN_WRITE")
+
+    plan = cards.prepare_post(store, key, **options)
+    checked = posts.validate_status_post_plan(store, key, plan)["payloads"]["threads"]
+    if issued_destination.startswith("threads"):
+        assert checked == legacy
+    else:
+        assert checked["full_text"] == initial["destinations"][0]["payload"]
+        assert checked["full_text"].count(cards.NOTICES) == 1
 
 
 def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path, main_root, monkeypatch):
@@ -273,11 +335,13 @@ def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path
 
 
 @pytest.mark.parametrize("fills_during_writing", [False, True])
+@pytest.mark.parametrize("status_post_reply", [False, True])
 def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
-        gold, tmp_path, main_root, monkeypatch, fills_during_writing):
+        gold, tmp_path, main_root, monkeypatch, fills_during_writing, status_post_reply):
     from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
 
     raw, reasoning = gold
+    reasoning["folder"] = tmp_path / "runs" / "requests" / "retained-gold"
     raw.update(status="WAITING", status_at_utc=raw["registered_at_utc"])
     registered = posts._utc(raw["registered_at_utc"])
     filled_at = registered + timedelta(minutes=1)
@@ -287,6 +351,12 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     posts.queue_posts(store, folder, now=registered, main_root=main_root)
     first, = rows(store)
+    first["level_contract"] = reader.LEVEL_CONTRACT
+    if not status_post_reply:
+        first.pop("analysis_copy_contract", None)
+    first.update(alerts.compose(first))
+    store.finalize_outbox_payload_before_dispatch(
+        message_id=first["key"], payload=json.dumps(first), status=posts.READY)
     frozen = store.get_outbox_message(first["key"])["payload"]
     store.create_work_item(story_id=first["key"], work_item_id=first["key"], title="Gold setup",
                            target_surface="MULTI_PLATFORM")
@@ -306,7 +376,7 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
 
     def prepare(plan, *, output_dir, call, **options):
         assert plan == first["source_plan"]
-        source = reader.source_packet(plan, reasoning, thread=True)
+        source = reader.source_packet(plan, reasoning, thread=True, level_contract=reader.LEVEL_CONTRACT)
         manuscript = editorial.bind_manuscript(authored(source), source, plan)
         return {"status": "PREPARED", "packet": pages.render(plan, manuscript, output_dir=output_dir, **options)}
 
@@ -324,7 +394,7 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
     result = editorial.run_due(store, export, root=tmp_path / "pages",
                                rollout={"store_path": store.db_path}, now=now)
     observed, = result["pages"]
-    assert observed["publication"]["canonical_url"] == canonical
+    assert observed.get("publication", {}).get("canonical_url") == canonical, observed
     packet = editorial.publication_packet(store, raw)
     assert packet["source_plan"] == first["source_plan"]
     assert packet["active_status"] == {"status": "FILLED", "status_at_utc": filled_at.isoformat()}
@@ -338,12 +408,21 @@ def test_filled_gold_reaches_the_canonical_page_and_its_exact_telegram_parent(
     else:
         assert prior == []
     reply = pages.register_link(store, packet, original_key=first["key"], destination="telegram")
+    assert reply.get("status_post_reply", False) == status_post_reply
+    assert reply["summary_version"] == 3
     assert reply["native_payload"]["reply_to_id"] == "901"
     assert reply["canonical_url"] == canonical
-    assert canonical in reply["native_payload"]["text"]
+    reply_text = reply["native_payload"]["text"]
+    assert canonical in reply_text
     assert pages.validate_link_plan(store, reply["link_id"], reply["plan"]) == reply
-    for text in (first["text"], page["title"], reply["native_payload"]["text"]):
-        assert "3,972.6" in text and "4,004.4" in text and "4,999" not in text
+    assert "wrong above 4,004.4" in page["title"]
+    for text in (first["text"], page["body_markdown"], reply_text):
+        assert "Spot plan cancelled on close above 3,972.6 before entry" in text
+        assert "MGC plan wrong above 4,004.4 after entry" in text
+        assert "Entry can start until Fri 13 Nov, 1:00 AM ET." in text
+        assert "Filled positions close by Fri 13 Nov, 8:15 AM ET." in text
+        assert "4,999" not in text
+        reader.check_thread_text(text)
     assert store.get_outbox_message(first["key"])["payload"] == frozen
 
 
@@ -377,7 +456,8 @@ def test_minute_page_slice_uses_later_quote_and_skips_the_stale_plan(gold, tmp_p
     assert posts._utc(lease["expires_at"]) - posts._utc(lease["acquired_at"]) == timedelta(minutes=5)
 
 
-def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root):
+@pytest.mark.parametrize("cancelled_before_entry", [False, True])
+def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root, cancelled_before_entry):
     raw, _ = gold
     raw.update(status="WAITING")
     raw.pop("outcome", None)
@@ -391,20 +471,40 @@ def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_ro
     frozen = store.get_outbox_message(first["key"])["payload"]
     later = deepcopy(raw)
     at = now + timedelta(minutes=1)
-    later.update(status="CLOSED", outcome={"state": "SCORED", "result": "HIT", "outcome_id": "gold-result",
-        "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": "gold-result",
-                  "result": "HIT", "resolved_at_utc": at.isoformat(), "result_r": 1.2}})
+    if cancelled_before_entry:
+        assert at < posts._utc(raw["entry_deadline_utc"])
+        later.update(status="CANCELLED", status_at_utc=at.isoformat(),
+                     outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+        events.append(event(raw["plan_id"], "CANCELLED", at.isoformat()))
+    else:
+        later.update(status="CLOSED", outcome={"state": "SCORED", "result": "HIT", "outcome_id": "gold-result",
+            "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": "gold-result",
+                      "result": "HIT", "resolved_at_utc": at.isoformat(), "result_r": 1.2}})
+        events += [event(raw["plan_id"], "FILLED", now.isoformat()), event(raw["plan_id"], "CLOSED", at.isoformat())]
     later["public_instrument"]["invalidation_level"] = 4999
-    events += [event(raw["plan_id"], "FILLED", now.isoformat()), event(raw["plan_id"], "CLOSED", at.isoformat())]
     write(folder, [later], events, generated_at_utc=at.isoformat())
     posts.queue_posts(store, folder, now=at, main_root=main_root)
     ending = next(row for row in rows(store) if row["kind"] == "result")
-    assert "Result: +1.2R." in ending["text"]
+    if cancelled_before_entry:
+        assert "the plan was withdrawn without an entry" in ending["text"]
+        assert "the entry window ended" not in ending["text"]
+        for text in (first["text"], ending["text"]):
+            assert "Entry can start until Fri 13 Nov, 1:00 AM ET." in text
+            assert "Filled positions close by Fri 13 Nov, 8:15 AM ET." in text
+        legacy = {key: value for key, value in ending.items() if key != "result_copy_version"}
+        legacy.update(alerts.compose(legacy))
+        assert "the entry window ended with no entry" in legacy["text"]
+        alerts.validate(legacy)
+    else:
+        assert "Result: +1.2R." in ending["text"]
     assert "4,004.4" in ending["text"] and "4,999" not in ending["text"]
     assert ending["source_plan"] == first["source_plan"]
     assert store.get_outbox_message(first["key"])["payload"] == frozen
     alerts.validate(ending)
     altered = deepcopy(ending)
-    altered["outcome_source_plan"]["outcome"]["score"]["result_r"] = 9
+    if cancelled_before_entry:
+        altered["outcome_source_plan"]["status"] = "EXPIRED"
+    else:
+        altered["outcome_source_plan"]["outcome"]["score"]["result_r"] = 9
     with pytest.raises(ValueError, match="PLAN_ALERT_OUTCOME_SOURCE_BYTES_CHANGED"):
         alerts.validate(altered)

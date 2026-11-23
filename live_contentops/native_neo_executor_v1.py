@@ -63,14 +63,25 @@ def _readback_absence_evidence(request, result):
     if (request.get("public_object_id") or request.get("public_object_url")
             or result.get("public_object_id") or result.get("public_object_url")
             or result.get("target_post_absent") is not True
-            or result.get("authenticated") is not True or result.get("activity_feed_loaded") is not True
-            or result.get("observed_profile_url") != request.get("entry_url")):
+            or result.get("activity_feed_loaded") is not True):
         return False
     try:
         observed = datetime.fromisoformat(result["native_tool_observation"]["observed_at_utc"].replace("Z", "+00:00"))
         attempted = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"].replace("Z", "+00:00"))
-        return (observed - attempted).total_seconds() >= 600
-    except (KeyError, TypeError, ValueError):
+        if (observed - attempted).total_seconds() < 600:
+            return False
+        if request.get("public_plan_feed_url"):
+            if (result.get("observed_profile_url") != request["public_plan_feed_url"]
+                    or result.get("observed_identity") != request.get("expected_identity")
+                    or result.get("request_sha256") != request.get("request_sha256")
+                    or not result.get("observed_feed_post_ids") or not result.get("observed_text")):
+                return False
+            oldest = datetime.fromisoformat(result["oldest_feed_post_at_utc"])
+            newest = datetime.fromisoformat(result["newest_feed_post_at_utc"])
+            return oldest < attempted < newest <= observed
+        return (result.get("authenticated") is True
+                and result.get("observed_profile_url") == request.get("entry_url"))
+    except (KeyError, TypeError, ValueError, AttributeError):
         return False
 
 
@@ -206,6 +217,7 @@ class NativeNeoExecutor:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
         plan_entry_deadline = None
+        wrap_deadline = None
         from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
         if request.get("destination") in barred_browser_destinations() and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
             raise ValueError(barred_browser_destinations()[request["destination"]])
@@ -300,6 +312,14 @@ class NativeNeoExecutor:
                         page_packet = validate_intent(self.store, intent)
                         if request["destination"] == "substack":
                             plan_entry_deadline = open_page_deadline(page_packet)
+                    elif intent.get("market_wrap"):
+                        from .market_wrap_job_v1 import before_write
+                        wrap_deadline = before_write(coordinator, intent, request["destination"])
+                        expected_payload, expected_content = _payload_binding(intent, request["destination"])
+                        if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
+                            raise ValueError("WRAP_NATIVE_PAYLOAD_OR_MEDIA_CHANGED")
+                        if request["destination"] == "substack":
+                            plan_entry_deadline = wrap_deadline
                     if intent.get("reader_presentation_review"):
                         expected_payload, expected_content = _payload_binding(intent, request["destination"])
                         if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:
@@ -346,6 +366,8 @@ class NativeNeoExecutor:
                 if k not in {"request_sha256", "native_invocation_id"}})
             self.readback_request_invocations[identity] = request.get("native_invocation_id")
         action_packet = dict(packet)
+        if wrap_deadline:
+            action_packet["wrap_deadline_utc"] = wrap_deadline
         action_packet["browser_workspace"] = {
             "policy": "JIM_DECISION_63",
             "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
@@ -385,7 +407,8 @@ class NativeNeoExecutor:
                 action_packet["substack_publish_routine"]["plan_deadline"] = (
                     "Check the clock immediately before Publish now and Publish on web only. "
                     f"Leave the draft unpublished at or after {plan_entry_deadline}. "
-                    "Report an observed code dialog on that exact draft so the Publisher can close it at expiry.")
+                    "Report an observed code dialog on that exact draft" +
+                    ("." if wrap_deadline else " so the Publisher can close it at expiry."))
         if self._composed(request):
             from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
             action_packet["composed_run"] = {
@@ -613,10 +636,16 @@ class NativeNeoExecutor:
                 "native_tool_observation": observation, "native_tool_return_sha256": sha256_of(response)}}, work)
         return rb_hash
 
+    @property
+    def _identity_work_item_id(self):
+        return "native-neo-operation-" + sha256_of(self.operation_id)
+
     def _fresh_identity_return(self, destination, surface, expected_identity, *, expected_stable_id=None):
         # Probe epochs deduplicate requests; actual observation time controls
         # freshness. Crossing a bucket must not discard a seconds-old proof.
-        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
+        # Read through the work-item index. The destination index would load
+        # unrelated retained Neo packets and their media for every first send.
+        for row in reversed(self.store.list_outbox_messages(work_item_id=self._identity_work_item_id)):
             if row["destination"] != DESTINATION:
                 continue
             packet = json.loads(row["payload"])
@@ -741,7 +770,7 @@ class NativeNeoExecutor:
         from live_contentops.neo_destination_handoff_v1 import IDENTITIES, ROOTS
         registration = SURFACE_REGISTRY[surface]
         destination = registration.destination_key
-        work = "native-neo-operation-" + sha256_of(self.operation_id)
+        work = self._identity_work_item_id
         self.store.create_work_item(story_id=work, work_item_id=work,
                                    title="Native Neo exact identity observation", target_surface="CONTENTOPS_READ_ONLY")
         request = {"schema_version": "contentops.neo_identity_probe.v1", "destination": destination,

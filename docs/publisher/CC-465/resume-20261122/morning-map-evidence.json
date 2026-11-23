@@ -1,0 +1,219 @@
+{
+  "read_at_utc": "2026-11-21T18:41:23.468171+00:00",
+  "source_snapshot": {
+    "lead_market": "US500",
+    "date_et": "Sat 21 Nov",
+    "lead_line": "S&P 500 had the largest daily move.",
+    "rows": [
+      {
+        "market": "XAUUSD",
+        "last": 3532.29,
+        "change_1d_pct": 0.0,
+        "state_word": "Trending down",
+        "view_line": "See the wrap",
+        "driver_line": ""
+      },
+      {
+        "market": "US500",
+        "last": 6910.39,
+        "change_1d_pct": -3.7,
+        "state_word": "Trending down",
+        "view_line": "See the wrap",
+        "driver_line": ""
+      },
+      {
+        "market": "EURUSD",
+        "last": 1.0975,
+        "change_1d_pct": 0.02,
+        "state_word": "Trending down",
+        "view_line": "No view",
+        "driver_line": ""
+      },
+      {
+        "market": "USDJPY",
+        "last": 158.512,
+        "change_1d_pct": -0.68,
+        "state_word": "Mixed trend",
+        "view_line": "See the wrap",
+        "driver_line": ""
+      },
+      {
+        "market": "USOIL",
+        "last": 83.41,
+        "change_1d_pct": 1.18,
+        "state_word": "Trending down",
+        "view_line": "See the wrap",
+        "driver_line": ""
+      },
+      {
+        "market": "BTCUSD",
+        "last": 59973.67,
+        "change_1d_pct": 1.99,
+        "state_word": "Trending down",
+        "view_line": "See the wrap",
+        "driver_line": ""
+      }
+    ],
+    "quote_and_trend_source": {
+      "rows": {
+        "EURUSD": {
+          "quote": {
+            "symbol": "EURUSD=X",
+            "value": 1.0975,
+            "prior_close": 1.0973,
+            "observed_at_utc": "2026-11-20T22:29:46+00:00",
+            "known_at_utc": "2026-11-21T18:17:06.633844+00:00",
+            "source": "Yahoo Finance",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/EURUSD%3DX?range=1d&interval=1m",
+            "sha256": "afa02f332c9c5ce279631eeed7c5eabd4deee8d402a5c4a345d1f3c917387fdb"
+          },
+          "last": 1.0975,
+          "change_1d_pct": 0.02,
+          "state_word": "Trending down",
+          "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+        },
+        "USDJPY": {
+          "quote": {
+            "symbol": "USDJPY=X",
+            "value": 158.512,
+            "prior_close": 159.601,
+            "observed_at_utc": "2026-11-20T21:59:58+00:00",
+            "known_at_utc": "2026-11-21T18:17:07.090718+00:00",
+            "source": "Yahoo Finance",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/USDJPY%3DX?range=1d&interval=1m",
+            "sha256": "87cfd10dd5803afdf680a799d4b7902d1624c1c2b39d2a17995555782099a7bf"
+          },
+          "last": 158.512,
+          "change_1d_pct": -0.68,
+          "state_word": "Mixed trend",
+          "trend_completed_at_utc": "2026-11-21T00:00:00+00:00"
+        },
+        "XAUUSD": {
+          "quote": {
+            "symbol": "XAU=",
+            "value": 3532.29,
+            "prior_close": 3532.29,
+            "observed_at_utc": "2026-11-21T06:38:37.334000+00:00",
+            "known_at_utc": "2026-11-21T18:17:08.073375+00:00",
+            "source": "CNBC",
+            "url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+            "sha256": "e780dc06e883ec3d2c22b486a065d3a50f327cc92f4b8bea7124ed920710c3d8"
+          },
+          "last": 3532.29,
+          "change_1d_pct": 0.0,
+          "state_word": "Trending down",
+          "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+        },
+        "USOIL": {
+          "quote": {
+            "symbol": "CL=F",
+            "value": 83.41,
+            "prior_close": 82.44,
+            "observed_at_utc": "2026-11-20T21:59:59+00:00",
+            "known_at_utc": "2026-11-21T16:05:09.487860+00:00",
+            "source": "Yahoo Finance",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/CL%3DF?range=1d&interval=1m",
+            "sha256": "e8125d1e3f0c05049e5a49a388f8dd42f27c595207bb31e85e41a9d8aea205e7"
+          },
+          "last": 83.41,
+          "change_1d_pct": 1.18,
+          "state_word": "Trending down",
+          "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+        },
+        "US500": {
+          "quote": {
+            "symbol": "^GSPC",
+            "value": 6910.39,
+            "prior_close": 7175.83,
+            "observed_at_utc": "2026-11-20T21:35:54+00:00",
+            "known_at_utc": "2026-11-21T17:42:06.423356+00:00",
+            "source": "Yahoo Finance",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=1d&interval=1m",
+            "sha256": "972a83284fb9939750ac9618a681f04ccc0d2c8a8413d3b000c349979eaa160b"
+          },
+          "last": 6910.39,
+          "change_1d_pct": -3.7,
+          "state_word": "Trending down",
+          "trend_completed_at_utc": "2026-11-20T00:00:00+00:00"
+        },
+        "BTCUSD": {
+          "quote": {
+            "symbol": "BTC-USD",
+            "value": 59973.67,
+            "prior_close": 58802.6,
+            "observed_at_utc": "2026-11-21T18:00:53+00:00",
+            "known_at_utc": "2026-11-21T18:00:57.773189+00:00",
+            "source": "Yahoo Finance",
+            "url": "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1d&interval=1m",
+            "sha256": "92f831ab8b1c665c42d506995772aac105261d034c624b2db97b17f9c6dba14e"
+          },
+          "last": 59973.67,
+          "change_1d_pct": 1.99,
+          "state_word": "Trending down",
+          "trend_completed_at_utc": "2026-11-21T00:00:00+00:00"
+        }
+      },
+      "trend_sha256": "c4e6246cef35950404d85b3a34f5aae84c5bd6d4467e28345ecaac532078e9c5",
+      "trend_as_of_utc": "2026-11-21T18:41:23.468171+00:00"
+    },
+    "analysis_source": {
+      "sha256": "2dc4a29a3dce8fa4538f409433667950631f0450c673ce536442c0584eb3cefa",
+      "at_utc": "2026-11-21T13:32:01.073356+00:00"
+    }
+  },
+  "examples": [
+    {
+      "master": "W",
+      "image_number": 1,
+      "image": "map-7a77aa5cef949d9d33307df4-map-1-W.png",
+      "sha256": "cfdf286e43a04f81d7653af011f216c6f07d8b58b66eec5830de32b1dff3ac03",
+      "size": [
+        1600,
+        900
+      ],
+      "code_score": 10,
+      "source_capture_utc": "2026-11-11T16:43:03.417102+00:00",
+      "source_capture_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d"
+    },
+    {
+      "master": "W",
+      "image_number": 2,
+      "image": "map-7a77aa5cef949d9d33307df4-map-2-W.png",
+      "sha256": "bbfd5ed5be074615cced9432a7eb60dba3c4cc537febb4b9d424c80a17eb5187",
+      "size": [
+        1600,
+        900
+      ],
+      "code_score": 10,
+      "source_capture_utc": null,
+      "source_capture_sha256": null
+    },
+    {
+      "master": "T",
+      "image_number": 1,
+      "image": "map-7a77aa5cef949d9d33307df4-map-1-T.png",
+      "sha256": "b4693da78954e775a1d5739322a8e4a70d9bd400dfbfa1730ada9d7f747d870b",
+      "size": [
+        1080,
+        1350
+      ],
+      "code_score": 10,
+      "source_capture_utc": "2026-11-11T16:43:12.118131+00:00",
+      "source_capture_sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a"
+    },
+    {
+      "master": "T",
+      "image_number": 2,
+      "image": "map-7a77aa5cef949d9d33307df4-map-2-T.png",
+      "sha256": "a60f528dc43dafcd10f911173e6fb5371576a8abbd02d2908c2bd3d51d4c03f5",
+      "size": [
+        1080,
+        1350
+      ],
+      "code_score": 10,
+      "source_capture_utc": null,
+      "source_capture_sha256": null
+    }
+  ],
+  "purpose": "Local layout review on held data"
+}

@@ -14,6 +14,12 @@ GOLD = Path(__file__).parents[1] / "docs/publisher/CC-549/fixtures/gold-plan-thr
 
 
 @pytest.fixture
+def frozen_gold_reasoning(tmp_path):
+    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    return {**run, "folder": tmp_path / "runs" / "requests" / "retained-gold"}
+
+
+@pytest.fixture
 def gold_18_nov():
     # Public Main export for the plan behind the page published on 19 November.
     return {
@@ -47,7 +53,9 @@ def test_title_uses_the_sealed_original_stop_when_mapped_levels_are_incomplete(g
     assert pages._source_text(run, next(ref for ref in terms["refs"] if ref["pointer"].endswith("/stop_loss"))) == "3836"
 
 
-def test_november_gold_page_rendered_after_expiry_uses_the_final_status(gold_18_nov, tmp_path, monkeypatch):
+def test_november_gold_page_rendered_after_expiry_uses_the_final_status(
+    gold_18_nov, frozen_gold_reasoning, tmp_path, monkeypatch,
+):
     from live_contentops import native_neo_executor_v1 as native, plan_reader_editorial_v1 as editorial
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
@@ -60,7 +68,7 @@ def test_november_gold_page_rendered_after_expiry_uses_the_final_status(gold_18_
     raw = {**gold_18_nov, "status": "WAITING", "run_id": "retained-gold", "analysis_result_hash": "retained"}
     current = {**raw, "status": "CLOSED", "status_at_utc": "2026-11-18T18:30:21.138000Z"}
     now = posts._utc("2026-11-19T11:40:00Z")
-    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run = frozen_gold_reasoning
     run["source_plan"] = raw
     monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
     monkeypatch.setattr(pages, "_card", lambda *a: None)
@@ -149,6 +157,96 @@ def test_after_entry_window_only_the_current_exact_terminal_state_can_be_rendere
     current = {**gold_18_nov, "status": "CLOSED", "status_at_utc": "2026-11-18T18:30:21.138000Z", **change}
     with pytest.raises(ValueError, match="FINAL_STATUS_REQUIRED_AFTER_ENTRY_WINDOW"):
         pages.ended_plan_status(gold_18_nov, current, now=posts._utc("2026-11-19T11:40:00Z"))
+
+
+@pytest.mark.parametrize("already_prepared", [False, True])
+def test_minute_publishes_the_exact_cancelled_analysis_before_its_original_deadline(
+    gold_18_nov, frozen_gold_reasoning, tmp_path, monkeypatch, already_prepared,
+):
+    from types import SimpleNamespace
+
+    from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
+    from live_contentops import plan_reader_editorial_v1 as editorial
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from test_plan_thread_consistency_cc549 import authored
+
+    raw = {**gold_18_nov, "status": "WAITING", "run_id": "retained-gold", "analysis_result_hash": "retained"}
+    current = {**raw, "status": "CANCELLED", "status_at_utc": "2026-11-18T07:43:00Z"}
+    now = posts._utc("2026-11-18T07:45:00Z")
+    run = frozen_gold_reasoning
+    run["source_plan"] = raw
+    monkeypatch.setattr(pages, "load_run", lambda *a, **k: run)
+    monkeypatch.setattr(pages, "_card", lambda *a: None)
+    monkeypatch.setattr(pages, "_closed_plan_chart", lambda *a: None)
+    monkeypatch.setattr(pages, "datetime", SimpleNamespace(now=lambda tz: now))
+    monkeypatch.setattr(posts, "current_public_plan", lambda *a, **k: current)
+    monkeypatch.setattr(native_desktop_publication_v1, "live_publication_policy", lambda rollout: None)
+    monkeypatch.setattr(llm_operator_control_v1, "assert_llm_operator_execution_enabled", lambda: None)
+
+    source = reader.source_packet(raw, run, thread=True, level_contract=reader.LEVEL_CONTRACT)
+    manuscript = editorial.bind_manuscript(authored(source), source, raw)
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    key = "confirmed-setup"
+    store.create_work_item(story_id=key, work_item_id=key, title="Original setup", target_surface="MULTI_PLATFORM")
+    setup = json.dumps({"plan_id": raw["plan_id"], "kind": "setup", "thread_contract": reader.THREAD_CONTRACT,
+                        "analysis_copy_contract": reader.ANALYSIS_COPY, "source_plan": raw})
+    store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
+                                  payload=setup, status="PUBLISHED")
+    folder = tmp_path / ("plan-analysis-" + raw["plan_id"])
+    folder.mkdir()
+    (folder / editorial.DRAFT_MANUSCRIPT).write_text(json.dumps(manuscript), encoding="utf-8")
+    if already_prepared:
+        held = pages.register_page(store, pages.render(raw, manuscript, output_dir=folder))
+        held_bytes = store.get_outbox_message(held["page_id"])["payload"]
+    sent = []
+
+    class Coordinator:
+        def publish_plan(self, page_id, plan):
+            assert self.recovery_scope["plan"] == plan
+            packet = pages.validate_plan(store, page_id, plan)
+            assert pages.require_current_page(packet, now=now) == current
+            sent.append(packet)
+            return {"status": "DISPATCH_CONFIRMED"}
+
+    monkeypatch.setattr(native_neo_executor_v1, "bind_native_neo_coordinator",
+                        lambda *a, **k: (Coordinator(), SimpleNamespace(pending=lambda: [])))
+    outcome = editorial.run_due(store, {"status": {"plans": [current]}}, root=tmp_path,
+                                rollout={"store_path": store.db_path}, now=now, cached_only=True)
+    assert not outcome["waiting_for_current_quote"]
+    assert outcome["pages"][0]["publication"]["publication"]["status"] == "DISPATCH_CONFIRMED", outcome
+    packet, = sent
+    assert packet["source_plan"] == raw
+    assert packet["native_payload"]["title"].endswith("(plan cancelled)")
+    body = packet["native_payload"]["body_markdown"]
+    assert "Status: cancelled (updated Wed 18 Nov, 2:43 AM ET)." in body
+    assert "waiting for entry" not in body and "entry window closed" not in body
+    assert pages.require_current_page(packet, now=posts._utc("2026-11-18T10:01:00Z")) == current
+    assert store.get_outbox_message(key)["payload"] == setup
+    if already_prepared:
+        prior, = store.list_outbox_messages(destination="internal:plan-analysis-revision")
+        assert prior["payload"] == held_bytes
+
+
+def test_early_cancelled_page_uses_the_original_chart_only_before_the_close(gold_18_nov, tmp_path):
+    from test_tradingview_plan_overlay_cc459 import captured
+
+    _, source = captured("XAUUSD")
+    snapshot = source["tradingview_snapshot"]
+    captured_at = posts._utc(snapshot["captured_at_utc"])
+    setup = tmp_path / "confirmed-setup"
+    setup.mkdir()
+    (setup / "tradingview_capture_v1.json").write_text(json.dumps({
+        "key": setup.name, "market": "XAUUSD", "status": "CAPTURED", "snapshot": snapshot,
+    }), encoding="utf-8")
+    manuscript = {"title": "Gold: the original plan"}
+    final = {"ended_before_entry_deadline": True,
+             "status_at_utc": (captured_at + timedelta(minutes=1)).isoformat()}
+    card = pages._closed_plan_chart(gold_18_nov, tmp_path / "analysis", manuscript, final, setup)
+    assert card["tradingview_snapshot"]["sha256"] == snapshot["sha256"]
+    assert card["tradingview_snapshot"]["captured_at_utc"] == snapshot["captured_at_utc"]
+    with pytest.raises(ValueError, match="PLAN_ANALYSIS_PRE_CLOSE_CHART_UNAVAILABLE"):
+        pages._closed_plan_chart(gold_18_nov, tmp_path / "analysis", manuscript,
+                                {**final, "status_at_utc": (captured_at - timedelta(minutes=1)).isoformat()}, setup)
 
 
 @pytest.mark.parametrize("change,cause", [
@@ -278,7 +376,9 @@ def test_dated_page_update_uses_main_quote_and_rechecks_state_before_write(monke
 
 
 @pytest.mark.parametrize("old_price,current_price", [(3959, 3948.123), (3948.123, 3959), (3959, 3959.5)])
-def test_same_state_quote_crossing_reaches_the_first_canonical_send(old_price, current_price, tmp_path, monkeypatch):
+def test_same_state_quote_crossing_reaches_the_first_canonical_send(
+    old_price, current_price, frozen_gold_reasoning, tmp_path, monkeypatch,
+):
     from types import SimpleNamespace
 
     from live_contentops import llm_operator_control_v1, native_desktop_publication_v1, native_neo_executor_v1
@@ -297,7 +397,7 @@ def test_same_state_quote_crossing_reaches_the_first_canonical_send(old_price, c
 
     previous = with_quote(old_price, prepared_at, "a" * 64)
     current = with_quote(current_price, now, "b" * 64)
-    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run = frozen_gold_reasoning
     run["source_plan"] = raw
     source = reader.source_packet(raw, run, thread=True)
     manuscript = editorial.bind_manuscript(authored(source), source, raw)
@@ -433,10 +533,15 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
         destination=posts.DESTINATION, payload=json.dumps(row), status=posts.READY)
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
         clock=lambda: posts._utc("2026-11-14T06:00:00Z"))
-    intent = {"plan_status_post": row["key"], "media_assets": [marked]}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media": {"assets": [marked]}}), encoding="utf-8")
+    intent = {"plan_status_post": row["key"], "output_dir": str(tmp_path),
+              "destination_plan": {"destination": "telegram"},
+              "native_payload": {"text": alert, "media_asset_ids": [marked["asset_id"]]}}
     assert image.validate_write(coordinator, intent, "telegram")["first_image_type"] == "TRADINGVIEW_MARKET_CHART"
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media": {"assets": [plain]}}), encoding="utf-8")
+    intent["native_payload"]["media_asset_ids"] = [plain["asset_id"]]
     with pytest.raises(ValueError, match="PRICE_BASIS_MISMATCH"):
-        image.validate_write(coordinator, {**intent, "media_assets": [plain]}, "telegram")
+        image.validate_write(coordinator, intent, "telegram")
     changed = deepcopy(row)
     changed["source_plan"]["invalidation_conditions"][0]["threshold"] = 3999
     with pytest.raises(ValueError, match="SOURCE_OR_SCALE_CHANGED"):

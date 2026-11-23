@@ -17,13 +17,34 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publi
 CONTRACT = "CC466_V1"
 THREAD_CONTRACT = "CC549_V1"
 LEVEL_CONTRACT = "CC584_V1"
+CURRENT_LEVEL_CONTRACT = "CC682_V1"
+PHASE_LEVEL_CONTRACTS = frozenset({LEVEL_CONTRACT, CURRENT_LEVEL_CONTRACT})
 LEVEL_EFFECTIVE = datetime(2026, 11, 14, tzinfo=timezone.utc)
 EFFECTIVE = datetime(2026, 11, 11, 16, 30, tzinfo=timezone.utc)
 ANALYSIS_COPY = "CC688_V1"
+NINE_LAYER_COPY = "CC730_V1"
+STATUS_ANALYSIS_CONTRACTS = (ANALYSIS_COPY, NINE_LAYER_COPY)
 ANALYSIS_LAYERS = (
     ("macro", "Macro"), ("fundamental", "Fundamentals"), ("positioning_sentiment", "Positioning and sentiment"),
     ("options_gamma", "Options and gamma"), ("priced_in", "Priced in"), ("technical", "Technical"),
 )
+PLAN_LAYER_ORDER = (
+    ("macro", "Macro"),
+    ("event_and_cause", "Event and cause"),
+    ("fundamental", "Fundamentals"),
+    ("priced_in", "Priced in"),
+    ("positioning_sentiment", "Positioning and sentiment"),
+    ("options_gamma", "Options and gamma"),
+    ("cross_asset_and_contagion", "Cross-asset and contagion"),
+    ("technical", "Technical"),
+    ("scenarios", "Scenarios"),
+)
+_SCENARIO_CASES = (("base_case", "Main"), ("main_alternative", "Alternative"))
+_PLAN_CLOCK_FIELDS = ("registered_at_utc", "not_before_utc", "entry_deadline_utc", "expires_at_utc",
+                      "time_exit_utc", "horizon_end_utc")
+_EVENT_CAUSE = re.compile(r"\b(?:after|because|following|prompted|triggered|drove|led to)\b", re.I)
+_PLAN_INTERNAL_REF = re.compile(r"\b[a-z0-9]+_[a-z0-9_]+\b|\bCC[- ]?\d+\b|\bKB:|\.md\b|"
+                                r"@[0-9a-f]{7,}\b|\b[0-9a-f]{12,}\b|\b[A-Z]:\\", re.I)
 _LAYER_ALIASES = {
     "fundamentals": "fundamental",
     "positioning_and_sentiment": "positioning_sentiment",
@@ -79,16 +100,32 @@ def thread_terms(raw, *, level_contract=None, original_stop=None):
     name = instrument["symbol"] if mapped else posts.TITLES[raw["asset_id"]]
     price_name = "Spot" if raw["asset_id"] in {"XAUUSD", "EURUSD", "USDJPY"} else posts.TITLES[raw["asset_id"]]
     operators = {"GT": "above ", "GTE": "at or above ", "LT": "below ", "LTE": "at or below "}
+    phases = level_contract in PHASE_LEVEL_CONTRACTS
+    conditional = level_contract == CURRENT_LEVEL_CONTRACT
     conditions, refs = [], []
     if mapped and instrument.get("contract_month"):
         refs.append({"file": "plan-export", "pointer": "/public_instrument/contract_month"})
     for index, condition in enumerate(raw.get("invalidation_conditions") or []):
-        if condition.get("field") not in {"close", "low", "high", "bid", "ask", "mid"} or condition.get("operator") not in operators:
+        field, operator = condition.get("field"), condition.get("operator")
+        if field not in {"close", "low", "high", "bid", "ask", "mid"} or operator not in operators:
             continue
-        before = level_contract == LEVEL_CONTRACT
-        conditions.append(f"{price_name} " + ("plan cancelled on " if before else "")
-            + f"{condition['field']} {operators[condition['operator']]}{posts._level(condition['threshold'])}"
-            + (" before entry" if before else ""))
+        relation = operators[operator] + posts._level(condition["threshold"])
+        if conditional:
+            price = "spot price" if price_name == "Spot" else "price"
+            describes_trade = (field == "high" and operator in {"GT", "GTE"}
+                               or field == "low" and operator in {"LT", "LTE"})
+            if describes_trade:
+                subject = f"{price} trades"
+            elif field == "close":
+                subject = f"{price} closes"
+            else:
+                label = {"bid": "bid", "ask": "ask", "mid": "midprice",
+                         "high": "high", "low": "low"}[field]
+                subject = f"the {'spot ' if price_name == 'Spot' else ''}{label} is"
+            conditions.append(f"Cancel if {subject} {relation} before entry")
+        else:
+            conditions.append(f"{price_name} " + ("plan cancelled on " if phases else "")
+                              + f"{field} {relation}" + (" before entry" if phases else ""))
         refs.append({"file": "plan-export", "pointer": f"/invalidation_conditions/{index}/threshold"})
     stop = (levels["invalidation_level"], {"file": "plan-export", "pointer": "/public_instrument/invalidation_level",
                                          "transform": "PUBLIC_TICK"}) if mapped else original_stop
@@ -98,8 +135,11 @@ def thread_terms(raw, *, level_contract=None, original_stop=None):
         side = "below" if Decimal(str(value)) < Decimal(str(levels["zone_low"])) else "above"
         price = cards.level(value, levels) if mapped else posts._level(value)
         stop_text = f"{side} {price}"
-        conditions.append(f"{name} " + ("plan wrong " if level_contract == LEVEL_CONTRACT else "invalidation ")
-            + stop_text + (" after entry" if level_contract == LEVEL_CONTRACT else ""))
+        if conditional:
+            conditions.append(f"Wrong {stop_text} after entry" + (f" on {name}" if mapped else ""))
+        else:
+            conditions.append(f"{name} " + ("plan wrong " if phases else "invalidation ")
+                              + stop_text + (" after entry" if phases else ""))
         refs.append(ref)
     if not conditions:
         raise ValueError("CC549_INVALIDATION_NOT_EXPORTED")
@@ -137,11 +177,11 @@ def thread_terms(raw, *, level_contract=None, original_stop=None):
     if end:
         clocks.append("Filled positions close by " + et(end) + ".")
         refs.append({"file": "plan-export", "pointer": end_ref, "transform": "ET12"})
-    invalidation = "; ".join(conditions)
+    invalidation = (". " if conditional else "; ").join(conditions)
     call = {"market": market, "direction": levels["direction"], "condition": posts._entry_condition(display),
             "horizon": " ".join(clocks).rstrip("."), "invalidation": invalidation}
     title = posts.TITLES[raw["asset_id"]] + ": " + invalidation
-    if level_contract == LEVEL_CONTRACT:
+    if phases:
         entries = levels.get("entries") or []
         limit = next((entry for entry in entries if entry["kind"] == "LIMIT"), None)
         if entries and limit is None:
@@ -165,7 +205,7 @@ def page_thread_terms(plan, run, *, level_contract):
     from .plan_analysis_pages_v1 import _owner_candidate
 
     original_stop = None
-    if level_contract == LEVEL_CONTRACT:
+    if level_contract in PHASE_LEVEL_CONTRACTS:
         try:
             candidate, filename, pointer = _owner_candidate(plan, run)
         except (KeyError, StopIteration):
@@ -305,13 +345,192 @@ def validate_analysis_line(options, layer, text):
         raise ValueError("CC688_LAYER_NOT_QUOTED_FROM_PLAN:" + str(layer))
 
 
-def verified_analysis_lines(plan, quotes):
-    options = analysis_layer_options(plan)
+def require_reader_plan_terms(text):
+    from .plan_scenario_lines_v1 import BARE_UTC, INTERNAL_CAPS
+
+    if BARE_UTC.search(text) or INTERNAL_CAPS.search(text) or _PLAN_INTERNAL_REF.search(text):
+        raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
+
+
+def _public_plan_quote(span, plan):
+    """Translate only source notation whose meaning the code can verify."""
+    from .plan_analysis_pages_v1 import check_reader_claim, public_filter
+    from .plan_scenario_lines_v1 import ISO_TIME
+
+    # Check before removing notation so a rewrite cannot hide a restricted input.
+    public_filter(span)
+    check_reader_claim(span, source=span)
+    converted_clocks = []
+
+    def instant(match):
+        value = et(match[0])
+        converted_clocks.append(value)
+        return value
+
+    text = ISO_TIME.sub(lambda match: instant(match) if match[0].endswith(("Z", "+00:00")) else match[0], span)
+
+    def utc_clock(match):
+        hour, minute = map(int, match[1].split(":"))
+        dates = set(re.findall(r"\b\d{4}-\d{2}-\d{2}\b", span))
+        if not dates:
+            fields = [plan.get(key) for key in _PLAN_CLOCK_FIELDS]
+            fields.extend(value.get("horizon_end_utc") for key in ("scenario_analysis", "forecast_probabilities")
+                          if isinstance(value := plan.get(key), dict))
+            for field in fields:
+                if not isinstance(field, str):
+                    continue
+                try:
+                    clock = datetime.fromisoformat(field.replace("Z", "+00:00"))
+                except ValueError:
+                    continue
+                if clock.tzinfo is None:
+                    continue
+                clock = clock.astimezone(timezone.utc)
+                if (clock.hour, clock.minute) == (hour, minute):
+                    dates.add(clock.date().isoformat())
+        if len(dates) != 1:
+            raise ValueError("LAYER_CLOCK_DATE_UNAVAILABLE")
+        value = et(f"{dates.pop()}T{hour:02d}:{minute:02d}:00Z")
+        converted_clocks.append(value)
+        return value
+
+    text = re.sub(r"(?<![\d:\-–])\b(\d{1,2}:\d{2})(?:Z|\s+UTC)\b", utc_clock, text)
+    text = re.sub(r"\bchannel(?:\s*[:=]\s*|\s+)(MIXED|CLEAR)\b",
+                  lambda match: "signals are " + match[1].lower(), text, flags=re.I)
+    text = re.sub(r"\bjim_weekly_minimum_\d+\s+starter\b", "initial entry", text, flags=re.I)
+    text = re.sub(r"^TREND\s+(UP|DOWN|FLAT):\s*([a-z]?)",
+                  lambda match: f"The trend is {match[1].lower()}. {match[2].upper()}", text)
+    text = re.sub(r"\bNOT_COVERED\b", "not covered", text)
+    text = re.sub(r"^CC-?\d+\s*[:–-]\s*|\s+(?:per|under|see)\s+CC-?\d+\b", "", text, flags=re.I)
+    text = re.sub(r"\s*\((?:see\s+)?CC-?\d+(?:,\s*([^()]+))?\)",
+                  lambda match: f" ({match[1]})" if match[1] else "", text, flags=re.I)
+    text = re.sub(r"\s*\(KB:[\w./-]+\.md@[0-9a-f]{7,}\)", "", text, flags=re.I)
+    text = re.sub(r"^(long|short) positions\b", r"\1s", text, flags=re.I)
+    text = text.strip()
+    text = text[0].upper() + text[1:] if text else text
+    if not text:
+        raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
+    require_reader_plan_terms(text)
+    check_text(text, source="\n".join([span, *converted_clocks]), prose=False)
+    check_thread_text(text, force=True)
+    check_publication_copy({"body": text}, require_notice=False)
+    return text
+
+
+def _scenario_probability(branch):
+    value = branch.get("probability_pct")
+    return value if type(value) in (int, float) and 0 <= value <= 100 else None
+
+
+def _exported_scenarios(plan):
+    scenario = plan.get("scenario_analysis")
+    return scenario if isinstance(scenario, dict) else {}
+
+
+def plan_layer_candidates(plan):
+    """Read the CC-717 ordered export, its CC-687 bridge and earlier rationale fields."""
+    sources = {layer: [] for layer, _ in PLAN_LAYER_ORDER}
+    causes = dict.fromkeys(sources, "EXPORT_FIELD_ABSENT")
+    explicit = set()
+
+    def add(layer, value, *, pattern=None, status=None):
+        if not isinstance(value, str) or not value.strip():
+            return
+        for quote in verbatim_analysis_spans(value):
+            if pattern and not pattern.search(quote):
+                continue
+            if status != "used" and _UNAVAILABLE_LAYER.search(quote):
+                causes[layer] = "ANALYST_REPORTED_UNAVAILABLE"
+                continue
+            try:
+                text = _public_plan_quote(quote, plan)
+            except ValueError as exc:
+                causes[layer] = str(exc).split(":", 1)[0]
+                continue
+            if all(candidate["text"] != text for candidate in sources[layer]):
+                sources[layer].append({"quote": quote, "text": text})
+
+    for field in ("layers", "analysis_layers"):
+        block = plan.get(field)
+        if isinstance(block, list):
+            entries = ((row.get("layer"), row) for row in block if isinstance(row, dict))
+        elif isinstance(block, dict):
+            entries = block.items()
+        else:
+            continue
+        for name, row in entries:
+            if not isinstance(name, str):
+                continue
+            name = name.lower().replace("-", "_").replace(" ", "_")
+            layer = _LAYER_ALIASES.get(name, name)
+            if layer not in sources or layer in explicit:
+                continue
+            explicit.add(layer)
+            if isinstance(row, dict):
+                state = str(row.get("state") or row.get("status") or "").lower()
+                if row.get("used") is False or row.get("available") is False or state in _UNAVAILABLE_LAYER_STATES:
+                    cause = row.get("first_cause")
+                    causes[layer] = str(cause) if cause else "ANALYST_REPORTED_UNAVAILABLE"
+                    continue
+                add(layer, row.get("text", row.get("line")), status=state)
+            else:
+                add(layer, row)
+
+    scenario = _exported_scenarios(plan)
+    legacy = (
+        ("macro", ("driver",), None),
+        ("event_and_cause", ("event_and_cause",), None),
+        ("fundamental", ("fundamental", "fundamentals", "mechanism", "driver", "positioning"), _FUNDAMENTAL),
+        ("priced_in", ("priced", "priced_in"), None),
+        ("positioning_sentiment", ("positioning", "sentiment"), None),
+        ("options_gamma", ("options", "gamma", "priced", "mechanism", "positioning"), _OPTIONS),
+        ("cross_asset_and_contagion", ("cross_asset_and_contagion",), None),
+        ("technical", ("acceptance", "confirmations", "mechanism", "zone_reason"), _STRUCTURE),
+    )
+    for layer, fields, pattern in legacy:
+        if layer not in explicit:
+            for field in fields:
+                add(layer, scenario.get(field), pattern=pattern)
+    if "event_and_cause" not in explicit and not sources["event_and_cause"]:
+        add("event_and_cause", scenario.get("mechanism"), pattern=_EVENT_CAUSE)
+
+    for case, _ in _SCENARIO_CASES:
+        sources[case] = []
+        branch = scenario.get(case)
+        if not isinstance(branch, dict):
+            continue
+        add(case, branch.get("market_move"))
+        if _scenario_probability(branch) is not None and not sources[case]:
+            # The probability itself is useful even if the case has no quotable prose.
+            sources[case].append({"quote": "", "text": ""})
+    if any(sources[case] for case, _ in _SCENARIO_CASES):
+        causes.pop("scenarios")
+    elif not sources["scenarios"]:
+        causes["scenarios"] = next((causes[case] for case, _ in _SCENARIO_CASES if case in causes),
+                                   causes["scenarios"])
+    return ({key: options for key, options in sources.items() if options},
+            {key: causes[key] for key, _ in PLAN_LAYER_ORDER if key in causes and not sources.get(key)})
+
+
+def verified_analysis_lines(plan, quotes, *, contract=ANALYSIS_COPY):
+    options = plan_layer_candidates(plan)[0] if contract == NINE_LAYER_COPY else analysis_layer_options(plan)
     if not isinstance(quotes, dict) or set(quotes) != set(options):
         raise ValueError("CC688_LAYER_SET_CHANGED")
     for layer, text in quotes.items():
         validate_analysis_line(options, layer, text)
-    return [f"{label}: {quotes[layer]}" for layer, label in ANALYSIS_LAYERS if layer in quotes]
+    order = PLAN_LAYER_ORDER if contract == NINE_LAYER_COPY else ANALYSIS_LAYERS
+    lines = [f"{label}: {quotes[layer]}" for layer, label in order if layer in quotes and layer != "scenarios"]
+    cases = [quotes["scenarios"]] if "scenarios" in quotes else []
+    for key, label in _SCENARIO_CASES:
+        if key not in quotes:
+            continue
+        probability = _scenario_probability(plan["scenario_analysis"][key])
+        if probability is not None:
+            label += f" ({probability:g}%)"
+        cases.append(f"{label}: {quotes[key]}" if quotes[key] else label + ".")
+    if cases:
+        lines.append("Scenarios: " + " ".join(cases))
+    return lines
 
 
 def analysis_scenario_lines(plan):
@@ -468,7 +687,7 @@ def validate_fields(fields, source):
         refs = [sources[k] for k in value["source_ids"]]
         if source.get("thread_contract") == THREAD_CONTRACT:
             check_thread_text(value["text"])
-        if source.get("level_contract") == LEVEL_CONTRACT:
+        if source.get("level_contract") in PHASE_LEVEL_CONTRACTS:
             from .plan_analysis_pages_v1 import check_reader_claim
             check_reader_claim(value["text"], source="\n".join(s["text"] for s in refs),
                 source_name=value.get("source_name", ""), pricing_source=value.get("pricing_source"))
@@ -588,7 +807,7 @@ def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None
     # Attribution stays with the chart. It does not push the root's link back in.
     if credit:
         x_parts[2] += credit
-    if source.get("level_contract") == LEVEL_CONTRACT and call_line:
+    if source.get("level_contract") in PHASE_LEVEL_CONTRACTS and call_line:
         # The two exact phase conditions and clocks may exceed a single post.
         # Keep the link first and the points second; continue with complete
         # sentences rather than asking a writer to shorten frozen plan facts.
