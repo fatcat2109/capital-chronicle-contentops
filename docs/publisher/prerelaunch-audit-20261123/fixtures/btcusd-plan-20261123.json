@@ -1,0 +1,222 @@
+{
+ "analysis_layers": {
+  "fundamental": {
+   "first_cause": null,
+   "state": "UNAVAILABLE",
+   "text": "No exchange-traded-fund flow, funding-rate or on-chain reading is held for this pass."
+  },
+  "macro": {
+   "first_cause": null,
+   "state": "USED",
+   "text": "Interest rates are a headwind: the 10-year Treasury yield stood near 4.9% and the inflation-adjusted 10-year yield near 2.8% on 20 November, and markets lean toward a Federal Reserve rate rise in December. No major US release falls inside the two-day hold; only business surveys are due on Monday."
+  },
+  "options_and_gamma": {
+   "first_cause": null,
+   "state": "UNAVAILABLE",
+   "text": "No Bitcoin option chain is covered by the desk's options source. Only a two-day-old implied-volatility index is held, pointing to a one-day move of about 3%."
+  },
+  "positioning_and_sentiment": {
+   "first_cause": "JIM_DECISION_40",
+   "state": "USED",
+   "text": null
+  },
+  "technical": {
+   "first_cause": null,
+   "state": "USED",
+   "text": "Bitcoin is about 20% lower over 20 sessions and has traded between roughly 60,284 and 61,581 since Sunday morning with lower highs. A fall through the floor opens Sunday's low near 58,631; a rise above 61,581 ends the pattern. The first dip under the floor early Monday was bought back within half an hour, which is the main caution."
+  }
+ },
+ "analysis_result_hash": "aa4c2e730481d00e7f799c591383d6a30431af64251e54465cedb58dc8102f97",
+ "asset_id": "BTCUSD",
+ "cancel_conditions": [],
+ "cancel_kind": null,
+ "cancel_level": null,
+ "check_age_seconds": 175.709326,
+ "checked_at_utc": "2026-11-23T03:51:00.332609Z",
+ "conditions": [],
+ "data_state": "AVAILABLE",
+ "decision_record_id": "decision:named-trigger-5bf03fd9c4214d1bd6a6cb6d:BTCUSD",
+ "direction": "BEARISH",
+ "entries": [
+  {
+   "kind": "BREAKOUT",
+   "level": 60250.0
+  }
+ ],
+ "entries_first_cause": null,
+ "entry_deadline_utc": "2026-11-23T19:45:00Z",
+ "entry_geometry": [],
+ "entry_mode": "TOUCH",
+ "expires_at_utc": "2026-11-23T19:45:00Z",
+ "first_cause": null,
+ "forecast_probabilities": {
+  "horizon_end_utc": "2026-11-25T03:00:00Z",
+  "missing_reasons": [],
+  "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+  "probability_target_before_stop_pct": 40,
+  "probability_touch_pct": 45,
+  "probability_up_pct": 46,
+  "reference_at_utc": "2026-11-23T03:12:59Z",
+  "reference_price": 60977.64
+ },
+ "horizon_lane": "SHORT",
+ "horizon_lane_first_cause": null,
+ "invalidation_conditions": [
+  {
+   "field": "high",
+   "operator": "GT",
+   "threshold": 61600.0
+  }
+ ],
+ "kind": "WATCH",
+ "last_price": 60636.11,
+ "last_price_at_utc": "2026-11-22T19:26:39.758318Z",
+ "last_price_first_cause": null,
+ "last_quote": {
+  "instrument": "BTCUSD",
+  "known_at_utc": "2026-11-22T19:26:39.758318Z",
+  "price": 60636.11,
+  "price_basis": "MID",
+  "quoted_at_utc": "2026-11-22T19:26:39.758318Z",
+  "source_hash": "11d3f7130bb2d15ec492df1b3b1a86641af8ca40bd937187fd8ca518f07badfd"
+ },
+ "layers": [
+  {
+   "first_cause": null,
+   "layer": "macro",
+   "state": "USED",
+   "text": "Interest rates are a headwind: the 10-year Treasury yield stood near 4.9% and the inflation-adjusted 10-year yield near 2.8% on 20 November, and markets lean toward a Federal Reserve rate rise in December. No major US release falls inside the two-day hold; only business surveys are due on Monday."
+  },
+  {
+   "first_cause": null,
+   "layer": "event_and_cause",
+   "state": "USED",
+   "text": "A reported shipping incident in the Gulf of Oman has no official confirmation in the desk's sources, so the plan does not rely on it. It follows a possible break of a price floor that Bitcoin has defended twice since Sunday morning: buyers of the weekend rebound would be forced to sell below that floor, which would carry the price toward Sunday's low."
+  },
+  {
+   "first_cause": "ANALYST_REPORTED_UNAVAILABLE",
+   "layer": "fundamental",
+   "state": "UNAVAILABLE",
+   "text": "No exchange-traded-fund flow, funding-rate or on-chain reading is held for this pass."
+  },
+  {
+   "first_cause": "JIM_DECISION_40",
+   "layer": "positioning_and_sentiment",
+   "state": "UNAVAILABLE",
+   "text": null
+  },
+  {
+   "first_cause": "ANALYST_REPORTED_UNAVAILABLE",
+   "layer": "options_and_gamma",
+   "state": "UNAVAILABLE",
+   "text": "No Bitcoin option chain is covered by the desk's options source. Only a two-day-old implied-volatility index is held, pointing to a one-day move of about 3%."
+  },
+  {
+   "first_cause": "ANALYST_REPORTED_UNAVAILABLE",
+   "layer": "cross_asset_and_contagion",
+   "state": "UNAVAILABLE",
+   "text": "This pass holds Bitcoin prices only; share, dollar, oil and gold prices at the cutoff are not available, so no cross-market confirmation is claimed. Unverified wire reports mention falling copper and Chinese technology shares, which would fit weaker risk appetite if confirmed."
+  },
+  {
+   "first_cause": null,
+   "layer": "technical",
+   "state": "USED",
+   "text": "Bitcoin is about 20% lower over 20 sessions and has traded between roughly 60,284 and 61,581 since Sunday morning with lower highs. A fall through the floor opens Sunday's low near 58,631; a rise above 61,581 ends the pattern. The first dip under the floor early Monday was bought back within half an hour, which is the main caution."
+  }
+ ],
+ "not_before_utc": "2026-11-23T04:00:00Z",
+ "outcome": {
+  "first_cause": "OUTCOME_NOT_YET_RESOLVED",
+  "outcome_id": null,
+  "public_call_id": "call_fd0a2b78519b9b1ccd9715e7",
+  "result": null,
+  "result_r": null,
+  "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+  "result_r_first_cause": "OUTCOME_NOT_CLOSED",
+  "result_r_source_hash": null,
+  "score": null,
+  "state": "PENDING"
+ },
+ "plan_id": "plan_1d9bc560342b94e3d5a0cdb1",
+ "plan_key": "BTCUSD:SHORT",
+ "position_horizon_lane": null,
+ "public_instrument": {
+  "contract_first_cause": null,
+  "contract_month": "2026-11",
+  "direction": null,
+  "entries": [
+   {
+    "kind": "BREAKOUT",
+    "level": null
+   }
+  ],
+  "exchange": "CME",
+  "invalidation_level": null,
+  "kind": "FUT",
+  "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+  "name": "Micro Bitcoin",
+  "symbol": "MBT",
+  "target_first_cause": "TARGET_NOT_RECORDED",
+  "target_level": null,
+  "tick_size": null,
+  "zone_high": null,
+  "zone_low": null
+ },
+ "public_instrument_first_cause": null,
+ "registered_at_utc": "2026-11-23T03:51:00.332609Z",
+ "registration_hash": "e47802827ab80c118f7424f13852040075886e6a905b49bac23bfdc96d56c1be",
+ "review_at_utc": "2026-11-23T19:45:00Z",
+ "run_id": "named-trigger-5bf03fd9c4214d1bd6a6cb6d",
+ "scenario_analysis": {
+  "acceptance": "FAILED for the 02:40Z touch, which reversed 690 points within 30 minutes with no M15 close below 60355.92.",
+  "base_case": {
+   "market_move": "BTCUSD is below 60977.64 at 2026-11-25T03:00Z.",
+   "probability_pct": 54.0
+  },
+  "confirmations": "a completed M15 bar that trades at or below 60250.00; an H1 close below 60283.90.",
+  "driver": "trend and flow; channel_clarity is MISSING with cause NO_SAVED_USD_LEG, and from the bars the channel to the reported shock is MIXED.",
+  "field_first_causes": {
+   "acceptance": null,
+   "confirmations": null,
+   "driver": null,
+   "invalidation_reason": null,
+   "invalidation_text": "AMBIGUOUS_LABEL",
+   "mechanism": null,
+   "opposite_mechanism": null,
+   "positioning": null,
+   "priced": null,
+   "why_no_open": "TEXT_EXCEEDS_800_CHARACTERS",
+   "zone_reason": null
+  },
+  "horizon_end_utc": "2026-11-25T03:00:00Z",
+  "invalidation_reason": "the stop sits above the 22 Nov 12:15Z high 61581.46 that caps the balance, 0.41 to 0.44 of a normal day from the band. Stop tightening fact:",
+  "invalidation_text": null,
+  "main_alternative": {
+   "market_move": "BTCUSD holds the 60283.90 floor and is above 60977.64 at 2026-11-25T03:00Z after a squeeze through 61581.46.",
+   "probability_pct": 46.0
+  },
+  "mechanism": "a 20-session downtrend under a tightening rate backdrop; the rebound from the 21 Nov low stalled under 61581.46 with lower highs, and a break of the floor tested at 60355.92 on 22 Nov and 60283.90 on 23 Nov forces out buyers of that rebound toward the 22 Nov low 58630.87, where I expect a short-lane move to end.",
+  "missing_fields": [],
+  "opposite_mechanism": "the rejected break is a spring and trapped shorts fuel a squeeze through 61581.46 toward 62571.63.",
+  "positioning": "cot_crowding +0.87 standard deviations net long, report 17 Nov, six days old; funding, open interest and ETF flows not observed; sellers are forced below 60283.90, shorts are squeezed above 61363.27 and 61581.46.",
+  "priced": "the Gulf of Oman incident is not officially confirmed in the frozen files, so no shock premium is assumed; implied one-day move about 3.0 percent from a two-day-old volatility index, block cc415; prediction odds for 50,000 before 100,000 rose 4 points in a day and the priced_in gap is MISSING with cause MATCHING_ASSET_IMPLIED_OUTCOME_PROBABILITY_NOT_HELD, so no gap direction is claimed.",
+  "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+  "source_plan_hash": "b47663d43743fa3f010b9c678dff67a4c76a36a436d44420dfa42e824320530d",
+  "source_result_hash": "aa4c2e730481d00e7f799c591383d6a30431af64251e54465cedb58dc8102f97",
+  "why_no_open": null,
+  "zone_reason": "construction STOP, a sell stop under the 60283.90 low inside 60160.00 to 60250.00, because the short needs the break and at market the same stop would sit 0.19 of a normal day away; regime TREND DOWN, position_in_range 0.23."
+ },
+ "scenario_first_cause": null,
+ "status": "WAITING",
+ "status_at_utc": "2026-11-23T03:51:00.332609Z",
+ "status_label": "Waiting",
+ "target_first_cause": null,
+ "target_level": 58680.0,
+ "target_source_hash": "e47802827ab80c118f7424f13852040075886e6a905b49bac23bfdc96d56c1be",
+ "target_tick_size": 0.01,
+ "trigger_hash": "6ee6e5c632c9a61cbb231c024ab1dd491f2cd2f46bb26e5085208aec2222f25e",
+ "zone": {
+  "maximum": 60250.0,
+  "minimum": 60160.0
+ }
+}

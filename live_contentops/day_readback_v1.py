@@ -499,7 +499,8 @@ def _watched_notes(conn, end):
 
 def _decision_source(conn, work_id, end, expected=""):
     parent_id = work_id.rsplit("-part-", 1)[0] if re.search(r"-part-\d+$", work_id) else work_id
-    if parent_id.startswith(("plan-status-post-", "plan-result-post-", "plan-update-post-")):
+    # A correction reply (correction_reply_v1) keeps its row under its own key in the same destination.
+    if parent_id.startswith(("plan-status-post-", "plan-result-post-", "plan-update-post-", "correction-")):
         row = conn.execute("""SELECT payload,created_at FROM outbox_messages WHERE message_id=?
             AND destination='internal:plan-status-post' AND julianday(created_at) <= julianday(?)""",
             (parent_id, end)).fetchone()
@@ -565,7 +566,7 @@ def _review_manual_plan_posts(checks, read_public):
                 continue
             # A Posted mark confirms delivery. Its pack text can differ from
             # what was pasted, so review the public copy when available.
-            checks.review_manual_plan_copy(piece, platform, url, read_public)
+            checks.review_manual_plan_copy(piece, platform, url, read_public, posted_at=mark.get("posted_at_utc"))
             seen.add(identity)
 
 
@@ -1482,8 +1483,18 @@ def markdown(report):
         lines.append(f"- {label} / {item['platform'] or 'all'}: {item['status'] or 'readback'}; "
                      f"{item['first_cause']}; {item['public_url'] or 'no public URL'}.")
     if decisions := report.get("decision_checks"):
-        lines.extend(["", "## Decision checks", "",
-                      f"{decisions['failure_count']} failures and {decisions['unverified_count']} unverified checks."])
+        lines.extend(["", "## Decision checks", ""])
+        if pause := decisions.get("pause"):
+            since = local(pause["paused_at_utc"])
+            until = f"restored {local(pause['restored_at_utc'])}" if pause["restored_at_utc"] else "not yet restored"
+            if pause["state"] == "PAUSED":
+                lines.append(f"Paused: posting paused since {since} ({pause['cause']}), {until}. "
+                             f"No public copy went out in this window; {pause['held_checks']} due copies held by the pause.")
+            else:
+                lines.append(f"Partly paused: posting paused since {since} ({pause['cause']}), {until}. "
+                             f"{pause['public_copies_in_window']} public copies went out outside the pause; "
+                             f"{pause['held_checks']} due copies held by the pause.")
+        lines.append(f"{decisions['failure_count']} failures and {decisions['unverified_count']} unverified checks.")
         for item in decisions["issues"]:
             if item.get("chart_readback"):
                 continue

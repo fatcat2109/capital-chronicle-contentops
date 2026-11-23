@@ -353,6 +353,47 @@ def require_reader_plan_terms(text):
         raise ValueError("LAYER_INTERNAL_TOKEN_HAS_NO_PUBLIC_EQUIVALENT")
 
 
+# Pre-relaunch audit, 23 Nov 2026 (decisions 107, 158): the scenario-voice quotes still carried the book's symbols
+# ("BTCUSD is below 60977.64"), bar codes, the stop-placement notes ("the lane's measured minimum", "the broker stop")
+# and "the frozen files", and rewrote "shorts" as "traders positioned for losses", which misstates a squeeze.
+_VOICE_BARS = {"M1": "1-minute", "M5": "5-minute", "M15": "15-minute", "M30": "30-minute",
+               "H1": "hourly", "H4": "4-hour", "D1": "daily", "W1": "weekly"}
+_VOICE_DESK_TERMS = re.compile(r"\b(?:lanes?(?:'s|’s)?|broker|frozen|freeze|normal days?|the pack|starter|"
+                               r"measured minimum|stop sits)\b", re.I)
+_VOICE_LONG_NUMBER = re.compile(r"(?<![\w.,])(\d{4,})(\.\d+)(?![\d])|(?<![\w.,])(\d{5,})(?![\w.,])")
+
+
+def _scenario_voice_quote(text, added):
+    """Reader wording for one checked quote; `added` collects the words the number check may also see."""
+    from .plan_status_posts_v1 import BROKER_NAMES, BROKER_SYMBOL
+
+    text = re.sub(r",?\s+(?:or|and)\s+the broker stop at \d[\d,]*(?:\.\d+)?", "", text, flags=re.I)
+    text = re.sub(r"\s+in the frozen (?:files|inputs|pack|request|evidence)\b", "", text, flags=re.I)
+    if _VOICE_DESK_TERMS.search(text):
+        raise ValueError("SCENARIO_VOICE_DESK_TERM")
+
+    def bar(match):
+        added.append(match[1])
+        return _VOICE_BARS[match[1]]
+
+    text = re.sub(r"\b(" + "|".join(_VOICE_BARS) + r")\b", bar, text)
+
+    def market(match):
+        added.append(match[1])
+        return BROKER_NAMES[match[1]].removeprefix("the ")
+
+    text = BROKER_SYMBOL.sub(market, text)
+    text = _VOICE_LONG_NUMBER.sub(lambda match: format(int(match[1] or match[3]), ",") + (match[2] or ""), text)
+    # "Bullish" or "bearish" would read as an unconditional call (decision 40). "Shorts" names traders in one
+    # source ("trapped shorts fuel a squeeze") and trades in another ("the desk's recent shorts have paid"):
+    # "bets on a fall" reads true for both, where CC-755's "traders positioned for losses" inverted the meaning.
+    text = re.sub(r"\b(long|short) positions\b",
+                  lambda match: "bets on a " + ("rise" if match[1].lower() == "long" else "fall"), text, flags=re.I)
+    text = re.sub(r"\b(longs|shorts)\b",
+                  lambda match: "bets on a " + ("rise" if match[1].lower() == "longs" else "fall"), text, flags=re.I)
+    return text
+
+
 def _public_plan_quote(span, plan, *, scenario_voice=False):
     """Translate only source notation whose meaning the code can verify."""
     from .plan_analysis_pages_v1 import check_reader_claim, public_filter
@@ -407,12 +448,7 @@ def _public_plan_quote(span, plan, *, scenario_voice=False):
                   lambda match: f" ({match[1]})" if match[1] else "", text, flags=re.I)
     text = re.sub(r"\s*\(KB:[\w./-]+\.md@[0-9a-f]{7,}\)", "", text, flags=re.I)
     if scenario_voice:
-        text = re.sub(r"\b(long|short) positions\b",
-                      lambda match: "positions set for " + ("gains" if match[1].lower() == "long" else "losses"),
-                      text, flags=re.I)
-        text = re.sub(r"\b(longs|shorts)\b",
-                      lambda match: "traders positioned for " + ("gains" if match[1].lower() == "longs" else "losses"),
-                      text, flags=re.I)
+        text = _scenario_voice_quote(text, converted_clocks)
         voice.validate_copy(text)
     else:
         text = re.sub(r"^(long|short) positions\b", r"\1s", text, flags=re.I)
@@ -568,6 +604,23 @@ def scenario_quotes(value, plan):
                 continue
 
 
+def whole_scenario_quote(value, plan):
+    """Every sentence of one Main field, in order, while each passes; "" when its first one cannot be shown.
+
+    Audit of 23 Nov 2026: the first passing sentence alone gave fragments such as "BTC carries that through a
+    1.31 beta", whose subject was in the clause the checks had dropped.
+    """
+    if not isinstance(value, str):
+        return ""
+    kept = []
+    for span in verbatim_analysis_spans(value):
+        try:
+            kept.append(_public_plan_quote(span, plan, scenario_voice=True))
+        except ValueError:
+            break
+    return " ".join(kept)
+
+
 def scenario_case_copy(plan, *, quotes=None):
     """Case lines and their plan-export pointers, shared by the post, page and wrap."""
     scenario = _exported_scenarios(plan)
@@ -578,7 +631,7 @@ def scenario_case_copy(plan, *, quotes=None):
 
         def take(record, fields, path):
             for field in fields:
-                text = next(scenario_quotes(record.get(field), plan), "")
+                text = whole_scenario_quote(record.get(field), plan)
                 if text:
                     refs.append({"file": "plan-export", "pointer": f"{path}/{field}",
                                  "transform": voice.CONTRACT})
@@ -806,17 +859,20 @@ def validate_fields(fields, source):
             check_thread_text(point["text"], force=True)
     main = field(fields["scenario_main"], 90)
     alt = field(fields["scenario_alt"], 90) if fields.get("scenario_alt") else None
-    if not re.match(r"Main \(\d+%\): .+[.]$", main):
+    # Decision 158: "Base case (54%):" and "Bull case"/"Bear case" beside the earlier "Main"/"Alternative".
+    labels = {"base_case": r"(?:Main|Base case)", "main_alternative": r"(?:Alternative|Bull case|Bear case)"}
+    odds = r" \((\d+(?:\.\d+)?)%\): .+[.]$"
+    if not re.match(labels["base_case"] + odds, main):
         raise ValueError("CC466_MAIN_ODDS_REQUIRED")
     # Exact explicit odds only. An absent alternative never becomes a complement.
     for key, text in (("base_case", main), ("main_alternative", alt)):
         branch = source.get("scenario_analysis", {}).get(key) or {}
         probability = branch.get("probability_pct")
-        if text and not re.match(("Main" if key == "base_case" else "Alternative") + r" \(\d+%\): .+[.]$", text):
+        if text and not re.match(labels[key] + odds, text):
             raise ValueError("CC466_SCENARIO_LABEL_REQUIRED")
         if text and probability is None:
             raise ValueError("CC466_SCENARIO_ODDS_NOT_SUPPLIED")
-        if text and Decimal(re.search(r"\((\d+)%\)", text)[1]) != Decimal(str(probability)):
+        if text and Decimal(re.match(labels[key] + odds, text)[1]) != Decimal(str(probability)):
             raise ValueError("CC466_SCENARIO_ODDS_CHANGED")
     if (source.get("scenario_analysis", {}).get("main_alternative") or {}).get("probability_pct") is not None and not alt:
         raise ValueError("CC466_HELD_ALTERNATIVE_ODDS_OMITTED")
