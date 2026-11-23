@@ -281,7 +281,7 @@ def test_existing_publish_tick_consumes_main_rows_through_coordinator(live, monk
     # this test on its temporary store and fake Main rows, with no real model
     # child or external service (a later companion once launched Codex here).
     from live_contentops import (
-        audience_collection_v1, call_followups_v1, event_pack_v1,
+        audience_collection_v1, call_followups_v1, daily_trend_board_v1, event_pack_v1,
         event_timestamp_v1, model_invocation_usage_v1, neo_endpoint_executor_v1,
         plan_analysis_pages_v1, plan_reader_editorial_v1, x_reply_bot_v1, x_reply_tabs_v1,
     )
@@ -289,6 +289,7 @@ def test_existing_publish_tick_consumes_main_rows_through_coordinator(live, monk
         (x_reply_bot_v1, "refresh_due", {}),
         (x_reply_bot_v1, "observe_due", {}),
         (call_followups_v1, "minute_due", {}),
+        (daily_trend_board_v1, "run_due", {}),
         (plan_reader_editorial_v1, "run_due", {}),
         (plan_analysis_pages_v1, "resume_discord_links", []),
         (neo_endpoint_executor_v1, "resume_stored_requests", {}),

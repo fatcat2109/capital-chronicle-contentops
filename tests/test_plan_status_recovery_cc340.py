@@ -160,7 +160,9 @@ def test_ambiguous_recovered_write_is_read_back_without_duplicate_dispatch(tmp_p
     assert transport.publish_calls == calls and transport.readback_calls
 
 
-def test_cli_passes_recovery_context_to_the_existing_publisher(tmp_path, main_root, monkeypatch):
+def test_cli_passes_recovery_context_to_the_existing_publisher(
+    tmp_path, main_root, monkeypatch, stub_minute_side_effects,
+):
     import importlib.util
     import io
 

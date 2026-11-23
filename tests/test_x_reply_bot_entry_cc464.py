@@ -9,7 +9,9 @@ import pytest
 
 
 @pytest.mark.parametrize("dry", [False, True])
-def test_real_minute_entry_delivers_drafts_before_slow_work_and_dry_run_calls_no_bot(tmp_path, monkeypatch, dry):
+def test_real_minute_entry_delivers_drafts_before_slow_work_and_dry_run_calls_no_bot(
+    tmp_path, monkeypatch, dry, stub_minute_side_effects,
+):
     spec = importlib.util.spec_from_file_location("cc464_minute", Path(__file__).parents[1] / "scripts/plan_status_posts.py")
     cli = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(cli)

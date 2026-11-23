@@ -324,7 +324,9 @@ def test_literal_fact_metadata_repair_keeps_changed_public_numbers_blocked(setup
     assert invalid["item_count"] == 0 and "UNBOUND_OR_CHANGED_NUMBER" in invalid["none_reason"]
 
 
-def test_actual_minute_entry_refreshes_tabs_when_main_export_is_stale(setup, monkeypatch, capsys):
+def test_actual_minute_entry_refreshes_tabs_when_main_export_is_stale(
+    setup, monkeypatch, capsys, stub_minute_side_effects,
+):
     from scripts import plan_status_posts as entry
     from live_contentops import plan_status_posts_v1 as posts
     from live_contentops import event_timestamp_v1, event_pack_v1

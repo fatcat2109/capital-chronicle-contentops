@@ -8,6 +8,8 @@ from live_contentops.model_invocation_usage_v1 import import_native_invocations,
 from live_contentops import destination_performance_observer_v1 as observer
 from live_contentops.channel_engagement_v1 import weekly_channel_engagement, weekly_audience_lines
 
+from test_plan_status_posts_cc306 import export, main_root  # noqa: F401
+
 NOW = datetime(2026, 11, 11, 6, tzinfo=timezone.utc)
 
 
@@ -135,19 +137,37 @@ def test_identity_verified_damaged_post_is_observed_without_claiming_content_suc
     assert next(r for r in report["channels"] if r["channel"] == "threads")["native_counter_sums"]["views"] == 2
 
 
-def test_minute_consumer_still_collects_when_main_export_is_stale(tmp_path, monkeypatch, capsys):
+def test_minute_consumer_still_collects_when_main_export_is_stale(
+    tmp_path, monkeypatch, capsys, export, main_root, stub_minute_side_effects,
+):
     from scripts import plan_status_posts as consumer
     from live_contentops import audience_collection_v1 as audience
-    from live_contentops import model_invocation_usage_v1 as usage
+    from live_contentops import plan_reader_editorial_v1 as editorial
+    from live_contentops import plan_status_posts_v1 as posts
+
     store = seed(tmp_path)
-    monkeypatch.setattr(consumer, "ContentOpsDurableStore", lambda *_args, **_kwargs: store)
-    monkeypatch.setattr(consumer, "queue_posts", lambda *_args, **_kwargs: {"status": "EXPORT_STALE"})
-    calls = []
+    monkeypatch.setattr(consumer, "queue_posts", lambda *a, **kw: posts.queue_posts(*a, now=NOW, **kw))
+    calls, drafts = [], []
+
+    def page_tick(_store, read_export, **kwargs):
+        assert kwargs["cached_only"]
+        assert read_export()["status"]["generated_at_utc"] == "2026-11-05T12:29:50Z"
+        return {"draft_due": True}
+
+    def draft_worker(_store, *, export_dir, **kwargs):
+        assert export_dir == export and kwargs["main_root"] == main_root
+        drafts.append(export_dir)
+        return {"status": "PAGE_DRAFT_WORKER_STARTED"}
+
+    monkeypatch.setattr(editorial, "run_due", page_tick)
+    monkeypatch.setattr(editorial, "start_page_draft_worker", draft_worker)
     monkeypatch.setattr(audience, "run_collection", lambda *_args, **kwargs: calls.append(kwargs) or {"collected": 0})
-    monkeypatch.setattr(usage, "import_native_invocations", lambda _: {"imported": 0})
-    assert consumer.main(["--publish", "--store", str(tmp_path / "audience.sqlite3")]) == 1
-    assert calls == [{"limit": 4}]
-    assert json.loads(capsys.readouterr().out)["audience_collection"]["collected"] == 0
+    assert consumer.main(["--publish", "--store", str(store.db_path), "--export-dir", str(export),
+                          "--main-root", str(main_root)]) == 1
+    output = json.loads(capsys.readouterr().out)
+    assert output["status"] == "EXPORT_STALE"
+    assert calls == [{"limit": 4}] and output["audience_collection"]["collected"] == 0
+    assert drafts == [export] and output["plan_pages"]["draft_worker"]["status"] == "PAGE_DRAFT_WORKER_STARTED"
 
 
 def test_shared_carousel_keeps_both_call_links_but_counts_one_public_object(tmp_path):

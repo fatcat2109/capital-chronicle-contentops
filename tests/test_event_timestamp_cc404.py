@@ -174,7 +174,9 @@ def test_attach_freeze_consumer_stamps_before_saving_existing_packet(tmp_path, m
 
 
 @pytest.mark.parametrize("dry_run", [False, True])
-def test_existing_minute_entry_maintains_proofs_without_changing_dry_run(tmp_path, monkeypatch, capsys, dry_run):
+def test_existing_minute_entry_maintains_proofs_without_changing_dry_run(
+    tmp_path, monkeypatch, capsys, dry_run, stub_minute_side_effects,
+):
     from scripts import plan_status_posts as cli
     from live_contentops import plan_status_posts_v1 as posts
     from tests.test_capital_chronicle_report_feed_v1 import feed

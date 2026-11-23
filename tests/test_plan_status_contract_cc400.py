@@ -163,7 +163,9 @@ def test_cli_dry_run_enforces_sqlite_read_only_even_with_publish_flag(tmp_path, 
     assert not (store.db_path.parent / posts.RUN_RECORD_FOLDER).exists()
 
 
-def test_cli_unknown_version_prevents_publish_and_reports_fail(tmp_path, main_root, monkeypatch, capsys):
+def test_cli_unknown_version_prevents_publish_and_reports_fail(
+    tmp_path, main_root, monkeypatch, capsys, stub_minute_side_effects,
+):
     cli = cli_module()
     store = ContentOpsDurableStore(tmp_path / "store.sqlite")
     folder = export(tmp_path, version="99.0.0")
