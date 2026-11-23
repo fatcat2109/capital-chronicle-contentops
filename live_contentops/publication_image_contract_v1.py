@@ -362,6 +362,35 @@ def _validate_plan_card(asset, row, folder, destination):
     return binding
 
 
+def _validate_page_card(store, intent, article, asset, folder, now):
+    """A plan page's fact card stands in for its chart only after the page's own capture ended text-only."""
+    from PIL import Image
+    from .tradingview_snapshot_v1 import _sha256, page_card_facts
+
+    held = store.get_outbox_message(str(intent.get("plan_analysis_page") or ""))
+    packet = json.loads(held["payload"]) if held else {}
+    plan = packet.get("source_plan") or {}
+    key = "plan-analysis-" + str(plan.get("plan_id"))
+    binding = asset.get("plan_chart_fallback") or {}
+    state = bounded_text_fallback(article, folder, now=now)
+    if (not state or state.get("key") != key or binding.get("key") != key or binding.get("market") != plan.get("asset_id")
+            or binding.get("ratio") != "16:9" or binding.get("cause") != state.get("cause")):
+        raise ImageContractError("PLAN_PAGE_CHART_FALLBACK_BINDING_INVALID")
+    path = Path(asset["path"]).resolve()
+    try:
+        facts = page_card_facts(plan, packet.get("active_status") or packet.get("final_status"))
+    except (ValueError, KeyError, TypeError):
+        facts = None
+    if (facts is None or (asset.get("data_card_packet") or {}).get("facts") != facts
+            or not path.is_relative_to((Path(folder) / "media_assets").resolve())
+            or not path.is_file() or _sha256(path) != asset["sha256"]):
+        raise ImageContractError("PLAN_PAGE_CHART_FALLBACK_CARD_CHANGED")
+    with Image.open(path) as image:
+        if image.format != "PNG" or image.size != (asset["width"], asset["height"]):
+            raise ImageContractError("PLAN_PAGE_CHART_FALLBACK_IMAGE_INVALID")
+    return binding
+
+
 def validate_write(coordinator, intent, destination):
     """Check actual transport-selected media, once, for every fresh post type."""
     if coordinator._clock() < EFFECTIVE_FROM:
@@ -500,6 +529,10 @@ def validate_write(coordinator, intent, destination):
             binding = asset.get("plan_chart_fallback") or {}
             fallbacks.append(_validate_plan_card(asset, markets.get(binding.get("market")),
                                                   plan_folder, destination))
+        elif (intent.get("plan_analysis_page") and intent.get("output_dir")
+              and asset.get("modality") == "plan_fact_card" and asset.get("plan_chart_fallback")):
+            fallbacks.append(_validate_page_card(coordinator.store, intent, article, asset,
+                                                 Path(intent["output_dir"]), coordinator._clock()))
     if macro and not templates:
         if image_type(lead) == "FRED_GRAPH":
             _fred(lead)
