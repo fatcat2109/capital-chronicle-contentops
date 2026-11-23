@@ -153,14 +153,22 @@ def test_local_neo_payload_failure_does_not_claim_an_external_write(monkeypatch)
     assert result["definite_no_write"] and result["public_write_performed"] is False and not called
 
 
-def test_presence_is_not_validity_instagram_fallback_and_linkedin_expiry(tmp_path):
+# f4367ae1 (CC-684, 21 Nov): the LinkedIn member account left the official member API for the
+# Neo route, so the projection no longer reads OAuth expiry metadata; the member identity is
+# verified in Neo at the action, like every other browser destination.
+def test_presence_is_not_validity_instagram_fallback_and_linkedin_on_neo(tmp_path):
     (tmp_path / "auth_metadata_v1.json").write_text(json.dumps({"access_token_expires_at_utc": "2026-10-12T14:54:01Z"}))
     (tmp_path / "linkedin_member_credentials.dpapi").write_bytes(b"not-decrypted")
     result = destination_setup_projection(env={"META_ACCESS_TOKEN": "test-never-return", "INSTAGRAM_BUSINESS_ACCOUNT_ID": "id"},
         now=datetime(2026, 10, 20, tzinfo=timezone.utc), linkedin_root=tmp_path)
     assert result["instagram_business"]["configuration_present"] is True
     assert result["instagram_business"]["validity"] == "NOT_VERIFIED"
-    assert result["linkedin"]["validity"] == "EXPIRED"
+    for destination in ("linkedin", "linkedin_company"):
+        assert result[destination]["chosen_transport"] == "BROWSEROS_NEO_MCP"
+        assert result[destination]["validity"] == result[destination]["identity_state"] == "NOT_VERIFIED"
+        assert result[destination]["browser_login_needed"] is True
+    assert result["linkedin"]["expected_identity"] == "linkedin:jimcc"
+    assert "auth_expiry_at_utc" not in result["linkedin"]
     assert result["youtube"]["api_oauth_does_not_authorize_community"] is True
     assert "test-never-return" not in json.dumps(result)
     from live_contentops.daily_app_ui_read_model_v1 import _assert_nonsecret
