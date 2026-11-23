@@ -654,6 +654,11 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
             card = _closed_plan_chart(plan, folder, manuscript, final_status, setup_post_dir)
         else:
             card = _card(plan, run, folder, manuscript)
+            if card is None:
+                # Decision 82: a failed capture leaves CC-290's fact card with the plan's own numbers,
+                # never a text-only page (22 Nov BTC page).
+                from .tradingview_snapshot_v1 import page_fact_card
+                card = page_fact_card(plan, folder, status=active_status or final_status)
     if card and manuscript.get("reader_contract") == "CC466_V1":
         card = {**card, "article_inclusion": True, "canonical_article_media": True,
                 "placement_after": manuscript["introduction"], "article_section": "introduction",
@@ -826,6 +831,17 @@ def validate_plan(store, work_item_id, plan):
                     overlay_row.update(level_contract=packet["manuscript"]["level_contract"],
                                        source_plan=packet["source_plan"])
                 validate_overlay(asset, overlay_row)
+            continue
+        if asset.get("modality") == "plan_fact_card" and asset.get("plan_chart_fallback"):
+            # Decision 82 after a failed capture: the card shows this registration's own facts and no
+            # target. The write boundary also binds it to the page's exhausted capture state.
+            from .tradingview_snapshot_v1 import page_card_facts
+            binding = asset["plan_chart_fallback"]
+            if (binding.get("key") != "plan-analysis-" + packet["plan_id"]
+                    or binding.get("market") != packet["source_plan"]["asset_id"]
+                    or (asset.get("data_card_packet") or {}).get("facts") != page_card_facts(
+                        packet["source_plan"], packet.get("active_status") or packet.get("final_status"))):
+                raise ValueError("PLAN_ANALYSIS_FACT_CARD_CHANGED")
             continue
         if packet["source_plan"].get("zone"):
             candidate, _, _ = _owner_candidate(packet["source_plan"], run)
