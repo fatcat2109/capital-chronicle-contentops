@@ -38,7 +38,13 @@ def test_tool_return_records_under_own_lease_but_fresh_publication_stays_serial(
     assert cli.operation(binding, command="publication-tool-submit")["classification"] == "NATIVE_NEO_RETURN_SAVED"
     assert events == [("acquire", "internal:native-editorial:retained-operation"),
                       ("record", "publication-tool-submit"), ("release", "own")]
-    for command in ("publication-tool-begin", "publication-resume", "standing", "advance"):
+    for command in ("publication-tool-begin", "publication-resume"):
         with pytest.raises(RuntimeError, match="another window"):
             cli.operation(binding, command=command)
     assert len(events) == 3
+    # 3b80d6fa (CC-338, 10 Nov): editorial preparation sends nothing publicly, so it runs under its
+    # own operation lease beside another window's publication instead of waiting for it.
+    for command in ("standing", "advance"):
+        cli.operation(binding, command=command)
+        assert events[-3:] == [("acquire", "internal:native-editorial:retained-operation"),
+                               ("record", command), ("release", "own")]

@@ -93,6 +93,8 @@ def test_no_forbidden_imports_or_env_vars():
         "tiktok_secure_refresh_store_readonly_preflight_v1.py",
         "visual_asset_discovery_v1.py",
         "x_list_ingest_capture_v1.py",
+        # 19663007 (CC-639, 17 Nov): read-only GET readback of public posts for the evening digest.
+        "day_readback_v1.py",
     }
     env_access_allowlist |= {
         "_eight_platform_substack_first_pipeline_impl_v1.py",

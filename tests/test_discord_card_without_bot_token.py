@@ -25,8 +25,12 @@ class _Store:
 
 
 def _coordinator():
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    # 1cb0a3bb (CC-672, 19 Nov): the day circuit also skips a transient readiness failure, read
+    # through the coordinator's own static helper.
     return types.SimpleNamespace(store=_Store(),
-                                 _destination_failure_key=lambda destination, instant=None: ("day-key", "2026-11-10"))
+                                 _destination_failure_key=lambda destination, instant=None: ("day-key", "2026-11-10"),
+                                 _transient_readiness_failure=Coordinator._transient_readiness_failure)
 
 
 def test_local_bot_token_refusal_does_not_trip_the_day_circuit():

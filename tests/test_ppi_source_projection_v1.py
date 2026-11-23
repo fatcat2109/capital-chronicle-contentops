@@ -23,7 +23,10 @@ def test_unchanged_current_month_does_not_take_a_later_number(tmp_path, period, 
     original = {"value": prior, "source_sha256": sha256(raw).hexdigest(),
         "source_relative_artifact": "source.gz", "source_url": "https://www.bls.gov/news.release/archives/ppi_08122026.htm",
         "release_datetime_utc": "2026-08-12T12:30:00Z", "availability": "OBSERVED"}
-    history = {"dataset_sha256": "a" * 64, "archive_root": str(tmp_path), "cutoff_utc": "2026-11-05T00:00:00Z",
+    # 104a2770 (CC-145, 21 Nov): history_documents reads the producer to tell the desk export from
+    # the Main first-print archive, which every built history names.
+    history = {"producer": "MAIN_CC010_FIRST_PRINT_ARCHIVE",
+        "dataset_sha256": "a" * 64, "archive_root": str(tmp_path), "cutoff_utc": "2026-11-05T00:00:00Z",
         "window": [period, period], "series": [{"name": "PPI_FINAL_DEMAND_MOM", "official_series_id": "WPSFD4",
             "unit": "percent", "measure": "MONTH_ON_MONTH", "seasonal_adjustment": "SA",
             "observations": [{"period": period, "value": prior, "availability": "OBSERVED", "source_record": original}]}]}
