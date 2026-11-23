@@ -74,7 +74,11 @@ def prepare_media(pack, article, markets, folder):
                 raise
             plain = {key: value for key, value in article.items() if key != "morning_map"}
             plain["morning_map_layout_cause"] = str(exc)
-            return prepare_contract_article(plain, [], output_dir=folder)
+            prepared, assets = prepare_contract_article(plain, [], output_dir=folder)
+        if prepared.get("tradingview_text_fallback") and not assets:
+            # CC-777 (decision 82): a failed capture leads with the wrap's own market-moves card, never text only.
+            from .tradingview_snapshot_v1 import article_card_fallback
+            return article_card_fallback(prepared, [editorial.chart_for(pack, markets, folder)], output_dir=folder)
         if (prepared.get("image_input_v1") or {}).get("template") == "map":
             observations = article["morning_map"]["quote_and_trend_source"]["rows"].values()
             source_names = ", ".join(sorted({row["quote"]["source"] for row in observations}))

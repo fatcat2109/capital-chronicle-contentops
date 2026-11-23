@@ -898,6 +898,16 @@ class DecisionChecks:
                   [post.get("observed_text") for post in thread])
         self.check("83", copy, PREVIEW_LINK_REASON if find_forbidden_link(*values) else None)
 
+    def _run_context_media(self, copy):
+        """The article run's own sent media (read only), for the binding the delivery manifest does not keep."""
+        folder = copy.intent.get("output_dir")
+        if not folder or not Path(folder).resolve().is_relative_to(self.runtime):
+            return []
+        assets = (object_json(Path(folder).resolve() / "run_context_v1.json").get("media") or {}).get("assets") or []
+        ids = copy.native.get("media_asset_ids")
+        return [asset for asset in assets if isinstance(asset, dict) and (
+            asset.get("asset_id") in ids if ids is not None else asset.get("article_inclusion") is not False)]
+
     def _chart(self, copy, market, *, plan_post=False):
         from .posted_chart_readback_v1 import report_copy
 
@@ -943,6 +953,10 @@ class DecisionChecks:
         symbols = sorted({symbol for asset in assets if (symbol := _media_symbol(asset))})
         fact_card_causes = sorted({cause for asset in assets if asset.get("modality") == "plan_fact_card"
                                    and (cause := (asset.get("plan_chart_fallback") or {}).get("cause"))})
+        if not symbols and not fact_card_causes and market:
+            # CC-777: an ordinary article led by its own bound card after its capture failed (decision 82).
+            fact_card_causes = sorted({cause for asset in [*assets, *self._run_context_media(copy)]
+                                       if (cause := (asset.get("article_chart_fallback") or {}).get("cause"))})
         if not symbols and fact_card_causes and copy.observed_image is not False:
             self.check("82", copy, FACT_CARD_FALLBACK, status="FACT_CARD_FALLBACK", market=market,
                        expected_symbol=expected, chart_causes=fact_card_causes)

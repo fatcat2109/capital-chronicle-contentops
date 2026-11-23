@@ -900,7 +900,8 @@ def prepare_contract_article(article, assets, *, output_dir, selected_candidate=
             tradingview_instagram_skip="TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
         choices = {d: [] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
         article.update(native_destination_media=choices, post_visual_destination_media=choices)
-        return article, []
+        # CC-777 (decision 82): the article's own data card leads instead of text only, when it has one.
+        return article_card_fallback(article, assets, output_dir=output_dir)
     first.update(article_inclusion=True, canonical_article_media=True, placement_after="introduction")
     # No locally drawn headline card leads a new market or macro article.
     portrait = None
@@ -926,6 +927,87 @@ def prepare_contract_article(article, assets, *, output_dir, selected_candidate=
         article["visual_editorial_decision"].update(channel_media=choices,
             tradingview_snapshot_asset_ids=[first["asset_id"]] if first.get("tradingview_snapshot") else [])
     return article, assets
+
+
+# CC-777, decision 82 on ordinary articles (Builder H, 23 Nov 2026). An article whose own bounded capture ended
+# text-only goes out led by its own data card: the article's facts, never a title alone and never a target
+# (decisions 40 and 157). The card is bound to that capture state and its cause, so the write boundary can check it.
+ARTICLE_CARD_MODALITIES = ("source_bound_data_card", "source_backed_chart")
+ARTICLE_CARD_TARGET = re.compile(r"(?<!inflation )\btargets?\b|\btake[- ]profit\b", re.I)
+
+
+def article_card_refusal(asset: Mapping[str, Any]) -> str | None:
+    """Why this asset cannot stand in for an article's failed chart; None when it can."""
+    packet = asset.get("data_card_packet") or {}
+    if asset.get("modality") not in ARTICLE_CARD_MODALITIES:
+        return "ARTICLE_CHART_FALLBACK_NOT_A_DATA_CARD"
+    if (asset.get("image_template") or asset.get("post_card_binding") or asset.get("derivative_only")
+            or asset.get("preceding_card")):
+        return "ARTICLE_CHART_FALLBACK_NOT_THE_ARTICLES_OWN_CARD"
+    if asset.get("modality") == "source_bound_data_card":
+        if asset.get("card_kind") == "TITLE_ONLY" or not packet.get("facts"):
+            return "ARTICLE_CHART_FALLBACK_TITLE_ONLY"
+    elif not (asset.get("owned_diagram_data_sha256") or asset.get("source_links") or asset.get("editorial_data_packet")):
+        return "ARTICLE_CHART_FALLBACK_NO_BOUND_DATA"
+    shown = " ".join(str(value or "") for value in (asset.get("alt_text"), asset.get("caption"), packet.get("title"),
+                                                    json.dumps(packet.get("facts") or [], sort_keys=True)))
+    if ARTICLE_CARD_TARGET.search(shown):
+        return "ARTICLE_CHART_FALLBACK_TARGET_REFUSED"
+    path = Path(str(asset.get("path") or ""))
+    if not asset.get("path") or not path.is_file() or _sha256(path) != asset.get("sha256"):
+        return "ARTICLE_CHART_FALLBACK_BYTES_CHANGED"
+    return None
+
+
+def article_card_fallback(article: Mapping[str, Any], assets: list[dict], *, output_dir) -> tuple[dict, list[dict]]:
+    """Lead with the article's own card once its own capture ended text-only; otherwise keep the text fallback."""
+    from copy import deepcopy
+    from PIL import Image
+    from .destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    from .publication_image_contract_v1 import _macro
+
+    article = deepcopy(dict(article))
+    market = article.get("market_asset")
+    if market not in SYMBOLS or _macro(article, {}) or not article.get("tradingview_text_fallback"):
+        return article, []
+    path = Path(str(article.get("tradingview_capture_state_path") or "")).resolve()
+    state = json.loads(path.read_bytes()) if (path.is_relative_to(Path(output_dir).resolve())
+                                               and path.is_file()) else {}
+    if (state.get("key") != article.get("tradingview_capture_key") or state.get("market") != market
+            or state.get("status") != "TEXT_ONLY" or not state.get("cause")):
+        return article, []
+    refusals = {}
+    card = None
+    for asset in assets or []:
+        cause = article_card_refusal(asset)
+        if cause is None:
+            card = asset
+            break
+        refusals[str(asset.get("asset_id"))] = cause
+    if card is None:
+        # Still text only: record why no card could stand in (NO_CARD when the article had none).
+        article["tradingview_card_fallback_refused"] = refusals or {"": "ARTICLE_CHART_FALLBACK_NO_CARD"}
+        return article, []
+    binding = {"key": state["key"], "market": market, "ratio": "16:9", "cause": state["cause"]}
+    card = {**deepcopy(card), "article_chart_fallback": binding, "article_inclusion": True,
+            "canonical_article_media": True, "placement_after": "introduction"}
+    with Image.open(card["path"]) as image:
+        portrait_ok = .8 - .003 <= image.width / image.height <= 1.91
+    choices = {d: [card["asset_id"]] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    article.pop("tradingview_text_fallback", None)
+    article.pop("tradingview_instagram_skip", None)
+    if not portrait_ok:
+        choices["instagram_business"] = []
+        article["tradingview_instagram_skip"] = "ARTICLE_CHART_FALLBACK_CARD_RATIO_IMAGE_REQUIRED"
+    article.update(lead_image_asset_id=card["asset_id"], native_destination_media=choices,
+                   post_visual_destination_media=choices,
+                   tradingview_card_fallback={"asset_id": card["asset_id"], "cause": state["cause"],
+                                              "key": state["key"], "market": market})
+    if article.get("visual_editorial_decision"):
+        article["visual_editorial_decision"].update(channel_media=choices, tradingview_snapshot_asset_ids=[])
+    record_outcome({"status": "ARTICLE_FACT_CARD", "key": state["key"], "market": market,
+                    "cause": state["cause"], "asset_id": card["asset_id"]})
+    return article, [card]
 
 
 def fallback_card(*, title: str, facts: list[tuple[str, str]], dated_line: str, out_dir: Path,
