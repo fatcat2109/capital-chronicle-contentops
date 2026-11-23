@@ -74,7 +74,9 @@ def test_an_export_written_within_ten_minutes_is_read_as_before(tmp_path, export
     assert result["export_age_seconds"] == 600.0 and result["max_export_age_minutes"] == 10
 
 
-def test_the_minute_run_records_a_refusal_and_posts_nothing(tmp_path, export, main_root, monkeypatch):
+def test_the_minute_run_records_a_refusal_and_posts_nothing(
+    tmp_path, export, main_root, monkeypatch, stub_minute_side_effects,
+):
     cli = cli_module()
     store_path = tmp_path / "store.sqlite3"
     ContentOpsDurableStore(store_path)
@@ -90,7 +92,9 @@ def test_the_minute_run_records_a_refusal_and_posts_nothing(tmp_path, export, ma
     assert result["run_record"].endswith(".jsonl")
 
 
-def test_every_run_records_the_export_age_and_a_dry_run_records_nothing(tmp_path, export, main_root, monkeypatch):
+def test_every_run_records_the_export_age_and_a_dry_run_records_nothing(
+    tmp_path, export, main_root, monkeypatch, stub_minute_side_effects,
+):
     cli = cli_module()
     store_path = tmp_path / "store.sqlite3"
     ContentOpsDurableStore(store_path)
@@ -105,7 +109,9 @@ def test_every_run_records_the_export_age_and_a_dry_run_records_nothing(tmp_path
     datetime.fromisoformat(line["at_utc"].replace("Z", "+00:00"))
 
 
-def test_a_refused_unreadable_export_is_recorded_too(tmp_path, main_root, monkeypatch):
+def test_a_refused_unreadable_export_is_recorded_too(
+    tmp_path, main_root, monkeypatch, stub_minute_side_effects,
+):
     cli = cli_module()
     store_path = tmp_path / "store.sqlite3"
     ContentOpsDurableStore(store_path)

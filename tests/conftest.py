@@ -57,7 +57,8 @@ def stub_minute_side_effects(monkeypatch):
     from live_contentops import (
         audience_collection_v1, call_followups_v1, daily_trend_board_v1, event_pack_v1,
         event_timestamp_v1, heavy_news_quotes_v1, model_invocation_usage_v1, neo_endpoint_executor_v1,
-        plan_reader_editorial_v1, public_draft_claims_v1, substack_daily_note_v1,
+        pinned_result_scorecard_v1, plan_analysis_pages_v1, plan_reader_editorial_v1,
+        public_draft_claims_v1, substack_daily_note_v1,
         x_reply_bot_v1, x_reply_tabs_v1,
     )
 
@@ -72,6 +73,7 @@ def stub_minute_side_effects(monkeypatch):
         (heavy_news_quotes_v1, "refresh_due"),
         (model_invocation_usage_v1, "import_native_invocations"),
         (neo_endpoint_executor_v1, "resume_stored_requests"),
+        (pinned_result_scorecard_v1, "refresh_scorecard"),
         (plan_reader_editorial_v1, "run_due"),
         (public_draft_claims_v1, "review_plan_copy"),
         (substack_daily_note_v1, "run_due"),
@@ -82,5 +84,6 @@ def stub_minute_side_effects(monkeypatch):
         monkeypatch.setattr(module, name, idle)
 
     monkeypatch.setattr(audience_collection_v1, "run_collection", lambda *a, **kw: {"collected": 0})
+    monkeypatch.setattr(plan_analysis_pages_v1, "resume_discord_links", lambda *a, **kw: [])
     monkeypatch.setattr(plan_reader_editorial_v1, "start_page_draft_worker",
                         lambda *a, **kw: {"status": "NO_DUE_PAGE_DRAFT"})

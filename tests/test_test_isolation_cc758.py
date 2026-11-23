@@ -1,13 +1,12 @@
 """Prove the pytest boundary fires before any real process or export access."""
 
-import os
-from pathlib import Path
 import subprocess
 import sys
 
 import pytest
 
-from isolated_python.sitecustomize import MAIN_EXPORT, REPORT_ENV, TestIsolationError as IsolationError
+from isolated_python.sitecustomize import REPORT_ENV, TestIsolationError as IsolationError
+from live_contentops.plan_status_posts_v1 import EXPORT_DIR
 
 
 @pytest.mark.parametrize("command", [
@@ -26,15 +25,16 @@ def test_live_export_guard_fails_before_read_but_fixture_with_same_name_is_reada
     fixture.write_text("{}", encoding="utf-8")
     assert fixture.read_text(encoding="utf-8") == "{}"
     with pytest.raises(IsolationError, match="Supply a fixture export"):
-        Path(MAIN_EXPORT + "/plan-status.public.json").read_bytes()
+        (EXPORT_DIR / "plan-status.public.json").read_bytes()
 
 
-def test_python_child_reports_forbidden_io_to_its_pytest_parent(tmp_path):
+def test_python_child_reports_forbidden_io_to_its_pytest_parent(tmp_path, monkeypatch):
     report = tmp_path / "expected-violation.txt"
-    code = "from pathlib import Path; Path(" + repr(MAIN_EXPORT + "/plan-status.public.json") + ").read_bytes()"
+    monkeypatch.setenv(REPORT_ENV, str(report))
+    export_file = str(EXPORT_DIR / "plan-status.public.json")
+    code = f"from pathlib import Path; Path({export_file!r}).read_bytes()"
     result = subprocess.run(
-        [sys.executable, "-c", code], env={**os.environ, REPORT_ENV: str(report)},
-        capture_output=True, text=True, timeout=5,
+        [sys.executable, "-c", code], capture_output=True, text=True, timeout=5,
     )
     assert result.returncode != 0
     assert "TestIsolationError" in result.stderr
