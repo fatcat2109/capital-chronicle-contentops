@@ -1,0 +1,27 @@
+{
+  "live_tag": "live-20261123-cc708-091238",
+  "main_commit": "0ae75e59f828f9a116b3947393bea9c0ca4bd300",
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "files": {
+    "desk_odds_v1.json": {
+      "sha256": "42de028cd9688e9e6a920fb899ead93728e2ddc23dec0adfd80b4bca42bb46f4",
+      "git_blob": "8a4c54fec1ea99e5bc406375ef956b2fd837049c",
+      "main_path": "data/research/desk-odds/desk_odds_v1.json"
+    },
+    "desk_odds_sides_v1.json": {
+      "sha256": "c69f04bbb0b72e9d9092cf45efe8ca1355a77b0f5193ef48b0cc5310642deb95",
+      "git_blob": "6e050795debd4153e1894b84a1701d23d4884eed",
+      "main_path": "data/research/desk-odds/desk_odds_sides_v1.json"
+    },
+    "desk_odds_census_v1.py": {
+      "sha256": "a6e6f0fb46a42d337a0839cf38d622a0f371e4af7315dc6ffcbe1074460e23ba",
+      "git_blob": "7664d5a1304bf8861b46a9d27ebbafbeebad79ae",
+      "main_path": "tools/product/desk_odds_census_v1.py"
+    }
+  },
+  "fx_repair_live": true,
+  "retrieved_at_utc": "2026-11-23T02:32:11.233937+00:00",
+  "source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+  "remote_tag_object": "3fe5d84a7248f891b2394515f03d9675fac51d42",
+  "side_split_matching_table_hash": true
+}

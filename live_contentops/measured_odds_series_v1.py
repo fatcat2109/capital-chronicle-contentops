@@ -165,7 +165,7 @@ def validate_piece(piece, root):
     rows = number_report(piece, root)
     article = piece["article"]
     body = article["substack_body_markdown"]
-    if not body.startswith("We ") or "So what:" not in body:
+    if not body.startswith("We ") or not ("So what:" in body or "\n## So what\n" in body):
         raise ValueError("ODDS_READER_CALL_AND_SO_WHAT_REQUIRED")
     if PUBLIC_NOTICE not in body or CONFLICTS_NOTICE not in body:
         raise ValueError("ODDS_PUBLIC_NOTICES_REQUIRED")

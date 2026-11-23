@@ -157,7 +157,7 @@ def test_private_reference_book_cannot_become_a_numeric_source(piece):
         odds.number_report(piece, SOURCE / "source")
 
 
-@pytest.mark.parametrize("piece_number", [1, 2, 3, 5])
+@pytest.mark.parametrize("piece_number", [1, 2, 3, 5, 6])
 def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch, piece_number):
     store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
     file = SOURCE / "piece-1.json" if piece_number == 1 else SOURCE / f"piece-{piece_number}/piece-{piece_number}.json"

@@ -1,0 +1,182 @@
+[
+  {
+    "field": "substack_body_markdown",
+    "public_span": "November 2016 to November 2026",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "November 2016 to November 2026",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "November 2016 to November 2026",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "November 2016 to November 2026",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "Each comparison used 1888 simulated trades, both sides together.",
+    "number": "1888",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/rows/4/1",
+    "table_value": 1888,
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The widest fixed exit averaged 0.068R per trade, both sides together.",
+    "number": "0.068",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/rows/3",
+    "table_value": [
+      "target 3.0R",
+      1888,
+      0.068,
+      0.45
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The trailing stop averaged 0.117R per trade, both sides together.",
+    "number": "0.117",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/rows/4",
+    "table_value": [
+      "no target, stop trailed on closes",
+      1888,
+      0.117,
+      0.42
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The wider study examined 54 market-and-rule combinations",
+    "number": "54",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "out of 54",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "November 2016 to November 2026",
+    "number": "2016",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "November 2016 to November 2026",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "November 2016 to November 2026",
+    "number": "2026",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "November 2016 to November 2026",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "Each comparison used 1888 simulated trades, both sides together.",
+    "number": "1888",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/rows/4/1",
+    "table_value": 1888,
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The widest fixed exit averaged 0.068R per trade, both sides together.",
+    "number": "0.068",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/rows/3",
+    "table_value": [
+      "target 3.0R",
+      1888,
+      0.068,
+      0.45
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The trailing stop averaged 0.117R per trade, both sides together.",
+    "number": "0.117",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/rows/4",
+    "table_value": [
+      "no target, stop trailed on closes",
+      1888,
+      0.117,
+      0.42
+    ],
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "social_summary",
+    "public_span": "The wider study examined 54 market-and-rule combinations",
+    "number": "54",
+    "file": "desk_odds_v1.json",
+    "pointer": "/what_this_is",
+    "table_value": "out of 54",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The stop distance was 1.5 normal days, and each version could run up to 10 sessions, both sides together.",
+    "number": "1.5",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/note",
+    "table_value": "Stop 1.5 normal days, up to 10 sessions.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The stop distance was 1.5 normal days, and each version could run up to 10 sessions, both sides together.",
+    "number": "10",
+    "file": "desk_odds_v1.json",
+    "pointer": "/construction/exit/note",
+    "table_value": "Stop 1.5 normal days, up to 10 sessions.",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "average daily range over 14 sessions",
+    "number": "14",
+    "file": "desk_odds_v1.json",
+    "pointer": "/how_measured",
+    "table_value": "D1 ATR14",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  },
+  {
+    "field": "substack_body_markdown",
+    "public_span": "The test charged 0.05 of a normal day for each round trip.",
+    "number": "0.05",
+    "file": "desk_odds_v1.json",
+    "pointer": "/how_measured",
+    "table_value": "cost 0.05 of a normal day",
+    "side": null,
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41"
+  }
+]
