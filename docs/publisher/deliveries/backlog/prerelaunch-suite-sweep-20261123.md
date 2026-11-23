@@ -91,7 +91,9 @@ surface, invocation, link, image and exact-review checks are all still asserted.
 - After merging the live head 74235574 (Builder I), the 52 changed or covering test files and Builder I's
   5 files ran: 1,261 passed, 3 failed (the follow-ups above). After commit a95935b4 those 3 files give
   24 passed and 0 failed.
-- A full-suite run on the branch head follows (next section).
+- **Full suite on the branch head ab4cda69** (the live head 74235574 merged in), in one process,
+  23 Nov 17:18-19:09Z: **13,541 passed, 0 failed, 0 errors, 78 skipped** (1 h 51 min).
+  The live head had not moved when this run ended.
 
 ## Left over (owner)
 
