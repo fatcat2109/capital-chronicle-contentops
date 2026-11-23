@@ -131,6 +131,9 @@ def compose(row):
             lines = [lead, *layers, *lines]
         else:
             lines = [*layers, *lines]
+        if row.get("method_page_reference"):
+            from .measured_odds_series_v1 import method_link_line
+            lines.append(method_link_line(row["method_page_reference"]))
         if row.get("analysis_link"):
             lines.append("Full analysis: " + row["analysis_link"])
     text = "\n".join(lines) + "\n\n" + cards.NOTICES
@@ -313,6 +316,10 @@ def validate(row, *, store=None):
         publication = confirmed_publication(store, raw) or {}
         if publication.get("canonical_url") != row["analysis_link"]:
             raise posts.PlanPostError("CC688_CANONICAL_PLAN_LINK_CHANGED")
+    if row.get("method_page_reference") and store is not None:
+        from .measured_odds_series_v1 import confirmed_method_page
+        if row["kind"] != "setup" or confirmed_method_page(store) != row["method_page_reference"]:
+            raise posts.PlanPostError("PLAN_ANALYSIS_METHOD_REFERENCE_CHANGED")
     if (row.get("analysis_copy_contract") == NINE_LAYER_COPY
             and row.get("analysis_layer_gaps") != plan_layer_candidates(raw)[1]):
         raise posts.PlanPostError("CC730_LAYER_GAPS_CHANGED")

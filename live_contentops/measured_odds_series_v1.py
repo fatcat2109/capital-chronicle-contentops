@@ -359,14 +359,18 @@ def confirmed_method_page(store):
             "table_hash":packet["piece"]["table_hash"]}
 
 
-def add_method_link(payload, reference):
-    if not reference:
-        return payload
+def method_link_line(reference):
     url = reference["canonical_url"]
     if not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", url):
         raise ValueError("ODDS_CONFIRMED_METHOD_URL_REQUIRED")
+    return "How we measure historical odds: " + url
+
+
+def add_method_link(payload, reference):
+    if not reference:
+        return payload
     result = deepcopy(payload)
-    line = "How we measure historical odds: " + url
+    line = method_link_line(reference)
     if result.get("posts"):
         posts = result["posts"]
         posts.append({"text":line,"media_asset_ids":[],"order":len(posts),"role":"reply"})

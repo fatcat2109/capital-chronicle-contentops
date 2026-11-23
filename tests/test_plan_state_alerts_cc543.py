@@ -75,6 +75,9 @@ def test_gold_replay_queues_a_complete_alert_without_page_or_variants(replay, ma
 def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, main_root, monkeypatch, tmp_path, source,
                                                                     fits_template):
     store, folder, raw, now = replay
+    from test_measured_odds_series_cc536 import confirm_method
+
+    method = confirm_method(store, tmp_path)
     def failed(*a, **k):
         raise AssertionError("Every model and browser step is unavailable")
     monkeypatch.setattr(editorial, "prepare_social_row", failed)
@@ -131,6 +134,7 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     assert set(transport.publish_calls) == {"telegram", "discord"}
     assert (now - posts._utc(raw["registered_at_utc"])).total_seconds() < 600
     for intent in transport.intents:
+        assert intent["native_payload"]["full_text"].count(method["canonical_url"]) == 1
         context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
         chart = context["media"]["assets"][0]
         assert chart["modality"] == "tradingview_chart_snapshot"
@@ -144,6 +148,7 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
         coordinator_for=lambda *a: coordinator, immediate_only=True)
     assert len(transport.intents) == 2
     original = rows(store)[0]
+    assert original["method_page_reference"] == method
     frozen_payload = store.get_outbox_message(original["key"])["payload"]
     assert original["x_analysis_thread"] is True
     assert "x" in cards._ready_destinations(store, original)
@@ -197,6 +202,7 @@ def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, ma
     registered = coordinator.register_plan(original["key"], x_plan)["registered"][0]
     x_intent = json.loads(store.get_outbox_message(registered["message_id"])["payload"])
     posts.validate_status_post_intent(store, x_intent)
+    assert x_intent["native_payload"]["full_text"].count(method["canonical_url"]) == 1
     x = x_intent["native_payload"]
     assert "Scenarios: Alternative: A haven and short-covering squeeze" in x["full_text"]
     assert "Main (50%)" not in x["full_text"] and "Alternative (35%)" not in x["full_text"]
