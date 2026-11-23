@@ -61,6 +61,25 @@ RESULT_FRAME_EFFECTIVE = datetime(2026, 11, 23, 4, 0, tzinfo=timezone.utc)
 # in this window is shown by the pinned scorecard, never as a late post of its own when posting resumes.
 JIM_PAUSE_START = datetime(2026, 11, 23, 4, 50, tzinfo=timezone.utc)
 JIM_PAUSE_END = datetime(2026, 11, 25, 16, 0, tzinfo=timezone.utc)
+# Jim, 23 Nov 09:22Z: all live work stops until next week's relaunch. The pause ends when the restore writes its
+# record; until then every result after the start stays off. JIM_PAUSE_END is the fallback for an unreadable record.
+JIM_PAUSE_RECORD = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\pause-20261123\restored.json")
+
+
+def jim_pause_window(*, live=None):
+    """(start, end) of Jim's posting pause; a test never reads the live control record."""
+    import sys
+    if live is None:
+        live = "_pytest" not in sys.modules
+    if not live:
+        return JIM_PAUSE_START, JIM_PAUSE_END
+    try:
+        restored = json.loads(JIM_PAUSE_RECORD.read_text(encoding="utf-8-sig"))
+        return JIM_PAUSE_START, posts._utc(restored["started_at_utc"])
+    except FileNotFoundError:
+        return JIM_PAUSE_START, datetime.max.replace(tzinfo=timezone.utc)
+    except (OSError, ValueError, KeyError, TypeError):
+        return JIM_PAUSE_START, JIM_PAUSE_END
 
 
 def plan_dates(start_utc, end_utc):
@@ -719,6 +738,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     confirmed_fills = {json.loads(r["payload"]).get("plan_id"): r["message_id"] for r in existing_rows
                       if json.loads(r["payload"]).get("state") in {"TRIGGERED", "FILLED"}
                       and r["status"] in {"PUBLISHING", "PUBLISHED"}}
+    pause_start, pause_end = jim_pause_window()
     for row in sorted(source_rows + outcomes, key=lambda r: posts._utc(r["at_utc"])):
         pid = row["plan_id"]
         if queue_clock is not None and pid in sources and row["to"] == "WAITING":
@@ -733,7 +753,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 _refresh_unissued_no_entry_result(store, prior[row["key"]], row, source_for)
             already.append(row["key"])
             continue
-        if row["to"] == "RESULT" and JIM_PAUSE_START <= posts._utc(row["at_utc"]) < JIM_PAUSE_END:
+        if row["to"] == "RESULT" and pause_start <= posts._utc(row["at_utc"]) < pause_end:
             skipped.append({"key": row["key"], "cause": "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD"})
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":

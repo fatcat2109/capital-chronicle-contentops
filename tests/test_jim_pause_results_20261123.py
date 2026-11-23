@@ -59,3 +59,17 @@ def test_a_result_outside_the_pause_is_still_posted(gold_export, tmp_path, main_
                                             ("2026-11-25T15:59:59Z", True), ("2026-11-25T16:00:00Z", False)])
 def test_the_window_is_jims_exact_times(at, inside):
     assert (cards.JIM_PAUSE_START <= posts._utc(at) < cards.JIM_PAUSE_END) is inside
+
+
+def test_the_live_window_runs_until_the_restore_record(tmp_path, monkeypatch):
+    """Jim, 23 Nov 09:22Z: the pause lasts until the relaunch, whenever the restore runs."""
+    import json as _json
+    record = tmp_path / "restored.json"
+    monkeypatch.setattr(cards, "JIM_PAUSE_RECORD", record)
+    start, end = cards.jim_pause_window(live=True)
+    assert start == cards.JIM_PAUSE_START and end.year == 9999  # no record yet: still paused
+    record.write_text(_json.dumps({"started_at_utc": "2026-11-30T03:00:00+00:00"}), encoding="utf-8")
+    assert cards.jim_pause_window(live=True)[1] == datetime(2026, 11, 30, 3, 0, tzinfo=timezone.utc)
+    record.write_text("{not json", encoding="utf-8")
+    assert cards.jim_pause_window(live=True)[1] == cards.JIM_PAUSE_END  # unreadable: the fixed fallback
+    assert cards.jim_pause_window() == (cards.JIM_PAUSE_START, cards.JIM_PAUSE_END)  # tests never read the live file
