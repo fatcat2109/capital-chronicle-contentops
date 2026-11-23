@@ -30,7 +30,14 @@ def result_headline(row):
     """Read the scored ending on the original call's basis; no target price (decision 157)."""
     from . import plan_call_cards_v1 as cards
 
-    lead = f"{row['instrument_title']}: {cards.ending_words(row, include_levels=True)}."
+    ending = cards.ending_words(row, include_levels=True)
+    frame = row.get("result_frame")
+    if frame and frame["correction"]:
+        lead = f"Correction to the {frame['plan_dates']} {row['instrument_title']} result: {ending}."
+    elif frame:
+        lead = f"{row['instrument_title']}, plan of {frame['plan_dates']}: {ending}."
+    else:
+        lead = f"{row['instrument_title']}: {ending}."
     value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {})
     return lead if value is None else f"{lead} Result: {value:+.1f}R."
 

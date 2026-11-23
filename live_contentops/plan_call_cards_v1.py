@@ -52,6 +52,27 @@ GLOSSARY = {
 # Rows queued from this time carry the policy; earlier rows keep their exact bytes for validate().
 NO_TARGET_POLICY = "DECISION_40_NO_TARGET"
 NO_TARGET_EFFECTIVE = datetime(2026, 11, 22, 22, 30, tzinfo=timezone.utc)
+# Ops Product, 23 Nov 2026: t.me/CapitalChronicle/230, a 17 Nov plan's corrected result posted on 23 Nov with no
+# date, read as the 20 Nov plan. A result row queued from this time names its plan's dates and any correction.
+RESULT_FRAME_POLICY = "RESULT_FRAME_V1"
+RESULT_FRAME_EFFECTIVE = datetime(2026, 11, 23, 4, 0, tzinfo=timezone.utc)
+
+
+def plan_dates(start_utc, end_utc):
+    """'17 Nov', '17–18 Nov' or '30 Nov–1 Dec', in the public (ET) calendar."""
+    start = posts._utc(start_utc).astimezone(posts.PUBLIC_TZ)
+    end = max(start, posts._utc(end_utc).astimezone(posts.PUBLIC_TZ))
+    if start.date() == end.date():
+        return f"{start.day} {start:%b}"
+    if (start.year, start.month) == (end.year, end.month):
+        return f"{start.day}–{end.day} {end:%b}"
+    return f"{start.day} {start:%b}–{end.day} {end:%b}"
+
+
+def result_frame(item):
+    registered = item.get("registered_at_utc") or (item.get("source_plan") or {}).get("registered_at_utc")
+    return {"policy": RESULT_FRAME_POLICY, "plan_dates": plan_dates(registered or item["at_utc"], item["at_utc"]),
+            "correction": bool(item.get("corrects_outcome_id"))}
 
 
 def _hash(value):
@@ -747,6 +768,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 outcome_source = source_for(pid)
                 item.update(outcome_source_plan=outcome_source, outcome_source_sha256=_hash(outcome_source),
                             result_copy_version=2)
+                if now >= RESULT_FRAME_EFFECTIVE:
+                    item["result_frame"] = result_frame(item)
         item.update(compose(item))
         payloads.append(item)
 

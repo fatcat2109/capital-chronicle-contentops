@@ -1,0 +1,9 @@
+{
+  "key": "correction-reply-usdjpy-230-20261123",
+  "original": "plan-result-post-a8e253acc319a25824a6ef48ffa8355d",
+  "destinations": ["telegram", "discord"],
+  "symbol": "USDJPY",
+  "title": "USD/JPY: a note on the post above",
+  "body": "USD/JPY: a note on the post above. It is the final result of our earlier plan, registered on 17 Nov, whose time exit was 18 Nov at 13:30 ET, and it was posted late. As we said on 17 Nov, price reached that plan's entry zone, but a fault on our side meant no position was opened. It is not about the plan registered on 20 Nov: that plan's entry filled on 20 Nov, and its result will follow in its own post.",
+  "authority": "Ops Product, 23 Nov 2026: readers took post 230 (t.me/CapitalChronicle/230, the 17 Nov plan's result corrected by CC-648) for the 20 Nov plan (the Ops Advisor's finding); decision 136, a correction is a new post. Sources: plan_30f3365059e996b2f0d1d79a registered 2026-11-17T06:28:43Z, time exit 2026-11-18T18:30:00Z; plan_4bcfb1182f0fff4f8254172c registered 2026-11-20T08:14:00Z, FILLED 2026-11-20T09:45:05Z (ResearchRuns/plan-status-v1/plan-status.public.json, generated 2026-11-23T03:59:54Z); the 17 Nov correction is CC-646."
+}
