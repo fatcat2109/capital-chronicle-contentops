@@ -62,6 +62,13 @@ def compose(row):
             if row.get("level_contract") in PHASE_LEVEL_CONTRACTS and row.get("state") == "WAITING":
                 condition = terms["call"]["condition"].replace("price trades", "price to trade")
                 lead = title + ": armed, waiting for " + condition + "."
+                if scenario_voice:
+                    # Audit of 23 Nov 2026: "armed, waiting for price breaks through 60,250" read as desk jargon
+                    # with a broken verb. Stored rows keep their bytes; scenario-voice rows read plainly.
+                    condition = re.sub(r"\bprice (trades|breaks|closes|reaches|moves)\b",
+                                       lambda match: "price to " + match[1][:-2 if match[1].endswith("ches") else -1],
+                                       terms["call"]["condition"])
+                    lead = title + ": waiting for " + condition + "."
             calls = [terms["call"]]
             lines = [lead, terms["call_line"]]
             if row.get("state") in {"FILLED", "TRIGGERED"}:
@@ -227,12 +234,52 @@ def _pack_analysis_lines(lines, limit, width):
     return parts
 
 
-def nine_layer_parts(layers, body, notices, *, destination, limit, reply_limit):
-    """Keep the ordered layer copy available beyond the first visible object."""
+def scenario_case_count(row, layers):
+    """The leading Base/Bull/Bear case headings of a scenario-voice setup or update (none otherwise)."""
+    if row.get("scenario_voice") != voice.CONTRACT or row["kind"] == "result":
+        return 0
+    count = 0
+    for line in layers:
+        if not _CASE_HEADING.match(line):
+            break
+        count += 1
+    return count
+
+
+_CASE_HEADING = re.compile(r"(?:Scenarios: )?(?:Base|Bull|Bear|Alternative) case(?: \([\d.]+%\))?[:.]")
+
+
+def nine_layer_parts(layers, body, notices, *, destination, limit, reply_limit, cases=0, whole_lines=False):
+    """Keep the ordered layer copy available beyond the first visible object.
+
+    `cases` (scenario voice): on the two short routes the plan's call, zone and clocks follow the case headings,
+    rather than closing a thread of up to ten posts (audit of 23 Nov 2026).
+    """
     from .neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS
 
     width = posts._x_length if destination == "x" else len
     detail = body.splitlines()[len(layers):]
+    if cases and destination in {"x", "threads"}:
+        link = detail.pop() if destination == "x" and detail[-1:] and detail[-1].startswith("Full analysis: ") else ""
+        head, tail = layers[:cases], layers[cases:]
+        if destination == "x":
+            footer = (link + "\n\n" if link else "") + notices
+            if width(footer) > reply_limit:
+                raise posts.PlanPostError("PLAN_ANALYSIS_LINK_AND_NOTICES_TOO_LONG:x")
+            opening = []
+            for layer in head:
+                if width("\n".join([*opening, layer])) > limit:
+                    break
+                opening.append(layer)
+            rest = [*head[len(opening):], *detail, *tail]
+            if not opening:
+                opening.append(rest.pop(0))
+            return ["\n".join(opening), footer, *_pack_analysis_lines(rest, reply_limit, width)]
+        footer = "\n\n" + notices
+        if width(body + footer) <= limit:
+            return [body + footer]
+        first, *rest = _pack_analysis_lines([*head, *detail, *tail], limit - width(footer), width)
+        return [first + footer, *_pack_analysis_lines(rest, reply_limit, width)]
     if destination == "x":
         link = detail.pop() if detail[-1:] and detail[-1].startswith("Full analysis: ") else ""
         footer = (link + "\n\n" if link else "") + notices
@@ -263,6 +310,15 @@ def nine_layer_parts(layers, body, notices, *, destination, limit, reply_limit):
     if destination in LINKEDIN_DESTINATIONS and layers:
         # Both LinkedIn routes deliver the titled analysis with a chart and a
         # confirmed page. Their established post transport has no own reply path.
+        if whole_lines:
+            # Scenario voice (audit of 23 Nov 2026): no sentence is cut. The case headings and as many whole
+            # layers as fit stay in order; the rest are on the linked page.
+            kept = []
+            for line in layers:
+                if len("\n".join([*kept, line, tail])) > limit:
+                    break
+                kept.append(line)
+            return ["\n".join([*kept, tail])]
         room = (limit - len(tail) - len(layers)) // len(layers)
         compact = []
         for line in layers:
