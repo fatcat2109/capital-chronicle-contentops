@@ -613,6 +613,18 @@ def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, r
             prompt=manuscript_prompt(source)+"\nCorrect this exact defect in one complete revision: "+cause+"\nPrior return:\n"+json.dumps(record["output"])
 
 
+def variant_alternative_label(plan):
+    """Decision 158: the alternative is the Bull case or the Bear case, from the plan's own scenarios.
+
+    An alternative with no side of its own is the other side of the base case (scenario_voice_v1).
+    Variants stored with "Main"/"Alternative" keep their bytes; plan_reader_copy_v1 accepts both.
+    """
+    for key, label, _ in voice.case_records(plan):
+        if key != "base_case" and label in {"Bull case", "Bear case"}:
+            return label
+    return "Bull case or Bear case (the side it argues)"
+
+
 def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=False):
     source=packet.get("reader_source")
     if not source:
@@ -625,6 +637,7 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
             thread=source.get("thread_contract") == reader.THREAD_CONTRACT,
             level_contract=source.get("level_contract"))
     call_fields=reader.attach_call(row) if row.get("kind")!="result" else {"reader_call_line":"","conditional_calls":[]}
+    alt_label=variant_alternative_label(packet["source_plan"])
     prompt=GUIDANCE+(
         "Write platform fields and alt text for this source-bound plan. Hook names today's market force, not its technical levels. "
         "Choose up to five complete force lines, ordered macro/policy, priced_in, positioning/flows, fundamental, geopolitical; "
@@ -634,14 +647,15 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
            if source.get("level_contract") in reader.PHASE_LEVEL_CONTRACTS else
            "The first three labelled points PLUS the exact supplied call_line and chart credit must total <=280 X-weighted characters. ") +
         "The hook is <=96 characters. Each scenario is <=90; hook plus scenarios <=280. "
-        "Main must start Main (odds%):. Alternative must start Alternative (odds%):. "
+        "scenario_main must start Base case (odds%): and say what drives it. "
+        "scenario_alt must start " + alt_label + " (odds%): and say what drives it. "
         "If alternative odds are absent use null. Do not restate the generated call line or notices. "
         "Do not use bullish or bearish in fields; the exact bound call line carries the direction and its conditions. "
         "Never refer to the supplied review or the analyst's comparison. A priced percentage names its source in the same sentence "
         "and in that field's pricing_source.name; that source name must occur in its cited source lines. Never use prediction-market numbers. "
         "Alt text describes the supplied TradingView price chart and its plan levels, no invented shape or image observation. "
         'Schema: {"hook":{"text":"...","source_ids":["s0"]},"points":[{"layer":"macro","text":"...","source_ids":["s0"]}],'
-        '"scenario_main":{"text":"Main (50%): ... .","source_ids":["s1"]},"scenario_alt":null,'
+        '"scenario_main":{"text":"Base case (50%): ... .","source_ids":["s1"]},"scenario_alt":null,'
         '"alt_text":{"text":"... .","source_ids":["s0"]}}.\n'
     )+json.dumps({"sources":[{k:s[k] for k in ("id","layer","text")} for s in source["sources"]
                     if s["layer"] != "invalidation"],
