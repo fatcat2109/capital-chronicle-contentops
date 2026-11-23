@@ -2200,8 +2200,11 @@ def _reader_safe_native_article(
     retrospective_notice = re.search(
         r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \((?:ET|GMT\+7)\)", raw_body)
     if retrospective_notice:
+        # The writing-date line has no full stop of its own. Since edac397c (CC-395) an article
+        # without the current analysis notice no longer gets a sentence after it, and the X and
+        # Threads sentence-boundary check refused the bare line, failing the whole package.
         result["editorial_scope_notice"] = " ".join(filter(None, (
-            result["editorial_scope_notice"].strip(), retrospective_notice.group(0))))
+            result["editorial_scope_notice"].strip(), retrospective_notice.group(0) + ".")))
     if analysis_notice in raw_body and analysis_notice not in result["editorial_scope_notice"]:
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"].strip(), analysis_notice)))
