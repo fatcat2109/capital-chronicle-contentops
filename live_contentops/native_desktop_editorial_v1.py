@@ -2550,7 +2550,10 @@ def validate_final_visual_return(turn, request, response):
     # Renderer source and the assigned reviewer are provenance of this issued
     # request. Recheck the exact pixels, media, source and channel bytes above.
     current["renderer_sha256"] = binding["renderer_sha256"]
-    current["reviewer_assignment"] = binding["reviewer_assignment"]
+    # CC-774: six stored decision-53 bindings (4, 10 and 17 Nov) carry no reviewer assignment.
+    # Since e010a55a they stopped this check with a KeyError; they get the named refusal below again.
+    if "reviewer_assignment" in binding:
+        current["reviewer_assignment"] = binding["reviewer_assignment"]
     if current != binding:
         raise ValueError("FINAL_VISUAL_REVIEW_REVISION_CHANGED")
     if output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED", "EXTERNAL_BLOCK"}:

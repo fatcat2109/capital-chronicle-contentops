@@ -20,7 +20,7 @@ import requests
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, expected_posts
 from live_contentops.native_neo_executor_v1 import (
     READBACK_ENDPOINT_UNAVAILABLE, READBACK_NO_ROUTE, READBACK_RETRY_AFTER, READBACK_TRIES_PER_DAY,
-    unrunnable_readback_cause,
+    observed_incomplete_readback, readback_binding, unrunnable_readback_cause,
 )
 from live_contentops.neo_destination_handoff_v1 import LINKEDIN_DESTINATIONS, LINKEDIN_MEMBER_COMPOSER, ROOTS
 
@@ -1296,7 +1296,7 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         revised = super().fresh_readback_request(revised) or revised
         from .capital_chronicle_latest_report_consumer_v1 import sha256_of
         revised['request_sha256'] = sha256_of({k:v for k,v in revised.items() if k != 'request_sha256'})
-        return revised
+        return self._repeated_incomplete_readback(revised) or revised
 
     def fresh_publish_request(self, request):
         """An exact recovery can supersede its proven pre-click refusal once.
@@ -1389,6 +1389,55 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         """What decides whether this executor can run a read: its route and its reader code."""
         return {"route": "AUTOMATIC" if self._readback_route(request) else "NONE",
                 "reader_revision": self.executor_revision}
+
+    def _repeated_incomplete_readback(self, request):
+        """CC-774: hand back today's incomplete observation of this exact read instead of reading again.
+
+        Returns the issued request whose saved return the read reuses, or None when the post may
+        be read: no observed read today, the latest one was decisive, or the one later try is due.
+        A changed post, copy or dispatch clock (the binding), reader code (the transport revision)
+        or endpoint (the observing tool) is a different read and is never reused here. A try that
+        could not run (CC-683's end: no route, endpoint down, a profile that did not load) counts
+        toward the two tries, and the observation is handed back instead of that end, which carries
+        no observation and would move a CONTENT_INCOMPLETE reconciliation back to pending.
+        """
+        from live_contentops.native_neo_executor_v1 import DESTINATION, SCHEMA
+        if (not self.standalone_automatic or request.get("action") != "READBACK"
+                or not request.get("work_item_id") or not self._readback_route(request)):
+            return None
+        binding = readback_binding(request)
+        now = self.clock().astimezone(timezone.utc)
+        reads = []
+        for row in self.store.list_outbox_messages(destination=DESTINATION, work_item_id=request["work_item_id"]):
+            packet = json.loads(row["payload"])
+            prior = packet.get("request") or {}
+            if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
+                    or prior.get("action") != "READBACK"
+                    or prior.get("readback_transport_revision") != self.executor_revision
+                    or not prior.get("request_sha256") or readback_binding(prior) != binding):
+                continue
+            result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
+            observation = result.get("native_tool_observation") or {}
+            if (unrunnable_readback_cause(result) is not None
+                    or observation.get("tool_name") != ENDPOINT_TOOL or observation.get("surface") != ENDPOINT_SURFACE):
+                continue  # Not observed, or observed through another tool: CC-683 or a new read decides.
+            try:
+                observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            except (KeyError, ValueError, TypeError, AttributeError):
+                continue
+            if observed_at.astimezone(timezone.utc).date() == now.date() and observed_at <= now:
+                reads.append((observed_at, prior, result))
+        if not reads:
+            return None
+        reads.sort(key=lambda read: read[0])
+        observed_at, prior, result = reads[-1]
+        if not observed_incomplete_readback(prior, result) or prior["request_sha256"] == request.get("request_sha256"):
+            return None
+        ends = self._readback_ends(request, self._readback_context(request))
+        last = max([observed_at, *(datetime.fromisoformat(end["ended_at_utc"]) for end in ends)])
+        if len(reads) + len(ends) < READBACK_TRIES_PER_DAY and now - last >= READBACK_RETRY_AFTER:
+            return None
+        return dict(prior)
 
     def _ended_readback(self, request):
         """CC-683: reuse today's end of this exact read instead of writing another request.

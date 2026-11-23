@@ -145,6 +145,26 @@ def test_current_visual_reviewer_keeps_exact_binding_and_unresolved_issue_guard(
         native.validate_final_visual_return(turn, request, response)
 
 
+def test_issued_binding_without_reviewer_assignment_gets_the_named_refusal(monkeypatch):
+    # CC-774: six stored decision-53 bindings carry no reviewer assignment. Since e010a55a
+    # (CC-659) the check stopped on KeyError; it refuses them by name, as it did before.
+    import json
+    from live_contentops import native_desktop_editorial_v1 as native
+    issued = {"assets": [], "renders": [{"render_id": "canonical", "sha256": "a" * 64}],
+              "renderer_sha256": {"renderer": "b" * 64}}
+    monkeypatch.setattr(native, "native_artifact_key", lambda *args: "exact-article")
+    monkeypatch.setattr(native, "final_visual_binding", lambda *args, **kwargs: {
+        **issued, "reviewer_assignment": native.role_assignment("final-visual", "codex")})
+    turn = SimpleNamespace(run_id="CONTROLLED-run", store=SimpleNamespace(
+        get_outbox_message=lambda key: {"payload": json.dumps({"article_identity": "CONTROLLED-article"})}),
+        _get=lambda *args: {"invocation_observation": {"invocation_id": "CONTROLLED-original-writer"}})
+    response = {"invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "CONTROLLED-current-reviewer", "model": "gpt-6.1-sol", "reasoning_effort": "max"},
+        "output": {"decision": "ACCEPT", "asset_findings": [], "render_findings": []}}
+    with pytest.raises(ValueError, match="FINAL_VISUAL_REVIEW_REVISION_CHANGED"):
+        native.validate_final_visual_return(turn, {"governed_input": {"binding": issued}}, response)
+
+
 def test_cpi_social_compiler_uses_writer_copy_instead_of_unconfirmed_news_template():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
     article = bind_tables({"title": "What CPI history says", "dek": "A dated reference with gaps.",

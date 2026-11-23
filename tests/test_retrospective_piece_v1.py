@@ -467,7 +467,11 @@ def test_real_retrospective_notice_and_bound_fed_attribution_survive_all_preview
         assert "Retrospective analysis, written on 1 November 2026 (GMT+7)" in " ".join(
             text.split()
         )
-        assert "Analysis, not financial advice." in text
+        # edac397c (CC-395, 10 Nov): every package carries the current notice; this stored
+        # 1 Nov article body still holds the old "Analysis, not financial advice." line.
+        assert "Capital Chronicle offers analysis only, not financial advice or recommendations." in " ".join(
+            text.split()
+        )
         if payload.get("posts"):
             assert all(
                 len(p["text"]) <= payload["platform_limit"] for p in payload["posts"]

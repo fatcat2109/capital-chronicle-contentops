@@ -154,6 +154,25 @@ def unrunnable_readback_cause(result: Any) -> str | None:
     return str(result.get("reason_code") or result.get("safe_error_classification") or status)[:160]
 
 
+# CC-774: after CC-683 the store still held 37 post-destination-days with more than two
+# read-backs. Most were reads that ran, found the post and returned the same incomplete
+# result every run: one X thread (plan-result-post-e0f557aab6350bf4877ef518d5784123) was read
+# 98 times on 21 Nov, each time "SUCCESS / NEO_THREAD_READBACK_INCOMPLETE" on the same object.
+# Such an observation is kept and handed back as it is (the reconciliation keeps it), and
+# the post is read again only when the read, the reader code or the endpoint changes, or once
+# no sooner than READBACK_RETRY_AFTER later; READBACK_TRIES_PER_DAY reads a day at most.
+def observed_incomplete_readback(request: Mapping[str, Any], result: Any) -> bool:
+    """A read that ran and found the public object, but could not verify its whole content."""
+    if not isinstance(result, Mapping) or unrunnable_readback_cause(result) is not None:
+        return False
+    return (result.get("content_verified") is False and result.get("verified") is not True
+            and bool(result.get("public_object_id") or result.get("public_object_url"))
+            and bool(result.get("native_tool_return_sha256"))
+            and not _readback_absence_evidence(request, result)
+            # A deferred image comparison asks for the full read at once (5 Nov EIA).
+            and not _incomplete_readback_evidence(request, result))
+
+
 class NativeNeoExecutor:
     """Callable executor and readiness provider bound to one active Desktop operation."""
 
