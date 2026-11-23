@@ -1219,11 +1219,16 @@ def _x_pack(text: str, limit: int, *, preserve_lines: bool = False) -> list[str]
     return chunks
 
 
+def _correction_module(row: Mapping[str, Any]):
+    """CC-646's 17 Nov row keeps its own module; a CORRECTION_REPLY_V1 row is a spec-built correction (Ops Product, 23 Nov)."""
+    from . import correction_reply_v1, plan_result_correction_cc646
+    return correction_reply_v1 if row.get("correction_reply_contract") == correction_reply_v1.CONTRACT else plan_result_correction_cc646
+
+
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
     """Exact destination copy, with the mandatory credit for a retained chart."""
     if row.get("correction_reply_contract"):
-        from .plan_result_correction_cc646 import destination_payloads as correction_payloads
-        return correction_payloads(row, card_id=card_id)
+        return _correction_module(row).destination_payloads(row, card_id=card_id)
     if row.get("cc603_contract"):
         from .call_followups_v1 import destination_payloads as followup_payloads
         return followup_payloads(row, card_id=card_id, chart_credit=chart_credit)
@@ -1466,8 +1471,7 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         chart_credit = bool(prior_context.get("chart_credit"))
     elif row.get("correction_reply_contract"):
         # Reuse the issued pre-event chart, retaining its source clock and credit.
-        from .plan_result_correction_cc646 import validate
-        validate(store, row)
+        _correction_module(row).validate(store, row)
         card, chart_credit = row["retained_chart"], True
         folder.mkdir(parents=True, exist_ok=True)
     elif row.get("cc603_contract"):
@@ -1609,8 +1613,7 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         return
     layer_reply = row.get("format") == 4 and part >= ANALYSIS_FIRST_PART
     if row.get("correction_reply_contract"):
-        from .plan_result_correction_cc646 import validate
-        validate(store, row)
+        _correction_module(row).validate(store, row)
     # Decision 82 / CC-459: exact readback remains available for old objects,
     # while a fresh write can never send the parked drawn levels picture.
     context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
