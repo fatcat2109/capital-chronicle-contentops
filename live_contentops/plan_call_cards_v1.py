@@ -57,6 +57,10 @@ NO_TARGET_EFFECTIVE = datetime(2026, 11, 22, 22, 30, tzinfo=timezone.utc)
 # date, read as the 20 Nov plan. A result row queued from this time names its plan's dates and any correction.
 RESULT_FRAME_POLICY = "RESULT_FRAME_V1"
 RESULT_FRAME_EFFECTIVE = datetime(2026, 11, 23, 4, 0, tzinfo=timezone.utc)
+# Jim, 23 Nov 2026 04:50Z (decision 66): ContentOps posts nothing until Wed 25 Nov 23:00 GMT+7. A plan that resolves
+# in this window is shown by the pinned scorecard, never as a late post of its own when posting resumes.
+JIM_PAUSE_START = datetime(2026, 11, 23, 4, 50, tzinfo=timezone.utc)
+JIM_PAUSE_END = datetime(2026, 11, 25, 16, 0, tzinfo=timezone.utc)
 
 
 def plan_dates(start_utc, end_utc):
@@ -728,6 +732,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             if row["to"] == "RESULT" and not dry_run:
                 _refresh_unissued_no_entry_result(store, prior[row["key"]], row, source_for)
             already.append(row["key"])
+            continue
+        if row["to"] == "RESULT" and JIM_PAUSE_START <= posts._utc(row["at_utc"]) < JIM_PAUSE_END:
+            skipped.append({"key": row["key"], "cause": "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD"})
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":
             skipped.append({"key": row["key"], "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT"})
