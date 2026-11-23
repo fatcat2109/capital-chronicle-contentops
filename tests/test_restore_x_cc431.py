@@ -13,17 +13,24 @@ from test_plan_status_publication_cc306 import queued, no_real_snapshot, fake_ho
 from test_publication_coordinator_v1 import _coordinator, _quality_plan
 
 
-def test_missing_x_identity_holds_every_derivative(tmp_path):
+# 52d7906f (CC-124, 21 Nov, "keep X identity checks local to the article copy") moved decision 112's
+# X identity proof from the whole-article preflight to the X dispatch itself: a missing or pending
+# X identity now holds X alone, and the other outlets send. These two tests follow that change;
+# before it they asserted that X held every derivative (HOLD_FULL_V1_DISTRIBUTION_NOT_READY).
+def test_missing_x_identity_holds_only_x(tmp_path):
     _, transport, coordinator = _coordinator(tmp_path, readiness={"x": "SESSION_UNAVAILABLE"})
     result = coordinator.execute_plan("work-1", _quality_plan())
-    assert result["distribution_status"] == HOLD_FULL_V1_DISTRIBUTION_NOT_READY
-    assert result["quality_preflight"]["readiness_blockers"] == ["x"]
-    assert transport.publish_calls == []
+    assert result["distribution_status"] != HOLD_FULL_V1_DISTRIBUTION_NOT_READY
+    assert result["quality_preflight"]["readiness_blockers"] == []
+    assert result["per_destination"]["x"]["status"] == "SESSION_UNAVAILABLE"
+    assert result["per_destination"]["x"]["publish_called"] is False
+    assert "x" not in transport.publish_calls
+    assert transport.publish_calls[0] == "substack" and "telegram" in transport.publish_calls
 
 
-def test_pending_x_identity_reaches_the_coordinator_caller(tmp_path):
+def test_pending_x_identity_returns_its_request_on_the_x_result(tmp_path):
     from types import SimpleNamespace
-    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired, PENDING
 
     _, transport, coordinator = _coordinator(tmp_path)
     request = {"action": "VERIFY_IDENTITY", "destination": "x"}
@@ -32,10 +39,10 @@ def test_pending_x_identity_reaches_the_coordinator_caller(tmp_path):
 
     transport._neo_transport = SimpleNamespace(native_executor=SimpleNamespace(
         native_neo_protocol=True, readiness=pending))
-    with pytest.raises(NativeNeoInputRequired) as caught:
-        coordinator.execute_plan("work-1", _quality_plan())
-    assert caught.value.request == request
-    assert transport.publish_calls == []
+    result = coordinator.execute_plan("work-1", _quality_plan())
+    assert result["per_destination"]["x"]["status"] == PENDING
+    assert result["per_destination"]["x"]["native_tool_request"] == request
+    assert "x" not in transport.publish_calls
 
 
 @pytest.mark.parametrize("ended,ambiguous", [(False, False), (True, False), (False, True)])
