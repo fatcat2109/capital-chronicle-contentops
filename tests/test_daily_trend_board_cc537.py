@@ -314,3 +314,21 @@ def test_minute_entry_consumes_board_even_when_plan_export_is_stale(ready, tmp_p
     assert output["daily_trend_board"]["state"] == "BOARD_PREPARED"
     assert calls[0]["automatic_neo"] is True
     assert len(store.list_outbox_messages(destination=board.DESTINATION)) == 1
+
+
+def test_boards_from_23_nov_round_each_market_and_earlier_boards_keep_their_copy():
+    """Ops Product, 23 Nov 2026: the 20 Nov board printed "158.60999999999999"."""
+    value = source("2026-11-23")
+    value["markets"]["USDJPY"]["yardstick"]["mean_close_20"] = 158.60999999999999
+    value["markets"]["US500"]["yardstick"]["mean_close_50"] = 7508.503500000001
+    value["markets"]["EURUSD"]["yardstick"]["mean_close_20"] = 1.1112735
+    value["markets"]["XAUUSD"]["rows_whose_condition_holds_now"][0]["this_side"][2] = -0.0049
+    current = board.project(seal(value), now=at("2026-11-23"))
+    assert current["markets"]["USDJPY"]["means"]["mean_close_20"] == "158.61"
+    assert current["markets"]["US500"]["means"]["mean_close_50"] == "7508.5"
+    assert current["markets"]["EURUSD"]["means"]["mean_close_20"] == "1.11127"
+    assert current["markets"]["XAUUSD"]["rows"][0]["mean_r"] == "0"
+    older = source("2026-11-20")
+    older["markets"]["USDJPY"]["yardstick"]["mean_close_20"] = 158.60999999999999
+    kept = board.project(seal(older), now=at("2026-11-20"))
+    assert kept["markets"]["USDJPY"]["means"]["mean_close_20"] == "158.60999999999999"

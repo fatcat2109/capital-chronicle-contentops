@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import date, datetime, time, timedelta, timezone
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -69,10 +69,21 @@ def identity(day):
     return "daily-trend-board-" + date.fromisoformat(day).isoformat()
 
 
-def number(value, *, signed=False):
+# Ops Product, 23 Nov 2026: the 20 Nov board printed "158.60999999999999". Boards captured from 23 Nov (ET) print
+# each market's mean closes at its price precision and mean R to two places; earlier boards keep their copy.
+PRICE_PLACES = {"XAUUSD": 2, "US500": 2, "EURUSD": 5, "USDJPY": 3, "USOIL": 2, "BTCUSD": 2}
+R_PLACES = 2
+ROUNDED_FROM_ET = date(2026, 11, 23)
+
+
+def number(value, *, signed=False, places=None):
     result = Decimal(str(value))
     if not result.is_finite():
         raise BoardSourceError("BOARD_NUMBER_NOT_FINITE")
+    if places is not None:
+        result = result.quantize(Decimal(1).scaleb(-places), rounding=ROUND_HALF_UP)
+        if result == 0:
+            result = Decimal(0)  # never "-0"
     text = format(result, "f")
     if "." in text:
         text = text.rstrip("0").rstrip(".")
@@ -87,6 +98,7 @@ def project(board, *, now):
     if sha256_of(content) != board.get("content_hash"):
         raise BoardSourceError("BOARD_CONTENT_HASH_CHANGED")
     now, captured = utc(now), utc(board["as_of_utc"])
+    rounded = captured.astimezone(ET).date() >= ROUNDED_FROM_ET
     if captured > now:
         raise BoardSourceError("BOARD_FROM_FUTURE")
     age = trading_age(captured.astimezone(ET).date(), now.astimezone(ET).date())
@@ -119,7 +131,7 @@ def project(board, *, now):
             if yard.get(field) is None:
                 missing.append(prefix + "/yardstick/" + field)
             else:
-                means[field] = number(yard[field])
+                means[field] = number(yard[field], places=PRICE_PLACES[symbol] if rounded else None)
         measured = []
         for index, result in enumerate(row.get("rows_whose_condition_holds_now") or []):
             field = prefix + "/rows_whose_condition_holds_now/" + str(index)
@@ -149,7 +161,7 @@ def project(board, *, now):
             if behaviour not in BEHAVIOURS or result.get("side") not in {"LONG", "SHORT"}:
                 raise BoardSourceError("BOARD_MEASURED_ROW_UNRECOGNISED", field=field)
             measured.append({"behaviour": behaviour, "side": result["side"], "n": count,
-                             "mean_r": number(mean, signed=True), "sample_period": deepcopy(period)})
+                             "mean_r": number(mean, signed=True, places=R_PLACES if rounded else None), "sample_period": deepcopy(period)})
         # MIXED can legitimately have no qualifying historical row.
         markets[symbol] = {"state": state, "means": means, "rows": measured}
     if len(set(sessions.values())) > 1:
