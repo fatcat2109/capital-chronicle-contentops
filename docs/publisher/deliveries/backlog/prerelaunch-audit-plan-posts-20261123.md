@@ -90,7 +90,7 @@ esult-btc_closed_after.json`); its old fill row is superseded, not re-sent.
 
 ## Tests
 
-Command: `python -B -m pytest -q -p no:cacheprovider --basetemp=C:\CapitalChronicleScratchuilder-b-tmp <files>`,
+Command: `python -B -m pytest -q -p no:cacheprovider --basetemp=C:\CapitalChronicleScratch\builder-b-tmp <files>`,
 one process at a time, on the branch worktree. Outputs: `tests-branch-core.txt`, `tests-branch-second.txt`,
 `tests-branch-third.txt` in the evidence folder.
 
@@ -110,7 +110,7 @@ one process at a time, on the branch worktree. Outputs: `tests-branch-core.txt`,
 - Third (after the promised result: the audit file, test_jim_pause_results_20261123, test_plan_call_cards_cc399,
   test_minute_consumer_cc515, test_result_frame_20261123): 147 passed.
 - Failing ids on the branch now: none, so no live-head comparison was needed (a live-head worktree was prepared
-  at `C:\CapitalChronicleScratchuilder-b-livehead`, detached at the base).
+  at `C:\CapitalChronicleScratch\builder-b-livehead`, detached at the base).
 - Stored rows: all 25 format-4 plan-post rows of 18-23 Nov recompose byte-identical and validate on the final
   branch (`recompose-fixedindings.json`: no RECOMPOSE_DIFFERS, VALIDATE_FAILED or payload failure).
 
