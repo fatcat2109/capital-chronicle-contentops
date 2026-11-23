@@ -16,6 +16,13 @@ from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
 NOW = datetime.now(timezone.utc)
 
 
+@pytest.fixture(autouse=True)
+def _current_now(monkeypatch):
+    # The coordinator checks a draft's age against the real clock (90 minutes). A NOW taken once at
+    # collection made these tests fail whenever they ran over 80 minutes into a full-suite run.
+    monkeypatch.setitem(globals(), "NOW", datetime.now(timezone.utc))
+
+
 class Server:
     def __init__(self):
         self.account = {"id": "999", "username": "Capitalnicle"}

@@ -166,9 +166,11 @@ def test_coordinator_publishes_once_then_readbacks_and_all_registered_derivative
     coordinator.allow_prior_confirmed_distribution = True
     outcome = coordinator.publish_plan(derived["identity"], derived["plan"])
     assert all(v["status"] == "DISPATCH_CONFIRMED" for v in outcome["per_destination"].values()), outcome
-    assert len(runtime.publish_calls) == 9
+    # f4367ae1 (CC-684, 21 Nov): the coordinator adds the company page copy of the LinkedIn post;
+    # this sweep made the event pack validate that copy (it raised KeyError before).
+    assert len(runtime.publish_calls) == 10 and "linkedin_company" in runtime.publish_calls
     coordinator.publish_plan(derived["identity"], derived["plan"])
-    assert len(runtime.publish_calls) == 9
+    assert len(runtime.publish_calls) == 10
 
 
 def test_minute_entry_resumes_same_stage_and_fresh_native_feed_uses_it(tmp_path):

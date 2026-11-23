@@ -71,8 +71,17 @@ def test_shared_object_counts_once_in_desk_rows_and_keeps_et_publication_hour():
     assert len(result["rows"][0]["posts"]) == 1
 
 
-def test_export_writes_installed_desk_contract_with_platform_lines(tmp_path):
+def test_export_writes_installed_desk_contract_with_platform_lines(tmp_path, monkeypatch):
+    from scripts import export_contentops_weekly_engagement as script
     from scripts.export_contentops_weekly_engagement import export_weekly_engagement
+
+    # The desk projection keeps the last week before the export's own clock; without a fixed clock
+    # this fixture (posts of 10 Nov) aged out of that week on 17 Nov. No code changed.
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return NOW.astimezone(tz) if tz is not None else NOW.replace(tzinfo=None)
+    monkeypatch.setattr(script, "datetime", Clock)
     store = seed(tmp_path)
     result = export_weekly_engagement(store.db_path, "2026-11-12", tmp_path / "weekly")
     desk = json.loads((tmp_path / "audience-weekly/latest.json").read_bytes())

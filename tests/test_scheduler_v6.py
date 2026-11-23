@@ -56,7 +56,11 @@ def test_cron_expression_next_execution():
     assert next_exec_past == datetime.datetime(2026, 7, 5, 9, 45, tzinfo=datetime.timezone.utc)
 
 
-def test_outbox_scheduler_registry_and_reconciliation():
+def test_outbox_scheduler_registry_and_reconciliation(monkeypatch):
+    # fcd5aeb0 (CC-297, 5 Nov): tests read secrets from the process environment only, so this
+    # dry run can no longer borrow the operator's Instagram binding; it gets a controlled one.
+    monkeypatch.setenv("INSTAGRAM_BUSINESS_ACCOUNT_ID", "controlled-dry-run-account")
+    monkeypatch.setenv("INSTAGRAM_ACCESS_TOKEN", "controlled-dry-run-token")
     with tempfile.TemporaryDirectory() as tmpdir:
         reg_file = os.path.join(tmpdir, "scheduled_outbox.json")
         sched = OutboxScheduler(reg_file)

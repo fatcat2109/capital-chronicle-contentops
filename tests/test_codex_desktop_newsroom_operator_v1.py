@@ -893,8 +893,12 @@ def test_pending_native_call_uses_exact_role_and_same_max_continuation(tmp_path)
             "model": "gpt-6.1-sol", "reasoning_effort": "max"})
     assert continued["tool"] == "collaboration.followup_task"
     assert continued["arguments"]["target"] == "/root/actual_max"
+    # 49dd59f4 (CC-403, 10 Nov; decision 60): a request's model label no longer refuses the call;
+    # the dispatch always asks for the assigned role. A request from another run is still refused.
+    relabelled = native_role_call({**request, "requested_model": "gpt-6.1-sol"}, binding, binding_path="binding.json")
+    assert relabelled["arguments"]["model"] == "gpt-6-luna" and relabelled["arguments"]["reasoning_effort"] == "max"
     with pytest.raises(ValueError, match="EXACT_NATIVE_ROLE_REQUEST_REQUIRED"):
-        native_role_call({**request, "requested_model": "gpt-6.1-sol"}, binding, binding_path="binding.json")
+        native_role_call({**request, "run_id": "another-run"}, binding, binding_path="binding.json")
 
 
 def test_compact_filter_packet_preserves_complete_headline_and_exact_input_binding(tmp_path):
@@ -919,10 +923,13 @@ def test_rollout_preserves_exact_four_generated_child_completion_prompts():
     rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
     intended = {t["id"]: t for t in four_task_setup_packet()["tasks"]}
     assert {t["id"] for t in rollout["tasks"]} == set(intended)
+    # 41e3d138 and 73053979 (CC-326, decision 90, 6 Nov): issued scheduler prompts stay frozen while
+    # newly generated prompts write public times in ET; every other schedule field must match.
     for task in rollout["tasks"]:
         expected = intended[task["id"]]
-        assert {key: task[key] for key in ("prompt", "rrule", "status", "model", "reasoning_effort")} == {
-            key: expected[key] for key in ("prompt", "rrule", "status", "model", "reasoning_effort")}
+        assert {key: task[key] for key in ("rrule", "status", "model", "reasoning_effort")} == {
+            key: expected[key] for key in ("rrule", "status", "model", "reasoning_effort")}
+        assert task["prompt"].startswith("STARTUP FIRST:") and "written ET (Jim decision 90)" in expected["prompt"]
 
 
 def test_supported_host_observation_persists_only_exact_safe_four_task_readback(tmp_path):

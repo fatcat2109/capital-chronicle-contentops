@@ -507,17 +507,23 @@ def test_publisher_runtime_consumes_official_uploaded_chart_and_exact_readback(t
         return _Response(200, {"id": "urn:li:share:123", "author": "urn:li:person:member-123",
                               "lifecycleState": "PUBLISHED"})
 
+    # f4367ae1 (CC-684, 21 Nov): the Publisher no longer routes LinkedIn through the official member
+    # API; a LinkedIn intent without the Neo plan is refused before any write. The transport itself
+    # still uploads the chart and reads back the exact share.
     def no_browser(**_):
-        pytest.fail("The official API result must reach the Publisher without a browser action")
+        pytest.fail("A refused LinkedIn intent must not reach a browser action")
 
+    official = LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider)
     runtime = CanonicalDestinationTransportRuntimeV1(
-        linkedin_transport=LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider),
-        neo_transport=SimpleNamespace(publish=no_browser, readback=no_browser))
+        linkedin_transport=official, neo_transport=SimpleNamespace(publish=no_browser, readback=no_browser))
     intent = {"payload": "Reviewed copy", "media_assets": [{"path": str(image)}]}
-    result = runtime.publish(destination="linkedin", intent=intent,
+    refused = runtime.publish(destination="linkedin", intent=intent,
         authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert refused["reason_code"] == "CC684_LINKEDIN_MEMBER_API_RETIRED"
+    assert refused["definite_no_write"] is True and refused["public_write_performed"] is False and seen == []
+    result = official.publish(intent=intent, authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
     assert result["image_delivery"] == "IMAGE_ATTACHED"
-    observed = runtime.readback(destination="linkedin", intent=intent,
+    observed = official.readback(intent=intent,
         public_object_id=result["public_object_id"], public_object_url=result["public_object_url"])
     assert observed["verified"] is True
     assert [method for method, _ in seen] == ["POST", "PUT", "POST", "GET"]
@@ -603,17 +609,19 @@ def test_registry_readiness_and_runtime_never_fall_back_to_cdp(tmp_path):
         def readback(self, **_kwargs):
             return {"status": "READBACK_CAPABILITY_LIMITED", "verified": False}
     official = FakeTransport()
+    # f4367ae1 (CC-684, 21 Nov): the LinkedIn member surface is registered on Neo. Its readiness is
+    # the Neo account observation (never the official token, never a CDP probe), and a LinkedIn
+    # intent without the Neo plan is refused before any write instead of using the official API.
     row = DestinationReadinessManager(env={}, linkedin_transport=official).probe_surface("LINKEDIN_POST")
-    assert row["readiness_state"] == "READY_NON_BROWSER_BINDING"
-    assert row["sanitized_detail"]["official_api_state"] == "READY_OFFICIAL_MEMBER_API"
-    assert row["transport_type"] == "OFFICIAL_MEMBER_API"
-    assert row["probe_kind"] == "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
-    assert row["sanitized_detail"]["cdp_navigation_performed"] is False
+    assert row["transport_type"] == "BROWSEROS_NEO_MCP"
+    assert row["probe_kind"] == "NATIVE_NEO_EXACT_ACCOUNT_OBSERVATION"
+    assert row["readiness_state"] == "SESSION_UNAVAILABLE" and row["write_eligible"] is False
+    assert "official_api_state" not in row["sanitized_detail"]
     assert registration_for_destination("linkedin").publishing_port is None
 
     runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=official)
     result = runtime.publish(destination="linkedin", intent={}, authorization_context={})
-    assert result["id"] == "urn:li:share:1"
+    assert result["reason_code"] == "CC684_LINKEDIN_MEMBER_API_RETIRED" and result["definite_no_write"] is True
     assert "edge" not in registration_for_destination("linkedin").adapter.casefold()
 
 

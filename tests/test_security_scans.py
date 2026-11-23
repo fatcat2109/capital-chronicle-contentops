@@ -41,6 +41,11 @@ def test_no_forbidden_imports_or_env_vars():
         "live_production_pipeline_runner_v6.py",
         "fast_one_cycle_automation_v0.py",
         "grounded_search_engine_v6.py",
+        # db18c941 (CC-436, 11 Nov): the Neo endpoint executor calls the local Neo MCP endpoint,
+        # resolves public short-link redirects and reads public image bytes with requests.
+        "neo_endpoint_executor_v1.py",
+        # cc585388 (CC-681, 22 Nov): posted chart readback reads the public Telegram feed and images.
+        "posted_chart_readback_v1.py",
     }
     urllib_network_allowlist = live_gate_allowlist | {
             "current_oil_release_source_v1.py",
@@ -93,6 +98,18 @@ def test_no_forbidden_imports_or_env_vars():
         "tiktok_secure_refresh_store_readonly_preflight_v1.py",
         "visual_asset_discovery_v1.py",
         "x_list_ingest_capture_v1.py",
+        # 19663007 (CC-639, 17 Nov): read-only GET readback of public posts for the evening digest.
+        "day_readback_v1.py",
+        # Publisher modules added 5-12 Nov whose urllib use the scan never reached (it stopped at the
+        # first unlisted module): the X-list feed export (932628a5, CC-258), the pinned Telegram
+        # scorecard (adb04cc9, CC-394), source-bound replies (161a12c9, CC-386), the reply bot
+        # (c092f0b6, CC-464), official X API mentions (e26ac365, CC-456) and public quotes (662b39fe, CC-509).
+        "x_list_feed_v1.py",
+        "pinned_result_scorecard_v1.py",
+        "sourced_replies_v1.py",
+        "x_reply_bot_v1.py",
+        "x_mention_responder_v1.py",
+        "public_market_quote_v1.py",
     }
     env_access_allowlist |= {
         "_eight_platform_substack_first_pipeline_impl_v1.py",

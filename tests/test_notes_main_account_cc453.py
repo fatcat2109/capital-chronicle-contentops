@@ -203,6 +203,8 @@ fn({phase:'identity',destination:'substack_notes',expected_identity:expected},
     ("@deancapitalchronicle", "@deancapitalchronicle", 1),
     ("@deancapitalchronicle", "@capitalchronicle", 0),
 ])
+# 457ba14c (16 Nov): Notes readback also reads note dialogs outside <main>, so it selects every
+# visible '.FeedProseMirror'; the fake page answers that selector.
 def test_real_note_dom_readback_uses_the_bound_author(author, expected, count):
     source = Path(__file__).parents[1] / "live_contentops" / "neo_endpoint_steps_v1.js"
     code = """
@@ -213,7 +215,7 @@ const link={innerText:'time',href:url,getAttribute:()=>null,getClientRects:()=>[
 const owner={parentElement:null,querySelectorAll:s=>s==='a[href]'?[link]:[]};
 const note={innerText:'Bound original copy',getClientRects:()=>[1],closest:()=>owner};
 global.location={href:url};
-global.document={querySelectorAll:s=>s==='main .FeedProseMirror'?[note]:[]};
+global.document={querySelectorAll:s=>s==='.FeedProseMirror'?[note]:[]};
 fn({phase:'readback',expected_identity:process.argv[3]},
    {evaluateInPage:async(f,arg)=>({value:f(arg)})}).then(value=>console.log(JSON.stringify(value)));
 """
@@ -226,6 +228,9 @@ fn({phase:'readback',expected_identity:process.argv[3]},
 
 
 @pytest.mark.parametrize("changed", [False, True])
+# a68a252c (16 Nov): the pre-click check also reads links inside each editor, which a real
+# element answers with querySelectorAll; the fake editor holds none. f1b16fdd (16 Nov): the step
+# clicks Post only once that button is enabled, so the fake page has one enabled Post button.
 def test_long_note_publish_checks_every_word_before_the_click(changed):
     source = Path(__file__).parents[1] / "live_contentops" / "neo_endpoint_steps_v1.js"
     code = """
@@ -233,12 +238,14 @@ const fs=require('fs');
 const fn=new (Object.getPrototypeOf(async function(){}).constructor)('input','page',fs.readFileSync(process.argv[1],'utf8'));
 const expected='Condition 1.1234. '+('The original full analysis remains bound. '.repeat(180));
 const actual=process.argv[2]==='changed'?expected.replace('1.1234','9.8765'):expected+'\\n\\n';
-const editor={innerText:actual,getClientRects:()=>[1]};
+const editor={innerText:actual,getClientRects:()=>[1],querySelectorAll:()=>[]};
 const dialog={querySelectorAll:()=>[editor]};
-global.document={querySelector:()=>dialog,querySelectorAll:()=>[editor]};
+const post={innerText:'Post',getClientRects:()=>[1],setAttribute:()=>{}};
+global.document={querySelector:()=>dialog,querySelectorAll:s=>s==='button'?[post]:[editor]};
 let clicks=0;
 fn({phase:'publish',destination:'substack_notes',posts:[expected]}, {
  snapshot:async()=>({refs:[{role:'button',name:'Post',ref:'post'}]}),
+ waitForSelector:async()=>({matched:true}),
  evaluateInPage:async(f,arg)=>{const value=f(arg);return Array.isArray(value)?
    {writtenToFile:true,path:'documented-long-editor-output'}:{value};},
  click:async()=>{clicks++;}

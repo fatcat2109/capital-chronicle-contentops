@@ -76,7 +76,8 @@ TIER1_DESTINATIONS = (
     ("telegram", "Telegram", "NON_BROWSER_BINDING"),
     ("discord", "Discord", "NON_BROWSER_BINDING"),
     ("x", "X", "BROWSER_AUTHENTICATED"),
-    ("linkedin", "LinkedIn", "OFFICIAL_MEMBER_API"),
+    # CC-684 (f4367ae1, 21 Nov): the LinkedIn member account posts through its Neo route.
+    ("linkedin", "LinkedIn", "BROWSER_AUTHENTICATED"),
     ("facebook_page", "Facebook Page", "NON_BROWSER_BINDING"),
     ("instagram_business", "Instagram Business", "NON_BROWSER_BINDING"),
     ("threads", "Threads", "NON_BROWSER_BINDING"),
@@ -894,14 +895,10 @@ def build_daily_app_snapshot(
     for row in readiness_rows:
         state = str(row["readiness_state"])
         row_detail = _json(row.get("sanitized_detail_json"), {})
-        if str(row["surface"]) == "LINKEDIN_POST" and (
-            str(row.get("transport_type") or "") != "OFFICIAL_MEMBER_API"
-            or str(row.get("probe_kind") or "") != "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
-        ):
-            # Historical browser readiness is never authority after the official API cutover.
-            state = "AUTH_UNAVAILABLE"
-        elif str(row["surface"]) == "LINKEDIN_POST":
-            state = str(row_detail.get("official_api_state") or "AUTH_UNAVAILABLE")
+        if str(row["surface"]) == "LINKEDIN_POST" and str(row.get("transport_type") or "") != "BROWSEROS_NEO_MCP":
+            # CC-684: only a Neo account observation is LinkedIn readiness; older Edge or
+            # official-API rows are history, never authority.
+            state = "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"
         if state in READY_STATES:
             continue
         incidents.append({
@@ -915,9 +912,9 @@ def build_daily_app_snapshot(
                 else "The Daily App continues bounded read-only health checks and safe recovery."
             ),
             "operator_action": (
-                "Run the bounded LinkedIn official-member OAuth helper and authorize Jim Pham."
+                "Verify the LinkedIn Neo session is Jim's member account; if it is missing, the account owner signs in."
                 if str(row["surface"]) == "LINKEDIN_POST"
-                and state in {"REAUTH_REQUIRED", "TOKEN_EXPIRING", "AUTH_UNAVAILABLE"}
+                and state in {"REAUTH_REQUIRED", "SESSION_UNAVAILABLE", "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"}
                 else readiness_operator_action.get(state, "Inspect the exact destination readiness state.")
             ),
             "work_item_id": None,
@@ -985,22 +982,9 @@ def build_daily_app_snapshot(
             # Historical Edge observations do not establish Neo account/executor readiness.
             readiness = {}
             readiness_state = "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"
-        if platform_id == "linkedin" and readiness and (
-            str(readiness.get("transport_type") or "") != "OFFICIAL_MEMBER_API"
-            or str(readiness.get("probe_kind") or "") != "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
-        ):
-            readiness_state = "AUTH_UNAVAILABLE"
-            readiness = {
-                **readiness,
-                "destination_identity": None,
-                "identity_match": False,
-                "probe_kind": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
-                "transport_type": "OFFICIAL_MEMBER_API",
-                "sanitized_detail_json": "{}",
-            }
+        # CC-684 (f4367ae1): LinkedIn follows the Neo rule above like every browser destination;
+        # its former official-API override hid a verified Neo account as AUTH_UNAVAILABLE.
         sanitized_detail = _json(readiness.get("sanitized_detail_json"), {})
-        if platform_id == "linkedin" and readiness:
-            readiness_state = str(sanitized_detail.get("official_api_state") or "AUTH_UNAVAILABLE")
         platform_observations = [
             row for row in observation_models if str(row.get("platform") or "") in aliases
         ]

@@ -186,7 +186,9 @@ def controlled_writer(calls):
         notice = g["epistemic_state"]["report_scope_notice"]
         article = {
             "title": "Capital Chronicle report: weekly gas injection",
-            "dek": label + ". The weekly injection leaves a seasonal balance question.",
+            # ab47600f (14 Nov): the publisher name no longer counts as a shared news-peg word, so
+            # the dek names the report's own EIA storage subject (both fixture reports' headlines).
+            "dek": label + ". The EIA weekly injection leaves a seasonal storage balance question.",
             "search_title": "Capital Chronicle report: gas stocks and the next release",
             "meta_description": "Capital Chronicle analysis: the weekly refill alone cannot establish a market surprise.",
             "social_hook": "Capital Chronicle report: the next weekly release tests the tightening watch.",

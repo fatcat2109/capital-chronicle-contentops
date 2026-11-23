@@ -799,7 +799,14 @@ def test_internal_report_outbox_cannot_be_dispatched_by_existing_coordinator(
     )
     result = coordinator.recover_pending()
     assert result["publish_calls"] == result["backlog_remaining"] == 0
-    assert result["legacy_noncanonical_rows_skipped"] == 2
+    # d0fa300f (CC-425, 17 Nov): recovery reads only rows of public destinations through the
+    # destination index, so the internal report rows never reach it (they were read and then
+    # skipped as legacy rows before).
+    internal = {r["message_id"] for r in tracker.store.list_outbox_messages()
+                if str(r["destination"]).startswith("internal:")}
+    assert internal
+    assert not internal & {r["message_id"] for r in coordinator._recovery_messages()}
+    assert result.get("legacy_noncanonical_rows_skipped", 0) == 0
 
 
 def test_schema_verifier_never_resolves_remote_references():

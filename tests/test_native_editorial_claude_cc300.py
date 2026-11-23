@@ -65,8 +65,6 @@ def test_a_claude_operation_runs_its_stages_under_claude_labels(tmp_path):
 
 @pytest.mark.parametrize("change,error", [
     ({"surface": "CODEX_NATIVE_SUBAGENT"}, "NATIVE_DESKTOP_SURFACE_REQUIRED"),  # never recorded as Codex
-    ({"model": "gpt-6.1-sol"}, "NATIVE_DESKTOP_MODEL_MISMATCH"),
-    ({"configured_reasoning_effort": "low"}, "EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED"),
     ({"invocation_id": None}, "NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED"),
     ({"observation_source": ""}, "NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED"),
 ])
@@ -76,6 +74,18 @@ def test_a_claude_return_without_true_labels_or_invocation_evidence_is_refused(t
     with pytest.raises(ValueError, match=error):
         turn.submit("select", {"request_sha256": request["request_sha256"], "output": {"selected": "x"},
                                "invocation_observation": claude(**change)})
+
+
+# 49dd59f4 (CC-403, 10 Nov; Jim's decision 60): a different model or configured effort is recorded
+# verbatim (C5), not refused. The surface and invocation evidence above are still required.
+@pytest.mark.parametrize("change", [{"model": "gpt-6.1-sol"}, {"configured_reasoning_effort": "low"}])
+def test_a_claude_return_with_other_labels_is_recorded_as_observed(tmp_path, change):
+    turn = turn_for(tmp_path, "claude")
+    _, request = pending(turn)
+    turn.submit("select", {"request_sha256": request["request_sha256"], "output": {"selected": "x"},
+                           "invocation_observation": claude(**change)})
+    observation = turn._get("select", "response")["invocation_observation"]
+    assert all(observation[key] == value for key, value in change.items())
 
 
 def test_a_codex_operation_is_unchanged_and_refuses_a_claude_return(tmp_path):
@@ -106,10 +116,13 @@ def test_the_next_role_call_has_the_same_claude_session_run_the_stage(tmp_path):
     call = native_role_call(revise, binding, binding_path="binding.json",
                             same_writer_invocation=SESSION, same_writer_configuration=claude())
     assert call["arguments"]["same_writer_invocation_id"] == SESSION
-    for wrong in ({"surface": "CODEX_NATIVE_SUBAGENT"}, {"configured_model": "gpt-6.1-sol"}):
-        with pytest.raises(ValueError):
-            native_role_call(revise, binding, binding_path="binding.json",
-                             same_writer_invocation=SESSION, same_writer_configuration=claude(**wrong))
+    with pytest.raises(ValueError):
+        native_role_call(revise, binding, binding_path="binding.json", same_writer_invocation=SESSION,
+                         same_writer_configuration=claude(surface="CODEX_NATIVE_SUBAGENT"))
+    # 49dd59f4 (CC-403, decision 60): another configured model is carried as observed, not refused.
+    call = native_role_call(revise, binding, binding_path="binding.json", same_writer_invocation=SESSION,
+                            same_writer_configuration=claude(configured_model="gpt-6.1-sol"))
+    assert call["continuation_observation"]["configured_model"] == "gpt-6.1-sol"
 
 
 def test_a_claude_call_cannot_be_relabelled_codex_or_widened(tmp_path):

@@ -97,18 +97,26 @@ def test_increased_batch_default_drains_existing_issued_small_groups_first(tmp_p
     assert receipt["seen"] == 121 and receipt["remaining_unprocessed"] == 0
 
 
-def test_role_model_effort_fail_closed(tmp_path):
-    turn = _turn(tmp_path)
-    with pytest.raises(DesktopInputRequired) as pending:
-        turn.filter_headlines(_rows(1))
-    with pytest.raises(ValueError, match="EFFORT_MISMATCH"):
-        _answer(turn, pending.value.request, effort="low")
-    with pytest.raises(ValueError, match="MODEL_MISMATCH"):
-        _answer(turn, pending.value.request, model="gpt-6.1-sol")
-    with pytest.raises(ValueError, match="ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED"):
-        _answer(turn, pending.value.request, model=None)
-    with pytest.raises(ValueError, match="ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED"):
-        _answer(turn, pending.value.request, effort=None)
+# 49dd59f4 (CC-403, 10 Nov; Jim's decision 60): validate_native_configuration records the
+# actual model and effort and never vetoes sourced work, so a different or missing model or
+# effort is kept verbatim (C5) instead of refused. The invocation identity is still required.
+def test_role_model_effort_is_recorded_as_observed(tmp_path):
+    cases = [("gpt-6-luna", "low"), ("gpt-6.1-sol", "max"), (None, "max"), ("gpt-6-luna", None)]
+    for index, (model, effort) in enumerate(cases):
+        # A return is immutable once saved, so each observed pair answers its own fresh request.
+        (tmp_path / str(index)).mkdir()
+        turn = _turn(tmp_path / str(index))
+        with pytest.raises(DesktopInputRequired) as pending:
+            turn.filter_headlines(_rows(1))
+        request = pending.value.request
+        _answer(turn, request, model=model, effort=effort)
+        observation = turn._get(request["stage"], "response")["invocation_observation"]
+        assert (observation["model"], observation["reasoning_effort"]) == (model, effort)
+    missing_identity = {"surface": "CODEX_NATIVE_SUBAGENT", "observation_source": "UNIT_TEST_NOT_MODEL_PROOF",
+        "model": "gpt-6-luna", "reasoning_effort": "max"}
+    with pytest.raises(ValueError, match="NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED"):
+        turn.submit(request["stage"], {"request_sha256": request["request_sha256"], "output": {},
+            "invocation_observation": missing_identity})
 
 
 def test_pending_scheduled_filter_resumes_canonical_pool_without_replacing_request(tmp_path, monkeypatch):

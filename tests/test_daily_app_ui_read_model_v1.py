@@ -595,7 +595,9 @@ def test_historical_unlinked_and_terminal_incidents_are_not_active(tmp_path):
     assert all(not row["current_actionable"] for row in snapshot["incidents"]["recent_history"])
 
 
-def test_linkedin_persisted_browser_readiness_is_overridden_by_official_api_auth_state(tmp_path):
+# f4367ae1 (CC-684, 21 Nov) moved the LinkedIn member account to its Neo route; the read model now
+# judges LinkedIn like every Neo destination (this sweep fixed its leftover official-API override).
+def test_linkedin_persisted_browser_readiness_is_not_neo_account_readiness(tmp_path):
     store = _store(tmp_path)
     store.upsert_destination_readiness(row={
         "surface": "LINKEDIN_POST",
@@ -615,19 +617,20 @@ def test_linkedin_persisted_browser_readiness_is_overridden_by_official_api_auth
         row for row in snapshot["platforms"]["destinations"]
         if row["platform_id"] == "linkedin"
     )
-    assert linkedin["readiness"] == "AUTH_UNAVAILABLE"
-    assert linkedin["transport_type"] == "OFFICIAL_MEMBER_API"
+    assert linkedin["readiness"] == "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"
+    assert linkedin["transport_type"] == "BROWSEROS_NEO_MCP"
+    assert linkedin["binding_class"] == "BROWSER_AUTHENTICATED"
     assert linkedin["write_eligible"] is False
     incident = next(
         row["incident_id"] == "derived:readiness:LINKEDIN_POST"
         and row
         for row in snapshot["incidents"]["items"]
     )
-    assert incident["what_happened"] == "AUTH_UNAVAILABLE"
-    assert "official-member OAuth" in incident["operator_action"]
+    assert incident["what_happened"] == "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"
+    assert "Neo session" in incident["operator_action"] and "OAuth" not in incident["operator_action"]
 
 
-def test_linkedin_official_member_api_auth_projection_is_sanitized(tmp_path):
+def test_linkedin_official_member_api_row_is_history_and_a_neo_account_row_is_ready(tmp_path):
     store = _store(tmp_path)
     store.upsert_destination_readiness(row={
         "surface": "LINKEDIN_POST",
@@ -653,14 +656,29 @@ def test_linkedin_official_member_api_auth_projection_is_sanitized(tmp_path):
     })
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
     linkedin = next(row for row in snapshot["platforms"]["destinations"] if row["platform_id"] == "linkedin")
-    assert linkedin["readiness"] == "READY_OFFICIAL_MEMBER_API"
+    assert linkedin["readiness"] == "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"
+    assert linkedin["write_eligible"] is False
+    assert "Jim Pham" not in json.dumps(snapshot)
+    store.upsert_destination_readiness(row={
+        "surface": "LINKEDIN_POST",
+        "platform": "linkedin",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "BROWSEROS_NEO_MCP",
+        "readiness_state": "READY_AUTHENTICATED",
+        "destination_identity": "linkedin:jimcc",
+        "identity_match": True,
+        "write_eligible": True,
+        "probe_kind": "NATIVE_NEO_EXACT_ACCOUNT_OBSERVATION",
+        "probed_at_utc": "2026-08-13T12:00:00Z",
+        "sanitized_detail": {"authenticated": True, "native_executor_bound": True, "proof_fresh": True},
+    })
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    linkedin = next(row for row in snapshot["platforms"]["destinations"] if row["platform_id"] == "linkedin")
+    assert linkedin["readiness"] == "READY_AUTHENTICATED"
     assert linkedin["write_eligible"] is True
-    assert linkedin["authenticated"] is True
-    assert linkedin["auth_expiry_at_utc"] == "2026-10-12T11:00:00Z"
-    assert linkedin["auth_days_remaining"] == 60
-    assert linkedin["safe_identity"] == "Jim Pham"
-    assert linkedin["transport_type"] == "OFFICIAL_MEMBER_API"
-    assert linkedin["readback_capability"] == "READBACK_CAPABILITY_LIMITED"
+    assert linkedin["safe_identity"] == "linkedin:jimcc"
+    assert linkedin["transport_type"] == "BROWSEROS_NEO_MCP"
+    assert not any(row["incident_id"] == "derived:readiness:LINKEDIN_POST" for row in snapshot["incidents"]["items"])
 
 
 def test_publication_lifecycle_classes_are_exact(tmp_path):

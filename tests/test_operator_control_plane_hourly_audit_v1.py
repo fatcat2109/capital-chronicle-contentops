@@ -264,6 +264,10 @@ def test_loopback_shutdown_requires_origin_exact_payload_and_reuses_fallback(tmp
     store = ContentOpsDurableStore(tmp_path / "daily.sqlite3")
     spawned = []
     monkeypatch.setattr(loopback_server, "spawn_shutdown_fallback", lambda **kwargs: spawned.append(kwargs) or 4321)
+    # The shutdown preflight builds the Daily App snapshot, which reads the headline sidecars. A unit
+    # test must not read the operator's live headline store (now large enough to pass the 5 s timeout).
+    monkeypatch.setattr("live_contentops.headline_data_root_v1.canonical_headline_sidecar_glob",
+                        lambda *args, **kwargs: str(tmp_path / "no-live-sidecars-*.jsonl"))
     httpd = HTTPServer(("127.0.0.1", 0), loopback_server.make_handler(store.db_path, repo_root=tmp_path))
     thread = threading.Thread(target=httpd.serve_forever, daemon=True)
     thread.start()

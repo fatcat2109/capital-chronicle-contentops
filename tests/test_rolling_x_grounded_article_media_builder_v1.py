@@ -1133,8 +1133,11 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
         "telegram", "discord", "x", "linkedin", "facebook_page",
         "instagram_business", "threads", "youtube",
     }
+    # 8de240b1 (CC-423) and d4009b2c (CC-451, 10 Nov): every derivative closes with the public
+    # analysis notice and the positions notice.
+    from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
     assert payloads["x"]["reply_texts"] == [
-        "Watch: No market reaction is asserted here."
+        "Watch: No market reaction is asserted here.\n\n" + PUBLIC_NOTICE + "\n\n" + CONFLICTS_NOTICE
     ]
 
     editorial = implementation._run_bounded_rolling_x_editorial_cycle(

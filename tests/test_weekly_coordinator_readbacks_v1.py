@@ -42,5 +42,7 @@ def test_coordinator_envelope_reaches_both_weekly_consumers_only_for_the_same_ob
     engagement = weekly_channel_engagement(**common, observations=[observation])
     channel = next(r for r in engagement["channels"] if r["channel"] == "substack")
     coverage = weekly_newsroom_coverage(**common, outbox=[])
-    assert channel["native_counter_sums"] == ({"views": 42} if change is None else None)
+    # 03b8a7c0 (CC-402, 11 Nov): audience metrics keep an exactly identified object whose copy failed
+    # verification; coverage still counts only a verified article.
+    assert channel["native_counter_sums"] == ({"views": 42} if change in (None, "verified") else None)
     assert sum(day["unclassified_canonicals"] for day in coverage["daily"]) == (1 if change is None else 0)

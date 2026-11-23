@@ -104,15 +104,16 @@ def test_launcher_runtime_contains_no_profile_destruction_or_clone_paths():
         assert forbidden not in lowered, forbidden
 
 
-def test_exact_9222_owner_is_reused_without_launch(monkeypatch):
+def test_exact_9222_owner_is_reused_without_launch(tmp_path, monkeypatch):
     launches = []
     monkeypatch.setattr(
         bootstrap, "ingestion_process_state",
         lambda **kwargs: {"state": bootstrap.STATE_READY, "detail": "CANONICAL", "pid": 4242},
     )
     monkeypatch.setattr(bootstrap, "_launch_canonical_ingestion_browser", lambda **kwargs: launches.append(1) or {"state": bootstrap.STATE_LAUNCHED})
-    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: Path("C:/exists"))
-    monkeypatch.setattr(Path, "exists", lambda self: True)
+    # f93d3967 (CC-758, 23 Nov): the test-isolation teardown checks a report file with Path.exists,
+    # so the profile folder is a real existing folder instead of a global Path.exists patch.
+    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: tmp_path)
     result = bootstrap.ensure_ingestion_runtime()
     assert result["status"] == bootstrap.STATE_ALREADY_READY
     assert result["launched"] is False

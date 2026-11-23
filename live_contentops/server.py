@@ -225,11 +225,20 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             raise ValueError("EXPECTED_STATE_VERSION_MUST_BE_POSITIVE_INTEGER")
         return payload
 
+    def _refuse_post(self, status: int, payload: dict[str, object]) -> None:
+        # A refusal sent before the request body is read leaves that body unread; closing the
+        # socket then resets the connection on Windows, and the caller sees an abort or a
+        # timeout instead of this answer. Read a bounded declared body first.
+        length = self.headers.get("Content-Length", "")
+        if length.isdigit() and 0 < int(length) <= 65_536:
+            self.rfile.read(int(length))
+        self._send_json(status, payload)
+
     def do_POST(self) -> None:
         route = urlparse(self.path).path
         if route == "/api/daily-app/editorial-review":
             if self.headers.get("Origin") not in ALLOWED_ORIGINS:
-                self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+                self._refuse_post(403, {"error": "ORIGIN_NOT_ALLOWED"})
                 return
             try:
                 from live_contentops.contentops_editorial_desk_v1 import record_review
@@ -265,7 +274,7 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             return
         if route == "/api/daily-app/control/run-now":
             if self.headers.get("Origin") not in ALLOWED_ORIGINS:
-                self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+                self._refuse_post(403, {"error": "ORIGIN_NOT_ALLOWED"})
                 return
             try:
                 payload = self._read_run_now_payload()
@@ -296,7 +305,7 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             return
         if route == SHUTDOWN_ENDPOINT:
             if self.headers.get("Origin") not in ALLOWED_ORIGINS:
-                self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+                self._refuse_post(403, {"error": "ORIGIN_NOT_ALLOWED"})
                 return
             try:
                 payload = self._read_shutdown_payload()
@@ -325,10 +334,10 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             })
             return
         if route != "/api/daily-app/control/mode":
-            self._send_json(404, {"error": "Route not found", "route": route})
+            self._refuse_post(404, {"error": "Route not found", "route": route})
             return
         if self.headers.get("Origin") not in ALLOWED_ORIGINS:
-            self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+            self._refuse_post(403, {"error": "ORIGIN_NOT_ALLOWED"})
             return
         try:
             payload = self._read_control_payload()
