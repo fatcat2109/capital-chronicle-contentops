@@ -1565,9 +1565,7 @@ def markdown(report):
                     rate_text += " (below 90%)"
                 elif job["unchecked_returns"] or job["calls_incomplete_at_cutoff"]:
                     rate_text += " (incomplete evidence)"
-                split = job.get("calls_by_caller") or {}
-                calls = f"{job['calls']} ({split.get('codex', 0)} / {split.get('antigravity', 0)})"
-                lines.append(f"| {job['job']} | {job['posts_due']} | {calls} | {rate_text} | "
+                lines.append(f"| {job['job']} | {job['posts_due']} | {calls_cell(job)} | {rate_text} | "
                              f"{job['empty_answers']} | {job['timeouts']} | "
                              f"{job['code_fallbacks']} / {job['codex_takeovers']} | {job['hours_without_recorded_call']:.3f} |")
             refused = sum(job.get("antigravity_refused_by_block", 0) for job in assist["jobs"])
@@ -1575,6 +1573,14 @@ def markdown(report):
                 lines.append(f"Antigravity attempts refused by the terms block: {refused} (a step still names agy).")
             lines.append("Quota-free idle time awaits retained rate-limit coverage.")
     return "\n".join(lines) + "\n"
+
+
+def calls_cell(job):
+    """A job's calls with the Codex / Antigravity split; a report written before the split shows its total alone."""
+    split = job.get("calls_by_caller")
+    if not isinstance(split, dict):
+        return str(job["calls"])
+    return f"{job['calls']} ({split.get('codex', 0)} / {split.get('antigravity', 0)})"
 
 
 def _check_report(value):

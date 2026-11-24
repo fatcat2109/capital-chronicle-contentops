@@ -2,9 +2,9 @@
 
 Codex gpt-6.2-sol runs these jobs since 24 Nov 2026 (decision 168); older records were Antigravity's. Every
 started call counts, split by caller. An Antigravity attempt refused by the terms block (NOT_STARTED) started no
-process, so it is not a call; it is counted apart so a step that still names agy shows up. `codex_takeovers`
-counts Codex answering after an Antigravity attempt in the same record, or a record that names Codex as its
-fallback. The report key stays "antigravity" because the evening file and digest read it."""
+process, so it is not a call; one with the terms block's cause is counted apart, so a step that still names agy
+shows up. `codex_takeovers` counts Codex answering after an Antigravity attempt in the same record, or a record
+that names Codex as its fallback, whether or not a call started in it. The report key stays "antigravity" because the evening file and digest read it."""
 from __future__ import annotations
 
 from collections import Counter, defaultdict
@@ -14,6 +14,7 @@ from pathlib import Path
 
 from .public_decision_checks_v1 import clock, object_json
 from .public_draft_claims_v1 import JOB, RECORD
+from .agy_editorial_assist_v1 import AGY_TERMS_BLOCK
 
 
 JOBS = {
@@ -218,9 +219,12 @@ def daily_metrics(runtime, window, due, output_folders=()):
         in_window = start < opened <= end and closed and closed <= end
         if in_window:
             counts[job]["antigravity_refused_by_block"] += sum(
-                1 for a in attempts if a.get("caller") == "antigravity" and a.get("status") == "NOT_STARTED")
+                1 for a in attempts if a.get("caller") == "antigravity" and a.get("status") == "NOT_STARTED"
+                and str(a.get("cause") or "") == AGY_TERMS_BLOCK)
         if not matched:
-            if in_window and record.get("fallback") == "frozen_plan":
+            if in_window and record.get("fallback") == "codex":
+                counts[job]["codex_takeovers"] += 1
+            elif in_window and record.get("fallback") == "frozen_plan":
                 counts[job]["code_fallbacks"] += 1
             continue
         if closed:
@@ -253,7 +257,8 @@ def daily_metrics(runtime, window, due, output_folders=()):
                 tally["codex_takeovers"] += 1
             elif fallback == "frozen_plan":
                 tally["code_fallbacks"] += 1
-        elif closed and closed <= end and tried_agy and record.get("answered_by") == "codex":
+        elif closed and closed <= end and ((tried_agy and record.get("answered_by") == "codex")
+                                           or record.get("fallback") == "codex"):
             tally["codex_takeovers"] += 1
 
     duration = (end - start).total_seconds() / 3600
