@@ -557,6 +557,50 @@ def test_run_forever_ticks_at_once_when_the_page_brings_new_posts(tmp_path):
     assert calls == ["iterate", "idle", "iterate", "idle", "iterate"]
 
 
+def test_stop_ends_a_runner_whose_call_blocks_mid_tick(tmp_path):
+    """24 Nov: the old runner ignored STOP for 150 s; a blocked call now ends within the grace."""
+    import threading
+
+    release, exits = threading.Event(), []
+    stop = tmp_path / "STOP"
+
+    class Blocked:
+        log_path = tmp_path / "runner.log"
+
+        def iterate(self):
+            stop.write_text("stop")
+            release.wait(10.0)  # a hung CDP socket or PowerShell child
+
+    def hard_exit(code):
+        exits.append((code, time.monotonic()))
+        release.set()
+
+    started = time.monotonic()
+    result = feed.run_forever(stop_path=stop, lock_path=tmp_path / "lock", runner=Blocked(),
+                              stop_grace_seconds=0.3, hard_exit=hard_exit, max_iterations=1)
+    assert exits and exits[0][0] == 0 and exits[0][1] - started < 3.0
+    assert result["iterations"] == 1
+    assert any(json.loads(line).get("stop") == "WATCHDOG_EXIT" for line in (tmp_path / "runner.log").read_text().splitlines())
+
+
+def test_a_stop_cuts_the_settle_wait_short(tmp_path):
+    h = Harness(tmp_path)
+    h.cdp.reload_serves = False
+    h.capture.should_stop = lambda: True
+    started = time.monotonic()
+    captured = h.capture.tick(force_reload=True, settle_seconds=30.0)
+    assert captured["refresh"] == "reload" and time.monotonic() - started < 2.0
+
+
+def test_the_runner_gives_its_capture_the_stop_check(tmp_path):
+    h = Harness(tmp_path)
+    h.tick(0)
+    h.runner.stop_path = tmp_path / "STOP"
+    assert h.capture.should_stop() is False
+    (tmp_path / "STOP").write_text("stop")
+    assert h.capture.should_stop() is True
+
+
 # ---- the browser checks: slow is not dead, and the owner is proved once ----------------------------
 
 def test_a_slow_probe_is_not_a_dead_browser(tmp_path):
@@ -572,7 +616,7 @@ def test_a_slow_probe_is_not_a_dead_browser(tmp_path):
     h = Harness(tmp_path, bootstrap=Slow())
     captured = h.tick(0)
     assert captured["state"] == "CAPTURED" and captured["browser_probe"] == "SLOW"
-    assert h.bootstrap.timeouts == [3.0, feed.PROBE_RETRY_TIMEOUT_SECONDS] and h.bootstrap.launches == 0
+    assert h.bootstrap.timeouts == [3.0, 6.0] and h.bootstrap.launches == 0
 
 
 def test_the_port_owner_is_proved_once_then_rechecked_by_pid_and_start_time(tmp_path):

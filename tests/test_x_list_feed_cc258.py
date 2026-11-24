@@ -248,14 +248,14 @@ def _runner(tmp_path, bootstrap, clock):
                            clock=clock, now_fn=lambda: NOW, sidecar_dir=tmp_path / "sidecars")
 
 
-def test_runner_writes_the_feed_while_the_browser_is_down_and_relaunches_every_five_minutes(tmp_path):
+def test_runner_writes_the_feed_while_the_browser_is_down_and_relaunches_every_two_minutes(tmp_path):
     ticks = iter([0.0, 60.0, 301.0])
     bootstrap = FakeBootstrap()
     runner = _runner(tmp_path, bootstrap, lambda: next(ticks))
     first = runner.iterate()
     assert first["capture"]["state"] == "BROWSER_NOT_READY" and first["feed_written"] is True
-    # CC-785: a dead probe is retried once, longer, before the browser counts as down.
-    assert bootstrap.probe_timeouts[:2] == [3.0, feed.PROBE_RETRY_TIMEOUT_SECONDS]
+    # CC-785: a dead probe is retried twice, longer each time, before the browser counts as down.
+    assert bootstrap.probe_timeouts[:3] == [3.0, 6.0, feed.PROBE_RETRY_TIMEOUT_SECONDS]
     second = runner.iterate()
     assert bootstrap.launches == 1 and second["capture"]["detail"] == "WAITING_BEFORE_NEXT_LAUNCH"
     runner.iterate()

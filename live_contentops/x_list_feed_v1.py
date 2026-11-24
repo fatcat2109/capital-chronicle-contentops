@@ -1,10 +1,12 @@
-"""CC-258: Jim's X list as one private feed, refreshed every minute (Jim's decision 71).
+"""CC-258: Jim's X list as one private feed (Jim's decision 71); CC-785: read within seconds.
 
 Two deterministic parts, with no model call:
 
-- ``MinuteCapture.capture_once``: one light capture of the locked X list through the existing
-  ingestion browser (Chrome ``CapitalChronicleBot`` on CDP 9222, see ingestion_bootstrap_v1).
-  It reloads the list page once, reads the ``ListLatestTweetsTimeline`` responses and appends
+- ``MinuteCapture.tick``: the capture of the locked X list through the existing ingestion
+  browser (Chrome ``CapitalChronicleBot`` on CDP 9222, see ingestion_bootstrap_v1). Since CC-785
+  it keeps one CDP session on the list tab and reads the ``ListLatestTweetsTimeline`` responses
+  the page fetches by itself, between ticks too; a quiet page gets X's own "load new posts" key
+  and, after a minute, one reload (``capture_once`` is the one-shot form). It appends
   only new posts to the canonical per-day sidecar files, in the existing row shape, so every
   current reader of those files (newsroom, read model, hourly audit) sees them. Unlike the
   30-minute capture it keeps recent dedup keys in memory instead of re-reading every sidecar
@@ -32,6 +34,7 @@ import hashlib
 import json
 import os
 import tempfile
+import threading
 import time
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -51,7 +54,9 @@ LOG_PATH = FEED_DIR / "runner_v1.log"
 LOG_MAX_BYTES = 8_000_000
 WINDOW_HOURS = 24.0
 INTERVAL_SECONDS = 60.0
-RELAUNCH_AFTER_SECONDS = 300.0
+# CC-785 (24 Nov 2026): a missed probe once stopped capture for up to 30 minutes while Chrome was alive but slow.
+RELAUNCH_AFTER_SECONDS = 120.0
+PROBE_ATTEMPTS = 3
 OWNER_RECHECK_SECONDS = 1800.0
 TAB_REPLACEMENT_COOLDOWN_SECONDS = 300.0
 SCROLL_WHEN_NEW_AT_LEAST = 15
@@ -71,6 +76,10 @@ BODY_TIMEOUT_SECONDS = 20.0
 TAB_CREATE_TIMEOUT_SECONDS = 20.0
 TAB_CLOSE_TIMEOUT_SECONDS = 10.0
 PROBE_RETRY_TIMEOUT_SECONDS = 12.0
+PROBE_RETRY_TIMEOUTS = (6.0, PROBE_RETRY_TIMEOUT_SECONDS)
+# A STOP file ends the runner within one market interval, even when a call blocks mid-tick:
+# the waits check it, and a watchdog ends the process if the loop has not stopped by then.
+STOP_GRACE_SECONDS = 15.0
 HEAL_AFTER_FAILURES = 2
 P1_AFTER_FAILURES = 3
 STALE_AFTER_MARKET_SECONDS = 60.0
@@ -391,6 +400,7 @@ class MinuteCapture:
         self.light_pending = False
         self.light_hits = self.light_misses = 0
         self._carry = self._new_counts()
+        self.should_stop: Callable[[], bool] = lambda: False
         self._load_recent_keys()
 
     @staticmethod
@@ -530,7 +540,7 @@ class MinuteCapture:
         cut = False
         while True:
             remaining = end - time.monotonic()
-            if remaining <= 0:
+            if remaining <= 0 or self.should_stop():
                 return
             event = page_call(client.event, timeout_seconds=min(0.5, max(0.01, remaining)))
             if event is not None:
@@ -876,6 +886,7 @@ class FeedRunner:
         self.p1: dict[str, Any] | None = None
         self.last_p1: dict[str, Any] | None = None
         self.started_utc = self.now_fn()
+        self.stop_path: Path | None = None
         # Keep the heal record, the last good read and a raised P1 across ordinary runner
         # restarts in the existing feed, without another state file.
         self.last_tab_replacement: dict[str, Any] = {}
@@ -894,6 +905,12 @@ class FeedRunner:
                 self.p1 = dict(health["p1"])
             if isinstance(health.get("last_p1"), dict):
                 self.last_p1 = dict(health["last_p1"])
+
+    def stop_requested(self) -> bool:
+        try:
+            return self.stop_path is not None and Path(self.stop_path).exists()
+        except OSError:
+            return False
 
     def next_interval(self) -> float:
         return MARKET_INTERVAL_SECONDS if in_market_hours(self.now_fn()) else INTERVAL_SECONDS
@@ -992,9 +1009,12 @@ class FeedRunner:
         port = self.bootstrap.INGESTION_CDP_PORT
         alive = self.bootstrap.probe_cdp(port)["cdp_alive"]
         slow = False
-        if not alive:
-            # CC-785 cause 2: a slow answer is not a dead browser; retry once, longer and bounded.
-            alive = self.bootstrap.probe_cdp(port, timeout=PROBE_RETRY_TIMEOUT_SECONDS)["cdp_alive"]
+        # CC-785 cause 2: a slow answer is not a dead browser. Retry with longer, bounded timeouts
+        # (6 s, then 12 s: at most 21 s in all) before the browser counts as down.
+        for timeout in PROBE_RETRY_TIMEOUTS[:max(0, PROBE_ATTEMPTS - 1)]:
+            if alive or self.stop_requested():
+                break
+            alive = self.bootstrap.probe_cdp(port, timeout=timeout)["cdp_alive"]
             slow = alive
         if alive:
             extra = {"probe": "SLOW"} if slow else {}
@@ -1034,6 +1054,8 @@ class FeedRunner:
         if browser["ready"]:
             if self.capture is None:
                 self.capture = self.capture_factory()
+                if hasattr(self.capture, "should_stop"):
+                    self.capture.should_stop = self.stop_requested
                 if hasattr(self.capture, "preferred_target_id"):
                     self.capture.preferred_target_id = self.last_tab_replacement.get("new_target_id")
             captured = self.capture.tick() if hasattr(self.capture, "tick") else self.capture.capture_once()
@@ -1079,18 +1101,51 @@ def _hold_lock(path: Path) -> Any:
     return handle
 
 
+def _start_stop_watchdog(stop_path: Path, done: threading.Event, *, grace_seconds: float,
+                         hard_exit: Callable[[int], Any], log_path: Path) -> threading.Thread:
+    """End the process when STOP has been present for ``grace_seconds`` and the loop still runs.
+
+    The loop's own waits honour STOP within seconds; this covers a call that blocks (a hung CDP
+    socket or a PowerShell child). The feed writes are atomic replaces, and the OS releases the lock.
+    """
+    def watch() -> None:
+        seen: float | None = None
+        while not done.wait(min(1.0, max(0.05, grace_seconds / 4))):
+            if not stop_path.exists():
+                seen = None
+                continue
+            seen = seen if seen is not None else time.monotonic()
+            if time.monotonic() - seen >= grace_seconds:
+                _log(log_path, {"at_utc": _iso(datetime.now(timezone.utc)), "stop": "WATCHDOG_EXIT",
+                                "detail": f"STOP present {grace_seconds:.0f} s while a call blocked"})
+                hard_exit(0)
+                return
+
+    thread = threading.Thread(target=watch, name="x-list-feed-stop-watchdog", daemon=True)
+    thread.start()
+    return thread
+
+
 def run_forever(*, interval_seconds: float | None = None, stop_path: Path = STOP_PATH,
                 lock_path: Path = LOCK_PATH, runner: FeedRunner | None = None,
-                sleep: Callable[[float], None] = time.sleep, max_iterations: int | None = None) -> dict[str, Any]:
+                sleep: Callable[[float], None] = time.sleep, max_iterations: int | None = None,
+                stop_grace_seconds: float = STOP_GRACE_SECONDS,
+                hard_exit: Callable[[int], Any] = os._exit) -> dict[str, Any]:
     """Tick every 15 s in market hours and 60 s outside (``interval_seconds`` fixes it); between
-    ticks the runner reads the page's own fetches and ticks at once when new posts arrive."""
+    ticks the runner reads the page's own fetches and ticks at once when new posts arrive. A STOP
+    file ends it within ``stop_grace_seconds``, even mid-tick."""
     lock = _hold_lock(lock_path)
     if lock is None:
         return {"state": "ALREADY_RUNNING"}
     # Import the browser launcher's module now, so a later code update cannot mix versions.
     from live_contentops import daily_app_launcher_v1  # noqa: F401
     runner = runner or FeedRunner()
+    if hasattr(runner, "stop_path"):
+        runner.stop_path = stop_path
     iterations = 0
+    done = threading.Event()
+    _start_stop_watchdog(stop_path, done, grace_seconds=stop_grace_seconds, hard_exit=hard_exit,
+                         log_path=getattr(runner, "log_path", LOG_PATH))
     try:
         while not stop_path.exists():
             started = time.monotonic()
@@ -1119,5 +1174,6 @@ def run_forever(*, interval_seconds: float | None = None, stop_path: Path = STOP
                     sleep(step)
                 remaining = interval - (time.monotonic() - started)
     finally:
+        done.set()
         lock.close()
     return {"state": "STOPPED", "iterations": iterations}
