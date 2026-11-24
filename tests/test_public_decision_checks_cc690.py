@@ -3,7 +3,8 @@ import json
 import pytest
 
 from live_contentops.agy_decision_metrics_v1 import daily_metrics
-from live_contentops.day_readback_v1 import check_public_text, report_window, write_decision_checks, write_report
+from live_contentops.day_readback_v1 import (calls_cell, check_public_text, report_window, write_decision_checks,
+                                             write_report)
 from live_contentops.public_decision_checks_v1 import DecisionChecks, WRAP_ROUTES
 
 
@@ -468,3 +469,32 @@ def test_a_failed_codex_daily_note_is_a_code_fallback_not_a_codex_takeover(tmp_p
     wrap = {row["job"]: row for row in result["jobs"]}["daily_wrap_sections"]
     assert (wrap["calls"], wrap["timeouts"], wrap["code_fallbacks"], wrap["codex_takeovers"]) == (1, 1, 1, 0)
     assert wrap["calls_by_caller"] == {"codex": 1, "antigravity": 0}
+
+
+def test_codex_fallback_counts_without_a_started_call_and_only_the_terms_block_counts_as_refused(tmp_path):
+    # The Codex pre-review of c933b238 (CC-690): two edge cases of the caller split.
+    def receipt(folder, value):
+        path = tmp_path / "daily_app_outputs" / folder / "light-call.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value), encoding="utf-8")
+
+    blocked = {"caller": "antigravity", "status": "NOT_STARTED", "cause": "AGY_BLOCKED_TERMS_OF_SERVICE_20261124"}
+    receipt("plan-status-posts/gold/layer-lines-901", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T18:00:00Z", "ended_at_utc": "2026-11-19T18:01:00Z",
+        "fallback": "codex", "attempts": [blocked]})
+    receipt("plan-status-posts/oil/layer-lines-902", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T18:02:00Z", "ended_at_utc": "2026-11-19T18:03:00Z",
+        "fallback": "codex", "attempts": [{"caller": "antigravity", "status": "TIMEOUT", "cause": "AGY_TIMEOUT"}]})
+    receipt("plan-status-posts/btc/layer-lines-903", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T18:04:00Z", "ended_at_utc": "2026-11-19T18:05:00Z",
+        "fallback": "frozen_plan", "attempts": [{"caller": "antigravity", "status": "NOT_STARTED", "cause": "OTHER"}]})
+    result = daily_metrics(tmp_path, checks(tmp_path).window, {"plan_layer_lines": 3})
+    layer = {row["job"]: row for row in result["jobs"]}["plan_layer_lines"]
+    assert (layer["calls"], layer["timeouts"], layer["codex_takeovers"], layer["code_fallbacks"]) == (1, 1, 2, 1)
+    assert layer["antigravity_refused_by_block"] == 1
+    assert layer["calls_by_caller"] == {"codex": 0, "antigravity": 1}
+
+
+def test_a_report_written_before_the_split_shows_its_total_alone():
+    assert calls_cell({"calls": 4}) == "4"
+    assert calls_cell({"calls": 4, "calls_by_caller": {"codex": 3, "antigravity": 1}}) == "4 (3 / 1)"
