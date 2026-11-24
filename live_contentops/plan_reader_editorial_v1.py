@@ -1,7 +1,11 @@
 """CC-466 authorship inside the existing plan-page and call-card consumers.
 
-One cached MAX page pass, one cached AGY variants pass, at most one correction
+One cached MAX page pass, one cached light variants pass, at most one correction
 each. This owns no publication transport, schedule or second operational store.
+
+Since 24 Nov 2026 every light step here (layer lines, page excerpt selection,
+variants) runs on Codex gpt-6.2-sol, never Antigravity (the account was disabled
+for a Terms of Service violation; Jim's order of 24 Nov).
 """
 from __future__ import annotations
 
@@ -25,14 +29,20 @@ from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 PAGE_LEASE = "cc466-plan-page-editorial"
 PAGE_DRAFT_LEASE = "cc688-plan-page-draft"
 DRAFT_MANUSCRIPT = "page-manuscript-cc688.json"
-PAGE_AGY_TIMEOUT = 100
+PAGE_AGY_TIMEOUT = 100  # retained name; the page selection's first Codex attempt uses it
+# Layer lines: low effort. The model picks one of at most three supplied lines per
+# layer; validate_analysis_line checks each and the frozen quote is the fallback.
+LAYER_EFFORT = "low"
+# Page selection: excerpt indexes only, checked by validate_manuscript. Medium first;
+# one high retry with the check's correction; then the analyst's own order (code).
+PAGE_EFFORTS = ("medium", "high")
 PAGE_COPY_REVISION = 8
 MINUTE_WRITER_TIMEOUT = "PAGE_WRITER_MINUTE_BUDGET_TIMEOUT"
 
 
 def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANALYSIS_COPY, scenario_voice=False):
     """Choose one public quote per layer before any status copy is issued."""
-    from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
+    from .light_model_caller_v1 import CODEX_TIMEOUT, call_light, json_answer
 
     nine_layers = contract == reader.NINE_LAYER_COPY
     options = (reader.plan_layer_candidates(plan, scenario_voice=scenario_voice)[0]
@@ -69,9 +79,10 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANA
         answer = answer_path.read_bytes() if answer_path.is_file() else b""
     else:
         call = call or call_light
-        answer, record = call(prompt, root=root, job="plan_layer_lines", callers=("antigravity",),
-                              timeout_cause=f"AGY_PLAN_LAYER_TIMEOUT_{AGY_TIMEOUT}S",
-                              empty_cause="AGY_PLAN_LAYER_EMPTY")
+        answer, record = call(prompt, root=root, job="plan_layer_lines", callers=("codex",),
+                              codex_effort=LAYER_EFFORT,
+                              timeout_cause=f"CODEX_PLAN_LAYER_TIMEOUT_{CODEX_TIMEOUT}S",
+                              empty_cause="CODEX_PLAN_LAYER_EMPTY")
     accepted = 0
     findings = {}
     if answer:
@@ -105,7 +116,7 @@ def prepare_plan_layers(plan, *, output_dir=None, call=None, contract=reader.ANA
 
 def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, writer_deadline=None,
               retry_minute_timeout=False):
-    from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
+    from .agy_editorial_assist_v1 import _run
     from .x_reply_bot_v1 import _json_response
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
@@ -127,7 +138,8 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, wr
         return {"status": "FAILED", "cause": "PAGE_WRITER_MINUTE_BUDGET_EXHAUSTED"}
     artifact.parent.mkdir(parents=True, exist_ok=True)
     (artifact.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
-    model, effort = ("gpt-6.2-sol", "max") if writer else (MODEL, EFFORT)
+    from .light_model_caller_v1 import CODEX_EFFORT, CODEX_MODEL
+    model, effort = ("gpt-6.2-sol", "max") if writer else (CODEX_MODEL, CODEX_EFFORT)
     record = {"configured_model":model, "configured_effort":effort,
         "runtime_model":None, "runtime_effort":None, "configuration_status":"CONFIGURED_NOT_OBSERVED",
         "started_at_utc":datetime.now(timezone.utc).isoformat(), "prompt_sha256":key,
@@ -136,8 +148,9 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False, wr
     try:
         if not writer:
             from .light_model_caller_v1 import call_light
-            answer, light = call_light(prompt, root=artifact.parent / "light", runner=runner,
-                timeout_cause="AGY_VARIANTS_TIMEOUT_120S", empty_cause="AGY_VARIANTS_EMPTY_RESPONSE")
+            # Variants: Codex at the light caller's default (low) effort; the copy checks judge them.
+            answer, light = call_light(prompt, root=artifact.parent / "light", runner=runner, callers=("codex",),
+                timeout_cause="CODEX_VARIANTS_TIMEOUT", empty_cause="CODEX_VARIANTS_EMPTY_RESPONSE")
             record.update(light_call=light, answered_by=light["answered_by"], elapsed_seconds=light["elapsed_seconds"])
             chosen = light["attempts"][-1] if light["status"] == "RETURNED" else light["attempts"][0]
             raw = (artifact.parent / "light" / (chosen["caller"] + "-stdout.txt")).read_bytes()
@@ -514,7 +527,7 @@ def repair_cached_page_quotes(plan, run, manuscript, *, cause):
 
 
 def draft_plan_page(plan, run, *, output_dir, call=None):
-    """Two checked Antigravity attempts, Codex high, then the analyst's own sections."""
+    """Codex medium, one Codex high retry with the check's correction, then the analyst's own sections."""
     from .light_model_caller_v1 import call_light, json_answer
 
     sources = _plan_page_sources(plan, run)
@@ -535,11 +548,12 @@ def draft_plan_page(plan, run, *, output_dir, call=None):
         + json.dumps(public, ensure_ascii=False, separators=(",", ":"))
     )
     call = call or call_light
-    key = sha256(canonical_bytes({"prompt": prompt, "antigravity_timeout": PAGE_AGY_TIMEOUT})).hexdigest()[:20]
+    # A new key since 24 Nov 2026: no cached Antigravity refusal is replayed as a Codex attempt.
+    key = sha256(canonical_bytes({"prompt": prompt, "codex_efforts": PAGE_EFFORTS})).hexdigest()[:20]
     records = []
     correction = ""
-    for attempt, (caller, fallback) in enumerate(
-        (("antigravity", "antigravity_retry"), ("antigravity", "codex_high"), ("codex", "frozen_plan")), start=1
+    for attempt, (caller, effort, fallback) in enumerate(
+        (("codex", PAGE_EFFORTS[0], "codex_high"), ("codex", PAGE_EFFORTS[1], "frozen_plan")), start=1
     ):
         root = Path(output_dir) / "page-writer-cc688" / key / str(attempt)
         log, saved_answer = root / "light-call.json", root / "answer.txt"
@@ -547,10 +561,9 @@ def draft_plan_page(plan, run, *, output_dir, call=None):
             record = json.loads(log.read_bytes())
             answer = saved_answer.read_bytes() if saved_answer.is_file() else b""
         else:
-            limits = ({"codex_effort": "high", "timeout_seconds": 120} if caller == "codex" else
-                      {"timeout_seconds": PAGE_AGY_TIMEOUT})
+            limits = {"codex_effort": effort, "timeout_seconds": PAGE_AGY_TIMEOUT if attempt == 1 else 120}
             answer, record = call(prompt + correction, root=root, job="plan_analysis_page", callers=(caller,),
-                timeout_cause=f"AGY_PLAN_PAGE_TIMEOUT_{PAGE_AGY_TIMEOUT}S", empty_cause="AGY_PLAN_PAGE_EMPTY", **limits)
+                timeout_cause="CODEX_PLAN_PAGE_TIMEOUT", empty_cause="CODEX_PLAN_PAGE_EMPTY", **limits)
         manuscript = None
         result = "FAILED"
         try:

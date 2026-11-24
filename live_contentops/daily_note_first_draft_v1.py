@@ -1,4 +1,11 @@
-"""Decision 114 first draft, returned to the existing native daily-note editor."""
+"""Decision 114 first draft, returned to the existing native daily-note editor.
+
+Since 24 Nov 2026 the first draft runs on Codex gpt-6.2-sol through
+light_model_caller_v1, never Antigravity (the account was disabled for a Terms
+of Service violation; Jim's order of 24 Nov). The record schema and its status
+codes stay for their consumers; its caller, model and effort fields carry the
+real provenance.
+"""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,9 +16,17 @@ import re
 import subprocess
 import tempfile
 
-from live_contentops.agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 from live_contentops.reader_article_contract_v1 import check_article
+
+
+# Medium effort: the Note's first draft is a whole reader article built from the
+# source pack, and every number, date and claim in it is checked afterwards
+# (_validate_worker_text, check_article) before the editor's one pass. Low effort
+# drafts more findings the checks then send back; high effort costs more quota for
+# a draft the editor rewrites anyway. One call per exact prompt (cached by hash).
+DRAFT_CALLER, DRAFT_MODEL, DRAFT_EFFORT = "codex", "gpt-6.2-sol", "medium"
+DRAFT_TIMEOUT_SECONDS = 180
 
 
 def _now():
@@ -48,36 +63,31 @@ def prepare_first_draft(governed, prompt, *, output_dir, runner=None):
     path.parent.mkdir(parents=True, exist_ok=True)
     (path.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
     record = {"schema_version": "contentops.daily_note_first_draft.v1", "status": "AGY_UNAVAILABLE",
-              "model": MODEL, "effort": EFFORT, "configuration_status": "CONFIGURED_NOT_OBSERVED",
+              "caller": DRAFT_CALLER, "model": DRAFT_MODEL, "effort": DRAFT_EFFORT,
+              "configuration_status": "CONFIGURED_NOT_OBSERVED",
               "started_at_utc": _now(), "prompt_sha256": digest, "artifact_path": str(path),
               "output": None, "checks": [], "provider_call_attempted": False, "public_write_performed": False}
-    run = runner or _run
     raw, err = b"", b""
     try:
-        with tempfile.TemporaryDirectory(prefix="cc403-agy-") as cwd:
-            version = run([AGY, "--version"], cwd=cwd, timeout=5)
-            record["agy_version"] = version.stdout.decode(errors="replace").strip()[:200]
-            args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
-                    "--print-timeout", "120s", "--input-format", "stream-json",
-                    "--output-format", "stream-json", "--print", ""]
-            message = {"event": "user", "message": {"role": "user", "content": [{"type": "text", "text": prompt}]}}
-            record["provider_call_attempted"] = True
-            result = run(args, cwd=cwd, timeout=120, input=canonical_bytes(message) + b"\n")
-            raw, err = result.stdout, result.stderr
-            record["returncode"] = result.returncode
-            if result.returncode:
-                raise ValueError("AGY_EXIT_" + str(result.returncode))
-            value = _output(raw)
-            checks = check_article(value["article"], governed["source_pack"],
-                                   contract=governed["reader_article_contract"])
-            record.update(status="NEEDS_EDITOR_FIX" if checks else "DRAFT_CHECKS_PASS", output=value, checks=checks)
+        from live_contentops.light_model_caller_v1 import call_light
+        light_root = path.parent / "light"
+        record["provider_call_attempted"] = True
+        answer, light = call_light(prompt, root=light_root, runner=runner, callers=(DRAFT_CALLER,),
+            job="daily_note_first_draft", codex_effort=DRAFT_EFFORT, timeout_seconds=DRAFT_TIMEOUT_SECONDS,
+            timeout_cause="CODEX_DAILY_DRAFT_TIMEOUT", empty_cause="CODEX_DAILY_DRAFT_EMPTY")
+        attempt = light["attempts"][-1] if light["attempts"] else {}
+        record.update(light_call_path=light["artifact_path"], returncode=attempt.get("returncode"))
+        if (light_root / (DRAFT_CALLER + "-stdout.txt")).is_file():
+            raw = (light_root / (DRAFT_CALLER + "-stdout.txt")).read_bytes()
+            err = (light_root / (DRAFT_CALLER + "-stderr.txt")).read_bytes()
+        if light["status"] != "RETURNED":
+            raise ValueError(light.get("cause") or "CODEX_DAILY_DRAFT_UNAVAILABLE")
+        value = _output(answer)
+        checks = check_article(value["article"], governed["source_pack"],
+                               contract=governed["reader_article_contract"])
+        record.update(status="NEEDS_EDITOR_FIX" if checks else "DRAFT_CHECKS_PASS", output=value, checks=checks)
     except Exception as exc:
-        if isinstance(exc, subprocess.TimeoutExpired):
-            raw, err = exc.output or b"", exc.stderr or b""
-            cause = "AGY_DAILY_DRAFT_TIMEOUT_" + str(exc.timeout) + "S"
-        else:
-            cause = type(exc).__name__ + ": " + str(exc)[:300]
-        record["cause"] = cause
+        record["cause"] = type(exc).__name__ + ": " + str(exc)[:300]
     (path.parent / "output.txt").write_bytes(raw)
     (path.parent / "stderr.txt").write_bytes(err)
     record.update(ended_at_utc=_now(), output_sha256=sha256(raw).hexdigest(), stderr_sha256=sha256(err).hexdigest())

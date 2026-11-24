@@ -161,19 +161,20 @@ def test_explicit_native_retry_preserves_the_failure_and_caches_its_return(tmp_p
     calls=[]
     def runner(args,**kw):
         calls.append(args)
-        if len(calls)<=2:
-            raise subprocess.TimeoutExpired(args,120,output=b'')
+        if len(calls)<=1:
+            raise subprocess.TimeoutExpired(args,65,output=b'')
         return subprocess.CompletedProcess(args,0,b'{"answer":"Returned text."}',b'')
     first=editorial.text_call('Exact input.',root=tmp_path,runner=runner)
-    assert first['cause']=='AGY_VARIANTS_TIMEOUT_120S'
+    # Since 24 Nov 2026 one Codex call (no Antigravity attempt first).
+    assert first['cause']=='CODEX_LIGHT_TIMEOUT_65S' and first['configured_model']=='gpt-6.2-sol'
     assert editorial.text_call('Exact input.',root=tmp_path,runner=runner)==first
-    assert len(calls)==2
+    assert len(calls)==1
     second=editorial.text_call('Exact input.',root=tmp_path,runner=runner,retry_failed=True)
     assert second['status']=='RETURNED'
     assert json.loads(__import__('pathlib').Path(first['artifact_path']).read_bytes())==first
     assert second['artifact_path']!=first['artifact_path']
     assert editorial.text_call('Exact input.',root=tmp_path,runner=runner)==second
-    assert len(calls)==3
+    assert len(calls)==2
 
 
 def test_explicit_page_resume_reuses_exact_source_and_retains_failed_writer(source,tmp_path,monkeypatch):

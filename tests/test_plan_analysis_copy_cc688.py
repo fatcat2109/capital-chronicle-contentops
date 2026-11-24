@@ -44,7 +44,7 @@ def test_only_frozen_quotes_pass_and_failed_gy_drafts_fall_back_per_line(tmp_pat
         reader.validate_analysis_line(reader.analysis_layer_options(plan), "macro", "Real yields fell after the data release.")
 
     def draft(_prompt, **kwargs):
-        assert kwargs["callers"] == ("antigravity",)
+        assert kwargs["callers"] == ("codex",)  # since 24 Nov 2026, never Antigravity
         return json.dumps({"macro": "Real yields fell after the data release.",
                            "technical": "1", "fundamental": "2"}).encode(), {"status": "RETURNED"}
 
@@ -68,10 +68,10 @@ def test_timeout_uses_the_frozen_quote_without_a_second_caller(tmp_path):
     plan = {"analysis_layers": LAYERS}
     quotes = editorial.prepare_plan_layers(plan, output_dir=tmp_path, call=partial(call_light, runner=time_out))
     assert len(quotes) == 4
-    assert len(seen) == 1 and seen[0][1] == 65 and seen[0][0].endswith("agy.exe")
+    assert len(seen) == 1 and seen[0][1] == 65 and seen[0][0].endswith("codex.exe")
     record = json.loads(next(tmp_path.glob("*/light-call.json")).read_bytes())
     assert record["job"] == "plan_layer_lines"
-    assert record["result"] == "FALLBACK" and record["cause"] == "AGY_PLAN_LAYER_TIMEOUT_65S"
+    assert record["result"] == "FALLBACK" and record["cause"] == "CODEX_LIGHT_TIMEOUT_65S"
 
 
 def test_execution_copy_is_removed_from_layer_choices_before_it_can_starve_an_alert():
@@ -134,8 +134,9 @@ def _selection(prompt):
     return {key: [len(items) - 1] for key, items in packet.items()}
 
 
-@pytest.mark.parametrize("terminal_writer", ["antigravity", "codex", "frozen_plan"])
-def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, tmp_path, monkeypatch, terminal_writer):
+@pytest.mark.parametrize("case,terminal_writer", [("first", "codex"), ("retry", "codex"), ("none", "frozen_plan")])
+def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, tmp_path, monkeypatch, case,
+                                                                        terminal_writer):
     run_root, _, plan, _ = source
     now = posts._utc("2026-11-20T04:30:00Z")
     plan.update(analysis_layers=LAYERS, registered_at_utc="2026-11-20T04:28:00Z", status="WAITING",
@@ -146,13 +147,15 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
     seen = []
 
     def draft(prompt, **options):
+        # Since 24 Nov 2026: Codex medium, then one Codex high retry, then the analyst's own order.
         caller, = options["callers"]
-        seen.append(caller)
-        if caller == "codex":
-            assert options["codex_effort"] == "high" and options["timeout_seconds"] == 120
+        assert caller == "codex"
+        seen.append(options["codex_effort"])
+        if len(seen) == 1:
+            assert options["codex_effort"] == "medium" and options["timeout_seconds"] == editorial.PAGE_AGY_TIMEOUT
         else:
-            assert options["timeout_seconds"] == editorial.PAGE_AGY_TIMEOUT
-        if terminal_writer == "codex" and caller == "antigravity":
+            assert options["codex_effort"] == "high" and options["timeout_seconds"] == 120
+        if case == "retry" and len(seen) == 1:
             return b'{"macro":[1024]}', {"status": "RETURNED"}
         if terminal_writer == "frozen_plan":
             return b"", {"status": "FAILED", "cause": "CLI_QUOTA"}
@@ -166,7 +169,7 @@ def test_page_attempts_are_checked_and_minute_consumer_reads_the_draft(source, t
     assert pending["draft_due"] and pending["pages"] == []
     result = editorial.draft_due_page(store, lambda: export, root=root, now=now, call=draft, run_root=run_root)
     assert result["status"] == "PAGE_DRAFT_READY" and result["writer"] == terminal_writer
-    assert seen == (["antigravity"] if terminal_writer == "antigravity" else ["antigravity", "antigravity", "codex"])
+    assert seen == (["medium"] if case == "first" else ["medium", "high"])
     records = [json.loads(file.read_bytes()) for file in root.glob("*/*/*/*/light-call.json")]
     assert len(records) == len(seen)
     assert all(record["job"] == "plan_analysis_page" for record in records)
@@ -198,7 +201,7 @@ def test_cc755_substack_page_carries_the_same_cases_and_main_evidence(source, tm
     run = pages.load_run(plan, run_root=run_root)
 
     def select(prompt, **kwargs):
-        assert kwargs["callers"] == ("antigravity",)
+        assert kwargs["callers"] == ("codex",)
         assert "Base case and its stated chance" in prompt
         return json.dumps(_selection(prompt)).encode(), {"status": "RETURNED"}
 

@@ -2,6 +2,12 @@
 
 Artifacts live beside the existing article package. No scheduler, publisher or
 model fallback is introduced. Status posts do not call this module.
+
+Since 24 Nov 2026 the light text (alt text, social variants, claim list) runs on
+Codex gpt-6.2-sol through light_model_caller_v1, never Antigravity (the account
+was disabled for a Terms of Service violation; Jim's order of 24 Nov). The module
+name, the record schema and its AGY_* status codes stay for their consumers; the
+record's caller, model and effort fields carry the real provenance.
 """
 from __future__ import annotations
 
@@ -28,8 +34,15 @@ def agy_blocked(executable) -> bool:
     """True for the Antigravity CLI while the terms block stands."""
     name = str(executable).replace("\\", "/").rsplit("/", 1)[-1].lower()
     return bool(AGY_TERMS_BLOCK) and name in {"agy.exe", "agy"}
-MODEL = "gemini-3.8-flash-high"
+MODEL = "gemini-3.8-flash-high"  # Antigravity's configuration; no ContentOps code starts agy (terms block)
 EFFORT = "high"
+# The editorial light text runs on Codex since 24 Nov 2026. Medium effort: the answer
+# lists every number, date, level and attribution with its source line and writes
+# public alt text and social variants, all checked afterwards (_claim_flags,
+# _check_light_text, _no_new_numbers); low effort lists claims too loosely for a
+# check that only flags what the model listed. One call per article package.
+ASSIST_CALLER, ASSIST_MODEL, ASSIST_EFFORT = "codex", "gpt-6.2-sol", "medium"
+ASSIST_TIMEOUT_SECONDS = 180
 LIMITS = {"x": 280, "threads": 500, "telegram": 4096, "discord": 2000}
 NAME = "agy_light_assist_v1.json"
 
@@ -258,10 +271,10 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
         _write(root / NAME, record)
         return record
     path.parent.mkdir(parents=True, exist_ok=True)
-    run = runner or _run
+    run = runner  # None: light_model_caller_v1's own Codex runner
     record = {"schema_version": "contentops.agy_light_assist.v1", "status": "AGY_UNAVAILABLE",
               "scenario_voice": voice.CONTRACT,
-              "agy": AGY, "agy_version": None, "model": MODEL, "effort": EFFORT,
+              "caller": ASSIST_CALLER, "model": ASSIST_MODEL, "effort": ASSIST_EFFORT,
               "configuration_status": "CONFIGURED_NOT_OBSERVED", "started_utc": _now(),
               "prompt_sha256": key, "artifact_path": str(path), "publisher_decisions": [],
               "input_sha256": _hash(packet), "draft_binding_sha256": _draft_binding(draft),
@@ -272,43 +285,25 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
     _write(path.parent / "source_pack_lines.json", packet["source_lines"])
     raw, err = b"", b""
     try:
-        with tempfile.TemporaryDirectory(prefix="cc378-agy-") as cwd:
-            # Version telemetry must not prevent the requested editorial call.
-            # CC-536 piece 2 observed a five-second --version timeout before
-            # any prompt was sent. Keep that observation and try the call once.
-            record["version_started_utc"] = _now()
-            try:
-                version = run([AGY, "--version"], cwd=cwd, timeout=5)
-                record["version_returncode"] = version.returncode
-                if version.returncode != 0:
-                    record["version_cause"] = "AGY_VERSION_EXIT_" + str(version.returncode)
-                elif not version.stdout.strip():
-                    record["version_cause"] = "AGY_VERSION_EMPTY"
-                else:
-                    record["agy_version"] = version.stdout.decode(errors="replace").strip()[:200]
-            except Exception as exc:
-                record["version_cause"] = ("AGY_VERSION_TIMEOUT_5S"
-                    if isinstance(exc, subprocess.TimeoutExpired)
-                    else type(exc).__name__ + ": " + str(exc)[:500])
-            record["version_ended_utc"] = _now()
-            args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
-                    "--print-timeout", "120s", "--input-format", "stream-json",
-                    "--output-format", "stream-json", "--print", ""]
-            message = {"event": "user", "message": {"role": "user", "content": [{"type": "text", "text": prompt}]}}
-            result = run(args, cwd=cwd, timeout=120, input=(_json(message) + "\n").encode())
-            raw, err = result.stdout, result.stderr
-            record["returncode"] = result.returncode
-            if result.returncode != 0:
-                raise ValueError("AGY_EXIT_" + str(result.returncode))
-            output = _parse(raw)
-            flags = _claim_flags(output, packet)
-            record.update(status="AGY_AVAILABLE", output=output, flags=flags)
+        # Lazy import: light_model_caller_v1 imports this module.
+        from .light_model_caller_v1 import call_light
+        light_root = path.parent / "light"
+        answer, light = call_light(prompt, root=light_root, runner=run, callers=(ASSIST_CALLER,),
+            job="editorial_light_assist", codex_effort=ASSIST_EFFORT, timeout_seconds=ASSIST_TIMEOUT_SECONDS,
+            timeout_cause="CODEX_ASSIST_TIMEOUT", empty_cause="CODEX_ASSIST_EMPTY")
+        attempt = light["attempts"][-1] if light["attempts"] else {}
+        record.update(light_call_path=light["artifact_path"], returncode=attempt.get("returncode"),
+                      answer_seconds=attempt.get("elapsed_seconds"))
+        if (light_root / (ASSIST_CALLER + "-stdout.txt")).is_file():
+            raw = (light_root / (ASSIST_CALLER + "-stdout.txt")).read_bytes()
+            err = (light_root / (ASSIST_CALLER + "-stderr.txt")).read_bytes()
+        if light["status"] != "RETURNED":
+            raise ValueError(light.get("cause") or "CODEX_ASSIST_UNAVAILABLE")
+        output = _parse(answer)
+        flags = _claim_flags(output, packet)
+        record.update(status="AGY_AVAILABLE", output=output, flags=flags)
     except Exception as exc:
-        if isinstance(exc, subprocess.TimeoutExpired):
-            raw, err = exc.output or b"", exc.stderr or b""
-        record["cause"] = (("AGY_TIMEOUT_120S" if exc.timeout == 120 else "AGY_VERSION_TIMEOUT_5S")
-                           if isinstance(exc, subprocess.TimeoutExpired)
-                           else type(exc).__name__ + ": " + str(exc)[:500])
+        record["cause"] = type(exc).__name__ + ": " + str(exc)[:500]
     record.update(ended_utc=_now(), output_sha256=sha256(raw).hexdigest(), stderr_sha256=sha256(err).hexdigest())
     (path.parent / "output.txt").write_bytes(raw)
     (path.parent / "stderr.txt").write_bytes(err)

@@ -167,8 +167,9 @@ def combine(code,vision,*,new_template=False):
 
 def review_vision(asset,*,runner=None):
     """Bounded vision callers; exact pixels and the ten-point check still govern."""
-    from .agy_editorial_assist_v1 import MODEL,EFFORT
-    from .light_model_caller_v1 import call_light, json_answer
+    # Since 24 Nov 2026 the ten-point image check runs on Codex (low effort, the light
+    # caller's default) with the PNG attached; never Antigravity (terms block).
+    from .light_model_caller_v1 import CODEX_EFFORT as EFFORT, CODEX_MODEL as MODEL, call_light, json_answer
     meta=asset["image_template"]
     image_path=Path(asset["path"]).resolve()
     code=code_check(asset)
@@ -230,8 +231,8 @@ def review_vision(asset,*,runner=None):
                 "required":["image_seen","points","reasons"],"additionalProperties":False}
         record["output_schema_sha256"]=digest(schema)
         folder=image_path.parent/(image_path.stem+".vision")/datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
-        answer,light=call_light(prompt,root=folder,runner=runner,image=image_path,schema=schema,
-            timeout_cause="AGY_VISION_TIMEOUT_125S",empty_cause="AGY_VISION_EMPTY_RESPONSE")
+        answer,light=call_light(prompt,root=folder,runner=runner,image=image_path,schema=schema,callers=("codex",),
+            timeout_cause="CODEX_VISION_TIMEOUT",empty_cause="CODEX_VISION_EMPTY_RESPONSE")
         record.update(light_call=light,answered_by=light["answered_by"],elapsed_seconds=light["elapsed_seconds"])
         observed=light["attempts"][-1]
         for key,value in observed.items():

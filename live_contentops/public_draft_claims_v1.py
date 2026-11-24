@@ -1,4 +1,8 @@
-"""CC-378 claim review for drafts with source-bound copy."""
+"""CC-378 claim review for drafts with source-bound copy.
+
+Since 24 Nov 2026 the claim list comes from Codex gpt-6.2-sol, never Antigravity
+(the account was disabled for a Terms of Service violation; Jim's order of 24 Nov).
+"""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -12,10 +16,17 @@ from uuid import uuid4
 
 from .agy_editorial_assist_v1 import _date_names, _evidence_line, _hash, _lines, _numbers
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
-from .light_model_caller_v1 import AGY_TIMEOUT, call_light, json_answer
+from .light_model_caller_v1 import CODEX_TIMEOUT, call_light, json_answer
 
 RECORD = "claim-review.json"
 JOB = "public_draft_claim_check"
+# Low effort: the model only lists each claim with its source line and quote; the code
+# in _review checks every number, date and id itself and restores or drops the text.
+# One call per exact draft (cached by fingerprint), on every public post.
+CLAIM_EFFORT = "low"
+# Light-model drafts whose unsupported sentences are dropped (the reply tabs' drafts
+# ran on Antigravity until 24 Nov 2026 and on Codex's light caller since).
+DROPPED_ORIGINS = {"antigravity", "codex_light"}
 IDENTIFIER = re.compile(r"\b(?:CC-\d+|[a-z]+(?:-[a-z]+)*-[a-f0-9]{16,})\b", re.I)
 DIRECTION = {
     "bullish": "up", "bearish": "down", "long": "up", "short": "down",
@@ -89,7 +100,7 @@ def _review(passages, lines, claims):
                 replacement, action = fallback, "SOURCE_TEXT_RESTORED"
             elif confirmed_source and confirmed_source != text and len(reasons) == 1:
                 replacement, action = confirmed_source, "SOURCE_VALUE_RESTORED"
-            elif unsupported or passage.get("origin") == "antigravity":
+            elif unsupported or passage.get("origin") in DROPPED_ORIGINS:
                 replacement, action = "", "SENTENCE_DROPPED"
             else:
                 action = "REVIEW_REQUIRED"
@@ -123,9 +134,9 @@ def check_draft(draft_id, kind, passages, sources, *, output_dir, call=None):
     receipt = {}
     cause = None
     try:
-        answer, receipt = (call or call_light)(prompt, root=root, job=JOB, callers=("antigravity",),
-            timeout_seconds=AGY_TIMEOUT, timeout_cause=f"AGY_CLAIM_TIMEOUT_{AGY_TIMEOUT}S",
-            empty_cause="AGY_CLAIM_EMPTY")
+        answer, receipt = (call or call_light)(prompt, root=root, job=JOB, callers=("codex",),
+            codex_effort=CLAIM_EFFORT, timeout_seconds=CODEX_TIMEOUT,
+            timeout_cause=f"CODEX_CLAIM_TIMEOUT_{CODEX_TIMEOUT}S", empty_cause="CODEX_CLAIM_EMPTY")
         if answer:
             result = json_answer(answer)
             claims = result.get("claims") if isinstance(result, dict) else None

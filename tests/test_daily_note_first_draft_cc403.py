@@ -51,19 +51,19 @@ def test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing(tmp
         value["article"]["substack_body_markdown"] += "\n\nThe yield was 99.9%. [[SOURCE:SOURCE_1]]"
 
     def runner(args, *, cwd, timeout, input=None):
+        # A fake `codex exec`: since 24 Nov 2026 the first draft runs on Codex, never agy.
         calls.append(args)
         assert not list(__import__("pathlib").Path(cwd).iterdir())
-        if args[-1] == "--version":
-            return SimpleNamespace(stdout=b"agy 1.5.3", stderr=b"", returncode=0)
-        assert timeout == 120 and "--input-format" in args
-        assert args[args.index("--model") + 1] == "gemini-3.8-flash-high"
-        assert args[args.index("--effort") + 1] == "high"
-        assert json.loads(input)["message"]["content"][0]["text"].startswith("Do not call any tool")
+        assert timeout == draft.DRAFT_TIMEOUT_SECONDS and args[1] == "exec"
+        assert args[args.index("--model") + 1] == "gpt-6.2-sol"
+        assert 'model_reasoning_effort="medium"' in args
+        assert input.decode("utf-8").startswith("Do not call any tool")
         if failure == "timeout":
-            raise subprocess.TimeoutExpired(args, 120)
-        raw = b"" if failure == "empty" else json.dumps({"event": "result", "result": {
-            "status": "SUCCESS", "response": json.dumps(value)}}).encode()
-        return SimpleNamespace(stdout=raw, stderr=b"", returncode=7 if failure == "exit" else 0)
+            raise subprocess.TimeoutExpired(args, timeout)
+        if failure != "empty":
+            out = __import__("pathlib").Path(args[args.index("--output-last-message") + 1])
+            out.write_bytes(json.dumps(value).encode())
+        return SimpleNamespace(stdout=b"", stderr=b"", returncode=7 if failure == "exit" else 0)
 
     record = draft.prepare_first_draft(governed(), GUIDANCE, output_dir=tmp_path, runner=runner)
     assert record["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
@@ -79,8 +79,8 @@ def test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing(tmp
         assert record["status"] == "DRAFT_CHECKS_PASS", record["checks"]
     # An interruption resumes the exact saved call, including a real failure.
     assert draft.prepare_first_draft(governed(), GUIDANCE, output_dir=tmp_path,
-        runner=lambda *a, **k: pytest.fail("must not repeat the exact AGY call")) == record
-    assert len(calls) == 2
+        runner=lambda *a, **k: pytest.fail("must not repeat the exact Codex call")) == record
+    assert len(calls) == 1
 
 
 def native_turn(tmp_path):

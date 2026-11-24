@@ -2,6 +2,11 @@
 
 The existing minute entry calls refresh_due. Pack validation, manual readback,
 the durable store/leases and the existing Neo MCP transport retain their owners.
+
+Since 24 Nov 2026 the reply drafts run on Codex gpt-6.2-sol through
+light_model_caller_v1, never Antigravity (the account was disabled for a Terms
+of Service violation; Jim's order of 24 Nov). draft_with_agy and
+_draft_post_with_agy keep their names for their importers.
 """
 from __future__ import annotations
 
@@ -11,12 +16,9 @@ from html import unescape
 import json
 from pathlib import Path
 import re
-import subprocess
-import tempfile
 from uuid import uuid4
 
 from live_contentops import x_reply_pack_v1 as packs
-from live_contentops.agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
 from live_contentops.durable_operational_store_v1 import LeaseConflictError
 from live_contentops.neo_endpoint_executor_v1 import NeoMcpClient, NeoEndpointError
 from live_contentops.x_list_feed_v1 import FEED_PATH
@@ -25,6 +27,11 @@ GROUP = "X replies: press Reply"
 INTERVAL_SECONDS = 2 * 60 * 60
 MAX_TABS = 5
 DRAFT_TIMEOUT_SECONDS = 180
+# Low effort: one reply of at most 280 characters per target from a few supplied
+# source lines, and the answer is checked afterwards (exact fact and addition
+# substrings, the public-number validator, the claim review and Jim's own send).
+# One call per target author, at most MAX_TABS per two-hour refresh.
+REPLY_CALLER, REPLY_MODEL, REPLY_EFFORT = "codex", "gpt-6.2-sol", "low"
 STATE_DESTINATION = "internal:x-reply-tabs-state"
 RUN_DESTINATION = "internal:x-reply-tabs-run"
 CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\x_reply_tabs.json")
@@ -89,7 +96,8 @@ def draft_with_agy(request_path, *, output_dir, runner=None):
             authors.add(author)
             chosen.append(post)
     response = {"request_sha256": request["request_sha256"], "items": [], "omissions": []}
-    record = {"model": MODEL, "effort": EFFORT, "runtime_model": None, "runtime_effort": None,
+    record = {"caller": REPLY_CALLER, "model": REPLY_MODEL, "effort": REPLY_EFFORT,
+              "runtime_model": None, "runtime_effort": None,
               "configuration_status": "CONFIGURED_NOT_OBSERVED", "calls": [],
               "request_sha256": request["request_sha256"], "started_at_utc": packs.utcnow().isoformat(),
               "public_submit_actions": 0}
@@ -184,46 +192,26 @@ def _draft_post_with_agy(request_path, *, post, output_dir, runner=None):
     )
     (root / "prompt.txt").write_text(prompt, encoding="utf-8")
     packs.save_json(root / "source-aliases.json", {"request_sha256": request["request_sha256"], "sources": aliases})
-    record = {"model": MODEL, "effort": EFFORT, "runtime_model": None, "runtime_effort": None,
+    record = {"caller": REPLY_CALLER, "model": REPLY_MODEL, "effort": REPLY_EFFORT,
+              "runtime_model": None, "runtime_effort": None,
               "configuration_status": "CONFIGURED_NOT_OBSERVED", "started_at_utc": packs.utcnow().isoformat(),
               "request_sha256": request["request_sha256"], "public_submit_actions": 0}
     raw, err = b"", b""
     try:
-        message = {"event": "user", "message": {"role": "user", "content": [{"type": "text", "text": prompt}]}}
-        args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands", "--print-timeout", str(DRAFT_TIMEOUT_SECONDS) + "s"]
-        # Measured here: stream input returned no assistant response twice;
-        # direct --print returned the requested JSON in 17 seconds. Keep within
-        # Windows' command-line limit; larger requests retain the documented stream route.
-        direct = len(prompt.encode("utf-16-le")) < 48_000
-        args += (["--output-format", "json", "--print", prompt] if direct else
-                 ["--input-format", "stream-json", "--output-format", "stream-json", "--print", ""])
-        record["input_transport"] = "DIRECT_PRINT" if direct else "STREAM_JSON"
-        with tempfile.TemporaryDirectory(prefix="cc458-agy-") as cwd:
-            result = (runner or _run)(args, cwd=cwd, timeout=DRAFT_TIMEOUT_SECONDS,
-                                      input=None if direct else (json.dumps(message) + "\n").encode("utf-8"))
-        raw, err = result.stdout, result.stderr
-        record["returncode"] = result.returncode
-        if result.returncode:
-            raise ValueError("AGY_EXIT_" + str(result.returncode))
-        text = raw.decode("utf-8").strip()
-        if text.startswith('{"event"'):
-            events = [json.loads(line) for line in text.splitlines() if line.strip()]
-            final = next((e["result"] for e in reversed(events) if e.get("event") == "result"), {})
-            init = next((e.get("init", {}) for e in events if e.get("event") == "init"), {})
-        else:
-            envelope = json.loads(text)
-            final = envelope if "response" in envelope else None
-            init = {}
-        if final is not None:
-            if final.get("status") != "SUCCESS":
-                raise ValueError("AGY_RESULT_UNAVAILABLE")
-            text = str(final.get("response") or "").strip()
-            # Self-described editorial_call fields are not runtime telemetry.
-            record["runtime_model"] = final.get("model") or init.get("model")
-            record["runtime_effort"] = final.get("effort") or init.get("effort")
-            record["configuration_status"] = ("OBSERVED" if record["runtime_model"] and record["runtime_effort"] else
-                                               "MODEL_OBSERVED_EFFORT_CONFIGURED" if record["runtime_model"] else
-                                               "CONFIGURED_NOT_OBSERVED")
+        from .light_model_caller_v1 import call_light
+        light_root = root / "light"
+        answer, light = call_light(prompt, root=light_root, runner=runner, callers=(REPLY_CALLER,),
+            job="x_reply_tab_draft", codex_effort=REPLY_EFFORT, timeout_seconds=DRAFT_TIMEOUT_SECONDS,
+            timeout_cause="CODEX_REPLY_TIMEOUT", empty_cause="CODEX_REPLY_EMPTY")
+        attempt = light["attempts"][-1] if light["attempts"] else {}
+        record.update(light_call_path=light["artifact_path"], returncode=attempt.get("returncode"))
+        if (light_root / (REPLY_CALLER + "-stdout.txt")).is_file():
+            raw = (light_root / (REPLY_CALLER + "-stdout.txt")).read_bytes()
+            err = (light_root / (REPLY_CALLER + "-stderr.txt")).read_bytes()
+        if light["status"] != "RETURNED":
+            raise ValueError(light.get("cause") or "CODEX_REPLY_UNAVAILABLE")
+        # The Codex CLI reports no runtime model or effort: CONFIGURED_NOT_OBSERVED stays.
+        text = answer.decode("utf-8").strip()
         text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
         response = json.loads(text)
         if not isinstance(response.get("items"), list):
@@ -240,17 +228,12 @@ def _draft_post_with_agy(request_path, *, post, output_dir, runner=None):
             allowed = {source["source_id"]: source for source in selected if source["source_id"] in aliases.values()}
             for item in response["items"]:
                 if source := allowed.get(item.get("source_id")):
-                    review_x_reply(item, source, output_dir=root, origin="antigravity")
+                    review_x_reply(item, source, output_dir=root, origin="codex_light")
         response["editorial_call"] = dict(record)
         path = root / "response.json"
         packs.save_json(path, response)
         record["status"] = "DRAFTED"
         return path
-    except subprocess.TimeoutExpired as exc:
-        raw, err = exc.output or b"", exc.stderr or b""
-        cause = "AGY_TIMEOUT_" + str(DRAFT_TIMEOUT_SECONDS) + "S"
-        record.update(status="DRAFT_FAILED", cause=cause)
-        raise ValueError(cause) from None
     except Exception as exc:
         record.update(status="DRAFT_FAILED", cause=type(exc).__name__ + ": " + str(exc)[:200])
         raise
@@ -525,7 +508,7 @@ def refresh_due(store, *, force=False, feed_path=FEED_PATH, output_root=packs.PA
             built = {"pack_path": str(retained_pack_path), "item_count": len(retained["items"])}
             result.update(pack=built, editorial_call=retained.get("editorial_call", {}), drafting_reused=True)
         else:
-            result["stage"] = "AGY_DRAFT"
+            result["stage"] = "CODEX_DRAFT"
             ready = packs.prepare(store, feed_path=feed_path, mentions_path=mentions_path, output_root=root, now=now)
             response = (drafter or draft_with_agy)(ready["request_path"], output_dir=root / "agy")
             result["stage"] = "PACK_BUILD"

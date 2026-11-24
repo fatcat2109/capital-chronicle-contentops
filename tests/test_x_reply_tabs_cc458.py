@@ -69,7 +69,7 @@ def drafter_for():
                  for p in request["candidates"][:5]]
         path = Path(output_dir) / "response.json"
         packs.save_json(path, {"request_sha256": request["request_sha256"], "items": items, "omissions": [],
-                               "editorial_call": {"model": tabs.MODEL, "configuration_status": "CONFIGURED_NOT_OBSERVED"}})
+                               "editorial_call": {"model": tabs.REPLY_MODEL, "configuration_status": "CONFIGURED_NOT_OBSERVED"}})
         return path
     return draft
 
@@ -218,10 +218,10 @@ def test_failed_drafter_leaves_group_unchanged_and_waits_two_hours(setup):
     tabs.enable_cadence(store, control_path=root / "control.json")
     before = deepcopy(neo.current)
     def fail(*a, **kw):
-        raise ValueError("AGY_TIMEOUT_120S")
+        raise ValueError("CODEX_LIGHT_TIMEOUT_180S")
     result = run(setup, neo=neo, drafter=fail, now=NOW + timedelta(hours=2))
-    assert result["status"] == "REFRESH_FAILED" and result["stage"] == "AGY_DRAFT"
-    assert result["cause"] == "ValueError: AGY_TIMEOUT_120S"
+    assert result["status"] == "REFRESH_FAILED" and result["stage"] == "CODEX_DRAFT"
+    assert result["cause"] == "ValueError: CODEX_LIGHT_TIMEOUT_180S"
     assert neo.current == before and not neo.closed
     assert run(setup, neo=neo, force=False, now=NOW + timedelta(hours=3))["status"] == "NOT_DUE"
 
@@ -256,35 +256,40 @@ def test_cadence_stays_disabled_until_real_refresh_is_saved(setup):
         tabs.enable_cadence(store, control_path=root / "control.json")
 
 
-def test_agy_uses_bounded_existing_cli_and_records_config_without_trusting_self_report(setup):
+def codex_answer(args, value):
+    """A fake `codex exec`: the reply drafts run on Codex since 24 Nov 2026, never agy."""
+    assert args[1] == "exec" and args[args.index("--model") + 1] == "gpt-6.2-sol"
+    Path(args[args.index("--output-last-message") + 1]).write_text(json.dumps(value), encoding="utf-8")
+    return subprocess.CompletedProcess(args, 0, b"", b"")
+
+
+def test_codex_uses_bounded_existing_cli_and_records_config_without_trusting_self_report(setup):
     store, feed, root = setup
     ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW)
     seen = []
     def runner(args, **kwargs):
         seen.append(args)
-        assert kwargs["timeout"] == tabs.DRAFT_TIMEOUT_SECONDS and kwargs["input"] is None
-        assert args[-2] == "--print" and "PUBLIC_NOTICE" in args[-1]
+        assert kwargs["timeout"] == tabs.DRAFT_TIMEOUT_SECONDS and "PUBLIC_NOTICE" in kwargs["input"].decode()
+        assert 'model_reasoning_effort="low"' in args and args[-1] == "-"
         response = {"request_sha256": ready["request_sha256"], "items": [],
                     "editorial_call": {"runtime_model": "invented"}}
-        raw = json.dumps({"status": "SUCCESS", "response": json.dumps(response)}).encode()
-        return subprocess.CompletedProcess(args, 0, raw, b"")
+        return codex_answer(args, response)
     path = tabs.draft_with_agy(ready["request_path"], output_dir=root / "agy", runner=runner)
     record = packs.read_json(root / "agy/call.json")
-    assert len(seen) == 1 and seen[0][0] == tabs.AGY
-    assert seen[0][seen[0].index("--model") + 1] == "gemini-3.8-flash-high"
+    assert len(seen) == 1 and Path(seen[0][0]).name.lower().startswith("codex")
+    assert (record["caller"], record["model"], record["effort"]) == ("codex", "gpt-6.2-sol", "low")
     assert record["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
     assert packs.read_json(path)["editorial_call"]["runtime_model"] is None
 
 
-def test_agy_short_source_aliases_reach_the_bound_pack_consumer(setup):
+def test_codex_short_source_aliases_reach_the_bound_pack_consumer(setup):
     store, feed, root = setup
     ready, response, _ = response_for(setup)
     original = response["items"][0]["source_id"]
     response["items"][0]["source_id"] = "S1"
     response.pop("request_sha256")
     def runner(args, **kwargs):
-        return subprocess.CompletedProcess(args, 0, json.dumps({"status": "SUCCESS",
-            "response": json.dumps(response)}).encode(), b"")
+        return codex_answer(args, response)
     path = tabs.draft_with_agy(ready["request_path"], output_dir=root / "agy", runner=runner)
     assert packs.read_json(path)["items"][0]["source_id"] == original
     built = packs.build(store, request_path=ready["request_path"], response_path=path,

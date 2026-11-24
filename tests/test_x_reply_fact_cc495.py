@@ -326,19 +326,18 @@ def test_ranker_gets_actual_relevant_facts_without_internal_binding_ids(consumer
 
 def test_bounded_rank_timeout_is_recorded_without_changing_model_roles(tmp_path):
     import subprocess
-    from live_contentops.light_model_caller_v1 import AGY_TIMEOUT, CODEX_TIMEOUT
+    from live_contentops.light_model_caller_v1 import CODEX_TIMEOUT
     calls = []
     def slow(args, **kwargs):
         calls.append(args)
-        assert kwargs["timeout"] == (AGY_TIMEOUT if len(calls) == 1 else CODEX_TIMEOUT)
-        if len(calls) == 1:
-            assert str(AGY_TIMEOUT)+"s" in args
+        # Since 24 Nov 2026 the ranker is one Codex call at low effort (never Antigravity).
+        assert kwargs["timeout"] == CODEX_TIMEOUT and 'model_reasoning_effort="low"' in args
         raise subprocess.TimeoutExpired(args, kwargs["timeout"], output=b"partial rank result")
-    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_65S"):
+    with pytest.raises(ValueError, match="CODEX_LIGHT_TIMEOUT_65S"):
         botlane._text_call("No tools. Rank only.", root=tmp_path, runner=slow)
     call = packs.read_json(tmp_path / "call.json")
     assert call["status"] == "TIMEOUT" and call["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
-    assert call["configured_model"] != botlane.WRITER_MODEL
+    assert len(calls) == 1 and call["configured_effort"] == "low" != botlane.WRITER_EFFORT
 
 
 def test_media_time_cannot_push_a_draft_past_fifteen_minutes(consumer, monkeypatch):

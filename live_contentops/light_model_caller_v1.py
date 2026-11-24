@@ -1,4 +1,11 @@
-"""CC-512: one bounded AGY call, then one Codex call on timeout/empty output.
+"""CC-512: one bounded light model call, with the role's own checks on its answer.
+
+Since 24 Nov 2026 every light call runs on Codex (gpt-6.2-sol) only: Google
+disabled the Antigravity (agy) account for a Terms of Service violation, and Jim
+ordered agy replaced by Codex with the effort chosen per task (24 Nov, before
+05:21Z). The default callers are ("codex",). A caller that still names
+"antigravity" gets the terms-block refusal without a process and falls through
+to its next caller. Each caller passes the Codex effort its purpose needs.
 
 Call artifacts stay with the existing role's artifacts. Role-specific source,
 copy and image checks still judge the answer; this module grants no acceptance.
@@ -18,7 +25,7 @@ import tempfile
 import threading
 from time import perf_counter
 
-from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
+from .agy_editorial_assist_v1 import AGY, AGY_TERMS_BLOCK, MODEL, EFFORT, _run, agy_blocked
 
 # The saved answered-call p90 is 64.57s. Censored timeouts are reported separately
 # in CC-512's diagnosis; they cannot establish a completed-call percentile.
@@ -205,7 +212,7 @@ def _codex_observations(raw, record):
 
 
 def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=None, schema=None,
-               callers=("antigravity", "codex"), job=None, codex_effort=CODEX_EFFORT, timeout_seconds=None):
+               callers=("codex",), job=None, codex_effort=CODEX_EFFORT, timeout_seconds=None):
     """Return (answer bytes, record); retain the first cause if both calls fail."""
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -239,6 +246,11 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
         try:
             if image is not None and sha256(image.read_bytes()).hexdigest() != record["image_sha256"]:
                 raise ValueError("IMAGE_REVIEW_BYTES_CHANGED")
+            if caller == "antigravity" and agy_blocked(AGY):
+                # 24 Nov 2026 terms block: no agy process; the next caller (Codex) answers.
+                eligible = True
+                attempt["status"] = "NOT_STARTED"
+                raise ValueError(AGY_TERMS_BLOCK)
             with tempfile.TemporaryDirectory(prefix="cc512-light-", ignore_cleanup_errors=True) as cwd:
                 if caller == "antigravity":
                     args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
