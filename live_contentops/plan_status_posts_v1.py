@@ -1354,7 +1354,12 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
         if row.get("price_basis") == "plan":
             facts.append(("Prices", "Plan-price levels"))
     if row.get("kind") == "result":
-        facts.extend([("Result", row["result"].lower()), ("Scored calls", str(row["scored_call_count"]))])
+        # Builder L, 24 Nov 2026: a card-format (format 4) result row carries no scored_call_count, so a failed
+        # chart capture raised KeyError here and the result never posted (the promised USD/JPY result).
+        facts.append(("Result", row["result"].lower()))
+        count = row.get("scored_call_count")
+        if isinstance(count, int) and not isinstance(count, bool):
+            facts.append(("Scored calls", str(count)))
     if levels.get("zone_low") is not None and levels.get("zone_high") is not None:
         facts.append(("Entry zone", f"{_level(levels['zone_low'])}–{_level(levels['zone_high'])}"))
     if levels.get("invalidation_level") is not None and levels.get("direction") in {"bullish", "bearish"}:

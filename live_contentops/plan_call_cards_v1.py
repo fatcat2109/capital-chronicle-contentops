@@ -639,6 +639,14 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     current_states.update({pid: raw["status"] for pid, raw in sources.items()
                            if raw.get("status") in TERMINAL})
     outcomes = _result_rows(export)
+    # Builder L, 24 Nov 2026 (relaunch rehearsal): the pause rule holds a result back only when the pinned
+    # scorecard shows it. The scorecard lists scored results and unscored expiries; an announced plan that
+    # was invalidated, or not executed, inside the pause still owes its public card an ending (BTCUSD
+    # plan_1d9bc560342b94e3d5a0cdb1, Telegram 231 on 23 Nov 03:55Z, invalidated at 05:43Z).
+    try:
+        scorecard_plans = {r["plan_id"] for r in posts.result_rows_from_export(export, include_not_triggered=True)}
+    except posts.PlanPostError:
+        scorecard_plans = None  # unknown: every result inside the pause stays held, as before
     result_keys = {r["plan_id"]: r["key"] for r in outcomes}
     ended_plans = result_keys.keys()
     current_states.update({pid: "RESULT" for pid in ended_plans if current_states.get(pid) not in TERMINAL})
@@ -778,7 +786,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 _refresh_unissued_no_entry_result(store, prior[row["key"]], row, source_for)
             already.append(row["key"])
             continue
-        if row["to"] == "RESULT" and pid not in PROMISED_RESULT_PLANS and inside_jim_pause(row["at_utc"], now, pause):
+        if (row["to"] == "RESULT" and pid not in PROMISED_RESULT_PLANS and inside_jim_pause(row["at_utc"], now, pause)
+                and (scorecard_plans is None or pid in scorecard_plans)):
             skipped.append({"key": row["key"], "cause": "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD"})
             continue
         if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":

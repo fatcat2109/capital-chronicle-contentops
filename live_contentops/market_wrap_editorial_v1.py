@@ -265,11 +265,13 @@ def article_for(pack, manuscript):
         when = et(scenario["registered_at_utc"])
         body.extend(["## Scenarios", f"Our {market} view was set {when}. Chances are Capital Chronicle estimates."])
         for case in scenario["cases"]:
-            heading = _case_line(case["heading"])
+            # Builder L, 24 Nov 2026: a separate name, so the edition title keeps its "Pre-US Market Wrap"
+            # heading (the loop once rebound it, and the title became the last scenario case line).
+            case_heading = _case_line(case["heading"])
             support = [line for line in map(_case_line, case["support"])
                        if not public_span_problem(re.sub(r"^[^:]{1,60}:\s*", "", line))]
-            case_headings.append(heading)
-            body.extend([heading, *support])
+            case_headings.append(case_heading)
+            body.extend([case_heading, *support])
     body.extend([intro, "\n".join(table), "## What changed since the last wrap"])
     driver_lines = []
     for key, text in accepted_changes.items():
