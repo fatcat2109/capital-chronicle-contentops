@@ -17,6 +17,17 @@ import tempfile
 from . import scenario_voice_v1 as voice
 
 AGY = r"C:\Users\bullw\.gemini\bin\agy.exe"
+# Ops Product, 24 Nov 2026: Google disabled this machine's Antigravity account for a Terms of Service violation (04:12Z).
+# Its FAQ says that using agy through third-party tools, or wrapping it in other agents or applications, breaks the terms,
+# and that a repeat after reinstatement is permanent. So no ContentOps code starts agy: every caller gets this refusal
+# and uses its fallback (Codex, or the fixed copy). Lift it only by Jim's written decision.
+AGY_TERMS_BLOCK = "AGY_BLOCKED_TERMS_OF_SERVICE_20261124"
+
+
+def agy_blocked(executable) -> bool:
+    """True for the Antigravity CLI while the terms block stands."""
+    name = str(executable).replace("\\", "/").rsplit("/", 1)[-1].lower()
+    return bool(AGY_TERMS_BLOCK) and name in {"agy.exe", "agy"}
 MODEL = "gemini-3.8-flash-high"
 EFFORT = "high"
 LIMITS = {"x": 280, "threads": 500, "telegram": 4096, "discord": 2000}
@@ -54,6 +65,8 @@ def _write(path, value):
 
 
 def _run(args, *, cwd, timeout, input=None):
+    if args and agy_blocked(args[0]):
+        return subprocess.CompletedProcess(args, 3, b"", AGY_TERMS_BLOCK.encode())
     proc = subprocess.Popen(args, cwd=cwd, stdin=subprocess.PIPE if input else subprocess.DEVNULL,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))

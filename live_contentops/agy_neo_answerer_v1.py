@@ -154,6 +154,9 @@ class AgyRunner:
         return self.exe.is_file()
 
     def __call__(self, prompt: str) -> dict:
+        from live_contentops.agy_editorial_assist_v1 import AGY_TERMS_BLOCK, agy_blocked
+        if agy_blocked(self.exe):  # Ops Product, 24 Nov 2026: the Antigravity terms block (see agy_editorial_assist_v1)
+            return {"runner_status": "NOT_STARTED", "cause": AGY_TERMS_BLOCK}
         command = [*self.prefix, *agy_command(prompt, exe=self.exe)]
         folder = tempfile.mkdtemp(prefix="agy-neo-", dir=self.scratch_root)
         flags = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
