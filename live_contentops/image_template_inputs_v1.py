@@ -9,8 +9,11 @@ import json
 from zoneinfo import ZoneInfo
 
 MARKETS = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD",
-           "USDJPY": "USD/JPY", "USOIL": "WTI crude oil", "BTCUSD": "Bitcoin"}
+           "USDJPY": "USD/JPY", "USOIL": "WTI crude oil", "BTCUSD": "Bitcoin", "USTEC": "Nasdaq 100"}
 ORDER = tuple(MARKETS)
+# CC-788: the Nasdaq 100 is the seventh core market. Maps made before it keep their six rows; a seven-row map may
+# show the Nasdaq 100 as unavailable (never a guessed price) so a gap in it never removes the map for the six.
+SIX_ORDER = ORDER[:6]
 HORIZONS = {"SHORT": "Short-term", "MID": "Mid-term", "LONG": "Long-term"}
 STATES = {"WAITING": "Waiting for entry", "ARMED": "Waiting for entry", "PENDING": "Waiting for entry", "REGISTERED": "Waiting for entry",
           "TRIGGERED": "In position", "FILLED": "In position", "CLOSED": "Closed",
@@ -124,13 +127,13 @@ def for_event_preview(article, documents):
     arrows = {"up": "up", "bullish": "up", "down": "down", "bearish": "down", "flat": "flat"}
     for scenario in approved:
         probability = Decimal(scenario["probability"][:-1])
-        reading = scenario["market_moves"][market]
-        if (probability != int(probability) or len(scenario["name"]) > 14
+        reading = scenario["market_moves"].get(market)
+        if (not reading or probability != int(probability) or len(scenario["name"]) > 14
                 or len(scenario["confirmation"]) > 30 or len(reading) > 72):
             return None
         reactions = []
         for key in (market, *(key for key in ORDER if key != market)):
-            arrow = arrows.get(scenario["market_moves"][key].strip().casefold())
+            arrow = arrows.get((scenario["market_moves"].get(key) or "").strip().casefold())
             if arrow:
                 reactions.append({"market": key, "direction": arrow})
         rows.append({"name": scenario["name"], "trigger": scenario["confirmation"], "reading": reading,
@@ -193,18 +196,26 @@ def for_morning_map(article):
     record = article.get("morning_map") or {}
     market = article.get("market_asset")
     rows = record.get("rows") or []
-    if (market not in MARKETS or record.get("lead_market") != market or not record.get("date_et")
-            or not record.get("lead_line") or len(rows) != len(ORDER)
-            or {row.get("market") for row in rows} != set(ORDER)):
+    order = ORDER if len(rows) == len(ORDER) else SIX_ORDER
+    if (market not in order or record.get("lead_market") != market or not record.get("date_et")
+            or not record.get("lead_line") or len(rows) != len(order)
+            or {row.get("market") for row in rows} != set(order)):
         return None
     allowed_states = {"Trending up", "Trending down", "Mixed trend", "Range", "Squeeze", "Breakout"}
+    unavailable = {row["market"] for row in rows if row.get("unavailable") is True}
+    if unavailable - {"USTEC"} or market in unavailable or any(
+            any(row.get(key) is not None for key in ("last", "change_1d_pct", "state_word"))
+            for row in rows if row["market"] in unavailable):
+        return None
     if any(row.get("last") is None or row.get("change_1d_pct") is None or row.get("state_word") not in allowed_states
-           or any(key not in row for key in ("view_line", "driver_line")) for row in rows):
+           or any(key not in row for key in ("view_line", "driver_line")) for row in rows
+           if row["market"] not in unavailable):
         return None
     by_market = {row["market"]: row for row in rows}
     fields = ("market", "last", "change_1d_pct", "state_word", "view_line", "driver_line")
     data = {"date_et": record["date_et"], "lead_line": record["lead_line"],
-            "rows": [{key: by_market[symbol][key] for key in fields} for symbol in ORDER]}
+            "rows": [{"market": symbol, "unavailable": True} if symbol in unavailable else
+                     {key: by_market[symbol][key] for key in fields} for symbol in order]}
     return bind({"schema": "image_input_v1", "post_id": "map-" + digest(record)[:24], "template": "map",
                  "market": market, "map": data}, record)
 

@@ -19,6 +19,8 @@ from .plan_reader_copy_v1 import CURRENT_LEVEL_CONTRACT, LEVEL_CONTRACT
 POLICY = "CC459_VISIBLE_PRICE_SCALE_V1"
 # Six real guest captures, both delivery ratios, checked 11 Nov 2026:
 # docs/publisher/CC-459/six-market-scale-proof.json (grid error <= .50 px).
+# CC-788: the Nasdaq 100 (NASDAQ:NDX) joins once two real guest captures are added to that proof; until then its
+# chart is posted without drawn levels (the levels stay in the text).
 VERIFIED_MARKETS = frozenset({"XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD"})
 
 

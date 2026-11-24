@@ -460,8 +460,9 @@ def test_pricing_source_cannot_be_invented_in_writer_metadata(source, percentage
     root, _, plan, manuscript = source
     section = manuscript["sections"]["priced_in"]
     paragraph = section["paragraphs"][0]
-    paragraph.update(text=f"CME FedWatch prices a {percentage} chance of a rate increase.",
-                     source_name="CME FedWatch", source_locator="CME FedWatch")
+    # CME FedWatch numbers never reach public copy (Ops Product, 24 Nov 2026); a futures source still needs binding.
+    paragraph.update(text=f"Fed funds futures price a {percentage} chance of a rate increase.",
+                     source_name="Fed funds futures", source_locator="Fed funds futures")
     section["summary"] = paragraph["text"]
     with pytest.raises(ValueError, match="PRICED_PERCENTAGE_SOURCE"):
         pages.check_new_page_copy(manuscript, pages.load_run(plan, run_root=root))
@@ -482,14 +483,17 @@ def test_new_social_variants_share_page_claim_checks(text, cause):
 def test_named_futures_pricing_is_usable_when_its_attribution_is_bound(source, tmp_path):
     root, folder, plan, manuscript = source
     document = json.loads((folder / "options-context.json").read_bytes())
-    document["pricing"] = "CME FedWatch prices a 55% chance of a rate increase."
+    document["pricing"] = "Fed funds futures price a 55% chance of a rate increase."
     (folder / "options-context.json").write_text(json.dumps(document), encoding="utf-8")
     section = manuscript["sections"]["priced_in"]
     section["paragraphs"] = [{"text": document["pricing"], "refs": [{"file": "options-context.json", "pointer": "/pricing"}],
-        "rights": "SINGLE_ATTRIBUTED_FACT", "source_name": "CME FedWatch"}]
+        "rights": "SINGLE_ATTRIBUTED_FACT", "source_name": "Fed funds futures"}]
     section["summary"] = document["pricing"]
     packet = pages.render(plan, manuscript, run_root=root, output_dir=tmp_path / "page")
     assert document["pricing"] in packet["native_payload"]["body_markdown"]
+    # The same number from CME FedWatch stays out (CME terms, decision 44); its words would stay.
+    with pytest.raises(ValueError, match="PLAN_ANALYSIS_PREDICTION_MARKET_NUMBERS_FORBIDDEN"):
+        pages.check_reader_claim("CME FedWatch prices a 55% chance of a rate increase.", source_name="CME FedWatch")
 
 
 def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monkeypatch):

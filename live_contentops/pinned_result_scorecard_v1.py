@@ -36,8 +36,9 @@ RESULTS = ("HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED")
 # CC-583 (decision 40): the record prints the plan's own levels, rounded to the plan
 # instrument's tick. Main exports that tick as target_tick_size; where a plan lacks it,
 # the first-phase market's exported tick (plan-status export of 14 Nov 2026) applies.
+# CC-788: USTEC's tick, 0.01 index points (Exness, CC-037 cost sample of 26 Oct 2026; catalog digits 2).
 PLAN_TICKS = {"XAUUSD": "0.001", "US500": "0.01", "EURUSD": "0.00001", "USDJPY": "0.001",
-              "USOIL": "0.001", "BTCUSD": "0.01"}
+              "USOIL": "0.001", "BTCUSD": "0.01", "USTEC": "0.01"}
 _OLD_PRICE = re.compile(r" \| entry zone -?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))?(?= \| )")
 
 

@@ -14,7 +14,7 @@ from . import public_market_quote_v1 as quotes
 from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import sha256_of
 from .daily_trend_board_v1 import SOURCE as TREND_BOARD, trading_age
-from .event_article_guard_v1 import check_publication_copy
+from .event_article_guard_v1 import FEDWATCH_PATTERN, check_publication_copy
 from .main_report_projection_source_v1 import NATIVE_MAIN_ANALYSIS_ROOT
 from .plan_reader_copy_v1 import et, scenario_case_copy
 from .plan_scenario_lines_v1 import _clean
@@ -39,6 +39,8 @@ MARKETS = {
     "USOIL": ("Oil", "USOIL", ("usoil", "wti", "oil")),
     "US500": ("S&P 500", "US500_FUTURES", ("us500", "spx", "sp500")),
     "BTCUSD": ("Bitcoin", "BTCUSD", ("btcusd", "bitcoin", "btc")),
+    # CC-788: the seventh core market; the wrap reads its futures, the map its cash index (as for the S&P 500).
+    "USTEC": ("Nasdaq 100", "USTEC_FUTURES", ("ustec", "ndx", "nasdaq", "nas100")),
 }
 OPEN_STATUSES = {
     "WAITING": "Waiting for entry", "WATCH": "Waiting for entry", "PENDING": "Waiting for entry",
@@ -93,7 +95,7 @@ def safe_prose(value):
     """Use Main's admissible words and provider's lawful single facts."""
     if not isinstance(value, str) or not value.strip() or "|" in value or "[" in value:
         return None
-    if re.search(r"https?://|\b(?:Kalshi|Polymarket|prediction markets?|X list)\b", value, re.I):
+    if re.search(r"https?://|\b(?:Kalshi|Polymarket|prediction markets?|X list)\b|" + FEDWATCH_PATTERN, value, re.I):
         return None
     try:
         line, _ = _clean(value)
@@ -446,7 +448,7 @@ def morning_map_sources(snapshots, board_path, *, now, last_close, quote, clock,
                 # The wrap can discuss futures moves. The map's gold and S&P
                 # rows use the spot/cash instruments shown on their charts.
                 quote_options = {"max_age_seconds": 3600}
-                if market == "US500":
+                if market in {"US500", "USTEC"}:
                     # Cash is closed at the pre-US wrap. The provider can
                     # stamp the last session's index quote after its close.
                     quote_options.update(reference_at=last_close + timedelta(hours=1), max_age_seconds=3660)

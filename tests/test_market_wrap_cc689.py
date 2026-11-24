@@ -249,10 +249,10 @@ def test_decision_98_wrap_renderer_keeps_reader_shape(pack, cash, weekly):
     body = article["substack_body_markdown"]
     table = [line for line in body.splitlines() if line.startswith("| ")][2:]
     markets = [line.split("|")[1].strip().partition(" (")[0] for line in table]
-    assert len(markets) == 6
+    assert len(markets) == 7  # CC-788: the Nasdaq 100 is the seventh core market
     assert set(markets) == {
         "EUR/USD spot", "USD/JPY spot", "COMEX gold futures",
-        "WTI crude oil futures", "S&P 500 E-mini futures", "Bitcoin spot",
+        "WTI crude oil futures", "S&P 500 E-mini futures", "Bitcoin spot", "Nasdaq 100 E-mini futures",
     }
     headings = [line for line in body.splitlines() if line.startswith("## ")]
     assert "## What changed since the last wrap" in headings

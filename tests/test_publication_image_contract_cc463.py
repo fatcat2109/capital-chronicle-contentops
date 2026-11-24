@@ -441,10 +441,10 @@ def test_weekend_charts_use_the_last_close_with_dst_correct_et_clock(market):
     captured = datetime(2026, 11, 14, 12, tzinfo=timezone.utc)
     at, closed = contract.comparison_clock(market, captured)
     assert closed
-    assert at == datetime(2026, 11, 13, 21 if market == "US500" else 22, tzinfo=timezone.utc)
+    assert at == datetime(2026, 11, 13, 21 if market in {"US500", "USTEC"} else 22, tzinfo=timezone.utc)
     summer = datetime(2026, 7, 18, 12, tzinfo=timezone.utc)
     at, closed = contract.comparison_clock(market, summer)
-    assert closed and at.hour == (20 if market == "US500" else 21)
+    assert closed and at.hour == (20 if market in {"US500", "USTEC"} else 21)
     assert contract.comparison_clock("BTCUSD", captured) == (captured, False)
 
 

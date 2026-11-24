@@ -24,7 +24,7 @@ from .plan_status_export_contract_v1 import (
 )
 
 from live_contentops.event_article_guard_v1 import (
-    CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy, conditional_call_text,
+    CONFLICTS_NOTICE, FEDWATCH_PATTERN, PUBLIC_NOTICE, check_publication_copy, conditional_call_text,
     public_execution_copy_forbidden,
 )
 
@@ -32,13 +32,15 @@ SCHEMA = "contentops.plan_status_post.v1"
 DESTINATION = "internal:plan-status-post"
 WORK_ITEM_ID = "plan-status-posts-v1"
 READY = "READY_FOR_PUBLISHER"
-# Decision 79's first-phase markets, as the trading system names them.
+# Decision 79's first-phase markets, as the trading system names them. CC-788 (Jim, 24 Nov 2026): the Nasdaq 100
+# (Exness USTEC) is the seventh core market, published by the same rules as the other six.
 MARKETS = {
     "XAUUSD": "gold", "US500": "the S&P 500", "EURUSD": "EUR/USD",
     "USDJPY": "USD/JPY", "USOIL": "US crude oil (WTI)", "BTCUSD": "Bitcoin",
+    "USTEC": "the Nasdaq 100",
 }
 TITLES = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
-          "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
+          "USOIL": "US crude oil", "BTCUSD": "Bitcoin", "USTEC": "Nasdaq 100"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
          "CLOSED": "closed", "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
 # Decisions 106 and 117 permit confirming a position; account, exact fill price, size and P&L stay private.
@@ -412,7 +414,7 @@ REASON_FIELDS = {
 PRIVATE_RATIONALE = re.compile(
     r"\b(?:targets?|take[ -]?profit|after[ -]?cost|risk[ /:-]*(?:reward|return)|R\s*:\s*R|"
     r"position siz\w*|fills?|filled|tickets?|P\s*&\s*L|(?:realized|unrealized)\s+(?:profit|loss)|prediction[ -]?market|"
-    r"polymarket|kalshi|account|balance|equity capital)\b|https?://|"
+    r"polymarket|kalshi|account|balance|equity capital)\b|https?://|" + FEDWATCH_PATTERN + "|"
     r"\b(?:towards?|aims? (?:at|for))\s+[$€£]?\d", re.I)
 
 # Ops Product, 9 Nov: Main's fields name its roles ("the Primary's 1.11480", "The Critical showed") and can

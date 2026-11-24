@@ -18,7 +18,7 @@ import re
 from . import plan_status_posts_v1 as posts
 from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
-from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
+from .event_article_guard_v1 import FEDWATCH_PATTERN, PUBLIC_NOTICE, CONFLICTS_NOTICE
 from .public_time_v1 import public_timestamp, require_public_time
 
 DESTINATION = "internal:plan-analysis-page"
@@ -72,7 +72,8 @@ _NUM = re.compile(r"(?<![\w.])[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?(?!\w|\.\d)")
 
 _PIPELINE = re.compile(r"\b(?:supplied|provided)\s+(?:historical\s+)?(?:review|analysis|pack)|"
                        r"\bthe analyst['’]s comparison|\b(?:source[- ]bound|pipeline|writer input)\b", re.I)
-_PREDICTION = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[- ]markets?)\b", re.I)
+_PREDICTION = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[- ]markets?)\b|" + FEDWATCH_PATTERN,
+                         re.I)  # FedWatch: Ops Product, 24 Nov 2026 (CME terms, decision 44)
 _PRICED = re.compile(r"\b(?:(?:un)?pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
 _PERCENT = re.compile(r"%|\bper\s*cent\b", re.I)
 
@@ -522,7 +523,8 @@ def _owner_candidate(plan, run):
     owner = documents.get("analysis-native.json", {}).get("native_synthesis") or documents["owner-native.json"]
     owner = owner.get("native_synthesis") or owner
     cid = {"XAUUSD": "cand_macro_gold", "USOIL": "cand_macro_wti", "US500": "cand_macro_spx",
-           "BTCUSD": "cand_macro_btcusd", "EURUSD": "cand_macro_eurusd", "USDJPY": "cand_macro_usdjpy"}.get(plan["asset_id"])
+           "BTCUSD": "cand_macro_btcusd", "EURUSD": "cand_macro_eurusd", "USDJPY": "cand_macro_usdjpy",
+           "USTEC": "cand_macro_ustec"}.get(plan["asset_id"])
     index = next(i for i,c in enumerate(owner["candidates"]) if c["candidate_id"] == cid)
     combined = "analysis-native.json" in documents
     return owner["candidates"][index], ("analysis-native.json" if combined else "owner-native.json"), ("/native_synthesis" if combined else "") + f"/candidates/{index}"

@@ -13,7 +13,7 @@ from pathlib import Path
 import re
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private, _time, sha256_of
-from live_contentops.event_article_guard_v1 import check_publication_copy
+from live_contentops.event_article_guard_v1 import FEDWATCH_PATTERN, check_publication_copy
 
 AUTHORSHIP = "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION"
 PLATFORM = "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION"
@@ -181,12 +181,13 @@ def _passage_text(path, passage, raw):
 def _wrap_quote_facts(spec):
     """Add attributed facts from exact public quote observations to a market wrap."""
     from live_contentops import public_market_quote_v1 as quotes
-    from live_contentops.article_scenarios_v1 import MARKETS
+    from live_contentops.article_scenarios_v1 import MARKETS, SIX_MARKETS
     from live_contentops.public_time_v1 import public_timestamp
 
     bindings = spec["wrap_quote_observations"]
+    # CC-788: the Nasdaq 100 joins when its quote is bound; a wrap without it simply has no Nasdaq row.
     if ("PRE_US_WRAP" not in spec.get("candidate_catalyst_tags", [])
-            or not isinstance(bindings, dict) or not set(MARKETS) <= bindings.keys()
+            or not isinstance(bindings, dict) or not set(SIX_MARKETS) <= bindings.keys()
             or not bindings.keys() <= set(MARKETS) | {"DXY", "US10Y"}):
         raise ValueError("PRE_US_WRAP_QUOTE_MARKETS_INVALID")
     revision = _time(spec["revision_at_utc"])
@@ -200,7 +201,7 @@ def _wrap_quote_facts(spec):
         if path.parent != root or not path.is_file() or path.stat().st_size > 16_384:
             raise ValueError("PRE_US_WRAP_QUOTE_BINDING_MISSING")
         observation = quotes.resolve(path, digest)
-        quotes.validate(observation, market, now=revision, max_age_seconds=90_000 if market == "US500" else 4_500)
+        quotes.validate(observation, market, now=revision, max_age_seconds=90_000 if market in {"US500", "USTEC"} else 4_500)
         known = _time(observation["known_at_utc"])
         if revision - known > timedelta(minutes=15):
             raise ValueError("PRE_US_WRAP_QUOTE_SNAPSHOT_STALE")
@@ -254,7 +255,8 @@ def verify_projection(spec):
                     or not 0 <= start < end <= len(original) or end - start > 1800):
                 raise ValueError("MAIN_REPORT_FRAGMENT_RANGE_INVALID")
             text = original[start:end]
-            if "|" in text or re.search(r"(?:Kalshi|Polymarket|prediction.market).{0,80}\d", text, re.I):
+            if "|" in text or re.search(r"(?:Kalshi|Polymarket|prediction.market|" + FEDWATCH_PATTERN + r").{0,80}\d",
+                                        text, re.I):
                 raise ValueError("MAIN_REPORT_RAW_OR_PREDICTION_NUMBERS_FORBIDDEN")
             extracted.append(text.strip())
         texts.append(" ".join(extracted))

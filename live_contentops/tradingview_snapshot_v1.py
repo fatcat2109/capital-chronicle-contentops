@@ -39,11 +39,15 @@ CREDIT = "Chart: TradingView"
 # futures (the DEMO book's oil follows it), spot Bitcoin. All six captured by this worker on 9 Nov, 17:50Z.
 # The paused site's reviewed map (Main ui/src/product/public-desk/reviewed-tradingview-symbols.json) still
 # lists the old CFD feeds; it follows when the site returns (decision 84).
+# CC-788 (24 Nov 2026): the Nasdaq 100 follows the S&P 500's choice, the cash index (NASDAQ:NDX), never the
+# reviewed map's CFD feed (OANDA:NAS100USD); like SP:SPX it has bars in New York cash hours only.
 SYMBOLS = {"XAUUSD": "FX_IDC:XAUUSD", "US500": "SP:SPX", "EURUSD": "FX_IDC:EURUSD",
-           "USDJPY": "FX_IDC:USDJPY", "USOIL": "NYMEX:CL1!", "BTCUSD": "COINBASE:BTCUSD"}
+           "USDJPY": "FX_IDC:USDJPY", "USOIL": "NYMEX:CL1!", "BTCUSD": "COINBASE:BTCUSD",
+           "USTEC": "NASDAQ:NDX"}
 NAMES = {"XAUUSD": "Gold spot / US dollar (ICE)", "US500": "S&P 500 index",
          "EURUSD": "Euro / US dollar spot (ICE)", "USDJPY": "US dollar / Japanese yen spot (ICE)",
-         "USOIL": "WTI light crude oil futures, front month (NYMEX)", "BTCUSD": "Bitcoin / US dollar (Coinbase spot)"}
+         "USOIL": "WTI light crude oil futures, front month (NYMEX)", "BTCUSD": "Bitcoin / US dollar (Coinbase spot)",
+         "USTEC": "Nasdaq 100 index"}
 REVIEWED_MAP = Path(r"A:\Capital Chronicle\Worktrees\codex-web-cc254-clean\ui\src\product\public-desk"
                     r"\reviewed-tradingview-symbols.json")
 INTERVAL_LABELS = {"15": "15m", "60": "1h", "240": "4h", "D": "1D"}

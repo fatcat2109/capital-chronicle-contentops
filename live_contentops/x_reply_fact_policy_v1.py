@@ -15,7 +15,7 @@ ET = ZoneInfo("America/New_York")
 POLICY = "CC495_REPLY_FACT_V1"
 SEND_SECONDS = 15 * 60
 MARKETS = {
-    "NDX": r"\b(?:nasdaq[ -]?100|ndx|nq(?:=f)?)\b",
+    "NDX": r"\b(?:nasdaq[ -]?100|ndx|nq(?:=f)?|ustec|nas100|us100)\b",
     "NASDAQ": r"\bnasdaq\b",
     "SPX": r"\b(?:s&p(?:\s*500)?|s\s*&\s*p(?:\s*500)?|spx|us500|es=f)\b",
     "DOW": r"\b(?:dow|djia|us30)\b",

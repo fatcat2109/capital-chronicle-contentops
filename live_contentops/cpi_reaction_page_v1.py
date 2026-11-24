@@ -127,6 +127,7 @@ LABELS = {
     "USDJPY": "USD/JPY",
     "USOIL": "WTI oil",
     "BTCUSD": "Bitcoin",
+    "USTEC": "Nasdaq 100",
 }
 PUBLIC_LABELS = {
     "PRE_RELEASE_CAPTURE": "forecast saved before release",

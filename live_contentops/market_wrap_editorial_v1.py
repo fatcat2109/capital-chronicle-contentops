@@ -41,6 +41,7 @@ def title_market(key):
         "US500": "S&P 500 E-mini futures (ES)", "XAUUSD": "COMEX gold futures (GC)",
         "USOIL": "WTI crude oil futures (CL)", "EURUSD": "EUR/USD spot (6E futures reference)",
         "USDJPY": "USD/JPY spot (6J futures quote yen in dollars)", "BTCUSD": "Bitcoin spot (MBT futures reference)",
+        "USTEC": "Nasdaq 100 E-mini futures (NQ)",
     }[key]
 
 
@@ -201,13 +202,17 @@ def morning_map(pack, day):
 
     source = pack.get("morning_map_sources") or {}
     observations = source.get("rows") or {}
-    if set(observations) != set(ORDER):
+    # CC-788: the six stay required; the Nasdaq 100 without a source-bound row is shown as unavailable.
+    if not set(ORDER) - {"USTEC"} <= set(observations) <= set(ORDER):
         return None
-    lead = max(ORDER, key=lambda market: abs(observations[market]["change_1d_pct"]))
+    lead = max([m for m in ORDER if m in observations], key=lambda market: abs(observations[market]["change_1d_pct"]))
     analysis = pack["analysis"]
     rows = []
     for market in ORDER:
-        row = observations[market]
+        row = observations.get(market)
+        if row is None:
+            rows.append({"market": market, "unavailable": True})
+            continue
         outlook = analysis.get("outlooks", {}).get(market) or ""
         driver = analysis.get("layers", {}).get(market, {}).get("Macro and catalysts") or ""
         rows.append({"market": market, "last": row["last"], "change_1d_pct": row["change_1d_pct"],
@@ -361,8 +366,9 @@ def chart_for(pack, markets, root):
     draw.text((72, 233), f"{stamp}  /  {unit}", fill="#c5d3e0", font=_font("regular", 35))
     maximum = max((abs(v) for v in amounts.values()), default=0) or 1
     draw.line((604, 330, 604, 1061), fill="#597187", width=3)
+    step = 732 // len(MARKETS)  # 122 px for six markets; CC-788's seven rows share the same band
     for index, market in enumerate(MARKETS):
-        y = 352 + index * 122
+        y = 352 + index * step
         draw.text((72, y), MARKETS[market][0], fill="white", font=_font("semibold", 38))
         value = amounts.get(market)
         if value is None:

@@ -211,7 +211,8 @@ def test_the_timeframe_follows_the_plans_validity(hours, interval):
 def test_the_symbols_are_futures_etfs_or_spot_never_a_cfd_feed():
     """Jim's decision 107 (10 Nov)."""
     assert tv.SYMBOLS == {"XAUUSD": "FX_IDC:XAUUSD", "US500": "SP:SPX", "EURUSD": "FX_IDC:EURUSD",
-                          "USDJPY": "FX_IDC:USDJPY", "USOIL": "NYMEX:CL1!", "BTCUSD": "COINBASE:BTCUSD"}
+                          "USDJPY": "FX_IDC:USDJPY", "USOIL": "NYMEX:CL1!", "BTCUSD": "COINBASE:BTCUSD",
+                          "USTEC": "NASDAQ:NDX"}
     assert not any(s.split(":")[0] in {"OANDA", "TVC", "CAPITALCOM", "FX", "PEPPERSTONE", "FOREXCOM"}
                    for s in tv.SYMBOLS.values())
     assert not any("CFD" in name for name in tv.NAMES.values())

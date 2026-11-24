@@ -35,13 +35,18 @@ SYMBOLS = {
     "USDJPY": ("YAHOO", "USDJPY=X", "USD/JPY spot", "JPY per USD", "CURRENCY"),
     "USOIL": ("YAHOO", "CL=F", "WTI crude oil futures", "USD per barrel", "FUTURE"),
     "BTCUSD": ("YAHOO", "BTC-USD", "Bitcoin spot", "USD", "CRYPTOCURRENCY"),
-    "NDX": ("YAHOO", "^NDX", "Nasdaq 100 cash index", "points", "INDEX"),
+    # CC-788: the Nasdaq 100 is a core market (Exness USTEC). Its cash index keeps the former "NDX" route, now an
+    # alias, so one provider symbol has one cache; its futures serve the wrap like the S&P 500's.
+    "USTEC": ("YAHOO", "^NDX", "Nasdaq 100 cash index", "points", "INDEX"),
+    "USTEC_FUTURES": ("YAHOO", "NQ=F", "Nasdaq 100 E-mini futures", "points", "FUTURE"),
     "DXY": ("CNBC", ".DXY", "US dollar index", "points", "INDEX"),
     "US2Y": ("CNBC", "US2Y", "US 2-year Treasury yield", "percent", "BOND"),
     "US10Y": ("CNBC", "US10Y", "US 10-year Treasury yield", "percent", "BOND"),
     "BRENT": ("YAHOO", "BZ=F", "Brent crude oil futures", "USD per barrel", "FUTURE"),
 }
-ALIASES = {"SPX": "US500", "WTI": "USOIL"}
+ALIASES = {"SPX": "US500", "WTI": "USOIL", "NDX": "USTEC"}
+# Observations frozen before CC-788 name the cash Nasdaq 100 by its old route id.
+LEGACY_MARKETS = {"USTEC": {"NDX"}}
 
 
 class QuoteError(ValueError):
@@ -190,7 +195,8 @@ def parse(market, raw, *, received_at, seconds):
 
 def validate(observation, market, *, now, max_age_seconds=4500, reference_at=None):
     market = ALIASES.get(market, market)
-    if observation.get("market") != market or observation.get("source_symbol") != SYMBOLS[market][1]:
+    if (observation.get("market") not in {market, *LEGACY_MARKETS.get(market, ())}
+            or observation.get("source_symbol") != SYMBOLS[market][1]):
         raise QuoteError("PUBLIC_QUOTE_SYMBOL_MISMATCH")
     at, known, observed = utc(reference_at or now), utc(observation["known_at_utc"]), utc(observation["observed_at_utc"])
     _number(observation["value"])

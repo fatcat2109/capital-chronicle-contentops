@@ -21,8 +21,10 @@ QUOTE_SKEW_SECONDS = 120
 QUOTE_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-research")
 # Percentage differences, not fractions. Initial limits and the retained
 # observations (including their clock separation) are in CC-463/README.md.
+# CC-788: the Nasdaq 100 starts at the S&P 500's equity-index limit; no simultaneous USTEC/NDX pair is held yet.
 MAX_DIFFERENCE_PCT = {"XAUUSD": .15, "US500": .15, "EURUSD": .15,
-                      "USDJPY": .15, "USOIL": .40, "BTCUSD": .40}
+                      "USDJPY": .15, "USOIL": .40, "BTCUSD": .40, "USTEC": .15}
+CASH_INDEX_MARKETS = frozenset({"US500", "USTEC"})
 # Ops Product, 11 Nov 2026: a missing quote is not a mismatch. Main saves a quote only during its own runs, so on the
 # first live run (16:24Z) every chart was refused and five posts went out as text. A chart with no quote to compare
 # is still the right market's chart: it goes out marked NOT_COMPARED. Only a measured difference refuses an image.
@@ -76,7 +78,7 @@ def chart_last_price(title):
 def comparison_clock(market, captured_at):
     """Ops Product's 11 Nov closed-market amendment; ET, including DST.
 
-    Cash SPX uses 09:30–16:00 weekdays. The common weekend closure for the
+    Cash SPX and NDX use 09:30–16:00 weekdays. The common weekend closure for the
     other non-crypto charts uses Friday 17:00 through Sunday 18:00. No live
     broker/chart gap is compared while a chart is frozen at that close.
     """
@@ -84,7 +86,7 @@ def comparison_clock(market, captured_at):
     local = captured.astimezone(ET)
     if market == "BTCUSD":
         return captured, False
-    if market == "US500":
+    if market in CASH_INDEX_MARKETS:
         if local.weekday() < 5 and time(9, 30) <= local.time() < time(16):
             return captured, False
         day = local.date() if local.weekday() < 5 and local.time() >= time(16) else local.date() - timedelta(days=1)
