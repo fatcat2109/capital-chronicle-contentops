@@ -14,7 +14,8 @@ first scorecard update changed its counts, and every follow-up was refused (CC60
 on every run after it. A follow-up with no destination copy yet now carries the record as it reads at posting.
 
 Fourth: the daily wrap's title became its last scenario case line ("Bull case (45%): USD/JPY returns to 159.5-159.8
-... - November 30, 2026"): the scenario loop rebound the name of the edition heading.
+... - November 30, 2026"): the scenario loop rebound the name of the edition heading. Its scenarios also came from
+the newest plan of any status: the 1 Dec wrap led with a USD/JPY plan that had expired on 23 Nov.
 """
 from datetime import timedelta
 import json
@@ -171,3 +172,18 @@ def test_a_wrap_with_scenario_cases_keeps_its_edition_title(tmp_path, pack, edit
     assert article["wrap_scenario_headings"]  # the scenario cases are in the edition
     assert article["title"].startswith(heading + " — "), article["title"]
     assert not any(case in article["title"] for case in article["wrap_scenario_headings"])
+
+
+def test_the_wrap_scenarios_come_from_an_open_plan_never_an_ended_one():
+    now = at("2026-12-01T13:05Z")
+    cases = {"base_case": {"market_move": "Gold falls as real yields rise.", "probability_pct": 57},
+             "main_alternative": {"market_move": "Gold rebounds if real yields fall."}}
+    older_open = {"plan_id": "open-plan", "asset_id": "XAUUSD", "direction": "BEARISH", "status": "WAITING",
+                  "registered_at_utc": "2026-11-30T12:00Z", "scenario_analysis": cases}
+    newer_ended = {**older_open, "plan_id": "ended-plan", "status": "EXPIRED", "registered_at_utc": "2026-12-01T09:00Z"}
+
+    def project(plans):
+        return wrap_sources.project_plans({"status": {"generated_at_utc": now.isoformat(), "content_hash": "h",
+                                                      "plans": plans}}, now)
+    assert project([older_open, newer_ended])["scenario"]["id"] == "open-plan"
+    assert project([newer_ended])["scenario"] is None

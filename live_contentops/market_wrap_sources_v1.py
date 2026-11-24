@@ -223,7 +223,10 @@ def project_plans(export, as_of):
             description = ", ".join(x for x in (instrument, horizon, label,
                                                  f"registered {registered}" if registered else None) if x)
             result.append({"id": plan_id, "market": market, "text": description + "."})
-        if market not in MARKETS or not row.get("registered_at_utc") or utc(row["registered_at_utc"]) > as_of:
+        # Builder L, 24 Nov 2026 (relaunch rehearsal): the wrap's scenarios are an open plan's. The newest plan
+        # of any status led the 1 Dec wrap with a USD/JPY plan that had expired on 23 Nov.
+        if (market not in MARKETS or not label or not row.get("registered_at_utc")
+                or utc(row["registered_at_utc"]) > as_of):
             continue
         cases = scenario_case_copy(row)
         if cases:
