@@ -12,10 +12,15 @@ unscored expiries, so the ending was shown nowhere. The rule now holds back only
 Third: the nine prepared CC-603 follow-ups froze the pinned record line they were prepared with. The relaunch's
 first scorecard update changed its counts, and every follow-up was refused (CC603_PUBLIC_RECORD_CHANGED_BEFORE_WRITE)
 on every run after it. A follow-up with no destination copy yet now carries the record as it reads at posting.
+
+Fourth: the daily wrap's title became its last scenario case line ("Bull case (45%): USD/JPY returns to 159.5-159.8
+... - November 30, 2026"): the scenario loop rebound the name of the edition heading.
 """
 from datetime import timedelta
 import json
 import sys
+
+import pytest
 
 from live_contentops import plan_analysis_pages_v1 as pages
 from live_contentops import plan_call_cards_v1 as cards
@@ -27,6 +32,9 @@ from live_contentops import call_followups_v1 as followups
 from test_call_followup_move_charts_cc778 import (  # noqa: F401  (pytest fixtures)
     NOW as FOLLOWUP_NOW, OUTSIDE_PAUSE, FakeWorker, fixture_scale, gold_bars, queued, ready)
 from test_plan_status_publication_cc306 import fake_host
+from live_contentops import market_wrap_editorial_v1 as wrap_editorial
+from live_contentops import market_wrap_sources_v1 as wrap_sources
+from test_market_wrap_cc689 import at, cash, pack, select_first  # noqa: F401  (pytest fixtures)
 from test_plan_call_cards_cc399 import write
 from test_plan_copy_cc682 import GOLD_PLAN_ID, PAGE_LINK, gold_export  # noqa: F401
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
@@ -147,3 +155,19 @@ def test_a_followup_with_copies_keeps_its_bytes_when_the_record_changes(ready, t
     before = store.get_outbox_message(key)["payload"]
     row = followups.refresh_record(store, posts._row_payload(store, key), now=FOLLOWUP_NOW)
     assert store.get_outbox_message(key)["payload"] == before and row["record"] == record
+
+
+@pytest.mark.parametrize(("edition", "heading"), [("daily", "Pre-US Market Wrap"), ("weekly", "Weekend Market Wrap")])
+def test_a_wrap_with_scenario_cases_keeps_its_edition_title(tmp_path, pack, edition, heading):
+    now = at(pack["data_cutoff_utc"])
+    pack["slot"]["edition"] = edition
+    raw = {"plan_id": "source-plan", "asset_id": "XAUUSD", "direction": "BEARISH",
+           "registered_at_utc": "2026-11-23T12:00Z", "status": "WAITING", "scenario_analysis": {
+               "base_case": {"market_move": "Gold falls as real yields rise.", "probability_pct": 57},
+               "main_alternative": {"market_move": "Gold rebounds if real yields fall."}}}
+    pack["plans"] = wrap_sources.project_plans({"status": {
+        "generated_at_utc": now.isoformat(), "content_hash": "main-export", "plans": [raw]}}, now)
+    article, _ = wrap_editorial.article_for(pack, wrap_editorial.draft(pack, tmp_path, call=select_first))
+    assert article["wrap_scenario_headings"]  # the scenario cases are in the edition
+    assert article["title"].startswith(heading + " — "), article["title"]
+    assert not any(case in article["title"] for case in article["wrap_scenario_headings"])
