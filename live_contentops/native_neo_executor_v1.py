@@ -30,6 +30,11 @@ CODEX_SURFACES = frozenset({"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT
 CLAUDE_CODE_SURFACE = "CLAUDE_CODE_SESSION"
 SURFACE_TOOLS = {**{surface: TOOL for surface in CODEX_SURFACES}, CLAUDE_CODE_SURFACE: "mcp__browseros-neo__run"}
 SURFACE_TOOLS["NEO_ENDPOINT_EXECUTOR"] = "browseros-neo/run"
+# CC-798 (Jim, 24 Nov): an Antigravity CLI session on gemini-3.8-flash-high may carry out a request
+# Codex wrote, under its own label and the tool rule it is granted; never recorded as Codex or Claude.
+ANTIGRAVITY_SURFACE = "ANTIGRAVITY_CLI"
+ANTIGRAVITY_TOOL = "agy:mcp(browseros-neo/*)"
+SURFACE_TOOLS[ANTIGRAVITY_SURFACE] = ANTIGRAVITY_TOOL
 
 
 def expected_posts(request: Mapping[str, Any]) -> list[str]:
