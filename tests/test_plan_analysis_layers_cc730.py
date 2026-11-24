@@ -69,7 +69,7 @@ def test_three_gaps_distinguish_absence_and_the_exporters_cause():
     assert len(reader.verified_analysis_lines(plan, quotes, contract=reader.NINE_LAYER_COPY)) == 6
 
 
-def test_antigravity_rewrites_only_verified_source_notation_and_falls_back_per_line(tmp_path):
+def test_light_model_rewrites_only_verified_source_notation_and_falls_back_per_line(tmp_path):
     plan = frozen_layers()
     plan["time_exit_utc"] = "2026-11-21T20:00:00Z"
     plan["layers"][0]["text"] = "CC-730: Treasury yields rose 5 basis points while channel MIXED."
@@ -86,7 +86,8 @@ def test_antigravity_rewrites_only_verified_source_notation_and_falls_back_per_l
     seen = []
 
     def draft(prompt, **kwargs):
-        assert kwargs["callers"] == ("antigravity",)
+        # Since 24 Nov 2026 the layer lines run on Codex at low effort, never Antigravity.
+        assert kwargs["callers"] == ("codex",) and kwargs["codex_effort"] == "low"
         options = json.loads(prompt.split("\n", 1)[1])
         assert options["macro"][0] == {"quote": plan["layers"][0]["text"], "text": expected}
         seen.append(kwargs["job"])

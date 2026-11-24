@@ -1,4 +1,8 @@
-"""Source-bound drafting, copy and chart for the scheduled market wrap."""
+"""Source-bound drafting, copy and chart for the scheduled market wrap.
+
+Since 24 Nov 2026 both wrap stages run on Codex gpt-6.2-sol, never Antigravity
+(the account was disabled for a Terms of Service violation; Jim's order of 24 Nov).
+"""
 from __future__ import annotations
 
 from datetime import date, datetime, time
@@ -126,7 +130,14 @@ def check_lines(output, choices):
     return accepted, dropped
 
 
-def _section_call(choices, *, folder, caller, call, pack, instruction, job):
+# What changed and the event lists: medium effort. The model orders supplied lines and
+# check_lines verifies every id and exact text; the first line per field is the code fallback.
+CHANGES_EFFORT = "medium"
+# Analysis layers and open-plan statuses: max effort (unchanged), the wrap's reasoning step.
+DESK_EFFORT = "max"
+
+
+def _section_call(choices, *, folder, caller, call, pack, instruction, job, effort=DESK_EFFORT):
     edition = pack["slot"]["edition"]
     prompt = (
         "Do not call any tool. This is the English Capital Chronicle " + edition + " market wrap. "
@@ -139,9 +150,9 @@ def _section_call(choices, *, folder, caller, call, pack, instruction, job):
         "Only the letters, numbers and punctuation in the supplied row belong in its text.\n"
         + json.dumps(choices, ensure_ascii=False)
     )
-    raw, record = call(prompt, root=folder, callers=(caller,), job=job, codex_effort="max",
+    raw, record = call(prompt, root=folder, callers=(caller,), job=job, codex_effort=effort,
                        timeout_seconds=240 if caller == "codex" else None,
-                       timeout_cause="AGY_WRAP_TIMEOUT_65S", empty_cause="AGY_WRAP_EMPTY")
+                       timeout_cause="CODEX_WRAP_TIMEOUT", empty_cause="CODEX_WRAP_EMPTY")
     checked, dropped = {}, []
     if raw:
         try:
@@ -164,10 +175,10 @@ def draft(pack, root, *, call=call_light):
     desk = {k: choices[k] for k in DESK_SECTIONS if k != "outlooks" or weekly}
     output, records = {}, []
 
-    def run(options, stage, caller, instruction, metric):
+    def run(options, stage, caller, instruction, metric, effort=DESK_EFFORT):
         folder = Path(root) / stage
         checked, record = _section_call(options, folder=folder, caller=caller, call=call,
-                                        pack=pack, instruction=instruction, job=metric)
+                                        pack=pack, instruction=instruction, job=metric, effort=effort)
         records.append(record)
         return checked
 
@@ -177,19 +188,16 @@ def draft(pack, root, *, call=call_light):
         return {section: [{"id": key, "text": lines[0]} for key, lines in fields.items()]
                 for section, fields in options.items()}
 
-    output.update(run(changes, "wrap-changes", "antigravity",
-                      "Draft what changed and the official event lists.", job)
+    output.update(run(changes, "wrap-changes", "codex",
+                      "Draft what changed and the official event lists.", job, CHANGES_EFFORT)
                   or fallback(changes, "wrap-changes", records[-1]))
     checked = run(desk, "wrap-desk", "codex",
                   "Write the analysis layers, open-plan statuses and any requested opening outlooks.",
                   "market_wrap_desk")
     if not checked:
-        records[-1]["fallback"] = "antigravity"
-        save(Path(root) / "wrap-desk/light-call.json", records[-1])
-        checked = run(desk, "wrap-desk-fallback", "antigravity",
-                      "Draft the analysis layers, all open plans and any requested opening outlooks.", job)
-        if not checked:
-            checked = fallback(desk, "wrap-desk-fallback", records[-1])
+        # Until 24 Nov 2026 a second (Antigravity) call drafted the desk here; now the code
+        # fallback answers at once, which keeps Codex calls at two per wrap.
+        checked = fallback(desk, "wrap-desk", records[-1])
     output.update(checked)
     # The editor ranks the source-grounded lines. Sections with no usable
     # public evidence render an explicit gap, with the original cause retained.

@@ -68,12 +68,15 @@ def yes_review(image):
     return quality.combine(c,v)
 
 
-def vision_response(args,*,cwd,timeout,input):
-    value={"image_seen":True,"points":{str(i):True for i in range(1,11)},
+def vision_response(args,*,cwd,timeout,input,value=None,session="controlled"):
+    """A fake `codex exec` with the PNG attached (since 24 Nov 2026 the image check runs on Codex, never agy)."""
+    assert args[1]=="exec" and args[args.index("--model")+1]=="gpt-6.2-sol" and "--image" in args
+    assert Path(args[args.index("--image")+1]).is_file() and "--output-schema" in args
+    value=value or {"image_seen":True,"points":{str(i):True for i in range(1,11)},
            "reasons":{str(i):"controlled visual response" for i in range(1,11)}}
-    trace={"event":"step_update","step_update":{"type":"tool","name":"read_file"}}
-    final={"event":"result","result":{"status":"SUCCESS","response":json.dumps(value)}}
-    return subprocess.CompletedProcess(args,0,(json.dumps(trace)+"\n"+json.dumps(final)).encode(),b"")
+    Path(args[args.index("--output-last-message")+1]).write_text(json.dumps(value),encoding="utf-8")
+    events=[{"type":"thread.started","thread_id":session},{"type":"turn.completed","usage":{"total_tokens":1}}]
+    return subprocess.CompletedProcess(args,0,"\n".join(json.dumps(e) for e in events).encode(),b"")
 
 
 def publication_message(tmp_path,image):
@@ -273,13 +276,11 @@ def test_daily_random_sampling_uses_existing_published_records_and_weekly_needs_
 def test_actual_vision_request_reads_local_png_and_records_configuration_without_sending_bytes(tmp_path):
     image=asset(tmp_path);seen=[]
     def run(args,*,cwd,timeout,input):
-        message=json.loads(input);seen.append(message)
-        assert len(message["message"]["content"])==1 and str(Path(image["path"]).resolve()) in message["message"]["content"][0]["text"]
-        assert '--mode' in args and 'plan' in args
-        value={"image_seen":True,"points":{str(i):True for i in range(1,11)},"reasons":{str(i):"controlled response" for i in range(1,11)}}
-        final={"event":"result","result":{"status":"SUCCESS","response":json.dumps(value),"session_id":"controlled"}}
-        trace={"event":"step_update","step_update":{"type":"tool","name":"read_file"}}
-        return subprocess.CompletedProcess(args,0,(json.dumps(trace)+'\n'+json.dumps(final)).encode(),b"")
+        seen.append(input.decode("utf-8"))
+        # The PNG is attached by path, never pasted into the prompt as bytes.
+        assert Path(args[args.index("--image")+1])==Path(image["path"]).resolve() and "base64" not in seen[-1]
+        assert 'model_reasoning_effort="low"' in args
+        return vision_response(args,cwd=cwd,timeout=timeout,input=input)
     review=quality.review_vision(image,runner=run)
     assert len(seen)==1 and review["status"]=="REVIEWED" and review["observed_session_id"]=="controlled"
     assert review["configuration_status"]=="CONFIGURED_NOT_OBSERVED" and "base64" not in json.dumps(review)
@@ -291,7 +292,7 @@ def test_vision_scores_the_actual_chart_or_table_role_and_uses_code_facts(tmp_pa
     image=asset(tmp_path,template=template,image_number=image_number)
     prompts=[]
     def run(args,*,cwd,timeout,input):
-        prompts.append(json.loads(input)["message"]["content"][0]["text"])
+        prompts.append(input.decode("utf-8"))
         return vision_response(args,cwd=cwd,timeout=timeout,input=input)
     review=quality.review_vision(image,runner=run)
     assert review["status"]=="REVIEWED"
@@ -511,16 +512,12 @@ def test_instagram_publishes_and_reads_back_the_native_chart_and_table(tmp_path,
 def test_unsupported_image_protocol_and_no_observed_pixel_read_never_create_scores(tmp_path):
     image=asset(tmp_path)
     def rejected(args,**kwargs):
-        result={"event":"result","result":{"status":"ERROR","conversation_id":"protocol-test",
-                "error":'stream input content block type "image" is not supported (only "text")',
-                "usage":{"total_tokens":0},"response":""}}
-        return subprocess.CompletedProcess(args,1,json.dumps(result).encode(),b"")
+        return subprocess.CompletedProcess(args,1,b"",b"controlled refusal")
     record=quality.review_vision(image,runner=rejected)
-    assert record["cause"]=="ValueError:AGY_IMAGE_INPUT_UNSUPPORTED" and record["points"]=={}
-    assert record["observed_usage"]["total_tokens"]==0
+    assert record["cause"]=="ValueError:CODEX_EXIT_1" and record["points"]=={}
     def text_guess(args,**kwargs):
-        value={"image_seen":True,"points":{str(i):True for i in range(1,11)},"reasons":{str(i):"guess" for i in range(1,11)}}
-        return subprocess.CompletedProcess(args,0,json.dumps({"event":"result","result":{"status":"SUCCESS","response":json.dumps(value)}}).encode(),b"")
+        value={"image_seen":False,"points":{str(i):True for i in range(1,11)},"reasons":{str(i):"guess" for i in range(1,11)}}
+        return vision_response(args,value=value,**kwargs)
     assert quality.review_vision(image,runner=text_guess)["cause"]=="ValueError:AGY_IMAGE_PIXELS_NOT_OBSERVED"
 
 
@@ -699,15 +696,13 @@ def test_result_image_reuses_the_reader_existing_explicit_r_export(field):
     assert value['result']['outcome_label']=='Stopped at invalidation'
 
 
-def test_supported_structured_vision_return_needs_an_observed_pixel_read(tmp_path):
+def test_supported_structured_vision_return_needs_an_attached_image(tmp_path):
     image=asset(tmp_path)
     def run(args,**kwargs):
-        original=vision_response(args,**kwargs)
-        events=[json.loads(s) for s in original.stdout.splitlines()]
-        final=events[-1]['result']
-        final['structured_output']=json.loads(final.pop('response'))
-        return subprocess.CompletedProcess(args,0,b'\n'.join(json.dumps(e).encode() for e in events),b'')
-    assert quality.review_vision(image,runner=run)['status']=='REVIEWED'
+        return vision_response(args,**kwargs)
+    review=quality.review_vision(image,runner=run)
+    assert review['status']=='REVIEWED' and review['answered_by']=='codex' and review['observed_session_id']=='controlled'
+    assert review['light_call']['attempts'][-1]['image_attached'] is True
 
 
 def test_review_checks_exact_local_file_before_starting_a_model(tmp_path):

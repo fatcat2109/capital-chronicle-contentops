@@ -272,7 +272,10 @@ def _json_response(raw):
 
 def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, timeout=None):
     """Bounded text CLI, no Claude/API fallback and no inherited project context."""
-    from live_contentops.agy_editorial_assist_v1 import MODEL, EFFORT
+    # Since 24 Nov 2026 the ranking (non-writer) call runs on Codex at the light caller's
+    # default (low) effort: it scores supplied candidates and the code keeps only valid
+    # scores above the floor. Never Antigravity (terms block).
+    from .light_model_caller_v1 import CODEX_EFFORT as EFFORT, CODEX_MODEL as MODEL
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     (root / "prompt.txt").write_text(prompt, encoding="utf-8")
@@ -289,8 +292,8 @@ def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, ti
     try:
         if not writer:
             from .light_model_caller_v1 import call_light
-            answer, light = call_light(prompt, root=root / "light", runner=runner,
-                timeout_cause="AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S", empty_cause="AGY_RANK_EMPTY_RESPONSE")
+            answer, light = call_light(prompt, root=root / "light", runner=runner, callers=("codex",),
+                timeout_cause="CODEX_RANK_TIMEOUT", empty_cause="CODEX_RANK_EMPTY_RESPONSE")
             record_.update(light_call=light, answered_by=light["answered_by"])
             chosen = light["attempts"][-1] if light["status"] == "RETURNED" else light["attempts"][0]
             raw = (root / "light" / (chosen["caller"] + "-stdout.txt")).read_bytes()

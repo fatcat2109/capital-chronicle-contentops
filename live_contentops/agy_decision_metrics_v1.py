@@ -141,8 +141,10 @@ def _legacy_record(path, row):
         return {}
     cause = str(row.get("cause") or "")
     status = "TIMEOUT" if "TIMEOUT" in cause.upper() else "RETURNED" if row.get("output") else "FAILED"
-    return {**row, "job": job, "result": result, "answered_by": "antigravity" if status == "RETURNED" else None,
-            "attempts": [{"caller": "antigravity", "status": status, "cause": cause}],
+    # Records since 24 Nov 2026 name their caller (codex); older ones were Antigravity's.
+    caller = row.get("caller") or "antigravity"
+    return {**row, "job": job, "result": result, "answered_by": caller if status == "RETURNED" else None,
+            "attempts": [{"caller": caller, "status": status, "cause": cause}],
             "fallback": "codex" if job == "daily_wrap_sections" and row.get("status") == "AGY_UNAVAILABLE" else None}
 
 

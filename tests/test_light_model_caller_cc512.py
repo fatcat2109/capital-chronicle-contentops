@@ -1,4 +1,9 @@
-"""The three installed consumers recover the same request once, without writes."""
+"""The installed light consumers get one Codex answer per request, without writes.
+
+Since 24 Nov 2026 the light caller is Codex-only (Google disabled the Antigravity account
+for a Terms of Service violation; Jim ordered agy replaced by Codex). The two-caller
+mechanics stay tested with a fake agy and the terms block lifted inside the test alone.
+"""
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -21,22 +26,21 @@ def installed_cli(monkeypatch):
     monkeypatch.setattr(light, "codex_executable", lambda: "codex.exe")
 
 
+@pytest.fixture
+def agy_lifted(monkeypatch):
+    """A fake agy only: the terms block (agy_editorial_assist_v1) is lifted in this test alone."""
+    from live_contentops import agy_editorial_assist_v1 as assist
+    monkeypatch.setattr(assist, "AGY_TERMS_BLOCK", "")
+
+
 def fallback_runner(value, failure, calls):
+    """A fake `codex exec`: the one caller since 24 Nov 2026 (failure kept for old call sites)."""
     def run(args, *, cwd, timeout, input=None):
         calls.append({"args":args, "prompt":input, "cwd":cwd, "timeout":timeout})
         assert list(Path(cwd).iterdir()) == []
-        if len(calls) == 1:
-            assert args[0] == light.AGY
-            message = json.loads(input)
-            assert message["message"]["content"][0]["text"].startswith("Do not call any tool")
-            if failure == "timeout":
-                raise subprocess.TimeoutExpired(args, timeout, output=b"", stderr=b"partial error")
-            if failure == "blank":
-                return subprocess.CompletedProcess(args, 0, b" \n", b"")
-            return subprocess.CompletedProcess(args, 0, json.dumps({"event":"result", "result":{
-                "status":"SUCCESS", "response":"", "duration_seconds":timeout}}).encode(), b"")
-        assert len(calls) == 2 and args[0] == "codex.exe"
-        assert input.decode() == json.loads(calls[0]["prompt"])["message"]["content"][0]["text"]
+        assert args[0] != light.AGY
+        assert len(calls) == 1 and args[0] == "codex.exe"
+        assert input.decode().startswith("Do not call any tool")
         assert args[args.index("--model")+1] == "gpt-6.2-sol"
         assert 'model_reasoning_effort="low"' in args and 'forced_login_method="chatgpt"' in args
         assert args[args.index("--sandbox")+1] == "read-only" and args[-1] == "-"
@@ -50,16 +54,16 @@ def fallback_runner(value, failure, calls):
 
 
 @pytest.mark.parametrize("role", ["image", "variants", "ranking"])
-@pytest.mark.parametrize("failure", ["timeout", "empty", "blank"])
-def test_each_consumer_uses_the_second_answer_and_records_caller_seconds(tmp_path, role, failure):
+def test_each_consumer_uses_one_codex_answer_and_records_caller_seconds(tmp_path, role):
     calls=[]
+    failure=None
     if role == "image":
         image=asset(tmp_path)
         output={"image_seen":True, "points":{str(i):True for i in range(1,11)},
             "reasons":{str(i):"Observed in the attached PNG." for i in range(1,11)}}
         record=quality.review_vision(image,runner=fallback_runner(output,failure,calls))
         assert record["status"] == "REVIEWED" and record["points"] == output["points"]
-        args=calls[1]["args"]
+        args=calls[0]["args"]
         assert Path(args[args.index("--image")+1]) == Path(image["path"]).resolve()
         assert record["image_sha256"] == sha256(Path(image["path"]).read_bytes()).hexdigest()
         # The model cannot turn a failed deterministic check into a pass.
@@ -75,22 +79,22 @@ def test_each_consumer_uses_the_second_answer_and_records_caller_seconds(tmp_pat
         returned,record=replies._text_call("Return ranking.",root=tmp_path,runner=fallback_runner(output,failure,calls))
         assert returned == output and record["status"] == "RETURNED"
     saved=record["light_call"]
-    assert len(calls) == 2 and saved["answered_by"] == record["answered_by"] == "codex"
+    assert len(calls) == 1 and saved["answered_by"] == record["answered_by"] == "codex"
     assert saved["configured_model"] == "gpt-6.2-sol" and saved["configured_effort"] == "low"
     assert saved["answer_seconds"] >= 0 and saved["elapsed_seconds"] >= saved["answer_seconds"]
-    assert saved["first_cause"].startswith("AGY_") and saved["attempts"][0]["status"] != "RETURNED"
+    assert [a["caller"] for a in saved["attempts"]] == ["codex"] and "first_cause" not in saved
     assert json.loads(Path(saved["artifact_path"]).read_bytes()) == saved
 
 
 @pytest.mark.parametrize("first", ["timeout", "empty"])
-def test_second_failure_keeps_the_first_named_cause_and_never_retries(tmp_path, first):
+def test_second_failure_keeps_the_first_named_cause_and_never_retries(tmp_path, first, agy_lifted):
     calls=[]
     def run(args,**kwargs):
         calls.append(args)
         if first == "empty" and len(calls)==1:
             return subprocess.CompletedProcess(args,0,b'{"status":"SUCCESS","response":""}',b"")
         raise subprocess.TimeoutExpired(args,kwargs["timeout"],output=b"partial",stderr=b"partial error")
-    answer,record=light.call_light("Exact request.",root=tmp_path,runner=run,
+    answer,record=light.call_light("Exact request.",root=tmp_path,runner=run,callers=("antigravity","codex"),
         timeout_cause="AGY_RANK_TIMEOUT_90S",empty_cause="AGY_RANK_EMPTY_RESPONSE")
     assert answer == b"" and len(calls)==2 and record["answered_by"] is None
     assert record["cause"] == ("AGY_RANK_TIMEOUT_90S" if first=="timeout" else "AGY_RANK_EMPTY_RESPONSE")
@@ -99,16 +103,14 @@ def test_second_failure_keeps_the_first_named_cause_and_never_retries(tmp_path, 
 
 
 @pytest.mark.parametrize("role", ["variants", "ranking"])
-@pytest.mark.parametrize("caller", ["antigravity", "codex"])
+@pytest.mark.parametrize("caller", ["codex"])
 def test_consumers_accept_fenced_json_after_the_shared_caller_unwraps_it(tmp_path, role, caller):
     value = {"ranking": [{"post_id": "source-post", "quality_score": 81}]} if role == "ranking" else {"hook": "Source-bound text."}
     response = "```json\n" + json.dumps(value) + "\n```"
     calls = []
     def run(args, **kwargs):
         calls.append(args)
-        if args[0] == light.AGY:
-            return subprocess.CompletedProcess(args, 0, json.dumps({"event": "result", "result": {
-                "status": "SUCCESS", "response": response if caller == "antigravity" else ""}}).encode(), b"")
+        assert args[0] == "codex.exe"
         return subprocess.CompletedProcess(args, 0, json.dumps({"type": "item.completed", "item": {
             "type": "agent_message", "text": response}}).encode(), b"")
     if role == "variants":
@@ -118,7 +120,7 @@ def test_consumers_accept_fenced_json_after_the_shared_caller_unwraps_it(tmp_pat
         returned, record = replies._text_call("Exact source-bound request.", root=tmp_path, runner=run)
         assert returned == value
     assert record["status"] == "RETURNED" and record["answered_by"] == caller
-    assert len(calls) == (1 if caller == "antigravity" else 2)
+    assert len(calls) == 1
 
 
 @pytest.mark.parametrize("output,code", [(b'{"broken":',0), (b'{"status":"ERROR","response":"Denied"}',0), (b'bad',1)])
@@ -136,20 +138,18 @@ def test_an_empty_codex_jsonl_turn_cannot_reuse_a_previous_answer(tmp_path):
     calls=[]
     def run(args,**kwargs):
         calls.append(args)
-        raw=b'{"status":"SUCCESS","response":""}' if len(calls)==1 else b'{"type":"turn.completed"}'
-        return subprocess.CompletedProcess(args,0,raw,b"")
+        return subprocess.CompletedProcess(args,0,b'{"type":"turn.completed"}',b"")
     answer,record=light.call_light("Exact.",root=tmp_path,runner=run,timeout_cause="TIMEOUT",empty_cause="EMPTY")
-    assert answer==b"" and record["fallback_cause"]=="CODEX_LIGHT_EMPTY_RESPONSE"
+    assert answer==b"" and record["cause"]=="CODEX_LIGHT_EMPTY_RESPONSE" and len(calls)==1
 
 
 def test_tool_action_is_not_accepted_as_a_codex_light_answer(tmp_path):
     calls=[]
     def run(args,**kwargs):
         calls.append(args)
-        raw=b'' if len(calls)==1 else b'{"type":"item.completed","item":{"type":"mcp_tool_call"}}'
-        return subprocess.CompletedProcess(args,0,raw,b"")
+        return subprocess.CompletedProcess(args,0,b'{"type":"item.completed","item":{"type":"mcp_tool_call"}}',b"")
     _,record=light.call_light("Exact.",root=tmp_path,runner=run,timeout_cause="TIMEOUT",empty_cause="EMPTY")
-    assert record["fallback_cause"]=="CODEX_LIGHT_TOOL_USE_REFUSED" and record["answered_by"] is None
+    assert record["cause"]=="CODEX_LIGHT_TOOL_USE_REFUSED" and record["answered_by"] is None
 
 
 def test_empty_metadata_discovery_does_not_discard_a_completed_source_bound_answer():
@@ -201,13 +201,13 @@ def test_next_variants_call_resumes_a_legacy_failure_once_without_rewriting_it(t
     assert editorial.text_call(prompt,root=tmp_path,runner=lambda *a,**k:pytest.fail("already returned"))==returned
 
 
-def test_changed_image_is_not_attached_after_the_first_timeout(tmp_path):
+def test_changed_image_is_not_attached_after_the_first_timeout(tmp_path, agy_lifted):
     image=tmp_path/"exact.png";image.write_bytes(b"original")
     calls=[]
     def run(args,**kwargs):
         calls.append(args);image.write_bytes(b"changed")
         raise subprocess.TimeoutExpired(args,kwargs["timeout"])
-    _,record=light.call_light("Exact image.",root=tmp_path/"calls",image=image,runner=run,
+    _,record=light.call_light("Exact image.",root=tmp_path/"calls",image=image,runner=run,callers=("antigravity","codex"),
         timeout_cause="AGY_VISION_TIMEOUT_125S",empty_cause="EMPTY")
     assert len(calls)==1 and record["fallback_cause"]=="IMAGE_REVIEW_BYTES_CHANGED"
 
@@ -238,7 +238,7 @@ def test_next_image_preparation_continues_legacy_failure_once_and_keeps_original
     calls=[]
     returned=quality.prepare_asset({},'W',tmp_path,vision_runner=fallback_runner(output,'timeout',calls))
     review=returned['image_quality']['vision']
-    assert review['answered_by']=='codex' and len(calls)==2
+    assert review['answered_by']=='codex' and len(calls)==1
     assert Path(review['retained_prior_failure_path']).read_bytes()==original
     again=quality.prepare_asset({},'W',tmp_path,vision_runner=lambda *a,**k:pytest.fail('already reviewed'))
     assert again['image_quality']['vision']==review

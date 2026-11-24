@@ -272,7 +272,7 @@ def test_decision_98_wrap_renderer_keeps_reader_shape(pack, cash, weekly):
 def test_edition_writer_binds_moves_and_events_to_exact_rows(tmp_path, pack):
     def wrong(prompt, **kwargs):
         answer, record = select_first(prompt, **kwargs)
-        if kwargs["callers"] == ("codex",):
+        if kwargs["job"] == "market_wrap_desk":
             return answer, record
         value = json.loads(answer)
         value["changes"][0]["text"] = value["changes"][0]["text"].replace("-1.00%", "+1.00%")
@@ -319,21 +319,22 @@ def test_cc755_market_wrap_renders_main_cases_in_the_article_and_social_copy(tmp
         assert link in copy["full_text"]
 
 
-def test_codex_capacity_returns_desk_sections_to_antigravity(tmp_path, pack):
-    callers = []
+def test_codex_capacity_returns_desk_sections_to_the_code_fallback(tmp_path, pack):
+    """Since 24 Nov 2026 both stages run on Codex; a failed desk call uses the code fallback, no second call."""
+    callers, efforts = [], []
 
     def call(prompt, **kwargs):
         callers.extend(kwargs["callers"])
-        if kwargs["callers"] == ("codex",):
-            assert kwargs["codex_effort"] == "max"
-            assert kwargs["timeout_seconds"] == 240
-            assert kwargs["job"] == "market_wrap_desk"
+        efforts.append(kwargs["codex_effort"])
+        assert kwargs["timeout_seconds"] == 240
+        if kwargs["job"] == "market_wrap_desk":
             return b"", {"cause": "CODEX_QUOTA"}
         return select_first(prompt, **kwargs)
 
     manuscript = editorial.draft(pack, tmp_path, call=call)
     article, markets = editorial.article_for(pack, manuscript)
-    assert callers == ["antigravity", "codex", "antigravity"]
+    assert callers == ["codex", "codex"] and efforts == ["medium", "max"]
+    assert json.loads((tmp_path / "wrap-desk/light-call.json").read_bytes())["fallback"] == "code"
     assert "Gross Domestic Product" in article["substack_body_markdown"]
     assert "Higher yields weighed on gold." in article["substack_body_markdown"]
     hit = article["substack_body_markdown"].count("Higher yields weighed on gold.")

@@ -23,19 +23,19 @@ def recorded_output():
 
 
 def fake_runner(output=None, error=None):
+    """A fake `codex exec` (since 24 Nov 2026 the light text runs on Codex, never agy)."""
     def run(args, **kwargs):
         assert list(Path(kwargs["cwd"]).iterdir()) == []
-        if "--version" in args:
-            return subprocess.CompletedProcess(args, 0, b"1.5.3\n", b"")
-        assert args[args.index("--model") + 1] == agy.MODEL
-        assert args[args.index("--effort") + 1] == "high"
-        message = json.loads(kwargs["input"])
-        assert message["event"] == "user"
-        assert message["message"]["content"][0]["text"].startswith("Do not call any tool")
-        assert kwargs["timeout"] == 120
+        assert "--version" not in args and args[1] == "exec"
+        assert args[args.index("--model") + 1] == agy.ASSIST_MODEL == "gpt-6.2-sol"
+        assert 'model_reasoning_effort="' + agy.ASSIST_EFFORT + '"' in args and agy.ASSIST_EFFORT == "medium"
+        assert kwargs["input"].decode("utf-8").startswith("Do not call any tool")
+        assert kwargs["timeout"] == agy.ASSIST_TIMEOUT_SECONDS
         if error:
             raise error
-        return subprocess.CompletedProcess(args, 0, json.dumps(output).encode(), b"")
+        out = Path(args[args.index("--output-last-message") + 1])
+        out.write_bytes(json.dumps(output).encode())
+        return subprocess.CompletedProcess(args, 0, b"", b"")
     return run
 
 
@@ -56,7 +56,7 @@ def test_recorded_output_is_used_by_live_compiler(tmp_path):
     record = prepare(tmp_path)
     assert record["status"] == "AGY_AVAILABLE"
     assert record["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
-    assert record["agy_version"] == "1.5.3"
+    assert (record["caller"], record["model"]) == ("codex", "gpt-6.2-sol")
     assert record["started_utc"] <= record["ended_utc"]
     assert agy.sha256((Path(record["artifact_path"]).parent / "prompt.txt").read_bytes()).hexdigest() == record["prompt_sha256"]
     assert agy.sha256((Path(record["artifact_path"]).parent / "output.txt").read_bytes()).hexdigest() == record["output_sha256"]
@@ -109,44 +109,33 @@ def test_failed_or_empty_output_and_resume_do_not_retry(tmp_path):
     second = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
     assert first == second
     assert first["status"] == "AGY_UNAVAILABLE"
-    assert len(calls) == 2  # version plus one call; resume reuses the result
+    assert len(calls) == 1  # one Codex call (no agy version probe); resume reuses the result
 
 
-@pytest.mark.parametrize("version_result,cause", [
-    (subprocess.TimeoutExpired("agy --version", 5), "AGY_VERSION_TIMEOUT_5S"),
-    (subprocess.CompletedProcess([], 1, b"not a version", b""), "AGY_VERSION_EXIT_1"),
-    (subprocess.CompletedProcess([], 0, b"", b""), "AGY_VERSION_EMPTY"),
-])
-def test_version_failure_still_sends_once_and_feeds_reviewed_copy(tmp_path, version_result, cause):
+def test_one_codex_call_feeds_reviewed_copy_and_resume_does_not_repeat_it(tmp_path):
     calls = []
     def run(args, **kwargs):
         calls.append(args)
-        if "--version" in args:
-            if isinstance(version_result, Exception):
-                raise version_result
-            return version_result
         return fake_runner(recorded_output())(args, **kwargs)
     draft, sources, assets = packet()
     record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
     assert record["status"] == "AGY_AVAILABLE"
-    assert record["agy_version"] is None
-    assert record["version_cause"] == cause
-    assert record["version_started_utc"] <= record["version_ended_utc"]
+    assert (record["caller"], record["model"], record["effort"]) == ("codex", "gpt-6.2-sol", "medium")
+    assert not any(key.startswith(("agy", "version_")) for key in record)
     approve(tmp_path, record)
     article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
     assert media[0]["alt_text"] == recorded_output()["alt_text"][0]["text"]
     assert article["agy_light_assist"]["variant_destinations"] == sorted(agy.LIMITS)
     agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
-    assert len(calls) == 2  # Failed metadata probe plus one prompt, no retry on resume.
+    assert len(calls) == 1
 
 
-def test_version_failure_keeps_actual_model_failure_and_existing_copy(tmp_path):
+def test_codex_timeout_keeps_the_named_cause_and_existing_copy(tmp_path):
     def run(args, **kwargs):
-        raise subprocess.TimeoutExpired(args, 5 if "--version" in args else 120)
+        raise subprocess.TimeoutExpired(args, kwargs["timeout"])
     draft, sources, assets = packet()
     record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
-    assert record["version_cause"] == "AGY_VERSION_TIMEOUT_5S"
-    assert record["cause"] == "AGY_TIMEOUT_120S"
+    assert record["cause"] == "ValueError: CODEX_LIGHT_TIMEOUT_" + str(agy.ASSIST_TIMEOUT_SECONDS) + "S"
     article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
     assert article["substack_body_markdown"] == draft["substack_body_markdown"]
     assert "publisher_light_variants" not in article
@@ -210,13 +199,10 @@ def test_long_source_pack_stream_and_parser_have_no_command_line_limit(tmp_path)
     sources[0]["context"] = "Inert context. " * 5000
     output = recorded_output()
     def run(args, **kwargs):
-        if "--version" in args:
-            return subprocess.CompletedProcess(args, 0, b"1.5.3", b"")
+        # The prompt goes on stdin, never the command line.
         assert len(" ".join(args)) < 1000
         assert len(kwargs["input"]) > 32768
-        return subprocess.CompletedProcess(args, 0,
-            (json.dumps({"event": "init", "test": True}) + "\n" + json.dumps({"event": "result",
-                "result": {"status": "SUCCESS", "response": json.dumps(output)}})).encode(), b"")
+        return fake_runner(output)(args, **kwargs)
     assert agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)["status"] == "AGY_AVAILABLE"
 
 
@@ -237,7 +223,8 @@ def test_native_submit_and_review_route_the_light_step(tmp_path, monkeypatch):
     monkeypatch.setattr(cli, "validate_binding", lambda *args, **kwargs: None)
     monkeypatch.setattr(cli, "_bound_store", lambda *args: store)
     monkeypatch.setattr(cli, "NativeDesktopTurn", Turn)
-    monkeypatch.setattr(agy, "_run", fake_runner(recorded_output()))
+    from live_contentops import light_model_caller_v1 as light
+    monkeypatch.setattr(light, "_run_codex", fake_runner(recorded_output()))
     binding = {"run_id": "controlled-article", "output_dir": str(tmp_path)}
     submitted = cli._operation(binding, command="submit", stage="write", response={"output": {"article": draft}})
     record = json.loads((tmp_path / agy.NAME).read_bytes())
