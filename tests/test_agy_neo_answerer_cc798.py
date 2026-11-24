@@ -307,6 +307,9 @@ print(json.dumps({"conversation_id": "fake", "status": "SUCCESS", "response": "{
 
 
 def test_runner_uses_a_fresh_empty_folder_closed_stdin_and_the_fixed_command(tmp_path, monkeypatch):
+    # Ops Product, 24 Nov 2026: a fake agy only; the terms block (agy_editorial_assist_v1) is lifted in this test alone.
+    from live_contentops import agy_editorial_assist_v1 as assist
+    monkeypatch.setattr(assist, "AGY_TERMS_BLOCK", "")
     script = tmp_path / "fake_agy.py"
     script.write_text(FAKE_AGY, encoding="utf-8")
     exe = tmp_path / "agy.exe"
@@ -325,6 +328,9 @@ def test_runner_uses_a_fresh_empty_folder_closed_stdin_and_the_fixed_command(tmp
 
 
 def test_runner_ends_its_own_process_tree_on_timeout(tmp_path, monkeypatch):
+    # Ops Product, 24 Nov 2026: a fake agy only; the terms block (agy_editorial_assist_v1) is lifted in this test alone.
+    from live_contentops import agy_editorial_assist_v1 as assist
+    monkeypatch.setattr(assist, "AGY_TERMS_BLOCK", "")
     script = tmp_path / "fake_agy.py"
     script.write_text(FAKE_AGY, encoding="utf-8")
     exe = tmp_path / "agy.exe"
