@@ -761,7 +761,8 @@ def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys
     assert engagement["youtube"]["first_cause"] == "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
     markdown = (run / "day_readback.md").read_text(encoding="utf-8")
     assert "## Decision checks" in markdown and "98 · weekend-wrap-2026-11-15" in markdown
-    assert "### Antigravity" in markdown
+    assert "### Light-model jobs (Codex since 24 Nov; Antigravity before)" in markdown
+    assert "| Calls (Codex / Antigravity) |" in markdown
     assert "Digest: CONFIRMED; recipients 5; opens 1;" in markdown
     assert piece["first_line"] and piece["first_line"] != piece["title"]
     summary, engagement_section = markdown.split("## Engagement\n", 1)

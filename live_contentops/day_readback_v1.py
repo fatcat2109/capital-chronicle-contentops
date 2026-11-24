@@ -1553,8 +1553,10 @@ def markdown(report):
                 lines.append(f"- Correcting reply for Publisher · {reply['platform']} · {reply['parent_url']} · "
                              f"{plain(reply['reply_text'])}")
         if assist := decisions.get("antigravity"):
-            lines.extend(["", "### Antigravity", "",
-                          "| Job | Due | Calls | Code pass rate | Empty | Timeouts | Code / Codex fallback | Hours without call |",
+            # The key stays "antigravity" (the digest reads it); the calls are Codex's since 24 Nov (decision 168).
+            lines.extend(["", "### Light-model jobs (Codex since 24 Nov; Antigravity before)", "",
+                          "| Job | Due | Calls (Codex / Antigravity) | Code pass rate | Empty | Timeouts | "
+                          "Code / Codex fallback | Hours without call |",
                           "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"])
             for job in assist["jobs"]:
                 rate = job["code_pass_rate_pct"]
@@ -1563,9 +1565,14 @@ def markdown(report):
                     rate_text += " (below 90%)"
                 elif job["unchecked_returns"] or job["calls_incomplete_at_cutoff"]:
                     rate_text += " (incomplete evidence)"
-                lines.append(f"| {job['job']} | {job['posts_due']} | {job['calls']} | {rate_text} | "
+                split = job.get("calls_by_caller") or {}
+                calls = f"{job['calls']} ({split.get('codex', 0)} / {split.get('antigravity', 0)})"
+                lines.append(f"| {job['job']} | {job['posts_due']} | {calls} | {rate_text} | "
                              f"{job['empty_answers']} | {job['timeouts']} | "
                              f"{job['code_fallbacks']} / {job['codex_takeovers']} | {job['hours_without_recorded_call']:.3f} |")
+            refused = sum(job.get("antigravity_refused_by_block", 0) for job in assist["jobs"])
+            if refused:
+                lines.append(f"Antigravity attempts refused by the terms block: {refused} (a step still names agy).")
             lines.append("Quota-free idle time awaits retained rate-limit coverage.")
     return "\n".join(lines) + "\n"
 

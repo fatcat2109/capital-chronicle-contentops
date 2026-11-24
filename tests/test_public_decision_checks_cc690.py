@@ -421,3 +421,50 @@ def test_coverage_names_a_stall_even_when_routes_all_confirm_together(tmp_path):
     assert [(r["platform"], r["first_cause"], r["seconds_after_source"]) for r in issues] == [
         ("telegram", "PLAN_COPY_OVER_TEN_MINUTES_LATE", 28800),
         ("x", "PLAN_COPY_OVER_TEN_MINUTES_LATE", 28800)]
+
+
+def test_codex_calls_count_split_by_caller_and_a_blocked_agy_attempt_is_not_a_call(tmp_path):
+    # CC-690 after CC-801 (decision 168): Codex runs the light jobs; a terms-blocked agy attempt started nothing.
+    def receipt(folder, value):
+        path = tmp_path / "daily_app_outputs" / folder / "light-call.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value), encoding="utf-8")
+
+    codex = {"caller": "codex", "status": "RETURNED"}
+    receipt("plan-status-posts/gold/layer-lines-801", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T16:00:00Z", "ended_at_utc": "2026-11-19T16:01:00Z",
+        "result": "PASS", "answered_by": "codex", "attempts": [codex]})
+    receipt("plan-status-posts/oil/layer-lines-802", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T16:02:00Z", "ended_at_utc": "2026-11-19T16:03:00Z",
+        "result": "PASS", "answered_by": "codex",
+        "attempts": [{"caller": "antigravity", "status": "NOT_STARTED",
+                      "cause": "AGY_BLOCKED_TERMS_OF_SERVICE_20261124"}, codex]})
+    receipt("plan-status-posts/btc/layer-lines-803", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T16:04:00Z", "ended_at_utc": "2026-11-19T16:05:00Z",
+        "result": "FAIL", "answered_by": "codex", "attempts": [codex]})
+    receipt("plan-status-posts/eur/layer-lines-804", {
+        "job": "plan_layer_lines", "started_at_utc": "2026-11-19T16:06:00Z", "ended_at_utc": "2026-11-19T16:07:00Z",
+        "fallback": "frozen_plan", "result": "FALLBACK",
+        "attempts": [{"caller": "antigravity", "status": "NOT_STARTED",
+                      "cause": "AGY_BLOCKED_TERMS_OF_SERVICE_20261124"}]})
+    result = daily_metrics(tmp_path, checks(tmp_path).window, {"plan_layer_lines": 4})
+    assert result["callers_counted"] == ["codex", "antigravity"]
+    layer = {row["job"]: row for row in result["jobs"]}["plan_layer_lines"]
+    assert (layer["calls"], layer["code_passes"], layer["code_rejects"]) == (3, 2, 1)
+    assert layer["calls_by_caller"] == {"codex": 3, "antigravity": 0}
+    assert (layer["antigravity_refused_by_block"], layer["codex_takeovers"], layer["code_fallbacks"]) == (2, 1, 1)
+    assert layer["code_pass_rate_pct"] == 66.67 and layer["code_pass_rate_meets_90_pct"] is False
+    assert layer["hours_without_recorded_call"] == pytest.approx(24 - 3 / 60, abs=0.001)
+
+
+def test_a_failed_codex_daily_note_is_a_code_fallback_not_a_codex_takeover(tmp_path):
+    folder = tmp_path / "daily_app_outputs" / "substack-daily-notes" / "run-1" / "daily-note-first-draft" / "a"
+    folder.mkdir(parents=True)
+    (folder / "result.json").write_text(json.dumps({
+        "schema_version": "contentops.daily_note_first_draft.v1", "status": "AGY_UNAVAILABLE", "caller": "codex",
+        "provider_call_attempted": True, "cause": "CODEX_LIGHT_TIMEOUT_180S",
+        "started_at_utc": "2026-11-19T17:00:00Z", "ended_at_utc": "2026-11-19T17:03:00Z"}), encoding="utf-8")
+    result = daily_metrics(tmp_path, checks(tmp_path).window, {"daily_wrap_sections": 1})
+    wrap = {row["job"]: row for row in result["jobs"]}["daily_wrap_sections"]
+    assert (wrap["calls"], wrap["timeouts"], wrap["code_fallbacks"], wrap["codex_takeovers"]) == (1, 1, 1, 0)
+    assert wrap["calls_by_caller"] == {"codex": 1, "antigravity": 0}

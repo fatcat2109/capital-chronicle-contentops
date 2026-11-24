@@ -1,4 +1,10 @@
-"""Daily Antigravity job counts from ContentOps' retained call receipts (CC-690)."""
+"""Daily light-model job counts from ContentOps' retained call receipts (CC-690).
+
+Codex gpt-6.2-sol runs these jobs since 24 Nov 2026 (decision 168); older records were Antigravity's. Every
+started call counts, split by caller. An Antigravity attempt refused by the terms block (NOT_STARTED) started no
+process, so it is not a call; it is counted apart so a step that still names agy shows up. `codex_takeovers`
+counts Codex answering after an Antigravity attempt in the same record, or a record that names Codex as its
+fallback. The report key stays "antigravity" because the evening file and digest read it."""
 from __future__ import annotations
 
 from collections import Counter, defaultdict
@@ -20,6 +26,7 @@ JOBS = {
     "x_reply_ranking": "Retained X reply ranking requests",
 }
 PASS_RATE = 90.0
+CALLERS = ("codex", "antigravity")
 LEGACY_CLAIM = "agy_light_assist_v1.json"
 WRAP_JOB_NAMES = {
     "wrap_sections": "daily_wrap_sections",
@@ -145,7 +152,9 @@ def _legacy_record(path, row):
     caller = row.get("caller") or "antigravity"
     return {**row, "job": job, "result": result, "answered_by": caller if status == "RETURNED" else None,
             "attempts": [{"caller": caller, "status": status, "cause": cause}],
-            "fallback": "codex" if job == "daily_wrap_sections" and row.get("status") == "AGY_UNAVAILABLE" else None}
+            # A failed Codex draft leaves the fixed text (a code fallback), never a Codex takeover (pre-review, CC-801).
+            "fallback": (("codex" if caller == "antigravity" else "frozen_plan")
+                         if job == "daily_wrap_sections" and row.get("status") == "AGY_UNAVAILABLE" else None)}
 
 
 def _job_record(path, row, runtime, end):
@@ -203,13 +212,16 @@ def daily_metrics(runtime, window, due, output_folders=()):
             if identity in seen:
                 continue
             seen.add(identity)
-        matched = [a for a in record.get("attempts", []) if a.get("caller") == "antigravity"]
+        attempts = record.get("attempts", [])
+        matched = [a for a in attempts if a.get("caller") in CALLERS and a.get("status") != "NOT_STARTED"]
+        tried_agy = any(a.get("caller") == "antigravity" for a in attempts)
+        in_window = start < opened <= end and closed and closed <= end
+        if in_window:
+            counts[job]["antigravity_refused_by_block"] += sum(
+                1 for a in attempts if a.get("caller") == "antigravity" and a.get("status") == "NOT_STARTED")
         if not matched:
-            if (start < opened <= end and closed and closed <= end and job == "plan_analysis_page"
-                    and any(attempt.get("caller") == "codex" for attempt in record.get("attempts", []))):
-                counts[job]["codex_takeovers"] += 1
-                if record.get("fallback") == "frozen_plan":
-                    counts[job]["code_fallbacks"] += 1
+            if in_window and record.get("fallback") == "frozen_plan":
+                counts[job]["code_fallbacks"] += 1
             continue
         if closed:
             intervals[job].append((opened, closed))
@@ -219,6 +231,7 @@ def daily_metrics(runtime, window, due, output_folders=()):
         tally["calls"] += len(matched)
         result = record.get("result") if closed and closed <= end else None
         for attempt in matched:
+            tally["calls_" + attempt["caller"]] += 1
             state = attempt.get("status") if closed and closed <= end else None
             cause = str(attempt.get("cause") or "").upper()
             if state and (state == "EMPTY" or "EMPTY" in cause):
@@ -226,7 +239,7 @@ def daily_metrics(runtime, window, due, output_folders=()):
             if state == "TIMEOUT":
                 tally["timeouts"] += 1
             if state == "RETURNED":
-                if record.get("answered_by") == "antigravity" and result == "PASS":
+                if record.get("answered_by") == attempt["caller"] and result == "PASS":
                     tally["code_passes"] += 1
                 elif result is None:
                     tally["unchecked_returns"] += 1
@@ -236,11 +249,11 @@ def daily_metrics(runtime, window, due, output_folders=()):
                 tally["calls_incomplete_at_cutoff"] += 1
         if result is not None:
             fallback = record.get("fallback")
-            if record.get("answered_by") == "codex" or fallback == "codex":
+            if (tried_agy and record.get("answered_by") == "codex") or fallback == "codex":
                 tally["codex_takeovers"] += 1
             elif fallback == "frozen_plan":
                 tally["code_fallbacks"] += 1
-        elif closed and closed <= end and record.get("answered_by") == "codex":
+        elif closed and closed <= end and tried_agy and record.get("answered_by") == "codex":
             tally["codex_takeovers"] += 1
 
     duration = (end - start).total_seconds() / 3600
@@ -255,9 +268,11 @@ def daily_metrics(runtime, window, due, output_folders=()):
         metrics.append({"job": job, "due_basis": basis,
                         "posts_due": reply_requests if job == "x_reply_ranking" else due.get(job, 0),
                         **{key: tally[key] for key in ("calls", "code_passes", "code_rejects", "unchecked_returns",
-                            "calls_incomplete_at_cutoff", "empty_answers", "timeouts", "code_fallbacks", "codex_takeovers")},
+                            "calls_incomplete_at_cutoff", "empty_answers", "timeouts", "code_fallbacks", "codex_takeovers",
+                            "antigravity_refused_by_block")},
+                        "calls_by_caller": {caller: tally["calls_" + caller] for caller in CALLERS},
                         "code_pass_rate_pct": rate, "code_pass_rate_meets_90_pct": meets,
                         "hours_without_recorded_call": round(duration - _occupied_hours(intervals[job], start, end), 3),
                         "hours_idle_without_rate_limit": None,
                         "idle_evidence": "RUNNER_RATE_LIMIT_COVERAGE_UNAVAILABLE"})
-    return {"code_pass_target_pct": PASS_RATE, "jobs": metrics}
+    return {"code_pass_target_pct": PASS_RATE, "callers_counted": list(CALLERS), "jobs": metrics}
