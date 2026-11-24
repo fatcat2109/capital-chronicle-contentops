@@ -220,12 +220,17 @@ class FakeBootstrap:
 
     def __init__(self, *, alive=False, owner="READY", launch="LAUNCH_FAILED"):
         self.alive, self.owner, self.launch = alive, owner, launch
-        self.launches, self.session_probes = 0, 0
+        self.launches, self.session_probes, self.owner_checks = 0, 0, 0
+        self.probe_timeouts = []
 
-    def probe_cdp(self, port):
-        return {"cdp_alive": self.alive}
+    def probe_cdp(self, port, *, timeout=3.0):
+        self.probe_timeouts.append(timeout)
+        if self.alive == "slow":
+            return {"cdp_alive": timeout > 3.0}
+        return {"cdp_alive": bool(self.alive)}
 
     def ingestion_process_state(self):
+        self.owner_checks += 1
         return {"state": self.owner, "detail": "fixture"}
 
     def ensure_ingestion_runtime(self):
@@ -243,18 +248,24 @@ def _runner(tmp_path, bootstrap, clock):
                            clock=clock, now_fn=lambda: NOW, sidecar_dir=tmp_path / "sidecars")
 
 
-def test_runner_writes_the_feed_while_the_browser_is_down_and_launches_once_per_half_hour(tmp_path):
-    ticks = iter([0.0, 60.0, 1900.0])
+def test_runner_writes_the_feed_while_the_browser_is_down_and_relaunches_every_five_minutes(tmp_path):
+    ticks = iter([0.0, 60.0, 301.0])
     bootstrap = FakeBootstrap()
     runner = _runner(tmp_path, bootstrap, lambda: next(ticks))
     first = runner.iterate()
     assert first["capture"]["state"] == "BROWSER_NOT_READY" and first["feed_written"] is True
-    runner.iterate()
-    assert bootstrap.launches == 1
+    # CC-785: a dead probe is retried once, longer, before the browser counts as down.
+    assert bootstrap.probe_timeouts[:2] == [3.0, feed.PROBE_RETRY_TIMEOUT_SECONDS]
+    second = runner.iterate()
+    assert bootstrap.launches == 1 and second["capture"]["detail"] == "WAITING_BEFORE_NEXT_LAUNCH"
     runner.iterate()
     assert bootstrap.launches == 2
     written = json.loads((tmp_path / "feed.json").read_text(encoding="utf-8"))
     assert written["capture"]["state"] == "BROWSER_NOT_READY" and written["rows"] == []
+    # Three failed captures in a row: the export says so plainly and raises the P1.
+    assert written["health"]["state"] == "P1" and written["health"]["stale"] is True
+    assert written["health"]["failure_streak"] == 3
+    assert written["health"]["p1"]["cause"].startswith("BROWSER_NOT_READY")
     assert json.loads((tmp_path / feed.FLAGS_NAME).read_text(encoding="utf-8")) == []
     assert len((tmp_path / "runner.log").read_text().splitlines()) == 3
 
@@ -280,6 +291,7 @@ def test_runner_captures_through_a_ready_browser(tmp_path):
     runner.iterate()
     written = json.loads((tmp_path / "feed.json").read_text(encoding="utf-8"))
     assert written["capture"]["state"] == "CAPTURED" and written["row_count"] == 2
+    assert written["health"]["state"] == "OK" and written["health"]["stale_since_utc"] is None
     flags = json.loads((tmp_path / feed.FLAGS_NAME).read_text(encoding="utf-8"))
     assert [f["source"] for f in flags] == ["X list @financialjuice", "X list @FirstSquawk"]
 
@@ -294,262 +306,6 @@ def test_run_forever_honours_the_stop_file_and_runs_one_instance(tmp_path):
     stop.write_text("stop")
     assert feed.run_forever(stop_path=stop, lock_path=lock, runner=object()) == {"state": "STOPPED", "iterations": 0}
 
-
-class FakeCDP:
-    """One stuck list target and other tabs, behind a responding HTTP endpoint."""
-
-    def __init__(self, *, failure="command"):
-        self.pages = [self.page("hung"), self.page("unrelated", "https://x.com/home")]
-        self.failure = failure
-        self.failing_targets = {"hung"}
-        self.requests = []
-        self.opens = 0
-        self.catalog_calls = 0
-        self.catalog_error = False
-        self.redirect_on_catalog_call = None
-        self.new_url = LIST_URL
-        self.create_error = self.close_error = False
-
-    @staticmethod
-    def page(target_id, url=LIST_URL):
-        return {"id": target_id, "type": "page", "url": url,
-                "webSocketDebuggerUrl": f"ws://fake/{target_id}"}
-
-    def targets(self, **_):
-        self.catalog_calls += 1
-        if self.catalog_error:
-            raise TimeoutError("fixture catalog timeout")
-        if self.catalog_calls == self.redirect_on_catalog_call:
-            self.pages[0]["url"] = "https://x.com/i/flow/login"
-        return [dict(page) for page in self.pages]
-
-    def client(self, url, *, timeout_seconds):
-        from websocket import WebSocketTimeoutException
-
-        if url.rsplit("/", 1)[-1] not in self.failing_targets:
-            return FakeClient(url, timeout_seconds=timeout_seconds)
-        if self.failure == "connect":
-            raise WebSocketTimeoutException("fixture page connection timeout")
-
-        class HungClient(FakeClient):
-            def command(self, *args, **kwargs):
-                raise WebSocketTimeoutException("fixture page command timeout")
-
-        return HungClient(url, timeout_seconds=timeout_seconds)
-
-    def http_open(self, request, *, timeout):
-        url = urlsplit(request.full_url)
-        self.requests.append((request.get_method(), url.path, unquote(url.query)))
-        assert url.netloc == "127.0.0.1:9222" and timeout == 5.0
-        if url.path == "/json/new":
-            assert request.get_method() == "PUT" and unquote(url.query) == LIST_URL
-            self.opens += 1
-            page = self.page(f"fresh-{self.opens}", self.new_url)
-            self.pages.append(page)
-            if self.create_error:
-                raise TimeoutError("fixture create response lost")
-            payload = json.dumps(page).encode()
-        else:
-            assert request.get_method() == "GET" and url.path.startswith("/json/close/")
-            old_id = unquote(url.path.rsplit("/", 1)[-1])
-            assert old_id != "unrelated"
-            if self.close_error:
-                raise TimeoutError("fixture close response lost")
-            self.pages = [page for page in self.pages if page["id"] != old_id]
-            payload = b"Target is closing"
-
-        class Response:
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-            def read(self):
-                return payload
-
-        return Response()
-
-
-def _hung_runner(tmp_path, *, cdp=None, clock=None):
-    cdp = cdp or FakeCDP()
-    clock = clock or [NOW]
-
-    class QuickCapture(feed.MinuteCapture):
-        def capture_once(self):
-            return super().capture_once(settle_seconds=0.01, scroll_seconds=0)
-
-    capture = QuickCapture(module=FakeIngestion(tmp_path), targets_fn=cdp.targets,
-                           client_factory=cdp.client, http_open=cdp.http_open, now_fn=lambda: clock[0])
-    runner = feed.FeedRunner(feed_path=tmp_path / "feed.json", log_path=tmp_path / "runner.log",
-                             bootstrap=FakeBootstrap(alive=True), capture_factory=lambda: capture,
-                             clock=lambda: (clock[0] - NOW).total_seconds(), now_fn=lambda: clock[0],
-                             sidecar_dir=tmp_path / "sidecars")
-    return runner, cdp, clock
-
-
-def _tick(runner, clock, minute):
-    clock[0] = NOW + timedelta(minutes=minute)
-    return runner.iterate()
-
-
-@pytest.mark.parametrize("failure", ["command", "connect"])
-def test_runner_replaces_three_page_socket_timeouts_then_feeds_both_consumers(tmp_path, failure):
-    runner, cdp, clock = _hung_runner(tmp_path, cdp=FakeCDP(failure=failure))
-    records = [_tick(runner, clock, minute) for minute in range(4)]
-    assert [row["capture"]["page_socket_failure_streak"] for row in records] == [1, 2, 3, 0]
-    assert all(row["capture"]["page_socket_failed"] for row in records[:3])
-    assert all("tab_replacement" not in row["capture"] for row in records[:2] + records[3:])
-    replacement = records[2]["capture"]["tab_replacement"]
-    assert replacement == {"state": "TAB_REPLACED", "old_target_id": "hung", "new_target_id": "fresh-1",
-                           "attempted_utc": "2026-11-05T01:02:00.000Z",
-                           "replaced_utc": "2026-11-05T01:02:00.000Z"}
-    assert cdp.requests == [("PUT", "/json/new", LIST_URL), ("GET", "/json/close/hung", "")]
-    assert {page["id"] for page in cdp.pages} == {"fresh-1", "unrelated"}
-    assert records[3]["capture"]["state"] == "CAPTURED"
-    assert records[3]["capture"]["target_id"] == "fresh-1"
-    written = json.loads((tmp_path / "feed.json").read_text())
-    assert written["row_count"] == 2 and written["newest_age_seconds"] < 15 * 60
-    assert written["capture"]["last_tab_replacement"] == replacement
-    assert [row["handle"] for row in written["rows"]] == ["financialjuice", "FirstSquawk"]
-    flags = json.loads((tmp_path / feed.FLAGS_NAME).read_text())
-    assert [row["source"] for row in flags] == ["X list @financialjuice", "X list @FirstSquawk"]
-    log = [json.loads(line) for line in (tmp_path / "runner.log").read_text().splitlines()]
-    assert sum("tab_replacement" in row["capture"] for row in log) == 1
-    assert log[2]["capture"]["tab_replacement"] == replacement
-    assert _tick(runner, clock, 4)["capture"]["new_rows"] == 0
-
-
-def test_recovery_counts_distinct_consecutive_minutes_and_resets_after_a_gap(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    for minute in (0, 0.1, 0.2, 2):
-        assert _tick(runner, clock, minute)["capture"]["page_socket_failure_streak"] == 1
-    assert _tick(runner, clock, 3)["capture"]["page_socket_failure_streak"] == 2
-    assert cdp.opens == 0
-    _tick(runner, clock, 4)
-    assert cdp.opens == 1
-
-
-def test_success_resets_the_failure_streak(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    _tick(runner, clock, 0)
-    _tick(runner, clock, 1)
-    cdp.failing_targets.clear()
-    assert _tick(runner, clock, 2)["capture"]["state"] == "CAPTURED"
-    cdp.failing_targets.add("hung")
-    assert _tick(runner, clock, 3)["capture"]["page_socket_failure_streak"] == 1
-    _tick(runner, clock, 4)
-    assert cdp.opens == 0
-    _tick(runner, clock, 5)
-    assert cdp.opens == 1
-
-
-@pytest.mark.parametrize("failure", ["browser", "catalog"])
-def test_browser_or_catalog_failure_resets_the_streak_without_tab_requests(tmp_path, failure):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    _tick(runner, clock, 0)
-    _tick(runner, clock, 1)
-    if failure == "browser":
-        runner.bootstrap.alive = False
-    else:
-        cdp.catalog_error = True
-    assert _tick(runner, clock, 2)["capture"]["page_socket_failure_streak"] == 0
-    assert cdp.requests == []
-
-
-@pytest.mark.parametrize("failure", ["quiet_timeline", "extraction_timeout"])
-def test_only_page_socket_errors_trigger_replacement(tmp_path, failure):
-    runner, cdp, clock = _hung_runner(tmp_path)
-
-    class QuietClient(FakeClient):
-        def command(self, method, params=None, **kwargs):
-            if method == "Page.reload":
-                return {}
-            return super().command(method, params, **kwargs)
-
-    capture = runner.capture_factory()
-    capture.client_factory = QuietClient if failure == "quiet_timeline" else FakeClient
-    if failure == "extraction_timeout":
-        def fail_extraction(_):
-            raise TimeoutError("fixture extraction timeout, not a page socket")
-        capture.module.recursive_tweet_extractor = fail_extraction
-    for minute in range(4):
-        captured = _tick(runner, clock, minute)["capture"]
-        assert captured["page_socket_failure_streak"] == 0 and not captured.get("page_socket_failed")
-    assert cdp.requests == []
-
-
-@pytest.mark.parametrize("when", ["capture", "recheck", "new_tab"])
-def test_recovery_keeps_login_redirects_as_reauth_required(tmp_path, when):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    _tick(runner, clock, 0)
-    _tick(runner, clock, 1)
-    if when == "capture":
-        cdp.pages[0]["url"] = "https://x.com/i/flow/login"
-    elif when == "recheck":
-        cdp.redirect_on_catalog_call = 4
-    else:
-        cdp.new_url = "https://x.com/i/flow/login"
-    assert _tick(runner, clock, 2)["capture"]["state"] == "REAUTH_REQUIRED"
-    assert cdp.requests == ([("PUT", "/json/new", LIST_URL)] if when == "new_tab" else [])
-    assert any(page["id"] == "hung" for page in cdp.pages)
-
-
-def test_replacement_cooldown_is_ten_minutes_even_after_a_runner_restart(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    cdp.failing_targets.update({"fresh-1", "fresh-2"})
-    for minute in range(6):
-        _tick(runner, clock, minute)
-    assert cdp.opens == 1
-    runner, _, _ = _hung_runner(tmp_path, cdp=cdp, clock=clock)
-    for minute in range(6, 12):
-        _tick(runner, clock, minute)
-    assert cdp.opens == 1
-    captured = _tick(runner, clock, 12)["capture"]
-    assert cdp.opens == 2
-    assert captured["tab_replacement"]["old_target_id"] == "fresh-1"
-    assert captured["tab_replacement"]["new_target_id"] == "fresh-2"
-
-
-def test_a_close_failure_still_uses_the_new_target_after_restart(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    cdp.close_error = True
-    records = [_tick(runner, clock, minute) for minute in range(3)]
-    replacement = records[-1]["capture"]["tab_replacement"]
-    assert replacement["state"] == "TAB_REPLACEMENT_FAILED"
-    assert replacement["new_target_id"] == "fresh-1"
-    assert {page["id"] for page in cdp.pages} == {"hung", "unrelated", "fresh-1"}
-    runner, _, _ = _hung_runner(tmp_path, cdp=cdp, clock=clock)
-    captured = _tick(runner, clock, 3)["capture"]
-    assert captured["state"] == "CAPTURED" and captured["target_id"] == "fresh-1"
-    assert cdp.opens == 1
-
-
-def test_an_uncertain_create_does_not_close_the_old_target_or_retry_each_minute(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    cdp.create_error = True
-    for minute in range(6):
-        record = _tick(runner, clock, minute)
-    assert cdp.requests == [("PUT", "/json/new", LIST_URL)]
-    assert record["capture"]["last_tab_replacement"]["detail"] == "TAB_REPLACEMENT_TIMEOUT:TimeoutError"
-    assert {page["id"] for page in cdp.pages} == {"hung", "unrelated", "fresh-1"}
-
-
-def test_a_failing_unrelated_x_tab_is_never_closed(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    cdp.pages = [cdp.page("hung", "https://x.com/home")]
-    for minute in range(3):
-        record = _tick(runner, clock, minute)
-    assert record["capture"]["tab_replacement"]["detail"] == "FAILED_TARGET_NOT_LIST_PAGE"
-    assert cdp.requests == []
-
-
-def test_a_recovered_tab_later_navigated_elsewhere_is_not_preferred(tmp_path):
-    runner, cdp, clock = _hung_runner(tmp_path)
-    for minute in range(3):
-        _tick(runner, clock, minute)
-    next(page for page in cdp.pages if page["id"] == "fresh-1")["url"] = "https://example.com/"
-    cdp.pages.append(cdp.page("current-list"))
-    captured = _tick(runner, clock, 3)["capture"]
-    assert captured["state"] == "CAPTURED" and captured["target_id"] == "current-list"
-    assert cdp.opens == 1
+# The CC-595 tab-replacement tests moved to tests/test_x_list_feed_cc785.py with CC-785's
+# two-step self-heal (replace the tab after two failed captures, recreate it through the
+# browser target and raise the P1 after three).
