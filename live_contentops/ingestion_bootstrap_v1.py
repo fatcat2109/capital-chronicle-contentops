@@ -56,6 +56,12 @@ CANONICAL_INGESTION_BINDING = {
     "fallback_profile_available": False,
 }
 
+BACKGROUND_THROTTLING_FLAGS = (
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-renderer-backgrounding",
+)
+
 STATE_READY = "READY"
 STATE_REAUTH_REQUIRED = "REAUTH_REQUIRED"
 STATE_AUTH_UNVERIFIED = "READY_AUTH_UNVERIFIED"
@@ -112,6 +118,123 @@ def probe_cdp(port: int, *, timeout: float = 3.0) -> dict[str, Any]:
     return {"cdp_alive": True, "browser": str(payload.get("Browser") or "")}
 
 
+#: CC-785: a loaded Chrome answered /json/version in more than 3 s (24 Nov 00:37Z), and one slow
+#: answer was read as a dead browser. A failed quick probe is retried once with this timeout.
+PROBE_RETRY_TIMEOUT_SECONDS = 12.0
+
+
+def probe_cdp_patient(port: int, *, timeout: float = 3.0,
+                      retry_timeout: float = PROBE_RETRY_TIMEOUT_SECONDS) -> dict[str, Any]:
+    """Tell slow from dead: one quick probe, then one bounded slower retry."""
+    first = probe_cdp(port, timeout=timeout)
+    if first["cdp_alive"]:
+        return first
+    second = probe_cdp(port, timeout=retry_timeout)
+    return {**second, "retried": True}
+
+
+def _native_listener_pid(port: int) -> Optional[int]:
+    """PID of the TCP listener on ``port`` from the Windows TCP table (iphlpapi, no PowerShell).
+
+    Read-only: it reads the system's listener table and never connects to the port.
+    """
+    if os.name != "nt":
+        return None
+    try:
+        import ctypes
+        import struct
+        from ctypes import wintypes
+
+        get_table = ctypes.WinDLL("iphlpapi").GetExtendedTcpTable
+        get_table.argtypes = [ctypes.c_void_p, ctypes.POINTER(wintypes.DWORD), wintypes.BOOL,
+                              wintypes.ULONG, ctypes.c_int, wintypes.ULONG]
+        get_table.restype = wintypes.DWORD
+        # (address family, row size, offset of the port, offset of the PID) for
+        # MIB_TCPROW_OWNER_PID and MIB_TCP6ROW_OWNER_PID; table class 3 = listeners with owner PID.
+        for family, row_size, port_at, pid_at in ((2, 24, 8, 20), (23, 56, 20, 52)):
+            size = wintypes.DWORD(0)
+            get_table(None, ctypes.byref(size), False, family, 3, 0)
+            for _ in range(3):
+                buffer = ctypes.create_string_buffer(max(int(size.value), 4))
+                status = get_table(buffer, ctypes.byref(size), False, family, 3, 0)
+                if status != 122:  # ERROR_INSUFFICIENT_BUFFER: the table grew, ask again
+                    break
+            if status != 0:
+                continue
+            raw = buffer.raw
+            count = struct.unpack_from("<I", raw, 0)[0]
+            for index in range(count):
+                base = 4 + index * row_size
+                if base + row_size > len(raw):
+                    break
+                local_port = struct.unpack_from("<I", raw, base + port_at)[0]
+                if ((local_port & 0xFF) << 8 | (local_port >> 8) & 0xFF) == int(port):
+                    return int(struct.unpack_from("<I", raw, base + pid_at)[0])
+    except (OSError, AttributeError, ValueError, ImportError):
+        return None
+    return None
+
+
+def _native_process_identity(pid: int) -> Optional[dict[str, Any]]:
+    """A process's creation time and command line through kernel32/ntdll (no PowerShell or WMI)."""
+    if os.name != "nt" or not pid:
+        return None
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        ntdll = ctypes.WinDLL("ntdll")
+        kernel32.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        kernel32.OpenProcess.restype = wintypes.HANDLE
+        kernel32.CloseHandle.argtypes = [wintypes.HANDLE]
+        kernel32.GetProcessTimes.argtypes = [wintypes.HANDLE] + [ctypes.POINTER(wintypes.FILETIME)] * 4
+        kernel32.GetProcessTimes.restype = wintypes.BOOL
+        ntdll.NtQueryInformationProcess.argtypes = [wintypes.HANDLE, wintypes.ULONG, ctypes.c_void_p,
+                                                    wintypes.ULONG, ctypes.POINTER(wintypes.ULONG)]
+        ntdll.NtQueryInformationProcess.restype = ctypes.c_long
+
+        class _UnicodeString(ctypes.Structure):
+            _fields_ = [("Length", wintypes.USHORT), ("MaximumLength", wintypes.USHORT),
+                        ("Buffer", ctypes.c_void_p)]
+
+        handle = kernel32.OpenProcess(0x1000, False, int(pid))  # PROCESS_QUERY_LIMITED_INFORMATION
+        if not handle:
+            return None
+        try:
+            times = [wintypes.FILETIME() for _ in range(4)]
+            if not kernel32.GetProcessTimes(handle, *[ctypes.byref(item) for item in times]):
+                return None
+            created = (times[0].dwHighDateTime << 32) | times[0].dwLowDateTime
+            command_line = None
+            needed = wintypes.ULONG(0)
+            size = 4096
+            for _ in range(3):  # ProcessCommandLineInformation (60), Windows 8.1 and later
+                buffer = ctypes.create_string_buffer(size)
+                status = ntdll.NtQueryInformationProcess(handle, 60, buffer, size, ctypes.byref(needed))
+                if status == 0:
+                    text = _UnicodeString.from_buffer(buffer)
+                    command_line = ctypes.wstring_at(text.Buffer, text.Length // 2) if text.Buffer else ""
+                    break
+                if needed.value <= size:
+                    break
+                size = int(needed.value)
+            return {"pid": int(pid), "start": int(created), "cmd": command_line}
+        finally:
+            kernel32.CloseHandle(handle)
+    except (OSError, AttributeError, ValueError, ImportError):
+        return None
+
+
+def listener_owner_key(port: int = INGESTION_CDP_PORT) -> Optional[tuple[int, int]]:
+    """CC-785 cheap owner recheck: (PID, creation time) of the port's listener, or None."""
+    pid = _native_listener_pid(port)
+    identity = _native_process_identity(pid) if pid else None
+    if not identity:
+        return None
+    return identity["pid"], identity["start"]
+
+
 def cdp_target_urls(port: int, *, timeout: float = 3.0) -> list[str]:
     payload = _http_get_json(f"http://127.0.0.1:{port}/json/list", timeout=timeout)
     if not isinstance(payload, list):
@@ -155,7 +278,19 @@ def ingestion_process_state(
     """Classify the current Chrome 9222 ingestion runtime without touching any session data."""
     profile_dir = canonical_ingestion_user_data_dir(env)
     cdp = probe_cdp(cdp_port)
+    if not cdp["cdp_alive"]:
+        cdp = probe_cdp(cdp_port, timeout=PROBE_RETRY_TIMEOUT_SECONDS)
     if cdp["cdp_alive"]:
+        # CC-785: the native listener table and process query answer in milliseconds; the
+        # PowerShell inventory (several seconds, empty under load) is only the fallback.
+        native_pid = _native_listener_pid(cdp_port)
+        native = _native_process_identity(native_pid) if native_pid else None
+        if native and native.get("cmd") is not None:
+            if not _is_ingestion_command_line(str(native["cmd"]), profile_dir):
+                return {"state": STATE_PORT_OWNER_UNPROVEN, "detail": "PORT_9222_OWNED_BY_NON_CANONICAL_PROCESS",
+                        "pid": native["pid"]}
+            return {"state": STATE_READY, "detail": "CANONICAL_INGESTION_PROFILE_ON_CDP_9222",
+                    "pid": native["pid"], "start": native["start"], "owner_check": "NATIVE"}
         inventory = _powershell_json(
             "$ErrorActionPreference='SilentlyContinue';"
             f"$conn=Get-NetTCPConnection -LocalPort {int(cdp_port)} -State Listen | Select-Object -First 1;"
@@ -202,7 +337,10 @@ def _launch_canonical_ingestion_browser(
         # Fail closed. The exact operator-owned profile must already exist; ContentOps never
         # creates, clones, or replaces it.
         return {"state": STATE_PROFILE_BINDING_MISSING, "detail": "EXISTING_DEDICATED_PROFILE_MISSING_NEVER_CREATED", "pid": None}
-    command = [str(binary), f"--remote-debugging-port={int(cdp_port)}", f"--user-data-dir={profile_dir}"]
+    command = [str(binary), f"--remote-debugging-port={int(cdp_port)}", f"--user-data-dir={profile_dir}",
+               # CC-785: keep the list page's own timeline polling running while its window is
+               # hidden or covered, so the feed reads new posts without a reload.
+               *BACKGROUND_THROTTLING_FLAGS]
     process = subprocess.Popen(
         command,
         stdin=subprocess.DEVNULL,
