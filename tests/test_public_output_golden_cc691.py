@@ -183,6 +183,29 @@ def test_decision_113_plan_reply_quotes_its_layers_and_links_its_own_analysis(sa
         _assert_bound_plan_reply(changed_layer, source["summary"], canonical)
 
 
+def test_cc788_a_nasdaq_100_plan_reply_follows_the_same_decisions(saved_posts):
+    """CC-788: the saved gold reply, rebound to a Nasdaq 100 plan, passes the same decision checks."""
+    reply = saved_posts["plan_analysis_reply"]
+    source = deepcopy(reply["source"])
+    source["asset_id"] = "USTEC"
+    source["title"] = source["title"].replace("Gold", "Nasdaq 100").replace("3954", "25,120").replace(
+        "3964", "25,180").replace("4004", "24,990")
+    canonical = reply["public_analysis_url"]
+    packet = {
+        "native_payload": {"title": source["title"]},
+        "manuscript": {key: source[key] for key in ("reader_contract", "reader_revision")},
+        "source_plan": {"asset_id": "USTEC"},
+        "summary": source["summary"],
+    }
+    rendered = structured_summary(packet, "telegram", canonical, version=2)
+    _assert_bound_plan_reply(rendered, source["summary"], canonical)
+    assert rendered.startswith("Nasdaq 100: Our bearish plan, 25,120") and "USTEC" not in rendered
+    assert public_filter(rendered)["status"] == "PASS"
+    assert not plan_target_present(rendered)
+    assert plan_target_present(rendered + "\nTarget level: 26,400.")
+    assert plan_posts.TITLES["USTEC"] == "Nasdaq 100"
+
+
 def _assert_new_correction(request, original_url, new_url):
     assert request["action"] == "PUBLISH", "Correction opened an edit or delete path"
     assert not request.get("public_object_id") and not request.get("public_object_url"), "Correction targeted an existing post"

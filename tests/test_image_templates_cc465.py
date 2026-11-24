@@ -34,7 +34,7 @@ def input_record(template="call", market="USDJPY"):
                           "view_line":"No view","driver_line":"PPI Friday"} for m in templates.ORDER]},
           "week":{"start":"6 Nov","end":"12 Nov","calls_closed":6,"hit_rate_pct":50,"total_r":1.8,"avg_r":.3,
                   "rows":[{"market":m,"direction":"SHORT","horizon_label":"Mid-term","main_probability_pct":55,
-                           "outcome_label":"Time exit","r":.3} for m in templates.ORDER]}}
+                           "outcome_label":"Time exit","r":.3} for m in templates.SIX_ORDER]}}  # six calls: two pages of three
     # A controlled source record, never a public numerical example.
     return bind(data,deepcopy(data))
 

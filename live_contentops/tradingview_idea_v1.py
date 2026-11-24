@@ -29,10 +29,10 @@ from .public_time_v1 import public_datetime
 from .tradingview_snapshot_v1 import INTERVAL_LABELS, SYMBOLS, interval_for
 
 SCHEMA = "contentops.tradingview_idea_pack.v1"
-# Decision 79's six markets, by the asset ids Main exports.
+# Decision 79's six markets and CC-788's Nasdaq 100, by the asset ids Main exports.
 MARKETS = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
-           "USOIL": "WTI crude oil", "BTCUSD": "Bitcoin"}
-ALIASES = {"GOLD": "XAUUSD", "SPX": "US500", "WTI": "USOIL", "BTC": "BTCUSD"}
+           "USOIL": "WTI crude oil", "BTCUSD": "Bitcoin", "USTEC": "Nasdaq 100"}
+ALIASES = {"GOLD": "XAUUSD", "SPX": "US500", "WTI": "USOIL", "BTC": "BTCUSD", "NDX": "USTEC", "NAS100": "USTEC"}
 NEW_PLAN_KINDS = {"setup", "update"}
 TIMEFRAMES = {"60": "1-hour", "240": "4-hour", "D": "daily"}
 HORIZONS = {"SHORT": "short-term", "MID": "mid-term", "LONG": "long-term", "INVESTMENT": "investment"}
@@ -150,7 +150,7 @@ _INTERNAL = re.compile(r"\b[A-Za-z]+_[A-Za-z0-9_]+\b|\b[0-9a-f]{12,}\b|\bcc\d{3,
 _SHOUT = re.compile(r"\b[A-Z][A-Z0-9]{2,}\b")
 _ACRONYMS = {
     "USD", "JPY", "EUR", "GBP", "CHF", "AUD", "CAD", "CNY", "BTC", "ETH", "BTCUSD", "USDJPY", "EURUSD", "XAUUSD",
-    "US500", "USOIL", "WTI", "SPX", "NDX", "VIX", "DVOL", "DXY", "ETF", "ETFS", "COT", "CFTC", "CPI", "PPI", "PCE",
+    "US500", "USOIL", "USTEC", "WTI", "SPX", "NDX", "VIX", "DVOL", "DXY", "ETF", "ETFS", "COT", "CFTC", "CPI", "PPI", "PCE",
     "NFP", "GDP", "PMI", "ISM", "ADP", "JOLTS", "FOMC", "ECB", "BOJ", "BOE", "SNB", "RBA", "MOF", "OPEC", "EIA",
     "IEA", "API", "IMF", "LNG", "OIS", "SOFR", "QT", "QE", "ATH", "YTD", "NYMEX", "CME", "COMEX", "ICE", "SEC",
     "US10Y", "US2Y", "UST", "TIPS", "M15", "H1", "H4", "D1", "W1", "UTC", "ET",

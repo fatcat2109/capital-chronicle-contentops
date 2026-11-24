@@ -1289,7 +1289,7 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
             "meta_description": "string",
             "social_hook": "string",
             "substack_body_markdown": "string",
-            "market_asset": "XAUUSD|US500|EURUSD|USDJPY|USOIL|BTCUSD or null; only the discussed market",
+            "market_asset": "XAUUSD|US500|EURUSD|USDJPY|USOIL|BTCUSD|USTEC or null; only the discussed market",
         },
         "cited_sources": [
             {
@@ -1320,7 +1320,7 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. " + background_guidance +
         "For a daily market piece or an NFP/CPI release piece discussing one market, set article.market_asset "
-        "to XAUUSD (gold), US500, EURUSD, USDJPY, USOIL or BTCUSD. Choose the market actually discussed; "
+        "to XAUUSD (gold), US500, EURUSD, USDJPY, USOIL, BTCUSD or USTEC (the Nasdaq 100). Choose the market actually discussed; "
         "omit it for an unrelated or multi-market piece. This selects an attributed guest TradingView snapshot, "
         "never an analytical data source. "
         "For GOVERNED_CAPITAL_CHRONICLE_REPORT, SOURCE_PACK is a derived Main report projection, not freshly "

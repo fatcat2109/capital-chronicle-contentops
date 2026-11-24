@@ -174,7 +174,8 @@ def test_linked_markets_feed_the_existing_quote_and_rank_consumers(tmp_path, mon
     monkeypatch.setattr(public, "freeze", lambda value: {**value, "observation_path": "fixture",
                                                         "observation_sha256": "fixture"})
     additional, attempts, _ = facts.supplement([target], [], now=NOW)
-    assert "NDX" in markets_read and "US500" in markets_read
+    # CC-788: the Nasdaq 100 is read by its core id, so Main's own USTEC price is found first.
+    assert "USTEC" in markets_read and "US500" in markets_read
     assert {m for value in additional for m in value["fact_binding"]["markets"]} == {"NDX", "SPX"}
     monkeypatch.setattr(packs, "held_sources", lambda *a, **kw: [])
     monkeypatch.setattr(facts, "load", lambda **kw: ([], []))

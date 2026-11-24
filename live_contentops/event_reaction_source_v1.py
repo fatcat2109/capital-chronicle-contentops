@@ -12,7 +12,7 @@ from zoneinfo import ZoneInfo
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from .cpi_reaction_page_v1 import EVENT_PAGES, LABELS
 
-MARKETS = ("XAUUSD", "EURUSD", "USDJPY", "US500", "USOIL", "BTCUSD")
+MARKETS = ("XAUUSD", "EURUSD", "USDJPY", "US500", "USOIL", "BTCUSD", "USTEC")  # CC-788: rows present, never inferred
 FAMILIES = {"NFP": ("NFP",), "FOMC": ("FOMC_DECISION", "FOMC_PRESS_CONFERENCE"), "PPI": ("PPI",)}
 HORIZONS = ("1m", "15m", "60m", "session_close", "+1_session", "+3_sessions")
 NAMES = {"FOMC_DECISION": "Fed statement", "FOMC_PRESS_CONFERENCE": "Fed press conference",

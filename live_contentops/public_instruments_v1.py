@@ -16,6 +16,7 @@ INSTRUMENTS = {
     "EURUSD": ("EUR/USD", ("6E", "FXE")),
     "USDJPY": ("USD/JPY", ("6J", "FXY")),
     "BTCUSD": ("Bitcoin", ("BTC", "MBT", "IBIT", "FBTC")),
+    "USTEC": ("Nasdaq 100", ("NQ", "MNQ", "QQQ")),  # CC-788
 }
 MARKET_PATTERNS = {
     "XAUUSD": r"\bgold\b",
@@ -24,6 +25,7 @@ MARKET_PATTERNS = {
     "EURUSD": r"\bEUR\s*/?\s*USD\b|\beuro\s*[/–-]\s*dollar\b",
     "USDJPY": r"\bUSD\s*/?\s*JPY\b|\bdollar\s*[/–-]\s*yen\b",
     "BTCUSD": r"\bBitcoin\b",
+    "USTEC": r"\bNasdaq(?:[- ]?100)?\b",
 }
 GUIDANCE = """
 CC382_PUBLIC_INSTRUMENTS / Jim decision 107:
@@ -34,7 +36,8 @@ S&P 500: ES or MES futures, SPY or VOO, the index;
 WTI: CL or MCL futures, USO;
 EUR/USD: spot, 6E futures, FXE;
 USD/JPY: spot, 6J futures, FXY;
-Bitcoin: BTC or MBT futures, IBIT or FBTC, spot Bitcoin.
+Bitcoin: BTC or MBT futures, IBIT or FBTC, spot Bitcoin;
+Nasdaq 100: NQ or MNQ futures, QQQ, the index.
 Identify futures as futures and ETFs as ETFs. A name is not a measured reaction.
 Use held Main reports, dossiers and cited sources for instrument-specific moves
 and flows when supplied. Without that evidence, name the available instruments
@@ -42,7 +45,7 @@ but omit their moves, flows or prices. Never relabel a spot, index or broker pri
 as a futures or ETF price, or copy one instrument's level onto another. 6J and FXY
 express the yen versus the dollar: do not claim their direction equals USD/JPY.
 Public prose, SEO, social copy and media captions never say CFD, US500, USOIL,
-XAUUSD or BTCUSD, except an article specifically about CFDs. Internal source ids,
+XAUUSD, BTCUSD or USTEC, except an article specifically about CFDs. Internal source ids,
 article.market_asset, source excerpts and snapshot bindings retain exact values.
 Charts use the existing tradingview_snapshot_v1.SYMBOLS decision-107 feeds;
 TradingView's own header and attribution remain intact. Do not invent data or
@@ -53,7 +56,7 @@ _FIELDS = ("title", "subtitle", "dek", "search_title", "meta_description", "soci
            "substack_body_markdown", "body_markdown", "text", "caption", "alt_text",
            "full_text", "root_text", "editorial_scope_notice", "social_mechanism_summary",
            "social_policy_summary", "social_cross_asset_summary")
-_FORBIDDEN = re.compile(r"\b(?:CFDs?|US500|USOIL|XAUUSD|BTCUSD)\b", re.I)
+_FORBIDDEN = re.compile(r"\b(?:CFDs?|US500|USOIL|XAUUSD|BTCUSD|USTEC)\b", re.I)
 
 
 def public_text(value):

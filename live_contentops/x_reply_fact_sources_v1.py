@@ -21,7 +21,7 @@ from live_contentops import x_reply_fact_policy_v1 as policy
 INTAKE = Path(r"A:\Capital Chronicle\Runtime\OfficialRates\cc-078-20261101\state\intake")
 LABELS = {"US500": ("SPX", "S&P 500"), "XAUUSD": ("XAUUSD", "Gold"),
           "EURUSD": ("EURUSD", "EUR/USD"), "USDJPY": ("USDJPY", "USD/JPY"),
-          "USOIL": ("WTI", "WTI crude oil"), "BTCUSD": ("BTCUSD", "Bitcoin"),
+          "USOIL": ("WTI", "WTI crude oil"), "BTCUSD": ("BTCUSD", "Bitcoin"), "USTEC": ("NDX", "Nasdaq 100"),
           "DXY": ("DXY", "Dollar index"), "US2Y": ("US2Y", "US 2-year yield"),
           "US10Y": ("US10Y", "US 10-year yield"), "US10Y_REAL": ("US10Y", "US 10-year real yield")}
 FUTURES = {"US500": "S&P 500 futures", "XAUUSD": "Gold futures", "USOIL": "WTI crude oil futures"}
@@ -36,7 +36,10 @@ RATE_LABELS = {"US2Y": ("US2Y", "US 2-year yield"), "US10Y": ("US10Y", "US 10-ye
 # their artifact binding and print the value at its market's precision. A held source
 # without it re-resolves to its exact original excerpt and identity.
 DISPLAY = "MARKET_PLACES_V1"
-PLACES = {"US500": 2, "XAUUSD": 2, "EURUSD": 5, "USDJPY": 3, "USOIL": 2, "BTCUSD": 2, "DXY": 3}
+PLACES = {"US500": 2, "XAUUSD": 2, "EURUSD": 5, "USDJPY": 3, "USOIL": 2, "BTCUSD": 2, "DXY": 3, "USTEC": 2}
+# Public fact ids for the core markets' routing ids (the reply policy names indices SPX and NDX).
+FACT_MARKETS = {"US500": "SPX", "USOIL": "WTI", "USTEC": "NDX"}
+CORE_MARKETS = frozenset({"US500", "XAUUSD", "EURUSD", "USDJPY", "USOIL", "BTCUSD", "USTEC"})
 
 
 def _digest(value):
@@ -206,7 +209,7 @@ def load(*, now, root=INTAKE):
                         if row:
                             sources.append(_bar_source(db, {"kind": kind, "path": str(path), "source_id": source["source_id"],
                                                            "open_epoch": row["open_epoch"], "display": DISPLAY}))
-                    if market in {"US500", "XAUUSD", "EURUSD", "USDJPY", "USOIL", "BTCUSD"}:
+                    if market in CORE_MARKETS:
                         row = db.execute("SELECT open_epoch,source_sha256 FROM bars WHERE symbol=? AND series_id='NATIVE_BROKER' "
                                          "AND known_epoch<=? AND open_epoch<=? ORDER BY open_epoch DESC,known_epoch LIMIT 1",
                                          (market, now.timestamp(), now.timestamp()-900)).fetchone()
@@ -280,7 +283,7 @@ def resolve(bound):
 def _quote_source(observation):
     observed, known = policy.utc(observation["observed_at_utc"]), policy.utc(observation["known_at_utc"])
     market = observation["market"]
-    fact_market = {"US500": "SPX", "USOIL": "WTI"}.get(market, market)
+    fact_market = FACT_MARKETS.get(market, market)
     stamp = observed.astimezone(policy.ET).strftime("%d %b %Y, %I:%M %p ET").lstrip("0")
     value = observation.get("value_text", str(observation["value"]))
     change = observation.get("day_change")
@@ -323,7 +326,7 @@ def supplement(posts, sources, *, now):
             if market in done:
                 continue
             done.add(market)
-            fact_market = {"US500": "SPX", "USOIL": "WTI"}.get(market, market)
+            fact_market = FACT_MARKETS.get(market, market)
             observation = None
             for kind, read in (
                 ("PLAN_STATUS_EXPORT", lambda: prices.plan_status_quote(market, now, prices.PLAN_STATUS_PATH,

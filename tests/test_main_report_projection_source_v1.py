@@ -90,6 +90,7 @@ def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeyp
 @pytest.mark.parametrize("text,cause", [
     ("Market | price | time", "MAIN_REPORT_RAW_OR_PREDICTION_NUMBERS_FORBIDDEN"),
     ("Kalshi priced the sweep at 74%.", "MAIN_REPORT_RAW_OR_PREDICTION_NUMBERS_FORBIDDEN"),
+    ("CME FedWatch put a December hold at 68%.", "MAIN_REPORT_RAW_OR_PREDICTION_NUMBERS_FORBIDDEN"),
     ("The DEMO account balance rose.", "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"),
 ])
 @pytest.mark.parametrize("native", [False, True, "single_pass"])

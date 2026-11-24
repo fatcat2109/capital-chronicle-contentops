@@ -22,7 +22,8 @@ def captured(market, variant=0):
     return packet, asset
 
 
-@pytest.mark.parametrize("market", sorted(tv.SYMBOLS))
+# Every market whose levels are drawn has its real captures here (CC-788: NDX joins with its own).
+@pytest.mark.parametrize("market", sorted(overlay.VERIFIED_MARKETS))
 @pytest.mark.parametrize("variant", [0,1])
 def test_six_real_captures_match_visible_axes_and_all_overlay_pixels(market, variant):
     proof, asset = captured(market, variant)

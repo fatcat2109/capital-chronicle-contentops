@@ -143,6 +143,7 @@ def _draft_post_with_agy(request_path, *, post, output_dir, runner=None):
         "EURUSD": r"\b(?:euro|eur|ecb|german)\b",
         "XAUUSD": r"\b(?:gold|xau)\b",
         "BTCUSD": r"\b(?:bitcoin|btc|crypto)\b",
+        "USTEC": r"\b(?:stocks?|equities|nasdaq|ndx|tech(?:nology)? (?:stocks?|shares)|wall street|index)\b",
     }
     topic_text = " ".join(post["post_text"] for post in candidates)
     relevant = {symbol for symbol, pattern in markets.items() if re.search(pattern, topic_text, re.I)}

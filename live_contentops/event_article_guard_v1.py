@@ -135,6 +135,13 @@ _INSTRUCTION = re.compile(
     r"\bwe\s+(?:hold|own|bought|sold)\b|"
     r"\b(?:entry|stop|target|size)\s+(?:at\s+)?[$\d]", re.I
 )
+# Ops Product, 24 Nov 2026 (Jim, 01:32Z: Main uses Kalshi, Polymarket and CME FedWatch odds fully): public copy
+# keeps FedWatch numbers out like the prediction markets' (odds stay in words). CME's Data Terms of Use allow its
+# website data for personal, non-commercial use only; passing it on needs CME's written consent and redistribution
+# a licence (decision 44). Words such as "rate futures lean toward a December hold" stay allowed.
+FEDWATCH_PATTERN = (r"(?:CME\s+)?Fed\s?Watch|"
+                    r"\b(?:rate|hike|cut|hold)[- ](?:(?:cut|hike|move)[- ])?probabilit(?:y|ies)")
+ODDS_SOURCE = re.compile(r"\b(?:Kalshi|Polymarket|prediction.market|market odds)\b|" + FEDWATCH_PATTERN, re.I)
 # Grouping separators are retained in the match and removed only for comparison.
 # Units, signs and decimals remain significant; no rounding or conversion is admitted.
 _NUMBER = re.compile(
@@ -322,7 +329,7 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
             _fail("PRIVATE_LABEL_IN_PUBLIC_COPY", "copy")
         for sentence in re.split(r"[\n.!?](?!\d)", text):
             # Odds stay in words (decision 40); an index or maturity name beside a market is not a number.
-            if (re.search(r"\b(?:Kalshi|Polymarket|prediction.market|market odds)\b", sentence, re.I)
+            if (ODDS_SOURCE.search(sentence)
                     and _NUMBER.search(NAMED_NUMBER.sub(" ", sentence))):
                 _fail("PREDICTION_MARKET_NUMBER_FORBIDDEN", "copy")
     return {"status": "PASS", "policy": "JIM_DECISIONS_35_40", "conditional_call_count": len(calls)}

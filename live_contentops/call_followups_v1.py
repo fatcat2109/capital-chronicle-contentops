@@ -764,8 +764,9 @@ CAPTURE_ROUND_ATTEMPTS = 2
 CAPTURE_RETRY_AFTER = timedelta(hours=6)
 VISIBLE_LEAD = timedelta(hours=1)
 VISIBLE_MIN_SPAN = timedelta(hours=12)
-# SP:SPX has bars in New York cash hours only (ET); a move that resolved outside them is not on that chart.
-CASH_SESSIONS = {"US500": ((9, 30), (16, 0))}
+# SP:SPX and NASDAQ:NDX have bars in New York cash hours only (ET); a move that resolved outside them is not on
+# that chart (CC-788 gives the Nasdaq 100 the S&P 500's rule).
+CASH_SESSIONS = {"US500": ((9, 30), (16, 0)), "USTEC": ((9, 30), (16, 0))}
 INTERVAL_WORDS = {"15": "15-minute", "60": "hourly", "240": "4-hour", "D": "daily"}
 
 

@@ -6,12 +6,16 @@ import re
 
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 
-MARKETS = ("XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD")
+SIX_MARKETS = ("XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD")
+# CC-788 (Jim, 24 Nov 2026): the Nasdaq 100 (USTEC) is the seventh core market. A scenario carries its Main
+# implication when Main's held report gives one; a scenario set from a report without it keeps the six (a missing
+# row, never a written-in implication).
+MARKETS = SIX_MARKETS + ("USTEC",)
 MODEL_LABEL = "Capital Chronicle model estimate"
 NOTICES = (PUBLIC_NOTICE, CONFLICTS_NOTICE)
 PREPARATION_GUIDANCE = (
     "JIM DECISION 93 PREPARATION: prepare the held full Main reports/dossiers for 2-3 scenarios, "
-    "including each supplied probability, confirmation, six-market implications and invalidation. "
+    "including each supplied probability, confirmation, core-market implications and invalidation. "
     "Retain exact document ids and source spans; never invent or complement a probability. "
     "Search held reports and other lane outputs before naming a missing field. Identify the lead "
     "market for CC-316's fresh TradingView snapshot; event pieces keep a release card first. "
@@ -21,12 +25,12 @@ PREPARATION_GUIDANCE = (
 WRITER_GUIDANCE = """JIM DECISION 93 — applies to every new article, including events.
 Write a Scenarios section with 2-3 scenarios from the held Main reports. Never invent
 or complement a probability. Each has a labelled Capital Chronicle model estimate
-probability, confirmation, implications for XAUUSD, US500, EURUSD, USDJPY, USOIL and
-BTCUSD, and invalidation. Use the held full dossier/report where the selected excerpt
+probability, confirmation, implications for XAUUSD, US500, EURUSD, USDJPY, USOIL,
+BTCUSD and USTEC (the Nasdaq 100) when the held report gives one, and invalidation. Use the held full dossier/report where the selected excerpt
 is too narrow. Search retained Main/desk records before declaring a field absent.
 Supply article.scenario_analysis: a list of {name, role: base_case|alternative,
 probability: '<exact supplied percentage>', confirmation, market_moves: {<each of
-the six asset ids>: '<Main implication>'}, invalidation, source_bindings: {<field>:
+the six asset ids, and USTEC when Main gives it>: '<Main implication>'}, invalidation, source_bindings: {<field>:
 {document_id, support_excerpt}}}. Bind probability, confirmation, invalidation and
 each market_moves.<asset> to exact Main text in the supplied source documents; each
 field's value occurs verbatim in its support_excerpt. Print these fields in the
@@ -83,10 +87,10 @@ def validate_article_scenarios(article, documents):
         if not 0 <= float(probability[:-1]) <= 100:
             raise ValueError("SCENARIO_PROBABILITY_REQUIRED")
         moves = scenario.get("market_moves") or {}
-        if set(moves) != set(MARKETS):
+        if set(moves) not in (set(SIX_MARKETS), set(MARKETS)):
             raise ValueError("SCENARIO_SIX_MARKETS_REQUIRED")
         values = {k: scenario.get(k) for k in ("probability", "confirmation", "invalidation")}
-        values.update({"market_moves." + market: moves[market] for market in MARKETS})
+        values.update({"market_moves." + market: moves[market] for market in MARKETS if market in moves})
         if not scenario.get("name") or _normal(scenario["name"]) not in visible:
             raise ValueError("SCENARIO_NOT_IN_ARTICLE")
         for field, value in values.items():

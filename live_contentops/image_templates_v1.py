@@ -16,7 +16,7 @@ import re
 
 from PIL import Image, ImageDraw, ImageFont
 
-from .image_template_inputs_v1 import MARKETS, ORDER, digest, validate_binding
+from .image_template_inputs_v1 import MARKETS, ORDER, SIX_ORDER, digest, validate_binding
 
 POLICY = "CC465_IMAGE_TEMPLATES_V1"
 TEMPLATES = ("call", "event", "result", "weekly", "map")
@@ -418,25 +418,34 @@ def _table(canvas,data,page):
             canvas.draw.line((m,y+height,w-m,y+height),fill=COLOURS["rule"],width=2)
     elif kind=="map":
         morning=data["map"];rows=morning["rows"]
-        if [r["market"] for r in rows] != list(ORDER):raise LayoutError("IMAGE_MAP_MARKET_ORDER")
+        if [r["market"] for r in rows] not in (list(ORDER),list(SIX_ORDER)):raise LayoutError("IMAGE_MAP_MARKET_ORDER")
         canvas.heading("Morning map",field(morning,"date_et",16))
+        # Six rows keep their measured offsets; CC-788's seven rows tighten the line gaps on the same canvas.
+        top1,bottom1,top2,bottom2,top3,bottom3=(8,54,56,100,106,152) if len(rows)==6 else (4,48,50,92,98,142)
         for i,row in enumerate(rows):
-            row_height=(bottom-top)//6
+            row_height=(bottom-top)//len(rows)
             y=top+i*row_height
             if i%2:canvas.draw.rectangle((m,y,w-m,y+row_height),fill=COLOURS["zebra"])
-            canvas.text(MARKETS[row["market"]],(m+12,y+8,m+310,y+54),weight=600,key="map.market")
-            canvas.text(price(row["last"],row["market"]),(m+350 if wide else m+300,y+8,m+600 if wide else m+550,y+54),mono=True,key="map.last")
+            canvas.text(MARKETS[row["market"]],(m+12,y+top1,m+310,y+bottom1),weight=600,key="map.market")
+            if row.get("unavailable") is True:
+                if row["market"] not in {"USTEC"}:raise LayoutError("IMAGE_MAP_ROW_UNAVAILABLE",row["market"])
+                canvas.text("Unavailable",(m+350 if wide else m+300,y+top1,w-m-12,y+bottom1),colour="muted",key="map.unavailable")
+                canvas.text("No price, move or trend this session.",(m+12,y+top2,w-m-12,y+bottom2),colour="muted",key="map.view")
+                canvas.notes.append("MORNING_MAP_MARKET_UNAVAILABLE:"+row["market"])
+                canvas.draw.line((m,y+row_height,w-m,y+row_height),fill=COLOURS["rule"],width=2)
+                continue
+            canvas.text(price(row["last"],row["market"]),(m+350 if wide else m+300,y+top1,m+600 if wide else m+550,y+bottom1),mono=True,key="map.last")
             change=row["change_1d_pct"]
             if change is None:
                 move="—";canvas.notes.append("MORNING_MAP_CHANGE_NOT_EXPORTED")
             else:move=("+" if change>0 else "−" if change<0 else "")+f"{abs(change):.1f}%"
-            canvas.text(move,(m+620 if wide else m+550,y+8,m+795 if wide else m+720,y+54),mono=True,colour="green" if change is not None and change>0 else "red" if change is not None and change<0 else "muted",key="map.change")
+            canvas.text(move,(m+620 if wide else m+550,y+top1,m+795 if wide else m+720,y+bottom1),mono=True,colour="green" if change is not None and change>0 else "red" if change is not None and change<0 else "muted",key="map.change")
             state=field(row,"state_word",13,required=False)
             if not state:canvas.notes.append("MORNING_MAP_STATE_NOT_EXPORTED")
-            canvas.text(state or "—",(m+880 if wide else m+740,y+8,w-m-12,y+54),key="map.state")
+            canvas.text(state or "—",(m+880 if wide else m+740,y+top1,w-m-12,y+bottom1),key="map.state")
             view=field(row,"view_line",34);driver=field(row,"driver_line",34,required=False) or "—"
-            canvas.text("View: "+view,(m+12,y+56,w-m-12,y+100),key="map.view")
-            canvas.text("Today: "+driver,(m+820 if wide else m+12,y+56 if wide else y+106,w-m-12,y+100 if wide else y+152),key="map.driver")
+            canvas.text("View: "+view,(m+12,y+top2,w-m-12,y+bottom2),key="map.view")
+            canvas.text("Today: "+driver,(m+820 if wide else m+12,y+top2 if wide else y+top3,w-m-12,y+bottom2 if wide else y+bottom3),key="map.driver")
             canvas.draw.line((m,y+row_height,w-m,y+row_height),fill=COLOURS["rule"],width=2)
     else:
         week=data["week"];limit=WEEKLY_CAPACITY[canvas.master]
@@ -533,7 +542,7 @@ def compile_image(data,master,snapshot=None,*,image_number=1,page=0):
         framing,levels=_chart(canvas,data,snapshot)
     else:framing,levels=_table(canvas,data,page)
     alt=data.get("alt_text") or (("TradingView "+str(snapshot.get("interval_label"))+" chart of "+MARKETS[data["market"]]+".") if chart
-                                else {"event":"Event scenarios and their market implications.","weekly":"Weekly calls and their results in R.","map":"Six markets, their daily moves and today's drivers."}[data["template"]])
+                                else {"event":"Event scenarios and their market implications.","weekly":"Weekly calls and their results in R.","map":("Six" if len(data.get("map",{}).get("rows",()))==6 else "Seven")+" markets, their daily moves and today's drivers."}[data["template"]])
     if len(alt)>300:raise LayoutError("IMAGE_ALT_TEXT_TOO_LONG")
     metadata={"policy":POLICY,"template":data["template"],"master":master,"image_number":image_number,"page":page,
               "input":deepcopy(data),"snapshot":deepcopy(snapshot) if chart else None,"framing":framing,"levels":levels,

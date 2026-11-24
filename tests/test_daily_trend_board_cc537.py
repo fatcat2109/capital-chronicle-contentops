@@ -112,7 +112,9 @@ def test_six_markets_all_source_rows_and_real_mean_tuple_index_feed_public_copy(
     stored = register(ready, value)
     copies = [link["native_payload"] for link in stored["links"]]
     note = next(p for p in copies if p["destination"] == "substack_notes")["text"]
-    assert all(name in note for name in board.MARKETS.values())
+    # A board of 16 Nov carries the six; CC-788 adds the Nasdaq 100 to boards from 26 Nov.
+    assert all(name in note for symbol, name in board.MARKETS.items() if symbol != "USTEC")
+    assert "Nasdaq" not in note
     assert "-0.195R mean on 42 cases, 2016-11-01 to 2026-11-12" in note
     assert "20 sessions 100; 50 sessions 120" in note
     assert all(str(private) not in note for private in ("888888", "279805139", "private trigger", "9.999", "0.31"))

@@ -24,7 +24,12 @@ SOURCE = Path(r"A:\Capital Chronicle\ResearchRuns\plan-status-v1\desk-board.publ
 DESTINATION = "internal:daily-trend-board"
 ET = ZoneInfo("America/New_York")
 MARKETS = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD",
-           "USDJPY": "USD/JPY", "USOIL": "WTI oil", "BTCUSD": "Bitcoin"}
+           "USDJPY": "USD/JPY", "USOIL": "WTI oil", "BTCUSD": "Bitcoin", "USTEC": "Nasdaq 100"}
+# CC-788 (Jim, 24 Nov 2026): boards captured from 26 Nov (ET) carry the Nasdaq 100 as the seventh market, by the
+# same rules as the six. A board that has no Nasdaq 100 row at all shows it as unavailable, never a guessed
+# state or mean; a row with some fields missing stops the board like any other market's. Earlier boards keep six.
+NASDAQ_FROM_ET = date(2026, 11, 26)
+UNAVAILABLE = "unavailable"
 BEHAVIOURS = {
     "LONG_WHILE_UP_20": "Long with trend, 20 sessions",
     "SHORT_WHILE_DOWN_20": "Short with trend, 20 sessions",
@@ -83,7 +88,7 @@ def identity(day):
 
 # Ops Product, 23 Nov 2026: the 20 Nov board printed "158.60999999999999". Boards captured from 23 Nov (ET) print
 # each market's mean closes at its price precision and mean R to two places; earlier boards keep their copy.
-PRICE_PLACES = {"XAUUSD": 2, "US500": 2, "EURUSD": 5, "USDJPY": 3, "USOIL": 2, "BTCUSD": 2}
+PRICE_PLACES = {"XAUUSD": 2, "US500": 2, "EURUSD": 5, "USDJPY": 3, "USOIL": 2, "BTCUSD": 2, "USTEC": 2}
 R_PLACES = 2
 ROUNDED_FROM_ET = date(2026, 11, 23)
 
@@ -121,7 +126,13 @@ def project(board, *, now):
     if not board.get("yardstick_rule"):
         missing.append("/yardstick_rule")
     table = board.get("measured_table") or {}
+    nasdaq = captured.astimezone(ET).date() >= NASDAQ_FROM_ET
     for symbol in MARKETS:
+        if symbol == "USTEC" and not nasdaq:
+            continue
+        if symbol == "USTEC" and (board.get("markets") or {}).get(symbol) is None:
+            markets[symbol] = {"state": UNAVAILABLE, "means": {}, "rows": []}
+            continue
         row = board.get("markets", {}).get(symbol) or {}
         yard = row.get("yardstick") or {}
         prefix = "/markets/" + symbol
@@ -207,16 +218,34 @@ def project(board, *, now):
     return projected
 
 
+def shown(current):
+    """The board's markets in board order: the six, and the Nasdaq 100 on boards that carry it (CC-788)."""
+    return [s for s in MARKETS if s in current["markets"]]
+
+
+def fact_rows(current):
+    """The decision-82 fact card's rows; an unavailable market says so."""
+    rows = []
+    for s in shown(current):
+        market = current["markets"][s]
+        rows.append((MARKETS[s], "Unavailable" if market["state"] == UNAVAILABLE else
+                     market["state"] + "; 20-session mean " + market["means"]["mean_close_20"] +
+                     "; 50-session mean " + market["means"]["mean_close_50"]))
+    return rows
+
+
 def compose(current, previous=None):
     previous = previous if previous and trading_age(previous["day_et"], current["day_et"]) == 1 else None
-    changes = [s for s in MARKETS if previous and current["markets"][s]["state"] != previous["markets"][s]["state"]]
+    changes = [s for s in shown(current) if previous and s in previous["markets"]
+               and UNAVAILABLE not in (current["markets"][s]["state"], previous["markets"][s]["state"])
+               and current["markets"][s]["state"] != previous["markets"][s]["state"]]
     headline = ("; ".join(MARKETS[s] + " turns " + current["markets"][s]["state"] for s in changes)
                 if changes else "Daily trend board")
     dated = date.fromisoformat(current["day_et"]).strftime("%d %b %Y") + " close, ET"
     bitcoin_day = current["markets"]["BTCUSD"].get("session_date_et")
     if bitcoin_day:
         dated += " (Bitcoin through " + date.fromisoformat(bitcoin_day).strftime("%d %b %Y") + ", ET)"
-    summary = "; ".join(MARKETS[s] + " " + current["markets"][s]["state"] for s in MARKETS)
+    summary = "; ".join(MARKETS[s] + " " + current["markets"][s]["state"] for s in shown(current))
     changed = ("Changed since the previous session: " + "; ".join(MARKETS[s] + " " +
                previous["markets"][s]["state"] + " to " + current["markets"][s]["state"] for s in changes) + "."
                if changes else "No state changes since the previous session." if previous
@@ -224,8 +253,11 @@ def compose(current, previous=None):
     blocks = []
     voiced = current.get("public_voice") == "SCENARIO_WORDS_V1"
     names = VOICE_BEHAVIOURS if voiced else BEHAVIOURS
-    for symbol, name in MARKETS.items():
-        market = current["markets"][symbol]
+    for symbol in shown(current):
+        name, market = MARKETS[symbol], current["markets"][symbol]
+        if market["state"] == UNAVAILABLE:
+            blocks.append(name + " unavailable: no trend state or mean closes for this session.")
+            continue
         lines = [name + " " + market["state"] + ". Mean closes: 20 sessions " + market["means"]["mean_close_20"]
                  + "; 50 sessions " + market["means"]["mean_close_50"] + "."]
         for row in market["rows"]:
@@ -326,10 +358,7 @@ def prepare_media(current, previous, folder, *, snapshot=None):
     if asset:
         return asset
     state = json.loads((folder / "tradingview_capture_v1.json").read_bytes())
-    asset = tv.fallback_card(title="Daily trend board", facts=[
-        (MARKETS[s], current["markets"][s]["state"] + "; 20-session mean " +
-         current["markets"][s]["means"]["mean_close_20"] + "; 50-session mean " +
-         current["markets"][s]["means"]["mean_close_50"]) for s in MARKETS],
+    asset = tv.fallback_card(title="Daily trend board", facts=fact_rows(current),
         dated_line=copy["dated"], out_dir=folder / "media_assets", kicker="Market trends")
     asset["snapshot_failure"] = {"cause": state.get("first_cause") or state["cause"],
                                  "attempts": state["attempts"], "decision": 82}
@@ -433,9 +462,7 @@ def validate_media(store, intent):
     else:
         failure = asset.get("snapshot_failure") or {}
         packet = asset.get("data_card_packet") or {}
-        expected = [[MARKETS[s], value["current"]["markets"][s]["state"] + "; 20-session mean " +
-                     value["current"]["markets"][s]["means"]["mean_close_20"] + "; 50-session mean " +
-                     value["current"]["markets"][s]["means"]["mean_close_50"]] for s in MARKETS]
+        expected = [list(row) for row in fact_rows(value["current"])]
         if (failure.get("decision") != 82 or not failure.get("cause") or failure.get("attempts", 0) < 2
                 or packet.get("facts") != expected or asset.get("modality") != "plan_fact_card"):
             raise ValueError("BOARD_DECISION82_FACT_CARD_REQUIRED")

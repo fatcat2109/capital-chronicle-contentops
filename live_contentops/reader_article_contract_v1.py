@@ -27,6 +27,10 @@ NUMBER = re.compile(r"(?<![\w.])[+\-\N{MINUS SIGN}]?\d+(?:,\d{3})*(?:\.\d+)?"
                     r"(?:\s*(?:%|percent\b|bps\b|basis points?\b))?", re.I)
 MARKETS = (r"\bgold\b", r"\bS&P\s*500\b", r"\bEUR\s*/?\s*USD\b", r"\bUSD\s*/?\s*JPY\b",
            r"\b(?:WTI|oil)\b", r"\b(?:Bitcoin|BTC)\b")
+# CC-788: daily notes whose data cutoff is from this instant on carry a Nasdaq 100 row too (a market without data
+# keeps its row, marked Unavailable). Earlier contracts replay with the six.
+NASDAQ_FROM = datetime(2026, 11, 26, tzinfo=timezone.utc)
+NASDAQ_PATTERN = r"\bNasdaq(?:[- ]?100)?\b"
 GUIDANCE = """CC403_READER_ARTICLE_V1: these reader rules supersede older presentation instructions.
 Start the first body sentence with our call in first person, for example 'We think ...'.
 Use our voice throughout. Keep internal labels in metadata, including DATED CAPITAL
@@ -37,7 +41,9 @@ an invented probability. Include an explicit 'So what:' sentence for the reader.
 Every prose sentence is at most 35 words. Every number in public fields must occur in
 its bound source text, with the same sign and unit; keep internal SOURCE markers and
 claim bindings. Never use source ids, URLs or timestamps as numerical evidence.
-A DAILY_NOTE has one six-market Markdown table, at most 350 words outside that table,
+A DAILY_NOTE has one Markdown table of the seven core markets (gold, S&P 500, EUR/USD,
+USD/JPY, WTI, Bitcoin, Nasdaq 100; a market without data keeps its row, marked Unavailable),
+at most 350 words outside that table,
 and substantive 'What changed since yesterday' and 'What we got wrong' sections.
 Reuse the supplied prior reports and outcomes; state an actual comparison gap plainly
 when the supplied record cannot establish it. Never invent an error or a success.
@@ -189,10 +195,15 @@ def label_errors(text):
             if re.search(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", text, re.I)]
 
 
-def _daily_prose(body):
+def _daily_prose(body, cutoff=None):
     blocks = re.split(r"\n\s*\n", body)
+    try:
+        nasdaq = cutoff is not None and utc(cutoff) >= NASDAQ_FROM
+    except ValueError:
+        nasdaq = False
+    patterns = MARKETS + ((NASDAQ_PATTERN,) if nasdaq else ())
     tables = [block for block in blocks if block.lstrip().startswith("|") and all(
-        re.search(pattern, block, re.I) for pattern in MARKETS)]
+        re.search(pattern, block, re.I) for pattern in patterns)]
     if len(tables) != 1:
         return body, ["DAILY_SIX_MARKET_TABLE_REQUIRED"]
     return "\n\n".join(b for b in blocks if b != tables[0]), []
@@ -264,7 +275,7 @@ def check_article(article, documents, *, contract=None):
             if probability and actual[probability] > count:
                 errors.append("SINGLE_SCENARIO_SET_REQUIRED:" + probability)
     if contract.get("format") == "DAILY_NOTE":
-        prose, table_errors = _daily_prose(body)
+        prose, table_errors = _daily_prose(body, contract.get("data_cutoff_utc"))
         errors.extend(table_errors)
         if len(words(prose)) > DAILY_WORDS:
             errors.append("DAILY_NOTE_TOO_LONG:" + str(len(words(prose))))
