@@ -11,7 +11,7 @@ class FlakyProbeBootstrap(FakeBootstrap):
         super().__init__(alive=True, **kwargs)
         self.misses, self.probes = misses, 0
 
-    def probe_cdp(self, port):
+    def probe_cdp(self, port, **kwargs):
         self.probes += 1
         return {"cdp_alive": self.probes > self.misses}
 
