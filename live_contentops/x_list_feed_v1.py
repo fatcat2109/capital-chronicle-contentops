@@ -51,7 +51,9 @@ LOG_PATH = FEED_DIR / "runner_v1.log"
 LOG_MAX_BYTES = 2_000_000
 WINDOW_HOURS = 24.0
 INTERVAL_SECONDS = 60.0
-RELAUNCH_AFTER_SECONDS = 1800.0
+# CC-785 (24 Nov 2026): a missed probe once stopped capture for up to 30 minutes while Chrome was alive but slow.
+RELAUNCH_AFTER_SECONDS = 120.0
+PROBE_ATTEMPTS = 3
 OWNER_RECHECK_SECONDS = 1800.0
 PAGE_SOCKET_FAILURE_LIMIT = 3
 TAB_REPLACEMENT_COOLDOWN_SECONDS = 600.0
@@ -394,7 +396,7 @@ class MinuteCapture:
         try:
             # A responding catalog proves the browser endpoint is still available. Recheck
             # the failed id's current URL: it may have become a login or another page.
-            targets = self.targets_fn(cdp_url=self.cdp_url, timeout_seconds=5.0)
+            targets = self.targets_fn(cdp_url=self.cdp_url, timeout_seconds=15.0)
             target = next((row for row in targets if str(row.get("id") or "") == target_id), None)
             url = str((target or {}).get("url") or "")
             if capture_v1._visible_url_is_login_redirect(url):
@@ -403,7 +405,7 @@ class MinuteCapture:
                 return {**result, "state": "TAB_REPLACEMENT_SKIPPED", "detail": "FAILED_TARGET_NOT_LIST_PAGE"}
             request = Request(f"{self.cdp_url}/json/new?{quote(capture_v1.TARGET_LIST_URL, safe='')}",
                               method="PUT")
-            with self.http_open(request, timeout=5.0) as response:
+            with self.http_open(request, timeout=30.0) as response:
                 fresh = json.loads(response.read().decode("utf-8"))
             new_id = str(fresh.get("id") or "") if isinstance(fresh, dict) else ""
             new_url = str(fresh.get("url") or "") if isinstance(fresh, dict) else ""
@@ -417,7 +419,7 @@ class MinuteCapture:
             if login:
                 return {**result, "state": "REAUTH_REQUIRED", "detail": "LOGIN_REDIRECT_OBSERVED"}
             request = Request(f"{self.cdp_url}/json/close/{quote(target_id, safe='')}")
-            with self.http_open(request, timeout=5.0) as response:
+            with self.http_open(request, timeout=30.0) as response:
                 if response.read().decode("utf-8").strip() != "Target is closing":
                     return {**result, "detail": "CDP_TARGET_CLOSE_NOT_ACKNOWLEDGED"}
             return {**result, "state": "TAB_REPLACED", "replaced_utc": _iso(self.now_fn())}
@@ -605,7 +607,11 @@ class FeedRunner:
 
     def _browser_ready(self) -> dict[str, Any]:
         now = self.clock()
-        alive = self.bootstrap.probe_cdp(self.bootstrap.INGESTION_CDP_PORT)["cdp_alive"]
+        alive = False
+        for attempt in range(PROBE_ATTEMPTS):  # CC-785: a loaded Chrome can miss one 3 s probe and still be alive
+            alive = self.bootstrap.probe_cdp(self.bootstrap.INGESTION_CDP_PORT)["cdp_alive"]
+            if alive:
+                break
         if alive and self.owner_checked is not None and now - self.owner_checked < OWNER_RECHECK_SECONDS:
             return {"ready": True}
         if alive:
