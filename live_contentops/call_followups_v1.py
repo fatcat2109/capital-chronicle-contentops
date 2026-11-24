@@ -159,6 +159,34 @@ def observed_record(store, *, api=None, now=None):
             "observed_at_utc": now.isoformat()}
 
 
+def refresh_record(store, row, *, now=None):
+    """A follow-up not yet registered for any destination carries the pinned record as it reads now.
+
+    Builder L's relaunch rehearsal (24 Nov 2026): each prepared follow-up froze the record line it was prepared
+    with. The relaunch's first scorecard update (results scored inside Jim's pause) changed the counts, and
+    validate_intent then refused every follow-up with CC603_PUBLIC_RECORD_CHANGED_BEFORE_WRITE, on every run.
+    Before any destination copy exists, the row's record and its one record line are replaced; afterwards the
+    copies are frozen and the write check stays as it was.
+    """
+    if row.get("kind") != "call_followup" or not isinstance(row.get("record"), dict):
+        return row
+    key = row["key"]
+    if store.get_dispatches_for_work_item(key) or any(
+            m["message_id"] != key for m in store.list_outbox_messages(work_item_id=key)):
+        return row
+    current = observed_record(store, now=now)
+    held = row["record"]
+    if current["counts"] == held.get("counts") and current["url"] == held.get("url"):
+        return row
+    if not held.get("line") or row["text"].count(held["line"]) != 1:
+        return row  # the write check names the cause
+    stored = store.get_outbox_message(key)
+    refreshed = {**row, "record": current, "text": row["text"].replace(held["line"], current["line"])}
+    store.finalize_outbox_payload_before_dispatch(message_id=key, payload=_json(refreshed),
+        status=stored["status"], expected_payload=stored["payload"])
+    return posts._row_payload(store, key)
+
+
 def corrections_complete(store):
     for key in (ZONE_CORRECTION, GOLD_CORRECTION):
         row = store.get_outbox_message(key)
@@ -1089,6 +1117,8 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                     "visible_from_utc":(row.get("candidate") or {}).get("published_at_utc"),
                     "visible_to_utc":(row.get("price_check") or {}).get("resolved_at_utc")}})
             continue
+        if not link_reply:
+            row = refresh_record(store, row, now=now)
         destinations = sorted(row["cc603_destinations"],key=lambda d:(d in {"x","substack_notes"},d))
         plan = (posts.prepare_post(store,key,root=root,host=host,destinations=tuple(destinations)) if link_reply
                 else delivery_plan(store,row,asset,root=root,host=host,destinations=destinations))

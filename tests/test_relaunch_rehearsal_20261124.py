@@ -8,8 +8,13 @@ No network, no browser, no capture: the capture is replaced by a named failure.
 The same rehearsal found an announced BTCUSD plan (Telegram 231, 23 Nov 03:55Z) invalidated inside Jim's pause:
 the pause rule held its ending back as "shown in the scorecard", but the scorecard lists only scored results and
 unscored expiries, so the ending was shown nowhere. The rule now holds back only results the scorecard shows.
+
+Third: the nine prepared CC-603 follow-ups froze the pinned record line they were prepared with. The relaunch's
+first scorecard update changed its counts, and every follow-up was refused (CC603_PUBLIC_RECORD_CHANGED_BEFORE_WRITE)
+on every run after it. A follow-up with no destination copy yet now carries the record as it reads at posting.
 """
 from datetime import timedelta
+import json
 import sys
 
 from live_contentops import plan_analysis_pages_v1 as pages
@@ -18,6 +23,10 @@ from live_contentops import plan_status_posts_v1 as posts
 from live_contentops import secret_store_v1
 from live_contentops import tradingview_snapshot_v1 as tv
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops import call_followups_v1 as followups
+from test_call_followup_move_charts_cc778 import (  # noqa: F401  (pytest fixtures)
+    NOW as FOLLOWUP_NOW, OUTSIDE_PAUSE, FakeWorker, fixture_scale, gold_bars, queued, ready)
+from test_plan_status_publication_cc306 import fake_host
 from test_plan_call_cards_cc399 import write
 from test_plan_copy_cc682 import GOLD_PLAN_ID, PAGE_LINK, gold_export  # noqa: F401
 from test_plan_status_posts_cc306 import event, main_root  # noqa: F401
@@ -97,3 +106,44 @@ def test_a_scored_result_inside_the_pause_stays_in_the_scorecard_only(gold_expor
     assert run["status"] == "OK", run
     assert not [r for r in run["queued"] if r["kind"] == "result"]
     assert "JIM_PAUSE_RESULT_SHOWN_IN_SCORECARD" in {s.get("cause") for s in run.get("not_posted") or []}
+
+
+def test_a_followup_prepared_before_the_record_changed_posts_with_the_current_record(ready, tmp_path, fixture_scale,
+                                                                                   monkeypatch):
+    store, transport, coordinator, record = ready
+    fixture_publish = transport.publish
+
+    def publish_with_public_url(**kwargs):
+        receipt = fixture_publish(**kwargs)
+        if kwargs["destination"] == "discord":
+            receipt["public_url"] = "https://discord.com/channels/1/2/3"
+        return receipt
+    monkeypatch.setattr(transport, "publish", publish_with_public_url)
+    key = queued(store, record)
+    options = dict(now=FOLLOWUP_NOW, root=tmp_path / "followups", coordinator_for=lambda *a: coordinator,
+                   host=fake_host, bars_reader=lambda *a: gold_bars(), pause_window=OUTSIDE_PAUSE,
+                   move_chart_worker=FakeWorker())
+    followups.run_due(store, {"status": {"plans": []}}, **options)  # the move chart is captured
+    assert not transport.publish_calls
+    # Results scored while the follow-up waited (Jim's pause): the pinned record now reads differently.
+    newer = {**record, "counts": {**record["counts"], "EXPIRED": 38, "total": 44},
+             "line": "Pinned call record: 1 hits, 5 stopped, 38 expiries; 44 results, 7 scored."}
+    monkeypatch.setattr(followups, "observed_record", lambda *a, **k: newer)
+    run = followups.run_due(store, {"status": {"plans": []}}, **options)
+    assert "CC603_PUBLIC_RECORD_CHANGED_BEFORE_WRITE" not in str(run), run
+    row = posts._row_payload(store, key)
+    assert row["record"]["counts"] == newer["counts"] and newer["line"] in row["text"] and record["line"] not in row["text"]
+    assert sorted(transport.publish_calls) == sorted(row["cc603_destinations"])
+    intents = [json.loads(r["payload"]) for r in store.list_outbox_messages(work_item_id=key)
+               if r["destination"] in row["cc603_destinations"]]
+    assert intents and all(newer["line"] in i["native_payload"]["full_text"] for i in intents)
+
+
+def test_a_followup_with_copies_keeps_its_bytes_when_the_record_changes(ready, tmp_path):
+    store, transport, coordinator, record = ready
+    key = queued(store, record)
+    store.register_outbox_message(message_id=key + "-telegram-copy", work_item_id=key, destination="telegram",
+                                  payload="{}", status="READY")
+    before = store.get_outbox_message(key)["payload"]
+    row = followups.refresh_record(store, posts._row_payload(store, key), now=FOLLOWUP_NOW)
+    assert store.get_outbox_message(key)["payload"] == before and row["record"] == record
