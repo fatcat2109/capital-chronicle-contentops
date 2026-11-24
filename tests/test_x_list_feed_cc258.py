@@ -340,7 +340,7 @@ class FakeCDP:
     def http_open(self, request, *, timeout):
         url = urlsplit(request.full_url)
         self.requests.append((request.get_method(), url.path, unquote(url.query)))
-        assert url.netloc == "127.0.0.1:9222" and timeout == 5.0
+        assert url.netloc == "127.0.0.1:9222" and timeout == 30.0  # CC-785 (24 Nov 2026): a loaded Chrome took 6 s to open a tab
         if url.path == "/json/new":
             assert request.get_method() == "PUT" and unquote(url.query) == LIST_URL
             self.opens += 1
