@@ -347,13 +347,26 @@ class _Guard:
             sqlite3.connect = real_sqlite
 
 
-def _first_pending(continued: dict) -> dict:
+def _first_pending(continued: dict, *, invocation_id: str | None = None) -> dict:
     """The owner raises the first request, or lists unclaimed ones after a resume."""
     if continued.get("native_tool_request"):
         return continued["native_tool_request"]
-    for row in continued.get("pending_requests") or []:
-        if not row.get("action_claimed"):
-            return row
+    unclaimed = [row for row in (continued.get("pending_requests") or []) if not row.get("action_claimed")]
+    if unclaimed:
+        # Prefer fresh VERIFY_IDENTITY probes first, then requests bound to the current invocation_id
+        # (so stale unclaimed readbacks from an earlier run never shadow the active run's request).
+        for row in unclaimed:
+            inner = row.get("request") or {}
+            if inner.get("action") == "VERIFY_IDENTITY" and (
+                not invocation_id or inner.get("native_invocation_id") in {None, invocation_id}
+            ):
+                return row
+        if invocation_id:
+            for row in unclaimed:
+                inner = row.get("request") or {}
+                if invocation_id in {inner.get("owner_readback_invocation"), inner.get("native_invocation_id")}:
+                    return row
+        return unclaimed[0]
     publication = continued.get("publication") or {}
     for section in (publication.get("recovery_preflight") or {}, publication):
         for value in (section.get("per_destination") or {}).values():
@@ -466,9 +479,9 @@ def dry_run(rollout_path: Path, scratch: Path, *, now: datetime | None = None,
     return result
 
 
-def summarize_continuation(continued: dict) -> dict:
+def summarize_continuation(continued: dict, *, invocation_id: str | None = None) -> dict:
     """One flat view of the owner's return: the state and the next unclaimed native request."""
-    request = _first_pending(continued)
+    request = _first_pending(continued, invocation_id=invocation_id)
     inner = request.get("request", {}) if request else {}
     return {"state": continued.get("state"), "digest_id": continued.get("digest_id"),
             "confirmed": continued.get("confirmed"), "web_confirmed": continued.get("web_confirmed"),
@@ -549,7 +562,7 @@ def resume(rollout_path: Path, native_invocation_id: str, *, now: datetime | Non
     continued = continue_daily_digest(store, packet,
         output_dir=Path(rollout["editorial_output_root"]) / "owner-manual" / packet["digest_id"] / "native-tools",
         invocation_id=native_invocation_id, rollout=rollout, command="resume")
-    summary = summarize_continuation({"digest_id": packet["digest_id"], **continued})
+    summary = summarize_continuation({"digest_id": packet["digest_id"], **continued}, invocation_id=native_invocation_id)
     if summary["confirmed"]:
         route_state = "CONFIRMED"
     elif summary["next_request"]:
@@ -782,6 +795,7 @@ def _run_evening_readback(
     feed_path: Path,
     *,
     now: datetime,
+    since: str | None = None,
     stored_only: bool = False,
     fetcher=None,
 ) -> dict:
@@ -795,7 +809,9 @@ def _run_evening_readback(
     if all(p.is_file() for p in expected_files):
         return {"state": "READBACK_ALREADY_WRITTEN", "files": [str(p) for p in expected_files]}
     try:
-        kwargs = {}
+        kwargs: dict = {}
+        if since is not None:
+            kwargs["since"] = since
         if fetcher is not None:
             kwargs["fetcher"] = fetcher
         elif stored_only:
@@ -939,12 +955,31 @@ def _execute_python_neo_pass(
     endpoint_client,
     max_requests: int,
     requests_used: int,
+    email_stats_poll_timeout_seconds: float | None = None,
+    email_stats_poll_interval_seconds: float | None = None,
+    sleep=time_mod.sleep,
+    monotonic=time_mod.monotonic,
 ) -> tuple[dict, int]:
     """Execute one bounded CC-143 pass deterministically over NeoMcpClient."""
-    from live_contentops.daily_digest_neo_v1 import perform_digest_action
+    from live_contentops.daily_digest_neo_v1 import (
+        DEFAULT_EMAIL_STATS_POLL_INTERVAL_SECONDS,
+        DEFAULT_EMAIL_STATS_POLL_TIMEOUT_SECONDS,
+        perform_digest_action,
+    )
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     from live_contentops.published_content_v1 import DEFAULT_FEED
     from live_contentops.substack_daily_digest_v1 import continue_daily_digest, prepare_daily_digest
+
+    poll_timeout = (
+        DEFAULT_EMAIL_STATS_POLL_TIMEOUT_SECONDS
+        if email_stats_poll_timeout_seconds is None
+        else float(email_stats_poll_timeout_seconds)
+    )
+    poll_interval = (
+        DEFAULT_EMAIL_STATS_POLL_INTERVAL_SECONDS
+        if email_stats_poll_interval_seconds is None
+        else float(email_stats_poll_interval_seconds)
+    )
 
     step = 2
     requests_handled: list[dict] = []
@@ -984,7 +1019,7 @@ def _execute_python_neo_pass(
                 rollout=rollout,
                 command="resume",
             )
-            summary = summarize_continuation({"digest_id": active_packet["digest_id"], **continued})
+            summary = summarize_continuation({"digest_id": active_packet["digest_id"], **continued}, invocation_id=invocation_id)
             if summary["confirmed"]:
                 r_state = "CONFIRMED"
             elif summary["next_request"]:
@@ -1039,6 +1074,23 @@ def _execute_python_neo_pass(
             break
 
         native_dir = Path(rollout["editorial_output_root"]) / "owner-manual" / packet["digest_id"] / "native-tools"
+
+        # D-M2: verify Neo endpoint reachability BEFORE claiming the request via begin()
+        # so an unreachable/restarting Neo server never leaves an unsubmitted PUBLISH claim (UNKNOWN_WRITE).
+        try:
+            endpoint_client.initialize()
+        except Exception as exc:
+            cause = str(exc)[:160] if isinstance(exc, (ValueError, RuntimeError, OSError)) else type(exc).__name__
+            first_blocking_cause = cause or "NEO_ENDPOINT_UNAVAILABLE"
+            final_state = "NEO_ENDPOINT_UNAVAILABLE"
+            err_path = run_dir / f"{step:02d}-{action.lower()}-init-error.json"
+            _save_json(err_path, {"action": action, "stage": "BEFORE_BEGIN", "error": first_blocking_cause,
+                                  "observed_at_utc": datetime.now(timezone.utc).isoformat()})
+            step += 1
+            break
+
+        from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+
         try:
             action_packet = continue_daily_digest(
                 store,
@@ -1049,6 +1101,32 @@ def _execute_python_neo_pass(
                 command="begin",
                 request_hash=req_hash,
             )
+        except NativeNeoInputRequired as pending_id:
+            # A recovered unclaimed PUBLISH under a new invocation_id requires a fresh VERIFY_IDENTITY
+            # probe first; satisfy that persisted probe now so the next iteration can begin PUBLISH.
+            _save_json(run_dir / f"{step:02d}-begin-needs-identity.json", pending_id.request)
+            step += 1
+            pending_inner = (pending_id.request or {}).get("request") or {}
+            req_hash = str(pending_inner.get("request_sha256") or "")
+            action = str(pending_inner.get("action") or "VERIFY_IDENTITY")
+            if not req_hash:
+                first_blocking_cause = "BEGIN_IDENTITY_REQUEST_MISSING"
+                final_state = "BEGIN_REFUSED"
+                break
+            try:
+                action_packet = continue_daily_digest(
+                    store,
+                    packet,
+                    output_dir=native_dir,
+                    invocation_id=invocation_id,
+                    rollout=rollout,
+                    command="begin",
+                    request_hash=req_hash,
+                )
+            except (ValueError, OSError, KeyError, sqlite3.Error) as exc:
+                first_blocking_cause = str(exc)[:160]
+                final_state = "BEGIN_REFUSED"
+                break
         except (ValueError, OSError, KeyError, sqlite3.Error) as exc:
             first_blocking_cause = str(exc)[:160]
             final_state = "BEGIN_REFUSED"
@@ -1062,8 +1140,15 @@ def _execute_python_neo_pass(
         step += 1
 
         try:
-            endpoint_client.initialize()
-            performed = perform_digest_action(endpoint_client, action_packet, observation_path=obs_path)
+            performed = perform_digest_action(
+                endpoint_client,
+                action_packet,
+                observation_path=obs_path,
+                email_stats_poll_timeout_seconds=poll_timeout,
+                email_stats_poll_interval_seconds=poll_interval,
+                sleep=sleep,
+                monotonic=monotonic,
+            )
         except Exception as exc:
             cause = str(exc)[:160] if isinstance(exc, (ValueError, RuntimeError)) else type(exc).__name__
             first_blocking_cause = cause or "NEO_ENDPOINT_UNAVAILABLE"
@@ -1128,6 +1213,21 @@ def _execute_python_neo_pass(
                 email_confirmed = True
 
         if status_str == "PENDING_JIM_EMAIL_CODE":
+            # D-H2(a): one non-claiming resume persists SUBSTACK_DRAFT_AWAITING_OWNER and
+            # substack-owner-screen-<dispatch_id> immediately in Run 1 (code tab untouched, 0 Gmail).
+            try:
+                parked = continue_daily_digest(
+                    store,
+                    packet,
+                    output_dir=native_dir,
+                    invocation_id=invocation_id,
+                    rollout=rollout,
+                    command="resume",
+                )
+                _save_json(run_dir / f"{step:02d}-resume-pending-code.json", parked)
+                step += 1
+            except (ValueError, OSError, KeyError, sqlite3.Error):
+                pass
             jim_email_code_pending = True
             final_state = "PENDING_JIM_EMAIL_CODE"
             first_blocking_cause = "PENDING_JIM_EMAIL_CODE"
@@ -1179,7 +1279,10 @@ def run_digest_1900(
     readback_fetcher=None,
     is_dry_run: bool = False,
     scratch: Path | None = None,
+    email_stats_poll_timeout_seconds: float | None = None,
+    email_stats_poll_interval_seconds: float | None = None,
     sleep=time_mod.sleep,
+    monotonic=time_mod.monotonic,
 ) -> dict:
     """Run the bounded 19:15 GMT+7 daily digest and CC-639/CC-690 evening readback without Claude."""
     from live_contentops.published_content_v1 import DEFAULT_FEED
@@ -1332,6 +1435,10 @@ def run_digest_1900(
             endpoint_client=client,
             max_requests=max_requests,
             requests_used=0,
+            email_stats_poll_timeout_seconds=email_stats_poll_timeout_seconds,
+            email_stats_poll_interval_seconds=email_stats_poll_interval_seconds,
+            sleep=sleep,
+            monotonic=monotonic,
         )
 
         # CC-548: at most one catch-up pass when pass1 completed an older digest than today's.
@@ -1348,41 +1455,69 @@ def run_digest_1900(
 
         final_run_dir = run_dir
         final_result = {**pass1, "run_dir": str(run_dir), "passes": [pass1]}
+        readback_now = now
+        readback_since: str | None = None
 
         if should_catch_up:
             catch_now = now + timedelta(seconds=1)
-            run_dir_2, inv_2 = _make_run_dir(catch_now)
-            pre2 = preflight(rollout_path, now=catch_now, native_invocation_id=inv_2, driver=driver)
-            _save_json(run_dir_2 / "01-preflight.json", pre2)
-            pass2, requests_used = _execute_python_neo_pass(
-                rollout_path=rollout_path,
-                rollout=rollout,
-                run_dir=run_dir_2,
-                preflight_doc=pre2,
-                invocation_id=inv_2,
-                profile=profile,
-                now=catch_now,
-                endpoint_client=client,
-                max_requests=max_requests,
-                requests_used=requests_used,
-            )
-            pass2["catch_up_pass"] = "completed_second_pass"
-            _save_json(run_dir_2 / "result.json", pass2)
-            final_run_dir = run_dir_2
-            final_result = {
-                **pass2,
-                "run_dir": str(run_dir_2),
-                "prior_run_dir": str(run_dir),
-                "passes": [pass1, pass2],
-                "public_write_performed": bool(pass1.get("public_write_performed") or pass2.get("public_write_performed")),
-            }
+            inv_2_probe = default_invocation_id(catch_now, driver=driver)
+            pre2 = preflight(rollout_path, now=catch_now, native_invocation_id=inv_2_probe, driver=driver)
+            if pre2["route_state"] in {"NOT_YET_DUE", "BLOCKED"}:
+                # D-M2: honor pause/blockers before launching catch-up Pass 2.
+                blocker = pre2["blockers"][0] if pre2.get("blockers") else pre2["route_state"]
+                pass1["catch_up_pass"] = f"blocked:{blocker}"
+                _save_json(run_dir / "result.json", pass1)
+                final_result = {**pass1, "run_dir": str(run_dir), "passes": [pass1], "pass2_preflight": pre2}
+            else:
+                # D-H1: capture Pass 1's true previous-day report window BEFORE creating run_dir_2
+                # so day_readback_v1.report_window(run_dir_2) never truncates to a 1-second window.
+                from live_contentops.day_readback_v1 import report_window as _report_window
+
+                try:
+                    prior_window, _ = _report_window(run_dir, now=now)
+                    readback_since = prior_window["since_utc"]
+                except (OSError, ValueError):
+                    readback_since = None
+
+                run_dir_2, inv_2 = _make_run_dir(catch_now)
+                if inv_2 != inv_2_probe:
+                    pre2 = preflight(rollout_path, now=catch_now, native_invocation_id=inv_2, driver=driver)
+                _save_json(run_dir_2 / "01-preflight.json", pre2)
+                pass2, requests_used = _execute_python_neo_pass(
+                    rollout_path=rollout_path,
+                    rollout=rollout,
+                    run_dir=run_dir_2,
+                    preflight_doc=pre2,
+                    invocation_id=inv_2,
+                    profile=profile,
+                    now=catch_now,
+                    endpoint_client=client,
+                    max_requests=max_requests,
+                    requests_used=requests_used,
+                    email_stats_poll_timeout_seconds=email_stats_poll_timeout_seconds,
+                    email_stats_poll_interval_seconds=email_stats_poll_interval_seconds,
+                    sleep=sleep,
+                    monotonic=monotonic,
+                )
+                pass2["catch_up_pass"] = "completed_second_pass"
+                _save_json(run_dir_2 / "result.json", pass2)
+                final_run_dir = run_dir_2
+                readback_now = catch_now
+                final_result = {
+                    **pass2,
+                    "run_dir": str(run_dir_2),
+                    "prior_run_dir": str(run_dir),
+                    "passes": [pass1, pass2],
+                    "public_write_performed": bool(pass1.get("public_write_performed") or pass2.get("public_write_performed")),
+                }
 
         if run_day_readback:
             final_result["day_readback"] = _run_evening_readback(
                 final_run_dir,
                 rollout,
                 DEFAULT_FEED,
-                now=now,
+                now=readback_now,
+                since=readback_since,
                 stored_only=stored_only_readback,
                 fetcher=readback_fetcher,
             )
@@ -1405,6 +1540,10 @@ def main(argv=None) -> int:
     parser.add_argument("--neo-endpoint", default=DEFAULT_NEO_ENDPOINT)
     parser.add_argument("--codex-slot-file", type=Path, default=None)
     parser.add_argument("--max-requests", type=int, default=MAX_REQUESTS_PER_RUN)
+    parser.add_argument("--email-stats-poll-timeout", type=float, default=None,
+                        help="run: bounded seconds to poll Substack post stats for email confirmation (default 1500s / 25m)")
+    parser.add_argument("--email-stats-poll-interval", type=float, default=None,
+                        help="run: seconds between Substack post stats reloads during readback (default 120s)")
     parser.add_argument("--no-day-readback", action="store_true")
     parser.add_argument("--stored-only-readback", action="store_true")
     parser.add_argument("--simulate-identity", action="store_true",
@@ -1433,6 +1572,8 @@ def main(argv=None) -> int:
                 neo_endpoint=args.neo_endpoint,
                 codex_slot_file=args.codex_slot_file,
                 max_requests=args.max_requests,
+                email_stats_poll_timeout_seconds=args.email_stats_poll_timeout,
+                email_stats_poll_interval_seconds=args.email_stats_poll_interval,
                 run_day_readback=not args.no_day_readback,
                 stored_only_readback=args.stored_only_readback,
                 is_dry_run=args.dry_run,

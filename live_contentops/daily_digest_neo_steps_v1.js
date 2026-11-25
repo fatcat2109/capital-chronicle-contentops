@@ -77,8 +77,9 @@ if (input.phase === 'digest_substack_readback_links') {
   return unwrap(await page.evaluateInPage(() => {
     const body = document.querySelector('.body.markup') || document.querySelector('article');
     const links = Array.from(body?.querySelectorAll('a[href]') || [])
+      .filter(a => !a.closest('figure, .captioned-image-container') && !a.classList.contains('image-link'))
       .map(a => ({text: (a.innerText || '').trim(), url: a.href}))
-      .filter(item => /^https:\/\//.test(item.url));
+      .filter(item => item.text.length > 0 && /^https:\/\//.test(item.url));
     return {
       observed_links: links,
       observed_at_utc: new Date().toISOString(),
@@ -87,35 +88,29 @@ if (input.phase === 'digest_substack_readback_links') {
 }
 
 if (input.phase === 'digest_substack_email_stats') {
-  const s = await snap();
-  const details = unwrap(await page.evaluateInPage(() => {
+  return unwrap(await page.evaluateInPage(() => {
     const text = (document.body?.innerText || '').replace(/\s+/g, ' ').trim();
+    const recipMatch = text.match(/Recipients\s+([\d,]+)/i);
+    const opensMatch = text.match(/([\d,]+)\s+opens?\b(?!\s+rate\b)/i);
+    const rateMatch = text.match(/Open rate\s+([\d.]+)%/i);
+    const recipients = recipMatch ? parseInt(recipMatch[1].replace(/,/g, ''), 10) : null;
+    const opens = opensMatch ? parseInt(opensMatch[1].replace(/,/g, ''), 10) : null;
+    const open_rate_percent = rateMatch ? parseFloat(rateMatch[1]) : null;
+    const confirmed = Number.isInteger(recipients) && recipients > 0;
+    const parts = [];
+    if (recipMatch) parts.push(`Recipients ${recipMatch[1]}`);
+    if (rateMatch) parts.push(`Open rate ${rateMatch[1]}%`);
+    if (opensMatch) parts.push(`${opensMatch[1]} opens`);
     return {
-      url: location.href,
-      text: text.slice(0, 8000),
+      dashboard_url: location.href || null,
+      shown: parts.length ? parts.join('; ') : text.slice(0, 240),
+      recipients,
+      opens,
+      open_rate_percent,
+      email_delivery_confirmed: confirmed,
+      observed_at_utc: new Date().toISOString(),
     };
   }));
-  const text = String(details.text || s.text || '');
-  const recipMatch = text.match(/Recipients\s+([\d,]+)/i);
-  const opensMatch = text.match(/([\d,]+)\s+opens?\b/i);
-  const rateMatch = text.match(/Open rate\s+([\d.]+)%/i);
-  const recipients = recipMatch ? parseInt(recipMatch[1].replace(/,/g, ''), 10) : null;
-  const opens = opensMatch ? parseInt(opensMatch[1].replace(/,/g, ''), 10) : null;
-  const open_rate_percent = rateMatch ? parseFloat(rateMatch[1]) : null;
-  const confirmed = Number.isInteger(recipients) && recipients > 0;
-  const parts = [];
-  if (recipMatch) parts.push(`Recipients ${recipMatch[1]}`);
-  if (rateMatch) parts.push(`Open rate ${rateMatch[1]}%`);
-  if (opensMatch) parts.push(`${opensMatch[1]} opens`);
-  return {
-    dashboard_url: details.url || s.url || null,
-    shown: parts.length ? parts.join('; ') : text.slice(0, 240),
-    recipients,
-    opens,
-    open_rate_percent,
-    email_delivery_confirmed: confirmed,
-    observed_at_utc: new Date().toISOString(),
-  };
 }
 
 throw new Error('DIGEST_NEO_UNKNOWN_PHASE:' + String(input.phase));

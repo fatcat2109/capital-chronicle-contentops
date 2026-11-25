@@ -792,6 +792,376 @@ def test_cc548_single_catch_up_pass_confirms_prior_and_todays_digest(tmp_path, m
     assert res["passes"][1]["catch_up_pass"] == "completed_second_pass"
     assert fake_client.publish_clicks == 2
     assert res["day_readback"]["state"] == "READBACK_WRITTEN"
+    # D-H1 regression guard: evening day_readback spans the full prior day, NOT a 1-second gap after Pass 1!
+    rb_doc = json.loads((Path(res["run_dir"]) / "day_readback.json").read_bytes())
+    assert rb_doc["window"]["since_utc"] == "2026-12-04T12:15:00+00:00"
+    assert rb_doc["window"]["until_utc"] == "2026-12-05T12:15:01+00:00"
+    assert rb_doc["window"]["cut_source"] == "EXPLICIT"
+    assert len(rb_doc["pieces"]) >= 1
+
+
+def test_pending_jim_email_code_recovers_across_runs_to_confirmed(tmp_path, monkeypatch):
+    """D-H2: RUN 1 (PENDING_JIM_EMAIL_CODE) -> RUN 2 (still on code dialog) -> RUN 3 (share-center -> CONFIRMED)."""
+    _, _, _, _, rollout_path = _setup_isolated_env(tmp_path, monkeypatch)
+
+    class _CodeRecoveryFakeClient(_FakeDigestNeoClient):
+        def __init__(self):
+            super().__init__(email_initially_checked=True, email_recipients=5, trigger_email_code=True)
+            self.code_entered = False
+            self.code_page_id: int | None = None
+            self.run_phases_by_page: list[tuple[int, str]] = []
+
+        def run(self, page, phase, **values):
+            self.run_phases_by_page.append((int(page), phase))
+            if phase == "plan_substack_code_handoff":
+                self.code_page_id = int(page)
+                return {
+                    "draft_id": self.published_id,
+                    "page_id": int(page),
+                    "page_url": f"https://capitalchronicle.substack.com/publish/post/{self.published_id}",
+                }
+            if phase == "plan_substack_published":
+                if not self.code_entered:
+                    return {
+                        "public_object_id": None,
+                        "public_object_url": None,
+                        "share_center_reached_utc": None,
+                    }
+                return {
+                    "public_object_id": self.published_id,
+                    "public_object_url": self.published_url,
+                    "share_center_reached_utc": datetime.now(timezone.utc).isoformat(),
+                }
+            return super().run(page, phase, **values)
+
+    fake_client = _CodeRecoveryFakeClient()
+    lock_path = tmp_path / "digest.lock"
+    stop_path = tmp_path / "digest.stop"
+
+    # RUN 1: hits Check your email, persists SUBSTACK_DRAFT_AWAITING_OWNER + owner screen immediately.
+    r1 = route.run_digest_1900(
+        rollout_path,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:15:00Z"),
+        lock_path=lock_path,
+        stop_path=stop_path,
+        endpoint_client=fake_client,
+        stored_only_readback=True,
+    )
+    assert r1["route_state"] == "PENDING_JIM_EMAIL_CODE"
+    assert r1["jim_email_code_pending"] is True
+    assert fake_client.publish_clicks == 1
+    assert fake_client.code_page_id is not None
+
+    # RUN 2: Jim has not entered the code yet -> inspects ONLY code_page_id, returns SHARE_CENTER_REQUIRED.
+    opens_before_r2 = len([c for c in fake_client.calls if c[0] == "open"])
+    r2 = route.run_digest_1900(
+        rollout_path,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:20:00Z"),
+        lock_path=lock_path,
+        stop_path=stop_path,
+        endpoint_client=fake_client,
+        stored_only_readback=True,
+    )
+    assert r2["route_state"] == "READBACK_UNAVAILABLE"
+    assert r2["first_blocking_cause"] == "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED"
+    assert fake_client.publish_clicks == 1
+    assert len([c for c in fake_client.calls if c[0] == "open"]) == opens_before_r2  # Code tab untouched!
+    assert (fake_client.code_page_id, "plan_substack_published") in fake_client.run_phases_by_page
+
+    # RUN 3: Jim entered the 6-digit code and the retained tab reached share-center -> CONFIRMED + email_confirmed.
+    fake_client.code_entered = True
+    r3 = route.run_digest_1900(
+        rollout_path,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:25:00Z"),
+        lock_path=lock_path,
+        stop_path=stop_path,
+        endpoint_client=fake_client,
+        stored_only_readback=True,
+    )
+    assert r3["route_state"] == "CONFIRMED"
+    assert r3["email_delivery_confirmed"] is True
+    assert r3["public_object_id"] == fake_client.published_id
+    assert r3["public_object_url"] == fake_client.published_url
+    assert fake_client.publish_clicks == 1  # Never a duplicate publish!
+    assert not any("mail.google.com" in arg for _, arg in fake_client.calls)
+    rb3 = json.loads((Path(r3["run_dir"]) / "day_readback.json").read_bytes())
+    assert rb3["digest"]["state"] == "CONFIRMED"
+    assert rb3["digest"]["email_confirmed"] is True
+
+
+def test_email_stats_polling_waits_for_dom_and_confirms_after_processing_lag(tmp_path, monkeypatch):
+    """D-H3: bounded stats polling reloads stats_url with DOM wait until Recipients flips from '-' to 5."""
+    _, _, _, _, rollout_path = _setup_isolated_env(tmp_path, monkeypatch)
+
+    class _LaggingStatsClient(_FakeDigestNeoClient):
+        def __init__(self):
+            super().__init__(email_initially_checked=True, email_recipients=None)
+            self.stats_polls = 0
+
+        def call(self, name, arguments):
+            if name == "run":
+                prefix_line = arguments["code"].splitlines()[0]
+                payload = json.loads(prefix_line.removeprefix("const input=").rstrip(";"))
+                if payload.get("phase") == "digest_substack_email_stats":
+                    self.stats_polls += 1
+                    self.email_recipients = 5 if self.stats_polls >= 3 else None
+            return super().call(name, arguments)
+
+    fake_client = _LaggingStatsClient()
+    slept: list[float] = []
+    res = route.run_digest_1900(
+        rollout_path,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:15:00Z"),
+        lock_path=tmp_path / "digest.lock",
+        stop_path=tmp_path / "digest.stop",
+        endpoint_client=fake_client,
+        email_stats_poll_timeout_seconds=1500.0,
+        email_stats_poll_interval_seconds=120.0,
+        sleep=slept.append,
+        stored_only_readback=True,
+    )
+    assert res["route_state"] == "CONFIRMED"
+    assert res["email_delivery_confirmed"] is True
+    assert fake_client.stats_polls == 3
+    assert slept == [120.0, 120.0]
+    assert sum(1 for kind, arg in fake_client.calls if kind == "wait_text" and arg == "Recipients") == 3
+    obs_files = list(Path(res["run_dir"]).glob("*-readback-observation.json"))
+    assert len(obs_files) == 1
+    obs_doc = json.loads(obs_files[0].read_bytes())
+    assert len(obs_doc["email"]["reads"]) == 3
+    assert "Recipients -" in obs_doc["email"]["reads"][0]["shown"]
+    assert "Recipients 5" in obs_doc["email"]["reads"][2]["shown"]
+
+
+def test_digest_neo_js_excludes_figure_image_links_and_resolves_overflow_output():
+    """D-H4 & D-M1: real JS filters <figure><a class='image-link'>, parses stats in-page (<400B), and resolves neo_output_file."""
+    steps_path = str(digest_neo.DIGEST_STEPS).replace("\\", "/")
+    node_script = f"""
+const fs = require('fs');
+const src = fs.readFileSync({json.dumps(steps_path)}, 'utf8');
+const runPhase = async (phase, docObj, locHref) => {{
+  global.document = docObj;
+  global.location = {{ href: locHref }};
+  const page = {{
+    snapshot: async () => ({{ url: locHref, text: '', refs: [] }}),
+    evaluateInPage: async (fn) => ({{ value: fn() }}),
+  }};
+  const browser = {{ page: () => page }};
+  const fn = new Function('browser', 'input', 'page', 'return (async () => {{\\n' + src + '\\n}})();');
+  return await fn(browser, {{ phase }}, page);
+}};
+
+(async () => {{
+  const anchors = [
+    {{
+      innerText: '',
+      href: 'https://substackcdn.com/image/fetch/w_1600/card.png',
+      classList: {{ contains: c => c === 'image-link' }},
+      closest: sel => sel.includes('figure') ? {{}} : null,
+    }},
+    {{
+      innerText: '   ',
+      href: 'https://capitalchronicle.substack.com/p/empty-anchor',
+      classList: {{ contains: () => false }},
+      closest: () => null,
+    }},
+    {{
+      innerText: 'Gold steady after US payrolls',
+      href: 'https://capitalchronicle.substack.com/p/gold-steady-after-us-payrolls',
+      classList: {{ contains: () => false }},
+      closest: () => null,
+    }},
+  ];
+  const linksRes = await runPhase(
+    'digest_substack_readback_links',
+    {{ querySelector: () => ({{ querySelectorAll: () => anchors }}) }},
+    'https://capitalchronicle.substack.com/p/digest'
+  );
+  const bigNoise = 'Header '.repeat(4000);
+  const statsConfirmed = await runPhase(
+    'digest_substack_email_stats',
+    {{ body: {{ innerText: bigNoise + ' Recipients 5 Open rate 20% 1 open ' + bigNoise }} }},
+    'https://capitalchronicle.substack.com/publish/posts/detail/226900123'
+  );
+  const statsPending = await runPhase(
+    'digest_substack_email_stats',
+    {{ body: {{ innerText: 'Data still processing; Recipients - ' + bigNoise }} }},
+    'https://capitalchronicle.substack.com/publish/posts/detail/226900123'
+  );
+  console.log(JSON.stringify({{ linksRes, statsConfirmed, statsPending }}));
+}})();
+"""
+    done = subprocess.run(["node", "-e", node_script], capture_output=True, text=True, check=True)
+    data = json.loads(done.stdout)
+    assert data["linksRes"]["observed_links"] == [
+        {"text": "Gold steady after US payrolls", "url": "https://capitalchronicle.substack.com/p/gold-steady-after-us-payrolls"}
+    ]
+    assert data["statsConfirmed"]["recipients"] == 5
+    assert data["statsConfirmed"]["opens"] == 1
+    assert data["statsConfirmed"]["open_rate_percent"] == 20
+    assert data["statsConfirmed"]["email_delivery_confirmed"] is True
+    assert len(json.dumps(data["statsConfirmed"])) < 400
+    assert data["statsPending"]["email_delivery_confirmed"] is False
+    assert len(data["statsPending"]["shown"]) <= 240
+    assert len(json.dumps(data["statsPending"])) < 600
+
+    # D-M1 Python-side overflow resolution via client._read_dom_output
+    class _OverflowClient:
+        def __init__(self):
+            self.read_paths: list[str] = []
+
+        def call(self, name, arguments):
+            return {"structuredContent": {"ok": True, "value": {"neo_output_file": "C:/fake/.browseros/tool-output/out.json"}}}
+
+        @staticmethod
+        def value(res):
+            return res["structuredContent"]
+
+        def _read_dom_output(self, path):
+            self.read_paths.append(path)
+            return {"observed_links": [{"text": "Gold", "url": "https://capitalchronicle.substack.com/p/gold"}]}
+
+    overflow_client = _OverflowClient()
+    resolved = digest_neo._run_digest_step(overflow_client, 1, "digest_substack_readback_links")
+    assert overflow_client.read_paths == ["C:/fake/.browseros/tool-output/out.json"]
+    assert resolved["observed_links"][0]["text"] == "Gold"
+
+
+def test_neo_init_failure_before_begin_never_claims_publish_and_pass2_honors_pause(tmp_path, monkeypatch):
+    """D-M2: unreachable Neo before begin leaves 0 claimed PUBLISH (no UNKNOWN_WRITE); Pass 2 honors blockers."""
+    store, _, feed_path, _, rollout_path = _setup_isolated_env(tmp_path, monkeypatch)
+
+    class _DownOnSecondInitClient(_FakeDigestNeoClient):
+        def __init__(self):
+            super().__init__(email_initially_checked=True, email_recipients=5)
+            self.init_calls = 0
+
+        def initialize(self):
+            self.init_calls += 1
+            if self.init_calls == 2:
+                # Simulate Neo dying right after VERIFY_IDENTITY, right before PUBLISH!
+                raise RuntimeError("NEO_ENDPOINT_RESTARTING")
+            return super().initialize()
+
+    client = _DownOnSecondInitClient()
+    r1 = route.run_digest_1900(
+        rollout_path,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:15:00Z"),
+        lock_path=tmp_path / "digest.lock",
+        stop_path=tmp_path / "digest.stop",
+        endpoint_client=client,
+        stored_only_readback=True,
+    )
+    assert r1["route_state"] == "NEO_ENDPOINT_UNAVAILABLE"
+    assert r1["first_blocking_cause"] == "NEO_ENDPOINT_RESTARTING"
+    assert r1["public_write_performed"] is False
+    # Zero claimed PUBLISH request -> subsequent recovery run publishes & confirms cleanly instead of UNKNOWN_WRITE!
+    r2 = route.run_digest_1900(
+        rollout_path,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:16:00Z"),
+        lock_path=tmp_path / "digest.lock",
+        stop_path=tmp_path / "digest.stop",
+        endpoint_client=client,
+        stored_only_readback=True,
+    )
+    assert r2["route_state"] == "CONFIRMED"
+    assert r2["email_delivery_confirmed"] is True
+    assert client.publish_clicks == 1
+
+    # D-M2 Pass-2 preflight guard: pause activated during Pass 1 prevents Pass 2 launch.
+    sub_tmp = tmp_path / "pause_pass2"
+    sub_tmp.mkdir()
+    articles = [
+        {
+            "content_id": "substack:226200001",
+            "title": "Euro holds range after ECB minutes",
+            "standfirst": "EUR/USD stayed near 1.0800 after the policy summary offered no surprise.",
+            "published_at_utc": "2026-12-04T09:00:00Z",
+            "recorded_at_utc": "2026-12-04T09:05:00Z",
+            "outlets": [{"name": "substack", "url": "https://capitalchronicle.substack.com/p/euro-holds-range"}],
+        },
+        {
+            "content_id": "substack:226200002",
+            "title": "Gold steady after US payrolls",
+            "standfirst": "Bullion held near 4,100 after the payroll report left rate odds balanced.",
+            "published_at_utc": "2026-12-05T09:30:00Z",
+            "recorded_at_utc": "2026-12-05T09:35:00Z",
+            "outlets": [{"name": "substack", "url": "https://capitalchronicle.substack.com/p/gold-steady-after-us-payrolls"}],
+        },
+    ]
+    from live_contentops.substack_daily_digest_v1 import prepare_daily_digest
+
+    store2, _, feed2, _, rollout2 = _setup_isolated_env(sub_tmp, monkeypatch, articles=articles)
+    prepare_daily_digest(store2, feed2, now=_utc("2026-12-04T12:15:00Z"))
+
+    class _PauseAfterPass1Client(_FakeDigestNeoClient):
+        def call(self, name, arguments):
+            if name == "run":
+                prefix_line = arguments["code"].splitlines()[0]
+                payload = json.loads(prefix_line.removeprefix("const input=").rstrip(";"))
+                if payload.get("phase") == "digest_substack_readback_links":
+                    return {
+                        "structuredContent": {
+                            "ok": True,
+                            "value": {
+                                "observed_links": [{"text": "Euro holds range after ECB minutes", "url": "https://capitalchronicle.substack.com/p/euro-holds-range"}],
+                                "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+                            },
+                        }
+                    }
+            return super().call(name, arguments)
+
+        def run(self, page, phase, **values):
+            if phase == "plan_substack_readback":
+                body_text = (
+                    "Euro holds range after ECB minutes\n\n"
+                    "EUR/USD stayed near 1.0800 after the policy summary offered no surprise.\n\n"
+                    + PUBLIC_NOTICE
+                )
+                caption = "Capital Chronicle daily digest, December 4, 2026 (ET)"
+                alt = caption + ": Euro holds range after ECB minutes"
+                return {
+                    "status": "SUCCESS",
+                    "observed_identity": "capitalchronicle.substack.com",
+                    "public_object_url": self.published_url,
+                    "observed_text": f"{self.draft_title}\n{self.draft_subtitle}\n{body_text}\n{caption}",
+                    "article_text": f"{body_text}\n{caption}",
+                    "published_at_utc": "2026-12-05T12:16:00Z",
+                    "public_image_urls": [self.image_url],
+                    "media": [{"alt_text": alt, "caption": caption}],
+                    "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+                }
+            return super().run(page, phase, **values)
+
+    real_preflight = route.preflight
+    preflight_calls = [0]
+
+    def _preflight_with_pause_before_pass2(*a, **kw):
+        preflight_calls[0] += 1
+        if preflight_calls[0] == 2:
+            llm_control.activate_llm_operator_pause()
+        return real_preflight(*a, **kw)
+
+    monkeypatch.setattr(route, "preflight", _preflight_with_pause_before_pass2)
+    pause_client = _PauseAfterPass1Client(email_initially_checked=True, email_recipients=5)
+    r_pause = route.run_digest_1900(
+        rollout2,
+        driver="python-neo",
+        now=_utc("2026-12-05T12:15:00Z"),
+        lock_path=sub_tmp / "digest.lock",
+        stop_path=sub_tmp / "digest.stop",
+        endpoint_client=pause_client,
+        stored_only_readback=True,
+    )
+    assert len(r_pause["passes"]) == 1
+    assert r_pause["passes"][0]["catch_up_pass"] == "blocked:LLM_OPERATOR_PAUSED"
+    assert pause_client.publish_clicks == 1
 
 
 def test_task_scheduler_xml_is_disabled_matches_renderer_and_passes_com_validation():
@@ -808,7 +1178,10 @@ def test_task_scheduler_xml_is_disabled_matches_renderer_and_passes_com_validati
     assert root.findtext("t:Principals/t:Principal/t:LogonType", namespaces=ns) == "InteractiveToken"
     assert root.findtext("t:Settings/t:Enabled", namespaces=ns) == "false"
     assert root.findtext("t:Settings/t:MultipleInstancesPolicy", namespaces=ns) == "IgnoreNew"
+    assert root.findtext("t:Settings/t:ExecutionTimeLimit", namespaces=ns) == "PT40M"
     assert root.findtext("t:Triggers/t:CalendarTrigger/t:StartBoundary", namespaces=ns) == "2026-12-01T19:15:00+07:00"
+    cmd_text = root.findtext("t:Actions/t:Exec/t:Command", namespaces=ns) or ""
+    assert cmd_text == r"C:\Users\bullw\AppData\Local\Programs\Python\Python313\pythonw.exe"
     args_text = root.findtext("t:Actions/t:Exec/t:Arguments", namespaces=ns) or ""
     assert "run_daily_digest_1900.py" in args_text and "--driver python-neo" in args_text
     assert "claude" not in args_text.lower() and "agy" not in args_text.lower()
@@ -821,6 +1194,7 @@ def test_task_scheduler_xml_is_disabled_matches_renderer_and_passes_com_validati
             "$def = $svc.NewTask(0); "
             "$def.XmlText = $raw; "
             "if ($def.Settings.Enabled) { throw 'ENABLED_MUST_BE_FALSE' }; "
+            "if ($def.Settings.ExecutionTimeLimit -ne 'PT40M') { throw 'TIMELIMIT_MISMATCH' }; "
             "if ($def.Principal.UserId -ne 'JP') { throw 'USERID_MISMATCH' }; "
             "if ($def.Principal.LogonType -ne 3) { throw 'LOGONTYPE_MISMATCH' }; "
             "Write-Output ('COM_OK triggers=' + $def.Triggers.Count)"

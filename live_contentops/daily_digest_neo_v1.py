@@ -14,6 +14,7 @@ from html import escape
 import json
 from pathlib import Path
 import re
+import time as time_mod
 from typing import Any, Mapping
 from xml.sax.saxutils import escape as xml_escape
 
@@ -29,7 +30,9 @@ DIGEST_STEPS = Path(__file__).with_name("daily_digest_neo_steps_v1.js")
 DEFAULT_TASK_NAME = "CapitalChronicle-ContentOpsDailyDigest1900-V1"
 DEFAULT_TASK_USER_ID = "JP"
 DEFAULT_REPO_ROOT = Path(r"A:\Capital Chronicle\ContentOps")
-DEFAULT_PYTHONW = Path(r"A:\Capital Chronicle\Runtime\ContentOps\v1-runtime\venv\Scripts\pythonw.exe")
+DEFAULT_PYTHONW = Path(r"C:\Users\bullw\AppData\Local\Programs\Python\Python313\pythonw.exe")
+DEFAULT_EMAIL_STATS_POLL_TIMEOUT_SECONDS = 1500.0
+DEFAULT_EMAIL_STATS_POLL_INTERVAL_SECONDS = 120.0
 
 # Markdown link with escaped brackets from substack_daily_digest_v1._link_title().
 _MD_BOLD_LINK_RE = re.compile(r"\*\*\[((?:\\.|[^\]])+)\]\((https://[^\s<>()]+)\)\*\*")
@@ -127,6 +130,8 @@ def _run_digest_step(client: Any, page: int, phase: str, **values: Any) -> dict[
     if not isinstance(result, dict) or result.get("ok") is not True:
         raise NeoEndpointError("NEO_RUN_FAILED_" + phase.upper())
     value = result.get("value")
+    if isinstance(value, dict) and value.get("neo_output_file") and hasattr(client, "_read_dom_output"):
+        value = client._read_dom_output(value["neo_output_file"])
     if not isinstance(value, dict):
         raise NeoEndpointError("NEO_RUN_RESULT_MISSING_" + phase.upper())
     return value
@@ -189,11 +194,38 @@ def _perform_readback(
     request: Mapping[str, Any],
     *,
     observation_path: Path | None = None,
+    email_stats_poll_timeout_seconds: float = DEFAULT_EMAIL_STATS_POLL_TIMEOUT_SECONDS,
+    email_stats_poll_interval_seconds: float = DEFAULT_EMAIL_STATS_POLL_INTERVAL_SECONDS,
+    sleep=time_mod.sleep,
+    monotonic=time_mod.monotonic,
 ) -> dict[str, Any]:
-    from live_contentops.neo_endpoint_executor_v1 import compare_public_images
+    from live_contentops.neo_endpoint_executor_v1 import NeoEndpointError, compare_public_images
 
     public_url = request.get("public_object_url")
     public_id = request.get("public_object_id")
+    screen = request.get("pending_owner_screen")
+    if screen:
+        # Decision 54: inspect ONLY the retained code tab without navigating, reloading, or closing it.
+        published = client.run(int(screen["page_id"]), "plan_substack_published")
+        object_id, url = published.get("public_object_id"), published.get("public_object_url")
+        if object_id != screen.get("draft_id") or not _public_url("substack", url, object_id):
+            return {
+                "result": {
+                    "status": "READBACK_UNAVAILABLE",
+                    "verified": False,
+                    "reason_code": "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED",
+                },
+                "identity": {},
+                "observation": {
+                    "action": "READBACK",
+                    "status": "READBACK_UNAVAILABLE",
+                    "reason_code": "SUBSTACK_CODE_TAB_SHARE_CENTER_REQUIRED",
+                    "pending_owner_screen": dict(screen),
+                    "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+                },
+            }
+        public_id = str(object_id)
+        public_url = str(url)
     if not public_url:
         return {
             "result": {
@@ -204,6 +236,7 @@ def _perform_readback(
             "identity": {},
             "observation": {"action": "READBACK", "reason_code": "DIGEST_EXACT_PUBLIC_URL_REQUIRED"},
         }
+    target_request = {**request, "public_object_id": public_id, "public_object_url": public_url}
     page = client.open("digest-substack-public", public_url)
     client.wait_text(page, request["native_payload"]["title"])
     raw_page = client.run(page, "plan_substack_readback")
@@ -211,7 +244,7 @@ def _perform_readback(
     if raw_page.get("public_object_url") == public_url and public_id:
         raw_page["public_object_id"] = public_id
         raw_page["object_id_basis"] = "EXACT_CANONICAL_URL_BOUND_TO_OBSERVED_SHARE_CENTER_ID"
-    observed = compare_public_images(request, raw_page, http=getattr(client, "image_http", None))
+    observed = compare_public_images(target_request, raw_page, http=getattr(client, "image_http", None))
     media = (request.get("content_binding") or {}).get("media_manifest") or []
     actual_media = raw_page.get("media") or []
     captions = [a.get("caption", "") for a in media]
@@ -237,7 +270,7 @@ def _perform_readback(
     if raw_page.get("published_at_utc"):
         observed["observed_published_at_utc"] = raw_page["published_at_utc"]
 
-    # Read Substack's own post stats page (never Gmail or any mailbox).
+    # Read Substack's own post stats page with DOM wait + bounded poll (never Gmail or any mailbox).
     email_block: dict[str, Any] = {
         "dashboard_url": None,
         "reads": [],
@@ -246,12 +279,34 @@ def _perform_readback(
     }
     if public_id:
         stats_url = f"https://capitalchronicle.substack.com/publish/posts/detail/{public_id}"
-        stats_page = client.open("digest-substack-stats", stats_url)
-        stats = _run_digest_step(client, stats_page, "digest_substack_email_stats")
-        confirmed = bool(stats.get("email_delivery_confirmed"))
+        reads: list[dict[str, Any]] = []
+        stats: dict[str, Any] = {}
+        confirmed = False
+        timeout = max(0.0, float(email_stats_poll_timeout_seconds))
+        interval = max(0.0, float(email_stats_poll_interval_seconds))
+        elapsed = 0.0
+        started_mono = monotonic()
+        while True:
+            stats_page = client.open("digest-substack-stats", stats_url)
+            try:
+                client.wait_text(stats_page, "Recipients")
+            except (NeoEndpointError, ValueError):
+                pass
+            stats = _run_digest_step(client, stats_page, "digest_substack_email_stats")
+            reads.append({"at_utc": stats.get("observed_at_utc"), "shown": stats.get("shown", "")})
+            confirmed = bool(stats.get("email_delivery_confirmed"))
+            if confirmed:
+                break
+            elapsed = max(elapsed, monotonic() - started_mono)
+            remaining = timeout - elapsed
+            if remaining <= 0 or interval <= 0:
+                break
+            step_wait = min(interval, remaining)
+            sleep(step_wait)
+            elapsed += step_wait
         email_block = {
             "dashboard_url": stats.get("dashboard_url") or stats_url,
-            "reads": [{"at_utc": stats.get("observed_at_utc"), "shown": stats.get("shown", "")}],
+            "reads": reads,
             "recipients": stats.get("recipients"),
             "opens": stats.get("opens"),
             "open_rate_percent": stats.get("open_rate_percent"),
@@ -259,7 +314,7 @@ def _perform_readback(
             "basis": (
                 f"Substack post stats for post {public_id} show {stats.get('recipients')} recipients. No mailbox read."
                 if confirmed
-                else f"Substack post stats for post {public_id} have not yet confirmed recipients. No mailbox read."
+                else f"Substack post stats for post {public_id} have not yet confirmed recipients after {len(reads)} read(s). No mailbox read."
             ),
         }
         observed["email_delivery_confirmed"] = confirmed
@@ -295,6 +350,10 @@ def perform_digest_action(
     packet: Mapping[str, Any],
     *,
     observation_path: Path | None = None,
+    email_stats_poll_timeout_seconds: float = DEFAULT_EMAIL_STATS_POLL_TIMEOUT_SECONDS,
+    email_stats_poll_interval_seconds: float = DEFAULT_EMAIL_STATS_POLL_INTERVAL_SECONDS,
+    sleep=time_mod.sleep,
+    monotonic=time_mod.monotonic,
 ) -> dict[str, Any]:
     """Execute one claimed CC-143 Substack digest action (VERIFY_IDENTITY / PUBLISH / READBACK)."""
     from live_contentops.neo_endpoint_executor_v1 import NeoEndpointError
@@ -308,7 +367,15 @@ def perform_digest_action(
 
     try:
         if action == "READBACK":
-            return _perform_readback(client, request, observation_path=observation_path)
+            return _perform_readback(
+                client,
+                request,
+                observation_path=observation_path,
+                email_stats_poll_timeout_seconds=email_stats_poll_timeout_seconds,
+                email_stats_poll_interval_seconds=email_stats_poll_interval_seconds,
+                sleep=sleep,
+                monotonic=monotonic,
+            )
 
         page = client.open("digest-substack", "https://capitalchronicle.substack.com/publish/posts")
         client.wait(page, 'nav[aria-label="Publisher dashboard"]')
@@ -590,7 +657,7 @@ def render_digest_task_xml(
         '    <Hidden>true</Hidden>\n'
         '    <RunOnlyIfIdle>false</RunOnlyIfIdle>\n'
         '    <WakeToRun>false</WakeToRun>\n'
-        '    <ExecutionTimeLimit>PT20M</ExecutionTimeLimit>\n'
+        '    <ExecutionTimeLimit>PT40M</ExecutionTimeLimit>\n'
         '    <Priority>7</Priority>\n'
         '    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>\n'
         '  </Settings>\n'

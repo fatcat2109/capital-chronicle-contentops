@@ -38,13 +38,13 @@
     <Hidden>true</Hidden>
     <RunOnlyIfIdle>false</RunOnlyIfIdle>
     <WakeToRun>false</WakeToRun>
-    <ExecutionTimeLimit>PT20M</ExecutionTimeLimit>
+    <ExecutionTimeLimit>PT40M</ExecutionTimeLimit>
     <Priority>7</Priority>
     <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
   </Settings>
   <Actions Context="Author">
     <Exec>
-      <Command>A:\Capital Chronicle\Runtime\ContentOps\v1-runtime\venv\Scripts\pythonw.exe</Command>
+      <Command>C:\Users\bullw\AppData\Local\Programs\Python\Python313\pythonw.exe</Command>
       <Arguments>-B &quot;A:\Capital Chronicle\ContentOps\scripts\run_daily_digest_1900.py&quot; run --rollout config/native_desktop_rollout_v1.json --driver python-neo</Arguments>
       <WorkingDirectory>A:\Capital Chronicle\ContentOps</WorkingDirectory>
     </Exec>

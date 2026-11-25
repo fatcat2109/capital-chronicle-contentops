@@ -385,10 +385,13 @@ def continue_daily_digest(store, packet, *, output_dir, invocation_id, rollout, 
         status = digest_status(store, packet)
         ids = coordinator._ids(packet["digest_id"], plan["plan_hash"], "substack")
         dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
-        if (not status["confirmed"] and dispatch.get("status") == "DISPATCH_CONFIRMED"
-                and dispatch.get("public_object_id") and dispatch.get("public_object_url")):
-            # A known published object with an incomplete content/media readback
-            # needs another observation, just as an email receipt does; never a send.
+        if (not status["confirmed"]
+                and ((dispatch.get("status") == "DISPATCH_CONFIRMED"
+                      and dispatch.get("public_object_id") and dispatch.get("public_object_url"))
+                     or dispatch.get("status") == "SUBSTACK_DRAFT_AWAITING_OWNER")):
+            # A known published object with an incomplete content/media/email readback,
+            # or a Decision-54 owner-code screen awaiting share-center confirmation,
+            # needs another observation; never a second send.
             result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
             return {"publication": result, **digest_status(store, packet), "pending_requests": executor.pending()}
         result = coordinator.publish_plan(packet["digest_id"], plan)
