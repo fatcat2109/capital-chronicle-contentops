@@ -369,6 +369,35 @@ def article_for(pack, manuscript):
         updates_md = attention_map.render_daily_wrap_theme_updates(pack["attention_map_updates"])
         if updates_md:
             body.extend([f"## {attention_map.DAILY_UPDATES_HEADING}", updates_md])
+    session_pulse = None
+    if pack.get("session_sync_pulse"):
+        from . import market_forces_high_interval_v1 as high_interval
+
+        pulse_spec = pack["session_sync_pulse"]
+        if pulse_spec.get("schema_version") == high_interval.PULSE_SCHEMA_VERSION:
+            session_pulse = dict(pulse_spec)
+            high_interval.attention.validate_attention_map_copy(
+                session_pulse["markdown"], require_notice=False
+            )
+            validate_payload({"public_instrument_policy": INSTRUMENT_POLICY}, {"text": session_pulse["markdown"]})
+        else:
+            default_session = (
+                pulse_spec.get("session")
+                or (high_interval.SESSION_PRE_US if not weekly else None)
+            )
+            session_pulse = high_interval.render_session_sync_pulse(
+                pulse_spec["register"],
+                session=default_session,
+                as_of_utc=(
+                    pulse_spec.get("as_of_utc")
+                    or pack.get("source_pack_as_of_utc")
+                    or pack.get("data_cutoff_utc")
+                ),
+                recent_flashes=pulse_spec.get("recent_flashes"),
+                page_links=pulse_spec.get("page_links"),
+                max_themes=pulse_spec.get("max_themes", 3),
+            )
+        body.append(session_pulse["markdown"])
     if weekly and pack.get("weekly_calls"):
         # The record carries its own notice; the wrap prints the notice once, at its end.
         body.append(pack["weekly_calls"]["text"].replace(PUBLIC_NOTICE + " " + CONFLICTS_NOTICE, "").rstrip())
@@ -395,6 +424,22 @@ def article_for(pack, manuscript):
     if attention_section:
         article["attention_map_top_three"] = attention_section["top_three_lines"]
         article["attention_map_register"] = attention_register
+    if session_pulse:
+        article["session_sync_pulse"] = {
+            key: session_pulse[key]
+            for key in (
+                "schema_version",
+                "session",
+                "session_label",
+                "heading",
+                "as_of_utc",
+                "as_of_et",
+                "theme_ids",
+                "top_lines",
+                "flash_count",
+            )
+            if key in session_pulse
+        }
     voice.validate_copy(article["substack_body_markdown"])
     check_publication_copy({"title": title, "body": article["substack_body_markdown"]})
     validate_article(article)
