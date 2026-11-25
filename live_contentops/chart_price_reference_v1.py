@@ -20,6 +20,9 @@ PLAN_STATUS_PATH = Path(r"A:\Capital Chronicle\ResearchRuns\plan-status-v1\plan-
 BAR_STORE = Path(r"A:\Capital Chronicle\Runtime\OfficialRates\cc-078-20261101\state\intake"
                  r"\completed-bars\bars.sqlite3")
 POLICY = "CC489_HELD_CHART_REFERENCE_V1"
+# TradingView downloads take up to 90 s; warm the throttled public cache ahead of download
+# unless a held open-market quote still has >= 90 s of remaining freshness headroom.
+PREPARE_OPEN_MAX_AGE_SECONDS = 30
 
 
 def _canonical(value):
@@ -49,7 +52,8 @@ def _reference(market, captured_at, price, price_at, known_at, *, max_age_second
     age = (at - quoted).total_seconds()
     if known > capture or quoted > known:
         raise contract.ImageContractError("CHART_REFERENCE_NOT_KNOWN_AT_CAPTURE")
-    if not 0 <= age <= max_age_seconds:
+    neg_limit = contract.max_negative_skew(market, closed=closed, quote=source)
+    if not -neg_limit <= age <= max_age_seconds:
         raise contract.ImageContractError("CHART_REFERENCE_STALE", price_at_utc=quoted.isoformat(),
                                           age_seconds=age)
     return {"market": market, "instrument": market, "price": contract.number(price),
@@ -160,9 +164,11 @@ def bar_store_quote(market, captured_at, path, *, max_age_seconds=contract.QUOTE
 def public_chart_quote(market, captured_at):
     """Read only: acquire BEFORE the download, never backdate a later HTTP read."""
     from . import public_market_quote_v1 as public
-    at, _ = contract.comparison_clock(market, captured_at)
+    at, closed = contract.comparison_clock(market, captured_at)
+    closed_cash_index = bool(closed and market in contract.CASH_INDEX_MARKETS)
     observation = public.get(market, now=captured_at, fetch=False,
-        max_age_seconds=contract.QUOTE_SKEW_SECONDS, reference_at=at)
+        max_age_seconds=contract.QUOTE_SKEW_SECONDS, reference_at=at,
+        closed_cash_index=closed_cash_index)
     return _reference(market, captured_at, observation["value"], observation["observed_at_utc"],
         observation["known_at_utc"], source_kind="PUBLIC_ON_DEMAND_QUOTE",
         source=observation["source"], source_path=observation["observation_path"],
@@ -176,16 +182,19 @@ def prepare_chart_quote(market, *, now=None):
     """The existing capture calls this once, ahead of its image observation."""
     from . import public_market_quote_v1 as public
     now = now or datetime.now(timezone.utc)
-    for read in (lambda: plan_status_quote(market, now, PLAN_STATUS_PATH),
-                 lambda: bar_store_quote(market, now, BAR_STORE)):
+    at, closed = contract.comparison_clock(market, now)
+    headroom = contract.QUOTE_SKEW_SECONDS if closed else PREPARE_OPEN_MAX_AGE_SECONDS
+    for read in (lambda: plan_status_quote(market, now, PLAN_STATUS_PATH, max_age_seconds=headroom),
+                 lambda: bar_store_quote(market, now, BAR_STORE, max_age_seconds=headroom)):
         try:
             read()
             return
         except (OSError, ValueError, KeyError, TypeError, OverflowError, sqlite3.Error):
             pass
-    at, _ = contract.comparison_clock(market, now)
+    closed_cash_index = bool(closed and market in contract.CASH_INDEX_MARKETS)
     try:
-        public.get(market, now=now, max_age_seconds=contract.QUOTE_SKEW_SECONDS, reference_at=at)
+        public.get(market, now=now, max_age_seconds=contract.QUOTE_SKEW_SECONDS,
+                   reference_at=at, closed_cash_index=closed_cash_index)
     except (OSError, ValueError):
         # The read after capture retains the exact failure. No missing quote veto.
         pass

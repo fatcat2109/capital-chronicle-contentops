@@ -23,6 +23,15 @@ FIELDS = ("title", "subtitle", "dek", "search_title", "meta_description", "socia
 MARKER = re.compile(r"\[\[SOURCE:(SOURCE_\d+)\]\]")
 INTERNAL_PHRASES = ("DATED CAPITAL CHRONICLE REVIEW", "the review records", "capture",
                     "NATIVE_DESKTOP_INPUT_REQUIRED")
+INTERNAL_MODEL_AND_CLOCK_PHRASES = (
+    "ChatGPT", "GPT", "Claude", "Fable", "Opus", "Sonnet", "Haiku",
+    "Gemini", "Codex", "Antigravity", "Anthropic", "OpenAI",
+    "AI-run", "AI-generated", "as an AI", "language model",
+    "GMT+7", "UTC+7",
+)
+TARGETS_OFF_FROM = datetime(2026, 11, 22, 21, 9, 3, tzinfo=timezone.utc)
+_ODDS_SOURCE = re.compile(r"\b(?:Kalshi|Polymarket|FedWatch)\b", re.I)
+_ODDS_NUMBER = re.compile(r"(?<![\w.])\d+(?:\.\d+)?\s*(?:%|percent\b|cents?\b|¢)", re.I)
 NUMBER = re.compile(r"(?<![\w.])[+\-\N{MINUS SIGN}]?\d+(?:,\d{3})*(?:\.\d+)?"
                     r"(?:\s*(?:%|percent\b|bps\b|basis points?\b))?", re.I)
 MARKETS = (r"\bgold\b", r"\bS&P\s*500\b", r"\bEUR\s*/?\s*USD\b", r"\bUSD\s*/?\s*JPY\b",
@@ -49,7 +58,7 @@ Reuse the supplied prior reports and outcomes; state an actual comparison gap pl
 when the supplied record cannot establish it. Never invent an error or a success.
 A WEEKLY_REVIEW is a long review, not a daily note. Include CC-379's whole scored-call
 record exactly once, including losses and unscored expiries, and discuss what we got wrong.
-The daily note uses Antigravity's first draft (decision 114) and one Codex light editorial
+The daily note uses Codex's first draft (decision 114 / CC-801; never Antigravity) and one Codex light editorial
 pass. The weekly review uses the existing Codex strong pass. Record actual calls and
 failures. Cards retain their own contract. The 60-minute clock uses the newest
 admitted data in the source pack. Cite its facts and keep Main's analysis clock
@@ -177,8 +186,8 @@ def sentences(text):
 
 def numbers(text):
     text = visible(text)
-    # Decision 107's instrument names are identifiers, not newly asserted values.
-    text = re.sub(r"\b(?:S&P\s*500|6E|6J)\b", "", text, flags=re.I)
+    # Decision 107 / CC-788 instrument names are identifiers, not newly asserted values.
+    text = re.sub(r"\b(?:S&P\s*500|Nasdaq[- ]?100|6E|6J)\b", "", text, flags=re.I)
     text = re.sub(r"\b(\d{4})-(\d{2})-(\d{2})(?:T[^\s]+)?", r"\1 \2 \3", text)
     result = set()
     for match in NUMBER.finditer(text):
@@ -191,7 +200,8 @@ def numbers(text):
 
 
 def label_errors(text):
-    return ["INTERNAL_EDITORIAL_LABEL:" + phrase for phrase in INTERNAL_PHRASES
+    return ["INTERNAL_EDITORIAL_LABEL:" + phrase
+            for phrase in (*INTERNAL_PHRASES, *INTERNAL_MODEL_AND_CLOCK_PHRASES)
             if re.search(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", text, re.I)]
 
 
@@ -223,6 +233,10 @@ def check_article(article, documents, *, contract=None):
     body = visible(article.get("substack_body_markdown"))
     text = "\n\n".join(visible(article.get(k)) for k in FIELDS)
     errors.extend(label_errors(text))
+    from live_contentops.preview_link_guard_v1 import find_forbidden_link
+    raw_fields = "\n".join(str(article.get(k) or "") for k in FIELDS)
+    if find_forbidden_link(raw_fields):
+        errors.append("PREVIEW_HOST_LINK_FORBIDDEN")
     lead = body
     if article.get("article_type") == "EVENT_REVIEW":
         # CC-107's required retrospective writing-date notice precedes prose.
@@ -252,8 +266,24 @@ def check_article(article, documents, *, contract=None):
         social_scenarios = {}
     social = "\n".join(str(v) for k, v in article.items() if k.startswith("social_") and isinstance(v, str))
     social += "\n" + "\n".join(str(v) for v in social_scenarios.values())
+    if find_forbidden_link(social):
+        errors.append("PREVIEW_HOST_LINK_FORBIDDEN")
     errors.extend(label_errors(social))
     errors.extend("NUMBER_NOT_IN_SOURCE:" + number for number in sorted(numbers(social) - all_numbers))
+    cutoff = contract.get("data_cutoff_utc")
+    try:
+        post_targets_off = cutoff is not None and utc(cutoff) >= TARGETS_OFF_FROM
+    except ValueError:
+        post_targets_off = False
+    if post_targets_off:
+        from live_contentops import scenario_voice_v1 as voice
+        combined = text + "\n" + social
+        try:
+            voice.validate_copy(combined)
+        except ValueError as exc:
+            errors.append(str(exc))
+        if any(_ODDS_SOURCE.search(s) and _ODDS_NUMBER.search(s) for s in sentences(combined)):
+            errors.append("PREDICTION_MARKET_NUMBER_FORBIDDEN")
     for paragraph in re.split(r"\n\s*\n", str(article.get("substack_body_markdown") or "")):
         refs = MARKER.findall(paragraph)
         supported = set().union(*(numbers(docs[r].get("canonical_content_text")) for r in refs if r in docs)) if refs else all_numbers
@@ -304,6 +334,9 @@ def validate_payload(article, payload):
         text += "\n" + str(payload.get("title") or "") + "\n" + str(payload.get("subtitle") or "")
         text += "\n" + str(payload.get("alt_text") or "")
     errors = label_errors(text)
+    from live_contentops.preview_link_guard_v1 import find_forbidden_link
+    if find_forbidden_link(text):
+        errors.append("PREVIEW_HOST_LINK_FORBIDDEN")
     from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy
     errors.extend("NUMBER_NOT_IN_ARTICLE:" + value for value in sorted(numbers(text) - numbers(_public_copy(article))))
     if errors:

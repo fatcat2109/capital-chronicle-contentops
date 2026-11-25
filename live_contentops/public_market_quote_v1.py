@@ -47,6 +47,11 @@ SYMBOLS = {
 ALIASES = {"SPX": "US500", "WTI": "USOIL", "NDX": "USTEC"}
 # Observations frozen before CC-788 name the cash Nasdaq 100 by its old route id.
 LEGACY_MARKETS = {"USTEC": {"NDX"}}
+# Yahoo Finance intermittently returns its canonical JPY=X alias when USDJPY=X is requested
+# (both are quoted in JPY per USD; JPYUSD=X and any non-JPY currency remain refused).
+ACCEPTED_RETURNED_SYMBOLS = {"USDJPY": ("USDJPY=X", "JPY=X")}
+CASH_INDEX_CLOSE_SETTLE_SECONDS = 5400
+_SAFE_FAILURE_DETAIL_KEYS = ("requested_symbol", "returned_symbol", "returned_type", "age_seconds", "observed_at_utc")
 
 
 class QuoteError(ValueError):
@@ -172,9 +177,13 @@ def parse(market, raw, *, received_at, seconds):
         value, prior = row["last"], row["previous_day_closing"]
         observed = utc(row["last_time"])
         actual_type = row.get("assetType")
-    if row.get("symbol") != symbol or actual_type != instrument_type:
+    accepted_symbols = ACCEPTED_RETURNED_SYMBOLS.get(market, (symbol,))
+    returned_symbol = row.get("symbol")
+    currency_mismatch = (market == "USDJPY" and returned_symbol == "JPY=X"
+                         and row.get("currency") not in (None, "JPY"))
+    if returned_symbol not in accepted_symbols or actual_type != instrument_type or currency_mismatch:
         raise QuoteError("PUBLIC_QUOTE_SYMBOL_MISMATCH", requested_symbol=symbol,
-                         returned_symbol=row.get("symbol"), returned_type=actual_type)
+                         returned_symbol=returned_symbol, returned_type=actual_type)
     _number(value)
     _number(prior)
     delta = Decimal(str(value)) - Decimal(str(prior))
@@ -183,7 +192,9 @@ def parse(market, raw, *, received_at, seconds):
             "CNBC / Tradeweb" if market in {"US2Y", "US10Y"} else "CNBC"),
         "source_exchange": row.get("exchange", row.get("exchangeName")),
         "source_kind": "PUBLIC_ON_DEMAND_QUOTE", "source_url": source_url(market),
-        "source_symbol": symbol, "instrument_name": label, "instrument_type": instrument_type,
+        "source_symbol": symbol,
+        **({"returned_symbol": returned_symbol} if returned_symbol != symbol else {}),
+        "instrument_name": label, "instrument_type": instrument_type,
         "value": float(value), "value_text": str(value), "unit": unit,
         "prior_close": float(prior), "day_change": float(delta),
         "day_change_text": str(delta),
@@ -193,7 +204,7 @@ def parse(market, raw, *, received_at, seconds):
         "fetch_seconds": seconds, "response_sha256": sha256(raw).hexdigest()}
 
 
-def validate(observation, market, *, now, max_age_seconds=4500, reference_at=None):
+def validate(observation, market, *, now, max_age_seconds=4500, reference_at=None, closed_cash_index=False):
     market = ALIASES.get(market, market)
     if (observation.get("market") not in {market, *LEGACY_MARKETS.get(market, ())}
             or observation.get("source_symbol") != SYMBOLS[market][1]):
@@ -203,14 +214,17 @@ def validate(observation, market, *, now, max_age_seconds=4500, reference_at=Non
     if known > utc(now) or observed > known:
         raise QuoteError("PUBLIC_QUOTE_FUTURE_CLOCK")
     age = (at - observed).total_seconds()
-    if not -2 <= age <= max_age_seconds:
+    neg_limit = (CASH_INDEX_CLOSE_SETTLE_SECONDS
+                 if closed_cash_index and market in {"US500", "USTEC"} and observation.get("instrument_type") == "INDEX"
+                 else 2)
+    if not -neg_limit <= age <= max_age_seconds:
         raise QuoteError("PUBLIC_QUOTE_STALE", age_seconds=age,
                          observed_at_utc=observed.isoformat(), source=observation.get("source"))
     return observation
 
 
 def get(market, *, now=None, root=None, fetch=True, max_age_seconds=4500, reference_at=None,
-        reader=None, clock=None):
+        reader=None, clock=None, closed_cash_index=False):
     """Throttle successes AND failures across callers/processes; no retry loop."""
     market = ALIASES.get(market, market)
     if market not in SYMBOLS:
@@ -230,10 +244,13 @@ def get(market, *, now=None, root=None, fetch=True, max_age_seconds=4500, refere
             details = {"fetch_seconds": 0., "cache_hit": True, "rate_limited": fetch,
                        "retry_after_seconds": max(0, MIN_INTERVAL - elapsed)}
             if not state.get("observation_path"):
+                if isinstance(state.get("failure_details"), dict):
+                    details.update(state["failure_details"])
                 raise QuoteError(state.get("cause", "PUBLIC_QUOTE_NOT_CACHED"), **details)
             observation = resolve(state["observation_path"], state["observation_sha256"])
             try:
-                validate(observation, market, now=started_at, max_age_seconds=max_age_seconds, reference_at=reference_at)
+                validate(observation, market, now=started_at, max_age_seconds=max_age_seconds,
+                         reference_at=reference_at, closed_cash_index=closed_cash_index)
             except QuoteError as exc:
                 raise QuoteError(str(exc), **{**exc.details, **details}) from None
             return {**observation, **{k: state[k] for k in ("observation_path", "observation_sha256")},
@@ -250,7 +267,8 @@ def get(market, *, now=None, root=None, fetch=True, max_age_seconds=4500, refere
             frozen = freeze(observation, root=root)
             save(state_path, {**state, "cause": "PUBLIC_QUOTE_FETCHED", "fetch_seconds": seconds,
                              **{k: frozen[k] for k in ("observation_path", "observation_sha256")}})
-            validate(observation, market, now=received, max_age_seconds=max_age_seconds, reference_at=reference_at)
+            validate(observation, market, now=received, max_age_seconds=max_age_seconds,
+                     reference_at=reference_at, closed_cash_index=closed_cash_index)
             return {**frozen, "request_seconds": seconds, "cache_hit": False}
         except Exception as exc:
             seconds = perf_counter() - began
@@ -258,6 +276,9 @@ def get(market, *, now=None, root=None, fetch=True, max_age_seconds=4500, refere
                 "PUBLIC_QUOTE_HTTP_" + str(exc.code) if hasattr(exc, "code") else "PUBLIC_QUOTE_FETCH_FAILED:" + type(exc).__name__)
             # A stale response stays available for named readback, never as a fresh quote.
             saved = json.loads(state_path.read_bytes())
-            save(state_path, {**saved, "cause": cause, "fetch_seconds": seconds})
+            safe_details = ({k: v for k, v in exc.details.items() if k in _SAFE_FAILURE_DETAIL_KEYS}
+                            if isinstance(exc, QuoteError) else {})
+            save(state_path, {**saved, "cause": cause, "fetch_seconds": seconds,
+                              **({"failure_details": safe_details} if safe_details else {})})
             raise QuoteError(cause, **{**(exc.details if isinstance(exc, QuoteError) else {}),
                 "market": market, "source_symbol": SYMBOLS[market][1], "fetch_seconds": seconds}) from None

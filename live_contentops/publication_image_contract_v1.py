@@ -25,6 +25,11 @@ QUOTE_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-research")
 MAX_DIFFERENCE_PCT = {"XAUUSD": .15, "US500": .15, "EURUSD": .15,
                       "USDJPY": .15, "USOIL": .40, "BTCUSD": .40, "USTEC": .15}
 CASH_INDEX_MARKETS = frozenset({"US500", "USTEC"})
+# Yahoo Finance's official cash-index closing settlement prints (^GSPC / ^NDX) regularly post
+# between 16:00 and 17:20 ET (up to ~76 min past the 16:00 ET regular-session close). Allow up
+# to 90 min ONLY for closed-market PUBLIC_ON_DEMAND_QUOTE INDEX checks (still requiring
+# observed <= known <= capture, never loosening open-market or 24h CFD/futures broker quotes).
+CASH_INDEX_CLOSE_SETTLE_SECONDS = 5400
 # Ops Product, 11 Nov 2026: a missing quote is not a mismatch. Main saves a quote only during its own runs, so on the
 # first live run (16:24Z) every chart was refused and five posts went out as text. A chart with no quote to compare
 # is still the right market's chart: it goes out marked NOT_COMPARED. Only a measured difference refuses an image.
@@ -154,6 +159,15 @@ def saved_main_quote(market, captured_at, *, root=None):
     return min(candidates, key=lambda item: item[0])[1]
 
 
+def max_negative_skew(market, *, closed, quote=None):
+    """Allow same-day closing settlement prints only for closed cash-index public quotes."""
+    if (closed and market in CASH_INDEX_MARKETS and isinstance(quote, dict)
+            and quote.get("source_kind") == "PUBLIC_ON_DEMAND_QUOTE"
+            and quote.get("instrument_type") == "INDEX"):
+        return CASH_INDEX_CLOSE_SETTLE_SECONDS
+    return 2
+
+
 def compare_scale(market, snapshot, quote):
     from .tradingview_snapshot_v1 import SYMBOLS
     if market not in SYMBOLS or snapshot.get("tv_symbol") != SYMBOLS[market]:
@@ -171,8 +185,13 @@ def compare_scale(market, snapshot, quote):
         price = chart_last_price(snapshot.get("page_title"))
         comparison_at, closed = comparison_clock(market, snapshot["captured_at_utc"])
     own = number(quote.get("price"))
-    skew = (comparison_at - utc(quote["quoted_at_utc"])).total_seconds()
-    if not -2 <= skew <= QUOTE_SKEW_SECONDS or utc(quote["known_at_utc"]) > utc(snapshot["captured_at_utc"]):
+    quoted_at = utc(quote["quoted_at_utc"])
+    captured_at = utc(snapshot["captured_at_utc"])
+    skew = (comparison_at - quoted_at).total_seconds()
+    neg_skew = max_negative_skew(market, closed=closed, quote=quote)
+    if (not -neg_skew <= skew <= QUOTE_SKEW_SECONDS
+            or utc(quote["known_at_utc"]) > captured_at
+            or (neg_skew > 2 and quoted_at > captured_at)):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_STALE", clock_skew_seconds=skew)
     if not quote.get("source_path") or not quote.get("source_sha256"):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED")
