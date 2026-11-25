@@ -881,18 +881,18 @@ def _run_shadowed_installer_apply(
     existing_json = json.dumps(existing_map)
     ps_script = f"""
 $ErrorActionPreference = 'Stop'
-$script:existingMap = ConvertFrom-Json -InputObject @'
+$global:cc711ExistingMap = ConvertFrom-Json -InputObject @'
 {existing_json}
 '@
-$script:registered = @()
+$global:cc711Registered = @()
 
 function Get-ScheduledTask {{
     param([string]$TaskName, [string]$ErrorAction)
-    $prop = $script:existingMap.PSObject.Properties[$TaskName]
+    $prop = $global:cc711ExistingMap.PSObject.Properties[$TaskName]
     if ($null -eq $prop) {{
         throw "No MSFT_ScheduledTask objects found with property 'TaskName' equal to '$TaskName'."
     }}
-    if ($prop.Value -eq 'PROBE_ERROR') {{
+    if ($prop.Value -is [string] -and $prop.Value -eq 'PROBE_ERROR') {{
         throw 'Simulated CIM/WMI transport error'
     }}
     return [pscustomobject]@{{
@@ -903,7 +903,7 @@ function Get-ScheduledTask {{
 
 function Register-ScheduledTask {{
     param([string]$TaskName, [string]$Xml, [switch]$Force)
-    $script:registered += [pscustomobject]@{{
+    $global:cc711Registered += [pscustomobject]@{{
         task_name = $TaskName
         xml = $Xml
         force = [bool]$Force
@@ -913,7 +913,7 @@ function Register-ScheduledTask {{
 $installerOut = & '{str(INSTALLER_PS1)}' -Apply {extra_args} | Out-String
 [pscustomobject]@{{
     report = ($installerOut | ConvertFrom-Json)
-    registered = $script:registered
+    registered = $global:cc711Registered
 }} | ConvertTo-Json -Depth 8
 """
     completed = subprocess.run(
