@@ -216,7 +216,7 @@ def record_line(status):
             text += f"; trend rule: {baseline} right"
         return text + "."
     scores = {s.get("public_call_id") or s.get("plan_id"): s for s in status.get("scored_calls", [])
-              if s.get("result") in {"HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED"}}
+              if s.get("result") in {"HIT", "STOPPED", "EXPIRED", "MANAGED_EXIT", "NOT_TRIGGERED"}}
     if not scores:
         return ""
     clocks = [s.get("frozen_at_utc") for s in scores.values() if s.get("frozen_at_utc")]
@@ -226,8 +226,8 @@ def record_line(status):
         since = f"Since {at.day} {at:%b}: "
     plans = {plan["plan_id"]: plan for plan in status.get("plans", []) if plan.get("plan_id")}
     counts = {result: sum(s["result"] == result for s in scores.values())
-              for result in ("HIT", "STOPPED", "EXPIRED")}
-    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits"}
+              for result in ("HIT", "STOPPED", "EXPIRED", "MANAGED_EXIT")}
+    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits", "MANAGED_EXIT": "closed by its plan rule"}
     parts = [f"{counts[result]} {label}" for result, label in labels.items() if counts[result]]
     no_entries = {}
     for score in scores.values():
@@ -504,6 +504,8 @@ def ending_words(row, *, include_levels=False):
         side = row.get("direction_correct")
         return "closed at its time exit" + (", on our side of the entry" if side is True else
                                              ", against our entry" if side is False else "")
+    if row.get("result") == "MANAGED_EXIT":
+        return "closed by its plan rule"
     return "ended"
 
 

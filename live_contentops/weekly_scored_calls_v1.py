@@ -21,6 +21,7 @@ from live_contentops.scenario_voice_v1 import GUIDANCE as SCENARIO_VOICE_GUIDANC
 SCHEMA = "contentops.weekly_scored_calls.v1"
 ET = ZoneInfo("America/New_York")
 RESULTS = {"HIT": "hit", "STOPPED": "stopped", "EXPIRED": "closed at the end of its window",
+           "MANAGED_EXIT": "closed by its plan rule",
            "NOT_TRIGGERED": "the entry window ended with no entry"}
 WRITER_GUIDANCE = (
     "\nCC379_WHOLE_WEEK_RECORD: The SOURCE_PACK includes Main's complete weekly scored-call record. "
@@ -135,6 +136,9 @@ def project(export, *, cutoff_utc):
     rows.sort(key=lambda r: (_utc(r["resolved_at_utc"]), r["plan_id"]))
     counts = {"scored_calls": sum(r["scored"] for r in rows), "hits": sum(r["result"] == "HIT" for r in rows),
               "stops": sum(r["result"] == "STOPPED" for r in rows)}
+    managed = sum(r["result"] == "MANAGED_EXIT" for r in rows)
+    if managed:
+        counts["managed_exits"] = managed
     unscored = sum(not r["scored"] for r in rows)
     if unscored:
         counts["unscored_expiries"] = unscored
@@ -142,6 +146,7 @@ def project(export, *, cutoff_utc):
     period = f"{start.day} {start:%b}–{friday.day} {friday:%b %Y} ET"
     text = (f"## The week's call results ({period})\n\n"
             f"Scored calls: {counts['scored_calls']}. Hits: {counts['hits']}. Stops: {counts['stops']}."
+            + (f" Closed by plan rule: {managed}." if managed else "")
             + (f" Unscored expiries: {unscored}." if unscored else "") + "\n\n"
             + ("\n".join(r["line"] for r in rows) if rows else "No conditional calls were scored for this week.")
             + f"\n\nResults refer to resolved conditional calls.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")

@@ -297,7 +297,7 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         r"(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{1,2} [A-Z][a-z]{2} ET: [^;\n]{1,80}; "
         r"original direction was (?:bullish|bearish); (?:entry zone "
         r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; )?"
-        r"(?:hit|stopped|closed at the end of its window|not triggered|expired without entry; not scored|"
+        r"(?:hit|stopped|closed at the end of its window|closed by its plan rule|not triggered|expired without entry; not scored|"
         r"(?:the entry window ended with no entry|price did not reach the entry zone|"
         r"price reached the entry zone, but no position was opened(?: because of a fault on our side)?)"
         r"(?:; the market path (?:hit the target|reached the invalidation level|ended at the time exit))?"
@@ -311,7 +311,7 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         r"(?m)^\d{4}-\d{2}-\d{2} ET \| [^|\n]{1,140} \| "
         r"original direction was (?:bullish|bearish) \| (?:entry zone "
         r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))? \| )?"
-        r"(?:HIT|STOPPED|EXPIRED|NOT TRIGGERED)(?: \(untriggered; not scored\))?"
+        r"(?:HIT|STOPPED|EXPIRED|NOT TRIGGERED|closed by its plan rule)(?: \(untriggered; not scored\))?"
         r"(?: \(correction\))?(?: \| end direction: (?:bullish|bearish|flat))?$",
         "", remainder)
     # CC-432: a canonical link's path is an identifier, not a fresh call.

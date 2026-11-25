@@ -78,7 +78,8 @@ def from_result(row):
     if not no_entry and r_value is None:
         raise ValueError("IMAGE_R_RESULT_NOT_EXPORTED")
     label="Expired, no entry" if no_entry else {"STOPPED":"Stopped at invalidation","TIME_EXIT":"Time exit",
-        "HIT":"Target reached","TARGET":"Target reached","CLOSED_EARLY":"Closed early"}.get(result)
+        "HIT":"Target reached","TARGET":"Target reached","CLOSED_EARLY":"Closed early",
+        "MANAGED_EXIT":"Closed by its plan rule"}.get(result)
     if not no_entry and result=="EXPIRED" and score.get("triggered_at_utc"):
         label="Time exit"
     if not label:raise ValueError("IMAGE_RESULT_OUTCOME_NOT_MAPPED")
@@ -175,7 +176,8 @@ def weekly_result_fields(plan):
 
     result = result_r(plan)
     outcome = plan["outcome"]
-    label = {"HIT": "Target reached", "STOPPED": "Stopped at invalidation", "EXPIRED": "Time exit"}.get(outcome["result"])
+    label = {"HIT": "Target reached", "STOPPED": "Stopped at invalidation", "EXPIRED": "Time exit",
+             "MANAGED_EXIT": "Closed by its plan rule"}.get(outcome["result"])
     if result is None or not label:
         return None
     scenario = plan.get("scenario_analysis") or {}
