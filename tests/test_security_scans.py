@@ -46,6 +46,9 @@ def test_no_forbidden_imports_or_env_vars():
         "neo_endpoint_executor_v1.py",
         # cc585388 (CC-681, 22 Nov): posted chart readback reads the public Telegram feed and images.
         "posted_chart_readback_v1.py",
+        # CC-711 (25 Nov 2026): loopback-only X-list CDP (127.0.0.1:9222, urllib ProxyHandler({}))
+        # and BrowserOS Neo MCP (127.0.0.1:9128/mcp, requests Session trust_env=False) keepalive probes.
+        "cc711_xfeed_neo_keepalive_v1.py",
     }
     urllib_network_allowlist = live_gate_allowlist | {
             "current_oil_release_source_v1.py",
@@ -131,6 +134,8 @@ def test_no_forbidden_imports_or_env_vars():
         "video_tts_worker_v1.py",
         # CC-297 (5 Nov 2026): the one secret reader; key reads elsewhere go through it.
         "secret_store_v1.py",
+        # CC-711 (25 Nov 2026): LOCALAPPDATA lookup for BrowserClaw executable/profile path discovery.
+        "cc711_xfeed_neo_keepalive_v1.py",
     }
 
     for p in root.rglob("*.py"):
