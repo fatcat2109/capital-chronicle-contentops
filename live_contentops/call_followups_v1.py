@@ -809,7 +809,30 @@ def overlay_levels(row):
     return source_binding({**row, "kind": "call_followup", "cc603_contract": CONTRACT})["levels"]
 
 
-def move_chart_request(row):
+def cash_session_open_for_bar(symbol, bar_open_utc, bar_end_utc, *, calendar_path=None, calendar=None):
+    """Return True iff the ET cash session (honoring US holidays/early closes) covers [bar_open_utc, bar_end_utc]."""
+    session = CASH_SESSIONS.get(symbol)
+    if not session:
+        return True
+    from datetime import time as dt_time
+    from .publication_image_contract_v1 import us_cash_session_bounds
+    open_utc = posts._utc(bar_open_utc)
+    end_utc = posts._utc(bar_end_utc)
+    local_open = open_utc.astimezone(scorecard.ET)
+    bounds = us_cash_session_bounds(local_open.date(), calendar_path=calendar_path, calendar=calendar)
+    if bounds is None:
+        return False
+    (open_h, open_m), (close_h, close_m) = session
+    session_open = max(dt_time(open_h, open_m), bounds[0])
+    session_close = min(dt_time(close_h, close_m), bounds[1])
+    if session_open >= session_close:
+        return False
+    opens_utc = datetime.combine(local_open.date(), session_open, scorecard.ET).astimezone(timezone.utc)
+    closes_utc = datetime.combine(local_open.date(), session_close, scorecard.ET).astimezone(timezone.utc)
+    return opens_utc <= open_utc and end_utc <= closes_utc
+
+
+def move_chart_request(row, *, calendar_path=None, calendar=None):
     """The chart a follow-up needs: its market, interval, dated window and the plan levels to draw."""
     from . import tradingview_snapshot_v1 as tv
     candidate, check, symbol = row["candidate"], row["price_check"], row["symbol"]
@@ -830,12 +853,9 @@ def move_chart_request(row):
         "visible_to_utc": visible_to.isoformat(),
         "levels": overlay_levels(row),
         "ratios": ["16:9", *(["4:5"] if "instagram_business" in row["cc603_destinations"] else [])]}
-    session = CASH_SESSIONS.get(symbol)
-    if session:
-        local = last_open.astimezone(scorecard.ET)
-        opens, closes = (local.replace(hour=h, minute=m, second=0, microsecond=0) for h, m in session)
-        if local.weekday() >= 5 or not (opens <= local and local + timedelta(seconds=step) <= closes):
-            request["refusal"] = "CC778_CHART_MARKET_CLOSED_AT_RESOLUTION:" + request["tv_symbol"]
+    if symbol in CASH_SESSIONS and not cash_session_open_for_bar(
+            symbol, last_open, visible_to, calendar_path=calendar_path, calendar=calendar):
+        request["refusal"] = "CC778_CHART_MARKET_CLOSED_AT_RESOLUTION:" + request["tv_symbol"]
     return request
 
 
