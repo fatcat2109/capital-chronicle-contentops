@@ -231,7 +231,7 @@ def result_rows_from_export(export: Mapping[str, Any], *, include_not_triggered:
             result = outcome.get("result")
             if result == "NOT_TRIGGERED" and not include_not_triggered:
                 continue  # CC-394's complete record does not add an unfilled feed post.
-            if (result not in {"HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED"} or score.get("result") != result
+            if (result not in {"HIT", "STOPPED", "EXPIRED", "MANAGED_EXIT", "NOT_TRIGGERED"} or score.get("result") != result
                     or score.get("plan_id") != plan["plan_id"]
                     or score.get("asset_id") != plan["asset_id"]
                     or not outcome.get("outcome_id") or outcome["outcome_id"] != score.get("outcome_id")):
@@ -262,11 +262,13 @@ def result_rows_from_export(export: Mapping[str, Any], *, include_not_triggered:
 
 def compose_result(row: Mapping[str, Any]) -> dict:
     """Closed vocabulary: no source free text, execution fields or performance claims."""
+    labels = {"hit": "hit", "stopped": "stopped", "expired": "expired",
+              "managed_exit": "closed by its plan rule"}
     result = row["result"].lower()
-    if result not in {"hit", "stopped", "expired"}:
+    if result not in labels:
         raise PlanPostError("PLAN_RESULT_INVALID")
     prefix = "Correction — " if row.get("corrects_outcome_id") else ""
-    text = f"{prefix}{TITLES[row['symbol']]}: plan result — {result} at {_when(row['at_utc'])}."
+    text = f"{prefix}{TITLES[row['symbol']]}: plan result — {labels[result]} at {_when(row['at_utc'])}."
     plan = row["plan"]
     if plan.get("zone_low") is not None and plan.get("zone_high") is not None:
         text += f" Entry zone: {_level(plan['zone_low'])}–{_level(plan['zone_high'])}."

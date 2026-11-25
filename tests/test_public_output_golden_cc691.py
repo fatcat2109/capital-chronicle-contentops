@@ -307,3 +307,51 @@ def test_coverage_every_named_plan_alert_destination_gets_its_copy(saved_posts):
     unknown = {**evidence, "substack_notes": {**evidence["substack_notes"], "status": "UNKNOWN_WRITE"}}
     with pytest.raises(AssertionError, match="Named destinations lack confirmed copies: .*substack_notes"):
         _assert_coverage(planned, unknown)
+
+
+def test_cc822_managed_exit_renders_closed_by_plan_rule_with_no_target():
+    """CC-822: MANAGED_EXIT outcomes bind cleanly and carry the public label 'closed by its plan rule'."""
+    from live_contentops import plan_state_alerts_v1 as alerts
+
+    resolved_at = "2026-11-23T16:35:41.547000Z"
+    plan_id = "plan_add6d62299828744939aafc1"
+    outcome_id = "outcome_673db05e49ce248f9c0ff67cb932fbb0"
+    score = {
+        "asset_id": "BTCUSD", "plan_id": plan_id, "outcome_id": outcome_id, "direction": "BEARISH",
+        "result": "MANAGED_EXIT", "score_basis": "DETERMINISTIC_THESIS_INVALIDATION",
+        "exit_slices": [{"score_basis": "DETERMINISTIC_THESIS_INVALIDATION",
+                         "resolved_at_utc": resolved_at, "gross_r_contribution": 0.5}],
+        "frozen_at_utc": "2026-11-22T19:19:27Z", "triggered_at_utc": "2026-11-22T19:27:00Z",
+        "horizon_end_utc": "2026-12-09T18:00:00Z", "resolved_at_utc": resolved_at,
+        "scored_at_utc": "2026-11-23T16:35:43Z", "content_hash": "a" * 64,
+    }
+    plan = {
+        "plan_id": plan_id, "asset_id": "BTCUSD", "direction": "BEARISH", "status": "CLOSED",
+        "zone": {"minimum": 60500.0, "maximum": 61500.0}, "expires_at_utc": "2026-12-09T18:00:00Z",
+        "registered_at_utc": "2026-11-22T19:19:27Z",
+        "invalidation_conditions": [{"field": "high", "operator": "GTE", "threshold": 66800.0}],
+        "outcome": {"state": "SCORED", "result": "MANAGED_EXIT", "outcome_id": outcome_id,
+                    "result_r": 0.12, "score": score},
+    }
+    export = {
+        "status": {"schema": "CapitalChroniclePlanStatusV1", "schema_version": "1.0.0",
+                   "contract_version": "2.0.0", "generated_at_utc": "2026-11-23T16:36:00Z",
+                   "content_hash": "b" * 64, "scored_call_count": 1, "plans": [plan], "scored_calls": [score]},
+        "transitions": {"schema": "CapitalChroniclePlanTransitionsV1", "schema_version": "1.0.0",
+                        "generated_at_utc": "2026-11-23T16:36:00Z", "status_content_hash": "b" * 64,
+                        "transitions": [{"plan_id": plan_id, "status": "CLOSED",
+                                         "at_utc": resolved_at, "reason_code": "DETERMINISTIC_THESIS_INVALIDATION"}]},
+    }
+    row, = plan_posts.result_rows_from_export(export)
+    assert row["result"] == "MANAGED_EXIT"
+    composed = plan_posts.compose_result(row)
+    assert "closed by its plan rule" in composed["text"]
+    assert "MANAGED_EXIT" not in composed["text"] and not plan_target_present(composed["text"])
+    assert plan_cards.ending_words({"result": "MANAGED_EXIT", "score_basis": "REDUCE_HALF"}) == "closed by its plan rule"
+    headline = alerts.result_headline({
+        "instrument_title": "Bitcoin", "result": "MANAGED_EXIT", "scored": True,
+        "result_frame": {"policy": "RESULT_FRAME_V1", "plan_dates": "22–23 Nov", "correction": False},
+        "outcome_source_plan": plan,
+    })
+    assert headline == "Bitcoin, plan of 22–23 Nov: closed by its plan rule. Result: +0.1R."
+    assert not plan_target_present(headline)

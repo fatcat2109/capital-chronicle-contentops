@@ -152,8 +152,10 @@ def observed_record(store, *, api=None, now=None):
             or pinned.get("text") != held["text"]):
         raise ValueError("CC603_PINNED_RECORD_READBACK_MISMATCH")
     counts = held["counts"]
+    managed = counts.get("MANAGED_EXIT", 0)
+    extra = f", {managed} closed by plan rule" if managed else ""
     line = (f"Pinned call record: {counts['HIT']} hits, {counts['STOPPED']} stopped, "
-            f"{counts['EXPIRED']} expiries; {counts['total']} results, {counts['scored']} scored.")
+            f"{counts['EXPIRED']} expiries{extra}; {counts['total']} results, {counts['scored']} scored.")
     return {"line": line, "counts": counts, "url": identity["public_url"],
             "text_sha256": sha256(held["text"].encode()).hexdigest(),
             "observed_at_utc": now.isoformat()}

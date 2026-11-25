@@ -99,9 +99,10 @@ def plan_zone(symbol, plan, source):
 
 
 def _line(row, *, title, direction, levels, end_direction):
+    label = "closed by its plan rule" if row["result"] == "MANAGED_EXIT" else row["result"].replace("_", " ")
     return (f"{_utc(row['at_utc']).astimezone(ET):%Y-%m-%d} ET | {title} | original direction was {direction}"
             + (f" | {levels}" if levels else "")
-            + f" | {row['result'].replace('_', ' ')}"
+            + f" | {label}"
             + (" (untriggered; not scored)" if not row["scored"] else "")
             + (" (correction)" if row.get("corrects_outcome_id") else "")
             + (" | end direction: " + end_direction.lower() if end_direction else ""))
@@ -166,7 +167,10 @@ def project(export, *, now=None, retained_rows=()):
         else:
             held.update(line=_OLD_PRICE.sub("", held["line"]), levels=None)
     ordered = sorted(rows.values(), key=lambda r: (_utc(r["at_utc"]), r["plan_id"]), reverse=True)
-    counts = {key: Counter(r["result"] for r in ordered)[key] for key in RESULTS}
+    tallies = Counter(r["result"] for r in ordered)
+    counts = {key: tallies[key] for key in RESULTS}
+    if tallies["MANAGED_EXIT"]:
+        counts["MANAGED_EXIT"] = tallies["MANAGED_EXIT"]
     counts.update(total=len(ordered), scored=sum(r["scored"] for r in ordered))
     text, shown = render(ordered, counts)
     return {"schema_version": "contentops.pinned_result_scorecard.v1", "rows": ordered,
@@ -175,8 +179,9 @@ def project(export, *, now=None, retained_rows=()):
 
 
 def render(rows, counts):
+    managed = f" | CLOSED BY PLAN RULE: {counts['MANAGED_EXIT']}" if counts.get("MANAGED_EXIT") else ""
     header = (f"{TITLE}\nResults: {counts['total']} | HIT: {counts['HIT']} | STOPPED: {counts['STOPPED']} | "
-              f"EXPIRED: {counts['EXPIRED']} | NOT TRIGGERED: {counts['NOT_TRIGGERED']}\n"
+              f"EXPIRED: {counts['EXPIRED']}{managed} | NOT TRIGGERED: {counts['NOT_TRIGGERED']}\n"
               f"Scored: {counts['scored']}; unscored expiries: {counts['total'] - counts['scored']}.\n\n")
     footer = ("\n\nNewest results first; the weekly wrap keeps the complete record. "
               "Results describe resolved conditional calls.\n\n"
