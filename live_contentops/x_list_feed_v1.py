@@ -387,6 +387,7 @@ class MinuteCapture:
         self.http_open = http_open
         self.mono_fn = mono_fn
         self.preferred_target_id: str | None = None
+        self.last_list_target_id: str | None = None
         self.keys: set[str] = set()
         # CC-785: one session on the list tab, kept between ticks.
         self.session: Any = None
@@ -561,6 +562,9 @@ class MinuteCapture:
                                 or capture_v1._visible_url_is_login_redirect(str(row.get("url") or "")))), None)
             target = target or capture_v1.select_reusable_x_target(targets)
         except Exception as exc:  # noqa: BLE001 - the feed records the cause and keeps running
+            known_target_id = str(self.last_list_target_id or self.preferred_target_id or "")
+            if known_target_id:
+                result["target_id"] = known_target_id
             result.update(state="CDP_UNAVAILABLE",
                           detail=capture_v1.classify_capture_exception(exc, phase="CDP_TARGET_DISCOVERY")[1])
             return None
@@ -593,6 +597,7 @@ class MinuteCapture:
         self.session, self.session_target_id, self.session_url, self.pending = client, target_id, url, {}
         result["attached"] = True
         if _is_list_url(url):
+            self.last_list_target_id = target_id
             # Exactly one list tab: close list tabs an earlier replacement left behind.
             orphans = [str(row.get("id") or "") for row in targets
                        if _is_list_url(row.get("url")) and str(row.get("id") or "") != target_id]
@@ -797,7 +802,13 @@ class MinuteCapture:
                                   "attempted_utc": _iso(self.now_fn())}
         self.close_session()
         try:
-            before = self._list_targets()
+            before: list[dict[str, Any]] = []
+            before_list_ok = True
+            try:
+                before = self._list_targets()
+            except Exception as exc:  # noqa: BLE001 - /json/list may be starved while /json/new or browser WS can heal
+                before_list_ok = False
+                result["before_list_detail"] = capture_v1.classify_capture_exception(exc, phase="CDP_TARGET_DISCOVERY")[1]
             target = next((row for row in before if str(row.get("id") or "") == target_id), None)
             url = str((target or {}).get("url") or "")
             if capture_v1._visible_url_is_login_redirect(url):
@@ -830,10 +841,15 @@ class MinuteCapture:
             result["new_target_id"] = new_id
             # If closing the old tab fails, the next capture still uses the new one.
             self.preferred_target_id = new_id
+            if not login:
+                self.last_list_target_id = new_id
             if login:
                 return {**result, "state": "REAUTH_REQUIRED", "detail": "LOGIN_REDIRECT_OBSERVED"}
-            stale = [str(row.get("id") or "") for row in before
-                     if _is_list_url(row.get("url")) and str(row.get("id") or "") != new_id]
+            if before_list_ok:
+                stale = [str(row.get("id") or "") for row in before
+                         if _is_list_url(row.get("url")) and str(row.get("id") or "") != new_id]
+            else:
+                stale = [target_id] if target_id and target_id != new_id else []
             closed, failed = self._close_targets(stale, method=method)
             if closed:
                 result["closed_target_ids"] = closed
@@ -841,6 +857,7 @@ class MinuteCapture:
                 result["close_failed_target_ids"] = failed
                 if target_id in failed:
                     return {**result, "detail": "CDP_TARGET_CLOSE_NOT_ACKNOWLEDGED"}
+            self.last_reload_mono = None
             return {**result, "state": "TAB_REPLACED", "replaced_utc": _iso(self.now_fn())}
         except Exception as exc:  # noqa: BLE001
             return {**result, "detail": capture_v1.classify_capture_exception(exc, phase="TAB_REPLACEMENT")[1]}
@@ -938,7 +955,13 @@ class FeedRunner:
             self.first_failure_utc = self.first_failure_utc or str(captured.get("attempted_utc") or _iso(moment))
             self.failure_cause = f"{state}:{captured.get('detail') or captured.get('browser') or ''}".rstrip(":")
         captured["failure_streak"] = self.failure_streak
-        target_id = str(captured.get("target_id") or "")
+        target_id = str(
+            captured.get("target_id")
+            or getattr(self.capture, "last_list_target_id", None)
+            or getattr(self.capture, "preferred_target_id", None)
+            or self.last_tab_replacement.get("new_target_id")
+            or ""
+        )
         if state in TAB_FAILURE_STATES and target_id and self.failure_streak >= HEAL_AFTER_FAILURES:
             method = "http" if self.failure_streak == HEAL_AFTER_FAILURES else "browser"
             last_attempt = _parse_utc(self.last_tab_replacement.get("attempted_utc"))

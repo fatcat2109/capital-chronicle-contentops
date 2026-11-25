@@ -31,6 +31,7 @@ from live_contentops.ingestion_bootstrap_v1 import (
     PUBLISHING_CDP_PORT,
     STATE_ALREADY_READY,
     STATE_AUTH_UNVERIFIED,
+    STATE_CDP_PROBE_STARVED,
     STATE_LAUNCHED,
     STATE_PORT_OWNER_UNPROVEN,
     STATE_PROFILE_BINDING_MISSING,
@@ -725,6 +726,8 @@ def summarize_browser_state(
         chrome_state = "BLOCKED_PORT_OWNER_UNPROVEN"
     elif ingestion_state == STATE_RUNNING_WITHOUT_CDP:
         chrome_state = "RUNNING_WITHOUT_CDP"
+    elif ingestion_state == STATE_CDP_PROBE_STARVED:
+        chrome_state = "CDP_PROBE_STARVED"
     elif ingestion_state == STATE_PROFILE_BINDING_MISSING:
         chrome_state = "PROFILE_BINDING_MISSING"
     else:
