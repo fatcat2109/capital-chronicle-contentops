@@ -308,7 +308,9 @@ def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, ti
         with tempfile.TemporaryDirectory(prefix="cc464-text-") as cwd:
             if writer:
                 # Resolve the installed executable; do not assume an interactive shell or a versioned path.
-                from .light_model_caller_v1 import codex_executable, _run_codex, _codex_observations
+                from .light_model_caller_v1 import (
+                    codex_executable, _run_codex, _codex_observations, codex_failure_cause,
+                )
                 codex = codex_executable()
                 result_path = Path(cwd) / "reply.json"
                 args = [codex, "exec", "--model", model, "-c", 'model_reasoning_effort="' + effort + '"',
@@ -320,7 +322,8 @@ def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, ti
                 result = (runner or _run_codex)(args, cwd=cwd, timeout=call_timeout, input=prompt.encode("utf-8"))
                 raw, err = result.stdout, result.stderr
                 if result.returncode:
-                    raise ValueError("CODEX_EXIT_" + str(result.returncode))
+                    record_["returncode"] = result.returncode
+                    raise ValueError(codex_failure_cause(raw, result.returncode, record_, stderr=err))
                 final_message = _codex_observations(raw, record_)
                 answer = result_path.read_bytes() if result_path.is_file() else final_message or raw
                 if getattr(result, "turn_completed", False):
