@@ -203,9 +203,25 @@ def validate_note(output, context):
         raise ValueError("GOLD_NOTE_150_WORD_LIMIT_OR_TEXT_INVALID")
     if not text.rstrip().endswith(NOTICE) or text.count(NOTICE) != 1:
         raise ValueError("GOLD_NOTE_EXACT_FINAL_NOTICE_REQUIRED")
-    if re.search(r"capital\s*chronicle|\[\[SOURCE:|https?://|GMT|UTC|Bangkok|DEMO|MT5", text, re.I):
+    from live_contentops.event_article_guard_v1 import NAMED_NUMBER, ODDS_SOURCE
+    from live_contentops.preview_link_guard_v1 import find_forbidden_link
+    if find_forbidden_link(text):
+        raise ValueError("PREVIEW_HOST_LINK_FORBIDDEN")
+    if re.search(
+        r"capital\s*chronicle|\[\[SOURCE:|https?://|GMT|UTC|Bangkok|DEMO|MT5|"
+        r"\b(?:GPT(?:[- .]?\d[\w.-]*)?|ChatGPT|Claude|Fable|Opus|Sonnet|Haiku|Gemini|Codex|Antigravity|Anthropic|OpenAI|"
+        r"AI[- ](?:run|native|powered|driven)|JIM_X_LIST|PRIVATE_X_LIST|X[-_ ]list)\b|"
+        r"(?:x|twitter)\.com",
+        text,
+        re.I,
+    ):
         raise ValueError("GOLD_NOTE_BRAND_INTERNAL_LABEL_OR_PUBLIC_TIME_INVALID")
-    if public_text_problems(text) or re.search(r"(?:hãy|nên)\s+(?:mua|bán)|vào lệnh|chốt lời|dừng lỗ", text, re.I):
+    for sentence in re.split(r"[\n.!?](?!\d)", text):
+        if ODDS_SOURCE.search(sentence) and numbers(NAMED_NUMBER.sub(" ", sentence)):
+            raise ValueError("GOLD_NOTE_PREDICTION_MARKET_NUMBER_FORBIDDEN")
+    if (public_text_problems(text)
+            or re.search(r"(?:hãy|nên)\s+(?:mua|bán)|vào lệnh|chốt lời|dừng lỗ|mục tiêu giá|"
+                         r"\b(?:profit[- ]?target|take[- ]?profit|price\s+target)\b", text, re.I)):
         raise ValueError("GOLD_NOTE_PRIVATE_DETAIL_OR_PERSONAL_ADVICE")
     facts = {row["fact_id"]: row for row in context["official_facts"]}
     ids = output.get("fact_ids")

@@ -148,9 +148,11 @@ def compose(packet, stage, *, now=None):
                     continue
                 result = scored.get(call["public_call_id"])
                 ending = endings.get(call["public_call_id"], {})
-                review_rows.append({"call": call, "score": result,
-                    "result_text": result["result"] if result else "Not triggered; not scored"
-                        if ending.get("state") == "NOT_SCORED_UNTRIGGERED" else "Unresolved"})
+                score_label = ("Closed by its plan rule" if result and result["result"] == "MANAGED_EXIT"
+                               else result["result"] if result
+                               else "Not triggered; not scored"
+                               if ending.get("state") == "NOT_SCORED_UNTRIGGERED" else "Unresolved")
+                review_rows.append({"call": call, "score": result, "result_text": score_label})
             lines += ["", "Our complete event call record", "| Public call | Market | Main's result |", "| --- | --- | --- |"]
             lines += [f"| {r['call']['public_call_id']} | {r['call']['market']} | {r['result_text']} |" for r in review_rows]
             lines.append(f"Total event calls: {len(review_rows)}. Scored by Main: {sum(r['score'] is not None for r in review_rows)}.")
@@ -183,8 +185,11 @@ def compose(packet, stage, *, now=None):
     lines += ["", PUBLIC_NOTICE, CONFLICTS_NOTICE]
     body = "\n\n".join(lines)
     check_publication_copy({"body": body}, conditional_calls=calls, require_call_text=False)
-    from .plan_analysis_pages_v1 import public_filter
+    from .plan_analysis_pages_v1 import TARGETS_OFF_FROM, public_filter
     public_filter(body)
+    if now >= TARGETS_OFF_FROM:
+        from . import scenario_voice_v1 as voice
+        voice.validate_copy(body)
     title = {"preview": "Our reaction map", "arrival": "The release against our map", "review": "Our event call record"}[stage] + ": " + name
     return {"event_id": record["event_id"], "stage": stage, "title": title, "subtitle": lines[0],
         "body_markdown": body, "conditional_calls": calls, "record": record,
@@ -358,6 +363,9 @@ def stage_status(store, value):
 
 def derivative_payloads(parent, canonical_url, image_url):
     from .plan_status_posts_v1 import _text_parts, _x_pack
+    from .preview_link_guard_v1 import find_forbidden_link
+    if find_forbidden_link(canonical_url):
+        raise ValueError("PREVIEW_HOST_LINK_FORBIDDEN")
     body = parent["native_payload"]["body_markdown"]
     notices = PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
     body = body.replace("\n\n"+PUBLIC_NOTICE+"\n\n"+CONFLICTS_NOTICE, "").strip()
