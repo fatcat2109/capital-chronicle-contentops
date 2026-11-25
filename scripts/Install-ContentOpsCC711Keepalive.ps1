@@ -67,6 +67,15 @@ foreach ($spec in $specs) {
     if ($multi -ne 'IgnoreNew') { throw "CC711_XML_MULTIPLE_INSTANCES_MISMATCH: $multi" }
     if ($interval -ne 'PT15M') { throw "CC711_XML_INTERVAL_MISMATCH: $interval" }
 
+    # Read-only in-memory Task Scheduler COM XML parser check (zero live Task Scheduler mutations).
+    $comSvc = New-Object -ComObject 'Schedule.Service'
+    $comDef = $comSvc.NewTask(0)
+    $comDef.XmlText = $rawXml
+    if ($comDef.Settings.Enabled) { throw "CC711_COM_XML_ENABLED_MUST_BE_FALSE" }
+    if ($comDef.Principal.UserId -ne 'JP') { throw "CC711_COM_XML_USERID_MISMATCH: $($comDef.Principal.UserId)" }
+    if ($comDef.Principal.LogonType -ne 3) { throw "CC711_COM_XML_LOGONTYPE_MISMATCH: $($comDef.Principal.LogonType)" }
+    if ($comDef.Triggers.Count -lt 2) { throw "CC711_COM_XML_TRIGGERS_MISSING: $($comDef.Triggers.Count)" }
+
     if ($isDryRun) {
         $actionState = 'DRY_RUN_VALIDATED_NO_MUTATION'
     } else {
@@ -83,6 +92,7 @@ foreach ($spec in $specs) {
         enabled = ($enabled -eq 'true')
         repeat_interval = $interval
         multiple_instances_policy = $multi
+        com_xml_validated = $true
         action = $actionState
     }
 }

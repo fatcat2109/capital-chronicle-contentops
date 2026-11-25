@@ -334,9 +334,17 @@ def test_neo_mcp_sse_tolerates_v0088_blank_priming_frames_comments_and_notificat
         headers={"Content-Type": "text/event-stream; charset=utf-8", "Mcp-Session-Id": "secret-session-id"},
         lines=sse_lines,
     )
+    delete_calls: list[tuple[str, dict]] = []
+    del_resp = _FakeHttpResponse(status_code=204)
+
+    def fake_delete(url: str, *, headers: dict, timeout: object):
+        delete_calls.append((url, dict(headers)))
+        return del_resp
+
     res = keepalive.probe_neo_mcp_sse(
         "http://127.0.0.1:9010/mcp",
         http_post=lambda *_a, **_kw: fake_resp,
+        http_delete=fake_delete,
     )
     assert res["mcp_alive"] is True
     assert res["protocol_version"] == "2025-03-26"
@@ -344,8 +352,25 @@ def test_neo_mcp_sse_tolerates_v0088_blank_priming_frames_comments_and_notificat
     assert res["server_version"] == "0.0.88"
     assert res["priming_frames_ignored"] == 3
     assert res["session_header_present"] is True
+    assert res["session_cleanup_attempted"] is True
     assert "secret-session-id" not in json.dumps(res)
     assert fake_resp.closed is True
+    assert delete_calls == [("http://127.0.0.1:9010/mcp", {"Mcp-Session-Id": "secret-session-id"})]
+    assert del_resp.closed is True
+
+    # Best-effort DELETE failure (e.g. HTTP 405 / transport error) never breaks a healthy probe.
+    fake_resp2 = _FakeHttpResponse(
+        status_code=200,
+        headers={"Content-Type": "text/event-stream", "Mcp-Session-Id": "secret-session-2"},
+        lines=sse_lines,
+    )
+    res2 = keepalive.probe_neo_mcp_sse(
+        "http://127.0.0.1:9010/mcp",
+        http_post=lambda *_a, **_kw: fake_resp2,
+        http_delete=lambda *_a, **_kw: (_ for _ in ()).throw(RuntimeError("HTTP 405")),
+    )
+    assert res2["mcp_alive"] is True
+    assert "secret-session-2" not in json.dumps(res2)
 
 
 def test_neo_mcp_sse_multiline_json_plain_json_and_error_bounds() -> None:
@@ -540,12 +565,16 @@ def test_neo_recovery_cold_start_dry_run_default_and_apply_when_down(tmp_path: P
 
 
 def test_committed_task_scheduler_xml_templates_match_and_validate() -> None:
-    """Committed XML templates are exact, disabled-by-default, UserId=JP, InteractiveToken, PT15M."""
+    """Committed XML templates are exact, COM-safe (no encoding= attr), disabled, UserId=JP, InteractiveToken, PT15M."""
     x_xml = X_FEED_XML_PATH.read_text(encoding="utf-8")
     neo_xml = NEO_XML_PATH.read_text(encoding="utf-8")
 
     assert x_xml == keepalive.render_x_list_feed_keepalive_xml()
     assert neo_xml == keepalive.render_neo_health_keepalive_xml()
+    assert x_xml.splitlines()[0] == '<?xml version="1.0"?>'
+    assert neo_xml.splitlines()[0] == '<?xml version="1.0"?>'
+    assert "<StartBoundary>2026-11-25T00:00:00+07:00</StartBoundary>" in x_xml
+    assert "<StartBoundary>2026-11-25T00:00:00+07:00</StartBoundary>" in neo_xml
 
     x_meta = keepalive.validate_task_scheduler_xml(x_xml, expected_task_name=keepalive.X_FEED_TASK_NAME)
     assert x_meta["user_id"] == "JP"
@@ -561,6 +590,11 @@ def test_committed_task_scheduler_xml_templates_match_and_validate() -> None:
     assert neo_meta["repeat_interval"] == "PT15M"
     assert neo_meta["multiple_instances_policy"] == "IgnoreNew"
 
+    # H1: XML prolog with encoding="UTF-8" fails closed (Task Scheduler COM rejects it).
+    bad_prolog = x_xml.replace('<?xml version="1.0"?>', '<?xml version="1.0" encoding="UTF-8"?>', 1)
+    with pytest.raises(ValueError, match="XML_PROLOG_ENCODING_ATTR_FORBIDDEN"):
+        keepalive.validate_task_scheduler_xml(bad_prolog, expected_task_name=keepalive.X_FEED_TASK_NAME)
+
     # Enabled=true fails closed when require_disabled=True.
     bad_enabled = keepalive.render_x_list_feed_keepalive_xml(enabled=True)
     with pytest.raises(ValueError, match="ENABLED_MUST_BE_FALSE"):
@@ -573,7 +607,7 @@ def test_committed_task_scheduler_xml_templates_match_and_validate() -> None:
 
 
 def test_cli_render_xml_and_powershell_installer_default_dry_run(capsys: pytest.CaptureFixture[str]) -> None:
-    """CLI render-xml matches committed files, and PS1 installer defaults to dry-run with zero live mutation."""
+    """CLI render-xml matches committed files, and PS1 installer COM-validates both XMLs in dry-run with zero mutation."""
     import importlib.util
 
     cli_path = ROOT / "scripts" / "run_cc711_keepalive.py"
@@ -588,7 +622,8 @@ def test_cli_render_xml_and_powershell_installer_default_dry_run(capsys: pytest.
     assert cli.main(["render-xml", "--target", "neo-health"]) == 0
     assert capsys.readouterr().out == NEO_XML_PATH.read_text(encoding="utf-8")
 
-    # Execute Install-ContentOpsCC711Keepalive.ps1 in default dry-run mode (no -Apply): zero live task mutations!
+    # Execute Install-ContentOpsCC711Keepalive.ps1 in default dry-run mode (no -Apply):
+    # exercises real read-only in-memory Schedule.Service COM XML validation with zero live task mutations!
     completed = subprocess.run(
         ["pwsh", "-NoProfile", "-NonInteractive", "-File", str(INSTALLER_PS1)],
         capture_output=True,
@@ -603,9 +638,227 @@ def test_cli_render_xml_and_powershell_installer_default_dry_run(capsys: pytest.
     assert len(report["tasks"]) == 2
     assert all(
         t["action"] == "DRY_RUN_VALIDATED_NO_MUTATION"
+        and t["com_xml_validated"] is True
         and t["user_id"] == "JP"
         and t["logon_type"] == "InteractiveToken"
         and t["enabled"] is False
         and t["repeat_interval"] == "PT15M"
         for t in report["tasks"]
     )
+
+
+# ---------------------------------------------------------------------------
+# 5. Review-hardening regressions (H2 fail-closed process probe, M2 proxy bypass, M3 default listener, L1 read-only status)
+# ---------------------------------------------------------------------------
+
+
+def test_h2_default_neo_process_probe_fails_closed_on_timeout_error_and_bad_json() -> None:
+    """H2: _default_neo_process_probe returns None on any error/timeout/empty/bad JSON; [] ONLY on proven ok=true."""
+    def _timeout(*_a, **_kw):
+        raise subprocess.TimeoutExpired(cmd="powershell.exe", timeout=10)
+
+    def _oserr(*_a, **_kw):
+        raise OSError("spawn blocked")
+
+    assert keepalive._default_neo_process_probe(run_fn=_timeout, platform_name="nt") is None
+    assert keepalive._default_neo_process_probe(run_fn=_oserr, platform_name="nt") is None
+    assert (
+        keepalive._default_neo_process_probe(
+            run_fn=lambda *_a, **_kw: subprocess.CompletedProcess([], 1, "", "WMI failed"),
+            platform_name="nt",
+        )
+        is None
+    )
+    assert (
+        keepalive._default_neo_process_probe(
+            run_fn=lambda *_a, **_kw: subprocess.CompletedProcess([], 0, "", ""),
+            platform_name="nt",
+        )
+        is None
+    )
+    assert (
+        keepalive._default_neo_process_probe(
+            run_fn=lambda *_a, **_kw: subprocess.CompletedProcess([], 0, "{bad-json", ""),
+            platform_name="nt",
+        )
+        is None
+    )
+    assert (
+        keepalive._default_neo_process_probe(
+            run_fn=lambda *_a, **_kw: subprocess.CompletedProcess([], 0, '{"ok":false,"procs":[]}', ""),
+            platform_name="nt",
+        )
+        is None
+    )
+    assert keepalive._default_neo_process_probe(run_fn=lambda *_a, **_kw: None, platform_name="posix") is None
+
+    # Proven empty envelope -> []
+    assert (
+        keepalive._default_neo_process_probe(
+            run_fn=lambda *_a, **_kw: subprocess.CompletedProcess([], 0, '{"ok":true,"procs":[]}', ""),
+            platform_name="nt",
+        )
+        == []
+    )
+    # Single dict or list envelope -> normalized list[dict]
+    assert keepalive._default_neo_process_probe(
+        run_fn=lambda *_a, **_kw: subprocess.CompletedProcess(
+            [], 0, '{"ok":true,"procs":{"pid":35688,"name":"chrome.exe"}}', ""
+        ),
+        platform_name="nt",
+    ) == [{"pid": 35688, "name": "chrome.exe"}]
+    assert keepalive._default_neo_process_probe(
+        run_fn=lambda *_a, **_kw: subprocess.CompletedProcess(
+            [], 0, '{"ok":true,"procs":[{"pid":35688,"name":"chrome.exe"}]}', ""
+        ),
+        platform_name="nt",
+    ) == [{"pid": 35688, "name": "chrome.exe"}]
+
+
+def test_h2_neo_recovery_fails_closed_on_unproven_process_probe_and_active_native_listener(tmp_path: Path) -> None:
+    """H2: None/exception process_probe -> HOLD_PROCESS_PROBE_UNPROVEN; active native TCP listener -> NEO_PROBE_STARVED."""
+    exe, user_data, cfg = _fake_neo_install(tmp_path)
+
+    # 1) process_probe returns None (e.g. WMI timeout under load) -> fail closed, NEVER launch!
+    unproven = keepalive.recover_browseros_neo(
+        dry_run=False,
+        keepalive_lock_path=tmp_path / "neo.lock",
+        stop_path=tmp_path / "STOP_NEO",
+        browser_exe=exe,
+        user_data_dir=user_data,
+        config_path=cfg,
+        cdp_probe=lambda p: {"cdp_alive": False, "cdp_port": p},
+        mcp_probe=lambda u: {"mcp_alive": False, "endpoint": u},
+        process_probe=lambda: None,
+        listener_pid_probe=lambda _p: None,
+        spawner=lambda _cmd, _cwd: pytest.fail("must NEVER cold-start when process_probe is unproven"),
+        now_fn=_fixed_now,
+    )
+    assert unproven["health"]["state"] == "PROCESS_PROBE_UNPROVEN"
+    assert unproven["health"]["process_probe_ok"] is False
+    assert unproven["action"] == "HOLD_PROCESS_PROBE_UNPROVEN"
+    assert unproven["launched"] is False
+    assert unproven["would_launch"] is False
+    assert unproven["chrome_kill_performed"] is False
+
+    # 2) process_probe raises exception -> fail closed identically.
+    raised = keepalive.recover_browseros_neo(
+        dry_run=False,
+        keepalive_lock_path=tmp_path / "neo.lock",
+        stop_path=tmp_path / "STOP_NEO",
+        browser_exe=exe,
+        user_data_dir=user_data,
+        config_path=cfg,
+        cdp_probe=lambda p: {"cdp_alive": False, "cdp_port": p},
+        mcp_probe=lambda u: {"mcp_alive": False, "endpoint": u},
+        process_probe=lambda: (_ for _ in ()).throw(RuntimeError("CIM hung")),
+        listener_pid_probe=lambda _p: None,
+        spawner=lambda _cmd, _cwd: pytest.fail("must NEVER cold-start on process_probe exception"),
+        now_fn=_fixed_now,
+    )
+    assert raised["health"]["state"] == "PROCESS_PROBE_UNPROVEN"
+    assert raised["action"] == "HOLD_PROCESS_PROBE_UNPROVEN"
+    assert raised["launched"] is False
+
+    # 3) Active native TCP listener on 9110 or 9010 holds as NEO_PROBE_STARVED even if WMI failed or returned [].
+    starved_listener = keepalive.recover_browseros_neo(
+        dry_run=False,
+        keepalive_lock_path=tmp_path / "neo.lock",
+        stop_path=tmp_path / "STOP_NEO",
+        browser_exe=exe,
+        user_data_dir=user_data,
+        config_path=cfg,
+        cdp_probe=lambda p: {"cdp_alive": False, "cdp_port": p},
+        mcp_probe=lambda u: {"mcp_alive": False, "endpoint": u},
+        process_probe=lambda: [],
+        listener_pid_probe=lambda port: 35688 if port == 9110 else None,
+        spawner=lambda _cmd, _cwd: pytest.fail("must NEVER cold-start when native TCP listener is active"),
+        now_fn=_fixed_now,
+    )
+    assert starved_listener["health"]["state"] == "NEO_PROBE_STARVED"
+    assert starved_listener["health"]["listener_alive"] is True
+    assert starved_listener["health"]["listener_pids"] == {"cdp": 35688}
+    assert starved_listener["action"] == "HOLD_PROCESS_ALIVE_PROBE_STARVED"
+    assert starved_listener["launched"] is False
+
+
+def test_m2_probe_cdp_version_bypasses_http_proxy(monkeypatch: pytest.MonkeyPatch) -> None:
+    """M2: default probe_cdp_version builds urllib opener with empty ProxyHandler({})."""
+    import urllib.request
+
+    handlers_seen: list[object] = []
+
+    class _FakeOpener:
+        def open(self, url: str, timeout: float = 3.0):
+            assert url == "http://127.0.0.1:9110/json/version"
+
+            class _Resp(io.BytesIO):
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, *_a):
+                    self.close()
+
+            return _Resp(json.dumps({"Browser": "Chrome/155.0.8317.26"}).encode())
+
+    def fake_build_opener(*handlers):
+        handlers_seen.extend(handlers)
+        return _FakeOpener()
+
+    monkeypatch.setattr(urllib.request, "build_opener", fake_build_opener)
+    res = keepalive.probe_cdp_version(9110)
+    assert res["cdp_alive"] is True
+    assert len(handlers_seen) == 1
+    assert isinstance(handlers_seen[0], urllib.request.ProxyHandler)
+    assert handlers_seen[0].proxies == {}
+
+
+def test_m3_probe_x_feed_cdp_state_wires_default_native_listener_probe_in_production(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """M3: production probe_x_feed_cdp_state() automatically invokes native listener probe on pre-d6c0b69a states."""
+    from live_contentops import ingestion_bootstrap_v1 as bootstrap
+
+    monkeypatch.setattr(
+        bootstrap,
+        "ingestion_process_state",
+        lambda cdp_port=9222: {
+            "state": keepalive.STATE_RUNNING_WITHOUT_CDP,
+            "detail": "CANONICAL_PROFILE_ACTIVE_WITHOUT_CDP_9222",
+            "pid": 14568,
+        },
+    )
+    monkeypatch.setattr(bootstrap, "_native_listener_pid", lambda port: 14568 if port == 9222 else None)
+    monkeypatch.setattr(
+        bootstrap,
+        "_native_process_identity",
+        lambda pid: {
+            "pid": pid,
+            "cmd": '"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" '
+            '--remote-debugging-port=9222 "--user-data-dir=C:\\Users\\bullw\\AppData\\Local\\Google\\Chrome\\User Data\\CapitalChronicleBot"',
+        },
+    )
+    res = keepalive.probe_x_feed_cdp_state(cdp_port=9222)
+    assert res["state"] == keepalive.STATE_CDP_PROBE_STARVED
+    assert res["pid"] == 14568
+
+
+def test_l1_status_x_list_feed_is_strictly_read_only_and_creates_zero_files(tmp_path: Path) -> None:
+    """L1: status_x_list_feed creates zero lock or state files on disk."""
+    isolated = tmp_path / "ro_check"
+    isolated.mkdir()
+    res = keepalive.status_x_list_feed(
+        lock_path=isolated / "runner_v1.lock",
+        stop_path=isolated / "STOP",
+        feed_path=isolated / "x_list_feed_v1.json",
+        cdp_port=9222,
+        cdp_state_probe=lambda _p: {"state": keepalive.STATE_READY, "pid": 14568},
+        now_fn=_fixed_now,
+    )
+    assert res["read_only"] is True
+    assert res["dry_run"] is True
+    assert res["public_write_performed"] is False
+    assert res["live_task_mutated"] is False
+    assert res["runner_alive"] is False
+    assert res["state"] == keepalive.STATE_READY
+    assert list(isolated.iterdir()) == []

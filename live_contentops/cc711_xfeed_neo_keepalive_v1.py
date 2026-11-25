@@ -71,7 +71,7 @@ TASK_XML_NS = "http://schemas.microsoft.com/windows/2004/02/mit/task"
 DEFAULT_TASK_USER_ID = "JP"
 DEFAULT_TASK_LOGON_TYPE = "InteractiveToken"
 DEFAULT_TASK_REPEAT_INTERVAL = "PT15M"
-DEFAULT_TASK_START_BOUNDARY = "2026-11-30T01:00:00+07:00"
+DEFAULT_TASK_START_BOUNDARY = "2026-11-25T00:00:00+07:00"
 X_FEED_TASK_NAME = "CapitalChronicle_ContentOps_X_List_Feed"
 NEO_HEALTH_TASK_NAME = "CapitalChronicle_ContentOps_BrowserOS_Neo_Health"
 
@@ -151,15 +151,61 @@ def os_mutex(path: Path):
 
 
 def probe_os_lock_held(path: Path) -> bool:
-    """Return True if another process holds the exclusive byte lock at ``path``."""
+    """Return True if another process holds the exclusive byte lock at ``path``.
+
+    Never creates ``path`` when absent.
+    """
     path = Path(path)
-    if not path.exists():
+    if not path.is_file():
         return False
-    handle = _acquire_os_lock(path)
-    if handle is None:
+    try:
+        handle = open(path, "r+b")
+    except OSError:
+        return True
+    try:
+        handle.seek(0)
+        if os.name == "nt":
+            import msvcrt
+
+            msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        handle.close()
         return True
     _release_os_lock(handle)
     return False
+
+
+def _default_port_listener_pid(port: int) -> int | None:
+    """Native Windows TCP listener PID lookup (iphlpapi, milliseconds, zero WMI)."""
+    if os.name != "nt":
+        return None
+    try:
+        from live_contentops import ingestion_bootstrap_v1 as bootstrap
+
+        pid = bootstrap._native_listener_pid(int(port))
+        return int(pid) if pid else None
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _default_cdp_listener_probe(cdp_port: int) -> dict[str, Any] | None:
+    """Native Windows listener + process identity lookup for starved-CDP classification."""
+    if os.name != "nt":
+        return None
+    try:
+        from live_contentops import ingestion_bootstrap_v1 as bootstrap
+
+        pid = bootstrap._native_listener_pid(int(cdp_port))
+        if not pid:
+            return None
+        identity = bootstrap._native_process_identity(pid)
+        return dict(identity) if isinstance(identity, Mapping) else None
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def _has_cdp_port_flag(command_line: str, cdp_port: int) -> bool:
@@ -187,10 +233,9 @@ def probe_x_feed_cdp_state(
 
     Works seamlessly both before and after d6c0b69a is merged into ingestion_bootstrap_v1:
     - If ingestion_bootstrap_v1 already returns CDP_PROBE_STARVED, preserves it verbatim.
-    - If ingestion_bootstrap_v1 returns RUNNING_WITHOUT_CDP or UNAVAILABLE (pre-d6c0b69a)
-      while a canonical Chrome process with `--remote-debugging-port=<cdp_port>` is active
-      or listening on `<cdp_port>`, upgrades classification to STATE_CDP_PROBE_STARVED so
-      the keepalive fails closed without launching a duplicate Chrome or killing anything.
+    - When ``bootstrap_state_fn`` is not mocked and ``listener_probe`` is omitted, wires
+      ``_default_cdp_listener_probe`` (native iphlpapi + Win32 identity) so starved canonical
+      Chrome 9222 upgrades to STATE_CDP_PROBE_STARVED on pre-d6c0b69a hosts as well.
     """
     if bootstrap_state_fn is None:
         from live_contentops import ingestion_bootstrap_v1 as bootstrap
@@ -203,9 +248,12 @@ def probe_x_feed_cdp_state(
     if state in {STATE_READY, STATE_CDP_PROBE_STARVED, STATE_PORT_OWNER_UNPROVEN}:
         return raw
 
-    # Starved-CDP double-check (handles ce53947a8 pre-d6c0b69a and injected tests).
-    if listener_probe is not None:
-        native = listener_probe(cdp_port)
+    # Starved-CDP double-check (handles ce53947a8 pre-d6c0b69a in production and injected tests).
+    effective_listener_probe = (
+        listener_probe if listener_probe is not None else (_default_cdp_listener_probe if bootstrap_state_fn is None else None)
+    )
+    if effective_listener_probe is not None:
+        native = effective_listener_probe(cdp_port)
         if isinstance(native, Mapping) and native.get("cmd") is not None:
             if _is_canonical_xfeed_chrome(str(native["cmd"])):
                 return {
@@ -233,6 +281,48 @@ def probe_x_feed_cdp_state(
                 }
 
     return raw
+
+
+def status_x_list_feed(
+    *,
+    lock_path: Path = DEFAULT_X_FEED_LOCK,
+    stop_path: Path = DEFAULT_X_FEED_STOP,
+    feed_path: Path = DEFAULT_X_FEED_JSON,
+    cdp_port: int = DEFAULT_X_FEED_CDP_PORT,
+    runner_lock_probe: Callable[[Path], bool] | None = None,
+    cdp_state_probe: Callable[..., Mapping[str, Any]] | None = None,
+    now_fn: Callable[[], datetime] | None = None,
+) -> dict[str, Any]:
+    """Strictly read-only X_List_Feed status check (zero lock file creation or disk writes)."""
+    moment_fn = now_fn or (lambda: datetime.now(timezone.utc))
+    now_dt = moment_fn().astimezone(timezone.utc)
+    stop_present = Path(stop_path).exists()
+    check_runner = runner_lock_probe or probe_os_lock_held
+    runner_alive = bool(check_runner(Path(lock_path)))
+    feed_summary = _read_feed_summary(Path(feed_path), now_dt)
+    cdp_info = None
+    if not stop_present and not runner_alive:
+        probe_cdp_fn = cdp_state_probe or (lambda port: probe_x_feed_cdp_state(cdp_port=port))
+        cdp_info = dict(probe_cdp_fn(cdp_port))
+    state = (
+        "STOP_FILE_PRESENT"
+        if stop_present
+        else ("RUNNING" if runner_alive else str((cdp_info or {}).get("state") or STATE_UNAVAILABLE))
+    )
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "component": "x_list_feed_status",
+        "checked_at_utc": now_dt.isoformat(),
+        "read_only": True,
+        "dry_run": True,
+        "public_write_performed": False,
+        "live_task_mutated": False,
+        "stop_present": stop_present,
+        "runner_alive": runner_alive,
+        "state": state,
+        "cdp": cdp_info,
+        "feed": feed_summary,
+    }
 
 
 def _read_feed_summary(feed_path: Path, now_dt: datetime) -> dict[str, Any]:
@@ -592,9 +682,9 @@ def probe_cdp_version(
     retry_timeout_seconds: float = 5.0,
     http_open: Callable[..., Any] | None = None,
 ) -> dict[str, Any]:
-    """Read-only loopback CDP `/json/version` probe with one bounded retry."""
+    """Read-only loopback CDP `/json/version` probe with proxy bypass and one bounded retry."""
     url = _require_loopback_http(f"http://127.0.0.1:{int(cdp_port)}/json/version")
-    opener = http_open or urllib.request.urlopen
+    opener = http_open or urllib.request.build_opener(urllib.request.ProxyHandler({})).open
     last_error = None
     attempts = 0
     for timeout in (timeout_seconds, retry_timeout_seconds):
@@ -630,11 +720,14 @@ def probe_neo_mcp_sse(
     *,
     timeout_seconds: float = 8.0,
     http_post: Callable[..., Any] | None = None,
+    http_delete: Callable[..., Any] | None = None,
     mono_fn: Callable[[], float] = time.monotonic,
 ) -> dict[str, Any]:
     """Read-only MCP JSON-RPC `initialize` probe supporting Streamable HTTP SSE priming frames.
 
-    Performs zero page actions, zero tab opens, and never logs session tokens or bodies.
+    Bypasses proxies for loopback HTTP, performs zero page actions or tab opens, cleans up
+    any allocated `Mcp-Session-Id` via best-effort `DELETE` in `finally`, and never logs
+    session tokens or response bodies.
     """
     _require_loopback_http(endpoint)
     request_id = 1
@@ -653,12 +746,17 @@ def probe_neo_mcp_sse(
         "Content-Type": "application/json",
     }
 
+    owned_session = None
     response = None
+    session_id: str | None = None
+    session_cleanup_attempted = False
     try:
         if http_post is None:
             import requests
 
-            response = requests.post(
+            owned_session = requests.Session()
+            owned_session.trust_env = False
+            response = owned_session.post(
                 endpoint,
                 json=payload,
                 headers=headers,
@@ -669,6 +767,11 @@ def probe_neo_mcp_sse(
             response = http_post(endpoint, json=payload, headers=headers, timeout=timeout_seconds, stream=True)
 
         status_code = int(getattr(response, "status_code", 0))
+        resp_headers = getattr(response, "headers", {}) or {}
+        raw_sid = resp_headers.get("Mcp-Session-Id") or resp_headers.get("mcp-session-id")
+        if isinstance(raw_sid, str) and raw_sid.strip():
+            session_id = raw_sid.strip()
+
         if status_code < 200 or status_code >= 300:
             return {
                 "mcp_alive": False,
@@ -678,9 +781,8 @@ def probe_neo_mcp_sse(
                 "priming_frames_ignored": 0,
             }
 
-        resp_headers = getattr(response, "headers", {}) or {}
         content_type = str(resp_headers.get("Content-Type") or resp_headers.get("content-type") or "")
-        session_present = bool(resp_headers.get("Mcp-Session-Id") or resp_headers.get("mcp-session-id"))
+        session_present = bool(session_id)
         priming_ignored = 0
 
         if "text/event-stream" in content_type.lower():
@@ -726,6 +828,7 @@ def probe_neo_mcp_sse(
             "server_name": str((result.get("serverInfo") or {}).get("name") or ""),
             "server_version": str((result.get("serverInfo") or {}).get("version") or ""),
             "session_header_present": session_present,
+            "session_cleanup_attempted": session_present and (http_delete is not None or owned_session is not None),
             "priming_frames_ignored": priming_ignored,
             "error": None,
         }
@@ -747,20 +850,60 @@ def probe_neo_mcp_sse(
                 close_fn()
             except Exception:  # noqa: BLE001
                 pass
+        if session_id:
+            delete_fn = http_delete or (owned_session.delete if owned_session is not None else None)
+            if callable(delete_fn):
+                session_cleanup_attempted = True
+                del_resp = None
+                try:
+                    del_resp = delete_fn(
+                        endpoint,
+                        headers={"Mcp-Session-Id": session_id},
+                        timeout=(1.5, 2.0),
+                    )
+                except Exception:  # noqa: BLE001 - best-effort cleanup (405/transport errors ignored)
+                    pass
+                finally:
+                    del_close = getattr(del_resp, "close", None)
+                    if callable(del_close):
+                        try:
+                            del_close()
+                        except Exception:  # noqa: BLE001
+                            pass
+        if owned_session is not None:
+            try:
+                owned_session.close()
+            except Exception:  # noqa: BLE001
+                pass
+        _ = session_cleanup_attempted
 
 
-def _default_neo_process_probe() -> list[dict[str, Any]]:
-    """Read-only Windows process check for active BrowserClaw chrome.exe / server processes."""
-    if os.name != "nt":
-        return []
+def _default_neo_process_probe(
+    *,
+    run_fn: Callable[..., Any] | None = None,
+    platform_name: str | None = None,
+) -> list[dict[str, Any]] | None:
+    """Fail-closed Windows process check for active BrowserClaw chrome.exe / server processes.
+
+    Returns:
+      - ``list[dict]`` ONLY when PowerShell/CIM succeeded with an explicit ``{"ok": true, "procs": [...]}``
+        JSON envelope (including ``[]`` when genuinely zero BrowserClaw processes exist).
+      - ``None`` on ANY timeout, OSError, non-zero exit code, empty stdout, malformed JSON,
+        or non-Windows host — NEVER collapses a probe failure into ``[]``.
+    """
+    active_os = platform_name if platform_name is not None else os.name
+    if active_os != "nt":
+        return None
     script = (
-        "$ErrorActionPreference='SilentlyContinue';"
-        "@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='browseros-claw-server.exe'\""
+        "$ErrorActionPreference='Stop';"
+        "$procs=@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe' OR Name='browseros-claw-server.exe'\""
         " | Where-Object { $_.CommandLine -like '*BrowserClaw*' -and $_.CommandLine -notlike '*--type=crashpad-handler*' }"
-        " | ForEach-Object { @{ pid = $_.ProcessId; name = $_.Name } }) | ConvertTo-Json -Compress"
+        " | ForEach-Object { @{ pid = [int]$_.ProcessId; name = [string]$_.Name } });"
+        "@{ ok = $true; procs = @($procs) } | ConvertTo-Json -Compress -Depth 3"
     )
+    runner = run_fn or subprocess.run
     try:
-        completed = subprocess.run(
+        completed = runner(
             ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", script],
             capture_output=True,
             text=True,
@@ -768,16 +911,26 @@ def _default_neo_process_probe() -> list[dict[str, Any]]:
             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
         )
     except (subprocess.TimeoutExpired, OSError):
-        return []
-    if completed.returncode != 0 or not completed.stdout.strip():
-        return []
+        return None
+    if getattr(completed, "returncode", 1) != 0:
+        return None
+    stdout = (getattr(completed, "stdout", None) or "").strip()
+    if not stdout:
+        return None
     try:
-        parsed = json.loads(completed.stdout)
+        parsed = json.loads(stdout)
     except ValueError:
+        return None
+    if not isinstance(parsed, dict) or parsed.get("ok") is not True or "procs" not in parsed:
+        return None
+    raw_procs = parsed["procs"]
+    if raw_procs is None:
         return []
-    if isinstance(parsed, dict):
-        return [parsed]
-    return [row for row in parsed if isinstance(row, dict)] if isinstance(parsed, list) else []
+    if isinstance(raw_procs, dict):
+        return [raw_procs]
+    if isinstance(raw_procs, list):
+        return [row for row in raw_procs if isinstance(row, dict)]
+    return None
 
 
 def probe_browseros_neo(
@@ -787,23 +940,53 @@ def probe_browseros_neo(
     config_path: Path | None = None,
     cdp_probe: Callable[[int], Mapping[str, Any]] | None = None,
     mcp_probe: Callable[[str], Mapping[str, Any]] | None = None,
-    process_probe: Callable[[], list[Mapping[str, Any]]] | None = None,
+    process_probe: Callable[[], list[Mapping[str, Any]] | None] | None = None,
+    listener_pid_probe: Callable[[int], int | None] | None = None,
     now_fn: Callable[[], datetime] | None = None,
 ) -> dict[str, Any]:
-    """Strictly read-only BrowserOS Neo CDP + MCP SSE health probe."""
+    """Strictly read-only BrowserOS Neo CDP + MCP SSE + listener + fail-closed process probe."""
     ports = load_browseros_ports(config_path)
     resolved_cdp_port = int(cdp_port if cdp_port is not None else ports["cdp_port"])
     resolved_mcp_url = _require_loopback_http(
         mcp_endpoint or f"http://127.0.0.1:{int(ports['mcp_port'])}{DEFAULT_NEO_MCP_PATH}"
     )
+    resolved_mcp_port = urlsplit(resolved_mcp_url).port or int(ports["mcp_port"])
 
     cdp = dict((cdp_probe or probe_cdp_version)(resolved_cdp_port))
     mcp = dict((mcp_probe or probe_neo_mcp_sse)(resolved_mcp_url))
-    procs = list((process_probe or _default_neo_process_probe)())
+
+    # Native TCP listener check (zero WMI) runs in production (when process_probe is not mocked)
+    # or whenever explicitly injected via listener_pid_probe.
+    effective_listener = (
+        listener_pid_probe
+        if listener_pid_probe is not None
+        else (_default_port_listener_pid if process_probe is None else None)
+    )
+    listener_pids: dict[str, int] = {}
+    if effective_listener is not None:
+        for label, port_num in (("cdp", resolved_cdp_port), ("mcp", int(resolved_mcp_port))):
+            try:
+                pid = effective_listener(port_num)
+            except Exception:  # noqa: BLE001
+                pid = None
+            if isinstance(pid, int) and not isinstance(pid, bool) and pid > 0:
+                listener_pids[label] = pid
+
+    process_probe_ok = False
+    procs: list[Mapping[str, Any]] = []
+    try:
+        raw_procs = (process_probe or _default_neo_process_probe)()
+        if isinstance(raw_procs, (list, tuple)):
+            process_probe_ok = True
+            procs = list(raw_procs)
+    except Exception:  # noqa: BLE001 - fail closed as PROCESS_PROBE_UNPROVEN
+        process_probe_ok = False
+        procs = []
 
     cdp_alive = bool(cdp.get("cdp_alive"))
     mcp_alive = bool(mcp.get("mcp_alive"))
-    process_alive = len(procs) > 0
+    listener_alive = bool(listener_pids)
+    process_alive = (process_probe_ok and len(procs) > 0) or listener_alive
 
     if cdp_alive and mcp_alive:
         state = "HEALTHY"
@@ -813,6 +996,8 @@ def probe_browseros_neo(
         state = "DEGRADED_CDP_MCP_ALIVE"
     elif process_alive:
         state = "NEO_PROBE_STARVED"
+    elif not process_probe_ok:
+        state = "PROCESS_PROBE_UNPROVEN"
     else:
         state = "DOWN"
 
@@ -823,8 +1008,11 @@ def probe_browseros_neo(
         "state": state,
         "cdp": cdp,
         "mcp": mcp,
-        "process_count": len(procs),
+        "process_count": len(procs) if process_probe_ok else None,
+        "process_probe_ok": process_probe_ok,
         "process_alive": process_alive,
+        "listener_pids": listener_pids,
+        "listener_alive": listener_alive,
         "ports": ports,
         "public_write_performed": False,
     }
@@ -842,7 +1030,8 @@ def recover_browseros_neo(
     mcp_endpoint: str | None = None,
     cdp_probe: Callable[[int], Mapping[str, Any]] | None = None,
     mcp_probe: Callable[[str], Mapping[str, Any]] | None = None,
-    process_probe: Callable[[], list[Mapping[str, Any]]] | None = None,
+    process_probe: Callable[[], list[Mapping[str, Any]] | None] | None = None,
+    listener_pid_probe: Callable[[int], int | None] | None = None,
     spawner: Callable[[list[str], Path], int] | None = None,
     now_fn: Callable[[], datetime] | None = None,
 ) -> dict[str, Any]:
@@ -851,10 +1040,12 @@ def recover_browseros_neo(
     HARD SAFETY INVARIANTS:
     - Defaults to ``dry_run=True`` (never starts any process unless ``dry_run=False``).
     - NEVER kills an active Chrome/BrowserClaw process when CDP responds (or when MCP
-      responds or a BrowserClaw process is already alive and transiently starved).
-    - Recovery is strictly cold-start-only when CDP is down, MCP is down, AND zero
-      BrowserClaw Chrome/server processes are alive, using the existing BrowserClaw
-      executable and existing User Data profile (never creates a blank profile).
+      responds or a BrowserClaw process/listener is already alive and transiently starved).
+    - Fails closed (`HOLD_PROCESS_PROBE_UNPROVEN`) when CDP & MCP are down and process
+      presence cannot be proven (e.g., WMI/PowerShell timeout under load).
+    - Recovery is strictly cold-start-only when CDP is down, MCP is down, zero listeners
+      are active, AND zero BrowserClaw Chrome/server processes are proven alive, using the
+      existing BrowserClaw executable and existing User Data profile (never creates a blank profile).
     """
     defaults = default_browseros_paths()
     exe = Path(browser_exe) if browser_exe is not None else defaults["browser_exe"]
@@ -896,6 +1087,7 @@ def recover_browseros_neo(
             cdp_probe=cdp_probe,
             mcp_probe=mcp_probe,
             process_probe=process_probe,
+            listener_pid_probe=listener_pid_probe,
             now_fn=now_fn,
         )
         state = health["state"]
@@ -928,8 +1120,15 @@ def recover_browseros_neo(
                 "health": health,
                 "reason": "BROWSEROS_PROCESS_ALIVE_NO_KILL_NO_DUPLICATE",
             }
+        if state == "PROCESS_PROBE_UNPROVEN":
+            return {
+                **base,
+                "action": "HOLD_PROCESS_PROBE_UNPROVEN",
+                "health": health,
+                "reason": "BROWSEROS_PROCESS_PROBE_UNPROVEN_FAIL_CLOSED",
+            }
 
-        # State == DOWN: safe cold-start-only path.
+        # State == DOWN (proven zero listeners & zero BrowserClaw processes): safe cold-start-only path.
         if not exe.is_file():
             return {
                 **base,
@@ -1001,12 +1200,14 @@ def render_task_scheduler_xml(
 ) -> str:
     """Render a deterministic Windows Task Scheduler v1.3 XML template (UTF-8, LF-only).
 
-    Defaults strictly to ``enabled=False``, ``user_id='JP'``, ``logon_type='InteractiveToken'``,
-    ``repeat_interval='PT15M'``, and ``MultipleInstancesPolicy='IgnoreNew'``.
+    Omits ``encoding=`` from the XML prolog so PowerShell's UTF-16 ``Register-ScheduledTask -Xml``
+    and Windows Task Scheduler's COM ``NewTask(0).XmlText`` parser accept it without encoding
+    switch errors (H1). Defaults strictly to ``enabled=False``, ``user_id='JP'``,
+    ``logon_type='InteractiveToken'``, ``repeat_interval='PT15M'``, and ``IgnoreNew``.
     """
     enabled_text = "true" if enabled else "false"
     lines = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<?xml version="1.0"?>',
         f'<Task version="1.3" xmlns="{TASK_XML_NS}">',
         "  <RegistrationInfo>",
         f"    <Description>{_escape_xml(description)}</Description>",
@@ -1125,6 +1326,7 @@ def validate_task_scheduler_xml(
     require_disabled: bool = True,
 ) -> dict[str, Any]:
     """Parse and fail-closed validate a Windows Task Scheduler XML template."""
+    first_line = (xml_text.splitlines()[0] if xml_text else "").strip().lower()
     root = ET.fromstring(xml_text)
     ns = {"t": TASK_XML_NS}
 
@@ -1143,6 +1345,8 @@ def validate_task_scheduler_xml(
     arguments = _text("t:Actions/t:Exec/t:Arguments")
 
     errors: list[str] = []
+    if first_line.startswith("<?xml") and "encoding=" in first_line:
+        errors.append("XML_PROLOG_ENCODING_ATTR_FORBIDDEN")
     if uri != f"\\{expected_task_name}":
         errors.append(f"URI_MISMATCH:{uri}")
     if user_id != expected_user_id:

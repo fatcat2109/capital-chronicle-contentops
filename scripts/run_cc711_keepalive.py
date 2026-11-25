@@ -36,6 +36,7 @@ from live_contentops.cc711_xfeed_neo_keepalive_v1 import (  # noqa: E402
     recover_browseros_neo,
     render_neo_health_keepalive_xml,
     render_x_list_feed_keepalive_xml,
+    status_x_list_feed,
 )
 
 
@@ -65,8 +66,12 @@ def main(argv: list[str] | None = None) -> int:
 
     p_status = sub.add_parser("status", help="Strictly read-only combined X_List_Feed + BrowserOS Neo status")
     p_status.add_argument("--x-cdp-port", type=int, default=DEFAULT_X_FEED_CDP_PORT)
+    p_status.add_argument("--x-lock-path", type=Path, default=DEFAULT_X_FEED_LOCK)
+    p_status.add_argument("--x-stop-path", type=Path, default=DEFAULT_X_FEED_STOP)
+    p_status.add_argument("--x-feed-path", type=Path, default=DEFAULT_X_FEED_JSON)
     p_status.add_argument("--neo-cdp-port", type=int, default=None)
     p_status.add_argument("--neo-mcp-endpoint", default=None)
+    p_status.add_argument("--neo-config-path", type=Path, default=None)
 
     p_xml = sub.add_parser("render-xml", help="Print disabled-by-default Task Scheduler XML to stdout")
     p_xml.add_argument("--target", choices=("x-feed", "neo-health"), required=True)
@@ -115,10 +120,18 @@ def main(argv: list[str] | None = None) -> int:
         )
     else:
         result = {
-            "x_list_feed": keepalive_x_list_feed(dry_run=True, cdp_port=args.x_cdp_port),
-            "browseros_neo": probe_browseros_neo(
-                cdp_port=args.neo_cdp_port, mcp_endpoint=args.neo_mcp_endpoint
+            "x_list_feed": status_x_list_feed(
+                lock_path=args.x_lock_path,
+                stop_path=args.x_stop_path,
+                feed_path=args.x_feed_path,
+                cdp_port=args.x_cdp_port,
             ),
+            "browseros_neo": probe_browseros_neo(
+                cdp_port=args.neo_cdp_port,
+                mcp_endpoint=args.neo_mcp_endpoint,
+                config_path=args.neo_config_path,
+            ),
+            "read_only": True,
             "dry_run": True,
             "public_write_performed": False,
             "live_task_mutated": False,

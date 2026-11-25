@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
     <Description>CC-711 / CC-258: OS-lock-guarded PT15M keepalive + 2-min logon trigger for the X-list feed runner. Zero duplicate runners or Chrome launches; respects CC-785 CDP_PROBE_STARVED guard and STOP sentinel. Disabled until Ops installs.</Description>
@@ -15,7 +15,7 @@
         <Interval>PT15M</Interval>
         <StopAtDurationEnd>false</StopAtDurationEnd>
       </Repetition>
-      <StartBoundary>2026-11-30T01:00:00+07:00</StartBoundary>
+      <StartBoundary>2026-11-25T00:00:00+07:00</StartBoundary>
       <Enabled>true</Enabled>
     </TimeTrigger>
   </Triggers>
