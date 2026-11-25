@@ -211,6 +211,46 @@ def _codex_observations(raw, record):
     return messages[-1].encode() if messages else b""
 
 
+_CODEX_USAGE_LIMIT = re.compile(
+    r"usage limit|purchase more credits|rate limit|quota exceeded",
+    re.I,
+)
+
+
+def codex_failure_cause(raw, returncode, record=None, *, stderr=b""):
+    """Surface Codex JSONL quota/error messages from stdout instead of opaque CODEX_EXIT_1."""
+    error_message = None
+    session_id = None
+    for line in (raw or b"").splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        if not isinstance(event, dict):
+            continue
+        if event.get("type") == "thread.started" and event.get("thread_id"):
+            session_id = event["thread_id"]
+        elif event.get("type") == "error" and isinstance(event.get("message"), str) and event["message"].strip():
+            error_message = event["message"].strip()
+        elif event.get("type") == "turn.failed":
+            err_obj = event.get("error")
+            if isinstance(err_obj, dict) and isinstance(err_obj.get("message"), str) and err_obj["message"].strip():
+                error_message = err_obj["message"].strip()
+    if error_message is None and stderr:
+        text = stderr.decode("utf-8", errors="replace").strip()
+        if text:
+            error_message = text.splitlines()[-1].strip()
+    if record is not None:
+        if session_id and not record.get("observed_session_id"):
+            record["observed_session_id"] = session_id
+        if error_message:
+            record["observed_error_message"] = error_message[:240]
+    probe = (error_message or "").replace("\u2019", "'")
+    if probe and _CODEX_USAGE_LIMIT.search(probe):
+        return "CODEX_USAGE_LIMIT"
+    return "CODEX_EXIT_" + str(returncode)
+
+
 def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=None, schema=None,
                callers=("codex",), job=None, codex_effort=CODEX_EFFORT, timeout_seconds=None):
     """Return (answer bytes, record); retain the first cause if both calls fail."""
@@ -294,6 +334,8 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                     attempt["image_attached"] = image is not None
                 attempt["returncode"] = done.returncode
                 if done.returncode:
+                    if caller == "codex":
+                        raise ValueError(codex_failure_cause(raw, done.returncode, attempt, stderr=err))
                     raise ValueError(caller.upper() + "_EXIT_" + str(done.returncode))
                 if not answer.strip():
                     eligible = True
@@ -327,6 +369,8 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                 break
         else:
             record["fallback_cause" if "cause" in record else "cause"] = attempt["cause"]
+            if "observed_error_message" in attempt and "observed_error_message" not in record:
+                record["observed_error_message"] = attempt["observed_error_message"]
     record.update(ended_at_utc=_now(), elapsed_seconds=perf_counter() - start, artifact_path=str(root / "light-call.json"))
     if record["status"] == "RETURNED":
         if "cause" in record:
