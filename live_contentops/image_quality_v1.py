@@ -241,14 +241,19 @@ def review_vision(asset,*,runner=None):
         if light["status"]!="RETURNED":raise ValueError(light["cause"])
         record.update(model=light["configured_model"],effort=light["configured_effort"])
         value=json_answer(answer)
+        if not isinstance(value,dict):
+            raise ValueError("AGY_VISION_TEN_POINTS_REQUIRED")
         saw_pixels=bool(observed.get("image_tools_observed")) if light["answered_by"]=="antigravity" else observed.get("image_attached") is True
         if value.get("image_seen") is not True or not saw_pixels:
             raise ValueError("AGY_IMAGE_PIXELS_NOT_OBSERVED")
-        if (set(value.get("points",{}))!={str(i) for i in range(1,11)}
-                or any(type(v) is not bool for v in value["points"].values())
-                or any(not value.get("reasons",{}).get(str(i)) for i in range(1,11))):
+        expected={str(i) for i in range(1,11)}
+        points,reasons=value.get("points"),value.get("reasons")
+        if (not isinstance(points,dict) or not isinstance(reasons,dict)
+                or set(points)!=expected or set(reasons)!=expected
+                or any(type(v) is not bool for v in points.values())
+                or any(not isinstance(reasons[k],str) or not reasons[k].strip() for k in expected)):
             raise ValueError("AGY_VISION_TEN_POINTS_REQUIRED")
-        record.update(points=value["points"],reasons=value["reasons"],status="REVIEWED")
+        record.update(points=points,reasons={k:reasons[k].strip() for k in sorted(expected,key=int)},status="REVIEWED")
     except Exception as exc:
         record.update(status="REVIEW_UNAVAILABLE",cause=type(exc).__name__+":"+str(exc)[:250])
     record["ended_at_utc"]=datetime.now(timezone.utc).isoformat()
