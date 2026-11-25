@@ -114,6 +114,7 @@ _PRIVATE_TOP_KEYS = (
     "private_headlines",
     "private_notes",
     "open_positions",
+    "open_position_impacts",
     "positions",
     "book",
     "portfolio",
@@ -789,8 +790,9 @@ def project_live_attention_map(
             raise ValueError("MARKET_FORCES_LIVE_MAP_STALE")
 
     public_reg = attention.project_public_register(normalized, as_of_utc=as_of_utc)
+    raw_private = attention._extract_private_texts(raw_map)
     extra_private = _harvest_extra_private_texts(raw_map)
-    merged_private = list(dict.fromkeys([*(public_reg.get("_private_texts") or []), *extra_private]))
+    merged_private = list(dict.fromkeys([*(public_reg.get("_private_texts") or []), *raw_private, *extra_private]))
     public_reg["_private_texts"] = merged_private
 
     cadence = _project_cadence_metadata(raw_map.get("cadence_metadata"))

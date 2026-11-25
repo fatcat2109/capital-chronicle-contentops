@@ -281,6 +281,7 @@ def article_for(pack, manuscript):
             attention_register = high_interval.project_live_attention_map(
                 raw_register,
                 as_of_utc=pack.get("source_pack_as_of_utc"),
+                max_age_minutes=am_spec.get("max_age_minutes"),
             )["public_register"]
         attention_section = attention_map.render_weekly_section(
             attention_register,

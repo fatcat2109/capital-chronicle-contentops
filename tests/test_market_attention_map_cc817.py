@@ -26,7 +26,7 @@ posting, zero writes to A:\\). Covers:
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 import json
 
@@ -486,10 +486,15 @@ def test_x1_direct_project_public_register_strips_internal_r_multiple_computed_m
 
 
 def test_x1_market_wrap_editorial_normalizes_raw_main_cc807_register_directly(tmp_path, pack):
-    """[X1] Passing raw un-normalized Main CC-807 JSON directly into market_wrap_editorial_v1 strips R-multiples cleanly."""
+    """[X1] + B-M1/B-M2: direct raw Main CC-807 JSON (>60m older) works in weekly wrap and preserves all private echo canaries."""
+    from live_contentops import market_forces_high_interval_v1 as high_interval
+
+    map_clock = SUN_6_DEC - timedelta(hours=3)  # B-M1: 3h older than source_pack_as_of_utc (realistic Sunday wrap)
+    open_pos_canary = "Alpha-bravo semiconductor exposure canary string."
+    r_metric_canary = "+0.30R to +0.75R with half-normal-day stop"
     raw_main_cc807 = {
         "schema": "MarketAttentionMapRegisterV1",
-        "as_of_utc": SUN_6_DEC.isoformat(),
+        "as_of_utc": map_clock.isoformat(),
         "themes": [
             {
                 "theme_id": "nvidia_leadership_ai_capex",
@@ -498,7 +503,7 @@ def test_x1_market_wrap_editorial_normalizes_raw_main_cc807_register_directly(tm
                 "status": "active",
                 "rank": 1,
                 "first_seen_utc": THU_3_DEC.isoformat(),
-                "updated_at_utc": SUN_6_DEC.isoformat(),
+                "updated_at_utc": map_clock.isoformat(),
                 "lead_market": "USTEC",
                 "affected_markets": ["USTEC", "US500"],
                 "causal_chains": [
@@ -529,11 +534,11 @@ def test_x1_market_wrap_editorial_normalizes_raw_main_cc807_register_directly(tm
                     },
                 ],
                 "computed_metrics": [
-                    {"label": "Replay range on confirmation", "value": "+0.30R to +0.75R with half-normal-day stop"},
+                    {"label": "Replay range on confirmation", "value": r_metric_canary},
                     {"label": "Historical 1d move", "value": "1.6% median (Capital Chronicle computed)"},
                 ],
                 "prepared_responses": [{"note": "INTERNAL ONLY: arm equity index order on release."}],
-                "open_position_impacts": [{"note": "INTERNAL ONLY: current book sizing canary string."}],
+                "open_position_impacts": [{"note": open_pos_canary}],
                 "decision_points": [
                     {
                         "id": "dp_nvda_conf",
@@ -558,14 +563,45 @@ def test_x1_market_wrap_editorial_normalizes_raw_main_cc807_register_directly(tm
     weekly_pack["market_close_date"] = "2026-12-04"
     weekly_pack["attention_map"] = {"register": raw_main_cc807}
 
+    # B-M1: Weekly wrap accepts a raw CC-807 register >60m older than source_pack_as_of_utc without MARKET_FORCES_LIVE_MAP_STALE.
     manuscript = wrap_editorial.draft(weekly_pack, tmp_path / "weekly-raw-cc807", call=select_first)
     article, _ = wrap_editorial.article_for(weekly_pack, manuscript)
     body = article["substack_body_markdown"]
     assert body.startswith("## The week ahead: what the market is watching")
     assert "Semiconductor leadership and AI capital spending" in body
     assert "+0.30R" not in body and "+0.75R" not in body and "half-normal-day stop" not in body
-    assert "INTERNAL ONLY" not in body
+    assert "INTERNAL ONLY" not in body and open_pos_canary not in body
     assert "USTEC" not in body
+
+    # B-M1 opt-in & no-lookahead: explicit max_age_minutes still enforces staleness; future map still fails closed.
+    stale_pack = deepcopy(weekly_pack)
+    stale_pack["attention_map"]["max_age_minutes"] = 60
+    with pytest.raises(ValueError, match="MARKET_FORCES_LIVE_MAP_STALE"):
+        wrap_editorial.article_for(stale_pack, manuscript)
+
+    future_pack = deepcopy(weekly_pack)
+    future_pack["attention_map"]["register"]["as_of_utc"] = (SUN_6_DEC + timedelta(minutes=10)).isoformat()
+    with pytest.raises(ValueError, match="MARKET_FORCES_LIVE_MAP_AFTER_CUTOFF"):
+        wrap_editorial.article_for(future_pack, manuscript)
+
+    # B-M2: Both project_live_attention_map() and article["attention_map_register"] retain echo canaries
+    # for open_position_impacts and stripped R-multiple computed_metrics.
+    direct_proj = high_interval.project_live_attention_map(
+        raw_main_cc807, as_of_utc=SUN_6_DEC, max_age_minutes=None
+    )["public_register"]
+    for projected_reg in (direct_proj, article["attention_map_register"]):
+        assert open_pos_canary in projected_reg["_private_texts"]
+        assert r_metric_canary in projected_reg["_private_texts"]
+        with pytest.raises(ValueError, match="PLAN_ANALYSIS_PRIVATE_X_LIST_FORBIDDEN"):
+            attention.validate_attention_map_copy(
+                open_pos_canary, public_register=projected_reg, require_notice=False
+            )
+        with pytest.raises(ValueError):
+            attention.validate_attention_map_copy(
+                f"Nasdaq 100 (NQ futures) sees {r_metric_canary}.",
+                public_register=projected_reg,
+                require_notice=False,
+            )
 
     social = wrap_editorial.derivative_payload(
         article, [], "https://capitalchronicle.substack.com/p/weekend-wrap-2026-12-06", "x"
