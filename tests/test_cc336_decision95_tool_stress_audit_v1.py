@@ -234,13 +234,19 @@ def test_substack_daily_digest_reproduces_p5_cpi_cutoff_and_handles_refused_carr
     # Non-digest plan stays WEB_ONLY (never emails subscribers per post).
     assert digest.delivery_mode_for_plan(store, "ordinary-article", {"destinations": []}) == digest.WEB_ONLY
 
-    # At 12:15Z (19:15 GMT+7) on 10 Nov, digest closes at 12:00Z: includes morning wrap, misses 12:09:49Z CPI preview.
+    # At 12:15Z (19:15 GMT+7) on 10 Nov: on pre-P5 ce53947a8 cutoff freezes at 12:00Z (misses 12:09:49Z CPI);
+    # once P5 (POST_CUTOFF_MACRO_GRACE) is integrated, 12:15Z includes both the morning wrap and 12:09:49Z CPI.
     nov10 = digest.prepare_daily_digest(
         store, feed_path, now=datetime(2026, 11, 10, 12, 15, tzinfo=timezone.utc)
     )
     assert nov10["digest_id"] == "cc143-digest-2026-11-10"
     assert nov10["public_write_performed"] is False
-    assert [a["content_id"] for a in nov10["packet"]["articles"]] == ["substack:224000001"]
+    expected_nov10 = (
+        ["substack:224000001", "substack:224000002"]
+        if hasattr(digest, "POST_CUTOFF_MACRO_GRACE")
+        else ["substack:224000001"]
+    )
+    assert [a["content_id"] for a in nov10["packet"]["articles"]] == expected_nov10
     assert digest.delivery_mode_for_plan(store, nov10["digest_id"], nov10["packet"]["plan"]) == digest.EMAIL_DIGEST
 
     # Simulate DEFINITE_NO_WRITE on 10 Nov digest (no public_object_id/url): on 11 Nov, both the refused
