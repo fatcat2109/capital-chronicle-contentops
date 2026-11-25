@@ -20,6 +20,11 @@ DESTINATION = "internal:substack-daily-digest"
 WEB_ONLY = "WEB_ONLY"
 EMAIL_DIGEST = "DAILY_EMAIL_DIGEST"
 BANGKOK = timezone(timedelta(hours=7))
+# P5 (CC-336 / CC-143): US tier-1 macro previews (CPI/NFP/PPI, 08:30 ET = 13:30Z EST /
+# 12:30Z EDT) and pre-US wraps routinely publish between 12:00Z (19:00 GMT+7) and
+# 14:00Z (21:00 GMT+7). Bounding the effective cutoff to min(now_utc, 12:00Z + 2h)
+# includes already-confirmed pieces on that day while staying on the same ET date.
+POST_CUTOFF_MACRO_GRACE = timedelta(hours=2)
 
 
 def delivery_policy(mode):
@@ -200,22 +205,37 @@ def _titles_card(day, articles, *, output_dir, evidence_sha256):
             "rights": "Capital Chronicle original publication index and layout"}
 
 
-def prepare_daily_digest(store, feed_path, *, now=None):
+def prepare_daily_digest(store, feed_path, *, now=None, defer_until_utc=None):
     """Freeze once per 19:00 GMT+7 cutoff; resume an unsent draft before a new day.
 
-    Cutoffs cover the preceding 24 hours, so a post after 19:00 is included in the
-    following digest. Published identities/URLs are never selected again. A
-    definitely refused older digest contributes its unsent articles to the next
-    day; pending or observed writes keep their exact frozen recovery identity.
-    There is no two-hour timeout/retry: decision 54 supersedes that older rule.
+    Cutoffs open at 19:00 GMT+7 (12:00Z) and bound confirmed post-cutoff US
+    macro/pre-US pieces up to ``min(now_utc, 12:00Z + POST_CUTOFF_MACRO_GRACE)``
+    (14:00Z / 21:00 GMT+7, always the same ET calendar date) without ever
+    looking ahead past ``now_utc`` (P5 / CC-336). An optional aware
+    ``defer_until_utc`` inside ``[12:00Z, 14:00Z]`` holds a fresh freeze until
+    that instant without blocking recovery of an existing unsent digest.
+    Published identities/URLs are never selected again. A definitely refused
+    older digest contributes its unsent articles to the next day; pending or
+    observed writes keep their exact frozen recovery identity. There is no
+    two-hour timeout/retry: decision 54 supersedes that older rule.
     """
     now = now or datetime.now(timezone.utc)
     if now.tzinfo is None:
         raise ValueError("EXPLICIT_DIGEST_CLOCK_REQUIRED")
-    local = now.astimezone(BANGKOK)
+    now_utc = now.astimezone(timezone.utc)
+    local = now_utc.astimezone(BANGKOK)
     day = local.date() if local.time() >= time(19) else local.date() - timedelta(days=1)
-    end = datetime.combine(day, time(19), BANGKOK).astimezone(timezone.utc)
-    start = end - timedelta(days=1)
+    scheduled_cutoff = datetime.combine(day, time(19), BANGKOK).astimezone(timezone.utc)
+    max_cutoff = scheduled_cutoff + POST_CUTOFF_MACRO_GRACE
+    defer_utc = None
+    if defer_until_utc is not None:
+        if not isinstance(defer_until_utc, datetime) or defer_until_utc.tzinfo is None:
+            raise ValueError("EXPLICIT_DIGEST_CLOCK_REQUIRED")
+        defer_utc = defer_until_utc.astimezone(timezone.utc)
+        if not (scheduled_cutoff <= defer_utc <= max_cutoff):
+            raise ValueError("DIGEST_DEFER_WINDOW_INVALID")
+    end = min(now_utc, max_cutoff)
+    start = scheduled_cutoff - timedelta(days=1)
     digest_id = "cc143-digest-" + day.isoformat()
     from uuid import uuid4
     owner = "digest-prepare-" + uuid4().hex
@@ -240,6 +260,9 @@ def prepare_daily_digest(store, feed_path, *, now=None):
             if not (status["confirmed"] or status["web_confirmed"]) or packet["digest_id"] == digest_id:
                 return {**status, "packet": packet, "public_write_performed": False}
             published.append(packet)
+        if defer_utc is not None and now_utc < defer_utc:
+            return {"digest_id": digest_id, "state": "DEFERRED_FOR_MACRO_RELEASE",
+                    "defer_until_utc": defer_utc.isoformat(), "public_write_performed": False}
         if prior:
             # Delayed code entry or a late confirmed-feed append must not lose
             # articles between digests. Already published IDs/URLs are excluded.
@@ -249,7 +272,7 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         candidates = list(refused_articles)
         feed_rows = read_records(feed_path) if feed_path and Path(feed_path).is_file() else []
         for row in feed_rows:
-            if utc(row["recorded_at_utc"]) <= now:
+            if utc(row["recorded_at_utc"]) <= now_utc:
                 candidates.append({"content_id": row["content_id"], "title": row["title"],
                     "standfirst": row["standfirst"], "published_at_utc": row["published_at_utc"],
                     "url": next(o["url"] for o in row["outlets"] if o["name"] == "substack")})
@@ -271,12 +294,15 @@ def prepare_daily_digest(store, feed_path, *, now=None):
         subtitle = substack_subtitle(titles)
         entries = [f'**[{_link_title(a["title"])}]({a["url"]})**' + (f'\n\n{a["standfirst"]}' if a["standfirst"] else "")
                    for a in articles]
+        from live_contentops.preview_link_guard_v1 import REASON as PREVIEW_LINK_REASON, find_forbidden_link
         from live_contentops.public_time_v1 import public_datetime, require_public_time
         reader_day = public_datetime(end).date()
         payload = {"title": "Capital Chronicle daily digest — " + day_label(reader_day) + " (ET)",
                    "subtitle": subtitle,
                    "body_markdown": "\n\n".join([*entries, PUBLIC_NOTICE])}
         require_public_time(payload)
+        if find_forbidden_link(payload):
+            raise ValueError(PREVIEW_LINK_REASON)
         card = _titles_card(reader_day, articles,
             output_dir=Path(store.db_path).parent / "daily_app_outputs" / "owner-manual" / digest_id / "media",
             evidence_sha256=sha256_of(articles))
