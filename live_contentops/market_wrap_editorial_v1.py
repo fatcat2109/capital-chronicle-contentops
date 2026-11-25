@@ -272,11 +272,16 @@ def article_for(pack, manuscript):
         from . import market_attention_map_public_v1 as attention_map
 
         am_spec = pack["attention_map"]
-        attention_register = (
-            am_spec["register"]
-            if am_spec.get("register", {}).get("schema_version") == attention_map.SCHEMA_VERSION
-            else attention_map.project_public_register(am_spec["register"], as_of_utc=pack.get("source_pack_as_of_utc"))
-        )
+        raw_register = am_spec["register"]
+        if raw_register.get("schema_version") == attention_map.SCHEMA_VERSION:
+            attention_register = raw_register
+        else:
+            from . import market_forces_high_interval_v1 as high_interval
+
+            attention_register = high_interval.project_live_attention_map(
+                raw_register,
+                as_of_utc=pack.get("source_pack_as_of_utc"),
+            )["public_register"]
         attention_section = attention_map.render_weekly_section(
             attention_register,
             page_links=am_spec.get("page_links"),

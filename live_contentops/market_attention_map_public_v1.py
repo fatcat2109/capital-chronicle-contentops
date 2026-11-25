@@ -34,6 +34,7 @@ from .event_article_guard_v1 import (
     NAMED_NUMBER,
     PUBLIC_NOTICE,
     check_publication_copy,
+    public_execution_copy_forbidden,
 )
 from .light_model_caller_v1 import call_light, json_answer
 from .plan_reader_copy_v1 import et
@@ -193,7 +194,7 @@ def _extract_private_texts(register: Mapping[str, Any]) -> list[str]:
                 private.append(line)
         elif isinstance(node, Mapping):
             for key, val in node.items():
-                if key in {"text", "headline", "body", "title", "quote", "summary", "rationale"}:
+                if key in {"text", "headline", "body", "title", "quote", "summary", "rationale", "note", "notes"}:
                     harvest(val)
         elif isinstance(node, list):
             for item in node:
@@ -204,8 +205,32 @@ def _extract_private_texts(register: Mapping[str, Any]) -> list[str]:
     for theme in register.get("themes") or []:
         if not isinstance(theme, Mapping):
             continue
-        for key in ("x_list_posts", "wire_headlines", "raw_headlines", "prepared_responses", "prepared_response"):
+        for key in (
+            "x_list_posts",
+            "wire_headlines",
+            "raw_headlines",
+            "prepared_responses",
+            "prepared_response",
+            "open_position_impacts",
+        ):
             harvest(theme.get(key))
+        raw_metrics = theme.get("computed_metrics")
+        metric_items = (
+            [{"label": str(k), "value": str(v)} for k, v in raw_metrics.items() if v is not None]
+            if isinstance(raw_metrics, Mapping)
+            else [m for m in raw_metrics if isinstance(m, Mapping)]
+            if isinstance(raw_metrics, list)
+            else []
+        )
+        for item in metric_items:
+            label = _clean_text(str(item.get("label") or ""))
+            value = _clean_text(str(item.get("value") or ""))
+            joined = f"{label}: {value}" if label and value else (value or label)
+            if joined and (
+                public_execution_copy_forbidden(joined) or _INTERNAL_COMPUTED_METRIC_RE.search(joined)
+            ):
+                harvest(value)
+                harvest(joined)
     return list(dict.fromkeys(private))
 
 
@@ -359,8 +384,15 @@ def _project_causal_chain(raw: Mapping[str, Any]) -> dict[str, Any] | None:
     }
 
 
-def _project_computed_metrics(raw_metrics: Any) -> list[dict[str, str]]:
-    """Allow only explicitly labelled Capital Chronicle computed free-page figures."""
+_INTERNAL_COMPUTED_METRIC_RE = re.compile(
+    r"(?:\b(?:account|balance|equity|lot|position|size|target|kalshi|polymarket|fedwatch|"
+    r"stop|replay|entry|exit|r[- ]?multiple)\b|(?<![A-Za-z0-9])[+-]?\d+(?:\.\d+)?R\b)",
+    re.I,
+)
+
+
+def _filter_public_computed_metrics(raw_metrics: Any) -> list[dict[str, str]]:
+    """Keep only free-page Capital Chronicle computed figures; strip R-multiples, stops, replay and private metrics."""
     kept: list[dict[str, str]] = []
     if isinstance(raw_metrics, Mapping):
         items = [{"label": str(k), "value": str(v)} for k, v in raw_metrics.items() if v is not None]
@@ -373,10 +405,16 @@ def _project_computed_metrics(raw_metrics: Any) -> list[dict[str, str]]:
         value = _clean_text(str(item.get("value") or ""))
         if not label or not value:
             continue
-        if re.search(r"\b(?:account|balance|equity|lot|position|size|target|kalshi|polymarket|fedwatch)\b", label, re.I):
+        joined = f"{label}: {value}"
+        if public_execution_copy_forbidden(joined) or _INTERNAL_COMPUTED_METRIC_RE.search(joined):
             continue
         kept.append({"label": label, "value": value})
     return kept
+
+
+def _project_computed_metrics(raw_metrics: Any) -> list[dict[str, str]]:
+    """Allow only explicitly labelled Capital Chronicle computed free-page figures."""
+    return _filter_public_computed_metrics(raw_metrics)
 
 
 def project_public_register(register: Mapping[str, Any], *, as_of_utc: Any = None) -> dict[str, Any]:
@@ -1151,6 +1189,7 @@ def render_short_social_lead(
         raise ValueError("ATTENTION_MAP_NO_LIVE_THEMES")
 
     theme_lines = [f"{i}. {t['name']}: {t['one_line'].rstrip('.')}." for i, t in enumerate(live_themes, start=1)]
+    list_indices = tuple(str(i) for i in range(1, len(live_themes) + 1))
     notices = f"{PUBLIC_NOTICE}\n{CONFLICTS_NOTICE}"
     credit_suffix = f" {credit.strip().rstrip('.')}." if credit.strip() else ""
 
@@ -1183,7 +1222,7 @@ def render_short_social_lead(
             public_register=public_register,
             require_notice=True,
             private_texts=private_texts,
-            extra_allowed_sources=(credit_suffix,),
+            extra_allowed_sources=(credit_suffix, *list_indices),
         )
         return {
             "destination": destination,
@@ -1209,7 +1248,7 @@ def render_short_social_lead(
         public_register=public_register,
         require_notice=True,
         private_texts=private_texts,
-        extra_allowed_sources=(credit_suffix,),
+        extra_allowed_sources=(credit_suffix, *list_indices),
     )
     return {
         "destination": destination,

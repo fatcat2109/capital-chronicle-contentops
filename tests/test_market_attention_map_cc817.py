@@ -438,3 +438,137 @@ def test_codex_high_effort_drafting_uses_codex_never_agy_and_falls_back_on_viola
     assert "Kalshi" not in fallback_page["native_payload"]["body_markdown"]
     assert "91%" not in fallback_page["native_payload"]["body_markdown"]
     assert "Base case (55%, Capital Chronicle estimate)" in fallback_page["native_payload"]["body_markdown"]
+
+
+def test_x1_direct_project_public_register_strips_internal_r_multiple_computed_metrics():
+    """[X1] Direct callers to project_public_register never trip on Main CC-807 internal R-multiple computed_metrics."""
+    raw = sample_register(THU_3_DEC)
+    raw["themes"][1]["computed_metrics"] = [
+        {"label": "Replay range on confirmation", "value": "+0.30R to +0.75R with half-normal-day stop"},
+        {"label": "Speed expectancy", "value": "+0.23R 3h move"},
+        {"label": "Historical 1d move", "value": "1.4% median (Capital Chronicle computed)"},
+    ]
+    raw["themes"][1]["open_position_impacts"] = [
+        {"summary": "Confidential semiconductor desk memo alpha-delta-canary."}
+    ]
+
+    public = attention.project_public_register(raw, as_of_utc=THU_3_DEC)
+    theme = next(t for t in public["themes"] if t["theme_id"] == "ai-capex-nasdaq")
+    assert theme["computed_metrics"] == [
+        {"label": "Historical 1d move", "value": "1.4% median (Capital Chronicle computed)"}
+    ]
+    assert "+0.30R to +0.75R with half-normal-day stop" in public["_private_texts"]
+
+    page = attention.render_theme_page(theme, as_of_utc=THU_3_DEC)
+    page_md = page["native_payload"]["body_markdown"]
+    assert "+0.30R" not in page_md and "+0.75R" not in page_md and "half-normal-day stop" not in page_md
+    assert "+0.23R" not in page_md
+    assert "Historical 1d move: 1.4% median (Capital Chronicle computed)" in page_md
+    attention.validate_attention_map_copy(page_md, public_register=public, require_notice=True)
+
+    section = attention.render_weekly_section(public)
+    assert "+0.30R" not in section["markdown"] and "half-normal-day stop" not in section["markdown"]
+    attention.validate_attention_map_copy(section["markdown"], public_register=public, require_notice=False)
+
+    # Adversarial verbatim echo of stripped internal R-multiple metric or open-position canary remains refused.
+    with pytest.raises(ValueError):
+        attention.validate_attention_map_copy(
+            "Nasdaq 100 (NQ futures) sees +0.30R to +0.75R with half-normal-day stop.",
+            public_register=public,
+            require_notice=False,
+        )
+    with pytest.raises(ValueError, match="PLAN_ANALYSIS_PRIVATE_X_LIST_FORBIDDEN"):
+        attention.validate_attention_map_copy(
+            "Confidential semiconductor desk memo alpha-delta-canary.",
+            public_register=public,
+            require_notice=False,
+        )
+
+
+def test_x1_market_wrap_editorial_normalizes_raw_main_cc807_register_directly(tmp_path, pack):
+    """[X1] Passing raw un-normalized Main CC-807 JSON directly into market_wrap_editorial_v1 strips R-multiples cleanly."""
+    raw_main_cc807 = {
+        "schema": "MarketAttentionMapRegisterV1",
+        "as_of_utc": SUN_6_DEC.isoformat(),
+        "themes": [
+            {
+                "theme_id": "nvidia_leadership_ai_capex",
+                "name": "Semiconductor leadership and AI capital spending",
+                "one_line": "Semiconductor guidance drives Nasdaq 100 and S&P 500 leadership.",
+                "status": "active",
+                "rank": 1,
+                "first_seen_utc": THU_3_DEC.isoformat(),
+                "updated_at_utc": SUN_6_DEC.isoformat(),
+                "lead_market": "USTEC",
+                "affected_markets": ["USTEC", "US500"],
+                "causal_chains": [
+                    {
+                        "asset": "USTEC",
+                        "event": "data-center demand guidance",
+                        "channel": "earnings revision",
+                        "direction": "bullish",
+                        "rough_size": "one to two normal days",
+                    }
+                ],
+                "branches": [
+                    {
+                        "branch_id": "base_capex_holds",
+                        "kind": "base",
+                        "summary": "Cloud spending guidance holds firm and supports Nasdaq 100 leadership.",
+                        "probability_pct": 55,
+                        "probability_source": "capital_chronicle",
+                        "invalidation": "Hyperscaler guidance cuts capex materially.",
+                    },
+                    {
+                        "branch_id": "alt_export_curbs",
+                        "kind": "alternative",
+                        "summary": "Tighter export rules cool semiconductor momentum.",
+                        "probability_pct": 45,
+                        "probability_source": "capital_chronicle",
+                        "invalidation": "Licensing terms stay unchanged.",
+                    },
+                ],
+                "computed_metrics": [
+                    {"label": "Replay range on confirmation", "value": "+0.30R to +0.75R with half-normal-day stop"},
+                    {"label": "Historical 1d move", "value": "1.6% median (Capital Chronicle computed)"},
+                ],
+                "prepared_responses": [{"note": "INTERNAL ONLY: arm equity index order on release."}],
+                "open_position_impacts": [{"note": "INTERNAL ONLY: current book sizing canary string."}],
+                "decision_points": [
+                    {
+                        "id": "dp_nvda_conf",
+                        "event": "Semiconductor industry conference update",
+                        "at_utc": "2026-12-08T14:00:00+00:00",
+                        "watch_condition": "Forward data-center demand commentary",
+                    }
+                ],
+            }
+        ],
+    }
+
+    weekly_pack = deepcopy(pack)
+    weekly_pack["slot"] = {
+        "id": "cc689-weekly-2026-12-06",
+        "edition": "weekly",
+        "day_et": "2026-12-06",
+        "start_utc": SUN_6_DEC.isoformat(),
+        "deadline_utc": "2026-12-06T18:00:00+00:00",
+    }
+    weekly_pack["source_pack_as_of_utc"] = SUN_6_DEC.isoformat()
+    weekly_pack["market_close_date"] = "2026-12-04"
+    weekly_pack["attention_map"] = {"register": raw_main_cc807}
+
+    manuscript = wrap_editorial.draft(weekly_pack, tmp_path / "weekly-raw-cc807", call=select_first)
+    article, _ = wrap_editorial.article_for(weekly_pack, manuscript)
+    body = article["substack_body_markdown"]
+    assert body.startswith("## The week ahead: what the market is watching")
+    assert "Semiconductor leadership and AI capital spending" in body
+    assert "+0.30R" not in body and "+0.75R" not in body and "half-normal-day stop" not in body
+    assert "INTERNAL ONLY" not in body
+    assert "USTEC" not in body
+
+    social = wrap_editorial.derivative_payload(
+        article, [], "https://capitalchronicle.substack.com/p/weekend-wrap-2026-12-06", "x"
+    )
+    assert all(len(p["text"]) <= 280 for p in social["posts"])
+    assert "+0.30R" not in social["full_text"] and "INTERNAL ONLY" not in social["full_text"]
