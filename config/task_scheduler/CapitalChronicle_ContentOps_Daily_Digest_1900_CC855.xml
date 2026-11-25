@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>CC-855 / CC-143 / CC-690: Daily 19:15 GMT+7 Capital Chronicle Substack email digest and evening readback runner (zero Claude Desktop / zero agy dependency; OS-lock guarded). Disabled until Ops installs.</Description>
+    <URI>\CapitalChronicle-ContentOpsDailyDigest1900-V1</URI>
+  </RegistrationInfo>
+  <Triggers>
+    <CalendarTrigger>
+      <StartBoundary>2026-12-01T19:15:00+07:00</StartBoundary>
+      <Enabled>true</Enabled>
+      <ScheduleByDay>
+        <DaysInterval>1</DaysInterval>
+      </ScheduleByDay>
+    </CalendarTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <UserId>JP</UserId>
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>false</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <AllowStartOnDemand>true</AllowStartOnDemand>
+    <Enabled>false</Enabled>
+    <Hidden>true</Hidden>
+    <RunOnlyIfIdle>false</RunOnlyIfIdle>
+    <WakeToRun>false</WakeToRun>
+    <ExecutionTimeLimit>PT20M</ExecutionTimeLimit>
+    <Priority>7</Priority>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+  </Settings>
+  <Actions Context="Author">
+    <Exec>
+      <Command>A:\Capital Chronicle\Runtime\ContentOps\v1-runtime\venv\Scripts\pythonw.exe</Command>
+      <Arguments>-B &quot;A:\Capital Chronicle\ContentOps\scripts\run_daily_digest_1900.py&quot; run --rollout config/native_desktop_rollout_v1.json --driver python-neo</Arguments>
+      <WorkingDirectory>A:\Capital Chronicle\ContentOps</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>
