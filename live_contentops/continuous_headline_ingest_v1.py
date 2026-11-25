@@ -476,6 +476,7 @@ def run_ingestion_housekeeping_iteration(
 
     if state_name not in {"READY"}:
         from live_contentops.ingestion_bootstrap_v1 import (
+            STATE_CDP_PROBE_STARVED,
             STATE_PORT_OWNER_UNPROVEN,
             STATE_PROFILE_BINDING_MISSING,
             STATE_RUNNING_WITHOUT_CDP,
@@ -493,6 +494,11 @@ def run_ingestion_housekeeping_iteration(
             return _finish(OUTCOME_PORT_OWNER_UNPROVEN, consecutive_empty=checkpoint["consecutive_empty"] + 1)
         if state_name == STATE_RUNNING_WITHOUT_CDP:
             result["detail"] = "CANONICAL_PROFILE_RUNNING_WITHOUT_CDP"
+            result["failure_class"] = "CDP_BROWSER_UNAVAILABLE"
+            result["failure_detail"] = result["detail"]
+            return _finish(OUTCOME_CDP_UNAVAILABLE, consecutive_empty=checkpoint["consecutive_empty"] + 1)
+        if state_name == STATE_CDP_PROBE_STARVED:
+            result["detail"] = "CANONICAL_CDP_9222_PROBE_STARVED"
             result["failure_class"] = "CDP_BROWSER_UNAVAILABLE"
             result["failure_detail"] = result["detail"]
             return _finish(OUTCOME_CDP_UNAVAILABLE, consecutive_empty=checkpoint["consecutive_empty"] + 1)

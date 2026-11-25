@@ -67,6 +67,7 @@ STATE_REAUTH_REQUIRED = "REAUTH_REQUIRED"
 STATE_AUTH_UNVERIFIED = "READY_AUTH_UNVERIFIED"
 STATE_UNAVAILABLE = "UNAVAILABLE"
 STATE_RUNNING_WITHOUT_CDP = "RUNNING_WITHOUT_CDP"
+STATE_CDP_PROBE_STARVED = "CDP_PROBE_STARVED"
 STATE_PORT_OWNER_UNPROVEN = "PORT_OWNER_UNPROVEN"
 STATE_LAUNCHED = "LAUNCHED"
 STATE_ALREADY_READY = "ALREADY_READY"
@@ -270,6 +271,13 @@ def _is_ingestion_command_line(command_line: str, profile_dir: Path) -> bool:
     return "chrome" in lowered and profile in lowered
 
 
+def _has_cdp_port_flag(command_line: str, cdp_port: int) -> bool:
+    if not command_line:
+        return False
+    lowered = command_line.lower().replace('"', "")
+    return f"--remote-debugging-port={int(cdp_port)}" in lowered
+
+
 def ingestion_process_state(
     *,
     env: Optional[Mapping[str, str]] = None,
@@ -308,15 +316,49 @@ def ingestion_process_state(
         if not _is_ingestion_command_line(owner_cmd, profile_dir):
             return {"state": STATE_PORT_OWNER_UNPROVEN, "detail": "PORT_9222_OWNED_BY_NON_CANONICAL_PROCESS", "pid": owner_pid}
         return {"state": STATE_READY, "detail": "CANONICAL_INGESTION_PROFILE_ON_CDP_9222", "pid": owner_pid}
+    # CC-785 starved-probe fix: before declaring RUNNING_WITHOUT_CDP, distinguish a live canonical
+    # Chrome 9222 whose /json/version HTTP probe timed out under host load from a profile started
+    # without --remote-debugging-port=9222.
+    native_pid = _native_listener_pid(cdp_port)
+    native = _native_process_identity(native_pid) if native_pid else None
+    if native and native.get("cmd") is not None and _is_ingestion_command_line(str(native["cmd"]), profile_dir):
+        return {
+            "state": STATE_CDP_PROBE_STARVED,
+            "detail": "CANONICAL_CDP_9222_LISTENING_PROBE_TIMED_OUT",
+            "pid": native["pid"],
+            "start": native["start"],
+            "owner_check": "NATIVE",
+        }
     chrome_processes = _powershell_json(
         "$ErrorActionPreference='SilentlyContinue';"
         "@(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe'\""
         " | Where-Object { $_.CommandLine -like '*CapitalChronicleBot*' }"
-        " | Select-Object -ExpandProperty ProcessId) | ConvertTo-Json -Compress"
+        " | ForEach-Object { @{ pid = $_.ProcessId; cmd = $_.CommandLine } }) | ConvertTo-Json -Compress"
     )
-    pids = chrome_processes if isinstance(chrome_processes, list) else []
-    if pids:
-        return {"state": STATE_RUNNING_WITHOUT_CDP, "detail": "CANONICAL_PROFILE_ACTIVE_WITHOUT_CDP_9222", "pid": pids[0]}
+    entries = (
+        chrome_processes
+        if isinstance(chrome_processes, list)
+        else ([chrome_processes] if isinstance(chrome_processes, dict) else [])
+    )
+    non_cdp_pid = None
+    for entry in entries:
+        if isinstance(entry, Mapping):
+            pid = entry.get("pid")
+            cmd = str(entry.get("cmd") or "")
+            if pid is not None and _has_cdp_port_flag(cmd, cdp_port):
+                return {
+                    "state": STATE_CDP_PROBE_STARVED,
+                    "detail": "CANONICAL_CDP_9222_ACTIVE_PROBE_TIMED_OUT",
+                    "pid": pid,
+                }
+            if pid is not None and non_cdp_pid is None:
+                non_cdp_pid = pid
+        elif isinstance(entry, int) and not isinstance(entry, bool) and non_cdp_pid is None:
+            non_cdp_pid = entry
+    if non_cdp_pid is not None:
+        return {"state": STATE_RUNNING_WITHOUT_CDP, "detail": "CANONICAL_PROFILE_ACTIVE_WITHOUT_CDP_9222", "pid": non_cdp_pid}
+    if native and native.get("cmd") is not None:
+        return {"state": STATE_PORT_OWNER_UNPROVEN, "detail": "PORT_9222_OWNED_BY_NON_CANONICAL_PROCESS", "pid": native["pid"]}
     return {"state": STATE_UNAVAILABLE, "detail": "NO_CANONICAL_INGESTION_BROWSER_RUNNING", "pid": None}
 
 
@@ -375,7 +417,7 @@ def ensure_ingestion_runtime(
     current = ingestion_process_state(env=env, cdp_port=cdp_port)
     if current["state"] == STATE_READY:
         return {**current, "status": STATE_ALREADY_READY, "launched": False}
-    if current["state"] in {STATE_PORT_OWNER_UNPROVEN, STATE_RUNNING_WITHOUT_CDP}:
+    if current["state"] in {STATE_PORT_OWNER_UNPROVEN, STATE_RUNNING_WITHOUT_CDP, STATE_CDP_PROBE_STARVED}:
         return {**current, "status": current["state"], "launched": False}
     launched = _launch_canonical_ingestion_browser(env=env, cdp_port=cdp_port)
     if launched["state"] != STATE_LAUNCHED:
