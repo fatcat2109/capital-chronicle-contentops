@@ -404,6 +404,8 @@ def attachments_for_article(article, *, media_dir, timestamp_root=None):
             if bound.get("proof_path"):
                 proof = Path(bound["proof_path"])
                 summary = inspect(Path(ledger_spec["path"]), proof)
+                if summary["file_sha256"] != ledger_spec["sha256"]:
+                    raise ValueError("OTS_PROOF_FILE_DIGEST_MISMATCH")
                 target = folder / (summary["proof_sha256"]+".ots")
                 _retain(target, proof.read_bytes())
                 assets.append({"path": str(target), "sha256": summary["proof_sha256"], "bytes": target.stat().st_size,

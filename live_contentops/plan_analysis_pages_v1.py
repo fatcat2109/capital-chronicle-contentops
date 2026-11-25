@@ -62,7 +62,7 @@ _PRIVATE = re.compile(
     r"\b(?:279805139|279779602)\b", re.I)
 _MONEY = re.compile(r"\b(?:balance|equity|capital|allocation|size|sizing|risk budget|profit|loss)\b.{0,35}"
                     r"(?:[$€£]\s*\d|\d[\d,.]*\s*(?:USD|EUR|dollars|lots|%))", re.I)
-_MODELS = re.compile(r"\b(?:GPT(?:[- .]?\d[\w.-]*)?|ChatGPT|Claude|Opus|Gemini|Luna|Sol\s*6|Antigravity|"
+_MODELS = re.compile(r"\b(?:GPT(?:[- .]?\d[\w.-]*)?|ChatGPT|Claude|Fable|Opus|Sonnet|Haiku|Gemini|Codex|Luna|Sol\s*6|Antigravity|Anthropic|OpenAI|"
                      r"AI[- ](?:run|native|powered|driven)|(?:run|written|generated|operated|powered)\s+by\s+AI|"
                      r"(?:our|the)\s+(?:AI|artificial intelligence)\s+(?:desk|analysts?|team))\b", re.I)
 _X = re.compile(r"(?:https?://(?:www\.)?(?:x|twitter)\.com/|JIM_X_LIST|PRIVATE_X_LIST|X[-_ ]list)", re.I)
