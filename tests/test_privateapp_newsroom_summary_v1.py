@@ -757,3 +757,159 @@ def test_leak_and_display_guards_fail_closed_and_refuse_public_paths(tmp_path):
         summary_mod.write_privateapp_newsroom_summary(tmp_path / "ui" / "public" / "newsroom.private.json", valid_payload)
     with pytest.raises(summary_mod.PrivateLeakError):
         summary_mod.write_privateapp_newsroom_summary(tmp_path / "newsroom.public.json", valid_payload)
+
+
+def test_cc153_hardened_reader_handles_2500_same_day_readbacks_and_nested_verified_schema(tmp_path):
+    """Regression for C-H1 (>2,000 raw same-day readbacks) and C-H2 (nested readback.verified=True)."""
+    db_path = tmp_path / "active_day.sqlite3"
+    store = _seed_store_with_history(db_path, historical_dispatches=5, readbacks_per_dispatch=1, with_indexes=False)
+
+    conn = store.get_connection()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        # Seed a real production-style dispatch on 2026-11-26 plus an earlier-day dispatch
+        # verified via nested {"destination": ..., "dispatch_id": ..., "readback": {"verified": True}}.
+        conn.execute(
+            "INSERT INTO platform_dispatches(dispatch_id,message_id,platform,status,dispatched_at,public_object_url) "
+            "VALUES (?,?,?,?,?,?)",
+            (
+                "disp-nested-today",
+                "msg-today",
+                "telegram",
+                "DISPATCH_CONFIRMED",
+                "2026-11-26T02:10:00+00:00",
+                "https://t.me/CapitalChronicle/901",
+            ),
+        )
+        conn.execute(
+            "INSERT INTO platform_dispatches(dispatch_id,message_id,platform,status,dispatched_at,public_object_url) "
+            "VALUES (?,?,?,?,?,?)",
+            (
+                "disp-nested-earlier",
+                "msg-hist",
+                "discord",
+                "DISPATCH_CONFIRMED",
+                "2026-11-21T08:00:00+00:00",
+                "https://discord.com/channels/1/2/3",
+            ),
+        )
+        # Earlier-day nested verified readback (tests Step 4 earliest-timestamp resolution on nested schema).
+        conn.execute(
+            "INSERT INTO readbacks(readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+            (
+                "rb-nested-earlier-first",
+                "disp-nested-earlier",
+                json.dumps({
+                    "destination": "discord",
+                    "dispatch_id": "disp-nested-earlier",
+                    "readback": {"verified": True, "url": "https://discord.com/channels/1/2/3"},
+                }),
+                "2026-11-21T08:02:00+00:00",
+            ),
+        )
+        # Same-day nested verified readback for earlier-day dispatch (causes it to appear on 2026-11-26).
+        conn.execute(
+            "INSERT INTO readbacks(readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+            (
+                "rb-nested-earlier-recheck",
+                "disp-nested-earlier",
+                json.dumps({
+                    "destination": "discord",
+                    "dispatch_id": "disp-nested-earlier",
+                    "readback": {"verified": True, "url": "https://discord.com/channels/1/2/3"},
+                }),
+                "2026-11-26T03:00:00+00:00",
+            ),
+        )
+        # Seed 2,600 raw readbacks INSIDE the single 24h target production day (> MAX_CC153_ROWS=2000).
+        base_dt = datetime(2026, 11, 25, 19, 5, tzinfo=timezone.utc)  # 2026-11-26 02:05 GMT+7
+        rb_bulk = []
+        for idx in range(2600):
+            ts = (base_dt + timedelta(seconds=idx * 15)).isoformat()
+            is_first_verified = idx == 1200
+            payload = (
+                {
+                    "destination": "telegram",
+                    "dispatch_id": "disp-nested-today",
+                    "readback": {"verified": True, "url": "https://t.me/CapitalChronicle/901"},
+                }
+                if is_first_verified
+                else {
+                    "destination": "telegram",
+                    "dispatch_id": "disp-nested-today",
+                    "readback": {"verified": False, "probe": idx},
+                }
+            )
+            rb_bulk.append((f"rb-heavy-day-{idx:04d}", "disp-nested-today", json.dumps(payload), ts))
+        conn.executemany(
+            "INSERT INTO readbacks(readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+            rb_bulk,
+        )
+        conn.execute("COMMIT")
+    finally:
+        conn.close()
+
+    store_res, _ = summary_mod.read_cc153_store_hardened(
+        db_path,
+        day="2026-11-26",
+        now_utc="2026-11-26T10:00:00Z",
+        timeout_seconds=3.0,
+    )
+    assert store_res["evidence"]["state"] == "AVAILABLE"
+    assert store_res["evidence"]["reason"] is None
+    by_id = {d["dispatch_id"]: d for d in store_res["dispatches"]}
+    assert "disp-nested-today" in by_id
+    assert "disp-nested-earlier" in by_id
+    expected_today_ts = (base_dt + timedelta(seconds=1200 * 15)).isoformat()
+    assert by_id["disp-nested-today"]["verified_readback_at_utc"] == expected_today_ts
+    assert by_id["disp-nested-earlier"]["verified_readback_at_utc"] == "2026-11-21T08:02:00+00:00"
+
+
+def test_attention_map_odds_fail_closed_on_aliases_and_missing_source():
+    """Regression for C-M1: odds_source/source_kind aliases and unlabelled probabilities fail closed."""
+    projected = summary_mod._project_attention_theme_allowlist({
+        "theme_id": "rates_test",
+        "name": "Rates Test",
+        "status": "active",
+        "rank": 1,
+        "branches": [
+            {"kind": "base_case", "summary": "Odds alias kalshi", "odds_source": "kalshi", "probability_pct": 72},
+            {"kind": "alternative", "summary": "Source kind fedwatch", "source_kind": "fedwatch", "probability_pct": 85},
+            {"kind": "bull_case", "summary": "Unlabelled prob", "probability_pct": 28},
+            {
+                "kind": "bear_case",
+                "summary": "Already projected CC estimate",
+                "probability_pct": 55,
+                "probability_label": "Capital Chronicle estimate",
+            },
+        ],
+    })
+    by_summary = {b["summary"]: (b["probability_pct"], b["probability_label"]) for b in projected["branches"]}
+    assert by_summary["Odds alias kalshi"] == (None, None)
+    assert by_summary["Source kind fedwatch"] == (None, None)
+    assert by_summary["Unlabelled prob"] == (None, None)
+    assert by_summary["Already projected CC estimate"] == (55.0, "55% (Capital Chronicle estimate)")
+
+    # Explicit own source + conflicting market odds_source must STILL fail closed!
+    conflict = summary_mod._project_attention_theme_allowlist({
+        "theme_id": "conflict_test",
+        "name": "Conflict Test",
+        "branches": [
+            {
+                "kind": "base_case",
+                "summary": "Conflicting sources",
+                "probability_source": "capital_chronicle",
+                "odds_source": "kalshi",
+                "probability_pct": 72,
+            },
+            {
+                "kind": "alternative",
+                "summary": "Clean own estimate",
+                "probability_source": "capital_chronicle",
+                "probability_pct": 60,
+            },
+        ],
+    })
+    by_c = {b["summary"]: (b["probability_pct"], b["probability_label"]) for b in conflict["branches"]}
+    assert by_c["Conflicting sources"] == (None, None)
+    assert by_c["Clean own estimate"] == (60.0, "60% (Capital Chronicle estimate)")

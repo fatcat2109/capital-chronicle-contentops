@@ -49,6 +49,7 @@ ET = ZoneInfo("America/New_York")
 MAX_JSON_FILE_BYTES = 16 * 1024 * 1024
 MAX_X_FEED_HEADER_BYTES = 65536
 MAX_CC153_ROWS = 2000
+MAX_CC153_READBACKS = 50_000
 DEFAULT_CC153_TIMEOUT_SECONDS = 3.0
 DEFAULT_CC153_RETRY_DELAYS = (0.0, 0.1, 0.25, 0.5)
 SQLITE_BATCH_SIZE = 200
@@ -694,15 +695,44 @@ def _decode_store_payload(row: Mapping[str, Any] | None) -> dict[str, Any]:
 
 
 def _day_prefilter_bounds(day: str) -> tuple[str, str]:
-    """Conservative ISO-8601 date-string prefilter around a Bangkok production day.
+    """Exact 24-hour Bangkok production-day UTC prefilter with 1-second margin.
 
     Bangkok production day ``YYYY-MM-DD`` runs from ``(day-1)T19:00:00Z`` to
-    ``dayT19:00:00Z``. Widening SQL prefilters to ``[day-2, day+2)`` captures any
-    UTC or timezone-offset ISO string safely; exact ``production_date_bangkok``
-    filtering in Python preserves exact CC-153 boundaries.
+    ``dayT19:00:00Z``. Using ``[f"{prev}T18:59:59", f"{day}T19:00:01")`` covers
+    both ``+00:00`` and ``Z`` UTC ISO-8601 timestamps cleanly without pulling
+    multi-day readback volume; exact ``production_date_bangkok`` filtering in
+    Python enforces exact CC-153 boundaries.
     """
     parsed = date.fromisoformat(day)
-    return (parsed - timedelta(days=2)).isoformat(), (parsed + timedelta(days=2)).isoformat()
+    prev_day = (parsed - timedelta(days=1)).isoformat()
+    return f"{prev_day}T18:59:59", f"{day}T19:00:01"
+
+
+def _is_verified_readback(data: Any) -> bool:
+    """Recognize both legacy top-level ``verified: true`` and production nested ``readback.verified: true``."""
+    if not isinstance(data, Mapping):
+        return False
+    if data.get("verified") is True:
+        return True
+    nested = data.get("readback")
+    return isinstance(nested, Mapping) and nested.get("verified") is True
+
+
+def _iter_bounded_readbacks(
+    conn: sqlite3.Connection,
+    sql: str,
+    params: tuple[Any, ...] = (),
+    *,
+    max_readbacks: int = MAX_CC153_READBACKS,
+) -> Iterable[sqlite3.Row]:
+    """Stream raw readbacks under a generous bounded safety cap (never limited to 2,000 dispatch rows)."""
+    cursor = conn.execute(sql, params)
+    seen = 0
+    for row in cursor:
+        seen += 1
+        if seen > max_readbacks:
+            raise InvalidSource("STORE_READBACK_ROW_LIMIT")
+        yield row
 
 
 def _load_cc153_admissions(
@@ -806,18 +836,17 @@ def _load_cc153_dispatches_zero_n_plus_1(
             by_dispatch_id[did] = row
             day_dispatch_ids.add(did)
 
-    # 2. Single-pass readbacks in the day prefilter window (ZERO N+1 queries!).
-    window_readbacks = _bounded_rows(
+    # 2. Single-pass streamed readbacks in the 24h day window (ZERO N+1, generous readback cap).
+    verified_on_day_ids: set[str] = set()
+    earliest_verified_by_dispatch: dict[str, str] = {}
+    for rb in _iter_bounded_readbacks(
         conn,
         "SELECT dispatch_id,readback_data,read_at FROM readbacks "
         "WHERE read_at >= ? AND read_at < ? ORDER BY read_at",
         (pre_start, pre_end),
-    )
-    verified_on_day_ids: set[str] = set()
-    earliest_verified_by_dispatch: dict[str, str] = {}
-    for rb in window_readbacks:
+    ):
         data = _strict_decode(rb["readback_data"])
-        if not isinstance(data, dict) or data.get("verified") is not True:
+        if not _is_verified_readback(data):
             continue
         did = str(rb["dispatch_id"])
         read_at = rb["read_at"]
@@ -841,24 +870,25 @@ def _load_cc153_dispatches_zero_n_plus_1(
         )
         for row in rows:
             by_dispatch_id[str(row["dispatch_id"])] = row
+    if len(by_dispatch_id) > MAX_CC153_ROWS:
+        raise InvalidSource("STORE_ROW_LIMIT")
 
     # 4. For any shown dispatch (typically 0..50), check if an earlier verified readback
     #    preceded ``pre_start`` so ``verified_readback_at_utc`` matches CC-153's earliest
-    #    readback timestamp exactly (batched IN query, never N+1).
+    #    readback timestamp exactly (batched IN query streamed under MAX_CC153_READBACKS).
     all_shown_ids = sorted(by_dispatch_id.keys())
     if all_shown_ids:
         for offset in range(0, len(all_shown_ids), SQLITE_BATCH_SIZE):
             chunk = all_shown_ids[offset : offset + SQLITE_BATCH_SIZE]
             marks = ",".join("?" for _ in chunk)
-            earlier_rbs = _bounded_rows(
+            for rb in _iter_bounded_readbacks(
                 conn,
                 f"SELECT dispatch_id,readback_data,read_at FROM readbacks "
                 f"WHERE dispatch_id IN ({marks}) AND read_at < ? ORDER BY read_at",
                 (*chunk, pre_start),
-            )
-            for rb in earlier_rbs:
+            ):
                 data = _strict_decode(rb["readback_data"])
-                if not isinstance(data, dict) or data.get("verified") is not True:
+                if not _is_verified_readback(data):
                     continue
                 did = str(rb["dispatch_id"])
                 read_at = rb["read_at"]
@@ -1941,17 +1971,32 @@ def _project_attention_theme_allowlist(raw_theme: Mapping[str, Any]) -> dict[str
             continue
         raw_kind = str(raw_br.get("kind") or raw_br.get("role") or "alternative").lower()
         kind_code, kind_label = _BRANCH_KIND_LABELS.get(raw_kind, ("alternative", "Alternative"))
-        prob_source = str(raw_br.get("probability_source") or "").lower()
+        raw_sources = [
+            str(raw_br.get(k) or "").strip().lower()
+            for k in ("probability_source", "odds_source", "source_kind")
+            if str(raw_br.get(k) or "").strip()
+        ]
+        prob_source = raw_sources[0] if raw_sources else ""
+        raw_label = str(raw_br.get("probability_label") or "").strip()
+        raw_label_l = raw_label.lower()
         prob_pct = _safe_num(raw_br.get("probability_pct"))
-        # Strict CC-817 rule: NEVER expose numeric market-implied odds (Kalshi/Polymarket/FedWatch).
-        if prob_source in _MARKET_PROBABILITY_SOURCES:
+        # Strict CC-817 fail-closed rule: NEVER expose numeric market-implied or unattributed odds.
+        is_market_source = any(src in _MARKET_PROBABILITY_SOURCES for src in raw_sources)
+        is_explicit_own_source = bool(prob_source) and prob_source in _OWN_PROBABILITY_SOURCES
+        is_projected_cc_label = (not prob_source) and (
+            raw_label_l == "capital chronicle estimate"
+            or raw_label_l.endswith("(capital chronicle estimate)")
+        )
+        if is_market_source or prob_pct is None or not (is_explicit_own_source or is_projected_cc_label):
             prob_pct = None
             prob_label = None
-        elif prob_pct is not None and (not prob_source or prob_source in _OWN_PROBABILITY_SOURCES):
-            prob_label = str(raw_br.get("probability_label") or f"{int(prob_pct) if prob_pct.is_integer() else prob_pct}% (Capital Chronicle estimate)")
         else:
-            prob_pct = None
-            prob_label = None
+            pct_text = f"{int(prob_pct) if prob_pct.is_integer() else prob_pct}%"
+            prob_label = (
+                raw_label
+                if raw_label and "capital chronicle estimate" in raw_label_l and pct_text in raw_label
+                else f"{pct_text} (Capital Chronicle estimate)"
+            )
         branches_out.append({
             "kind": kind_code,
             "label": kind_label,
