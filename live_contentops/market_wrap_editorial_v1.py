@@ -375,11 +375,17 @@ def article_for(pack, manuscript):
 
         pulse_spec = pack["session_sync_pulse"]
         if pulse_spec.get("schema_version") == high_interval.PULSE_SCHEMA_VERSION:
-            session_pulse = dict(pulse_spec)
-            high_interval.attention.validate_attention_map_copy(
-                session_pulse["markdown"], require_notice=False
+            pulse_register = (
+                pulse_spec.get("public_register")
+                or pulse_spec.get("register")
+                or attention_register
+                or (pack.get("attention_map") or {}).get("register")
             )
-            validate_payload({"public_instrument_policy": INSTRUMENT_POLICY}, {"text": session_pulse["markdown"]})
+            session_pulse = high_interval.validate_session_sync_pulse(
+                pulse_spec,
+                register_or_public=pulse_register,
+                private_texts=pulse_spec.get("private_texts") or (),
+            )
         else:
             default_session = (
                 pulse_spec.get("session")

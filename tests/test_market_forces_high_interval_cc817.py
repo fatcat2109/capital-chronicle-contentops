@@ -130,10 +130,10 @@ def test_allow_list_poller_strips_all_private_and_proprietary_fields_and_validat
     ):
         assert forbidden not in serialized
     assert public["cadence_metadata"]["live_refresh_interval_minutes"] == 15
-    # Internal detector state retains market-implied probabilities strictly separate from public_register.
+    # Internal detector state retains market-implied probabilities strictly separate from public_register (keyed by branch_id, M1).
     det_first = projected["detector_state"]["themes"]["fed-boj-usdjpy"]
-    assert det_first["branch_probabilities"]["base"]["cc_probability_pct"] == "55"
-    assert det_first["branch_probabilities"]["base"]["market_implied_probability_pct"] == "62"
+    assert det_first["branch_probabilities"]["fed-boj-usdjpy_base"]["cc_probability_pct"] == "55"
+    assert det_first["branch_probabilities"]["fed-boj-usdjpy_base"]["market_implied_probability_pct"] == "62"
 
 
 def test_noise_and_subthreshold_moves_emit_zero_flashes_with_zero_llm_calls(tmp_path):
@@ -308,7 +308,7 @@ def test_per_theme_cooldown_branch_flip_bypass_and_exactly_once_idempotency(tmp_
     # Even if forced through detect_material_shifts via a fresh ledger copy missing only theme baseline
     # while dispatched_events retains event_key, exactly-once blocks duplicate!
     tampered_ledger = hi.load_ledger(ledger_path)
-    tampered_ledger["themes"]["fed-boj-usdjpy"]["branch_probabilities"]["base"]["cc_probability_pct"] = "55"
+    tampered_ledger["themes"]["fed-boj-usdjpy"]["branch_probabilities"]["fed-boj-usdjpy_base"]["cc_probability_pct"] = "55"
     r_idemp = hi.poll_live_attention_map(
         m1,
         now_utc=T0 + timedelta(minutes=30),
@@ -652,3 +652,284 @@ def test_high_interval_enforces_all_five_public_filters_and_zero_agy(bad_text, c
     source_text = Path(hi.__file__).read_text(encoding="utf-8")
     for forbidden_call in ("agy_editorial_assist", "call_light", "subprocess", "codex exec"):
         assert forbidden_call not in source_text
+
+
+_CC807_CONTRACT_PATH = Path(r"C:\CapitalChronicleScratch\t3-trial-20261124\deliveries\cc-807-schema-contract-v1.json")
+
+
+def _load_real_worked_live_snapshot() -> dict:
+    assert _CC807_CONTRACT_PATH.is_file(), f"Missing CC-807 contract: {_CC807_CONTRACT_PATH}"
+    doc = json.loads(_CC807_CONTRACT_PATH.read_bytes().decode("utf-8"))
+    return deepcopy(doc["worked_live_snapshot"])
+
+
+def test_h1_worked_live_snapshot_catalyst_hit_never_blames_future_fomc_or_poisons_ledger(tmp_path):
+    """Regression test for H1 against CC Builder 9's real worked_live_snapshot."""
+    snap0 = _load_real_worked_live_snapshot()
+    t0 = attention.utc(snap0["as_of_utc"])  # 2026-11-24T12:15:00Z (15 days before FOMC!)
+    ledger_path = tmp_path / "h1_ledger.json"
+    hi.seed_ledger_from_map(snap0, as_of_utc=t0, ledger_path=ledger_path)
+
+    # 1. At 12:30Z on 24 Nov, USDJPY hits its undated MoF 160 watch condition (live_state.decision_point_catalyst_hit=True).
+    t1 = t0 + timedelta(minutes=15)
+    snap1 = _load_real_worked_live_snapshot()
+    snap1["as_of_utc"] = t1.isoformat()
+    snap1["themes"][0]["updated_at_utc"] = t1.isoformat()
+    snap1["themes"][0]["live_state"]["updated_at_utc"] = t1.isoformat()
+    snap1["themes"][0]["live_state"]["decision_point_catalyst_hit"] = True
+    snap1["themes"][0]["live_state"]["material_shift_flags"] = ["DECISION_POINT_CATALYST_HIT"]
+    snap1["themes"][0]["material_change_hash"] = "h1-mof-watch-hit-20261124"
+
+    r1 = hi.poll_live_attention_map(
+        snap1, now_utc=t1, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r1["status"] == "MATERIAL_SHIFTS_EMITTED"
+    assert len(r1["emitted_flashes"]) == 1
+    flash = r1["emitted_flashes"][0]
+    assert flash["theme_id"] == "usdjpy_fed_boj_mof"
+    assert flash["primary_reason"] == hi.TRIGGER_CATALYST_HIT
+    body = flash["flash_page"]["native_payload"]["body_markdown"]
+    assert "Tracked decision point reached: Ministry of Finance FX Intervention Watch near 160-164" in body
+    assert "Tracked decision point reached: FOMC Rate Decision" not in body
+    assert "Tracked decision point reached: Bank of Japan Monetary Policy Statement" not in body
+
+    # Future dated meetings MUST NOT be poisoned into hit_decision_point_ids!
+    saved_hits = r1["ledger"]["themes"]["usdjpy_fed_boj_mof"]["hit_decision_point_ids"]
+    assert "mof_intervention_zone_160_164" in saved_hits
+    assert "fomc_2026_12_09" not in saved_hits
+    assert "boj_2026_12_18" not in saved_hits
+
+    # 2. On actual FOMC day (9 Dec 19:05Z), crossing fomc_2026_12_09 (19:00Z) fires cleanly on time!
+    pre_fomc = datetime(2026, 12, 9, 18, 50, tzinfo=timezone.utc)
+    post_fomc = datetime(2026, 12, 9, 19, 5, tzinfo=timezone.utc)
+    snap_pre = deepcopy(snap1)
+    snap_pre["as_of_utc"] = pre_fomc.isoformat()
+    for th in snap_pre["themes"]:
+        th["updated_at_utc"] = pre_fomc.isoformat()
+        th["live_state"]["updated_at_utc"] = pre_fomc.isoformat()
+        th["live_state"]["decision_point_catalyst_hit"] = False
+        th["live_state"]["material_shift_flags"] = []
+    r_pre = hi.poll_live_attention_map(
+        snap_pre, now_utc=pre_fomc, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_pre["status"] == "NO_MATERIAL_SHIFT"
+
+    snap_fomc = deepcopy(snap_pre)
+    snap_fomc["as_of_utc"] = post_fomc.isoformat()
+    snap_fomc["themes"][0]["updated_at_utc"] = post_fomc.isoformat()
+    snap_fomc["themes"][0]["live_state"]["updated_at_utc"] = post_fomc.isoformat()
+    r_fomc = hi.poll_live_attention_map(
+        snap_fomc, now_utc=post_fomc, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_fomc["status"] == "MATERIAL_SHIFTS_EMITTED"
+    assert r_fomc["emitted_flashes"][0]["theme_id"] == "usdjpy_fed_boj_mof"
+    assert "Tracked decision point reached: FOMC Rate Decision and Press Conference" in (
+        r_fomc["emitted_flashes"][0]["flash_page"]["native_payload"]["body_markdown"]
+    )
+    assert "fomc_2026_12_09" in r_fomc["ledger"]["themes"]["usdjpy_fed_boj_mof"]["hit_decision_point_ids"]
+
+    # 3. Theme with ONLY future-dated decision points (no undated watch DP) emits generic line and poisons zero IDs.
+    only_future_ledger = tmp_path / "h1_future_only.json"
+    snap_fut = _load_real_worked_live_snapshot()
+    snap_fut["themes"][0]["decision_points"] = [dp for dp in snap_fut["themes"][0]["decision_points"] if dp["dated"]]
+    hi.seed_ledger_from_map(snap_fut, as_of_utc=t0, ledger_path=only_future_ledger)
+
+    snap_fut_hit = deepcopy(snap_fut)
+    snap_fut_hit["as_of_utc"] = t1.isoformat()
+    snap_fut_hit["themes"][0]["updated_at_utc"] = t1.isoformat()
+    snap_fut_hit["themes"][0]["live_state"]["updated_at_utc"] = t1.isoformat()
+    snap_fut_hit["themes"][0]["live_state"]["decision_point_catalyst_hit"] = True
+    snap_fut_hit["themes"][0]["material_change_hash"] = "h1-future-only-catalyst"
+    r_fut = hi.poll_live_attention_map(
+        snap_fut_hit, now_utc=t1, ledger_path=only_future_ledger, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_fut["status"] == "MATERIAL_SHIFTS_EMITTED"
+    assert r_fut["emitted_flashes"][0]["public_summary_lines"] == [
+        "A tracked catalyst watch condition triggered for this theme."
+    ]
+    assert r_fut["ledger"]["themes"]["usdjpy_fed_boj_mof"]["hit_decision_point_ids"] == []
+
+    # Next 15m tick with sticky flag and unchanged material_change_hash MUST NOT re-fire!
+    t2 = t1 + timedelta(minutes=15)
+    snap_fut_sticky = deepcopy(snap_fut_hit)
+    snap_fut_sticky["as_of_utc"] = t2.isoformat()
+    snap_fut_sticky["themes"][0]["updated_at_utc"] = t2.isoformat()
+    snap_fut_sticky["themes"][0]["live_state"]["updated_at_utc"] = t2.isoformat()
+    r_sticky = hi.poll_live_attention_map(
+        snap_fut_sticky, now_utc=t2, ledger_path=only_future_ledger, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_sticky["status"] == "NO_MATERIAL_SHIFT"
+
+
+def test_h2_worked_live_snapshot_unchanged_theme_and_post_cooldown_1pp_wiggle_no_spam(tmp_path):
+    """Regression test for H2 against CC Builder 9's real worked_live_snapshot."""
+    snap0 = _load_real_worked_live_snapshot()
+    t0 = attention.utc(snap0["as_of_utc"])
+    ledger_path = tmp_path / "h2_ledger.json"
+    hi.seed_ledger_from_map(snap0, as_of_utc=t0, ledger_path=ledger_path)
+
+    # 1. Poll 15m later with ZERO probability change (nvidia still carries rolling max_odds_delta_24h_pp == 51.0):
+    #    MUST emit NO_MATERIAL_SHIFT (0 flashes).
+    t1 = t0 + timedelta(minutes=15)
+    snap_same = _load_real_worked_live_snapshot()
+    snap_same["as_of_utc"] = t1.isoformat()
+    for th in snap_same["themes"]:
+        th["updated_at_utc"] = t1.isoformat()
+        th["live_state"]["updated_at_utc"] = t1.isoformat()
+    r_same = hi.poll_live_attention_map(
+        snap_same, now_utc=t1, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_same["status"] == "NO_MATERIAL_SHIFT"
+    assert r_same["emitted_flashes"] == []
+
+    # 2. Bear branch (`fed_hike_boj_hike`) jumps +15 pp (23% -> 38%): MUST fire and blame BEAR case (not base!).
+    t2 = t1 + timedelta(minutes=15)
+    snap_bear = deepcopy(snap_same)
+    snap_bear["as_of_utc"] = t2.isoformat()
+    snap_bear["themes"][0]["updated_at_utc"] = t2.isoformat()
+    snap_bear["themes"][0]["live_state"]["updated_at_utc"] = t2.isoformat()
+    snap_bear["themes"][0]["branches"][1]["market_implied_probability_pct"] = 38.0
+    snap_bear["themes"][0]["branches"][1]["market_implied_delta_15m_pp"] = 15.0
+    snap_bear["themes"][0]["branches"][1]["market_implied_delta_24h_pp"] = 15.0
+    snap_bear["themes"][0]["live_state"]["max_odds_delta_15m_pp"] = 15.0
+    snap_bear["themes"][0]["live_state"]["max_odds_delta_24h_pp"] = 15.0
+    snap_bear["themes"][0]["material_change_hash"] = "h2-bear-15pp"
+
+    r_bear = hi.poll_live_attention_map(
+        snap_bear, now_utc=t2, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_bear["status"] == "MATERIAL_SHIFTS_EMITTED"
+    assert len(r_bear["emitted_flashes"]) == 1
+    bear_flash = r_bear["emitted_flashes"][0]
+    assert bear_flash["theme_id"] == "usdjpy_fed_boj_mof"
+    assert bear_flash["public_summary_lines"] == [
+        "Market-implied pricing on the bear case shifted materially higher."
+    ]
+    assert "base case shifted" not in bear_flash["flash_page"]["native_payload"]["body_markdown"]
+
+    # 3. 2h15m later (cooldown expired): bear branch wiggles ONLY +1 pp (38% -> 39%, rolling 24h = +16 pp).
+    #    MUST emit NO_MATERIAL_SHIFT (0 flashes)!
+    t3 = t2 + timedelta(hours=2, minutes=15)
+    snap_wiggle = deepcopy(snap_bear)
+    snap_wiggle["as_of_utc"] = t3.isoformat()
+    for th in snap_wiggle["themes"]:
+        th["updated_at_utc"] = t3.isoformat()
+        th["live_state"]["updated_at_utc"] = t3.isoformat()
+    snap_wiggle["themes"][0]["branches"][1]["market_implied_probability_pct"] = 39.0
+    snap_wiggle["themes"][0]["branches"][1]["market_implied_delta_15m_pp"] = 1.0
+    snap_wiggle["themes"][0]["branches"][1]["market_implied_delta_24h_pp"] = 16.0
+    snap_wiggle["themes"][0]["live_state"]["max_odds_delta_15m_pp"] = 1.0
+    snap_wiggle["themes"][0]["live_state"]["max_odds_delta_24h_pp"] = 16.0
+    snap_wiggle["themes"][0]["material_change_hash"] = "h2-bear-1pp-wiggle"
+
+    r_wiggle = hi.poll_live_attention_map(
+        snap_wiggle, now_utc=t3, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert r_wiggle["status"] == "NO_MATERIAL_SHIFT"
+    assert r_wiggle["emitted_flashes"] == []
+
+
+def test_m1_multiple_alternative_branches_keyed_by_branch_id_never_clobber(tmp_path):
+    """Regression test for M1: two `alternative` branches tracked independently by branch_id."""
+    ledger_path = tmp_path / "m1_ledger.json"
+    base_map = _live_map(T0)
+    base_map["themes"][0]["affected_markets"] = ["USDJPY", "XAUUSD", "USOIL"]
+    base_map["themes"][0]["branches"].extend([
+        {
+            "branch_id": "alt_tariff_shock",
+            "kind": "alternative",
+            "summary": "Tariff escalation disrupts Asian export flows and strengthens the yen.",
+            "probability_pct": 15.0,
+            "probability_source": "kalshi",
+            "market_implied_probability_pct": 15.0,
+            "market_lean_words": "Markets price tariff escalation as a modest tail outcome.",
+            "invalidation": "Trade negotiations hold steady without new duties.",
+        },
+        {
+            "branch_id": "alt_energy_spike",
+            "kind": "alternative",
+            "summary": "Crude oil spike widens Japan's import bill and weighs on the yen.",
+            "probability_pct": 10.0,
+            "probability_source": "kalshi",
+            "market_implied_probability_pct": 10.0,
+            "market_lean_words": "Markets price an energy import shock as a smaller tail risk.",
+            "invalidation": "WTI crude oil stays range-bound through the policy window.",
+        },
+    ])
+    hi.seed_ledger_from_map(base_map, as_of_utc=T0, ledger_path=ledger_path)
+
+    t1 = T0 + timedelta(minutes=15)
+    shifted = deepcopy(base_map)
+    shifted["as_of_utc"] = t1.isoformat()
+    shifted["themes"][0]["updated_at_utc"] = t1.isoformat()
+    # Shift the FIRST alternative branch (+13 pp: 15% -> 28%) while second stays at 10%.
+    shifted["themes"][0]["branches"][3]["market_implied_probability_pct"] = 28.0
+    shifted["themes"][0]["branches"][3]["probability_pct"] = 28.0
+    shifted["themes"][0]["material_change_hash"] = "m1-alt-tariff-shift"
+
+    res = hi.poll_live_attention_map(
+        shifted, now_utc=t1, ledger_path=ledger_path, poll_interval_minutes=15, canonical_url_builder=_url_for
+    )
+    assert res["status"] == "MATERIAL_SHIFTS_EMITTED"
+    assert len(res["emitted_flashes"]) == 1
+    flash = res["emitted_flashes"][0]
+    assert flash["public_summary_lines"] == [
+        "Market-implied pricing on the alternative case shifted materially higher."
+    ]
+    assert "alt_tariff_shock" in res["ledger"]["themes"]["fed-boj-usdjpy"]["branch_probabilities"]
+    assert "alt_energy_spike" in res["ledger"]["themes"]["fed-boj-usdjpy"]["branch_probabilities"]
+
+
+def test_m2_prerendered_session_sync_pulse_traceability_and_l1_x_length_guard(tmp_path, pack):
+    """Regression test for M2 (register traceability & private echoes) and L1 (X <= 280 guard)."""
+    raw_map = _live_map(T0)
+    projected = hi.project_live_attention_map(raw_map, as_of_utc=T0)
+    pulse = hi.render_session_sync_pulse(
+        projected["public_register"],
+        session=hi.SESSION_PRE_US,
+        as_of_utc=T0,
+    )
+    manuscript = wrap_editorial.draft(deepcopy(pack), tmp_path / "m2", call=select_first)
+
+    # 1. Pre-rendered pulse without a register MUST fail closed.
+    pack_no_reg = deepcopy(pack)
+    pack_no_reg["session_sync_pulse"] = deepcopy(pulse)
+    with pytest.raises(ValueError, match="SESSION_SYNC_PULSE_REGISTER_REQUIRED"):
+        wrap_editorial.article_for(pack_no_reg, manuscript)
+
+    # 2. Pre-rendered pulse carrying an unbound figure MUST fail closed with register traceability.
+    pack_unbound = deepcopy(pack)
+    bad_pulse = deepcopy(pulse)
+    bad_pulse["markdown"] += "\n- Unbound forecast figure: 77.7%."
+    bad_pulse["public_register"] = projected["public_register"]
+    pack_unbound["session_sync_pulse"] = bad_pulse
+    with pytest.raises(ValueError, match="ATTENTION_MAP_UNBOUND_FIGURE"):
+        wrap_editorial.article_for(pack_unbound, manuscript)
+
+    # 3. Pre-rendered pulse echoing stripped private X-list/wire text MUST fail closed.
+    pack_private = deepcopy(pack)
+    leak_pulse = deepcopy(pulse)
+    leak_pulse["markdown"] += "\n- Private Bloomberg wire copy that must never appear in public pages."
+    leak_pulse["public_register"] = projected["public_register"]
+    pack_private["session_sync_pulse"] = leak_pulse
+    with pytest.raises(ValueError, match="PLAN_ANALYSIS_PRIVATE_X_LIST_FORBIDDEN"):
+        wrap_editorial.article_for(pack_private, manuscript)
+
+    # 4. Valid pre-rendered pulse with its bound public_register passes cleanly.
+    pack_ok = deepcopy(pack)
+    ok_pulse = deepcopy(pulse)
+    ok_pulse["public_register"] = projected["public_register"]
+    pack_ok["session_sync_pulse"] = ok_pulse
+    article, _ = wrap_editorial.article_for(pack_ok, manuscript)
+    assert "## Session-sync market forces — Pre-US Cash Open" in article["substack_body_markdown"]
+
+    # 5. L1: render_session_sync_social_bundle fails closed if X root exceeds 280 weighted chars.
+    oversized_credit = "Chart: TradingView " + ("reference " * 30)
+    with pytest.raises(ValueError, match="MARKET_FORCES_SESSION_SOCIAL_COPY_EXCEEDS_LIMIT:x"):
+        hi.render_session_sync_social_bundle(
+            pulse,
+            projected["public_register"],
+            "https://capitalchronicle.substack.com/p/pre-us-wrap",
+            destinations=("x",),
+            credit=oversized_credit,
+        )

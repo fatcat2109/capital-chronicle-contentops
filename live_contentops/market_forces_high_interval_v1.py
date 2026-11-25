@@ -27,7 +27,7 @@ under Jim's 2026-11-25 19:05 GMT+7 directive, aligned with Main's CC-807 contrac
 """
 from __future__ import annotations
 
-from datetime import datetime, time, timedelta
+from datetime import date, datetime, time, timedelta
 from decimal import Decimal, InvalidOperation
 import json
 import os
@@ -459,16 +459,19 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
         # Collect BOTH Capital Chronicle own probabilities AND proprietary market-implied
         # probabilities/deltas strictly inside non-public detector state so >= 10 pp shifts
         # can be detected in pure code without ever leaking numeric market odds to public copy.
+        # Keyed by branch_id (or deterministic kind#idx fallback) so multiple branches of the
+        # same kind (e.g. multiple alternative cases) never clobber one another (M1).
         raw_branches = raw.get("branches") if raw.get("branches") is not None else raw.get("scenario_branches") or []
         branch_probs: dict[str, dict[str, Any]] = {}
         highest_kind: str | None = None
         highest_prob: Decimal | None = None
         branch_id_to_kind: dict[str, str] = {}
-        for rb in raw_branches:
+        for b_idx, rb in enumerate(raw_branches):
             if not isinstance(rb, Mapping):
                 continue
             kind = _normalize_branch_kind(rb.get("kind") or rb.get("case") or rb.get("branch_type") or rb.get("role"))
             bid = attention._clean_text(rb.get("branch_id") or "")
+            branch_key = bid or f"{kind}#{b_idx}"
             if bid:
                 branch_id_to_kind[bid] = kind
             s_class = _source_class(rb.get("probability_source") or rb.get("odds_source") or rb.get("source_kind"))
@@ -498,34 +501,43 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
                 else None
             )
 
-            # Pick the largest explicit market-implied delta reported on the branch (15m / 1h / 24h / generic).
-            explicit_mkt_deltas = [
+            # Separate single-tick 15m deltas from rolling 1h/24h cold-start deltas (H2).
+            explicit_mkt_15m_deltas = [
                 d
-                for field in (
-                    "market_implied_delta_15m_pp",
-                    "market_implied_delta_1h_pp",
-                    "market_implied_delta_24h_pp",
-                    "market_odds_delta_pp",
-                    "odds_delta_pp",
-                )
+                for field in ("market_implied_delta_15m_pp", "market_odds_delta_pp", "odds_delta_pp")
                 if (d := _decimal_delta(rb.get(field))) is not None
             ]
-            explicit_mkt_delta = max(explicit_mkt_deltas, key=abs) if explicit_mkt_deltas else None
+            explicit_mkt_delta_15m = max(explicit_mkt_15m_deltas, key=abs) if explicit_mkt_15m_deltas else None
+            explicit_mkt_cold_deltas = [
+                *explicit_mkt_15m_deltas,
+                *(
+                    d
+                    for field in ("market_implied_delta_1h_pp", "market_implied_delta_24h_pp")
+                    if (d := _decimal_delta(rb.get(field))) is not None
+                ),
+            ]
+            explicit_mkt_delta_cold = max(explicit_mkt_cold_deltas, key=abs) if explicit_mkt_cold_deltas else None
             explicit_cc_delta = _decimal_delta(rb.get("cc_probability_delta_pp"))
             generic_delta = _decimal_delta(rb.get("probability_shift_pp"))
             if generic_delta is not None:
                 if s_class == "capital_chronicle" and explicit_cc_delta is None:
                     explicit_cc_delta = generic_delta
-                elif s_class == "market_implied" and explicit_mkt_delta is None:
-                    explicit_mkt_delta = generic_delta
+                elif s_class == "market_implied":
+                    if explicit_mkt_delta_15m is None:
+                        explicit_mkt_delta_15m = generic_delta
+                    if explicit_mkt_delta_cold is None:
+                        explicit_mkt_delta_cold = generic_delta
 
-            branch_probs[kind] = {
+            branch_probs[branch_key] = {
+                "branch_key": branch_key,
                 "branch_id": bid or None,
+                "kind": kind,
                 "source_class": s_class,
                 "cc_probability_pct": str(cc_prob) if cc_prob is not None else None,
                 "market_implied_probability_pct": str(mkt_prob) if mkt_prob is not None else None,
                 "explicit_cc_delta_pp": str(explicit_cc_delta) if explicit_cc_delta is not None else None,
-                "explicit_market_delta_pp": str(explicit_mkt_delta) if explicit_mkt_delta is not None else None,
+                "explicit_market_delta_15m_pp": str(explicit_mkt_delta_15m) if explicit_mkt_delta_15m is not None else None,
+                "explicit_market_delta_cold_pp": str(explicit_mkt_delta_cold) if explicit_mkt_delta_cold is not None else None,
             }
             rank_prob = cc_prob if cc_prob is not None else mkt_prob
             if rank_prob is not None and (highest_prob is None or rank_prob > highest_prob):
@@ -543,19 +555,29 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
         else:
             dominant_branch_kind = "base"
 
-        theme_mkt_deltas = [
+        theme_mkt_15m_deltas = [
             d
             for val in (
                 raw.get("market_odds_delta_pp"),
                 raw.get("odds_shift_pp"),
                 raw.get("probability_shift_pp"),
                 live_state.get("max_odds_delta_15m_pp"),
-                live_state.get("max_odds_delta_1h_pp"),
-                live_state.get("max_odds_delta_24h_pp"),
             )
             if (d := _decimal_delta(val)) is not None
         ]
-        theme_market_delta = max(theme_mkt_deltas, key=abs) if theme_mkt_deltas else None
+        theme_market_delta_15m = max(theme_mkt_15m_deltas, key=abs) if theme_mkt_15m_deltas else None
+        theme_mkt_cold_deltas = [
+            *theme_mkt_15m_deltas,
+            *(
+                d
+                for val in (
+                    live_state.get("max_odds_delta_1h_pp"),
+                    live_state.get("max_odds_delta_24h_pp"),
+                )
+                if (d := _decimal_delta(val)) is not None
+            ),
+        ]
+        theme_market_delta_cold = max(theme_mkt_cold_deltas, key=abs) if theme_mkt_cold_deltas else None
         theme_market_prob = _decimal_prob(
             raw.get("market_implied_probability_pct")
             if raw.get("market_implied_probability_pct") is not None
@@ -585,6 +607,8 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
             live_state.get("decision_point_catalyst_hit") is True
             or "DECISION_POINT_CATALYST_HIT" in live_flags
         )
+        reg_as_of = attention.utc(public_register["as_of_utc"])
+        reg_date_et = reg_as_of.astimezone(ET).date()
         dp_states: list[dict[str, Any]] = []
         any_individual_dp_hit = False
         for pdp in pub.get("decision_points") or []:
@@ -599,25 +623,71 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
                 or dp_status in _HIT_DP_STATUSES
                 or hit_at_iso is not None
             )
+            is_future_dated = False
+            if pdp.get("at_utc"):
+                is_future_dated = attention.utc(pdp["at_utc"]) > reg_as_of
+            elif pdp.get("scheduled_date"):
+                is_future_dated = date.fromisoformat(pdp["scheduled_date"]) > reg_date_et
             if explicit_hit:
                 any_individual_dp_hit = True
             dp_states.append({
                 "id": pdp["id"],
                 "title": pdp["title"],
                 "when_et": pdp["when_et"],
+                "dated": bool(pdp.get("dated")),
                 "at_utc": pdp.get("at_utc"),
                 "scheduled_date": pdp.get("scheduled_date"),
+                "is_future_dated": is_future_dated,
                 "explicit_hit": explicit_hit,
                 "hit_at_utc": hit_at_iso,
                 "status": dp_status or None,
             })
-        if live_dp_hit and not any_individual_dp_hit and dp_states:
-            dp_states[0]["explicit_hit"] = True
-            dp_states[0]["hit_at_utc"] = (
+
+        # H1: When Main sets theme-level `live_state.decision_point_catalyst_hit=True` without
+        # per-DP hit flags, NEVER attribute it to a future-dated meeting (e.g. 9 Dec FOMC on 24 Nov).
+        # Match only: (1) explicit hit DP id in live_state (if non-future), (2) dated DP whose clock
+        # fell in [as_of - 30m, as_of], or (3) a unique undated watch_condition DP; else emit a
+        # theme-level catalyst signal without polluting any future dated DP id in hit_decision_point_ids.
+        theme_level_catalyst_hit = False
+        theme_level_catalyst_hit_marker: str | None = None
+        if live_dp_hit and not any_individual_dp_hit:
+            live_hit_ts = (
                 attention.utc(live_state["updated_at_utc"]).isoformat()
                 if live_state.get("updated_at_utc")
                 else public_register["as_of_utc"]
             )
+            matched_dps: list[dict[str, Any]] = []
+            explicit_live_ids: set[str] = set()
+            if isinstance(live_state.get("catalyst_hit_dp_id"), str) and live_state["catalyst_hit_dp_id"].strip():
+                explicit_live_ids.add(attention._clean_text(live_state["catalyst_hit_dp_id"]))
+            for raw_cid in live_state.get("hit_decision_point_ids") or []:
+                if isinstance(raw_cid, str) and raw_cid.strip():
+                    explicit_live_ids.add(attention._clean_text(raw_cid))
+            if explicit_live_ids:
+                matched_dps = [
+                    dp for dp in dp_states
+                    if dp["id"] in explicit_live_ids and not dp["is_future_dated"]
+                ]
+            if not matched_dps:
+                win_start = reg_as_of - timedelta(minutes=DECISION_POINT_HIT_WINDOW_MINUTES)
+                matched_dps = [
+                    dp for dp in dp_states
+                    if dp.get("at_utc") and win_start <= attention.utc(dp["at_utc"]) <= reg_as_of
+                ]
+            if not matched_dps:
+                undated_dps = [
+                    dp for dp in dp_states
+                    if not dp["dated"] and dp.get("at_utc") is None and dp.get("scheduled_date") is None
+                ]
+                if len(undated_dps) == 1:
+                    matched_dps = undated_dps
+            if matched_dps:
+                for dp in matched_dps:
+                    dp["explicit_hit"] = True
+                    dp["hit_at_utc"] = live_hit_ts
+            else:
+                theme_level_catalyst_hit = True
+                theme_level_catalyst_hit_marker = live_hit_ts
 
         flip_at = (
             raw.get("branch_flip_at_utc")
@@ -637,6 +707,8 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
             material_hash = pub["revision_fingerprint"]
         else:
             material_hash = raw_mat_hash
+        if theme_level_catalyst_hit:
+            theme_level_catalyst_hit_marker = material_hash
 
         themes_state[tid] = {
             "theme_id": tid,
@@ -653,9 +725,12 @@ def _extract_detector_state(raw_map: Mapping[str, Any], public_register: Mapping
             "branch_flip_at_utc": flip_at_iso,
             "branch_probabilities": branch_probs,
             "theme_market_probability_pct": str(theme_market_prob) if theme_market_prob is not None else None,
-            "theme_market_delta_pp": str(theme_market_delta) if theme_market_delta is not None else None,
+            "theme_market_delta_15m_pp": str(theme_market_delta_15m) if theme_market_delta_15m is not None else None,
+            "theme_market_delta_cold_pp": str(theme_market_delta_cold) if theme_market_delta_cold is not None else None,
             "live_material_shift_flags": sorted(live_flags),
             "decision_points": dp_states,
+            "theme_level_catalyst_hit": theme_level_catalyst_hit,
+            "theme_level_catalyst_hit_marker": theme_level_catalyst_hit_marker,
         }
 
     top_mat_hash = attention._clean_text(str(raw_map.get("material_change_hash") or ""))
@@ -806,7 +881,7 @@ def _snapshot_theme_baseline(det_theme: Mapping[str, Any], *, as_of_utc: str) ->
     hit_ids = sorted({
         dp["id"]
         for dp in det_theme.get("decision_points") or []
-        if dp.get("explicit_hit")
+        if dp.get("explicit_hit") and not dp.get("is_future_dated")
     })
     return {
         "theme_id": det_theme["theme_id"],
@@ -826,6 +901,9 @@ def _snapshot_theme_baseline(det_theme: Mapping[str, Any], *, as_of_utc: str) ->
         "branch_probabilities": det_theme["branch_probabilities"],
         "theme_market_probability_pct": det_theme.get("theme_market_probability_pct"),
         "hit_decision_point_ids": hit_ids,
+        "last_theme_catalyst_hit_marker": det_theme.get("theme_level_catalyst_hit_marker")
+        if det_theme.get("theme_level_catalyst_hit")
+        else None,
         "last_dispatched_at_utc": None,
         "last_dispatched_event_key": None,
         "latest_page": None,
@@ -868,7 +946,7 @@ def seed_ledger_from_map(
 def _public_prob_shift_sentence(
     *,
     source_class: str,
-    branch_kind: str,
+    branch_kind: str | None,
     direction: str,
     magnitude_word: str,
     own_new_pct: Decimal | None = None,
@@ -882,6 +960,10 @@ def _public_prob_shift_sentence(
     - Own Capital Chronicle shifts describe the direction in words and trace the
       new percentage explicitly to our labelled Capital Chronicle estimate.
     """
+    if branch_kind is None:
+        if source_class == "capital_chronicle":
+            return f"Capital Chronicle's scenario probabilities shifted {magnitude_word} {direction}."
+        return f"Market-implied pricing for this market force shifted {magnitude_word} {direction}."
     _, branch_label = attention._BRANCH_KIND_MAP.get(branch_kind, ("alternative", "Alternative case"))
     scenario_phrase = branch_label.lower()
     if source_class == "capital_chronicle":
@@ -972,10 +1054,21 @@ def detect_material_shifts(
             public_lines.append("The primary scenario path flipped for this market force.")
 
         # 3. >= 10 pp probability shift (own Capital Chronicle estimate OR market-implied odds)
+        # Keyed per branch_id (M1) and baselined cleanly against stored branch probabilities (H2)
+        # so rolling 24h live_state deltas never spam flashes on unchanged themes or +1 pp wiggles.
         best_shift: dict[str, Any] | None = None
+        curr_branch_probs = det_theme.get("branch_probabilities") or {}
         prev_branch_probs = (prev_state or {}).get("branch_probabilities") or {}
-        for kind, curr_b in (det_theme.get("branch_probabilities") or {}).items():
-            prev_b = prev_branch_probs.get(kind) or {}
+        any_curr_branch_mkt = any(
+            b.get("market_implied_probability_pct") is not None for b in curr_branch_probs.values()
+        )
+        has_branch_mkt_baseline = False
+        for branch_key, curr_b in curr_branch_probs.items():
+            kind = curr_b.get("kind") or _normalize_branch_kind(branch_key.split("#", 1)[0])
+            prev_b = prev_branch_probs.get(branch_key)
+            if prev_b is None and not curr_b.get("branch_id"):
+                prev_b = prev_branch_probs.get(kind)
+            prev_b = prev_b or {}
 
             # 3a. Check Capital Chronicle own estimate delta
             curr_cc = _decimal_prob(
@@ -987,22 +1080,24 @@ def detect_material_shifts(
             cc_delta: Decimal | None = None
             if curr_cc is not None and prev_cc is not None:
                 cc_delta = curr_cc - prev_cc
-            elif curr_b.get("explicit_cc_delta_pp") is not None:
+            elif prev_state is None and curr_b.get("explicit_cc_delta_pp") is not None:
                 cc_delta = _decimal_delta(Decimal(curr_b["explicit_cc_delta_pp"]))
             if cc_delta is not None and abs(cc_delta) >= PROBABILITY_SHIFT_THRESHOLD_PP:
                 cand = {
+                    "branch_key": branch_key,
+                    "branch_id": curr_b.get("branch_id"),
                     "branch_kind": kind,
                     "source_class": "capital_chronicle",
                     "abs_delta_pp": abs(cc_delta),
                     "direction": "higher" if cc_delta > 0 else "lower",
                     "magnitude_word": "sharply" if abs(cc_delta) >= SHARP_SHIFT_THRESHOLD_PP else "materially",
                     "own_new_pct": curr_cc,
-                    "delta_bucket": f"{kind}:capital_chronicle:{'up' if cc_delta > 0 else 'down'}:{int(abs(cc_delta))}",
+                    "delta_bucket": f"{branch_key}:capital_chronicle:{'up' if cc_delta > 0 else 'down'}:{int(abs(cc_delta))}",
                 }
                 if best_shift is None or cand["abs_delta_pp"] > best_shift["abs_delta_pp"]:
                     best_shift = cand
 
-            # 3b. Check market-implied odds delta (strictly rendered in words!)
+            # 3b. Check market-implied odds delta per branch (strictly rendered in words!)
             curr_mkt = _decimal_prob(
                 Decimal(curr_b["market_implied_probability_pct"])
                 if curr_b.get("market_implied_probability_pct") is not None
@@ -1015,23 +1110,29 @@ def detect_material_shifts(
             )
             mkt_delta: Decimal | None = None
             if curr_mkt is not None and prev_mkt is not None:
+                has_branch_mkt_baseline = True
                 mkt_delta = curr_mkt - prev_mkt
-            elif curr_b.get("explicit_market_delta_pp") is not None:
-                mkt_delta = _decimal_delta(Decimal(curr_b["explicit_market_delta_pp"]))
+            elif prev_state is None and curr_b.get("explicit_market_delta_cold_pp") is not None:
+                mkt_delta = _decimal_delta(Decimal(curr_b["explicit_market_delta_cold_pp"]))
+            elif curr_mkt is None and curr_b.get("explicit_market_delta_15m_pp") is not None:
+                mkt_delta = _decimal_delta(Decimal(curr_b["explicit_market_delta_15m_pp"]))
             if mkt_delta is not None and abs(mkt_delta) >= PROBABILITY_SHIFT_THRESHOLD_PP:
                 cand = {
+                    "branch_key": branch_key,
+                    "branch_id": curr_b.get("branch_id"),
                     "branch_kind": kind,
                     "source_class": "market_implied",
                     "abs_delta_pp": abs(mkt_delta),
                     "direction": "higher" if mkt_delta > 0 else "lower",
                     "magnitude_word": "sharply" if abs(mkt_delta) >= SHARP_SHIFT_THRESHOLD_PP else "materially",
                     "own_new_pct": None,
-                    "delta_bucket": f"{kind}:market_implied:{'up' if mkt_delta > 0 else 'down'}:{int(abs(mkt_delta))}",
+                    "delta_bucket": f"{branch_key}:market_implied:{'up' if mkt_delta > 0 else 'down'}:{int(abs(mkt_delta))}",
                 }
                 if best_shift is None or cand["abs_delta_pp"] > best_shift["abs_delta_pp"]:
                     best_shift = cand
 
-        # 3c. Theme-level market-implied odds shift (strictly rendered in words!)
+        # 3c. Theme-level market-implied odds fallback (ONLY when branch-level probabilities are absent;
+        # never falls back to rolling 24h deltas once a baseline exists, and never mislabels as base case!).
         curr_tm = (
             Decimal(det_theme["theme_market_probability_pct"])
             if det_theme.get("theme_market_probability_pct") is not None
@@ -1045,11 +1146,16 @@ def detect_material_shifts(
         tm_delta: Decimal | None = None
         if curr_tm is not None and prev_tm is not None:
             tm_delta = curr_tm - prev_tm
-        elif det_theme.get("theme_market_delta_pp") is not None:
-            tm_delta = _decimal_delta(Decimal(det_theme["theme_market_delta_pp"]))
+        elif not has_branch_mkt_baseline and not any_curr_branch_mkt:
+            if prev_state is None and det_theme.get("theme_market_delta_cold_pp") is not None:
+                tm_delta = _decimal_delta(Decimal(det_theme["theme_market_delta_cold_pp"]))
+            elif prev_state is not None and det_theme.get("theme_market_delta_15m_pp") is not None:
+                tm_delta = _decimal_delta(Decimal(det_theme["theme_market_delta_15m_pp"]))
         if tm_delta is not None and abs(tm_delta) >= PROBABILITY_SHIFT_THRESHOLD_PP:
             cand = {
-                "branch_kind": "base",
+                "branch_key": "theme",
+                "branch_id": None,
+                "branch_kind": None,
                 "source_class": "market_implied",
                 "abs_delta_pp": abs(tm_delta),
                 "direction": "higher" if tm_delta > 0 else "lower",
@@ -1065,6 +1171,7 @@ def detect_material_shifts(
             shift_details["probability_shift_source_class"] = best_shift["source_class"]
             shift_details["probability_shift_direction"] = best_shift["direction"]
             shift_details["probability_shift_branch_kind"] = best_shift["branch_kind"]
+            shift_details["probability_shift_branch_id"] = best_shift["branch_id"]
             shift_details["probability_shift_bucket"] = best_shift["delta_bucket"]
             public_lines.append(
                 _public_prob_shift_sentence(
@@ -1076,7 +1183,7 @@ def detect_material_shifts(
                 )
             )
 
-        # 4. Decision-point catalyst hit
+        # 4. Decision-point catalyst hit (H1: never falsely mark future-dated meetings as hit!)
         already_hit = set((prev_state or {}).get("hit_decision_point_ids") or [])
         newly_hit_dps: list[dict[str, Any]] = []
         for dp in det_theme.get("decision_points") or []:
@@ -1084,7 +1191,7 @@ def detect_material_shifts(
             if dp_id in already_hit:
                 continue
             hit = False
-            if dp.get("explicit_hit"):
+            if dp.get("explicit_hit") and not dp.get("is_future_dated"):
                 hit_at = attention.utc(dp["hit_at_utc"]) if dp.get("hit_at_utc") else None
                 if hit_at is None or hit_at <= curr_as_of:
                     hit = True
@@ -1100,6 +1207,7 @@ def detect_material_shifts(
             if hit:
                 newly_hit_dps.append({"id": dp_id, "title": dp["title"], "when_et": dp["when_et"]})
 
+        theme_catalyst_marker: str | None = None
         if newly_hit_dps:
             reasons.append(TRIGGER_CATALYST_HIT)
             shift_details["hit_decision_points"] = newly_hit_dps
@@ -1107,6 +1215,14 @@ def detect_material_shifts(
                 public_lines.append(
                     f"Tracked decision point reached: {dp['title'].rstrip('.')} ({dp['when_et']})."
                 )
+        elif det_theme.get("theme_level_catalyst_hit"):
+            marker = det_theme.get("theme_level_catalyst_hit_marker") or det_theme["material_change_hash"]
+            prev_cat_marker = (prev_state or {}).get("last_theme_catalyst_hit_marker")
+            if marker != prev_cat_marker:
+                reasons.append(TRIGGER_CATALYST_HIT)
+                theme_catalyst_marker = marker
+                shift_details["theme_level_catalyst_hit_marker"] = marker
+                public_lines.append("A tracked catalyst watch condition triggered for this theme.")
 
         if not reasons:
             continue
@@ -1120,6 +1236,7 @@ def detect_material_shifts(
             "revision_fingerprint": pub_theme["revision_fingerprint"],
             "material_change_hash": det_theme["material_change_hash"],
             "hit_dp_ids": sorted(dp["id"] for dp in newly_hit_dps),
+            "theme_catalyst_marker": theme_catalyst_marker,
             "shift_bucket": shift_details.get("probability_shift_bucket"),
         }
         event_key = sha256_of(idempotency_payload)
@@ -1134,6 +1251,7 @@ def detect_material_shifts(
             "bypasses_cooldown": TRIGGER_BRANCH_FLIPPED in ordered_reasons,
             "public_summary_lines": public_lines,
             "hit_decision_point_ids": [dp["id"] for dp in newly_hit_dps],
+            "theme_catalyst_marker": theme_catalyst_marker,
             "shift_details": shift_details,
             "as_of_utc": public_reg["as_of_utc"],
             "public_theme": pub_by_id[tid],
@@ -1647,6 +1765,10 @@ def poll_live_attention_map(
         updated_entry["hit_decision_point_ids"] = sorted(
             prior_hits | set(updated_entry["hit_decision_point_ids"]) | set(shift["hit_decision_point_ids"])
         )
+        if shift.get("theme_catalyst_marker"):
+            updated_entry["last_theme_catalyst_hit_marker"] = shift["theme_catalyst_marker"]
+        elif theme_entry.get("last_theme_catalyst_hit_marker"):
+            updated_entry["last_theme_catalyst_hit_marker"] = theme_entry["last_theme_catalyst_hit_marker"]
         updated_entry["last_dispatched_at_utc"] = now.isoformat()
         updated_entry["last_dispatched_event_key"] = event_key
         if canonical_url:
@@ -1868,7 +1990,56 @@ def render_session_sync_pulse(
         "theme_ids": [t["theme_id"] for t in prioritized],
         "top_lines": top_lines,
         "flash_count": len(flash_lines),
+        "register_sha256": public_reg["register_sha256"],
+        "extra_allowed_sources": list(dict.fromkeys(extra_sources)),
     }
+
+
+def validate_session_sync_pulse(
+    pulse: Mapping[str, Any],
+    *,
+    register_or_public: Mapping[str, Any] | None,
+    private_texts: tuple[str, ...] | list[str] = (),
+) -> dict[str, Any]:
+    """Validate a pre-rendered session-sync pulse with full register figure traceability and private-text checks (M2)."""
+    if not isinstance(pulse, Mapping) or pulse.get("schema_version") != PULSE_SCHEMA_VERSION:
+        raise ValueError("SESSION_SYNC_PULSE_SCHEMA_INVALID")
+    if not isinstance(register_or_public, Mapping):
+        raise ValueError("SESSION_SYNC_PULSE_REGISTER_REQUIRED")
+    if register_or_public.get("schema_version") == attention.SCHEMA_VERSION:
+        public_reg = register_or_public
+    else:
+        projected = project_live_attention_map(
+            register_or_public,
+            as_of_utc=pulse.get("as_of_utc"),
+            max_age_minutes=None,
+        )
+        public_reg = projected["public_register"]
+
+    all_private = list(private_texts)
+    if public_reg.get("_private_texts"):
+        all_private.extend(public_reg["_private_texts"])
+
+    extra_sources: list[str] = []
+    if pulse.get("as_of_et"):
+        extra_sources.append(str(pulse["as_of_et"]))
+    for src in pulse.get("extra_allowed_sources") or []:
+        if isinstance(src, str) and src.strip():
+            extra_sources.append(src)
+    for theme in public_reg.get("themes") or []:
+        lead = theme.get("lead_market")
+        if lead in attention.PUBLIC_MARKET_LABELS:
+            extra_sources.append(attention.PUBLIC_MARKET_LABELS[lead])
+
+    attention.validate_attention_map_copy(
+        pulse.get("markdown") or "",
+        public_register=public_reg,
+        require_notice=False,
+        private_texts=all_private,
+        extra_allowed_sources=tuple(dict.fromkeys(extra_sources)),
+    )
+    instruments.validate_payload({"public_instrument_policy": instruments.POLICY}, {"text": pulse.get("markdown") or ""})
+    return dict(pulse)
 
 
 def render_session_sync_social_bundle(
@@ -1916,8 +2087,13 @@ def render_session_sync_social_bundle(
             ]
             root = next((c for c in root_candidates if _x_length(c) <= 280), None)
             if root is None:
-                root = f"{session_label} market forces ({clock_et}).{credit_suffix}"
+                fallback_root = f"{session_label} market forces ({clock_et}).{credit_suffix}"
+                if _x_length(fallback_root) > 280:
+                    raise ValueError("MARKET_FORCES_SESSION_SOCIAL_COPY_EXCEEDS_LIMIT:x")
+                root = fallback_root
             reply_link = f"{canonical_url}\n\n{notices}"
+            if _x_length(reply_link) > 280:
+                raise ValueError("MARKET_FORCES_SESSION_SOCIAL_COPY_EXCEEDS_LIMIT:x")
             texts = [root, reply_link]
             missing = [b for b in bullets if b not in root and b.removeprefix("- ") not in root]
             if missing:
