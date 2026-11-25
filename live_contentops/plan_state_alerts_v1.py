@@ -380,7 +380,12 @@ def validate(row, *, store=None):
         terms = thread_terms(raw, level_contract=row.get("level_contract"))
         for field, key in (("instrument_title", "market"), ("price_basis", "price_basis"),
                            ("entry_deadline_utc", "entry_deadline_utc"), ("time_exit_utc", "time_exit_utc")):
-            if row.get(field) != terms[key]:
+            actual = row.get(field)
+            # When raw omits public_instrument (e.g. an unmapped USTEC/Nasdaq 100 plan),
+            # _display_plan leaves price_basis unset (None) while thread_terms normalises it to "plan".
+            if field == "price_basis" and actual is None and not raw.get("public_instrument"):
+                actual = "plan"
+            if actual != terms[key]:
                 raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
     if row.get("analysis_link") and store is not None:
         from .plan_analysis_pages_v1 import confirmed_publication

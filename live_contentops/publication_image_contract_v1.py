@@ -6,7 +6,7 @@ price-scale comparison; no terminal, account or order API is imported.
 """
 from __future__ import annotations
 
-from datetime import datetime, time, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
 from hashlib import sha256
 import json
 import math
@@ -25,6 +25,16 @@ QUOTE_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-research")
 MAX_DIFFERENCE_PCT = {"XAUUSD": .15, "US500": .15, "EURUSD": .15,
                       "USDJPY": .15, "USOIL": .40, "BTCUSD": .40, "USTEC": .15}
 CASH_INDEX_MARKETS = frozenset({"US500", "USTEC"})
+CASH_CALENDAR = Path(r"A:\Capital Chronicle\main-jim-research-dashboard-20261025\config\ibkr_paper\us_session_calendar_v1.json")
+US_CASH_OPEN_ET = time(9, 30)
+US_CASH_CLOSE_ET = time(16, 0)
+US_CASH_EARLY_CLOSE_ET = time(13, 0)
+_US_CASH_CALENDAR_CACHE: tuple[str, bytes, dict] | None = None
+# Yahoo Finance's official cash-index closing settlement prints (^GSPC / ^NDX) regularly post
+# between 16:00 and 17:20 ET (up to ~76 min past the 16:00 ET regular-session close). Allow up
+# to 90 min ONLY for closed-market PUBLIC_ON_DEMAND_QUOTE INDEX checks (still requiring
+# observed <= known <= capture, never loosening open-market or 24h CFD/futures broker quotes).
+CASH_INDEX_CLOSE_SETTLE_SECONDS = 5400
 # Ops Product, 11 Nov 2026: a missing quote is not a mismatch. Main saves a quote only during its own runs, so on the
 # first live run (16:24Z) every chart was refused and five posts went out as text. A chart with no quote to compare
 # is still the right market's chart: it goes out marked NOT_COMPARED. Only a measured difference refuses an image.
@@ -75,24 +85,169 @@ def chart_last_price(title):
     return number(match[1].replace(",", ""))
 
 
-def comparison_clock(market, captured_at):
-    """Ops Product's 11 Nov closed-market amendment; ET, including DST.
+def _observed_us_holiday(day: date) -> date:
+    if day.weekday() == 5:
+        return day - timedelta(days=1)
+    if day.weekday() == 6:
+        return day + timedelta(days=1)
+    return day
 
-    Cash SPX and NDX use 09:30–16:00 weekdays. The common weekend closure for the
-    other non-crypto charts uses Friday 17:00 through Sunday 18:00. No live
-    broker/chart gap is compared while a chart is frozen at that close.
+
+def _nth_weekday(year: int, month: int, weekday: int, n: int) -> date:
+    first = date(year, month, 1)
+    return first + timedelta(days=(weekday - first.weekday()) % 7 + 7 * (n - 1))
+
+
+def _easter_sunday(year: int) -> date:
+    a, b, c = year % 19, year // 100, year % 100
+    d, e = b // 4, b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i, k = c // 4, c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    return date(year, (h + l - 7 * m + 114) // 31, (h + l - 7 * m + 114) % 31 + 1)
+
+
+def _fallback_us_cash_year(year: int) -> tuple[frozenset[str], frozenset[str]]:
+    """Deterministic NYSE equity holiday & 13:00 ET early-close fallback when the JSON is absent."""
+    thanksgiving = _nth_weekday(year, 11, 3, 4)
+    memorial_end = date(year, 5, 31)
+    closed: set[date] = {
+        _nth_weekday(year, 1, 0, 3),
+        _nth_weekday(year, 2, 0, 3),
+        _easter_sunday(year) - timedelta(days=2),
+        memorial_end - timedelta(days=memorial_end.weekday()),
+        _observed_us_holiday(date(year, 7, 4)),
+        _nth_weekday(year, 9, 0, 1),
+        thanksgiving,
+        _observed_us_holiday(date(year, 12, 25)),
+    }
+    jan1 = date(year, 1, 1)
+    if jan1.weekday() < 5:
+        closed.add(jan1)
+    elif jan1.weekday() == 6:
+        closed.add(date(year, 1, 2))
+    # NYSE does not observe a Saturday New Year's Day on the preceding Friday Dec 31.
+    if year >= 2022:
+        closed.add(_observed_us_holiday(date(year, 6, 19)))
+    early: set[date] = {thanksgiving + timedelta(days=1)}
+    for eve in (date(year, 7, 3), date(year, 12, 24)):
+        if eve.weekday() < 5 and eve not in closed:
+            early.add(eve)
+    return (
+        frozenset(d.isoformat() for d in closed),
+        frozenset(d.isoformat() for d in early),
+    )
+
+
+def _valid_iso_date_list(value) -> frozenset[str] | None:
+    if not isinstance(value, list):
+        return None
+    parsed = set()
+    for item in value:
+        if not isinstance(item, str) or len(item) != 10:
+            return None
+        try:
+            date.fromisoformat(item)
+        except ValueError:
+            return None
+        parsed.add(item)
+    return frozenset(parsed)
+
+
+def _read_us_cash_calendar(calendar_path=None) -> dict | None:
+    """Read-only loader for us_session_calendar_v1.json; returns None on missing or invalid file."""
+    global _US_CASH_CALENDAR_CACHE
+    path = Path(CASH_CALENDAR if calendar_path is None else calendar_path)
+    try:
+        raw = path.read_bytes()
+    except OSError:
+        return None
+    key = str(path)
+    if _US_CASH_CALENDAR_CACHE is not None and _US_CASH_CALENDAR_CACHE[0] == key and _US_CASH_CALENDAR_CACHE[1] == raw:
+        return _US_CASH_CALENDAR_CACHE[2]
+    try:
+        data = json.loads(raw)
+    except (ValueError, UnicodeDecodeError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    if "schema" in data and data["schema"] != "IbkrUsSessionCalendarV1":
+        return None
+    if not isinstance(data.get("years"), dict):
+        return None
+    _US_CASH_CALENDAR_CACHE = (key, raw, data)
+    return data
+
+
+def _us_cash_year_dates(year: int, *, calendar_path=None, calendar=None) -> tuple[frozenset[str], frozenset[str]]:
+    if calendar is not None:
+        data = calendar if (isinstance(calendar, dict)
+                            and ("schema" not in calendar or calendar["schema"] == "IbkrUsSessionCalendarV1")) else None
+    else:
+        data = _read_us_cash_calendar(calendar_path)
+    if isinstance(data, dict):
+        years = data.get("years")
+        entry = years.get(str(year)) if isinstance(years, dict) else None
+        if isinstance(entry, dict):
+            closed = _valid_iso_date_list(entry.get("closed"))
+            early = _valid_iso_date_list(entry.get("early_close_13_et"))
+            if closed is not None and early is not None:
+                return closed, early
+    return _fallback_us_cash_year(year)
+
+
+def us_cash_session_bounds(day: date, *, calendar_path=None, calendar=None) -> tuple[time, time] | None:
+    """Return (open_et, close_et) for a US cash equity session day, or None if weekend/holiday closed."""
+    if day.weekday() >= 5:
+        return None
+    closed, early = _us_cash_year_dates(day.year, calendar_path=calendar_path, calendar=calendar)
+    iso = day.isoformat()
+    if iso in closed:
+        return None
+    if iso in early:
+        return US_CASH_OPEN_ET, US_CASH_EARLY_CLOSE_ET
+    return US_CASH_OPEN_ET, US_CASH_CLOSE_ET
+
+
+def _prior_us_cash_close(start_day: date, *, calendar_path=None, calendar=None) -> datetime:
+    day = start_day
+    for _ in range(31):
+        bounds = us_cash_session_bounds(day, calendar_path=calendar_path, calendar=calendar)
+        if bounds is not None:
+            return datetime.combine(day, bounds[1], ET).astimezone(timezone.utc)
+        day -= timedelta(days=1)
+    day = start_day
+    while day.weekday() >= 5:
+        day -= timedelta(days=1)
+    return datetime.combine(day, US_CASH_CLOSE_ET, ET).astimezone(timezone.utc)
+
+
+def comparison_clock(market, captured_at, *, calendar_path=None, calendar=None):
+    """Ops Product's 11 Nov closed-market amendment; ET, including DST and US cash holidays.
+
+    Cash SPX and NDX use NYSE cash hours (09:30–16:00 ET weekdays, 09:30–13:00 ET on
+    early-close days, closed on US equity holidays per us_session_calendar_v1.json with
+    deterministic NYSE fallback when absent). The common weekend closure for the other
+    non-crypto charts uses Friday 17:00 through Sunday 18:00. No live broker/chart gap
+    is compared while a chart is frozen at that close.
     """
     captured = utc(captured_at)
     local = captured.astimezone(ET)
     if market == "BTCUSD":
         return captured, False
     if market in CASH_INDEX_MARKETS:
-        if local.weekday() < 5 and time(9, 30) <= local.time() < time(16):
-            return captured, False
-        day = local.date() if local.weekday() < 5 and local.time() >= time(16) else local.date() - timedelta(days=1)
-        while day.weekday() >= 5:
-            day -= timedelta(days=1)
-        return datetime.combine(day, time(16), ET).astimezone(timezone.utc), True
+        bounds = us_cash_session_bounds(local.date(), calendar_path=calendar_path, calendar=calendar)
+        if bounds is not None:
+            open_et, close_et = bounds
+            if open_et <= local.time() < close_et:
+                return captured, False
+            if local.time() >= close_et:
+                return datetime.combine(local.date(), close_et, ET).astimezone(timezone.utc), True
+        return _prior_us_cash_close(local.date() - timedelta(days=1),
+                                    calendar_path=calendar_path, calendar=calendar), True
     if (local.weekday() == 5 or local.weekday() == 6 and local.time() < time(18)
             or local.weekday() == 4 and local.time() >= time(17)):
         friday = local.date() - timedelta(days=(local.weekday() - 4) % 7)
@@ -154,6 +309,15 @@ def saved_main_quote(market, captured_at, *, root=None):
     return min(candidates, key=lambda item: item[0])[1]
 
 
+def max_negative_skew(market, *, closed, quote=None):
+    """Allow same-day closing settlement prints only for closed cash-index public quotes."""
+    if (closed and market in CASH_INDEX_MARKETS and isinstance(quote, dict)
+            and quote.get("source_kind") == "PUBLIC_ON_DEMAND_QUOTE"
+            and quote.get("instrument_type") == "INDEX"):
+        return CASH_INDEX_CLOSE_SETTLE_SECONDS
+    return 2
+
+
 def compare_scale(market, snapshot, quote):
     from .tradingview_snapshot_v1 import SYMBOLS
     if market not in SYMBOLS or snapshot.get("tv_symbol") != SYMBOLS[market]:
@@ -171,8 +335,13 @@ def compare_scale(market, snapshot, quote):
         price = chart_last_price(snapshot.get("page_title"))
         comparison_at, closed = comparison_clock(market, snapshot["captured_at_utc"])
     own = number(quote.get("price"))
-    skew = (comparison_at - utc(quote["quoted_at_utc"])).total_seconds()
-    if not -2 <= skew <= QUOTE_SKEW_SECONDS or utc(quote["known_at_utc"]) > utc(snapshot["captured_at_utc"]):
+    quoted_at = utc(quote["quoted_at_utc"])
+    captured_at = utc(snapshot["captured_at_utc"])
+    skew = (comparison_at - quoted_at).total_seconds()
+    neg_skew = max_negative_skew(market, closed=closed, quote=quote)
+    if (not -neg_skew <= skew <= QUOTE_SKEW_SECONDS
+            or utc(quote["known_at_utc"]) > captured_at
+            or (neg_skew > 2 and quoted_at > captured_at)):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_STALE", clock_skew_seconds=skew)
     if not quote.get("source_path") or not quote.get("source_sha256"):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED")

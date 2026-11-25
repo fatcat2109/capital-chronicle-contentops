@@ -30,7 +30,8 @@ MONTH = re.compile(r"\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*
 BANNED = (
     "model estimate", "base-case chance", "the model", "our model", "model position", "demo account", "demo",
     "paper account", "paper trading", "AI-run", "AI-generated", "as an AI", "language model", "LLM", "GPT",
-    "Claude", "Fable", "Opus", "Gemini", "Codex", "Antigravity", "Anthropic", "OpenAI", "system prompt",
+    "ChatGPT", "Claude", "Fable", "Opus", "Sonnet", "Haiku", "Gemini", "Codex", "Antigravity", "Anthropic",
+    "OpenAI", "Luna", "system prompt",
     "the prompt", "AI agent", "subagent", "vol-normalised", "volatility-normalised", "z-score", "sd over",
     "ATR", "SMA", "EFFR", "USD leg", "front-end gap", "context about", "clear by D1 sign", "calls judged",
     "time exits", "not triggered", "Levels use the plan's prices", "over the period to", "the desk is bullish on",

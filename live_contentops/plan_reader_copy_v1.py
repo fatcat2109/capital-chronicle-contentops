@@ -71,7 +71,7 @@ NOTICES = PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE
 ACRONYMS = Path(__file__).resolve().parents[1] / "config/plan_reader_acronyms_v1.json"
 BANNED = """
 model estimate | base-case chance | the model | our model | model position | demo account | demo | paper account | paper trading
-AI-run | AI-generated | as an AI | language model | LLM | GPT | Claude | Fable | Opus | Gemini | Codex | Antigravity | Anthropic | OpenAI | system prompt | the prompt | AI agent | subagent
+AI-run | AI-generated | as an AI | language model | LLM | GPT | ChatGPT | Claude | Fable | Opus | Sonnet | Haiku | Gemini | Codex | Antigravity | Anthropic | OpenAI | Luna | system prompt | the prompt | AI agent | subagent
 vol-normalised | volatility-normalised | z-score | sd over | ATR | SMA | EFFR | USD leg | front-end gap | context about | clear by D1 sign
 calls judged | time exits | not triggered | Levels use the plan's prices | over the period to | the desk is bullish on | the desk is bearish on | from our | ET run | analysis run
 frozen call | freeze id | known-at | cost admission | admission check | armed plan | arming run | Guardian pass | kernel | our ledger | shadow call | short-term lane | mid-term lane | long-term lane | role pack | reply pack
@@ -220,12 +220,16 @@ def page_thread_terms(plan, run, *, level_contract):
 
 def check_thread_text(text, *, force=False):
     """CC-549's observed copy defects, only for newly authored thread packets."""
-    if re.search(r"\b(?:I|I'm|I've|I'd|I'll|me|my|mine)\b", text, re.I):
+    if re.search(r"\b(?:I|I['’](?:m|ve|d|ll)|me|my|mine|myself)\b", text, re.I):
         raise ValueError("CC549_DESK_VOICE_MUST_BE_WE")
-    if re.search(r"\b(?:supplied|provided|the pack|the review given)\b", text, re.I):
+    if re.search(r"\b(?:supplied|provided|the pack|the input pack|the review given|the given review|"
+                 r"(?:the\s+)?analyst['’]s\s+comparison)\b", text, re.I):
         raise ValueError("CC549_WRITER_INPUT_LANGUAGE")
-    if force and re.search(r"\bwe\s+(?:watch|track|monitor|look for|focus on)\b", text, re.I) and not re.search(
-            r"\d|\b(?:rose|fell|risen|fallen|since|increased|decreased|widened|narrowed)\b", text, re.I):
+    if (force
+            and re.search(r"\bwe\s+(?:(?:are|remain)\s+)?(?:watch(?:ing)?|track(?:ing)?|monitor(?:ing)?|"
+                          r"look(?:ing)?\s+for|focus(?:ing|ed)?\s+on)\b", text, re.I)
+            and not re.search(r"\d|\b(?:rose|fell|risen|fallen|since|increased|decreased|widened|narrowed|"
+                              r"climbed|dropped|eased|surged|slid|jumped)\b", text, re.I)):
         raise ValueError("CC549_FORCE_HAS_NO_FINDING")
     return {"status": "PASS"}
 
