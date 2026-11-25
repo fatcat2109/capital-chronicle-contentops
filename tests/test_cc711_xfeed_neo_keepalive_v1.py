@@ -862,3 +862,162 @@ def test_l1_status_x_list_feed_is_strictly_read_only_and_creates_zero_files(tmp_
     assert res["runner_alive"] is False
     assert res["state"] == keepalive.STATE_READY
     assert list(isolated.iterdir()) == []
+
+
+# ---------------------------------------------------------------------------
+# 6. Post-Wave-1 installer guard (-PreserveExistingEnabled) & security-scan comment hygiene
+# ---------------------------------------------------------------------------
+
+
+def _run_shadowed_installer_apply(
+    *,
+    existing_map: dict[str, bool | str],
+    extra_args: str = "",
+) -> tuple[subprocess.CompletedProcess[str], list[dict[str, object]]]:
+    """Run Install-ContentOpsCC711Keepalive.ps1 -Apply in a disposable pwsh scope with shadowed Task Scheduler cmdlets.
+
+    Zero live Windows Task Scheduler calls are ever performed.
+    """
+    existing_json = json.dumps(existing_map)
+    ps_script = f"""
+$ErrorActionPreference = 'Stop'
+$script:existingMap = ConvertFrom-Json -InputObject @'
+{existing_json}
+'@
+$script:registered = @()
+
+function Get-ScheduledTask {{
+    param([string]$TaskName, [string]$ErrorAction)
+    $prop = $script:existingMap.PSObject.Properties[$TaskName]
+    if ($null -eq $prop) {{
+        throw "No MSFT_ScheduledTask objects found with property 'TaskName' equal to '$TaskName'."
+    }}
+    if ($prop.Value -eq 'PROBE_ERROR') {{
+        throw 'Simulated CIM/WMI transport error'
+    }}
+    return [pscustomobject]@{{
+        TaskName = $TaskName
+        Settings = [pscustomobject]@{{ Enabled = [bool]$prop.Value }}
+    }}
+}}
+
+function Register-ScheduledTask {{
+    param([string]$TaskName, [string]$Xml, [switch]$Force)
+    $script:registered += [pscustomobject]@{{
+        task_name = $TaskName
+        xml = $Xml
+        force = [bool]$Force
+    }}
+}}
+
+$installerOut = & '{str(INSTALLER_PS1)}' -Apply {extra_args} | Out-String
+[pscustomobject]@{{
+    report = ($installerOut | ConvertFrom-Json)
+    registered = $script:registered
+}} | ConvertTo-Json -Depth 8
+"""
+    completed = subprocess.run(
+        ["pwsh", "-NoProfile", "-NonInteractive", "-Command", ps_script],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    if completed.returncode != 0:
+        return completed, []
+    envelope = json.loads(completed.stdout)
+    reg = envelope.get("registered") or []
+    if isinstance(reg, dict):
+        reg = [reg]
+    return completed, reg
+
+
+def test_installer_preserve_existing_enabled_default_true_and_opt_out_and_fail_closed() -> None:
+    """Sweeper #4: -PreserveExistingEnabled (default $true) preserves live Enabled=True atomically; never mutates XML on disk."""
+    x_before = X_FEED_XML_PATH.read_bytes()
+    neo_before = NEO_XML_PATH.read_bytes()
+
+    # 1) Default -Apply (PreserveExistingEnabled=$true): live X_List_Feed (Enabled=True) stays Enabled=True atomically,
+    # while uninstalled NeoHealth stays Enabled=False.
+    proc_default, reg_default = _run_shadowed_installer_apply(
+        existing_map={keepalive.X_FEED_TASK_NAME: True},
+    )
+    assert proc_default.returncode == 0, proc_default.stderr
+    report_default = json.loads(proc_default.stdout)["report"]
+    assert report_default["preserve_existing_enabled"] is True
+    assert report_default["live_task_mutated"] is True
+    by_name = {t["task_name"]: t for t in report_default["tasks"]}
+    assert by_name[keepalive.X_FEED_TASK_NAME]["existing_task_found"] is True
+    assert by_name[keepalive.X_FEED_TASK_NAME]["existing_enabled"] is True
+    assert by_name[keepalive.X_FEED_TASK_NAME]["effective_enabled"] is True
+    assert by_name[keepalive.X_FEED_TASK_NAME]["enabled"] is False  # template remains disabled
+    assert by_name[keepalive.X_FEED_TASK_NAME]["action"] == "REGISTERED_PRESERVED_ENABLED"
+    assert by_name[keepalive.NEO_HEALTH_TASK_NAME]["existing_task_found"] is False
+    assert by_name[keepalive.NEO_HEALTH_TASK_NAME]["effective_enabled"] is False
+    assert by_name[keepalive.NEO_HEALTH_TASK_NAME]["action"] == "REGISTERED_DISABLED"
+
+    reg_by_name = {r["task_name"]: r for r in reg_default}
+    assert "<Enabled>true</Enabled>" in str(reg_by_name[keepalive.X_FEED_TASK_NAME]["xml"])
+    assert "<Enabled>false</Enabled>" not in str(reg_by_name[keepalive.X_FEED_TASK_NAME]["xml"])
+    assert str(reg_by_name[keepalive.X_FEED_TASK_NAME]["xml"]).startswith('<?xml version="1.0"?>')
+    assert "<Enabled>false</Enabled>" in str(reg_by_name[keepalive.NEO_HEALTH_TASK_NAME]["xml"])
+
+    # 2) Explicit -PreserveExistingEnabled:$false forces disabled registration even when existing task is Enabled=True.
+    proc_opt_out, reg_opt_out = _run_shadowed_installer_apply(
+        existing_map={keepalive.X_FEED_TASK_NAME: True},
+        extra_args="-PreserveExistingEnabled:$false",
+    )
+    assert proc_opt_out.returncode == 0, proc_opt_out.stderr
+    report_opt_out = json.loads(proc_opt_out.stdout)["report"]
+    assert report_opt_out["preserve_existing_enabled"] is False
+    x_opt_out = next(t for t in report_opt_out["tasks"] if t["task_name"] == keepalive.X_FEED_TASK_NAME)
+    assert x_opt_out["effective_enabled"] is False
+    assert x_opt_out["action"] == "REGISTERED_DISABLED"
+    x_reg_opt_out = next(r for r in reg_opt_out if r["task_name"] == keepalive.X_FEED_TASK_NAME)
+    assert "<Enabled>false</Enabled>" in str(x_reg_opt_out["xml"])
+
+    # 3) Existing task that is already Disabled stays Disabled even with default -PreserveExistingEnabled=$true.
+    proc_disabled, reg_disabled = _run_shadowed_installer_apply(
+        existing_map={keepalive.X_FEED_TASK_NAME: False},
+        extra_args="-Target XFeed",
+    )
+    assert proc_disabled.returncode == 0, proc_disabled.stderr
+    x_dis = json.loads(proc_disabled.stdout)["report"]["tasks"][0]
+    assert x_dis["existing_task_found"] is True
+    assert x_dis["existing_enabled"] is False
+    assert x_dis["effective_enabled"] is False
+    assert x_dis["action"] == "REGISTERED_DISABLED"
+    assert "<Enabled>false</Enabled>" in str(reg_disabled[0]["xml"])
+
+    # 4) Non-ObjectNotFound probe failure under default -Apply fails closed (never silently disables a live task).
+    proc_err, reg_err = _run_shadowed_installer_apply(
+        existing_map={keepalive.X_FEED_TASK_NAME: "PROBE_ERROR"},
+        extra_args="-Target XFeed",
+    )
+    assert proc_err.returncode != 0
+    assert "CC711_EXISTING_TASK_STATE_UNPROVEN" in (proc_err.stderr + proc_err.stdout)
+    assert reg_err == []
+
+    # 5) Dry-run with -PreserveExistingEnabled:$false stays strictly read-only.
+    dry_opt_out = subprocess.run(
+        ["pwsh", "-NoProfile", "-NonInteractive", "-File", str(INSTALLER_PS1), "-PreserveExistingEnabled:$false"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert dry_opt_out.returncode == 0, dry_opt_out.stderr
+    dry_report = json.loads(dry_opt_out.stdout)
+    assert dry_report["dry_run"] is True
+    assert dry_report["live_task_mutated"] is False
+    assert dry_report["preserve_existing_enabled"] is False
+    assert all(t["effective_enabled"] is False and t["planned_apply_action"] == "REGISTERED_DISABLED" for t in dry_report["tasks"])
+
+    # Committed XML files on disk are byte-for-byte untouched.
+    assert X_FEED_XML_PATH.read_bytes() == x_before
+    assert NEO_XML_PATH.read_bytes() == neo_before
+
+
+def test_security_scans_cc711_comment_references_port_9010_not_9128() -> None:
+    """CC Reviewer Batch #10 cosmetic hygiene: keepalive allowlist comment cites actual Neo MCP port 9010."""
+    text = (ROOT / "tests" / "test_security_scans.py").read_text(encoding="utf-8")
+    assert "9128" not in text
+    assert "127.0.0.1:9010/mcp" in text

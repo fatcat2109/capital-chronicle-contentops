@@ -47,7 +47,7 @@ def test_no_forbidden_imports_or_env_vars():
         # cc585388 (CC-681, 22 Nov): posted chart readback reads the public Telegram feed and images.
         "posted_chart_readback_v1.py",
         # CC-711 (25 Nov 2026): loopback-only X-list CDP (127.0.0.1:9222, urllib ProxyHandler({}))
-        # and BrowserOS Neo MCP (127.0.0.1:9128/mcp, requests Session trust_env=False) keepalive probes.
+        # and BrowserOS Neo CDP/MCP (127.0.0.1:9110 / 127.0.0.1:9010/mcp, requests Session trust_env=False) keepalive probes.
         "cc711_xfeed_neo_keepalive_v1.py",
     }
     urllib_network_allowlist = live_gate_allowlist | {
