@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 from . import public_market_quote_v1 as quotes
 from . import scenario_voice_v1 as voice
 from .capital_chronicle_latest_report_consumer_v1 import sha256_of
-from .daily_trend_board_v1 import SOURCE as TREND_BOARD, trading_age
+from .daily_trend_board_v1 import SOURCE as TREND_BOARD, us_trading_age
 from .event_article_guard_v1 import FEDWATCH_PATTERN, check_publication_copy
 from .main_report_projection_source_v1 import NATIVE_MAIN_ANALYSIS_ROOT
 from .plan_reader_copy_v1 import et, scenario_case_copy
@@ -429,7 +429,7 @@ def morning_map_sources(snapshots, board_path, *, now, last_close, quote, clock,
     board_at = utc(board["as_of_utc"])
     if board_at > now:
         raise ValueError("BOARD_FROM_FUTURE")
-    if trading_age(board_at.astimezone(ET).date(), now.astimezone(ET).date()) > 1:
+    if us_trading_age(board_at.astimezone(ET).date(), now.astimezone(ET).date()) > 1:
         raise ValueError("BOARD_OLDER_THAN_ONE_TRADING_DAY")
     states = {"UP": "Trending up", "DOWN": "Trending down", "MIXED": "Mixed trend"}
     rows = {}
@@ -442,7 +442,7 @@ def morning_map_sources(snapshots, board_path, *, now, last_close, quote, clock,
             completed = utc(yardstick["last_completed_bar_utc"]) + timedelta(days=1)
             if completed > board_at:
                 raise ValueError("BOARD_BAR_NOT_COMPLETED")
-            if trading_age(completed.astimezone(ET).date(), last_close.astimezone(ET).date()) > 1:
+            if us_trading_age(completed.astimezone(ET).date(), last_close.astimezone(ET).date()) > 1:
                 raise ValueError("BOARD_MARKET_DATA_OLDER_THAN_ONE_TRADING_DAY")
 
             snapshot = snapshots.get(market) or {}

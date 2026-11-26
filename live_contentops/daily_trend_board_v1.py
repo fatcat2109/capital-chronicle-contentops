@@ -74,6 +74,26 @@ def trading_age(first, last):
     return sum((first + timedelta(days=i)).weekday() < 5 for i in range(1, (last - first).days + 1))
 
 
+def us_trading_age(first, last, *, calendar_path=None, calendar=None):
+    """Completed US cash sessions (excludes weekends and NYSE full-closed holidays)."""
+    from .publication_image_contract_v1 import us_cash_session_bounds
+    first, last = date.fromisoformat(str(first)), date.fromisoformat(str(last))
+    return sum(
+        us_cash_session_bounds(first + timedelta(days=i), calendar_path=calendar_path, calendar=calendar) is not None
+        for i in range(1, (last - first).days + 1)
+    )
+
+
+def _consecutive_session(first, last):
+    if trading_age(first, last) == 1:
+        return True
+    from .publication_image_contract_v1 import us_cash_session_bounds
+    return (
+        us_cash_session_bounds(date.fromisoformat(str(last))) is not None
+        and us_trading_age(first, last) == 1
+    )
+
+
 def latest_close(now):
     local = utc(now).astimezone(ET)
     day = local.date() if local.time() >= time(17) else local.date() - timedelta(days=1)
@@ -118,7 +138,7 @@ def project(board, *, now):
     rounded = captured.astimezone(ET).date() >= ROUNDED_FROM_ET
     if captured > now:
         raise BoardSourceError("BOARD_FROM_FUTURE")
-    age = trading_age(captured.astimezone(ET).date(), now.astimezone(ET).date())
+    age = us_trading_age(captured.astimezone(ET).date(), now.astimezone(ET).date())
     age_seconds = (now - captured).total_seconds()
     if age > 1:
         raise BoardSourceError("BOARD_OLDER_THAN_ONE_TRADING_DAY", trading_days=age, age_seconds=age_seconds)
@@ -193,15 +213,17 @@ def project(board, *, now):
     day = next(iter(weekday_sessions), None)
     bitcoin_day = sessions.get("BTCUSD")
     if day and bitcoin_day and bitcoin_day != day:
-        # The weekday markets last closed Friday. Bitcoin's newer bar is part
-        # of the same published snapshot, with its own completed-session date.
-        if (bitcoin_day < day or date.fromisoformat(bitcoin_day).weekday() < 5
-                or trading_age(day, bitcoin_day) != 0):
+        # Weekday markets last closed before a weekend or NYSE full-closed holiday.
+        # Bitcoin's newer bar is part of the same published snapshot, with its own completed-session date.
+        from .publication_image_contract_v1 import us_cash_session_bounds
+        btc_date = date.fromisoformat(bitcoin_day)
+        if (bitcoin_day < day or us_cash_session_bounds(btc_date) is not None
+                or us_trading_age(day, bitcoin_day) != 0):
             raise BoardSourceError("BOARD_MARKET_SESSIONS_DIFFER", market_sessions=sessions)
         markets["BTCUSD"]["session_date_et"] = bitcoin_day
     if day and (day > latest_close(now) or date.fromisoformat(day).weekday() >= 5):
         raise BoardSourceError("BOARD_NEW_YORK_CLOSE_NOT_DUE", day_et=day, latest_close_et=latest_close(now))
-    session_age = trading_age(day, latest_close(now)) if day else None
+    session_age = us_trading_age(day, latest_close(now)) if day else None
     if session_age is not None and session_age > 1:
         raise BoardSourceError("BOARD_MARKET_DATA_OLDER_THAN_ONE_TRADING_DAY", day_et=day, trading_days=session_age)
     if missing:
@@ -235,7 +257,7 @@ def fact_rows(current):
 
 
 def compose(current, previous=None):
-    previous = previous if previous and trading_age(previous["day_et"], current["day_et"]) == 1 else None
+    previous = previous if previous and _consecutive_session(previous["day_et"], current["day_et"]) else None
     changes = [s for s in shown(current) if previous and s in previous["markets"]
                and UNAVAILABLE not in (current["markets"][s]["state"], previous["markets"][s]["state"])
                and current["markets"][s]["state"] != previous["markets"][s]["state"]]
@@ -557,7 +579,7 @@ def acceptance(store):
             day["complete"] = False
             day["cause"] = "PUBLIC_OBJECT_REUSED_FOR_DIFFERENT_BOARD"
         objects.update(identities)
-        streak = (streak + 1 if previous and trading_age(previous, day["day_et"]) == 1 else 1) if day["complete"] else 0
+        streak = (streak + 1 if previous and _consecutive_session(previous, day["day_et"]) else 1) if day["complete"] else 0
         best = max(best, streak)
         previous = day["day_et"]
     return {"required_consecutive_trading_days": 3, "observed_consecutive_trading_days": best,
