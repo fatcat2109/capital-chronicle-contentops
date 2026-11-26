@@ -1,4 +1,4 @@
-"""CC-465: exact-pixel checks and bounded Antigravity vision reviews.
+"""CC-465: exact-pixel checks and bounded Codex vision reviews.
 
 Checks are consumed at the existing publication boundary. Review artifacts live
 beside their PNGs; the existing image register supplies daily/weekly sampling.
@@ -22,6 +22,18 @@ from .image_template_inputs_v1 import digest
 MANDATORY = {1, 2, 3, 5, 7, 9}
 VISION_POLICY = "cc465-image-roles-v5"
 VISION_SAMPLE_PENDING = "SAMPLE_PENDING"
+REVIEW_UNAVAILABLE_RETRY_COOLDOWN_SECONDS = 300
+MAX_TRANSIENT_REVIEW_RETRIES = 3
+_TRANSIENT_UNAVAILABLE_RE = re.compile(
+    r"(?:^|:)(?:CODEX_USAGE_LIMIT|CODEX_VISION_TIMEOUT|CODEX_LIGHT_TIMEOUT_\d+S|"
+    r"CODEX_VISION_EMPTY_RESPONSE|CODEX_LIGHT_EMPTY_RESPONSE|CODEX_EXIT_\d+|"
+    r"CODEX_EXECUTABLE_NOT_FOUND|AGY_VISION_TIMEOUT_\d+S)$"
+)
+_NON_TRANSIENT_UNAVAILABLE_MARKERS = (
+    "IMAGE_REVIEW_FILE_UNAVAILABLE", "IMAGE_REVIEW_BYTES_CHANGED",
+    "AGY_VISION_TEN_POINTS_REQUIRED", "AGY_IMAGE_PIXELS_NOT_OBSERVED",
+    "CODEX_LIGHT_TOOL_USE_REFUSED", "AGY_TERMS_BLOCK",
+)
 # These installed API adapters send one photo; their canonical link carries the complete table.
 SINGLE_IMAGE_DESTINATIONS = frozenset({"telegram", "discord", "facebook_page", "threads"})
 SAMPLE_NOT_SCORED = {VISION_SAMPLE_PENDING, "REVIEW_UNAVAILABLE"}
@@ -48,7 +60,8 @@ CHECKLIST = (
 BANNED = ("model estimate", "base-case chance", "the model", "our model", "model position", "model call", "model calls",
           "demo account", "demo",
           "paper account", "paper trading", "AI-run", "AI-generated", "as an AI", "language model", "LLM", "GPT",
-          "Claude", "Fable", "Opus", "Gemini", "Codex", "Antigravity", "Anthropic", "OpenAI", "system prompt",
+          "ChatGPT", "Claude", "Fable", "Opus", "Sonnet", "Haiku", "Gemini", "Codex", "Antigravity", "Anthropic",
+          "OpenAI", "Luna", "system prompt",
           "the prompt", "AI agent", "subagent", "vol-normalised", "volatility-normalised", "z-score", "sd over",
           "ATR", "SMA", "EFFR", "USD leg", "front-end gap", "context about", "clear by D1 sign", "calls judged",
           "time exits", "not triggered", "Levels use the plan's prices", "over the period to", "the desk is bullish on",
@@ -165,11 +178,106 @@ def combine(code,vision,*,new_template=False):
             "combined_at_utc":datetime.now(timezone.utc).isoformat()}
 
 
-def review_vision(asset,*,runner=None):
+def _parse_utc(value):
+    if isinstance(value, datetime):
+        return value.astimezone(timezone.utc) if value.tzinfo else None
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed.astimezone(timezone.utc) if parsed.tzinfo else None
+
+
+def is_transient_review_unavailable(review):
+    """True only for bounded transient Codex/transport REVIEW_UNAVAILABLE failures, never scored REVIEWED rejections."""
+    if not isinstance(review, dict) or review.get("status") != "REVIEW_UNAVAILABLE":
+        return False
+    cause = str(review.get("cause") or "").strip()
+    if not cause or any(marker in cause for marker in _NON_TRANSIENT_UNAVAILABLE_MARKERS):
+        return False
+    if cause.startswith(("TimeoutError:", "OSError:")) or _TRANSIENT_UNAVAILABLE_RE.search(cause):
+        return True
+    light_cause = str((review.get("light_call") or {}).get("cause") or "").strip()
+    return bool(light_cause and not any(marker in light_cause for marker in _NON_TRANSIENT_UNAVAILABLE_MARKERS)
+                and _TRANSIENT_UNAVAILABLE_RE.search(light_cause))
+
+
+def _can_retry_transient_unavailable(review, *, now=None,
+                                     cooldown_seconds=REVIEW_UNAVAILABLE_RETRY_COOLDOWN_SECONDS,
+                                     max_retries=MAX_TRANSIENT_REVIEW_RETRIES):
+    """Return True only when a transient REVIEW_UNAVAILABLE is under max_retries and past cooldown."""
+    if not is_transient_review_unavailable(review):
+        return False
+    retry_count = review.get("transient_retry_count", 0)
+    if type(retry_count) is not int or retry_count < 0 or retry_count >= max_retries:
+        return False
+    ended = _parse_utc(review.get("ended_at_utc")) or _parse_utc(review.get("started_at_utc"))
+    if ended is None:
+        return False
+    current = _parse_utc(now) if now is not None else datetime.now(timezone.utc)
+    if current is None:
+        raise ValueError("IMAGE_REVIEW_CLOCK_TIMEZONE_REQUIRED")
+    return (current - ended).total_seconds() >= cooldown_seconds
+
+
+def _write_json_atomic(path, payload):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", newline="\n", dir=path.parent, delete=False) as handle:
+        updated = Path(handle.name)
+        json.dump(payload, handle, ensure_ascii=False, indent=2)
+    try:
+        updated.replace(path)
+    finally:
+        updated.unlink(missing_ok=True)
+
+
+def _retain_prior_bytes(record_path, previous_bytes):
+    retained = record_path.parent / (
+        record_path.stem + ".prior-vision-" + sha256(previous_bytes).hexdigest() + ".json"
+    )
+    if not retained.exists():
+        with tempfile.NamedTemporaryFile(mode="wb", dir=record_path.parent, delete=False) as handle:
+            temp = Path(handle.name)
+            handle.write(previous_bytes)
+        try:
+            temp.replace(retained)
+        finally:
+            temp.unlink(missing_ok=True)
+    return retained
+
+
+def _attach_retry_provenance(review, previous_review, retained_path):
+    updated = dict(review)
+    updated["retained_prior_failure_path"] = str(retained_path)
+    prev_count = previous_review.get("transient_retry_count", 0)
+    updated["transient_retry_count"] = (prev_count if type(prev_count) is int and prev_count >= 0 else 0) + 1
+    prior_causes = list(previous_review.get("prior_unavailable_causes") or [])
+    if previous_review.get("cause"):
+        prior_causes.append(previous_review["cause"])
+    if prior_causes:
+        updated["prior_unavailable_causes"] = prior_causes
+    first_at = (previous_review.get("first_unavailable_at_utc")
+                or previous_review.get("ended_at_utc")
+                or previous_review.get("started_at_utc"))
+    if first_at:
+        updated["first_unavailable_at_utc"] = first_at
+    return updated
+
+
+def review_vision(asset,*,runner=None,now=None):
     """Bounded vision callers; exact pixels and the ten-point check still govern."""
     # Since 24 Nov 2026 the ten-point image check runs on Codex (low effort, the light
     # caller's default) with the PNG attached; never Antigravity (terms block).
     from .light_model_caller_v1 import CODEX_EFFORT as EFFORT, CODEX_MODEL as MODEL, call_light, json_answer
+    explicit_now = None
+    if now is not None:
+        explicit_now = _parse_utc(now)
+        if explicit_now is None:
+            raise ValueError("IMAGE_REVIEW_CLOCK_TIMEZONE_REQUIRED")
     meta=asset["image_template"]
     image_path=Path(asset["path"]).resolve()
     code=code_check(asset)
@@ -177,8 +285,7 @@ def review_vision(asset,*,runner=None):
              "plan_levels_required":bool((meta.get("levels") or {}).get("required")),
              "quote_comparison":((meta.get("snapshot") or {}).get("price_scale_check") or {}).get("comparison_basis"),
              "code_observations":code}
-    prompt=("Do not call any tool except Antigravity's required local PNG reader. "
-            "Codex: the PNG is attached; do not call any tool. Antigravity: use read_file only for this PNG. "
+    prompt=("Do not call any tool. The PNG is attached directly to this request. "
             "Visually inspect exactly this local PNG: "+str(image_path)+". "
             "You must actually see the pixels. Check phone readability at 375px width as well. "
             "Only that image may be read. Do not edit files, run terminal commands, open a browser, "
@@ -215,8 +322,9 @@ def review_vision(asset,*,runner=None):
                         "input":{k:v for k,v in meta["input"].items() if k!="source_binding"},
                         "snapshot":{k:v for k,v in (meta.get("snapshot") or {}).items() if k not in {"path","chart_geometry"}},
                         "master":meta["master"],"template":meta["template"]},ensure_ascii=False))
+    started_clock = explicit_now or datetime.now(timezone.utc)
     record={"policy":VISION_POLICY,"image_sha256":asset["sha256"],"template_revision":meta["template_revision"],"model":MODEL,"effort":EFFORT,
-            "configuration_status":"CONFIGURED_NOT_OBSERVED","started_at_utc":datetime.now(timezone.utc).isoformat(),
+            "configuration_status":"CONFIGURED_NOT_OBSERVED","started_at_utc":started_clock.isoformat(),
             "points":{},"reasons":{},"review_context":context,"prompt_sha256":sha256(prompt.encode()).hexdigest()}
     try:
         if not image_path.is_file():
@@ -230,7 +338,13 @@ def review_vision(asset,*,runner=None):
                            "required":[str(i) for i in range(1,11)],"additionalProperties":False}},
                 "required":["image_seen","points","reasons"],"additionalProperties":False}
         record["output_schema_sha256"]=digest(schema)
-        folder=image_path.parent/(image_path.stem+".vision")/datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        vision_root=image_path.parent/(image_path.stem+".vision")
+        stamp=started_clock.strftime("%Y%m%dT%H%M%S%fZ")
+        folder=vision_root/stamp
+        suffix_idx=1
+        while folder.exists():
+            folder=vision_root/f"{stamp}-{suffix_idx}"
+            suffix_idx+=1
         answer,light=call_light(prompt,root=folder,runner=runner,image=image_path,schema=schema,callers=("codex",),
             timeout_cause="CODEX_VISION_TIMEOUT",empty_cause="CODEX_VISION_EMPTY_RESPONSE")
         record.update(light_call=light,answered_by=light["answered_by"],elapsed_seconds=light["elapsed_seconds"])
@@ -256,7 +370,7 @@ def review_vision(asset,*,runner=None):
         record.update(points=points,reasons={k:reasons[k].strip() for k in sorted(expected,key=int)},status="REVIEWED")
     except Exception as exc:
         record.update(status="REVIEW_UNAVAILABLE",cause=type(exc).__name__+":"+str(exc)[:250])
-    record["ended_at_utc"]=datetime.now(timezone.utc).isoformat()
+    record["ended_at_utc"]=(explicit_now or datetime.now(timezone.utc)).isoformat()
     return record
 
 
@@ -273,41 +387,72 @@ def validate_asset(asset,*,destination=None,require_vision=True):
 
 
 def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,vision_runner=None,
-                  sample_after_publication=False):
+                  sample_after_publication=False,now=None):
     """Prepare one exact PNG on the existing editorial path, without a send."""
     from .image_templates_v1 import render
+    if now is not None and _parse_utc(now) is None:
+        raise ValueError("IMAGE_REVIEW_CLOCK_TIMEZONE_REQUIRED")
     asset=render(data,master,folder,snapshot,image_number=image_number,page=page)
     code=code_check(asset)
     record_path=Path(asset["path"]).with_suffix(".json")
-    previous=json.loads(record_path.read_bytes()) if record_path.is_file() else {}
+    previous_bytes=record_path.read_bytes() if record_path.is_file() else None
+    previous=json.loads(previous_bytes) if previous_bytes is not None else {}
     old=previous.get("image_quality") or {}
+    now_kw={"now":now} if now is not None else {}
+    reused_old=False
     if not code["passed"]:
         review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
     elif sample_after_publication:
         # CC-543's minute alerts render and check their chart without a model
         # call. Keep the exact asset available to the existing daily sample.
         review=(old.get("vision") or {}) if old.get("image_sha256")==asset["sha256"] else {}
+        reused_old=bool(review and old.get("code")==code and old.get("image_record_path")==str(record_path))
         review=review or {"points":{},"status":VISION_SAMPLE_PENDING}
     elif old.get("image_sha256")==asset["sha256"]:
         review=old.get("vision") or {}
-        from .light_model_caller_v1 import POLICY
+        from .light_model_caller_v1 import CODEX_MODEL, POLICY
         # A pre-CC-512 failed review never ran the second caller. Continue it
         # once under the new policy, retaining the exact prior metadata bytes.
-        if (code["passed"] and (
-                review.get("status")=="REVIEW_UNAVAILABLE" and review.get("light_call",{}).get("policy")!=POLICY
-                or not old.get("passed") and review.get("policy")!=VISION_POLICY)):
-            previous_bytes=record_path.read_bytes()
-            retained=record_path.parent/(record_path.stem+".prior-vision-"+sha256(previous_bytes).hexdigest()+".json")
-            if not retained.exists():retained.write_bytes(previous_bytes)
-            review=review_vision(asset,runner=vision_runner)
-            review["retained_prior_failure_path"]=str(retained)
+        # Current Codex REVIEW_UNAVAILABLE failures (including pre-call_light
+        # OS/timeout errors) stay governed strictly by the transient cooldown cap.
+        has_light_call=isinstance(review.get("light_call"),dict) and bool(review["light_call"])
+        current_codex_record=(
+            review.get("policy")==VISION_POLICY
+            and (review["light_call"].get("policy")==POLICY if has_light_call else review.get("model")==CODEX_MODEL)
+        )
+        non_transient_unavail=(
+            review.get("status")=="REVIEW_UNAVAILABLE"
+            and any(marker in str(review.get("cause") or "") for marker in _NON_TRANSIENT_UNAVAILABLE_MARKERS)
+        )
+        legacy_retry=(
+            not non_transient_unavail
+            and (
+                (review.get("status")=="REVIEW_UNAVAILABLE" and not current_codex_record)
+                or (not old.get("passed") and review.get("policy")!=VISION_POLICY)
+            )
+        )
+        transient_retry=not legacy_retry and _can_retry_transient_unavailable(review,now=now)
+        if code["passed"] and (legacy_retry or transient_retry):
+            prev_review=review
+            retained=_retain_prior_bytes(record_path,previous_bytes)
+            review=review_vision(asset,runner=vision_runner,**now_kw)
+            if transient_retry:
+                review=_attach_retry_provenance(review,prev_review,retained)
+            else:
+                review["retained_prior_failure_path"]=str(retained)
+        elif review.get("status")=="REVIEW_UNAVAILABLE" and old.get("code")==code:
+            reused_old=True
     else:
-        review=review_vision(asset,runner=vision_runner)
-    asset["image_quality"]=combine(code,review)
+        review=review_vision(asset,runner=vision_runner,**now_kw)
+    if reused_old:
+        asset["image_quality"]=old
+    else:
+        asset["image_quality"]=combine(code,review)
     pending = sample_after_publication and review.get("status") in SAMPLE_NOT_SCORED
     if pending:
         asset["image_quality"]["image_record_path"] = str(record_path)
-    record_path.write_text(json.dumps(asset,ensure_ascii=False,indent=2),encoding="utf-8")
+    if not (reused_old and previous_bytes is not None and previous == asset):
+        _write_json_atomic(record_path, asset)
     if not code["passed"]:
         raise ValueError(code["causes"][0])
     if not pending and not asset["image_quality"]["passed"]:
@@ -315,16 +460,21 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     return asset
 
 
-def sampled_review(image, *, run_vision=False, vision_runner=None):
+def sampled_review(image, *, run_vision=False, vision_runner=None, now=None):
     """Resolve or complete an exact-pixel review in the existing image sidecar."""
+    if now is not None and _parse_utc(now) is None:
+        raise ValueError("IMAGE_REVIEW_CLOCK_TIMEZONE_REQUIRED")
     registered = image["image_quality"]
     if registered.get("image_sha256") != image.get("sha256"):
         return {**registered, "passed": False, "sample_cause": "IMAGE_SAMPLE_RECORD_BINDING_CHANGED"}
-    if (registered.get("vision") or {}).get("status") != VISION_SAMPLE_PENDING:
+    reg_status = (registered.get("vision") or {}).get("status")
+    if reg_status != VISION_SAMPLE_PENDING and not (
+            reg_status == "REVIEW_UNAVAILABLE" and registered.get("image_record_path")):
         return registered
     try:
         path = Path(registered["image_record_path"])
-        asset = json.loads(path.read_bytes())
+        previous_bytes = path.read_bytes()
+        asset = json.loads(previous_bytes)
         quality = asset["image_quality"]
         if (path.resolve() != Path(asset["path"]).with_suffix(".json").resolve()
                 or asset["sha256"] != image["sha256"] or quality["image_sha256"] != image["sha256"]
@@ -333,20 +483,23 @@ def sampled_review(image, *, run_vision=False, vision_runner=None):
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return {**registered, "sample_cause": str(exc) if str(exc) == "IMAGE_SAMPLE_RECORD_BINDING_CHANGED"
                 else "IMAGE_SAMPLE_RECORD_UNAVAILABLE"}
-    if not run_vision or quality["vision"]["status"] != VISION_SAMPLE_PENDING:
+    sidecar_vision = quality.get("vision") or {}
+    sidecar_status = sidecar_vision.get("status")
+    retry_transient = run_vision and _can_retry_transient_unavailable(sidecar_vision, now=now)
+    if not run_vision or (sidecar_status != VISION_SAMPLE_PENDING and not retry_transient):
         return quality
     code = code_check(asset)
-    review = (review_vision(asset, runner=vision_runner) if code["passed"] else
-              {"points": {}, "status": "CODE_REFUSED", "cause": code["causes"][0]})
+    if code["passed"]:
+        now_kw = {"now": now} if now is not None else {}
+        review = review_vision(asset, runner=vision_runner, **now_kw)
+        if retry_transient:
+            retained = _retain_prior_bytes(path, previous_bytes)
+            review = _attach_retry_provenance(review, sidecar_vision, retained)
+    else:
+        review = {"points": {}, "status": "CODE_REFUSED", "cause": code["causes"][0]}
     quality = {**combine(code, review), "image_record_path": str(path)}
     asset["image_quality"] = quality
-    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as handle:
-        updated = Path(handle.name)
-        json.dump(asset, handle, ensure_ascii=False, indent=2)
-    try:
-        updated.replace(path)
-    finally:
-        updated.unlink(missing_ok=True)
+    _write_json_atomic(path, asset)
     return quality
 
 
@@ -374,12 +527,13 @@ def weekly_sample(reviews):
             "images":[r["image_sha256"] for r in values]}
 
 
-def publication_sample(records,day,*,rng=None,run_vision=False,vision_runner=None):
+def publication_sample(records,day,*,rng=None,run_vision=False,vision_runner=None,now=None):
     """Only observed publications in this seven-day window can prove the week."""
     end=date.fromisoformat(day)
     days=[(end-timedelta(days=i)).isoformat() for i in reversed(range(7))]
+    now_kw = {"now": now} if now is not None else {}
     selected = {at: [{**image, "image_quality": sampled_review(image, run_vision=run_vision and at == day,
-                                                              vision_runner=vision_runner)}
+                                                              vision_runner=vision_runner, **now_kw)}
                      for image in daily_sample(records, at, rng=rng)] for at in days}
     # Fix the sample before looking at the scores. A missing review must not
     # let a later pass replace an image that was selected for the weekly check.
@@ -411,7 +565,7 @@ def completed_day_sample(register, *, as_of, run_vision=False):
 
 
 def template_acceptance(reviews,template,revision):
-    """Twelve distinct real PNGs, six markets × two masters, all ten points."""
+    """All core markets × two masters (W and T), distinct real PNGs, all ten points."""
     from .image_template_inputs_v1 import ORDER
     expected={(m,s) for m in ORDER for s in ("W","T")}
     admitted={};hashes=set()
@@ -422,7 +576,7 @@ def template_acceptance(reviews,template,revision):
         key=(row.get("market"),row.get("master"))
         if key in expected and row.get("image_sha256") not in hashes:
             admitted[key]=row["image_sha256"];hashes.add(row["image_sha256"])
-    return {"template":template,"template_revision":revision,"required":12,"observed":len(admitted),
+    return {"template":template,"template_revision":revision,"required":len(expected),"observed":len(admitted),
             "passed":set(admitted)==expected,"missing":[{"market":m,"master":s} for m,s in sorted(expected-set(admitted))]}
 
 
