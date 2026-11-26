@@ -1166,10 +1166,12 @@ def test_neo_init_failure_before_begin_never_claims_publish_and_pass2_honors_pau
 
 def test_task_scheduler_xml_is_disabled_matches_renderer_and_passes_com_validation():
     raw = TASK_XML.read_bytes()
-    assert raw.count(b"\r") == 0 and not raw.startswith(b"\xef\xbb\xbf")
-    text = raw.decode("utf-8")
+    assert not raw.startswith(b"\xef\xbb\xbf")
+    text = TASK_XML.read_text(encoding="utf-8")
+    rendered = digest_neo.render_digest_task_xml()
+    assert "\r" not in rendered
     assert text.startswith('<?xml version="1.0"?>\n')
-    assert text == digest_neo.render_digest_task_xml()
+    assert text == rendered
 
     ns = {"t": "http://schemas.microsoft.com/windows/2004/02/mit/task"}
     root = ET.fromstring(text)
