@@ -19,6 +19,7 @@ Design invariants:
 """
 from __future__ import annotations
 
+import http.client
 import json
 import os
 import subprocess
@@ -715,21 +716,247 @@ def probe_cdp_version(
     }
 
 
+_MAX_NEO_SSE_LINE_BYTES = 1024 * 1024
+_MAX_NEO_JSON_BYTES = 1024 * 1024
+
+
+def _header_get(headers: Any, name: str) -> str | None:
+    """Case-insensitive header lookup for both http.client.HTTPMessage and plain dicts."""
+    if headers is None:
+        return None
+    getter = getattr(headers, "get", None)
+    if callable(getter):
+        val = getter(name)
+        if val is not None:
+            return str(val)
+        val_lower = getter(name.lower())
+        if val_lower is not None:
+            return str(val_lower)
+    if isinstance(headers, Mapping):
+        target = name.lower()
+        for key, value in headers.items():
+            if str(key).lower() == target and value is not None:
+                return str(value)
+    return None
+
+
+def _parse_loopback_target(endpoint: str) -> tuple[str, int, str]:
+    """Validate and split a loopback-only HTTP URL into (host, port, request_target)."""
+    _require_loopback_http(endpoint)
+    parsed = urlsplit(str(endpoint))
+    try:
+        port = parsed.port if parsed.port is not None else 80
+    except ValueError as exc:
+        raise ValueError("NEO_LOCAL_ENDPOINT_PORT_INVALID") from exc
+    host = str(parsed.hostname)
+    target = parsed.path or "/"
+    if parsed.query:
+        target = f"{target}?{parsed.query}"
+    return host, int(port), target
+
+
+def _set_conn_socket_timeout(conn: Any, timeout_seconds: float) -> None:
+    """Best-effort socket timeout adjustment on an active http.client.HTTPConnection."""
+    sock = getattr(conn, "sock", None)
+    settimeout = getattr(sock, "settimeout", None)
+    if callable(settimeout):
+        try:
+            settimeout(max(0.05, float(timeout_seconds)))
+        except OSError:
+            pass
+
+
+class _StdlibStreamingResponse:
+    """Bounded, direct-loopback (no-proxy) http.client response adapter for MCP SSE & JSON."""
+
+    def __init__(
+        self,
+        *,
+        conn: Any,
+        http_resp: Any,
+        timeout_seconds: float,
+        deadline_mono: float,
+        mono_fn: Callable[[], float],
+    ) -> None:
+        self._conn = conn
+        self._resp = http_resp
+        self._timeout_seconds = max(0.05, float(timeout_seconds))
+        self._deadline_mono = float(deadline_mono)
+        self._mono_fn = mono_fn
+        self._closed = False
+        self.status_code = int(getattr(http_resp, "status", 0))
+        self.headers = getattr(http_resp, "headers", None) or {}
+
+    def _apply_remaining_timeout(self) -> None:
+        remaining = self._deadline_mono - self._mono_fn()
+        if remaining <= 0:
+            raise TimeoutError("NEO_SSE_DEADLINE_EXCEEDED")
+        _set_conn_socket_timeout(self._conn, min(self._timeout_seconds, remaining))
+
+    def iter_lines(self, chunk_size: int = 8192, decode_unicode: bool = True):
+        """Yield SSE lines incrementally without blocking for EOF or filling large buffers."""
+        read1_fn = getattr(self._resp, "read1", None)
+        if callable(read1_fn):
+            buf = bytearray()
+            size = max(1, int(chunk_size))
+            while True:
+                self._apply_remaining_timeout()
+                chunk = read1_fn(size)
+                if not chunk:
+                    if buf:
+                        raw_line = bytes(buf)
+                        buf.clear()
+                        if len(raw_line) > _MAX_NEO_SSE_LINE_BYTES:
+                            raise ValueError("NEO_SSE_LINE_TOO_LARGE")
+                        if raw_line.endswith(b"\r"):
+                            raw_line = raw_line[:-1]
+                        yield raw_line.decode("utf-8", errors="replace") if decode_unicode else raw_line
+                    return
+                if isinstance(chunk, str):
+                    chunk = chunk.encode("utf-8")
+                buf.extend(chunk)
+                while True:
+                    nl = buf.find(b"\n")
+                    if nl < 0:
+                        break
+                    raw_line = bytes(buf[:nl])
+                    del buf[: nl + 1]
+                    if len(raw_line) > _MAX_NEO_SSE_LINE_BYTES:
+                        raise ValueError("NEO_SSE_LINE_TOO_LARGE")
+                    if raw_line.endswith(b"\r"):
+                        raw_line = raw_line[:-1]
+                    yield raw_line.decode("utf-8", errors="replace") if decode_unicode else raw_line
+                if len(buf) > _MAX_NEO_SSE_LINE_BYTES:
+                    raise ValueError("NEO_SSE_LINE_TOO_LARGE")
+        else:
+            readline_fn = getattr(self._resp, "readline", None)
+            if not callable(readline_fn):
+                raise ValueError("NEO_SSE_STREAM_UNREADABLE")
+            while True:
+                self._apply_remaining_timeout()
+                raw_line = readline_fn(_MAX_NEO_SSE_LINE_BYTES + 1)
+                if not raw_line:
+                    return
+                raw_bytes = raw_line.encode("utf-8") if isinstance(raw_line, str) else bytes(raw_line)
+                if len(raw_bytes) > _MAX_NEO_SSE_LINE_BYTES:
+                    raise ValueError("NEO_SSE_LINE_TOO_LARGE")
+                raw_bytes = raw_bytes.rstrip(b"\r\n")
+                yield raw_bytes.decode("utf-8", errors="replace") if decode_unicode else raw_bytes
+
+    def json(self) -> Any:
+        self._apply_remaining_timeout()
+        raw = self._resp.read(_MAX_NEO_JSON_BYTES + 1)
+        raw_bytes = raw.encode("utf-8") if isinstance(raw, str) else bytes(raw)
+        if len(raw_bytes) > _MAX_NEO_JSON_BYTES:
+            raise ValueError("NEO_MCP_RESPONSE_TOO_LARGE")
+        return json.loads(raw_bytes.decode("utf-8"))
+
+    def close(self) -> None:
+        if self._closed:
+            return
+        self._closed = True
+        for obj in (self._resp, self._conn):
+            close_fn = getattr(obj, "close", None)
+            if callable(close_fn):
+                try:
+                    close_fn()
+                except Exception:  # noqa: BLE001
+                    pass
+
+
+def _stdlib_http_post(
+    *,
+    host: str,
+    port: int,
+    target: str,
+    payload: Mapping[str, Any],
+    headers: Mapping[str, str],
+    timeout_seconds: float,
+    deadline_mono: float,
+    mono_fn: Callable[[], float],
+    connection_factory: Callable[..., Any],
+) -> _StdlibStreamingResponse:
+    """Issue a direct loopback HTTP/1.1 POST using stdlib http.client (zero proxy env lookup)."""
+    effective_timeout = max(0.05, float(timeout_seconds))
+    connect_timeout = min(3.0, effective_timeout)
+    body_bytes = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+    req_headers = {**headers, "Connection": "close"}
+    conn = connection_factory(host, port, timeout=connect_timeout)
+    try:
+        conn.request("POST", target, body=body_bytes, headers=req_headers)
+        remaining = deadline_mono - mono_fn()
+        if remaining <= 0:
+            raise TimeoutError("NEO_SSE_DEADLINE_EXCEEDED")
+        _set_conn_socket_timeout(conn, min(effective_timeout, remaining))
+        http_resp = conn.getresponse()
+        return _StdlibStreamingResponse(
+            conn=conn,
+            http_resp=http_resp,
+            timeout_seconds=effective_timeout,
+            deadline_mono=deadline_mono,
+            mono_fn=mono_fn,
+        )
+    except Exception:
+        close_fn = getattr(conn, "close", None)
+        if callable(close_fn):
+            try:
+                close_fn()
+            except Exception:  # noqa: BLE001
+                pass
+        raise
+
+
+def _stdlib_http_delete(
+    *,
+    host: str,
+    port: int,
+    target: str,
+    session_id: str,
+    connection_factory: Callable[..., Any],
+    connect_timeout: float = 1.5,
+    read_timeout: float = 2.0,
+) -> None:
+    """Best-effort loopback HTTP/1.1 DELETE to release an allocated Mcp-Session-Id."""
+    conn = connection_factory(host, port, timeout=connect_timeout)
+    resp = None
+    try:
+        conn.request(
+            "DELETE",
+            target,
+            headers={"Mcp-Session-Id": session_id, "Connection": "close"},
+        )
+        _set_conn_socket_timeout(conn, read_timeout)
+        resp = conn.getresponse()
+        read_fn = getattr(resp, "read", None)
+        if callable(read_fn):
+            read_fn(4096)
+    finally:
+        for obj in (resp, conn):
+            close_fn = getattr(obj, "close", None)
+            if callable(close_fn):
+                try:
+                    close_fn()
+                except Exception:  # noqa: BLE001
+                    pass
+
+
 def probe_neo_mcp_sse(
     endpoint: str,
     *,
     timeout_seconds: float = 8.0,
     http_post: Callable[..., Any] | None = None,
     http_delete: Callable[..., Any] | None = None,
+    connection_factory: Callable[..., Any] | None = None,
     mono_fn: Callable[[], float] = time.monotonic,
 ) -> dict[str, Any]:
     """Read-only MCP JSON-RPC `initialize` probe supporting Streamable HTTP SSE priming frames.
 
-    Bypasses proxies for loopback HTTP, performs zero page actions or tab opens, cleans up
+    Uses pure stdlib `http.client` directly against loopback (bypassing all proxy env/system
+    settings with zero third-party dependency), performs zero page actions or tab opens, cleans up
     any allocated `Mcp-Session-Id` via best-effort `DELETE` in `finally`, and never logs
     session tokens or response bodies.
     """
-    _require_loopback_http(endpoint)
+    host, port, target = _parse_loopback_target(endpoint)
     request_id = 1
     payload = {
         "jsonrpc": "2.0",
@@ -746,29 +973,32 @@ def probe_neo_mcp_sse(
         "Content-Type": "application/json",
     }
 
-    owned_session = None
+    use_stdlib = http_post is None
+    conn_factory = connection_factory or http.client.HTTPConnection
+    effective_timeout = max(0.05, float(timeout_seconds))
+    deadline = mono_fn() + effective_timeout
     response = None
     session_id: str | None = None
     session_cleanup_attempted = False
     try:
-        if http_post is None:
-            import requests
-
-            owned_session = requests.Session()
-            owned_session.trust_env = False
-            response = owned_session.post(
-                endpoint,
-                json=payload,
+        if use_stdlib:
+            response = _stdlib_http_post(
+                host=host,
+                port=port,
+                target=target,
+                payload=payload,
                 headers=headers,
-                timeout=(min(3.0, timeout_seconds), timeout_seconds),
-                stream=True,
+                timeout_seconds=effective_timeout,
+                deadline_mono=deadline,
+                mono_fn=mono_fn,
+                connection_factory=conn_factory,
             )
         else:
             response = http_post(endpoint, json=payload, headers=headers, timeout=timeout_seconds, stream=True)
 
         status_code = int(getattr(response, "status_code", 0))
         resp_headers = getattr(response, "headers", {}) or {}
-        raw_sid = resp_headers.get("Mcp-Session-Id") or resp_headers.get("mcp-session-id")
+        raw_sid = _header_get(resp_headers, "Mcp-Session-Id")
         if isinstance(raw_sid, str) and raw_sid.strip():
             session_id = raw_sid.strip()
 
@@ -781,12 +1011,11 @@ def probe_neo_mcp_sse(
                 "priming_frames_ignored": 0,
             }
 
-        content_type = str(resp_headers.get("Content-Type") or resp_headers.get("content-type") or "")
+        content_type = str(_header_get(resp_headers, "Content-Type") or "")
         session_present = bool(session_id)
         priming_ignored = 0
 
         if "text/event-stream" in content_type.lower():
-            deadline = mono_fn() + max(1.0, float(timeout_seconds))
             parsed = parse_mcp_sse_response(
                 response.iter_lines(chunk_size=8192, decode_unicode=True),
                 request_id=request_id,
@@ -828,7 +1057,7 @@ def probe_neo_mcp_sse(
             "server_name": str((result.get("serverInfo") or {}).get("name") or ""),
             "server_version": str((result.get("serverInfo") or {}).get("version") or ""),
             "session_header_present": session_present,
-            "session_cleanup_attempted": session_present and (http_delete is not None or owned_session is not None),
+            "session_cleanup_attempted": session_present and (http_delete is not None or use_stdlib),
             "priming_frames_ignored": priming_ignored,
             "error": None,
         }
@@ -851,12 +1080,11 @@ def probe_neo_mcp_sse(
             except Exception:  # noqa: BLE001
                 pass
         if session_id:
-            delete_fn = http_delete or (owned_session.delete if owned_session is not None else None)
-            if callable(delete_fn):
+            if callable(http_delete):
                 session_cleanup_attempted = True
                 del_resp = None
                 try:
-                    del_resp = delete_fn(
+                    del_resp = http_delete(
                         endpoint,
                         headers={"Mcp-Session-Id": session_id},
                         timeout=(1.5, 2.0),
@@ -870,11 +1098,18 @@ def probe_neo_mcp_sse(
                             del_close()
                         except Exception:  # noqa: BLE001
                             pass
-        if owned_session is not None:
-            try:
-                owned_session.close()
-            except Exception:  # noqa: BLE001
-                pass
+            elif use_stdlib:
+                session_cleanup_attempted = True
+                try:
+                    _stdlib_http_delete(
+                        host=host,
+                        port=port,
+                        target=target,
+                        session_id=session_id,
+                        connection_factory=conn_factory,
+                    )
+                except Exception:  # noqa: BLE001 - best-effort cleanup (405/transport errors ignored)
+                    pass
         _ = session_cleanup_attempted
 
 

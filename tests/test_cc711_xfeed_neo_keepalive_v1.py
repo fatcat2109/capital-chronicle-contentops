@@ -1021,3 +1021,423 @@ def test_security_scans_cc711_comment_references_port_9010_not_9128() -> None:
     text = (ROOT / "tests" / "test_security_scans.py").read_text(encoding="utf-8")
     assert "9128" not in text
     assert "127.0.0.1:9010/mcp" in text
+
+
+# ---------------------------------------------------------------------------
+# 7. Pure-stdlib http.client Neo MCP SSE probe tests (v1-runtime\venv zero-requests parity)
+# ---------------------------------------------------------------------------
+
+
+class _FakeSocket:
+    def __init__(self) -> None:
+        self.timeouts: list[float] = []
+
+    def settimeout(self, value: float) -> None:
+        self.timeouts.append(value)
+
+
+class _FakeStdlibHttpResponse:
+    def __init__(
+        self,
+        *,
+        status: int = 200,
+        headers: dict[str, str] | None = None,
+        chunks: list[bytes] | None = None,
+        body: bytes = b"",
+        use_read1: bool = True,
+    ) -> None:
+        import email.message
+
+        self.status = status
+        msg = email.message.Message()
+        for k, v in (headers or {}).items():
+            msg[k] = v
+        self.headers = msg
+        self._chunks = list(chunks or [])
+        self._chunk_idx = 0
+        self._body = body
+        self._lines_stream = io.BytesIO(b"".join(self._chunks) if self._chunks else body)
+        self.closed = False
+        self.read_calls = 0
+        if not use_read1:
+            self.read1 = None  # type: ignore[assignment]
+
+    def read1(self, size: int = 8192) -> bytes:
+        self.read_calls += 1
+        if self._chunk_idx >= len(self._chunks):
+            return b""
+        chunk = self._chunks[self._chunk_idx]
+        self._chunk_idx += 1
+        return chunk
+
+    def readline(self, limit: int = -1) -> bytes:
+        self.read_calls += 1
+        return self._lines_stream.readline(limit)
+
+    def read(self, amt: int = -1) -> bytes:
+        self.read_calls += 1
+        return self._body[:amt] if amt >= 0 else self._body
+
+    def close(self) -> None:
+        self.closed = True
+
+
+class _FakeStdlibHttpConnection:
+    def __init__(
+        self,
+        host: str,
+        port: int,
+        timeout: float | None = None,
+        *,
+        response_or_exc: object = None,
+        event_log: list[dict[str, object]] | None = None,
+    ) -> None:
+        self.host = host
+        self.port = port
+        self.timeout = timeout
+        self.sock = _FakeSocket()
+        self._response_or_exc = response_or_exc
+        self._event_log = event_log if event_log is not None else []
+        self.requests_made: list[tuple[str, str, bytes | None, dict[str, str]]] = []
+        self.closed = False
+        self._event_log.append({"event": "open", "host": host, "port": port, "timeout": timeout})
+
+    def request(
+        self,
+        method: str,
+        url: str,
+        body: bytes | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> None:
+        hdrs = dict(headers or {})
+        self.requests_made.append((method, url, body, hdrs))
+        self._event_log.append({"event": "request", "method": method, "url": url, "headers": hdrs})
+        if isinstance(self._response_or_exc, Exception):
+            raise self._response_or_exc
+
+    def getresponse(self):
+        if callable(self._response_or_exc):
+            return self._response_or_exc()
+        return self._response_or_exc
+
+    def close(self) -> None:
+        if not self.closed:
+            self.closed = True
+            self._event_log.append({"event": "close", "host": self.host, "port": self.port})
+
+
+def test_cc711_keepalive_module_has_zero_requests_import() -> None:
+    """CC-711 keepalive runtime and CLI must remain 100% pure stdlib (v1-runtime venv has no requests)."""
+    import ast
+
+    for rel in ("live_contentops/cc711_xfeed_neo_keepalive_v1.py", "scripts/run_cc711_keepalive.py"):
+        tree = ast.parse((ROOT / rel).read_text(encoding="utf-8"), filename=rel)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    assert alias.name != "requests" and not alias.name.startswith("requests."), rel
+            elif isinstance(node, ast.ImportFrom):
+                mod = node.module or ""
+                assert mod != "requests" and not mod.startswith("requests."), rel
+
+
+def test_cc711_stdlib_http_client_sse_priming_frames_no_proxy_and_session_delete(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Default probe_neo_mcp_sse uses pure stdlib http.client, bypasses proxies, ignores v0.0.88 priming frames, and DELETEs session."""
+    import http.client
+    import sys
+
+    # Simulate v1-runtime\venv where `requests` is not installed.
+    monkeypatch.setitem(sys.modules, "requests", None)
+    # Poison proxy env vars to prove direct loopback http.client ignores them completely.
+    monkeypatch.setenv("HTTP_PROXY", "http://198.51.100.99:8888")
+    monkeypatch.setenv("HTTPS_PROXY", "http://198.51.100.99:8888")
+    monkeypatch.setenv("ALL_PROXY", "http://198.51.100.99:8888")
+
+    reply = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+            "protocolVersion": "2025-03-26",
+            "serverInfo": {"name": "browseros-neo", "version": "0.0.88"},
+        },
+    }
+    reply_bytes = json.dumps(reply).encode("utf-8")
+    split_at = len(reply_bytes) // 2
+    post_resp = _FakeStdlibHttpResponse(
+        status=200,
+        headers={
+            "Content-Type": "text/event-stream; charset=utf-8",
+            "Mcp-Session-Id": "neo-stdlib-secret-sid",
+        },
+        chunks=[
+            b": keepalive\r\nevent: message\r\nid: prime-1\r\ndata:\r\n\r\n",
+            b"event: message\ndata: \n\n",
+            b"event: message\ndata: " + reply_bytes[:split_at],
+            reply_bytes[split_at:] + b"\n\n",
+            # Open-stream trailing chunk that must never be pulled once id=1 matches.
+            b": unread-open-stream-chunk\n",
+        ],
+    )
+    del_resp = _FakeStdlibHttpResponse(status=204, headers={}, body=b"")
+    events: list[dict[str, object]] = []
+    conns: list[_FakeStdlibHttpConnection] = []
+    queue: list[object] = [post_resp, del_resp]
+
+    def fake_http_connection(host: str, port: int, timeout: float | None = None):
+        conn = _FakeStdlibHttpConnection(
+            host,
+            port,
+            timeout=timeout,
+            response_or_exc=queue.pop(0),
+            event_log=events,
+        )
+        conns.append(conn)
+        return conn
+
+    monkeypatch.setattr(http.client, "HTTPConnection", fake_http_connection)
+
+    res = keepalive.probe_neo_mcp_sse("http://127.0.0.1:9010/mcp?mode=probe", timeout_seconds=8.0)
+
+    assert res["mcp_alive"] is True
+    assert res["http_status"] == 200
+    assert res["protocol_version"] == "2025-03-26"
+    assert res["server_name"] == "browseros-neo"
+    assert res["server_version"] == "0.0.88"
+    assert res["priming_frames_ignored"] == 2
+    assert res["session_header_present"] is True
+    assert res["session_cleanup_attempted"] is True
+    assert res["error"] is None
+    assert "neo-stdlib-secret-sid" not in json.dumps(res)
+
+    # Exactly 2 connections: POST first (closed before DELETE opens), then fresh DELETE.
+    assert len(conns) == 2
+    post_conn, del_conn = conns
+    assert (post_conn.host, post_conn.port, post_conn.timeout) == ("127.0.0.1", 9010, 3.0)
+    assert post_conn.closed is True
+    assert post_resp.closed is True
+    # Stopped immediately after chunk #4 matched id=1; never blocked on chunk #5.
+    assert post_resp.read_calls == 4
+    post_method, post_target, post_body, post_hdrs = post_conn.requests_made[0]
+    assert post_method == "POST"
+    assert post_target == "/mcp?mode=probe"
+    assert post_hdrs["Accept"] == "application/json, text/event-stream"
+    assert post_hdrs["Content-Type"] == "application/json"
+    assert post_hdrs["Connection"] == "close"
+    parsed_req = json.loads((post_body or b"{}").decode("utf-8"))
+    assert parsed_req["method"] == "initialize"
+    assert parsed_req["params"]["protocolVersion"] == "2025-03-26"
+
+    assert (del_conn.host, del_conn.port, del_conn.timeout) == ("127.0.0.1", 9010, 1.5)
+    assert del_conn.closed is True
+    assert del_resp.closed is True
+    del_method, del_target, _del_body, del_hdrs = del_conn.requests_made[0]
+    assert del_method == "DELETE"
+    assert del_target == "/mcp?mode=probe"
+    assert del_hdrs == {"Mcp-Session-Id": "neo-stdlib-secret-sid", "Connection": "close"}
+
+    # Ordering proof: POST connection closed BEFORE DELETE connection opened.
+    event_seq = [e["event"] for e in events]
+    assert event_seq == ["open", "request", "close", "open", "request", "close"]
+
+
+def test_cc711_stdlib_http_client_plain_json_readline_fallback_and_delete_error_ignored(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Stdlib transport handles application/json, readline()-only streams, and best-effort DELETE errors."""
+    import http.client
+    import sys
+
+    monkeypatch.setitem(sys.modules, "requests", None)
+
+    # 1) Plain application/json + DELETE raises RemoteDisconnected -> still healthy, all handles closed.
+    json_payload = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "result": {
+                "protocolVersion": "2025-03-26",
+                "serverInfo": {"name": "browseros-neo", "version": "0.0.88"},
+            },
+        }
+    ).encode("utf-8")
+    post_resp = _FakeStdlibHttpResponse(
+        status=200,
+        headers={"content-type": "application/json", "mcp-session-id": "sid-json-1"},
+        body=json_payload,
+    )
+    conns: list[_FakeStdlibHttpConnection] = []
+    queue: list[object] = [post_resp, http.client.RemoteDisconnected("closed")]
+
+    def factory_json(host: str, port: int, timeout: float | None = None):
+        c = _FakeStdlibHttpConnection(host, port, timeout=timeout, response_or_exc=queue.pop(0))
+        conns.append(c)
+        return c
+
+    res = keepalive.probe_neo_mcp_sse("http://127.0.0.1:9010/mcp", connection_factory=factory_json)
+    assert res["mcp_alive"] is True
+    assert res["priming_frames_ignored"] == 0
+    assert res["session_cleanup_attempted"] is True
+    assert "sid-json-1" not in json.dumps(res)
+    assert all(c.closed for c in conns)
+    assert post_resp.closed is True
+
+    # 2) readline()-only response stub (no read1) still parses priming frames + JSON-RPC reply cleanly.
+    sse_resp = _FakeStdlibHttpResponse(
+        status=200,
+        headers={"Content-Type": "text/event-stream"},
+        chunks=[
+            b"data:\n\n",
+            b"data: " + json_payload + b"\n\n",
+        ],
+        use_read1=False,
+    )
+    rl_conn_box: list[_FakeStdlibHttpConnection] = []
+
+    def factory_rl(host: str, port: int, timeout: float | None = None):
+        c = _FakeStdlibHttpConnection(host, port, timeout=timeout, response_or_exc=sse_resp)
+        rl_conn_box.append(c)
+        return c
+
+    res_rl = keepalive.probe_neo_mcp_sse("http://localhost:9010/mcp", connection_factory=factory_rl)
+    assert res_rl["mcp_alive"] is True
+    assert res_rl["priming_frames_ignored"] == 1
+    assert res_rl["server_version"] == "0.0.88"
+    assert rl_conn_box[0].closed is True
+    assert sse_resp.closed is True
+
+
+def test_cc711_stdlib_http_client_errors_timeouts_bounds_and_hold_cdp_alive(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    """Stdlib transport enforces timeouts, bounds, safe error codes, and HOLD_CDP_ALIVE_NEVER_KILL_CHROME."""
+    import http.client
+    import sys
+
+    monkeypatch.setitem(sys.modules, "requests", None)
+
+    # 1) ConnectionRefusedError -> safe error classification, zero ModuleNotFoundError, conn closed.
+    refused_conns: list[_FakeStdlibHttpConnection] = []
+
+    def factory_refused(host: str, port: int, timeout: float | None = None):
+        c = _FakeStdlibHttpConnection(host, port, timeout=timeout, response_or_exc=ConnectionRefusedError("refused"))
+        refused_conns.append(c)
+        return c
+
+    res_refused = keepalive.probe_neo_mcp_sse("http://127.0.0.1:9010/mcp", connection_factory=factory_refused)
+    assert res_refused["mcp_alive"] is False
+    assert res_refused["error"] == "NEO_ENDPOINT_CONNECTIONREFUSEDERROR"
+    assert refused_conns[0].closed is True
+
+    # 2) Socket TimeoutError during getresponse() -> NEO_ENDPOINT_TIMEOUTERROR, conn closed.
+    to_conns: list[_FakeStdlibHttpConnection] = []
+
+    def factory_timeout(host: str, port: int, timeout: float | None = None):
+        c = _FakeStdlibHttpConnection(
+            host,
+            port,
+            timeout=timeout,
+            response_or_exc=lambda: (_ for _ in ()).throw(TimeoutError("timed out")),
+        )
+        to_conns.append(c)
+        return c
+
+    res_to = keepalive.probe_neo_mcp_sse("http://127.0.0.1:9010/mcp", timeout_seconds=1.5, connection_factory=factory_timeout)
+    assert res_to["mcp_alive"] is False
+    assert res_to["error"] == "NEO_ENDPOINT_TIMEOUTERROR"
+    assert to_conns[0].closed is True
+
+    # 3) Synthetic monotonic clock crossing deadline mid-SSE -> NEO_SSE_DEADLINE_EXCEEDED.
+    clock = iter([100.0, 100.5, 102.5, 103.0])
+    slow_resp = _FakeStdlibHttpResponse(
+        status=200,
+        headers={"Content-Type": "text/event-stream"},
+        chunks=[b": keepalive\n", b": still-waiting\n"],
+    )
+    res_deadline = keepalive.probe_neo_mcp_sse(
+        "http://127.0.0.1:9010/mcp",
+        timeout_seconds=2.0,
+        connection_factory=lambda h, p, timeout=None: _FakeStdlibHttpConnection(h, p, timeout=timeout, response_or_exc=slow_resp),
+        mono_fn=lambda: next(clock, 200.0),
+    )
+    assert res_deadline["mcp_alive"] is False
+    assert res_deadline["error"] == "NEO_SSE_DEADLINE_EXCEEDED"
+    assert slow_resp.closed is True
+
+    # 4) HTTP 503 with Mcp-Session-Id -> NEO_MCP_HTTP_503 and still runs best-effort DELETE after closing POST.
+    err_503 = _FakeStdlibHttpResponse(status=503, headers={"Mcp-Session-Id": "sid-503"})
+    del_503 = _FakeStdlibHttpResponse(status=204)
+    q503: list[object] = [err_503, del_503]
+    conns_503: list[_FakeStdlibHttpConnection] = []
+
+    def factory_503(host: str, port: int, timeout: float | None = None):
+        c = _FakeStdlibHttpConnection(host, port, timeout=timeout, response_or_exc=q503.pop(0))
+        conns_503.append(c)
+        return c
+
+    res_503 = keepalive.probe_neo_mcp_sse("http://127.0.0.1:9010/mcp", connection_factory=factory_503)
+    assert res_503["mcp_alive"] is False
+    assert res_503["http_status"] == 503
+    assert res_503["error"] == "NEO_MCP_HTTP_503"
+    assert len(conns_503) == 2
+    assert conns_503[1].requests_made[0][0] == "DELETE"
+    assert all(c.closed for c in conns_503)
+
+    # 5) Bounded SSE line and JSON response size limits fail closed.
+    monkeypatch.setattr(keepalive, "_MAX_NEO_SSE_LINE_BYTES", 64)
+    big_sse = _FakeStdlibHttpResponse(
+        status=200,
+        headers={"Content-Type": "text/event-stream"},
+        chunks=[b"data: " + (b"x" * 100) + b"\n"],
+    )
+    res_big_sse = keepalive.probe_neo_mcp_sse(
+        "http://127.0.0.1:9010/mcp",
+        connection_factory=lambda h, p, timeout=None: _FakeStdlibHttpConnection(h, p, timeout=timeout, response_or_exc=big_sse),
+    )
+    assert res_big_sse["mcp_alive"] is False
+    assert res_big_sse["error"] == "NEO_SSE_LINE_TOO_LARGE"
+    assert big_sse.closed is True
+
+    monkeypatch.setattr(keepalive, "_MAX_NEO_JSON_BYTES", 32)
+    big_json = _FakeStdlibHttpResponse(
+        status=200,
+        headers={"Content-Type": "application/json"},
+        body=b'{"jsonrpc":"2.0","padding":"' + (b"a" * 64) + b'"}',
+    )
+    res_big_json = keepalive.probe_neo_mcp_sse(
+        "http://127.0.0.1:9010/mcp",
+        connection_factory=lambda h, p, timeout=None: _FakeStdlibHttpConnection(h, p, timeout=timeout, response_or_exc=big_json),
+    )
+    assert res_big_json["mcp_alive"] is False
+    assert res_big_json["error"] == "NEO_MCP_RESPONSE_TOO_LARGE"
+    assert big_json.closed is True
+
+    # 6) End-to-end recover_browseros_neo with live default probe_neo_mcp_sse hitting BadStatusLine
+    #    while CDP is alive -> DEGRADED_MCP_CDP_ALIVE + HOLD_CDP_ALIVE_NEVER_KILL_CHROME.
+    exe, user_data, cfg = _fake_neo_install(tmp_path)
+    monkeypatch.setattr(
+        http.client,
+        "HTTPConnection",
+        lambda h, p, timeout=None: _FakeStdlibHttpConnection(
+            h, p, timeout=timeout, response_or_exc=http.client.BadStatusLine("bad")
+        ),
+    )
+    recovery = keepalive.recover_browseros_neo(
+        dry_run=False,
+        keepalive_lock_path=tmp_path / "neo.lock",
+        stop_path=tmp_path / "STOP_NEO",
+        browser_exe=exe,
+        user_data_dir=user_data,
+        config_path=cfg,
+        cdp_probe=lambda p: {"cdp_alive": True, "cdp_port": p, "browser": "Chrome/155.0.8317.26"},
+        process_probe=lambda: [{"pid": 35688, "name": "chrome.exe"}],
+        spawner=lambda _cmd, _cwd: pytest.fail("must NEVER kill or spawn Chrome when CDP responds"),
+        now_fn=_fixed_now,
+    )
+    assert recovery["health"]["state"] == "DEGRADED_MCP_CDP_ALIVE"
+    assert recovery["health"]["mcp"]["error"] == "NEO_ENDPOINT_BADSTATUSLINE"
+    assert recovery["action"] == "HOLD_CDP_ALIVE_NEVER_KILL_CHROME"
+    assert recovery["chrome_kill_performed"] is False
+    assert recovery["launched"] is False
