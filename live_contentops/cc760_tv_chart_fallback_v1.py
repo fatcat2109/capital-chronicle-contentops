@@ -402,10 +402,27 @@ def validate_cached_chart_candidate(
 
     declared_markets: list[str] = []
     for rec in records:
-        for field in ("symbol", "market", "asset_id", "market_asset"):
+        # Media asset dicts carry a media `asset_id` (e.g. "cc465-..." / "tv-..."), not a market ticker.
+        is_media_asset = (
+            rec is asset
+            or rec.get("modality") is not None
+            or "tradingview_snapshot" in rec
+            or "image_template" in rec
+        )
+        market_fields = (
+            ("symbol", "market", "market_asset")
+            if is_media_asset
+            else ("symbol", "market", "asset_id", "market_asset")
+        )
+        for field in market_fields:
             val = rec.get(field)
             if val is not None:
                 declared_markets.append(str(val))
+    tmpl = asset.get("image_template") if isinstance(asset, Mapping) else None
+    if isinstance(tmpl, Mapping) and isinstance(tmpl.get("input"), Mapping):
+        tmpl_market = tmpl["input"].get("market")
+        if tmpl_market is not None:
+            declared_markets.append(str(tmpl_market))
     psc = snap.get("price_scale_check")
     if isinstance(psc, Mapping) and psc.get("market") is not None:
         declared_markets.append(str(psc.get("market")))
