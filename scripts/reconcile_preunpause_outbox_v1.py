@@ -10,9 +10,11 @@ Reconciliation contract:
 - Subgroup A (expired un-dispatched READY Substack ``plan_analysis_page`` rows, e.g. ``#13``):
   retires outbox row to ``PLAN_PAGE_EXPIRED_STALE_NO_WRITE`` and parent internal page to ``SETTLED``
   (only when zero sibling dispatches are active/confirmed/unknown).
-- Subgroup B (Substack ``DISPATCH_ATTEMPT_STARTED`` / ``UNKNOWN_WRITE`` / ``NATIVE_NEO_TOOL_PENDING``,
-  e.g. ``#14`` ``dispatch_4f58...``): readback-first gate. NEVER auto-retires without durable verified
-  absence proof (``RECONCILED_ABSENT_SAFE_TO_RETRY`` + verified ``write_absent`` readback + no public ID/URL).
+- Subgroup B (Substack ``DISPATCH_ATTEMPT_STARTED`` / ``UNKNOWN_WRITE`` / ``NATIVE_NEO_TOOL_PENDING`` /
+  ``RECONCILED_ABSENT_SAFE_TO_RETRY``, e.g. ``#14`` ``dispatch_4f58...``): readback-first gate.
+  NEVER auto-retires without durable verified absence proof (``RECONCILED_ABSENT_SAFE_TO_RETRY``
+  dispatch + reconciliation, zero readbacks observing ``write_exists``/``verified``/public identity,
+  and latest readback observing ``write_absent=True``).
 - Subgroup D (``NATIVE_NEO_TOOL_PENDING`` under terminal ``SUPERSEDED_NOT_POSTED``/``STALE_NOT_POSTED``/``SETTLED``
   parent, e.g. ``#01``): settles outbox row to ``PLAN_POST_SETTLED`` while preserving exact dispatch state.
 - Expired derivative ``READY`` rows (``dispatch is None``): retires to ``DERIVATIVE_EXPIRED_STALE_NO_WRITE``.
@@ -31,6 +33,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import sqlite3
 import subprocess
 import sys
@@ -45,9 +48,11 @@ from live_contentops.destination_transport_registry_v1 import (  # noqa: E402
 )
 from live_contentops.durable_operational_store_v1 import (  # noqa: E402
     ContentOpsDurableStore,
+    WorkItemNotFoundError,
 )
 from live_contentops.publication_coordinator_v1 import (  # noqa: E402
     ATTEMPT_STARTED,
+    DEFINITE_NO_WRITE,
     DERIVATIVE_EXPIRED_STALE_NO_WRITE,
     DISPATCH_CONFIRMED,
     DurablePublicationCoordinator,
@@ -76,7 +81,33 @@ SUBSTACK_READBACK_GATED_DISPATCH_STATUSES = frozenset({
     ATTEMPT_STARTED,
     UNKNOWN_WRITE,
     NATIVE_NEO_PENDING,
+    RECONCILED_ABSENT_SAFE_TO_RETRY,
 })
+SUBSTACK_EXCLUDED_OUTBOX_STATUSES = frozenset({
+    PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+    "SUPERSEDED_UNSENT_MEDIA_REVISION",
+    "UNSENT_MEDIA_SUPERSEDED",
+    DEFINITE_NO_WRITE,
+    DISPATCH_CONFIRMED,
+})
+_OTHER_LIVE_WRITER_PROCESS_PATTERN = (
+    r"live_contentops\.cli.*daily-app"
+    r"|daily_app_supervisor"
+    r"|plan_status_posts\.py"
+    r"|plan_analysis_pages\.py"
+    r"|manual_desk_tick\.py"
+    r"|market_wrap_job_v1"
+    r"|run_v1_simple_gemini_scheduler\.py"
+    r"|run_daily_digest_1900\.py"
+    r"|run_native_neo_executor\.py"
+    r"|run_sourced_replies\.py"
+    r"|substack_growth\.py"
+)
+LIVE_WRITER_PROCESS_PATTERN = (
+    _OTHER_LIVE_WRITER_PROCESS_PATTERN
+    + r"|reconcile_preunpause_outbox_v1\.py"
+)
+_SHELL_WRAPPER_NAMES = frozenset({"cmd.exe", "powershell.exe", "pwsh.exe"})
 POLLING_UNKNOWN_WRITE_DESTINATIONS = frozenset({"x", "substack_notes"})
 LATE_LINK_HOURS = 24
 FRESH_HEARTBEAT_MINUTES = 10
@@ -91,6 +122,26 @@ STILL_ACTIVE = 259
 
 def _sha256(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _ensure_utc(value: datetime) -> datetime:
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+    return value.astimezone(timezone.utc)
+
+
+def _resolve_interlock_clock(
+    *,
+    now: Optional[datetime] = None,
+    interlock_now: Optional[datetime] = None,
+) -> datetime:
+    """Resolve liveness interlock clock so future --now-utc can never expire live leases/heartbeats."""
+    if interlock_now is not None:
+        return _ensure_utc(interlock_now)
+    wall_now = datetime.now(timezone.utc)
+    if now is not None:
+        return min(wall_now, _ensure_utc(now))
+    return wall_now
 
 
 def _utc_now(now_utc: str | None = None) -> datetime:
@@ -237,9 +288,10 @@ def _default_live_writer_process_scanner() -> list[dict[str, Any]]:
     """Detect running ContentOps writer/supervisor processes on Windows (live DB apply only)."""
     if os.name != "nt":
         return []
+    ps_pattern = LIVE_WRITER_PROCESS_PATTERN.replace("'", "''")
     ps_cmd = (
         "Get-CimInstance Win32_Process | "
-        "Where-Object { $_.CommandLine -match 'live_contentops\\.cli.*daily-app|daily_app_supervisor|plan_status_posts\\.py|plan_analysis_pages\\.py|manual_desk_tick\\.py' } | "
+        f"Where-Object {{ $_.ProcessId -ne $PID -and $_.CommandLine -match '{ps_pattern}' }} | "
         "Select-Object ProcessId, Name, CommandLine | ConvertTo-Json -Compress"
     )
     creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
@@ -257,21 +309,81 @@ def _default_live_writer_process_scanner() -> list[dict[str, Any]]:
         return []
     data = json.loads(out)
     rows = data if isinstance(data, list) else [data]
-    return [
-        {
-            "pid": int(r.get("ProcessId") or 0),
-            "name": str(r.get("Name") or ""),
-            "command_line": str(r.get("CommandLine") or "")[:240],
-        }
-        for r in rows
-        if isinstance(r, Mapping) and int(r.get("ProcessId") or 0) != os.getpid()
-    ]
+    self_pid = os.getpid()
+    parent_pid = os.getppid()
+    results: list[dict[str, Any]] = []
+    for r in rows:
+        if not isinstance(r, Mapping):
+            continue
+        pid = int(r.get("ProcessId") or 0)
+        if pid == self_pid:
+            continue
+        name = str(r.get("Name") or "")
+        cmd = str(r.get("CommandLine") or "")
+        if (
+            pid == parent_pid
+            and name.lower() in _SHELL_WRAPPER_NAMES
+            and not re.search(_OTHER_LIVE_WRITER_PROCESS_PATTERN, cmd, re.IGNORECASE)
+        ):
+            continue
+        results.append(
+            {
+                "pid": pid,
+                "name": name,
+                "command_line": cmd[:240],
+            }
+        )
+    return results
+
+
+def _collect_sqlite_liveness_blockers(
+    conn: sqlite3.Connection, *, liveness_now: datetime
+) -> list[dict[str, Any]]:
+    blockers: list[dict[str, Any]] = []
+    has_leases = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='leases'"
+    ).fetchone() is not None
+    if has_leases:
+        for row in conn.execute(
+            "SELECT lease_id, lease_key, owner_ref, expires_at FROM leases WHERE status='ACTIVE'"
+        ):
+            expires_at = _parse_utc(row["expires_at"])
+            if expires_at is None or expires_at > liveness_now:
+                blockers.append(
+                    {
+                        "code": "ACTIVE_SQLITE_LEASE",
+                        "lease_id": str(row["lease_id"]),
+                        "lease_key": str(row["lease_key"]),
+                        "owner_ref": str(row["owner_ref"]),
+                        "expires_at": str(row["expires_at"]),
+                    }
+                )
+    has_heartbeats = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='heartbeats'"
+    ).fetchone() is not None
+    if has_heartbeats:
+        fresh_cutoff = liveness_now - timedelta(minutes=FRESH_HEARTBEAT_MINUTES)
+        for row in conn.execute(
+            "SELECT heartbeat_id, worker_id, last_seen_at FROM heartbeats WHERE status='ALIVE'"
+        ):
+            last_seen = _parse_utc(row["last_seen_at"])
+            if last_seen is None or last_seen >= fresh_cutoff:
+                blockers.append(
+                    {
+                        "code": "ACTIVE_SUPERVISOR_HEARTBEAT",
+                        "heartbeat_id": str(row["heartbeat_id"]),
+                        "worker_id": str(row["worker_id"]),
+                        "last_seen_at": str(row["last_seen_at"]),
+                    }
+                )
+    return blockers
 
 
 def check_apply_interlocks(
     db_path: Path,
     *,
-    now: datetime,
+    now: Optional[datetime] = None,
+    interlock_now: Optional[datetime] = None,
     control_dir: Optional[Path] = None,
     extra_lock_paths: Sequence[Path] = (),
     production_store: Path = PRODUCTION_STORE,
@@ -281,6 +393,7 @@ def check_apply_interlocks(
 ) -> dict[str, Any]:
     """Fail-closed interlock verification prior to any ``--apply`` write."""
     blockers: list[dict[str, Any]] = []
+    liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
     live_db = is_live_production_db(db_path, production_store=production_store)
     effective_control_dir = control_dir if control_dir is not None else (db_path.parent / "control")
 
@@ -301,45 +414,10 @@ def check_apply_interlocks(
                 seen_restored.add(norm)
                 blockers.append({"code": "RESTORED_JSON_EXISTS", "path": str(candidate)})
 
-    # 2. Active SQLite leases & fresh supervisor heartbeats (read-only).
+    # 2. Active SQLite leases & fresh supervisor heartbeats (read-only, evaluated on liveness_now).
     conn = _open_readonly_sqlite(db_path)
     try:
-        has_leases = conn.execute(
-            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='leases'"
-        ).fetchone() is not None
-        if has_leases:
-            for row in conn.execute(
-                "SELECT lease_id, lease_key, owner_ref, expires_at FROM leases WHERE status='ACTIVE'"
-            ):
-                expires_at = _parse_utc(row["expires_at"])
-                if expires_at is None or expires_at > now:
-                    blockers.append(
-                        {
-                            "code": "ACTIVE_SQLITE_LEASE",
-                            "lease_id": str(row["lease_id"]),
-                            "lease_key": str(row["lease_key"]),
-                            "owner_ref": str(row["owner_ref"]),
-                            "expires_at": str(row["expires_at"]),
-                        }
-                    )
-        has_heartbeats = conn.execute(
-            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='heartbeats'"
-        ).fetchone() is not None
-        if has_heartbeats:
-            fresh_cutoff = now - timedelta(minutes=FRESH_HEARTBEAT_MINUTES)
-            for row in conn.execute(
-                "SELECT heartbeat_id, worker_id, last_seen_at FROM heartbeats WHERE status='ALIVE'"
-            ):
-                last_seen = _parse_utc(row["last_seen_at"])
-                if last_seen is None or last_seen >= fresh_cutoff:
-                    blockers.append(
-                        {
-                            "code": "ACTIVE_SUPERVISOR_HEARTBEAT",
-                            "heartbeat_id": str(row["heartbeat_id"]),
-                            "worker_id": str(row["worker_id"]),
-                            "last_seen_at": str(row["last_seen_at"]),
-                        }
-                    )
+        blockers.extend(_collect_sqlite_liveness_blockers(conn, liveness_now=liveness_now))
     finally:
         conn.close()
 
@@ -384,6 +462,7 @@ def check_apply_interlocks(
         "ok": len(blockers) == 0,
         "live_production_db": live_db,
         "control_dir": str(effective_control_dir),
+        "interlock_clock_utc": liveness_now.isoformat().replace("+00:00", "Z"),
         "blockers": blockers,
     }
 
@@ -476,6 +555,9 @@ def _has_verified_absence_proof(
 ) -> tuple[bool, str]:
     if dispatch.get("public_object_id") or dispatch.get("public_object_url"):
         return False, "PUBLIC_OBJECT_IDENTITY_PRESENT"
+    dispatch_status = str(dispatch.get("dispatch_status") or dispatch.get("status") or "")
+    if dispatch_status != RECONCILED_ABSENT_SAFE_TO_RETRY:
+        return False, f"DISPATCH_NOT_RECONCILED_ABSENT:{dispatch_status or 'NONE'}"
     dispatch_id = str(dispatch["dispatch_id"])
     reconciliation_id = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
     rec = conn.execute(
@@ -485,23 +567,41 @@ def _has_verified_absence_proof(
     if rec is None or str(rec["status"] or "") != RECONCILED_ABSENT_SAFE_TO_RETRY:
         return False, f"RECONCILIATION_NOT_ABSENT:{rec['status'] if rec else 'NONE'}"
     readbacks = conn.execute(
-        "SELECT readback_data FROM readbacks WHERE dispatch_id=? ORDER BY read_at, readback_id",
+        "SELECT readback_data FROM readbacks WHERE dispatch_id=? ORDER BY read_at, rowid, readback_id",
         (dispatch_id,),
     ).fetchall()
+    if not readbacks:
+        return False, "NO_VERIFIED_ABSENCE_READBACK"
+    latest_obs: Optional[Mapping[str, Any]] = None
+    latest_unparseable = False
     for rb in readbacks:
         try:
             raw = json.loads(str(rb["readback_data"] or "{}"))
         except (TypeError, ValueError):
+            latest_obs = None
+            latest_unparseable = True
             continue
         if not isinstance(raw, Mapping):
+            latest_obs = None
+            latest_unparseable = True
             continue
         obs = raw.get("readback") if isinstance(raw.get("readback"), Mapping) else raw
-        if (
-            obs.get("verified") is True
-            and obs.get("write_absent") is True
-            and obs.get("write_exists") is not True
-        ):
-            return True, "VERIFIED_DURABLE_ABSENCE_PROOF"
+        if obs.get("write_exists") is True:
+            return False, "CONFLICTING_READBACK_WRITE_EXISTS"
+        if obs.get("verified") is True:
+            return False, "CONFLICTING_READBACK_VERIFIED"
+        if obs.get("observed_public_object_id") or obs.get("observed_public_object_url"):
+            return False, "CONFLICTING_READBACK_PUBLIC_IDENTITY"
+        latest_obs = obs
+        latest_unparseable = False
+    if latest_unparseable or latest_obs is None:
+        return False, "LATEST_READBACK_UNPARSEABLE"
+    if (
+        latest_obs.get("write_absent") is True
+        and latest_obs.get("write_exists") is not True
+        and latest_obs.get("verified") is not True
+    ):
+        return True, "VERIFIED_DURABLE_ABSENCE_PROOF"
     return False, "NO_VERIFIED_ABSENCE_READBACK"
 
 
@@ -610,9 +710,11 @@ def audit_preunpause_outbox(
                     disp_dict = {
                         "dispatch_id": str(dispatch_id),
                         "status": str(dispatch_status or ""),
+                        "dispatch_status": str(dispatch_status or ""),
                         "public_object_id": msg["public_object_id"],
                         "public_object_url": msg["public_object_url"],
                     }
+                    is_plan_page = bool(intent.get("plan_analysis_page"))
                     stale_plan, stale_reason = substack_plan_page_staleness(
                         lambda mid: _get_outbox_row(conn, mid),
                         msg,
@@ -622,7 +724,7 @@ def audit_preunpause_outbox(
                     verified_absent, absence_reason = _has_verified_absence_proof(
                         conn, disp_dict, str(msg["work_item_id"])
                     )
-                    can_settle = bool(verified_absent and stale_plan)
+                    can_settle = bool(is_plan_page and verified_absent and stale_plan)
                     subgroup_b.append(
                         {
                             "message_id": str(msg["message_id"]),
@@ -640,7 +742,11 @@ def audit_preunpause_outbox(
                             "action": (
                                 "SETTLE_VERIFIED_ABSENT_EXPIRED_SUBSTACK_PLAN_PAGE"
                                 if can_settle
-                                else "HOLD_READBACK_REQUIRED_NEVER_AUTO_RETIRE"
+                                else (
+                                    "PRESERVE_ACTIVE_OR_NON_PLAN_SUBSTACK_VERIFIED_ABSENT"
+                                    if verified_absent
+                                    else "HOLD_READBACK_REQUIRED_NEVER_AUTO_RETIRE"
+                                )
                             ),
                         }
                     )
@@ -736,8 +842,9 @@ def audit_preunpause_outbox(
                 else:
                     active_derivative_ready.append(entry)
 
-        # 2. Catch any Substack DISPATCH_ATTEMPT_STARTED / UNKNOWN_WRITE / NATIVE_NEO_TOOL_PENDING
-        #    even if outbox_messages.status already flipped away from READY.
+        # 2. Catch any Substack DISPATCH_ATTEMPT_STARTED / UNKNOWN_WRITE / NATIVE_NEO_TOOL_PENDING /
+        #    RECONCILED_ABSENT_SAFE_TO_RETRY even if outbox_messages.status already flipped away from READY,
+        #    excluding already-retired or superseded outbox rows.
         sub_dispatches = conn.execute(
             """
             SELECT d.dispatch_id, d.message_id, d.status AS dispatch_status,
@@ -746,7 +853,19 @@ def audit_preunpause_outbox(
             FROM platform_dispatches d
             JOIN outbox_messages o ON o.message_id = d.message_id
             WHERE d.platform = 'substack'
-              AND d.status IN ('DISPATCH_ATTEMPT_STARTED', 'UNKNOWN_WRITE', 'NATIVE_NEO_TOOL_PENDING')
+              AND d.status IN (
+                  'DISPATCH_ATTEMPT_STARTED',
+                  'UNKNOWN_WRITE',
+                  'NATIVE_NEO_TOOL_PENDING',
+                  'RECONCILED_ABSENT_SAFE_TO_RETRY'
+              )
+              AND o.status NOT IN (
+                  'PLAN_PAGE_EXPIRED_STALE_NO_WRITE',
+                  'SUPERSEDED_UNSENT_MEDIA_REVISION',
+                  'UNSENT_MEDIA_SUPERSEDED',
+                  'DEFINITE_NO_WRITE',
+                  'DISPATCH_CONFIRMED'
+              )
             ORDER BY o.created_at, d.dispatch_id
             """
         ).fetchall()
@@ -760,6 +879,9 @@ def audit_preunpause_outbox(
                 intent = {}
             if not isinstance(intent, Mapping):
                 intent = {}
+            is_plan_page = bool(intent.get("plan_analysis_page"))
+            if str(msg["dispatch_status"]) == RECONCILED_ABSENT_SAFE_TO_RETRY and not is_plan_page:
+                continue
             stale_plan, stale_reason = substack_plan_page_staleness(
                 lambda mid: _get_outbox_row(conn, mid),
                 msg,
@@ -769,7 +891,7 @@ def audit_preunpause_outbox(
             verified_absent, absence_reason = _has_verified_absence_proof(
                 conn, msg, str(msg["work_item_id"])
             )
-            can_settle = bool(verified_absent and stale_plan)
+            can_settle = bool(is_plan_page and verified_absent and stale_plan)
             subgroup_b.append(
                 {
                     "message_id": str(msg["message_id"]),
@@ -787,7 +909,11 @@ def audit_preunpause_outbox(
                     "action": (
                         "SETTLE_VERIFIED_ABSENT_EXPIRED_SUBSTACK_PLAN_PAGE"
                         if can_settle
-                        else "HOLD_READBACK_REQUIRED_NEVER_AUTO_RETIRE"
+                        else (
+                            "PRESERVE_ACTIVE_OR_NON_PLAN_SUBSTACK_VERIFIED_ABSENT"
+                            if verified_absent
+                            else "HOLD_READBACK_REQUIRED_NEVER_AUTO_RETIRE"
+                        )
                     ),
                 }
             )
@@ -968,22 +1094,25 @@ def audit_preunpause_outbox(
         conn.close()
 
 
-def _parent_has_blocking_sibling_substack_dispatch(
-    store: ContentOpsDurableStore, work_item_id: str, *, exclude_message_id: str
+def _parent_has_blocking_sibling_substack_dispatch_conn(
+    conn: sqlite3.Connection, work_item_id: str, *, exclude_message_id: str
 ) -> bool:
-    for row in store.list_outbox_messages(work_item_id=work_item_id, destination="substack"):
-        if str(row["message_id"]) == exclude_message_id:
-            continue
-        with store.get_read_only_connection() as conn:
-            disp = conn.execute(
-                "SELECT status, public_object_id, public_object_url "
-                "FROM platform_dispatches WHERE message_id=?",
-                (row["message_id"],),
-            ).fetchone()
-        if disp is not None and (
-            disp["status"] in {DISPATCH_CONFIRMED, ATTEMPT_STARTED, UNKNOWN_WRITE, NATIVE_NEO_PENDING}
-            or disp["public_object_id"]
-            or disp["public_object_url"]
+    for row in conn.execute(
+        """
+        SELECT o.message_id, o.status,
+               d.status AS dispatch_status, d.public_object_id, d.public_object_url
+        FROM outbox_messages o
+        LEFT JOIN platform_dispatches d ON d.message_id = o.message_id
+        WHERE o.work_item_id = ?
+          AND o.destination = 'substack'
+          AND o.message_id <> ?
+        """,
+        (work_item_id, exclude_message_id),
+    ):
+        if row["dispatch_status"] is not None and (
+            row["dispatch_status"] in {DISPATCH_CONFIRMED, ATTEMPT_STARTED, UNKNOWN_WRITE, NATIVE_NEO_PENDING}
+            or row["public_object_id"]
+            or row["public_object_url"]
         ):
             return True
         if str(row["status"]) == "READY":
@@ -991,30 +1120,106 @@ def _parent_has_blocking_sibling_substack_dispatch(
     return False
 
 
+def _parent_has_blocking_sibling_substack_dispatch(
+    store: ContentOpsDurableStore, work_item_id: str, *, exclude_message_id: str
+) -> bool:
+    with store.get_read_only_connection() as conn:
+        return _parent_has_blocking_sibling_substack_dispatch_conn(
+            conn, work_item_id, exclude_message_id=exclude_message_id
+        )
+
+
+def _parent_has_blocking_sibling_dispatch_conn(
+    conn: sqlite3.Connection, work_item_id: str, *, exclude_message_id: str
+) -> bool:
+    """Defensive sibling guard before settling any parent internal:plan-analysis-page link row."""
+    for row in conn.execute(
+        """
+        SELECT o.message_id, o.destination, o.status,
+               d.status AS dispatch_status, d.public_object_id, d.public_object_url
+        FROM outbox_messages o
+        LEFT JOIN platform_dispatches d ON d.message_id = o.message_id
+        WHERE o.work_item_id = ?
+          AND o.message_id <> ?
+          AND o.message_id <> ?
+          AND o.destination NOT LIKE 'internal:%'
+        """,
+        (work_item_id, exclude_message_id, work_item_id),
+    ):
+        if row["dispatch_status"] is not None and (
+            row["dispatch_status"] in {DISPATCH_CONFIRMED, ATTEMPT_STARTED, UNKNOWN_WRITE, NATIVE_NEO_PENDING}
+            or row["public_object_id"]
+            or row["public_object_url"]
+        ):
+            return True
+        if str(row["status"]) in {"READY", NATIVE_NEO_PENDING}:
+            return True
+    return False
+
+
+def _work_item_has_active_child_dispatches_conn(conn: sqlite3.Connection, work_item_id: str) -> bool:
+    row = conn.execute(
+        """
+        SELECT 1
+        FROM platform_dispatches d
+        JOIN outbox_messages o ON o.message_id = d.message_id
+        WHERE o.work_item_id = ?
+          AND (
+              d.status IN ('DISPATCH_CONFIRMED', 'DISPATCH_ATTEMPT_STARTED', 'UNKNOWN_WRITE', 'NATIVE_NEO_TOOL_PENDING')
+              OR d.public_object_id IS NOT NULL
+              OR d.public_object_url IS NOT NULL
+          )
+        LIMIT 1
+        """,
+        (work_item_id,),
+    ).fetchone()
+    return row is not None
+
+
 def _work_item_has_active_child_dispatches(store: ContentOpsDurableStore, work_item_id: str) -> bool:
     with store.get_read_only_connection() as conn:
-        row = conn.execute(
-            """
-            SELECT 1
-            FROM platform_dispatches d
-            JOIN outbox_messages o ON o.message_id = d.message_id
-            WHERE o.work_item_id = ?
-              AND (
-                  d.status IN ('DISPATCH_CONFIRMED', 'DISPATCH_ATTEMPT_STARTED', 'UNKNOWN_WRITE', 'NATIVE_NEO_TOOL_PENDING')
-                  OR d.public_object_id IS NOT NULL
-                  OR d.public_object_url IS NOT NULL
-              )
-            LIMIT 1
-            """,
-            (work_item_id,),
-        ).fetchone()
-    return row is not None
+        return _work_item_has_active_child_dispatches_conn(conn, work_item_id)
+
+
+def _tx_set_outbox_status(conn: sqlite3.Connection, message_id: str, status: str) -> None:
+    row = conn.execute(
+        "SELECT 1 FROM outbox_messages WHERE message_id=?", (message_id,)
+    ).fetchone()
+    if row is None:
+        raise WorkItemNotFoundError(f"outbox message {message_id} not found")
+    conn.execute("UPDATE outbox_messages SET status=? WHERE message_id=?", (status, message_id))
+
+
+def _tx_set_dispatch_status(conn: sqlite3.Connection, dispatch_id: str, status: str) -> None:
+    row = conn.execute(
+        "SELECT 1 FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+    ).fetchone()
+    if row is None:
+        raise WorkItemNotFoundError(f"dispatch {dispatch_id} not found")
+    conn.execute("UPDATE platform_dispatches SET status=? WHERE dispatch_id=?", (status, dispatch_id))
+
+
+def _tx_register_incident(
+    conn: sqlite3.Connection,
+    *,
+    incident_id: str,
+    work_item_id: Optional[str],
+    severity: str,
+    description: str,
+    created_at: str,
+) -> None:
+    conn.execute(
+        "INSERT OR IGNORE INTO incidents (incident_id, work_item_id, severity, description, created_at) "
+        "VALUES (?, ?, ?, ?, ?)",
+        (incident_id, work_item_id, severity, description, created_at),
+    )
 
 
 def apply_preunpause_reconciliation(
     db_path: Path,
     *,
     now: datetime,
+    interlock_now: Optional[datetime] = None,
     control_dir: Optional[Path] = None,
     published_images_path: Optional[Path] = None,
     retire_cc603_backfill: bool = False,
@@ -1023,10 +1228,12 @@ def apply_preunpause_reconciliation(
     check_live_processes: Optional[bool] = None,
     process_scanner: Callable[[], list[dict[str, Any]]] = _default_live_writer_process_scanner,
 ) -> tuple[int, dict[str, Any]]:
-    """Run interlock checks, then apply safe pre-unpause settlements cleanly and idempotently."""
+    """Run interlock checks, then apply safe pre-unpause settlements atomically and idempotently."""
+    liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
     interlocks = check_apply_interlocks(
         db_path,
         now=now,
+        interlock_now=liveness_now,
         control_dir=control_dir,
         extra_lock_paths=extra_lock_paths,
         production_store=production_store,
@@ -1064,244 +1271,324 @@ def apply_preunpause_reconciliation(
         "cc603_backfill_skipped_active_child": [],
     }
 
-    # 1. Subgroup A: expired un-dispatched READY Substack plan_analysis_page rows.
-    for item in audit["subgroup_a_expired_substack_plan_pages"]:
-        mid = item["message_id"]
-        wid = item["work_item_id"]
-        # Re-verify no dispatch appeared concurrently before mutating.
-        with store.get_read_only_connection() as conn:
-            disp = conn.execute(
-                "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (mid,)
-            ).fetchone()
-        if disp is not None:
-            continue
-        store.set_outbox_status(mid, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
-        parent_settled = False
-        parent_row = store.get_outbox_message(wid)
-        if (
-            parent_row is not None
-            and parent_row["destination"] == "internal:plan-analysis-page"
-            and not _parent_has_blocking_sibling_substack_dispatch(store, wid, exclude_message_id=mid)
-        ):
-            store.set_outbox_status(wid, SETTLED_POST)
-            parent_settled = True
-        store.register_incident(
-            incident_id="incident_preunpause_subgroup_a_" + _sha256(mid)[:24],
-            work_item_id=wid,
-            severity="RECOVERY_AUDIT",
-            description=_canonical_json(
-                {
-                    "tool": "reconcile_preunpause_outbox_v1",
-                    "category": "SUBGROUP_A_EXPIRED_SUBSTACK_PLAN_PAGE",
-                    "message_id": mid,
-                    "work_item_id": wid,
-                    "reason": item["stale_reason"],
-                    "new_outbox_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
-                    "parent_settled": parent_settled,
-                    "public_write_performed": False,
-                }
-            ),
+    conn = store.get_connection()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        # Re-verify SQLite lease/heartbeat interlocks inside the exclusive write transaction.
+        tx_blockers = _collect_sqlite_liveness_blockers(
+            conn, liveness_now=_resolve_interlock_clock(now=now, interlock_now=interlock_now)
         )
-        mutations["subgroup_a_retired"].append(
-            {
-                "message_id": mid,
-                "work_item_id": wid,
-                "outbox_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
-                "parent_settled": parent_settled,
+        if tx_blockers:
+            conn.execute("ROLLBACK")
+            refused_interlocks = {
+                **interlocks,
+                "ok": False,
+                "blockers": [*interlocks["blockers"], *tx_blockers],
             }
-        )
-
-    # 2. Subgroup B: readback-first gate (NEVER auto-retire without durable verified absence proof!).
-    for item in audit["subgroup_b_substack_readback_gated"]:
-        if not item["eligible_for_apply"]:
-            mutations["subgroup_b_held_readback_required"].append(
+            return (
+                EXIT_INTERLOCK_REFUSED,
                 {
-                    "message_id": item["message_id"],
-                    "dispatch_id": item["dispatch_id"],
-                    "dispatch_status": item["dispatch_status"],
-                    "reason": item["absence_check_reason"],
-                }
+                    "status": "REFUSED_INTERLOCK",
+                    "mode": "apply",
+                    "applied": False,
+                    "interlocks": refused_interlocks,
+                    "audit": audit,
+                    "mutations": {},
+                },
             )
-            continue
-        mid = item["message_id"]
-        did = item["dispatch_id"]
-        wid = item["work_item_id"]
-        store.set_outbox_status(mid, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
-        store.set_dispatch_status(did, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
-        parent_settled = False
-        parent_row = store.get_outbox_message(wid)
-        if (
-            parent_row is not None
-            and parent_row["destination"] == "internal:plan-analysis-page"
-            and not _parent_has_blocking_sibling_substack_dispatch(store, wid, exclude_message_id=mid)
-        ):
-            store.set_outbox_status(wid, SETTLED_POST)
-            parent_settled = True
-        store.register_incident(
-            incident_id="incident_preunpause_subgroup_b_" + _sha256(did)[:24],
-            work_item_id=wid,
-            severity="RECOVERY_AUDIT",
-            description=_canonical_json(
-                {
-                    "tool": "reconcile_preunpause_outbox_v1",
-                    "category": "SUBGROUP_B_VERIFIED_ABSENT_SUBSTACK_PLAN_PAGE",
-                    "message_id": mid,
-                    "dispatch_id": did,
-                    "work_item_id": wid,
-                    "verified_absence_proof": True,
-                    "stale_reason": item["stale_reason"],
-                    "new_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
-                    "parent_settled": parent_settled,
-                    "public_write_performed": False,
-                }
-            ),
-        )
-        mutations["subgroup_b_verified_absent_retired"].append(
-            {
-                "message_id": mid,
-                "dispatch_id": did,
-                "work_item_id": wid,
-                "status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
-                "parent_settled": parent_settled,
-            }
-        )
 
-    # 3. Subgroup D: NATIVE_NEO_TOOL_PENDING under dead parent -> outbox PLAN_POST_SETTLED (preserve dispatch!).
-    for item in audit["subgroup_d_dead_parent_native_neo_pending"]:
-        mid = item["message_id"]
-        wid = item["work_item_id"]
-        store.set_outbox_status(mid, SETTLED_COPY)
-        store.register_incident(
-            incident_id="incident_preunpause_subgroup_d_" + _sha256(mid)[:24],
-            work_item_id=wid,
-            severity="RECOVERY_AUDIT",
-            description=_canonical_json(
-                {
-                    "tool": "reconcile_preunpause_outbox_v1",
-                    "category": "SUBGROUP_D_DEAD_PARENT_NATIVE_NEO_PENDING",
-                    "message_id": mid,
-                    "dispatch_id": item["dispatch_id"],
-                    "destination": item["destination"],
-                    "parent_status": item["parent_status"],
-                    "new_outbox_status": SETTLED_COPY,
-                    "dispatch_status_preserved": item["dispatch_status_preserved"],
-                    "public_write_performed": False,
-                    "automatic_work_closed": True,
-                }
-            ),
-        )
-        mutations["subgroup_d_settled"].append(
-            {
-                "message_id": mid,
-                "dispatch_id": item["dispatch_id"],
-                "outbox_status": SETTLED_COPY,
-                "dispatch_status_preserved": item["dispatch_status_preserved"],
-            }
-        )
+        created_at = datetime.now(timezone.utc).isoformat()
 
-    # 4. Expired derivative READY rows -> DERIVATIVE_EXPIRED_STALE_NO_WRITE.
-    for item in audit["expired_derivative_ready_rows"]:
-        mid = item["message_id"]
-        wid = item["work_item_id"]
-        with store.get_read_only_connection() as conn:
-            disp = conn.execute(
-                "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (mid,)
-            ).fetchone()
-        if disp is not None:
-            continue
-        store.set_outbox_status(mid, DERIVATIVE_EXPIRED_STALE_NO_WRITE)
-        store.register_incident(
-            incident_id="incident_derivative_stale_" + _sha256(mid)[:24],
-            work_item_id=wid or None,
-            severity="RECOVERY_AUDIT",
-            description="Stale derivative expired with zero public write; prior readback history retained.",
-        )
-        mutations["expired_derivative_ready_retired"].append(
-            {
-                "message_id": mid,
-                "work_item_id": wid,
-                "destination": item["destination"],
-                "outbox_status": DERIVATIVE_EXPIRED_STALE_NO_WRITE,
-                "reason": item["stale_reason"],
-            }
-        )
-
-    # 5. Dead-parent / late UNKNOWN_WRITE polling targets (O56/O58/O60/O61) ->
-    #    outbox PLAN_POST_SETTLED while preserving platform_dispatches.status == 'UNKNOWN_WRITE'.
-    for item in audit["dead_parent_unknown_write_polling_targets"]:
-        mid = item["message_id"]
-        did = item["dispatch_id"]
-        wid = item["work_item_id"]
-        store.set_outbox_status(mid, SETTLED_COPY)
-        parent_settled = False
-        if item["settle_parent_link"]:
-            parent_row = store.get_outbox_message(wid)
-            if parent_row is not None and parent_row["destination"] == "internal:plan-analysis-page":
-                store.set_outbox_status(wid, SETTLED_POST)
-                parent_settled = True
-        store.register_incident(
-            incident_id="incident_preunpause_unknown_poll_" + _sha256(did)[:24],
-            work_item_id=wid,
-            severity="RECOVERY_AUDIT",
-            description=_canonical_json(
-                {
-                    "tool": "reconcile_preunpause_outbox_v1",
-                    "category": "DEAD_PARENT_UNKNOWN_WRITE_POLL_TARGET",
-                    "message_id": mid,
-                    "dispatch_id": did,
-                    "platform": item["platform"],
-                    "reason": item["reason"],
-                    "new_outbox_status": SETTLED_COPY,
-                    "dispatch_status_preserved": UNKNOWN_WRITE,
-                    "parent_settled": parent_settled,
-                    "explicit_readback_still_available": True,
-                    "public_write_performed": False,
-                    "automatic_work_closed": True,
-                }
-            ),
-        )
-        mutations["dead_parent_unknown_writes_settled"].append(
-            {
-                "message_id": mid,
-                "dispatch_id": did,
-                "platform": item["platform"],
-                "outbox_status": SETTLED_COPY,
-                "dispatch_status_preserved": UNKNOWN_WRITE,
-                "parent_settled": parent_settled,
-            }
-        )
-
-    # 6. Optional explicit --retire-cc603-backfill policy flag (default: untouched).
-    if retire_cc603_backfill:
-        for item in audit["cc603_backfill_prepared"]:
+        # 1. Subgroup A: expired un-dispatched READY Substack plan_analysis_page rows.
+        for item in audit["subgroup_a_expired_substack_plan_pages"]:
             mid = item["message_id"]
             wid = item["work_item_id"]
-            if _work_item_has_active_child_dispatches(store, wid):
-                mutations["cc603_backfill_skipped_active_child"].append(
-                    {"message_id": mid, "work_item_id": wid, "reason": "ACTIVE_CHILD_DISPATCH_EXISTS"}
-                )
+            # Re-verify no dispatch appeared concurrently and row is still READY before mutating.
+            disp = conn.execute(
+                "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (mid,)
+            ).fetchone()
+            cur_outbox = _get_outbox_row(conn, mid)
+            if disp is not None or cur_outbox is None or str(cur_outbox["status"]) != "READY":
                 continue
-            store.set_outbox_status(mid, SETTLED_POST)
-            store.register_incident(
-                incident_id="incident_preunpause_cc603_" + _sha256(mid)[:24],
+            _tx_set_outbox_status(conn, mid, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
+            parent_settled = False
+            parent_row = _get_outbox_row(conn, wid)
+            if (
+                parent_row is not None
+                and parent_row["destination"] == "internal:plan-analysis-page"
+                and not _parent_has_blocking_sibling_substack_dispatch_conn(
+                    conn, wid, exclude_message_id=mid
+                )
+            ):
+                _tx_set_outbox_status(conn, wid, SETTLED_POST)
+                parent_settled = True
+            _tx_register_incident(
+                conn,
+                incident_id="incident_preunpause_subgroup_a_" + _sha256(mid)[:24],
                 work_item_id=wid,
                 severity="RECOVERY_AUDIT",
                 description=_canonical_json(
                     {
                         "tool": "reconcile_preunpause_outbox_v1",
-                        "category": "CC603_BACKFILL_EXPLICIT_RETIREMENT",
-                        "policy_flag": "--retire-cc603-backfill",
+                        "category": "SUBGROUP_A_EXPIRED_SUBSTACK_PLAN_PAGE",
                         "message_id": mid,
                         "work_item_id": wid,
-                        "previous_status": "CC603_PREPARED",
-                        "new_status": SETTLED_POST,
+                        "reason": item["stale_reason"],
+                        "new_outbox_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                        "parent_settled": parent_settled,
                         "public_write_performed": False,
                     }
                 ),
+                created_at=created_at,
             )
-            mutations["cc603_backfill_retired"].append(
-                {"message_id": mid, "work_item_id": wid, "outbox_status": SETTLED_POST}
+            mutations["subgroup_a_retired"].append(
+                {
+                    "message_id": mid,
+                    "work_item_id": wid,
+                    "outbox_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                    "parent_settled": parent_settled,
+                }
             )
+
+        # 2. Subgroup B: readback-first gate (NEVER auto-retire without durable verified absence proof!).
+        for item in audit["subgroup_b_substack_readback_gated"]:
+            if not item["eligible_for_apply"]:
+                mutations["subgroup_b_held_readback_required"].append(
+                    {
+                        "message_id": item["message_id"],
+                        "dispatch_id": item["dispatch_id"],
+                        "dispatch_status": item["dispatch_status"],
+                        "reason": item["absence_check_reason"],
+                    }
+                )
+                continue
+            mid = item["message_id"]
+            did = item["dispatch_id"]
+            wid = item["work_item_id"]
+            # Re-verify absence proof inside the write transaction against latest dispatch/readbacks.
+            cur_disp = conn.execute(
+                "SELECT dispatch_id, status AS dispatch_status, public_object_id, public_object_url "
+                "FROM platform_dispatches WHERE dispatch_id=?",
+                (did,),
+            ).fetchone()
+            cur_outbox = _get_outbox_row(conn, mid)
+            if cur_disp is None or cur_outbox is None or str(cur_outbox["status"]) in SUBSTACK_EXCLUDED_OUTBOX_STATUSES:
+                continue
+            still_absent, recheck_reason = _has_verified_absence_proof(conn, dict(cur_disp), wid)
+            if not still_absent:
+                mutations["subgroup_b_held_readback_required"].append(
+                    {
+                        "message_id": mid,
+                        "dispatch_id": did,
+                        "dispatch_status": str(cur_disp["dispatch_status"]),
+                        "reason": recheck_reason,
+                    }
+                )
+                continue
+            _tx_set_outbox_status(conn, mid, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
+            _tx_set_dispatch_status(conn, did, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
+            parent_settled = False
+            parent_row = _get_outbox_row(conn, wid)
+            if (
+                parent_row is not None
+                and parent_row["destination"] == "internal:plan-analysis-page"
+                and not _parent_has_blocking_sibling_substack_dispatch_conn(
+                    conn, wid, exclude_message_id=mid
+                )
+            ):
+                _tx_set_outbox_status(conn, wid, SETTLED_POST)
+                parent_settled = True
+            _tx_register_incident(
+                conn,
+                incident_id="incident_preunpause_subgroup_b_" + _sha256(did)[:24],
+                work_item_id=wid,
+                severity="RECOVERY_AUDIT",
+                description=_canonical_json(
+                    {
+                        "tool": "reconcile_preunpause_outbox_v1",
+                        "category": "SUBGROUP_B_VERIFIED_ABSENT_SUBSTACK_PLAN_PAGE",
+                        "message_id": mid,
+                        "dispatch_id": did,
+                        "work_item_id": wid,
+                        "verified_absence_proof": True,
+                        "stale_reason": item["stale_reason"],
+                        "new_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                        "parent_settled": parent_settled,
+                        "public_write_performed": False,
+                    }
+                ),
+                created_at=created_at,
+            )
+            mutations["subgroup_b_verified_absent_retired"].append(
+                {
+                    "message_id": mid,
+                    "dispatch_id": did,
+                    "work_item_id": wid,
+                    "status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                    "parent_settled": parent_settled,
+                }
+            )
+
+        # 3. Subgroup D: NATIVE_NEO_TOOL_PENDING under dead parent -> outbox PLAN_POST_SETTLED (preserve dispatch!).
+        for item in audit["subgroup_d_dead_parent_native_neo_pending"]:
+            mid = item["message_id"]
+            wid = item["work_item_id"]
+            _tx_set_outbox_status(conn, mid, SETTLED_COPY)
+            _tx_register_incident(
+                conn,
+                incident_id="incident_preunpause_subgroup_d_" + _sha256(mid)[:24],
+                work_item_id=wid,
+                severity="RECOVERY_AUDIT",
+                description=_canonical_json(
+                    {
+                        "tool": "reconcile_preunpause_outbox_v1",
+                        "category": "SUBGROUP_D_DEAD_PARENT_NATIVE_NEO_PENDING",
+                        "message_id": mid,
+                        "dispatch_id": item["dispatch_id"],
+                        "destination": item["destination"],
+                        "parent_status": item["parent_status"],
+                        "new_outbox_status": SETTLED_COPY,
+                        "dispatch_status_preserved": item["dispatch_status_preserved"],
+                        "public_write_performed": False,
+                        "automatic_work_closed": True,
+                    }
+                ),
+                created_at=created_at,
+            )
+            mutations["subgroup_d_settled"].append(
+                {
+                    "message_id": mid,
+                    "dispatch_id": item["dispatch_id"],
+                    "outbox_status": SETTLED_COPY,
+                    "dispatch_status_preserved": item["dispatch_status_preserved"],
+                }
+            )
+
+        # 4. Expired derivative READY rows -> DERIVATIVE_EXPIRED_STALE_NO_WRITE.
+        for item in audit["expired_derivative_ready_rows"]:
+            mid = item["message_id"]
+            wid = item["work_item_id"]
+            disp = conn.execute(
+                "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (mid,)
+            ).fetchone()
+            cur_outbox = _get_outbox_row(conn, mid)
+            if disp is not None or cur_outbox is None or str(cur_outbox["status"]) != "READY":
+                continue
+            _tx_set_outbox_status(conn, mid, DERIVATIVE_EXPIRED_STALE_NO_WRITE)
+            _tx_register_incident(
+                conn,
+                incident_id="incident_derivative_stale_" + _sha256(mid)[:24],
+                work_item_id=wid or None,
+                severity="RECOVERY_AUDIT",
+                description="Stale derivative expired with zero public write; prior readback history retained.",
+                created_at=created_at,
+            )
+            mutations["expired_derivative_ready_retired"].append(
+                {
+                    "message_id": mid,
+                    "work_item_id": wid,
+                    "destination": item["destination"],
+                    "outbox_status": DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+                    "reason": item["stale_reason"],
+                }
+            )
+
+        # 5. Dead-parent / late UNKNOWN_WRITE polling targets (O56/O58/O60/O61) ->
+        #    outbox PLAN_POST_SETTLED while preserving platform_dispatches.status == 'UNKNOWN_WRITE'.
+        for item in audit["dead_parent_unknown_write_polling_targets"]:
+            mid = item["message_id"]
+            did = item["dispatch_id"]
+            wid = item["work_item_id"]
+            _tx_set_outbox_status(conn, mid, SETTLED_COPY)
+            parent_settled = False
+            if item["settle_parent_link"]:
+                parent_row = _get_outbox_row(conn, wid)
+                if (
+                    parent_row is not None
+                    and parent_row["destination"] == "internal:plan-analysis-page"
+                    and not _parent_has_blocking_sibling_dispatch_conn(
+                        conn, wid, exclude_message_id=mid
+                    )
+                ):
+                    _tx_set_outbox_status(conn, wid, SETTLED_POST)
+                    parent_settled = True
+            _tx_register_incident(
+                conn,
+                incident_id="incident_preunpause_unknown_poll_" + _sha256(did)[:24],
+                work_item_id=wid,
+                severity="RECOVERY_AUDIT",
+                description=_canonical_json(
+                    {
+                        "tool": "reconcile_preunpause_outbox_v1",
+                        "category": "DEAD_PARENT_UNKNOWN_WRITE_POLL_TARGET",
+                        "message_id": mid,
+                        "dispatch_id": did,
+                        "platform": item["platform"],
+                        "reason": item["reason"],
+                        "new_outbox_status": SETTLED_COPY,
+                        "dispatch_status_preserved": UNKNOWN_WRITE,
+                        "parent_settled": parent_settled,
+                        "explicit_readback_still_available": True,
+                        "public_write_performed": False,
+                        "automatic_work_closed": True,
+                    }
+                ),
+                created_at=created_at,
+            )
+            mutations["dead_parent_unknown_writes_settled"].append(
+                {
+                    "message_id": mid,
+                    "dispatch_id": did,
+                    "platform": item["platform"],
+                    "outbox_status": SETTLED_COPY,
+                    "dispatch_status_preserved": UNKNOWN_WRITE,
+                    "parent_settled": parent_settled,
+                }
+            )
+
+        # 6. Optional explicit --retire-cc603-backfill policy flag (default: untouched).
+        if retire_cc603_backfill:
+            for item in audit["cc603_backfill_prepared"]:
+                mid = item["message_id"]
+                wid = item["work_item_id"]
+                if _work_item_has_active_child_dispatches_conn(conn, wid):
+                    mutations["cc603_backfill_skipped_active_child"].append(
+                        {"message_id": mid, "work_item_id": wid, "reason": "ACTIVE_CHILD_DISPATCH_EXISTS"}
+                    )
+                    continue
+                _tx_set_outbox_status(conn, mid, SETTLED_POST)
+                _tx_register_incident(
+                    conn,
+                    incident_id="incident_preunpause_cc603_" + _sha256(mid)[:24],
+                    work_item_id=wid,
+                    severity="RECOVERY_AUDIT",
+                    description=_canonical_json(
+                        {
+                            "tool": "reconcile_preunpause_outbox_v1",
+                            "category": "CC603_BACKFILL_EXPLICIT_RETIREMENT",
+                            "policy_flag": "--retire-cc603-backfill",
+                            "message_id": mid,
+                            "work_item_id": wid,
+                            "previous_status": "CC603_PREPARED",
+                            "new_status": SETTLED_POST,
+                            "public_write_performed": False,
+                        }
+                    ),
+                    created_at=created_at,
+                )
+                mutations["cc603_backfill_retired"].append(
+                    {"message_id": mid, "work_item_id": wid, "outbox_status": SETTLED_POST}
+                )
+
+        conn.execute("COMMIT")
+    except Exception:
+        try:
+            conn.execute("ROLLBACK")
+        except Exception:
+            pass
+        raise
+    finally:
+        conn.close()
 
     post_audit = audit_preunpause_outbox(
         db_path,

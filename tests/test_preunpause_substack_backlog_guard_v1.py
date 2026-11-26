@@ -23,6 +23,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import sqlite3
 import sys
 
@@ -120,6 +121,27 @@ class _RecordingTransport:
                 "public_object_id": observed_id,
                 "public_object_url": observed_url,
             }
+        if self.readback_status == "ABSENT":
+            return {
+                "status": "ABSENT",
+                "write_absent": True,
+                "write_exists": False,
+                "verified": False,
+            }
+        if self.readback_status == "EXISTS_INCOMPLETE":
+            observed_id = public_object_id or f"sub-{work_item_id}"
+            observed_url = (
+                public_object_url
+                or f"https://capitalchronicle.substack.com/p/{work_item_id.lower().replace('_', '-')}"
+            )
+            return {
+                "status": "PARTIAL",
+                "verified": False,
+                "write_absent": False,
+                "write_exists": True,
+                "public_object_id": observed_id,
+                "public_object_url": observed_url,
+            }
         return {
             "status": "AMBIGUOUS",
             "verified": False,
@@ -177,7 +199,6 @@ def _seed_plan_analysis_page(
     outbox_status: str = "READY",
     dispatch_status: str | None = None,
     reconciliation_status: str | None = None,
-    verified_absence_readback: bool = False,
     ambiguous_readback: bool = False,
     override_intent_plan_hash: str | None = None,
     created_at: str = "2026-11-23T02:55:03.895027+00:00",
@@ -294,20 +315,6 @@ def _seed_plan_analysis_page(
             reconciliation_id=ids["reconciliation_id"],
             work_item_id=page_id,
             status=reconciliation_status,
-        )
-    if verified_absence_readback:
-        store.register_readback(
-            readback_id="rb_absent_" + ids["dispatch_id"],
-            dispatch_id=ids["dispatch_id"],
-            readback_data=json.dumps(
-                {
-                    "readback": {
-                        "verified": True,
-                        "write_absent": True,
-                        "write_exists": False,
-                    }
-                }
-            ),
         )
     if ambiguous_readback:
         store.register_readback(
@@ -681,15 +688,47 @@ def _build_full_preunpause_fixture_db(tmp_path: Path) -> tuple[Path, dict[str, A
         ambiguous_readback=True,
     )
 
-    # 6. Subgroup B3 (expired + durable verified absence proof => safe to settle on --apply).
+    # 6. Subgroup B3 (expired #14-style row driven through REAL coordinator.readback_existing_dispatch()
+    #    -> _reconcile() absence proof => safe to settle on --apply).
     refs["subgroup_b_verified_absent"] = _seed_plan_analysis_page(
         store,
         plan_id="plan_verified_absent",
         entry_deadline_utc="2026-11-23T19:45:00Z",
         outbox_status="READY",
-        dispatch_status=UNKNOWN_WRITE,
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    b3_coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=_RecordingTransport(readback_status="ABSENT"),
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: datetime(2026, 11, 29, 17, 55, 0, tzinfo=timezone.utc),
+    )
+    b3_rb = b3_coordinator.readback_existing_dispatch(refs["subgroup_b_verified_absent"]["dispatch_id"])
+    assert b3_rb["reconciliation_status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+
+    # 6b. Historical already-superseded Substack rows with RECONCILED_ABSENT_SAFE_TO_RETRY dispatch
+    #     (mirrors live production DB rows dispatch_2961... / dispatch_71d0...) => MUST be excluded.
+    refs["historical_superseded_media"] = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_hist_superseded_media",
+        entry_deadline_utc="2026-11-12T12:00:00Z",
+        outbox_status="SUPERSEDED_UNSENT_MEDIA_REVISION",
+        dispatch_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
         reconciliation_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
-        verified_absence_readback=True,
+    )
+    store.register_readback(
+        readback_id="rb_hist_superseded",
+        dispatch_id=refs["historical_superseded_media"]["dispatch_id"],
+        readback_data=json.dumps(
+            {
+                "readback": {
+                    "verified": False,
+                    "write_absent": True,
+                    "write_exists": False,
+                    "canonical_url_valid": False,
+                }
+            }
+        ),
     )
 
     # 7. Subgroup D (#01 NATIVE_NEO_TOOL_PENDING under SUPERSEDED_NOT_POSTED parent).
@@ -1106,11 +1145,21 @@ def test_cli_apply_settles_safely_preserves_readback_gates_and_is_idempotent(tmp
     assert store.get_platform_dispatch(refs["subgroup_b_held_ambig"]["dispatch_id"])["status"] == UNKNOWN_WRITE
     assert len(res["mutations"]["subgroup_b_held_readback_required"]) == 2
 
-    # Subgroup B3 (durable verified absence proof + expired) cleanly settled while preserving reconciliation.
+    # Subgroup B3 (real _reconcile() durable absence proof + expired) cleanly settled while preserving reconciliation.
     assert store.get_outbox_message(refs["subgroup_b_verified_absent"]["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
     assert store.get_platform_dispatch(refs["subgroup_b_verified_absent"]["dispatch_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_outbox_message(refs["subgroup_b_verified_absent"]["page_id"])["status"] == "SETTLED"
     recs_b3 = store.get_reconciliations_for_work_item(refs["subgroup_b_verified_absent"]["page_id"])
     assert recs_b3[0]["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    # Historical SUPERSEDED_UNSENT_MEDIA_REVISION row stays untouched.
+    assert (
+        store.get_outbox_message(refs["historical_superseded_media"]["message_id"])["status"]
+        == "SUPERSEDED_UNSENT_MEDIA_REVISION"
+    )
+    assert (
+        store.get_platform_dispatch(refs["historical_superseded_media"]["dispatch_id"])["status"]
+        == RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
 
     # Subgroup D (#01): outbox PLAN_POST_SETTLED, dispatch preserved as NATIVE_NEO_TOOL_PENDING!
     assert store.get_outbox_message(refs["subgroup_d"]["message_id"])["status"] == "PLAN_POST_SETTLED"
@@ -1157,3 +1206,349 @@ def test_cli_apply_settles_safely_preserves_readback_gates_and_is_idempotent(tmp
     assert len(res3["mutations"]["cc603_backfill_retired"]) == 9
     assert res3["post_audit_counts"]["cc603_backfill_prepared"] == 0
     assert all(store.get_outbox_message(cid)["status"] == "SETTLED" for cid in refs["cc603_ids"])
+
+
+def test_cc692_h1_end_to_end_real_reconcile_absence_and_negative_controls(tmp_path, capsys):
+    """CC692-H1 regression: real coordinator.readback_existing_dispatch() -> _reconcile() -> CLI --apply."""
+    db_path = tmp_path / "cc692_h1_e2e.sqlite3"
+    store = ContentOpsDurableStore(db_path)
+    relaunch_now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+
+    # 1. Seed real #14 state (outbox READY, dispatch DISPATCH_ATTEMPT_STARTED, expired deadline).
+    row14 = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_1d9bc560342b94e3d5a0cdb1",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+
+    # Before readback: CLI holds #14 and refuses to retire it.
+    rc_before = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc_before == cli.EXIT_OK
+    out_before = json.loads(capsys.readouterr().out)
+    assert out_before["pre_audit_counts"]["subgroup_b_readback_held"] == 1
+    assert out_before["pre_audit_counts"]["subgroup_b_verified_absent_eligible"] == 0
+    assert out_before["mutations"]["subgroup_b_verified_absent_retired"] == []
+    assert store.get_outbox_message(row14["message_id"])["status"] == "READY"
+    assert store.get_platform_dispatch(row14["dispatch_id"])["status"] == ATTEMPT_STARTED
+
+    # Drive REAL DurablePublicationCoordinator.readback_existing_dispatch() -> _reconcile() with absence.
+    transport_absent = _RecordingTransport(readback_status="ABSENT")
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport_absent,
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: datetime(2026, 11, 29, 17, 55, 0, tzinfo=timezone.utc),
+    )
+    rb_res = coordinator.readback_existing_dispatch(row14["dispatch_id"])
+    assert rb_res["reconciliation_status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_outbox_message(row14["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_platform_dispatch(row14["dispatch_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    rbs = store.list_readbacks_for_dispatch(row14["dispatch_id"])
+    assert len(rbs) == 1
+    rb_obs = json.loads(rbs[0]["readback_data"])["readback"]
+    assert rb_obs["verified"] is False
+    assert rb_obs["write_absent"] is True
+    assert rb_obs["write_exists"] is False
+    assert rb_obs["canonical_url_valid"] is False
+
+    # Now CLI --apply cleanly discovers & retires #14 end-to-end!
+    rc_after = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc_after == cli.EXIT_OK
+    out_after = json.loads(capsys.readouterr().out)
+    assert out_after["pre_audit_counts"]["subgroup_b_verified_absent_eligible"] == 1
+    assert len(out_after["mutations"]["subgroup_b_verified_absent_retired"]) == 1
+    assert out_after["mutations"]["subgroup_b_verified_absent_retired"][0]["dispatch_id"] == row14["dispatch_id"]
+    assert out_after["mutations"]["subgroup_b_verified_absent_retired"][0]["parent_settled"] is True
+    assert store.get_outbox_message(row14["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_platform_dispatch(row14["dispatch_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_outbox_message(row14["page_id"])["status"] == "SETTLED"
+
+    # Second pass is idempotent (0 new mutations).
+    rc_idem = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc_idem == cli.EXIT_OK
+    out_idem = json.loads(capsys.readouterr().out)
+    assert out_idem["pre_audit_counts"]["subgroup_b_substack_readback_gated"] == 0
+    assert out_idem["mutations"]["subgroup_b_verified_absent_retired"] == []
+
+    # 2. Negative control A: later readback observes write_exists=True (even if dispatch/rec still say absent) => REFUSED.
+    later_exists = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_later_write_exists",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    coordinator.readback_existing_dispatch(later_exists["dispatch_id"])
+    assert store.get_platform_dispatch(later_exists["dispatch_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    # Append a later readback observing write_exists=True.
+    store.register_readback(
+        readback_id="rb_later_write_exists",
+        dispatch_id=later_exists["dispatch_id"],
+        readback_data=json.dumps(
+            {
+                "dispatch_id": later_exists["dispatch_id"],
+                "destination": "substack",
+                "readback": {
+                    "verified": False,
+                    "write_absent": False,
+                    "write_exists": True,
+                    "observed_public_object_id": None,
+                    "observed_public_object_url": None,
+                },
+            }
+        ),
+    )
+    with closing(store.get_connection()) as conn:
+        conn.execute(
+            "UPDATE readbacks SET read_at=? WHERE readback_id=?",
+            ("2026-11-29T17:59:00+00:00", "rb_later_write_exists"),
+        )
+        conn.commit()
+    audit_neg = cli.audit_preunpause_outbox(db_path, now=relaunch_now)
+    neg_entry = next(
+        r for r in audit_neg["subgroup_b_substack_readback_gated"]
+        if r["dispatch_id"] == later_exists["dispatch_id"]
+    )
+    assert neg_entry["verified_absence_proof"] is False
+    assert neg_entry["absence_check_reason"] == "CONFLICTING_READBACK_WRITE_EXISTS"
+    assert neg_entry["eligible_for_apply"] is False
+
+    # 3. Negative control B: real second coordinator readback observing write_exists=True with object identity
+    #    promotes dispatch to DISPATCH_CONFIRMED and removes it from Subgroup B completely.
+    real_exists_row = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_real_later_exists",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    coordinator.readback_existing_dispatch(real_exists_row["dispatch_id"])
+    exists_coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=_RecordingTransport(readback_status="EXISTS_INCOMPLETE"),
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: datetime(2026, 11, 29, 17, 58, 0, tzinfo=timezone.utc),
+    )
+    exists_coordinator.readback_existing_dispatch(real_exists_row["dispatch_id"])
+    assert store.get_platform_dispatch(real_exists_row["dispatch_id"])["status"] == DISPATCH_CONFIRMED
+    assert store.get_outbox_message(real_exists_row["message_id"])["status"] == DISPATCH_CONFIRMED
+
+    # 4. Negative control C: synthetic verified=True + write_absent=True is REJECTED (never treated as absence).
+    bogus_verified = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_bogus_verified_absent",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+        dispatch_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+        reconciliation_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+    )
+    store.register_readback(
+        readback_id="rb_bogus_verified",
+        dispatch_id=bogus_verified["dispatch_id"],
+        readback_data=json.dumps({"readback": {"verified": True, "write_absent": True, "write_exists": False}}),
+    )
+
+    # 5. Negative control D: non-plan Substack article and active (future) plan page with real absence proof
+    #    are NEVER eligible for Subgroup B retirement.
+    active_absent = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_active_future_absent",
+        entry_deadline_utc="2026-12-05T20:00:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    coordinator.readback_existing_dispatch(active_absent["dispatch_id"])
+
+    store.create_work_item(
+        story_id="nonplan-absent-article",
+        work_item_id="nonplan-absent-article",
+        title="Regular Non-Plan Article",
+        target_surface="SUBSTACK_ARTICLE",
+    )
+    nonplan_reg = coordinator.register_plan(
+        "nonplan-absent-article", _make_substack_plan("nonplan-absent-article")
+    )["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=nonplan_reg["dispatch_id"],
+        message_id=nonplan_reg["message_id"],
+        platform="substack",
+        status=ATTEMPT_STARTED,
+    )
+    coordinator.readback_existing_dispatch(nonplan_reg["dispatch_id"])
+    assert store.get_platform_dispatch(nonplan_reg["dispatch_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+
+    # 6. Confirmed-sibling protection (mirrors live DB dispatch_aa34b6ce...):
+    #    retires obsolete verified-absent attempt while keeping parent EDITORIAL_INTERNAL untouched.
+    sib_absent = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_with_confirmed_sibling",
+        entry_deadline_utc="2026-11-12T21:00:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    coordinator.readback_existing_dispatch(sib_absent["dispatch_id"])
+    store.register_outbox_message(
+        message_id="outbox_confirmed_sibling_sub",
+        work_item_id=sib_absent["page_id"],
+        destination="substack",
+        payload=json.dumps({"work_item_id": sib_absent["page_id"], "plan_hash": "sib_confirmed"}),
+        status=DISPATCH_CONFIRMED,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_confirmed_sibling_sub",
+        message_id="outbox_confirmed_sibling_sub",
+        platform="substack",
+        status=DISPATCH_CONFIRMED,
+        public_object_id="224485432",
+        public_object_url="https://capitalchronicle.substack.com/p/confirmed-sibling",
+    )
+
+    rc_mix = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc_mix == cli.EXIT_OK
+    out_mix = json.loads(capsys.readouterr().out)
+    retired_dids = [m["dispatch_id"] for m in out_mix["mutations"]["subgroup_b_verified_absent_retired"]]
+    assert retired_dids == [sib_absent["dispatch_id"]]
+    assert out_mix["mutations"]["subgroup_b_verified_absent_retired"][0]["parent_settled"] is False
+    # Parent preserved because of confirmed sibling!
+    assert store.get_outbox_message(sib_absent["page_id"])["status"] == "EDITORIAL_INTERNAL"
+    assert store.get_outbox_message(sib_absent["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    # All negative controls untouched!
+    assert store.get_outbox_message(later_exists["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_outbox_message(real_exists_row["message_id"])["status"] == DISPATCH_CONFIRMED
+    assert store.get_outbox_message(bogus_verified["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_outbox_message(active_absent["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_outbox_message(nonplan_reg["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+
+
+def test_cc692_h2_future_now_utc_never_bypasses_wall_clock_interlocks_and_writer_regex(tmp_path, capsys):
+    """CC692-H2 regression: future --now-utc MUST NOT bypass active wall-clock SQLite leases or heartbeats."""
+    db_path, _ = _build_full_preunpause_fixture_db(tmp_path)
+    wall_now = datetime.now(timezone.utc)
+    future_now_arg = (max(wall_now, datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)) + timedelta(days=3)).isoformat().replace("+00:00", "Z")
+    # Also test the exact documented pre-unpause relaunch timestamp when running prior to relaunch.
+    for now_arg in ("2026-11-29T18:00:00Z", future_now_arg):
+        # 1. Wall-clock unexpired ACTIVE lease => EXIT_INTERLOCK_REFUSED (rc=3) with 0 DB writes.
+        lease_exp = (wall_now + timedelta(minutes=10)).isoformat().replace("+00:00", "Z")
+        lease_acq = wall_now.isoformat().replace("+00:00", "Z")
+        with closing(sqlite3.connect(db_path)) as conn:
+            conn.execute(
+                "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+                "VALUES ('lease_wall_live', 'wall-live-key', NULL, 'live-writer', 7, ?, ?, ?, 'ACTIVE')",
+                (lease_acq, lease_acq, lease_exp),
+            )
+            conn.commit()
+            conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        before_hash = _sha256_file(db_path)
+
+        rc_lease = cli.main(["--apply", "--db", str(db_path), "--now-utc", now_arg])
+        assert rc_lease == cli.EXIT_INTERLOCK_REFUSED
+        out_lease = json.loads(capsys.readouterr().out)
+        assert out_lease["status"] == "REFUSED_INTERLOCK"
+        assert out_lease["applied"] is False
+        assert any(b["code"] == "ACTIVE_SQLITE_LEASE" for b in out_lease["interlocks"]["blockers"])
+        assert _sha256_file(db_path) == before_hash
+
+        with closing(sqlite3.connect(db_path)) as conn:
+            conn.execute("DELETE FROM leases WHERE lease_id='lease_wall_live'")
+            conn.commit()
+
+        # 2. Wall-clock fresh ALIVE supervisor heartbeat (30s old) => EXIT_INTERLOCK_REFUSED (rc=3), 0 writes.
+        hb_seen = (wall_now - timedelta(seconds=30)).isoformat().replace("+00:00", "Z")
+        with closing(sqlite3.connect(db_path)) as conn:
+            conn.execute(
+                "INSERT INTO heartbeats (heartbeat_id, worker_id, lease_id, last_seen_at, status) "
+                "VALUES ('hb_wall_live', 'wall-supervisor', NULL, ?, 'ALIVE')",
+                (hb_seen,),
+            )
+            conn.commit()
+            conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        before_hash_hb = _sha256_file(db_path)
+
+        rc_hb = cli.main(["--apply", "--db", str(db_path), "--now-utc", now_arg])
+        assert rc_hb == cli.EXIT_INTERLOCK_REFUSED
+        out_hb = json.loads(capsys.readouterr().out)
+        assert out_hb["status"] == "REFUSED_INTERLOCK"
+        assert out_hb["applied"] is False
+        assert any(b["code"] == "ACTIVE_SUPERVISOR_HEARTBEAT" for b in out_hb["interlocks"]["blockers"])
+        assert _sha256_file(db_path) == before_hash_hb
+
+        with closing(sqlite3.connect(db_path)) as conn:
+            conn.execute("DELETE FROM heartbeats WHERE heartbeat_id='hb_wall_live'")
+            conn.commit()
+
+    # 3. Verify LIVE_WRITER_PROCESS_PATTERN covers all 12 ContentOps writer/supervisor commands.
+    expected_writer_cmds = [
+        "python.exe -m live_contentops.cli daily-app start",
+        "pythonw.exe daily_app_supervisor.py",
+        "python.exe scripts/plan_status_posts.py --once",
+        "python.exe scripts/plan_analysis_pages.py",
+        "python.exe scripts/manual_desk_tick.py",
+        "pythonw.exe -B -m live_contentops.market_wrap_job_v1 --publish",
+        "python.exe run_v1_simple_gemini_scheduler.py --published-memory-store contentops_daily_app_v1.sqlite3",
+        "pythonw.exe scripts/run_daily_digest_1900.py",
+        "python.exe scripts/run_native_neo_executor.py",
+        "python.exe scripts/run_sourced_replies.py",
+        "python.exe scripts/substack_growth.py",
+        "python.exe scripts/reconcile_preunpause_outbox_v1.py --apply --db store.sqlite3",
+    ]
+    for cmd in expected_writer_cmds:
+        assert re.search(cli.LIVE_WRITER_PROCESS_PATTERN, cmd, re.IGNORECASE) is not None, cmd
+    assert re.search(cli.LIVE_WRITER_PROCESS_PATTERN, "python.exe -m pytest tests/test_preunpause_substack_backlog_guard_v1.py", re.IGNORECASE) is None
+
+
+def test_cc692_l2_settle_parent_link_sibling_guard_and_atomic_rollback(tmp_path, monkeypatch):
+    """CC692-L2: sibling-dispatch guard on settle_parent_link + single-transaction rollback on mid-apply failure."""
+    db_path, refs = _build_full_preunpause_fixture_db(tmp_path)
+    store = ContentOpsDurableStore(db_path, auto_migrate=False)
+    now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+
+    # 1. Add a blocking confirmed sibling child under O58's plan-analysis-link-* parent.
+    store.register_outbox_message(
+        message_id="outbox_o58_sibling_confirmed",
+        work_item_id=refs["o58_parent"],
+        destination="x",
+        payload=json.dumps({"work_item_id": refs["o58_parent"], "plan_hash": "h58_sib"}),
+        status=DISPATCH_CONFIRMED,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_o58_sibling_confirmed",
+        message_id="outbox_o58_sibling_confirmed",
+        platform="x",
+        status=DISPATCH_CONFIRMED,
+        public_object_id="x-99999",
+        public_object_url="https://x.com/capitalchronicle/status/99999",
+    )
+
+    # 2. Simulate crash mid-apply -> verify single BEGIN IMMEDIATE transaction rolls back ALL mutations!
+    orig_reg_incident = cli._tx_register_incident
+    calls = {"n": 0}
+
+    def _boom_on_third(*args, **kwargs):
+        calls["n"] += 1
+        if calls["n"] == 3:
+            raise RuntimeError("SIMULATED_MID_TX_FAILURE")
+        return orig_reg_incident(*args, **kwargs)
+
+    monkeypatch.setattr(cli, "_tx_register_incident", _boom_on_third)
+    with pytest.raises(RuntimeError, match="SIMULATED_MID_TX_FAILURE"):
+        cli.apply_preunpause_reconciliation(db_path, now=now)
+
+    # Zero partial writes survived rollback!
+    assert store.get_outbox_message(refs["subgroup_a"]["message_id"])["status"] == "READY"
+    assert store.get_outbox_message(refs["subgroup_a"]["page_id"])["status"] == "EDITORIAL_INTERNAL"
+    assert store.get_outbox_message(refs["subgroup_b_verified_absent"]["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_outbox_message(refs["subgroup_d"]["message_id"])["status"] == NATIVE_NEO_PENDING
+
+    # 3. Restore normal incident writer -> apply commits cleanly and protects O58 parent because of confirmed sibling.
+    monkeypatch.setattr(cli, "_tx_register_incident", orig_reg_incident)
+    rc, res = cli.apply_preunpause_reconciliation(db_path, now=now)
+    assert rc == cli.EXIT_OK
+    o58_mut = next(
+        m for m in res["mutations"]["dead_parent_unknown_writes_settled"]
+        if m["message_id"] == "outbox_o58_notes"
+    )
+    assert o58_mut["parent_settled"] is False
+    assert store.get_outbox_message("outbox_o58_notes")["status"] == "PLAN_POST_SETTLED"
+    assert store.get_outbox_message(refs["o58_parent"])["status"] == "EDITORIAL_INTERNAL"
