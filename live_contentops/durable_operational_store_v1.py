@@ -466,6 +466,14 @@ class ContentOpsDurableStore:
                          "ON outbox_messages(work_item_id, destination)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_outbox_destination_order_read "
                          "ON outbox_messages(destination, created_at, message_id)")
+            # CC-153 / read-only desk hardening: eliminate O(dispatches * readbacks) full-table
+            # scans on multi-GB stores while leaving schema_migrations and lineage untouched.
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_readbacks_dispatch_read_at_read "
+                         "ON readbacks(dispatch_id, read_at, readback_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_platform_dispatches_dispatched_at_read "
+                         "ON platform_dispatches(dispatched_at DESC, dispatch_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_readbacks_read_at_dispatch_read "
+                         "ON readbacks(read_at, dispatch_id)")
 
     def _append_authorized(self) -> int: return int(bool(getattr(self._write_local, "append_enabled", False)))
     def _artifact_insert_authorized(self) -> int: return int(bool(getattr(self._write_local, "artifact_insert_enabled", False)))
@@ -506,6 +514,7 @@ class ContentOpsDurableStore:
         )
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA query_only=ON")
+        conn.execute("PRAGMA temp_store=MEMORY")
         conn.execute("PRAGMA foreign_keys=ON")
         conn.execute(f"PRAGMA busy_timeout={self.busy_timeout_ms}")
         return conn
