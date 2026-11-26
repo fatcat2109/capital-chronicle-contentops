@@ -19,6 +19,7 @@ from typing import Any, Callable, Mapping
 from .live_entrypoint_registry_v1 import LEGACY_AUTOMATION_QUARANTINED, quarantine
 from .media_content_audit_v6 import build_current_macro_visual_pack
 from .public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
     build_public_dispatch_topic_hash,
@@ -40,7 +41,7 @@ ARTICLE_MD_PATH = Path("exports/daily_contentops/fed_funds_policy_signal_article
 ARTICLE_HTML_PATH = Path("exports/daily_contentops/fed_funds_policy_signal_article_v1.html")
 HEADLINE_SIDECAR_PATH = Path("headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl")
 DAILY_SCHEDULE_PATH = Path("docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json")
-PUBLIC_DISPATCH_LEDGER = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+PUBLIC_DISPATCH_LEDGER = DEFAULT_PUBLIC_DISPATCH_LEDGER
 
 SUBSTACK_BLOCKER = "BLOCKED_REQUIRES_SUPERVISED_BROWSER_PROFILE_AND_PUBLIC_URL_READBACK"
 X_BLOCKER = "BLOCKED_REQUIRES_EXACT_CDP_LIVE_CLICK_WITH_PROFILE_GUARD"

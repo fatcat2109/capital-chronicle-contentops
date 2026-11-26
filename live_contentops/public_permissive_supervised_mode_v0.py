@@ -14,6 +14,10 @@ from pathlib import Path
 from typing import Any
 
 from .cc_artifact_packet_approval_v0 import canonical_json_hash
+from .public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
+    read_public_dispatch_ledger_rows,
+)
 
 TASK_LABEL = "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0"
 SCHEMA_VERSION = "0.1.0"
@@ -29,7 +33,7 @@ MANDATORY_DISCLAIMER = (
 )
 
 DEFAULT_OUTPUT_DIR = Path("docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0")
-DEFAULT_DUPLICATE_LEDGER = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+DEFAULT_DUPLICATE_LEDGER = DEFAULT_PUBLIC_DISPATCH_LEDGER
 
 CURRENT_PUBLIC_PLATFORMS = (
     "substack",
@@ -116,21 +120,7 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
 
 
 def load_duplicate_ledger(path: str | Path = DEFAULT_DUPLICATE_LEDGER) -> list[dict[str, Any]]:
-    ledger_path = Path(path)
-    if not ledger_path.exists():
-        return []
-    rows: list[dict[str, Any]] = []
-    for raw in ledger_path.read_text(encoding="utf-8").splitlines():
-        raw = raw.strip()
-        if not raw:
-            continue
-        try:
-            row = json.loads(raw)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(row, dict):
-            rows.append(row)
-    return rows
+    return read_public_dispatch_ledger_rows(path)
 
 
 def candidate_topic_hash(packet: dict[str, Any]) -> str:

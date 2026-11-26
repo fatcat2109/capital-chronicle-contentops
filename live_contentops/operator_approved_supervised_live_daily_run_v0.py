@@ -19,6 +19,7 @@ from live_contentops.live_entrypoint_registry_v1 import (
     quarantine,
 )
 from live_contentops.public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
     build_public_dispatch_topic_hash,
@@ -35,7 +36,7 @@ CLASSIFICATION_FAILED = "FAILED_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0"
 BASELINE_HEAD = "491d5a9ed3f259108b01110a519cfd5d7221faa5"
 REQUIRED_CAVEAT = "Candidate editorial draft. Numeric references require final source verification before publication."
 OUTPUT_DIR = Path("docs/automation/OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0")
-DEFAULT_DUPLICATE_LEDGER = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+DEFAULT_DUPLICATE_LEDGER = DEFAULT_PUBLIC_DISPATCH_LEDGER
 
 READINESS_GATE_PATH = Path("docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/live_readiness_gate_v0.json")
 AUDIT_REPORT_PATH = Path("docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/pipeline_audit_report_v0.json")

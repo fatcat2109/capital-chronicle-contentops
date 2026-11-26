@@ -22,6 +22,7 @@ from .live_entrypoint_registry_v1 import LEGACY_AUTOMATION_QUARANTINED, quaranti
 from .media_content_audit_v6 import build_current_macro_visual_pack
 from .media_manifest_authority_v1 import image_metadata_from_file
 from .public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
     build_public_dispatch_topic_hash,
@@ -43,7 +44,7 @@ OUTPUT_ROOT = Path("docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1")
 EXPORT_ROOT = Path("exports/daily_contentops/substack_first")
 SCHEDULE_GLOB = "docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_*.json"
 SIDECAR_GLOB = "headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_*.jsonl"
-PUBLIC_DISPATCH_LEDGER = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+PUBLIC_DISPATCH_LEDGER = DEFAULT_PUBLIC_DISPATCH_LEDGER
 REQUIRED_CAVEAT = (
     "This article is for informational purposes only and is not financial advice. "
     "Numeric references are sourced as cited and should be independently verified."

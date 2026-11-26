@@ -23,8 +23,10 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     _rehearsal_payload_specs,
 )
 from live_contentops.public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
     build_public_dispatch_topic_hash,
     load_public_dispatch_hashes,
+    read_public_dispatch_ledger_rows,
 )
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0"
@@ -40,7 +42,7 @@ DEFAULT_DRY_RUN_EVIDENCE = Path(
 DEFAULT_INCIDENT_EVIDENCE = Path(
     "docs/automation/V6_TELEGRAM_INCIDENT_FREEZE_ROOT_CAUSE/telegram_incident_freeze_rootcause_evidence_v0.json"
 )
-DEFAULT_LEDGER = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+DEFAULT_LEDGER = DEFAULT_PUBLIC_DISPATCH_LEDGER
 DEFAULT_OUTPUT = Path(
     "docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/pre_public_gate_evidence_v0.json"
 )
@@ -431,7 +433,7 @@ def build_pre_public_evidence(
     article_packet = read_json(article_packet_path)
     variant_packet = read_json(variant_packet_path)
     schedule = read_json(schedule_path)
-    ledger_rows = read_jsonl(ledger_path)
+    ledger_rows = read_public_dispatch_ledger_rows(ledger_path)
     incident = read_json(incident_evidence_path)
     current_gate = build_current_candidate_gate(
         article_packet=article_packet,
