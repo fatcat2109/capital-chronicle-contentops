@@ -169,11 +169,18 @@ def test_us_trading_age_and_latest_close_preserve_holiday_and_early_close_semant
     assert board.us_trading_age("2026-12-31", "2027-01-01") == 0
     assert board.us_trading_age("2026-12-31", "2027-01-04") == 1
 
-    # latest_close(now) stays strictly Mon-Fri 17:00 ET so valid all-7 OTC/CFD holiday bars stay publishable.
-    assert board.latest_close("2026-11-26T21:59:59Z") == "2026-11-25"
-    assert board.latest_close("2026-11-26T22:00:00Z") == "2026-11-26"
-    assert board.latest_close("2026-11-27T18:05:00Z") == "2026-11-26"
+    # BF-H1: latest_close(now) skips NYSE full-closed holidays (e.g. Thanksgiving 2026-11-26) while keeping
+    # the 17:00 ET rollover so Wed 2026-11-25 stays active through Thu 17:01 ET, Fri 12:59 ET, and Fri 13:01 ET.
+    assert board.latest_close("2026-11-26T21:59:59Z") == "2026-11-25"  # Thu 16:59:59 ET
+    assert board.latest_close("2026-11-26T22:00:00Z") == "2026-11-25"  # Thu 17:00:00 ET (Thanksgiving skipped)
+    assert board.latest_close("2026-11-26T22:01:00Z") == "2026-11-25"  # Thu 17:01:00 ET
+    assert board.latest_close("2026-11-27T17:59:00Z") == "2026-11-25"  # Fri 12:59:00 ET (Black Friday pre-close)
+    assert board.latest_close("2026-11-27T18:01:00Z") == "2026-11-25"  # Fri 13:01:00 ET (Black Friday post-early-close)
+    assert board.latest_close("2026-11-27T21:59:59Z") == "2026-11-25"  # Fri 16:59:59 ET
+    assert board.latest_close("2026-11-27T22:00:00Z") == "2026-11-27"  # Fri 17:00:00 ET (Black Friday NY rollover)
     assert board.latest_close("2026-11-27T22:05:00Z") == "2026-11-27"
+    assert board.latest_close("2026-12-25T22:01:00Z") == "2026-12-24"  # Christmas Day skipped
+    assert board.latest_close("2027-01-01T22:01:00Z") == "2026-12-31"  # New Year's Day skipped
 
     # Deterministic fallback matches when us_session_calendar_v1.json is absent.
     monkeypatch.setattr(pic, "CASH_CALENDAR", tmp_path / "absent-calendar.json")
@@ -181,6 +188,10 @@ def test_us_trading_age_and_latest_close_preserve_holiday_and_early_close_semant
     assert board.us_trading_age("2026-11-25", "2026-11-26") == 0
     assert board.us_trading_age("2026-11-25", "2026-11-27") == 1
     assert board.us_trading_age("2026-12-24", "2026-12-25") == 0
+    assert board.latest_close("2026-11-26T22:01:00Z") == "2026-11-25"
+    assert board.latest_close("2026-11-27T17:59:00Z") == "2026-11-25"
+    assert board.latest_close("2026-11-27T18:01:00Z") == "2026-11-25"
+    assert board.latest_close("2026-11-27T22:00:00Z") == "2026-11-27"
 
 
 @pytest.mark.parametrize(
@@ -229,7 +240,8 @@ def test_s3a_s3b_thanksgiving_btcusd_holiday_bar_accepted_without_session_skew(
     copy = board.compose(projected)
     assert copy["dated"] == "25 Nov 2026 close, ET (Bitcoin through 26 Nov 2026, ET)"
 
-    # run_due() waits cleanly for next close rather than failing with BOARD_MARKET_SESSIONS_DIFFER.
+    # BF-H1: Thu 17:05 ET / 19:05 ET keep latest_close == 2026-11-25, so the clean Wed 25 board
+    # (with BTCUSD holiday bar 2026-11-26) prepares cleanly instead of locking out for 24 hours.
     result = board.run_due(
         store,
         board_path=write_board(tmp_path, doc, f"{label}.json"),
@@ -238,16 +250,15 @@ def test_s3a_s3b_thanksgiving_btcusd_holiday_bar_accepted_without_session_skew(
         publish=False,
         snapshot=no_snapshot,
     )
-    assert result["state"] == "BOARD_NEXT_CLOSE_NOT_AVAILABLE", result
+    assert result["state"] == "BOARD_PREPARED", result
     assert result["day_et"] == "2026-11-25"
-    assert result["latest_close_et"] == "2026-11-26"
 
 
-def test_s4_all_seven_on_wednesday_waits_and_s5_fx_cfd_split_still_refuses(ready, tmp_path):
+def test_s4_all_seven_on_wednesday_stays_valid_past_thu_1700_and_s5_fx_cfd_split_still_refuses(ready, tmp_path):
     store, root = ready
-    # S4: Thu 17:05 ET, all 7 still 2026-11-25 -> clean wait (no error).
-    s4_now = board.utc("2026-11-26T22:05:00Z")
-    s4_doc = build_board("2026-11-25", as_of_utc="2026-11-26T22:05:00Z")
+    # S4 / BF-H1: Thu 17:01 ET, all 7 on 2026-11-25 -> prepares cleanly & unsent 25 Nov links do NOT expire.
+    s4_now = board.utc("2026-11-26T22:01:00Z")  # Thu 26 Nov 17:01 ET
+    s4_doc = build_board("2026-11-25", as_of_utc="2026-11-26T22:01:00Z")
     assert board.project(s4_doc, now=s4_now)["day_et"] == "2026-11-25"
     s4_res = board.run_due(
         store,
@@ -257,7 +268,17 @@ def test_s4_all_seven_on_wednesday_waits_and_s5_fx_cfd_split_still_refuses(ready
         publish=False,
         snapshot=no_snapshot,
     )
-    assert s4_res["state"] == "BOARD_NEXT_CLOSE_NOT_AVAILABLE"
+    assert s4_res["state"] == "BOARD_PREPARED", s4_res
+    assert s4_res["day_et"] == "2026-11-25"
+
+    # Verify validate_link() keeps the unsent 2026-11-25 board valid at Thu 17:01 ET, Fri 12:59 ET, and Fri 13:01 ET,
+    # and expires only once Black Friday 17:00 ET rolls latest_close to 2026-11-27.
+    issued = json.loads(store.get_outbox_message(s4_res["board_id"])["payload"])
+    first_link = issued["links"][0]
+    for valid_utc in ("2026-11-26T22:01:00Z", "2026-11-27T17:59:00Z", "2026-11-27T18:01:00Z"):
+        assert board.validate_link(store, first_link, now=board.utc(valid_utc))["board_id"] == s4_res["board_id"]
+    with pytest.raises(board.BoardSourceError, match="BOARD_PUBLIC_DAY_EXPIRED"):
+        board.validate_link(store, first_link, now=board.utc("2026-11-27T22:00:00Z"))
 
     # S5: FX (EURUSD, USDJPY) + BTCUSD on 2026-11-26 while US500/USTEC/XAUUSD/USOIL stay 2026-11-25 -> MUST refuse.
     s5_now = board.utc("2026-11-27T00:05:00Z")
@@ -270,11 +291,12 @@ def test_s4_all_seven_on_wednesday_waits_and_s5_fx_cfd_split_still_refuses(ready
         board.project(s5_doc, now=s5_now)
 
 
-def test_s6_all_seven_thanksgiving_bars_remain_publishable(ready, tmp_path, monkeypatch):
+def test_s6_wednesday_board_delivers_on_thanksgiving_evening_and_closed_holiday_day_is_not_due(ready, tmp_path, monkeypatch):
     store, root = ready
     runtime = HolidayBoardTransport()
     now = board.utc("2026-11-27T00:05:00Z")  # Thu 26 Nov 19:05 ET / Fri 27 Nov 07:05 GMT+7
-    doc = build_board("2026-11-26", as_of_utc="2026-11-27T00:05:00Z")
+    # BF-H1: Clean Wed 2026-11-25 board (with BTCUSD on 2026-11-26) publishes cleanly on Thanksgiving evening.
+    doc = build_board("2026-11-25", as_of_utc="2026-11-27T00:05:00Z", overrides={"BTCUSD": "2026-11-26"})
     pin_clock(monkeypatch, now)
     result = board.run_due(
         store,
@@ -285,19 +307,23 @@ def test_s6_all_seven_thanksgiving_bars_remain_publishable(ready, tmp_path, monk
         deliver=delivery(runtime, now),
     )
     assert result["state"] == "BOARD_COORDINATOR_RETURNED", result
-    assert result["day_et"] == "2026-11-26"
+    assert result["day_et"] == "2026-11-25"
     assert all(o["readback"]["confirmed"] for o in result["outcomes"])
-    issued = json.loads(store.get_outbox_message(result["board_id"])["payload"])
-    assert "session_date_et" not in issued["current"]["markets"]["BTCUSD"]
+
+    # A synthetic Thanksgiving closed-holiday board ("2026-11-26") is refused as not due while latest_close == "2026-11-25".
+    holiday_doc = build_board("2026-11-26", as_of_utc="2026-11-27T00:05:00Z")
+    with pytest.raises(board.BoardSourceError, match="BOARD_NEW_YORK_CLOSE_NOT_DUE"):
+        board.project(holiday_doc, now=now)
 
 
 def test_s7_s7b_s7c_black_friday_1300_et_early_close_behavior(ready, tmp_path):
     store, root = ready
-    now = board.utc("2026-11-27T18:05:00Z")  # Fri 27 Nov 13:05 ET / Sat 28 Nov 01:05 GMT+7
-    assert board.latest_close(now) == "2026-11-26"
+    for clock_utc in ("2026-11-27T17:59:00Z", "2026-11-27T18:01:00Z"):  # Fri 12:59 ET & Fri 13:01 ET
+        assert board.latest_close(clock_utc) == "2026-11-25"
 
-    # S7: All 7 on 2026-11-25 -> project() OK, run_due() waits cleanly (no premature expiry).
-    s7_doc = build_board("2026-11-25", as_of_utc="2026-11-27T18:05:00Z")
+    now = board.utc("2026-11-27T18:01:00Z")  # Fri 27 Nov 13:01 ET / Sat 28 Nov 01:01 GMT+7
+    # S7 / BF-H1: All 7 on 2026-11-25 remain due and publishable past 13:00 ET until 17:00 ET NY close.
+    s7_doc = build_board("2026-11-25", as_of_utc="2026-11-27T18:01:00Z")
     assert board.project(s7_doc, now=now)["day_et"] == "2026-11-25"
     s7_res = board.run_due(
         store,
@@ -307,23 +333,11 @@ def test_s7_s7b_s7c_black_friday_1300_et_early_close_behavior(ready, tmp_path):
         publish=False,
         snapshot=no_snapshot,
     )
-    assert s7_res["state"] == "BOARD_NEXT_CLOSE_NOT_AVAILABLE"
+    assert s7_res["state"] == "BOARD_PREPARED", s7_res
+    assert s7_res["day_et"] == "2026-11-25"
 
-    # S7b: All 7 on 2026-11-26 -> still publishable at 13:05 ET.
-    s7b_doc = build_board("2026-11-26", as_of_utc="2026-11-27T18:05:00Z")
-    s7b_res = board.run_due(
-        store,
-        board_path=write_board(tmp_path, s7b_doc, "s7b.json"),
-        output_root=root,
-        now=now,
-        publish=False,
-        snapshot=no_snapshot,
-    )
-    assert s7b_res["state"] == "BOARD_PREPARED"
-    assert s7b_res["day_et"] == "2026-11-26"
-
-    # S7c: Hypothetical 2026-11-27 D1 bar (completes 22:00Z > 18:05Z) -> BOARD_BAR_NOT_COMPLETED.
-    s7c_doc = build_board("2026-11-27", as_of_utc="2026-11-27T18:05:00Z")
+    # S7c: Premature 2026-11-27 D1 bar (completes 22:00Z > 18:01Z) still fails BOARD_BAR_NOT_COMPLETED.
+    s7c_doc = build_board("2026-11-27", as_of_utc="2026-11-27T18:01:00Z")
     with pytest.raises(board.BoardSourceError, match="BOARD_BAR_NOT_COMPLETED"):
         board.project(s7c_doc, now=now)
 
@@ -399,7 +413,7 @@ def test_s10_holiday_skipped_preserves_comparison_and_three_day_acceptance_strea
     assert acc["passed"] is True
 
     # Real skipped open session (Tue 24 -> Fri 27, or Tue 24 -> holiday Thu 26) must NOT claim consecutive.
-    thu_26 = board.project(build_board("2026-11-26", as_of_utc="2026-11-27T00:05:00Z"), now=board.utc("2026-11-27T00:05:00Z"))
+    thu_26 = board.project(build_board("2026-11-26", as_of_utc="2026-11-27T22:05:00Z"), now=board.utc("2026-11-27T22:05:00Z"))
     assert "not available" in board.compose(projected_by_day["2026-11-27"], projected_by_day["2026-11-24"])["changes"]
     assert "not available" in board.compose(thu_26, projected_by_day["2026-11-24"])["changes"]
 
