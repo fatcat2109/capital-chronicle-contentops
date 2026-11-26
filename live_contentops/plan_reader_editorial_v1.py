@@ -594,7 +594,7 @@ def draft_plan_page(plan, run, *, output_dir, call=None):
 
 
 def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False,
-                 market_update=None, active_status=None):
+                 market_update=None, active_status=None, setup_post_dir=None, setup_record=None):
     folder=Path(output_dir)
     run=pages.load_run(plan,run_root=run_root)
     source=reader.source_packet(plan,run,thread=bool(plan.get("zone") and plan.get("invalidation_conditions")),
@@ -614,8 +614,12 @@ def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, r
             if unknown and attempt==0:
                 raise ValueError("Rewrite unknown acronyms once: "+",".join(unknown))
             manuscript["authorship"]={"calls":records,"checks":checks,"unknown_acronyms_logged":unknown}
-            packet=pages.render(plan,manuscript,output_dir=folder,run_root=run_root,
-                                 market_update=market_update, active_status=active_status)
+            render_kwargs = {"market_update": market_update, "active_status": active_status}
+            if setup_post_dir is not None:
+                render_kwargs["setup_post_dir"] = setup_post_dir
+            if setup_record is not None:
+                render_kwargs["setup_record"] = setup_record
+            packet=pages.render(plan,manuscript,output_dir=folder,run_root=run_root,**render_kwargs)
             packet["reader_source"]=source
             (folder/"page.json").write_bytes(canonical_bytes(packet))
             return {"status":"PREPARED","packet":packet,"calls":records}
@@ -955,12 +959,23 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                     try:
                         if current.get("status") in ACTIVE:
                             options = pages.current_page_options(plan, current, now=now)
+                            if setup.get("key"):
+                                candidate_setup = (store.db_path.parent / "daily_app_outputs"
+                                                   / "plan-status-posts" / setup["key"])
+                                if candidate_setup.is_dir():
+                                    options["setup_post_dir"] = candidate_setup
+                                    options["setup_record"] = setup
                         else:
                             final = pages.ended_plan_status(plan, current, now=now)
                             options = {"final_status": final}
-                            if final.get("ended_before_entry_deadline") and setup.get("key"):
-                                options["setup_post_dir"] = (store.db_path.parent / "daily_app_outputs"
-                                                             / "plan-status-posts" / setup["key"])
+                            if setup.get("key"):
+                                candidate_setup = (store.db_path.parent / "daily_app_outputs"
+                                                   / "plan-status-posts" / setup["key"])
+                                if final.get("ended_before_entry_deadline"):
+                                    options["setup_post_dir"] = candidate_setup
+                                elif candidate_setup.is_dir():
+                                    options["setup_post_dir"] = candidate_setup
+                                    options["setup_record"] = setup
                     except ValueError as exc:
                         waiting.append({"plan_id": plan["plan_id"], "cause": str(exc)})
                         continue

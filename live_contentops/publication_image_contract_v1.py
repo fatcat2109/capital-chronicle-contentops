@@ -726,7 +726,7 @@ def validate_write(coordinator, intent, destination):
         raise ImageContractError("MACRO_SOURCE_GRAPH_REQUIRED" if macro else "TRADINGVIEW_FIRST_IMAGE_REQUIRED")
     from . import tradingview_snapshot_v1 as tv
     lead = assets[0]
-    fallbacks, article_fallbacks = [], []
+    fallbacks, article_fallbacks, cached_chart_fallbacks = [], [], []
     plan_folder =Path(intent["output_dir"]) if intent.get("plan_status_post") else None
     for asset in assets:
         if plan_folder and asset.get("modality") == "plan_fact_card":
@@ -768,6 +768,22 @@ def validate_write(coordinator, intent, destination):
             if not market:
                 raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
             tv.validate_snapshot_asset(asset, {"market_asset": market})
+            cached_fallback_present = (
+                "cached_chart_fallback" in asset
+                or "cached_chart_fallback" in article
+                or bool(article.get("cached_chart_fallback"))
+            )
+            if not cached_fallback_present and intent.get("plan_analysis_page") and intent.get("output_dir"):
+                from .cc760_tv_chart_fallback_v1 import capture_state_is_text_only
+                cached_fallback_present = capture_state_is_text_only(Path(intent["output_dir"]))
+            if cached_fallback_present:
+                if not (intent.get("plan_analysis_page") and intent.get("output_dir")):
+                    raise ImageContractError("CC760_FALLBACK_BINDING_INVALID")
+                from .cc760_tv_chart_fallback_v1 import validate_write_cached_fallback
+                cached_chart_fallbacks.append(validate_write_cached_fallback(
+                    coordinator.store, intent, article, asset,
+                    Path(intent["output_dir"]), coordinator._clock(),
+                ))
             if (plan_folder and markets[market] and markets[market].get("format") == 4
                     and snap.get("plain_price_scale_cause") == tv.PRICE_SCALE_MISMATCH
                     and not asset.get("plan_overlay") and not asset.get("image_template")):
@@ -824,5 +840,7 @@ def validate_write(coordinator, intent, destination):
     return {"policy": POLICY, "markets": sorted(markets), "macro": macro,
             "first_image_type": image_type(lead),
             **({"plan_chart_fallback_causes": sorted({item["cause"] for item in fallbacks})} if fallbacks else {}),
+            **({"cached_chart_fallback_causes": sorted({item["capture_cause"] for item in cached_chart_fallbacks})}
+               if cached_chart_fallbacks else {}),
             **({"article_chart_fallback_causes": sorted({item["cause"] for item in article_fallbacks})}
                if article_fallbacks else {})}
