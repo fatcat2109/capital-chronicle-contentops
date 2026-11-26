@@ -962,3 +962,329 @@ def test_run_due_wires_setup_post_dir_for_active_plan_on_timeout(tmp_path, monke
     assert card["tradingview_snapshot"]["sha256"] == setup_asset["tradingview_snapshot"]["sha256"]
     assert card["cached_chart_fallback"]["source_key"] == setup_key
     assert card["cached_chart_fallback"]["capture_cause"] == "TRADINGVIEW_CAPTURE_WAIT_EXPIRED"
+
+
+# ---------------------------------------------------------------------------
+# 5. Batch #45 Adversarial Hardening: T4-M1 & T4-M2
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("tamper_mode", [
+    "falsy_empty_dict",
+    "falsy_false",
+    "falsy_none",
+    "stripped_from_asset_only",
+    "stripped_everywhere_with_text_only_on_disk",
+])
+def test_t4_m1_stripped_or_falsy_cached_chart_fallback_fails_closed_at_validate_plan_and_write(
+    tmp_path, monkeypatch, tamper_mode
+):
+    """T4-M1: falsy or stripped cached_chart_fallback must never bypass validate_plan or validate_write."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    run_root, _, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    setup_captured = frozen + timedelta(minutes=7)
+    capture_started = frozen + timedelta(minutes=19)
+    timeout_now = frozen + timedelta(minutes=28)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=setup_captured)
+    page_dir = tmp_path / f"strip_{tamper_mode}"
+    _write_frozen_timeout(page_dir, plan, started_at=capture_started, attempts=2)
+
+    clean_packet = pages.render(
+        plan, manuscript, run_root=run_root, output_dir=page_dir, setup_post_dir=setup_dir, now=timeout_now
+    )
+
+    def _apply_tamper(pkt: dict, rc: dict) -> None:
+        asset = pkt["media_assets"][0]
+        rc_asset = rc["media"]["assets"][0]
+        if tamper_mode == "falsy_empty_dict":
+            asset["cached_chart_fallback"] = {}
+            rc_asset["cached_chart_fallback"] = {}
+        elif tamper_mode == "falsy_false":
+            asset["cached_chart_fallback"] = False
+            rc_asset["cached_chart_fallback"] = False
+        elif tamper_mode == "falsy_none":
+            asset["cached_chart_fallback"] = None
+            rc_asset["cached_chart_fallback"] = None
+        elif tamper_mode == "stripped_from_asset_only":
+            asset.pop("cached_chart_fallback", None)
+            rc_asset.pop("cached_chart_fallback", None)
+        elif tamper_mode == "stripped_everywhere_with_text_only_on_disk":
+            asset.pop("cached_chart_fallback", None)
+            pkt.pop("cached_chart_fallback", None)
+            rc_asset.pop("cached_chart_fallback", None)
+            rc["article"].pop("cached_chart_fallback", None)
+
+    # Path A: Register cleanly first, then tamper run_context_v1.json on disk to test validate_write() directly.
+    store_write = ContentOpsDurableStore(tmp_path / f"write_{tamper_mode}.sqlite3")
+    coord_write = DurablePublicationCoordinator(
+        store=store_write,
+        transport_runtime=None,
+        clock=lambda: timeout_now + timedelta(seconds=10),
+        published_content_path=tmp_path / f"pub_write_{tamper_mode}.jsonl",
+    )
+    registered_clean = pages.register_page(store_write, deepcopy(clean_packet))
+    coord_write.register_plan(registered_clean["page_id"], registered_clean["plan"])
+    intent = json.loads(store_write.list_outbox_messages(destination="substack")[0]["payload"])
+
+    rc_path = page_dir / "run_context_v1.json"
+    tampered_pkt = deepcopy(clean_packet)
+    tampered_rc = json.loads(rc_path.read_bytes())
+    _apply_tamper(tampered_pkt, tampered_rc)
+    rc_path.write_text(json.dumps(tampered_rc), encoding="utf-8")
+
+    with pytest.raises(contract.ImageContractError, match="CC760_FALLBACK_BINDING_INVALID"):
+        contract.validate_write(coord_write, intent, "substack")
+
+    # Path B: Mutated packet registered before register_plan must also fail closed inside validate_plan().
+    store_plan = ContentOpsDurableStore(tmp_path / f"plan_{tamper_mode}.sqlite3")
+    coord_plan = DurablePublicationCoordinator(
+        store=store_plan,
+        transport_runtime=None,
+        clock=lambda: timeout_now + timedelta(seconds=10),
+        published_content_path=tmp_path / f"pub_plan_{tamper_mode}.jsonl",
+    )
+    registered_tampered = pages.register_page(store_plan, tampered_pkt)
+    with pytest.raises(ValueError, match="CC760_FALLBACK_BINDING_INVALID"):
+        coord_plan.register_plan(registered_tampered["page_id"], registered_tampered["plan"])
+
+
+def test_t4_m1_non_page_intent_with_falsy_cached_chart_fallback_rejected(tmp_path, monkeypatch):
+    """T4-M1: falsy cached_chart_fallback key on a non-plan-analysis intent still fails closed."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    run_root, _, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    setup_captured = frozen + timedelta(minutes=7)
+    capture_started = frozen + timedelta(minutes=19)
+    timeout_now = frozen + timedelta(minutes=28)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=setup_captured)
+    page_dir = tmp_path / "non_page_falsy"
+    _write_frozen_timeout(page_dir, plan, started_at=capture_started, attempts=2)
+
+    packet = pages.render(
+        plan, manuscript, run_root=run_root, output_dir=page_dir, setup_post_dir=setup_dir, now=timeout_now
+    )
+    rc_path = page_dir / "run_context_v1.json"
+    rc = json.loads(rc_path.read_bytes())
+    rc["media"]["assets"][0]["cached_chart_fallback"] = {}
+    rc["article"].pop("cached_chart_fallback", None)
+    rc_path.write_text(json.dumps(rc), encoding="utf-8")
+
+    store = ContentOpsDurableStore(tmp_path / "non_page.sqlite3")
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=None,
+        clock=lambda: timeout_now + timedelta(seconds=10),
+        published_content_path=tmp_path / "pub_non_page.jsonl",
+    )
+    non_page_intent = {
+        "work_item_id": "regular-market-article",
+        "output_dir": str(page_dir),
+        "native_payload": packet["native_payload"],
+        "article": rc["article"],
+    }
+    with pytest.raises(contract.ImageContractError, match="CC760_FALLBACK_BINDING_INVALID"):
+        contract.validate_write(coordinator, non_page_intent, "substack")
+
+    # Also verify folderless non-page intent carrying falsy cached_chart_fallback fails closed.
+    folderless_intent = {
+        "work_item_id": "regular-folderless-market-post",
+        "article": rc["article"],
+        "media_assets": rc["media"]["assets"],
+    }
+    with pytest.raises(contract.ImageContractError, match="CC760_FALLBACK_BINDING_INVALID"):
+        contract.validate_write(coordinator, folderless_intent, "substack")
+
+
+def test_t4_m1_resolve_cached_plan_chart_enforces_exhaustion_parity(tmp_path, monkeypatch):
+    """T4-M1: resolve_cached_plan_chart must require (attempts >= 2 or elapsed >= 300) matching validate_cached_fallback_asset."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    monkeypatch.setattr(tv, "capture", lambda *a, **k: pytest.fail("frozen timeout must not start a browser"))
+    run_root, run, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    setup_captured = frozen + timedelta(minutes=7)
+    capture_started = frozen + timedelta(minutes=19)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=setup_captured)
+
+    # Premature single-attempt timeout (attempts=1, elapsed=120s < 300s): MUST NOT substitute cached chart.
+    premature_dir = tmp_path / "premature_single_attempt"
+    _write_frozen_timeout(
+        premature_dir, plan, started_at=capture_started, cause="TRADINGVIEW_SNAPSHOT_TIMEOUT", attempts=1
+    )
+    premature_now = capture_started + timedelta(seconds=120)
+    asset_none, refusals_none = fb.resolve_cached_plan_chart(
+        plan, run, premature_dir, manuscript, setup_post_dir=setup_dir, now=premature_now
+    )
+    assert asset_none is None and refusals_none == []
+
+    # Render falls cleanly through to CC-290 page_fact_card instead of producing a chart rejected downstream.
+    packet_premature = pages.render(
+        plan, manuscript, run_root=run_root, output_dir=premature_dir, setup_post_dir=setup_dir, now=premature_now
+    )
+    card_premature, = packet_premature["media_assets"]
+    assert card_premature["modality"] == "plan_fact_card"
+    assert "cached_chart_fallback" not in packet_premature
+
+    # Clock before capture started (now < started_at): MUST NOT substitute even with attempts=2.
+    before_start_dir = tmp_path / "before_start"
+    _write_frozen_timeout(
+        before_start_dir, plan, started_at=capture_started, cause="TRADINGVIEW_SNAPSHOT_TIMEOUT", attempts=2
+    )
+    asset_before, refusals_before = fb.resolve_cached_plan_chart(
+        plan, run, before_start_dir, manuscript, setup_post_dir=setup_dir, now=capture_started - timedelta(seconds=1)
+    )
+    assert asset_before is None and refusals_before == []
+
+    # Exhausted via elapsed == 300s (attempts=1): ALLOWED.
+    elapsed_ok_dir = tmp_path / "elapsed_300"
+    _write_frozen_timeout(
+        elapsed_ok_dir, plan, started_at=capture_started, cause="TRADINGVIEW_CAPTURE_WAIT_EXPIRED", attempts=1
+    )
+    asset_300, _ = fb.resolve_cached_plan_chart(
+        plan, run, elapsed_ok_dir, manuscript, setup_post_dir=setup_dir, now=capture_started + timedelta(seconds=300)
+    )
+    assert asset_300 is not None and asset_300["cached_chart_fallback"]["capture_cause"] == "TRADINGVIEW_CAPTURE_WAIT_EXPIRED"
+
+    # Exhausted via attempts == 2 (elapsed == 30s < 300s): ALLOWED.
+    attempts_ok_dir = tmp_path / "attempts_2"
+    _write_frozen_timeout(
+        attempts_ok_dir, plan, started_at=capture_started, cause="TRADINGVIEW_SNAPSHOT_TIMEOUT", attempts=2
+    )
+    asset_2, _ = fb.resolve_cached_plan_chart(
+        plan, run, attempts_ok_dir, manuscript, setup_post_dir=setup_dir, now=capture_started + timedelta(seconds=30)
+    )
+    assert asset_2 is not None and asset_2["cached_chart_fallback"]["capture_cause"] == "TRADINGVIEW_SNAPSHOT_TIMEOUT"
+
+
+def test_t4_m1_validate_write_rejects_future_substituted_at_clock(tmp_path, monkeypatch):
+    """T4-M1: validate_write_cached_fallback must reject substituted_at_utc > now."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    run_root, _, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    setup_captured = frozen + timedelta(minutes=7)
+    capture_started = frozen + timedelta(minutes=19)
+    timeout_now = frozen + timedelta(minutes=28)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=setup_captured)
+    page_dir = tmp_path / "future_sub"
+    _write_frozen_timeout(page_dir, plan, started_at=capture_started, attempts=2)
+
+    packet = pages.render(
+        plan, manuscript, run_root=run_root, output_dir=page_dir, setup_post_dir=setup_dir, now=timeout_now
+    )
+    store = ContentOpsDurableStore(tmp_path / "future_sub.sqlite3")
+    # Coordinator clock is 5s BEFORE substituted_at_utc -> must fail closed at validate_write().
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=None,
+        clock=lambda: timeout_now - timedelta(seconds=5),
+        published_content_path=tmp_path / "pub_future_sub.jsonl",
+    )
+    registered = pages.register_page(store, packet)
+    coordinator.register_plan(registered["page_id"], registered["plan"])
+    intent = json.loads(store.list_outbox_messages(destination="substack")[0]["payload"])
+
+    with pytest.raises(contract.ImageContractError, match="CC760_FALLBACK_BINDING_INVALID"):
+        contract.validate_write(coordinator, intent, "substack")
+
+
+def test_t4_m2_find_forbidden_keys_recurses_lists_tuples_and_scans_asset_directly(tmp_path, monkeypatch):
+    """T4-M2: _find_forbidden_keys must recurse into list/tuple containers and scan asset directly."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+
+    # 1. Direct list-of-dicts & nested tuple/list recursion checks.
+    assert fb._find_forbidden_keys({"items": [{"account_id": "12345", "r_multiple": 2.5}]}) == [
+        "items[0].account_id",
+        "items[0].r_multiple",
+    ]
+    assert fb._find_forbidden_keys({"rows": ([{"mt5": 1}],)}, prefix="asset") == [
+        "asset.rows[0][0].mt5",
+    ]
+
+    run_root, run, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    captured = frozen + timedelta(minutes=6)
+    now = frozen + timedelta(minutes=20)
+    base = _make_direct_candidate(tmp_path, plan, run, captured_at=captured)
+
+    # 2. List-nested forbidden keys inside snapshot & public_metadata rejected fail-closed.
+    snap_list_leak = deepcopy(base)
+    snap_list_leak["snapshot"]["items"] = [{"account_id": "12345", "r_multiple": 2.5}]
+    with pytest.raises(fb.CachedChartFallbackError, match="CC760_PRIVATE_OR_R_MULTIPLE_LEAK"):
+        fb.validate_cached_chart_candidate(snap_list_leak, plan=plan, run=run, manuscript=manuscript, now=now)
+
+    meta_tuple_leak = deepcopy(base)
+    meta_tuple_leak["public_metadata"] = {"rows": ({"r_multiple": 2.5},)}
+    with pytest.raises(fb.CachedChartFallbackError, match="CC760_PRIVATE_OR_R_MULTIPLE_LEAK"):
+        fb.validate_cached_chart_candidate(meta_tuple_leak, plan=plan, run=run, manuscript=manuscript, now=now)
+
+    # 3. Direct asset forbidden key & list-nested asset forbidden key rejected at validate_plan & validate_write.
+    capture_started = frozen + timedelta(minutes=12)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=captured)
+    for label, injector in (
+        ("direct_asset_r_multiple", lambda a: a.update(r_multiple=2.0)),
+        ("list_asset_account_id", lambda a: a.update(items=[{"account_id": "12345"}])),
+    ):
+        page_dir = tmp_path / f"t4m2_{label}"
+        _write_frozen_timeout(page_dir, plan, started_at=capture_started, attempts=2)
+        clean_pkt = pages.render(
+            plan, manuscript, run_root=run_root, output_dir=page_dir, setup_post_dir=setup_dir, now=now
+        )
+
+        # Verify validate_write rejects injected key on run_context_v1.json asset.
+        store_w = ContentOpsDurableStore(tmp_path / f"w_{label}.sqlite3")
+        coord_w = DurablePublicationCoordinator(
+            store=store_w,
+            transport_runtime=None,
+            clock=lambda: now + timedelta(seconds=10),
+            published_content_path=tmp_path / f"pub_w_{label}.jsonl",
+        )
+        reg_w = pages.register_page(store_w, deepcopy(clean_pkt))
+        coord_w.register_plan(reg_w["page_id"], reg_w["plan"])
+        intent_w = json.loads(store_w.list_outbox_messages(destination="substack")[0]["payload"])
+
+        rc_path = page_dir / "run_context_v1.json"
+        rc = json.loads(rc_path.read_bytes())
+        injector(rc["media"]["assets"][0])
+        rc_path.write_text(json.dumps(rc), encoding="utf-8")
+        with pytest.raises(contract.ImageContractError, match="CC760_PRIVATE_OR_R_MULTIPLE_LEAK"):
+            contract.validate_write(coord_w, intent_w, "substack")
+
+        # Verify validate_plan rejects injected key on packet asset.
+        bad_pkt = deepcopy(clean_pkt)
+        injector(bad_pkt["media_assets"][0])
+        store_p = ContentOpsDurableStore(tmp_path / f"p_{label}.sqlite3")
+        coord_p = DurablePublicationCoordinator(
+            store=store_p,
+            transport_runtime=None,
+            clock=lambda: now + timedelta(seconds=10),
+            published_content_path=tmp_path / f"pub_p_{label}.jsonl",
+        )
+        reg_p = pages.register_page(store_p, bad_pkt)
+        with pytest.raises(ValueError, match="CC760_PRIVATE_OR_R_MULTIPLE_LEAK"):
+            coord_p.register_plan(reg_p["page_id"], reg_p["plan"])
+
+    # 4. Real plan-status.public.json setup-post regression guard: outcome.result_r=None on source_plan still passes,
+    #    while an injected non-matching string result_r fails closed.
+    plan_with_outcome = {**deepcopy(plan), "outcome": {"result_r": None}}
+    setup_real, _ = _make_bound_setup_dir(
+        tmp_path / "real_outcome",
+        plan_with_outcome,
+        captured_at=captured,
+        setup_key="plan-status-post-real-outcome",
+    )
+    page_real = tmp_path / "page_real_outcome"
+    _write_frozen_timeout(page_real, plan_with_outcome, started_at=capture_started, attempts=2)
+    real_asset, real_refusals = fb.resolve_cached_plan_chart(
+        plan_with_outcome, run, page_real, manuscript, setup_post_dir=setup_real, now=now
+    )
+    assert real_asset is not None and real_refusals == []
+    assert "image_template" not in real_asset
+
+    setup_bad_r, _ = _make_bound_setup_dir(
+        tmp_path / "bad_outcome",
+        {**deepcopy(plan), "outcome": {"result_r": "+2.5R"}},
+        captured_at=captured,
+        setup_key="plan-status-post-bad-outcome",
+    )
+    page_bad_r = tmp_path / "page_bad_outcome"
+    _write_frozen_timeout(page_bad_r, plan_with_outcome, started_at=capture_started, attempts=2)
+    bad_asset, bad_refusals = fb.resolve_cached_plan_chart(
+        plan_with_outcome, run, page_bad_r, manuscript, setup_post_dir=setup_bad_r, now=now
+    )
+    assert bad_asset is None
+    assert any(r["cause"] == "CC760_PRIVATE_OR_R_MULTIPLE_LEAK" for r in bad_refusals)

@@ -210,17 +210,80 @@ def _collect_strings(value: Any, *, _depth: int = 0) -> list[str]:
 
 
 def _find_forbidden_keys(value: Any, *, prefix: str = "", _depth: int = 0) -> list[str]:
-    if _depth > 8 or not isinstance(value, Mapping):
+    if _depth > 8:
         return []
     hits: list[str] = []
-    for raw_key, item in value.items():
-        key = str(raw_key).strip().lower()
-        path = f"{prefix}.{raw_key}" if prefix else str(raw_key)
-        if key in FORBIDDEN_PRIVATE_KEYS:
-            hits.append(path)
-        elif isinstance(item, Mapping):
-            hits.extend(_find_forbidden_keys(item, prefix=path, _depth=_depth + 1))
+    if isinstance(value, Mapping):
+        for raw_key, item in value.items():
+            key = str(raw_key).strip().lower()
+            path = f"{prefix}.{raw_key}" if prefix else str(raw_key)
+            if key in FORBIDDEN_PRIVATE_KEYS:
+                hits.append(path)
+            elif isinstance(item, (Mapping, list, tuple)):
+                hits.extend(_find_forbidden_keys(item, prefix=path, _depth=_depth + 1))
+    elif isinstance(value, (list, tuple)):
+        for idx, item in enumerate(value):
+            if isinstance(item, (Mapping, list, tuple)):
+                item_path = f"{prefix}[{idx}]" if prefix else f"[{idx}]"
+                hits.extend(_find_forbidden_keys(item, prefix=item_path, _depth=_depth + 1))
     return hits
+
+
+def capture_state_is_text_only(folder: Path | str | None) -> bool:
+    """Return True if on-disk tradingview_capture_v1.json in folder has status == 'TEXT_ONLY'."""
+    if not folder:
+        return False
+    state = _read_json_mapping(Path(folder) / "tradingview_capture_v1.json")
+    return bool(state and state.get("status") == "TEXT_ONLY")
+
+
+def run_context_has_cached_fallback(folder: Path | str | None) -> bool:
+    """Return True if on-disk run_context_v1.json carries cached_chart_fallback on article."""
+    if not folder:
+        return False
+    rc = _read_json_mapping(Path(folder) / "run_context_v1.json")
+    article = rc.get("article") if isinstance(rc, Mapping) else None
+    if not isinstance(article, Mapping):
+        return False
+    return "cached_chart_fallback" in article or bool(article.get("cached_chart_fallback"))
+
+
+def _is_capture_exhausted(capture_state: Mapping[str, Any] | None, *, at_utc: datetime) -> bool:
+    """Enforce exact (attempts >= 2 or elapsed >= 300) capture-exhaustion parity."""
+    if not isinstance(capture_state, Mapping):
+        return False
+    started_raw = capture_state.get("started_at_utc")
+    if not started_raw:
+        return False
+    try:
+        started_at = _parse_utc(started_raw, error_cause="CC760_FALLBACK_BINDING_INVALID")
+    except CachedChartFallbackError:
+        return False
+    if at_utc < started_at:
+        return False
+    elapsed = (at_utc - started_at).total_seconds()
+    attempts = capture_state.get("attempts", 0)
+    attempts_ok = (
+        not isinstance(attempts, bool)
+        and isinstance(attempts, (int, float))
+        and attempts >= 2
+    )
+    return bool(attempts_ok or elapsed >= 300)
+
+
+_ALLOWED_SETUP_RECORD_RESULT_R_PATHS = frozenset({
+    "asset.image_template.input.source_binding.record.source_plan.outcome.result_r",
+    "asset.image_template.input.source_binding.record.levels.image_source_plan.outcome.result_r",
+})
+
+
+def _value_at_dotted_path(root: Any, dotted_path: str) -> Any:
+    current = root
+    for segment in dotted_path.split("."):
+        if not isinstance(current, Mapping) or segment not in current:
+            return None
+        current = current[segment]
+    return current
 
 
 def _extract_snapshot(candidate: Mapping[str, Any]) -> dict[str, Any]:
@@ -308,12 +371,34 @@ def _check_privacy_and_r_leaks(
     asset: Mapping[str, Any],
     snap: Mapping[str, Any],
     private_texts: Sequence[str],
+    plan: Mapping[str, Any] | None = None,
     check_targets: bool = True,
 ) -> None:
     from .plan_analysis_pages_v1 import public_filter
 
-    # 1. Inspect snapshot & public metadata keys for private/account/R-multiple fields.
+    # 1. Inspect snapshot, asset, and public metadata keys (including list/tuple children)
+    #    for private/account/R-multiple fields.
     forbidden = _find_forbidden_keys(snap, prefix="tradingview_snapshot")
+    asset_forbidden = _find_forbidden_keys(asset, prefix="asset")
+    if asset is not candidate and isinstance(asset.get("image_template"), Mapping):
+        expected_plan_result_r = (
+            (plan.get("outcome") or {}).get("result_r")
+            if isinstance(plan, Mapping) and isinstance(plan.get("outcome"), Mapping)
+            else None
+        )
+        filtered_asset_hits: list[str] = []
+        for hit in asset_forbidden:
+            if hit in _ALLOWED_SETUP_RECORD_RESULT_R_PATHS:
+                val = _value_at_dotted_path(asset, hit.removeprefix("asset."))
+                if val is None or (
+                    not isinstance(val, bool)
+                    and isinstance(val, (int, float))
+                    and val == expected_plan_result_r
+                ):
+                    continue
+            filtered_asset_hits.append(hit)
+        asset_forbidden = filtered_asset_hits
+    forbidden.extend(asset_forbidden)
     if isinstance(candidate.get("public_metadata"), Mapping):
         forbidden.extend(_find_forbidden_keys(candidate["public_metadata"], prefix="public_metadata"))
     if forbidden:
@@ -748,7 +833,7 @@ def validate_cached_chart_candidate(
         raise CachedChartFallbackError("CC760_PUBLIC_RIGHTS_INVALID", reason="RAW_LEVELS_DRAWN_FORBIDDEN")
 
     private_texts = pages.private_source_texts(run) if run.get("documents") else []
-    _check_privacy_and_r_leaks(candidate=candidate, asset=asset, snap=snap, private_texts=private_texts)
+    _check_privacy_and_r_leaks(candidate=candidate, asset=asset, snap=snap, private_texts=private_texts, plan=plan)
 
     return {
         "market": market,
@@ -882,6 +967,15 @@ def resolve_cached_plan_chart(
     )
     if not timed_out or not timeout_cause:
         return None, []
+    try:
+        now_utc = _parse_utc(
+            now if now is not None else datetime.now(timezone.utc),
+            error_cause="CC760_SOURCE_WINDOW_INVALID",
+        )
+    except CachedChartFallbackError:
+        return None, []
+    if not _is_capture_exhausted(capture_state, at_utc=now_utc):
+        return None, []
 
     pool: list[Mapping[str, Any]] = []
     if candidates is not None:
@@ -901,7 +995,7 @@ def resolve_cached_plan_chart(
                 plan=plan,
                 run=run,
                 manuscript=manuscript,
-                now=now,
+                now=now_utc,
                 final_status=final_status,
                 max_age_seconds=max_age_seconds,
             )
@@ -1010,6 +1104,7 @@ def validate_cached_fallback_asset(
     manuscript: Mapping[str, Any] | None = None,
     folder: Path | str,
     final_status: Mapping[str, Any] | None = None,
+    now: datetime | str | None = None,
 ) -> dict[str, Any]:
     """Re-verify a bound cached TradingView chart fallback at registration and write boundaries."""
     from . import plan_analysis_pages_v1 as pages
@@ -1033,9 +1128,17 @@ def validate_cached_fallback_asset(
         raise CachedChartFallbackError("CC760_FALLBACK_CAPTURE_NOT_TIMED_OUT")
 
     substituted_at = _parse_utc(binding.get("substituted_at_utc"), error_cause="CC760_FALLBACK_BINDING_INVALID")
-    started_at = _parse_utc(capture_state.get("started_at_utc"), error_cause="CC760_FALLBACK_BINDING_INVALID")
-    elapsed = (substituted_at - started_at).total_seconds()
-    if substituted_at < started_at or not (capture_state.get("attempts", 0) >= 2 or elapsed >= 300):
+    if now is not None:
+        now_utc = _parse_utc(now, error_cause="CC760_FALLBACK_BINDING_INVALID")
+        if substituted_at > now_utc:
+            raise CachedChartFallbackError(
+                "CC760_FALLBACK_BINDING_INVALID",
+                reason="SUBSTITUTED_IN_FUTURE",
+                substituted_at_utc=substituted_at.isoformat(),
+                now_utc=now_utc.isoformat(),
+            )
+    _parse_utc(capture_state.get("started_at_utc"), error_cause="CC760_FALLBACK_BINDING_INVALID")
+    if not _is_capture_exhausted(capture_state, at_utc=substituted_at):
         raise CachedChartFallbackError("CC760_FALLBACK_CAPTURE_NOT_EXHAUSTED")
 
     max_age = binding.get("max_cache_age_seconds")
@@ -1127,6 +1230,8 @@ def validate_write_cached_fallback(
     from . import plan_analysis_pages_v1 as pages
     from . import publication_image_contract_v1 as contract
 
+    if not isinstance(asset.get("cached_chart_fallback"), Mapping):
+        raise contract.ImageContractError("CC760_FALLBACK_BINDING_INVALID")
     page_id = str(intent.get("plan_analysis_page") or "")
     held = store.get_outbox_message(page_id) if page_id else None
     packet = json.loads(held["payload"]) if held else {}
@@ -1145,6 +1250,7 @@ def validate_write_cached_fallback(
             manuscript=packet.get("manuscript"),
             folder=folder,
             final_status=packet.get("final_status"),
+            now=now,
         )
     except CachedChartFallbackError as exc:
         raise contract.ImageContractError(exc.cause, **exc.details) from exc

@@ -869,12 +869,25 @@ def validate_plan(store, work_item_id, plan):
         if asset.get("modality") == "tradingview_chart_snapshot":
             from .tradingview_snapshot_v1 import validate_snapshot_asset
             validate_snapshot_asset(asset, {"market_asset": packet["source_plan"]["asset_id"]})
-            if asset.get("cached_chart_fallback"):
-                from .cc760_tv_chart_fallback_v1 import validate_cached_fallback_asset
+            from .cc760_tv_chart_fallback_v1 import (
+                capture_state_is_text_only,
+                run_context_has_cached_fallback,
+                validate_cached_fallback_asset,
+            )
+            folder_path = Path(packet["output_dir"]) if packet.get("output_dir") else None
+            if (
+                "cached_chart_fallback" in asset
+                or "cached_chart_fallback" in packet
+                or bool(packet.get("cached_chart_fallback"))
+                or run_context_has_cached_fallback(folder_path)
+                or capture_state_is_text_only(folder_path)
+            ):
+                if folder_path is None:
+                    raise ValueError("CC760_FALLBACK_BINDING_INVALID")
                 validate_cached_fallback_asset(
                     asset, packet["source_plan"], run,
                     manuscript=packet.get("manuscript"),
-                    folder=Path(packet["output_dir"]),
+                    folder=folder_path,
                     final_status=packet.get("final_status"),
                 )
             if asset.get("plan_overlay"):

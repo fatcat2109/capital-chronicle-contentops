@@ -768,7 +768,15 @@ def validate_write(coordinator, intent, destination):
             if not market:
                 raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
             tv.validate_snapshot_asset(asset, {"market_asset": market})
-            if asset.get("cached_chart_fallback"):
+            cached_fallback_present = (
+                "cached_chart_fallback" in asset
+                or "cached_chart_fallback" in article
+                or bool(article.get("cached_chart_fallback"))
+            )
+            if not cached_fallback_present and intent.get("plan_analysis_page") and intent.get("output_dir"):
+                from .cc760_tv_chart_fallback_v1 import capture_state_is_text_only
+                cached_fallback_present = capture_state_is_text_only(Path(intent["output_dir"]))
+            if cached_fallback_present:
                 if not (intent.get("plan_analysis_page") and intent.get("output_dir")):
                     raise ImageContractError("CC760_FALLBACK_BINDING_INVALID")
                 from .cc760_tv_chart_fallback_v1 import validate_write_cached_fallback
