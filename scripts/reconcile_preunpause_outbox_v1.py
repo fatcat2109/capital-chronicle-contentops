@@ -134,11 +134,16 @@ def _resolve_interlock_clock(
     *,
     now: Optional[datetime] = None,
     interlock_now: Optional[datetime] = None,
+    live_production_db: bool = False,
 ) -> datetime:
-    """Resolve liveness interlock clock so future --now-utc can never expire live leases/heartbeats."""
+    """Resolve liveness interlock clock so future clocks can never expire live leases/heartbeats."""
+    wall_now = datetime.now(timezone.utc)
+    if live_production_db:
+        if interlock_now is not None:
+            raise ValueError("APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE")
+        return wall_now
     if interlock_now is not None:
         return _ensure_utc(interlock_now)
-    wall_now = datetime.now(timezone.utc)
     if now is not None:
         return min(wall_now, _ensure_utc(now))
     return wall_now
@@ -149,18 +154,21 @@ def _resolve_apply_expiry_clock(
     db_path: Path,
     now: Optional[datetime],
     allow_copied_state_clock_override: bool,
+    interlock_now: Optional[datetime] = None,
     production_store: Optional[Path] = None,
 ) -> tuple[Optional[datetime], Optional[str], str, bool]:
     """Enforce wall UTC for live --apply; confine clock overrides strictly to explicit copied-state replay."""
     live_db = is_live_production_db(db_path, production_store=production_store)
     if live_db:
-        if now is not None or allow_copied_state_clock_override:
+        if now is not None or interlock_now is not None or allow_copied_state_clock_override:
             return None, "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE", "REFUSED", True
         return datetime.now(timezone.utc), None, "WALL_UTC", True
-    if now is not None:
+    if now is not None or interlock_now is not None:
         if not allow_copied_state_clock_override:
             return None, "APPLY_CLOCK_OVERRIDE_REQUIRES_COPIED_STATE_REPLAY", "REFUSED", False
-        return _ensure_utc(now), None, "COPIED_STATE_REPLAY_OVERRIDE", False
+        if now is not None:
+            return _ensure_utc(now), None, "COPIED_STATE_REPLAY_OVERRIDE", False
+        return datetime.now(timezone.utc), None, "WALL_UTC", False
     return datetime.now(timezone.utc), None, "WALL_UTC", False
 
 
@@ -428,8 +436,18 @@ def check_apply_interlocks(
     """Fail-closed interlock verification prior to any ``--apply`` write."""
     blockers: list[dict[str, Any]] = []
     target_prod = PRODUCTION_STORE if production_store is None else production_store
-    liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
     live_db = is_live_production_db(db_path, production_store=target_prod)
+    if live_db:
+        if interlock_now is not None:
+            blockers.append(
+                {
+                    "code": "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE",
+                    "requested_interlock_now_utc": _ensure_utc(interlock_now).isoformat().replace("+00:00", "Z"),
+                }
+            )
+        liveness_now = datetime.now(timezone.utc)
+    else:
+        liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
     effective_control_dir = control_dir if control_dir is not None else (db_path.parent / "control")
 
     # 1. restored.json check (pause lifted => refuse pre-unpause mutation).
@@ -1288,12 +1306,13 @@ def apply_preunpause_reconciliation(
 
     Live DB ``--apply`` always enforces real wall-clock UTC for BOTH liveness interlocks and
     staleness/expiry selection (and re-evaluates page/deadline inside ``BEGIN IMMEDIATE``).
-    Passing an explicit ``now`` override is refused on the live DB and requires explicit
-    ``allow_copied_state_clock_override=True`` on copied SQLite stores.
+    Passing an explicit ``now`` or ``interlock_now`` override is refused on the live DB and
+    requires explicit ``allow_copied_state_clock_override=True`` on copied SQLite stores.
     """
     expiry_now, clock_refusal, expiry_clock_mode, live_db = _resolve_apply_expiry_clock(
         db_path=db_path,
         now=now,
+        interlock_now=interlock_now,
         allow_copied_state_clock_override=allow_copied_state_clock_override,
         production_store=production_store,
     )
@@ -1311,17 +1330,29 @@ def apply_preunpause_reconciliation(
             },
         )
 
-    liveness_now = _resolve_interlock_clock(now=expiry_now, interlock_now=interlock_now)
-    interlocks = check_apply_interlocks(
-        db_path,
-        now=expiry_now,
-        interlock_now=liveness_now,
-        control_dir=control_dir,
-        extra_lock_paths=extra_lock_paths,
-        production_store=production_store,
-        check_live_processes=check_live_processes,
-        process_scanner=process_scanner,
-    )
+    if live_db:
+        interlocks = check_apply_interlocks(
+            db_path,
+            now=None,
+            interlock_now=None,
+            control_dir=control_dir,
+            extra_lock_paths=extra_lock_paths,
+            production_store=production_store,
+            check_live_processes=check_live_processes,
+            process_scanner=process_scanner,
+        )
+    else:
+        liveness_now = _resolve_interlock_clock(now=expiry_now, interlock_now=interlock_now)
+        interlocks = check_apply_interlocks(
+            db_path,
+            now=expiry_now,
+            interlock_now=liveness_now,
+            control_dir=control_dir,
+            extra_lock_paths=extra_lock_paths,
+            production_store=production_store,
+            check_live_processes=check_live_processes,
+            process_scanner=process_scanner,
+        )
     audit = audit_preunpause_outbox(
         db_path,
         now=expiry_now,
@@ -1360,8 +1391,12 @@ def apply_preunpause_reconciliation(
     try:
         conn.execute("BEGIN IMMEDIATE")
         tx_wall_now = datetime.now(timezone.utc)
-        tx_expiry_now = tx_wall_now if expiry_clock_mode == "WALL_UTC" else expiry_now
-        tx_liveness_now = _resolve_interlock_clock(now=tx_expiry_now, interlock_now=interlock_now)
+        tx_expiry_now = tx_wall_now if (live_db or expiry_clock_mode == "WALL_UTC") else expiry_now
+        tx_liveness_now = (
+            tx_wall_now
+            if live_db
+            else _resolve_interlock_clock(now=tx_expiry_now, interlock_now=interlock_now)
+        )
         # Re-verify SQLite lease/heartbeat interlocks inside the exclusive write transaction.
         tx_blockers = _collect_sqlite_liveness_blockers(conn, liveness_now=tx_liveness_now)
         if tx_blockers:

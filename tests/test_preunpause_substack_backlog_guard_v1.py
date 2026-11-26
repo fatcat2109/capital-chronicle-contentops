@@ -1743,3 +1743,181 @@ def test_cc692_cc908_future_clock_cannot_retire_active_page_and_tx_reevaluates_d
     assert store_tx.get_outbox_message(sub_b_toctou["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
     assert store_tx.get_platform_dispatch(sub_b_toctou["dispatch_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
     assert store_tx.get_outbox_message(sub_b_toctou["page_id"])["status"] == "EDITORIAL_INTERNAL"
+
+
+def test_cc692_cc910_live_apply_forbids_interlock_now_override_and_enforces_wall_utc_liveness(
+    tmp_path, monkeypatch
+):
+    """CC-910 [Medium] regression: production-bound Python apply MUST refuse any caller-provided
+    interlock_now override (0 writes, active lease/heartbeat untouched), derive both preflight and
+    in-transaction liveness clocks strictly from wall UTC, and preserve copied-state replay."""
+    db_path = tmp_path / "cc910_live_interlock.sqlite3"
+    store = ContentOpsDurableStore(db_path)
+    wall_now = datetime.now(timezone.utc)
+    expired_deadline = (wall_now - timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+    future_interlock = wall_now + timedelta(days=2)
+
+    expired_page = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_cc910_expired",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+
+    # Seed a wall-current ACTIVE SQLite lease (+10m) AND a fresh ALIVE heartbeat (-30s).
+    lease_acq = wall_now.isoformat().replace("+00:00", "Z")
+    lease_exp = (wall_now + timedelta(minutes=10)).isoformat().replace("+00:00", "Z")
+    hb_seen = (wall_now - timedelta(seconds=30)).isoformat().replace("+00:00", "Z")
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute(
+            "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+            "VALUES ('lease_cc910_live', 'cc910-live-key', NULL, 'live-writer', 9, ?, ?, ?, 'ACTIVE')",
+            (lease_acq, lease_acq, lease_exp),
+        )
+        conn.execute(
+            "INSERT INTO heartbeats (heartbeat_id, worker_id, lease_id, last_seen_at, status) "
+            "VALUES ('hb_cc910_live', 'cc910-supervisor', 'lease_cc910_live', ?, 'ALIVE')",
+            (hb_seen,),
+        )
+        conn.commit()
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    before_hash = _sha256_file(db_path)
+
+    # 1. Production-bound apply_preunpause_reconciliation with future interlock_now (and now=None)
+    #    MUST fail closed with EXIT_USAGE_REFUSED / APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE, 0 writes,
+    #    leaving expired page READY and active lease/heartbeat completely untouched.
+    rc_ref, res_ref = cli.apply_preunpause_reconciliation(
+        db_path,
+        interlock_now=future_interlock,
+        production_store=db_path,
+        process_scanner=lambda: [],
+    )
+    assert rc_ref == cli.EXIT_USAGE_REFUSED
+    assert res_ref["status"] == "REFUSED_USAGE"
+    assert res_ref["applied"] is False
+    assert res_ref["reason"] == "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"
+    assert res_ref["live_production_db"] is True
+    assert _sha256_file(db_path) == before_hash
+    assert store.get_outbox_message(expired_page["message_id"])["status"] == "READY"
+    with closing(sqlite3.connect(db_path)) as conn:
+        lease_row = conn.execute(
+            "SELECT status, expires_at FROM leases WHERE lease_id='lease_cc910_live'"
+        ).fetchone()
+        hb_row = conn.execute(
+            "SELECT status, last_seen_at FROM heartbeats WHERE heartbeat_id='hb_cc910_live'"
+        ).fetchone()
+    assert lease_row == ("ACTIVE", lease_exp)
+    assert hb_row == ("ALIVE", hb_seen)
+
+    # Also refused when PRODUCTION_STORE is bound directly (without explicit production_store kwarg)
+    # and even when allow_copied_state_clock_override=True.
+    monkeypatch.setattr(cli, "PRODUCTION_STORE", db_path)
+    rc_ref2, res_ref2 = cli.apply_preunpause_reconciliation(
+        db_path,
+        interlock_now=future_interlock,
+        allow_copied_state_clock_override=True,
+        process_scanner=lambda: [],
+    )
+    assert rc_ref2 == cli.EXIT_USAGE_REFUSED
+    assert res_ref2["reason"] == "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"
+    assert _sha256_file(db_path) == before_hash
+
+    # Direct check_apply_interlocks and _resolve_interlock_clock on production store also refuse
+    # caller-injected interlock_now and still evaluate wall-UTC lease/heartbeat blockers.
+    direct_il = cli.check_apply_interlocks(
+        db_path,
+        interlock_now=future_interlock,
+        process_scanner=lambda: [],
+    )
+    assert direct_il["ok"] is False
+    blocker_codes = {b["code"] for b in direct_il["blockers"]}
+    assert "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE" in blocker_codes
+    assert "ACTIVE_SQLITE_LEASE" in blocker_codes
+    assert "ACTIVE_SUPERVISOR_HEARTBEAT" in blocker_codes
+    with pytest.raises(ValueError, match="APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"):
+        cli._resolve_interlock_clock(interlock_now=future_interlock, live_production_db=True)
+
+    # 2. Normal production-bound apply (interlock_now=None) refuses on wall-UTC active lease & heartbeat
+    #    in preflight AND inside BEGIN IMMEDIATE if a lease appears concurrently after preflight.
+    rc_live_block, res_live_block = cli.apply_preunpause_reconciliation(
+        db_path,
+        process_scanner=lambda: [],
+    )
+    assert rc_live_block == cli.EXIT_INTERLOCK_REFUSED
+    assert res_live_block["applied"] is False
+    live_codes = {b["code"] for b in res_live_block["interlocks"]["blockers"]}
+    assert "ACTIVE_SQLITE_LEASE" in live_codes
+    assert "ACTIVE_SUPERVISOR_HEARTBEAT" in live_codes
+    assert _sha256_file(db_path) == before_hash
+
+    # Remove lease/heartbeat so preflight passes, then inject a fresh lease right before BEGIN IMMEDIATE
+    # to prove transaction-phase liveness also uses wall UTC and rolls back with zero mutations.
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute("DELETE FROM leases WHERE lease_id='lease_cc910_live'")
+        conn.execute("DELETE FROM heartbeats WHERE heartbeat_id='hb_cc910_live'")
+        conn.commit()
+    orig_audit = cli.audit_preunpause_outbox
+    injected = {"done": False}
+
+    def _audit_then_inject_live_lease(*args, **kwargs):
+        out = orig_audit(*args, **kwargs)
+        if not injected["done"]:
+            injected["done"] = True
+            now_tx = datetime.now(timezone.utc)
+            with closing(sqlite3.connect(db_path)) as conn:
+                conn.execute(
+                    "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+                    "VALUES ('lease_cc910_toctou', 'cc910-tx-key', NULL, 'live-writer', 10, ?, ?, ?, 'ACTIVE')",
+                    (
+                        now_tx.isoformat().replace("+00:00", "Z"),
+                        now_tx.isoformat().replace("+00:00", "Z"),
+                        (now_tx + timedelta(minutes=10)).isoformat().replace("+00:00", "Z"),
+                    ),
+                )
+                conn.commit()
+        return out
+
+    monkeypatch.setattr(cli, "audit_preunpause_outbox", _audit_then_inject_live_lease)
+    rc_tx_ref, res_tx_ref = cli.apply_preunpause_reconciliation(
+        db_path,
+        process_scanner=lambda: [],
+    )
+    assert rc_tx_ref == cli.EXIT_INTERLOCK_REFUSED
+    assert res_tx_ref["applied"] is False
+    assert any(
+        b["code"] == "ACTIVE_SQLITE_LEASE" and b["lease_id"] == "lease_cc910_toctou"
+        for b in res_tx_ref["interlocks"]["blockers"]
+    )
+    assert store.get_outbox_message(expired_page["message_id"])["status"] == "READY"
+    monkeypatch.undo()
+
+    # 3. Copied-state replay path (non-production store):
+    #    - interlock_now without allow_copied_state_clock_override=True fails closed (EXIT_USAGE_REFUSED).
+    #    - explicit allow_copied_state_clock_override=True preserves copied-state replay cleanly.
+    copied_db = tmp_path / "cc910_copied_replay.sqlite3"
+    copied_store = ContentOpsDurableStore(copied_db)
+    replay_page = _seed_plan_analysis_page(
+        copied_store,
+        plan_id="plan_cc910_replay",
+        entry_deadline_utc="2026-11-12T21:00:00Z",
+        outbox_status="READY",
+    )
+    rc_copy_ref, res_copy_ref = cli.apply_preunpause_reconciliation(
+        copied_db,
+        interlock_now=future_interlock,
+    )
+    assert rc_copy_ref == cli.EXIT_USAGE_REFUSED
+    assert res_copy_ref["reason"] == "APPLY_CLOCK_OVERRIDE_REQUIRES_COPIED_STATE_REPLAY"
+    assert copied_store.get_outbox_message(replay_page["message_id"])["status"] == "READY"
+
+    replay_now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+    rc_copy_ok, res_copy_ok = cli.apply_preunpause_reconciliation(
+        copied_db,
+        now=replay_now,
+        interlock_now=wall_now,
+        allow_copied_state_clock_override=True,
+    )
+    assert rc_copy_ok == cli.EXIT_OK
+    assert res_copy_ok["applied"] is True
+    assert res_copy_ok["expiry_clock_mode"] == "COPIED_STATE_REPLAY_OVERRIDE"
+    assert copied_store.get_outbox_message(replay_page["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
