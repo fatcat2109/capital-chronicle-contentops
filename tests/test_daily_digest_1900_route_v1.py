@@ -1,4 +1,4 @@
-"""CC-143 19:00 route helper. No browser, store, provider or production access."""
+"""CC-143 / CC-855 19:00 route helper. No browser, store, provider or production access."""
 import importlib.util
 import socket
 import sqlite3
@@ -33,15 +33,25 @@ def test_naive_clock_is_refused():
         route.due_state(datetime(2026, 11, 5, 12))
 
 
-def test_invocation_label_and_commands_carry_the_claude_surface():
-    label = route.default_invocation_id(at("2026-11-05T12:05:07Z"))
-    assert label == "claude-code-session:cc143-digest-1900:20261105T120507Z"
+def test_invocation_label_and_commands_carry_the_non_claude_default_and_codex_astra_surfaces():
+    # Default CC-855 migrated route is deterministic Python over local Neo MCP endpoint.
+    label = route.default_invocation_id(at("2026-12-05T12:15:07Z"))
+    assert label == "windows-scheduler-neo:cc143-digest-1900:20261205T121507Z"
+    assert "claude" not in label.lower() and "agy" not in label.lower()
     commands = route._commands("config/native_desktop_rollout_v1.json", label)
+    assert "run_daily_digest_1900.py run" in commands["run"]
     assert "run_daily_digest_1900.py resume" in commands["resume"] and label in commands["resume"]
     assert "digest-tool-begin" in commands["begin"] and "--request-sha256" in commands["begin"]
     assert "digest-tool-submit" in commands["submit"] and "--response" in commands["submit"]
-    assert commands["observation"]["surface"] == "CLAUDE_CODE_SESSION"
-    assert commands["observation"]["tool_name"] == "mcp__browseros-neo__run"
+    assert commands["observation"]["surface"] == "NEO_ENDPOINT_EXECUTOR"
+    assert commands["observation"]["tool_name"] == "browseros-neo/run"
+
+    # Explicit codex-astra profile uses CODEX_EXEC + mcp__browseros_neo__run + gpt-6.2-astra max.
+    astra_label = route.default_invocation_id(at("2026-12-05T12:15:07Z"), driver="codex-astra")
+    assert astra_label == "codex-exec-astra:cc143-digest-1900:20261205T121507Z"
+    astra_cmds = route._commands("config/native_desktop_rollout_v1.json", astra_label, driver="codex-astra")
+    assert astra_cmds["observation"]["surface"] == "CODEX_EXEC"
+    assert astra_cmds["observation"]["tool_name"] == "mcp__browseros_neo__run"
 
 
 def test_early_resume_stops_before_any_store_or_rollout_read(tmp_path):
