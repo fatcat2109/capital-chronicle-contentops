@@ -663,7 +663,8 @@ def _assemble(plan, manuscript, run, *, market_update=None, final_status=None, a
 
 
 def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=None, final_status=None,
-           active_status=None, setup_post_dir=None):
+           active_status=None, setup_post_dir=None, setup_record=None,
+           cached_chart_candidates=None, now=None):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
     check_new_page_copy(manuscript, run)
@@ -675,11 +676,24 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
     folder = Path(output_dir)
     folder.mkdir(parents=True, exist_ok=True)
     card = None
+    fallback_refusals = []
     if plan.get("asset_id") in posts.MARKETS and plan.get("zone"):
         if final_status and final_status.get("ended_before_entry_deadline"):
             card = _closed_plan_chart(plan, folder, manuscript, final_status, setup_post_dir)
         else:
             card = _card(plan, run, folder, manuscript)
+            if card is None:
+                # CC-760 (decision 82): on capture timeout/expiry, reuse an already-bound same-plan
+                # TradingView chart only when all five invariants pass; otherwise fail closed.
+                from .cc760_tv_chart_fallback_v1 import resolve_cached_plan_chart
+                card, fallback_refusals = resolve_cached_plan_chart(
+                    plan, run, folder, manuscript,
+                    setup_post_dir=setup_post_dir,
+                    setup_record=setup_record,
+                    candidates=cached_chart_candidates,
+                    final_status=final_status,
+                    now=now,
+                )
             if card is None:
                 # Decision 82: a failed capture leaves CC-290's fact card with the plan's own numbers,
                 # never a text-only page (22 Nov BTC page).
@@ -720,7 +734,14 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT, market_update=Non
         capture_state = json.loads(state.read_bytes())
         article.update(publication_image_contract=POLICY,
             tradingview_capture_state_path=str(state.resolve()), tradingview_capture_key=capture_state["key"],
-            tradingview_text_fallback=capture_state.get("status") == "TEXT_ONLY")
+            tradingview_text_fallback=capture_state.get("status") == "TEXT_ONLY" and not bool(
+                card and card.get("cached_chart_fallback")))
+    if card and card.get("cached_chart_fallback"):
+        article["cached_chart_fallback"] = card["cached_chart_fallback"]
+        packet["cached_chart_fallback"] = card["cached_chart_fallback"]
+    elif fallback_refusals:
+        article["cached_chart_fallback_refusals"] = fallback_refusals
+        packet["cached_chart_fallback_refusals"] = fallback_refusals
     (folder / "run_context_v1.json").write_bytes(canonical_bytes({"article": article,
         "selection": {}, "media": {"assets": packet["media_assets"]}}))
     (folder / "page.json").write_bytes(canonical_bytes(packet))
@@ -848,6 +869,14 @@ def validate_plan(store, work_item_id, plan):
         if asset.get("modality") == "tradingview_chart_snapshot":
             from .tradingview_snapshot_v1 import validate_snapshot_asset
             validate_snapshot_asset(asset, {"market_asset": packet["source_plan"]["asset_id"]})
+            if asset.get("cached_chart_fallback"):
+                from .cc760_tv_chart_fallback_v1 import validate_cached_fallback_asset
+                validate_cached_fallback_asset(
+                    asset, packet["source_plan"], run,
+                    manuscript=packet.get("manuscript"),
+                    folder=Path(packet["output_dir"]),
+                    final_status=packet.get("final_status"),
+                )
             if asset.get("plan_overlay"):
                 from .tradingview_plan_overlay_v1 import validate as validate_overlay
                 overlay_row = {"key": "plan-analysis-" + packet["plan_id"],
