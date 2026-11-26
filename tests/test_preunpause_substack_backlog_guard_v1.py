@@ -1,0 +1,1159 @@
+"""Hermetic adversarial tests for Substack plan_analysis_page staleness guard & pre-unpause outbox CLI.
+
+Covers Cycle #31 / CC-692 requirements:
+- Subgroup A (#13 outbox_33a7...): expired un-dispatched READY Substack plan_analysis_page auto-expires
+  in recover_pending(), unblocking new Substack articles instead of BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS.
+- Boundary precision: 1 second before entry_deadline_utc -> NOT expired; exact deadline -> expired.
+- Active non-expired Substack plan_analysis_page -> NOT expired.
+- Closed-plan page with final_status bound -> NOT spuriously expired on entry_deadline_utc.
+- Non-plan Substack articles (regular article, wrap, digest) -> NEVER expired by plan guard.
+- Subgroup B (#14 dispatch_4f58...): DISPATCH_ATTEMPT_STARTED / UNKNOWN_WRITE / RECONCILED_ABSENT_SAFE_TO_RETRY
+  Substack rows preserve readback-first and no-auto-retry guarantees; NEVER auto-retired without durable
+  verified absence proof.
+- CLI scripts/reconcile_preunpause_outbox_v1.py: strict --dry-run default (byte-exact zero mutation),
+  fail-closed interlocks (restored.json, active lease, fresh heartbeat, lock file, live process),
+  clean idempotent --apply on scratch SQLite fixture across Subgroups A/B/D, expired derivatives,
+  dead-parent UNKNOWN_WRITE polling targets (O56/O58/O60/O61), and opt-in --retire-cc603-backfill.
+"""
+from __future__ import annotations
+
+from contextlib import closing
+from datetime import datetime, timedelta, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import sqlite3
+import sys
+
+import pytest
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(REPO_ROOT / "scripts") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+
+import reconcile_preunpause_outbox_v1 as cli  # noqa: E402
+from live_contentops.destination_transport_registry_v1 import (  # noqa: E402
+    REGISTRY_VERSION,
+    registration_for_destination,
+)
+from live_contentops.durable_operational_store_v1 import (  # noqa: E402
+    ContentOpsDurableStore,
+)
+from live_contentops.publication_coordinator_v1 import (  # noqa: E402
+    ATTEMPT_STARTED,
+    DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+    DISPATCH_CONFIRMED,
+    DurablePublicationCoordinator,
+    NATIVE_NEO_PENDING,
+    PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+    RECONCILED_ABSENT_SAFE_TO_RETRY,
+    RECONCILED_CONFIRMED,
+    UNKNOWN_WRITE,
+    substack_plan_page_staleness,
+)
+
+
+@pytest.fixture(autouse=True)
+def _no_article_media_for_synthetic_transport_tests(monkeypatch):
+    """Synthetic coordinator fixtures have no media files on disk (mirrors test_publication_coordinator_v1)."""
+    from live_contentops import publication_image_contract_v1
+
+    monkeypatch.setattr(publication_image_contract_v1, "validate_write", lambda *args, **kwargs: None)
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _set_operating_mode(store: ContentOpsDurableStore, mode: str) -> None:
+    current = store.get_operating_control()
+    if current["operating_mode"] != mode:
+        store.update_operating_control(
+            expected_state_version=int(current["state_version"]),
+            operating_mode=mode,
+            control_source="CONTROLLED_TEST",
+        )
+
+
+def _set_autonomous_mode(store: ContentOpsDurableStore) -> None:
+    _set_operating_mode(store, "AUTONOMOUS_DEFAULT")
+
+
+class _RecordingTransport:
+    def __init__(self, *, readback_status: str = "AMBIGUOUS"):
+        self.publish_calls: list[tuple[str, str]] = []
+        self.readback_calls: list[tuple[str, str]] = []
+        self.readback_status = readback_status
+
+    def publish(self, *, destination, intent, authorization_context, **kwargs):
+        work_item_id = str(intent["work_item_id"])
+        self.publish_calls.append((destination, work_item_id))
+        if destination == "substack":
+            slug = work_item_id.lower().replace("_", "-")
+            return {
+                "status": "SUCCESS",
+                "id": f"sub-{work_item_id}",
+                "public_url": f"https://capitalchronicle.substack.com/p/{slug}",
+                "observed_published_at_utc": "2026-11-29T18:05:00Z",
+            }
+        return {
+            "status": "SUCCESS",
+            "id": f"{destination}-{work_item_id}",
+            "public_url": f"https://example.test/{destination}/{work_item_id}",
+        }
+
+    def readback(self, *, destination, public_object_id, public_object_url, intent):
+        work_item_id = str(intent["work_item_id"])
+        self.readback_calls.append((destination, work_item_id))
+        if self.readback_status == "CONFIRMED":
+            observed_id = public_object_id or f"sub-{work_item_id}"
+            observed_url = (
+                public_object_url
+                or f"https://capitalchronicle.substack.com/p/{work_item_id.lower().replace('_', '-')}"
+            )
+            return {
+                "status": "SUCCESS",
+                "verified": True,
+                "public_object_id": observed_id,
+                "public_object_url": observed_url,
+            }
+        return {
+            "status": "AMBIGUOUS",
+            "verified": False,
+        }
+
+
+def _make_substack_plan(
+    work_item_id: str,
+    *,
+    payload_text: str = "Conditional plan analysis.",
+    output_dir: Path | str | None = None,
+) -> dict:
+    reg = registration_for_destination("substack")
+    plan = {
+        "schema_version": "contentops.publication_plan.v1",
+        "story_identity": work_item_id,
+        "article_identity": work_item_id,
+        "package_identity": work_item_id,
+        "transport_registry_version": REGISTRY_VERSION,
+        "policy_mode_version": "AUTONOMOUS_DEFAULT:TEST",
+        "publication_window": {"window_identity": work_item_id},
+        "destinations": [
+            {
+                "destination": "substack",
+                "platform": reg.platform,
+                "surface": reg.surface,
+                "transport_type": reg.transport_type,
+                "transport_registry_version": REGISTRY_VERSION,
+                "payload": payload_text,
+                "payload_hash": hashlib.sha256(payload_text.encode("utf-8")).hexdigest(),
+                "canonical_url": f"https://capitalchronicle.substack.com/p/{work_item_id}",
+                "canonical_url_dependency": reg.canonical_url_dependency,
+                "expected_destination_identity": reg.expected_identity,
+                "readiness_state": "READY_AUTHENTICATED",
+            }
+        ],
+    }
+    if output_dir is not None:
+        plan["output_dir"] = str(output_dir)
+    plan["plan_hash"] = hashlib.sha256(
+        json.dumps(plan, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return plan
+
+
+def _seed_plan_analysis_page(
+    store: ContentOpsDurableStore,
+    *,
+    plan_id: str,
+    entry_deadline_utc: str | None,
+    expires_at_utc: str | None = None,
+    source_status: str = "WAITING",
+    final_status: dict | None = None,
+    parent_status: str = "EDITORIAL_INTERNAL",
+    outbox_status: str = "READY",
+    dispatch_status: str | None = None,
+    reconciliation_status: str | None = None,
+    verified_absence_readback: bool = False,
+    ambiguous_readback: bool = False,
+    override_intent_plan_hash: str | None = None,
+    created_at: str = "2026-11-23T02:55:03.895027+00:00",
+    public_object_id: str | None = None,
+    public_object_url: str | None = None,
+    publication_window_override: dict | None = None,
+) -> dict[str, str]:
+    page_id = f"plan-analysis-{plan_id}"
+    reg = registration_for_destination("substack")
+    body = f"Bearish plan analysis for {plan_id}."
+    plan = {
+        "schema_version": "contentops.publication_plan.v1",
+        "plan_analysis_page": page_id,
+        "story_identity": page_id,
+        "article_identity": page_id,
+        "package_identity": page_id,
+        "output_dir": str(Path(store.db_path).parent),
+        "transport_registry_version": REGISTRY_VERSION,
+        "policy_mode_version": "AUTONOMOUS_DEFAULT:JIM_DECISION_113",
+        "publication_window": publication_window_override or {"window_identity": page_id},
+        "destinations": [
+            {
+                "destination": "substack",
+                "surface": reg.surface,
+                "transport_type": reg.transport_type,
+                "payload": body,
+                "payload_hash": hashlib.sha256(body.encode("utf-8")).hexdigest(),
+            }
+        ],
+    }
+    plan["plan_hash"] = hashlib.sha256(
+        json.dumps(plan, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    source_plan = {
+        "plan_id": plan_id,
+        "asset_id": "XAUUSD",
+        "status": source_status,
+        "registered_at_utc": "2026-11-23T02:43:45.942914Z",
+        "zone": {"minimum": 3557.0, "maximum": 3566.0},
+    }
+    if entry_deadline_utc is not None:
+        source_plan["entry_deadline_utc"] = entry_deadline_utc
+    if expires_at_utc is not None:
+        source_plan["expires_at_utc"] = expires_at_utc
+
+    packet = {
+        "schema_version": "contentops.plan_analysis_page.v1",
+        "page_id": page_id,
+        "plan_id": plan_id,
+        "source_plan": source_plan,
+        "plan": plan,
+        "native_payload": {"title": f"Gold plan {plan_id}", "subtitle": "Sub", "body_markdown": body},
+    }
+    if final_status is not None:
+        packet["final_status"] = final_status
+
+    store.create_work_item(
+        story_id=page_id,
+        work_item_id=page_id,
+        title=f"Plan page {plan_id}",
+        target_surface="SUBSTACK_ARTICLE",
+    )
+    store.register_outbox_message(
+        message_id=page_id,
+        work_item_id=page_id,
+        destination="internal:plan-analysis-page",
+        payload=json.dumps(packet, sort_keys=True),
+        status=parent_status,
+    )
+
+    intent_plan_hash = override_intent_plan_hash or plan["plan_hash"]
+    ids = DurablePublicationCoordinator._ids(page_id, intent_plan_hash, "substack")
+    intent = {
+        "schema_version": "contentops.prewrite_intent.v1",
+        "work_item_id": page_id,
+        "plan_hash": intent_plan_hash,
+        "plan_analysis_page": page_id,
+        "story_identity": page_id,
+        "article_identity": page_id,
+        "package_identity": page_id,
+        "resolved_article_mode": None,
+        "publication_window": publication_window_override or {"window_identity": page_id},
+        "destination_plan": {**plan["destinations"][0], "substack_delivery_mode": "WEB_ONLY"},
+        "payload": body,
+        "native_payload": packet["native_payload"],
+        "transport_registry_version": REGISTRY_VERSION,
+        "attempt_identity": ids["dispatch_id"],
+    }
+    store.register_outbox_message(
+        message_id=ids["message_id"],
+        work_item_id=page_id,
+        destination="substack",
+        payload=json.dumps(intent, sort_keys=True),
+        status=outbox_status,
+    )
+    with closing(store.get_connection()) as conn:
+        conn.execute(
+            "UPDATE outbox_messages SET created_at=? WHERE message_id=?",
+            (created_at, ids["message_id"]),
+        )
+        conn.commit()
+
+    if dispatch_status is not None:
+        store.register_platform_dispatch(
+            dispatch_id=ids["dispatch_id"],
+            message_id=ids["message_id"],
+            platform="substack",
+            status=dispatch_status,
+            public_object_id=public_object_id,
+            public_object_url=public_object_url,
+        )
+    if reconciliation_status is not None:
+        store.register_reconciliation(
+            reconciliation_id=ids["reconciliation_id"],
+            work_item_id=page_id,
+            status=reconciliation_status,
+        )
+    if verified_absence_readback:
+        store.register_readback(
+            readback_id="rb_absent_" + ids["dispatch_id"],
+            dispatch_id=ids["dispatch_id"],
+            readback_data=json.dumps(
+                {
+                    "readback": {
+                        "verified": True,
+                        "write_absent": True,
+                        "write_exists": False,
+                    }
+                }
+            ),
+        )
+    if ambiguous_readback:
+        store.register_readback(
+            readback_id="rb_ambig_" + ids["dispatch_id"],
+            dispatch_id=ids["dispatch_id"],
+            readback_data=json.dumps(
+                {
+                    "readback": {
+                        "verified": False,
+                        "write_absent": False,
+                        "write_exists": False,
+                        "status": "AMBIGUOUS",
+                    }
+                }
+            ),
+        )
+    return {"page_id": page_id, **ids}
+
+
+# ---------------------------------------------------------------------------
+# Part 1 — DurablePublicationCoordinator Substack Plan Backlog Guard Tests
+# ---------------------------------------------------------------------------
+
+
+def test_expired_substack_plan_page_auto_expires_and_unblocks_new_substack_article(tmp_path):
+    """Reproduces Cycle #31 #13 (outbox_33a7...): expired READY Substack plan page must not block."""
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    _set_autonomous_mode(store)
+    seeded = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_7c24bb53fe8d2a2845e98583",
+        entry_deadline_utc="2026-11-23T20:00:00Z",
+        expires_at_utc="2026-11-23T20:00:00Z",
+    )
+    original_payload = store.get_outbox_message(seeded["message_id"])["payload"]
+
+    # Boundary check: 1 second BEFORE entry_deadline_utc => NOT stale.
+    msg = store.get_outbox_message(seeded["message_id"])
+    intent = json.loads(msg["payload"])
+    stale_before, reason_before = substack_plan_page_staleness(
+        store.get_outbox_message,
+        msg,
+        intent,
+        now=datetime(2026, 11, 23, 19, 59, 59, tzinfo=timezone.utc),
+    )
+    assert (stale_before, reason_before) == (False, None)
+
+    # Exact deadline boundary => stale.
+    stale_exact, reason_exact = substack_plan_page_staleness(
+        store.get_outbox_message,
+        msg,
+        intent,
+        now=datetime(2026, 11, 23, 20, 0, 0, tzinfo=timezone.utc),
+    )
+    assert stale_exact is True
+    assert reason_exact == "SUBSTACK_PLAN_ENTRY_DEADLINE_PASSED"
+
+    # At relaunch clock (2026-11-29T18:00:00Z), execute_plan runs recover_pending preflight,
+    # expires #13 cleanly, and unblocks publication of the new Substack article!
+    transport = _RecordingTransport(readback_status="CONFIRMED")
+    relaunch_now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: relaunch_now,
+    )
+
+    store.create_work_item(
+        story_id="fresh-article-1",
+        work_item_id="fresh-article-1",
+        title="Fresh Post-Relaunch Article",
+        target_surface="SUBSTACK_ARTICLE",
+    )
+    fresh_plan = _make_substack_plan("fresh-article-1", payload_text="Fresh market note.")
+    result = coordinator.execute_plan("fresh-article-1", fresh_plan)
+
+    assert result["distribution_status"] != "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS"
+    assert result["canonical_article_real_published"] is True
+    # Exact expired row retired with zero dispatch row, immutable payload bytes, and RECOVERY_AUDIT incident.
+    expired_row = store.get_outbox_message(seeded["message_id"])
+    assert expired_row["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert expired_row["payload"] == original_payload
+    assert store.get_platform_dispatch(seeded["dispatch_id"]) is None
+    with closing(store.get_read_only_connection()) as conn:
+        audit_row = conn.execute(
+            "SELECT severity, description FROM incidents WHERE work_item_id=? AND severity='RECOVERY_AUDIT'",
+            (seeded["page_id"],),
+        ).fetchone()
+    assert audit_row is not None
+    audit_desc = json.loads(audit_row["description"])
+    assert audit_desc["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert audit_desc["cause"] == "SUBSTACK_PLAN_ENTRY_DEADLINE_PASSED"
+    assert audit_desc["public_write_performed"] is False
+    # Transport NEVER published the expired plan; published ONLY the fresh article.
+    assert transport.publish_calls == [("substack", "fresh-article-1")]
+
+    # Verify recover_pending() summary shape directly on a second expired READY Substack plan page.
+    seeded2 = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_second_expired_check",
+        entry_deadline_utc="2026-11-24T15:00:00Z",
+    )
+    recovery2 = coordinator.recover_pending()
+    assert recovery2["stale_expired"] == 1
+    assert recovery2["backlog_remaining"] == 0
+    assert recovery2["stale_plan_pages_expired"] == [
+        {
+            "message_id": seeded2["message_id"],
+            "work_item_id": seeded2["page_id"],
+            "reason": "SUBSTACK_PLAN_ENTRY_DEADLINE_PASSED",
+        }
+    ]
+    assert store.get_outbox_message(seeded2["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_platform_dispatch(seeded2["dispatch_id"]) is None
+
+    # Direct _dispatch_message on the already-expired row stays fail-closed with 0 writes.
+    direct_outcome = coordinator._dispatch_message(expired_row, canonical_url=None)
+    assert direct_outcome["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert direct_outcome["publish_called"] is False
+    assert transport.publish_calls == [("substack", "fresh-article-1")]
+
+
+def test_active_non_expired_substack_plan_page_is_not_expired(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    _set_autonomous_mode(store)
+    seeded = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_active_future",
+        entry_deadline_utc="2026-11-30T20:00:00Z",
+        expires_at_utc="2026-11-30T20:00:00Z",
+    )
+    now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+    transport = _RecordingTransport(readback_status="CONFIRMED")
+    # Put store in KILL_SWITCH so recover_pending checks staleness without attempting live write
+    # and we verify the row remains READY and NOT expired.
+    _set_operating_mode(store, "KILL_SWITCH")
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: now,
+    )
+    recovery = coordinator.recover_pending()
+
+    assert recovery["stale_expired"] == 0
+    assert recovery["backlog_remaining"] == 1
+    assert store.get_outbox_message(seeded["message_id"])["status"] == "READY"
+    assert transport.publish_calls == []
+
+
+def test_non_plan_substack_articles_and_closed_plan_pages_are_preserved(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+    transport = _RecordingTransport()
+
+    # 1. Non-plan Substack article (even with old created_at & expired window on non-plan article).
+    store.create_work_item(
+        story_id="regular-wrap",
+        work_item_id="regular-wrap",
+        title="Regular Weekly Wrap",
+        target_surface="SUBSTACK_ARTICLE",
+    )
+    regular_plan = _make_substack_plan("regular-wrap", payload_text="Weekly market wrap.")
+    regular_plan["publication_window"] = {
+        "window_identity": "regular-wrap",
+        "expires_at_utc": "2026-11-22T18:00:00Z",
+    }
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: now,
+    )
+    reg = coordinator.register_plan("regular-wrap", regular_plan)["registered"][0]
+
+    # 2. Closed-plan analysis page with final_status explicitly bound.
+    closed_page = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_closed_record",
+        entry_deadline_utc="2026-11-23T20:00:00Z",
+        final_status={"status": "EXPIRED", "status_at_utc": "2026-11-23T20:01:00Z"},
+    )
+
+    _set_operating_mode(store, "KILL_SWITCH")
+    recovery = coordinator.recover_pending()
+    assert recovery["stale_expired"] == 0
+    assert recovery["backlog_remaining"] == 2
+    assert store.get_outbox_message(reg["message_id"])["status"] == "READY"
+    assert store.get_outbox_message(closed_page["message_id"])["status"] == "READY"
+    assert transport.publish_calls == []
+
+
+def test_substack_dispatch_attempt_started_and_reconciled_absent_never_auto_retired_or_retried(tmp_path):
+    """Reproduces Cycle #31 #14 (dispatch_4f58...) and Substack RECONCILED_ABSENT safety."""
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    _set_autonomous_mode(store)
+
+    # #14: DISPATCH_ATTEMPT_STARTED on expired plan -> MUST become UNKNOWN_WRITE + readback only.
+    seeded_14 = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_1d9bc560342b94e3d5a0cdb1",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    # Historical Substack RECONCILED_ABSENT_SAFE_TO_RETRY -> MUST NOT auto-retry or auto-expire.
+    seeded_absent = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_1ff14f488bdc84b20a3f51d2",
+        entry_deadline_utc="2026-11-11T18:00:00Z",
+        outbox_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+        dispatch_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+        reconciliation_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+    )
+
+    transport = _RecordingTransport(readback_status="AMBIGUOUS")
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc),
+    )
+
+    recovery = coordinator.recover_pending()
+
+    assert recovery["stale_expired"] == 0
+    assert recovery["publish_calls"] == 0
+    assert recovery["marked_unknown"] == 1
+    assert recovery["readbacks"] == 1
+    assert transport.publish_calls == []
+    assert transport.readback_calls == [("substack", seeded_14["page_id"])]
+    # #14 stays UNKNOWN_WRITE pending verified readback; never dropped or retired.
+    assert store.get_platform_dispatch(seeded_14["dispatch_id"])["status"] == UNKNOWN_WRITE
+    assert store.get_outbox_message(seeded_14["message_id"])["status"] == UNKNOWN_WRITE
+    # Reconciled-absent Substack stays untouched.
+    assert (
+        store.get_platform_dispatch(seeded_absent["dispatch_id"])["status"]
+        == RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
+    assert (
+        store.get_outbox_message(seeded_absent["message_id"])["status"]
+        == RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
+
+
+def test_adversarial_plan_staleness_edge_cases(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+
+    # 1. Unparseable deadline fails closed.
+    bad_deadline = _seed_plan_analysis_page(
+        store, plan_id="plan_bad_ts", entry_deadline_utc="not-a-timestamp"
+    )
+    msg = store.get_outbox_message(bad_deadline["message_id"])
+    stale, reason = substack_plan_page_staleness(
+        store.get_outbox_message, msg, json.loads(msg["payload"]), now=now
+    )
+    assert stale is True and reason == "SUBSTACK_PLAN_DEADLINE_UNPARSEABLE:entry_deadline_utc"
+
+    # 2. Superseded plan_hash fails closed.
+    superseded = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_superseded",
+        entry_deadline_utc="2026-12-05T20:00:00Z",
+        override_intent_plan_hash="0" * 64,
+    )
+    msg2 = store.get_outbox_message(superseded["message_id"])
+    stale2, reason2 = substack_plan_page_staleness(
+        store.get_outbox_message, msg2, json.loads(msg2["payload"]), now=now
+    )
+    assert stale2 is True and reason2 == "SUBSTACK_PLAN_SUPERSEDED_REVISION"
+
+    # 3. Parent packet already SETTLED fails closed.
+    settled_parent = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_parent_settled",
+        entry_deadline_utc="2026-12-05T20:00:00Z",
+        parent_status="SETTLED",
+    )
+    msg3 = store.get_outbox_message(settled_parent["message_id"])
+    stale3, reason3 = substack_plan_page_staleness(
+        store.get_outbox_message, msg3, json.loads(msg3["payload"]), now=now
+    )
+    assert stale3 is True and reason3 == "SUBSTACK_PLAN_PARENT_TERMINAL:SETTLED"
+
+    # 4. Terminal source_plan status without final_status even before entry_deadline_utc.
+    cancelled_open = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_cancelled_open",
+        entry_deadline_utc="2026-12-05T20:00:00Z",
+        source_status="CANCELLED",
+    )
+    msg4 = store.get_outbox_message(cancelled_open["message_id"])
+    stale4, reason4 = substack_plan_page_staleness(
+        store.get_outbox_message, msg4, json.loads(msg4["payload"]), now=now
+    )
+    assert stale4 is True and reason4 == "SUBSTACK_PLAN_SETUP_TERMINAL:CANCELLED"
+
+    # 5. Earlier expires_at_utc wins over later entry_deadline_utc + naive UTC clock works.
+    earlier_exp = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_earlier_exp",
+        entry_deadline_utc="2026-12-05T20:00:00Z",
+        expires_at_utc="2026-11-28T20:00:00Z",
+    )
+    msg5 = store.get_outbox_message(earlier_exp["message_id"])
+    stale5, reason5 = substack_plan_page_staleness(
+        store.get_outbox_message,
+        msg5,
+        json.loads(msg5["payload"]),
+        now=datetime(2026, 11, 29, 18, 0, 0),  # naive UTC
+    )
+    assert stale5 is True and reason5 == "SUBSTACK_PLAN_ENTRY_DEADLINE_PASSED"
+
+
+# ---------------------------------------------------------------------------
+# Part 2 — Dry-Run-Default Pre-Unpause Reconciliation CLI Tests
+# ---------------------------------------------------------------------------
+
+
+def _build_full_preunpause_fixture_db(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
+    """Build a realistic SQLite fixture covering Subgroups A, B, D, derivatives, O56/O58/O60/O61, CC603."""
+    db_path = tmp_path / "fixture_preunpause.sqlite3"
+    store = ContentOpsDurableStore(db_path)
+    refs: dict[str, Any] = {}
+
+    # 1. Subgroup A (#13 expired READY Substack plan page, dispatch=None).
+    refs["subgroup_a"] = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_7c24bb53fe8d2a2845e98583",
+        entry_deadline_utc="2026-11-23T20:00:00Z",
+        expires_at_utc="2026-11-23T20:00:00Z",
+    )
+
+    # 2. Active non-expired Substack plan page (must be preserved).
+    refs["active_plan"] = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_active_dec01",
+        entry_deadline_utc="2026-12-01T20:00:00Z",
+    )
+
+    # 3. Non-plan Substack READY article (must be preserved).
+    store.create_work_item(
+        story_id="nonplan-article",
+        work_item_id="nonplan-article",
+        title="Regular Article",
+        target_surface="SUBSTACK_ARTICLE",
+    )
+    reg_sub = DurablePublicationCoordinator(store=store, transport_runtime=None).register_plan(
+        "nonplan-article", _make_substack_plan("nonplan-article")
+    )["registered"][0]
+    refs["nonplan_substack"] = reg_sub
+
+    # 4. Subgroup B1 (#14 DISPATCH_ATTEMPT_STARTED, no absence proof => NEVER auto-retire).
+    refs["subgroup_b_held_attempt"] = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_1d9bc560342b94e3d5a0cdb1",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+
+    # 5. Subgroup B2 (UNKNOWN_WRITE with ambiguous readback => NEVER auto-retire).
+    refs["subgroup_b_held_ambig"] = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_ambig_unknown",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status=UNKNOWN_WRITE,
+        dispatch_status=UNKNOWN_WRITE,
+        ambiguous_readback=True,
+    )
+
+    # 6. Subgroup B3 (expired + durable verified absence proof => safe to settle on --apply).
+    refs["subgroup_b_verified_absent"] = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_verified_absent",
+        entry_deadline_utc="2026-11-23T19:45:00Z",
+        outbox_status="READY",
+        dispatch_status=UNKNOWN_WRITE,
+        reconciliation_status=RECONCILED_ABSENT_SAFE_TO_RETRY,
+        verified_absence_readback=True,
+    )
+
+    # 7. Subgroup D (#01 NATIVE_NEO_TOOL_PENDING under SUPERSEDED_NOT_POSTED parent).
+    wid_01 = "plan-status-post-2696e75fd567c7fe308225be6bef7d68"
+    store.create_work_item(story_id=wid_01, work_item_id=wid_01, title="Superseded post", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(
+        message_id=wid_01,
+        work_item_id=wid_01,
+        destination="internal:plan-status-post",
+        payload=json.dumps({"key": wid_01, "kind": "setup"}),
+        status="SUPERSEDED_NOT_POSTED",
+    )
+    mid_01 = "outbox_5476618f81ce8b99dc5714029df32c5b"
+    did_01 = "dispatch_5476618f81ce8b99dc5714029df32c5b"
+    store.register_outbox_message(
+        message_id=mid_01,
+        work_item_id=wid_01,
+        destination="substack_notes",
+        payload=json.dumps({"work_item_id": wid_01, "plan_hash": "h01", "plan_status_post": wid_01}),
+        status=NATIVE_NEO_PENDING,
+    )
+    store.register_platform_dispatch(
+        dispatch_id=did_01, message_id=mid_01, platform="substack_notes", status=NATIVE_NEO_PENDING
+    )
+    refs["subgroup_d"] = {"work_item_id": wid_01, "message_id": mid_01, "dispatch_id": did_01}
+
+    # Active NATIVE_NEO_TOOL_PENDING under READY parent (must NOT be settled).
+    wid_active_neo = "plan-status-post-active-neo"
+    store.create_work_item(
+        story_id=wid_active_neo, work_item_id=wid_active_neo, title="Active neo", target_surface="MULTI_PLATFORM"
+    )
+    store.register_outbox_message(
+        message_id=wid_active_neo,
+        work_item_id=wid_active_neo,
+        destination="internal:plan-status-post",
+        payload=json.dumps({"key": wid_active_neo, "kind": "setup"}),
+        status="READY",
+    )
+    store.register_outbox_message(
+        message_id="outbox_active_neo",
+        work_item_id=wid_active_neo,
+        destination="substack_notes",
+        payload=json.dumps({"work_item_id": wid_active_neo, "plan_hash": "han", "plan_status_post": wid_active_neo}),
+        status=NATIVE_NEO_PENDING,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_active_neo",
+        message_id="outbox_active_neo",
+        platform="substack_notes",
+        status=NATIVE_NEO_PENDING,
+    )
+    refs["active_neo"] = {"message_id": "outbox_active_neo", "dispatch_id": "dispatch_active_neo"}
+
+    # 8. Expired derivative READY rows (window expiry + dead parent + stale >24h) + 1 fresh READY derivative.
+    store.register_outbox_message(
+        message_id="outbox_expired_deriv_dead_parent",
+        work_item_id=wid_01,
+        destination="threads",
+        payload=json.dumps({"work_item_id": wid_01, "plan_hash": "h01", "plan_status_post": wid_01}),
+        status="READY",
+    )
+    store.create_work_item(
+        story_id="cc689-weekly-2026-11-22",
+        work_item_id="cc689-weekly-2026-11-22",
+        title="Weekly wrap",
+        target_surface="MULTI_PLATFORM",
+    )
+    store.register_outbox_message(
+        message_id="outbox_expired_deriv_window",
+        work_item_id="cc689-weekly-2026-11-22",
+        destination="x",
+        payload=json.dumps(
+            {
+                "work_item_id": "cc689-weekly-2026-11-22",
+                "plan_hash": "hw22",
+                "publication_window": {"expires_at_utc": "2026-11-22T18:00:00Z"},
+            }
+        ),
+        status="READY",
+    )
+    store.create_work_item(
+        story_id="fresh-deriv-item",
+        work_item_id="fresh-deriv-item",
+        title="Fresh derivative",
+        target_surface="MULTI_PLATFORM",
+    )
+    store.register_outbox_message(
+        message_id="outbox_fresh_deriv",
+        work_item_id="fresh-deriv-item",
+        destination="telegram",
+        payload=json.dumps({"work_item_id": "fresh-deriv-item", "plan_hash": "hf1"}),
+        status="READY",
+    )
+    with closing(store.get_connection()) as conn:
+        conn.execute(
+            "UPDATE outbox_messages SET created_at=? WHERE message_id=?",
+            ("2026-11-29T17:00:00+00:00", "outbox_fresh_deriv"),
+        )
+        conn.commit()
+    refs["expired_derivs"] = ["outbox_expired_deriv_dead_parent", "outbox_expired_deriv_window"]
+    refs["fresh_deriv"] = "outbox_fresh_deriv"
+
+    # 9. Dead-parent / late UNKNOWN_WRITE polling targets (O56, O58, O60, O61) + preserved O57/O59.
+    # O60: x under SUPERSEDED_NOT_POSTED parent wid_01.
+    store.register_outbox_message(
+        message_id="outbox_o60_x",
+        work_item_id=wid_01,
+        destination="x",
+        payload=json.dumps({"work_item_id": wid_01, "plan_hash": "h01", "plan_status_post": wid_01}),
+        status=UNKNOWN_WRITE,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_o60_x", message_id="outbox_o60_x", platform="x", status=UNKNOWN_WRITE
+    )
+
+    # O56: substack_notes under SUPERSEDED_NOT_POSTED parent.
+    wid_56 = "plan-status-post-7e284f364a945bc2b95bdb16fb6a9d38"
+    store.create_work_item(story_id=wid_56, work_item_id=wid_56, title="O56", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(
+        message_id=wid_56,
+        work_item_id=wid_56,
+        destination="internal:plan-status-post",
+        payload=json.dumps({"key": wid_56}),
+        status="SUPERSEDED_NOT_POSTED",
+    )
+    store.register_outbox_message(
+        message_id="outbox_o56_notes",
+        work_item_id=wid_56,
+        destination="substack_notes",
+        payload=json.dumps({"work_item_id": wid_56, "plan_hash": "h56", "plan_status_post": wid_56}),
+        status=UNKNOWN_WRITE,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_o56_notes",
+        message_id="outbox_o56_notes",
+        platform="substack_notes",
+        status=UNKNOWN_WRITE,
+    )
+
+    # O61: x under STALE_NOT_POSTED parent.
+    wid_61 = "plan-status-post-f5c31cea9e685249e77837187480105d"
+    store.create_work_item(story_id=wid_61, work_item_id=wid_61, title="O61", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(
+        message_id=wid_61,
+        work_item_id=wid_61,
+        destination="internal:plan-status-post",
+        payload=json.dumps({"key": wid_61}),
+        status="STALE_NOT_POSTED",
+    )
+    store.register_outbox_message(
+        message_id="outbox_o61_x",
+        work_item_id=wid_61,
+        destination="x",
+        payload=json.dumps({"work_item_id": wid_61, "plan_hash": "h61", "plan_status_post": wid_61}),
+        status=UNKNOWN_WRITE,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_o61_x", message_id="outbox_o61_x", platform="x", status=UNKNOWN_WRITE
+    )
+
+    # O58: late (>24h) plan-analysis-link-* substack_notes UNKNOWN_WRITE.
+    wid_58 = "plan-analysis-link-plan_add6d62299828744939aafc1-substack_notes-8e2e4ca9"
+    store.create_work_item(story_id=wid_58, work_item_id=wid_58, title="O58", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(
+        message_id=wid_58,
+        work_item_id=wid_58,
+        destination="internal:plan-analysis-page",
+        payload=json.dumps({"link_id": wid_58}),
+        status="EDITORIAL_INTERNAL",
+    )
+    store.register_outbox_message(
+        message_id="outbox_o58_notes",
+        work_item_id=wid_58,
+        destination="substack_notes",
+        payload=json.dumps({"work_item_id": wid_58, "plan_hash": "h58", "plan_analysis_link": wid_58}),
+        status=UNKNOWN_WRITE,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_o58_notes",
+        message_id="outbox_o58_notes",
+        platform="substack_notes",
+        status=UNKNOWN_WRITE,
+    )
+    with closing(store.get_connection()) as conn:
+        conn.execute(
+            "UPDATE outbox_messages SET created_at=? WHERE message_id IN (?, ?)",
+            ("2026-11-22T20:18:50+00:00", wid_58, "outbox_o58_notes"),
+        )
+        conn.commit()
+
+    # O57 (wrap substack_notes UNKNOWN_WRITE) -> preserved, NOT a dead-parent plan polling target.
+    store.register_outbox_message(
+        message_id="outbox_o57_wrap",
+        work_item_id="cc689-weekly-2026-11-22",
+        destination="substack_notes",
+        payload=json.dumps({"work_item_id": "cc689-weekly-2026-11-22", "plan_hash": "hw22"}),
+        status=UNKNOWN_WRITE,
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_o57_wrap",
+        message_id="outbox_o57_wrap",
+        platform="substack_notes",
+        status=UNKNOWN_WRITE,
+    )
+    refs["dead_parent_uw"] = [
+        ("outbox_o56_notes", "dispatch_o56_notes"),
+        ("outbox_o58_notes", "dispatch_o58_notes"),
+        ("outbox_o60_x", "dispatch_o60_x"),
+        ("outbox_o61_x", "dispatch_o61_x"),
+    ]
+    refs["o58_parent"] = wid_58
+    refs["preserved_o57"] = ("outbox_o57_wrap", "dispatch_o57_wrap")
+
+    # 10. 9 CC603_PREPARED backfill rows (matching live count).
+    cc603_ids = []
+    for idx in range(9):
+        cid = f"cc603-followup-fixture-{idx:02d}"
+        store.create_work_item(story_id=cid, work_item_id=cid, title=f"CC603 {idx}", target_surface="MULTI_PLATFORM")
+        store.register_outbox_message(
+            message_id=cid,
+            work_item_id=cid,
+            destination="internal:plan-status-post",
+            payload=json.dumps({"key": cid, "kind": "call_followup", "plan_id": f"plan_{idx}", "symbol": "XAUUSD"}),
+            status="CC603_PREPARED",
+        )
+        cc603_ids.append(cid)
+    refs["cc603_ids"] = cc603_ids
+
+    # 11. Stale historical lease & stale Oct 31 heartbeat (must NOT falsely trigger interlocks).
+    conn = store.get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+            "VALUES ('lease_old', 'old-key', NULL, 'old-owner', 1, '2026-11-20T00:00:00Z', '2026-11-20T00:00:00Z', '2026-11-20T00:15:00Z', 'ACTIVE')"
+        )
+        conn.execute(
+            "INSERT INTO heartbeats (heartbeat_id, worker_id, lease_id, last_seen_at, status) "
+            "VALUES ('hb_old', 'old-supervisor', NULL, '2026-10-31T02:49:41Z', 'ALIVE')"
+        )
+        conn.commit()
+        # Checkpoint WAL cleanly to 0 bytes so dry-run uses immutable=1 and we can hash the single file.
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    finally:
+        conn.close()
+
+    return db_path, refs
+
+
+def test_cli_dry_run_default_is_zero_mutation_byte_exact(tmp_path, capsys):
+    db_path, refs = _build_full_preunpause_fixture_db(tmp_path)
+    before_hash = _sha256_file(db_path)
+    wal_path = Path(f"{db_path}-wal")
+    before_wal = wal_path.stat().st_size if wal_path.exists() else 0
+
+    rc = cli.main(["--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc == cli.EXIT_OK
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["status"] == "DRY_RUN_OK"
+    assert payload["mode"] == "dry_run"
+    assert payload["applied"] is False
+    assert payload["apply_interlocks_preview"]["ok"] is True
+
+    counts = payload["audit"]["counts"]
+    assert counts["subgroup_a_expired_substack_plan_pages"] == 1
+    assert counts["active_substack_plan_pages_preserved"] == 1
+    assert counts["non_plan_substack_ready_preserved"] == 1
+    assert counts["subgroup_b_substack_readback_gated"] == 3
+    assert counts["subgroup_b_readback_held"] == 2
+    assert counts["subgroup_b_verified_absent_eligible"] == 1
+    assert counts["subgroup_d_dead_parent_native_neo_pending"] == 1
+    assert counts["expired_derivative_ready_rows"] == 2
+    assert counts["active_derivative_ready_preserved"] == 1
+    assert counts["dead_parent_unknown_write_polling_targets"] == 4
+    assert counts["other_unknown_writes_preserved"] == 1
+    assert counts["cc603_backfill_prepared"] == 9
+
+    # Byte-exact zero-mutation proof on copied SQLite fixture.
+    assert _sha256_file(db_path) == before_hash
+    after_wal = wal_path.stat().st_size if wal_path.exists() else 0
+    assert after_wal == before_wal == 0
+
+
+def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys):
+    db_path, _ = _build_full_preunpause_fixture_db(tmp_path)
+    now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+
+    # Usage: --apply without explicit --db refused.
+    assert cli.main(["--apply"]) == cli.EXIT_USAGE_REFUSED
+    assert json.loads(capsys.readouterr().out)["reason"] == "APPLY_REQUIRES_EXPLICIT_DB_PATH"
+
+    # Usage: --apply + --dry-run refused.
+    assert cli.main(["--apply", "--dry-run", "--db", str(db_path)]) == cli.EXIT_USAGE_REFUSED
+    assert json.loads(capsys.readouterr().out)["reason"] == "CONFLICTING_MODE_FLAGS"
+
+    # Interlock 1: restored.json exists => REFUSED_INTERLOCK, 0 writes.
+    before_hash = _sha256_file(db_path)
+    restored = tmp_path / "control" / "pause-20261123" / "restored.json"
+    restored.parent.mkdir(parents=True, exist_ok=True)
+    restored.write_text('{"started_at_utc":"2026-11-29T18:00:00Z"}\n', encoding="utf-8")
+    rc1 = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc1 == cli.EXIT_INTERLOCK_REFUSED
+    out1 = json.loads(capsys.readouterr().out)
+    assert out1["status"] == "REFUSED_INTERLOCK"
+    assert any(b["code"] == "RESTORED_JSON_EXISTS" for b in out1["interlocks"]["blockers"])
+    assert _sha256_file(db_path) == before_hash
+    restored.unlink()
+
+    # Interlock 2: held writer lock file => REFUSED_INTERLOCK, 0 writes.
+    lock_file = tmp_path / "runner_v1.lock"
+    lock_file.write_text(json.dumps({"pid": os.getpid()}), encoding="utf-8")
+    fd = os.open(str(lock_file), os.O_RDWR | getattr(os, "O_BINARY", 0))
+    try:
+        if os.name == "nt":
+            import msvcrt
+
+            os.lseek(fd, 0, os.SEEK_SET)
+            msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        rc2, res2 = cli.apply_preunpause_reconciliation(db_path, now=now)
+        assert rc2 == cli.EXIT_INTERLOCK_REFUSED
+        assert any(b["code"] == "ACTIVE_WRITER_LOCK_FILE" for b in res2["interlocks"]["blockers"])
+        assert _sha256_file(db_path) == before_hash
+    finally:
+        if os.name == "nt":
+            import msvcrt
+
+            os.lseek(fd, 0, os.SEEK_SET)
+            msvcrt.locking(fd, msvcrt.LK_UNLCK, 1)
+        os.close(fd)
+        lock_file.unlink()
+
+    # Interlock 2b: unlocked lock file with alive parent PID => REFUSED; dead PID => allowed.
+    pid_lock = tmp_path / "supervisor.lock"
+    pid_lock.write_text(json.dumps({"pid": os.getppid()}), encoding="utf-8")
+    rc2b, res2b = cli.apply_preunpause_reconciliation(db_path, now=now)
+    assert rc2b == cli.EXIT_INTERLOCK_REFUSED
+    assert any(
+        b["code"] == "ACTIVE_WRITER_LOCK_FILE" and str(b.get("reason", "")).startswith("LOCK_PID_ALIVE:")
+        for b in res2b["interlocks"]["blockers"]
+    )
+    assert _sha256_file(db_path) == before_hash
+    pid_lock.write_text(json.dumps({"pid": 999999999}), encoding="utf-8")
+    interlock_dead = cli.check_apply_interlocks(db_path, now=now, check_live_processes=False)
+    assert interlock_dead["ok"] is True
+    pid_lock.unlink()
+
+    # Interlock 3: active unexpired SQLite lease => REFUSED_INTERLOCK.
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute(
+            "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+            "VALUES ('lease_live', 'live-key', NULL, 'live-owner', 2, '2026-11-29T17:58:00Z', '2026-11-29T17:58:00Z', '2026-11-29T18:10:00Z', 'ACTIVE')"
+        )
+        conn.commit()
+    rc3, res3 = cli.apply_preunpause_reconciliation(db_path, now=now)
+    assert rc3 == cli.EXIT_INTERLOCK_REFUSED
+    assert any(b["code"] == "ACTIVE_SQLITE_LEASE" for b in res3["interlocks"]["blockers"])
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute("DELETE FROM leases WHERE lease_id='lease_live'")
+        conn.commit()
+
+    # Interlock 4: fresh ALIVE supervisor heartbeat => REFUSED_INTERLOCK.
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute(
+            "INSERT INTO heartbeats (heartbeat_id, worker_id, lease_id, last_seen_at, status) "
+            "VALUES ('hb_live', 'live-sup', NULL, '2026-11-29T17:58:00Z', 'ALIVE')"
+        )
+        conn.commit()
+    rc4, res4 = cli.apply_preunpause_reconciliation(db_path, now=now)
+    assert rc4 == cli.EXIT_INTERLOCK_REFUSED
+    assert any(b["code"] == "ACTIVE_SUPERVISOR_HEARTBEAT" for b in res4["interlocks"]["blockers"])
+    with closing(sqlite3.connect(db_path)) as conn:
+        conn.execute("DELETE FROM heartbeats WHERE heartbeat_id='hb_live'")
+        conn.commit()
+
+    # Interlock 5: simulated live DB with running supervisor process => REFUSED_INTERLOCK.
+    rc5, res5 = cli.apply_preunpause_reconciliation(
+        db_path,
+        now=now,
+        production_store=db_path,
+        process_scanner=lambda: [{"pid": 99999, "name": "python.exe", "command_line": "live_contentops.cli daily-app start"}],
+    )
+    assert rc5 == cli.EXIT_INTERLOCK_REFUSED
+    assert any(b["code"] == "ACTIVE_WRITER_OR_SUPERVISOR_PROCESS" for b in res5["interlocks"]["blockers"])
+
+
+def test_cli_apply_settles_safely_preserves_readback_gates_and_is_idempotent(tmp_path, capsys):
+    db_path, refs = _build_full_preunpause_fixture_db(tmp_path)
+
+    # Pass 1: --apply WITHOUT --retire-cc603-backfill (default keeps CC603 rows untouched).
+    rc = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc == cli.EXIT_OK
+    res = json.loads(capsys.readouterr().out)
+    assert res["status"] == "APPLIED"
+    assert res["applied"] is True
+
+    store = ContentOpsDurableStore(db_path, auto_migrate=False)
+
+    # Subgroup A (#13) cleanly retired + parent settled.
+    assert store.get_outbox_message(refs["subgroup_a"]["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_outbox_message(refs["subgroup_a"]["page_id"])["status"] == "SETTLED"
+
+    # Active Substack plan & non-plan Substack article untouched.
+    assert store.get_outbox_message(refs["active_plan"]["message_id"])["status"] == "READY"
+    assert store.get_outbox_message(refs["nonplan_substack"]["message_id"])["status"] == "READY"
+
+    # Subgroup B1 (#14 DISPATCH_ATTEMPT_STARTED) & B2 (ambiguous UNKNOWN_WRITE) HELD & UNTOUCHED!
+    assert store.get_outbox_message(refs["subgroup_b_held_attempt"]["message_id"])["status"] == "READY"
+    assert store.get_platform_dispatch(refs["subgroup_b_held_attempt"]["dispatch_id"])["status"] == ATTEMPT_STARTED
+    assert store.get_outbox_message(refs["subgroup_b_held_ambig"]["message_id"])["status"] == UNKNOWN_WRITE
+    assert store.get_platform_dispatch(refs["subgroup_b_held_ambig"]["dispatch_id"])["status"] == UNKNOWN_WRITE
+    assert len(res["mutations"]["subgroup_b_held_readback_required"]) == 2
+
+    # Subgroup B3 (durable verified absence proof + expired) cleanly settled while preserving reconciliation.
+    assert store.get_outbox_message(refs["subgroup_b_verified_absent"]["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_platform_dispatch(refs["subgroup_b_verified_absent"]["dispatch_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    recs_b3 = store.get_reconciliations_for_work_item(refs["subgroup_b_verified_absent"]["page_id"])
+    assert recs_b3[0]["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+
+    # Subgroup D (#01): outbox PLAN_POST_SETTLED, dispatch preserved as NATIVE_NEO_TOOL_PENDING!
+    assert store.get_outbox_message(refs["subgroup_d"]["message_id"])["status"] == "PLAN_POST_SETTLED"
+    assert store.get_platform_dispatch(refs["subgroup_d"]["dispatch_id"])["status"] == NATIVE_NEO_PENDING
+    # Active NATIVE_NEO_TOOL_PENDING untouched.
+    assert store.get_outbox_message(refs["active_neo"]["message_id"])["status"] == NATIVE_NEO_PENDING
+
+    # Expired derivative READY rows -> DERIVATIVE_EXPIRED_STALE_NO_WRITE; fresh READY untouched.
+    for mid in refs["expired_derivs"]:
+        assert store.get_outbox_message(mid)["status"] == DERIVATIVE_EXPIRED_STALE_NO_WRITE
+    assert store.get_outbox_message(refs["fresh_deriv"])["status"] == "READY"
+
+    # Dead-parent / late UNKNOWN_WRITE polling targets (O56/O58/O60/O61):
+    # outbox -> PLAN_POST_SETTLED, dispatch -> UNKNOWN_WRITE preserved!
+    for mid, did in refs["dead_parent_uw"]:
+        assert store.get_outbox_message(mid)["status"] == "PLAN_POST_SETTLED"
+        assert store.get_platform_dispatch(did)["status"] == UNKNOWN_WRITE
+    assert store.get_outbox_message(refs["o58_parent"])["status"] == "SETTLED"
+    # O57 wrap UNKNOWN_WRITE preserved untouched.
+    assert store.get_outbox_message(refs["preserved_o57"][0])["status"] == UNKNOWN_WRITE
+    assert store.get_platform_dispatch(refs["preserved_o57"][1])["status"] == UNKNOWN_WRITE
+
+    # All 9 CC603_PREPARED rows untouched by default!
+    assert all(store.get_outbox_message(cid)["status"] == "CC603_PREPARED" for cid in refs["cc603_ids"])
+    assert res["post_audit_counts"]["cc603_backfill_prepared"] == 9
+    assert res["mutations"]["cc603_backfill_retired"] == []
+
+    # Pass 2: idempotency check (second --apply produces 0 new settlements).
+    rc2 = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    assert rc2 == cli.EXIT_OK
+    res2 = json.loads(capsys.readouterr().out)
+    assert res2["mutations"]["subgroup_a_retired"] == []
+    assert res2["mutations"]["subgroup_b_verified_absent_retired"] == []
+    assert res2["mutations"]["subgroup_d_settled"] == []
+    assert res2["mutations"]["expired_derivative_ready_retired"] == []
+    assert res2["mutations"]["dead_parent_unknown_writes_settled"] == []
+
+    # Pass 3: explicit --retire-cc603-backfill retires the 9 CC603_PREPARED rows cleanly.
+    rc3 = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--retire-cc603-backfill"]
+    )
+    assert rc3 == cli.EXIT_OK
+    res3 = json.loads(capsys.readouterr().out)
+    assert len(res3["mutations"]["cc603_backfill_retired"]) == 9
+    assert res3["post_audit_counts"]["cc603_backfill_prepared"] == 0
+    assert all(store.get_outbox_message(cid)["status"] == "SETTLED" for cid in refs["cc603_ids"])
