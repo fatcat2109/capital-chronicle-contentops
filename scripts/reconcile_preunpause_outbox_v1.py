@@ -144,6 +144,34 @@ def _resolve_interlock_clock(
     return wall_now
 
 
+def _resolve_apply_expiry_clock(
+    *,
+    db_path: Path,
+    now: Optional[datetime],
+    allow_copied_state_clock_override: bool,
+    production_store: Optional[Path] = None,
+) -> tuple[Optional[datetime], Optional[str], str, bool]:
+    """Enforce wall UTC for live --apply; confine clock overrides strictly to explicit copied-state replay."""
+    live_db = is_live_production_db(db_path, production_store=production_store)
+    if live_db:
+        if now is not None or allow_copied_state_clock_override:
+            return None, "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE", "REFUSED", True
+        return datetime.now(timezone.utc), None, "WALL_UTC", True
+    if now is not None:
+        if not allow_copied_state_clock_override:
+            return None, "APPLY_CLOCK_OVERRIDE_REQUIRES_COPIED_STATE_REPLAY", "REFUSED", False
+        return _ensure_utc(now), None, "COPIED_STATE_REPLAY_OVERRIDE", False
+    return datetime.now(timezone.utc), None, "WALL_UTC", False
+
+
+def _parse_json_mapping(raw: Any) -> dict[str, Any]:
+    try:
+        parsed = json.loads(str(raw or "{}"))
+    except (TypeError, ValueError):
+        return {}
+    return dict(parsed) if isinstance(parsed, Mapping) else {}
+
+
 def _utc_now(now_utc: str | None = None) -> datetime:
     if not now_utc:
         return datetime.now(timezone.utc)
@@ -189,11 +217,17 @@ def _open_readonly_sqlite(db_path: Path) -> sqlite3.Connection:
     return conn
 
 
-def is_live_production_db(db_path: Path, *, production_store: Path = PRODUCTION_STORE) -> bool:
+def is_live_production_db(db_path: Path, *, production_store: Optional[Path] = None) -> bool:
+    target_prod = PRODUCTION_STORE if production_store is None else production_store
     try:
-        return os.path.normcase(str(db_path.resolve())) == os.path.normcase(str(production_store.resolve()))
+        if db_path.exists() and target_prod.exists() and os.path.samefile(db_path, target_prod):
+            return True
     except OSError:
-        return os.path.normcase(str(db_path)) == os.path.normcase(str(production_store))
+        pass
+    try:
+        return os.path.normcase(str(db_path.resolve())) == os.path.normcase(str(target_prod.resolve()))
+    except OSError:
+        return os.path.normcase(str(db_path)) == os.path.normcase(str(target_prod))
 
 
 def _pid_is_alive(pid: int) -> bool:
@@ -386,21 +420,22 @@ def check_apply_interlocks(
     interlock_now: Optional[datetime] = None,
     control_dir: Optional[Path] = None,
     extra_lock_paths: Sequence[Path] = (),
-    production_store: Path = PRODUCTION_STORE,
+    production_store: Optional[Path] = None,
     check_live_processes: Optional[bool] = None,
     read_only_lock_probe: bool = False,
     process_scanner: Callable[[], list[dict[str, Any]]] = _default_live_writer_process_scanner,
 ) -> dict[str, Any]:
     """Fail-closed interlock verification prior to any ``--apply`` write."""
     blockers: list[dict[str, Any]] = []
+    target_prod = PRODUCTION_STORE if production_store is None else production_store
     liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
-    live_db = is_live_production_db(db_path, production_store=production_store)
+    live_db = is_live_production_db(db_path, production_store=target_prod)
     effective_control_dir = control_dir if control_dir is not None else (db_path.parent / "control")
 
     # 1. restored.json check (pause lifted => refuse pre-unpause mutation).
     control_roots: list[Path] = [effective_control_dir]
     if live_db:
-        live_control = production_store.parent / "control"
+        live_control = target_prod.parent / "control"
         if os.path.normcase(str(live_control)) != os.path.normcase(str(effective_control_dir)):
             control_roots.append(live_control)
     seen_restored: set[str] = set()
@@ -1215,24 +1250,71 @@ def _tx_register_incident(
     )
 
 
+def _plan_analysis_link_ref_clock(
+    conn: sqlite3.Connection,
+    parent_row: Optional[Mapping[str, Any]],
+    message_row: Mapping[str, Any],
+) -> Optional[datetime]:
+    parent_created = parent_row.get("created_at") if parent_row is not None else None
+    parent_payload = parent_row.get("payload") if parent_row is not None else None
+    ref_clock = _parse_utc(parent_created) or _parse_utc(message_row.get("created_at"))
+    if parent_payload:
+        parent_json = _parse_json_mapping(parent_payload)
+        orig_key = parent_json.get("original_key")
+        if orig_key:
+            orig_row = _get_outbox_row(conn, str(orig_key))
+            if orig_row:
+                orig_payload = _parse_json_mapping(orig_row.get("payload"))
+                if orig_payload.get("at_utc"):
+                    ref_clock = _parse_utc(orig_payload["at_utc"]) or ref_clock
+    return ref_clock
+
+
 def apply_preunpause_reconciliation(
     db_path: Path,
     *,
-    now: datetime,
+    now: Optional[datetime] = None,
     interlock_now: Optional[datetime] = None,
+    allow_copied_state_clock_override: bool = False,
     control_dir: Optional[Path] = None,
     published_images_path: Optional[Path] = None,
     retire_cc603_backfill: bool = False,
     extra_lock_paths: Sequence[Path] = (),
-    production_store: Path = PRODUCTION_STORE,
+    production_store: Optional[Path] = None,
     check_live_processes: Optional[bool] = None,
     process_scanner: Callable[[], list[dict[str, Any]]] = _default_live_writer_process_scanner,
 ) -> tuple[int, dict[str, Any]]:
-    """Run interlock checks, then apply safe pre-unpause settlements atomically and idempotently."""
-    liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
+    """Run interlock checks, then apply safe pre-unpause settlements atomically and idempotently.
+
+    Live DB ``--apply`` always enforces real wall-clock UTC for BOTH liveness interlocks and
+    staleness/expiry selection (and re-evaluates page/deadline inside ``BEGIN IMMEDIATE``).
+    Passing an explicit ``now`` override is refused on the live DB and requires explicit
+    ``allow_copied_state_clock_override=True`` on copied SQLite stores.
+    """
+    expiry_now, clock_refusal, expiry_clock_mode, live_db = _resolve_apply_expiry_clock(
+        db_path=db_path,
+        now=now,
+        allow_copied_state_clock_override=allow_copied_state_clock_override,
+        production_store=production_store,
+    )
+    if clock_refusal is not None or expiry_now is None:
+        return (
+            EXIT_USAGE_REFUSED,
+            {
+                "status": "REFUSED_USAGE",
+                "mode": "apply",
+                "applied": False,
+                "reason": clock_refusal or "APPLY_CLOCK_OVERRIDE_REFUSED",
+                "live_production_db": live_db,
+                "expiry_clock_mode": expiry_clock_mode,
+                "mutations": {},
+            },
+        )
+
+    liveness_now = _resolve_interlock_clock(now=expiry_now, interlock_now=interlock_now)
     interlocks = check_apply_interlocks(
         db_path,
-        now=now,
+        now=expiry_now,
         interlock_now=liveness_now,
         control_dir=control_dir,
         extra_lock_paths=extra_lock_paths,
@@ -1242,7 +1324,7 @@ def apply_preunpause_reconciliation(
     )
     audit = audit_preunpause_outbox(
         db_path,
-        now=now,
+        now=expiry_now,
         published_images_path=published_images_path,
         retire_cc603_backfill=retire_cc603_backfill,
     )
@@ -1253,6 +1335,8 @@ def apply_preunpause_reconciliation(
                 "status": "REFUSED_INTERLOCK",
                 "mode": "apply",
                 "applied": False,
+                "expiry_clock_mode": expiry_clock_mode,
+                "expiry_clock_utc": expiry_now.isoformat().replace("+00:00", "Z"),
                 "interlocks": interlocks,
                 "audit": audit,
                 "mutations": {},
@@ -1272,12 +1356,14 @@ def apply_preunpause_reconciliation(
     }
 
     conn = store.get_connection()
+    tx_expiry_now = expiry_now
     try:
         conn.execute("BEGIN IMMEDIATE")
+        tx_wall_now = datetime.now(timezone.utc)
+        tx_expiry_now = tx_wall_now if expiry_clock_mode == "WALL_UTC" else expiry_now
+        tx_liveness_now = _resolve_interlock_clock(now=tx_expiry_now, interlock_now=interlock_now)
         # Re-verify SQLite lease/heartbeat interlocks inside the exclusive write transaction.
-        tx_blockers = _collect_sqlite_liveness_blockers(
-            conn, liveness_now=_resolve_interlock_clock(now=now, interlock_now=interlock_now)
-        )
+        tx_blockers = _collect_sqlite_liveness_blockers(conn, liveness_now=tx_liveness_now)
         if tx_blockers:
             conn.execute("ROLLBACK")
             refused_interlocks = {
@@ -1291,24 +1377,44 @@ def apply_preunpause_reconciliation(
                     "status": "REFUSED_INTERLOCK",
                     "mode": "apply",
                     "applied": False,
+                    "expiry_clock_mode": expiry_clock_mode,
+                    "expiry_clock_utc": expiry_now.isoformat().replace("+00:00", "Z"),
+                    "tx_expiry_clock_utc": tx_expiry_now.isoformat().replace("+00:00", "Z"),
                     "interlocks": refused_interlocks,
                     "audit": audit,
                     "mutations": {},
                 },
             )
 
-        created_at = datetime.now(timezone.utc).isoformat()
+        created_at = tx_wall_now.isoformat()
 
         # 1. Subgroup A: expired un-dispatched READY Substack plan_analysis_page rows.
         for item in audit["subgroup_a_expired_substack_plan_pages"]:
             mid = item["message_id"]
             wid = item["work_item_id"]
-            # Re-verify no dispatch appeared concurrently and row is still READY before mutating.
+            # Re-verify no dispatch appeared concurrently, row is still READY, AND current page/deadline
+            # is still stale against tx_expiry_now (wall UTC on live DB) inside BEGIN IMMEDIATE.
             disp = conn.execute(
                 "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (mid,)
             ).fetchone()
             cur_outbox = _get_outbox_row(conn, mid)
-            if disp is not None or cur_outbox is None or str(cur_outbox["status"]) != "READY":
+            if (
+                disp is not None
+                or cur_outbox is None
+                or str(cur_outbox["destination"]) != "substack"
+                or str(cur_outbox["status"]) != "READY"
+            ):
+                continue
+            cur_intent = _parse_json_mapping(cur_outbox.get("payload"))
+            if not cur_intent.get("plan_analysis_page"):
+                continue
+            still_stale, tx_stale_reason = substack_plan_page_staleness(
+                lambda m: _get_outbox_row(conn, m),
+                cur_outbox,
+                cur_intent,
+                now=tx_expiry_now,
+            )
+            if not still_stale:
                 continue
             _tx_set_outbox_status(conn, mid, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
             parent_settled = False
@@ -1333,7 +1439,7 @@ def apply_preunpause_reconciliation(
                         "category": "SUBGROUP_A_EXPIRED_SUBSTACK_PLAN_PAGE",
                         "message_id": mid,
                         "work_item_id": wid,
-                        "reason": item["stale_reason"],
+                        "reason": tx_stale_reason or item["stale_reason"],
                         "new_outbox_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
                         "parent_settled": parent_settled,
                         "public_write_performed": False,
@@ -1365,14 +1471,30 @@ def apply_preunpause_reconciliation(
             mid = item["message_id"]
             did = item["dispatch_id"]
             wid = item["work_item_id"]
-            # Re-verify absence proof inside the write transaction against latest dispatch/readbacks.
+            # Re-verify current page/deadline staleness AND absence proof inside the write transaction.
             cur_disp = conn.execute(
                 "SELECT dispatch_id, status AS dispatch_status, public_object_id, public_object_url "
                 "FROM platform_dispatches WHERE dispatch_id=?",
                 (did,),
             ).fetchone()
             cur_outbox = _get_outbox_row(conn, mid)
-            if cur_disp is None or cur_outbox is None or str(cur_outbox["status"]) in SUBSTACK_EXCLUDED_OUTBOX_STATUSES:
+            if (
+                cur_disp is None
+                or cur_outbox is None
+                or str(cur_outbox["destination"]) != "substack"
+                or str(cur_outbox["status"]) in SUBSTACK_EXCLUDED_OUTBOX_STATUSES
+            ):
+                continue
+            cur_intent = _parse_json_mapping(cur_outbox.get("payload"))
+            if not cur_intent.get("plan_analysis_page"):
+                continue
+            still_stale, tx_stale_reason = substack_plan_page_staleness(
+                lambda m: _get_outbox_row(conn, m),
+                cur_outbox,
+                cur_intent,
+                now=tx_expiry_now,
+            )
+            if not still_stale:
                 continue
             still_absent, recheck_reason = _has_verified_absence_proof(conn, dict(cur_disp), wid)
             if not still_absent:
@@ -1411,7 +1533,7 @@ def apply_preunpause_reconciliation(
                         "dispatch_id": did,
                         "work_item_id": wid,
                         "verified_absence_proof": True,
-                        "stale_reason": item["stale_reason"],
+                        "stale_reason": tx_stale_reason or item["stale_reason"],
                         "new_status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
                         "parent_settled": parent_settled,
                         "public_write_performed": False,
@@ -1433,6 +1555,28 @@ def apply_preunpause_reconciliation(
         for item in audit["subgroup_d_dead_parent_native_neo_pending"]:
             mid = item["message_id"]
             wid = item["work_item_id"]
+            did = item["dispatch_id"]
+            cur_outbox = _get_outbox_row(conn, mid)
+            cur_parent = _get_outbox_row(conn, wid)
+            cur_disp = (
+                conn.execute(
+                    "SELECT status, public_object_id, public_object_url FROM platform_dispatches WHERE dispatch_id=?",
+                    (did,),
+                ).fetchone()
+                if did
+                else None
+            )
+            if (
+                cur_outbox is None
+                or cur_parent is None
+                or str(cur_parent["status"]) not in DEAD_PARENT_STATUSES
+                or (
+                    str(cur_outbox["status"]) != NATIVE_NEO_PENDING
+                    and (cur_disp is None or str(cur_disp["status"]) != NATIVE_NEO_PENDING)
+                )
+                or (cur_disp is not None and (cur_disp["public_object_id"] or cur_disp["public_object_url"]))
+            ):
+                continue
             _tx_set_outbox_status(conn, mid, SETTLED_COPY)
             _tx_register_incident(
                 conn,
@@ -1444,11 +1588,11 @@ def apply_preunpause_reconciliation(
                         "tool": "reconcile_preunpause_outbox_v1",
                         "category": "SUBGROUP_D_DEAD_PARENT_NATIVE_NEO_PENDING",
                         "message_id": mid,
-                        "dispatch_id": item["dispatch_id"],
+                        "dispatch_id": did,
                         "destination": item["destination"],
-                        "parent_status": item["parent_status"],
+                        "parent_status": str(cur_parent["status"]),
                         "new_outbox_status": SETTLED_COPY,
-                        "dispatch_status_preserved": item["dispatch_status_preserved"],
+                        "dispatch_status_preserved": str(cur_disp["status"]) if cur_disp is not None else item["dispatch_status_preserved"],
                         "public_write_performed": False,
                         "automatic_work_closed": True,
                     }
@@ -1458,9 +1602,9 @@ def apply_preunpause_reconciliation(
             mutations["subgroup_d_settled"].append(
                 {
                     "message_id": mid,
-                    "dispatch_id": item["dispatch_id"],
+                    "dispatch_id": did,
                     "outbox_status": SETTLED_COPY,
-                    "dispatch_status_preserved": item["dispatch_status_preserved"],
+                    "dispatch_status_preserved": str(cur_disp["status"]) if cur_disp is not None else item["dispatch_status_preserved"],
                 }
             )
 
@@ -1473,6 +1617,13 @@ def apply_preunpause_reconciliation(
             ).fetchone()
             cur_outbox = _get_outbox_row(conn, mid)
             if disp is not None or cur_outbox is None or str(cur_outbox["status"]) != "READY":
+                continue
+            cur_intent = _parse_json_mapping(cur_outbox.get("payload"))
+            cur_parent = _get_outbox_row(conn, wid) if wid else None
+            still_stale, tx_stale_reason = _derivative_is_stale_ro(
+                conn, cur_outbox, cur_intent, cur_parent, now=tx_expiry_now
+            )
+            if not still_stale:
                 continue
             _tx_set_outbox_status(conn, mid, DERIVATIVE_EXPIRED_STALE_NO_WRITE)
             _tx_register_incident(
@@ -1489,7 +1640,7 @@ def apply_preunpause_reconciliation(
                     "work_item_id": wid,
                     "destination": item["destination"],
                     "outbox_status": DERIVATIVE_EXPIRED_STALE_NO_WRITE,
-                    "reason": item["stale_reason"],
+                    "reason": tx_stale_reason or item["stale_reason"],
                 }
             )
 
@@ -1499,10 +1650,28 @@ def apply_preunpause_reconciliation(
             mid = item["message_id"]
             did = item["dispatch_id"]
             wid = item["work_item_id"]
+            cur_disp = conn.execute(
+                "SELECT status FROM platform_dispatches WHERE dispatch_id=?", (did,)
+            ).fetchone()
+            cur_outbox = _get_outbox_row(conn, mid)
+            cur_parent = _get_outbox_row(conn, wid)
+            if (
+                cur_disp is None
+                or str(cur_disp["status"]) != UNKNOWN_WRITE
+                or cur_outbox is None
+                or str(cur_outbox["status"]) == SETTLED_COPY
+            ):
+                continue
+            if item["settle_parent_link"]:
+                ref_clock = _plan_analysis_link_ref_clock(conn, cur_parent, cur_outbox)
+                if ref_clock is None or (tx_expiry_now - ref_clock).total_seconds() <= LATE_LINK_HOURS * 3600:
+                    continue
+            elif cur_parent is None or str(cur_parent["status"]) not in DEAD_PARENT_STATUSES:
+                continue
             _tx_set_outbox_status(conn, mid, SETTLED_COPY)
             parent_settled = False
             if item["settle_parent_link"]:
-                parent_row = _get_outbox_row(conn, wid)
+                parent_row = cur_parent
                 if (
                     parent_row is not None
                     and parent_row["destination"] == "internal:plan-analysis-page"
@@ -1551,6 +1720,9 @@ def apply_preunpause_reconciliation(
             for item in audit["cc603_backfill_prepared"]:
                 mid = item["message_id"]
                 wid = item["work_item_id"]
+                cur_outbox = _get_outbox_row(conn, mid)
+                if cur_outbox is None or str(cur_outbox["status"]) != "CC603_PREPARED":
+                    continue
                 if _work_item_has_active_child_dispatches_conn(conn, wid):
                     mutations["cc603_backfill_skipped_active_child"].append(
                         {"message_id": mid, "work_item_id": wid, "reason": "ACTIVE_CHILD_DISPATCH_EXISTS"}
@@ -1590,9 +1762,10 @@ def apply_preunpause_reconciliation(
     finally:
         conn.close()
 
+    post_audit_now = datetime.now(timezone.utc) if expiry_clock_mode == "WALL_UTC" else expiry_now
     post_audit = audit_preunpause_outbox(
         db_path,
-        now=now,
+        now=post_audit_now,
         published_images_path=published_images_path,
         retire_cc603_backfill=retire_cc603_backfill,
     )
@@ -1602,6 +1775,9 @@ def apply_preunpause_reconciliation(
             "status": "APPLIED",
             "mode": "apply",
             "applied": True,
+            "expiry_clock_mode": expiry_clock_mode,
+            "expiry_clock_utc": expiry_now.isoformat().replace("+00:00", "Z"),
+            "tx_expiry_clock_utc": tx_expiry_now.isoformat().replace("+00:00", "Z"),
             "interlocks": interlocks,
             "pre_audit_counts": audit["counts"],
             "post_audit_counts": post_audit["counts"],
@@ -1650,7 +1826,18 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--now-utc",
         default=None,
-        help="Optional ISO-8601 UTC timestamp for deterministic audit/staleness evaluation.",
+        help=(
+            "Optional ISO-8601 UTC timestamp for deterministic --dry-run preview (or copied-state --apply ONLY "
+            "when paired with --allow-copied-state-clock-override; NEVER allowed on live production --apply)."
+        ),
+    )
+    parser.add_argument(
+        "--allow-copied-state-clock-override",
+        action="store_true",
+        help=(
+            "Explicit copied-state replay opt-in allowing --now-utc during --apply on a non-production SQLite copy "
+            "only (always refused when targeting the live production store)."
+        ),
     )
     parser.add_argument(
         "--retire-cc603-backfill",
@@ -1690,8 +1877,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         )
         return EXIT_USAGE_REFUSED
 
-    now = _utc_now(args.now_utc)
     if not args.apply:
+        now = _utc_now(args.now_utc)
         interlocks = check_apply_interlocks(
             db_path,
             now=now,
@@ -1715,9 +1902,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print(json.dumps(payload, indent=2, sort_keys=True))
         return EXIT_OK
 
+    override_now = _utc_now(args.now_utc) if args.now_utc else None
     rc, result = apply_preunpause_reconciliation(
         db_path,
-        now=now,
+        now=override_now,
+        allow_copied_state_clock_override=bool(args.allow_copied_state_clock_override),
         control_dir=args.control_dir,
         published_images_path=args.published_images,
         retire_cc603_backfill=bool(args.retire_cc603_backfill),

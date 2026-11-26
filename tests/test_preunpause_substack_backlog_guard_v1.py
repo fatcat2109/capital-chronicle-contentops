@@ -1029,7 +1029,9 @@ def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys)
     restored = tmp_path / "control" / "pause-20261123" / "restored.json"
     restored.parent.mkdir(parents=True, exist_ok=True)
     restored.write_text('{"started_at_utc":"2026-11-29T18:00:00Z"}\n', encoding="utf-8")
-    rc1 = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    rc1 = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc1 == cli.EXIT_INTERLOCK_REFUSED
     out1 = json.loads(capsys.readouterr().out)
     assert out1["status"] == "REFUSED_INTERLOCK"
@@ -1051,7 +1053,9 @@ def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys)
             import fcntl
 
             fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        rc2, res2 = cli.apply_preunpause_reconciliation(db_path, now=now)
+        rc2, res2 = cli.apply_preunpause_reconciliation(
+            db_path, now=now, allow_copied_state_clock_override=True
+        )
         assert rc2 == cli.EXIT_INTERLOCK_REFUSED
         assert any(b["code"] == "ACTIVE_WRITER_LOCK_FILE" for b in res2["interlocks"]["blockers"])
         assert _sha256_file(db_path) == before_hash
@@ -1067,7 +1071,9 @@ def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys)
     # Interlock 2b: unlocked lock file with alive parent PID => REFUSED; dead PID => allowed.
     pid_lock = tmp_path / "supervisor.lock"
     pid_lock.write_text(json.dumps({"pid": os.getppid()}), encoding="utf-8")
-    rc2b, res2b = cli.apply_preunpause_reconciliation(db_path, now=now)
+    rc2b, res2b = cli.apply_preunpause_reconciliation(
+        db_path, now=now, allow_copied_state_clock_override=True
+    )
     assert rc2b == cli.EXIT_INTERLOCK_REFUSED
     assert any(
         b["code"] == "ACTIVE_WRITER_LOCK_FILE" and str(b.get("reason", "")).startswith("LOCK_PID_ALIVE:")
@@ -1086,7 +1092,9 @@ def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys)
             "VALUES ('lease_live', 'live-key', NULL, 'live-owner', 2, '2026-11-29T17:58:00Z', '2026-11-29T17:58:00Z', '2026-11-29T18:10:00Z', 'ACTIVE')"
         )
         conn.commit()
-    rc3, res3 = cli.apply_preunpause_reconciliation(db_path, now=now)
+    rc3, res3 = cli.apply_preunpause_reconciliation(
+        db_path, now=now, allow_copied_state_clock_override=True
+    )
     assert rc3 == cli.EXIT_INTERLOCK_REFUSED
     assert any(b["code"] == "ACTIVE_SQLITE_LEASE" for b in res3["interlocks"]["blockers"])
     with closing(sqlite3.connect(db_path)) as conn:
@@ -1100,17 +1108,18 @@ def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys)
             "VALUES ('hb_live', 'live-sup', NULL, '2026-11-29T17:58:00Z', 'ALIVE')"
         )
         conn.commit()
-    rc4, res4 = cli.apply_preunpause_reconciliation(db_path, now=now)
+    rc4, res4 = cli.apply_preunpause_reconciliation(
+        db_path, now=now, allow_copied_state_clock_override=True
+    )
     assert rc4 == cli.EXIT_INTERLOCK_REFUSED
     assert any(b["code"] == "ACTIVE_SUPERVISOR_HEARTBEAT" for b in res4["interlocks"]["blockers"])
     with closing(sqlite3.connect(db_path)) as conn:
         conn.execute("DELETE FROM heartbeats WHERE heartbeat_id='hb_live'")
         conn.commit()
 
-    # Interlock 5: simulated live DB with running supervisor process => REFUSED_INTERLOCK.
+    # Interlock 5: simulated live DB with running supervisor process => REFUSED_INTERLOCK (uses real wall UTC).
     rc5, res5 = cli.apply_preunpause_reconciliation(
         db_path,
-        now=now,
         production_store=db_path,
         process_scanner=lambda: [{"pid": 99999, "name": "python.exe", "command_line": "live_contentops.cli daily-app start"}],
     )
@@ -1121,8 +1130,10 @@ def test_cli_usage_and_interlocks_fail_closed_with_zero_writes(tmp_path, capsys)
 def test_cli_apply_settles_safely_preserves_readback_gates_and_is_idempotent(tmp_path, capsys):
     db_path, refs = _build_full_preunpause_fixture_db(tmp_path)
 
-    # Pass 1: --apply WITHOUT --retire-cc603-backfill (default keeps CC603 rows untouched).
-    rc = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    # Pass 1: --apply WITHOUT --retire-cc603-backfill (explicit copied-state replay clock; CC603 rows untouched).
+    rc = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc == cli.EXIT_OK
     res = json.loads(capsys.readouterr().out)
     assert res["status"] == "APPLIED"
@@ -1188,7 +1199,9 @@ def test_cli_apply_settles_safely_preserves_readback_gates_and_is_idempotent(tmp
     assert res["mutations"]["cc603_backfill_retired"] == []
 
     # Pass 2: idempotency check (second --apply produces 0 new settlements).
-    rc2 = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    rc2 = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc2 == cli.EXIT_OK
     res2 = json.loads(capsys.readouterr().out)
     assert res2["mutations"]["subgroup_a_retired"] == []
@@ -1199,7 +1212,15 @@ def test_cli_apply_settles_safely_preserves_readback_gates_and_is_idempotent(tmp
 
     # Pass 3: explicit --retire-cc603-backfill retires the 9 CC603_PREPARED rows cleanly.
     rc3 = cli.main(
-        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--retire-cc603-backfill"]
+        [
+            "--apply",
+            "--db",
+            str(db_path),
+            "--now-utc",
+            "2026-11-29T18:00:00Z",
+            "--allow-copied-state-clock-override",
+            "--retire-cc603-backfill",
+        ]
     )
     assert rc3 == cli.EXIT_OK
     res3 = json.loads(capsys.readouterr().out)
@@ -1224,7 +1245,9 @@ def test_cc692_h1_end_to_end_real_reconcile_absence_and_negative_controls(tmp_pa
     )
 
     # Before readback: CLI holds #14 and refuses to retire it.
-    rc_before = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    rc_before = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc_before == cli.EXIT_OK
     out_before = json.loads(capsys.readouterr().out)
     assert out_before["pre_audit_counts"]["subgroup_b_readback_held"] == 1
@@ -1254,7 +1277,9 @@ def test_cc692_h1_end_to_end_real_reconcile_absence_and_negative_controls(tmp_pa
     assert rb_obs["canonical_url_valid"] is False
 
     # Now CLI --apply cleanly discovers & retires #14 end-to-end!
-    rc_after = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    rc_after = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc_after == cli.EXIT_OK
     out_after = json.loads(capsys.readouterr().out)
     assert out_after["pre_audit_counts"]["subgroup_b_verified_absent_eligible"] == 1
@@ -1266,7 +1291,9 @@ def test_cc692_h1_end_to_end_real_reconcile_absence_and_negative_controls(tmp_pa
     assert store.get_outbox_message(row14["page_id"])["status"] == "SETTLED"
 
     # Second pass is idempotent (0 new mutations).
-    rc_idem = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    rc_idem = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc_idem == cli.EXIT_OK
     out_idem = json.loads(capsys.readouterr().out)
     assert out_idem["pre_audit_counts"]["subgroup_b_substack_readback_gated"] == 0
@@ -1405,7 +1432,9 @@ def test_cc692_h1_end_to_end_real_reconcile_absence_and_negative_controls(tmp_pa
         public_object_url="https://capitalchronicle.substack.com/p/confirmed-sibling",
     )
 
-    rc_mix = cli.main(["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z"])
+    rc_mix = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", "2026-11-29T18:00:00Z", "--allow-copied-state-clock-override"]
+    )
     assert rc_mix == cli.EXIT_OK
     out_mix = json.loads(capsys.readouterr().out)
     retired_dids = [m["dispatch_id"] for m in out_mix["mutations"]["subgroup_b_verified_absent_retired"]]
@@ -1429,7 +1458,7 @@ def test_cc692_h2_future_now_utc_never_bypasses_wall_clock_interlocks_and_writer
     future_now_arg = (max(wall_now, datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)) + timedelta(days=3)).isoformat().replace("+00:00", "Z")
     # Also test the exact documented pre-unpause relaunch timestamp when running prior to relaunch.
     for now_arg in ("2026-11-29T18:00:00Z", future_now_arg):
-        # 1. Wall-clock unexpired ACTIVE lease => EXIT_INTERLOCK_REFUSED (rc=3) with 0 DB writes.
+        # 1. Wall-clock unexpired ACTIVE lease => EXIT_INTERLOCK_REFUSED (rc=3) even with copied-state replay flag.
         lease_exp = (wall_now + timedelta(minutes=10)).isoformat().replace("+00:00", "Z")
         lease_acq = wall_now.isoformat().replace("+00:00", "Z")
         with closing(sqlite3.connect(db_path)) as conn:
@@ -1442,7 +1471,9 @@ def test_cc692_h2_future_now_utc_never_bypasses_wall_clock_interlocks_and_writer
             conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
         before_hash = _sha256_file(db_path)
 
-        rc_lease = cli.main(["--apply", "--db", str(db_path), "--now-utc", now_arg])
+        rc_lease = cli.main(
+            ["--apply", "--db", str(db_path), "--now-utc", now_arg, "--allow-copied-state-clock-override"]
+        )
         assert rc_lease == cli.EXIT_INTERLOCK_REFUSED
         out_lease = json.loads(capsys.readouterr().out)
         assert out_lease["status"] == "REFUSED_INTERLOCK"
@@ -1466,7 +1497,9 @@ def test_cc692_h2_future_now_utc_never_bypasses_wall_clock_interlocks_and_writer
             conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
         before_hash_hb = _sha256_file(db_path)
 
-        rc_hb = cli.main(["--apply", "--db", str(db_path), "--now-utc", now_arg])
+        rc_hb = cli.main(
+            ["--apply", "--db", str(db_path), "--now-utc", now_arg, "--allow-copied-state-clock-override"]
+        )
         assert rc_hb == cli.EXIT_INTERLOCK_REFUSED
         out_hb = json.loads(capsys.readouterr().out)
         assert out_hb["status"] == "REFUSED_INTERLOCK"
@@ -1533,7 +1566,7 @@ def test_cc692_l2_settle_parent_link_sibling_guard_and_atomic_rollback(tmp_path,
 
     monkeypatch.setattr(cli, "_tx_register_incident", _boom_on_third)
     with pytest.raises(RuntimeError, match="SIMULATED_MID_TX_FAILURE"):
-        cli.apply_preunpause_reconciliation(db_path, now=now)
+        cli.apply_preunpause_reconciliation(db_path, now=now, allow_copied_state_clock_override=True)
 
     # Zero partial writes survived rollback!
     assert store.get_outbox_message(refs["subgroup_a"]["message_id"])["status"] == "READY"
@@ -1543,7 +1576,7 @@ def test_cc692_l2_settle_parent_link_sibling_guard_and_atomic_rollback(tmp_path,
 
     # 3. Restore normal incident writer -> apply commits cleanly and protects O58 parent because of confirmed sibling.
     monkeypatch.setattr(cli, "_tx_register_incident", orig_reg_incident)
-    rc, res = cli.apply_preunpause_reconciliation(db_path, now=now)
+    rc, res = cli.apply_preunpause_reconciliation(db_path, now=now, allow_copied_state_clock_override=True)
     assert rc == cli.EXIT_OK
     o58_mut = next(
         m for m in res["mutations"]["dead_parent_unknown_writes_settled"]
@@ -1552,3 +1585,161 @@ def test_cc692_l2_settle_parent_link_sibling_guard_and_atomic_rollback(tmp_path,
     assert o58_mut["parent_settled"] is False
     assert store.get_outbox_message("outbox_o58_notes")["status"] == "PLAN_POST_SETTLED"
     assert store.get_outbox_message(refs["o58_parent"])["status"] == "EDITORIAL_INTERNAL"
+
+
+def test_cc692_cc908_future_clock_cannot_retire_active_page_and_tx_reevaluates_deadline(
+    tmp_path, capsys, monkeypatch
+):
+    """CC-908 [High] regression: future --now-utc cannot retire an active (+1d) READY page on --apply,
+    live DB always forbids clock overrides, and BEGIN IMMEDIATE re-evaluates page & deadline atomically."""
+    db_path = tmp_path / "cc908_wall_expiry.sqlite3"
+    store = ContentOpsDurableStore(db_path)
+    wall_now = datetime.now(timezone.utc)
+    future_deadline = (wall_now + timedelta(days=1)).isoformat().replace("+00:00", "Z")
+    expired_deadline = (wall_now - timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+    eval_3d_ahead = (wall_now + timedelta(days=3)).isoformat().replace("+00:00", "Z")
+
+    # Seed active READY Substack plan page (+1d deadline) and one genuinely expired page (-2h deadline).
+    active_page = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_active_plus_1d",
+        entry_deadline_utc=future_deadline,
+        outbox_status="READY",
+    )
+    expired_page = _seed_plan_analysis_page(
+        store,
+        plan_id="plan_expired_minus_2h",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+    with closing(store.get_connection()) as conn:
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    before_hash = _sha256_file(db_path)
+
+    # 1. Wall-clock dry-run sees +1d page active and -2h page expired, with 0-byte DB mutation.
+    rc_dry = cli.main(["--db", str(db_path)])
+    assert rc_dry == cli.EXIT_OK
+    dry_out = json.loads(capsys.readouterr().out)
+    assert dry_out["audit"]["counts"]["active_substack_plan_pages_preserved"] == 1
+    assert dry_out["audit"]["counts"]["subgroup_a_expired_substack_plan_pages"] == 1
+    assert _sha256_file(db_path) == before_hash
+
+    # 2. Copied-store CLI --apply evaluated +3d ahead WITHOUT --allow-copied-state-clock-override =>
+    #    REFUSED (EXIT_USAGE_REFUSED), 0-byte DB mutation, +1d page stays READY!
+    rc_refused = cli.main(["--apply", "--db", str(db_path), "--now-utc", eval_3d_ahead])
+    assert rc_refused == cli.EXIT_USAGE_REFUSED
+    refused_out = json.loads(capsys.readouterr().out)
+    assert refused_out["status"] == "REFUSED_USAGE"
+    assert refused_out["applied"] is False
+    assert refused_out["reason"] == "APPLY_CLOCK_OVERRIDE_REQUIRES_COPIED_STATE_REPLAY"
+    assert _sha256_file(db_path) == before_hash
+    assert store.get_outbox_message(active_page["message_id"])["status"] == "READY"
+    assert store.get_outbox_message(expired_page["message_id"])["status"] == "READY"
+
+    # 3. Direct Python apply_preunpause_reconciliation with future now and no opt-in => REFUSED, 0 writes.
+    rc_py_ref, res_py_ref = cli.apply_preunpause_reconciliation(
+        db_path, now=wall_now + timedelta(days=3)
+    )
+    assert rc_py_ref == cli.EXIT_USAGE_REFUSED
+    assert res_py_ref["reason"] == "APPLY_CLOCK_OVERRIDE_REQUIRES_COPIED_STATE_REPLAY"
+    assert _sha256_file(db_path) == before_hash
+
+    # 4. Simulated LIVE production DB forbids --now-utc AND --allow-copied-state-clock-override ALWAYS!
+    rc_live_ref, res_live_ref = cli.apply_preunpause_reconciliation(
+        db_path,
+        now=wall_now + timedelta(days=3),
+        allow_copied_state_clock_override=True,
+        production_store=db_path,
+        process_scanner=lambda: [],
+    )
+    assert rc_live_ref == cli.EXIT_USAGE_REFUSED
+    assert res_live_ref["reason"] == "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"
+    assert res_live_ref["live_production_db"] is True
+    assert _sha256_file(db_path) == before_hash
+
+    monkeypatch.setattr(cli, "PRODUCTION_STORE", db_path)
+    rc_live_cli = cli.main(
+        ["--apply", "--db", str(db_path), "--now-utc", eval_3d_ahead, "--allow-copied-state-clock-override"]
+    )
+    assert rc_live_cli == cli.EXIT_USAGE_REFUSED
+    live_cli_out = json.loads(capsys.readouterr().out)
+    assert live_cli_out["reason"] == "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"
+    assert _sha256_file(db_path) == before_hash
+    monkeypatch.undo()
+
+    # 5. Normal wall-clock --apply (no --now-utc) retires ONLY the genuinely expired -2h page and
+    #    leaves the active +1d page READY (and parent EDITORIAL_INTERNAL)!
+    rc_wall = cli.main(["--apply", "--db", str(db_path)])
+    assert rc_wall == cli.EXIT_OK
+    wall_out = json.loads(capsys.readouterr().out)
+    assert wall_out["status"] == "APPLIED"
+    assert wall_out["expiry_clock_mode"] == "WALL_UTC"
+    assert [m["message_id"] for m in wall_out["mutations"]["subgroup_a_retired"]] == [expired_page["message_id"]]
+    assert store.get_outbox_message(expired_page["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+    assert store.get_outbox_message(expired_page["page_id"])["status"] == "SETTLED"
+    assert store.get_outbox_message(active_page["message_id"])["status"] == "READY"
+    assert store.get_outbox_message(active_page["page_id"])["status"] == "EDITORIAL_INTERNAL"
+
+    # 6. In-transaction BEGIN IMMEDIATE re-evaluation (TOCTOU guard):
+    #    Seed both a Subgroup A page and a Subgroup B verified-absent page whose deadlines are -2h during
+    #    pre-tx audit, then extend BOTH deadlines to +1d right before BEGIN IMMEDIATE executes.
+    #    The write transaction MUST re-evaluate current page & deadline under wall UTC and retire NEITHER!
+    db_tx = tmp_path / "cc908_tx_reeval.sqlite3"
+    store_tx = ContentOpsDurableStore(db_tx)
+    sub_a_toctou = _seed_plan_analysis_page(
+        store_tx,
+        plan_id="plan_toctou_sub_a",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+    sub_b_toctou = _seed_plan_analysis_page(
+        store_tx,
+        plan_id="plan_toctou_sub_b",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+        dispatch_status=ATTEMPT_STARTED,
+    )
+    coord_tx = DurablePublicationCoordinator(
+        store=store_tx,
+        transport_runtime=_RecordingTransport(readback_status="ABSENT"),
+        readiness_provider=lambda _: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: wall_now - timedelta(minutes=5),
+    )
+    rb_tx = coord_tx.readback_existing_dispatch(sub_b_toctou["dispatch_id"])
+    assert rb_tx["reconciliation_status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+
+    orig_audit = cli.audit_preunpause_outbox
+    extended = {"done": False}
+
+    def _audit_then_extend_deadlines(*args, **kwargs):
+        result = orig_audit(*args, **kwargs)
+        if not extended["done"]:
+            extended["done"] = True
+            with closing(store_tx.get_connection()) as conn:
+                for page_id in (sub_a_toctou["page_id"], sub_b_toctou["page_id"]):
+                    row = conn.execute(
+                        "SELECT payload FROM outbox_messages WHERE message_id=?", (page_id,)
+                    ).fetchone()
+                    doc = json.loads(row["payload"])
+                    doc["source_plan"]["entry_deadline_utc"] = future_deadline
+                    doc["source_plan"]["expires_at_utc"] = future_deadline
+                    conn.execute(
+                        "UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                        (json.dumps(doc), page_id),
+                    )
+                conn.commit()
+        return result
+
+    monkeypatch.setattr(cli, "audit_preunpause_outbox", _audit_then_extend_deadlines)
+    rc_tx, res_tx = cli.apply_preunpause_reconciliation(db_tx)
+    assert rc_tx == cli.EXIT_OK
+    assert res_tx["expiry_clock_mode"] == "WALL_UTC"
+    assert res_tx["pre_audit_counts"]["subgroup_a_expired_substack_plan_pages"] == 1
+    assert res_tx["pre_audit_counts"]["subgroup_b_verified_absent_eligible"] == 1
+    assert res_tx["mutations"]["subgroup_a_retired"] == []
+    assert res_tx["mutations"]["subgroup_b_verified_absent_retired"] == []
+    assert store_tx.get_outbox_message(sub_a_toctou["message_id"])["status"] == "READY"
+    assert store_tx.get_outbox_message(sub_a_toctou["page_id"])["status"] == "EDITORIAL_INTERNAL"
+    assert store_tx.get_outbox_message(sub_b_toctou["message_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store_tx.get_platform_dispatch(sub_b_toctou["dispatch_id"])["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store_tx.get_outbox_message(sub_b_toctou["page_id"])["status"] == "EDITORIAL_INTERNAL"
