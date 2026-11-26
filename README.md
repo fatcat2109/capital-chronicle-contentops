@@ -10,7 +10,7 @@ Capital Chronicle ContentOps is the local-first institutional editorial operatin
 We have transitioned from passive waiting-state and planning mode to **Active Pre-Launch**.
 - The current flagship product surface is **V5** (React/Vite/Tailwind).
 - The legacy **V4** shell remains frozen as a fallback and visual/safety baseline reference.
-- **Default Runtime Agency:** Antigravity is the default implementation and Browser QA agent.
+- **Default Runtime Agency (Decisions 168/184, CC-801/CC-855):** Codex (`gpt-6.2-sol` / `gpt-6.2-astra`) owns editorial light/draft/variant passes and BrowserOS Neo / deterministic `python-neo` owns browser publishing; `agy` CLI invocations are hard-blocked (`AGY_TERMS_BLOCK`) and Claude Code/Desktop routes retire permanently at `2026-12-03T17:00:00Z` (Fri 04 Dec 2026 00:00 GMT+7).
 
 ---
 

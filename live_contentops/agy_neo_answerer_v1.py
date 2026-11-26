@@ -150,13 +150,17 @@ class AgyRunner:
         self.scratch_root = str(scratch_root) if scratch_root else None
         self.timeout_seconds = timeout_seconds
 
+    def blocked_cause(self) -> str | None:
+        from live_contentops.agy_editorial_assist_v1 import AGY_TERMS_BLOCK, agy_blocked
+        return AGY_TERMS_BLOCK if agy_blocked(self.exe) else None
+
     def available(self) -> bool:
-        return self.exe.is_file()
+        return self.exe.is_file() and self.blocked_cause() is None
 
     def __call__(self, prompt: str) -> dict:
-        from live_contentops.agy_editorial_assist_v1 import AGY_TERMS_BLOCK, agy_blocked
-        if agy_blocked(self.exe):  # Ops Product, 24 Nov 2026: the Antigravity terms block (see agy_editorial_assist_v1)
-            return {"runner_status": "NOT_STARTED", "cause": AGY_TERMS_BLOCK}
+        blocked = self.blocked_cause()
+        if blocked:  # Ops Product, 24 Nov 2026: the Antigravity terms block (see agy_editorial_assist_v1)
+            return {"runner_status": "NOT_STARTED", "cause": blocked}
         command = [*self.prefix, *agy_command(prompt, exe=self.exe)]
         folder = tempfile.mkdtemp(prefix="agy-neo-", dir=self.scratch_root)
         flags = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
@@ -372,6 +376,18 @@ def _report(report_dir, request_hash, report):
     return str(path)
 
 
+def _runner_unavailable_reason(runner: Any) -> str | None:
+    """Return a pre-claim refusal code when agy is terms-blocked or its CLI is missing."""
+    blocked_fn = getattr(runner, "blocked_cause", None)
+    if callable(blocked_fn):
+        blocked = blocked_fn()
+        if blocked:
+            return str(blocked)
+    if hasattr(runner, "available") and not runner.available():
+        return "AGY_CLI_MISSING"
+    return None
+
+
 def dry_run(packet: Mapping[str, Any], *, runner: Callable[[str], dict] | None = None,
             report_dir: str | Path | None = None) -> dict:
     """Fill and verify, never click: no claim, no submit, nothing in the store changes."""
@@ -385,8 +401,9 @@ def dry_run(packet: Mapping[str, Any], *, runner: Callable[[str], dict] | None =
         report.update(passed=False, reason_code="AGY_DRY_RUN_REQUEST_NOT_SUPPORTED")
         report["report_path"] = _report(report_dir, request.get("request_sha256"), report)
         return report
-    if hasattr(runner, "available") and not runner.available():
-        report.update(passed=False, reason_code="AGY_CLI_MISSING")
+    unavailable_reason = _runner_unavailable_reason(runner)
+    if unavailable_reason:
+        report.update(passed=False, reason_code=unavailable_reason)
         report["report_path"] = _report(report_dir, request.get("request_sha256"), report)
         return report
     answer, meta = parse_agy_run(_run(runner, fill_prompt(request, packet, dry_run=True)))
@@ -427,8 +444,9 @@ def answer_request(packet: Mapping[str, Any], *, begin: Callable[[str], Mapping[
         return {**base, "outcome": "DRY_RUN", "dry_run": dry_run(packet, runner=runner, report_dir=report_dir)}
     runner = runner or AgyRunner()
     clock = clock or _now
-    if hasattr(runner, "available") and not runner.available():
-        return {**base, "outcome": "LEFT_FOR_CODEX", "reason_code": "AGY_CLI_MISSING"}
+    unavailable_reason = _runner_unavailable_reason(runner)
+    if unavailable_reason:
+        return {**base, "outcome": "LEFT_FOR_CODEX", "reason_code": unavailable_reason}
     try:
         fill_text = fill_prompt(request, packet, dry_run=False)
     except AgyAnswerError as exc:  # never claim a request agy cannot be given

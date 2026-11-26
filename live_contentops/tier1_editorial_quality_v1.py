@@ -680,13 +680,14 @@ def _load_dotenv_safely() -> None:
 
 def _choose_llm_provider(requested: str) -> str:
     if requested and requested != "auto":
+        if str(requested).strip().lower() == "anthropic":
+            raise ValueError("ANTHROPIC_PROVIDER_RETIRED_CC855")
         return requested
     from .ai_provider_gate_v6 import inspect_provider_credentials
 
     present = inspect_provider_credentials()
     for env_name, provider in (
         ("NINE_ROUTER_API_KEY", "9router"),
-        ("ANTHROPIC_API_KEY", "anthropic"),
         ("OPENAI_API_KEY", "openai"),
     ):
         if present.get(env_name):
