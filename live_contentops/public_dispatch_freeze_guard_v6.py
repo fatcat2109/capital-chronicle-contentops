@@ -12,12 +12,21 @@ import re
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from .v6_runtime_ledgers_v1 import (
+    CANONICAL_PUBLIC_DISPATCH_LEDGER,
+    LEGACY_PUBLIC_DISPATCH_LEDGER as _DEFAULT_LEGACY_PUBLIC_DISPATCH_LEDGER,
+    default_legacy_paths_for,
+    prepare_runtime_jsonl_for_write,
+    read_jsonl_records_with_fallback,
+    same_path,
+)
+
 APPROVAL_STATUS_APPROVED = "APPROVED_FOR_PUBLIC_DISPATCH"
 GUARD_STATUS_PASS = "PASS"
 GUARD_STATUS_BLOCKED = "PUBLIC_DISPATCH_FROZEN"
-DEFAULT_PUBLIC_DISPATCH_LEDGER = Path(
-    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
-)
+DEFAULT_PUBLIC_DISPATCH_LEDGER = CANONICAL_PUBLIC_DISPATCH_LEDGER
+LEGACY_PUBLIC_DISPATCH_LEDGER = _DEFAULT_LEGACY_PUBLIC_DISPATCH_LEDGER
+_DEFAULT_LEDGER_SENTINEL: Any = object()
 
 _PUBLIC_URL_RE = re.compile(r"https?://[^\s<>()\[\]\"']+")
 _GENERIC_TELEGRAM_LINK_RE = re.compile(
@@ -203,25 +212,33 @@ def normalise_prior_dispatch_hashes(prior_dispatch_hashes: Any) -> dict[str, set
     return hashes
 
 
+def _legacy_paths_for_dispatch_ledger(path: Path) -> list[Path] | None:
+    if not same_path(path, DEFAULT_PUBLIC_DISPATCH_LEDGER):
+        return None
+    if same_path(LEGACY_PUBLIC_DISPATCH_LEDGER, _DEFAULT_LEGACY_PUBLIC_DISPATCH_LEDGER):
+        return default_legacy_paths_for("public_dispatch_duplicate_ledger")
+    return [Path(LEGACY_PUBLIC_DISPATCH_LEDGER)]
+
+
+def read_public_dispatch_ledger_rows(
+    ledger_path: str | Path | None = _DEFAULT_LEDGER_SENTINEL,
+) -> list[dict[str, Any]]:
+    resolved = DEFAULT_PUBLIC_DISPATCH_LEDGER if ledger_path is _DEFAULT_LEDGER_SENTINEL else ledger_path
+    if not resolved:
+        return []
+    path = Path(resolved)
+    return read_jsonl_records_with_fallback(
+        path,
+        default_path=DEFAULT_PUBLIC_DISPATCH_LEDGER,
+        union_legacy=True,
+        legacy_paths=_legacy_paths_for_dispatch_ledger(path),
+    )
+
+
 def load_public_dispatch_hashes(
-    ledger_path: str | Path | None = DEFAULT_PUBLIC_DISPATCH_LEDGER,
+    ledger_path: str | Path | None = _DEFAULT_LEDGER_SENTINEL,
 ) -> dict[str, set[str]]:
-    if not ledger_path:
-        return normalise_prior_dispatch_hashes(None)
-    path = Path(ledger_path)
-    rows: list[dict[str, Any]] = []
-    if not path.exists():
-        return normalise_prior_dispatch_hashes(rows)
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            row = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(row, dict):
-            rows.append(row)
+    rows = read_public_dispatch_ledger_rows(ledger_path)
     return normalise_prior_dispatch_hashes(rows)
 
 
@@ -258,8 +275,12 @@ def append_public_dispatch_ledger(
         "status": status,
         **identity_hashes,
     }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
+    prepare_runtime_jsonl_for_write(
+        path,
+        default_path=DEFAULT_PUBLIC_DISPATCH_LEDGER,
+        legacy_paths=_legacy_paths_for_dispatch_ledger(path),
+    )
+    with path.open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(record, sort_keys=True) + "\n")
 
 

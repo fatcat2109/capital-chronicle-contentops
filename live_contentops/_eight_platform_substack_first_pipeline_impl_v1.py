@@ -57,6 +57,7 @@ from live_contentops.media_manifest_authority_v1 import (
     select_primary_chart,
 )
 from live_contentops.public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
     load_public_dispatch_hashes,
@@ -1212,7 +1213,7 @@ def _publish_telegram_photo_verified(
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_photo
 
-    public_ledger = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+    public_ledger = DEFAULT_PUBLIC_DISPATCH_LEDGER
     dedupe_url = guard_canonical_url or canonical_url
     payload_hash = build_public_dispatch_payload_hash(
         platform="telegram",
@@ -1305,7 +1306,7 @@ def _publish_telegram_text_verified(
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
 
-    public_ledger = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+    public_ledger = DEFAULT_PUBLIC_DISPATCH_LEDGER
     payload_hash = build_public_dispatch_payload_hash(
         platform="telegram", action="post", body_text=text,
         canonical_url=canonical_url, media_url=None, topic_hash=topic_hash,

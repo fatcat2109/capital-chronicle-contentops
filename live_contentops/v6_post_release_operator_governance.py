@@ -12,11 +12,29 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from .v6_runtime_ledgers_v1 import (
+    CANONICAL_LIVE_TELEMETRY_FILE,
+    LEGACY_LIVE_TELEMETRY_FILE as _DEFAULT_LEGACY_TELEMETRY_LOG_PATH,
+    default_legacy_paths_for,
+    prepare_runtime_jsonl_for_write,
+    resolve_jsonl_read_path,
+    same_path,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 STATUS_JSON_PATH = ROOT / "docs" / "status" / "current_project_status.json"
-TELEMETRY_LOG_PATH = ROOT / "docs" / "automation" / "V6_LIVE_TELEMETRY" / "live_telemetry_registry_v6.jsonl"
+TELEMETRY_LOG_PATH = CANONICAL_LIVE_TELEMETRY_FILE
+LEGACY_TELEMETRY_LOG_PATH = _DEFAULT_LEGACY_TELEMETRY_LOG_PATH
 GOVERNANCE_OUT_DIR = ROOT / "docs" / "automation" / "V6_POST_RELEASE_GOVERNANCE"
 GOVERNANCE_PACKET_PATH = GOVERNANCE_OUT_DIR / "operator_governance_summary.json"
+
+
+def _governance_telemetry_legacy_paths(path: Path) -> Optional[List[Path]]:
+    if not same_path(path, TELEMETRY_LOG_PATH):
+        return None
+    if same_path(LEGACY_TELEMETRY_LOG_PATH, _DEFAULT_LEGACY_TELEMETRY_LOG_PATH):
+        return default_legacy_paths_for("live_telemetry_registry")
+    return [Path(LEGACY_TELEMETRY_LOG_PATH)]
 
 ALL_PLATFORMS = [
     "meta_facebook",
@@ -35,7 +53,12 @@ def stable_hash(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
 
 def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
-    target_path = log_path or TELEMETRY_LOG_PATH
+    requested_path = Path(log_path) if log_path is not None else TELEMETRY_LOG_PATH
+    target_path = resolve_jsonl_read_path(
+        requested_path,
+        default_path=TELEMETRY_LOG_PATH,
+        legacy_paths=_governance_telemetry_legacy_paths(requested_path),
+    )
     archive_path = target_path.parent / f"{target_path.stem}_archive.jsonl"
 
     archive_exists = archive_path.exists()
@@ -103,7 +126,16 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
     }
 
 def rotate_telemetry_log(log_path: Optional[Path] = None, max_lines: int = 1000) -> Dict[str, Any]:
-    target_path = log_path or TELEMETRY_LOG_PATH
+    target_path = Path(log_path) if log_path is not None else TELEMETRY_LOG_PATH
+    legacy_paths = _governance_telemetry_legacy_paths(target_path)
+    if legacy_paths is not None and not target_path.exists():
+        # Seed Runtime copy before rotating so legacy repo file stays untouched.
+        if any(p.is_file() and p.stat().st_size > 0 for p in legacy_paths):
+            prepare_runtime_jsonl_for_write(
+                target_path,
+                default_path=TELEMETRY_LOG_PATH,
+                legacy_paths=legacy_paths,
+            )
     if not target_path.exists():
         return {"rotated": False, "archived_lines": 0}
 
@@ -119,10 +151,10 @@ def rotate_telemetry_log(log_path: Optional[Path] = None, max_lines: int = 1000)
     keep_lines = lines[rotate_count:]
 
     archive_path = target_path.parent / f"{target_path.stem}_archive.jsonl"
-    with open(archive_path, "a", encoding="utf-8") as f:
+    with open(archive_path, "a", encoding="utf-8", newline="\n") as f:
         f.writelines(rotate_lines)
 
-    with open(target_path, "w", encoding="utf-8") as f:
+    with open(target_path, "w", encoding="utf-8", newline="\n") as f:
         f.writelines(keep_lines)
 
     return {"rotated": True, "archived_lines": rotate_count}

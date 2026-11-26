@@ -9,6 +9,7 @@ from dataclasses import asdict, dataclass, field
 import datetime
 import json
 import os
+from pathlib import Path
 import re
 import threading
 from typing import Any
@@ -19,13 +20,33 @@ from .platform_error_classifier import (
     assert_redacted_error_safe,
     classify_platform_error,
 )
+from .v6_runtime_ledgers_v1 import (
+    CANONICAL_LIVE_TELEMETRY_DIR,
+    CANONICAL_LIVE_TELEMETRY_FILE,
+    LEGACY_LIVE_TELEMETRY_FILE as _DEFAULT_LEGACY_LIVE_TELEMETRY_FILE,
+    default_legacy_paths_for,
+    prepare_runtime_jsonl_for_write,
+    read_jsonl_records_with_fallback,
+    same_path,
+)
 
-# Registry file path
-TELEMETRY_DIR = "docs/automation/V6_LIVE_TELEMETRY"
-TELEMETRY_FILE = os.path.join(TELEMETRY_DIR, "live_telemetry_registry_v6.jsonl")
+# Registry file path (canonical Runtime root; legacy repo path retained read-only for seamless fallback/seeding)
+TELEMETRY_DIR = str(CANONICAL_LIVE_TELEMETRY_DIR)
+TELEMETRY_FILE = str(CANONICAL_LIVE_TELEMETRY_FILE)
+LEGACY_TELEMETRY_FILE = str(_DEFAULT_LEGACY_LIVE_TELEMETRY_FILE)
 
 # Thread lock for atomic file appends
 _write_lock = threading.Lock()
+
+
+def _legacy_paths_for_telemetry(path: Path, explicit_legacy: Path | None = None) -> list[Path] | None:
+    if explicit_legacy is not None:
+        return [explicit_legacy]
+    if not same_path(path, TELEMETRY_FILE):
+        return None
+    if same_path(LEGACY_TELEMETRY_FILE, _DEFAULT_LEGACY_LIVE_TELEMETRY_FILE):
+        return default_legacy_paths_for("live_telemetry_registry")
+    return [Path(LEGACY_TELEMETRY_FILE)]
 
 
 @dataclass
@@ -52,8 +73,14 @@ class TelemetryEvent:
 class TelemetryRegistry:
     """Thread-safe registry for persisting telemetry events and computing summaries."""
 
-    def __init__(self, file_path: str = TELEMETRY_FILE):
-        self.file_path = file_path
+    def __init__(
+        self,
+        file_path: str | Path | None = None,
+        *,
+        legacy_file_path: str | Path | None = None,
+    ):
+        self.file_path = str(file_path) if file_path is not None else TELEMETRY_FILE
+        self._legacy_file_path = Path(legacy_file_path) if legacy_file_path is not None else None
 
     def record_event(self, event: TelemetryEvent) -> None:
         """Validates error safety and appends the telemetry event to the JSONL file."""
@@ -61,32 +88,35 @@ class TelemetryRegistry:
         # Verify no raw secrets/credentials exist in the telemetry payload
         assert_redacted_error_safe(data)
 
-        os.makedirs(os.path.dirname(self.file_path), exist_ok=True)
+        target = Path(self.file_path)
         with _write_lock:
-            with open(self.file_path, "a", encoding="utf-8") as f:
+            prepare_runtime_jsonl_for_write(
+                target,
+                default_path=Path(TELEMETRY_FILE),
+                legacy_paths=_legacy_paths_for_telemetry(target, self._legacy_file_path),
+            )
+            with open(target, "a", encoding="utf-8", newline="\n") as f:
                 f.write(json.dumps(data) + "\n")
 
     def get_events(self) -> list[dict[str, Any]]:
         """Reads all recorded events from the JSONL registry."""
-        if not os.path.exists(self.file_path):
-            return []
+        target = Path(self.file_path)
         events = []
         with _write_lock:
-            with open(self.file_path, "r", encoding="utf-8") as f:
-                for line in f:
-                    line = line.strip()
-                    if line:
-                        try:
-                            event = json.loads(line)
-                            if event.get("platform_id") == "x" and event.get("action") in {"post","comment","edit"}:
-                                # Transport success in legacy receipts never proved platform readback.
-                                observed = event.get("platform_readback") or {}
-                                confirmed = observed.get("verified") is True and bool(observed.get("observed_public_object_id"))
-                                event = {**event,"publication_state":"PUBLISHED" if confirmed else "UNVERIFIED",
-                                    "publication_confirmed":confirmed}
-                            events.append(event)
-                        except Exception:
-                            continue
+            raw_events = read_jsonl_records_with_fallback(
+                target,
+                default_path=Path(TELEMETRY_FILE),
+                union_legacy=False,
+                legacy_paths=_legacy_paths_for_telemetry(target, self._legacy_file_path),
+            )
+            for event in raw_events:
+                if event.get("platform_id") == "x" and event.get("action") in {"post","comment","edit"}:
+                    # Transport success in legacy receipts never proved platform readback.
+                    observed = event.get("platform_readback") or {}
+                    confirmed = observed.get("verified") is True and bool(observed.get("observed_public_object_id"))
+                    event = {**event,"publication_state":"PUBLISHED" if confirmed else "UNVERIFIED",
+                        "publication_confirmed":confirmed}
+                events.append(event)
         return events
 
     def get_summary(self) -> dict[str, Any]:
@@ -178,7 +208,7 @@ def classify_and_record_dispatch(
     adapter_result: dict[str, Any],
     latency_ms: float,
     payload_size_bytes: int = 0,
-    registry_file: str = TELEMETRY_FILE,
+    registry_file: str | Path | None = None,
 ) -> TelemetryEvent:
     """Classifies the adapter dispatch outcome, maps it to a TelemetryEvent, and records it."""
     status = adapter_result.get("status")
