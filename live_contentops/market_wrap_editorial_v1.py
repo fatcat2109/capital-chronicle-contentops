@@ -266,6 +266,29 @@ def article_for(pack, manuscript):
         close_label = public_date(datetime.combine(close_date, time(), ET))
         intro += f" The comparison ends with the sessions dated {close_label}."
     body = []
+    attention_section = None
+    attention_register = None
+    if weekly and pack.get("attention_map"):
+        from . import market_attention_map_public_v1 as attention_map
+
+        am_spec = pack["attention_map"]
+        raw_register = am_spec["register"]
+        if raw_register.get("schema_version") == attention_map.SCHEMA_VERSION:
+            attention_register = raw_register
+        else:
+            from . import market_forces_high_interval_v1 as high_interval
+
+            attention_register = high_interval.project_live_attention_map(
+                raw_register,
+                as_of_utc=pack.get("source_pack_as_of_utc"),
+                max_age_minutes=am_spec.get("max_age_minutes"),
+            )["public_register"]
+        attention_section = attention_map.render_weekly_section(
+            attention_register,
+            page_links=am_spec.get("page_links"),
+            page_decisions=am_spec.get("page_decisions"),
+        )
+        body.append(attention_section["markdown"])
     scenario = pack["plans"].get("scenario")
     case_headings = []
     if scenario and scenario.get("scenario_voice") == voice.CONTRACT:
@@ -320,11 +343,73 @@ def article_for(pack, manuscript):
             continue
         source = {r["id"]: r for r in pack[key]}
         rows = checked.get(key, [])
-        rendered = "\n".join(f"- {r['text']} ([official schedule]({source[r['id']]['source_url']}))" for r in rows)
+        if key == "events" and weekly and attention_register is not None:
+            from . import market_attention_map_public_v1 as attention_map
+            from datetime import timedelta
+
+            start_clock = pack.get("source_pack_as_of_utc") or pack["slot"]["start_utc"]
+            end_clock = (attention_map.utc(start_clock) + timedelta(days=7)).isoformat()
+            base_rows = [
+                {**source[r["id"]], "text": r["text"]}
+                for r in rows
+                if r["id"] in source
+            ]
+            merged = attention_map.merge_weekly_calendar(
+                base_rows, attention_register, start_utc=start_clock, end_utc=end_clock
+            )
+            rendered = "\n".join(
+                (f"- {item['time']} — {item['name']}{item['qualifier']} ([official schedule]({item['source_url']}))"
+                 if item.get("source_url")
+                 else f"- {item['time']} — {item['name']}{item['qualifier']}")
+                for item in merged
+            )
+        else:
+            rendered = "\n".join(f"- {r['text']} ([official schedule]({source[r['id']]['source_url']}))" for r in rows)
         body.extend(["## " + title, rendered or (
             "The official calendar could not be verified." if "calendar" in pack["gaps"]
             else "The calendar lists no events for this period." if not source
             else "The source check could not clear the calendar lines.")])
+    if not weekly and pack.get("attention_map_updates"):
+        from . import market_attention_map_public_v1 as attention_map
+
+        updates_md = attention_map.render_daily_wrap_theme_updates(pack["attention_map_updates"])
+        if updates_md:
+            body.extend([f"## {attention_map.DAILY_UPDATES_HEADING}", updates_md])
+    session_pulse = None
+    if pack.get("session_sync_pulse"):
+        from . import market_forces_high_interval_v1 as high_interval
+
+        pulse_spec = pack["session_sync_pulse"]
+        if pulse_spec.get("schema_version") == high_interval.PULSE_SCHEMA_VERSION:
+            pulse_register = (
+                pulse_spec.get("public_register")
+                or pulse_spec.get("register")
+                or attention_register
+                or (pack.get("attention_map") or {}).get("register")
+            )
+            session_pulse = high_interval.validate_session_sync_pulse(
+                pulse_spec,
+                register_or_public=pulse_register,
+                private_texts=pulse_spec.get("private_texts") or (),
+            )
+        else:
+            default_session = (
+                pulse_spec.get("session")
+                or (high_interval.SESSION_PRE_US if not weekly else None)
+            )
+            session_pulse = high_interval.render_session_sync_pulse(
+                pulse_spec["register"],
+                session=default_session,
+                as_of_utc=(
+                    pulse_spec.get("as_of_utc")
+                    or pack.get("source_pack_as_of_utc")
+                    or pack.get("data_cutoff_utc")
+                ),
+                recent_flashes=pulse_spec.get("recent_flashes"),
+                page_links=pulse_spec.get("page_links"),
+                max_themes=pulse_spec.get("max_themes", 3),
+            )
+        body.append(session_pulse["markdown"])
     if weekly and pack.get("weekly_calls"):
         # The record carries its own notice; the wrap prints the notice once, at its end.
         body.append(pack["weekly_calls"]["text"].replace(PUBLIC_NOTICE + " " + CONFLICTS_NOTICE, "").rstrip())
@@ -348,6 +433,25 @@ def article_for(pack, manuscript):
                **({"market_asset": chart_market} if chart_market else {})}
     if case_headings:
         article["wrap_scenario_headings"] = case_headings
+    if attention_section:
+        article["attention_map_top_three"] = attention_section["top_three_lines"]
+        article["attention_map_register"] = attention_register
+    if session_pulse:
+        article["session_sync_pulse"] = {
+            key: session_pulse[key]
+            for key in (
+                "schema_version",
+                "session",
+                "session_label",
+                "heading",
+                "as_of_utc",
+                "as_of_et",
+                "theme_ids",
+                "top_lines",
+                "flash_count",
+            )
+            if key in session_pulse
+        }
     voice.validate_copy(article["substack_body_markdown"])
     check_publication_copy({"title": title, "body": article["substack_body_markdown"]})
     validate_article(article)
@@ -417,6 +521,23 @@ def derivative_payload(article, assets, canonical_url, destination):
     text = article["subtitle"]
     media = [asset["asset_id"] for asset in assets]
     credit = " " + assets[0]["credit"] + "." if assets and assets[0].get("credit") else ""
+    if article.get("attention_map_register") and article.get("attention_map_top_three"):
+        from . import market_attention_map_public_v1 as attention_map
+
+        lead = attention_map.render_short_social_lead(
+            article["attention_map_register"],
+            canonical_url,
+            destination=destination,
+            credit=assets[0]["credit"] if assets and assets[0].get("credit") else "",
+        )
+        lead["media_asset_ids"] = media
+        if destination == "x":
+            lead["posts"] = [
+                {**post, "media_asset_ids": [] if post["order"] else media}
+                for post in lead["posts"]
+            ]
+        validate_payload(article, lead)
+        return lead
     notices = PUBLIC_NOTICE + "\n" + CONFLICTS_NOTICE
     cases = article.get("wrap_scenario_headings") or []
     if destination == "x":
