@@ -67,7 +67,86 @@ def read_bars(symbol, start, end, *, path=BAR_STORE):
     return list(selected.values())
 
 
-def check_path(candidate, bars):
+_FX_SESSION_SYMBOLS = frozenset({"EURUSD", "USDJPY"})
+_CME_CFD_SESSION_SYMBOLS = frozenset({"US500", "USTEC", "XAUUSD", "USOIL"})
+_MAX_SCHEDULED_CLOSURE_GAP_SECONDS = 5 * 86400
+
+
+def _is_cme_full_day_holiday(day, *, calendar_path=None, calendar=None):
+    """NYSE closed weekdays where CME Globex itself stays closed all day (New Year, Good Friday, Christmas)."""
+    from .publication_image_contract_v1 import us_cash_session_bounds
+    if day.weekday() >= 5 or us_cash_session_bounds(day, calendar_path=calendar_path, calendar=calendar) is not None:
+        return False
+    return (
+        (day.month == 1 and day.day in {1, 2})
+        or (day.month in {3, 4} and day.weekday() == 4)
+        or (day.month == 12 and day.day in {24, 25, 26})
+    )
+
+
+def _scheduled_closed_slot(symbol, slot_open_epoch, *, calendar_path=None, calendar=None):
+    """Return True iff the M15 bar [slot_open_epoch, +900s) lies inside a scheduled broker/exchange closure."""
+    if symbol not in _FX_SESSION_SYMBOLS and symbol not in _CME_CFD_SESSION_SYMBOLS:
+        return False
+    from datetime import time as dt_time
+    from .publication_image_contract_v1 import us_cash_session_bounds
+    local = datetime.fromtimestamp(slot_open_epoch, timezone.utc).astimezone(scorecard.ET)
+    day, wd, clock = local.date(), local.weekday(), local.time()
+    if symbol in _FX_SESSION_SYMBOLS:
+        return wd == 5 or (wd == 4 and clock >= dt_time(17, 0)) or (wd == 6 and clock < dt_time(17, 0))
+    if wd == 5 or (wd == 4 and clock >= dt_time(17, 0)) or (wd == 6 and clock < dt_time(18, 0)):
+        return True
+    if wd < 4 and dt_time(17, 0) <= clock < dt_time(18, 0):
+        return True
+    if wd < 5:
+        bounds = us_cash_session_bounds(day, calendar_path=calendar_path, calendar=calendar)
+        if bounds is None:
+            if _is_cme_full_day_holiday(day, calendar_path=calendar_path, calendar=calendar):
+                return clock < dt_time(18, 0) or wd == 4
+            if dt_time(13, 0) <= clock < dt_time(18, 0) or (wd == 4 and clock >= dt_time(13, 0)):
+                return True
+        elif bounds[1] < dt_time(16, 0):
+            if bounds[1] <= clock < dt_time(18, 0) or (wd == 4 and clock >= bounds[1]):
+                return True
+        if clock >= dt_time(18, 0) and _is_cme_full_day_holiday(
+                day + timedelta(days=1), calendar_path=calendar_path, calendar=calendar):
+            return True
+    return False
+
+
+def _is_scheduled_closure_gap(symbol, gap_start_epoch, gap_end_epoch, *,
+                              previous_epoch=None, calendar_path=None, calendar=None):
+    """Return True iff every missing M15 slot in [gap_start, gap_end) is scheduled-closed and gap_end reopens."""
+    if not symbol or gap_end_epoch <= gap_start_epoch:
+        return False
+    if gap_start_epoch % 900 != 0 or gap_end_epoch % 900 != 0:
+        return False
+    if gap_end_epoch - gap_start_epoch > _MAX_SCHEDULED_CLOSURE_GAP_SECONDS:
+        return False
+    if _scheduled_closed_slot(symbol, gap_end_epoch, calendar_path=calendar_path, calendar=calendar):
+        return False
+    if previous_epoch is not None and _scheduled_closed_slot(
+            symbol, previous_epoch, calendar_path=calendar_path, calendar=calendar):
+        from datetime import time as dt_time
+        from .publication_image_contract_v1 import us_cash_session_bounds
+        if symbol not in _CME_CFD_SESSION_SYMBOLS:
+            return False
+        prev_local = datetime.fromtimestamp(previous_epoch, timezone.utc).astimezone(scorecard.ET)
+        prev_bounds = us_cash_session_bounds(prev_local.date(), calendar_path=calendar_path, calendar=calendar)
+        is_half_or_early = (
+            prev_local.weekday() < 5
+            and not _is_cme_full_day_holiday(prev_local.date(), calendar_path=calendar_path, calendar=calendar)
+            and (prev_bounds is None or prev_bounds[1] < dt_time(16, 0))
+        )
+        if not (is_half_or_early and dt_time(13, 0) <= prev_local.time() < dt_time(14, 30)):
+            return False
+    for epoch in range(gap_start_epoch, gap_end_epoch, 900):
+        if not _scheduled_closed_slot(symbol, epoch, calendar_path=calendar_path, calendar=calendar):
+            return False
+    return True
+
+
+def check_path(candidate, bars, *, calendar_path=None, calendar=None):
     """Check the whole condition and horizon. Invalidation wins a same-bar tie.
 
     No return is computed. Entry and resolution in one bar cannot establish an
@@ -82,6 +161,7 @@ def check_path(candidate, bars):
     direction = candidate["direction"]
     if direction not in {"bullish", "bearish"} or start >= end:
         return {"eligible": False, "cause": "CC603_ORIGINAL_AFTER_PLAN_LIFE"}
+    symbol = candidate.get("symbol")
     entered = int(start.timestamp()) if candidate.get("entry_condition_kind") == "EVENT" else None
     previous = None
     first = None
@@ -92,9 +172,15 @@ def check_path(candidate, bars):
             continue
         expected_first = (int(start.timestamp()) // 900 + 1) * 900
         if first is None and bar["open_epoch"] != expected_first:
-            return {"eligible": False, "cause": "CC603_HELD_PRICE_GAP_AFTER_PUBLICATION"}
+            if not _is_scheduled_closure_gap(
+                    symbol, expected_first, bar["open_epoch"],
+                    calendar_path=calendar_path, calendar=calendar):
+                return {"eligible": False, "cause": "CC603_HELD_PRICE_GAP_AFTER_PUBLICATION"}
         if previous is not None and bar["open_epoch"] != previous + 900:
-            return {"eligible": False, "cause": "CC603_HELD_PRICE_GAP"}
+            if not _is_scheduled_closure_gap(
+                    symbol, previous + 900, bar["open_epoch"],
+                    previous_epoch=previous, calendar_path=calendar_path, calendar=calendar):
+                return {"eligible": False, "cause": "CC603_HELD_PRICE_GAP"}
         previous = bar["open_epoch"]
         first = first or bar
         evidence.append({k: bar[k] for k in ("open_epoch", "source_sha256")})
@@ -811,8 +897,15 @@ def overlay_levels(row):
     return source_binding({**row, "kind": "call_followup", "cc603_contract": CONTRACT})["levels"]
 
 
-def cash_session_open_for_bar(symbol, bar_open_utc, bar_end_utc, *, calendar_path=None, calendar=None):
-    """Return True iff the ET cash session (honoring US holidays/early closes) covers [bar_open_utc, bar_end_utc]."""
+def cash_session_open_for_bar(symbol, bar_open_utc, bar_end_utc, *, resolved_at_utc=None,
+                              calendar_path=None, calendar=None):
+    """Return True iff the ET cash session (honoring US holidays/early closes) covers the resolution bar.
+
+    Without resolved_at_utc, enforces strict full-bar containment [bar_open_utc, bar_end_utc] <= [open, close].
+    With resolved_at_utc, fine bars (<= 15m) enforce full-bar containment while coarse chart bars (60m/240m/D)
+    check that resolved_at_utc itself lies inside (opens_utc, closes_utc] on an open US cash session day, so
+    UTC-aligned 4h or daily candles extending past an early or regular close never falsely trip CC778.
+    """
     session = CASH_SESSIONS.get(symbol)
     if not session:
         return True
@@ -820,8 +913,14 @@ def cash_session_open_for_bar(symbol, bar_open_utc, bar_end_utc, *, calendar_pat
     from .publication_image_contract_v1 import us_cash_session_bounds
     open_utc = posts._utc(bar_open_utc)
     end_utc = posts._utc(bar_end_utc)
-    local_open = open_utc.astimezone(scorecard.ET)
-    bounds = us_cash_session_bounds(local_open.date(), calendar_path=calendar_path, calendar=calendar)
+    if end_utc <= open_utc:
+        return False
+    resolved_utc = posts._utc(resolved_at_utc) if resolved_at_utc is not None else None
+    if resolved_utc is not None and not (open_utc < resolved_utc <= end_utc):
+        return False
+    anchor_utc = resolved_utc if resolved_utc is not None else open_utc
+    session_day = anchor_utc.astimezone(scorecard.ET).date()
+    bounds = us_cash_session_bounds(session_day, calendar_path=calendar_path, calendar=calendar)
     if bounds is None:
         return False
     (open_h, open_m), (close_h, close_m) = session
@@ -829,8 +928,10 @@ def cash_session_open_for_bar(symbol, bar_open_utc, bar_end_utc, *, calendar_pat
     session_close = min(dt_time(close_h, close_m), bounds[1])
     if session_open >= session_close:
         return False
-    opens_utc = datetime.combine(local_open.date(), session_open, scorecard.ET).astimezone(timezone.utc)
-    closes_utc = datetime.combine(local_open.date(), session_close, scorecard.ET).astimezone(timezone.utc)
+    opens_utc = datetime.combine(session_day, session_open, scorecard.ET).astimezone(timezone.utc)
+    closes_utc = datetime.combine(session_day, session_close, scorecard.ET).astimezone(timezone.utc)
+    if resolved_utc is not None and (end_utc - open_utc) > timedelta(minutes=15):
+        return opens_utc < resolved_utc <= closes_utc
     return opens_utc <= open_utc and end_utc <= closes_utc
 
 
@@ -856,7 +957,8 @@ def move_chart_request(row, *, calendar_path=None, calendar=None):
         "levels": overlay_levels(row),
         "ratios": ["16:9", *(["4:5"] if "instagram_business" in row["cc603_destinations"] else [])]}
     if symbol in CASH_SESSIONS and not cash_session_open_for_bar(
-            symbol, last_open, visible_to, calendar_path=calendar_path, calendar=calendar):
+            symbol, last_open, visible_to, resolved_at_utc=resolved,
+            calendar_path=calendar_path, calendar=calendar):
         request["refusal"] = "CC778_CHART_MARKET_CLOSED_AT_RESOLUTION:" + request["tv_symbol"]
     return request
 
