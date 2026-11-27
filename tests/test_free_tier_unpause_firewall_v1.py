@@ -1,0 +1,1339 @@
+"""Hermetic tests for V2.1-C6 ~15 Dec FREE-Only CC-024 Unpause Firewall & CC-817 v2 Live-Schema Rehearsal.
+
+Strictly offline (tmp_path only; zero network calls, zero live publishing, zero writes
+outside tmp_path, zero Task Scheduler mutations, zero browser/LLM/agy calls).
+
+Covers:
+  1. Pillar (a) CC-024 Commercial-Rights Firewall & all 5 Capital Chronicle public filters
+     (Investing.com/Myfxbook, OCC/Yahoo GEX, FRED SP500, TradingView paywall/embedded
+     widgets vs allowed static snapshot credits, raw X-list/wire quotes, AI/model labels,
+     private book/positions/prepared responses, preview hosts, unnamed market-odds % and
+     Kalshi/Polymarket/FedWatch numbers, price targets, non-ET clocks, raw CFD symbols).
+  2. Pillar (b) FREE_ONLY_MODE guarantee (zero paywall HTML, paid tiers, checkout links,
+     referral links, paid audience/tier metadata, or non-zero prices prior to Q1 2027).
+  3. Pillar (c) V2.1-C6 Day-1 SHA-256 track-record hash chain & citation lineage
+     (`L4ShadowSleeveArenaLedgerRecordV1` + `CapitalChronicleTrackRecordChainV1`) AND
+     zero active Claude / Anthropic / `agy` runtime dependencies post-04 Dec.
+  4. Pillar (d) Strictly fail-closed integrity (malformed/duplicate-key JSON, non-finite
+     numbers, stale pre-15-Dec pause manifests including live `pause-20261123` shape,
+     premature unpause clocks, kill switches, and Rule A3 zero silent waivers).
+  5. Live-Schema CC-817 v2 High-Interval End-to-End Dry-Run Rehearsal matching CURRENT
+     Live Main `d96c30c78f39` `CC-807` schema (all 14 top-level keys & 33 per-theme keys,
+     immutable `WEB_ONLY` Substack theme/flash pages, 10-platform short social bundles,
+     Pre-Asia/Pre-London/Pre-US session-sync pulses, `market_wrap_editorial_v1` wrap
+     embedding, and read-only live-import parity check against Live Main `d96c30c78f39`).
+"""
+from __future__ import annotations
+
+from copy import deepcopy
+from datetime import datetime, timedelta, timezone
+from decimal import Decimal
+import json
+import math
+from pathlib import Path
+import sys
+from typing import Any
+
+import pytest
+
+from live_contentops import free_tier_unpause_firewall_v1 as fw
+from live_contentops import market_attention_map_public_v1 as attention
+from live_contentops import market_forces_high_interval_v1 as hi
+from live_contentops import market_wrap_editorial_v1 as wrap_editorial
+from live_contentops import tradingview_snapshot_v1 as tv
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
+from test_market_attention_map_cc817 import _tv_asset
+from test_market_wrap_cc689 import at, cash, pack, select_first  # noqa: F401
+
+
+DEC15_OPEN_UTC = datetime(2026, 12, 15, 13, 0, tzinfo=timezone.utc)
+DEC15_PRE_ASIA_UTC = datetime(2026, 12, 15, 23, 0, tzinfo=timezone.utc)      # 18:00 ET
+DEC15_PRE_LONDON_UTC = datetime(2026, 12, 15, 7, 30, tzinfo=timezone.utc)    # 02:30 ET
+DEC15_PRE_US_UTC = datetime(2026, 12, 15, 13, 30, tzinfo=timezone.utc)       # 08:30 ET
+LIVE_MAIN_REPO = Path(r"A:\Capital Chronicle\main-jim-research-dashboard-20261025")
+CC691_POSTS_PATH = Path(__file__).parent / "fixtures" / "cc691" / "posts.json"
+
+
+# ---------------------------------------------------------------------------
+# Hermetic Builders (Day-1 SHA-256 Arena Chain, Pause Manifest, CC-807 Live Map)
+# ---------------------------------------------------------------------------
+
+
+def _build_arena_chain_records(count: int = 3) -> list[dict[str, Any]]:
+    """Construct a deterministic valid L4ShadowSleeveArenaLedgerRecordV1 SHA-256 hash chain."""
+    records: list[dict[str, Any]] = []
+    prev_sha = fw.GENESIS_PREV_SHA256
+    base_dt = datetime(2026, 12, 1, 13, 0, tzinfo=timezone.utc)
+    kinds = ("DECISION_SEAL", "SHADOW_FILL", "SHADOW_CLOSE")
+
+    for seq in range(1, count + 1):
+        cutoff_dt = base_dt + timedelta(days=seq)
+        known_dt = cutoff_dt - timedelta(minutes=5)
+        cutoff_iso = cutoff_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+        known_iso = known_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+        kind = kinds[(seq - 1) % len(kinds)]
+        sleeve_id = "l4_macro_sleeve_a"
+        payload = {
+            "event_seq": seq,
+            "symbol": "XAUUSD",
+            "signal_side": "LONG",
+            "entry_price_private": 2650.5 + seq,
+            "stop_price_private": 2620.0,
+            "account_id": "279805139",
+            "prepared_response_note": f"PRIVATE_ARENA_SENTINEL_ROW_{seq}_MUST_NEVER_APPEAR_PUBLICLY",
+            "signed_r_private": 0.75 if kind == "SHADOW_CLOSE" else 0.0,
+        }
+        payload_sha = fw.sha256_canonical(payload)
+        record_id = "arena_" + fw.sha256_canonical(
+            [seq, kind, sleeve_id, cutoff_iso, prev_sha, payload_sha]
+        )[:24]
+        envelope = {
+            "schema": fw.ARENA_LEDGER_SCHEMA,
+            "schema_version": "1.0.0",
+            "sequence": seq,
+            "record_id": record_id,
+            "record_kind": kind,
+            "sleeve_id": sleeve_id,
+            "cutoff_utc": cutoff_iso,
+            "known_at_max_utc": known_iso,
+            "prev_record_sha256": prev_sha,
+            "payload_sha256": payload_sha,
+            "private_only": True,
+            "public_export_forbidden": True,
+            "payload": payload,
+        }
+        rec_sha = fw.sha256_canonical(envelope)
+        row = {**envelope, "record_sha256": rec_sha}
+        records.append(row)
+        prev_sha = rec_sha
+    return records
+
+
+def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> Path:
+    body = "\n".join(fw.canonical_json(r) for r in rows) + "\n"
+    path.write_bytes(body.encode("utf-8"))
+    return path
+
+
+def _valid_dec15_pause_manifest() -> dict[str, Any]:
+    return {
+        "authority": "JIM_V21_C6_DEC15_FREE_ONLY_UNPAUSE_20261127",
+        "paused_at_utc": "2026-11-30T00:00:00Z",
+        "resume_at_utc": "2026-12-14T17:00:00Z",
+        "cause": "V21_C6_PAUSE_20261130_UNTIL_20261215_FREE_ONLY_CC024_CLEAN",
+        "unpause_mode": fw.FREE_ONLY_MODE,
+        "cc024_clean_required": True,
+        "suspended_destinations": sorted(fw.ALL_FREE_DESTINATIONS),
+        "tasks": [
+            {"name": "ContentOps_Daily_Digest_1900", "driver": "python-neo", "enabled": True},
+            {"name": "ContentOps_Market_Forces_Poll_15m", "driver": "codex-desktop", "enabled": True},
+        ],
+        "stop_files": ["A:/Capital Chronicle/Runtime/ContentOps/control/pause.stop"],
+    }
+
+
+def _clean_outbound_payload(text: str | None = None, **extra: Any) -> dict[str, Any]:
+    body = text if text is not None else (
+        "US Treasury yields eased after BLS CPI data matched consensus, supporting gold (GC futures) "
+        "and Nasdaq 100 (NQ futures). Base case (55%, Capital Chronicle estimate): real yields stabilize "
+        "near recent lows while the Federal Reserve's 2% inflation target anchors longer-term expectations. "
+        "Chart: TradingView. Free public-page snapshot.\n\n"
+        f"{PUBLIC_NOTICE}\n{CONFLICTS_NOTICE}"
+    )
+    payload: dict[str, Any] = {
+        "destination": "substack",
+        "audience": "everyone",
+        "substack_delivery_mode": "WEB_ONLY",
+        "paywall": False,
+        "price_usd": 0,
+        "title": "Macro rates and gold scenario review (15 Dec 2026)",
+        "body_markdown": body,
+        "chart_url": "https://www.tradingview.com/chart/?symbol=OANDA:XAUUSD",
+        "sources": [
+            {"source": "BLS", "url": "https://www.bls.gov/cpi/"},
+            {"source": "Federal Reserve H.15", "url": "https://www.federalreserve.gov/releases/h15/"},
+            {"source": "NY Fed", "url": "https://www.newyorkfed.org/research/policy/nowcast"},
+            {"source": "US Treasury", "url": "https://home.treasury.gov/"},
+            {"source": "TradingView Lightweight Charts", "url": "https://www.tradingview.com/lightweight-charts/"},
+        ],
+    }
+    payload.update(extra)
+    return payload
+
+
+def _cc807_live_schema_theme(
+    *,
+    theme_id: str,
+    name: str,
+    one_line: str,
+    rank: int,
+    lead_market: str,
+    affected_markets: list[str],
+    as_of: datetime,
+    status: str = "active",
+    base_summary: str,
+    base_invalidation: str,
+    alt_summary: str,
+    alt_invalidation: str,
+    base_cc_pct: float = 55.0,
+    base_mkt_pct: float = 62.0,
+    alt_cc_pct: float = 25.0,
+    alt_mkt_pct: float = 23.0,
+    dp_id: str,
+    dp_title: str,
+    dp_at_utc: str | None,
+    dp_watch_condition: str | None = None,
+) -> dict[str, Any]:
+    """Exact 33-key theme matching CURRENT Live Main d96c30c78f39 tools/product/market_attention_map_v1.py."""
+    first_seen = (as_of - timedelta(days=5)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    updated = as_of.strftime("%Y-%m-%dT%H:%M:%SZ")
+    dp_entry: dict[str, Any] = {
+        "id": dp_id,
+        "title": dp_title,
+        "dated": dp_at_utc is not None,
+        "at_utc": dp_at_utc,
+        "watch_condition": dp_watch_condition,
+        "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "watch_signals": [
+            {
+                "kind": "official_page",
+                "label": "Official central bank and statistical release calendar",
+                "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+            },
+            {
+                "kind": "odds_market_number",
+                "label": f"Kalshi private odds tracker for {theme_id}",
+                "market_key": f"kalshi:{theme_id}",
+            },
+            {
+                "kind": "x_account",
+                "label": f"Private squawk stream for {theme_id}",
+                "handle": "FirstSquawk",
+            },
+        ],
+    }
+    return {
+        "theme_id": theme_id,
+        "name": name,
+        "one_line": one_line,
+        "status": status,
+        "rank": rank,
+        "attention_score": round(96.0 - rank * 4.5, 2),
+        "first_seen_utc": first_seen,
+        "updated_at_utc": updated,
+        "lead_market": lead_market,
+        "affected_markets": list(affected_markets),
+        "causal_chains": [
+            {
+                "asset": lead_market,
+                "event": f"Policy and macro repricing around {name}",
+                "channel": "Rate differentials, risk premium, and cross-asset funding flows",
+                "sign": "upside_on_confirmation",
+                "direction": "UP",
+                "rough_size": "+0.6 to +1.1 normal days on confirmation",
+            },
+            *[
+                {
+                    "asset": secondary_market,
+                    "event": f"Cross-asset spillover from {name}",
+                    "channel": "Rate expectations and institutional risk-appetite transmission",
+                    "sign": "two_way",
+                    "direction": "TWO_WAY",
+                    "rough_size": "moderate regime spillover",
+                }
+                for secondary_market in affected_markets
+                if secondary_market != lead_market
+            ],
+        ],
+        "decision_points": [dp_entry],
+        "branches": [
+            {
+                "branch_id": f"{theme_id}_base",
+                "kind": "base",
+                "summary": base_summary,
+                "probability_pct": base_cc_pct,
+                "probability_source": "capital_chronicle",
+                "cc_probability_pct": base_cc_pct,
+                "market_implied_probability_pct": base_mkt_pct,
+                "market_implied_delta_15m_pp": 0.0,
+                "market_implied_delta_1h_pp": 0.5,
+                "market_implied_delta_24h_pp": 1.5,
+                "market_lean_words": "Market pricing leans moderately toward the base scenario.",
+                "invalidation": base_invalidation,
+            },
+            {
+                "branch_id": f"{theme_id}_bear",
+                "kind": "bear",
+                "summary": alt_summary,
+                "probability_pct": alt_cc_pct,
+                "probability_source": "capital_chronicle",
+                "cc_probability_pct": alt_cc_pct,
+                "market_implied_probability_pct": alt_mkt_pct,
+                "market_implied_delta_15m_pp": 0.0,
+                "market_implied_delta_1h_pp": -0.5,
+                "market_implied_delta_24h_pp": -1.5,
+                "market_lean_words": "Markets treat the downside path as a secondary risk.",
+                "invalidation": alt_invalidation,
+            },
+        ],
+        "active_branch_id": f"{theme_id}_base",
+        "prior_active_branch_id": f"{theme_id}_base",
+        "branch_flipped": False,
+        "branch_flip_evidence": {
+            "flipped_at_utc": None,
+            "summary": f"Private branch flip diagnostics for {theme_id} internal desk use only.",
+        },
+        "market_lean_words": "Market pricing leans cautiously toward the primary path without extreme crowding.",
+        "priced_in_words": "Most baseline repricing is reflected, leaving tail reactions asymmetric around catalysts.",
+        "priced_in_gap": {
+            "cc_base_probability_pct": base_cc_pct,
+            "market_implied_base_probability_pct": base_mkt_pct,
+            "gap_pp": round(base_cc_pct - base_mkt_pct, 2),
+        },
+        "surprise_map": {
+            "open_position_impacts": [
+                {"lifecycle_id": f"private_{theme_id}_pos", "account_id": "279805139", "lots": 0.5}
+            ]
+        },
+        "prepared_responses": [
+            {
+                "instrument": lead_market,
+                "direction": "BUY",
+                "stop_formula": "anchor - 0.5 * ATR",
+                "note": f"PRIVATE_PREPARED_RESPONSE_SECRET_{theme_id}_DO_NOT_LEAK",
+            }
+        ],
+        "linked_odds_markets": [
+            {
+                "platform": "kalshi",
+                "market_key": f"kalshi:{theme_id}",
+                "title": f"Kalshi private contract for {theme_id} odds monitoring",
+                "latest_probability_pct": base_mkt_pct,
+                "delta_15m_pp": 0.0,
+            }
+        ],
+        "computed_metrics": [
+            {"label": "Replay range on confirmation", "value": "+0.35R to +0.85R with half-normal-day stop"},
+            {"label": "Historical 10-year yield beta", "value": "moderate sensitivity around release days"},
+        ],
+        "primary_sources": [
+            {
+                "kind": "official_page",
+                "title": "Federal Reserve Monetary Policy Calendar",
+                "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+            },
+            {
+                "kind": "x_list",
+                "title": f"Private X-list commentary on {theme_id} captured via JIM_X_LIST",
+                "handle": "@DeItaone",
+            },
+        ],
+        "timeline_sources": [
+            {
+                "source_kind": "wire_headline",
+                "headline": f"Bloomberg wire private flash on {theme_id} must never reach public copy",
+                "observed_at_utc": updated,
+            }
+        ],
+        "watch_keywords": ["macro", "policy", lead_market.lower()],
+        "scoring_hooks": {"private_edge_score": 0.82, "book_correlation": 0.41},
+        "history": [
+            {"at_utc": first_seen, "summary": "Theme added to the Capital Chronicle attention map."},
+        ],
+        "live_state": {
+            "updated_at_utc": updated,
+            "max_odds_delta_15m_pp": 0.0,
+            "max_odds_delta_1h_pp": 0.5,
+            "max_odds_delta_24h_pp": 1.5,
+            "decision_point_catalyst_hit": False,
+            "branch_flip_detected": False,
+            "material_shift_flags": [],
+        },
+        "material_change_hash": f"cc807-live-{theme_id}-v1",
+        "x_list_posts": [
+            f"Private X-list post from @FirstSquawk about {theme_id} that must stay strictly private."
+        ],
+        "wire_headlines": [
+            f"Private Reuters wire headline on {theme_id} for internal narrative context only."
+        ],
+    }
+
+
+def _cc807_live_schema_envelope(as_of: datetime = DEC15_OPEN_UTC) -> dict[str, Any]:
+    """Exact 14-key Live Main d96c30c78f39 MarketAttentionMapLiveV1 across 6 themes & all 7 core markets."""
+    iso = as_of.strftime("%Y-%m-%dT%H:%M:%SZ")
+    themes = [
+        _cc807_live_schema_theme(
+            theme_id="usdjpy_fed_boj_mof",
+            name="Fed-BoJ Rate Gap and Yen Intervention Watch",
+            one_line="US-Japan yield spreads and official Tokyo jawboning keep yen risk asymmetric.",
+            rank=1,
+            lead_market="USDJPY",
+            affected_markets=["USDJPY", "XAUUSD", "US500"],
+            as_of=as_of,
+            base_summary="Yield differentials keep USD/JPY elevated until official Tokyo intervention risk rises.",
+            base_invalidation="Bank of Japan delivers a faster tightening signal alongside lower US yields.",
+            alt_summary="Coordinated official Tokyo resistance narrows carry appetite and drives yen strength.",
+            alt_invalidation="US Treasury yields break higher while Japanese officials stay passive.",
+            dp_id="mof_intervention_watch",
+            dp_title="Ministry of Finance FX Intervention Watch",
+            dp_at_utc=None,
+            dp_watch_condition="Official Tokyo FX remarks or sharp intraday yen reversal",
+        ),
+        _cc807_live_schema_theme(
+            theme_id="nvidia_leadership_ai_capex",
+            name="AI Infrastructure Capex and Mega-Cap Tech",
+            one_line="Hyperscaler spending guidance anchors Nasdaq 100 and S&P 500 equity leadership.",
+            rank=2,
+            lead_market="USTEC",
+            affected_markets=["USTEC", "US500", "BTCUSD"],
+            as_of=as_of,
+            base_summary="Steady cloud capital expenditure sustains semiconductor demand and Nasdaq 100 leadership.",
+            base_invalidation="Major cloud providers cut capital spending guidance or signal slower AI utilization.",
+            alt_summary="Capex deceleration weighs on semiconductor multiples and broader Nasdaq 100 sentiment.",
+            alt_invalidation="Quarterly supply-chain orders confirm accelerating data-center shipments.",
+            dp_id="semi_guidance_update",
+            dp_title="Semiconductor Supply-Chain Guidance Window",
+            dp_at_utc=(as_of + timedelta(days=2)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        ),
+        _cc807_live_schema_theme(
+            theme_id="us_real_yields_gold",
+            name="US Real Yields and Central Bank Gold Demand",
+            one_line="Real-rate direction and official reserve accumulation govern gold trend persistence.",
+            rank=3,
+            lead_market="XAUUSD",
+            affected_markets=["XAUUSD", "EURUSD", "US500"],
+            as_of=as_of,
+            base_summary="Contained real yields and steady sovereign demand keep gold supported on pullbacks.",
+            base_invalidation="Sustained jump in US real yields triggers broad precious-metals liquidation.",
+            alt_summary="Higher real rates and a firmer dollar cap gold momentum and force consolidation.",
+            alt_invalidation="Soft inflation data pulls US real yields lower across the curve.",
+            dp_id="treasury_tips_auction",
+            dp_title="US Treasury TIPS Auction Demand Read",
+            dp_at_utc=(as_of + timedelta(days=3)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        ),
+        _cc807_live_schema_theme(
+            theme_id="oil_supply_balance",
+            name="OPEC Supply Discipline and Energy Balances",
+            one_line="Producer quota compliance and refinery margins shape WTI crude oil risk.",
+            rank=4,
+            lead_market="USOIL",
+            affected_markets=["USOIL", "US500", "XAUUSD"],
+            as_of=as_of,
+            base_summary="Balanced inventory draws keep WTI crude oil range-bound while supply risk stays contained.",
+            base_invalidation="Unexpected producer quota breakdown floods physical crude balances.",
+            alt_summary="Supply disruption tightens prompt spreads and lifts headline energy inflation risk.",
+            alt_invalidation="US crude output and commercial inventories build consistently across weekly reports.",
+            dp_id="eia_weekly_inventory",
+            dp_title="EIA Weekly Petroleum Status Report",
+            dp_at_utc=(as_of + timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        ),
+        _cc807_live_schema_theme(
+            theme_id="eurozone_growth_spread",
+            name="Eurozone Policy Divergence and Sovereign Spreads",
+            one_line="European growth softness versus US demand drives EUR/USD rate spreads.",
+            rank=5,
+            lead_market="EURUSD",
+            affected_markets=["EURUSD", "US500"],
+            as_of=as_of,
+            base_summary="Wider US-Eurozone rate spreads cap EUR/USD rallies unless European data firms.",
+            base_invalidation="Eurozone activity indicators surprise higher while US growth cools.",
+            alt_summary="Fiscal support and firmer European services inflation lift EUR/USD back toward range highs.",
+            alt_invalidation="European central bank officials signal faster policy easing.",
+            dp_id="ecb_policy_statement",
+            dp_title="ECB Monetary Policy Statement and Press Conference",
+            dp_at_utc=(as_of + timedelta(days=4)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        ),
+        _cc807_live_schema_theme(
+            theme_id="btc_liquidity_flows",
+            name="Dollar Liquidity and Institutional Digital Asset Flows",
+            one_line="Net dollar liquidity and ETF flow momentum steer Bitcoin regime shifts.",
+            rank=6,
+            lead_market="BTCUSD",
+            affected_markets=["BTCUSD", "USTEC", "US500"],
+            as_of=as_of,
+            base_summary="Constructive liquidity conditions support institutional Bitcoin allocation during risk-on sessions.",
+            base_invalidation="Sharp liquidity contraction and sustained ETF outflows reverse risk appetite.",
+            alt_summary="Tighter financial conditions trigger broad de-risking across digital assets.",
+            alt_invalidation="Treasury cash drawdowns add reserves and stabilize institutional inflows.",
+            dp_id="fed_balance_sheet_h41",
+            dp_title="Federal Reserve H.4.1 Liquidity Release",
+            dp_at_utc=(as_of + timedelta(days=2, hours=6)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        ),
+    ]
+    return {
+        "schema": "MarketAttentionMapLiveV1",
+        "schema_version": "1.0.0",
+        "as_of_utc": iso,
+        "generated_at_utc": iso,
+        "cutoff_utc": iso,
+        "material_change_hash": "cc807-live-envelope-dec15-v1",
+        "cadence_metadata": {
+            "last_deep_pass_utc": "2026-12-15T01:00:00Z",
+            "last_live_refresh_utc": iso,
+            "cadence_policy": {"live_refresh_interval_minutes": 15, "live_refresh_llm_calls": 0},
+        },
+        "themes": themes,
+        "joint_scenarios": [{"id": "private_joint_1", "note": "Private cross-theme portfolio correlation"}],
+        "unknown_force_tickets": [{"id": "uf_1", "note": "Private desk unknown force ticket"}],
+        "open_positions": [{"account_id": "279805139", "symbol": "USDJPY", "lots": 0.5}],
+        "prepared_responses": [{"instrument": "US500", "stop_formula": "anchor - 0.5*ATR"}],
+        "public_boundary_notice": "INTERNAL_NUMBERS_ONLY: never publish raw book, odds, or wire headlines.",
+        "provenance": {"source_commit": "d96c30c78f39", "llm_calls": 0},
+    }
+
+
+def _url_for(page: dict[str, Any]) -> str:
+    slug = str(page["page_id"]).replace("_", "-")
+    return f"https://capitalchronicle.substack.com/p/{slug}"
+
+
+# ---------------------------------------------------------------------------
+# Pillar (a): CC-024 Commercial-Rights Firewall & 5 Public Filters
+# ---------------------------------------------------------------------------
+
+
+def test_pillar_a_cc024_clean_free_sources_and_static_tv_credit_pass():
+    payload = _clean_outbound_payload()
+    res = fw.verify_outbound_free_payload(
+        payload,
+        now_utc=DEC15_OPEN_UTC,
+        destination="substack",
+        require_notice=True,
+    )
+    assert res["status"] == "PASS"
+    assert res["mode"] == fw.FREE_ONLY_MODE
+    assert res["cc024"]["cc024_clean"] is True
+    assert res["public_write_performed"] is False
+
+
+@pytest.mark.parametrize("bad_text,expected_code", [
+    ("Consensus from Investing.com points to a higher print.", "CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN"),
+    ("Calendar sourced via Myfxbook economic feed.", "CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN"),
+    ("Preview consensus from fxstreet.com suggests a slowdown.", "CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN"),
+    ("Options gamma exposure computed from OCC open interest data.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Dealer GEX levels pulled from Yahoo Finance options chain.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Option quotes from https://www.theocc.com/ show heavy call OI.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Index series sourced from https://fred.stlouisfed.org/series/SP500.", "CC024_FRED_SP500_FORBIDDEN"),
+    ("We chart FRED: SP500 alongside real yields.", "CC024_FRED_SP500_FORBIDDEN"),
+    ("Interactive chart via https://s3.tradingview.com/tv.js widget.", "CC024_TRADINGVIEW_WIDGET_FORBIDDEN"),
+    ('<iframe src="https://widget.tradingview.com/embed-widget/mini/"></iframe>', "CC024_TRADINGVIEW_WIDGET_FORBIDDEN"),
+    ("Embedded paid TradingView widget tracks intraday ticks.", "CC024_TRADINGVIEW_WIDGET_FORBIDDEN"),
+    ("New TradingView.widget({symbol: 'NASDAQ:NDX'}) loaded on page.", "CC024_TRADINGVIEW_WIDGET_FORBIDDEN"),
+    ("Breaking update via https://x.com/FirstSquawk/status/1999999.", "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"),
+    ("According to @FirstSquawk, bond desks saw heavy bids.", "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"),
+    ("Captured in JIM_X_LIST during the London session.", "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"),
+    ("Bloomberg wire reported traders trimmed duration exposure.", "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"),
+    ("Drafted by our Claude Opus editorial pipeline.", "CC024_AI_MODEL_LABEL_FORBIDDEN"),
+    ("Gemini 4 Neon reviewed the morning macro note.", "CC024_AI_MODEL_LABEL_FORBIDDEN"),
+    ("Written by Codex GPT-6.2-sol and Antigravity agents.", "CC024_AI_MODEL_LABEL_FORBIDDEN"),
+    ("Capital Chronicle is an AI-run trading research desk.", "CC024_AI_MODEL_LABEL_FORBIDDEN"),
+    ("Our open book holds 0.5 lots on account 279805139.", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("DEMO account equity gained $1,250 on the move.", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("Our prepared responses arm a breakout order above resistance.", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("Read the preview at https://fatcat2109.github.io/capital-chronicle-preview/.", "PREVIEW_HOST_LINK_FORBIDDEN"),
+    ("Staged on https://cc-preview.pages.dev/note.", "PREVIEW_HOST_LINK_FORBIDDEN"),
+    ("Markets imply 68% chance of a December hold.", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("Rate pause is priced in at 84% ahead of the meeting.", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("Kalshi prices the outcome at 62% this morning.", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("Polymarket gives 71 cents on the policy decision.", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("CME FedWatch shows 95.1% odds of unchanged policy.", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("Desk spread gap_pp: 14.2 between model and market.", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("Our price target is 165.00 into year-end.", "CC024_PRICE_TARGET_FORBIDDEN"),
+    ("TP1: 3,985 and take-profit at 4,050.", "CC024_PRICE_TARGET_FORBIDDEN"),
+    ("Published at 20:30 GMT+7 ahead of CPI.", "PUBLIC_TIMEZONE_ET_REQUIRED"),
+    ("Data capture closed at 13:15 UTC.", "ATTENTION_MAP_NON_ET_CLOCK_FORBIDDEN"),
+    ("USTEC outperformed while US500 and XAUUSD consolidated.", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+    ("Debug leak api_key=secret_token_value_123456.", "CC024_SECRET_FORBIDDEN"),
+])
+def test_pillar_a_cc024_blocks_all_forbidden_sources_and_leaks(bad_text: str, expected_code: str):
+    payload = _clean_outbound_payload(text=bad_text)
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_outbound_free_payload(payload, now_utc=DEC15_OPEN_UTC, destination="substack")
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+
+
+def test_pillar_a_cc024_blocks_structured_metadata_and_private_text_echo():
+    # Structured FRED SP500 object
+    p_fred = _clean_outbound_payload(
+        sources=[{"source": "FRED", "series_id": "SP500", "url": "https://fred.stlouisfed.org/"}]
+    )
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_FRED_SP500_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(p_fred)
+
+    # Structured TradingView widget metadata
+    p_tv = _clean_outbound_payload(chart={"modality": "tradingview_widget"})
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_TRADINGVIEW_WIDGET_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(p_tv)
+
+    # Private keys / flags inside payload
+    p_priv = _clean_outbound_payload(prepared_responses=[{"symbol": "gold", "action": "watch"}])
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(p_priv)
+
+    p_flag = _clean_outbound_payload(private_only=True)
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(p_flag)
+
+    # Verbatim private X-list / wire text echo caught even without handle/domain
+    secret_wire = "Exclusive internal desk wire note about Japanese pension rebalancing flows."
+    p_echo = _clean_outbound_payload(
+        text=f"Macro note: {secret_wire}\n\n{PUBLIC_NOTICE}\n{CONFLICTS_NOTICE}"
+    )
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(p_echo, private_texts=[secret_wire])
+
+    # Missing mandatory public analysis notice when require_notice=True
+    p_no_notice = _clean_outbound_payload(
+        text="Treasury yields drifted lower ahead of the afternoon auction. Chart: TradingView."
+    )
+    with pytest.raises(fw.FreeTierFirewallError, match="PUBLIC_ANALYSIS_NOTICE_REQUIRED"):
+        fw.verify_cc024_commercial_firewall(p_no_notice, require_notice=True)
+
+
+# ---------------------------------------------------------------------------
+# Pillar (b): FREE_ONLY_MODE Guarantee (Zero Paid / Paywall / Gate Markers)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("bad_marker", [
+    "<!--paywall-->",
+    "Read the rest [paywall] in our archive.",
+    '<div class="paywall-banner">Locked</div>',
+    "Continue at https://capitalchronicle.substack.com/subscribe?next=/p/macro",
+    "This section is for paid subscribers only.",
+    "Upgrade to paid for full weekly scenarios.",
+    "Unlock full access to our macro dashboard.",
+    "Join our Telegram VIP channel for real-time updates.",
+    "Now launching the Paid Research Tier at $29/mo.",
+    "Checkout via https://checkout.stripe.com/pay/cs_test_123.",
+    "Subscribe through https://whop.com/capital-chronicle/.",
+    "Billing hosted on https://capitalchronicle.lemonsqueezy.com/checkout.",
+    "Follow live trades at https://www.mql5.com/en/signals/123456.",
+    "Open an account with our Exness partner referral link.",
+])
+def test_pillar_b_free_only_blocks_all_paywall_and_paid_copy_markers(bad_marker: str):
+    payload = _clean_outbound_payload(text=f"Daily macro summary.\n\n{bad_marker}\n\n{PUBLIC_NOTICE}")
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"):
+        fw.verify_free_only_mode(payload, now_utc=DEC15_OPEN_UTC)
+
+
+@pytest.mark.parametrize("extra_fields,expected_code", [
+    ({"paywall": True}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"paid_tier_enabled": True}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"subscription_gate": True}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"audience": "only_paid"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"substack_delivery_mode": "PAID_ONLY"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"tier": "paid_research_tier"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"operating_tier": "vip"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"price_usd": 19.0}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"monthly_price_usd": 29}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"price_usd": True}, "FREE_ONLY_INVALID_PRICE_TYPE"),
+])
+def test_pillar_b_free_only_blocks_paid_metadata_flags_and_prices(
+    extra_fields: dict[str, Any], expected_code: str
+):
+    payload = _clean_outbound_payload(**extra_fields)
+    with pytest.raises(fw.FreeTierFirewallError, match=expected_code):
+        fw.verify_free_only_mode(payload, now_utc=DEC15_OPEN_UTC)
+
+
+def test_pillar_b_free_only_passes_clean_free_payload_and_checks_destination():
+    res = fw.verify_free_only_mode(_clean_outbound_payload(), now_utc=DEC15_OPEN_UTC)
+    assert res["status"] == "PASS"
+    assert res["mode"] == fw.FREE_ONLY_MODE
+    assert res["paid_markers_found"] == 0
+    assert res["pre_q1_2027_free_lock"] is True
+
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_TIER_DESTINATION_INVALID"):
+        fw.verify_outbound_free_payload(
+            _clean_outbound_payload(),
+            now_utc=DEC15_OPEN_UTC,
+            destination="telegram_vip",
+        )
+
+
+# ---------------------------------------------------------------------------
+# Pillar (c): V2.1-C6 Day-1 SHA-256 Hash Chain & Post-04 Dec Zero Claude/AGY
+# ---------------------------------------------------------------------------
+
+
+def test_pillar_c_day1_arena_hash_chain_and_citation_lineage_roundtrip(tmp_path: Path):
+    records = _build_arena_chain_records(3)
+    chain_path = _write_jsonl(tmp_path / "arena_ledger_v1.jsonl", records)
+
+    verified = fw.verify_day1_hash_chain(chain_path, max_clock_utc=DEC15_OPEN_UTC)
+    assert verified["valid"] is True
+    assert verified["ledger_schema"] == fw.ARENA_LEDGER_SCHEMA
+    assert verified["record_count"] == 3
+    assert verified["genesis_record_sha256"] == records[0]["record_sha256"]
+    assert verified["chain_tip_sha256"] == records[-1]["record_sha256"]
+    assert verified["file_sha256"] is not None
+
+    citation = fw.build_public_track_record_citation(
+        chain_path,
+        as_of_utc=DEC15_OPEN_UTC,
+        summary_lines=("All records sealed offline prior to public reference.",),
+    )
+    assert citation["schema"] == fw.TRACK_RECORD_CITATION_SCHEMA
+    assert citation["mode"] == fw.FREE_ONLY_MODE
+    assert citation["chain_tip_sha256"] == records[-1]["record_sha256"]
+
+    # Private ledger payload strings MUST NEVER leak into the public citation.
+    serialized_citation = json.dumps(citation)
+    for private_secret in (
+        "PRIVATE_ARENA_SENTINEL_ROW_1",
+        "279805139",
+        "entry_price_private",
+        "stop_price_private",
+        "signed_r_private",
+    ):
+        assert private_secret not in serialized_citation
+
+    checked = fw.verify_track_record_citation_lineage(
+        citation,
+        now_utc=DEC15_OPEN_UTC,
+        chain_records_or_path=chain_path,
+        private_texts=["PRIVATE_ARENA_SENTINEL_ROW_1_MUST_NEVER_APPEAR_PUBLICLY"],
+    )
+    assert checked["status"] == "PASS"
+    assert checked["chain_cross_verified"] is True
+
+
+def test_pillar_c_generic_track_record_chain_supported(tmp_path: Path):
+    payload_1 = {"event": "signal_recorded", "asset_label": "gold", "direction": "upside"}
+    p_sha_1 = fw.sha256_canonical(payload_1)
+    env_1 = {
+        "schema": fw.GENERIC_TRACK_CHAIN_SCHEMA,
+        "schema_version": "1.0.0",
+        "sequence": 1,
+        "record_id": "tr_0001",
+        "record_kind": "PUBLIC_CALL_RECORD",
+        "cutoff_utc": "2026-12-10T13:00:00Z",
+        "known_at_max_utc": "2026-12-10T12:55:00Z",
+        "prev_record_sha256": fw.GENESIS_PREV_SHA256,
+        "payload_sha256": p_sha_1,
+        "payload": payload_1,
+    }
+    row_1 = {**env_1, "record_sha256": fw.sha256_canonical(env_1)}
+    chain_path = _write_jsonl(tmp_path / "generic_chain.jsonl", [row_1])
+
+    citation = fw.build_public_track_record_citation(chain_path, as_of_utc=DEC15_OPEN_UTC)
+    assert citation["record_count"] == 1
+    assert citation["genesis_record_sha256"] == citation["chain_tip_sha256"] == row_1["record_sha256"]
+
+
+def test_pillar_c_hash_chain_and_citation_tampering_fails_closed(tmp_path: Path):
+    base_records = _build_arena_chain_records(2)
+
+    # 1. Tampered payload
+    bad_payload = deepcopy(base_records)
+    bad_payload[1]["payload"]["signed_r_private"] = 9.99
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_PAYLOAD_SHA_MISMATCH"):
+        fw.verify_day1_hash_chain(bad_payload, max_clock_utc=DEC15_OPEN_UTC)
+
+    # 2. Broken prev_record_sha256 link
+    bad_prev = deepcopy(base_records)
+    bad_prev[1]["prev_record_sha256"] = "a" * 64
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_PREV_SHA_MISMATCH"):
+        fw.verify_day1_hash_chain(bad_prev, max_clock_utc=DEC15_OPEN_UTC)
+
+    # 3. Tampered record_sha256
+    bad_rec_sha = deepcopy(base_records)
+    bad_rec_sha[0]["record_sha256"] = "b" * 64
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_RECORD_SHA_MISMATCH"):
+        fw.verify_day1_hash_chain(bad_rec_sha, max_clock_utc=DEC15_OPEN_UTC)
+
+    # 4. Tampered Arena privacy flag
+    bad_priv = deepcopy(base_records)
+    bad_priv[0]["private_only"] = False
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_ARENA_PRIVACY_TAMPERED"):
+        fw.verify_day1_hash_chain(bad_priv, max_clock_utc=DEC15_OPEN_UTC)
+
+    # 5. known_at_max_utc > cutoff_utc (lookahead violation)
+    bad_known = deepcopy(base_records)
+    bad_known[0]["known_at_max_utc"] = "2026-12-02T14:00:00Z"
+    with pytest.raises(fw.FreeTierFirewallError, match="CLOCK_AFTER_CUTOFF"):
+        fw.verify_day1_hash_chain(bad_known, max_clock_utc=DEC15_OPEN_UTC)
+
+    # 6. Non-monotonic cutoff clock
+    bad_mono = deepcopy(base_records)
+    bad_mono[1]["cutoff_utc"] = "2026-12-01T12:00:00Z"
+    bad_mono[1]["known_at_max_utc"] = "2026-12-01T11:55:00Z"
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_CLOCK_NON_MONOTONIC"):
+        fw.verify_day1_hash_chain(bad_mono, max_clock_utc=DEC15_OPEN_UTC)
+
+    # 7. CRLF / BOM / Truncated JSONL file checks
+    valid_bytes = ("\n".join(fw.canonical_json(r) for r in base_records) + "\n").encode("utf-8")
+    crlf_path = tmp_path / "crlf.jsonl"
+    crlf_path.write_bytes(valid_bytes.replace(b"\n", b"\r\n"))
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_CR_FORBIDDEN"):
+        fw.verify_day1_hash_chain(crlf_path)
+
+    bom_path = tmp_path / "bom.jsonl"
+    bom_path.write_bytes(b"\xef\xbb\xbf" + valid_bytes)
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_BOM_FORBIDDEN"):
+        fw.verify_day1_hash_chain(bom_path)
+
+    trunc_path = tmp_path / "trunc.jsonl"
+    trunc_path.write_bytes(valid_bytes[:-1])
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_TRUNCATED"):
+        fw.verify_day1_hash_chain(trunc_path)
+
+    # 8. Tampered citation seal & missing tip hash in prose
+    citation = fw.build_public_track_record_citation(base_records, as_of_utc=DEC15_OPEN_UTC)
+    tampered_seal = deepcopy(citation)
+    tampered_seal["record_count"] = 99
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CITATION_SEAL_MISMATCH"):
+        fw.verify_track_record_citation_lineage(tampered_seal, now_utc=DEC15_OPEN_UTC)
+
+    missing_tip = {k: v for k, v in citation.items() if k != "citation_sha256"}
+    missing_tip["public_summary_text"] = f"Summary without hash.\n{PUBLIC_NOTICE}\n{CONFLICTS_NOTICE}"
+    missing_tip["citation_sha256"] = fw.sha256_canonical(missing_tip)
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CITATION_TIP_NOT_IN_PUBLIC_COPY"):
+        fw.verify_track_record_citation_lineage(missing_tip, now_utc=DEC15_OPEN_UTC)
+
+
+def test_pillar_c_zero_claude_and_agy_dependencies_post_dec04(tmp_path: Path):
+    ctrl = tmp_path / "control"
+    ctrl.mkdir()
+    clean_tasks = [
+        {"name": "DailyDigest1900", "enabled": True, "driver": "python-neo", "command": "python scripts/run_daily_digest_1900.py"},
+        {"name": "LegacyClaudeTask", "enabled": False, "driver": "claude", "command": "claude -p legacy"},
+    ]
+    res = fw.verify_zero_claude_and_agy_dependencies(
+        now_utc=DEC15_OPEN_UTC,
+        runtime_config={"editorial_owner": "codex", "model": "gpt-6.2-sol", "digest_driver": "python-neo"},
+        control_dir=ctrl,
+        scheduled_tasks=clean_tasks,
+        editorial_agent="codex",
+        digest_driver="python-neo",
+        live_provider="openai",
+    )
+    assert res["status"] == "PASS"
+    assert res["claude_sunset_active"] is True
+    assert res["agy_terms_block_active"] is True
+    assert res["active_claude_dependencies"] == 0
+    assert res["active_agy_dependencies"] == 0
+
+    # Refusal matrix post-04 Dec
+    with pytest.raises(fw.FreeTierFirewallError, match="CLAUDE_EDITORIAL_AGENT_RETIRED_CC855"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, editorial_agent="claude")
+
+    with pytest.raises(fw.FreeTierFirewallError, match="CLAUDE_ROUTE_RETIRED_CC855"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, digest_driver="claude")
+
+    with pytest.raises(fw.FreeTierFirewallError, match="AGY_BLOCKED_TERMS_OF_SERVICE_20261124"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, digest_driver="agy")
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ANTHROPIC_PROVIDER_RETIRED_CC855"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider="anthropic")
+
+    with pytest.raises(fw.FreeTierFirewallError, match="AGY_BLOCKED_TERMS_OF_SERVICE_20261124"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider="agy")
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_DEPENDENCY_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            runtime_config={"runner": "claude -p daily_digest"},
+        )
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_AGY_DEPENDENCY_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            runtime_config={"helper": r"C:\Users\bullw\.gemini\bin\agy.exe"},
+        )
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            scheduled_tasks=[{"name": "BadTask", "enabled": True, "command": "claude.exe -p run"}],
+        )
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_AGY_SCHEDULED_TASK_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            scheduled_tasks=[{"name": "BadAgy", "enabled": True, "command": "agy.exe --prompt test"}],
+        )
+
+    # Presence of agy_neo_routes.json in control_dir fails closed
+    (ctrl / "agy_neo_routes.json").write_text('{"x": "AGY"}\n', encoding="utf-8")
+    with pytest.raises(fw.FreeTierFirewallError, match="AGY_NEO_ROUTES_PRESENT_FORBIDDEN_CC801"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, control_dir=ctrl)
+
+
+# ---------------------------------------------------------------------------
+# Pillar (d): Fail-Closed Integrity, Non-Finite Numbers, Stale Manifests, Rule A3
+# ---------------------------------------------------------------------------
+
+
+def test_pillar_d_strict_json_nonfinite_clocks_and_rule_a3_waivers():
+    # Duplicate JSON keys
+    with pytest.raises(fw.FreeTierFirewallError, match="DUPLICATE_JSON_KEY"):
+        fw.load_strict_json_bytes(b'{"a": 1, "a": 2}')
+
+    # NaN / Infinity in JSON bytes
+    for bad_json in (b'{"x": NaN}', b'{"x": Infinity}', b'{"x": -Infinity}'):
+        with pytest.raises(fw.FreeTierFirewallError, match="NONFINITE_NUMBER_FORBIDDEN"):
+            fw.load_strict_json_bytes(bad_json)
+
+    # Non-finite Python floats and Decimals in payloads
+    for bad_num in (math.nan, math.inf, -math.inf, Decimal("NaN"), Decimal("Infinity")):
+        with pytest.raises(fw.FreeTierFirewallError, match="NONFINITE_NUMBER_FORBIDDEN"):
+            fw.verify_outbound_free_payload(
+                _clean_outbound_payload(metric_val=bad_num),
+                now_utc=DEC15_OPEN_UTC,
+            )
+
+    # Naive, date-only, bool, and future clocks
+    with pytest.raises(fw.FreeTierFirewallError, match="UTC_CLOCK_NAIVE_FORBIDDEN"):
+        fw.parse_strict_utc(datetime(2026, 12, 15, 13, 0), field_name="now_utc")
+    with pytest.raises(fw.FreeTierFirewallError, match="UTC_CLOCK_INVALID_FORMAT"):
+        fw.parse_strict_utc("2026-12-15", field_name="now_utc")
+    with pytest.raises(fw.FreeTierFirewallError, match="UTC_CLOCK_REQUIRED"):
+        fw.parse_strict_utc(True, field_name="now_utc")
+    with pytest.raises(fw.FreeTierFirewallError, match="CLOCK_AFTER_CUTOFF"):
+        fw.parse_strict_utc("2026-12-16T00:00:00Z", field_name="ts", max_clock_utc=DEC15_OPEN_UTC)
+
+    # Rule A3: zero silent waivers anywhere in payload or manifest
+    for waiver_key, waiver_val in (
+        ("skip_cc024", True),
+        ("waive_firewall", True),
+        ("allow_stale_manifest", True),
+        ("force_unpause", True),
+        ("waiver", "temporary"),
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="SILENT_WAIVER_FORBIDDEN_RULE_A3"):
+            fw.verify_outbound_free_payload(
+                _clean_outbound_payload(**{waiver_key: waiver_val}),
+                now_utc=DEC15_OPEN_UTC,
+            )
+
+
+def test_pillar_d_pause_manifest_blocks_stale_pre_dec15_and_premature_unpause(tmp_path: Path):
+    ctrl = tmp_path / "control"
+    ctrl.mkdir()
+    valid = _valid_dec15_pause_manifest()
+    manifest_path = tmp_path / "dec15_manifest.json"
+    manifest_path.write_text(json.dumps(valid, indent=2) + "\n", encoding="utf-8")
+
+    # 1. Valid manifest on 15 Dec 2026 passes cleanly
+    res = fw.verify_pause_manifest_for_dec15_unpause(manifest_path, now_utc=DEC15_OPEN_UTC, control_dir=ctrl)
+    assert res["status"] == "PASS"
+    assert res["unpause_mode"] == fw.FREE_ONLY_MODE
+    assert res["cc024_clean_required"] is True
+
+    # 2. One second before 15 Dec 00:00 GMT+7 (2026-12-14T16:59:59Z) -> REFUSED
+    with pytest.raises(fw.FreeTierFirewallError, match="UNPAUSE_BEFORE_DEC15_WINDOW"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            manifest_path,
+            now_utc=datetime(2026, 12, 14, 16, 59, 59, tzinfo=timezone.utc),
+            control_dir=ctrl,
+        )
+
+    # 3. Exact shape of live stale pause-20261123/manifest.json (resume 29 Nov) -> REFUSED
+    stale_live_shape = {
+        "authority": "JIM_20261123_PAUSE_EXTENDED_20261126",
+        "paused_at_utc": "2026-11-23T04:50:00Z",
+        "resume_at_utc": "2026-11-29T18:00:00Z",
+        "cause": "JIM_PAUSE_20261123T0450Z_UNTIL_20261125T1600Z",
+        "suspended_destinations": ["x", "substack"],
+        "tasks": [],
+        "stop_files": [],
+    }
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_pause_manifest_for_dec15_unpause(stale_live_shape, now_utc=DEC15_OPEN_UTC)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert {
+        "PAUSE_MANIFEST_STALE_PRE_DEC15",
+        "PAUSE_MANIFEST_STALE_CAUSE",
+        "PAUSE_MANIFEST_FREE_ONLY_MODE_REQUIRED",
+        "PAUSE_MANIFEST_CC024_FLAG_REQUIRED",
+    } <= codes
+
+    # 4. Missing manifest file -> REFUSED
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_MISSING"):
+        fw.verify_pause_manifest_for_dec15_unpause(tmp_path / "does_not_exist.json", now_utc=DEC15_OPEN_UTC)
+
+    # 5. Control dir hard stops: KILL_SWITCH, llm_operator_pause.flag, restored.json
+    for flag_name, expected in (
+        ("KILL_SWITCH", "GLOBAL_KILL_SWITCH_PRESENT"),
+        ("llm_operator_pause.flag", "LLM_OPERATOR_PAUSE_FLAG_PRESENT"),
+        ("restored.json", "PAUSE_MANIFEST_ALREADY_RESTORED"),
+    ):
+        flag_dir = tmp_path / f"ctrl_{flag_name}"
+        flag_dir.mkdir()
+        (flag_dir / flag_name).write_text("active\n", encoding="utf-8")
+        with pytest.raises(fw.FreeTierFirewallError, match=expected):
+            fw.verify_pause_manifest_for_dec15_unpause(manifest_path, now_utc=DEC15_OPEN_UTC, control_dir=flag_dir)
+
+
+# ---------------------------------------------------------------------------
+# Deliverable 2: Live-Schema CC-817 v2 High-Interval End-to-End Dry-Run Rehearsal
+# ---------------------------------------------------------------------------
+
+
+def test_live_schema_cc817_high_interval_end_to_end_rehearsal_passes_dec15_firewall(tmp_path: Path, pack):
+    """Full end-to-end rehearsal using CURRENT Live Main d96c30c78f39 CC-807 schema (14 envelope / 33 theme keys)."""
+    raw_t0 = _cc807_live_schema_envelope(DEC15_OPEN_UTC)
+    assert len(raw_t0.keys()) == 14
+    assert all(len(t.keys()) >= 31 for t in raw_t0["themes"])
+
+    # 1. Allow-list projection strips every private field and harvests _private_texts
+    projected_t0 = hi.project_live_attention_map(raw_t0, as_of_utc=DEC15_OPEN_UTC)
+    public_t0 = projected_t0["public_register"]
+    private_texts = list(public_t0["_private_texts"])
+    assert len(private_texts) >= 12
+    pub_serialized = json.dumps({k: v for k, v in public_t0.items() if k != "_private_texts"})
+    for stripped in (
+        "prepared_responses", "surprise_map", "priced_in_gap", "linked_odds_markets",
+        "open_positions", "279805139", "PRIVATE_PREPARED_RESPONSE_SECRET",
+        "FirstSquawk", "DeItaone", "Bloomberg wire", "Reuters wire", "+0.35R", "62.0",
+    ):
+        assert stripped not in pub_serialized
+
+    # 2. Render & persist Top-5 immutable WEB_ONLY Substack theme pages + verify immutability + firewall PASS
+    store = ContentOpsDurableStore(tmp_path / "rehearsal_store.sqlite3")
+    pages_dir = tmp_path / "theme_pages"
+    prior_pages: dict[str, dict[str, Any]] = {}
+    outbound_bundle: list[dict[str, Any]] = []
+
+    top_themes = [t for t in public_t0["themes"] if t["theme_id"] in set(public_t0["top_theme_ids"])]
+    assert len(top_themes) == 5
+    for theme in top_themes:
+        chart = _tv_asset(tmp_path / "tv" / theme["theme_id"], theme["lead_market"])
+        page = attention.render_theme_page(
+            theme,
+            as_of_utc=DEC15_OPEN_UTC,
+            chart_asset=chart,
+            private_texts=private_texts,
+        )
+        assert page["web_only"] is True and page["send_email"] is False and page["never_edit"] is True
+        stored = attention.register_theme_page(store, page, output_dir=pages_dir)
+        assert stored["plan"]["destinations"][0]["substack_delivery_mode"] == "WEB_ONLY"
+        fw_res = fw.verify_outbound_free_payload(
+            page,
+            now_utc=DEC15_OPEN_UTC,
+            destination="substack",
+            private_texts=private_texts,
+            require_notice=True,
+        )
+        assert fw_res["status"] == "PASS"
+        outbound_bundle.append(page)
+        prior_pages[theme["theme_id"]] = {
+            "page_id": page["page_id"],
+            "canonical_url": _url_for(page),
+            "published_at_utc": DEC15_OPEN_UTC.isoformat(),
+            "as_of_utc": DEC15_OPEN_UTC.isoformat(),
+            "revision_fingerprint": page["revision_fingerprint"],
+            "base_case_fingerprint": page["base_case_fingerprint"],
+            "branch_flip_signature": page["branch_flip_signature"],
+        }
+
+    # Verify immutable page edit refusal
+    mutated_page = deepcopy(outbound_bundle[0])
+    mutated_page["native_payload"]["body_markdown"] += "\nEdited after publish."
+    with pytest.raises(ValueError, match="CC817_THEME_PAGE_IMMUTABLE"):
+        attention.register_theme_page(store, mutated_page, output_dir=pages_dir)
+
+    # 3. Seed high-interval ledger & confirm quiet 15m tick emits ZERO flashes (0 LLM calls)
+    ledger_path = tmp_path / "hi_ledger.json"
+    hi.seed_ledger_from_map(raw_t0, as_of_utc=DEC15_OPEN_UTC, ledger_path=ledger_path, prior_pages=prior_pages)
+
+    t1 = DEC15_OPEN_UTC + timedelta(minutes=15)
+    quiet_map = _cc807_live_schema_envelope(t1)
+    quiet_res = hi.poll_live_attention_map(
+        quiet_map,
+        now_utc=t1,
+        ledger_path=ledger_path,
+        poll_interval_minutes=15,
+        canonical_url_builder=_url_for,
+    )
+    assert quiet_res["status"] == "NO_MATERIAL_SHIFT"
+    assert quiet_res["llm_calls_made"] == 0
+    assert quiet_res["emitted_flashes"] == []
+
+    # 4. Material shift tick (all 4 triggers across themes): immutable WEB_ONLY flashes + 10-platform social copy
+    t2 = DEC15_OPEN_UTC + timedelta(minutes=30)
+    shifted = _cc807_live_schema_envelope(t2)
+    shifted["material_change_hash"] = "cc807-live-dec15-shifts-t2"
+
+    # Trigger A: DECISION_POINT_CATALYST_HIT on usdjpy_fed_boj_mof (undated MoF watch)
+    shifted["themes"][0]["live_state"]["decision_point_catalyst_hit"] = True
+    shifted["themes"][0]["live_state"]["material_shift_flags"] = ["DECISION_POINT_CATALYST_HIT"]
+    shifted["themes"][0]["material_change_hash"] = "cc807-mof-watch-hit"
+
+    # Trigger B: BRANCH_FLIPPED on nvidia_leadership_ai_capex (USTEC -> NASDAQ:NDX)
+    shifted["themes"][1]["active_branch_id"] = "nvidia_leadership_ai_capex_bear"
+    shifted["themes"][1]["branch_flipped"] = True
+    shifted["themes"][1]["live_state"]["branch_flip_detected"] = True
+    shifted["themes"][1]["live_state"]["material_shift_flags"] = ["BRANCH_FLIP"]
+    shifted["themes"][1]["branches"][0]["summary"] = (
+        "Slower cloud capex guidance caps semiconductor demand and weighs on Nasdaq 100 risk appetite."
+    )
+    shifted["themes"][1]["material_change_hash"] = "cc807-nvda-flip"
+
+    # Trigger C: PROBABILITY_SHIFT_GE_10PP market-implied on us_real_yields_gold (62% -> 78%, words-only!)
+    shifted["themes"][2]["branches"][0]["market_implied_probability_pct"] = 78.0
+    shifted["themes"][2]["branches"][0]["market_implied_delta_15m_pp"] = 16.0
+    shifted["themes"][2]["live_state"]["max_odds_delta_15m_pp"] = 16.0
+    shifted["themes"][2]["material_change_hash"] = "cc807-gold-16pp"
+
+    # Trigger D: NEW_TOP_FIVE_ENTRY (btc_liquidity_flows enters rank 5)
+    shifted["themes"][4]["rank"] = 6
+    shifted["themes"][5]["rank"] = 5
+    shifted["themes"][5]["material_change_hash"] = "cc807-btc-top5"
+
+    poll_res = hi.poll_live_attention_map(
+        shifted,
+        now_utc=t2,
+        ledger_path=ledger_path,
+        poll_interval_minutes=15,
+        store=store,
+        output_dir=pages_dir,
+        chart_asset_provider=lambda th: _tv_asset(tmp_path / "tv_flash" / th["theme_id"], th["lead_market"]),
+        canonical_url_builder=_url_for,
+    )
+    assert poll_res["status"] == "MATERIAL_SHIFTS_EMITTED"
+    assert poll_res["llm_calls_made"] == 0
+    assert len(poll_res["emitted_flashes"]) == 4
+
+    flashed_by_id = {f["theme_id"]: f for f in poll_res["emitted_flashes"]}
+    assert flashed_by_id["nvidia_leadership_ai_capex"]["primary_reason"] == hi.TRIGGER_BRANCH_FLIPPED
+    assert flashed_by_id["btc_liquidity_flows"]["primary_reason"] == hi.TRIGGER_NEW_TOP_FIVE
+    assert flashed_by_id["usdjpy_fed_boj_mof"]["primary_reason"] == hi.TRIGGER_CATALYST_HIT
+    assert flashed_by_id["us_real_yields_gold"]["primary_reason"] == hi.TRIGGER_PROBABILITY_SHIFT
+
+    # Every flash page AND all 10 social destinations pass FREE_ONLY + CC-024 firewall!
+    for flash in poll_res["emitted_flashes"]:
+        fpage = flash["flash_page"]
+        assert fpage["web_only"] is True and fpage["send_email"] is False and fpage["never_edit"] is True
+        outbound_bundle.append(fpage)
+        assert set(flash["social_bundle"]) == set(hi.ALL_TEN_DESTINATIONS)
+        for dest, social in flash["social_bundle"].items():
+            assert social["hard_truncation_used"] is False
+            assert "..." not in social["full_text"] and "…" not in social["full_text"]
+            s_res = fw.verify_outbound_free_payload(
+                social,
+                now_utc=t2,
+                destination=dest,
+                private_texts=private_texts,
+                require_notice=True,
+            )
+            assert s_res["status"] == "PASS"
+            outbound_bundle.append(social)
+
+    # 5. Session-Sync Pulses (Pre-Asia, Pre-London, Pre-US) + 10-platform social copy + CC-689 wrap integration
+    page_links = {tid: p["canonical_url"] for tid, p in prior_pages.items()}
+    recent_flashes = [
+        {
+            "theme_id": f["theme_id"],
+            "theme_name": f["theme_name"],
+            "public_summary_lines": f["public_summary_lines"],
+            "canonical_url": f["canonical_url"],
+            "as_of_utc": t2.isoformat(),
+        }
+        for f in poll_res["emitted_flashes"]
+    ]
+    for session_key, session_ts in (
+        (hi.SESSION_PRE_LONDON, DEC15_PRE_LONDON_UTC),
+        (hi.SESSION_PRE_US, DEC15_PRE_US_UTC),
+        (hi.SESSION_PRE_ASIA, DEC15_PRE_ASIA_UTC),
+    ):
+        pulse = hi.render_session_sync_pulse(
+            poll_res["public_register"],
+            session=session_key,
+            as_of_utc=session_ts,
+            recent_flashes=recent_flashes,
+            page_links=page_links,
+            private_texts=private_texts,
+        )
+        assert pulse["session"] == session_key
+        assert fw.verify_outbound_free_payload(
+            pulse, now_utc=session_ts, private_texts=private_texts
+        )["status"] == "PASS"
+        outbound_bundle.append(pulse)
+
+        ss_bundle = hi.render_session_sync_social_bundle(
+            pulse,
+            poll_res["public_register"],
+            f"https://capitalchronicle.substack.com/p/session-wrap-{session_key}-2026-12-15",
+            credit=tv.CREDIT,
+            private_texts=private_texts,
+        )
+        assert set(ss_bundle) == set(hi.ALL_TEN_DESTINATIONS)
+        for dest, social in ss_bundle.items():
+            assert fw.verify_outbound_free_payload(
+                social,
+                now_utc=session_ts,
+                destination=dest,
+                private_texts=private_texts,
+                require_notice=True,
+            )["status"] == "PASS"
+            outbound_bundle.append(social)
+
+    # Embed Pre-US session-sync pulse into a CC-689 daily wrap via market_wrap_editorial_v1
+    pre_us_pulse = hi.render_session_sync_pulse(
+        poll_res["public_register"],
+        session=hi.SESSION_PRE_US,
+        as_of_utc=DEC15_PRE_US_UTC,
+        recent_flashes=recent_flashes,
+        page_links=page_links,
+        private_texts=private_texts,
+    )
+    pre_us_pulse["public_register"] = poll_res["public_register"]
+    wrap_pack = deepcopy(pack)
+    wrap_pack["session_sync_pulse"] = pre_us_pulse
+    manuscript = wrap_editorial.draft(deepcopy(pack), tmp_path / "wrap_draft", call=select_first)
+    wrap_article, _ = wrap_editorial.article_for(wrap_pack, manuscript)
+    assert "## Session-sync market forces — Pre-US Cash Open" in wrap_article["substack_body_markdown"]
+    assert fw.verify_outbound_free_payload(
+        wrap_article,
+        now_utc=DEC15_PRE_US_UTC,
+        destination="substack",
+        private_texts=private_texts,
+        require_notice=True,
+    )["status"] == "PASS"
+    outbound_bundle.append(wrap_article)
+
+    # 6. Full Unified ~15 Dec FREE-Only CC-024 Unpause Preflight across ALL emitted artifacts!
+    arena_records = _build_arena_chain_records(3)
+    chain_path = _write_jsonl(tmp_path / "day1_arena_chain.jsonl", arena_records)
+    citation = fw.build_public_track_record_citation(chain_path, as_of_utc=DEC15_PRE_ASIA_UTC)
+    ctrl_dir = tmp_path / "control_clean"
+    ctrl_dir.mkdir()
+
+    preflight = fw.run_free_tier_unpause_preflight(
+        now_utc=DEC15_PRE_ASIA_UTC,
+        pause_manifest=_valid_dec15_pause_manifest(),
+        outbound_payloads=outbound_bundle,
+        track_record_citation=citation,
+        track_record_chain=chain_path,
+        runtime_config={"editorial_owner": "codex", "model": "gpt-6.2-sol", "digest_driver": "python-neo"},
+        control_dir=ctrl_dir,
+        scheduled_tasks=[
+            {"name": "DailyDigest1900", "enabled": True, "driver": "python-neo"},
+            {"name": "MarketForcesPoller15m", "enabled": True, "driver": "codex-desktop"},
+        ],
+        editorial_agent="codex",
+        digest_driver="python-neo",
+        private_texts=private_texts,
+    )
+    assert preflight["status"] == "PASS"
+    assert preflight["mode"] == fw.FREE_ONLY_MODE
+    assert preflight["cc024_clean"] is True
+    assert preflight["public_write_performed"] is False
+    assert preflight["gates"]["gate_4_outbound_payloads"]["payload_count"] == len(outbound_bundle)
+    assert len(preflight["report_sha256"]) == 64
+
+
+def test_readonly_live_main_d96c30c78f39_cc807_schema_parity_rehearsal(tmp_path: Path):
+    """Read-only parity proof importing CURRENT Live Main d96c30c78f39 CC-807 modules strictly inside tmp_path."""
+    main_module = LIVE_MAIN_REPO / "tools" / "product" / "market_attention_map_v1.py"
+    if not main_module.is_file():
+        pytest.skip("Live Main d96c30c78f39 checkout not mounted in this environment")
+
+    prev_path = list(sys.path)
+    prev_modules = set(sys.modules)
+    try:
+        sys.path.insert(0, str(LIVE_MAIN_REPO))
+        from tools.product import market_attention_map_live_refresh_v1 as main_refresh  # type: ignore
+        from tools.product import market_attention_map_v1 as main_map  # type: ignore
+
+        fixture = main_map.build_worked_fixture()
+        reg_path = tmp_path / main_map.REGISTER_FILE
+        reg_path.write_text(json.dumps(fixture, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+        refresh_summary = main_refresh.refresh_live_map(
+            root=tmp_path,
+            now_utc=datetime(2026, 11, 24, 12, 15, tzinfo=timezone.utc),
+            odds_snapshot={},
+            odds_watch_root=tmp_path / "no_odds",
+            headline_rows=[],
+            headline_sources_config=tmp_path / "no_headlines.json",
+            price_snapshot={"USDJPY": {"price": 161.2, "move_15m_pct": 0.45}},
+            options_snapshot={},
+            write_output=True,
+        )
+        live_path = tmp_path / main_map.LIVE_FILE
+        assert live_path.is_file()
+        assert isinstance(refresh_summary, dict)
+        live_map = json.loads(live_path.read_text(encoding="utf-8"))
+        assert len(live_map.get("themes") or []) >= 2
+        assert live_map["schema"] == "MarketAttentionMapLiveV1"
+    finally:
+        sys.path[:] = prev_path
+        for mod_name in list(sys.modules):
+            if mod_name not in prev_modules and mod_name.startswith("tools"):
+                sys.modules.pop(mod_name, None)
+
+    live_as_of = attention.utc(live_map["as_of_utc"])
+    projected = hi.project_live_attention_map(live_map, as_of_utc=live_as_of)
+    public_reg = projected["public_register"]
+    private_texts = list(public_reg["_private_texts"])
+    assert len(public_reg["themes"]) >= 2
+
+    # Render theme pages, poll material shifts, render session-sync pulse & 10-platform social copy
+    outbound_items: list[dict[str, Any]] = []
+    for theme in public_reg["themes"]:
+        page = attention.render_theme_page(theme, as_of_utc=live_as_of, private_texts=private_texts)
+        assert page["web_only"] is True and page["send_email"] is False
+        assert fw.verify_outbound_free_payload(
+            page, now_utc=live_as_of, destination="substack", private_texts=private_texts, require_notice=True
+        )["status"] == "PASS"
+        outbound_items.append(page)
+
+    poll = hi.poll_live_attention_map(
+        live_map,
+        now_utc=live_as_of,
+        ledger_path=tmp_path / "main_parity_ledger.json",
+        poll_interval_minutes=15,
+        canonical_url_builder=_url_for,
+    )
+    assert poll["llm_calls_made"] == 0
+    for flash in poll["emitted_flashes"]:
+        outbound_items.append(flash["flash_page"])
+        assert set(flash["social_bundle"]) == set(hi.ALL_TEN_DESTINATIONS)
+        for dest, social in flash["social_bundle"].items():
+            assert fw.verify_outbound_free_payload(
+                social, now_utc=live_as_of, destination=dest, private_texts=private_texts, require_notice=True
+            )["status"] == "PASS"
+            outbound_items.append(social)
+
+    pulse = hi.render_session_sync_pulse(
+        public_reg, session=hi.SESSION_PRE_US, as_of_utc=live_as_of, private_texts=private_texts
+    )
+    ss_bundle = hi.render_session_sync_social_bundle(
+        pulse,
+        public_reg,
+        "https://capitalchronicle.substack.com/p/main-d96c30c7-parity-pulse",
+        credit=tv.CREDIT,
+        private_texts=private_texts,
+    )
+    assert set(ss_bundle) == set(hi.ALL_TEN_DESTINATIONS)
+    for dest, social in ss_bundle.items():
+        assert fw.verify_outbound_free_payload(
+            social, now_utc=live_as_of, destination=dest, private_texts=private_texts, require_notice=True
+        )["status"] == "PASS"
+        outbound_items.append(social)
+
+    assert len(outbound_items) >= 12
+
+
+def test_cc691_golden_confirmed_posts_pass_free_only_and_cc024_firewall():
+    """Confirm historical CC-691 golden posts contain zero paywall markers or CC-024 rights violations."""
+    saved = json.loads(CC691_POSTS_PATH.read_text(encoding="utf-8"))
+    for key in ("timed_plan_update", "plan_analysis_reply"):
+        text = saved[key]["text"]
+        assert fw.verify_free_only_mode(text, now_utc=DEC15_OPEN_UTC)["status"] == "PASS"
+        assert fw.verify_cc024_commercial_firewall(
+            text, check_instruments=False, check_public_time=True
+        )["cc024_clean"] is True
+    for wrap_kind in ("daily", "weekend"):
+        wrap = saved["wraps"][wrap_kind]
+        assert fw.verify_free_only_mode(wrap["body_excerpt"], now_utc=DEC15_OPEN_UTC)["status"] == "PASS"
+        assert fw.verify_cc024_commercial_firewall(
+            wrap["body_excerpt"], check_instruments=False, check_public_time=True
+        )["cc024_clean"] is True
