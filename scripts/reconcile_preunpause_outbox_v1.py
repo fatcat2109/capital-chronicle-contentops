@@ -225,8 +225,15 @@ def _open_readonly_sqlite(db_path: Path) -> sqlite3.Connection:
     return conn
 
 
-def is_live_production_db(db_path: Path, *, production_store: Optional[Path] = None) -> bool:
-    target_prod = PRODUCTION_STORE if production_store is None else production_store
+def _production_store_identities(production_store: Optional[Path] = None) -> tuple[Path, ...]:
+    """Return canonical PRODUCTION_STORE plus any caller-injected identity (strictly additive)."""
+    identities: list[Path] = [Path(PRODUCTION_STORE)]
+    if production_store is not None:
+        identities.append(Path(production_store))
+    return tuple(identities)
+
+
+def _paths_refer_to_same_file(db_path: Path, target_prod: Path) -> bool:
     try:
         if db_path.exists() and target_prod.exists() and os.path.samefile(db_path, target_prod):
             return True
@@ -236,6 +243,21 @@ def is_live_production_db(db_path: Path, *, production_store: Optional[Path] = N
         return os.path.normcase(str(db_path.resolve())) == os.path.normcase(str(target_prod.resolve()))
     except OSError:
         return os.path.normcase(str(db_path)) == os.path.normcase(str(target_prod))
+
+
+def _matched_production_stores(
+    db_path: Path, *, production_store: Optional[Path] = None
+) -> tuple[Path, ...]:
+    candidate = Path(db_path)
+    return tuple(
+        prod_path
+        for prod_path in _production_store_identities(production_store)
+        if _paths_refer_to_same_file(candidate, prod_path)
+    )
+
+
+def is_live_production_db(db_path: Path, *, production_store: Optional[Path] = None) -> bool:
+    return bool(_matched_production_stores(db_path, production_store=production_store))
 
 
 def _pid_is_alive(pid: int) -> bool:
@@ -435,8 +457,8 @@ def check_apply_interlocks(
 ) -> dict[str, Any]:
     """Fail-closed interlock verification prior to any ``--apply`` write."""
     blockers: list[dict[str, Any]] = []
-    target_prod = PRODUCTION_STORE if production_store is None else production_store
-    live_db = is_live_production_db(db_path, production_store=target_prod)
+    matched_prod = _matched_production_stores(db_path, production_store=production_store)
+    live_db = bool(matched_prod)
     if live_db:
         if interlock_now is not None:
             blockers.append(
@@ -445,17 +467,21 @@ def check_apply_interlocks(
                     "requested_interlock_now_utc": _ensure_utc(interlock_now).isoformat().replace("+00:00", "Z"),
                 }
             )
-        liveness_now = datetime.now(timezone.utc)
+        liveness_now = _resolve_interlock_clock(now=None, interlock_now=None, live_production_db=True)
     else:
-        liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now)
+        liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now, live_production_db=False)
     effective_control_dir = control_dir if control_dir is not None else (db_path.parent / "control")
 
     # 1. restored.json check (pause lifted => refuse pre-unpause mutation).
     control_roots: list[Path] = [effective_control_dir]
+    seen_control_roots: set[str] = {os.path.normcase(str(effective_control_dir))}
     if live_db:
-        live_control = target_prod.parent / "control"
-        if os.path.normcase(str(live_control)) != os.path.normcase(str(effective_control_dir)):
-            control_roots.append(live_control)
+        for prod_path in matched_prod:
+            live_control = prod_path.parent / "control"
+            norm_ctrl = os.path.normcase(str(live_control))
+            if norm_ctrl not in seen_control_roots:
+                seen_control_roots.add(norm_ctrl)
+                control_roots.append(live_control)
     seen_restored: set[str] = set()
     for root in control_roots:
         candidates: list[Path] = [root / "restored.json"]
@@ -476,7 +502,11 @@ def check_apply_interlocks(
 
     # 3. Existing filesystem writer/supervisor lock files (never creates files).
     lock_candidates: list[Path] = list(extra_lock_paths)
-    for folder in (db_path.parent, effective_control_dir, db_path.parent / "locks"):
+    lock_folders: list[Path] = [db_path.parent, effective_control_dir, db_path.parent / "locks"]
+    if live_db:
+        for prod_path in matched_prod:
+            lock_folders.extend((prod_path.parent, prod_path.parent / "control", prod_path.parent / "locks"))
+    for folder in lock_folders:
         if folder.is_dir():
             lock_candidates.extend(sorted(folder.glob("*.lock")))
     seen_locks: set[str] = set()
@@ -1330,29 +1360,21 @@ def apply_preunpause_reconciliation(
             },
         )
 
-    if live_db:
-        interlocks = check_apply_interlocks(
-            db_path,
-            now=None,
-            interlock_now=None,
-            control_dir=control_dir,
-            extra_lock_paths=extra_lock_paths,
-            production_store=production_store,
-            check_live_processes=check_live_processes,
-            process_scanner=process_scanner,
-        )
-    else:
-        liveness_now = _resolve_interlock_clock(now=expiry_now, interlock_now=interlock_now)
-        interlocks = check_apply_interlocks(
-            db_path,
-            now=expiry_now,
-            interlock_now=liveness_now,
-            control_dir=control_dir,
-            extra_lock_paths=extra_lock_paths,
-            production_store=production_store,
-            check_live_processes=check_live_processes,
-            process_scanner=process_scanner,
-        )
+    liveness_now = _resolve_interlock_clock(
+        now=None if live_db else expiry_now,
+        interlock_now=interlock_now,
+        live_production_db=live_db,
+    )
+    interlocks = check_apply_interlocks(
+        db_path,
+        now=None if live_db else expiry_now,
+        interlock_now=None if live_db else liveness_now,
+        control_dir=control_dir,
+        extra_lock_paths=extra_lock_paths,
+        production_store=production_store,
+        check_live_processes=check_live_processes,
+        process_scanner=process_scanner,
+    )
     audit = audit_preunpause_outbox(
         db_path,
         now=expiry_now,

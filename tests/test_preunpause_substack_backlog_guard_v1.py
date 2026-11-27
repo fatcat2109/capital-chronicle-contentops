@@ -1921,3 +1921,192 @@ def test_cc692_cc910_live_apply_forbids_interlock_now_override_and_enforces_wall
     assert res_copy_ok["applied"] is True
     assert res_copy_ok["expiry_clock_mode"] == "COPIED_STATE_REPLAY_OVERRIDE"
     assert copied_store.get_outbox_message(replay_page["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+
+
+def test_cc692_cc915_optional_production_store_is_additive_and_keeps_canonical_on_wall_utc(
+    tmp_path, monkeypatch
+):
+    """CC-915 [Medium] regression: injecting a distinct optional production_store MUST be additive
+    (never replacing canonical PRODUCTION_STORE) so the canonical stand-in still classifies as
+    production on wall UTC, runs default control/process checks, and blocks apply on active
+    lease/heartbeat."""
+    canonical_dir = tmp_path / "canonical_runtime"
+    additional_dir = tmp_path / "additional_runtime"
+    copied_dir = tmp_path / "copied_replay"
+    canonical_dir.mkdir(parents=True, exist_ok=True)
+    additional_dir.mkdir(parents=True, exist_ok=True)
+    copied_dir.mkdir(parents=True, exist_ok=True)
+
+    canonical_db = canonical_dir / "contentops_daily_app_v1.sqlite3"
+    additional_db = additional_dir / "additional_prod.sqlite3"
+    copied_db = copied_dir / "copied_replay.sqlite3"
+
+    canonical_store = ContentOpsDurableStore(canonical_db)
+    additional_store = ContentOpsDurableStore(additional_db)
+    copied_store = ContentOpsDurableStore(copied_db)
+
+    wall_now = datetime.now(timezone.utc)
+    expired_deadline = (wall_now - timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+    future_override = wall_now + timedelta(days=3)
+
+    canonical_page = _seed_plan_analysis_page(
+        canonical_store,
+        plan_id="plan_cc915_canonical_expired",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+    additional_page = _seed_plan_analysis_page(
+        additional_store,
+        plan_id="plan_cc915_additional_expired",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+    copied_page = _seed_plan_analysis_page(
+        copied_store,
+        plan_id="plan_cc915_copied_expired",
+        entry_deadline_utc="2026-11-12T21:00:00Z",
+        outbox_status="READY",
+    )
+
+    lease_acq = wall_now.isoformat().replace("+00:00", "Z")
+    lease_exp = (wall_now + timedelta(minutes=10)).isoformat().replace("+00:00", "Z")
+    hb_seen = (wall_now - timedelta(seconds=30)).isoformat().replace("+00:00", "Z")
+    for target_db in (canonical_db, additional_db):
+        with closing(sqlite3.connect(target_db)) as conn:
+            conn.execute(
+                "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+                "VALUES ('lease_cc915_live', 'cc915-live-key', NULL, 'live-writer', 11, ?, ?, ?, 'ACTIVE')",
+                (lease_acq, lease_acq, lease_exp),
+            )
+            conn.execute(
+                "INSERT INTO heartbeats (heartbeat_id, worker_id, lease_id, last_seen_at, status) "
+                "VALUES ('hb_cc915_live', 'cc915-supervisor', 'lease_cc915_live', ?, 'ALIVE')",
+                (hb_seen,),
+            )
+            conn.commit()
+            conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+
+    canonical_before_hash = _sha256_file(canonical_db)
+    additional_before_hash = _sha256_file(additional_db)
+
+    monkeypatch.setattr(cli, "PRODUCTION_STORE", canonical_db)
+
+    # 1. Identity classification: canonical ALWAYS classifies as production even when a distinct
+    #    optional production_store is supplied; the optional identity is additive; third copies stay non-live.
+    assert cli.is_live_production_db(canonical_db) is True
+    assert cli.is_live_production_db(canonical_db, production_store=additional_db) is True
+    assert cli.is_live_production_db(additional_db, production_store=additional_db) is True
+    assert cli.is_live_production_db(copied_db, production_store=additional_db) is False
+
+    # 2. Clock selection: _resolve_apply_expiry_clock classifies canonical as production and refuses
+    #    clock overrides even when a distinct optional production_store is injected.
+    exp_dt, exp_refusal, exp_mode, exp_live = cli._resolve_apply_expiry_clock(
+        db_path=canonical_db,
+        now=future_override,
+        interlock_now=future_override,
+        allow_copied_state_clock_override=True,
+        production_store=additional_db,
+    )
+    assert exp_dt is None
+    assert exp_refusal == "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"
+    assert exp_mode == "REFUSED"
+    assert exp_live is True
+
+    # 3. apply_preunpause_reconciliation on canonical with distinct optional production_store:
+    #    - clock overrides refused fail-closed with 0 writes;
+    #    - wall-UTC apply STILL invokes default process scan and blocks on canonical's active lease & heartbeat.
+    rc_override, res_override = cli.apply_preunpause_reconciliation(
+        canonical_db,
+        now=future_override,
+        interlock_now=future_override,
+        allow_copied_state_clock_override=True,
+        production_store=additional_db,
+        process_scanner=lambda: [],
+    )
+    assert rc_override == cli.EXIT_USAGE_REFUSED
+    assert res_override["reason"] == "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE"
+    assert res_override["live_production_db"] is True
+    assert _sha256_file(canonical_db) == canonical_before_hash
+
+    scanner_calls = {"count": 0}
+
+    def _recording_scanner() -> list[dict]:
+        scanner_calls["count"] += 1
+        return []
+
+    rc_apply, res_apply = cli.apply_preunpause_reconciliation(
+        canonical_db,
+        production_store=additional_db,
+        process_scanner=_recording_scanner,
+    )
+    assert rc_apply == cli.EXIT_INTERLOCK_REFUSED
+    assert res_apply["applied"] is False
+    assert res_apply["expiry_clock_mode"] == "WALL_UTC"
+    assert res_apply["interlocks"]["live_production_db"] is True
+    assert scanner_calls["count"] == 1
+    blocker_codes = {b["code"] for b in res_apply["interlocks"]["blockers"]}
+    assert "ACTIVE_SQLITE_LEASE" in blocker_codes
+    assert "ACTIVE_SUPERVISOR_HEARTBEAT" in blocker_codes
+    assert _sha256_file(canonical_db) == canonical_before_hash
+    assert canonical_store.get_outbox_message(canonical_page["message_id"])["status"] == "READY"
+
+    # 4. Control-dir interlock check uses canonical's control/restored.json even when an alternate
+    #    control_dir AND distinct optional production_store are supplied.
+    canonical_restored = canonical_dir / "control" / "restored.json"
+    canonical_restored.parent.mkdir(parents=True, exist_ok=True)
+    canonical_restored.write_text('{"started_at_utc":"2026-11-27T00:00:00Z"}\n', encoding="utf-8")
+    alt_control = tmp_path / "empty_alt_control"
+    alt_control.mkdir(parents=True, exist_ok=True)
+    il_canonical = cli.check_apply_interlocks(
+        canonical_db,
+        interlock_now=future_override,
+        control_dir=alt_control,
+        production_store=additional_db,
+        process_scanner=_recording_scanner,
+    )
+    assert il_canonical["ok"] is False
+    assert il_canonical["live_production_db"] is True
+    assert scanner_calls["count"] == 2
+    il_codes = {b["code"] for b in il_canonical["blockers"]}
+    assert "APPLY_LIVE_DB_FORBIDS_CLOCK_OVERRIDE" in il_codes
+    assert "RESTORED_JSON_EXISTS" in il_codes
+    assert "ACTIVE_SQLITE_LEASE" in il_codes
+    assert "ACTIVE_SUPERVISOR_HEARTBEAT" in il_codes
+    assert any(
+        b["code"] == "RESTORED_JSON_EXISTS"
+        and os.path.normcase(b["path"]) == os.path.normcase(str(canonical_restored))
+        for b in il_canonical["blockers"]
+    )
+    canonical_restored.unlink()
+
+    # 5. Additive additional_db ALSO enforces wall-UTC production guards, while third-party copied_db
+    #    retains explicit copied-state replay behavior.
+    rc_add, res_add = cli.apply_preunpause_reconciliation(
+        additional_db,
+        production_store=additional_db,
+        process_scanner=_recording_scanner,
+    )
+    assert rc_add == cli.EXIT_INTERLOCK_REFUSED
+    assert res_add["interlocks"]["live_production_db"] is True
+    assert scanner_calls["count"] == 3
+    add_codes = {b["code"] for b in res_add["interlocks"]["blockers"]}
+    assert "ACTIVE_SQLITE_LEASE" in add_codes
+    assert "ACTIVE_SUPERVISOR_HEARTBEAT" in add_codes
+    assert _sha256_file(additional_db) == additional_before_hash
+    assert additional_store.get_outbox_message(additional_page["message_id"])["status"] == "READY"
+
+    replay_now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+    rc_copied, res_copied = cli.apply_preunpause_reconciliation(
+        copied_db,
+        now=replay_now,
+        interlock_now=wall_now,
+        allow_copied_state_clock_override=True,
+        production_store=additional_db,
+        process_scanner=_recording_scanner,
+    )
+    assert rc_copied == cli.EXIT_OK
+    assert res_copied["applied"] is True
+    assert res_copied["expiry_clock_mode"] == "COPIED_STATE_REPLAY_OVERRIDE"
+    assert res_copied["interlocks"]["live_production_db"] is False
+    assert scanner_calls["count"] == 3
+    assert copied_store.get_outbox_message(copied_page["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
