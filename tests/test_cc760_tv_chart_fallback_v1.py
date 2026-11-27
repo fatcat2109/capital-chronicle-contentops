@@ -1288,3 +1288,90 @@ def test_t4_m2_find_forbidden_keys_recurses_lists_tuples_and_scans_asset_directl
     )
     assert bad_asset is None
     assert any(r["cause"] == "CC760_PRIVATE_OR_R_MULTIPLE_LEAK" for r in bad_refusals)
+
+
+@pytest.mark.parametrize(
+    "label,tampered_age",
+    [
+        ("str_nan", "NaN"),
+        ("str_inf", "inf"),
+        ("str_neg_inf", "-inf"),
+        ("str_non_numeric", "not-a-num"),
+        ("none_value", None),
+        ("bool_true", True),
+        ("bool_false", False),
+        ("negative_float", -1.0),
+        ("negative_small", -0.5),
+        ("missing_key", "__DELETE__"),
+    ],
+)
+def test_t5_m1_validate_write_rejects_non_finite_and_invalid_cache_age_seconds(
+    tmp_path, monkeypatch, label, tampered_age
+):
+    """Batch #49 T5-M1: validate_write must fail closed with ImageContractError on NaN/inf/non-numeric/None/bool/negative cache_age_seconds."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    run_root, run, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    setup_captured = frozen + timedelta(minutes=7)
+    capture_started = frozen + timedelta(minutes=19)
+    timeout_now = frozen + timedelta(minutes=28)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=setup_captured)
+    page_dir = tmp_path / f"t5m1_{label}"
+    _write_frozen_timeout(page_dir, plan, started_at=capture_started, attempts=2)
+
+    packet = pages.render(
+        plan, manuscript, run_root=run_root, output_dir=page_dir, setup_post_dir=setup_dir, now=timeout_now
+    )
+    store = ContentOpsDurableStore(tmp_path / f"t5m1_{label}.sqlite3")
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=None,
+        clock=lambda: timeout_now + timedelta(seconds=10),
+        published_content_path=tmp_path / f"pub_t5m1_{label}.jsonl",
+    )
+    registered = pages.register_page(store, packet)
+    coordinator.register_plan(registered["page_id"], registered["plan"])
+    intent = json.loads(store.list_outbox_messages(destination="substack")[0]["payload"])
+
+    rc_path = page_dir / "run_context_v1.json"
+    rc = json.loads(rc_path.read_bytes())
+    binding = rc["media"]["assets"][0]["cached_chart_fallback"]
+    if tampered_age == "__DELETE__":
+        binding.pop("cache_age_seconds", None)
+    else:
+        binding["cache_age_seconds"] = tampered_age
+    rc_path.write_text(json.dumps(rc), encoding="utf-8")
+
+    with pytest.raises(contract.ImageContractError, match="CC760_FALLBACK_BINDING_INVALID"):
+        contract.validate_write(coordinator, intent, "substack")
+
+
+@pytest.mark.parametrize("bad_float", [float("nan"), float("inf"), float("-inf"), -0.1])
+def test_t5_m1_validate_cached_fallback_asset_rejects_python_non_finite_and_negative_age(
+    tmp_path, monkeypatch, bad_float
+):
+    """Batch #49 T5-M1: direct validate_cached_fallback_asset rejects Python float nan/inf/-inf/negative."""
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    run_root, run, plan, manuscript, frozen = _make_btc_plan_env(tmp_path)
+    setup_captured = frozen + timedelta(minutes=7)
+    capture_started = frozen + timedelta(minutes=19)
+    timeout_now = frozen + timedelta(minutes=28)
+    setup_dir, _ = _make_bound_setup_dir(tmp_path, plan, captured_at=setup_captured)
+    page_dir = tmp_path / "t5m1_direct"
+    _write_frozen_timeout(page_dir, plan, started_at=capture_started, attempts=2)
+
+    asset, _ = fb.resolve_cached_plan_chart(
+        plan, run, page_dir, manuscript, setup_post_dir=setup_dir, now=timeout_now
+    )
+    assert asset is not None
+    tampered = deepcopy(asset)
+    tampered["cached_chart_fallback"]["cache_age_seconds"] = bad_float
+
+    with pytest.raises(fb.CachedChartFallbackError, match="CC760_FALLBACK_BINDING_INVALID"):
+        fb.validate_cached_fallback_asset(
+            tampered,
+            plan,
+            run,
+            manuscript=manuscript,
+            folder=page_dir,
+            now=timeout_now + timedelta(seconds=10),
+        )

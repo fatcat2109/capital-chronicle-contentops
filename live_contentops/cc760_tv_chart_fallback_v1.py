@@ -1194,6 +1194,15 @@ def validate_cached_fallback_asset(
         max_age_seconds=float(max_age),
     )
 
+    raw_cache_age = binding.get("cache_age_seconds")
+    if (
+        isinstance(raw_cache_age, bool)
+        or not isinstance(raw_cache_age, (int, float))
+        or not math.isfinite(float(raw_cache_age))
+        or float(raw_cache_age) < 0.0
+    ):
+        raise CachedChartFallbackError("CC760_FALLBACK_BINDING_INVALID")
+
     expected_end = verified["window_end_utc"].isoformat() if verified["window_end_utc"] else None
     if (
         binding.get("tv_symbol") != verified["tv_symbol"]
@@ -1207,7 +1216,7 @@ def validate_cached_fallback_asset(
                 and _parse_utc(binding.get("source_window_end_utc")) != verified["window_end_utc"]
             )
         )
-        or abs(float(binding.get("cache_age_seconds", -1)) - verified["age_seconds"]) > 1.0
+        or abs(float(raw_cache_age) - verified["age_seconds"]) > 1.0
     ):
         raise CachedChartFallbackError("CC760_FALLBACK_BINDING_INVALID")
 
