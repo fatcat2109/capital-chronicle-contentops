@@ -67,6 +67,11 @@ SCROLL_WHEN_NEW_AT_LEAST = 15
 MARKET_INTERVAL_SECONDS = 15.0
 LIGHT_REFRESH_AFTER_SECONDS = 15.0
 RELOAD_AFTER_SECONDS = 60.0
+# Reload one market tick ahead when a quiet page would otherwise cross STALE_AFTER_MARKET_SECONDS
+# (60 s) during a 5 s light-refresh settle or before the next 15 s tick, while keeping full reloads
+# bounded to at most once per minute (with CADENCE_JITTER_SECONDS tolerance for sub-second tick drift).
+RELOAD_LEAD_SECONDS = MARKET_INTERVAL_SECONDS
+CADENCE_JITTER_SECONDS = 0.5
 TIMELINE_SETTLE_SECONDS = 15.0
 LIGHT_SETTLE_SECONDS = 5.0
 AFTER_RESPONSE_SECONDS = 1.0
@@ -666,8 +671,16 @@ class MinuteCapture:
                 return float("inf") if mark is None else now - mark
 
             quiet = result["responses"] == 0
-            reload_due = force_reload or opened or since(self.last_timeline_mono) >= reload_after
-            if quiet and reload_due and (force_reload or since(self.last_reload_mono) >= reload_after):
+            reload_lead = min(RELOAD_LEAD_SECONDS, max(0.0, reload_after - light_after))
+            reload_jitter = min(CADENCE_JITTER_SECONDS, max(0.0, reload_after * 0.1))
+            light_jitter = min(CADENCE_JITTER_SECONDS, max(0.0, light_after * 0.1))
+            reload_due = (
+                force_reload
+                or opened
+                or since(self.last_timeline_mono) >= reload_after - reload_lead
+            )
+            reload_budget_ok = force_reload or since(self.last_reload_mono) >= reload_after - reload_jitter
+            if quiet and reload_due and reload_budget_ok:
                 result["refresh"] = "reload"
                 self.last_reload_mono = now
                 if capture_v1.TARGET_LIST_ID in self.session_url:
@@ -683,7 +696,11 @@ class MinuteCapture:
                     page_call(client.command, "Runtime.evaluate", {
                         "expression": "window.scrollTo(0, document.body.scrollHeight)", "returnByValue": True})
                     self._drain(client, scroll_seconds, result, page_call, until_response=False)
-            elif quiet and since(self.last_timeline_mono) >= light_after and since(self.last_light_mono) >= light_after:
+            elif (
+                quiet
+                and since(self.last_timeline_mono) >= light_after - light_jitter
+                and since(self.last_light_mono) >= light_after - light_jitter
+            ):
                 # X's own keyboard shortcut for "load new posts": one timeline request, no page load.
                 result["refresh"] = "light"
                 self.last_light_mono = now
