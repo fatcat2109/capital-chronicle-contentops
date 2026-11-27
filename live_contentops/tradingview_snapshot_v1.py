@@ -29,6 +29,7 @@ import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+import tempfile
 from tempfile import TemporaryDirectory
 from typing import Any, Mapping
 
@@ -105,6 +106,17 @@ PLAN_WAIT_SECONDS = 5 * 60
 PLAN_ATTEMPTS = 2
 
 
+def _held_fingerprint(state_obj: Mapping[str, Any]) -> tuple[Any, ...]:
+    snap = state_obj.get("snapshot") if isinstance(state_obj.get("snapshot"), Mapping) else {}
+    return (
+        state_obj.get("status"),
+        state_obj.get("cause"),
+        state_obj.get("first_cause"),
+        state_obj.get("attempts"),
+        snap.get("sha256"),
+    )
+
+
 def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
                   now: datetime | None = None, ratio: str = "16:9", image_input=None,
                   source_snapshot=None, required_chart=False, plan_post=False,
@@ -114,6 +126,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     Only image artifacts are cached; this is not another scheduler or publication store.
     The market, source download hash, capture clock and first failure stay bound.
     """
+    explicit_now = now
     now = now or datetime.now(timezone.utc)
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
@@ -131,8 +144,9 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         if image_input:
             from .image_quality_v1 import TEMPLATE_FIT_CAUSES, prepare_asset
             try:
+                now_kw = {"now": explicit_now} if explicit_now is not None else {}
                 card = prepare_asset(image_input, "W" if ratio == "16:9" else "T", media, taken,
-                                     sample_after_publication=sample_after_publication)
+                                     sample_after_publication=sample_after_publication, **now_kw)
             except ValueError as exc:
                 if str(exc) in TEMPLATE_FIT_CAUSES:
                     raise TemplateSnapshotNotFit(str(exc), taken) from exc
@@ -150,9 +164,17 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else initial.copy()
     if state.get("key") != row["key"] or state.get("market") != market:
         raise ValueError("TRADINGVIEW_PLAN_CAPTURE_BINDING_CHANGED")
+    prior_held = _held_fingerprint(state) if state.get("status") == "IMAGE_HELD" else None
 
     def save():
-        state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+        with tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8", newline="\n", dir=state_path.parent, delete=False) as handle:
+            temp = Path(handle.name)
+            json.dump(state, handle, sort_keys=True)
+        try:
+            temp.replace(state_path)
+        finally:
+            temp.unlink(missing_ok=True)
 
     def attempt_ended(cause):
         if isinstance(state.get("attempt_causes"), list) and len(state["attempt_causes"]) < state["attempts"]:
@@ -188,7 +210,14 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         if prior.get("tv_symbol") == tv_symbol and _sha256(Path(prior["path"])) == prior["sha256"]:
             taken = prior
     if taken and not (plan_post and state.get("status") in {"PLAIN_SNAPSHOT", "PLAN_CARD"}):
-        asset = image_asset(taken)
+        try:
+            asset = image_asset(taken)
+        except TemplateImageRefused as exc:
+            state.update(status="IMAGE_HELD", snapshot=taken, cause=str(exc))
+            if prior_held != _held_fingerprint(state):
+                save()
+                record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+            raise
         validate_snapshot_asset(asset)
         if state.get("status") != "CAPTURED":
             state.update(status="CAPTURED", snapshot=taken, cache_hit=True)
@@ -212,11 +241,14 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         return plain_asset()
     if plan_post and state.get("status") == "PLAN_CARD":
         raise SnapshotUnavailable(state["cause"])
+    def clock():
+        return explicit_now if explicit_now is not None else datetime.now(timezone.utc)
+
     if state["attempts"] == 0 and state.get("status") == "DEFERRED":
         # A deferral starts no clock (Builder F, 23 Nov): the five-minute window counts from the first real
         # attempt, so several short runs in a row cannot use it up before any capture is tried.
         state.setdefault("first_deferred_at_utc", state["started_at_utc"])
-        state["started_at_utc"] = datetime.now(timezone.utc).isoformat()
+        state["started_at_utc"] = clock().isoformat()
     deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
     allowed = PLAN_ATTEMPTS
     if isinstance(state.get("attempt_causes"), list):
@@ -230,13 +262,13 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         if CAPTURE_INTERRUPTED in state["attempt_causes"]:
             allowed += 1
             if state["attempts"] < allowed and "interrupted_retry_until_utc" not in state:
-                state["interrupted_retry_until_utc"] = (datetime.now(timezone.utc) + timedelta(
+                state["interrupted_retry_until_utc"] = (clock() + timedelta(
                     seconds=PLAN_ATTEMPT_TIMEOUT_SECONDS + 30)).isoformat()
                 save()
             if state.get("interrupted_retry_until_utc"):
                 deadline = max(deadline, _utc(state["interrupted_retry_until_utc"]))
     plan_row = plan_post or bool(row.get("levels"))
-    while state["attempts"] < allowed and datetime.now(timezone.utc) < deadline:
+    while state["attempts"] < allowed and clock() < deadline:
         if snapshot_allowed is not None and not snapshot_allowed():
             state.update(status="DEFERRED", cause="TRADINGVIEW_CAPTURE_DEFERRED_RUN_TIME_BUDGET")
             save()
@@ -249,7 +281,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
                 taken = (snapshot(market, interval, media) if ratio == "16:9" else
                          snapshot(market, interval, media / "4x5", ratio=ratio))
             else:
-                remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
+                remaining = (deadline - clock()).total_seconds()
                 retry = plan_post and state["attempts"] > 1
                 # Only a portrait goes under 4x5 (the 16:9 template capture used to share its attempt folders).
                 capture_dir = media / "4x5" if ratio == "4:5" else media
@@ -278,7 +310,8 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             attempt_ended(exc)
             state.update(status="IMAGE_HELD", snapshot=taken, cause=str(exc))
             save()
-            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+            if prior_held != _held_fingerprint(state):
+                record_outcome({k: v for k, v in state.items() if k != "snapshot"})
             raise
         except Exception as exc:
             if image_input and str(exc) == "IMAGE_CHART_CAPTURE_SHAPE":
@@ -290,7 +323,12 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             # The final cause stays the first one (CC-734 binds it); each attempt's own cause is kept.
             attempt_ended(exc)
             save()
-    state.update(status="TEXT_ONLY", cause=state.get("first_cause") or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED")
+    fallback_cause = (
+        state.get("first_cause")
+        or (state.get("cause") if state.get("status") == "IMAGE_HELD" else None)
+        or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED"
+    )
+    state.update(status="TEXT_ONLY", cause=fallback_cause)
     if plan_post:
         plain = state.get("plain_snapshot")
         state["status"] = "PLAIN_SNAPSHOT" if plain else "PLAN_CARD"
@@ -301,8 +339,12 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         raise SnapshotUnavailable(state["cause"])
     if image_input:
         state["status"] = "IMAGE_HELD"
-    save()
-    record_outcome(state)
+        if prior_held != _held_fingerprint(state):
+            save()
+            record_outcome(state)
+    else:
+        save()
+        record_outcome(state)
     if required:
         raise SnapshotUnavailable(state["cause"])
     if image_input:
