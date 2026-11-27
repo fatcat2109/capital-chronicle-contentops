@@ -94,10 +94,15 @@ def _consecutive_session(first, last):
     )
 
 
-def latest_close(now):
+def latest_close(now, *, calendar_path=None, calendar=None):
+    """Latest completed NY close day (ET), skipping weekends and NYSE full-closed holidays."""
+    from .publication_image_contract_v1 import us_cash_session_bounds
     local = utc(now).astimezone(ET)
     day = local.date() if local.time() >= time(17) else local.date() - timedelta(days=1)
-    while day.weekday() >= 5:
+    while (
+        day.weekday() >= 5
+        or us_cash_session_bounds(day, calendar_path=calendar_path, calendar=calendar) is None
+    ):
         day -= timedelta(days=1)
     return day.isoformat()
 

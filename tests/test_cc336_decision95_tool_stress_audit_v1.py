@@ -400,10 +400,10 @@ def test_daily_trend_board_rounding_nasdaq_cutover_and_fail_closed_guards() -> N
     assert proj24["markets"]["USDJPY"]["means"]["mean_close_20"] == "158.61"
     assert proj24["markets"]["USDJPY"]["rows"][0]["mean_r"] == "+0.18"
 
-    # 26 Nov 2026 (on NASDAQ_FROM_ET): missing USTEC marks UNAVAILABLE rather than guessing.
-    board_nov26_no_ndx = _sealed_board(as_of_utc="2026-11-26T22:15:00Z", bar_open_utc="2026-11-25T22:00:00Z")
-    proj26 = trend_board.project(board_nov26_no_ndx, now="2026-11-26T22:30:00Z")
-    assert proj26["markets"]["USTEC"]["state"] == trend_board.UNAVAILABLE
+    # 27 Nov 2026 (post-NASDAQ_FROM_ET NYSE session; Thu 26 Nov is Thanksgiving under BF-H1): missing USTEC marks UNAVAILABLE rather than guessing.
+    board_nov27_no_ndx = _sealed_board(as_of_utc="2026-11-27T22:15:00Z", bar_open_utc="2026-11-26T22:00:00Z")
+    proj27 = trend_board.project(board_nov27_no_ndx, now="2026-11-27T22:30:00Z")
+    assert proj27["markets"]["USTEC"]["state"] == trend_board.UNAVAILABLE
 
     # Tampered hash, future clock, stale (>1 trading day), and uncompleted bar all fail closed.
     tampered = {**board_nov24, "yardstick_rule": "tampered"}
