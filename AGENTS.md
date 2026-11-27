@@ -1,5 +1,19 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Zero Antigravity CLI and Claude sunset — CC-855; Decisions 168 and 184, 26 November 2026
+
+This supersedes the earlier Antigravity drafting/variant lines in CC-466 and CC-403
+(Decision 114) and the CC-300/CC-283 Claude session routes. Since 24 November 2026
+(CC-801 / Decision 168), `agy` CLI invocations are hard-blocked (`AGY_TERMS_BLOCK`);
+Codex `gpt-6.2-sol` owns all light editorial, variant, alt-text and claim passes.
+From `2026-12-03T17:00:00Z` (Fri 04 Dec 2026 00:00 GMT+7, CC-855 / Decision 184),
+Claude Code and Claude Desktop routes are permanently retired: the 19:00 GMT+7 daily
+digest runs deterministically via `scripts/run_daily_digest_1900.py --driver python-neo`,
+new `--editorial-agent claude` bindings are refused (`CLAUDE_EDITORIAL_AGENT_RETIRED_CC855`),
+and dormant V6 Anthropic provider calls fail closed (`ANTHROPIC_PROVIDER_RETIRED_CC855`).
+Historical `CLAUDE_CODE_SESSION` records, `agy_*` schemas/metrics, public AI-model leak
+scrubbers, and Antigravity Chrome profile guards remain intact.
+
 ## Publisher integration tests — CC-691
 
 Run these targeted tests on every Publisher integration candidate before tagging

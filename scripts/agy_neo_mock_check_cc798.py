@@ -43,6 +43,10 @@ def seen(log):
 def main(scratch):
     scratch = Path(scratch)
     scratch.mkdir(parents=True, exist_ok=True)
+    from live_contentops.agy_editorial_assist_v1 import AGY_TERMS_BLOCK, agy_blocked
+    if agy_blocked(agy.AGY_EXE):
+        print(json.dumps({"ok": False, "skipped": AGY_TERMS_BLOCK}))
+        return 2
     if not agy.AGY_EXE.is_file():
         print(json.dumps({"skipped": "AGY_CLI_MISSING"}))
         return 0

@@ -1397,6 +1397,9 @@ def make_deterministic_recovery_article(inputs: EngineInput, search_context: str
 
 
 
+ANTHROPIC_PROVIDER_RETIRED = "ANTHROPIC_PROVIDER_RETIRED_CC855"
+
+
 def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, model_override: str | None = None, role_task_id: str | None = None) -> str:
     """Perform one provider call.
 
@@ -1405,9 +1408,11 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, mo
     retry, fallback, and model-identity verification. An explicit ``model_override`` keeps
     the legacy single-model path so a caller that must pin one exact model still can.
 
-    The openai/anthropic branches are legacy and unchanged; the current product routes
-    through 9router.
+    The legacy ``anthropic`` branch fails closed under CC-855 / Decision 184; the current
+    product routes through 9router.
     """
+    if str(provider or "").strip().lower() == "anthropic":
+        raise ValueError(ANTHROPIC_PROVIDER_RETIRED)
     env_map = secret_environment(getattr(os, "environ"))  # CC-297 reader
     if provider == "9router" and model_override is None:
         from live_contentops.nine_router_llm_seam_v2 import (
@@ -1441,25 +1446,7 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, mo
             res_data = json.loads(resp.read().decode("utf-8"))
             return str(res_data["choices"][0]["message"]["content"])
     elif provider == "anthropic":
-        api_key = env_map.get("ANTHROPIC_API_KEY")
-        if not api_key:
-            raise ValueError("ANTHROPIC_API_KEY_missing")
-        url_request = importlib.import_module("urllib.request")
-        headers = {
-            "Content-Type": "application/json",
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01"
-        }
-        body = json.dumps({
-            "model": "claude-3-5-sonnet-20240620",
-            "max_tokens": 1200,
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.2
-        }).encode("utf-8")
-        req = url_request.Request("https://api.anthropic.com/v1/messages", data=body, headers=headers, method="POST")
-        with url_request.urlopen(req, timeout=timeout_seconds) as resp:
-            res_data = json.loads(resp.read().decode("utf-8"))
-            return str(res_data["content"][0]["text"])
+        raise ValueError(ANTHROPIC_PROVIDER_RETIRED)
     elif provider == "9router":
         api_key = env_map.get("NINE_ROUTER_API_KEY")
         base_url = env_map.get("NINE_ROUTER_BASE_URL") or "http://localhost:20128/v1"
@@ -1634,12 +1621,12 @@ def run_article_engine(
     if provider_mode == "live_provider_call":
         if provider_request_budget < 1:
             blockers.append("request_budget_insufficient")
+        elif str(live_provider or "").strip().lower() == "anthropic":
+            blockers.append(ANTHROPIC_PROVIDER_RETIRED)
         else:
             env_map = secret_environment(getattr(os, "environ"))  # CC-297 reader
             if live_provider == "openai":
                 key_name = "OPENAI_API_KEY"
-            elif live_provider == "anthropic":
-                key_name = "ANTHROPIC_API_KEY"
             elif live_provider == "9router":
                 key_name = "NINE_ROUTER_API_KEY"
             else:

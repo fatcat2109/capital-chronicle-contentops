@@ -219,14 +219,16 @@ def _parse_llm_json(raw: str) -> dict[str, Any]:
 
 
 def _choose_live_llm_provider(provider: str) -> str:
-    requested = str(provider or "auto").lower()
+    requested = str(provider or "auto").strip().lower()
     if requested != "auto":
+        if requested == "anthropic":
+            raise ValueError("ANTHROPIC_PROVIDER_RETIRED_CC855")
         return requested
+    from .ai_provider_gate_v6 import inspect_provider_credentials
+
     present = inspect_provider_credentials()
     if present.get("NINE_ROUTER_API_KEY"):
         return "9router"
-    if present.get("ANTHROPIC_API_KEY"):
-        return "anthropic"
     if present.get("OPENAI_API_KEY"):
         return "openai"
     raise RuntimeError("no_live_llm_provider_credentials_present")

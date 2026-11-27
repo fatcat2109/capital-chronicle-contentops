@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import subprocess
 from datetime import date, datetime, timezone
@@ -102,22 +103,29 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         if preview_event_id:
             binding["preview_event_id"] = preview_event_id
         if editorial_agent not in (None, "codex"):
-            # CC-300: this operation's editorial stages run in Claude Code; Codex bindings stay unchanged.
+            # CC-300 / CC-855: new Claude bindings are refused once the 2026-12-03T17:00:00Z sunset is active.
+            from live_contentops.native_desktop_editorial_v1 import assert_new_editorial_agent_allowed
+            assert_new_editorial_agent_allowed(editorial_agent, now=binding["cutoff_utc"], env=os.environ)
             binding["editorial_agent"] = editorial_agent
         from live_contentops.native_newsroom_volume_v1 import volume_policy
         if policy := volume_policy(binding["cutoff_utc"]):
             binding["volume_policy"] = policy
-        validate_binding(binding)
+        validate_binding(binding, new_binding=True)
         root.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(binding))
     return path, binding
 
 
-def validate_binding(binding, *, read_or_prepare=False):
+def validate_binding(binding, *, read_or_prepare=False, new_binding=False):
     if binding.get("schema_version") != BINDING_SCHEMA or not binding.get("run_id"):
         raise ValueError("NATIVE_OPERATION_BINDING_INVALID")
-    from live_contentops.native_desktop_editorial_v1 import editorial_agent_of
-    editorial_agent_of(binding)  # EDITORIAL_AGENT_INVALID for anything but codex or claude
+    from live_contentops.native_desktop_editorial_v1 import (
+        assert_new_editorial_agent_allowed,
+        editorial_agent_of,
+    )
+    agent = editorial_agent_of(binding)  # EDITORIAL_AGENT_INVALID for anything but codex or claude
+    if new_binding and agent == "claude":
+        assert_new_editorial_agent_allowed(agent, now=binding.get("cutoff_utc"), env=os.environ)
     for key in ("store_path", "output_dir", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
         if not Path(binding[key]).is_absolute():
             raise ValueError("ABSOLUTE_OPERATION_PATH_REQUIRED:" + key)

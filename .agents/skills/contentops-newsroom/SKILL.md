@@ -94,7 +94,7 @@ Do not re-run an expired process-disposed window; `window-close` requires actual
 operation evidence and saves a typed process failure, preserving unanswered requests and
 accepted native history without pretending to have completed their filtering.
 This scheduled-task rule does not apply to manual work or native children; the engineering
-Builder still sends only its genuine whole-goal completion notice. Claude remains Jim-triggered.
+Builder still sends only its genuine whole-goal completion notice. Under Decisions 168/184 (CC-801/CC-855), Codex owns all editorial passes, `agy` CLI is hard-blocked (`AGY_TERMS_BLOCK`), and Claude editorial routes retire permanently at `2026-12-03T17:00:00Z` (historical `CLAUDE_CODE_SESSION` replay stays read-only).
 
 For CURRENT standalone triggered task chats outside L1/L2/L3, the `newsroom`, `follow-up`
 and `editorial-revision` entries use the SAME reporting owner through `task-result`.
