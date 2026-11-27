@@ -2110,3 +2110,400 @@ def test_cc692_cc915_optional_production_store_is_additive_and_keeps_canonical_o
     assert res_copied["interlocks"]["live_production_db"] is False
     assert scanner_calls["count"] == 3
     assert copied_store.get_outbox_message(copied_page["message_id"])["status"] == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+
+
+def test_cc692_cc926_same_file_alias_resolves_canonical_sqlite_wal_namespace(
+    tmp_path, monkeypatch, capsys
+):
+    """CC-926 [Medium] regression: a same-file hard link / alias matching a canonical or configured
+    production store MUST resolve to ONE canonical configured SQLite pathname so liveness reads,
+    audits, and write transactions all share its authoritative -wal/-shm journal namespace.
+
+    Proves with a real uncheckpointed SQLite WAL containing active lease & fresh supervisor
+    heartbeat rows, an NTFS hard link alias (os.link), and a distinct additional configured
+    production store that BOTH the configured path AND the same-file alias detect the exact same
+    ACTIVE_SQLITE_LEASE and ACTIVE_SUPERVISOR_HEARTBEAT blockers (and never create alias -wal/-shm),
+    while preserving copied-store replay clock and settlement behavior.
+    """
+    canonical_dir = tmp_path / "canonical_runtime"
+    canonical_alias_dir = tmp_path / "canonical_alias_dir"
+    additional_dir = tmp_path / "additional_runtime"
+    additional_alias_dir = tmp_path / "additional_alias_dir"
+    copied_dir = tmp_path / "copied_replay"
+    for folder in (
+        canonical_dir,
+        canonical_alias_dir,
+        additional_dir,
+        additional_alias_dir,
+        copied_dir,
+    ):
+        folder.mkdir(parents=True, exist_ok=True)
+
+    canonical_db = canonical_dir / "contentops_daily_app_v1.sqlite3"
+    canonical_alias = canonical_alias_dir / "hardlink_canonical_alias.sqlite3"
+    additional_db = additional_dir / "additional_prod.sqlite3"
+    additional_alias = additional_alias_dir / "hardlink_additional_alias.sqlite3"
+    copied_db = copied_dir / "copied_replay.sqlite3"
+
+    canonical_store = ContentOpsDurableStore(canonical_db)
+    additional_store = ContentOpsDurableStore(additional_db)
+    copied_store = ContentOpsDurableStore(copied_db)
+
+    wall_now = datetime.now(timezone.utc)
+    expired_deadline = (wall_now - timedelta(hours=2)).isoformat().replace("+00:00", "Z")
+
+    canonical_page = _seed_plan_analysis_page(
+        canonical_store,
+        plan_id="plan_cc926_canonical_expired",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+    additional_page = _seed_plan_analysis_page(
+        additional_store,
+        plan_id="plan_cc926_additional_expired",
+        entry_deadline_utc=expired_deadline,
+        outbox_status="READY",
+    )
+    copied_page = _seed_plan_analysis_page(
+        copied_store,
+        plan_id="plan_cc926_copied_expired",
+        entry_deadline_utc="2026-11-12T21:00:00Z",
+        outbox_status="READY",
+    )
+
+    # Flush base pages to the main DB files before creating hard links and uncheckpointed WAL rows.
+    for target_db in (canonical_db, additional_db, copied_db):
+        with closing(sqlite3.connect(target_db)) as conn:
+            conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+
+    os.link(canonical_db, canonical_alias)
+    os.link(additional_db, additional_alias)
+    assert os.path.samefile(canonical_db, canonical_alias)
+    assert os.path.samefile(additional_db, additional_alias)
+    assert not os.path.samefile(canonical_db, additional_db)
+    assert not os.path.samefile(canonical_db, copied_db)
+
+    monkeypatch.setattr(cli, "PRODUCTION_STORE", canonical_db)
+
+    canonical_wal = Path(f"{canonical_db}-wal")
+    canonical_alias_wal = Path(f"{canonical_alias}-wal")
+    canonical_alias_shm = Path(f"{canonical_alias}-shm")
+    additional_wal = Path(f"{additional_db}-wal")
+    additional_alias_wal = Path(f"{additional_alias}-wal")
+    additional_alias_shm = Path(f"{additional_alias}-shm")
+
+    lease_acq = wall_now.isoformat().replace("+00:00", "Z")
+    lease_exp = (wall_now + timedelta(minutes=10)).isoformat().replace("+00:00", "Z")
+    hb_seen = (wall_now - timedelta(seconds=30)).isoformat().replace("+00:00", "Z")
+
+    canonical_writer = sqlite3.connect(str(canonical_db), isolation_level=None)
+    additional_writer = sqlite3.connect(str(additional_db), isolation_level=None)
+    try:
+        for writer, lease_id, hb_id, worker_id in (
+            (canonical_writer, "lease_cc926_canon_wal", "hb_cc926_canon_wal", "cc926-canon-sup"),
+            (additional_writer, "lease_cc926_add_wal", "hb_cc926_add_wal", "cc926-add-sup"),
+        ):
+            writer.execute("PRAGMA journal_mode=WAL")
+            writer.execute("PRAGMA wal_autocheckpoint=0")
+            writer.execute("BEGIN IMMEDIATE")
+            writer.execute(
+                "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+                "VALUES (?, ?, NULL, 'live-writer', 12, ?, ?, ?, 'ACTIVE')",
+                (lease_id, f"{lease_id}-key", lease_acq, lease_acq, lease_exp),
+            )
+            writer.execute(
+                "INSERT INTO heartbeats (heartbeat_id, worker_id, lease_id, last_seen_at, status) "
+                "VALUES (?, ?, ?, ?, 'ALIVE')",
+                (hb_id, worker_id, lease_id, hb_seen),
+            )
+            writer.execute("COMMIT")
+
+        # Also insert an expired Subgroup A page solely inside canonical's uncheckpointed WAL so
+        # audit_preunpause_outbox via the alias proves WAL visibility for audit reads too.
+        wal_only_page_id = "plan-analysis-plan_cc926_wal_only"
+        wal_only_msg_id = "outbox_cc926_wal_only_sub"
+        wal_only_parent_payload = json.dumps(
+            {
+                "plan_id": "plan_cc926_wal_only",
+                "source_plan": {
+                    "plan_id": "plan_cc926_wal_only",
+                    "status": "WAITING",
+                    "entry_deadline_utc": expired_deadline,
+                    "expires_at_utc": expired_deadline,
+                },
+            }
+        )
+        wal_only_sub_payload = json.dumps(
+            {
+                "work_item_id": wal_only_page_id,
+                "plan_hash": "hash_cc926_wal_only",
+                "plan_analysis_page": wal_only_page_id,
+                "destination": "substack",
+            }
+        )
+        canonical_writer.execute("BEGIN IMMEDIATE")
+        canonical_writer.execute(
+            "INSERT INTO work_items (work_item_id, story_id, title, current_state, state_version, target_surface, created_at, updated_at) "
+            "VALUES (?, ?, 'WAL-only expired page', 'OUTBOX_READY', 1, 'SUBSTACK_ARTICLE', ?, ?)",
+            (wal_only_page_id, wal_only_page_id, lease_acq, lease_acq),
+        )
+        canonical_writer.execute(
+            "INSERT INTO outbox_messages (message_id, work_item_id, destination, payload, status, created_at) "
+            "VALUES (?, ?, 'internal:plan-analysis-page', ?, 'EDITORIAL_INTERNAL', ?)",
+            (wal_only_page_id, wal_only_page_id, wal_only_parent_payload, lease_acq),
+        )
+        canonical_writer.execute(
+            "INSERT INTO outbox_messages (message_id, work_item_id, destination, payload, status, created_at) "
+            "VALUES (?, ?, 'substack', ?, 'READY', ?)",
+            (wal_only_msg_id, wal_only_page_id, wal_only_sub_payload, lease_acq),
+        )
+        canonical_writer.execute("COMMIT")
+
+        # Prove the active lease/heartbeat rows live ONLY in the real uncheckpointed canonical/additional WALs.
+        assert canonical_wal.is_file() and canonical_wal.stat().st_size > 0
+        assert not canonical_alias_wal.exists()
+        assert additional_wal.is_file() and additional_wal.stat().st_size > 0
+        assert not additional_alias_wal.exists()
+        with closing(
+            sqlite3.connect(f"file:{canonical_db.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
+        ) as main_only_conn:
+            assert main_only_conn.execute("SELECT COUNT(*) FROM leases").fetchone()[0] == 0
+            assert main_only_conn.execute("SELECT COUNT(*) FROM heartbeats").fetchone()[0] == 0
+
+        canonical_db_hash_before = _sha256_file(canonical_db)
+        canonical_wal_hash_before = _sha256_file(canonical_wal)
+        additional_db_hash_before = _sha256_file(additional_db)
+        additional_wal_hash_before = _sha256_file(additional_wal)
+
+        # 1. Single canonical configured pathname resolution across canonical, alias, additional, and copied paths.
+        assert cli.resolve_sqlite_db_path(canonical_db, production_store=additional_db) == canonical_db.resolve()
+        assert cli.resolve_sqlite_db_path(canonical_alias, production_store=additional_db) == canonical_db.resolve()
+        # Even passing the alias as production_store keeps canonical PRODUCTION_STORE precedence.
+        assert cli.resolve_sqlite_db_path(canonical_alias, production_store=canonical_alias) == canonical_db.resolve()
+        assert cli.resolve_sqlite_db_path(additional_db, production_store=additional_db) == additional_db.resolve()
+        assert cli.resolve_sqlite_db_path(additional_alias, production_store=additional_db) == additional_db.resolve()
+        assert cli.resolve_sqlite_db_path(copied_db, production_store=additional_db) == copied_db
+
+        scanner_calls = {"count": 0}
+
+        def _zero_process_scanner() -> list[dict]:
+            scanner_calls["count"] += 1
+            return []
+
+        # 2. Liveness interlocks: configured path AND same-file alias detect the exact same WAL blockers.
+        il_canon = cli.check_apply_interlocks(
+            canonical_db,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        il_alias = cli.check_apply_interlocks(
+            canonical_alias,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        il_alias_self_prod = cli.check_apply_interlocks(
+            canonical_alias,
+            production_store=canonical_alias,
+            process_scanner=_zero_process_scanner,
+        )
+        for il in (il_canon, il_alias, il_alias_self_prod):
+            assert il["ok"] is False
+            assert il["live_production_db"] is True
+            assert il["resolved_db_path"] == str(canonical_db.resolve())
+            assert {b["code"] for b in il["blockers"]} == {
+                "ACTIVE_SQLITE_LEASE",
+                "ACTIVE_SUPERVISOR_HEARTBEAT",
+            }
+            assert any(b.get("lease_id") == "lease_cc926_canon_wal" for b in il["blockers"])
+            assert any(b.get("heartbeat_id") == "hb_cc926_canon_wal" for b in il["blockers"])
+        assert scanner_calls["count"] == 3
+
+        # 3. Read-only audit & CLI --dry-run via alias read canonical WAL and see the WAL-only row.
+        audit_canon = cli.audit_preunpause_outbox(
+            canonical_db, now=wall_now, production_store=additional_db
+        )
+        audit_alias = cli.audit_preunpause_outbox(
+            canonical_alias, now=wall_now, production_store=additional_db
+        )
+        assert audit_canon["db_path"] == str(canonical_db.resolve())
+        assert audit_alias["db_path"] == str(canonical_db.resolve())
+        expected_expired_ids = {canonical_page["message_id"], wal_only_msg_id}
+        assert {
+            row["message_id"] for row in audit_canon["subgroup_a_expired_substack_plan_pages"]
+        } == expected_expired_ids
+        assert {
+            row["message_id"] for row in audit_alias["subgroup_a_expired_substack_plan_pages"]
+        } == expected_expired_ids
+
+        rc_dry_alias = cli.main(["--db", str(canonical_alias)])
+        assert rc_dry_alias == cli.EXIT_OK
+        dry_alias_out = json.loads(capsys.readouterr().out)
+        assert dry_alias_out["apply_interlocks_preview"]["ok"] is False
+        assert dry_alias_out["apply_interlocks_preview"]["resolved_db_path"] == str(canonical_db.resolve())
+        assert {
+            b["code"] for b in dry_alias_out["apply_interlocks_preview"]["blockers"]
+        } == {"ACTIVE_SQLITE_LEASE", "ACTIVE_SUPERVISOR_HEARTBEAT"}
+        assert dry_alias_out["audit"]["db_path"] == str(canonical_db.resolve())
+        assert dry_alias_out["audit"]["counts"]["subgroup_a_expired_substack_plan_pages"] == 2
+
+        # 4. apply_preunpause_reconciliation on configured path AND same-file alias both block on WAL rows
+        #    with zero mutation to DB/WAL and zero alias WAL/SHM creation.
+        rc_c, res_c = cli.apply_preunpause_reconciliation(
+            canonical_db,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        rc_a, res_a = cli.apply_preunpause_reconciliation(
+            canonical_alias,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        for rc, res in ((rc_c, res_c), (rc_a, res_a)):
+            assert rc == cli.EXIT_INTERLOCK_REFUSED
+            assert res["applied"] is False
+            assert res["expiry_clock_mode"] == "WALL_UTC"
+            assert res["resolved_db_path"] == str(canonical_db.resolve())
+            assert res["interlocks"]["resolved_db_path"] == str(canonical_db.resolve())
+            assert res["audit"]["db_path"] == str(canonical_db.resolve())
+            assert {b["code"] for b in res["interlocks"]["blockers"]} == {
+                "ACTIVE_SQLITE_LEASE",
+                "ACTIVE_SUPERVISOR_HEARTBEAT",
+            }
+        assert _sha256_file(canonical_db) == canonical_db_hash_before
+        assert _sha256_file(canonical_wal) == canonical_wal_hash_before
+        assert not canonical_alias_wal.exists()
+        assert not canonical_alias_shm.exists()
+
+        # 5. Additional configured production_store AND its same-file alias ALSO resolve to additional_db
+        #    and detect identical uncheckpointed WAL blockers from additional_db-wal.
+        rc_add_c, res_add_c = cli.apply_preunpause_reconciliation(
+            additional_db,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        rc_add_a, res_add_a = cli.apply_preunpause_reconciliation(
+            additional_alias,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        for rc, res in ((rc_add_c, res_add_c), (rc_add_a, res_add_a)):
+            assert rc == cli.EXIT_INTERLOCK_REFUSED
+            assert res["applied"] is False
+            assert res["resolved_db_path"] == str(additional_db.resolve())
+            assert res["interlocks"]["live_production_db"] is True
+            assert res["interlocks"]["resolved_db_path"] == str(additional_db.resolve())
+            assert {b["code"] for b in res["interlocks"]["blockers"]} == {
+                "ACTIVE_SQLITE_LEASE",
+                "ACTIVE_SUPERVISOR_HEARTBEAT",
+            }
+            assert any(b.get("lease_id") == "lease_cc926_add_wal" for b in res["interlocks"]["blockers"])
+            assert any(b.get("heartbeat_id") == "hb_cc926_add_wal" for b in res["interlocks"]["blockers"])
+        assert _sha256_file(additional_db) == additional_db_hash_before
+        assert _sha256_file(additional_wal) == additional_wal_hash_before
+        assert not additional_alias_wal.exists()
+        assert not additional_alias_shm.exists()
+        assert additional_store.get_outbox_message(additional_page["message_id"])["status"] == "READY"
+
+        # 6. Write-transaction path via same-file alias uses canonical SQLite pathname & WAL:
+        #    6a. TOCTOU active lease committed into canonical_db-wal after preflight is caught inside
+        #        BEGIN IMMEDIATE and rolled back without creating any alias -wal/-shm.
+        canonical_writer.execute("BEGIN IMMEDIATE")
+        canonical_writer.execute("DELETE FROM leases WHERE lease_id='lease_cc926_canon_wal'")
+        canonical_writer.execute("DELETE FROM heartbeats WHERE heartbeat_id='hb_cc926_canon_wal'")
+        canonical_writer.execute("COMMIT")
+
+        orig_audit = cli.audit_preunpause_outbox
+        injected = {"done": False}
+        audit_seen_paths: list[Path] = []
+
+        def _audit_then_inject_wal_lease(target_path, *args, **kwargs):
+            audit_seen_paths.append(Path(target_path))
+            out = orig_audit(target_path, *args, **kwargs)
+            if not injected["done"]:
+                injected["done"] = True
+                now_tx = datetime.now(timezone.utc)
+                canonical_writer.execute("BEGIN IMMEDIATE")
+                canonical_writer.execute(
+                    "INSERT INTO leases (lease_id, lease_key, work_item_id, owner_ref, fencing_token, acquired_at, renewed_at, expires_at, status) "
+                    "VALUES ('lease_cc926_toctou_wal', 'cc926-toctou-key', NULL, 'live-writer', 13, ?, ?, ?, 'ACTIVE')",
+                    (
+                        now_tx.isoformat().replace("+00:00", "Z"),
+                        now_tx.isoformat().replace("+00:00", "Z"),
+                        (now_tx + timedelta(minutes=10)).isoformat().replace("+00:00", "Z"),
+                    ),
+                )
+                canonical_writer.execute("COMMIT")
+            return out
+
+        monkeypatch.setattr(cli, "audit_preunpause_outbox", _audit_then_inject_wal_lease)
+        rc_toctou, res_toctou = cli.apply_preunpause_reconciliation(
+            canonical_alias,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        monkeypatch.setattr(cli, "audit_preunpause_outbox", orig_audit)
+        assert rc_toctou == cli.EXIT_INTERLOCK_REFUSED
+        assert res_toctou["applied"] is False
+        assert res_toctou["resolved_db_path"] == str(canonical_db.resolve())
+        assert audit_seen_paths == [canonical_db.resolve()]
+        assert any(
+            b["code"] == "ACTIVE_SQLITE_LEASE" and b["lease_id"] == "lease_cc926_toctou_wal"
+            for b in res_toctou["interlocks"]["blockers"]
+        )
+        assert not canonical_alias_wal.exists()
+        assert not canonical_alias_shm.exists()
+        assert canonical_store.get_outbox_message(canonical_page["message_id"])["status"] == "READY"
+
+        #    6b. Once interlocks are genuinely clear, apply via canonical_alias writes through
+        #        canonical_db's WAL namespace and NEVER creates canonical_alias-wal or -shm.
+        canonical_writer.execute("BEGIN IMMEDIATE")
+        canonical_writer.execute("DELETE FROM leases WHERE lease_id='lease_cc926_toctou_wal'")
+        canonical_writer.execute("COMMIT")
+
+        rc_apply_alias, res_apply_alias = cli.apply_preunpause_reconciliation(
+            canonical_alias,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        assert rc_apply_alias == cli.EXIT_OK
+        assert res_apply_alias["applied"] is True
+        assert res_apply_alias["expiry_clock_mode"] == "WALL_UTC"
+        assert res_apply_alias["resolved_db_path"] == str(canonical_db.resolve())
+        assert {
+            m["message_id"] for m in res_apply_alias["mutations"]["subgroup_a_retired"]
+        } == expected_expired_ids
+        assert not canonical_alias_wal.exists()
+        assert not canonical_alias_shm.exists()
+        assert (
+            canonical_store.get_outbox_message(canonical_page["message_id"])["status"]
+            == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+        )
+        assert (
+            canonical_store.get_outbox_message(wal_only_msg_id)["status"]
+            == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+        )
+
+        # 7. Supported copied-store replay clock and settlement path stays intact.
+        scanner_before_copied = scanner_calls["count"]
+        replay_now = datetime(2026, 11, 29, 18, 0, 0, tzinfo=timezone.utc)
+        rc_copied, res_copied = cli.apply_preunpause_reconciliation(
+            copied_db,
+            now=replay_now,
+            interlock_now=wall_now,
+            allow_copied_state_clock_override=True,
+            production_store=additional_db,
+            process_scanner=_zero_process_scanner,
+        )
+        assert rc_copied == cli.EXIT_OK
+        assert res_copied["applied"] is True
+        assert res_copied["expiry_clock_mode"] == "COPIED_STATE_REPLAY_OVERRIDE"
+        assert res_copied["interlocks"]["live_production_db"] is False
+        assert res_copied["resolved_db_path"] == str(copied_db)
+        assert scanner_calls["count"] == scanner_before_copied
+        assert (
+            copied_store.get_outbox_message(copied_page["message_id"])["status"]
+            == PLAN_PAGE_EXPIRED_STALE_NO_WRITE
+        )
+    finally:
+        canonical_writer.close()
+        additional_writer.close()

@@ -212,12 +212,27 @@ def _public_destinations() -> list[str]:
     return sorted(base)
 
 
-def _open_readonly_sqlite(db_path: Path) -> sqlite3.Connection:
+def _normalize_sqlite_path(path: Path) -> Path:
+    try:
+        return Path(path).resolve()
+    except OSError:
+        return Path(path)
+
+
+def _open_readonly_sqlite(
+    db_path: Path, *, production_store: Optional[Path] = None
+) -> sqlite3.Connection:
     """Open SQLite strictly read-only; use immutable=1 when WAL is absent/empty for zero FS touch."""
-    wal_path = Path(f"{db_path}-wal")
-    use_immutable = (not wal_path.exists()) or wal_path.stat().st_size == 0
+    effective_db_path, _ = _resolve_sqlite_db_path(db_path, production_store=production_store)
+    resolved = _normalize_sqlite_path(effective_db_path)
+    wal_path = Path(f"{resolved}-wal")
+    try:
+        wal_size = wal_path.stat().st_size
+    except FileNotFoundError:
+        wal_size = 0
+    use_immutable = wal_size == 0
     query = "mode=ro&immutable=1" if use_immutable else "mode=ro"
-    uri = f"file:{db_path.resolve().as_posix()}?{query}"
+    uri = f"file:{resolved.as_posix()}?{query}"
     conn = sqlite3.connect(uri, uri=True, timeout=5.0, isolation_level=None, cached_statements=0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA query_only=ON")
@@ -254,6 +269,30 @@ def _matched_production_stores(
         for prod_path in _production_store_identities(production_store)
         if _paths_refer_to_same_file(candidate, prod_path)
     )
+
+
+def _resolve_sqlite_db_path(
+    db_path: Path, *, production_store: Optional[Path] = None
+) -> tuple[Path, tuple[Path, ...]]:
+    """Resolve one canonical configured SQLite pathname for matched production identities.
+
+    SQLite derives ``<path>-wal`` and ``<path>-shm`` from the pathname passed to ``sqlite3.connect``,
+    not from the underlying filesystem inode/file-index. When a caller passes a same-file hard link
+    or alias matching a configured production store identity (canonical ``PRODUCTION_STORE`` taking
+    precedence over optional additive ``production_store``), resolve to that single configured
+    pathname so liveness reads, audits, and write transactions all share its canonical journal.
+    """
+    candidate = Path(db_path)
+    matched = _matched_production_stores(candidate, production_store=production_store)
+    if matched:
+        return _normalize_sqlite_path(matched[0]), matched
+    return candidate, ()
+
+
+def resolve_sqlite_db_path(db_path: Path, *, production_store: Optional[Path] = None) -> Path:
+    """Return the canonical configured SQLite pathname when db_path matches a production identity."""
+    effective_db_path, _ = _resolve_sqlite_db_path(db_path, production_store=production_store)
+    return effective_db_path
 
 
 def is_live_production_db(db_path: Path, *, production_store: Optional[Path] = None) -> bool:
@@ -457,7 +496,10 @@ def check_apply_interlocks(
 ) -> dict[str, Any]:
     """Fail-closed interlock verification prior to any ``--apply`` write."""
     blockers: list[dict[str, Any]] = []
-    matched_prod = _matched_production_stores(db_path, production_store=production_store)
+    caller_db_path = Path(db_path)
+    effective_db_path, matched_prod = _resolve_sqlite_db_path(
+        caller_db_path, production_store=production_store
+    )
     live_db = bool(matched_prod)
     if live_db:
         if interlock_now is not None:
@@ -470,14 +512,16 @@ def check_apply_interlocks(
         liveness_now = _resolve_interlock_clock(now=None, interlock_now=None, live_production_db=True)
     else:
         liveness_now = _resolve_interlock_clock(now=now, interlock_now=interlock_now, live_production_db=False)
-    effective_control_dir = control_dir if control_dir is not None else (db_path.parent / "control")
+    effective_control_dir = control_dir if control_dir is not None else (effective_db_path.parent / "control")
 
     # 1. restored.json check (pause lifted => refuse pre-unpause mutation).
     control_roots: list[Path] = [effective_control_dir]
     seen_control_roots: set[str] = {os.path.normcase(str(effective_control_dir))}
     if live_db:
-        for prod_path in matched_prod:
-            live_control = prod_path.parent / "control"
+        for live_control in (
+            *(prod_path.parent / "control" for prod_path in matched_prod),
+            caller_db_path.parent / "control",
+        ):
             norm_ctrl = os.path.normcase(str(live_control))
             if norm_ctrl not in seen_control_roots:
                 seen_control_roots.add(norm_ctrl)
@@ -494,7 +538,8 @@ def check_apply_interlocks(
                 blockers.append({"code": "RESTORED_JSON_EXISTS", "path": str(candidate)})
 
     # 2. Active SQLite leases & fresh supervisor heartbeats (read-only, evaluated on liveness_now).
-    conn = _open_readonly_sqlite(db_path)
+    #    Open the canonical resolved SQLite pathname so its authoritative -wal/-shm journal is read.
+    conn = _open_readonly_sqlite(effective_db_path, production_store=production_store)
     try:
         blockers.extend(_collect_sqlite_liveness_blockers(conn, liveness_now=liveness_now))
     finally:
@@ -502,8 +547,15 @@ def check_apply_interlocks(
 
     # 3. Existing filesystem writer/supervisor lock files (never creates files).
     lock_candidates: list[Path] = list(extra_lock_paths)
-    lock_folders: list[Path] = [db_path.parent, effective_control_dir, db_path.parent / "locks"]
+    lock_folders: list[Path] = [
+        effective_db_path.parent,
+        effective_control_dir,
+        effective_db_path.parent / "locks",
+    ]
     if live_db:
+        lock_folders.extend(
+            (caller_db_path.parent, caller_db_path.parent / "control", caller_db_path.parent / "locks")
+        )
         for prod_path in matched_prod:
             lock_folders.extend((prod_path.parent, prod_path.parent / "control", prod_path.parent / "locks"))
     for folder in lock_folders:
@@ -544,6 +596,7 @@ def check_apply_interlocks(
     return {
         "ok": len(blockers) == 0,
         "live_production_db": live_db,
+        "resolved_db_path": str(effective_db_path),
         "control_dir": str(effective_control_dir),
         "interlock_clock_utc": liveness_now.isoformat().replace("+00:00", "Z"),
         "blockers": blockers,
@@ -726,9 +779,11 @@ def audit_preunpause_outbox(
     now: datetime,
     published_images_path: Optional[Path] = None,
     retire_cc603_backfill: bool = False,
+    production_store: Optional[Path] = None,
 ) -> dict[str, Any]:
     """Perform a strictly read-only indexed audit of all pre-unpause outbox targets."""
-    conn = _open_readonly_sqlite(db_path)
+    effective_db_path, _ = _resolve_sqlite_db_path(db_path, production_store=production_store)
+    conn = _open_readonly_sqlite(effective_db_path, production_store=production_store)
     try:
         dests = _public_destinations()
         placeholders = ",".join("?" for _ in dests)
@@ -1135,13 +1190,13 @@ def audit_preunpause_outbox(
         images_file = (
             published_images_path
             if published_images_path is not None
-            else (db_path.parent / "published_images_v1.jsonl")
+            else (effective_db_path.parent / "published_images_v1.jsonl")
         )
         reserved_images = _read_reserved_images_readonly(images_file)
 
         return {
             "schema_version": SCHEMA_VERSION,
-            "db_path": str(db_path),
+            "db_path": str(effective_db_path),
             "now_utc": now.isoformat().replace("+00:00", "Z"),
             "retire_cc603_backfill_flag": bool(retire_cc603_backfill),
             "counts": {
@@ -1339,8 +1394,11 @@ def apply_preunpause_reconciliation(
     Passing an explicit ``now`` or ``interlock_now`` override is refused on the live DB and
     requires explicit ``allow_copied_state_clock_override=True`` on copied SQLite stores.
     """
+    effective_db_path, _ = _resolve_sqlite_db_path(
+        db_path, production_store=production_store
+    )
     expiry_now, clock_refusal, expiry_clock_mode, live_db = _resolve_apply_expiry_clock(
-        db_path=db_path,
+        db_path=effective_db_path,
         now=now,
         interlock_now=interlock_now,
         allow_copied_state_clock_override=allow_copied_state_clock_override,
@@ -1355,6 +1413,7 @@ def apply_preunpause_reconciliation(
                 "applied": False,
                 "reason": clock_refusal or "APPLY_CLOCK_OVERRIDE_REFUSED",
                 "live_production_db": live_db,
+                "resolved_db_path": str(effective_db_path),
                 "expiry_clock_mode": expiry_clock_mode,
                 "mutations": {},
             },
@@ -1376,10 +1435,11 @@ def apply_preunpause_reconciliation(
         process_scanner=process_scanner,
     )
     audit = audit_preunpause_outbox(
-        db_path,
+        effective_db_path,
         now=expiry_now,
         published_images_path=published_images_path,
         retire_cc603_backfill=retire_cc603_backfill,
+        production_store=production_store,
     )
     if not interlocks["ok"]:
         return (
@@ -1388,6 +1448,7 @@ def apply_preunpause_reconciliation(
                 "status": "REFUSED_INTERLOCK",
                 "mode": "apply",
                 "applied": False,
+                "resolved_db_path": str(effective_db_path),
                 "expiry_clock_mode": expiry_clock_mode,
                 "expiry_clock_utc": expiry_now.isoformat().replace("+00:00", "Z"),
                 "interlocks": interlocks,
@@ -1396,7 +1457,7 @@ def apply_preunpause_reconciliation(
             },
         )
 
-    store = ContentOpsDurableStore(db_path, auto_migrate=False)
+    store = ContentOpsDurableStore(effective_db_path, auto_migrate=False)
     mutations: dict[str, list[dict[str, Any]]] = {
         "subgroup_a_retired": [],
         "subgroup_b_verified_absent_retired": [],
@@ -1434,6 +1495,7 @@ def apply_preunpause_reconciliation(
                     "status": "REFUSED_INTERLOCK",
                     "mode": "apply",
                     "applied": False,
+                    "resolved_db_path": str(effective_db_path),
                     "expiry_clock_mode": expiry_clock_mode,
                     "expiry_clock_utc": expiry_now.isoformat().replace("+00:00", "Z"),
                     "tx_expiry_clock_utc": tx_expiry_now.isoformat().replace("+00:00", "Z"),
@@ -1821,10 +1883,11 @@ def apply_preunpause_reconciliation(
 
     post_audit_now = datetime.now(timezone.utc) if expiry_clock_mode == "WALL_UTC" else expiry_now
     post_audit = audit_preunpause_outbox(
-        db_path,
+        effective_db_path,
         now=post_audit_now,
         published_images_path=published_images_path,
         retire_cc603_backfill=retire_cc603_backfill,
+        production_store=production_store,
     )
     return (
         EXIT_OK,
@@ -1832,6 +1895,7 @@ def apply_preunpause_reconciliation(
             "status": "APPLIED",
             "mode": "apply",
             "applied": True,
+            "resolved_db_path": str(effective_db_path),
             "expiry_clock_mode": expiry_clock_mode,
             "expiry_clock_utc": expiry_now.isoformat().replace("+00:00", "Z"),
             "tx_expiry_clock_utc": tx_expiry_now.isoformat().replace("+00:00", "Z"),
