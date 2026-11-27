@@ -41,6 +41,26 @@ RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE = (
     "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
 )
 DERIVATIVE_EXPIRED_STALE_NO_WRITE = "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+PLAN_PAGE_EXPIRED_STALE_NO_WRITE = "PLAN_PAGE_EXPIRED_STALE_NO_WRITE"
+_PLAN_PAGE_TERMINAL_PARENT_STATUSES = frozenset({
+    PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+    DERIVATIVE_EXPIRED_STALE_NO_WRITE,
+    "SETTLED",
+    "PLAN_POST_SETTLED",
+    "STALE_NOT_POSTED",
+    "SUPERSEDED_NOT_POSTED",
+    "EXPIRED",
+    "SUPERSEDED_UNSENT_MEDIA_REVISION",
+    "UNSENT_MEDIA_SUPERSEDED",
+})
+_PLAN_PAGE_TERMINAL_SETUP_STATES = frozenset({
+    "EXPIRED",
+    "CANCELLED",
+    "INVALIDATED",
+    "VIEW_CHANGED",
+    "CLOSED",
+    "RESULT",
+})
 EXTERNAL_REMOVAL_REPORTED_NO_RETRY = "EXTERNAL_REMOVAL_REPORTED_NO_RETRY"
 OWNER_RETAINED_DRAFT_NO_PUBLISH = "OWNER_RETAINED_DRAFT_NO_PUBLISH"
 CONTROLLED_NO_PUBLIC_WRITE = "CONTROLLED_NO_PUBLIC_WRITE"
@@ -147,6 +167,106 @@ def _parse_utc(value: Any) -> datetime | None:
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=timezone.utc)
     return parsed.astimezone(timezone.utc)
+
+
+def substack_plan_page_staleness(
+    get_outbox_message: Callable[[str], Optional[Mapping[str, Any]]],
+    message: Mapping[str, Any],
+    intent: Mapping[str, Any],
+    *,
+    now: datetime,
+) -> tuple[bool, Optional[str]]:
+    """Fail-closed staleness/deadline check for un-dispatched Substack plan_analysis_page rows.
+
+    Applies strictly to ``destination == "substack"`` rows carrying ``plan_analysis_page``.
+    Non-plan Substack articles (regular pieces, wraps, digests, measured-odds pieces) return
+    ``(False, None)``; callers must exclude any row with an existing ``platform_dispatches``
+    record so Substack's readback-first and no-auto-retry guarantees stay intact.
+    """
+    if str(message.get("destination") or "") != "substack":
+        return False, None
+    plan_page_ref = intent.get("plan_analysis_page")
+    if not plan_page_ref:
+        return False, None
+    now_utc = (
+        now.replace(tzinfo=timezone.utc)
+        if now.tzinfo is None
+        else now.astimezone(timezone.utc)
+    )
+
+    publication_window = intent.get("publication_window") or {}
+    if isinstance(publication_window, Mapping):
+        raw_window_expiry = (
+            publication_window.get("expires_at_utc")
+            or publication_window.get("fresh_until_utc")
+        )
+        if raw_window_expiry:
+            explicit_expiry = _parse_utc(raw_window_expiry)
+            if explicit_expiry is None:
+                return True, "SUBSTACK_PLAN_WINDOW_EXPIRY_UNPARSEABLE"
+            if now_utc >= explicit_expiry:
+                return True, "SUBSTACK_PLAN_WINDOW_EXPIRED"
+
+    raw_intent_deadline = intent.get("entry_deadline_utc")
+    if raw_intent_deadline:
+        intent_deadline = _parse_utc(raw_intent_deadline)
+        if intent_deadline is None:
+            return True, "SUBSTACK_PLAN_ENTRY_DEADLINE_UNPARSEABLE"
+        if now_utc >= intent_deadline:
+            return True, "SUBSTACK_PLAN_ENTRY_DEADLINE_PASSED"
+
+    page_id = (
+        str(plan_page_ref)
+        if isinstance(plan_page_ref, str)
+        else str(intent.get("work_item_id") or "")
+    )
+    page_row = get_outbox_message(page_id) if page_id else None
+    if page_row is None:
+        work_item_id = str(intent.get("work_item_id") or "")
+        if work_item_id and work_item_id != page_id:
+            page_row = get_outbox_message(work_item_id)
+    if page_row is None:
+        return False, None
+
+    parent_status = str(page_row.get("status") or "")
+    if parent_status in _PLAN_PAGE_TERMINAL_PARENT_STATUSES:
+        return True, f"SUBSTACK_PLAN_PARENT_TERMINAL:{parent_status}"
+
+    try:
+        page = json.loads(str(page_row.get("payload") or "{}"))
+    except (TypeError, ValueError):
+        return True, "SUBSTACK_PLAN_PARENT_PAYLOAD_INVALID"
+    if not isinstance(page, Mapping):
+        return True, "SUBSTACK_PLAN_PARENT_PAYLOAD_INVALID"
+
+    page_plan = page.get("plan")
+    if isinstance(page_plan, Mapping):
+        current_plan_hash = str(page_plan.get("plan_hash") or "")
+        intent_plan_hash = str(intent.get("plan_hash") or "")
+        if current_plan_hash and intent_plan_hash and current_plan_hash != intent_plan_hash:
+            return True, "SUBSTACK_PLAN_SUPERSEDED_REVISION"
+
+    source_plan = page.get("source_plan")
+    if not isinstance(source_plan, Mapping):
+        return False, None
+
+    final_status = page.get("final_status")
+    has_final_status = isinstance(final_status, Mapping) and bool(final_status.get("status"))
+    if not has_final_status:
+        deadlines: list[datetime] = []
+        for key in ("entry_deadline_utc", "expires_at_utc"):
+            raw_val = source_plan.get(key)
+            if raw_val:
+                parsed = _parse_utc(raw_val)
+                if parsed is None:
+                    return True, f"SUBSTACK_PLAN_DEADLINE_UNPARSEABLE:{key}"
+                deadlines.append(parsed)
+        if deadlines and now_utc >= min(deadlines):
+            return True, "SUBSTACK_PLAN_ENTRY_DEADLINE_PASSED"
+        source_state = str(source_plan.get("status") or "").upper()
+        if source_state in _PLAN_PAGE_TERMINAL_SETUP_STATES:
+            return True, f"SUBSTACK_PLAN_SETUP_TERMINAL:{source_state}"
+    return False, None
 
 
 def _bounded_substack_provider_outcome(
@@ -1963,6 +2083,36 @@ class DurablePublicationCoordinator:
             description="Stale derivative expired with zero public write; prior readback history retained.",
         )
 
+    def _substack_plan_page_is_stale(
+        self, message: Mapping[str, Any], intent: Mapping[str, Any]
+    ) -> tuple[bool, Optional[str]]:
+        return substack_plan_page_staleness(
+            self.store.get_outbox_message,
+            message,
+            intent,
+            now=self._clock(),
+        )
+
+    def _expire_stale_plan_page(
+        self, message: Mapping[str, Any], *, reason: str
+    ) -> None:
+        message_id = str(message["message_id"])
+        self.store.set_outbox_status(message_id, PLAN_PAGE_EXPIRED_STALE_NO_WRITE)
+        self.store.register_incident(
+            incident_id="incident_plan_page_stale_" + _hash(message_id)[:24],
+            work_item_id=str(message.get("work_item_id") or "") or None,
+            severity="RECOVERY_AUDIT",
+            description=_canonical_json(
+                {
+                    "cause": str(reason or "SUBSTACK_PLAN_EXPIRED"),
+                    "message_id": message_id,
+                    "destination": "substack",
+                    "status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                    "public_write_performed": False,
+                }
+            ),
+        )
+
     def _refresh_readiness_if_due(self) -> bool:
         """Compatibility seam: periodic active/global readiness refresh is disabled."""
         return False
@@ -3177,6 +3327,27 @@ class DurablePublicationCoordinator:
         if destination == "linkedin" and registration.transport_type == "OFFICIAL_MEMBER_API" and not existing:
             return self._settle_barred_browser_no_write(message, cause="CC684_LINKEDIN_MEMBER_API_RETIRED")
         if existing is None:
+            if str(message.get("status") or "") == PLAN_PAGE_EXPIRED_STALE_NO_WRITE:
+                return {
+                    "destination": destination,
+                    "status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                    "publish_called": False,
+                    "public_write_performed": False,
+                }
+            if destination == "substack" and intent.get("plan_analysis_page"):
+                stale_plan, stale_reason = self._substack_plan_page_is_stale(message, intent)
+                if stale_plan:
+                    self._expire_stale_plan_page(
+                        message,
+                        reason=stale_reason or "SUBSTACK_PLAN_EXPIRED",
+                    )
+                    return {
+                        "destination": destination,
+                        "status": PLAN_PAGE_EXPIRED_STALE_NO_WRITE,
+                        "reason_code": stale_reason,
+                        "publish_called": False,
+                        "public_write_performed": False,
+                    }
             from .audience_feedback_v1 import stopped_type_for_new_message
             stopped = stopped_type_for_new_message(self.store, message, intent)
             if stopped:
@@ -4704,13 +4875,27 @@ class DurablePublicationCoordinator:
                     {"work_item_id": intent["work_item_id"], "destination": message["destination"]})
                 continue
             if dispatch is None and str(message["status"]) == "READY":
-                if (
-                    str(message["destination"]) != "substack"
-                    and self._message_is_stale(message, intent)
-                ):
-                    self._expire_stale_derivative(message, None)
-                    summary["stale_expired"] += 1
-                    continue
+                if str(message["destination"]) != "substack":
+                    if self._message_is_stale(message, intent):
+                        self._expire_stale_derivative(message, None)
+                        summary["stale_expired"] += 1
+                        continue
+                else:
+                    stale_plan, stale_reason = self._substack_plan_page_is_stale(message, intent)
+                    if stale_plan:
+                        self._expire_stale_plan_page(
+                            message,
+                            reason=stale_reason or "SUBSTACK_PLAN_EXPIRED",
+                        )
+                        summary["stale_expired"] += 1
+                        summary.setdefault("stale_plan_pages_expired", []).append(
+                            {
+                                "message_id": str(message["message_id"]),
+                                "work_item_id": str(intent.get("work_item_id") or ""),
+                                "reason": stale_reason,
+                            }
+                        )
+                        continue
                 ready_messages.append((message, False))
                 continue
             if dispatch is None:
