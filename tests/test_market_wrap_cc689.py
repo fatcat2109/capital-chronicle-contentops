@@ -105,7 +105,7 @@ def test_normal_day_is_measured_on_its_own_instrument():
     first = date(2026, 11, 1)
     bars = {first + timedelta(days=i): (104 + i, 100 + i, 102 + i) for i in range(15)}
     assert sources.normal_day(bars, first + timedelta(days=14)) == 4
-    start, end = {"symbol": "GC=F", "value": 100}, {"symbol": "GC=F", "value": 90}
+    start, end = {"symbol": "XAUUSD", "value": 100}, {"symbol": "XAUUSD", "value": 90}
     assert sources.move("XAUUSD", end, start, basis="since the last wrap", normal_day=4)["normal_days"] == -2.5
     with pytest.raises(ValueError, match="INSTRUMENT_MISMATCH"):
         sources.move("XAUUSD", {**end, "symbol": "XAU="}, start, basis="since the last wrap")
@@ -127,7 +127,7 @@ def test_daily_pack_uses_retained_moves_and_separate_source_clocks(tmp_path, cas
             raise ValueError("PUBLIC_QUOTE_NOT_CACHED")
         return {"source_symbol": sources.quotes.SYMBOLS[key][1], "value": 102, "prior_close": 99,
                 "observed_at_utc": observed.isoformat(), "known_at_utc": observed.isoformat(),
-                "source": "Yahoo Finance", "source_url": "https://example.test/quote", "observation_sha256": "quote"}
+                "source": "Held market data", "source_url": None, "observation_sha256": "quote"}
 
     def history(market, days, *, as_of):
         assert as_of == start
@@ -141,7 +141,7 @@ def test_daily_pack_uses_retained_moves_and_separate_source_clocks(tmp_path, cas
         return {"layers": {}, "outlooks": {}}
 
     previous = {"slot": {"id": "prior-wrap"}, "snapshots": {
-        "US500": {"symbol": "ES=F", "value": 100, "date": "2026-11-20"}}}
+        "US500": {"symbol": "US500", "value": 100, "date": "2026-11-20"}}}
     pack = sources.collect(sources.slot_at(start, cash), now=start, cash_calendar=cash, previous=previous,
                            quote=quote, history=history, plans=plans, main=main, calendar=calendar,
                            releases=lambda *_: [], clock=lambda: captured, trend_board=None)
@@ -195,8 +195,8 @@ def test_sunday_pack_keeps_dated_closes_and_calendar_windows(tmp_path, cash):
 @pytest.fixture
 def pack(cash):
     now = at("2026-11-23T13:00Z")
-    first = {"symbol": "GC=F", "value": 100, "date": "2026-11-20"}
-    quote = {"symbol": "GC=F", "value": 99, "observed_at_utc": now.isoformat()}
+    first = {"symbol": "XAUUSD", "value": 100, "date": "2026-11-20"}
+    quote = {"symbol": "XAUUSD", "value": 99, "observed_at_utc": now.isoformat()}
     return {
         "slot": sources.slot_at(now, cash),
         "markets": {"XAUUSD": sources.move("XAUUSD", quote, first, basis="since the last wrap", normal_day=4)},
@@ -221,8 +221,8 @@ def select_first(prompt, **kwargs):
 @pytest.mark.parametrize("weekly", [False, True], ids=["pre-us", "sunday"])
 def test_decision_98_wrap_renderer_keeps_reader_shape(pack, cash, weekly):
     if weekly:
-        close = {"symbol": "GC=F", "value": 99, "date": "2026-11-20"}
-        prior = {"symbol": "GC=F", "value": 100, "date": "2026-11-13"}
+        close = {"symbol": "XAUUSD", "value": 99, "date": "2026-11-20"}
+        prior = {"symbol": "XAUUSD", "value": 100, "date": "2026-11-13"}
         move = sources.move("XAUUSD", close, prior, basis="since the prior Friday close", normal_day=4)
         pack.update(
             slot=sources.slot_at(at("2026-11-22T12:00Z"), cash),
@@ -251,8 +251,8 @@ def test_decision_98_wrap_renderer_keeps_reader_shape(pack, cash, weekly):
     markets = [line.split("|")[1].strip().partition(" (")[0] for line in table]
     assert len(markets) == 7  # CC-788: the Nasdaq 100 is the seventh core market
     assert set(markets) == {
-        "EUR/USD spot", "USD/JPY spot", "COMEX gold futures",
-        "WTI crude oil futures", "S&P 500 E-mini futures", "Bitcoin spot", "Nasdaq 100 E-mini futures",
+        "EUR/USD spot", "USD/JPY spot", "Gold",
+        "WTI crude oil", "S&P 500", "Bitcoin spot", "Nasdaq 100",
     }
     headings = [line for line in body.splitlines() if line.startswith("## ")]
     assert "## What changed since the last wrap" in headings

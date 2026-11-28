@@ -32,47 +32,60 @@ from scripts.audit_chart_prices_cc489 import audit as audit_chart_prices
 
 
 # ---------------------------------------------------------------------------
-# CC-489: Closed cash-index settlement window (US500 & USTEC), open-market
-#         prepare_chart_quote headroom, and USDJPY JPY=X Yahoo alias safety
+# CC-489 / CC-024: Closed cash-index local-bar close (US500 & USTEC), open-market
+#         prepare_chart_quote headroom, and Yahoo HTTP ban + failure detail persistence
 # ---------------------------------------------------------------------------
 
-def _yahoo_json(symbol: str, value: float, at: datetime, *, instrument_type: str = "INDEX",
-                prior: float = 100.0, currency: str | None = None) -> bytes:
-    meta = {
-        "symbol": symbol,
-        "regularMarketPrice": value,
-        "regularMarketTime": at.timestamp(),
-        "previousClose": prior,
-        "instrumentType": instrument_type,
-    }
-    if currency is not None:
-        meta["currency"] = currency
-    return json.dumps({"chart": {"result": [{"meta": meta}]}}).encode("utf-8")
+def _seed_local_m15_bar(db_path: Path, market: str, price: float, end_at: datetime,
+                        *, known_at: datetime | None = None) -> None:
+    from contextlib import closing
+    import sqlite3
+    known = known_at or end_at
+    end_ep = int(end_at.timestamp())
+    open_ep = end_ep - 900
+    with closing(sqlite3.connect(db_path)) as db, db:
+        db.executescript("""
+            CREATE TABLE IF NOT EXISTS bars(
+                symbol TEXT NOT NULL, open_epoch INTEGER NOT NULL,
+                open REAL NOT NULL, high REAL NOT NULL, low REAL NOT NULL, close REAL NOT NULL,
+                known_epoch REAL NOT NULL, source_sha256 TEXT NOT NULL,
+                price_basis TEXT NOT NULL, contract_id TEXT NOT NULL,
+                series_id TEXT NOT NULL DEFAULT 'NATIVE_BROKER',
+                PRIMARY KEY(symbol, open_epoch, source_sha256));
+            CREATE TABLE IF NOT EXISTS invalid_bars(
+                source_sha256 TEXT NOT NULL, symbol TEXT NOT NULL, open_epoch INTEGER NOT NULL, reason TEXT NOT NULL,
+                PRIMARY KEY(source_sha256, symbol, open_epoch));
+        """)
+        db.execute(
+            "INSERT OR REPLACE INTO bars VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+            (market, open_ep, price, price + 1.0, max(0.01, price - 1.0), price,
+             known.timestamp(), "a" * 64, "NATIVE_BROKER_OHLC_UNADJUSTED_BASIS_NOT_EXCHANGE_LAST_OR_MID",
+             f"EXNESS_DEMO:{market}", "NATIVE_BROKER"),
+        )
 
 
-@pytest.mark.parametrize("market,symbol,settle_utc,price", [
-    ("US500", "^GSPC", datetime(2026, 11, 24, 21, 54, 10, tzinfo=timezone.utc), 7201.09),   # 16:54:10 ET
-    ("USTEC", "^NDX", datetime(2026, 11, 24, 22, 15, 59, tzinfo=timezone.utc), 26214.17),  # 17:15:59 ET
+@pytest.mark.parametrize("market,prefix,close_utc,price", [
+    ("US500", "SPX", datetime(2026, 11, 24, 21, 0, 0, tzinfo=timezone.utc), 7201.09),   # 16:00:00 ET
+    ("USTEC", "NDX", datetime(2026, 11, 24, 21, 0, 0, tzinfo=timezone.utc), 26214.17),  # 16:00:00 ET
 ])
-def test_cc489_closed_cash_index_yahoo_settlement_print_compares_and_audits(
-        tmp_path, monkeypatch, market, symbol, settle_utc, price):
-    """Yahoo's ^GSPC / ^NDX official closing settlement prints (16:30-17:20 ET) pass closed-market scale checks."""
+def test_cc489_closed_cash_index_local_bar_close_compares_and_audits(
+        tmp_path, monkeypatch, market, prefix, close_utc, price):
+    """Held M15 NATIVE_BROKER closing bars (16:00 ET) pass closed-market scale checks with zero Yahoo HTTP."""
     captured = datetime(2026, 11, 25, 1, 0, 0, tzinfo=timezone.utc)  # 20:00 ET (closed)
+    local_bars_db = tmp_path / "local-bars.sqlite3"
+    _seed_local_m15_bar(local_bars_db, market, price, close_utc, known_at=close_utc + timedelta(seconds=5))
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_quotes, "BARS_DB", local_bars_db)
     monkeypatch.setattr(prices, "PLAN_STATUS_PATH", tmp_path / "missing-status.json")
     monkeypatch.setattr(prices, "BAR_STORE", tmp_path / "missing-bars.sqlite3")
     monkeypatch.setattr(image_contract, "QUOTE_ROOT", tmp_path / "missing-captures")
     monkeypatch.setattr(public_quotes, "utcnow", lambda: captured - timedelta(seconds=10))
-    monkeypatch.setattr(
-        public_quotes, "http_read",
-        lambda _url: _yahoo_json(symbol, price, settle_utc, instrument_type="INDEX", prior=price - 10.0),
-    )
 
     prices.prepare_chart_quote(market, now=captured - timedelta(seconds=10))
     snap = {
         "tv_symbol": tv.SYMBOLS[market],
         "sha256": "a" * 64,
-        "page_title": f"{symbol.lstrip('^')} {price}",
+        "page_title": f"{prefix} {price}",
         "captured_at_utc": captured.isoformat(),
     }
     bound = image_contract.bind_scale(market, snap)
@@ -80,7 +93,7 @@ def test_cc489_closed_cash_index_yahoo_settlement_print_compares_and_audits(
     assert check["comparison_basis"] == "LAST_CLOSE"
     assert check["difference_pct"] == 0
     assert check["quote"]["source_kind"] == "PUBLIC_ON_DEMAND_QUOTE"
-    assert check["quote"]["source_symbol"] == symbol
+    assert check["quote"]["source_symbol"] == market
 
     # Audit script must also validate and count this closed cash-index check toward 95% coverage.
     day = "2026-11-25"
@@ -109,21 +122,19 @@ def test_cc489_closed_cash_index_yahoo_settlement_print_compares_and_audits(
     assert report["calibration"]["markets"][market]["closed_market_comparisons"] == 1
 
 
-def test_cc489_closed_cash_index_rejects_beyond_90m_settle_future_and_overnight_broker(tmp_path, monkeypatch):
-    """Settlement window is strictly <=90 min past 16:00 ET, never future, and never widens broker/CFD ticks."""
+def test_cc489_closed_cash_index_rejects_stale_close_future_and_overnight_broker(tmp_path, monkeypatch):
+    """Closed cash index requires a bar at 16:00 ET, refuses stale/future bars, and never widens broker/CFD ticks."""
     captured = datetime(2026, 11, 25, 1, 0, 0, tzinfo=timezone.utc)  # 20:00 ET
+    local_bars_db = tmp_path / "stale-bars.sqlite3"
+    # Only a 14:00 ET bar (120 min before 16:00 ET close) -> stale (> 120s).
+    _seed_local_m15_bar(local_bars_db, "USTEC", 26214.17, datetime(2026, 11, 24, 19, 0, 0, tzinfo=timezone.utc))
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_quotes, "BARS_DB", local_bars_db)
     monkeypatch.setattr(prices, "PLAN_STATUS_PATH", tmp_path / "missing-status.json")
     monkeypatch.setattr(prices, "BAR_STORE", tmp_path / "missing-bars.sqlite3")
     monkeypatch.setattr(image_contract, "QUOTE_ROOT", tmp_path / "missing-captures")
-
-    # 1. Beyond 90-minute settlement window (18:05 ET = 23:05Z -> 125 min after 16:00 ET) must NOT compare.
-    too_late = datetime(2026, 11, 24, 23, 5, 0, tzinfo=timezone.utc)
     monkeypatch.setattr(public_quotes, "utcnow", lambda: captured - timedelta(seconds=5))
-    monkeypatch.setattr(
-        public_quotes, "http_read",
-        lambda _url: _yahoo_json("^NDX", 26214.17, too_late, instrument_type="INDEX", prior=26100.0),
-    )
+
     prices.prepare_chart_quote("USTEC", now=captured - timedelta(seconds=5))
     snap = {
         "tv_symbol": tv.SYMBOLS["USTEC"],
@@ -172,34 +183,30 @@ def _export_price(path: Path, market: str, price: float, at: datetime, *, genera
     path.write_text(json.dumps(body), encoding="utf-8")
 
 
-def test_cc489_open_market_prepare_headroom_warms_public_quote_before_slow_capture(tmp_path, monkeypatch):
-    """When plan_status is 95s old at capture start, prepare_chart_quote warms public quote so capture +30s stays compared."""
+def test_cc489_open_market_prepare_headroom_warms_local_quote_before_slow_capture(tmp_path, monkeypatch):
+    """When plan_status is 95s old at capture start, prepare_chart_quote warms local bar quote so capture +30s stays compared."""
     t0 = datetime(2026, 11, 24, 15, 0, 0, tzinfo=timezone.utc)  # 10:00 ET (open)
     export = tmp_path / "plan-status.public.json"
+    local_bars_db = tmp_path / "local-bars.sqlite3"
+    _seed_local_m15_bar(local_bars_db, "BTCUSD", 62000.0, t0 - timedelta(seconds=2), known_at=t0)
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_quotes, "BARS_DB", local_bars_db)
     monkeypatch.setattr(prices, "PLAN_STATUS_PATH", export)
     monkeypatch.setattr(prices, "BAR_STORE", tmp_path / "missing-bars.sqlite3")
     monkeypatch.setattr(image_contract, "QUOTE_ROOT", tmp_path / "missing-captures")
-
-    calls = []
-    def read(url):
-        calls.append(url)
-        return _yahoo_json("BTC-USD", 62000.0, t0 - timedelta(seconds=2), instrument_type="CRYPTOCURRENCY", prior=61500.0)
-
-    monkeypatch.setattr(public_quotes, "http_read", read)
     monkeypatch.setattr(public_quotes, "utcnow", lambda: t0)
 
-    # Export is only 10s old -> sufficient headroom (<=30s), skip unnecessary HTTP fetch.
+    # Export is only 10s old -> sufficient headroom (<=30s), skip unnecessary warm.
     _export_price(export, "BTCUSD", price=62000.0, at=t0 - timedelta(seconds=10), generated_at=t0)
     prices.prepare_chart_quote("BTCUSD", now=t0)
-    assert len(calls) == 0
+    assert not list((tmp_path / "public-quotes").rglob("*.json"))
 
-    # Export is 95s old -> would expire past 120s during a 30s TradingView download, so warm public quote now.
+    # Export is 95s old -> would expire past 120s during a 30s TradingView download, so warm local quote now.
     _export_price(export, "BTCUSD", price=62000.0, at=t0 - timedelta(seconds=95), generated_at=t0)
     prices.prepare_chart_quote("BTCUSD", now=t0)
-    assert len(calls) == 1
+    assert list((tmp_path / "public-quotes" / "observations").glob("*.json"))
 
-    # Playwright finishes 30s later: export is now 125s old (stale), but prefetched public quote is 32s old (fresh!).
+    # Playwright finishes 30s later: export is now 125s old (stale), but prefetched quote is 32s old (fresh!).
     captured = t0 + timedelta(seconds=30)
     snap = {
         "tv_symbol": tv.SYMBOLS["BTCUSD"],
@@ -213,45 +220,38 @@ def test_cc489_open_market_prepare_headroom_warms_public_quote_before_slow_captu
     assert check["quote"]["source_attempts"][0]["cause"] == "CHART_REFERENCE_STALE"
 
 
-def test_cc489_usdjpy_yahoo_jpyx_alias_safe_and_failure_details_persist(tmp_path, monkeypatch):
-    """USDJPY accepts Yahoo's JPY=X (currency=JPY), refuses JPYUSD=X or USD currency, and persists mismatch details."""
+def test_cc489_usdjpy_local_bar_exact_symbol_and_failure_details_persist(tmp_path, monkeypatch):
+    """USDJPY resolves from LOCAL_BARS with zero Yahoo HTTP, and opt-in DXY mismatch details persist on cache readback."""
     now = datetime(2026, 11, 24, 15, 0, 0, tzinfo=timezone.utc)
+    local_bars_db = tmp_path / "local-bars.sqlite3"
+    _seed_local_m15_bar(local_bars_db, "USDJPY", 159.33, now, known_at=now)
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "pq-good")
+    monkeypatch.setattr(public_quotes, "BARS_DB", local_bars_db)
 
-    obs = public_quotes.get(
-        "USDJPY",
-        now=now,
-        clock=lambda: now,
-        reader=lambda _url: _yahoo_json("JPY=X", 159.33, now, instrument_type="CURRENCY", prior=159.0, currency="JPY"),
-    )
-    assert obs["source_symbol"] == "USDJPY=X"
-    assert obs["returned_symbol"] == "JPY=X"
+    obs = public_quotes.get("USDJPY", now=now, clock=lambda: now)
+    assert obs["source_symbol"] == "USDJPY"
     assert obs["value"] == 159.33
+    assert obs["source_url"] is None
 
-    # Inverted pair or wrong currency stays strictly refused.
-    for bad_sym, bad_cur in (("JPYUSD=X", "USD"), ("JPY=X", "USD")):
-        with pytest.raises(public_quotes.QuoteError, match="PUBLIC_QUOTE_SYMBOL_MISMATCH"):
-            public_quotes.parse(
-                "USDJPY",
-                _yahoo_json(bad_sym, 0.0063, now, instrument_type="CURRENCY", prior=0.0063, currency=bad_cur),
-                received_at=now,
-                seconds=0.1,
-            )
+    # Yahoo HTTP URLs are permanently refused at transport level.
+    with pytest.raises(public_quotes.QuoteError, match="CC024_YAHOO_HTTP_FORBIDDEN"):
+        public_quotes.http_read("https://query1.finance.yahoo.com/v8/finance/chart/USDJPY=X")
 
-    # Cache readback (fetch=False) retains returned_symbol / returned_type on mismatch.
+    # Cache readback (fetch=False) retains returned_symbol / returned_type on opt-in DXY mismatch.
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "pq-bad")
+    bad_dxy = json.dumps({"QuickQuoteResult": {"QuickQuote": [{
+        "symbol": "WRONG_DXY", "code": "0", "last": "105.0", "previous_day_closing": "104.5",
+        "last_time": now.isoformat(), "assetType": "INDEX",
+    }]}}).encode("utf-8")
     with pytest.raises(public_quotes.QuoteError, match="PUBLIC_QUOTE_SYMBOL_MISMATCH"):
-        public_quotes.get(
-            "USDJPY",
-            now=now,
-            clock=lambda: now,
-            reader=lambda _url: _yahoo_json("JPYUSD=X", 0.0063, now, instrument_type="CURRENCY", prior=0.0063),
-        )
+        public_quotes.get("DXY", now=now, clock=lambda: now, reader=lambda _url: bad_dxy,
+                          allow_cnbc_dxy_fallback=True)
     with pytest.raises(public_quotes.QuoteError) as exc_info:
-        public_quotes.get("USDJPY", now=now + timedelta(seconds=10), fetch=False)
+        public_quotes.get("DXY", now=now + timedelta(seconds=10), fetch=False,
+                          allow_cnbc_dxy_fallback=True)
     assert str(exc_info.value) == "PUBLIC_QUOTE_SYMBOL_MISMATCH"
-    assert exc_info.value.details.get("returned_symbol") == "JPYUSD=X"
-    assert exc_info.value.details.get("returned_type") == "CURRENCY"
+    assert exc_info.value.details.get("returned_symbol") == "WRONG_DXY"
+    assert exc_info.value.details.get("returned_type") == "INDEX"
 
 
 # ---------------------------------------------------------------------------

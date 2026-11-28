@@ -7,6 +7,7 @@ CC-509 adds a bounded public quote only after held sources have been searched.
 from __future__ import annotations
 
 from collections import defaultdict
+from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from hashlib import sha256
@@ -46,10 +47,16 @@ def _digest(value):
     return sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
 
 
-def _connect(path):
-    connection = sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True, timeout=5)
-    connection.row_factory = sqlite3.Row
-    return connection
+@contextmanager
+def _connect(path, *, zero_write=False):
+    """WAL-aware read-only SQLite connection (immutable when wal==0, live WAL or temp-copy when wal>0)."""
+    from . import public_market_quote_v1 as public
+    with public._open_readonly_sqlite(path, timeout=5.0, zero_write=zero_write) as connection:
+        yield connection
+
+
+def _tables(db):
+    return {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
 
 
 def _source(excerpt, fact, *, attribution, known, artifact):
@@ -66,12 +73,16 @@ def _bar_source(db, artifact, *, native=False):
     if native:
         row = db.execute("SELECT * FROM bars WHERE symbol=? AND open_epoch=? AND source_sha256=?",
                          (artifact["market"], artifact["open_epoch"], artifact["source_sha256"])).fetchone()
-        if not row or db.execute("SELECT 1 FROM invalid_bars WHERE source_sha256=? AND symbol=? AND open_epoch=?",
-                                  (row["source_sha256"], row["symbol"], row["open_epoch"])).fetchone():
+        has_invalid = "invalid_bars" in _tables(db)
+        if not row or (has_invalid and db.execute("SELECT 1 FROM invalid_bars WHERE source_sha256=? AND symbol=? AND open_epoch=?",
+                                  (row["source_sha256"], row["symbol"], row["open_epoch"])).fetchone()):
             raise ValueError("REPLY_HELD_BAR_ABSENT_OR_INVALID")
         observed, known, value = row["open_epoch"] + 900, row["known_epoch"], row["close"]
         market = row["symbol"]
-        label, attribution, unit = LABELS[market][1] + " CFD", "Exness", "USD"
+        # Decision 107 / RES-4: never emit raw "CFD" or broker brand ("Exness") in public copy.
+        label = LABELS[market][1] + " price proxy"
+        attribution = "Held market data"
+        unit = "points" if market in {"US500", "USTEC", "DXY"} else "USD"
         if market == "USDJPY":
             unit = "JPY per USD"
         elif market == "EURUSD":
@@ -90,14 +101,20 @@ def _bar_source(db, artifact, *, native=False):
         meta = json.loads(source["metadata_json"])
         observed, known = row["end_epoch"], source["known_epoch"]
         value = row["value"] if table == "history_points" else row["close"]
-        treasury = source["series_id"].startswith("US_TREASURY:")
-        if not treasury and not source["series_id"].startswith("YAHOO_FINANCE:"):
+        series_id = str(source["series_id"] or "")
+        if series_id.upper().startswith("YAHOO_FINANCE:") or "yahoo" in series_id.casefold():
+            raise ValueError("CC024_YAHOO_PUBLIC_SERIES_PROHIBITED")
+        treasury = series_id.startswith("US_TREASURY:")
+        held_broker = (
+            series_id in {"NATIVE_BROKER", "NATIVE_DAILY_ROUTE"}
+            or series_id.startswith(("EXNESS:", "DESK_ODDS:EXNESS_BROKER_D1"))
+        )
+        if not treasury and not held_broker:
             raise ValueError("REPLY_HELD_SOURCE_ATTRIBUTION_UNRESOLVED")
-        label = LABELS[market][1] if treasury else FUTURES.get(market, LABELS[market][1])
-        attribution, unit = ("US Treasury", "percent") if treasury else ("Yahoo Finance", "USD")
-        if market == "DXY":
-            unit = "points"
-        elif market == "USDJPY":
+        label = LABELS[market][1] if treasury else LABELS[market][1] + " price proxy"
+        attribution = "US Treasury" if treasury else "Held market data"
+        unit = "percent" if treasury else ("points" if market in {"US500", "USTEC", "DXY"} else "USD")
+        if market == "USDJPY":
             unit = "JPY per USD"
         elif market == "EURUSD":
             unit = "USD per EUR"
@@ -146,6 +163,10 @@ def _reaction_sources(path, *, through_date):
         start, end = datetime.fromisoformat(min(dates)), datetime.fromisoformat(max(dates))
         period = start.strftime("%b %Y") + " to " + end.strftime("%d %b %Y").lstrip("0")
         series, basis = row["series_id"], row["price_basis"]
+        if (str(series or "").upper().startswith("YAHOO_FINANCE:")
+                or str(basis or "").upper().startswith("YAHOO_UNADJUSTED_CHART_OHLC:")
+                or "yahoo" in str(series or "").casefold()):
+            continue
         condition = {"HOT": "hot", "COOL": "cool", "IN_LINE": "in-line"}.get(row["bucket"])
         measure = {"CPI_CORE_MOM": "core CPI", "CPI_HEADLINE_MOM": "headline CPI"}.get(row["measure"])
         if not condition or not measure:
@@ -154,8 +175,9 @@ def _reaction_sources(path, *, through_date):
                 "period_text": period, "through_date": through_date, "series_id": series, "price_basis": basis,
                 "window": window, "event_dates": sorted(dates), "condition_text": condition + " " + measure,
                 "producer_summary_row": index, "consensus_source": row["consensus_source"], "sample_end_date": max(dates)}
-        provider = {"HISTDATA": "HistData", "DUKASCOPY": "Dukascopy", "YAHOO_FINANCE": "Yahoo Finance",
-                    "BINANCE": "Binance"}.get(series.split(":", 1)[0], series.split(":", 1)[0])
+        prefix = series.split(":", 1)[0]
+        provider = {"HISTDATA": "HistData", "DUKASCOPY": "Dukascopy",
+                    "BINANCE": "Binance", "CC_HELD_CFD": "Held market data"}.get(prefix, prefix)
         excerpt = (f"{LABELS[market][1]} rose after {window[:-1]} minutes in {count} of {total} "
                    f"retained {condition} {measure} days, {period} ({provider}; desk count).")
         artifact = {"kind": "reaction_count", "path": str(path), "sha256": sha256(raw).hexdigest(),
@@ -190,28 +212,47 @@ def _rate_source(db, artifact):
                    attribution=attribution, known=known.isoformat(), artifact=artifact)
 
 
-def load(*, now, root=INTAKE):
+def load(*, now, root=INTAKE, zero_write=False):
     root, now = Path(root), policy.utc(now)
     path = root / "completed-bars/bars.sqlite3"
     sources, gaps = [], []
     if path.is_file():
         try:
-            with _connect(path) as db:
+            with _connect(path, zero_write=zero_write) as db:
+                db_tables = _tables(db)
+                has_hist_invalid = "history_invalid" in db_tables
+                has_invalid_bars = "invalid_bars" in db_tables
                 for market in LABELS:
                     for table, kind in (("history_bars", "history_bar"), ("history_points", "history_point")):
+                        if table not in db_tables or "history_sources" not in db_tables:
+                            continue
                         source = db.execute("SELECT * FROM history_sources WHERE market=? AND known_epoch<=? "
-                                            "AND timeframe=? ORDER BY known_epoch DESC LIMIT 1",
+                                            "AND timeframe=? AND series_id NOT LIKE 'YAHOO_FINANCE:%' "
+                                            "ORDER BY known_epoch DESC LIMIT 1",
                                             (market, now.timestamp(), "M1" if kind == "history_bar" else "D1")).fetchone()
                         if not source:
                             continue
-                        row = db.execute("SELECT open_epoch FROM " + table + " WHERE source_id=? AND end_epoch<=? "
-                                         "ORDER BY open_epoch DESC LIMIT 1", (source["source_id"], now.timestamp())).fetchone()
+                        inv_clause = (
+                            "AND NOT EXISTS (SELECT 1 FROM history_invalid i "
+                            "WHERE i.source_id=t.source_id AND i.open_epoch=t.open_epoch)"
+                            if has_hist_invalid else ""
+                        )
+                        row = db.execute("SELECT t.open_epoch FROM " + table + " t WHERE t.source_id=? AND t.end_epoch<=? "
+                                         + inv_clause + " ORDER BY t.open_epoch DESC LIMIT 1",
+                                         (source["source_id"], now.timestamp())).fetchone()
                         if row:
                             sources.append(_bar_source(db, {"kind": kind, "path": str(path), "source_id": source["source_id"],
                                                            "open_epoch": row["open_epoch"], "display": DISPLAY}))
-                    if market in CORE_MARKETS:
-                        row = db.execute("SELECT open_epoch,source_sha256 FROM bars WHERE symbol=? AND series_id='NATIVE_BROKER' "
-                                         "AND known_epoch<=? AND open_epoch<=? ORDER BY open_epoch DESC,known_epoch LIMIT 1",
+                    if market in CORE_MARKETS and "bars" in db_tables:
+                        inv_clause = (
+                            "AND NOT EXISTS (SELECT 1 FROM invalid_bars i "
+                            "WHERE i.source_sha256=b.source_sha256 AND i.symbol=b.symbol AND i.open_epoch=b.open_epoch)"
+                            if has_invalid_bars else ""
+                        )
+                        row = db.execute("SELECT b.open_epoch, b.source_sha256 FROM bars b "
+                                         "WHERE b.symbol=? AND b.series_id='NATIVE_BROKER' "
+                                         "AND b.known_epoch<=? AND b.open_epoch<=? "
+                                         + inv_clause + " ORDER BY b.open_epoch DESC, b.known_epoch DESC LIMIT 1",
                                          (market, now.timestamp(), now.timestamp()-900)).fetchone()
                         if row:
                             sources.append(_bar_source(db, {"kind": "native_bar", "path": str(path), "market": market,
@@ -223,7 +264,7 @@ def load(*, now, root=INTAKE):
         gaps.append({"source": str(path), "cause": "HELD_BAR_AND_OFFICIAL_RATE_STORE_ABSENT"})
     rate_path = root / "rates-implied/observations.sqlite3"
     try:
-        with _connect(rate_path) as db:
+        with _connect(rate_path, zero_write=zero_write) as db:
             seen = set()
             rows = db.execute("SELECT version,payload FROM observations WHERE known_at<=? ORDER BY known_at DESC LIMIT 250",
                               (now.isoformat().replace("+00:00", "Z"),)).fetchall()
@@ -284,7 +325,17 @@ def _quote_source(observation):
     observed, known = policy.utc(observation["observed_at_utc"]), policy.utc(observation["known_at_utc"])
     market = observation["market"]
     fact_market = FACT_MARKETS.get(market, market)
-    stamp = observed.astimezone(policy.ET).strftime("%d %b %Y, %I:%M %p ET").lstrip("0")
+    is_daily_rate = observation.get("freshness_basis") == "US_BUSINESS_DAYS"
+    as_of_day = (
+        observation["observation_date"]
+        if is_daily_rate and observation.get("observation_date")
+        else observed.astimezone(policy.ET).date().isoformat()
+    )
+    stamp = (
+        datetime.fromisoformat(as_of_day).strftime("%d %b %Y").lstrip("0")
+        if is_daily_rate
+        else observed.astimezone(policy.ET).strftime("%d %b %Y, %I:%M %p ET").lstrip("0")
+    )
     value = observation.get("value_text", str(observation["value"]))
     change = observation.get("day_change")
     change_value = observation.get("day_change_text", str(change))
@@ -296,8 +347,8 @@ def _quote_source(observation):
                    if change is not None else "")
     excerpt = (f"{observation['instrument_name']}: {value} {observation['unit']}{change_text} "
                f"({observation['source']}, {stamp}).")
-    fact = {"kind": "session", "markets": [fact_market], "as_of_date": observed.astimezone(policy.ET).date().isoformat(),
-            "observed_at_utc": observed.isoformat()}
+    fact = {"kind": "daily" if is_daily_rate else "session", "markets": [fact_market],
+            "as_of_date": as_of_day, "observed_at_utc": observed.isoformat()}
     artifact = {"kind": "quote_observation", "path": observation["observation_path"],
                 "sha256": observation["observation_sha256"]}
     return _source(excerpt, fact, attribution=observation["source"], known=known.isoformat(), artifact=artifact)
@@ -340,14 +391,14 @@ def supplement(posts, sources, *, now):
                     if observed.astimezone(policy.ET).date() != policy.utc(post["post_time_utc"]).astimezone(policy.ET).date():
                         raise ValueError("FACT_SESSION_NOT_CURRENT_WITHIN_60_MINUTES")
                     _, _, label, unit, _ = public.SYMBOLS[market]
-                    # Native prices are named as CFDs; a future keeps its own name.
+                    # Decision 107 / RES-4: never emit raw "CFD" or broker brand ("Exness") in public copy.
                     if kind == "BAR_STORE_M1_CLOSE":
-                        label = LABELS.get(market, (market, market))[1] + " CFD"
+                        label = LABELS.get(market, (market, market))[1] + " price proxy"
                     # Decision 109: the desk's internal name ("Main") is never public.
                     candidate = {"market": market, "value": q["price"], "unit": unit,
                         "instrument_name": label if kind != "PLAN_STATUS_EXPORT"
                         else LABELS.get(market, (market, market))[1] + " price",
-                        "source": "Exness" if kind == "BAR_STORE_M1_CLOSE" else "Capital Chronicle",
+                        "source": "Held market data" if kind == "BAR_STORE_M1_CLOSE" else "Capital Chronicle",
                         "display": DISPLAY,
                         "source_kind": kind, "observed_at_utc": q["quoted_at_utc"], "known_at_utc": q["known_at_utc"],
                         "source_binding": {k: v for k, v in q.items() if k not in {

@@ -42,10 +42,10 @@ def change_line(row, *, rich=True):
 
 def title_market(key):
     return {
-        "US500": "S&P 500 E-mini futures (ES)", "XAUUSD": "COMEX gold futures (GC)",
-        "USOIL": "WTI crude oil futures (CL)", "EURUSD": "EUR/USD spot (6E futures reference)",
+        "US500": "S&P 500 (ES futures reference)", "XAUUSD": "Gold (GC futures reference)",
+        "USOIL": "WTI crude oil (CL futures reference)", "EURUSD": "EUR/USD spot (6E futures reference)",
         "USDJPY": "USD/JPY spot (6J futures quote yen in dollars)", "BTCUSD": "Bitcoin spot (MBT futures reference)",
-        "USTEC": "Nasdaq 100 E-mini futures (NQ)",
+        "USTEC": "Nasdaq 100 (NQ futures reference)",
     }[key]
 
 
@@ -493,7 +493,7 @@ def chart_for(pack, markets, root):
             draw.rectangle((min(604, 604 + dx), y + 8, max(604, 604 + dx), y + 45),
                            fill="#7adbd3" if value > 0 else "#f5a896")
         draw.text((827, y), signed(value, "" if use_normal else "%"), fill="white", font=_font("bold", 36))
-    draw.text((72, 1142), "Source: Yahoo Finance. Capital Chronicle calculations.", fill="#c5d3e0",
+    draw.text((72, 1142), "Source: Capital Chronicle market calculations.", fill="#c5d3e0",
               font=_font("regular", 27))
     draw.text((72, 1195), "Analysis only. See the wrap for comparison dates.", fill="#c5d3e0",
               font=_font("regular", 27))

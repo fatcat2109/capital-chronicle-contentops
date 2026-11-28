@@ -36,14 +36,19 @@ def _disable_intake_lane_for_tests(monkeypatch, tmp_path):
     # Tests inject their own response; none fetches a public quote or reads
     # the operating Main/Data stores just because it prepares a reply.
     from live_contentops import (
-        public_market_quote_v1, chart_price_reference_v1, publication_image_contract_v1, tradingview_snapshot_v1,
+        public_market_quote_v1, chart_price_reference_v1, market_wrap_sources_v1,
+        publication_image_contract_v1, tradingview_snapshot_v1,
     )
     monkeypatch.setattr(public_market_quote_v1, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_market_quote_v1, "BARS_DB", tmp_path / "bars.sqlite3")
+    monkeypatch.setattr(public_market_quote_v1, "RATES_DB", tmp_path / "observations.sqlite3")
+    monkeypatch.setattr(market_wrap_sources_v1, "BARS_DB", tmp_path / "bars.sqlite3")
     monkeypatch.setattr(chart_price_reference_v1, "PLAN_STATUS_PATH", tmp_path / "plan-status.json")
     monkeypatch.setattr(chart_price_reference_v1, "BAR_STORE", tmp_path / "bars.sqlite3")
     monkeypatch.setattr(publication_image_contract_v1, "QUOTE_ROOT", tmp_path / "main-captures")
     monkeypatch.setattr(tradingview_snapshot_v1, "OUTCOMES", tmp_path / "tradingview-snapshot-outcomes.jsonl")
     def no_live_quote(url):
+        public_market_quote_v1._assert_url_allowed(url)
         raise public_market_quote_v1.QuoteError("PUBLIC_QUOTE_TEST_RESPONSE_NOT_SUPPLIED")
     monkeypatch.setattr(public_market_quote_v1, "http_read", no_live_quote)
     from live_contentops import x_reply_base_rates_v1

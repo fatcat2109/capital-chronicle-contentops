@@ -95,11 +95,11 @@ def event_family(record_id):
                  if spec["record_id"] == record_id), None)
 
 # Reader names only. Exact vendor instruments remain in the source binding.
+# CC-024: Yahoo Finance series are excluded from public projections; CC_HELD_CFD:* and
+# DUKASCOPY:USATECH.IDX/USD map to compliant reader names with zero "CFD" leaks.
 LABELS = {
-    "YAHOO_FINANCE:BTC-USD": "Yahoo Finance Bitcoin/USD",
-    "YAHOO_FINANCE:ES=F": "Yahoo Finance S&P 500 futures",
-    "YAHOO_FINANCE:CL=F": "Yahoo Finance WTI futures",
     "DUKASCOPY:USA500.IDX/USD": "Dukascopy S&P 500 index",
+    "DUKASCOPY:USATECH.IDX/USD": "Dukascopy Nasdaq 100 index",
     "DUKASCOPY:EUR/USD": "Dukascopy EUR/USD",
     "DUKASCOPY:USD/JPY": "Dukascopy USD/JPY",
     "DUKASCOPY:XAU/USD": "Dukascopy gold/USD",
@@ -107,6 +107,13 @@ LABELS = {
     "HISTDATA:USDJPY": "HistData USD/JPY",
     "HISTDATA:XAUUSD": "HistData gold/USD",
     "BINANCE:BTCUSDT": "Binance Bitcoin/USDT",
+    "CC_HELD_CFD:XAUUSD": "Capital Chronicle held gold price proxy",
+    "CC_HELD_CFD:US500": "Capital Chronicle held S&P 500 price proxy",
+    "CC_HELD_CFD:EURUSD": "Capital Chronicle held EUR/USD price proxy",
+    "CC_HELD_CFD:USDJPY": "Capital Chronicle held USD/JPY price proxy",
+    "CC_HELD_CFD:USOIL": "Capital Chronicle held WTI oil price proxy",
+    "CC_HELD_CFD:BTCUSD": "Capital Chronicle held Bitcoin price proxy",
+    "CC_HELD_CFD:USTEC": "Capital Chronicle held Nasdaq 100 price proxy",
     "CPI_HEADLINE_MOM": "Headline CPI, monthly",
     "CPI_CORE_MOM": "Core CPI, monthly",
     "FEWER_THAN_12_PRIOR_SURPRISES": "too few earlier forecast errors",
@@ -134,6 +141,7 @@ PUBLIC_LABELS = {
     "RETAINED_LATER_OBSERVATION": "forecast retrieved later",
     "UNAVAILABLE": "Unavailable",
 }
+_YAHOO_TABLE_ROW_RE = re.compile(r"YAHOO_FINANCE:|YAHOO_UNADJUSTED_CHART_OHLC:|yahoo\s+finance", re.I)
 
 
 def digest(text):
@@ -145,9 +153,32 @@ def tables(text):
     return re.findall(r"(?m)^\|[^\n]*(?:\n\|[^\n]*)+", text)
 
 
+def _filter_yahoo_table(table_md):
+    """Exclude Yahoo Finance data rows from a Markdown table; return (table_or_None, excluded_count)."""
+    lines = table_md.splitlines()
+    if len(lines) < 2:
+        return table_md, 0
+    header, separator, data_rows = lines[0], lines[1], lines[2:]
+    kept, excluded = [], 0
+    for row in data_rows:
+        if _YAHOO_TABLE_ROW_RE.search(row):
+            excluded += 1
+        else:
+            kept.append(row)
+    if excluded and not kept:
+        return None, excluded
+    return "\n".join([header, separator, *kept]), excluded
+
+
 def reader_names(text, *, final_copy=False):
-    for old, new in {**LABELS, **(PUBLIC_LABELS if final_copy else {})}.items():
+    mapping = {**LABELS, **(PUBLIC_LABELS if final_copy else {})}
+    # Replace longest keys first so compound series ids (e.g. CC_HELD_CFD:XAUUSD)
+    # always resolve before short market symbols (e.g. XAUUSD).
+    for old in sorted(mapping, key=len, reverse=True):
+        new = mapping[old]
         text = re.sub(r"(?<![\w])" + re.escape(old) + r"(?![\w])", lambda _: new, text)
+    if re.search(r"\byahoo\b", text, re.I):
+        raise ValueError("CC024_YAHOO_PUBLIC_COPY_FORBIDDEN")
     return text
 
 
@@ -161,19 +192,30 @@ def record_projection(record):
         raise ValueError("CPI_REACTION_SOURCE_TABLE_REQUIRED")
     body = field["value"]
     blocks = []
+    excluded_yahoo_rows = 0
     heading = "Market reactions"
     for part in re.split(r"(?m)(^## [^\n]+$)", body):
         if part.startswith("## "):
             heading = part[3:]
         else:
-            blocks.extend({"heading": heading, "markdown": reader_names(t),
-                           "source_table_sha256": digest(t)} for t in tables(part))
+            for t in tables(part):
+                filtered, dropped = _filter_yahoo_table(t)
+                excluded_yahoo_rows += dropped
+                if filtered is None:
+                    continue
+                blocks.append({
+                    "heading": heading,
+                    "markdown": reader_names(filtered),
+                    "source_table_sha256": digest(t),
+                })
     if not blocks:
         raise ValueError("CPI_REACTION_SOURCE_TABLE_REQUIRED")
     result = {"policy": POLICY, "record_id": record["binding"]["record_id"],
             "export_bytes_sha256": record["binding"]["export_bytes_sha256"],
             "source_field_citation": field["citation"],
             "source_body_sha256": digest(body), "tables": blocks}
+    if excluded_yahoo_rows:
+        result["cc024_yahoo_rows_excluded"] = excluded_yahoo_rows
     if family != "CPI":
         clock = next((f for f in record["binding"]["fields"]
                       if f["field_path"] == "/sections/source-data-cutoff/body_markdown"), None)

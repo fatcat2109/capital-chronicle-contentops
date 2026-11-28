@@ -7,7 +7,7 @@ import json
 import re
 from pathlib import Path
 from subprocess import TimeoutExpired
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 from . import public_market_quote_v1 as quotes
@@ -19,6 +19,7 @@ from .main_report_projection_source_v1 import NATIVE_MAIN_ANALYSIS_ROOT
 from .plan_reader_copy_v1 import et, scenario_case_copy
 from .plan_scenario_lines_v1 import _clean
 from .plan_status_posts_v1 import MAIN_ROOT, read_export
+from .publication_image_contract_v1 import CASH_INDEX_MARKETS, us_cash_session_bounds
 from .reader_article_contract_v1 import sentences, words
 from .weekly_scored_calls_v1 import project as weekly_calls
 
@@ -28,19 +29,19 @@ START = date(2026, 11, 23)
 INTAKE = Path(r"A:\Capital Chronicle\Runtime\OfficialRates\cc-078-20261101\state\intake")
 CALENDAR = INTAKE / "official-calendar/calendar.json"
 CASH_CALENDAR = MAIN_ROOT / "config/ibkr_paper/us_session_calendar_v1.json"
-HISTORY = INTAKE / "market-history/archives"
+BARS_DB = quotes.BARS_DB
 RELEASES = INTAKE.parents[3] / "OfficialReleases/official_release_feed_v1.json"
 FEDERAL_SOURCES = {"www.bls.gov", "www.bea.gov", "www.census.gov",
                    "www.eia.gov", "www.federalreserve.gov"}
 MARKETS = {
     "EURUSD": ("Euro", "EURUSD", ("eurusd", "euro")),
     "USDJPY": ("Yen", "USDJPY", ("usdjpy", "yen")),
-    "XAUUSD": ("Gold", "GOLD_FUTURES", ("xauusd", "gold")),
+    "XAUUSD": ("Gold", "XAUUSD", ("xauusd", "gold")),
     "USOIL": ("Oil", "USOIL", ("usoil", "wti", "oil")),
-    "US500": ("S&P 500", "US500_FUTURES", ("us500", "spx", "sp500")),
+    "US500": ("S&P 500", "US500", ("us500", "spx", "sp500")),
     "BTCUSD": ("Bitcoin", "BTCUSD", ("btcusd", "bitcoin", "btc")),
-    # CC-788: the seventh core market; the wrap reads its futures, the map its cash index (as for the S&P 500).
-    "USTEC": ("Nasdaq 100", "USTEC_FUTURES", ("ustec", "ndx", "nasdaq", "nas100")),
+    # CC-788 / CC-024: all seven core markets resolve directly from held local bars.
+    "USTEC": ("Nasdaq 100", "USTEC", ("ustec", "ndx", "nasdaq", "nas100")),
 }
 OPEN_STATUSES = {
     "WAITING": "Waiting for entry", "WATCH": "Waiting for entry", "PENDING": "Waiting for entry",
@@ -322,64 +323,182 @@ def public_release_facts(start, end, path=RELEASES):
     return sorted(facts.values(), key=lambda row: row["published_at_utc"])[-8:]
 
 
-def history_bars(raw, ticker, known_at):
-    """Use dated, complete sessions of the exact Yahoo instrument."""
-    rows, = json.loads(raw)["chart"]["result"]
-    meta = rows["meta"]
-    if meta.get("symbol") != ticker:
-        raise ValueError("WRAP_HISTORY_SYMBOL_MISMATCH")
-    exchange = ZoneInfo(meta["exchangeTimezoneName"])
-    bars, = rows["indicators"]["quote"]
-    result = {}
-    for seconds, high, low, close in zip(rows["timestamp"], bars["high"], bars["low"], bars["close"], strict=True):
-        stamp = datetime.fromtimestamp(seconds, UTC).astimezone(exchange)
-        day = stamp.date()
-        if day >= known_at.astimezone(exchange).date() or any(v is None for v in (high, low, close)):
-            continue
-        try:
-            high, low, close = map(quotes._number, (high, low, close))
-        except ValueError:
-            continue
-        if low <= close <= high:
-            result[day] = (high, low, close)
-    return result
+def history_bars_from_sqlite(market, *, as_of, db_path=None, cash_calendar=None, zero_write=False):
+    """Read completed non-Yahoo D1 bars and roll up deduplicated M15 NATIVE_BROKER sessions.
+
+    Trap 1: bars.sqlite3 table `bars` has ~9x duplicate rows per open_epoch; deduplicate by
+    (open_epoch -> newest known_epoch) excluding `invalid_bars`.
+    Trap 2: NATIVE_DAILY_ROUTE paused 2026-11-22, so completed sessions strictly after the
+    latest D1 bar (or missing from D1) are rolled up from M15 `bars` respecting US cash
+    holidays and 13:00 ET early closes for US500/USTEC.
+    WAL-aware read-only: uses quotes._open_readonly_sqlite (immutable=1 when wal_bytes == 0;
+    live WAL read or zero_write temp-copy snapshot when wal_bytes > 0).
+    """
+    as_of_utc = utc(as_of)
+    as_of_ts = as_of_utc.timestamp()
+    as_of_et_day = as_of_utc.astimezone(ET).date()
+    as_of_utc_day = as_of_utc.date()
+    db_symbol = quotes.SYMBOLS[MARKETS[market][1]][1]
+    path = Path(BARS_DB if db_path is None else db_path)
+    bars: dict[date, tuple[float, float, float]] = {}
+    used_series: set[str] = set()
+    used_hashes: set[str] = set()
+    latest_known: float | None = None
+    rolled_days: list[str] = []
+
+    with quotes._open_readonly_sqlite(path, zero_write=zero_write) as con:
+        tables = quotes._sqlite_tables(con)
+        # 1) Non-Yahoo D1 bars from history_bars (priority: DESK_ODDS > NATIVE_DAILY_ROUTE > EXNESS:%).
+        if "history_bars" in tables and "history_sources" in tables:
+            has_hist_invalid = "history_invalid" in tables
+            invalid_clause = (
+                "AND NOT EXISTS (SELECT 1 FROM history_invalid i "
+                "WHERE i.source_id = b.source_id AND i.open_epoch = b.open_epoch)"
+                if has_hist_invalid else ""
+            )
+            sources = con.execute(
+                """SELECT source_id, source_sha256, series_id, known_epoch
+                   FROM history_sources
+                   WHERE market = ? AND timeframe = 'D1'
+                     AND series_id NOT LIKE 'YAHOO_FINANCE:%'
+                     AND known_epoch <= ?""",
+                (db_symbol, as_of_ts),
+            ).fetchall()
+            sources = sorted(
+                sources,
+                key=lambda s: (quotes._d1_series_rank(str(s["series_id"])), -float(s["known_epoch"])),
+            )
+            for src in sources:
+                rows = con.execute(
+                    f"""SELECT b.session_date, b.end_epoch, b.high, b.low, b.close
+                        FROM history_bars b
+                        WHERE b.source_id = ? AND b.end_epoch <= ?
+                          {invalid_clause}
+                        ORDER BY b.session_date ASC, b.open_epoch ASC""",
+                    (src["source_id"], as_of_ts),
+                ).fetchall()
+                src_used = False
+                for r in rows:
+                    try:
+                        sday = date.fromisoformat(str(r["session_date"]))
+                        cutoff_day = as_of_utc_day if market == "BTCUSD" else as_of_et_day
+                        if sday >= cutoff_day:
+                            continue
+                        high, low, close = map(quotes._number, (r["high"], r["low"], r["close"]))
+                    except (ValueError, TypeError):
+                        continue
+                    if low <= close <= high and sday not in bars:
+                        bars[sday] = (high, low, close)
+                        src_used = True
+                if src_used:
+                    used_series.add(str(src["series_id"]))
+                    used_hashes.add(str(src["source_sha256"]))
+                    known_ep = float(src["known_epoch"])
+                    if latest_known is None or known_ep > latest_known:
+                        latest_known = known_ep
+
+        # 2) Mandatory M15 -> D1 rollup from deduplicated NATIVE_BROKER bars excluding invalid_bars.
+        if "bars" in tables:
+            has_invalid = "invalid_bars" in tables
+            invalid_clause = (
+                "AND NOT EXISTS (SELECT 1 FROM invalid_bars i "
+                "WHERE i.source_sha256 = b.source_sha256 AND i.symbol = b.symbol AND i.open_epoch = b.open_epoch)"
+                if has_invalid else ""
+            )
+            m15_rows = con.execute(
+                f"""SELECT b.open_epoch, b.high, b.low, b.close, b.known_epoch, b.source_sha256
+                    FROM bars b
+                    WHERE b.symbol = ? AND b.series_id = 'NATIVE_BROKER'
+                      AND b.known_epoch <= ? AND (b.open_epoch + 900) <= ?
+                      {invalid_clause}
+                    ORDER BY b.open_epoch ASC, b.known_epoch DESC""",
+                (db_symbol, as_of_ts, as_of_ts),
+            ).fetchall()
+            # Deduplicate by open_epoch, keeping the newest valid capture (highest known_epoch).
+            deduped: dict[int, tuple[float, float, float, float, str]] = {}
+            for r in m15_rows:
+                op = int(r["open_epoch"])
+                if op in deduped:
+                    continue
+                try:
+                    high, low, close = map(quotes._number, (r["high"], r["low"], r["close"]))
+                except ValueError:
+                    continue
+                if low <= close <= high:
+                    deduped[op] = (high, low, close, float(r["known_epoch"]), str(r["source_sha256"]))
+
+            grouped: dict[date, list[tuple[int, float, float, float, float, str]]] = {}
+            cal_arg = cash_calendar if isinstance(cash_calendar, dict) else None
+            cal_path = None if cal_arg is not None else (cash_calendar or CASH_CALENDAR)
+            for op in sorted(deduped):
+                high, low, close, known_ep, src_sha = deduped[op]
+                open_utc = datetime.fromtimestamp(op, UTC)
+                if market == "BTCUSD":
+                    sday = open_utc.date()
+                    session_done = sday < as_of_utc_day
+                elif market in CASH_INDEX_MARKETS:
+                    open_et = open_utc.astimezone(ET)
+                    sday = open_et.date()
+                    bounds = us_cash_session_bounds(sday, calendar_path=cal_path, calendar=cal_arg)
+                    if bounds is None:
+                        continue
+                    open_t, close_t = bounds
+                    if not (open_t <= open_et.time() < close_t):
+                        continue
+                    session_close_utc = datetime.combine(sday, close_t, ET).astimezone(UTC)
+                    session_done = as_of_utc >= session_close_utc
+                else:
+                    open_et = open_utc.astimezone(ET)
+                    sday = open_et.date()
+                    if sday.weekday() >= 5:
+                        continue
+                    session_done = sday < as_of_et_day or as_of_utc >= datetime.combine(sday, time(17, 0), ET).astimezone(UTC)
+                if not session_done or sday in bars:
+                    continue
+                grouped.setdefault(sday, []).append((op, high, low, close, known_ep, src_sha))
+
+            for sday in sorted(grouped):
+                session_bars = grouped[sday]
+                bars[sday] = (
+                    max(b[1] for b in session_bars),
+                    min(b[2] for b in session_bars),
+                    session_bars[-1][3],
+                )
+                rolled_days.append(sday.isoformat())
+                used_series.add("NATIVE_BROKER:M15_ROLLUP")
+                for b in session_bars:
+                    used_hashes.add(b[5])
+                    if latest_known is None or b[4] > latest_known:
+                        latest_known = b[4]
+
+    meta_payload = {
+        "market": market,
+        "db_symbol": db_symbol,
+        "series_ids": sorted(used_series),
+        "source_hashes": sorted(used_hashes),
+        "m15_rolled_up_days": rolled_days,
+    }
+    known_iso = (
+        datetime.fromtimestamp(latest_known, UTC).isoformat()
+        if latest_known is not None else as_of_utc.isoformat()
+    )
+    return bars, {
+        "sha256": sha256_of(meta_payload),
+        "source": "LOCAL_BARS",
+        "series_ids": sorted(used_series),
+        "m15_rolled_up_days": rolled_days,
+        "known_at_utc": known_iso,
+    }
 
 
-def market_history(market, days, *, as_of, root=HISTORY, reader=quotes.http_read, clock=quotes.utcnow):
-    ticker = quotes.SYMBOLS[MARKETS[market][1]][1]
-    # Data's JPY alias was redirected to the same pair in the provider response.
-    aliases = {ticker, "JPY=X"} if market == "USDJPY" else {ticker}
-    sources = []
-    for sidecar in (Path(root) / market).glob("D1-*.source.json"):
-        try:
-            spec = json.loads(sidecar.read_bytes())
-            known = utc(spec["known_at_utc"])
-            if spec.get("ticker") in aliases and known <= as_of:
-                sources.append((known, sidecar, spec))
-        except (OSError, ValueError, KeyError, TypeError):
-            continue
-    for known, sidecar, spec in sorted(sources, reverse=True)[:4]:
-        path = sidecar.with_suffix("").with_suffix(".json")
-        try:
-            raw = path.read_bytes()
-            if len(raw) != spec["bytes"] or sha256(raw).hexdigest() != spec["sha256"]:
-                continue
-            bars = history_bars(raw, ticker, known)
-            if set(days) <= bars.keys():
-                return bars, {"sha256": spec["sha256"], "url": spec["url"], "known_at_utc": known.isoformat()}
-        except (OSError, ValueError, KeyError, TypeError):
-            continue
-    if reader is None:
-        raise ValueError("WRAP_HELD_CLOSING_SESSIONS_UNAVAILABLE")
-    # One bounded public request through the established quote transport.
-    base = quotes.source_url(MARKETS[market][1]).split("?")[0]
-    url = base + "?" + urlencode({"range": "1mo", "interval": "1d"})
-    raw = reader(url)
-    known = clock()
-    bars = history_bars(raw, ticker, known)
+def market_history(market, days, *, as_of, db_path=None, cash_calendar=None, zero_write=False):
+    """Load completed daily closing sessions from local held SQLite bars (zero Yahoo HTTP)."""
+    bars, metadata = history_bars_from_sqlite(
+        market, as_of=as_of, db_path=db_path, cash_calendar=cash_calendar, zero_write=zero_write,
+    )
     if not set(days) <= bars.keys():
-        raise ValueError("WRAP_CLOSING_SESSIONS_UNAVAILABLE")
-    return bars, {"sha256": sha256(raw).hexdigest(), "url": url, "known_at_utc": known.isoformat()}
+        raise ValueError("WRAP_HELD_CLOSING_SESSIONS_UNAVAILABLE")
+    return bars, metadata
 
 
 def move(market, end, start, *, basis, normal_day=None):
@@ -496,7 +615,10 @@ def collect(slot, *, now, cash_calendar, previous=None, quote=quotes.get,
             ticker = quotes.SYMBOLS[key][1]
             bars, source = {}, {}
             try:
-                bars, source = history(market, [prior, last] if weekly else [last], as_of=now)
+                hist_kwargs = {"as_of": now}
+                if history is market_history:
+                    hist_kwargs["cash_calendar"] = cash_calendar
+                bars, source = history(market, [prior, last] if weekly else [last], **hist_kwargs)
             except (OSError, ValueError, KeyError, TypeError) as exc:
                 if weekly:
                     raise

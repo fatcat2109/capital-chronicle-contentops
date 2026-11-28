@@ -17,11 +17,20 @@ FAMILIES = {"NFP": ("NFP",), "FOMC": ("FOMC_DECISION", "FOMC_PRESS_CONFERENCE"),
 HORIZONS = ("1m", "15m", "60m", "session_close", "+1_session", "+3_sessions")
 NAMES = {"FOMC_DECISION": "Fed statement", "FOMC_PRESS_CONFERENCE": "Fed press conference",
          "NFP": "Payrolls", "PPI": "Producer prices"}
-SERIES = {**LABELS, "YAHOO_FINANCE:GC=F": "Yahoo Finance gold futures",
-          "YAHOO_FINANCE:EURUSD=X": "Yahoo Finance EUR/USD", "YAHOO_FINANCE:JPY=X": "Yahoo Finance USD/JPY",
+SERIES = {**LABELS,
           "DUKASCOPY:LIGHT.CMD/USD": "Dukascopy WTI oil", "IBKR:MCL": "WTI micro futures",
-          "CC_HELD_CFD:BTCUSD": "Capital Chronicle held Bitcoin price proxy",
           **{"mt5_demo_capture:" + key: "Capital Chronicle broker-price proxy for " + LABELS[key] for key in MARKETS}}
+
+
+def _is_yahoo_row(row):
+    series = str(row.get("series_id") or "")
+    basis = str(row.get("price_basis") or "")
+    return (
+        series.upper().startswith("YAHOO_FINANCE:")
+        or basis.upper().startswith("YAHOO_UNADJUSTED_CHART_OHLC:")
+        or "yahoo" in series.casefold()
+        or "yahoo" in basis.casefold()
+    )
 
 
 def display(value):
@@ -32,11 +41,13 @@ def display(value):
 
 
 def project(table, family):
-    """Exact row/cell locators; raw prices and consensus tables never enter."""
+    """Exact row/cell locators; raw prices, consensus tables and Yahoo rows never enter."""
     events = {e["event_id"]: e for e in table["events"]}
     bindings, blocks, gaps, observed = [], [], {}, 0
-    selected = [(i, r) for i, r in enumerate(table["rows"])
-                if r["family"] in FAMILIES[family] and r["symbol"] in MARKETS]
+    family_rows = [(i, r) for i, r in enumerate(table["rows"])
+                   if r["family"] in FAMILIES[family] and r["symbol"] in MARKETS]
+    selected = [(i, r) for i, r in family_rows if not _is_yahoo_row(r)]
+    excluded_yahoo = len(family_rows) - len(selected)
     for subtype in FAMILIES[family]:
         for market in MARKETS:
             rows = [(i, r) for i, r in selected if r["family"] == subtype and r["symbol"] == market]
@@ -53,14 +64,23 @@ def project(table, family):
                 else:
                     stamp = event["event_date"]
                 series = row.get("series_id")
-                label = SERIES.get(series, str(series).replace("|", "/")) if series else "No price series"
                 basis = row.get("price_basis") or ""
+                if (series and "yahoo" in str(series).casefold()) or "yahoo" in basis.casefold():
+                    raise ValueError("CC024_YAHOO_PUBLIC_SERIES_PROHIBITED")
+                if series and series in SERIES:
+                    label = SERIES[series]
+                elif series and str(series).startswith("CC_HELD_CFD:"):
+                    label = "Capital Chronicle held " + LABELS.get(market, market) + " price proxy"
+                elif series:
+                    label = str(series).replace("|", "/")
+                else:
+                    label = "No price series"
+                if "cfd" in label.casefold():
+                    label = "Capital Chronicle held " + LABELS.get(market, market) + " price proxy"
                 if basis == "BID":
                     label += "; bid quotes"
                 elif basis == "SPOT_TRADE":
                     label += "; spot trades"
-                elif basis.startswith("YAHOO_UNADJUSTED_CHART_OHLC:"):
-                    label += "; unadjusted chart close"
                 elif basis == "NATIVE_BROKER_OHLC_UNADJUSTED_BASIS_NOT_EXCHANGE_LAST_OR_MID":
                     label += "; broker chart close"
                 cells = []
@@ -84,8 +104,8 @@ def project(table, family):
             "These are observed co-movements, not an isolated release effect, a forecast or a trading result. "
             "Source series and their price bases remain separate. A dash means no exact source window. "
             "Close and session horizons use the producer's weekday New York close benchmark; "
-            "Bitcoin uses its original day convention. Holidays without an exact endpoint stay absent.\n\n"
-            + "\n\n".join(blocks))
+            "Bitcoin uses its original day convention. Holidays without an exact endpoint stay absent."
+            + ("\n\n" + "\n\n".join(blocks) if blocks else ""))
     body += ("\n\n## Coverage\n\n| Market rows | Observed windows | Unavailable windows |\n"
              "|---:|---:|---:|\n| " + str(len(selected)) + " | " + str(observed) + " | "
              + str(len(bindings) - observed) + " |")
@@ -93,7 +113,8 @@ def project(table, family):
         body += ("\n\nThe retained Fed rows hold meeting dates but no exact statement or press-conference "
                  "release times. Their measured price changes are unavailable, not zero.")
     return {"body_markdown": body, "cell_bindings": bindings, "market_rows": len(selected),
-            "observed_moves": observed, "gaps": gaps, "source_data_cutoff_utc": table["as_of_utc"]}
+            "observed_moves": observed, "gaps": gaps, "source_data_cutoff_utc": table["as_of_utc"],
+            "cc024_yahoo_rows_excluded": excluded_yahoo}
 
 
 def prepare(table_path, output_root, *, generated_at_utc, producer_commit):

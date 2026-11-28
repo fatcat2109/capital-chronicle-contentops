@@ -109,24 +109,24 @@ def plan_status_quote(market, captured_at, path, *, max_age_seconds=contract.QUO
     return min(candidates, key=lambda q: q["age_seconds"])
 
 
-def bar_store_quote(market, captured_at, path, *, max_age_seconds=contract.QUOTE_SKEW_SECONDS, comparison_at=None):
+def bar_store_quote(market, captured_at, path, *, max_age_seconds=contract.QUOTE_SKEW_SECONDS, comparison_at=None,
+                    zero_write=False):
     """CC-481 M1 closes; no proxy futures/ETF, forming bar, invalid bar or future import.
 
     Source capture time remains known-at. A historical bar imported after an old
     snapshot cannot certify that snapshot. The original source hash and an exact
     row hash are retained instead of hashing a mutable 69 MB SQLite file.
     """
+    from . import public_market_quote_v1 as public
     path = Path(path)
     capture = contract.utc(captured_at)
     at, _ = contract.comparison_clock(market, capture)
     if comparison_at is not None:
         at = contract.utc(comparison_at)
     candidates, failures = [], []
-    # mode=ro refuses a missing file without creating one; query_only also
-    # protects an existing store. The timeout bounds contention with its writer.
-    with closing(sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True, timeout=.25)) as db:
-        db.row_factory = sqlite3.Row
-        db.execute("PRAGMA query_only=ON")
+    # WAL-aware read-only open: uses ?mode=ro&immutable=1 when -wal is absent/0 B, and sees
+    # live uncheckpointed -wal bars when -wal > 0 (or temp-copy snapshot when zero_write=True).
+    with public._open_readonly_sqlite(path, timeout=.25, zero_write=zero_write) as db:
         sources = db.execute("""SELECT * FROM history_sources
             WHERE market=? AND timeframe='M1' AND series_id='NATIVE_BROKER'
                 AND known_epoch<=? ORDER BY known_epoch DESC LIMIT 64""",

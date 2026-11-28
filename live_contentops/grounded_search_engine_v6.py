@@ -1,15 +1,16 @@
 """Grounded search engine for financial, economic, and geopolitical news.
 
-Leverages free APIs from GDELT Project and Yahoo Finance to fetch live context.
-Stores results in a local JSON cache to prevent redundant queries.
+Uses the public GDELT Project DOC API v2 to fetch live context and stores
+results in a local JSON cache to prevent redundant queries.
+CC-024: Yahoo Finance search scraping is permanently retired.
 """
 from __future__ import annotations
 
 import hashlib
 import json
-import os
 import re
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -28,10 +29,10 @@ def query_gdelt(query: str, limit: int = 5) -> list[dict[str, Any]]:
     cleaned = clean_query(query)
     encoded_query = urllib.parse.quote(cleaned)
     url = f"https://api.gdeltproject.org/api/v2/doc/doc?query={encoded_query}&mode=artlist&format=json"
-    
+
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     req = urllib.request.Request(url, headers=headers)
-    
+
     try:
         with urllib.request.urlopen(req, timeout=10) as response:
             data = json.loads(response.read().decode("utf-8"))
@@ -43,7 +44,7 @@ def query_gdelt(query: str, limit: int = 5) -> list[dict[str, Any]]:
                     "publisher": art.get("source", "GDELT Project"),
                     "url": art.get("url", ""),
                     "date": art.get("seendate", ""),
-                    "summary": art.get("title", "")
+                    "summary": art.get("title", ""),
                 })
             return results
     except Exception as e:
@@ -52,39 +53,17 @@ def query_gdelt(query: str, limit: int = 5) -> list[dict[str, Any]]:
 
 
 def query_yahoo_finance(query: str, limit: int = 5) -> list[dict[str, Any]]:
-    """Query Yahoo Finance Search API for stock and macroeconomic news."""
-    cleaned = clean_query(query)
-    encoded_query = urllib.parse.quote(cleaned)
-    url = f"https://query1.finance.yahoo.com/v1/finance/search?q={encoded_query}"
-    
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    req = urllib.request.Request(url, headers=headers)
-    
-    try:
-        with urllib.request.urlopen(req, timeout=10) as response:
-            data = json.loads(response.read().decode("utf-8"))
-            news = data.get("news", [])
-            results = []
-            for item in news[:limit]:
-                results.append({
-                    "title": item.get("title", "Untitled Financial Article"),
-                    "publisher": item.get("publisher", "Yahoo Finance"),
-                    "url": item.get("link", ""),
-                    "date": str(item.get("providerPublishTime", "")),
-                    "summary": item.get("title", "")
-                })
-            return results
-    except Exception as e:
-        print(f"[Warning] Yahoo Finance search failed: {e}")
-        return []
+    """Retired under CC-024: makes zero HTTP calls and returns an empty list."""
+    _ = (query, limit)
+    return []
 
 
 def execute_grounded_search(query: str, limit_per_source: int = 5) -> list[dict[str, Any]]:
-    """Orchestrate GDELT and Yahoo Finance queries, checking cache first."""
+    """Orchestrate GDELT grounded news query, checking local cache first."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     query_hash = hashlib.sha256(query.lower().strip().encode("utf-8")).hexdigest()
     cache_file = CACHE_DIR / f"{query_hash}.json"
-    
+
     # Check cache validity
     if cache_file.exists():
         stat = cache_file.stat()
@@ -95,26 +74,22 @@ def execute_grounded_search(query: str, limit_per_source: int = 5) -> list[dict[
                 return cached_data
             except Exception:
                 pass
-                
+
     print(f"[Info] Executing live grounded search for query: '{query}'")
-    
-    # Run concurrent-like searches from both sources
-    gdelt_news = query_gdelt(query, limit=limit_per_source)
-    yahoo_news = query_yahoo_finance(query, limit=limit_per_source)
-    
-    all_articles = gdelt_news + yahoo_news
+
+    all_articles = query_gdelt(query, limit=limit_per_source)
     sources = []
-    
+
     timestamp = time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())
-    
+
     for art in all_articles:
         title = art["title"]
         url = art["url"]
         publisher = art["publisher"]
-        
+
         # Unique source ID based on URL
         source_hash = hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
-        
+
         sources.append({
             "source_id": f"src_{source_hash}",
             "title": title,
@@ -127,13 +102,13 @@ def execute_grounded_search(query: str, limit_per_source: int = 5) -> list[dict[
             "allowed_usage": "advisory_only",
             "limitations": [f"Grounded live search from query: {query}"],
             "citation_required": True,
-            "synthetic_fixture": False
+            "synthetic_fixture": False,
         })
-        
+
     # Save to cache
     try:
         cache_file.write_text(json.dumps(sources, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     except Exception as e:
         print(f"[Warning] Failed to write cache: {e}")
-        
+
     return sources

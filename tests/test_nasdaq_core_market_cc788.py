@@ -58,7 +58,7 @@ def test_public_names_never_the_broker_symbol():
     assert posts.TITLES["USTEC"] == "Nasdaq 100" and posts.MARKETS["USTEC"] == "the Nasdaq 100"
     assert {board.MARKETS["USTEC"], inputs.MARKETS["USTEC"], idea.MARKETS["USTEC"], cpi.LABELS["USTEC"],
             wrap_sources.MARKETS["USTEC"][0]} == {"Nasdaq 100"}
-    assert wrap_copy.title_market("USTEC") == "Nasdaq 100 E-mini futures (NQ)"
+    assert wrap_copy.title_market("USTEC") == "Nasdaq 100 (NQ futures reference)"
     assert posts.BROKER_SYMBOL.sub(lambda m: posts.BROKER_NAMES[m[1]], "USTEC fell") == "the Nasdaq 100 fell"
     with pytest.raises(ValueError, match="PUBLIC_INSTRUMENT_NAME_FORBIDDEN:USTEC"):
         instruments.validate_payload({"public_instrument_policy": instruments.POLICY}, {"text": "USTEC fell."})
@@ -103,14 +103,16 @@ def test_the_owner_candidate_of_a_nasdaq_plan_is_mains_ustec_candidate():
 
 def test_the_old_ndx_route_is_an_alias_and_its_frozen_observations_stay_valid():
     assert quotes.ALIASES["NDX"] == "USTEC" and "NDX" not in quotes.SYMBOLS
-    assert quotes.SYMBOLS["USTEC"][1] == "^NDX" and quotes.SYMBOLS["USTEC_FUTURES"][1] == "NQ=F"
+    assert quotes.SYMBOLS["USTEC"][1] == "USTEC" and "USTEC_FUTURES" not in quotes.SYMBOLS
     now = datetime(2026, 11, 30, 15, 0, tzinfo=timezone.utc)
-    held = {"market": "NDX", "source_symbol": "^NDX", "value": 25012.5, "known_at_utc": now.isoformat(),
-            "observed_at_utc": now.isoformat()}
-    assert quotes.validate(held, "USTEC", now=now) is held
-    assert quotes.validate({**held, "market": "USTEC"}, "NDX", now=now)
+    held_legacy = {"market": "NDX", "source_symbol": "^NDX", "value": 25012.5, "known_at_utc": now.isoformat(),
+                   "observed_at_utc": now.isoformat()}
+    held_local = {"market": "USTEC", "source_symbol": "USTEC", "value": 25012.5, "known_at_utc": now.isoformat(),
+                  "observed_at_utc": now.isoformat()}
+    assert quotes.validate(held_legacy, "USTEC", now=now) is held_legacy
+    assert quotes.validate(held_local, "NDX", now=now) is held_local
     with pytest.raises(quotes.QuoteError, match="PUBLIC_QUOTE_SYMBOL_MISMATCH"):
-        quotes.validate({**held, "market": "US500"}, "USTEC", now=now)
+        quotes.validate({**held_local, "market": "US500"}, "USTEC", now=now)
 
 
 @pytest.mark.parametrize("text", ["USTEC slid", "NAS100 slid", "The Nasdaq 100 slid", "NQ=F slid"])
@@ -122,7 +124,8 @@ def test_reply_facts_find_the_nasdaq_100_by_any_of_its_names(text):
 def test_a_reply_quote_prints_the_nasdaq_at_its_precision():
     observation = {"market": "USTEC", "observed_at_utc": "2026-11-30T15:00:00+00:00",
                    "known_at_utc": "2026-11-30T15:00:01+00:00", "value": 25012.4987, "unit": "points",
-                   "day_change": -101.23456, "instrument_name": "Nasdaq 100 cash index", "source": "Yahoo Finance",
+                   "day_change": -101.23456, "instrument_name": "Nasdaq 100 index proxy",
+                   "source": "Held market data",
                    "display": reply_sources.DISPLAY, "observation_path": "x.json", "observation_sha256": "a" * 64}
     source = reply_sources._quote_source(observation)
     assert source["fact_binding"]["markets"] == ["NDX"]

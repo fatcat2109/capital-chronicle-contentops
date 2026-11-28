@@ -66,20 +66,26 @@ def _write_calendar(path: Path, payload: dict | str = US_CALENDAR_2026_2028) -> 
     return path
 
 
-def _yahoo_json(symbol: str, value: float, at: datetime, *, prior: float = 100.0) -> bytes:
-    return json.dumps({
-        "chart": {
-            "result": [{
-                "meta": {
-                    "symbol": symbol,
-                    "regularMarketPrice": value,
-                    "regularMarketTime": at.timestamp(),
-                    "previousClose": prior,
-                    "instrumentType": "INDEX",
-                }
-            }]
-        }
-    }).encode("utf-8")
+def _insert_local_m15_bar(path: Path, market: str, price: float, end: datetime, known: datetime) -> None:
+    with closing(sqlite3.connect(path)) as db, db:
+        db.executescript("""
+            CREATE TABLE IF NOT EXISTS bars(
+                symbol TEXT NOT NULL, open_epoch INTEGER NOT NULL,
+                open REAL NOT NULL, high REAL NOT NULL, low REAL NOT NULL, close REAL NOT NULL,
+                known_epoch REAL NOT NULL, source_sha256 TEXT NOT NULL,
+                price_basis TEXT NOT NULL, contract_id TEXT NOT NULL,
+                series_id TEXT NOT NULL DEFAULT 'NATIVE_BROKER',
+                PRIMARY KEY(symbol, open_epoch, source_sha256));
+            CREATE TABLE IF NOT EXISTS invalid_bars(
+                source_sha256 TEXT NOT NULL, symbol TEXT NOT NULL, open_epoch INTEGER NOT NULL, reason TEXT NOT NULL,
+                PRIMARY KEY(source_sha256, symbol, open_epoch));
+        """)
+        db.execute(
+            "INSERT OR REPLACE INTO bars VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+            (market, int(end.timestamp()) - 900, price, price + 1.0, max(0.01, price - 1.0), price,
+             known.timestamp(), "c" * 64, "NATIVE_BROKER_OHLC_UNADJUSTED_BASIS_NOT_EXCHANGE_LAST_OR_MID",
+             f"EXNESS_DEMO:{market}", "NATIVE_BROKER"),
+        )
 
 
 def _export_price(path: Path, market: str, price: float, at: datetime, *, generated_at: datetime) -> None:
@@ -237,40 +243,37 @@ def test_thanksgiving_full_closure_anchors_cash_indices_to_wednesday_close(isola
     assert at == wed_close
 
 
-@pytest.mark.parametrize("market,symbol,price", [
-    ("US500", "^GSPC", 7201.09),
-    ("USTEC", "^NDX", 26214.17),
+@pytest.mark.parametrize("market,prefix,price", [
+    ("US500", "SPX", 7201.09),
+    ("USTEC", "NDX", 26214.17),
 ])
 def test_thanksgiving_prevents_false_mismatch_from_moving_cfd_and_validates_wednesday_close(
-        tmp_path, monkeypatch, isolated_calendar, market, symbol, price):
-    """During Thu 26 Nov 11:00 ET, live Exness CFD drift (+0.8%) never causes a false mismatch vs frozen cash index."""
+        tmp_path, monkeypatch, isolated_calendar, market, prefix, price):
+    """During Thu 26 Nov 11:00 ET, live Exness CFD drift (+0.8%) never causes a false mismatch vs frozen Wed 16:00 ET close."""
     captured = _et(2026, 11, 26, 11, 0, 0)
     wed_close = _et(2026, 11, 25, 16, 0, 0)
-    wed_settle = _et(2026, 11, 25, 16, 54, 10)  # Yahoo official Wed cash-index settlement print
 
     export_path = tmp_path / "plan-status.public.json"
     bar_path = tmp_path / "bars.sqlite3"
     _init_bar_store(bar_path)
     # Live Thanksgiving-morning Exness CFD quote drifted +0.80% away from Wed cash close.
     _export_price(export_path, market, price * 1.008, captured - timedelta(seconds=10), generated_at=captured)
-    # Held bar store has a Thanksgiving CFD bar (+0.80%) AND no Wed close bar -> must fall through to Wed public close.
+    # Held bar store has a Thanksgiving M1 bar (+0.80%) AND a Wed 16:00 ET local M15 closing bar.
     _insert_m1_bar(bar_path, market, price * 1.008, captured, captured, sid="thu-cfd")
+    _insert_local_m15_bar(bar_path, market, price, wed_close, wed_close + timedelta(seconds=5))
 
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_quotes, "BARS_DB", bar_path)
     monkeypatch.setattr(prices, "PLAN_STATUS_PATH", export_path)
     monkeypatch.setattr(prices, "BAR_STORE", bar_path)
     monkeypatch.setattr(contract, "QUOTE_ROOT", tmp_path / "missing-captures")
     monkeypatch.setattr(public_quotes, "utcnow", lambda: captured - timedelta(seconds=5))
-    monkeypatch.setattr(
-        public_quotes, "http_read",
-        lambda _url: _yahoo_json(symbol, price, wed_settle, prior=price - 15.0),
-    )
 
     prices.prepare_chart_quote(market, now=captured - timedelta(seconds=5))
     snap = {
         "tv_symbol": tv.SYMBOLS[market],
         "sha256": "2" * 64,
-        "page_title": f"{symbol.lstrip('^')} {price:,.2f}",
+        "page_title": f"{prefix} {price:,.2f}",
         "captured_at_utc": captured.isoformat(),
     }
     bound = contract.bind_scale(market, snap)
@@ -284,7 +287,7 @@ def test_thanksgiving_prevents_false_mismatch_from_moving_cfd_and_validates_wedn
     assert check["quote"]["source_attempts"][0]["cause"] == "CHART_REFERENCE_STALE"
 
     # A genuinely off-scale chart (>0.15% vs Wed close) is STILL strictly refused on Thanksgiving.
-    bad_snap = {**snap, "page_title": f"{symbol.lstrip('^')} {price * 1.01:,.2f}"}
+    bad_snap = {**snap, "page_title": f"{prefix} {price * 1.01:,.2f}"}
     with pytest.raises(contract.ImageContractError, match="TRADINGVIEW_PRICE_SCALE_MISMATCH"):
         contract.bind_scale(market, bad_snap)
 
@@ -335,35 +338,33 @@ def test_black_friday_pre_open_open_early_close_and_weekend_clocks(isolated_cale
         assert contract.comparison_clock(market, closed_ts) == (fri_early, True)
 
 
-@pytest.mark.parametrize("market,symbol,settle_et_hm,price", [
-    ("US500", "^GSPC", (13, 54), 7225.40),
-    ("USTEC", "^NDX", (14, 15), 26310.85),
+@pytest.mark.parametrize("market,prefix,price", [
+    ("US500", "SPX", 7225.40),
+    ("USTEC", "NDX", 26310.85),
 ])
-def test_black_friday_post_1300_early_close_settlement_print_compares_and_audits(
-        tmp_path, monkeypatch, isolated_calendar, market, symbol, settle_et_hm, price):
-    """Post-13:00 ET official Yahoo settlement prints (<=90m after 13:00 ET) pass scale checks and CC-489 audit."""
+def test_black_friday_post_1300_early_close_local_bar_compares_and_audits(
+        tmp_path, monkeypatch, isolated_calendar, market, prefix, price):
+    """Post-13:00 ET held M15 closing bars (13:00 ET) pass scale checks and CC-489 audit with zero Yahoo HTTP."""
     fri_early = _et(2026, 11, 27, 13, 0, 0)
-    settle_utc = _et(2026, 11, 27, settle_et_hm[0], settle_et_hm[1], 10)
     captured = _et(2026, 11, 27, 15, 0, 0)  # During former 13:00-16:00 open window
 
     export_path = tmp_path / "plan-status.public.json"
     _export_price(export_path, market, price * 1.006, captured - timedelta(seconds=10), generated_at=captured)
+    local_bars_db = tmp_path / "local-bars.sqlite3"
+    _insert_local_m15_bar(local_bars_db, market, price, fri_early, fri_early + timedelta(seconds=5))
 
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_quotes, "BARS_DB", local_bars_db)
     monkeypatch.setattr(prices, "PLAN_STATUS_PATH", export_path)
     monkeypatch.setattr(prices, "BAR_STORE", tmp_path / "missing-bars.sqlite3")
     monkeypatch.setattr(contract, "QUOTE_ROOT", tmp_path / "missing-captures")
     monkeypatch.setattr(public_quotes, "utcnow", lambda: captured - timedelta(seconds=5))
-    monkeypatch.setattr(
-        public_quotes, "http_read",
-        lambda _url: _yahoo_json(symbol, price, settle_utc, prior=price - 12.0),
-    )
 
     prices.prepare_chart_quote(market, now=captured - timedelta(seconds=5))
     snap = {
         "tv_symbol": tv.SYMBOLS[market],
         "sha256": "3" * 64,
-        "page_title": f"{symbol.lstrip('^')} {price:,.2f}",
+        "page_title": f"{prefix} {price:,.2f}",
         "captured_at_utc": captured.isoformat(),
     }
     bound = contract.bind_scale(market, snap)
@@ -372,7 +373,7 @@ def test_black_friday_post_1300_early_close_settlement_print_compares_and_audits
     assert check["comparison_at_utc"] == fri_early.isoformat()
     assert check["difference_pct"] == 0
     assert check["quote"]["source_kind"] == "PUBLIC_ON_DEMAND_QUOTE"
-    assert check["quote"]["source_symbol"] == symbol
+    assert check["quote"]["source_symbol"] == market
 
     # Audit script validates the early-close LAST_CLOSE check toward 100% coverage.
     day = "2026-11-28"  # 2026-11-27 15:00 ET = 20:00Z = 2026-11-28 03:00 GMT+7 (>= 02:00 GMT+7 prod day)
@@ -401,21 +402,19 @@ def test_black_friday_post_1300_early_close_settlement_print_compares_and_audits
     assert report["calibration"]["markets"][market]["closed_market_comparisons"] == 1
 
 
-def test_black_friday_early_close_guards_beyond_90m_future_and_cfd_quotes(tmp_path, monkeypatch, isolated_calendar):
-    """Early-close settlement stays bounded to <=90m past 13:00 ET, never future, and never widens broker quotes."""
+def test_black_friday_early_close_guards_stale_future_and_cfd_quotes(tmp_path, monkeypatch, isolated_calendar):
+    """Early-close stays anchored to 13:00 ET, refuses stale/future bars, and never widens broker quotes."""
     captured = _et(2026, 11, 27, 15, 30, 0)
+    local_bars_db = tmp_path / "stale-bars.sqlite3"
+    # Only an 11:00 ET bar (120 min before 13:00 ET close) -> stale.
+    _insert_local_m15_bar(local_bars_db, "US500", 7225.40, _et(2026, 11, 27, 11, 0, 0), _et(2026, 11, 27, 11, 0, 5))
     monkeypatch.setattr(public_quotes, "ROOT", tmp_path / "public-quotes")
+    monkeypatch.setattr(public_quotes, "BARS_DB", local_bars_db)
     monkeypatch.setattr(prices, "PLAN_STATUS_PATH", tmp_path / "missing-status.json")
     monkeypatch.setattr(prices, "BAR_STORE", tmp_path / "missing-bars.sqlite3")
     monkeypatch.setattr(contract, "QUOTE_ROOT", tmp_path / "missing-captures")
-
-    # 1. > 90 min past 13:00 ET (14:35 ET = 95 min) must NOT compare.
-    too_late = _et(2026, 11, 27, 14, 35, 0)
     monkeypatch.setattr(public_quotes, "utcnow", lambda: captured - timedelta(seconds=5))
-    monkeypatch.setattr(
-        public_quotes, "http_read",
-        lambda _url: _yahoo_json("^GSPC", 7225.40, too_late, prior=7200.0),
-    )
+
     prices.prepare_chart_quote("US500", now=captured - timedelta(seconds=5))
     snap = {
         "tv_symbol": tv.SYMBOLS["US500"],
