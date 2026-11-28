@@ -37,13 +37,15 @@ from collections import Counter
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
+import html
 import json
 import math
+import os
 from pathlib import Path
 import re
 from typing import Any, Iterable, Mapping, Sequence
 import unicodedata
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 from zoneinfo import ZoneInfo
 
 from . import agy_editorial_assist_v1 as agy_assist
@@ -230,7 +232,8 @@ _OCC_YAHOO_GEX_RE = re.compile(
     r"|\boptions\s+clearing\s+corporation\b"
     r"|\bOCC\b[^.\n]{0,65}\b(?:open\s+interest|options?|gex|gamma|oi\b|series|chain|quotes?|data)\b"
     r"|\b(?:open\s+interest|options?|gex|gamma|option\s+chain)\b[^.\n]{0,65}\bOCC\b"
-    r"|\bfinance\.yahoo\.com\b"
+    r"|(?:\b|\.)(?:query[12]\.)?finance\.yahoo\.[a-z]{2,}(?:\.[a-z]{2})?\b"
+    r"|\byahoo\.[a-z]{2,}(?:\.[a-z]{2})?/finance\b"
     r"|\byahoo\s+finance\b"
     r"|\byfinance\b"
     r"|\byahoo[_-]?(?:options|gex|finance)\b"
@@ -238,13 +241,128 @@ _OCC_YAHOO_GEX_RE = re.compile(
     r"|\bOPRA\s+derived\b|\bCboe\s+delayed\s+quotes?\b",
     re.I,
 )
+_FRED_COPYRIGHTED_SERIES = frozenset({
+    "SP500",
+    "DJIA",
+    "NASDAQCOM",
+    "NASDAQ100",
+    "VIXCLS",
+    "WILL5000IND",
+    "WILL5000INDFC",
+    "WILL5000PR",
+    "WILL5000PRFC",
+    "NIKKEI225",
+})
+_FRED_COPYRIGHTED_ALT = r"(?:SP500|DJIA|NASDAQCOM|NASDAQ100|VIXCLS|WILL5000(?:IND|INDFC|PR|PRFC)?|NIKKEI225)"
 _FRED_SP500_RE = re.compile(
-    r"(?:fred\.)?stlouisfed\.org/[^\s\"'<>]*\bsp500\b"
-    r"|stlouisfed\.org/[^\s\"'<>]*[?&=,/]sp500(?:\b|\.|&|$)"
-    r"|\bFRED\s*[:/\-]\s*SP500\b"
-    r"|\bFRED\b[^.\n]{0,50}\bSP500\b"
-    r"|\bSP500\b[^.\n]{0,50}\b(?:FRED|st\.?\s*louis\s+fed|stlouisfed\.org)\b",
+    rf"(?:fred\.)?stlouisfed\.org/[^\s\"'<>]*\b{_FRED_COPYRIGHTED_ALT}\b"
+    rf"|stlouisfed\.org/[^\s\"'<>]*[?&=,/]{_FRED_COPYRIGHTED_ALT}(?:\b|\.|&|$)"
+    rf"|\bFRED\s*[:/\-]\s*{_FRED_COPYRIGHTED_ALT}\b"
+    rf"|\bFRED\b[^.\n]{{0,50}}\b{_FRED_COPYRIGHTED_ALT}\b"
+    rf"|\b{_FRED_COPYRIGHTED_ALT}\b[^.\n]{{0,50}}\b(?:FRED|st\.?\s*louis\s+fed|stlouisfed\.org)\b",
     re.I,
+)
+_RIGHTS_CLASS_KEYS = frozenset({
+    "rights_class",
+    "data_rights_class",
+    "commercial_rights_class",
+    "license_class",
+    "source_rights_class",
+})
+_FORBIDDEN_RIGHTS_CLASS_RE = re.compile(
+    r"(?:^|_)(?:non_?commercial|personal|private|internal|restricted|license_required|"
+    r"licensed_only|commercial_prohibited|no_commercial|no_redistribution|"
+    r"redistribution_prohibited|copyrighted|proprietary|research_only|editorial_only|"
+    r"subscriber_only|paid_only|unverified|unknown|blocked|forbidden|denied|"
+    r"yahoo|occ|investing|myfxbook|raw_x_list|wire_only)(?:_|$)",
+    re.I,
+)
+_BROKER_ACCOUNT_ID_RE = re.compile(
+    r"(?<![A-Za-z0-9])(?:acct|account|login|mt5|exness|ibkr|broker)[-_]?(?:DUR[-_\s]?\d{5,}|279805139|U\d{6,8}|\d{7,10})(?![A-Za-z0-9])"
+    r"|(?<![A-Za-z0-9])DUR[-_\s]?343723(?![A-Za-z0-9])"
+    r"|(?<![A-Za-z0-9])DU[A-Z]?[-_\s]?\d{6,8}(?![A-Za-z0-9])"
+    r"|(?<![A-Za-z0-9])279805139(?![A-Za-z0-9])"
+    r"|(?<![A-Za-z0-9])(?:account|acct|login)\s*[:=#]?\s*(?:U\d{6,8}|DU[A-Z]?\d{6,8}|\d{7,10})(?![A-Za-z0-9])",
+    re.I,
+)
+_RAW_BROKER_CFD_SYMBOL_RE = re.compile(
+    r"(?<![A-Za-z0-9])(?:US500|USTEC|XAUUSD|EURUSD|USDJPY|USOIL|BTCUSD)m(?![A-Za-z0-9])",
+    re.I,
+)
+_UNSAFE_URL_FIELD_SCHEME_RE = re.compile(
+    r"^\s*(?:javascript|vbscript|data|blob|file|ftp|ftps|sftp|ws|wss)\s*:",
+    re.I,
+)
+_ANY_URL_SCHEME_RE = re.compile(r"^\s*([A-Za-z][A-Za-z0-9+.-]*)\s*:")
+_UNSAFE_INLINE_URL_SCHEME_RE = re.compile(
+    r"(?<![A-Za-z0-9+.-])(?:javascript|vbscript|blob)\s*:"
+    r"|(?<![A-Za-z0-9+.-])data\s*:\s*(?:[a-z0-9.+-]+/[a-z0-9.+-]+|;base64)"
+    r"|(?:href|src)\s*=\s*[\"']?\s*(?:javascript|vbscript|data|blob|file|ftp|ftps|sftp|ws|wss)\s*:",
+    re.I,
+)
+_COMPACT_PRICE_TARGET_RE = re.compile(
+    r"(?<![A-Za-z0-9])(?:TP[1-9]|SL|STOP|TARGET)[:=]\d+(?:[.,]\d+)?",
+    re.I,
+)
+_PRIVATE_ALPHA_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("stop", "loss"),
+    ("take", "profit"),
+    ("lot", "size"),
+    ("position", "size"),
+    ("position", "sizing"),
+    ("kelly",),
+    ("realized", "pnl"),
+    ("unrealized", "pnl"),
+    ("open", "pnl"),
+    ("signed", "r"),
+    ("sleeve", "weight"),
+    ("entry", "price"),
+    ("stop", "price"),
+    ("target", "price"),
+    ("tp1",),
+    ("tp2",),
+    ("tp3",),
+    ("open", "position"),
+    ("open", "positions"),
+    ("prepared", "response"),
+    ("prepared", "responses"),
+    ("account", "id"),
+    ("account", "number"),
+    ("account", "equity"),
+    ("account", "balance"),
+    ("demo", "account"),
+    ("stop", "formula"),
+    ("formula", "params"),
+    ("broker", "levels"),
+    ("execution", "plan"),
+    ("execution", "plans"),
+    ("armed", "plan"),
+    ("armed", "plans"),
+    ("surprise", "map"),
+    ("scoring", "hooks"),
+    ("x", "list", "posts"),
+    ("raw", "x", "posts"),
+    ("wire", "headlines"),
+    ("private", "notes"),
+    ("private", "headlines"),
+)
+_CC791_ODDS_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("kalshi",),
+    ("polymarket",),
+    ("fedwatch",),
+    ("predictit",),
+    ("metaculus",),
+    ("gap", "pp"),
+    ("priced", "in", "gap"),
+    ("linked", "odds", "markets"),
+    ("market", "implied", "probability"),
+    ("market", "odds"),
+    ("odds", "pct"),
+    ("odds", "delta"),
+    ("implied", "odds"),
+    ("cut", "probability"),
+    ("hike", "probability"),
+    ("hold", "probability"),
 )
 _TRADINGVIEW_WIDGET_RE = re.compile(
     r"s3\.tradingview\.com"
@@ -267,8 +385,9 @@ _RAW_X_OR_WIRE_RE = re.compile(
     re.I,
 )
 _EXTRA_AI_MODEL_RE = re.compile(
-    r"\b(?:gpt[- .]?[3456](?:\.\d+)?[\w.-]*|claude[- ]?(?:opus|sonnet|haiku|code|desktop)?|"
-    r"gemini[- .]?[1234][\w.-]*|deepseek[-\w]*|grok[- ]?\d[\w.-]*|llama[- ]?\d|"
+    r"\b(?:gpt[- .]?[3456](?:\.\d+)?[\w.-]*|claude(?:[-_ ]?(?:\d+(?:\.\d+)*|opus|sonnet|haiku|code|desktop))?|"
+    r"anthropic[\w.-]*|gemini[- .]?[1234][\w.-]*|deepseek[-\w]*|grok[- ]?\d[\w.-]*|llama[- ]?\d|"
+    r"antigravity(?:[-_]?\d+|[-_]?cli)?|"
     r"language\s+model|llm\s+(?:desk|pipeline|agent|model)|as\s+an\s+AI)\b",
     re.I,
 )
@@ -323,24 +442,50 @@ _ODDS_PCT_OR_CENTS_RE = re.compile(
 
 _PAID_AUDIENCE_VALUES = frozenset({
     "only_paid",
+    "only_founding",
+    "founding_only",
     "paid",
     "paid_only",
     "paid_subscribers",
+    "paid_subscribers_only",
     "paid_members",
+    "paid_members_only",
     "paid_tier",
     "paid_research_tier",
     "founding",
     "founding_members",
     "premium",
+    "premium_only",
+    "pro",
+    "pro_tier",
     "vip",
+    "vip_only",
     "telegram_vip",
+    "members",
+    "member_only",
     "members_only",
     "subscriber_only",
+    "subscribers_only",
+    "supporters",
+    "supporters_only",
+    "exclusive",
+    "locked",
+    "gated",
+    "private_tier",
+    "private_members",
     "paywalled",
     "paywall",
 })
+_PAID_TIER_PRO_TOKEN_RE = re.compile(r"(?:^|_)pro(?:_|$)")
+_FREE_BOOLEAN_KEYS = frozenset({
+    "free",
+    "is_free",
+    "free_only",
+    "is_free_only",
+})
 _PAID_BOOLEAN_KEYS = frozenset({
     "paywall",
+    "paid",
     "is_paid",
     "paid_only",
     "paid_tier",
@@ -351,14 +496,54 @@ _PAID_BOOLEAN_KEYS = frozenset({
     "monetization_enabled",
     "checkout_enabled",
     "paywall_enabled",
+    "affiliate",
+    "affiliate_enabled",
+    "is_affiliate",
+    "referral_enabled",
+    "sponsored",
+    "paid_promotion",
 })
+_PAID_AFFILIATE_KEYS = frozenset({
+    "referral_code",
+    "affiliate_code",
+    "affiliate_url",
+    "affiliate_link",
+    "referral_url",
+    "referral_link",
+    "partner_code",
+    "partner_url",
+    "ib_code",
+    "promo_code",
+    "coupon_code",
+    "checkout_url",
+    "stripe_price_id",
+    "stripe_product_id",
+})
+_PAID_AFFILIATE_SUFFIXES = (
+    "_referral_code",
+    "_affiliate_code",
+    "_affiliate_url",
+    "_referral_url",
+    "_checkout_url",
+)
 _PAID_PRICE_KEYS = frozenset({
     "price_usd",
+    "price_cents",
+    "amount_cents",
+    "subscription_price",
     "subscription_price_usd",
+    "subscription_price_cents",
+    "monthly_price",
     "monthly_price_usd",
+    "monthly_price_cents",
+    "annual_price",
     "annual_price_usd",
+    "annual_price_cents",
     "fee_usd",
+    "fee_cents",
+    "tier_price",
     "tier_price_usd",
+    "tier_price_cents",
 })
 _PAYWALL_TEXT_RE = re.compile(
     r"<!--\s*paywall\s*-->"
@@ -392,35 +577,58 @@ _PAYWALL_TEXT_RE = re.compile(
 # (c) Retired Claude / AGY Runtime Command & Config Patterns
 # ---------------------------------------------------------------------------
 
-# Exact permanent historical workspace directory names / disable flags that do NOT represent
-# active Claude CLI/API dependencies (Decision 184 / CC-855).
-_HARMLESS_CLAUDE_LEGACY_PATH_RE = re.compile(
-    r"(?<![A-Za-z0-9_-])(?:claude-main-research|claude-ops-integrations|claude-main-events)(?![A-Za-z0-9_-])"
-    r"|--no-claude-cli-login(?![A-Za-z0-9_-])",
+# Exact permanent historical workspace directory path segments / CLI disable flags that do NOT
+# represent active Claude CLI/API dependencies (Decision 184 / CC-855).
+# Strictly scoped to real filesystem directory segments (preceded by a path separator) and
+# whitespace-preceded CLI flags — NEVER applied to bare provider names or standalone executables.
+_HARMLESS_CLAUDE_LEGACY_DIR_SEGMENT_RE = re.compile(
+    r"(?<=[\\/])(?:claude-main-research|claude-ops-integrations|claude-main-events)(?=$|[\\/])",
+    re.I,
+)
+_HARMLESS_LOCAL_HARNESS_TEMP_DIR_RE = re.compile(
+    r"(?<=[\\/])\.t3[\\/]userdata[\\/](?:(?:antigravity|codex|claude)-tmp"
+    r"|providers[\\/](?:antigravity|codex|claude)(?:[\\/][0-9a-f]{12,}[\\/](?:antigravity|codex|claude)-acp)?)(?=[\\/])"
+    r"|(?<=[\\/])\.(?:codex|gemini|claude)[\\/](?:worktrees|tmp)(?=[\\/])",
+    re.I,
+)
+_HARMLESS_CLAUDE_CLI_DISABLE_FLAG_RE = re.compile(
+    r"(?<=\s)--no-claude-cli-login(?=$|\s)",
     re.I,
 )
 _CLAUDE_CMD_RE = re.compile(
-    r"(?<![A-Za-z0-9])claude(?:\.exe)?(?![A-Za-z0-9])"
+    r"(?<![A-Za-z])claude[a-z0-9._-]*"
     r"|\bCLAUDE_CODE_SESSION\b|\bNATIVE_CLAUDE_CODE\b"
-    r"|\bclaude[-_]?(?:opus|sonnet|haiku|code|desktop|cli|legacy|api|poster|runner|agent|messages)\b"
-    r"|(?<![A-Za-z0-9])anthropic(?![A-Za-z0-9])",
+    r"|(?<![A-Za-z])anthropic[a-z0-9._-]*",
     re.I,
 )
 _AGY_CMD_RE = re.compile(
-    r"(?<![A-Za-z0-9])agy(?:\.exe)?(?![A-Za-z0-9])"
-    r"|(?<![A-Za-z0-9])antigravity(?:[-_]?cli)?(?![A-Za-z0-9])"
+    r"(?<![A-Za-z0-9])(?:my)?agy[a-z0-9._-]*"
+    r"|(?<=_)agy[a-z0-9._-]*"
+    r"|(?<![A-Za-z0-9])antigravity[a-z0-9._-]*"
     r"|\bROUTE_AGY\b",
     re.I,
 )
+_VALID_TASK_STATE_BEFORE = frozenset({"running", "ready", "queued", "disabled", "unknown"})
+_WINDOWS_RESERVED_DEVICE_NAMES = frozenset({
+    "CON", "PRN", "AUX", "NUL",
+    "COM0", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+    "LPT0", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
+})
 
 
-def _has_active_claude_ref(text: str) -> bool:
-    cleaned = _HARMLESS_CLAUDE_LEGACY_PATH_RE.sub(" ", _normalize_text(text))
-    return bool(_CLAUDE_CMD_RE.search(cleaned))
+def _has_active_claude_ref(text: str, *, allow_legacy_paths: bool = False) -> bool:
+    for variant in _text_scan_variants(text):
+        cleaned = variant
+        if allow_legacy_paths:
+            cleaned = _HARMLESS_CLAUDE_LEGACY_DIR_SEGMENT_RE.sub("", cleaned)
+            cleaned = _HARMLESS_CLAUDE_CLI_DISABLE_FLAG_RE.sub("", cleaned)
+        if _CLAUDE_CMD_RE.search(cleaned):
+            return True
+    return False
 
 
 def _has_active_agy_ref(text: str) -> bool:
-    return bool(_AGY_CMD_RE.search(_normalize_text(text)))
+    return any(_AGY_CMD_RE.search(variant) for variant in _text_scan_variants(text))
 
 
 _STALE_PRE_DEC15_CAUSE_RE = re.compile(
@@ -508,9 +716,10 @@ def load_strict_json_bytes(
         out: dict[str, Any] = {}
         for key, val in pairs:
             if key in out:
+                safe_k = _redact_key(key) if _contains_surrogate(key) else key
                 raise FreeTierFirewallError(
                     "DUPLICATE_JSON_KEY",
-                    violations=[{"code": "DUPLICATE_JSON_KEY", "location": f"{label}.{key}"}],
+                    violations=[{"code": "DUPLICATE_JSON_KEY", "location": f"{label}.{safe_k}"}],
                 )
             out[key] = val
         return out
@@ -539,9 +748,172 @@ def load_strict_json_bytes(
     return parsed
 
 
+_SURROGATE_RE = re.compile(r"[\ud800-\udfff]")
+_ASCII_CTRL_STRIP_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+_HTML_INLINE_TAG_RE = re.compile(
+    r"</?(?:b|strong|i|em|u|s|del|ins|span|code|mark|small|sub|sup)\b[^>]*>",
+    re.I,
+)
+_MD_EMPHASIS_STRIP_RE = re.compile(r"\*\*|__|~~|[`*]")
+_MD_PAIRED_UNDERSCORE_RE = re.compile(r"(?<!\w)_([^_\n]+)_(?!\w)")
+_CAMEL_BOUNDARY_1_RE = re.compile(r"([a-z0-9])([A-Z])")
+_CAMEL_BOUNDARY_2_RE = re.compile(r"([A-Z]+)([A-Z][a-z])")
+_IDENT_TOKEN_RE = re.compile(r"[a-z0-9]+")
+
+
+def _contains_surrogate(text: str) -> bool:
+    return (not text.isascii()) and bool(_SURROGATE_RE.search(text))
+
+
+def _redact_key(key: str) -> str:
+    digest = sha256(key.encode("utf-8", "surrogatepass")).hexdigest()[:8]
+    return f"<REDACTED_KEY#{digest}>"
+
+
+def _safe_num_repr(value: Any, *, max_len: int = 80) -> str:
+    try:
+        text = str(value)
+    except ValueError:
+        return f"<{type(value).__name__}:oversized>"
+    if _contains_surrogate(text):
+        return "<surrogate_redacted>"
+    return text[:max_len]
+
+
+def _safe_repr(value: Any, *, max_len: int = 80) -> str:
+    try:
+        text = repr(value)
+    except ValueError:
+        return f"<{type(value).__name__}:oversized>"
+    if _contains_surrogate(text):
+        return "<surrogate_redacted>"
+    return text[:max_len]
+
+
+def _safe_str(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    try:
+        return str(value)
+    except ValueError:
+        return f"<{type(value).__name__}:oversized>"
+
+
+def _assert_no_surrogate_str(value: str, *, location: str) -> None:
+    if _contains_surrogate(value):
+        raise FreeTierFirewallError(
+            "INVALID_UNICODE_SURROGATE",
+            violations=[{"code": "INVALID_UNICODE_SURROGATE", "location": location}],
+        )
+
+
+def assert_no_utf16_surrogates(value: Any, *, path: str = "$") -> None:
+    """Recursively reject lone UTF-16 surrogates (U+D800..U+DFFF) in both dict keys and string values."""
+    if isinstance(value, str):
+        _assert_no_surrogate_str(value, location=path)
+        return
+    if isinstance(value, Mapping):
+        for k, v in value.items():
+            if isinstance(k, str):
+                if _contains_surrogate(k):
+                    raise FreeTierFirewallError(
+                        "INVALID_UNICODE_SURROGATE",
+                        violations=[{
+                            "code": "INVALID_UNICODE_SURROGATE",
+                            "location": f"{path}.{_redact_key(k)}",
+                        }],
+                    )
+                child_loc = f"{path}.{k}"
+            else:
+                child_loc = f"{path}.{_safe_repr(k, max_len=32)}"
+            assert_no_utf16_surrogates(v, path=child_loc)
+        return
+    if isinstance(value, (list, tuple)):
+        for idx, item in enumerate(value):
+            assert_no_utf16_surrogates(item, path=f"{path}[{idx}]")
+
+
+def _validate_host_path(
+    raw_path: Any,
+    *,
+    invalid_code: str,
+    location: str,
+    missing_code: str | None = None,
+    expect_dir: bool = False,
+    expect_file: bool = False,
+    reject_symlink: bool = False,
+) -> Path:
+    """Strictly validate a host filesystem path: reject surrogates, NUL, NTFS ADS, trailing dots, DOS devices, symlinks."""
+    if not isinstance(raw_path, (Path, str)):
+        raise FreeTierFirewallError(
+            invalid_code,
+            violations=[{"code": invalid_code, "location": location, "detail": _safe_repr(raw_path, max_len=60)}],
+        )
+    raw_str = os.fspath(raw_path)
+    _assert_no_surrogate_str(raw_str, location=location)
+    if not raw_str.strip() or "\x00" in raw_str or "\n" in raw_str or "\r" in raw_str:
+        raise FreeTierFirewallError(
+            invalid_code,
+            violations=[{"code": invalid_code, "location": location, "detail": "invalid_path_characters"}],
+        )
+    body = raw_str[2:] if len(raw_str) >= 2 and raw_str[0].isalpha() and raw_str[1] == ":" else raw_str
+    if ":" in body:
+        raise FreeTierFirewallError(
+            invalid_code,
+            violations=[{"code": invalid_code, "location": location, "detail": "ntfs_ads_forbidden"}],
+        )
+    for seg in re.split(r"[\\/]+", body):
+        if not seg:
+            continue
+        if seg not in (".", "..") and (seg.endswith(".") or seg.endswith(" ")):
+            raise FreeTierFirewallError(
+                invalid_code,
+                violations=[{"code": invalid_code, "location": location, "detail": "windows_trailing_dot_forbidden"}],
+            )
+        base_name = seg.split(".", 1)[0].upper()
+        if base_name in _WINDOWS_RESERVED_DEVICE_NAMES:
+            raise FreeTierFirewallError(
+                invalid_code,
+                violations=[{"code": invalid_code, "location": location, "detail": "windows_dos_device_forbidden"}],
+            )
+    p = Path(raw_str)
+    try:
+        if reject_symlink and p.is_symlink():
+            raise FreeTierFirewallError(
+                invalid_code,
+                violations=[{"code": invalid_code, "location": location, "detail": "symlink_forbidden"}],
+            )
+        if expect_dir:
+            if not p.is_dir():
+                raise FreeTierFirewallError(
+                    invalid_code,
+                    violations=[{"code": invalid_code, "location": location, "detail": "directory_required"}],
+                )
+        if expect_file:
+            if not p.is_file():
+                code = missing_code or invalid_code
+                raise FreeTierFirewallError(
+                    code,
+                    violations=[{"code": code, "location": str(p)}],
+                )
+    except FreeTierFirewallError:
+        raise
+    except OSError as exc:
+        raise FreeTierFirewallError(
+            invalid_code,
+            violations=[{"code": invalid_code, "location": location, "detail": type(exc).__name__}],
+        ) from exc
+    return p
+
+
 def assert_no_nonfinite_numbers(value: Any, *, path: str = "$") -> None:
-    """Recursively fail closed on NaN, +Inf, or -Inf in float/Decimal values."""
+    """Recursively fail closed on NaN, +Inf, -Inf in float/Decimal values AND lone UTF-16 surrogates."""
     if isinstance(value, bool) or value is None:
+        return
+    if isinstance(value, str):
+        _assert_no_surrogate_str(value, location=path)
         return
     if isinstance(value, float):
         if not math.isfinite(value):
@@ -564,6 +936,14 @@ def assert_no_nonfinite_numbers(value: Any, *, path: str = "$") -> None:
                     "NON_STRING_MAPPING_KEY",
                     violations=[{"code": "NON_STRING_MAPPING_KEY", "location": path}],
                 )
+            if _contains_surrogate(k):
+                raise FreeTierFirewallError(
+                    "INVALID_UNICODE_SURROGATE",
+                    violations=[{
+                        "code": "INVALID_UNICODE_SURROGATE",
+                        "location": f"{path}.{_redact_key(k)}",
+                    }],
+                )
             assert_no_nonfinite_numbers(v, path=f"{path}.{k}")
         return
     if isinstance(value, (list, tuple)):
@@ -575,20 +955,22 @@ def assert_no_silent_waivers(value: Any, *, path: str = "$") -> None:
     """Rule A3: fail closed if any silent waiver / bypass / override key is supplied."""
     if isinstance(value, Mapping):
         for k, v in value.items():
-            k_norm = str(k).strip().lower()
+            k_str = _safe_str(k)
+            k_norm = k_str.strip().lower()
+            loc_key = _redact_key(k_str) if _contains_surrogate(k_str) else k_str
             if k_norm in _SILENT_WAIVER_KEYS:
                 if v is not None and v is not False and v != [] and v != {} and v != "":
                     raise FreeTierFirewallError(
                         "SILENT_WAIVER_FORBIDDEN_RULE_A3",
-                        violations=[{"code": "SILENT_WAIVER_FORBIDDEN_RULE_A3", "location": f"{path}.{k}"}],
+                        violations=[{"code": "SILENT_WAIVER_FORBIDDEN_RULE_A3", "location": f"{path}.{loc_key}"}],
                     )
                 # Even an explicit falsy waiver key on a security-critical contract is disallowed when named waiver/skip.
                 if k_norm in {"waiver", "waivers", "silent_waiver"} and v is not None:
                     raise FreeTierFirewallError(
                         "SILENT_WAIVER_FORBIDDEN_RULE_A3",
-                        violations=[{"code": "SILENT_WAIVER_FORBIDDEN_RULE_A3", "location": f"{path}.{k}"}],
+                        violations=[{"code": "SILENT_WAIVER_FORBIDDEN_RULE_A3", "location": f"{path}.{loc_key}"}],
                     )
-            assert_no_silent_waivers(v, path=f"{path}.{k}")
+            assert_no_silent_waivers(v, path=f"{path}.{loc_key}")
     elif isinstance(value, (list, tuple)):
         for idx, item in enumerate(value):
             assert_no_silent_waivers(item, path=f"{path}[{idx}]")
@@ -620,6 +1002,7 @@ def parse_strict_utc(
                 violations=[{"code": "UTC_CLOCK_OUT_OF_RANGE", "location": field_name}],
             ) from exc
     elif isinstance(value, str):
+        _assert_no_surrogate_str(value, location=field_name)
         cleaned = value.strip()
         if not cleaned or not _ISO_DATETIME_RE.fullmatch(cleaned):
             raise FreeTierFirewallError(
@@ -700,9 +1083,81 @@ def _safe_public_date(dt: datetime, *, field_name: str = "as_of_utc") -> str:
 
 def _normalize_text(text: str) -> str:
     if text.isascii():
-        return text
+        return _ASCII_CTRL_STRIP_RE.sub("", text)
     normalized = unicodedata.normalize("NFKC", text)
-    return "".join(ch for ch in normalized if unicodedata.category(ch) != "Cf")
+    cleaned = "".join(
+        ch for ch in normalized
+        if unicodedata.category(ch) not in ("Cf", "Mn")
+    )
+    return _ASCII_CTRL_STRIP_RE.sub("", cleaned)
+
+
+def _url_unquote_multi(text: str, *, max_passes: int = 3) -> str:
+    if "%" not in text:
+        return text
+    cur = text
+    for _ in range(max_passes):
+        nxt = unquote(cur)
+        if nxt == cur:
+            break
+        cur = nxt
+    return _normalize_text(cur)
+
+
+def _text_scan_variants(raw_text: str) -> tuple[str, ...]:
+    """Return deduplicated normalized text views: raw normalized, HTML-unescaped, URL-unquoted, and Markdown/tag-stripped."""
+    v1 = _normalize_text(raw_text)
+    variants: list[str] = [v1]
+    seen: set[str] = {v1}
+
+    def _add(candidate: str) -> None:
+        if candidate not in seen:
+            seen.add(candidate)
+            variants.append(candidate)
+
+    unesc = v1
+    if "&" in unesc:
+        for _ in range(2):
+            nxt = html.unescape(unesc)
+            if nxt == unesc:
+                break
+            unesc = nxt
+        unesc = _normalize_text(unesc)
+        _add(unesc)
+
+    if "%" in unesc:
+        _add(_url_unquote_multi(unesc))
+
+    if any(ch in unesc for ch in ("*", "_", "`", "~", "<")):
+        plain = _HTML_INLINE_TAG_RE.sub("", unesc)
+        plain = _MD_EMPHASIS_STRIP_RE.sub("", plain)
+        plain = _MD_PAIRED_UNDERSCORE_RE.sub(r"\1", plain)
+        plain = _normalize_text(plain)
+        _add(plain)
+        if "%" in plain:
+            _add(_url_unquote_multi(plain))
+
+    return tuple(variants)
+
+
+def _split_identifier_tokens(key: str) -> list[str]:
+    norm = _normalize_text(key)
+    split_camel = _CAMEL_BOUNDARY_2_RE.sub(r"\1 \2", _CAMEL_BOUNDARY_1_RE.sub(r"\1 \2", norm))
+    return _IDENT_TOKEN_RE.findall(split_camel.lower())
+
+
+def _has_token_phrase(tokens: Sequence[str], phrase: tuple[str, ...]) -> bool:
+    plen = len(phrase)
+    if plen == 0 or len(tokens) < plen:
+        return False
+    if plen == 1:
+        return phrase[0] in tokens
+    limit = len(tokens) - plen + 1
+    first = phrase[0]
+    for i in range(limit):
+        if tokens[i] == first and tuple(tokens[i : i + plen]) == phrase:
+            return True
+    return False
 
 
 def _iter_all_strings(node: Any, path: str = "$") -> Iterable[tuple[str, str]]:
@@ -726,8 +1181,12 @@ def _should_skip_prose_field(loc: str, key_lower: str | None, value: str) -> boo
     if key_lower.endswith("_utc") or key_lower in _NON_PROSE_UTC_KEYS:
         return bool(_ISO_DATETIME_RE.fullmatch(stripped))
     if key_lower in _NON_PROSE_MARKET_CODE_KEYS:
+        if _COMPACT_PRICE_TARGET_RE.search(stripped) or _RAW_BROKER_CFD_SYMBOL_RE.search(stripped):
+            return False
         return bool(_COMPACT_TOKEN_RE.fullmatch(stripped))
     if key_lower in _NON_PROSE_ID_KEYS or key_lower.endswith(_NON_PROSE_ID_SUFFIXES):
+        if _COMPACT_PRICE_TARGET_RE.search(stripped) or _RAW_BROKER_CFD_SYMBOL_RE.search(stripped):
+            return False
         return bool(_COMPACT_TOKEN_RE.fullmatch(stripped))
     if key_lower in _NON_PROSE_URL_KEYS or key_lower.endswith(("_url", "_urls")):
         return bool(_PURE_URL_RE.fullmatch(stripped))
@@ -749,7 +1208,7 @@ def _iter_display_prose(
         return
     if isinstance(node, Mapping):
         for k, v in node.items():
-            child_key = str(k).strip().lower()
+            child_key = _safe_str(k).strip().lower()
             yield from _iter_display_prose(v, f"{path}.{k}", key_lower=child_key)
         return
     if isinstance(node, (list, tuple)):
@@ -777,13 +1236,6 @@ _INTERNAL_MODEL_PHRASES_RE = re.compile(
 
 def _strip_urls(text: str) -> str:
     return _STRIP_URLS_RE.sub(" ", text)
-
-
-def _safe_num_repr(value: Any) -> str:
-    try:
-        return str(value)[:80]
-    except ValueError:
-        return f"<{type(value).__name__}:oversized>"
 
 
 def _parse_price_string_decimal(value: str) -> Decimal | None:
@@ -849,28 +1301,92 @@ def verify_free_only_mode(
 
     violations: list[dict[str, str]] = []
 
+    def _is_paid_tier_token(raw_val: str) -> bool:
+        for variant in _text_scan_variants(raw_val):
+            val_l = variant.strip().lower().replace("-", "_").replace(" ", "_")
+            if (
+                val_l in _PAID_AUDIENCE_VALUES
+                or "paid" in val_l
+                or "paywall" in val_l
+                or "vip" in val_l
+                or "founding" in val_l
+                or "premium" in val_l
+                or bool(_PAID_TIER_PRO_TOKEN_RE.search(val_l))
+            ):
+                return True
+        return False
+
+    def _check_paid_tier_value(val: Any, target_loc: str, *, key_l: str = "") -> None:
+        if val is None:
+            return
+        if isinstance(val, bool):
+            if val is True and key_l in _FREE_BOOLEAN_KEYS:
+                return
+            if val is False and key_l in _PAID_BOOLEAN_KEYS:
+                return
+            violations.append({
+                "code": "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN",
+                "location": target_loc,
+                "detail": _safe_num_repr(val),
+            })
+            return
+        if isinstance(val, str):
+            if _is_paid_tier_token(val):
+                violations.append({
+                    "code": "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN",
+                    "location": target_loc,
+                    "detail": val.strip()[:80],
+                })
+            return
+        if isinstance(val, Mapping):
+            for sub_k, sub_v in val.items():
+                sub_k_str = _safe_str(sub_k)
+                _check_paid_tier_value(sub_v, f"{target_loc}.{sub_k_str}", key_l=sub_k_str.strip().lower())
+            return
+        if isinstance(val, (list, tuple)):
+            for idx, item in enumerate(val):
+                _check_paid_tier_value(item, f"{target_loc}[{idx}]")
+
     def _walk(node: Any, loc: str) -> None:
         if isinstance(node, Mapping):
             for k, v in node.items():
-                key_l = str(k).strip().lower()
-                child_loc = f"{loc}.{k}"
+                k_str = _safe_str(k)
+                key_l = k_str.strip().lower()
+                child_loc = f"{loc}.{k_str}"
+                for k_variant in _text_scan_variants(k_str):
+                    if km := _PAYWALL_TEXT_RE.search(k_variant):
+                        violations.append({
+                            "code": "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN",
+                            "location": f"{loc}.{_redact_key(k_str)}",
+                            "detail": km.group(0)[:80],
+                        })
+                        break
                 if key_l in _PAID_BOOLEAN_KEYS and v is not False and v is not None:
                     violations.append({
                         "code": "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN",
                         "location": child_loc,
-                        "detail": f"{k}={_safe_num_repr(v)}",
+                        "detail": f"{k_str}={_safe_num_repr(v)}",
+                    })
+                if key_l in _FREE_BOOLEAN_KEYS and v is not True and v is not None:
+                    violations.append({
+                        "code": "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN",
+                        "location": child_loc,
+                        "detail": f"{k_str}={_safe_num_repr(v)}",
+                    })
+                if (
+                    key_l in _PAID_AFFILIATE_KEYS
+                    or key_l.endswith(_PAID_AFFILIATE_SUFFIXES)
+                ) and v is not None and v is not False and v != "":
+                    violations.append({
+                        "code": "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN",
+                        "location": child_loc,
+                        "detail": f"{k_str}={_safe_num_repr(v)}",
                     })
                 if (
                     key_l in _PAID_TIER_METADATA_EXACT_KEYS
                     or key_l.endswith(_PAID_TIER_METADATA_SUFFIXES)
-                ) and isinstance(v, str):
-                    val_l = _normalize_text(v).strip().lower().replace("-", "_").replace(" ", "_")
-                    if val_l in _PAID_AUDIENCE_VALUES or "paid" in val_l or "paywall" in val_l or "vip" in val_l:
-                        violations.append({
-                            "code": "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN",
-                            "location": child_loc,
-                            "detail": v.strip()[:80],
-                        })
+                ):
+                    _check_paid_tier_value(v, child_loc)
                 if key_l in _PAID_PRICE_KEYS:
                     if v is None:
                         pass
@@ -910,14 +1426,15 @@ def verify_free_only_mode(
             for idx, item in enumerate(node):
                 _walk(item, f"{loc}[{idx}]")
         elif isinstance(node, str):
-            text = _normalize_text(node)
-            match = _PAYWALL_TEXT_RE.search(text)
-            if match:
-                violations.append({
-                    "code": "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN",
-                    "location": loc,
-                    "detail": match.group(0)[:80],
-                })
+            for variant in _text_scan_variants(node):
+                match = _PAYWALL_TEXT_RE.search(variant)
+                if match:
+                    violations.append({
+                        "code": "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN",
+                        "location": loc,
+                        "detail": match.group(0)[:80],
+                    })
+                    break
 
     _walk(payload, path)
 
@@ -951,19 +1468,56 @@ _LOCAL_FS_PATH_KEYS = frozenset({
     "screenshot_path",
     "chart_path",
 })
-_LOCAL_FS_PATH_VALUE_RE = re.compile(r"^(?:[A-Za-z]:[\\/]|\\\\|/)")
+_LOCAL_FS_WIN_DRIVE_RE = re.compile(r"^[A-Za-z]:[\\/]")
+_LOCAL_FS_UNC_RE = re.compile(r"^\\\\([A-Za-z0-9._-]+)[\\/](.+)$")
+_LOCAL_FS_FORBIDDEN_CHARS_RE = re.compile(r"[:!?;@%$,\"'*<>|=()\[\]{}]")
+_LOCAL_FS_SEGMENT_INTERMEDIATE_RE = re.compile(r"^[A-Za-z0-9._~+-]+(?: [A-Za-z0-9._~+-]+)?$")
+_LOCAL_FS_SEGMENT_LEAF_RE = re.compile(r"^[A-Za-z0-9._~+-]+$")
 
 
 def _is_local_filesystem_path(loc: str, value: str) -> bool:
     leaf = loc.rsplit(".", 1)[-1].split("[", 1)[0].strip().lower()
     if leaf not in _LOCAL_FS_PATH_KEYS and not leaf.endswith(("_path", "_dir")):
         return False
-    stripped = value.strip()
-    if not stripped or "\n" in stripped or "\r" in stripped:
+    if not value or value != value.strip() or len(value) > 260:
         return False
-    if stripped.lower().startswith(("http://", "https://")):
+    if any(ch in value for ch in ("\n", "\r", "\t", "\x00")):
         return False
-    return bool(_LOCAL_FS_PATH_VALUE_RE.match(stripped))
+    if value.lower().startswith(("http://", "https://")):
+        return False
+
+    is_posix = False
+    if _LOCAL_FS_WIN_DRIVE_RE.match(value):
+        body = value[3:]
+    elif m_unc := _LOCAL_FS_UNC_RE.match(value):
+        body = m_unc.group(2)
+    elif value.startswith("/"):
+        body = value[1:]
+        is_posix = True
+    else:
+        return False
+
+    if not body or body[0].isspace() or body[0] in ("/", "\\"):
+        return False
+    if _LOCAL_FS_FORBIDDEN_CHARS_RE.search(body):
+        return False
+    if body.endswith(("/", "\\")):
+        body = body[:-1]
+    if not body or "//" in body or "\\\\" in body:
+        return False
+    if body.count(" ") > 2:
+        return False
+
+    segments = re.split(r"[\\/]", body)
+    if is_posix and len(segments) < 2:
+        return False
+    for idx, seg in enumerate(segments):
+        if not seg or seg in (".", "..") or seg.endswith("."):
+            return False
+        pattern = _LOCAL_FS_SEGMENT_LEAF_RE if idx == len(segments) - 1 else _LOCAL_FS_SEGMENT_INTERMEDIATE_RE
+        if not pattern.fullmatch(seg):
+            return False
+    return True
 
 
 def _find_ai_model_label(text: str) -> str | None:
@@ -1004,6 +1558,8 @@ def _find_market_odds_violation(text: str) -> str | None:
 
 
 def _find_price_target_violation(text: str) -> str | None:
+    if m := _COMPACT_PRICE_TARGET_RE.search(text):
+        return f"COMPACT_PRICE_TARGET:{m.group(0)[:40]}"
     try:
         voice.validate_copy(text)
     except ValueError as exc:
@@ -1041,31 +1597,128 @@ def verify_cc024_commercial_firewall(
 
     assert_no_nonfinite_numbers(payload, path=path)
     assert_no_silent_waivers(payload, path=path)
+    for idx, item in enumerate(private_texts or ()):
+        if isinstance(item, str):
+            _assert_no_surrogate_str(item, location=f"private_texts[{idx}]")
 
     violations: list[dict[str, str]] = []
     norm_private = [
-        " ".join(_normalize_text(str(item)).casefold().split())
+        " ".join(_normalize_text(item).casefold().split())
         for item in (private_texts or ())
         if isinstance(item, str) and len(" ".join(_normalize_text(item).split())) >= 24
     ]
 
+    def _check_url_field_value(url_val: Any, url_loc: str) -> None:
+        if isinstance(url_val, str):
+            for variant in _text_scan_variants(url_val):
+                cand = variant.strip()
+                if not cand:
+                    continue
+                if _UNSAFE_URL_FIELD_SCHEME_RE.match(cand):
+                    violations.append({
+                        "code": "CC024_UNSAFE_URL_SCHEME_FORBIDDEN",
+                        "location": url_loc,
+                        "detail": "unsafe_url_scheme",
+                    })
+                    return
+                if m_scheme := _ANY_URL_SCHEME_RE.match(cand):
+                    scheme = m_scheme.group(1).lower()
+                    if scheme != "https":
+                        violations.append({
+                            "code": "CC024_UNSAFE_URL_SCHEME_FORBIDDEN",
+                            "location": url_loc,
+                            "detail": f"scheme:{scheme}",
+                        })
+                        return
+                elif cand.startswith("//"):
+                    violations.append({
+                        "code": "CC024_UNSAFE_URL_SCHEME_FORBIDDEN",
+                        "location": url_loc,
+                        "detail": "protocol_relative_url",
+                    })
+                    return
+        elif isinstance(url_val, (list, tuple)):
+            for idx, item in enumerate(url_val):
+                _check_url_field_value(item, f"{url_loc}[{idx}]")
+
+    def _scan_mapping_key(k_str: str, parent_loc: str) -> bool:
+        """Scan a mapping key for forbidden private-alpha, CC-791 odds, broker IDs, or CC-024 leaks.
+
+        Returns True if the key itself triggered a violation (caller should redact key in child paths).
+        """
+        k_l = k_str.strip().lower()
+        redacted_loc = f"{parent_loc}.{_redact_key(k_str)}"
+        key_emitted: set[str] = set()
+
+        def _add_key_violation(code: str, detail: str) -> None:
+            if code not in key_emitted:
+                key_emitted.add(code)
+                violations.append({"code": code, "location": redacted_loc, "detail": detail})
+
+        if k_l in _FORBIDDEN_PRIVATE_KEYS:
+            _add_key_violation("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", "forbidden_private_key")
+
+        key_tokens = _split_identifier_tokens(k_str)
+        if any(_has_token_phrase(key_tokens, phrase) for phrase in _PRIVATE_ALPHA_KEY_PHRASES):
+            _add_key_violation("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", "forbidden_private_alpha_key")
+        if any(_has_token_phrase(key_tokens, phrase) for phrase in _CC791_ODDS_KEY_PHRASES):
+            _add_key_violation("CC024_MARKET_ODDS_NUMBER_FORBIDDEN", "forbidden_cc791_odds_key")
+
+        for variant in _text_scan_variants(k_str):
+            if not variant.strip():
+                continue
+            if _BROKER_ACCOUNT_ID_RE.search(variant) or _PRIVATE_LABEL_RE.search(variant):
+                _add_key_violation("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", "forbidden_broker_or_private_key")
+            if (
+                event_guard.public_execution_copy_forbidden(variant)
+                or plan_pages._MONEY.search(variant)
+                or attention._BOOK_OR_RESPONSE.search(variant)
+            ):
+                _add_key_violation("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", "forbidden_private_key_content")
+            if plan_pages._SECRET.search(variant):
+                _add_key_violation("CC024_SECRET_FORBIDDEN", "secret_key_matched")
+            if _RAW_BROKER_CFD_SYMBOL_RE.search(variant):
+                _add_key_violation("PUBLIC_INSTRUMENT_NAME_FORBIDDEN", "raw_cfd_symbol_key")
+            if _find_price_target_violation(variant):
+                _add_key_violation("CC024_PRICE_TARGET_FORBIDDEN", "price_target_key")
+            if _find_market_odds_violation(variant):
+                _add_key_violation("CC024_MARKET_ODDS_NUMBER_FORBIDDEN", "market_odds_key")
+            if _INVESTING_MYFXBOOK_RE.search(variant):
+                _add_key_violation("CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN", "forbidden_vendor_key")
+            if _OCC_YAHOO_GEX_RE.search(variant):
+                _add_key_violation("CC024_OCC_OR_YAHOO_GEX_FORBIDDEN", "forbidden_vendor_key")
+            if _FRED_SP500_RE.search(variant):
+                _add_key_violation("CC024_FRED_SP500_FORBIDDEN", "forbidden_fred_key")
+            if _TRADINGVIEW_WIDGET_RE.search(variant):
+                _add_key_violation("CC024_TRADINGVIEW_WIDGET_FORBIDDEN", "forbidden_widget_key")
+            if _RAW_X_OR_WIRE_RE.search(variant):
+                _add_key_violation("CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN", "forbidden_wire_key")
+            if find_forbidden_link(variant):
+                _add_key_violation("PREVIEW_HOST_LINK_FORBIDDEN", "forbidden_preview_link_key")
+            if _UNSAFE_INLINE_URL_SCHEME_RE.search(variant):
+                _add_key_violation("CC024_UNSAFE_URL_SCHEME_FORBIDDEN", "unsafe_url_scheme_key")
+            if _find_ai_model_label(variant):
+                _add_key_violation("CC024_AI_MODEL_LABEL_FORBIDDEN", "forbidden_ai_model_key")
+        return bool(key_emitted)
+
     # 1. Structural inspection across all dict keys/metadata (catches private containers,
-    #    FRED SP500 series objects, OCC/Yahoo GEX provider metadata, and TradingView widgets).
+    #    prefixed/camelCase private-alpha & CC-791 odds keys, rights_class violations,
+    #    unsafe URL schemes, copyrighted FRED series objects, and TradingView widgets).
     def _walk_structure(node: Any, loc: str) -> None:
         if isinstance(node, Mapping):
-            series_val = str(node.get("series_id") or node.get("series") or "").strip().upper()
+            series_val = _safe_str(node.get("series_id") or node.get("series")).strip().upper()
             src_blob = " ".join(
-                str(node.get(k) or "")
+                _safe_str(node.get(k))
                 for k in ("source", "provider", "data_source", "publisher", "attribution", "url", "source_url")
             )
-            if series_val == "SP500" and _FRED_SRC_BLOB_RE.search(src_blob):
+            if series_val in _FRED_COPYRIGHTED_SERIES and _FRED_SRC_BLOB_RE.search(src_blob):
                 violations.append({
                     "code": "CC024_FRED_SP500_FORBIDDEN",
                     "location": loc,
-                    "detail": "series_id=SP500",
+                    "detail": f"series_id={series_val}",
                 })
             modality_blob = " ".join(
-                str(node.get(k) or "")
+                _safe_str(node.get(k))
                 for k in ("modality", "widget_type", "embed_type", "kind", "type")
             )
             if _MODALITY_WIDGET_RE.search(modality_blob):
@@ -1075,21 +1728,36 @@ def verify_cc024_commercial_firewall(
                     "detail": modality_blob.strip()[:80],
                 })
             for priv_flag in ("private_only", "public_export_forbidden"):
-                if priv_flag in node and node[priv_flag] not in (False, None):
+                if priv_flag in node and node[priv_flag] is not False and node[priv_flag] is not None:
                     violations.append({
                         "code": "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN",
                         "location": f"{loc}.{priv_flag}",
-                        "detail": f"{priv_flag}={repr(node[priv_flag])[:40]}",
+                        "detail": f"{priv_flag}={_safe_repr(node[priv_flag], max_len=40)}",
                     })
             for k, v in node.items():
-                k_l = str(k).strip().lower()
-                child_loc = f"{loc}.{k}"
-                if k_l in _FORBIDDEN_PRIVATE_KEYS:
-                    violations.append({
-                        "code": "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN",
-                        "location": child_loc,
-                        "detail": f"forbidden_key:{k}",
-                    })
+                k_str = _safe_str(k)
+                k_l = k_str.strip().lower()
+                key_matched = _scan_mapping_key(k_str, loc)
+                child_loc = f"{loc}.{_redact_key(k_str)}" if key_matched else f"{loc}.{k_str}"
+                if k_l in _RIGHTS_CLASS_KEYS or k_l.endswith("_rights_class"):
+                    if not isinstance(v, str) or not v.strip():
+                        violations.append({
+                            "code": "CC024_RIGHTS_CLASS_INVALID",
+                            "location": child_loc,
+                            "detail": _safe_repr(v, max_len=60),
+                        })
+                    else:
+                        for variant in _text_scan_variants(v):
+                            rc_norm = variant.strip().lower().replace("-", "_").replace(" ", "_")
+                            if _FORBIDDEN_RIGHTS_CLASS_RE.search(rc_norm):
+                                violations.append({
+                                    "code": "CC024_RIGHTS_CLASS_FORBIDDEN",
+                                    "location": child_loc,
+                                    "detail": v.strip()[:60],
+                                })
+                                break
+                if k_l in _NON_PROSE_URL_KEYS or k_l.endswith(("_url", "_urls")) or k_l in {"href", "src"}:
+                    _check_url_field_value(v, child_loc)
                 _walk_structure(v, child_loc)
         elif isinstance(node, (list, tuple)):
             for idx, item in enumerate(node):
@@ -1097,7 +1765,8 @@ def verify_cc024_commercial_firewall(
 
     _walk_structure(payload, path)
 
-    # 2. Global string scan across ALL strings (text, URLs, citations, metadata).
+    # 2. Global string scan across ALL strings (text, URLs, citations, metadata) using
+    #    raw normalized, HTML-unescaped, URL-unquoted, and Markdown-de-emphasized views.
     all_strings = list(_iter_all_strings(payload, path))
     if not all_strings:
         raise FreeTierFirewallError(
@@ -1106,143 +1775,103 @@ def verify_cc024_commercial_firewall(
         )
 
     for loc, raw_text in all_strings:
-        text = _normalize_text(raw_text)
-        if not text.strip():
+        variants = _text_scan_variants(raw_text)
+        if not variants[0].strip():
             continue
+        is_local_path = _is_local_filesystem_path(loc, variants[0])
+        emitted_s2: set[str] = set()
 
-        if m := _INVESTING_MYFXBOOK_RE.search(text):
-            violations.append({
-                "code": "CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0),
-            })
-        if m := _OCC_YAHOO_GEX_RE.search(text):
-            violations.append({
-                "code": "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0)[:80],
-            })
-        if m := _FRED_SP500_RE.search(text):
-            violations.append({
-                "code": "CC024_FRED_SP500_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0)[:80],
-            })
-        if m := _TRADINGVIEW_WIDGET_RE.search(text):
-            violations.append({
-                "code": "CC024_TRADINGVIEW_WIDGET_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0)[:80],
-            })
-        if m := _RAW_X_OR_WIRE_RE.search(text):
-            violations.append({
-                "code": "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0)[:80],
-            })
-        if hit := find_forbidden_link(text):
-            violations.append({
-                "code": "PREVIEW_HOST_LINK_FORBIDDEN",
-                "location": loc,
-                "detail": hit,
-            })
-        if m := plan_pages._SECRET.search(text):
-            violations.append({
-                "code": "CC024_SECRET_FORBIDDEN",
-                "location": loc,
-                "detail": "secret_pattern_matched",
-            })
-        if not _is_local_filesystem_path(loc, text):
-            if label := _find_ai_model_label(text):
-                violations.append({
-                    "code": "CC024_AI_MODEL_LABEL_FORBIDDEN",
-                    "location": loc,
-                    "detail": label,
-                })
-        if m := _PRIVATE_LABEL_RE.search(text):
-            violations.append({
-                "code": "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0),
-            })
+        def _add_s2(code: str, detail: str) -> None:
+            if code not in emitted_s2:
+                emitted_s2.add(code)
+                violations.append({"code": code, "location": loc, "detail": detail})
+
+        for variant in variants:
+            if m := _INVESTING_MYFXBOOK_RE.search(variant):
+                _add_s2("CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN", m.group(0))
+            if m := _OCC_YAHOO_GEX_RE.search(variant):
+                _add_s2("CC024_OCC_OR_YAHOO_GEX_FORBIDDEN", m.group(0)[:80])
+            if m := _FRED_SP500_RE.search(variant):
+                _add_s2("CC024_FRED_SP500_FORBIDDEN", m.group(0)[:80])
+            if m := _TRADINGVIEW_WIDGET_RE.search(variant):
+                _add_s2("CC024_TRADINGVIEW_WIDGET_FORBIDDEN", m.group(0)[:80])
+            if m := _RAW_X_OR_WIRE_RE.search(variant):
+                _add_s2("CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN", m.group(0)[:80])
+            if _UNSAFE_INLINE_URL_SCHEME_RE.search(variant):
+                _add_s2("CC024_UNSAFE_URL_SCHEME_FORBIDDEN", "unsafe_inline_url_scheme")
+            if hit := find_forbidden_link(variant):
+                _add_s2("PREVIEW_HOST_LINK_FORBIDDEN", hit)
+            if plan_pages._SECRET.search(variant):
+                _add_s2("CC024_SECRET_FORBIDDEN", "secret_pattern_matched")
+            if _BROKER_ACCOUNT_ID_RE.search(variant):
+                _add_s2("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", "broker_account_id_forbidden")
+            if check_instruments and (m_cfd := _RAW_BROKER_CFD_SYMBOL_RE.search(_strip_urls(variant))):
+                _add_s2("PUBLIC_INSTRUMENT_NAME_FORBIDDEN", f"RAW_CFD_SYMBOL:{m_cfd.group(0)}")
+            ai_candidate = (
+                _HARMLESS_LOCAL_HARNESS_TEMP_DIR_RE.sub(
+                    "",
+                    _HARMLESS_CLAUDE_LEGACY_DIR_SEGMENT_RE.sub("", variant),
+                )
+                if is_local_path
+                else variant
+            )
+            if label := _find_ai_model_label(ai_candidate):
+                _add_s2("CC024_AI_MODEL_LABEL_FORBIDDEN", label)
+            if m := _PRIVATE_LABEL_RE.search(variant):
+                _add_s2("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", m.group(0))
+            if norm_private and "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN" not in emitted_s2:
+                folded = " ".join(variant.casefold().split())
+                for secret_line in norm_private:
+                    if secret_line in folded:
+                        _add_s2("CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN", "verbatim_private_text_echo")
+                        break
 
     # 3. Visible public prose scan (recursively scans ALL outbound strings except strict
     #    machine-token technical fields, catching handles, private book/responses, unnamed odds,
-    #    price targets, ET clock violations, raw CFD names, verbatim private echoes, and notices).
+    #    price targets, ET clock violations, raw CFD names, and notices across all text variants).
     prose_items = list(_iter_display_prose(payload, path))
 
     combined_prose_chunks: list[str] = []
     for loc, raw_text in prose_items:
-        text = _normalize_text(raw_text)
-        if not text.strip():
+        variants = _text_scan_variants(raw_text)
+        if not variants[0].strip():
             continue
-        combined_prose_chunks.append(text)
-        plain_no_links = _strip_urls(text)
+        combined_prose_chunks.append(variants[0])
+        emitted_s3: set[str] = set()
 
-        if m := attention._X_HANDLE.search(plain_no_links):
-            violations.append({
-                "code": "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN",
-                "location": loc,
-                "detail": m.group(0),
-            })
-        if norm_private:
-            folded = " ".join(text.casefold().split())
-            for secret_line in norm_private:
-                if secret_line in folded:
-                    violations.append({
-                        "code": "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN",
-                        "location": loc,
-                        "detail": "verbatim_private_text_echo",
-                    })
-                    break
-        if (
-            event_guard.public_execution_copy_forbidden(text)
-            or plan_pages._PRIVATE.search(text)
-            or plan_pages._MONEY.search(text)
-            or attention._BOOK_OR_RESPONSE.search(text)
-        ):
-            violations.append({
-                "code": "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN",
-                "location": loc,
-                "detail": "private_book_or_execution_copy",
-            })
-        if odds_hit := _find_market_odds_violation(text):
-            violations.append({
-                "code": "CC024_MARKET_ODDS_NUMBER_FORBIDDEN",
-                "location": loc,
-                "detail": odds_hit,
-            })
-        if target_hit := _find_price_target_violation(text):
-            violations.append({
-                "code": "CC024_PRICE_TARGET_FORBIDDEN",
-                "location": loc,
-                "detail": target_hit,
-            })
-        if check_public_time:
-            if tz_hit := find_forbidden_public_time(text):
-                violations.append({
-                    "code": "PUBLIC_TIMEZONE_ET_REQUIRED",
-                    "location": loc,
-                    "detail": tz_hit,
-                })
-            if clk_hit := attention._NON_ET_CLOCK.search(plain_no_links):
-                violations.append({
-                    "code": "ATTENTION_MAP_NON_ET_CLOCK_FORBIDDEN",
-                    "location": loc,
-                    "detail": clk_hit.group(0),
-                })
-        if check_instruments:
-            try:
-                instruments.validate_payload(
-                    {"public_instrument_policy": instruments.POLICY},
-                    {"text": text},
-                )
-            except ValueError as exc:
-                violations.append({
-                    "code": "PUBLIC_INSTRUMENT_NAME_FORBIDDEN",
-                    "location": loc,
-                    "detail": str(exc),
-                })
+        def _add_s3(code: str, detail: str) -> None:
+            if code not in emitted_s3:
+                emitted_s3.add(code)
+                violations.append({"code": code, "location": loc, "detail": detail})
+
+        for variant in variants:
+            plain_no_links = _strip_urls(variant)
+            if m := attention._X_HANDLE.search(plain_no_links):
+                _add_s3("CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN", m.group(0))
+            if (
+                event_guard.public_execution_copy_forbidden(variant)
+                or plan_pages._PRIVATE.search(variant)
+                or plan_pages._MONEY.search(variant)
+                or attention._BOOK_OR_RESPONSE.search(variant)
+            ):
+                _add_s3("CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN", "private_book_or_execution_copy")
+            if odds_hit := _find_market_odds_violation(variant):
+                _add_s3("CC024_MARKET_ODDS_NUMBER_FORBIDDEN", odds_hit)
+            if target_hit := _find_price_target_violation(variant):
+                _add_s3("CC024_PRICE_TARGET_FORBIDDEN", target_hit)
+            if check_public_time:
+                if tz_hit := find_forbidden_public_time(variant):
+                    _add_s3("PUBLIC_TIMEZONE_ET_REQUIRED", tz_hit)
+                if clk_hit := attention._NON_ET_CLOCK.search(plain_no_links):
+                    _add_s3("ATTENTION_MAP_NON_ET_CLOCK_FORBIDDEN", clk_hit.group(0))
+            if check_instruments:
+                try:
+                    instruments.validate_payload(
+                        {"public_instrument_policy": instruments.POLICY},
+                        {"text": variant},
+                    )
+                except ValueError as exc:
+                    _add_s3("PUBLIC_INSTRUMENT_NAME_FORBIDDEN", str(exc))
 
     combined_prose = "\n".join(combined_prose_chunks)
     if require_notice and event_guard.PUBLIC_NOTICE not in combined_prose:
@@ -1280,10 +1909,12 @@ def verify_outbound_free_payload(
     """Unified fail-closed outbound gate: FREE_ONLY_MODE + CC-024 + all 5 public filters."""
     now_dt = parse_strict_utc(now_utc, field_name="now_utc")
     if destination is not None:
+        if isinstance(destination, str):
+            _assert_no_surrogate_str(destination, location="destination")
         if not isinstance(destination, str) or destination.strip().lower() not in ALL_FREE_DESTINATIONS:
             raise FreeTierFirewallError(
                 "FREE_TIER_DESTINATION_INVALID",
-                violations=[{"code": "FREE_TIER_DESTINATION_INVALID", "location": "destination", "detail": repr(destination)}],
+                violations=[{"code": "FREE_TIER_DESTINATION_INVALID", "location": "destination", "detail": _safe_repr(destination)}],
             )
     free_res = verify_free_only_mode(payload, now_utc=now_dt)
     cc024_res = verify_cc024_commercial_firewall(
@@ -1326,12 +1957,13 @@ def verify_day1_hash_chain(
     rows: list[Mapping[str, Any]] = []
 
     if isinstance(records_or_path, (Path, str)):
-        p = Path(records_or_path)
-        if not p.is_file():
-            raise FreeTierFirewallError(
-                "TRACK_RECORD_CHAIN_MISSING",
-                violations=[{"code": "TRACK_RECORD_CHAIN_MISSING", "location": str(p)}],
-            )
+        p = _validate_host_path(
+            records_or_path,
+            invalid_code="TRACK_RECORD_CHAIN_PATH_INVALID",
+            missing_code="TRACK_RECORD_CHAIN_MISSING",
+            location="track_record_chain",
+            expect_file=True,
+        )
         raw = p.read_bytes()
         if not raw:
             raise FreeTierFirewallError(
@@ -1397,7 +2029,7 @@ def verify_day1_hash_chain(
         if schema not in SUPPORTED_CHAIN_SCHEMAS:
             raise FreeTierFirewallError(
                 "TRACK_RECORD_CHAIN_SCHEMA_INVALID",
-                violations=[{"code": "TRACK_RECORD_CHAIN_SCHEMA_INVALID", "location": loc, "detail": repr(schema)}],
+                violations=[{"code": "TRACK_RECORD_CHAIN_SCHEMA_INVALID", "location": loc, "detail": _safe_repr(schema)}],
             )
         if detected_schema is None:
             detected_schema = str(schema)
@@ -1411,7 +2043,7 @@ def verify_day1_hash_chain(
         if type(seq) is not int or seq != line_no:
             raise FreeTierFirewallError(
                 "TRACK_RECORD_CHAIN_SEQUENCE_MISMATCH",
-                violations=[{"code": "TRACK_RECORD_CHAIN_SEQUENCE_MISMATCH", "location": loc, "detail": repr(seq)}],
+                violations=[{"code": "TRACK_RECORD_CHAIN_SEQUENCE_MISMATCH", "location": loc, "detail": _safe_repr(seq)}],
             )
 
         rec_id = row.get("record_id")
@@ -1457,8 +2089,20 @@ def verify_day1_hash_chain(
                     "TRACK_RECORD_CHAIN_ARENA_PRIVACY_TAMPERED",
                     violations=[{"code": "TRACK_RECORD_CHAIN_ARENA_PRIVACY_TAMPERED", "location": loc}],
                 )
-            kind = str(row.get("record_kind") or "")
-            sleeve_id = str(row.get("sleeve_id") or "")
+            raw_kind = row.get("record_kind")
+            raw_sleeve_id = row.get("sleeve_id")
+            if not isinstance(raw_kind, str) or not raw_kind.strip():
+                raise FreeTierFirewallError(
+                    "TRACK_RECORD_CHAIN_RECORD_KIND_INVALID",
+                    violations=[{"code": "TRACK_RECORD_CHAIN_RECORD_KIND_INVALID", "location": f"{loc}.record_kind"}],
+                )
+            if not isinstance(raw_sleeve_id, str) or not raw_sleeve_id.strip():
+                raise FreeTierFirewallError(
+                    "TRACK_RECORD_CHAIN_SLEEVE_ID_INVALID",
+                    violations=[{"code": "TRACK_RECORD_CHAIN_SLEEVE_ID_INVALID", "location": f"{loc}.sleeve_id"}],
+                )
+            kind = raw_kind
+            sleeve_id = raw_sleeve_id
             expected_rec_id = "arena_" + sha256_canonical(
                 [seq, kind, sleeve_id, _iso_utc(cutoff_dt), expected_prev, expected_payload_sha]
             )[:24]
@@ -1530,8 +2174,10 @@ def build_public_track_record_citation(
         f"Chain tip SHA-256: {tip}.",
         f"Genesis SHA-256: {genesis}.",
     ]
-    for raw_line in summary_lines:
-        cleaned = " ".join(str(raw_line).strip().split())
+    for idx, raw_line in enumerate(summary_lines):
+        if isinstance(raw_line, str):
+            _assert_no_surrogate_str(raw_line, location=f"summary_lines[{idx}]")
+        cleaned = " ".join(_safe_str(raw_line).strip().split())
         if cleaned:
             lines.append(cleaned)
     if include_notices:
@@ -1604,7 +2250,7 @@ def verify_track_record_citation_lineage(
                 "code": "TRACK_RECORD_CITATION_DATE_ET_MISMATCH",
                 "location": "citation.as_of_et",
                 "expected": expected_as_of_et,
-                "observed": repr(citation.get("as_of_et")),
+                "observed": _safe_repr(citation.get("as_of_et")),
             }],
         )
 
@@ -1715,6 +2361,38 @@ def verify_track_record_citation_lineage(
 # ---------------------------------------------------------------------------
 
 
+_EXEC_OR_PROVIDER_KEYS = frozenset({
+    "driver",
+    "provider",
+    "live_provider",
+    "editorial_agent",
+    "agent",
+    "model",
+    "name",
+})
+_COMMAND_LINE_KEYS = frozenset({
+    "cmd",
+    "command",
+    "executable",
+    "bin",
+    "runner",
+})
+
+
+def _config_or_task_has_active_claude(loc: str, text: str) -> bool:
+    leaf = loc.rsplit(".", 1)[-1].split("[", 1)[0].strip().lower()
+    if leaf in _EXEC_OR_PROVIDER_KEYS:
+        return _has_active_claude_ref(text, allow_legacy_paths=False)
+    if leaf in _COMMAND_LINE_KEYS:
+        stripped = _normalize_text(text).strip()
+        if stripped:
+            first_tok = stripped.split(None, 1)[0].strip("\"'")
+            if _has_active_claude_ref(first_tok, allow_legacy_paths=False):
+                return True
+        return _has_active_claude_ref(text, allow_legacy_paths=True)
+    return _has_active_claude_ref(text, allow_legacy_paths=True)
+
+
 def verify_zero_claude_and_agy_dependencies(
     *,
     now_utc: datetime | str,
@@ -1728,6 +2406,8 @@ def verify_zero_claude_and_agy_dependencies(
 ) -> dict[str, Any]:
     """Verify zero active Claude, Anthropic, or Antigravity (`agy`) runtime dependencies post-04 Dec."""
     now_dt = parse_strict_utc(now_utc, field_name="now_utc")
+    if env is not None:
+        assert_no_utf16_surrogates(env, path="env")
     if runtime_config is not None:
         if not isinstance(runtime_config, Mapping):
             raise FreeTierFirewallError(
@@ -1745,6 +2425,16 @@ def verify_zero_claude_and_agy_dependencies(
         assert_no_nonfinite_numbers(scheduled_tasks, path="scheduled_tasks")
         assert_no_silent_waivers(scheduled_tasks, path="scheduled_tasks")
 
+    validated_ctrl: Path | None = None
+    if control_dir is not None:
+        validated_ctrl = _validate_host_path(
+            control_dir,
+            invalid_code="CONTROL_DIR_INVALID",
+            location="control_dir",
+            expect_dir=True,
+            reject_symlink=True,
+        )
+
     violations: list[dict[str, str]] = []
     sunset_active = native_editorial.claude_sunset_active(now_dt, env=env)
 
@@ -1761,39 +2451,48 @@ def verify_zero_claude_and_agy_dependencies(
             "location": "agy_neo_answerer_v1",
         })
 
-    # 2. Confirm agy_neo_routes.json is absent in control_dir if supplied.
-    if control_dir is not None:
-        ctrl = Path(control_dir)
-        agy_routes = ctrl / "agy_neo_routes.json"
+    # 2. Confirm agy_neo_routes.json is absent in validated control_dir if supplied.
+    if validated_ctrl is not None:
+        agy_routes = validated_ctrl / "agy_neo_routes.json"
         if agy_routes.exists():
             violations.append({
                 "code": "AGY_NEO_ROUTES_PRESENT_FORBIDDEN_CC801",
                 "location": str(agy_routes),
             })
 
-    # 3. Validate editorial_agent, digest_driver, and live_provider bindings.
+    # 3. Validate editorial_agent, digest_driver, and live_provider bindings (zero legacy-path stripping!).
     if editorial_agent is not None:
-        try:
-            native_editorial.assert_new_editorial_agent_allowed(editorial_agent, now=now_dt, env=env)
-        except ValueError as exc:
+        if not isinstance(editorial_agent, str):
             violations.append({
-                "code": str(exc),
+                "code": "EDITORIAL_AGENT_INVALID",
                 "location": "editorial_agent",
-                "detail": str(editorial_agent),
+                "detail": _safe_repr(editorial_agent),
             })
+        else:
+            _assert_no_surrogate_str(editorial_agent, location="editorial_agent")
+            try:
+                native_editorial.assert_new_editorial_agent_allowed(editorial_agent, now=now_dt, env=env)
+            except ValueError as exc:
+                violations.append({
+                    "code": str(exc),
+                    "location": "editorial_agent",
+                    "detail": _safe_num_repr(editorial_agent),
+                })
 
     if digest_driver is not None:
+        if isinstance(digest_driver, str):
+            _assert_no_surrogate_str(digest_driver, location="digest_driver")
         if not isinstance(digest_driver, str) or not digest_driver.strip():
             violations.append({
                 "code": "DIGEST_1900_DRIVER_INVALID",
                 "location": "digest_driver",
-                "detail": repr(digest_driver),
+                "detail": _safe_repr(digest_driver),
             })
         else:
             drv = _normalize_text(digest_driver).strip().lower()
             if drv in {"agy", "antigravity", "antigravity-cli"} or _has_active_agy_ref(drv):
                 violations.append({"code": agy_assist.AGY_TERMS_BLOCK, "location": "digest_driver", "detail": drv})
-            elif drv in FORBIDDEN_RETIRED_DRIVERS or _has_active_claude_ref(drv):
+            elif drv in FORBIDDEN_RETIRED_DRIVERS or _has_active_claude_ref(drv, allow_legacy_paths=False):
                 violations.append({"code": "CLAUDE_ROUTE_RETIRED_CC855", "location": "digest_driver", "detail": drv})
             elif drv not in ALLOWED_POST_DEC04_DIGEST_DRIVERS:
                 violations.append({
@@ -1803,11 +2502,13 @@ def verify_zero_claude_and_agy_dependencies(
                 })
 
     if live_provider is not None:
+        if isinstance(live_provider, str):
+            _assert_no_surrogate_str(live_provider, location="live_provider")
         if not isinstance(live_provider, str) or not live_provider.strip():
             violations.append({
                 "code": "LIVE_PROVIDER_INVALID",
                 "location": "live_provider",
-                "detail": repr(live_provider),
+                "detail": _safe_repr(live_provider),
             })
         else:
             prov = _normalize_text(live_provider).strip().lower()
@@ -1817,7 +2518,11 @@ def verify_zero_claude_and_agy_dependencies(
                     "location": "live_provider",
                     "detail": prov,
                 })
-            elif prov in {"anthropic", "claude"} or prov in FORBIDDEN_RETIRED_DRIVERS or _has_active_claude_ref(prov):
+            elif (
+                prov in {"anthropic", "claude"}
+                or prov in FORBIDDEN_RETIRED_DRIVERS
+                or _has_active_claude_ref(prov, allow_legacy_paths=False)
+            ):
                 violations.append({
                     "code": v6_engine.ANTHROPIC_PROVIDER_RETIRED,
                     "location": "live_provider",
@@ -1833,14 +2538,15 @@ def verify_zero_claude_and_agy_dependencies(
                     "location": loc,
                     "detail": text[:80],
                 })
-            if sunset_active and _has_active_claude_ref(text):
+            if sunset_active and _config_or_task_has_active_claude(loc, text):
                 violations.append({
                     "code": "ACTIVE_CLAUDE_DEPENDENCY_FORBIDDEN",
                     "location": loc,
                     "detail": text[:80],
                 })
 
-    # 5. Scan ALL string fields of every enabled scheduled task for active agy / Claude invocations.
+    # 5. Scan ALL string fields of every active scheduled task (supporting both strict bool
+    #    `enabled` AND real ContentOps manifest.json `state_before` schema when `enabled` is omitted).
     checked_tasks = 0
     for idx, task in enumerate(scheduled_tasks or ()):
         if not isinstance(task, Mapping):
@@ -1850,16 +2556,40 @@ def verify_zero_claude_and_agy_dependencies(
             })
             continue
         checked_tasks += 1
-        enabled = task.get("enabled")
-        if not isinstance(enabled, bool):
+        if "enabled" in task:
+            enabled = task["enabled"]
+            if not isinstance(enabled, bool):
+                violations.append({
+                    "code": "SCHEDULED_TASK_ENABLED_BOOL_REQUIRED",
+                    "location": f"scheduled_tasks[{idx}].enabled",
+                })
+                continue
+            task_is_active = enabled
+        elif "state_before" in task:
+            raw_state_before = task["state_before"]
+            if not isinstance(raw_state_before, str):
+                violations.append({
+                    "code": "SCHEDULED_TASK_ENABLED_BOOL_REQUIRED",
+                    "location": f"scheduled_tasks[{idx}].state_before",
+                })
+                continue
+            norm_state = _normalize_text(raw_state_before).strip().lower()
+            if norm_state not in _VALID_TASK_STATE_BEFORE:
+                violations.append({
+                    "code": "SCHEDULED_TASK_ENABLED_BOOL_REQUIRED",
+                    "location": f"scheduled_tasks[{idx}].state_before",
+                })
+                continue
+            task_is_active = norm_state != "disabled"
+        else:
             violations.append({
                 "code": "SCHEDULED_TASK_ENABLED_BOOL_REQUIRED",
                 "location": f"scheduled_tasks[{idx}].enabled",
             })
             continue
-        if not enabled:
+        if not task_is_active:
             continue
-        task_name = str(task.get("name") or f"task_{idx}")
+        task_name = _safe_str(task.get("name")) or f"task_{idx}"
         for loc, text in _iter_all_strings(task, f"scheduled_tasks[{task_name}]"):
             if _has_active_agy_ref(text):
                 violations.append({
@@ -1867,7 +2597,7 @@ def verify_zero_claude_and_agy_dependencies(
                     "location": loc,
                     "detail": text[:100],
                 })
-            if sunset_active and _has_active_claude_ref(text):
+            if sunset_active and _config_or_task_has_active_claude(loc, text):
                 violations.append({
                     "code": "ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN",
                     "location": loc,
@@ -1902,13 +2632,14 @@ def _load_pause_manifest_object(
 ) -> tuple[Mapping[str, Any], str, Path | None]:
     """Load and structurally validate raw pause manifest bytes or mapping."""
     if isinstance(manifest_or_path, (Path, str)):
-        p = Path(manifest_or_path)
+        p = _validate_host_path(
+            manifest_or_path,
+            invalid_code="PAUSE_MANIFEST_PATH_INVALID",
+            missing_code="PAUSE_MANIFEST_MISSING",
+            location="pause_manifest",
+            expect_file=True,
+        )
         manifest_source = str(p)
-        if not p.is_file():
-            raise FreeTierFirewallError(
-                "PAUSE_MANIFEST_MISSING",
-                violations=[{"code": "PAUSE_MANIFEST_MISSING", "location": manifest_source}],
-            )
         raw = p.read_bytes()
         # Accept UTF-8 with or without BOM for existing Windows-authored manifests, but reject NaN/dup keys.
         if raw.startswith(b"\xef\xbb\xbf"):
@@ -1934,6 +2665,57 @@ def _load_pause_manifest_object(
     return parsed, manifest_source, manifest_parent
 
 
+def _validate_existing_restored_marker(restored_path: Path, violations: list[dict[str, str]]) -> None:
+    """When allow_already_restored=True, still reject dry-run, symlink, directory, or malformed restored.json."""
+    loc = str(restored_path)
+    try:
+        if restored_path.is_symlink() or not restored_path.is_file():
+            violations.append({
+                "code": "PAUSE_MANIFEST_RESTORED_MARKER_INVALID",
+                "location": loc,
+            })
+            return
+        raw = restored_path.read_bytes()
+    except OSError as exc:
+        violations.append({
+            "code": "PAUSE_MANIFEST_RESTORED_MARKER_INVALID",
+            "location": loc,
+            "detail": type(exc).__name__,
+        })
+        return
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    try:
+        parsed_r = load_strict_json_bytes(raw, label="restored.json")
+    except FreeTierFirewallError as exc:
+        violations.append({
+            "code": "PAUSE_MANIFEST_RESTORED_MARKER_INVALID",
+            "location": loc,
+            "detail": exc.reason_code,
+        })
+        return
+    if not isinstance(parsed_r, Mapping):
+        violations.append({
+            "code": "PAUSE_MANIFEST_RESTORED_MARKER_INVALID",
+            "location": loc,
+        })
+        return
+    if "dry_run" in parsed_r and parsed_r["dry_run"] is not False:
+        violations.append({
+            "code": "RESTORED_MARKER_DRY_RUN_FORBIDDEN",
+            "location": f"{loc}.dry_run",
+            "detail": _safe_repr(parsed_r["dry_run"], max_len=40),
+        })
+    if "started_at_utc" in parsed_r:
+        try:
+            parse_strict_utc(parsed_r["started_at_utc"], field_name="restored.started_at_utc")
+        except FreeTierFirewallError as exc:
+            violations.append({
+                "code": exc.reason_code,
+                "location": f"{loc}.started_at_utc",
+            })
+
+
 def verify_pause_manifest_for_dec15_unpause(
     manifest_or_path: Path | str | Mapping[str, Any],
     *,
@@ -1945,6 +2727,16 @@ def verify_pause_manifest_for_dec15_unpause(
     """Fail closed on missing/malformed/stale pause manifests or premature pre-15-Dec unpause."""
     now_dt = parse_strict_utc(now_utc, field_name="now_utc")
     min_unpause_dt = parse_strict_utc(min_unpause_utc, field_name="min_unpause_utc")
+
+    validated_ctrl: Path | None = None
+    if control_dir is not None:
+        validated_ctrl = _validate_host_path(
+            control_dir,
+            invalid_code="CONTROL_DIR_INVALID",
+            location="control_dir",
+            expect_dir=True,
+            reject_symlink=True,
+        )
 
     parsed, manifest_source, manifest_parent = _load_pause_manifest_object(manifest_or_path)
     assert_no_silent_waivers(parsed, path="pause_manifest")
@@ -2038,7 +2830,7 @@ def verify_pause_manifest_for_dec15_unpause(
             "detail": f"resume_at_utc={_iso_utc(resume_dt)} < required_min={_iso_utc(min_unpause_dt)}",
         })
 
-    cause = str(parsed["cause"])
+    cause = _safe_str(parsed["cause"])
     if _STALE_PRE_DEC15_CAUSE_RE.search(cause):
         violations.append({
             "code": "PAUSE_MANIFEST_STALE_CAUSE",
@@ -2051,13 +2843,13 @@ def verify_pause_manifest_for_dec15_unpause(
         violations.append({
             "code": "PAUSE_MANIFEST_FREE_ONLY_MODE_REQUIRED",
             "location": "pause_manifest.unpause_mode",
-            "detail": repr(parsed.get("unpause_mode")),
+            "detail": _safe_repr(parsed.get("unpause_mode")),
         })
     if parsed.get("cc024_clean_required") is not True:
         violations.append({
             "code": "PAUSE_MANIFEST_CC024_FLAG_REQUIRED",
             "location": "pause_manifest.cc024_clean_required",
-            "detail": repr(parsed.get("cc024_clean_required")),
+            "detail": _safe_repr(parsed.get("cc024_clean_required")),
         })
 
     # Premature unpause guard: ContentOps stays strictly PAUSED through 30 Nov - 14 Dec.
@@ -2068,40 +2860,45 @@ def verify_pause_manifest_for_dec15_unpause(
             "detail": f"now={_iso_utc(now_dt)}, resume_at={_iso_utc(resume_dt)}",
         })
 
-    # Hard-stop checks in control_dir AND restored.json alongside the manifest file itself.
+    # Hard-stop checks in validated control_dir AND restored.json alongside the manifest file itself.
     restored_checked: set[Path] = set()
-    if not allow_already_restored and manifest_parent is not None:
+    if manifest_parent is not None:
         sibling_restored = manifest_parent / "restored.json"
-        if sibling_restored.exists():
+        if sibling_restored.exists() or sibling_restored.is_symlink():
             restored_checked.add(sibling_restored.resolve())
-            violations.append({
-                "code": "PAUSE_MANIFEST_ALREADY_RESTORED",
-                "location": str(sibling_restored),
-            })
+            if not allow_already_restored:
+                violations.append({
+                    "code": "PAUSE_MANIFEST_ALREADY_RESTORED",
+                    "location": str(sibling_restored),
+                })
+            else:
+                _validate_existing_restored_marker(sibling_restored, violations)
 
-    if control_dir is not None:
-        ctrl = Path(control_dir)
-        if (ctrl / "KILL_SWITCH").exists():
+    if validated_ctrl is not None:
+        if (validated_ctrl / "KILL_SWITCH").exists():
             violations.append({
                 "code": "GLOBAL_KILL_SWITCH_PRESENT",
-                "location": str(ctrl / "KILL_SWITCH"),
+                "location": str(validated_ctrl / "KILL_SWITCH"),
             })
-        if (ctrl / "llm_operator_pause.flag").exists():
+        if (validated_ctrl / "llm_operator_pause.flag").exists():
             violations.append({
                 "code": "LLM_OPERATOR_PAUSE_FLAG_PRESENT",
-                "location": str(ctrl / "llm_operator_pause.flag"),
+                "location": str(validated_ctrl / "llm_operator_pause.flag"),
             })
-        if (ctrl / "agy_neo_routes.json").exists():
+        if (validated_ctrl / "agy_neo_routes.json").exists():
             violations.append({
                 "code": "AGY_NEO_ROUTES_PRESENT_FORBIDDEN_CC801",
-                "location": str(ctrl / "agy_neo_routes.json"),
+                "location": str(validated_ctrl / "agy_neo_routes.json"),
             })
-        ctrl_restored = ctrl / "restored.json"
-        if not allow_already_restored and ctrl_restored.exists() and ctrl_restored.resolve() not in restored_checked:
-            violations.append({
-                "code": "PAUSE_MANIFEST_ALREADY_RESTORED",
-                "location": str(ctrl_restored),
-            })
+        ctrl_restored = validated_ctrl / "restored.json"
+        if (ctrl_restored.exists() or ctrl_restored.is_symlink()) and ctrl_restored.resolve() not in restored_checked:
+            if not allow_already_restored:
+                violations.append({
+                    "code": "PAUSE_MANIFEST_ALREADY_RESTORED",
+                    "location": str(ctrl_restored),
+                })
+            else:
+                _validate_existing_restored_marker(ctrl_restored, violations)
 
     if violations:
         raise FreeTierFirewallError(

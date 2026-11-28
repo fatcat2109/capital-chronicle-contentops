@@ -1677,3 +1677,529 @@ def test_remediation_sw2_l1_b11_l3_b11c37_l1_canonical_json_preflight_and_privat
             track_record_chain=chain_path,
             require_notice=True,
         )
+
+
+# ---------------------------------------------------------------------------
+# Cycle #24 Unified 10M + Polish Hardening Regressions
+# (Ops Product B16C22-M1..M4 / L1..L4, Batch #159 B16C22-N1..N4,
+#  V2.4-DA10 DA10-T2B-M1..M3 / L1, Batch #154 L1/L2, Batch #155 L1..L3)
+# ---------------------------------------------------------------------------
+
+
+def test_c24_m1_real_manifest_state_before_tasks_schema_and_hostile_detection(tmp_path: Path):
+    """B16C22-M1: real ContentOps manifest.json tasks (state_before without enabled) pass when clean & catch hostile refs."""
+    records = _build_arena_chain_records(2)
+    chain_path = _write_jsonl(tmp_path / "chain_c24_m1.jsonl", records)
+    citation = fw.build_public_track_record_citation(chain_path, as_of_utc=DEC15_OPEN_UTC)
+    ctrl_dir = tmp_path / "control_m1"
+    ctrl_dir.mkdir()
+
+    real_schema_manifest = {
+        **_valid_dec15_pause_manifest(),
+        "tasks": [
+            {"name": "CapitalChronicle-PlanStatusPosts-V1", "state_before": "Running"},
+            {"name": "CapitalChronicle-MarketWrap-V1", "state_before": "Ready"},
+            {"name": "CapitalChronicle-ManualDesk-V1", "state_before": "Running"},
+            {"name": "CapitalChronicle-LegacyClaude-V1", "state_before": "Disabled", "cmd": "claude -p legacy"},
+        ],
+        "stop_files": [
+            {
+                "path": r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\codex-exec\runner-publisher.stop",
+                "existed_before": False,
+            }
+        ],
+    }
+    res = fw.run_free_tier_unpause_preflight(
+        now_utc=DEC15_OPEN_UTC,
+        pause_manifest=real_schema_manifest,
+        outbound_payloads=[_clean_outbound_payload()],
+        track_record_citation=citation,
+        track_record_chain=chain_path,
+        control_dir=ctrl_dir,
+        scheduled_tasks=None,
+    )
+    assert res["status"] == "PASS"
+
+    # Active/Ready state_before task with hostile Claude or AGY ref MUST fail closed!
+    hostile_claude_manifest = {
+        **real_schema_manifest,
+        "tasks": [
+            {"name": "CapitalChronicle-ClaudeDigest-V1", "state_before": "Ready"},
+        ],
+    }
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN"):
+        fw.run_free_tier_unpause_preflight(
+            now_utc=DEC15_OPEN_UTC,
+            pause_manifest=hostile_claude_manifest,
+            outbound_payloads=[_clean_outbound_payload()],
+            track_record_citation=citation,
+            track_record_chain=chain_path,
+            control_dir=ctrl_dir,
+            scheduled_tasks=None,
+        )
+
+    hostile_agy_manifest = {
+        **real_schema_manifest,
+        "tasks": [
+            {"name": "CapitalChronicle-AgyHelper-V1", "state_before": "Running"},
+        ],
+    }
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_AGY_SCHEDULED_TASK_FORBIDDEN"):
+        fw.run_free_tier_unpause_preflight(
+            now_utc=DEC15_OPEN_UTC,
+            pause_manifest=hostile_agy_manifest,
+            outbound_payloads=[_clean_outbound_payload()],
+            track_record_citation=citation,
+            track_record_chain=chain_path,
+            control_dir=ctrl_dir,
+            scheduled_tasks=None,
+        )
+
+    # Explicit non-bool `enabled` MUST STILL fail closed even when `state_before` is also present!
+    for bad_task in (
+        {"name": "BadEnabledBool", "enabled": "true", "state_before": "Ready"},
+        {"name": "BadEnabledInt", "enabled": 1},
+        {"name": "MissingBoth"},
+        {"name": "EmptyStateBefore", "state_before": ""},
+        {"name": "InvalidStateBefore", "state_before": "Bogus"},
+        {"name": "NonStrStateBefore", "state_before": 123},
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="SCHEDULED_TASK_ENABLED_BOOL_REQUIRED"):
+            fw.verify_zero_claude_and_agy_dependencies(
+                now_utc=DEC15_OPEN_UTC,
+                scheduled_tasks=[bad_task],
+            )
+
+
+def test_c24_m2_local_filesystem_path_prose_and_ai_label_bypasses_sealed():
+    """B16C22-M2: hostile prose starting with / or C:\\ in *_path/*_dir keys never bypasses Section 2 or 3."""
+    secret = "Confidential internal liquidity note on Tokyo sovereign desk rebalancing."
+
+    # Slash-prefixed hostile prose in chart_path MUST trigger BOTH Section 2 and Section 3 violations.
+    p_slash = _clean_outbound_payload(
+        chart_path=(
+            "/ Drafted by Claude Opus! USTEC TP1: 25,000 at 20:30 GMT+7! "
+            f"Kalshi 72%! DEMO account 279805139! @leak_handle! {secret}"
+        )
+    )
+    with pytest.raises(fw.FreeTierFirewallError) as exc_slash:
+        fw.verify_cc024_commercial_firewall(p_slash, private_texts=[secret])
+    codes_slash = {v["code"] for v in exc_slash.value.violations}
+    assert {
+        "CC024_AI_MODEL_LABEL_FORBIDDEN",
+        "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN",
+        "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN",
+        "CC024_MARKET_ODDS_NUMBER_FORBIDDEN",
+        "CC024_PRICE_TARGET_FORBIDDEN",
+        "PUBLIC_TIMEZONE_ET_REQUIRED",
+        "PUBLIC_INSTRUMENT_NAME_FORBIDDEN",
+    } <= codes_slash
+
+    # Windows-drive-prefixed hostile prose in notes_dir MUST fail closed across Section 2 & 3.
+    p_win = _clean_outbound_payload(
+        notes_dir=(
+            "C:\\ Written by Gemini 4 Neon and Claude Sonnet. "
+            "Our price target is 4,200 on XAUUSD at 14:00 UTC. Polymarket 78%."
+        )
+    )
+    with pytest.raises(fw.FreeTierFirewallError) as exc_win:
+        fw.verify_cc024_commercial_firewall(p_win)
+    codes_win = {v["code"] for v in exc_win.value.violations}
+    assert {
+        "CC024_AI_MODEL_LABEL_FORBIDDEN",
+        "CC024_PRICE_TARGET_FORBIDDEN",
+        "PUBLIC_INSTRUMENT_NAME_FORBIDDEN",
+        "ATTENTION_MAP_NON_ET_CLOCK_FORBIDDEN",
+        "CC024_MARKET_ODDS_NUMBER_FORBIDDEN",
+    } <= codes_win
+
+    # Compact slash-prefixed bypass without leading space after / MUST also fail closed.
+    p_compact = _clean_outbound_payload(
+        chart_path="/USTEC TP1: 4200 Claude Opus @insider 84% priced in"
+    )
+    with pytest.raises(fw.FreeTierFirewallError) as exc_compact:
+        fw.verify_cc024_commercial_firewall(p_compact)
+    assert "CC024_AI_MODEL_LABEL_FORBIDDEN" in {v["code"] for v in exc_compact.value.violations}
+
+    # Genuine local path containing non-legacy AI model label MUST fail Section 2!
+    p_valid_ai_path = _clean_outbound_payload(
+        chart_path=r"C:\Capital Chronicle\Claude-Opus\chart.png"
+    )
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_AI_MODEL_LABEL_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(p_valid_ai_path)
+
+    # Genuine local path inside permanent legacy dir MUST still pass cleanly.
+    p_valid_legacy = _clean_outbound_payload(
+        chart_path=r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\chart.png"
+    )
+    assert fw.verify_cc024_commercial_firewall(p_valid_legacy)["cc024_clean"] is True
+
+
+@pytest.mark.parametrize("bad_free_text", [
+    "This section is for **paid** subscribers only.",
+    "**Upgrade** to **paid** for full access.",
+    "**Unlock** full access to our research.",
+    "Now launching our **paid** research tier.",
+    "Full scenarios sit behind the **paywall**.",
+    "This section is for _paid_ subscribers only.",
+    "<p>For &#112;aid subscribers only. Upgrade to &#112;aid.</p>",
+    "<p>Checkout: https://checkout.stripe&#46;com/pay/cs_123</p>",
+    "<p>For <b>pa</b>id subscribers only.</p>",
+    "For pa\x00id subscribers only.",
+    "For p\ufe0faid subscribers only.",
+    "For p\u034faid subscribers only.",
+    "<p>For pa&#8203;id subscribers only.</p>",
+])
+def test_c24_m3_free_only_blocks_markdown_html_entities_nul_and_mn_invisibles(bad_free_text: str):
+    """B16C22-M3: Markdown emphasis, HTML entities, ASCII NUL, and Mn/Cf invisibles blocked in FREE_ONLY_MODE."""
+    payload = _clean_outbound_payload(text=bad_free_text)
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"):
+        fw.verify_free_only_mode(payload, now_utc=DEC15_OPEN_UTC)
+
+
+@pytest.mark.parametrize("bad_cc024_text,expected_code", [
+    ("Close data from **Yahoo** Finance.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Close data from *Yahoo* Finance.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Calendar via **investing**.com today.", "CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN"),
+    ("**US**TEC outperformed today.", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+    ("Published at 20:30 **GMT**+7.", "PUBLIC_TIMEZONE_ET_REQUIRED"),
+    ("<p>Source: Yahoo&#32;Finance close.</p>", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("<p>&#75;alshi prices the hold at 68%.</p>", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("<p>&#84;P1: 3,985 on gold.</p>", "CC024_PRICE_TARGET_FORBIDDEN"),
+    ("Source: Ya\x00hoo Finance close.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Source: Y\u034fah\u034foo Finance close.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("<strong>Yahoo</strong> Finance intraday chart.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+])
+def test_c24_m3_cc024_blocks_markdown_html_entities_nul_and_mn_invisibles(
+    bad_cc024_text: str, expected_code: str
+):
+    """B16C22-M3: Markdown emphasis, HTML entities, ASCII NUL, and Mn invisibles blocked across CC-024 & Section 3."""
+    payload = _clean_outbound_payload(text=bad_cc024_text)
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_cc024_commercial_firewall(payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+
+
+@pytest.mark.parametrize("extra_fields,expected_code", [
+    ({"audience": "only_founding"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"substack_audience": "only_founding"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"tier": {"name": "PAID"}}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"audience": {"level": "only_paid"}}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"audience": ["only_paid"]}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"tier": ["vip"]}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"audience": True}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"delivery_tier": "pro"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"affiliate": True}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"affiliate_enabled": True}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"referral_code": "EXNESS_REF_123"}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"price_cents": 2900}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"amount_cents": 1900}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"monthly_price": 29}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"annual_price": 290}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"free": False}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"is_free": False}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"free": 0}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"paid": True}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+])
+def test_c24_m4_paid_founding_nested_tier_affiliate_pro_and_free_false_blocked(
+    extra_fields: dict[str, Any], expected_code: str
+):
+    """B16C22-M4 + #154 L1 + #155 L2: founding audience, nested tier/audience, affiliate, price_cents, pro, free=False."""
+    payload = _clean_outbound_payload(**extra_fields)
+    with pytest.raises(fw.FreeTierFirewallError, match=expected_code):
+        fw.verify_free_only_mode(payload, now_utc=DEC15_OPEN_UTC)
+
+
+def test_c24_n1_control_dir_fail_closed_on_invalid_paths(tmp_path: Path):
+    """B16C22-N1: nonexistent dir, regular file, DOS CON, ADS, trailing dot fail closed with CONTROL_DIR_INVALID."""
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps(_valid_dec15_pause_manifest()) + "\n", encoding="utf-8")
+
+    bad_ctrl_dirs = [
+        tmp_path / "no_such_control_dir",
+        manifest_path,  # regular file, not a directory
+        tmp_path / "CON",
+        tmp_path / "NUL",
+        str(tmp_path / "ctrl_dir") + ":hidden",
+        str(tmp_path / "ctrl_dir") + ".",
+        123,
+    ]
+    for bad_ctrl in bad_ctrl_dirs:
+        with pytest.raises(fw.FreeTierFirewallError, match="CONTROL_DIR_INVALID"):
+            fw.verify_pause_manifest_for_dec15_unpause(
+                manifest_path, now_utc=DEC15_OPEN_UTC, control_dir=bad_ctrl
+            )
+        with pytest.raises(fw.FreeTierFirewallError, match="CONTROL_DIR_INVALID"):
+            fw.verify_zero_claude_and_agy_dependencies(
+                now_utc=DEC15_OPEN_UTC, control_dir=bad_ctrl
+            )
+
+
+@pytest.mark.parametrize("extra_fields,expected_code", [
+    ({"rights_class": "non_commercial"}, "CC024_RIGHTS_CLASS_FORBIDDEN"),
+    ({"rights_class": "personal_only"}, "CC024_RIGHTS_CLASS_FORBIDDEN"),
+    ({"rights_class": "CC024_RESTRICTED"}, "CC024_RIGHTS_CLASS_FORBIDDEN"),
+    ({"rights_class": "LICENSE_REQUIRED"}, "CC024_RIGHTS_CLASS_FORBIDDEN"),
+    ({"rights_class": "FRED_COPYRIGHTED"}, "CC024_RIGHTS_CLASS_FORBIDDEN"),
+    ({"rights_class": ["LICENSE_REQUIRED"]}, "CC024_RIGHTS_CLASS_INVALID"),
+    ({"rights_class": True}, "CC024_RIGHTS_CLASS_INVALID"),
+    ({"rights_class": 123}, "CC024_RIGHTS_CLASS_INVALID"),
+    ({"rights_class": ""}, "CC024_RIGHTS_CLASS_INVALID"),
+    ({"sources": [{"source": "FeedX", "rights_class": "non_commercial"}]}, "CC024_RIGHTS_CLASS_FORBIDDEN"),
+    ({"body_markdown": "Quote https://www.yahoo.com/finance/quote/GSPC"}, "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ({"body_markdown": "Quote https://finance.yahoo.co.uk/quote/FTSE"}, "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ({"body_markdown": "FRED https://fred.stlouisfed.org/series/%53P500"}, "CC024_FRED_SP500_FORBIDDEN"),
+    ({"body_markdown": "FRED https://fred.stlouisfed.org/series/%2553%2550500"}, "CC024_FRED_SP500_FORBIDDEN"),
+    ({"body_markdown": "FRED https://fred.stlouisfed.org/series/VIXCLS"}, "CC024_FRED_SP500_FORBIDDEN"),
+    ({"body_markdown": "FRED https://fred.stlouisfed.org/series/DJIA"}, "CC024_FRED_SP500_FORBIDDEN"),
+    ({"body_markdown": "FRED https://fred.stlouisfed.org/series/NASDAQCOM"}, "CC024_FRED_SP500_FORBIDDEN"),
+    ({"sources": [{"source": "FRED", "series_id": "VIXCLS", "url": "https://fred.stlouisfed.org/"}]}, "CC024_FRED_SP500_FORBIDDEN"),
+])
+def test_c24_n2_l1_rights_class_yahoo_variants_and_fred_encoded_copyrighted_blocked(
+    extra_fields: dict[str, Any], expected_code: str
+):
+    """B16C22-N2 + B16C22-L1 + #155 L1 + DA10-T2B-M1: rights_class, yahoo.com/finance, co.uk, %53P500, VIXCLS/DJIA."""
+    payload = _clean_outbound_payload(**extra_fields)
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_cc024_commercial_firewall(payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+
+    # Legitimate ContentOps public rights_class values & public FRED Treasury series still PASS.
+    for clean_rc in ("CC_OWN_ANALYSIS", "CC_MODEL_ESTIMATE", "PUBLIC_DOMAIN", "BLS_OFFICIAL_PUBLIC"):
+        clean_p = _clean_outbound_payload(
+            rights_class=clean_rc,
+            sources=[{"source": "FRED", "series_id": "DGS10", "url": "https://fred.stlouisfed.org/series/DGS10", "rights_class": "PUBLIC_DOMAIN"}],
+        )
+        assert fw.verify_cc024_commercial_firewall(clean_p)["cc024_clean"] is True
+
+
+def test_c24_n3_l2_live_provider_and_task_legacy_stripping_bypass_closed():
+    """B16C22-N3 + B16C22-L2: no legacy-path stripping on live_provider or bare task cmds; compact claude4/agy2 blocked."""
+    for bad_claude_prov in (
+        "claude-main-research",
+        "--no-claude-cli-login",
+        "claude3",
+        "claude4",
+        "anthropicapi",
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="ANTHROPIC_PROVIDER_RETIRED_CC855"):
+            fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider=bad_claude_prov)
+
+    for bad_agy_prov in ("agy2", "antigravity2"):
+        with pytest.raises(fw.FreeTierFirewallError, match="AGY_BLOCKED_TERMS_OF_SERVICE_20261124"):
+            fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider=bad_agy_prov)
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_DEPENDENCY_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            runtime_config={"cmd": "anthropicapi call"},
+        )
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_AGY_DEPENDENCY_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            runtime_config={"cmd": "myagy run"},
+        )
+    for bad_task_cmd in ("claude-main-research", "--no-claude-cli-login", "/usr/bin/claude-main-research"):
+        with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN"):
+            fw.verify_zero_claude_and_agy_dependencies(
+                now_utc=DEC15_OPEN_UTC,
+                scheduled_tasks=[{"name": "SneakyTask", "enabled": True, "cmd": bad_task_cmd}],
+            )
+
+    # Pure legacy workspace directory path metadata + non-Claude command with disable flag stays clean.
+    res = fw.verify_zero_claude_and_agy_dependencies(
+        now_utc=DEC15_OPEN_UTC,
+        runtime_config={
+            "main_research_dir": r"A:\Capital Chronicle\ResearchRuns\claude-main-research\capture.json",
+            "ops_dir": r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\codex-exec",
+        },
+        scheduled_tasks=[
+            {
+                "name": "DailyDigest1900",
+                "enabled": True,
+                "command": "python scripts/run_daily_digest_1900.py --driver python-neo --no-claude-cli-login",
+                "main_root": r"A:\Capital Chronicle\ResearchRuns\claude-main-research",
+            }
+        ],
+    )
+    assert res["status"] == "PASS"
+
+
+@pytest.mark.parametrize("bad_text,expected_code", [
+    ("Routed via acct_DUR343723 and login_279805139.", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("Account DUR-343723 and DUR 343723 active.", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("Watch US500m and XAUUSDm and USTECm today.", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+    ("FX raw broker tickers EURUSDm, USDJPYm, USOILm, BTCUSDm.", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+])
+def test_c24_da10_m1_broker_ids_and_raw_cfd_suffixes_blocked(bad_text: str, expected_code: str):
+    """DA10-T2B-M1: underscore/hyphen/space broker IDs and Decision 107 raw CFD m-suffix symbols fail closed."""
+    payload = _clean_outbound_payload(text=bad_text)
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_cc024_commercial_firewall(payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+    for v in exc_info.value.violations:
+        assert "DUR343723" not in v.get("detail", "")
+        assert "279805139" not in v.get("detail", "")
+
+
+@pytest.mark.parametrize("bad_keys,expected_code", [
+    ({"gold_stop_loss": 3920.0, "xauusd_take_profit": 4210.0}, "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ({"desk_lot_size": 0.05, "xauusd_kelly_weight": 0.12}, "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ({"goldStopLoss": 3920.0, "xauusdTakeProfit": 4210.0, "deskKellyFraction": 0.04}, "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ({"kalshi_odds_pct": 86, "fedwatch_cut_probability": 0.863}, "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ({"gap_pp": 14.2, "polymarket_yes_price": 0.78}, "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ({"Kelly f* = 0.042": 1}, "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ({"stop-loss 3920.50": 1}, "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ({"acct_DUR343723": 1}, "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+])
+def test_c24_da10_m2_prefixed_camelcase_and_hostile_dict_keys_blocked_and_redacted(
+    bad_keys: dict[str, Any], expected_code: str
+):
+    """DA10-T2B-M2: snake_case/camelCase private-alpha, CC-791 odds, and hostile private dict keys blocked & redacted."""
+    payload = _clean_outbound_payload(**bad_keys)
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_cc024_commercial_firewall(payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+    for secret_key in bad_keys:
+        for v in exc_info.value.violations:
+            assert secret_key not in v.get("location", ""), f"Unredacted key leaked in location: {v}"
+            assert secret_key not in v.get("detail", ""), f"Unredacted key leaked in detail: {v}"
+            assert "<REDACTED_KEY#" in v.get("location", "")
+
+
+def test_c24_da10_m3_lone_utf16_surrogates_in_values_and_keys_fail_closed():
+    """DA10-T2B-M3: lone UTF-16 surrogates in values, keys, or JSON bytes raise INVALID_UNICODE_SURROGATE cleanly."""
+    with pytest.raises(fw.FreeTierFirewallError, match="INVALID_UNICODE_SURROGATE"):
+        fw.verify_cc024_commercial_firewall(_clean_outbound_payload(text="Hello \ud800 world."))
+    with pytest.raises(fw.FreeTierFirewallError, match="INVALID_UNICODE_SURROGATE") as exc_k:
+        fw.verify_cc024_commercial_firewall(_clean_outbound_payload(**{"bad\ud800key": "ok"}))
+    assert "<REDACTED_KEY#" in exc_k.value.violations[0]["location"]
+    # Confirm violation payload itself encodes cleanly as UTF-8
+    json.dumps(exc_k.value.violations).encode("utf-8")
+
+    with pytest.raises(fw.FreeTierFirewallError, match="INVALID_UNICODE_SURROGATE"):
+        fw.verify_free_only_mode(_clean_outbound_payload(**{"bad\udfffkey": "ok"}), now_utc=DEC15_OPEN_UTC)
+    with pytest.raises(fw.FreeTierFirewallError, match="INVALID_UNICODE_SURROGATE"):
+        fw.canonical_json({"bad\ud800key": "ok"})
+    with pytest.raises(fw.FreeTierFirewallError, match="INVALID_UNICODE_SURROGATE"):
+        fw.load_strict_json_bytes(b'{"a": "\\ud800"}')
+
+
+def test_c24_polish_url_schemes_oversized_int_private_zero_arena_null_ads_and_restored_dry_run(tmp_path: Path):
+    """Polish: unsafe URL schemes, 10**5000 guards, private_only=0, Arena null kind/sleeve, ADS/trailing-dot, L3/L4/#155 L3."""
+    # DA10-T2B-L1: unsafe URL schemes blocked
+    for bad_url in (
+        "javascript:alert(1)",
+        "vbscript:msgbox(1)",
+        "data:text/html,<script>alert(1)</script>",
+        "javascript%3aalert(1)",
+        "javascript&#58;alert(1)",
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="CC024_UNSAFE_URL_SCHEME_FORBIDDEN"):
+            fw.verify_cc024_commercial_firewall(_clean_outbound_payload(url=bad_url))
+
+    # B16C22-N4: private_only / public_export_forbidden falsy 0 / 0.0 / Decimal(0) fail closed
+    for zero_val in (0, 0.0, Decimal(0)):
+        with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"):
+            fw.verify_cc024_commercial_firewall(_clean_outbound_payload(private_only=zero_val))
+        with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"):
+            fw.verify_cc024_commercial_firewall(_clean_outbound_payload(public_export_forbidden=zero_val))
+
+    # B16C22-N4: 10**5000 never raises uncaught ValueError (4,300-digit int str limit)
+    huge = 10**5000
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(_clean_outbound_payload(series_id=huge, private_only=huge))
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_TIER_DESTINATION_INVALID"):
+        fw.verify_outbound_free_payload(_clean_outbound_payload(), now_utc=DEC15_OPEN_UTC, destination=huge)  # type: ignore[arg-type]
+    with pytest.raises(fw.FreeTierFirewallError, match="EDITORIAL_AGENT_INVALID"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, editorial_agent=huge)  # type: ignore[arg-type]
+    with pytest.raises(fw.FreeTierFirewallError, match="DIGEST_1900_DRIVER_INVALID"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, digest_driver=huge)  # type: ignore[arg-type]
+    with pytest.raises(fw.FreeTierFirewallError, match="LIVE_PROVIDER_INVALID"):
+        fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider=huge)  # type: ignore[arg-type]
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_FREE_ONLY_MODE_REQUIRED"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            {**_valid_dec15_pause_manifest(), "unpause_mode": huge, "cc024_clean_required": huge},
+            now_utc=DEC15_OPEN_UTC,
+        )
+
+    # B16C22-N4: Arena hash-chain rejects record_kind=None and sleeve_id=None
+    p_sha = fw.sha256_canonical({"event": "test"})
+    rec_id_null = "arena_" + fw.sha256_canonical(
+        [1, "", "", "2026-12-02T13:00:00Z", fw.GENESIS_PREV_SHA256, p_sha]
+    )[:24]
+    env_null_kind = {
+        "schema": fw.ARENA_LEDGER_SCHEMA,
+        "schema_version": "1.0.0",
+        "sequence": 1,
+        "record_id": rec_id_null,
+        "record_kind": None,
+        "sleeve_id": "l4_macro",
+        "cutoff_utc": "2026-12-02T13:00:00Z",
+        "known_at_max_utc": "2026-12-02T12:55:00Z",
+        "prev_record_sha256": fw.GENESIS_PREV_SHA256,
+        "payload_sha256": p_sha,
+        "private_only": True,
+        "public_export_forbidden": True,
+        "payload": {"event": "test"},
+    }
+    row_null_kind = {**env_null_kind, "record_sha256": fw.sha256_canonical(env_null_kind)}
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_RECORD_KIND_INVALID"):
+        fw.verify_day1_hash_chain([row_null_kind], max_clock_utc=DEC15_OPEN_UTC)
+
+    env_null_sleeve = {**env_null_kind, "record_kind": "DECISION_SEAL", "sleeve_id": None}
+    row_null_sleeve = {**env_null_sleeve, "record_sha256": fw.sha256_canonical(env_null_sleeve)}
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_SLEEVE_ID_INVALID"):
+        fw.verify_day1_hash_chain([row_null_sleeve], max_clock_utc=DEC15_OPEN_UTC)
+
+    # B16C22-N4: Windows trailing dot & NTFS ADS rejected on manifest and hash-chain paths
+    mpath = tmp_path / "manifest.json"
+    mpath.write_text(json.dumps(_valid_dec15_pause_manifest()) + "\n", encoding="utf-8")
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_PATH_INVALID"):
+        fw.verify_pause_manifest_for_dec15_unpause(str(mpath) + ".", now_utc=DEC15_OPEN_UTC)
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_PATH_INVALID"):
+        fw.verify_pause_manifest_for_dec15_unpause(str(mpath) + ":hidden", now_utc=DEC15_OPEN_UTC)
+
+    cpath = _write_jsonl(tmp_path / "chain_ads.jsonl", _build_arena_chain_records(1))
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_PATH_INVALID"):
+        fw.verify_day1_hash_chain(str(cpath) + ".")
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_PATH_INVALID"):
+        fw.verify_day1_hash_chain(str(cpath) + ":hidden")
+
+    # B16C22-L3: compact TP1:3985 / USTEC:TP1:25000 blocked even in status/primary_reason
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRICE_TARGET_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(_clean_outbound_payload(status="TP1:3985"))
+    with pytest.raises(fw.FreeTierFirewallError) as exc_tp:
+        fw.verify_cc024_commercial_firewall(_clean_outbound_payload(primary_reason="USTEC:TP1:25000"))
+    assert {"CC024_PRICE_TARGET_FORBIDDEN", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"} <= {
+        v["code"] for v in exc_tp.value.violations
+    }
+
+    # #155 L3: compact private_texts echo caught in Section 2 even inside skipped technical ID keys
+    compact_secret = "CONFIDENTIAL_DESK_TOKEN_ALPHA_9876543210"
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"):
+        fw.verify_cc024_commercial_firewall(
+            _clean_outbound_payload(id=compact_secret),
+            private_texts=[compact_secret],
+        )
+
+    # B16C22-L4: restored.json with dry_run=True fails closed even under allow_already_restored=True
+    (tmp_path / "restored.json").write_text(
+        json.dumps({"started_at_utc": "2026-12-15T00:00:00Z", "dry_run": True}) + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(fw.FreeTierFirewallError, match="RESTORED_MARKER_DRY_RUN_FORBIDDEN"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            mpath, now_utc=DEC15_OPEN_UTC, allow_already_restored=True
+        )
+    (tmp_path / "restored.json").write_text(
+        json.dumps({"started_at_utc": "2026-12-15T00:00:00Z", "dry_run": False}) + "\n",
+        encoding="utf-8",
+    )
+    assert fw.verify_pause_manifest_for_dec15_unpause(
+        mpath, now_utc=DEC15_OPEN_UTC, allow_already_restored=True
+    )["status"] == "PASS"
