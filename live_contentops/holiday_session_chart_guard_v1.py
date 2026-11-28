@@ -27,8 +27,10 @@ from datetime import date, datetime, time, timedelta, timezone
 from hashlib import sha256
 import json
 import math
+import os
 from pathlib import Path
 import re
+import stat
 from typing import Any, Mapping, Sequence
 from zoneinfo import ZoneInfo
 
@@ -125,6 +127,7 @@ CFD_SOURCE_KINDS = frozenset({
     "MAIN_SAVED_TICK",
     "HELD_M15_RESOLUTION_CLOSE",
 })
+ALLOWED_SOURCE_KINDS = frozenset(CFD_SOURCE_KINDS | {"PUBLIC_ON_DEMAND_QUOTE"})
 CFD_PRICE_BASES = frozenset({"plan_feed", "plan_bar_close"})
 QUOTE_ABSENT_CAUSES = (
     "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
@@ -134,6 +137,18 @@ QUOTE_ABSENT_CAUSES = (
 _ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_KEY_RE = re.compile(r"^\d{4}$")
 _PAGE_TITLE_PRICE_RE = re.compile(r"^\S+\s+([\d,]+(?:\.\d+)?)(?:\s|$)")
+_SHA256_HEX_RE = re.compile(r"^[0-9a-fA-F]{64}$")
+_CONTROL_CHAR_RE = re.compile(r"[\x00-\x1f\x7f]")
+_DRIVE_PREFIX_RE = re.compile(r"^[A-Za-z]:")
+_NORMALIZED_CALENDAR_TOKEN = object()
+_MAX_CALENDAR_BYTES = 2 * 1024 * 1024
+_FILE_ATTRIBUTE_REPARSE_POINT = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+_WIN_RESERVED_DOS_STEMS = frozenset(
+    {"con", "prn", "aux", "nul", "conin$", "conout$", "clock$"}
+    | {f"com{i}" for i in range(10)}
+    | {f"lpt{i}" for i in range(10)}
+    | {"com\u00b9", "com\u00b2", "com\u00b3", "lpt\u00b9", "lpt\u00b2", "lpt\u00b3"}
+)
 _WEEKDAY_NAMES = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
 # Byte-keyed read-only cache so same-size edits invalidate immediately.
@@ -147,6 +162,113 @@ class HolidayChartGuardError(ValueError):
         super().__init__(cause)
         self.cause = cause
         self.details = details
+
+
+def _require_clean_utf8_text(value: Any, *, error_code: str, field: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise HolidayChartGuardError(error_code, missing=field)
+    if _CONTROL_CHAR_RE.search(value):
+        raise HolidayChartGuardError(error_code, field=field, reason="control_chars_forbidden")
+    try:
+        value.encode("utf-8")
+    except UnicodeEncodeError:
+        raise HolidayChartGuardError(error_code, field=field, reason="invalid_utf8_surrogate") from None
+    return value
+
+
+def _require_sha256_hex(value: Any, *, error_code: str, field: str) -> str:
+    text = _require_clean_utf8_text(value, error_code=error_code, field=field).strip()
+    if not _SHA256_HEX_RE.fullmatch(text):
+        raise HolidayChartGuardError(error_code, field=field, reason="invalid_sha256_hex")
+    return text.lower()
+
+
+def _has_unsafe_windows_path_prefix(slashed: str) -> bool:
+    upper = slashed.lstrip().upper()
+    return (
+        upper == "\\??"
+        or upper.startswith(("\\??\\", "\\\\?\\", "\\\\.\\", "\\\\", "\\GLOBAL??\\", "\\DOSDEVICES\\", "\\DEVICE\\"))
+        or upper.startswith(("GLOBALROOT\\", "VOLUME{", "HARDDISKVOLUME"))
+        or "\\DEVICE\\HARDDISKVOLUME" in upper
+        or "GLOBALROOT" in upper
+    )
+
+
+def _require_safe_source_path(value: Any) -> str:
+    text = _require_clean_utf8_text(value, error_code="TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED", field="source_path")
+    if text != text.strip():
+        raise HolidayChartGuardError(
+            "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+            field="source_path",
+            reason="leading_or_trailing_whitespace",
+        )
+    slashed = text.replace("/", "\\")
+    if _has_unsafe_windows_path_prefix(slashed):
+        raise HolidayChartGuardError(
+            "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+            field="source_path",
+            reason="unsafe_windows_path_prefix",
+        )
+    if _DRIVE_PREFIX_RE.match(slashed):
+        if len(slashed) < 3 or slashed[2] != "\\":
+            raise HolidayChartGuardError(
+                "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+                field="source_path",
+                reason="drive_relative_path_forbidden",
+            )
+        body = slashed[2:]
+    else:
+        body = slashed
+    if ":" in body:
+        raise HolidayChartGuardError(
+            "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+            field="source_path",
+            reason="ntfs_ads_forbidden",
+        )
+    for seg in (s for s in body.split("\\") if s):
+        if seg == "..":
+            raise HolidayChartGuardError(
+                "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+                field="source_path",
+                reason="traversal_forbidden",
+            )
+        if seg == ".":
+            continue
+        if seg.endswith(".") or seg.endswith(" "):
+            raise HolidayChartGuardError(
+                "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+                field="source_path",
+                reason="trailing_dot_or_space",
+            )
+        stem = seg.rstrip(". ").split(".", 1)[0].rstrip(" ").lower()
+        if stem in _WIN_RESERVED_DOS_STEMS:
+            raise HolidayChartGuardError(
+                "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+                field="source_path",
+                reason="reserved_dos_device",
+            )
+    return text
+
+
+def _to_et(dt_utc: datetime, *, field_name: str = "at_utc") -> datetime:
+    try:
+        return dt_utc.astimezone(ET)
+    except OverflowError:
+        raise HolidayChartGuardError("UTC_CLOCK_OUT_OF_RANGE", field=field_name, value=dt_utc.isoformat()) from None
+
+
+def _combine_et_to_utc(day_obj: date, clock_et: time, *, field_name: str = "day_et") -> datetime:
+    try:
+        return datetime.combine(day_obj, clock_et, ET).astimezone(UTC)
+    except OverflowError:
+        raise HolidayChartGuardError("UTC_CLOCK_OUT_OF_RANGE", field=field_name, value=day_obj.isoformat()) from None
+
+
+def _shift_date(day_obj: date, days: int, *, field_name: str = "day_et") -> date:
+    try:
+        return day_obj + timedelta(days=days)
+    except OverflowError:
+        raise HolidayChartGuardError("UTC_CLOCK_OUT_OF_RANGE", field=field_name, value=day_obj.isoformat()) from None
 
 
 def require_aware_utc(value: Any, *, field_name: str = "timestamp") -> datetime:
@@ -169,7 +291,10 @@ def require_aware_utc(value: Any, *, field_name: str = "timestamp") -> datetime:
         raise HolidayChartGuardError("NAIVE_TIMESTAMP_FORBIDDEN", field=field_name, received_type=type(value).__name__)
     if parsed.tzinfo is None or parsed.utcoffset() is None:
         raise HolidayChartGuardError("NAIVE_TIMESTAMP_FORBIDDEN", field=field_name)
-    return parsed.astimezone(UTC)
+    try:
+        return parsed.astimezone(UTC)
+    except OverflowError:
+        raise HolidayChartGuardError("UTC_CLOCK_OUT_OF_RANGE", field=field_name) from None
 
 
 def require_date(value: Any, *, field_name: str = "day_et") -> date:
@@ -370,6 +495,137 @@ def _normalize_calendar_payload(
     }
 
 
+def _validate_calendar_path(raw_path: str | Path) -> Path:
+    """Unconditionally refuse NT/device/UNC prefixes, ADS, trailing dot/space, DOS stems, and symlinks/junctions."""
+    if not isinstance(raw_path, (str, Path)):
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="invalid_path_type")
+    raw = str(raw_path)
+    if not raw or not raw.strip() or _CONTROL_CHAR_RE.search(raw):
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="empty_or_control_chars")
+    try:
+        raw.encode("utf-8")
+    except UnicodeEncodeError:
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="invalid_utf8_surrogate") from None
+    if raw != raw.strip():
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="leading_or_trailing_whitespace", path=raw)
+
+    slashed = raw.replace("/", "\\")
+    if _has_unsafe_windows_path_prefix(slashed):
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="device_or_unc_prefix", path=raw)
+    if len(slashed) > 3 and slashed.endswith("\\"):
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="trailing_separator", path=raw)
+
+    if _DRIVE_PREFIX_RE.match(slashed):
+        if len(slashed) < 3 or slashed[2] != "\\":
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="drive_relative_path_forbidden", path=raw)
+        body = slashed[2:]
+    else:
+        body = slashed
+    if ":" in body:
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="ntfs_ads_forbidden", path=raw)
+    for seg in (s for s in body.split("\\") if s):
+        if seg == "..":
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="traversal_forbidden", path=raw)
+        if seg == ".":
+            continue
+        if seg.endswith(".") or seg.endswith(" "):
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="trailing_dot_or_space", path=raw)
+        stem = seg.rstrip(". ").split(".", 1)[0].rstrip(" ").lower()
+        if stem in _WIN_RESERVED_DOS_STEMS:
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="reserved_dos_device", path=raw)
+
+    path = Path(raw)
+    abs_path = Path(os.path.abspath(raw))
+    seen: set[str] = set()
+    for root_candidate in (path, abs_path):
+        for candidate in (root_candidate, *root_candidate.parents):
+            cand_key = str(candidate)
+            if cand_key in seen:
+                continue
+            seen.add(cand_key)
+            try:
+                is_sym = candidate.is_symlink()
+                is_junc = hasattr(os.path, "isjunction") and os.path.isjunction(candidate)
+            except OSError:
+                raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="reparse_check_failed", path=raw) from None
+            if is_sym or is_junc:
+                raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="reparse_or_symlink", path=raw)
+            try:
+                st = candidate.lstat()
+            except FileNotFoundError:
+                continue
+            except OSError:
+                raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="lstat_failed", path=raw) from None
+            if stat.S_ISLNK(st.st_mode) or (getattr(st, "st_file_attributes", 0) & _FILE_ATTRIBUTE_REPARSE_POINT):
+                raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", reason="reparse_point_forbidden", path=raw)
+    return path
+
+
+def _reject_dup_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for k, v in pairs:
+        if k in out:
+            raise ValueError(f"DUPLICATE_JSON_KEY:{k}")
+        out[k] = v
+    return out
+
+
+def _reject_non_finite(token: str) -> Any:
+    raise ValueError(f"NON_FINITE_JSON_CONSTANT:{token}")
+
+
+def _loads_strict_calendar_json(raw: bytes) -> Any:
+    text = raw.decode("utf-8")
+    return json.loads(text, object_pairs_hook=_reject_dup_keys, parse_constant=_reject_non_finite)
+
+
+def _clone_calendar_bundle(bundle: Mapping[str, Any], *, allow_fallback: bool) -> dict[str, Any]:
+    for req_key in ("schema", "source", "path", "sha256", "years"):
+        if req_key not in bundle:
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_SCHEMA_INVALID", reason="normalized_bundle_missing_key", missing=req_key)
+    years_obj = bundle.get("years")
+    if not isinstance(years_obj, Mapping):
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_SCHEMA_INVALID", reason="normalized_years_corrupt")
+    years_copy: dict[int, dict[str, frozenset[str]]] = {}
+    for yr, entry in years_obj.items():
+        if isinstance(yr, bool) or not isinstance(yr, int) or not isinstance(entry, Mapping):
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_SCHEMA_INVALID", reason="normalized_year_entry_corrupt")
+        closed = entry.get("closed")
+        early = entry.get("early_close_13_et")
+        if (
+            not isinstance(closed, (frozenset, set, list, tuple))
+            or not isinstance(early, (frozenset, set, list, tuple))
+            or not all(isinstance(d, str) for d in closed)
+            or not all(isinstance(d, str) for d in early)
+        ):
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_SCHEMA_INVALID", reason="normalized_year_dates_corrupt")
+        years_copy[yr] = {
+            "closed": frozenset(closed),
+            "early_close_13_et": frozenset(early),
+        }
+    return {
+        "schema": bundle["schema"],
+        "source": bundle["source"],
+        "path": bundle["path"],
+        "sha256": bundle["sha256"],
+        "years": years_copy,
+        "allow_fallback": bool(allow_fallback),
+        "_normalized_holiday_calendar": _NORMALIZED_CALENDAR_TOKEN,
+    }
+
+
+def _fallback_calendar_bundle(*, path: str | None) -> dict[str, Any]:
+    return {
+        "schema": CALENDAR_SCHEMA,
+        "source": "FALLBACK_NYSE_RULES",
+        "path": path,
+        "sha256": None,
+        "years": {},
+        "allow_fallback": True,
+        "_normalized_holiday_calendar": _NORMALIZED_CALENDAR_TOKEN,
+    }
+
+
 def load_us_session_calendar(
     *,
     calendar_path: str | Path | None = None,
@@ -379,8 +635,10 @@ def load_us_session_calendar(
     """Load and validate ``us_session_calendar_v1.json`` read-only; fail closed by default."""
     global _CALENDAR_FILE_CACHE
     if calendar is not None:
-        if isinstance(calendar, dict) and calendar.get("_normalized_holiday_calendar") is True:
-            return dict(calendar, allow_fallback=bool(allow_fallback or calendar.get("allow_fallback")))
+        if isinstance(calendar, Mapping) and "_normalized_holiday_calendar" in calendar:
+            if calendar.get("_normalized_holiday_calendar") is _NORMALIZED_CALENDAR_TOKEN:
+                return _clone_calendar_bundle(calendar, allow_fallback=bool(allow_fallback))
+            raise HolidayChartGuardError("HOLIDAY_CALENDAR_SCHEMA_INVALID", reason="forged_normalized_marker")
         try:
             raw = json.dumps(calendar, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
         except (TypeError, ValueError):
@@ -393,56 +651,56 @@ def load_us_session_calendar(
                 digest=sha256(raw).hexdigest(),
                 allow_fallback=allow_fallback,
             )
-            normalized["_normalized_holiday_calendar"] = True
-            return normalized
+            return _clone_calendar_bundle(normalized, allow_fallback=bool(allow_fallback))
         except HolidayChartGuardError:
             if not allow_fallback:
                 raise
-            return {
-                "schema": CALENDAR_SCHEMA,
-                "source": "FALLBACK_NYSE_RULES",
-                "path": None,
-                "sha256": None,
-                "years": {},
-                "allow_fallback": True,
-                "_normalized_holiday_calendar": True,
-            }
+            return _fallback_calendar_bundle(path=None)
 
-    path = Path(DEFAULT_CALENDAR_PATH if calendar_path is None else calendar_path)
+    path = _validate_calendar_path(DEFAULT_CALENDAR_PATH if calendar_path is None else calendar_path)
     key = str(path)
+    try:
+        st = path.lstat()
+    except FileNotFoundError as exc:
+        if allow_fallback:
+            return _fallback_calendar_bundle(path=key)
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_UNAVAILABLE", path=key, error=type(exc).__name__) from None
+    except OSError as exc:
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", path=key, error=type(exc).__name__) from None
+    if not stat.S_ISREG(st.st_mode):
+        raise HolidayChartGuardError("HOLIDAY_CALENDAR_PATH_UNSAFE", path=key, reason="non_regular_file")
+    if st.st_size > _MAX_CALENDAR_BYTES:
+        raise HolidayChartGuardError(
+            "HOLIDAY_CALENDAR_PATH_UNSAFE",
+            path=key,
+            reason="file_too_large",
+            size_bytes=st.st_size,
+            max_bytes=_MAX_CALENDAR_BYTES,
+        )
+
     try:
         raw = path.read_bytes()
     except OSError as exc:
         if allow_fallback:
-            return {
-                "schema": CALENDAR_SCHEMA,
-                "source": "FALLBACK_NYSE_RULES",
-                "path": key,
-                "sha256": None,
-                "years": {},
-                "allow_fallback": True,
-                "_normalized_holiday_calendar": True,
-            }
+            return _fallback_calendar_bundle(path=key)
         raise HolidayChartGuardError("HOLIDAY_CALENDAR_UNAVAILABLE", path=key, error=type(exc).__name__) from None
+    if len(raw) > _MAX_CALENDAR_BYTES:
+        raise HolidayChartGuardError(
+            "HOLIDAY_CALENDAR_PATH_UNSAFE",
+            path=key,
+            reason="file_too_large",
+            size_bytes=len(raw),
+            max_bytes=_MAX_CALENDAR_BYTES,
+        )
 
     if _CALENDAR_FILE_CACHE is not None and _CALENDAR_FILE_CACHE[0] == key and _CALENDAR_FILE_CACHE[1] == raw:
-        cached = dict(_CALENDAR_FILE_CACHE[2])
-        cached["allow_fallback"] = bool(allow_fallback)
-        return cached
+        return _clone_calendar_bundle(_CALENDAR_FILE_CACHE[2], allow_fallback=bool(allow_fallback))
 
     try:
-        parsed = json.loads(raw)
-    except (ValueError, UnicodeDecodeError):
+        parsed = _loads_strict_calendar_json(raw)
+    except (ValueError, UnicodeDecodeError, RecursionError):
         if allow_fallback:
-            return {
-                "schema": CALENDAR_SCHEMA,
-                "source": "FALLBACK_NYSE_RULES",
-                "path": key,
-                "sha256": None,
-                "years": {},
-                "allow_fallback": True,
-                "_normalized_holiday_calendar": True,
-            }
+            return _fallback_calendar_bundle(path=key)
         raise HolidayChartGuardError("HOLIDAY_CALENDAR_CORRUPT_JSON", path=key) from None
 
     try:
@@ -455,20 +713,11 @@ def load_us_session_calendar(
         )
     except HolidayChartGuardError:
         if allow_fallback:
-            return {
-                "schema": CALENDAR_SCHEMA,
-                "source": "FALLBACK_NYSE_RULES",
-                "path": key,
-                "sha256": None,
-                "years": {},
-                "allow_fallback": True,
-                "_normalized_holiday_calendar": True,
-            }
+            return _fallback_calendar_bundle(path=key)
         raise
 
-    normalized["_normalized_holiday_calendar"] = True
-    _CALENDAR_FILE_CACHE = (key, raw, dict(normalized))
-    return normalized
+    _CALENDAR_FILE_CACHE = (key, raw, _clone_calendar_bundle(normalized, allow_fallback=False))
+    return _clone_calendar_bundle(normalized, allow_fallback=bool(allow_fallback))
 
 
 def _year_dates(year: int, bundle: Mapping[str, Any]) -> tuple[frozenset[str], frozenset[str], str]:
@@ -581,8 +830,8 @@ def classify_us_cash_day(
         }
     is_early = iso in early
     close_t = US_CASH_EARLY_CLOSE_ET if is_early else US_CASH_REGULAR_CLOSE_ET
-    open_utc = datetime.combine(day_obj, US_CASH_OPEN_ET, ET).astimezone(UTC)
-    close_utc = datetime.combine(day_obj, close_t, ET).astimezone(UTC)
+    open_utc = _combine_et_to_utc(day_obj, US_CASH_OPEN_ET, field_name="day_et")
+    close_utc = _combine_et_to_utc(day_obj, close_t, field_name="day_et")
     label = _named_us_holiday_label(day_obj, is_closed=False, is_early=is_early)
     return {
         "day_et": iso,
@@ -607,7 +856,7 @@ def _prior_us_cash_session_info(start_day: date, bundle: Mapping[str, Any]) -> t
         info = classify_us_cash_day(day, calendar=bundle, allow_fallback=bundle["allow_fallback"])
         if info["is_open_day"]:
             return day, info
-        day -= timedelta(days=1)
+        day = _shift_date(day, -1, field_name="day_et")
     raise HolidayChartGuardError("PRIOR_US_CASH_SESSION_NOT_FOUND", start_day=start_day.isoformat())
 
 
@@ -617,7 +866,7 @@ def _next_us_cash_session_day(start_day: date, bundle: Mapping[str, Any]) -> dat
         info = classify_us_cash_day(day, calendar=bundle, allow_fallback=bundle["allow_fallback"])
         if info["is_open_day"]:
             return day
-        day += timedelta(days=1)
+        day = _shift_date(day, 1, field_name="day_et")
     raise HolidayChartGuardError("NEXT_US_CASH_SESSION_NOT_FOUND", start_day=start_day.isoformat())
 
 
@@ -627,8 +876,8 @@ def _prior_cme_close_utc(start_day: date, bundle: Mapping[str, Any]) -> datetime
         info = classify_us_cash_day(day, calendar=bundle, allow_fallback=bundle["allow_fallback"])
         if day.weekday() < 5 and not info["is_cme_full_day_holiday"]:
             close_t = CME_EARLY_EVE_CLOSE_ET if info["is_early_close"] else CME_WEEKEND_CLOSE_ET
-            return datetime.combine(day, close_t, ET).astimezone(UTC)
-        day -= timedelta(days=1)
+            return _combine_et_to_utc(day, close_t, field_name="day_et")
+        day = _shift_date(day, -1, field_name="day_et")
     raise HolidayChartGuardError("PRIOR_CME_SESSION_NOT_FOUND", start_day=start_day.isoformat())
 
 
@@ -646,7 +895,7 @@ def resolve_market_session(
     captured = require_aware_utc(at_utc, field_name="at_utc")
     bundle = load_us_session_calendar(calendar_path=calendar_path, calendar=calendar, allow_fallback=allow_fallback)
     spec = CORE_MARKETS[market_id]
-    local = captured.astimezone(ET)
+    local = _to_et(captured, field_name="at_utc")
     day_et = local.date()
     clock_et = local.time()
     day_info = classify_us_cash_day(day_et, calendar=bundle, allow_fallback=bundle["allow_fallback"])
@@ -695,7 +944,7 @@ def resolve_market_session(
                     "session_close_et": close_t.strftime("%H:%M"),
                 }
             if clock_et >= close_t:
-                close_utc = datetime.combine(day_et, close_t, ET).astimezone(UTC)
+                close_utc = _combine_et_to_utc(day_et, close_t, field_name="at_utc")
                 post_early_window = bool(day_info["is_early_close"] and clock_et < US_CASH_REGULAR_CLOSE_ET)
                 return {
                     **base,
@@ -709,7 +958,7 @@ def resolve_market_session(
                     "settlement_max_negative_skew_seconds": CASH_INDEX_CLOSE_SETTLE_SECONDS,
                     "cfd_holiday_drift_risk": post_early_window,
                 }
-            _, prior_info = _prior_us_cash_session_info(day_et - timedelta(days=1), bundle)
+            _, prior_info = _prior_us_cash_session_info(_shift_date(day_et, -1, field_name="at_utc"), bundle)
             return {
                 **base,
                 "is_closed": True,
@@ -723,7 +972,7 @@ def resolve_market_session(
                 "cfd_holiday_drift_risk": False,
             }
 
-        _, prior_info = _prior_us_cash_session_info(day_et - timedelta(days=1), bundle)
+        _, prior_info = _prior_us_cash_session_info(_shift_date(day_et, -1, field_name="at_utc"), bundle)
         is_holiday = day_info["session_state"] == "CLOSED_HOLIDAY"
         return {
             **base,
@@ -739,12 +988,12 @@ def resolve_market_session(
     # Common non-crypto weekend closure: Friday 17:00 ET through Sunday 18:00 ET.
     wd = local.weekday()
     if wd == 5 or (wd == 6 and clock_et < CME_WEEKEND_REOPEN_ET) or (wd == 4 and clock_et >= CME_WEEKEND_CLOSE_ET):
-        friday = day_et - timedelta(days=(wd - 4) % 7)
+        friday = _shift_date(day_et, -((wd - 4) % 7), field_name="at_utc")
         friday_info = classify_us_cash_day(friday, calendar=bundle, allow_fallback=bundle["allow_fallback"])
         if market_id in CME_COMMODITY_MARKETS and enforce_cme_full_day_holidays and friday_info["is_cme_full_day_holiday"]:
-            anchor_utc = _prior_cme_close_utc(friday - timedelta(days=1), bundle)
+            anchor_utc = _prior_cme_close_utc(_shift_date(friday, -1, field_name="at_utc"), bundle)
         else:
-            anchor_utc = datetime.combine(friday, CME_WEEKEND_CLOSE_ET, ET).astimezone(UTC)
+            anchor_utc = _combine_et_to_utc(friday, CME_WEEKEND_CLOSE_ET, field_name="at_utc")
         return {
             **base,
             "is_closed": True,
@@ -757,7 +1006,7 @@ def resolve_market_session(
     # and the preceding holiday-eve evening when Globex stays closed past 18:00 ET.
     if market_id in CME_COMMODITY_MARKETS and enforce_cme_full_day_holidays:
         if day_info["is_cme_full_day_holiday"] and (wd == 4 or clock_et < CME_WEEKEND_REOPEN_ET):
-            anchor_utc = _prior_cme_close_utc(day_et - timedelta(days=1), bundle)
+            anchor_utc = _prior_cme_close_utc(_shift_date(day_et, -1, field_name="at_utc"), bundle)
             return {
                 **base,
                 "is_closed": True,
@@ -769,15 +1018,15 @@ def resolve_market_session(
         eve_cutoff = CME_EARLY_EVE_CLOSE_ET if day_info["is_early_close"] else CME_WEEKEND_CLOSE_ET
         if clock_et >= eve_cutoff:
             next_day_info = classify_us_cash_day(
-                day_et + timedelta(days=1),
+                _shift_date(day_et, 1, field_name="at_utc"),
                 calendar=bundle,
                 allow_fallback=bundle["allow_fallback"],
             )
             if next_day_info["is_cme_full_day_holiday"]:
                 if wd == 6:
-                    anchor_utc = _prior_cme_close_utc(day_et - timedelta(days=1), bundle)
+                    anchor_utc = _prior_cme_close_utc(_shift_date(day_et, -1, field_name="at_utc"), bundle)
                 else:
-                    anchor_utc = datetime.combine(day_et, eve_cutoff, ET).astimezone(UTC)
+                    anchor_utc = _combine_et_to_utc(day_et, eve_cutoff, field_name="at_utc")
                 return {
                     **base,
                     "is_closed": True,
@@ -866,19 +1115,56 @@ def evaluate_quote_for_session(
     quote_val = require_positive_finite_number(quote.get("price"), field_name="quote.price")
     quoted_at = require_aware_utc(quote.get("quoted_at_utc"), field_name="quote.quoted_at_utc")
     known_at = require_aware_utc(quote.get("known_at_utc"), field_name="quote.known_at_utc")
-    if not isinstance(quote.get("source_path"), str) or not quote["source_path"].strip():
-        raise HolidayChartGuardError("TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED", missing="source_path")
-    if not isinstance(quote.get("source_sha256"), str) or not quote["source_sha256"].strip():
-        raise HolidayChartGuardError("TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED", missing="source_sha256")
+    _require_safe_source_path(quote.get("source_path"))
+    _require_sha256_hex(
+        quote.get("source_sha256"),
+        error_code="TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+        field="source_sha256",
+    )
+    for opt_field in ("price_basis", "source_symbol", "instrument_type"):
+        opt_val = quote.get(opt_field)
+        if opt_val is not None and isinstance(opt_val, str):
+            if _CONTROL_CHAR_RE.search(opt_val):
+                raise HolidayChartGuardError(
+                    "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+                    field=opt_field,
+                    reason="control_chars_forbidden",
+                )
+            try:
+                opt_val.encode("utf-8")
+            except UnicodeEncodeError:
+                raise HolidayChartGuardError(
+                    "TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED",
+                    field=opt_field,
+                    reason="invalid_utf8_surrogate",
+                ) from None
+
+    source_kind = quote.get("source_kind")
+    if source_kind is not None and (not isinstance(source_kind, str) or source_kind not in ALLOWED_SOURCE_KINDS):
+        raise HolidayChartGuardError(
+            "TRADINGVIEW_PLAN_QUOTE_SOURCE_KIND_INVALID",
+            market=market_id,
+            source_kind=source_kind,
+        )
 
     official_settlement = _is_official_cash_settlement_quote(market_id, quote)
-    if quote.get("source_kind") == "PUBLIC_ON_DEMAND_QUOTE" and market_id in CASH_INDEX_MARKETS:
-        if quote.get("instrument_type") != "INDEX":
+    if source_kind == "PUBLIC_ON_DEMAND_QUOTE":
+        expected_instrument_type = spec["public_instrument_type"]
+        actual_instrument_type = quote.get("instrument_type")
+        if market_id in CASH_INDEX_MARKETS:
+            if actual_instrument_type != expected_instrument_type:
+                raise HolidayChartGuardError(
+                    "SETTLEMENT_PROXY_INSTRUMENT_FORBIDDEN",
+                    market=market_id,
+                    expected_instrument_type=expected_instrument_type,
+                    actual_instrument_type=actual_instrument_type,
+                )
+        elif actual_instrument_type is not None and actual_instrument_type != expected_instrument_type:
             raise HolidayChartGuardError(
                 "SETTLEMENT_PROXY_INSTRUMENT_FORBIDDEN",
                 market=market_id,
-                expected_instrument_type="INDEX",
-                actual_instrument_type=quote.get("instrument_type"),
+                expected_instrument_type=expected_instrument_type,
+                actual_instrument_type=actual_instrument_type,
             )
         source_symbol = quote.get("source_symbol")
         if source_symbol is not None and source_symbol != spec["public_quote_symbol"]:
@@ -900,6 +1186,12 @@ def evaluate_quote_for_session(
     )
     if historical:
         comparison_at = require_aware_utc(visible_to_utc, field_name="visible_to_utc")
+        if comparison_at > captured:
+            raise HolidayChartGuardError(
+                "TRADINGVIEW_HISTORICAL_WINDOW_INVALID",
+                visible_to_utc=comparison_at.isoformat(),
+                captured_at_utc=captured.isoformat(),
+            )
         closed = False
         comparison_basis = "VISIBLE_WINDOW_CLOSE"
     else:
@@ -909,6 +1201,13 @@ def evaluate_quote_for_session(
     skew_seconds = (comparison_at - quoted_at).total_seconds()
     difference = chart_val - quote_val
     difference_pct = abs(difference) / quote_val * 100.0
+    if not (math.isfinite(difference) and math.isfinite(difference_pct)):
+        raise HolidayChartGuardError(
+            "NON_FINITE_PERCENT_DIFFERENCE",
+            market=market_id,
+            chart_price=chart_val,
+            quote_price=quote_val,
+        )
     is_cfd = _is_cfd_or_broker_quote(quote)
 
     common = {
@@ -1061,8 +1360,11 @@ def guard_chart_scale(
             expected_tv_symbol=spec["tv_symbol"],
             actual_tv_symbol=snapshot.get("tv_symbol"),
         )
-    if not isinstance(snapshot.get("sha256"), str) or not snapshot["sha256"].strip():
-        raise HolidayChartGuardError("TRADINGVIEW_SNAPSHOT_SHA256_REQUIRED")
+    chart_sha256 = _require_sha256_hex(
+        snapshot.get("sha256"),
+        error_code="TRADINGVIEW_SNAPSHOT_SHA256_REQUIRED",
+        field="snapshot.sha256",
+    )
     captured = require_aware_utc(snapshot.get("captured_at_utc"), field_name="snapshot.captured_at_utc")
 
     visible_from: datetime | None = None
@@ -1137,7 +1439,7 @@ def guard_chart_scale(
             "cause": evaluation["cause"],
             "market": market_id,
             "tv_symbol": spec["tv_symbol"],
-            "chart_sha256": snapshot["sha256"],
+            "chart_sha256": chart_sha256,
             "chart_price": evaluation["chart_price"],
             "captured_at_utc": captured.isoformat(),
             "comparison_basis": evaluation["comparison_basis"],
@@ -1177,7 +1479,7 @@ def guard_chart_scale(
         "cause": None,
         "market": market_id,
         "tv_symbol": spec["tv_symbol"],
-        "chart_sha256": snapshot["sha256"],
+        "chart_sha256": chart_sha256,
         "chart_price": chart_price,
         "captured_at_utc": captured.isoformat(),
         "comparison_basis": "NOT_COMPARED",
@@ -1202,12 +1504,12 @@ def evaluate_wrap_cadence(
     """Resolve CC-689 daily / weekly wrap cadence and settlement windows across holidays & year rollovers."""
     now = require_aware_utc(at_utc, field_name="at_utc")
     bundle = load_us_session_calendar(calendar_path=calendar_path, calendar=calendar, allow_fallback=allow_fallback)
-    day_et = now.astimezone(ET).date()
+    day_et = _to_et(now, field_name="at_utc").date()
     day_info = classify_us_cash_day(day_et, calendar=bundle, allow_fallback=bundle["allow_fallback"])
     weekly = day_et.weekday() == 6
 
     try:
-        next_open: date | None = _next_us_cash_session_day(day_et + timedelta(days=1), bundle)
+        next_open: date | None = _next_us_cash_session_day(_shift_date(day_et, 1, field_name="at_utc"), bundle)
     except HolidayChartGuardError as exc:
         if exc.cause == "HOLIDAY_CALENDAR_YEAR_MISSING" and exc.details.get("year") == day_et.year + 1:
             next_open = None
@@ -1239,7 +1541,7 @@ def evaluate_wrap_cadence(
         }
 
     if day_et.weekday() == 5:
-        last_day, last_info = _prior_us_cash_session_info(day_et - timedelta(days=1), bundle)
+        last_day, last_info = _prior_us_cash_session_info(_shift_date(day_et, -1, field_name="at_utc"), bundle)
         return {
             "policy": POLICY,
             "at_utc": now.isoformat(),
@@ -1261,7 +1563,7 @@ def evaluate_wrap_cadence(
         }
 
     if not weekly and not day_info["is_open_day"]:
-        last_day, last_info = _prior_us_cash_session_info(day_et - timedelta(days=1), bundle)
+        last_day, last_info = _prior_us_cash_session_info(_shift_date(day_et, -1, field_name="at_utc"), bundle)
         return {
             "policy": POLICY,
             "at_utc": now.isoformat(),
@@ -1287,15 +1589,15 @@ def evaluate_wrap_cadence(
         start_utc = datetime.combine(day_et, start_t, UTC)
         deadline_utc = datetime.combine(day_et, WRAP_WEEKLY_DEADLINE_UTC, UTC)
         edition = "weekly"
-        last_day, last_info = _prior_us_cash_session_info(day_et - timedelta(days=2), bundle)
-        prior_day, prior_info = _prior_us_cash_session_info(day_et - timedelta(days=9), bundle)
+        last_day, last_info = _prior_us_cash_session_info(_shift_date(day_et, -2, field_name="at_utc"), bundle)
+        prior_day, prior_info = _prior_us_cash_session_info(_shift_date(day_et, -9, field_name="at_utc"), bundle)
         prior_session_et: str | None = prior_day.isoformat()
         prior_close_utc: str | None = prior_info["close_utc"]
     else:
-        start_utc = datetime.combine(day_et, WRAP_DAILY_START_ET, ET).astimezone(UTC)
-        deadline_utc = datetime.combine(day_et, WRAP_DAILY_DEADLINE_ET, ET).astimezone(UTC)
+        start_utc = _combine_et_to_utc(day_et, WRAP_DAILY_START_ET, field_name="at_utc")
+        deadline_utc = _combine_et_to_utc(day_et, WRAP_DAILY_DEADLINE_ET, field_name="at_utc")
         edition = "daily"
-        last_day, last_info = _prior_us_cash_session_info(day_et - timedelta(days=1), bundle)
+        last_day, last_info = _prior_us_cash_session_info(_shift_date(day_et, -1, field_name="at_utc"), bundle)
         prior_session_et = None
         prior_close_utc = None
 
@@ -1318,16 +1620,19 @@ def evaluate_wrap_cadence(
         due = False
 
     last_close_dt = require_aware_utc(last_info["close_utc"], field_name="last_cash_close_utc")
-    morning_map_options = (
-        None
-        if weekly
-        else {
+    if weekly:
+        morning_map_options = None
+    else:
+        try:
+            settle_end_utc = (last_close_dt + timedelta(seconds=CASH_INDEX_CLOSE_SETTLE_SECONDS)).isoformat()
+        except OverflowError:
+            raise HolidayChartGuardError("UTC_CLOCK_OUT_OF_RANGE", field="last_cash_close_utc", value=last_close_dt.isoformat()) from None
+        morning_map_options = {
             "reference_at_utc": last_close_dt.isoformat(),
             "max_age_seconds": QUOTE_MAX_AGE_SECONDS,
             "closed_cash_index": True,
-            "settlement_window_end_utc": (last_close_dt + timedelta(seconds=CASH_INDEX_CLOSE_SETTLE_SECONDS)).isoformat(),
+            "settlement_window_end_utc": settle_end_utc,
         }
-    )
 
     return {
         "policy": POLICY,
@@ -1405,7 +1710,8 @@ def evaluate_followup_chart_window(
 
     is_coarse_bar = (end_utc - open_utc) > timedelta(minutes=15)
     anchor_utc = resolved_utc if resolved_utc is not None else open_utc
-    session_day = anchor_utc.astimezone(ET).date()
+    anchor_field = "resolved_at_utc" if resolved_utc is not None else "bar_open_utc"
+    session_day = _to_et(anchor_utc, field_name=anchor_field).date()
     bundle = load_us_session_calendar(calendar_path=calendar_path, calendar=calendar, allow_fallback=allow_fallback)
     day_info = classify_us_cash_day(session_day, calendar=bundle, allow_fallback=bundle["allow_fallback"])
 
@@ -1490,7 +1796,7 @@ def dec_jan_holiday_audit_matrix(
         probe_at = (
             datetime.combine(day_obj, time(15, 30), UTC)
             if day_obj.weekday() == 6
-            else datetime.combine(day_obj, time(8, 15), ET).astimezone(UTC)
+            else _combine_et_to_utc(day_obj, time(8, 15), field_name="day_et")
         )
         wrap = evaluate_wrap_cadence(probe_at, calendar=bundle, allow_fallback=bundle["allow_fallback"])
         rows.append({

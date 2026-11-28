@@ -7,7 +7,10 @@ from __future__ import annotations
 from datetime import date, datetime, timedelta, timezone, tzinfo
 from decimal import Decimal
 import json
+import os
 from pathlib import Path
+import subprocess
+import sys
 
 import pytest
 
@@ -821,3 +824,389 @@ def test_followup_window_rejects_inverted_bar_and_out_of_bar_resolution(cal_file
         guard.evaluate_followup_chart_window(
             "US500", t1, t2, resolved_at_utc=t2 + timedelta(seconds=1), calendar_path=cal_file
         )
+
+
+# ---------------------------------------------------------------------------
+# 6. B16 C20b Unified 6M / 4L Hardening Regressions (DA8 + B176 + B175)
+# ---------------------------------------------------------------------------
+
+def test_da8_t2b_m1_non_finite_percent_difference_fails_closed_on_all_paths(cal_file):
+    # (a) raise_on_mismatch=False with 1e308 vs 1e-300 must fail closed (never leak float('inf')).
+    live_ts = _et(2026, 12, 24, 11, 0)
+    tiny_q = _cfd_quote("US500", 1e-300, live_ts - timedelta(seconds=5), known_at=live_ts)
+    huge_snap = _snap("US500", 1e308, live_ts, chart_price=1e308)
+    with pytest.raises(guard.HolidayChartGuardError, match="NON_FINITE_PERCENT_DIFFERENCE"):
+        guard.guard_chart_scale("US500", huge_snap, [tiny_q], calendar_path=cal_file, raise_on_mismatch=False)
+
+    # (b) Default raise_on_mismatch=True on Dec-25 holiday CFD drift (1e308 vs 1e-300) must ALSO fail closed
+    # instead of returning allowed=True with suppressed_cfd_difference_pct=inf!
+    xmas_ts = _et(2026, 12, 25, 11, 0)
+    xmas_cfd = _cfd_quote("US500", 1e-300, xmas_ts - timedelta(seconds=10), known_at=xmas_ts)
+    xmas_snap = _snap("US500", 1e308, xmas_ts, chart_price=1e308)
+    with pytest.raises(guard.HolidayChartGuardError, match="NON_FINITE_PERCENT_DIFFERENCE"):
+        guard.guard_chart_scale("US500", xmas_snap, [xmas_cfd], calendar_path=cal_file)
+
+    # (c) Precision overflow on * 100.0 (1e307 / 0.1 == 1e308 finite, * 100.0 == inf) on both live and holiday paths.
+    q_tenth = _cfd_quote("US500", 0.1, live_ts - timedelta(seconds=5), known_at=live_ts)
+    with pytest.raises(guard.HolidayChartGuardError, match="NON_FINITE_PERCENT_DIFFERENCE"):
+        guard.evaluate_quote_for_session("US500", 1e307, live_ts, q_tenth, calendar_path=cal_file)
+    xmas_q_tenth = _cfd_quote("US500", 0.1, xmas_ts - timedelta(seconds=5), known_at=xmas_ts)
+    xmas_snap_307 = _snap("US500", 1e307, xmas_ts, chart_price=1e307)
+    with pytest.raises(guard.HolidayChartGuardError, match="NON_FINITE_PERCENT_DIFFERENCE"):
+        guard.guard_chart_scale("US500", xmas_snap_307, [xmas_q_tenth], calendar_path=cal_file)
+
+    # (d) Valid responses across all paths are strictly JSON-serializable with allow_nan=False.
+    good_q = _cfd_quote("US500", 7200.0, live_ts - timedelta(seconds=5), known_at=live_ts)
+    valid_live = guard.guard_chart_scale("US500", _snap("US500", 7200.0, live_ts), [good_q], calendar_path=cal_file)
+    valid_mismatch = guard.guard_chart_scale(
+        "US500", _snap("US500", 7300.0, live_ts), [good_q], calendar_path=cal_file, raise_on_mismatch=False
+    )
+    drifting_cfd = _cfd_quote("US500", 7260.0, xmas_ts - timedelta(seconds=10), known_at=xmas_ts)
+    valid_suppressed = guard.guard_chart_scale("US500", _snap("US500", 7200.0, xmas_ts), [drifting_cfd], calendar_path=cal_file)
+    for payload in (valid_live, valid_mismatch, valid_suppressed):
+        encoded = json.dumps(payload, allow_nan=False, ensure_ascii=False).encode("utf-8")
+        assert len(encoded) > 0
+
+
+def test_da8_t2b_m2_and_l3_deep_copy_cache_private_sentinel_and_explicit_allow_fallback(cal_file, tmp_path):
+    # Mutating a loaded bundle must NEVER poison the module-level cache for subsequent callers.
+    b1 = guard.load_us_session_calendar(calendar_path=cal_file)
+    assert len(b1["years"][2026]["closed"]) == 10
+    b1["years"][2026]["closed"] = frozenset()
+    b1["years"][2026]["early_close_13_et"] = frozenset()
+
+    b2 = guard.load_us_session_calendar(calendar_path=cal_file)
+    assert len(b2["years"][2026]["closed"]) == 10
+    assert "2026-12-25" in b2["years"][2026]["closed"]
+
+    b2["years"].clear()
+    b3 = guard.load_us_session_calendar(calendar_path=cal_file)
+    assert len(b3["years"][2026]["closed"]) == 10
+    assert guard.classify_us_cash_day("2026-12-25", calendar_path=cal_file)["session_state"] == "CLOSED_HOLIDAY"
+
+    # Mutating a genuine bundle into a corrupt structure and passing it back fails closed.
+    b3["years"] = "CORRUPTED"
+    with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_SCHEMA_INVALID"):
+        guard.load_us_session_calendar(calendar=b3)
+
+    # Forged _normalized_holiday_calendar marker is rejected unconditionally (both allow_fallback=False and True).
+    for forged in (
+        {"_normalized_holiday_calendar": True, "years": "NOT_A_DICT"},
+        {"_normalized_holiday_calendar": True, "years": {"2026": {"closed": [], "early_close_13_et": []}}},
+        {"_normalized_holiday_calendar": object(), "years": {2026: {"closed": frozenset(), "early_close_13_et": frozenset()}}},
+    ):
+        with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_SCHEMA_INVALID"):
+            guard.load_us_session_calendar(calendar=forged, allow_fallback=False)
+        with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_SCHEMA_INVALID"):
+            guard.load_us_session_calendar(calendar=forged, allow_fallback=True)
+
+    # DA8-T2B-L3: explicit allow_fallback=False overrides a bundle previously loaded with allow_fallback=True.
+    fb_bundle = guard.load_us_session_calendar(calendar_path=tmp_path / "absent.json", allow_fallback=True)
+    assert fb_bundle["allow_fallback"] is True
+    strict_bundle = guard.load_us_session_calendar(calendar=fb_bundle, allow_fallback=False)
+    assert strict_bundle["allow_fallback"] is False
+    with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_YEAR_MISSING"):
+        guard.classify_us_cash_day("2026-12-25", calendar=fb_bundle, allow_fallback=False)
+
+    cached_fb = guard.load_us_session_calendar(calendar_path=cal_file, allow_fallback=True)
+    assert cached_fb["allow_fallback"] is True
+    cached_strict = guard.load_us_session_calendar(calendar_path=cal_file, allow_fallback=False)
+    assert cached_strict["allow_fallback"] is False
+    with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_YEAR_MISSING"):
+        guard.classify_us_cash_day("2029-12-25", calendar=cached_strict, allow_fallback=False)
+
+
+def test_da8_t2b_m3_direct_evaluate_quote_rejects_future_visible_to_utc(cal_file):
+    captured = datetime(2026, 12, 23, 16, 0, 0, tzinfo=timezone.utc)
+    q = _cfd_quote("US500", 6000.0, captured, known_at=captured)
+    with pytest.raises(guard.HolidayChartGuardError, match="TRADINGVIEW_HISTORICAL_WINDOW_INVALID"):
+        guard.evaluate_quote_for_session(
+            "US500",
+            6000.0,
+            captured,
+            q,
+            visible_to_utc="2026-12-23T16:00:30Z",
+            calendar_path=cal_file,
+        )
+
+    # Boundary: visible_to_utc == captured is allowed.
+    ok = guard.evaluate_quote_for_session(
+        "US500",
+        6000.0,
+        captured,
+        q,
+        visible_to_utc="2026-12-23T16:00:00Z",
+        calendar_path=cal_file,
+    )
+    assert ok["usable"] is True
+    assert ok["verdict"] == "PASS_LIVE_SESSION"
+    assert ok["comparison_basis"] == "VISIBLE_WINDOW_CLOSE"
+
+
+def test_b176_c20_m1_extreme_utc_et_and_date_shift_overflow_fail_closed(cal_file):
+    # Extreme UTC offset conversions in require_aware_utc -> UTC_CLOCK_OUT_OF_RANGE.
+    for bad_extreme in (
+        "0001-01-01T00:00:00+05:00",
+        "9999-12-31T23:59:59-05:00",
+        datetime(1, 1, 1, 0, 0, 0, tzinfo=timezone(timedelta(hours=5))),
+        datetime(9999, 12, 31, 23, 59, 59, tzinfo=timezone(timedelta(hours=-5))),
+    ):
+        with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+            guard.require_aware_utc(bad_extreme)
+
+    # Valid UTC "0001-01-01T00:00:00Z" overflows on .astimezone(ET) across all three entrypoints.
+    assert guard.require_aware_utc("0001-01-01T00:00:00Z") == datetime(1, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+    with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        guard.resolve_market_session("US500", "0001-01-01T00:00:00Z", calendar_path=cal_file)
+    with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        guard.evaluate_wrap_cadence("0001-01-01T00:00:00Z", calendar_path=cal_file)
+    with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        guard.evaluate_followup_chart_window(
+            "US500", "0001-01-01T00:00:00Z", "0001-01-01T00:15:00Z", calendar_path=cal_file
+        )
+    with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        guard.evaluate_followup_chart_window(
+            "US500",
+            "0001-01-01T00:00:00Z",
+            "0001-01-01T01:00:00Z",
+            resolved_at_utc="0001-01-01T00:30:00Z",
+            calendar_path=cal_file,
+        )
+
+    # Date-shift +/- timedelta overflow at year 0001 and year 9999 boundaries.
+    cal_0001 = {"schema": "IbkrUsSessionCalendarV1", "years": {"0001": {"closed": [], "early_close_13_et": []}}}
+    with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        guard.resolve_market_session("US500", "0001-01-01T06:00:00Z", calendar=cal_0001)
+    cal_9999 = {"schema": "IbkrUsSessionCalendarV1", "years": {"9999": {"closed": [], "early_close_13_et": []}}}
+    with pytest.raises(guard.HolidayChartGuardError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        guard.evaluate_wrap_cadence("9999-12-31T14:00:00Z", calendar=cal_9999)
+
+
+def test_b176_c20_m2_strict_rfc8259_calendar_json_rejects_dup_keys_nan_infinity_and_bom(tmp_path):
+    dup_year = tmp_path / "dup_year.json"
+    dup_year.write_text(
+        '{"schema":"IbkrUsSessionCalendarV1","years":{'
+        '"2026":{"closed":["2026-12-25"],"early_close_13_et":["2026-12-24"]},'
+        '"2026":{"closed":[],"early_close_13_et":[]}}}',
+        encoding="utf-8",
+    )
+    dup_closed = tmp_path / "dup_closed.json"
+    dup_closed.write_text(
+        '{"schema":"IbkrUsSessionCalendarV1","years":{"2026":{'
+        '"closed":["2026-12-25"],"closed":[],"early_close_13_et":[]}}}',
+        encoding="utf-8",
+    )
+    nan_cal = tmp_path / "nan_cal.json"
+    nan_cal.write_text(
+        '{"schema":"IbkrUsSessionCalendarV1","meta_nan":NaN,"years":{"2026":{"closed":["2026-12-25"],"early_close_13_et":[]}}}',
+        encoding="utf-8",
+    )
+    inf_cal = tmp_path / "inf_cal.json"
+    inf_cal.write_text(
+        '{"schema":"IbkrUsSessionCalendarV1","meta_inf":Infinity,"years":{"2026":{"closed":["2026-12-25"],"early_close_13_et":[]}}}',
+        encoding="utf-8",
+    )
+    bom_cal = tmp_path / "bom_cal.json"
+    bom_cal.write_bytes(b"\xef\xbb\xbf" + json.dumps(CANONICAL_CALENDAR_2026_2028).encode("utf-8"))
+
+    for bad_path in (dup_year, dup_closed, nan_cal, inf_cal, bom_cal):
+        with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_CORRUPT_JSON"):
+            guard.load_us_session_calendar(calendar_path=bad_path)
+        # Explicit allow_fallback=True must fall back to audited NYSE rules (Christmas closed), never wiped JSON.
+        fb = guard.classify_us_cash_day("2026-12-25", calendar_path=bad_path, allow_fallback=True)
+        assert fb["calendar_source"] == "FALLBACK_NYSE_RULES"
+        assert fb["session_state"] == "CLOSED_HOLIDAY"
+
+
+def test_b175_b16c20_m4_rejects_all_hostile_windows_paths_ads_dos_and_junction_even_with_fallback(cal_file, tmp_path):
+    abs_str = str(cal_file)
+    abs_posix = abs_str.replace("\\", "/")
+    unc_tail = abs_str[2:] if len(abs_str) >= 2 and abs_str[1] == ":" else abs_str
+    drive_letter = abs_str[0] if len(abs_str) >= 2 and abs_str[1] == ":" else "C"
+
+    hostile_paths: list[object] = [
+        f"\\??\\{abs_str}",
+        f"/??/{abs_posix}",
+        r"\??\C:\nonexistent\cal.json",
+        f"\\\\?\\{abs_str}",
+        f"//?/{abs_posix}",
+        f"\\\\.\\{abs_str}",
+        f"//./{abs_posix}",
+        f"\\\\localhost\\{drive_letter}${unc_tail}",
+        f"//localhost/{drive_letter}${unc_tail.replace(chr(92), '/')}",
+        f"///localhost/{drive_letter}${unc_tail.replace(chr(92), '/')}",
+        f"  \\\\localhost\\{drive_letter}${unc_tail}",
+        f"{drive_letter}:rel_cal.json",
+        str(tmp_path / "CON .dir" / "cal.json"),
+        str(tmp_path / "CON .json"),
+        str(tmp_path / "COM\u00b9.json"),
+        str(tmp_path / "NUL.json"),
+        f"{abs_str}.",
+        f"{abs_str} ",
+        str(tmp_path / "staging." / "cal.json"),
+        f"{abs_str}:cal.json",
+        str(tmp_path / ".." / cal_file.name),
+        f"{abs_str}\x00.json",
+        f"{abs_str}\ud800.json",
+        b"calendar.json",
+        tmp_path,
+    ]
+
+    # Real NTFS ADS stream on Windows (if filesystem supports ADS).
+    ads_host = tmp_path / "host.txt"
+    ads_host.write_text("benign", encoding="utf-8")
+    ads_stream = f"{ads_host}:cal.json"
+    if sys.platform == "win32":
+        try:
+            with open(ads_stream, "w", encoding="utf-8") as fh:
+                fh.write(json.dumps(CANONICAL_CALENDAR_2026_2028))
+            hostile_paths.append(ads_stream)
+        except OSError:
+            pass
+
+    # Oversized regular file (> 2 MiB) must also fail closed as HOLIDAY_CALENDAR_PATH_UNSAFE.
+    big_file = tmp_path / "oversized_cal.json"
+    big_file.write_bytes(b" " * (guard._MAX_CALENDAR_BYTES + 16))
+    hostile_paths.append(big_file)
+
+    for bad_path in hostile_paths:
+        with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_PATH_UNSAFE"):
+            guard.load_us_session_calendar(calendar_path=bad_path, allow_fallback=False)
+        # Unconditional security guard: allow_fallback=True MUST NOT silently mask unsafe paths!
+        with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_PATH_UNSAFE"):
+            guard.load_us_session_calendar(calendar_path=bad_path, allow_fallback=True)
+
+    # Real Windows NTFS directory junction (mklink /J) must fail closed even with allow_fallback=True.
+    if sys.platform == "win32":
+        real_dir = tmp_path / "real_cal_dir"
+        real_dir.mkdir()
+        _write_cal(real_dir / "us_session_calendar_v1.json")
+        junc_dir = tmp_path / "junc_cal_dir"
+        proc = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(junc_dir), str(real_dir)],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert proc.returncode == 0, f"mklink /J failed: {proc.stderr or proc.stdout}"
+        assert os.path.isjunction(junc_dir)
+        try:
+            for target in (junc_dir / "us_session_calendar_v1.json", junc_dir / "missing.json", junc_dir):
+                with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_PATH_UNSAFE"):
+                    guard.load_us_session_calendar(calendar_path=target, allow_fallback=False)
+                with pytest.raises(guard.HolidayChartGuardError, match="HOLIDAY_CALENDAR_PATH_UNSAFE"):
+                    guard.load_us_session_calendar(calendar_path=target, allow_fallback=True)
+        finally:
+            os.rmdir(junc_dir)
+
+    # Positive control: clean regular calendar file loads cleanly.
+    loaded = guard.load_us_session_calendar(calendar_path=cal_file)
+    assert loaded["source"] == "FILE"
+    assert len(loaded["years"][2026]["closed"]) == 10
+
+
+def test_da8_t2b_l2_l4_l5_clean_utf8_strict_sha256_source_kind_and_all_7_markets_public_quote(cal_file):
+    live_ts = _et(2026, 12, 24, 11, 0)
+    good_snap = _snap("US500", 7200.0, live_ts)
+    good_q = _cfd_quote("US500", 7200.0, live_ts - timedelta(seconds=5), known_at=live_ts)
+
+    # DA8-T2B-L2 & L5: surrogates, control chars, unsafe Windows paths/ADS, and non-64-hex sha256 rejected.
+    for bad_sha in ("not-a-sha", "a" * 63, "a" * 65, "g" * 64, "a" * 63 + "\ud800", "a" * 63 + "\x00"):
+        with pytest.raises(guard.HolidayChartGuardError, match="TRADINGVIEW_SNAPSHOT_SHA256_REQUIRED"):
+            guard.guard_chart_scale("US500", {**good_snap, "sha256": bad_sha}, [good_q], calendar_path=cal_file)
+        with pytest.raises(guard.HolidayChartGuardError, match="TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED"):
+            guard.evaluate_quote_for_session("US500", 7200.0, live_ts, {**good_q, "source_sha256": bad_sha}, calendar_path=cal_file)
+
+    for bad_source_path in (
+        "obs\ud800.json",
+        "obs\x00.json",
+        "obs\n.json",
+        r"\??\C:\obs.json",
+        "/??/C:/obs.json",
+        r"\\?\C:\obs.json",
+        r"\\.\C:\obs.json",
+        r"\\localhost\C$\obs.json",
+        "//server/share/obs.json",
+        "obs.json:secret",
+        r"C:\dir\obs.json:stream",
+        "C:obs.json",
+        "../obs.json",
+        "obs.json.",
+        "CON .dir/obs.json",
+    ):
+        with pytest.raises(guard.HolidayChartGuardError, match="TRADINGVIEW_PLAN_QUOTE_SOURCE_REQUIRED"):
+            guard.evaluate_quote_for_session(
+                "US500", 7200.0, live_ts, {**good_q, "source_path": bad_source_path}, calendar_path=cal_file
+            )
+
+    # Uppercase valid 64-hex sha256 normalizes to lowercase; benign paths & source_kind=None remain accepted.
+    upper_res = guard.guard_chart_scale(
+        "US500",
+        {**good_snap, "sha256": "A" * 64},
+        [{**good_q, "source_kind": None, "source_path": r"A:\Capital Chronicle\Runtime\plan-status.public.json", "source_sha256": "B" * 64}],
+        calendar_path=cal_file,
+    )
+    assert upper_res["allowed"] is True
+    assert upper_res["chart_sha256"] == "a" * 64
+
+    # Unknown non-None source_kind rejected cleanly.
+    for bad_kind in ("BOGUS_SOURCE", "", 123):
+        with pytest.raises(guard.HolidayChartGuardError, match="TRADINGVIEW_PLAN_QUOTE_SOURCE_KIND_INVALID"):
+            guard.evaluate_quote_for_session(
+                "US500", 7200.0, live_ts, {**good_q, "source_kind": bad_kind}, calendar_path=cal_file
+            )
+
+    # DA8-T2B-L4 backwards-compat with live publication_image_contract_v1.py:315-316:
+    # US500/USTEC PUBLIC_ON_DEMAND_QUOTE with instrument_type="INDEX" and source_symbol=None MUST STILL PASS.
+    settle_cap = _et(2026, 12, 24, 14, 20)
+    settle_obs = _et(2026, 12, 24, 13, 55)
+    compat_q = {
+        "market": "US500",
+        "instrument": "US500",
+        "price": 7200.0,
+        "quoted_at_utc": settle_obs.isoformat(),
+        "known_at_utc": settle_obs.isoformat(),
+        "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+        "instrument_type": "INDEX",
+        "source_path": "public-quotes/obs.json",
+        "source_sha256": "c" * 64,
+    }
+    compat_res = guard.guard_chart_scale("US500", _snap("US500", 7200.0, settle_cap), [compat_q], calendar_path=cal_file)
+    assert compat_res["allowed"] is True
+    assert compat_res["verdict"] == "PASS_CASH_SETTLEMENT"
+
+    # DA8-T2B-L4 extended across non-cash markets: wrong source_symbol / instrument_type rejected when supplied,
+    # while matching or omitted (None) fields remain allowed.
+    for mkt, price, wrong_sym, wrong_type in (
+        ("XAUUSD", 2650.0, "GC=F", "FUTURE"),
+        ("EURUSD", 1.0850, "GBPUSD=X", "EQUITY"),
+        ("USDJPY", 155.20, "EURJPY=X", "EQUITY"),
+        ("USOIL", 70.50, "BZ=F", "INDEX"),
+        ("BTCUSD", 95000.0, "ETH-USD", "CURRENCY"),
+    ):
+        spec = guard.CORE_MARKETS[mkt]
+        base_pub = {
+            "market": mkt,
+            "instrument": mkt,
+            "price": price,
+            "quoted_at_utc": (live_ts - timedelta(seconds=5)).isoformat(),
+            "known_at_utc": live_ts.isoformat(),
+            "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+            "source_path": "public-quotes/obs.json",
+            "source_sha256": "d" * 64,
+        }
+        # Omitted source_symbol/instrument_type passes.
+        assert guard.evaluate_quote_for_session(mkt, price, live_ts, base_pub, calendar_path=cal_file)["verdict"] == "PASS_LIVE_SESSION"
+        # Matching source_symbol/instrument_type passes.
+        matched_pub = {
+            **base_pub,
+            "source_symbol": spec["public_quote_symbol"],
+            "instrument_type": spec["public_instrument_type"],
+        }
+        assert guard.evaluate_quote_for_session(mkt, price, live_ts, matched_pub, calendar_path=cal_file)["verdict"] == "PASS_LIVE_SESSION"
+        # Wrong source_symbol fails closed.
+        with pytest.raises(guard.HolidayChartGuardError, match="SETTLEMENT_PROXY_INSTRUMENT_FORBIDDEN"):
+            guard.evaluate_quote_for_session(mkt, price, live_ts, {**base_pub, "source_symbol": wrong_sym}, calendar_path=cal_file)
+        # Wrong instrument_type fails closed.
+        with pytest.raises(guard.HolidayChartGuardError, match="SETTLEMENT_PROXY_INSTRUMENT_FORBIDDEN"):
+            guard.evaluate_quote_for_session(mkt, price, live_ts, {**base_pub, "instrument_type": wrong_type}, calendar_path=cal_file)
