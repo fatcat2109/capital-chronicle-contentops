@@ -178,9 +178,9 @@ def _extract_scheduled_stamp(native_invocation_id: str) -> str | None:
 
 
 def _ro(path: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(f"file:{Path(path).as_posix()}?mode=ro", uri=True, timeout=30)
-    conn.execute("PRAGMA query_only=ON")
-    return conn
+    from live_contentops.sqlite_readonly_v1 import connect_readonly_sqlite
+
+    return connect_readonly_sqlite(path, timeout=30.0, row_factory=None)
 
 
 def _operating_mode(store_path: Path) -> str:

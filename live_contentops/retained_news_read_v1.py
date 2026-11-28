@@ -225,11 +225,10 @@ def _selected_runtime_projection(store_path, operation_ids):
     import sqlite3
     from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
     work = list(dict.fromkeys([*operation_ids, *("cc-opportunity-" + sha256_of(r) for r in operation_ids)]))
     placeholders = ",".join("?" for _ in work)
-    with sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True) as conn:
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA query_only=ON")
+    with open_readonly_sqlite(store_path, row_factory=sqlite3.Row) as conn:
         conn.execute("BEGIN")
         outbox = [dict(r) for r in conn.execute(
             "SELECT * FROM outbox_messages WHERE work_item_id IN (" + placeholders + ") ORDER BY rowid", work)]
@@ -248,11 +247,10 @@ def export_selected_news():
     """Fixed trusted producer operation: read the existing SQLite in query-only mode."""
     import sqlite3
     from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
+    from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
     profile = json.loads(PROFILE_PATH.read_bytes())
     selection = json.loads(SELECTION_PATH.read_bytes())["owner_edition"]
-    with sqlite3.connect(Path(profile["store_path"]).resolve().as_uri() + "?mode=ro", uri=True) as conn:
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA query_only=ON")
+    with open_readonly_sqlite(profile["store_path"], row_factory=sqlite3.Row) as conn:
         conn.execute("BEGIN")
         values = {table: [dict(row) for row in conn.execute("SELECT * FROM " + table + " ORDER BY rowid")]
                   for table in ("outbox_messages", "review_records", "platform_dispatches", "reconciliations", "destination_readiness")}

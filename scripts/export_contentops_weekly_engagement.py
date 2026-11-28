@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops.channel_engagement_v1 import weekly_channel_engagement, render_engagement_digest, weekly_audience_lines
 from live_contentops.audience_collection_v1 import dispatch_call_ids
 from live_contentops.audience_feedback_v1 import SCHEMA, post_type, project_audience
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
 
 def export_weekly_engagement(store, week_ending, target):
@@ -23,9 +24,7 @@ def export_weekly_engagement(store, week_ending, target):
             previous = None
     except (OSError, ValueError):
         previous = None
-    with sqlite3.connect(Path(store).resolve().as_uri() + "?mode=ro", uri=True) as connection:
-        connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA query_only=ON")
+    with open_readonly_sqlite(store, row_factory=sqlite3.Row) as connection:
         connection.execute("BEGIN")
         def rows(table):
             return [dict(r) for r in connection.execute("SELECT * FROM " + table)]

@@ -17,6 +17,7 @@ import sqlite3
 
 from . import plan_status_posts_v1 as posts
 from . import pinned_result_scorecard_v1 as scorecard
+from .sqlite_readonly_v1 import open_readonly_sqlite
 
 CONTRACT = "CC603_V1"
 LINK_REPLY = "missing_links_reply"
@@ -49,10 +50,14 @@ def publications(store, key):
             if d["status"] == "DISPATCH_CONFIRMED" and d.get("public_object_id")]
 
 
-def read_bars(symbol, start, end, *, path=BAR_STORE):
+def read_bars(symbol, start, end, *, path=BAR_STORE, zero_write=False):
     """One held source per complete M15 bar; conflicting observations are refused."""
-    with sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True) as conn:
-        conn.row_factory = sqlite3.Row
+    with open_readonly_sqlite(
+        path,
+        timeout=5.0,
+        row_factory=sqlite3.Row,
+        allow_oversized_live_wal=not zero_write,
+    ) as conn:
         rows = conn.execute(
             "SELECT open_epoch,open,high,low,close,source_sha256,known_epoch,price_basis,series_id "
             "FROM bars WHERE symbol=? AND series_id='NATIVE_BROKER' AND open_epoch>=? AND open_epoch+900<=? ORDER BY open_epoch,known_epoch",

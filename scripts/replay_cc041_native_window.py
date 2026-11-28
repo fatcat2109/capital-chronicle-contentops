@@ -16,6 +16,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import native_role_call
 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
 from live_contentops.native_editorial_continuation_v1 import next_editorial_action
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
 
 class FrozenReplayResearch:
@@ -146,8 +147,12 @@ def main():
         copy_path = root / "copied.sqlite3"
         if not copy_path.exists():
             source = Path("A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3")
-            with sqlite3.connect(source.as_uri()+"?mode=ro", uri=True) as original, sqlite3.connect(copy_path) as copied:
-                original.backup(copied)
+            with open_readonly_sqlite(source, row_factory=None) as original:
+                copied = sqlite3.connect(copy_path)
+                try:
+                    original.backup(copied)
+                finally:
+                    copied.close()
         store = ContentOpsDurableStore(copy_path, auto_migrate=False)
         with store.get_read_only_connection() as connection:
             row = connection.execute("SELECT payload FROM outbox_messages WHERE message_id LIKE 'cc-editorial-pool-%' ORDER BY rowid DESC LIMIT 1").fetchone()

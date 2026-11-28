@@ -129,9 +129,10 @@ def inventory_rows(batches):
 
 
 def write_inventory(*, batches, store_path, output_path):
+    from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
+
     rows = inventory_rows(batches)
-    with closing(sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True)) as connection:
-        connection.execute("PRAGMA query_only=ON")
+    with open_readonly_sqlite(store_path, row_factory=None) as connection:
         connection.execute("BEGIN")
         references = referenced_draft_ids(connection)
     output = Path(output_path)

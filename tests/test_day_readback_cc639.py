@@ -575,7 +575,7 @@ def test_database_is_opened_read_only_and_no_private_payload_leaves(recorded, mo
     opened = []
 
     def connect(database, **kwargs):
-        assert str(database).endswith("?mode=ro") and kwargs["uri"] is True
+        assert str(database).endswith("?mode=ro&immutable=1") and kwargs["uri"] is True
         conn = real_connect(database, **kwargs)
         opened.append(conn)
         return conn

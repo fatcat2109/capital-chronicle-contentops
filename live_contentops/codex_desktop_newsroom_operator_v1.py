@@ -1335,19 +1335,15 @@ def _iso_utc(value: datetime) -> str:
 
 @contextmanager
 def _read_only_store(path: Path) -> Iterator[sqlite3.Connection]:
-    resolved = path.resolve()
-    connection = sqlite3.connect(
-        f"file:{resolved.as_posix()}?mode=ro",
-        uri=True,
+    from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
+
+    with open_readonly_sqlite(
+        path,
+        row_factory=sqlite3.Row,
         isolation_level=None,
         cached_statements=0,
-    )
-    connection.row_factory = sqlite3.Row
-    connection.execute("PRAGMA query_only=ON")
-    try:
+    ) as connection:
         yield connection
-    finally:
-        connection.close()
 
 
 def _table_names(connection: sqlite3.Connection) -> set[str]:

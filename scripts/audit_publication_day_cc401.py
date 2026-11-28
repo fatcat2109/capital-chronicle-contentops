@@ -11,6 +11,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops.publication_coordinator_v1 import LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+from live_contentops.sqlite_readonly_v1 import connect_readonly_sqlite
 
 
 def _resolved_failure(conn, row, detail, dispatch):
@@ -51,8 +52,7 @@ def audit(store_path, day, *, now=None):
     active_incidents = {}
     resolved_incidents = []
     invalid_incidents = []
-    conn = sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True)
-    conn.row_factory = sqlite3.Row
+    conn = connect_readonly_sqlite(store_path, row_factory=sqlite3.Row)
     try:
         conn.execute("BEGIN")
         dispatches = {r["dispatch_id"]: dict(r) for r in conn.execute("SELECT * FROM platform_dispatches")}

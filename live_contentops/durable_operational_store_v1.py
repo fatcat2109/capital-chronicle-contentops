@@ -17,6 +17,10 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, Iterator, List, Mapping, Optional, Sequence, Tuple, Union
 
+from live_contentops.sqlite_readonly_v1 import (
+    DEFAULT_MAX_SNAPSHOT_BYTES,
+    connect_readonly_sqlite,
+)
 from live_contentops.historical_schema_compatibility_v1 import (
     CANONICAL_SCHEMA_VERSION,
     CURRENT_MIGRATION_CHECKSUMS,
@@ -506,18 +510,24 @@ class ContentOpsDurableStore:
         conn.set_authorizer(self._connection_authorizer)
         conn.execute("PRAGMA journal_mode=WAL"); conn.execute("PRAGMA foreign_keys=ON"); conn.execute(f"PRAGMA busy_timeout={self.busy_timeout_ms}")
         return conn
-    def get_read_only_connection(self) -> sqlite3.Connection:
-        """Open the configured canonical store in SQLite read-only/query-only mode."""
-        conn = sqlite3.connect(
-            f"file:{self.db_path.as_posix()}?mode=ro", uri=True,
-            timeout=self.busy_timeout_ms / 1000.0, isolation_level=None, cached_statements=0,
+    def get_read_only_connection(
+        self,
+        *,
+        allow_oversized_live_wal: bool = False,
+        max_snapshot_bytes: int = DEFAULT_MAX_SNAPSHOT_BYTES,
+    ) -> sqlite3.Connection:
+        """Open the configured canonical store in WAL-safe zero-write read-only/query-only mode."""
+        return connect_readonly_sqlite(
+            self.db_path,
+            timeout=self.busy_timeout_ms / 1000.0,
+            row_factory=sqlite3.Row,
+            isolation_level=None,
+            cached_statements=0,
+            foreign_keys=True,
+            busy_timeout_ms=self.busy_timeout_ms,
+            max_snapshot_bytes=max_snapshot_bytes,
+            allow_oversized_live_wal=allow_oversized_live_wal,
         )
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA query_only=ON")
-        conn.execute("PRAGMA temp_store=MEMORY")
-        conn.execute("PRAGMA foreign_keys=ON")
-        conn.execute(f"PRAGMA busy_timeout={self.busy_timeout_ms}")
-        return conn
     def _ensure_runtime_write_guards(self) -> None:
         with self.get_connection() as conn:
             for statement in RUNTIME_INSERT_GUARD_SQL:

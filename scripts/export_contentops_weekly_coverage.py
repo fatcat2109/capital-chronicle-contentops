@@ -8,6 +8,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops.newsroom_coverage_v1 import weekly_newsroom_coverage, render_coverage_digest
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
 
 def main():
@@ -17,9 +18,7 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     target = args.output_dir.resolve()
-    with sqlite3.connect(args.store.resolve().as_uri() + "?mode=ro", uri=True) as connection:
-        connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA query_only=ON")
+    with open_readonly_sqlite(args.store, row_factory=sqlite3.Row) as connection:
         connection.execute("BEGIN")
         def rows(table):
             return [dict(r) for r in connection.execute("SELECT * FROM " + table)]

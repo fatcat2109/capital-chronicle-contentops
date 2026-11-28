@@ -27,6 +27,7 @@ from live_contentops.agy_decision_metrics_v1 import daily_metrics, draft_claims
 from live_contentops.daily_app_performance_v1 import current_metrics_capability_matrix
 from live_contentops.public_decision_checks_v1 import DecisionChecks, public_link, wrap_kind
 from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
 LOCAL = timezone(timedelta(hours=7))
 DECISION_CHECKS_NAME = "decision_checks.json"
@@ -1206,9 +1207,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                                                expected_text=text, expected_title=title, page_url=page_url,
                                                decision_copy=decision_copy)}
 
-    with closing(sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True, timeout=5)) as conn:
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA query_only=ON")
+    with open_readonly_sqlite(store_path, timeout=5.0, row_factory=sqlite3.Row) as conn:
         conn.execute("BEGIN")
         notes = _watched_notes(conn, end) if sweep else None
         engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None

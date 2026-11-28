@@ -59,15 +59,14 @@ def _sha(path: Path) -> str:
 
 
 def _clone_store(source: Path, target: Path) -> None:
-    source_connection = sqlite3.connect(
-        f"file:{source.resolve().as_posix()}?mode=ro", uri=True
-    )
-    target_connection = sqlite3.connect(target)
-    try:
-        source_connection.backup(target_connection)
-    finally:
-        target_connection.close()
-        source_connection.close()
+    from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
+
+    with open_readonly_sqlite(source, row_factory=None) as source_connection:
+        target_connection = sqlite3.connect(target)
+        try:
+            source_connection.backup(target_connection)
+        finally:
+            target_connection.close()
 
 
 def _plan(work_item_id: str, destinations: tuple[str, ...]) -> dict[str, Any]:

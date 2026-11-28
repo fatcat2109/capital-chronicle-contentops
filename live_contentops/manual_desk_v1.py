@@ -170,12 +170,9 @@ def _short(pack_id):
 # -------------------------------------------------------------------- the store
 
 def open_store_read_only(store_path):
-    path = Path(store_path).resolve()
-    uri = "file:" + quote(path.as_posix(), safe="/:") + "?mode=ro"
-    conn = sqlite3.connect(uri, uri=True, timeout=5)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA query_only=ON")
-    return conn
+    from live_contentops.sqlite_readonly_v1 import connect_readonly_sqlite
+
+    return connect_readonly_sqlite(store_path, timeout=5.0, row_factory=sqlite3.Row)
 
 
 def _payload(row):

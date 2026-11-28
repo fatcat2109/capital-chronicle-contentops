@@ -19,15 +19,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops.article_publication_quality_v1 import piece_id  # noqa: E402
 from live_contentops.published_images_v1 import PublishedImages, fingerprint, _active  # noqa: E402
 from live_contentops.media_manifest_authority_v1 import original_substack_media_url  # noqa: E402
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite  # noqa: E402
 
 
 def retained_images(store_path, register):
-    connection = sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True)
-    connection.row_factory = sqlite3.Row
-    rows = connection.execute("SELECT d.*,m.payload,m.work_item_id FROM platform_dispatches d JOIN outbox_messages m "
-        "ON m.message_id=d.message_id WHERE d.status IN ('DISPATCH_CONFIRMED','EXTERNAL_REMOVAL_REPORTED_NO_RETRY') "
-        "AND d.public_object_id IS NOT NULL").fetchall()
-    connection.close()
+    with open_readonly_sqlite(store_path, row_factory=sqlite3.Row) as connection:
+        rows = connection.execute("SELECT d.*,m.payload,m.work_item_id FROM platform_dispatches d JOIN outbox_messages m "
+            "ON m.message_id=d.message_id WHERE d.status IN ('DISPATCH_CONFIRMED','EXTERNAL_REMOVAL_REPORTED_NO_RETRY') "
+            "AND d.public_object_id IS NOT NULL").fetchall()
     canonicals = {r["work_item_id"]: r["public_object_url"] for r in rows if r["platform"] == "substack"}
     count, images, gaps, without_images = 0, 0, [], []
     for row in rows:

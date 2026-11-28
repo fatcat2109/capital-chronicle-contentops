@@ -27,6 +27,7 @@ from live_contentops.newsroom_assignment_scheduler_v1 import load_rolling_x_head
 from live_contentops.published_corpus_read_model_v1 import load_canonical_published_memory_read_only
 from live_contentops.v1_simple_gemini_newsroom_v1 import _candidate_packet_and_preselection
 from live_contentops.v1_simple_gemini_scheduler_v1 import SimpleGeminiLocalScheduler
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
 
 def dump(path, value):
@@ -42,11 +43,12 @@ def verify(seed, root, output, memory_store, memory_output):
     pause_hash = hashlib.sha256(operator_pause_path().read_bytes()).hexdigest()
     output.mkdir(parents=True)
     path = output / "story-proof.sqlite3"
-    source = sqlite3.connect(f"file:{seed.as_posix()}?mode=ro", uri=True)
-    target = sqlite3.connect(path)
-    source.backup(target)
-    source.close()
-    target.close()
+    with open_readonly_sqlite(seed, row_factory=None) as source:
+        target = sqlite3.connect(path)
+        try:
+            source.backup(target)
+        finally:
+            target.close()
     store = ContentOpsDurableStore(path)
     tracker = LatestReportDeliveryTracker(store)
     before = library_projection(store.list_outbox_messages(), read_reviews(store))

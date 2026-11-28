@@ -23,6 +23,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
 from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
 from live_contentops.llm_operator_control_v1 import operator_pause_path, llm_operator_pause_active
+from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
 
 def dump(path, value):
@@ -42,11 +43,12 @@ def verify(seed, root, output):
     assert previous_receipt["status"] == "PASS_REAL_IMMUTABLE_COLD_START_AND_RESTART"
     output.mkdir(parents=True)
     path = output / "desk-proof.sqlite3"
-    source = sqlite3.connect(f"file:{seed.as_posix()}?mode=ro", uri=True)
-    target = sqlite3.connect(path)
-    source.backup(target)
-    source.close()
-    target.close()
+    with open_readonly_sqlite(seed, row_factory=None) as source:
+        target = sqlite3.connect(path)
+        try:
+            source.backup(target)
+        finally:
+            target.close()
     store = ContentOpsDurableStore(path)
     tracker = LatestReportDeliveryTracker(store)
     assert len(tracker.receipts()) == previous_receipt["receipt_count_after_restart"] == 8

@@ -43,7 +43,9 @@ def resolve_workspace_path(path, *, manifest_path=None):
 
 def workspace_snapshot(path):
     """Hash every table's exact logical rows, including leases and accepted model returns."""
-    with sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True) as conn:
+    from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
+
+    with open_readonly_sqlite(path, row_factory=None) as conn:
         if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("WORKSPACE_INTEGRITY_FAILED")
         tables = {}

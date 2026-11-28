@@ -331,7 +331,7 @@ def test_export_reads_existing_owner_query_only_without_store_constructor(tmp_pa
     statements = []
     original_connect = sqlite3.connect
     def traced(database_uri, **kwargs):
-        assert database_uri.endswith("?mode=ro") and kwargs["uri"] is True
+        assert database_uri.endswith("?mode=ro&immutable=1") and kwargs["uri"] is True
         conn = original_connect(database_uri, **kwargs)
         conn.set_trace_callback(statements.append)
         return conn
@@ -341,7 +341,10 @@ def test_export_reads_existing_owner_query_only_without_store_constructor(tmp_pa
     assert b"\r\n" not in news.ARTIFACT_PATH.read_bytes()
     assert json.loads(news.ARTIFACT_PATH.read_bytes())["native_edition"][0]["availability"] == "LOCAL_CONTENT_MISSING"
     assert db.read_bytes() == original_bytes
-    assert all(s.startswith(("PRAGMA query_only", "BEGIN", "SELECT", "COMMIT", "ROLLBACK")) for s in statements)
+    assert all(
+        s.startswith(("PRAGMA query_only", "PRAGMA temp_store", "BEGIN", "SELECT", "COMMIT", "ROLLBACK"))
+        for s in statements
+    )
 
 
 def test_cli_rejects_alternate_profile_path_and_accepts_exact_real_article(capsys):
