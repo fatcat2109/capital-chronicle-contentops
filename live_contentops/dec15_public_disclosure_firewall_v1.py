@@ -52,7 +52,7 @@ import re
 import stat
 from typing import Any, Iterable, Mapping, Sequence
 import unicodedata
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 from zoneinfo import ZoneInfo
 
 POLICY = "CC_DEC15_PUBLIC_DISCLOSURE_FIREWALL_V1"
@@ -124,6 +124,9 @@ _ISO_OFFSET_CLOCK_RE = re.compile(
 )
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 _ZERO_WIDTH_RE = re.compile(r"[\u200b\u200c\u200d\u200e\u200f\u2060\u2062\u2063\ufeff\u00ad]")
+_ASCII_CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+_HTML_TAG_RE = re.compile(r"<(?:/?[a-zA-Z][a-zA-Z0-9:-]*(?:\s+[^<>]*)?/?|!--.*?--)>", re.DOTALL)
+_PERCENT_HEX_RE = re.compile(r"%[0-9a-fA-F]{2}")
 _WS_COLLAPSE_RE = re.compile(r"\s+")
 _MD_STAR_ONLY_RE = re.compile(r"[`*~]")
 _MD_EMPHASIS_RE = re.compile(r"[`*_~]")
@@ -147,9 +150,16 @@ _UNICODE_DASH_TRANS = str.maketrans({
     "\uff05": "%",
     "\uff0b": "+",
 })
+_PNL_CAMEL_RE = re.compile(r"PnL")
 _CAMEL_BOUNDARY_1_RE = re.compile(r"([a-z0-9])([A-Z])")
 _CAMEL_BOUNDARY_2_RE = re.compile(r"([A-Z]+)([A-Z][a-z])")
 _NON_SNAKE_RE = re.compile(r"[^a-z0-9]+")
+_WINDOWS_RESERVED_DEVICE_NAMES = frozenset(
+    {"con", "prn", "aux", "nul"}
+    | {f"com{i}" for i in range(1, 10)}
+    | {f"lpt{i}" for i in range(1, 10)}
+)
+_WINDOWS_NT_PREFIX_RE = re.compile(r"^(?:[\\/]\?\?[\\/]|[\\/]{2})")
 
 # ---------------------------------------------------------------------------
 # Strict numeric & timestamp field registries (reject bool & overflow values)
@@ -755,6 +765,17 @@ _ATTR_SCHEME_RE = re.compile(
     r"\b(?:href|src)\s*=\s*[\"']?([a-z][a-z0-9+.-]*):",
     re.IGNORECASE,
 )
+_ATTR_VALUE_RE = re.compile(
+    r"""\b(?:href|src)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))""",
+    re.IGNORECASE,
+)
+_WHATWG_CTRL_RE = re.compile(r"[\x00-\x1f]+")
+_ATTR_LEADING_SCHEME_RE = re.compile(r"^([a-z][a-z0-9+.-]*):", re.IGNORECASE)
+_TAB_SPLIT_SCRIPT_SCHEME_RE = re.compile(
+    r"(?:^|[\s\"'(<=\[,])(?:j[\t\r\n]*a[\t\r\n]*v[\t\r\n]*a|v[\t\r\n]*b)"
+    r"[\t\r\n]*s[\t\r\n]*c[\t\r\n]*r[\t\r\n]*i[\t\r\n]*p[\t\r\n]*t[\t\r\n]*:",
+    re.IGNORECASE,
+)
 
 # Decision 90 ET-only public times (parity with live_contentops/public_time_v1.py)
 _FORBIDDEN_PUBLIC_TIME_RE = re.compile(
@@ -1064,6 +1085,10 @@ _CHART_EXECUTION_OVERLAY_RE = re.compile(
 
 _PRICE_NUM = r"(?:USD\s*)?[$€£]?\s*[+-]?\d+(?:,\d{3})*(?:\.\d+)?"
 _STANDALONE_PRICE_NUM = r"(?:(?:USD\s*)?[$€£]\s*\d+(?:,\d{3})*(?:\.\d+)?|\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+\.\d+|\d{3,})"
+_NON_YEAR_STANDALONE_PRICE_NUM = (
+    r"(?:(?:USD\s*)?[$€£]\s*\d+(?:,\d{3})*(?:\.\d+)?|\d{1,3}(?:,\d{3})+(?:\.\d+)?|"
+    r"\d+\.\d+|(?!(?:19|20)\d{2}\b)\d{3,})"
+)
 
 _KELLY_SIZING_LOT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -1101,12 +1126,15 @@ _POLICY_TARGET_PREFIX_RE = re.compile(
     re.IGNORECASE,
 )
 
+_CALENDAR_YEAR_TARGET_RE = re.compile(r"^(?:19|20)\d{2}\s+target$", re.IGNORECASE)
+_CALENDAR_YEAR_BARE_TARGET_RE = re.compile(r"^target\s+(?:19|20)\d{2}$", re.IGNORECASE)
+
 _STOP_LOSS_RE = re.compile(
     r"\b(?:stop[-\s]?loss(?:es)?|broker[-\s]?stop|trailing[-\s]?stop)\b"
     r"|\bSL\s*(?:[:=@]\s*|\s+)" + _PRICE_NUM
-    + r"|\bstop\s+(?:(?:at|below|above|near|around|level\s*[:=@]?)\s+|[:=@]\s*)" + _PRICE_NUM
-    + r"|\bstop\s+" + _STANDALONE_PRICE_NUM
-    + r"(?![\d.,%]|\s*[- ](?:year|month|day|week|hour|minute|bps?|percent|pct)\b)",
+    + r"|(?<!-)\bstop\s+(?:(?:at|below|above|near|around|level\s*[:=@]?)\s+|[:=@]\s*)" + _PRICE_NUM
+    + r"|(?<!-)\bstop\s+" + _NON_YEAR_STANDALONE_PRICE_NUM
+    + r"(?![\d.,%]|\s*[- ]?(?:year|month|day|week|hour|minute|bps?|percent|pct|million|billion|trillion|thousand)\b)",
     re.IGNORECASE,
 )
 
@@ -1116,7 +1144,7 @@ _TAKE_PROFIT_RE = re.compile(
     r"|\bTP\d*\s*(?:[:=@]\s*|\s+)" + _PRICE_NUM
     + r"|\bTP[1-9]\b"
     r"|\btarget\s*(?:[:=@]\s*|\s+(?:(?:is|of|at|near|around|above|below)\s+)*)" + _PRICE_NUM
-    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|basis\s+points?\b|to\s+\d+(?:\.\d+)?\s*(?:%|percent\b)))"
+    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|basis\s+points?\b|million\b|billion\b|trillion\b|to\s+\d+(?:\.\d+)?\s*(?:%|percent\b)))"
     + r"|" + _PRICE_NUM + r"\s+(?:(?:profit|price|model)[-\s]+)?(?:target|take[-\s]+profit)\b",
     re.IGNORECASE,
 )
@@ -1128,8 +1156,10 @@ _ENTRY_FILL_RE = re.compile(
     + r"|filled\s+at\s+" + _PRICE_NUM
     + r"|entered\s+(?:(?:long|short|buy|sell)\s+)?(?:at|near|around)\s+" + _PRICE_NUM
     + r"|entry\s+(?:price|level)\s*[:=@]?\s*" + _PRICE_NUM
-    + r"|entry\s+(?:(?:at|near|around)\s+)?" + _PRICE_NUM
-    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|year|month|day|week|hour|minute))"
+    + r"|entry\s+(?:at|near|around)\s+" + _PRICE_NUM
+    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|year|month|day|week|hour|minute|million|billion|trillion)\b)"
+    + r"|entry\s+" + _NON_YEAR_STANDALONE_PRICE_NUM
+    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|year|month|day|week|hour|minute|million|billion|trillion)\b)"
     + r"|limit\s+order\s+(?:filled|at)\s+" + _PRICE_NUM
     + r"|(?:buy|sell|long|short|entry)\s*[:=@]\s*" + _PRICE_NUM + r")\b",
     re.IGNORECASE,
@@ -1223,7 +1253,7 @@ _PRIVATE_STUDY_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "PRIVATE_STUDY_6_TO_11_TAG",
         re.compile(
-            r"(?<![A-Za-z0-9])Study(?:\s*#\s*|[-_\s])(?:[6-9]|1[01])(?![A-Za-z0-9])"
+            r"(?<![A-Za-z0-9])Study(?:\s*#\s*|[-_\s]?)(?:[6-9]|1[01])(?![A-Za-z0-9])"
             r"|(?<![A-Za-z0-9])STUDY(?:[6-9]|1[01])_[A-Z0-9_]+"
             r"|(?<![A-Za-z0-9])Study(?:[6-9]|1[01])[A-Za-z0-9_]*PrivateV\d+(?![A-Za-z0-9])"
             r"|(?<![A-Za-z0-9])study(?:[6-9]|1[01])-(?:v\d|capital-ladder|3vehicle|orthogonal|post-cc\d+|regime-stress)(?![A-Za-z0-9])"
@@ -1251,7 +1281,7 @@ _L4_SLEEVE_WEIGHT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 )
 
 _FRED_COPYRIGHTED_SERIES_IDS = (
-    r"(?:SP500|DJIA|NASDAQCOM|NASDAQ100|VIXCLS|WILL5000[A-Z0-9_]*|BAML[A-Z0-9_]*|ICE[A-Z0-9_]*)"
+    r"(?:SP500|DJIA|NASDAQCOM|NASDAQ100|VIXCLS|WILL5000[A-Z0-9_]*|BAML[A-Z0-9_]*|ICE(?:BAML|BOFA)[A-Z0-9_]*)"
 )
 _FRED_COPYRIGHTED_SERIES_EXACT_RE = re.compile(
     r"^(?:FRED\s*[:/]\s*)?" + _FRED_COPYRIGHTED_SERIES_IDS + r"$",
@@ -1273,7 +1303,7 @@ _RAW_VENDOR_LEAK_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "YAHOO_FINANCE_COMMERCIAL_RIGHTS",
         re.compile(
-            r"(?:[a-z0-9-]+\.)?finance\.yahoo\.com|\byahoo\s+finance\b|\byfinance\b",
+            r"(?:[a-z0-9-]+\.)?finance\.yahoo\.com|\b(?:i?chart|fc)\.yahoo\.com\b|\byahoo\s+finance\b|\byfinance\b",
             re.IGNORECASE,
         ),
     ),
@@ -1283,8 +1313,8 @@ _RAW_VENDOR_LEAK_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"\bFRED\s*[:/]\s*" + _FRED_COPYRIGHTED_SERIES_IDS + r"\b"
             + r"|\bFRED\b[^.!?;]{0,60}\b" + _FRED_COPYRIGHTED_SERIES_IDS + r"\b"
             + r"|(?:fred\.)?stlouisfed\.org/[^\s\"'<>]*?(?<![A-Za-z0-9])" + _FRED_COPYRIGHTED_SERIES_IDS + r"(?![A-Za-z0-9])"
-            + r"|fredgraph\.(?:png|csv|svg)\?[^\s\"'<>]*?[?&]id=" + _FRED_COPYRIGHTED_SERIES_IDS + r"(?![A-Za-z0-9])"
-            + r"|\b(?:VIXCLS|NASDAQCOM|NASDAQ100|WILL5000[A-Z0-9_]*|BAML[A-Z0-9_]{3,})\b",
+            + r"|fredgraph\.(?:png|csv|svg)\?(?:[^\s\"'<>]*?&)?id=" + _FRED_COPYRIGHTED_SERIES_IDS + r"(?![A-Za-z0-9])"
+            + r"|\b(?:VIXCLS|NASDAQCOM|NASDAQ100|WILL5000[A-Z0-9_]*|BAML[A-Z0-9_]{3,}|ICE(?:BAML|BOFA)[A-Z0-9_]*)\b",
             re.IGNORECASE,
         ),
     ),
@@ -1298,7 +1328,9 @@ _RAW_VENDOR_LEAK_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "INVESTING_MYFXBOOK_CONSENSUS",
         re.compile(
-            r"\binvesting\.com\b|\bmyfxbook(?:\.com)?\b",
+            r"\binvesting\.com\b|\bmyfxbook(?:\.com)?\b|"
+            r"\bconsensus\.investing\b|\bsrc:cite:investing\b|"
+            r"\bCITED_SOURCE_INVESTING\b|\binvesting_com\b",
             re.IGNORECASE,
         ),
     ),
@@ -1452,19 +1484,50 @@ def _safe_receipt_str(value: Any, *, fallback: str | None = None) -> str | None:
     return value if _is_valid_utf8_str(value) else fallback
 
 
+def _unquote_multi(value: str, *, max_passes: int = 4) -> str:
+    cur = value
+    for _ in range(max_passes):
+        if "%" not in cur:
+            break
+        nxt = unquote(cur)
+        if nxt == cur:
+            break
+        cur = nxt
+    return cur
+
+
 def _normalize_text(text: str) -> str:
-    cleaned = html.unescape(text)
-    if "&" in cleaned:
-        cleaned = html.unescape(cleaned)
+    cleaned = text
+    for _ in range(6):
+        if "&" not in cleaned:
+            break
+        unescaped = html.unescape(cleaned)
+        if unescaped == cleaned:
+            break
+        cleaned = unescaped
     if not cleaned.isascii():
         cleaned = unicodedata.normalize("NFKC", cleaned)
-        cleaned = "".join(ch for ch in cleaned if unicodedata.category(ch) != "Cf")
+        cleaned = "".join(
+            ch
+            for ch in cleaned
+            if unicodedata.category(ch) != "Cf"
+            and not (
+                unicodedata.category(ch) == "Mn"
+                and (
+                    ch == "\u034f"
+                    or "\ufe00" <= ch <= "\ufe0f"
+                    or "\u180b" <= ch <= "\u180f"
+                    or "\U000e0100" <= ch <= "\U000e01ef"
+                )
+            )
+        )
         cleaned = cleaned.translate(_UNICODE_DASH_TRANS)
+    cleaned = _ASCII_CONTROL_RE.sub("", cleaned)
     return cleaned
 
 
 def _scan_surfaces(norm: str) -> tuple[str, ...]:
-    """Return deduplicated scan surfaces: whitespace-collapsed raw + markdown-stripped."""
+    """Return deduplicated scan surfaces: whitespace-collapsed raw, markdown-stripped, and HTML-stripped."""
     collapsed = _WS_COLLAPSE_RE.sub(" ", norm)
     no_star = _WS_COLLAPSE_RE.sub(" ", _MD_STAR_ONLY_RE.sub("", norm))
     plain_md = _WS_COLLAPSE_RE.sub(" ", _MD_EMPHASIS_RE.sub("", norm))
@@ -1473,11 +1536,23 @@ def _scan_surfaces(norm: str) -> tuple[str, ...]:
         out.append(no_star)
     if plain_md not in out:
         out.append(plain_md)
+    if "<" in norm:
+        stripped_html = _HTML_TAG_RE.sub("", norm)
+        no_html = _WS_COLLAPSE_RE.sub(" ", stripped_html)
+        if no_html not in out:
+            out.append(no_html)
+        no_html_star = _WS_COLLAPSE_RE.sub(" ", _MD_STAR_ONLY_RE.sub("", stripped_html))
+        if no_html_star not in out:
+            out.append(no_html_star)
+        no_html_md = _WS_COLLAPSE_RE.sub(" ", _MD_EMPHASIS_RE.sub("", stripped_html))
+        if no_html_md not in out:
+            out.append(no_html_md)
     return tuple(out)
 
 
 def _normalize_key(key: str) -> str:
     cleaned = _normalize_text(key)
+    cleaned = _PNL_CAMEL_RE.sub("_pnl_", cleaned)
     cleaned = _CAMEL_BOUNDARY_1_RE.sub(r"\1_\2", cleaned)
     cleaned = _CAMEL_BOUNDARY_2_RE.sub(r"\1_\2", cleaned)
     return _NON_SNAKE_RE.sub("_", cleaned.lower()).strip("_")
@@ -1512,7 +1587,6 @@ def _is_tier_selector_key(key_norm: str) -> bool:
         key_norm in TIER_SELECTOR_KEYS
         or key_norm.endswith((
             "_audience",
-            "_tier",
             "_paywall_mode",
             "_monetization_mode",
             "_release_mode",
@@ -1520,9 +1594,22 @@ def _is_tier_selector_key(key_norm: str) -> bool:
             "_access_mode",
             "_subscription_tier",
             "_billing_tier",
+            "_publication_tier",
+            "_visibility_tier",
+            "_audience_tier",
+            "_membership_tier",
+            "_member_tier",
+            "_subscriber_tier",
+            "_plan_tier",
+            "_pricing_tier",
+            "_delivery_tier",
         ))
         or key_norm.startswith(("audience_", "substack_audience", "post_audience"))
     )
+
+
+def _is_generic_tier_suffix_key(key_norm: str) -> bool:
+    return key_norm.endswith("_tier") and not _is_tier_selector_key(key_norm)
 
 
 def _is_active_metadata_value(value: Any, *, depth: int = 0) -> bool:
@@ -1748,6 +1835,29 @@ def parse_payload_timestamp_utc(value: Any, field: str) -> tuple[datetime, int]:
     return dt_utc, nanos
 
 
+def _key_has_private_alpha_or_broker(raw_key: str) -> bool:
+    key_norm = _normalize_key(raw_key)
+    tokens = tuple(t for t in key_norm.split("_") if t)
+    return (
+        key_norm in KELLY_SIZING_LOT_KEYS
+        or key_norm in EXECUTION_LEVEL_FILL_KEYS
+        or key_norm in ("sl", "tp")
+        or key_norm.endswith(("_sl", "_tp"))
+        or key_norm in ACCOUNT_EQUITY_PNL_KEYS
+        or key_norm in BROKER_IDENTIFIER_KEYS
+        or key_norm in PRIVATE_STUDY_TAG_KEYS
+        or key_norm in L4_SLEEVE_WEIGHT_KEYS
+        or key_norm in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS
+        or _has_token_phrase(tokens, _KELLY_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _EXECUTION_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _ACCOUNT_PNL_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _BROKER_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _PRIVATE_STUDY_KEY_PHRASES) is not None
+        or any(_STUDY_TOKEN_RE.match(t) for t in tokens)
+        or _has_token_phrase(tokens, _L4_SLEEVE_KEY_PHRASES) is not None
+    )
+
+
 def _safe_path_segment(raw_key: str) -> str:
     """Return raw_key unless it carries a surrogate, broker ID, private-alpha, or numeric-level pattern."""
     if not _is_valid_utf8_str(raw_key):
@@ -1780,24 +1890,7 @@ def _safe_path_segment(raw_key: str) -> str:
             tok in lowered for tok in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS
         ):
             return _redact_key_segment(raw_key)
-    key_norm = _normalize_key(raw_key)
-    tokens = tuple(t for t in key_norm.split("_") if t)
-    if (
-        key_norm in KELLY_SIZING_LOT_KEYS
-        or key_norm in EXECUTION_LEVEL_FILL_KEYS
-        or key_norm in ACCOUNT_EQUITY_PNL_KEYS
-        or key_norm in BROKER_IDENTIFIER_KEYS
-        or key_norm in PRIVATE_STUDY_TAG_KEYS
-        or key_norm in L4_SLEEVE_WEIGHT_KEYS
-        or key_norm in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS
-        or _has_token_phrase(tokens, _KELLY_KEY_PHRASES) is not None
-        or _has_token_phrase(tokens, _EXECUTION_KEY_PHRASES) is not None
-        or _has_token_phrase(tokens, _ACCOUNT_PNL_KEY_PHRASES) is not None
-        or _has_token_phrase(tokens, _BROKER_KEY_PHRASES) is not None
-        or _has_token_phrase(tokens, _PRIVATE_STUDY_KEY_PHRASES) is not None
-        or any(_STUDY_TOKEN_RE.match(t) for t in tokens)
-        or _has_token_phrase(tokens, _L4_SLEEVE_KEY_PHRASES) is not None
-    ):
+    if _key_has_private_alpha_or_broker(raw_key):
         return _redact_key_segment(raw_key)
     return raw_key
 
@@ -1941,37 +2034,142 @@ def strict_loads_json_bytes(
     return parsed
 
 
-def _is_regular_file(path: Path) -> bool:
+def _is_reparse_or_junction(path: Path, st: Any | None = None) -> bool:
+    isjunction = getattr(os.path, "isjunction", None)
+    if callable(isjunction):
+        try:
+            if isjunction(path):
+                return True
+        except (OSError, ValueError):
+            return True
+    if st is not None:
+        reparse_tag = getattr(st, "st_reparse_tag", 0) or 0
+        if reparse_tag != 0:
+            return True
+    return False
+
+
+def _validate_fs_path(raw: Any, *, invalid_code: str, label: str) -> Path:
+    if not isinstance(raw, (str, os.PathLike)) or isinstance(raw, bytes):
+        raise FirewallEvidenceError(
+            invalid_code,
+            label,
+            f"{label}: path must be str or PathLike, got {type(raw).__name__}",
+        )
     try:
-        mode = path.lstat().st_mode
+        fs_val = os.fspath(raw)
+    except (TypeError, ValueError) as exc:
+        raise FirewallEvidenceError(
+            invalid_code,
+            label,
+            f"{label}: invalid PathLike ({type(exc).__name__})",
+        ) from exc
+    if not isinstance(fs_val, str):
+        raise FirewallEvidenceError(
+            invalid_code,
+            label,
+            f"{label}: __fspath__ must return str, got {type(fs_val).__name__}",
+        )
+    if not _is_valid_utf8_str(fs_val):
+        raise FirewallEvidenceError(
+            "UNPAIRED_UNICODE_SURROGATE",
+            label,
+            f"{label}: unpaired Unicode surrogate disallowed in path",
+        )
+    if "\x00" in fs_val or not fs_val.strip():
+        raise FirewallEvidenceError(
+            invalid_code,
+            label,
+            f"{label}: empty or NUL-containing path disallowed",
+        )
+    if _WINDOWS_NT_PREFIX_RE.match(fs_val):
+        raise FirewallEvidenceError(
+            "WINDOWS_DEVICE_PATH_FORBIDDEN",
+            label,
+            f"{label}: NT device, extended-length, or UNC prefix disallowed",
+        )
+    _, rest = os.path.splitdrive(fs_val)
+    if ":" in rest:
+        raise FirewallEvidenceError(
+            "WINDOWS_ADS_PATH_FORBIDDEN",
+            label,
+            f"{label}: NTFS alternate data stream path disallowed",
+        )
+    for seg in re.split(r"[\\/]+", rest):
+        if not seg or seg in (".", ".."):
+            continue
+        if seg.endswith((".", " ")):
+            raise FirewallEvidenceError(
+                "WINDOWS_TRAILING_DOT_OR_SPACE_FORBIDDEN",
+                label,
+                f"{label}: trailing dot or space in path segment disallowed",
+            )
+        stem = unicodedata.normalize("NFKC", seg.split(".", 1)[0].rstrip(" ")).lower()
+        if stem in _WINDOWS_RESERVED_DEVICE_NAMES:
+            raise FirewallEvidenceError(
+                "WINDOWS_DEVICE_PATH_FORBIDDEN",
+                label,
+                f"{label}: Windows reserved device name disallowed",
+            )
+    try:
+        path_obj = Path(fs_val)
+        resolved = path_obj.resolve(strict=False)
+    except (OSError, ValueError, RuntimeError) as exc:
+        raise FirewallEvidenceError(
+            invalid_code,
+            label,
+            f"{label}: cannot resolve path ({type(exc).__name__})",
+        ) from exc
+    if not resolved.is_absolute():
+        raise FirewallEvidenceError(
+            invalid_code,
+            label,
+            f"{label}: resolved path must be absolute",
+        )
+    _, resolved_rest = os.path.splitdrive(str(resolved))
+    if ":" in resolved_rest:
+        raise FirewallEvidenceError(
+            "WINDOWS_ADS_PATH_FORBIDDEN",
+            label,
+            f"{label}: NTFS alternate data stream path disallowed",
+        )
+    return path_obj
+
+
+def _is_regular_file(path: Path) -> bool:
+    validated = _validate_fs_path(path, invalid_code="FILE_STAT_FAILED", label="file_path")
+    try:
+        st = validated.lstat()
     except FileNotFoundError:
         return False
-    except OSError as exc:
+    except (OSError, ValueError) as exc:
         raise FirewallEvidenceError(
             "FILE_STAT_FAILED",
-            path.name,
-            f"{path.name}: cannot stat path ({type(exc).__name__})",
+            validated.name or "file_path",
+            f"{validated.name or 'file_path'}: cannot stat path ({type(exc).__name__})",
         ) from exc
-    if not stat.S_ISREG(mode):
+    mode = st.st_mode
+    if stat.S_ISLNK(mode) or _is_reparse_or_junction(validated, st) or not stat.S_ISREG(mode):
         raise FirewallEvidenceError(
             "NON_REGULAR_FILE_FORBIDDEN",
-            path.name,
-            f"{path.name}: expected a regular file",
+            validated.name or "file_path",
+            f"{validated.name or 'file_path'}: expected a regular file",
         )
     return True
 
 
 def _read_regular_file(path: Path, *, label: str | None = None) -> bytes:
-    tag = label or path.name
-    if not _is_regular_file(path):
+    validated = _validate_fs_path(path, invalid_code="INVALID_ARTIFACT_PATH", label=label or "file_path")
+    tag = label or validated.name or "file_path"
+    if not _is_regular_file(validated):
         raise FirewallEvidenceError(
             "REQUIRED_FILE_MISSING",
             tag,
             f"{tag}: file missing",
         )
     try:
-        size = path.lstat().st_size
-    except OSError as exc:
+        size = validated.lstat().st_size
+    except (OSError, ValueError) as exc:
         raise FirewallEvidenceError(
             "FILE_READ_FAILED",
             tag,
@@ -1984,8 +2182,8 @@ def _read_regular_file(path: Path, *, label: str | None = None) -> bytes:
             f"{tag}: file exceeds {MAX_PAYLOAD_BYTES} bytes",
         )
     try:
-        return path.read_bytes()
-    except OSError as exc:
+        return validated.read_bytes()
+    except (OSError, ValueError) as exc:
         raise FirewallEvidenceError(
             "FILE_READ_FAILED",
             tag,
@@ -2011,7 +2209,7 @@ def normalize_payload_kind(payload_kind: Any) -> str:
         raise FirewallEvidenceError(
             "UNSUPPORTED_PAYLOAD_KIND",
             "payload_kind",
-            f"unsupported payload_kind: {payload_kind!r}",
+            f"unsupported payload_kind ({type(payload_kind).__name__})",
         )
     return normalized
 
@@ -2152,34 +2350,16 @@ def evaluate_pause_gate(
                     "contentops_pause",
                     "both pause_dir and publisher_stops_dir are required",
                 )
-            if not isinstance(pause_dir, (str, os.PathLike)) or isinstance(pause_dir, bytes):
-                raise FirewallEvidenceError(
-                    "PAUSE_DIR_PATH_INVALID",
-                    "contentops_pause",
-                    f"pause_dir must be a filesystem path, got {type(pause_dir).__name__}",
-                )
-            if not isinstance(publisher_stops_dir, (str, os.PathLike)) or isinstance(publisher_stops_dir, bytes):
-                raise FirewallEvidenceError(
-                    "PUBLISHER_STOPS_DIR_PATH_INVALID",
-                    "contentops_pause",
-                    f"publisher_stops_dir must be a filesystem path, got {type(publisher_stops_dir).__name__}",
-                )
-            p_raw = os.fspath(pause_dir)
-            s_raw = os.fspath(publisher_stops_dir)
-            if not isinstance(p_raw, str) or not _is_valid_utf8_str(p_raw):
-                raise FirewallEvidenceError(
-                    "PAUSE_DIR_PATH_INVALID",
-                    "contentops_pause",
-                    "pause_dir path is not a valid UTF-8 string",
-                )
-            if not isinstance(s_raw, str) or not _is_valid_utf8_str(s_raw):
-                raise FirewallEvidenceError(
-                    "PUBLISHER_STOPS_DIR_PATH_INVALID",
-                    "contentops_pause",
-                    "publisher_stops_dir path is not a valid UTF-8 string",
-                )
-            p_dir = Path(p_raw)
-            s_dir = Path(s_raw)
+            p_dir = _validate_fs_path(
+                pause_dir,
+                invalid_code="PAUSE_DIR_PATH_INVALID",
+                label="contentops_pause",
+            )
+            s_dir = _validate_fs_path(
+                publisher_stops_dir,
+                invalid_code="PUBLISHER_STOPS_DIR_PATH_INVALID",
+                label="contentops_pause",
+            )
             manifest = strict_loads_json_bytes(
                 _read_regular_file(p_dir / "manifest.json", label="pause_manifest"),
                 label="pause_manifest",
@@ -2192,7 +2372,7 @@ def evaluate_pause_gate(
                 restored_present = True
             except FileNotFoundError:
                 restored_present = False
-            except OSError as exc:
+            except (OSError, ValueError) as exc:
                 raise FirewallEvidenceError(
                     "RESTORED_STAT_FAILED",
                     "restored_json",
@@ -2396,7 +2576,9 @@ def _match_public_odds_clause(clause: str) -> str | None:
 
 def _has_non_policy_take_profit(text: str) -> bool:
     for match in _TAKE_PROFIT_RE.finditer(text):
-        snippet = match.group(0).lower()
+        snippet = match.group(0).strip().lower()
+        if _CALENDAR_YEAR_TARGET_RE.fullmatch(snippet) or _CALENDAR_YEAR_BARE_TARGET_RE.fullmatch(snippet):
+            continue
         if snippet.startswith("target"):
             prefix = text[max(0, match.start() - 72):match.start()]
             if _POLICY_TARGET_PREFIX_RE.search(prefix):
@@ -2437,7 +2619,7 @@ def _has_private_balance_money(text: str) -> bool:
 
 
 def _scan_urls_in_text(text: str, path: str, findings: list[dict[str, Any]]) -> None:
-    if _UNSAFE_URL_RE.search(text):
+    if _UNSAFE_URL_RE.search(text) or _TAB_SPLIT_SCRIPT_SCHEME_RE.search(text):
         findings.append(
             _finding(
                 code="PUBLIC_WEBAPP_UNSAFE_URL_SCHEME",
@@ -2447,6 +2629,36 @@ def _scan_urls_in_text(text: str, path: str, findings: list[dict[str, Any]]) -> 
                 summary="unsafe, file:///, javascript:, vbscript:, ftp:, or credentialed URL forbidden in public copy",
             )
         )
+    for attr_val_match in _ATTR_VALUE_RE.finditer(text):
+        raw_val = (
+            attr_val_match.group(1)
+            if attr_val_match.group(1) is not None
+            else (attr_val_match.group(2) if attr_val_match.group(2) is not None else attr_val_match.group(3))
+        )
+        whatwg_val = _WHATWG_CTRL_RE.sub("", raw_val).strip()
+        scheme_match = _ATTR_LEADING_SCHEME_RE.match(whatwg_val)
+        if scheme_match is not None:
+            scheme = scheme_match.group(1).lower()
+            if scheme != "https":
+                findings.append(
+                    _finding(
+                        code="PUBLIC_WEBAPP_UNSAFE_URL_SCHEME",
+                        category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                        path=path,
+                        rule="NON_HTTPS_HREF_OR_SRC_SCHEME",
+                        summary=f"non-HTTPS attribute URL scheme forbidden in public copy ({scheme}:)",
+                    )
+                )
+        elif _UNSAFE_URL_RE.search(whatwg_val):
+            findings.append(
+                _finding(
+                    code="PUBLIC_WEBAPP_UNSAFE_URL_SCHEME",
+                    category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                    path=path,
+                    rule="UNSAFE_OR_CREDENTIALED_URL",
+                    summary="unsafe, file:///, javascript:, vbscript:, ftp:, or credentialed URL forbidden in public copy",
+                )
+            )
     for attr_match in _ATTR_SCHEME_RE.finditer(text):
         scheme = attr_match.group(1).lower()
         if scheme != "https":
@@ -2494,7 +2706,10 @@ def _scan_urls_in_text(text: str, path: str, findings: list[dict[str, Any]]) -> 
                     summary="plain http:// URL forbidden in public copy",
                 )
             )
-        if parsed.path and _AFFILIATE_URL_PATH_RE.search(parsed.path):
+        decoded_path = _unquote_multi(parsed.path) if parsed.path else ""
+        if (parsed.path and _AFFILIATE_URL_PATH_RE.search(parsed.path)) or (
+            decoded_path and _AFFILIATE_URL_PATH_RE.search(decoded_path)
+        ):
             findings.append(
                 _finding(
                     code="CC024_AFFILIATE_URL_PATH",
@@ -2505,6 +2720,30 @@ def _scan_urls_in_text(text: str, path: str, findings: list[dict[str, Any]]) -> 
                     summary="affiliate/referral URL path segment disallowed",
                 )
             )
+        if "%" in candidate:
+            decoded_candidate = _unquote_multi(candidate)
+            for rule_name, pattern in _RAW_VENDOR_LEAK_PATTERNS:
+                if pattern.search(decoded_candidate):
+                    findings.append(
+                        _finding(
+                            code="CC024_RAW_VENDOR_LEAK",
+                            category="CC024_RAW_VENDOR_LEAK",
+                            path=path,
+                            rule=rule_name,
+                            cc024_bucket="raw_vendor_leak_count",
+                            summary=f"raw licensed vendor or commercial data-rights source blocked ({rule_name})",
+                        )
+                    )
+            if _PREVIEW_HOST_RE.search(decoded_candidate):
+                findings.append(
+                    _finding(
+                        code="PREVIEW_HOST_LINK_FORBIDDEN",
+                        category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                        path=path,
+                        rule="DECISION_83_PREVIEW_HOST",
+                        summary="preview-host or fatcat2109 link disallowed in public output (Decision 83)",
+                    )
+                )
         qs = parse_qs(parsed.query, keep_blank_values=True)
         for param in qs:
             if param.strip().lower() in _AFFILIATE_QUERY_PARAMS:
@@ -2748,8 +2987,15 @@ def _scan_string_value(
                     )
 
     # Raw licensed vendor & CC-024 commercial data-rights leak
+    vendor_surfaces = surfaces
+    if any(_PERCENT_HEX_RE.search(s) for s in surfaces):
+        extra_decoded = tuple(
+            dec for s in surfaces if _PERCENT_HEX_RE.search(s) and (dec := _unquote_multi(s)) not in surfaces
+        )
+        if extra_decoded:
+            vendor_surfaces = surfaces + extra_decoded
     for rule_name, pattern in _RAW_VENDOR_LEAK_PATTERNS:
-        if any(pattern.search(s) for s in surfaces):
+        if any(pattern.search(s) for s in vendor_surfaces):
             findings.append(
                 _finding(
                     code="CC024_RAW_VENDOR_LEAK",
@@ -2789,6 +3035,9 @@ def _scan_string_value(
                 )
             )
     _scan_urls_in_text(norm, path, findings)
+    for surface in surfaces:
+        if surface != norm:
+            _scan_urls_in_text(surface, path, findings)
 
 
 def _check_key_name(
@@ -2815,7 +3064,11 @@ def _check_key_name(
             )
         )
 
-    exec_match = key_norm if key_norm in EXECUTION_LEVEL_FILL_KEYS else _has_token_phrase(tokens, _EXECUTION_KEY_PHRASES)
+    exec_match = (
+        key_norm
+        if key_norm in EXECUTION_LEVEL_FILL_KEYS or key_norm in ("sl", "tp") or key_norm.endswith(("_sl", "_tp"))
+        else _has_token_phrase(tokens, _EXECUTION_KEY_PHRASES)
+    )
     if exec_match is not None:
         findings.append(
             _finding(
@@ -3017,6 +3270,34 @@ def _check_key_name(
                     summary=f"invalid non-string tier/audience/mode field blocked ({display_key})",
                 )
             )
+    elif _is_generic_tier_suffix_key(key_norm) and not is_paywall:
+        # Preserve benign event/asset classification tiers (e.g. event_tier="T1".."T4"/"ANCHOR")
+        # while still blocking explicit paid/VIP/subscriber tier values on any *_tier key.
+        if isinstance(value, str):
+            val_norm = _normalize_key(value)
+            if val_norm in CC024_FORBIDDEN_TIER_VALUES:
+                findings.append(
+                    _finding(
+                        code="CC024_NON_FREE_TIER_FORBIDDEN",
+                        category="CC024_PAYWALL_UPSELL",
+                        path=path,
+                        rule=f"TIER:{display_key}",
+                        cc024_bucket="paid_paywall_count",
+                        summary=f"non-FREE publication tier/audience/mode blocked ({display_key})",
+                    )
+                )
+        elif isinstance(value, Mapping):
+            if _mapping_has_non_free_tier(value, is_cc107_card_tier=True):
+                findings.append(
+                    _finding(
+                        code="CC024_NON_FREE_TIER_FORBIDDEN",
+                        category="CC024_PAYWALL_UPSELL",
+                        path=path,
+                        rule=f"TIER:{display_key}",
+                        cc024_bucket="paid_paywall_count",
+                        summary=f"non-FREE publication tier/audience descriptor blocked ({display_key})",
+                    )
+                )
     if key_norm in CC024_AFFILIATE_KEYS:
         if _is_active_metadata_value(value):
             findings.append(
@@ -3507,11 +3788,7 @@ def evaluate_release_batch(
     """
     top_findings: list[dict[str, Any]] = []
     gate_mode_valid = isinstance(gate_mode, str) and gate_mode in SUPPORTED_GATE_MODES
-    safe_gate_mode = (
-        gate_mode
-        if gate_mode_valid
-        else (gate_mode if _is_valid_utf8_str(gate_mode) else f"<invalid:{type(gate_mode).__name__}>")
-    )
+    safe_gate_mode = gate_mode if gate_mode_valid else f"<invalid:{type(gate_mode).__name__}>"
     if not gate_mode_valid:
         if isinstance(gate_mode, str) and not _is_valid_utf8_str(gate_mode):
             top_findings.append(
@@ -3636,7 +3913,8 @@ def evaluate_release_batch(
             )
         )
     else:
-        seen_ids: set[str] = set()
+        seen_raw_ids: set[str] = set()
+        seen_safe_ids: set[str] = set()
         for idx, spec in enumerate(artifacts):
             if not isinstance(spec, Mapping):
                 top_findings.append(
@@ -3649,10 +3927,10 @@ def evaluate_release_batch(
                     )
                 )
                 continue
-            art_id = spec.get("artifact_id")
-            if art_id is None:
-                art_id = f"artifact-{idx + 1}"
-            if isinstance(art_id, str) and not _is_valid_utf8_str(art_id):
+            raw_art_id = spec.get("artifact_id")
+            if raw_art_id is None:
+                raw_art_id = f"artifact-{idx + 1}"
+            if isinstance(raw_art_id, str) and not _is_valid_utf8_str(raw_art_id):
                 art_id = f"artifact-{idx + 1}"
                 top_findings.append(
                     _finding(
@@ -3663,7 +3941,7 @@ def evaluate_release_batch(
                         summary="artifact_id: unpaired Unicode surrogate disallowed",
                     )
                 )
-            elif not isinstance(art_id, str) or not art_id.strip():
+            elif not isinstance(raw_art_id, str) or not raw_art_id.strip():
                 art_id = f"artifact-{idx + 1}"
                 top_findings.append(
                     _finding(
@@ -3675,8 +3953,9 @@ def evaluate_release_batch(
                     )
                 )
             else:
-                safe_art_id = _safe_path_segment(art_id)
-                if art_id in seen_ids:
+                norm_art_key = raw_art_id.strip()
+                safe_art_id = _safe_path_segment(raw_art_id)
+                if norm_art_key in seen_raw_ids or safe_art_id in seen_safe_ids:
                     top_findings.append(
                         _finding(
                             code="DUPLICATE_ARTIFACT_ID",
@@ -3686,8 +3965,27 @@ def evaluate_release_batch(
                             summary=f"duplicate artifact_id disallowed ({safe_art_id})",
                         )
                     )
+                art_id_findings: list[dict[str, Any]] = []
+                _scan_string_value(
+                    raw_art_id,
+                    path=f"$.artifacts[{idx}].artifact_id",
+                    leaf_key_norm="artifact_id",
+                    findings=art_id_findings,
+                )
+                if art_id_findings or _key_has_private_alpha_or_broker(raw_art_id):
+                    top_findings.append(
+                        _finding(
+                            code="RULE_A3_PRIVATE_ARTIFACT_ID_FORBIDDEN",
+                            category="RULE_A3_PRIVATE_ALPHA",
+                            path=f"$.artifacts[{idx}].artifact_id",
+                            rule="PRIVATE_ARTIFACT_ID",
+                            summary=f"private/broker/forbidden artifact_id disallowed ({safe_art_id})",
+                        )
+                    )
+                    top_findings.extend(art_id_findings)
+                seen_raw_ids.add(norm_art_key)
                 art_id = safe_art_id
-            seen_ids.add(art_id)
+            seen_safe_ids.add(art_id)
 
             kind_raw = spec.get("payload_kind", "post")
             try:
@@ -3721,43 +4019,13 @@ def evaluate_release_batch(
 
             if spec.get("path") is not None:
                 raw_path = spec["path"]
-                if not isinstance(raw_path, (str, os.PathLike)) or isinstance(raw_path, bytes):
-                    top_findings.append(
-                        _finding(
-                            code="INVALID_ARTIFACT_PATH",
-                            category="STRUCTURAL_HYGIENE",
-                            path=f"$.artifacts[{idx}].path",
-                            rule="INVALID_ARTIFACT_PATH",
-                            summary=f"artifact path must be str or PathLike, got {type(raw_path).__name__}",
-                        )
-                    )
-                    continue
                 try:
-                    fspath_val = os.fspath(raw_path)
-                except TypeError:
-                    top_findings.append(
-                        _finding(
-                            code="INVALID_ARTIFACT_PATH",
-                            category="STRUCTURAL_HYGIENE",
-                            path=f"$.artifacts[{idx}].path",
-                            rule="INVALID_ARTIFACT_PATH",
-                            summary=f"artifact path is not a valid PathLike ({type(raw_path).__name__})",
-                        )
+                    validated_path = _validate_fs_path(
+                        raw_path,
+                        invalid_code="INVALID_ARTIFACT_PATH",
+                        label=art_id,
                     )
-                    continue
-                if not isinstance(fspath_val, str) or not _is_valid_utf8_str(fspath_val):
-                    top_findings.append(
-                        _finding(
-                            code="UNPAIRED_UNICODE_SURROGATE" if isinstance(fspath_val, str) else "INVALID_ARTIFACT_PATH",
-                            category="STRUCTURAL_HYGIENE",
-                            path=f"$.artifacts[{idx}].path",
-                            rule="INVALID_ARTIFACT_PATH",
-                            summary="artifact path must be a valid UTF-8 string",
-                        )
-                    )
-                    continue
-                try:
-                    file_bytes = _read_regular_file(Path(fspath_val), label=art_id)
+                    file_bytes = _read_regular_file(validated_path, label=art_id)
                 except FirewallEvidenceError as exc:
                     top_findings.append(
                         _finding(
@@ -3991,18 +4259,11 @@ def evaluate_payload_file(
     require_restored_marker: bool = True,
 ) -> dict[str, Any]:
     """Evaluate a single regular JSON file read-only from disk."""
-    if isinstance(path, (str, os.PathLike)) and not isinstance(path, bytes):
-        try:
-            fs_val = os.fspath(path)
-        except TypeError:
-            fs_val = None
-        if isinstance(fs_val, str) and _is_valid_utf8_str(fs_val):
-            target: Any = Path(fs_val)
-            art_id = artifact_id or target.name or "candidate-1"
-        else:
-            target = path
-            art_id = artifact_id or "candidate-1"
-    else:
+    try:
+        validated = _validate_fs_path(path, invalid_code="INVALID_ARTIFACT_PATH", label="artifact_path")
+        target: Any = validated
+        art_id = artifact_id or validated.name or "candidate-1"
+    except FirewallEvidenceError:
         target = path
         art_id = artifact_id or "candidate-1"
     return evaluate_release_batch(
@@ -4024,7 +4285,9 @@ def scan_public_directory_readonly(
     max_files: int = 2000,
 ) -> dict[str, Any]:
     """Read-only audit of a public directory (e.g. public-webapp-preview) for leak parity."""
-    if not isinstance(directory, (str, os.PathLike)) or isinstance(directory, bytes):
+    try:
+        root = _validate_fs_path(directory, invalid_code="INVALID_DIRECTORY_PATH", label="directory")
+    except FirewallEvidenceError as exc:
         return {
             "exists": False,
             "directory": f"<invalid:{type(directory).__name__}>",
@@ -4033,116 +4296,191 @@ def scan_public_directory_readonly(
             "failed_files": 1,
             "findings_count": 1,
             "truncated": False,
-            "failures": [{"file": "<invalid>", "code": "INVALID_DIRECTORY_PATH"}],
+            "failures": [{"file": "<invalid>", "code": exc.code}],
         }
-    root = Path(directory)
-    if not root.is_dir():
+    try:
+        root_st = root.lstat()
+    except FileNotFoundError:
         return {
             "exists": False,
             "directory": str(root),
             "files_scanned": 0,
             "clean_files": 0,
-            "failed_files": 0,
-            "findings_count": 0,
+            "failed_files": 1,
+            "findings_count": 1,
             "truncated": False,
             "failures": [{"file": str(root), "code": "DIRECTORY_MISSING"}],
         }
+    except (OSError, ValueError) as exc:
+        return {
+            "exists": False,
+            "directory": str(root),
+            "files_scanned": 0,
+            "clean_files": 0,
+            "failed_files": 1,
+            "findings_count": 1,
+            "truncated": False,
+            "failures": [{"file": str(root), "code": "FILE_STAT_FAILED", "error": type(exc).__name__}],
+        }
+    if stat.S_ISLNK(root_st.st_mode) or _is_reparse_or_junction(root, root_st) or not stat.S_ISDIR(root_st.st_mode):
+        return {
+            "exists": False,
+            "directory": str(root),
+            "files_scanned": 0,
+            "clean_files": 0,
+            "failed_files": 1,
+            "findings_count": 1,
+            "truncated": False,
+            "failures": [{"file": str(root), "finding_count": 1, "codes": ["NON_REGULAR_FILE_FORBIDDEN"]}],
+        }
+
     effective_max = 0 if (isinstance(max_files, bool) or not isinstance(max_files, int) or max_files < 0) else max_files
     files_scanned = 0
     clean_files = 0
     failures: list[dict[str, Any]] = []
     findings_total = 0
     truncated = False
-    for candidate in sorted(root.rglob("*")):
-        rel = candidate.relative_to(root).as_posix()
-        try:
-            st = candidate.lstat()
-        except OSError as exc:
+    walk_errors: list[tuple[str, str]] = []
+
+    def _on_walk_error(exc: OSError) -> None:
+        walk_errors.append((str(getattr(exc, "filename", "") or str(root)), type(exc).__name__))
+
+    for dirpath, dirnames, filenames in os.walk(root, topdown=True, onerror=_on_walk_error, followlinks=False):
+        dirnames.sort()
+        filenames.sort()
+        kept_dirs: list[str] = []
+        for dname in dirnames:
+            sub = Path(dirpath) / dname
+            rel_dir = sub.relative_to(root).as_posix()
+            try:
+                sub_st = sub.lstat()
+            except (OSError, ValueError) as exc:
+                if files_scanned >= effective_max:
+                    truncated = True
+                    continue
+                files_scanned += 1
+                findings_total += 1
+                failures.append({
+                    "file": rel_dir,
+                    "finding_count": 1,
+                    "codes": ["FILE_STAT_FAILED"],
+                    "error": type(exc).__name__,
+                })
+                continue
+            if stat.S_ISLNK(sub_st.st_mode) or _is_reparse_or_junction(sub, sub_st) or not stat.S_ISDIR(sub_st.st_mode):
+                if files_scanned >= effective_max:
+                    truncated = True
+                    continue
+                files_scanned += 1
+                findings_total += 1
+                failures.append({
+                    "file": rel_dir,
+                    "finding_count": 1,
+                    "codes": ["NON_REGULAR_FILE_FORBIDDEN"],
+                })
+                continue
+            kept_dirs.append(dname)
+        dirnames[:] = kept_dirs
+
+        for fname in filenames:
+            candidate = Path(dirpath) / fname
+            rel = candidate.relative_to(root).as_posix()
+            try:
+                st = candidate.lstat()
+            except (OSError, ValueError) as exc:
+                if files_scanned >= effective_max:
+                    truncated = True
+                    break
+                files_scanned += 1
+                findings_total += 1
+                failures.append({
+                    "file": rel,
+                    "finding_count": 1,
+                    "codes": ["FILE_STAT_FAILED"],
+                    "error": type(exc).__name__,
+                })
+                continue
+            mode = st.st_mode
+            if stat.S_ISLNK(mode) or _is_reparse_or_junction(candidate, st) or not stat.S_ISREG(mode):
+                if files_scanned >= effective_max:
+                    truncated = True
+                    break
+                files_scanned += 1
+                findings_total += 1
+                failures.append({
+                    "file": rel,
+                    "finding_count": 1,
+                    "codes": ["NON_REGULAR_FILE_FORBIDDEN"],
+                })
+                continue
+            if candidate.suffix.lower() not in allowed_suffixes:
+                continue
             if files_scanned >= effective_max:
                 truncated = True
                 break
             files_scanned += 1
-            findings_total += 1
-            failures.append({
-                "file": rel,
-                "finding_count": 1,
-                "codes": ["FILE_STAT_FAILED"],
-                "error": type(exc).__name__,
-            })
-            continue
-        mode = st.st_mode
-        if stat.S_ISDIR(mode):
-            continue
-        if stat.S_ISLNK(mode) or not stat.S_ISREG(mode):
-            if files_scanned >= effective_max:
-                truncated = True
-                break
-            files_scanned += 1
-            findings_total += 1
-            failures.append({
-                "file": rel,
-                "finding_count": 1,
-                "codes": ["NON_REGULAR_FILE_FORBIDDEN"],
-            })
-            continue
-        if candidate.suffix.lower() not in allowed_suffixes:
-            continue
-        if files_scanned >= effective_max:
-            truncated = True
-            break
-        files_scanned += 1
-        rel_lower = rel.lower()
-        file_findings: list[dict[str, Any]] = []
-        for bad_tok in _FORBIDDEN_PUBLIC_FILENAME_TOKENS:
-            if bad_tok in rel_lower:
+            rel_lower = rel.lower()
+            file_findings: list[dict[str, Any]] = []
+            for bad_tok in _FORBIDDEN_PUBLIC_FILENAME_TOKENS:
+                if bad_tok in rel_lower:
+                    file_findings.append(
+                        _finding(
+                            code="PUBLIC_WEBAPP_FORBIDDEN_FILENAME",
+                            category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                            path=rel,
+                            rule=f"FILENAME:{bad_tok}",
+                            summary=f"forbidden private filename in public directory ({bad_tok})",
+                        )
+                    )
+            try:
+                raw = _read_regular_file(candidate, label=rel)
+                if raw.startswith(b"\xef\xbb\xbf"):
+                    raise FirewallEvidenceError("UTF8_BOM_FORBIDDEN", rel, f"{rel}: UTF-8 BOM disallowed")
+                parsed = json.loads(
+                    raw.decode("utf-8", errors="strict"),
+                    object_pairs_hook=_reject_duplicate_json_keys,
+                    parse_constant=_reject_json_constant,
+                    parse_float=_parse_finite_float,
+                    parse_int=_parse_bounded_int,
+                )
+                _walk_and_inspect(
+                    parsed,
+                    path="$",
+                    leaf_key_norm="$root",
+                    depth=0,
+                    active_ids=set(),
+                    findings=file_findings,
+                )
+            except (FirewallEvidenceError, UnicodeDecodeError, ValueError, RecursionError) as exc:
                 file_findings.append(
                     _finding(
-                        code="PUBLIC_WEBAPP_FORBIDDEN_FILENAME",
-                        category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                        code="PUBLIC_FILE_JSON_INVALID",
+                        category="STRUCTURAL_HYGIENE",
                         path=rel,
-                        rule=f"FILENAME:{bad_tok}",
-                        summary=f"forbidden private filename in public directory ({bad_tok})",
+                        rule=type(exc).__name__,
+                        summary=f"invalid UTF-8 strict JSON ({type(exc).__name__})",
                     )
                 )
-        try:
-            raw = _read_regular_file(candidate, label=rel)
-            if raw.startswith(b"\xef\xbb\xbf"):
-                raise FirewallEvidenceError("UTF8_BOM_FORBIDDEN", rel, f"{rel}: UTF-8 BOM disallowed")
-            parsed = json.loads(
-                raw.decode("utf-8", errors="strict"),
-                object_pairs_hook=_reject_duplicate_json_keys,
-                parse_constant=_reject_json_constant,
-                parse_float=_parse_finite_float,
-                parse_int=_parse_bounded_int,
-            )
-            _walk_and_inspect(
-                parsed,
-                path="$",
-                leaf_key_norm="$root",
-                depth=0,
-                active_ids=set(),
-                findings=file_findings,
-            )
-        except (FirewallEvidenceError, UnicodeDecodeError, ValueError, RecursionError) as exc:
-            file_findings.append(
-                _finding(
-                    code="PUBLIC_FILE_JSON_INVALID",
-                    category="STRUCTURAL_HYGIENE",
-                    path=rel,
-                    rule=type(exc).__name__,
-                    summary=f"invalid UTF-8 strict JSON ({type(exc).__name__})",
-                )
-            )
-        deduped = _dedupe_and_sort_findings(file_findings)
-        if deduped:
-            findings_total += len(deduped)
-            failures.append({
-                "file": rel,
-                "finding_count": len(deduped),
-                "codes": sorted({f["code"] for f in deduped}),
-            })
-        else:
-            clean_files += 1
+            deduped = _dedupe_and_sort_findings(file_findings)
+            if deduped:
+                findings_total += len(deduped)
+                failures.append({
+                    "file": rel,
+                    "finding_count": len(deduped),
+                    "codes": sorted({f["code"] for f in deduped}),
+                })
+            else:
+                clean_files += 1
+        if truncated:
+            break
+    for err_path, err_name in walk_errors:
+        findings_total += 1
+        failures.append({
+            "file": err_path,
+            "finding_count": 1,
+            "codes": ["FILE_STAT_FAILED"],
+            "error": err_name,
+        })
     return {
         "exists": True,
         "directory": str(root),

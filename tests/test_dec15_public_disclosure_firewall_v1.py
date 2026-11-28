@@ -4,6 +4,7 @@ from __future__ import annotations
 from copy import deepcopy
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -1558,3 +1559,334 @@ def test_remediation_l1_l3_l4_r2_l3_macro_flows_list_utc_and_dir_scan_hardening(
     )
     assert r_perm["verdict"] == fw.VERDICT_BLOCKED
     assert r_perm["pause_gate"]["failure_code"] == "RESTORED_STAT_FAILED"
+
+
+# ---------------------------------------------------------------------------
+# Cycle #23a-r2: Unified Ops Product #98/#99 + Batch #172/#173 (7M / 6L)
+# ---------------------------------------------------------------------------
+
+
+def test_c23a_r2_m1_and_m6_nul_hostile_pathlike_ads_nt_prefix_and_dos_device_paths(tmp_path):
+    ps = _publish_pause_state()
+    clean_file = tmp_path / "clean.json"
+    clean_file.write_bytes(json.dumps(clean_post_payload()).encode("utf-8") + b"\n")
+
+    class _BadPathBytes:
+        def __fspath__(self):
+            return b"foo.json"
+
+    class _BadPathValueErr:
+        def __fspath__(self):
+            raise ValueError("boom")
+
+    class _BadPathTypeErr:
+        def __fspath__(self):
+            raise TypeError("bad type")
+
+    # M1: NUL bytes & hostile PathLike never raise uncaught ValueError/TypeError.
+    for hostile in ("foo\x00bar.json", _BadPathBytes(), _BadPathValueErr(), _BadPathTypeErr(), "   "):
+        r_file = fw.evaluate_payload_file(hostile, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert r_file["verdict"] == fw.VERDICT_BLOCKED
+        assert r_file["publish_allowed"] is False
+
+        r_batch = fw.evaluate_release_batch(
+            [{"path": hostile}], as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+        )
+        assert r_batch["verdict"] == fw.VERDICT_BLOCKED
+
+        r_pause = fw.evaluate_pause_gate(
+            AFTER_DEC15,
+            gate_mode="publish",
+            pause_dir=hostile,
+            publisher_stops_dir=tmp_path,
+        )
+        assert r_pause["verdict"] == fw.VERDICT_BLOCKED
+
+        r_scan = fw.scan_public_directory_readonly(hostile)
+        assert r_scan["exists"] is False
+        assert r_scan["failed_files"] == 1
+        assert r_scan["findings_count"] == 1
+
+    # M6: Real Windows NTFS Alternate Data Stream (clean.json:secret) blocked before open.
+    ads_str = str(clean_file) + ":secret"
+    try:
+        Path(ads_str).write_bytes(json.dumps(clean_post_payload()).encode("utf-8") + b"\n")
+    except OSError:
+        pass
+    r_ads = fw.evaluate_payload_file(ads_str, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+    assert r_ads["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "WINDOWS_ADS_PATH_FORBIDDEN" for f in r_ads["findings"])
+
+    # M6: NT/device prefixes, raw UNC, trailing dot/space, DOS reserved names (CON .dir / CON .json).
+    hostile_win_paths = [
+        (r"\??\C:\Windows\win.ini", "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        ("/??/C:/Windows/win.ini", "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (r"\\.\NUL", "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (r"\\?\C:\clean.json", "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (r"\\server\share\clean.json", "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        ("//server/share/clean.json", "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (str(tmp_path / "CON .dir" / "clean.json"), "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (str(tmp_path / "CON .json"), "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (str(tmp_path / "NUL.json"), "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (str(tmp_path / "com1.json"), "WINDOWS_DEVICE_PATH_FORBIDDEN"),
+        (str(tmp_path / "clean.json."), "WINDOWS_TRAILING_DOT_OR_SPACE_FORBIDDEN"),
+        (str(tmp_path / "clean.json "), "WINDOWS_TRAILING_DOT_OR_SPACE_FORBIDDEN"),
+        (str(tmp_path / "dir." / "clean.json"), "WINDOWS_TRAILING_DOT_OR_SPACE_FORBIDDEN"),
+    ]
+    for bad_path, expected_code in hostile_win_paths:
+        rec = fw.evaluate_payload_file(bad_path, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, bad_path
+        assert any(f["code"] == expected_code for f in rec["findings"]), (bad_path, rec["findings"])
+
+
+def test_c23a_r2_m2_duplicate_and_private_artifact_id_redacted_and_blocked():
+    ps = _publish_pause_state()
+    clean = clean_post_payload()
+
+    # Duplicate private broker artifact_id triggers BOTH DUPLICATE_ARTIFACT_ID and private block with 0 echo.
+    r_dup_priv = fw.evaluate_release_batch(
+        [
+            {"artifact_id": "acct_DUR343723", "payload_kind": "post", "payload": clean},
+            {"artifact_id": "acct_DUR343723", "payload_kind": "post", "payload": clean},
+        ],
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=ps,
+    )
+    assert r_dup_priv["verdict"] == fw.VERDICT_BLOCKED
+    codes = {f["code"] for f in r_dup_priv["findings"]}
+    assert "DUPLICATE_ARTIFACT_ID" in codes
+    assert "RULE_A3_PRIVATE_ARTIFACT_ID_FORBIDDEN" in codes
+    assert "DUR343723" not in json.dumps(r_dup_priv)
+
+    # Single private broker artifact_id also fails closed with 0 echo.
+    r_single_priv = fw.evaluate_payload(
+        clean, payload_kind="post", artifact_id="acct_DUR343723", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+    )
+    assert r_single_priv["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "RULE_A3_PRIVATE_ARTIFACT_ID_FORBIDDEN" for f in r_single_priv["findings"])
+    assert "DUR343723" not in json.dumps(r_single_priv)
+
+    # Duplicate numeric-version artifact_id ("post 1.0") also triggers DUPLICATE_ARTIFACT_ID.
+    r_dup_ver = fw.evaluate_release_batch(
+        [
+            {"artifact_id": "post 1.0", "payload_kind": "post", "payload": clean},
+            {"artifact_id": "post 1.0", "payload_kind": "post", "payload": clean},
+        ],
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=ps,
+    )
+    assert r_dup_ver["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "DUPLICATE_ARTIFACT_ID" for f in r_dup_ver["findings"])
+
+
+@pytest.mark.parametrize(
+    "case_name,field,value",
+    [
+        ("ascii_nul_broker", "body", "Account D\x00UR343723 active."),
+        ("ascii_nul_paid", "body", "For pa\x00id subscribers only."),
+        ("ascii_nul_yahoo", "body", "Data from Ya\x00hoo Finance."),
+        ("ascii_nul_stoploss", "body", "Set stop\x00loss at 3920."),
+        ("ascii_soh_broker", "body", "Account D\x01UR343723 active."),
+        ("mn_cgj_broker", "body", "Account DU\u034fR343723 active."),
+        ("mn_cgj_paid", "body", "For pa\u034fid subscribers only."),
+        ("mn_vs16_stoploss", "body", "Set stop\ufe0floss at 3920."),
+        ("html_bold_stoploss", "body_html", "<p>Set <b>stop</b>-loss at 3920.</p>"),
+        ("html_span_broker", "body_html", "<p>Account <span>DUR</span>343723</p>"),
+        ("html_em_paid", "body_html", "<p>For <em>paid</em> subscribers only.</p>"),
+        ("tab_split_js_href", "body_html", '<a href="java\tscript:alert(1)">click</a>'),
+        ("entity_tab_js_href", "body_html", '<a href="java&#x09;script:alert(1)">click</a>'),
+        ("newline_split_js_href", "body_html", '<a href="java\nscript:alert(1)">click</a>'),
+        ("md_split_affiliate_url", "body", "Open https://broker.example/**ref**/abc now."),
+        ("html_split_affiliate_url", "body_html", "Open https://broker.example/<b>ref</b>/abc now."),
+        ("triple_html_entity_broker", "body", "Account &amp;amp;#68;UR343723 active."),
+        ("pct_encoded_affiliate_path", "body", "See https://broker.example/%61ffiliate/jim for details."),
+        ("pct_encoded_ref_path", "body", "See https://broker.example/%72%65%66/jim123 for details."),
+        ("pct_encoded_fred_sp500_url", "body", "Chart https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP%3500 here."),
+        ("pct_encoded_relative_fred", "body", "Relative fredgraph.csv?id=SP%3500 feed."),
+    ],
+)
+def test_c23a_r2_m3_and_batch172_l1_l2_obfuscation_html_xss_and_url_evasions_blocked(case_name, field, value):
+    ps = _publish_pause_state()
+    p = clean_post_payload()
+    p[field] = value
+    rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+    assert rec["verdict"] == fw.VERDICT_BLOCKED, (case_name, rec)
+    assert rec["publish_allowed"] is False
+
+
+def test_c23a_r2_m4_clean_macro_prose_allowed_while_real_levels_and_icebofa_stay_blocked():
+    ps = _publish_pause_state()
+    clean_sentences = [
+        "The Federal Reserve inflation target is 2% while the 2026 target of 2.0 percent holds.",
+        "FRED data for DGS10 rose as ICE Brent crude rallied into the close.",
+        "FRED industrial production fell after severe ice storms hit Texas.",
+        "Sticky services inflation could stop 2026 rate cuts from accelerating.",
+        "Treasury liquidity measures back-stop 500 billion in money market flows.",
+        "Calendar entry 1 highlights US payrolls at 08:30 ET.",
+        "Data entry 2026 reflects revised BLS benchmarks.",
+    ]
+    for sentence in clean_sentences:
+        p = clean_post_payload()
+        p["body"] = sentence
+        rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, (sentence, rec["findings"])
+
+    # Real private levels & copyrighted FRED ICE BofA series MUST remain blocked.
+    hostile_sentences = [
+        ("Stop 3950 on gold.", "RULE_A3_STOP_LOSS_LEVEL_LEAK"),
+        ("Stop at 2026 on break.", "RULE_A3_STOP_LOSS_LEVEL_LEAK"),
+        ("Entry 4,012.50 on pullback.", "RULE_A3_ENTRY_FILL_LEVEL_LEAK"),
+        ("Entry 3950 triggered.", "RULE_A3_ENTRY_FILL_LEVEL_LEAK"),
+        ("Gold target 4,200 into Friday.", "RULE_A3_TAKE_PROFIT_LEVEL_LEAK"),
+        ("Gold $2,026 target active.", "RULE_A3_TAKE_PROFIT_LEVEL_LEAK"),
+        ("FRED:ICEBOFA_HY credit spread.", "CC024_RAW_VENDOR_LEAK"),
+        ("FRED:ICEBAML_IG index series.", "CC024_RAW_VENDOR_LEAK"),
+    ]
+    for sentence, expected_code in hostile_sentences:
+        p = clean_post_payload()
+        p["body"] = sentence
+        rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, sentence
+        assert any(f["code"] == expected_code for f in rec["findings"]), (sentence, rec["findings"])
+
+
+def test_c23a_r2_m5_windows_ntfs_junction_fails_closed_without_traversal(tmp_path):
+    pub_dir = tmp_path / "pub_junction_root"
+    ext_dir = tmp_path / "external_secret_dir"
+    pub_dir.mkdir()
+    ext_dir.mkdir()
+    (ext_dir / "external.json").write_bytes(b'{"title":"clean"}\n')
+    junction_dir = pub_dir / "escape_junction"
+
+    created = False
+    try:
+        proc = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(junction_dir), str(ext_dir)],
+            capture_output=True,
+            text=True,
+        )
+        created = proc.returncode == 0
+        if created:
+            scan = fw.scan_public_directory_readonly(pub_dir)
+            assert scan["failed_files"] == 1
+            assert scan["clean_files"] == 0
+            assert scan["failures"][0]["file"] == "escape_junction"
+            assert scan["failures"][0]["codes"] == ["NON_REGULAR_FILE_FORBIDDEN"]
+
+            # Root junction itself also fails closed.
+            scan_root = fw.scan_public_directory_readonly(junction_dir)
+            assert scan_root["exists"] is False
+            assert scan_root["failed_files"] == 1
+            assert scan_root["failures"][0]["codes"] == ["NON_REGULAR_FILE_FORBIDDEN"]
+    finally:
+        if created and junction_dir.exists():
+            os.rmdir(junction_dir)
+
+
+def test_c23a_r2_m7_investing_structured_ids_blocked_and_sec_investing_public_allowed():
+    ps = _publish_pause_state()
+    for token in (
+        "release_betas.US_NFP.consensus.investing.NFP_PAYROLL_CHANGE",
+        "src:cite:investing:us_nfp_20261106",
+        "CITED_SOURCE_INVESTING",
+        "investing_com",
+    ):
+        p = clean_post_payload()
+        p["body"] = f"Metric identifier {token} in snapshot."
+        rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, token
+        assert any(
+            f["code"] == "CC024_RAW_VENDOR_LEAK" and f["rule"] == "INVESTING_MYFXBOOK_CONSENSUS"
+            for f in rec["findings"]
+        ), (token, rec["findings"])
+
+    # SEC clean macro prose must stay 100% green.
+    p_clean = clean_post_payload()
+    p_clean["body"] = "SEC disclosures protect the investing public during market volatility."
+    rec_clean = fw.evaluate_payload(
+        p_clean, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+    )
+    assert rec_clean["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, rec_clean["findings"]
+
+
+def test_c23a_r2_ops_l1_to_l4_fredgraph_yahoo_compact_keys_redaction_and_event_tier(tmp_path):
+    ps = _publish_pause_state()
+
+    # Ops L1: bare fredgraph?id=... & legacy Yahoo endpoints blocked; public DGS10 allowed.
+    for raw in (
+        "fredgraph.csv?id=SP500",
+        "fredgraph.png?id=DJIA",
+        "fredgraph.svg?id=ICEBOFA",
+        "https://ichart.yahoo.com/table.csv?s=SPY",
+        "https://chart.yahoo.com/z?s=GLD",
+        "https://fc.yahoo.com/data",
+    ):
+        p = clean_post_payload()
+        p["body"] = f"Reference {raw}"
+        rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, raw
+        assert any(f["code"] == "CC024_RAW_VENDOR_LEAK" for f in rec["findings"]), (raw, rec["findings"])
+
+    p_dgs10 = clean_post_payload()
+    p_dgs10["body"] = "Public Treasury yield series fredgraph.csv?id=DGS10 remains lawful."
+    r_dgs10 = fw.evaluate_payload(
+        p_dgs10, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+    )
+    assert r_dgs10["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, r_dgs10["findings"]
+
+    # Ops L2: xauusdPnL, deskPnL, goldSL, goldTP, Study10, study8 all blocked.
+    for key, expected_code in (
+        ("xauusdPnL", "RULE_A3_FORBIDDEN_ACCOUNT_PNL_KEY"),
+        ("deskPnL", "RULE_A3_FORBIDDEN_ACCOUNT_PNL_KEY"),
+        ("goldSL", "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+        ("goldTP", "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+    ):
+        p = clean_post_payload()
+        p[key] = 42.5
+        rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, key
+        assert any(f["code"] == expected_code for f in rec["findings"]), (key, rec["findings"])
+
+    for study_tok in ("Study10", "study8"):
+        p = clean_post_payload()
+        p["body"] = f"See {study_tok} notes."
+        rec = fw.evaluate_payload(p, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, study_tok
+        assert any(f["code"] == "RULE_A3_PRIVATE_STUDY_TAG_LEAK" for f in rec["findings"]), study_tok
+
+    # Ops L3: hostile payload_kind="DUR343723" and gate_mode="DUR343723" never echo raw value.
+    r_kind = fw.evaluate_payload(
+        clean_post_payload(), payload_kind="DUR343723", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+    )
+    assert r_kind["verdict"] == fw.VERDICT_BLOCKED
+    assert "DUR343723" not in json.dumps(r_kind)
+
+    r_mode = fw.evaluate_payload(
+        clean_post_payload(), payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="DUR343723", pause_state=ps
+    )
+    assert r_mode["verdict"] == fw.VERDICT_BLOCKED
+    assert "DUR343723" not in json.dumps(r_mode)
+
+    # Ops L4: event_tier="T1" allowed while event_tier="paid" blocked; DIRECTORY_MISSING reports failed_files=1.
+    p_event_t1 = clean_post_payload()
+    p_event_t1["event_tier"] = "T1"
+    r_ev = fw.evaluate_payload(
+        p_event_t1, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+    )
+    assert r_ev["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, r_ev["findings"]
+
+    p_event_paid = clean_post_payload()
+    p_event_paid["event_tier"] = "paid"
+    r_ev_paid = fw.evaluate_payload(
+        p_event_paid, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps
+    )
+    assert r_ev_paid["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "CC024_NON_FREE_TIER_FORBIDDEN" for f in r_ev_paid["findings"])
+
+    missing_scan = fw.scan_public_directory_readonly(tmp_path / "does_not_exist_dir")
+    assert missing_scan["exists"] is False
+    assert missing_scan["failed_files"] == 1
+    assert missing_scan["findings_count"] == 1
+    assert missing_scan["failures"][0]["code"] == "DIRECTORY_MISSING"
