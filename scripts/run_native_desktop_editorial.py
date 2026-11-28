@@ -7,10 +7,16 @@ Publication preparation/status are separate from authority-checked dispatch cont
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
+import hashlib
 import json
 import os
+import sqlite3
 import sys
 import subprocess
+import tempfile
+import time
+import warnings
 from datetime import date, datetime, timezone
 from pathlib import Path
 from uuid import uuid4
@@ -33,7 +39,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False, preview_event_id=None, editorial_agent=None):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=(), live_rollout=None, standing=False, preview_event_id=None, editorial_agent=None, wall_now=None):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -105,18 +111,23 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         if editorial_agent not in (None, "codex"):
             # CC-300 / CC-855: new Claude bindings are refused once the 2026-12-03T17:00:00Z sunset is active.
             from live_contentops.native_desktop_editorial_v1 import assert_new_editorial_agent_allowed
-            assert_new_editorial_agent_allowed(editorial_agent, now=binding["cutoff_utc"], env=os.environ)
+            assert_new_editorial_agent_allowed(
+                editorial_agent,
+                now=binding["cutoff_utc"],
+                wall_now=wall_now,
+                env=os.environ,
+            )
             binding["editorial_agent"] = editorial_agent
         from live_contentops.native_newsroom_volume_v1 import volume_policy
         if policy := volume_policy(binding["cutoff_utc"]):
             binding["volume_policy"] = policy
-        validate_binding(binding, new_binding=True)
+        validate_binding(binding, new_binding=True, wall_now=wall_now)
         root.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(binding))
     return path, binding
 
 
-def validate_binding(binding, *, read_or_prepare=False, new_binding=False):
+def validate_binding(binding, *, read_or_prepare=False, new_binding=False, wall_now=None):
     if binding.get("schema_version") != BINDING_SCHEMA or not binding.get("run_id"):
         raise ValueError("NATIVE_OPERATION_BINDING_INVALID")
     from live_contentops.native_desktop_editorial_v1 import (
@@ -125,14 +136,40 @@ def validate_binding(binding, *, read_or_prepare=False, new_binding=False):
     )
     agent = editorial_agent_of(binding)  # EDITORIAL_AGENT_INVALID for anything but codex or claude
     if new_binding and agent == "claude":
-        assert_new_editorial_agent_allowed(agent, now=binding.get("cutoff_utc"), env=os.environ)
+        assert_new_editorial_agent_allowed(
+            agent,
+            now=binding.get("cutoff_utc"),
+            wall_now=wall_now,
+            env=os.environ,
+        )
     for key in ("store_path", "output_dir", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
         if not Path(binding[key]).is_absolute():
             raise ValueError("ABSOLUTE_OPERATION_PATH_REQUIRED:" + key)
     if binding.get("input_known_at_cutoff_utc"):
-        nominal = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00"))
-        observed = datetime.fromisoformat(binding["input_known_at_cutoff_utc"].replace("Z", "+00:00"))
-        if nominal.tzinfo is None or observed.tzinfo is None or not 0 <= (nominal - observed).total_seconds() <= 300:
+        try:
+            cutoff_raw = binding.get("cutoff_utc")
+            observed_raw = binding["input_known_at_cutoff_utc"]
+            if not isinstance(cutoff_raw, str) or not isinstance(observed_raw, str):
+                raise ValueError("NATIVE_INPUT_KNOWN_AT_CUTOFF_INVALID")
+            cutoff_text = cutoff_raw.strip()
+            observed_text = observed_raw.strip()
+            if cutoff_text.endswith(("Z", "z")):
+                cutoff_text = cutoff_text[:-1] + "+00:00"
+            if observed_text.endswith(("Z", "z")):
+                observed_text = observed_text[:-1] + "+00:00"
+            nominal = datetime.fromisoformat(cutoff_text)
+            observed = datetime.fromisoformat(observed_text)
+            if (
+                nominal.tzinfo is None
+                or observed.tzinfo is None
+                or nominal.utcoffset() is None
+                or observed.utcoffset() is None
+            ):
+                raise ValueError("NATIVE_INPUT_KNOWN_AT_CUTOFF_INVALID")
+            delta_seconds = (nominal.astimezone(timezone.utc) - observed.astimezone(timezone.utc)).total_seconds()
+        except (ValueError, TypeError, OverflowError) as exc:
+            raise ValueError("NATIVE_INPUT_KNOWN_AT_CUTOFF_INVALID") from exc
+        if not 0 <= delta_seconds <= 300:
             raise ValueError("NATIVE_INPUT_KNOWN_AT_CUTOFF_INVALID")
     isolated = bool(binding.get("owner_manual_validation"))
     if isolated:
@@ -675,6 +712,280 @@ def with_due_digest(result, rollout_path):
     return {**result, "daily_email_digest": digest, "vietnamese_gold_note": gold}
 
 
+_DESK_SQLITE_MAGIC = b"SQLite format 3\x00"
+_DESK_SQLITE_MAX_SNAPSHOT_BYTES = 256 * 1024 * 1024  # 256 MiB
+_DESK_SQLITE_SNAPSHOT_RETRIES = 3
+_DESK_SQLITE_RETRY_SLEEP_SECONDS = 0.05
+_DESK_SQLITE_HASH_CHUNK_BYTES = 1024 * 1024
+
+
+def _desk_sidecar_path(db_path: Path, suffix: str) -> Path:
+    return db_path.with_name(db_path.name + suffix)
+
+
+def _desk_is_hot_rollback_journal(journal_path: Path) -> tuple[bool, int, bool]:
+    if not journal_path.is_file():
+        return False, 0, False
+    size = journal_path.stat().st_size
+    if size <= 0:
+        return True, 0, False
+    with journal_path.open("rb") as fh:
+        head = fh.read(min(28, size))
+    # SQLite PERSIST mode zeroes the first 28 bytes after clean commit; any non-zero
+    # byte (or truncated <28 B non-empty journal) indicates an active hot rollback journal.
+    is_zeroed_persist = size >= 28 and len(head) == 28 and head == (b"\x00" * 28)
+    return True, size, not is_zeroed_persist
+
+
+def _desk_file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as fh:
+        while chunk := fh.read(_DESK_SQLITE_HASH_CHUNK_BYTES):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _desk_optional_wal_sha256(wal_path: Path) -> str | None:
+    if not wal_path.is_file():
+        return None
+    if wal_path.stat().st_size <= 0:
+        return None
+    return _desk_file_sha256(wal_path)
+
+
+def _desk_copy_file_with_sha256(src: Path, dst: Path) -> str:
+    digest = hashlib.sha256()
+    with src.open("rb") as rfh, dst.open("wb") as wfh:
+        while chunk := rfh.read(_DESK_SQLITE_HASH_CHUNK_BYTES):
+            digest.update(chunk)
+            wfh.write(chunk)
+    return digest.hexdigest()
+
+
+def _desk_stat_sig(db_path: Path, wal_path: Path) -> tuple[int, int, tuple[int, int] | None]:
+    db_st = db_path.stat()
+    if wal_path.is_file():
+        wal_st = wal_path.stat()
+        wal_sig: tuple[int, int] | None = (wal_st.st_size, wal_st.st_mtime_ns)
+    else:
+        wal_sig = None
+    return (db_st.st_size, db_st.st_mtime_ns, wal_sig)
+
+
+def _desk_configure_readonly_connection(
+    conn: sqlite3.Connection,
+    *,
+    busy_timeout_ms: int | None = None,
+) -> None:
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA query_only=ON")
+    conn.execute("PRAGMA temp_store=MEMORY")
+    if busy_timeout_ms is not None:
+        conn.execute(f"PRAGMA busy_timeout={int(busy_timeout_ms)}")
+
+
+def _acquire_desk_readonly_sqlite_fallback(
+    store_path: str | Path,
+    *,
+    max_snapshot_bytes: int = _DESK_SQLITE_MAX_SNAPSHOT_BYTES,
+    allow_oversized_live_wal: bool = True,
+    snapshot_retries: int = _DESK_SQLITE_SNAPSHOT_RETRIES,
+) -> tuple[sqlite3.Connection, tempfile.TemporaryDirectory[str] | None]:
+    resolved = Path(store_path).resolve(strict=False)
+    if not resolved.is_file():
+        raise sqlite3.OperationalError(f"SQLITE_DATABASE_MISSING: {resolved}")
+
+    db_bytes = resolved.stat().st_size
+    if db_bytes == 0:
+        is_wal = False
+    else:
+        with resolved.open("rb") as fh:
+            hdr = fh.read(100)
+        if len(hdr) < 100 or hdr[:16] != _DESK_SQLITE_MAGIC or hdr[18:20] not in (b"\x01\x01", b"\x02\x02"):
+            raise sqlite3.OperationalError(f"SQLITE_HEADER_INVALID: {resolved}")
+        is_wal = hdr[18:20] == b"\x02\x02"
+
+    journal_path = _desk_sidecar_path(resolved, "-journal")
+    _, journal_bytes, journal_is_hot = _desk_is_hot_rollback_journal(journal_path)
+    if journal_is_hot:
+        raise sqlite3.OperationalError(
+            f"SQLITE_HOT_JOURNAL_ACTIVE (SQLITE_HOT_ROLLBACK_JOURNAL_PRESENT): "
+            f"{journal_path} ({journal_bytes} bytes)"
+        )
+
+    wal_path = _desk_sidecar_path(resolved, "-wal")
+    wal_bytes = wal_path.stat().st_size if wal_path.is_file() else 0
+
+    # Rollback (0101 / empty) or Clean WAL (0202 with wal_bytes == 0): open via
+    # RFC-3986 URI ?mode=ro&immutable=1 for zero disk copy and zero sidecar creation.
+    if (not is_wal) or wal_bytes == 0:
+        pre_sig = _desk_stat_sig(resolved, wal_path)
+        uri = resolved.as_uri() + "?mode=ro&immutable=1"
+        conn = sqlite3.connect(uri, uri=True, timeout=5.0, isolation_level=None, cached_statements=0)
+        try:
+            _desk_configure_readonly_connection(conn)
+            post_sig = _desk_stat_sig(resolved, wal_path)
+            _, post_journal_bytes, hot_after = _desk_is_hot_rollback_journal(journal_path)
+        except Exception:
+            conn.close()
+            raise
+        if not hot_after and post_sig == pre_sig:
+            return conn, None
+        conn.close()
+        if hot_after:
+            raise sqlite3.OperationalError(
+                f"SQLITE_HOT_JOURNAL_ACTIVE (SQLITE_HOT_ROLLBACK_JOURNAL_PRESENT): "
+                f"{journal_path} ({post_journal_bytes} bytes)"
+            )
+        db_bytes = resolved.stat().st_size
+        wal_bytes = wal_path.stat().st_size if wal_path.is_file() else 0
+
+    # Active WAL (or concurrent write race): snapshot (db, -wal) ONLY (never -shm)
+    # into a private TemporaryDirectory with double-SHA-256 verification.
+    attempts = max(1, int(snapshot_retries))
+    if db_bytes + wal_bytes <= max(0, int(max_snapshot_bytes)):
+        for attempt in range(attempts):
+            _, j_bytes, hot_before = _desk_is_hot_rollback_journal(journal_path)
+            if hot_before:
+                raise sqlite3.OperationalError(
+                    f"SQLITE_HOT_JOURNAL_ACTIVE (SQLITE_HOT_ROLLBACK_JOURNAL_PRESENT): "
+                    f"{journal_path} ({j_bytes} bytes)"
+                )
+            td = tempfile.TemporaryDirectory(prefix="cc_desk_sqlite_ro_")
+            try:
+                pre_db_sha = _desk_file_sha256(resolved)
+                pre_wal_sha = _desk_optional_wal_sha256(wal_path)
+                snap_db = Path(td.name) / resolved.name
+                copied_db_sha = _desk_copy_file_with_sha256(resolved, snap_db)
+                if wal_path.is_file() and wal_path.stat().st_size > 0:
+                    copied_wal_sha: str | None = _desk_copy_file_with_sha256(
+                        wal_path, _desk_sidecar_path(snap_db, "-wal")
+                    )
+                else:
+                    copied_wal_sha = None
+                _, j_after_bytes, hot_after = _desk_is_hot_rollback_journal(journal_path)
+                if hot_after:
+                    td.cleanup()
+                    raise sqlite3.OperationalError(
+                        f"SQLITE_HOT_JOURNAL_ACTIVE (SQLITE_HOT_ROLLBACK_JOURNAL_PRESENT): "
+                        f"{journal_path} ({j_after_bytes} bytes)"
+                    )
+                post_db_sha = _desk_file_sha256(resolved)
+                post_wal_sha = _desk_optional_wal_sha256(wal_path)
+            except sqlite3.OperationalError:
+                td.cleanup()
+                raise
+            except FileNotFoundError:
+                td.cleanup()
+                if attempt + 1 < attempts:
+                    time.sleep(_DESK_SQLITE_RETRY_SLEEP_SECONDS)
+                    continue
+                raise sqlite3.OperationalError(f"SQLITE_SNAPSHOT_CONCURRENT_MUTATION: {resolved}")
+            except Exception:
+                td.cleanup()
+                raise
+
+            if pre_db_sha == copied_db_sha == post_db_sha and pre_wal_sha == copied_wal_sha == post_wal_sha:
+                conn = sqlite3.connect(str(snap_db), timeout=5.0, isolation_level=None, cached_statements=0)
+                try:
+                    _desk_configure_readonly_connection(conn)
+                except Exception:
+                    try:
+                        conn.close()
+                    finally:
+                        td.cleanup()
+                    raise
+                return conn, td
+
+            td.cleanup()
+            if attempt + 1 < attempts:
+                time.sleep(_DESK_SQLITE_RETRY_SLEEP_SECONDS)
+        raise sqlite3.OperationalError(f"SQLITE_SNAPSHOT_CONCURRENT_MUTATION: {resolved}")
+
+    if not allow_oversized_live_wal:
+        raise sqlite3.OperationalError(
+            f"SQLITE_ACTIVE_WAL_SNAPSHOT_LIMIT_EXCEEDED: {resolved} "
+            f"({db_bytes + wal_bytes} B > max_snapshot_bytes={max_snapshot_bytes})"
+        )
+
+    warnings.warn(
+        f"LIVE_ACTIVE_WAL_SHARED_MEMORY_READ: opening oversized active WAL read-only "
+        f"({resolved}, db={db_bytes} B, wal={wal_bytes} B)",
+        RuntimeWarning,
+        stacklevel=2,
+    )
+    uri = resolved.as_uri() + "?mode=ro"
+    conn = sqlite3.connect(uri, uri=True, timeout=5.0, isolation_level=None, cached_statements=0)
+    try:
+        _desk_configure_readonly_connection(conn, busy_timeout_ms=5000)
+    except Exception:
+        conn.close()
+        raise
+    return conn, None
+
+
+@contextmanager
+def _open_desk_readonly_sqlite_fallback(
+    store_path: str | Path,
+    *,
+    max_snapshot_bytes: int = _DESK_SQLITE_MAX_SNAPSHOT_BYTES,
+    allow_oversized_live_wal: bool = True,
+    snapshot_retries: int = _DESK_SQLITE_SNAPSHOT_RETRIES,
+):
+    conn, td = _acquire_desk_readonly_sqlite_fallback(
+        store_path,
+        max_snapshot_bytes=max_snapshot_bytes,
+        allow_oversized_live_wal=allow_oversized_live_wal,
+        snapshot_retries=snapshot_retries,
+    )
+    try:
+        yield conn
+    finally:
+        try:
+            conn.close()
+        finally:
+            if td is not None:
+                td.cleanup()
+
+
+@contextmanager
+def _open_desk_readonly_sqlite(
+    store_path: str | Path,
+    *,
+    max_snapshot_bytes: int = _DESK_SQLITE_MAX_SNAPSHOT_BYTES,
+    allow_oversized_live_wal: bool = True,
+    snapshot_retries: int = _DESK_SQLITE_SNAPSHOT_RETRIES,
+    use_shared_helper: bool = True,
+):
+    """Zero-write WAL/hot-journal-safe read-only SQLite opener for ``desk``.
+
+    Delegates to ``live_contentops.sqlite_readonly_v1.open_readonly_sqlite`` when
+    available (``B11 C39``) and otherwise runs the identical built-in stdlib fallback.
+    """
+    if use_shared_helper:
+        try:
+            from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite as _shared_open
+        except ImportError:
+            _shared_open = None
+        if _shared_open is not None:
+            with _shared_open(
+                store_path,
+                row_factory=sqlite3.Row,
+                max_snapshot_bytes=max_snapshot_bytes,
+                allow_oversized_live_wal=allow_oversized_live_wal,
+                snapshot_retries=snapshot_retries,
+            ) as conn:
+                yield conn
+            return
+    with _open_desk_readonly_sqlite_fallback(
+        store_path,
+        max_snapshot_bytes=max_snapshot_bytes,
+        allow_oversized_live_wal=allow_oversized_live_wal,
+        snapshot_retries=snapshot_retries,
+    ) as conn:
+        yield conn
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "agy-review", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
@@ -902,9 +1213,7 @@ def main(argv=None):
         from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
         profile = json.loads(args.profile.read_bytes())
         # Read-only projection; no migrations, background owner or production binding.
-        import sqlite3
-        with sqlite3.connect(Path(profile["store_path"]).resolve().as_uri() + "?mode=ro", uri=True) as conn:
-            conn.row_factory = sqlite3.Row
+        with _open_desk_readonly_sqlite(profile["store_path"]) as conn:
             rows = [dict(r) for r in conn.execute("SELECT * FROM outbox_messages ORDER BY rowid")]
             reviews = [dict(r) for r in conn.execute("SELECT * FROM review_records ORDER BY rowid")]
             dispatches = [dict(r) for r in conn.execute("SELECT * FROM platform_dispatches ORDER BY rowid")]

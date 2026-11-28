@@ -34,7 +34,6 @@ def inspect_provider_credentials() -> dict[str, bool]:
         "OPENAI_API_KEY",
         "VERTEX_CREDENTIALS",
         "NINE_ROUTER_API_KEY",
-        "ANTHROPIC_API_KEY"
     ]
     return {k: secret_present(k) for k in keys}  # CC-297: Credential Manager, then user env, then process env
 

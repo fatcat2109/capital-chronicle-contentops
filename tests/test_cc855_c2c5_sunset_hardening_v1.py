@@ -76,7 +76,7 @@ def test_c2_claude_sunset_boundary_clock_and_env():
     assert editorial.claude_sunset_active(before, env={"CC_CLAUDE_SUNSET_ACTIVE": "1"}) is True
     assert editorial.claude_sunset_active(before, force=True) is True
 
-    assert editorial.assert_new_editorial_agent_allowed("claude", now=before, env={}) == "claude"
+    assert editorial.assert_new_editorial_agent_allowed("claude", now=before, wall_now=before, env={}) == "claude"
     assert editorial.assert_new_editorial_agent_allowed("codex", now=after, env={"CC_CLAUDE_SUNSET_ACTIVE": "1"}) == "codex"
     assert editorial.assert_new_editorial_agent_allowed(None, now=after, env={"CC_CLAUDE_SUNSET_ACTIVE": "1"}) == "codex"
     with pytest.raises(ValueError, match=editorial.CLAUDE_EDITORIAL_AGENT_RETIRED):
@@ -127,11 +127,13 @@ def test_c2_new_claude_binding_refused_post_sunset_and_on_env_flag(tmp_path, mon
 
     # Pre-sunset without env flag still permits pre-cutoff binding creation.
     monkeypatch.delenv(editorial.CLAUDE_SUNSET_ENV, raising=False)
+    pre_before = datetime(2026, 12, 3, 16, 59, 59, tzinfo=timezone.utc)
     pre_path, pre_binding = cli.resolve_owner_operation(
         profile,
         operation_id="claude-before-sunset",
         request=req,
-        now=datetime(2026, 12, 3, 16, 59, 59, tzinfo=timezone.utc),
+        now=pre_before,
+        wall_now=pre_before,
         editorial_agent="claude",
     )
     assert pre_path.is_file()
@@ -166,11 +168,13 @@ def test_c2_historical_claude_session_replay_preserved_after_sunset(tmp_path, mo
     monkeypatch.delenv(editorial.CLAUDE_SUNSET_ENV, raising=False)
 
     # Create a pre-sunset Claude binding and seal a completed CLAUDE_CODE_SESSION turn.
+    hist_now = datetime(2026, 11, 5, 10, 0, 0, tzinfo=timezone.utc)
     hist_path, hist_binding = cli.resolve_owner_operation(
         profile,
         operation_id="historical-claude-op",
         request=req,
-        now=datetime(2026, 11, 5, 10, 0, 0, tzinfo=timezone.utc),
+        now=hist_now,
+        wall_now=hist_now,
         editorial_agent="claude",
     )
     store = ContentOpsDurableStore(profile["store_path"])

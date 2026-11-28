@@ -61,31 +61,58 @@ CLAUDE_SUNSET_ENV = "CC_CLAUDE_SUNSET_ACTIVE"
 CLAUDE_EDITORIAL_AGENT_RETIRED = "CLAUDE_EDITORIAL_AGENT_RETIRED_CC855"
 
 
+_DATETIME_TYPE = datetime
+
+
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
 def _parse_utc_moment(value: datetime | str | None) -> datetime:
     if value is None:
-        return datetime.now(timezone.utc)
+        return _utc_now()
     if isinstance(value, str):
-        parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
-    elif isinstance(value, datetime):
+        text = value.strip()
+        if text.endswith(("Z", "z")):
+            text = text[:-1] + "+00:00"
+        try:
+            parsed = _DATETIME_TYPE.fromisoformat(text)
+        except (ValueError, OverflowError) as exc:
+            raise ValueError("CLAUDE_SUNSET_CLOCK_INVALID") from exc
+    elif isinstance(value, _DATETIME_TYPE):
         parsed = value
     else:
         raise ValueError("CLAUDE_SUNSET_CLOCK_INVALID")
-    if parsed.tzinfo is None:
-        return parsed.replace(tzinfo=timezone.utc)
-    return parsed.astimezone(timezone.utc)
+    try:
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            return parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except (ValueError, OverflowError) as exc:
+        raise ValueError("CLAUDE_SUNSET_CLOCK_INVALID") from exc
 
 
 def claude_sunset_active(
     now: datetime | str | None = None,
     *,
+    wall_now: datetime | str | None = None,
     env: Mapping[str, str] | None = None,
     force: bool = False,
 ) -> bool:
-    """True when the CC-855 Claude sunset is active (explicit flag/env or UTC clock >= 2026-12-03T17:00:00Z)."""
+    """True when the CC-855 Claude sunset is active (explicit flag/env or UTC clock >= 2026-12-03T17:00:00Z).
+
+    When ``wall_now`` is supplied alongside ``now``, sunset is active whenever
+    ``max(wall_now, now) >= CLAUDE_SUNSET_UTC`` so a backdated cutoff cannot
+    mask a post-sunset wall clock.
+    """
     if force:
         return True
     if env is not None and str(env.get(CLAUDE_SUNSET_ENV, "")).strip().lower() in {"1", "true", "yes", "on"}:
         return True
+    if wall_now is not None:
+        wall_moment = _parse_utc_moment(wall_now)
+        if now is None:
+            return wall_moment >= CLAUDE_SUNSET_UTC
+        return max(wall_moment, _parse_utc_moment(now)) >= CLAUDE_SUNSET_UTC
     return _parse_utc_moment(now) >= CLAUDE_SUNSET_UTC
 
 
@@ -93,13 +120,26 @@ def assert_new_editorial_agent_allowed(
     agent: str | None,
     *,
     now: datetime | str | None = None,
+    wall_now: datetime | str | None = None,
     env: Mapping[str, str] | None = None,
     force_sunset: bool = False,
 ) -> str:
-    """Validate an editorial agent for a NEW binding; refuse Claude once CC-855 sunset is active."""
+    """Validate an editorial agent for a NEW binding; refuse Claude once CC-855 sunset is active.
+
+    Always evaluates ``max(wall_now, now)`` against ``CLAUDE_SUNSET_UTC`` (with
+    ``wall_now`` defaulting to live UTC wall time when omitted) so backdating
+    ``cutoff_utc`` on/after 2026-12-03T17:00:00Z can never re-enable Claude.
+    """
     resolved = editorial_agent_of({"editorial_agent": agent} if agent is not None else None)
-    if resolved == "claude" and claude_sunset_active(now, env=env, force=force_sunset):
-        raise ValueError(CLAUDE_EDITORIAL_AGENT_RETIRED)
+    if resolved == "claude":
+        if force_sunset or (
+            env is not None
+            and str(env.get(CLAUDE_SUNSET_ENV, "")).strip().lower() in {"1", "true", "yes", "on"}
+        ):
+            raise ValueError(CLAUDE_EDITORIAL_AGENT_RETIRED)
+        wall_moment = _parse_utc_moment(wall_now)
+        if claude_sunset_active(now, wall_now=wall_moment, env=env, force=force_sunset):
+            raise ValueError(CLAUDE_EDITORIAL_AGENT_RETIRED)
     return resolved
 
 
@@ -831,7 +871,7 @@ class NativeDesktopTurn:
         # bindings from before CLAUDE_SUNSET_UTC remain replayable; post-sunset Claude bindings fail closed.
         self.editorial_agent = editorial_agent_of(registered_payload)
         if (self.editorial_agent == "claude" and isinstance(registered_payload, Mapping)
-                and registered_payload.get("cutoff_utc")):
+                and "cutoff_utc" in registered_payload and registered_payload["cutoff_utc"] is not None):
             if _parse_utc_moment(registered_payload["cutoff_utc"]) >= CLAUDE_SUNSET_UTC:
                 raise ValueError(CLAUDE_EDITORIAL_AGENT_RETIRED)
         if self.manual_candidate:
