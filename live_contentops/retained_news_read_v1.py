@@ -228,7 +228,7 @@ def _selected_runtime_projection(store_path, operation_ids):
     from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
     work = list(dict.fromkeys([*operation_ids, *("cc-opportunity-" + sha256_of(r) for r in operation_ids)]))
     placeholders = ",".join("?" for _ in work)
-    with open_readonly_sqlite(store_path, row_factory=sqlite3.Row) as conn:
+    with open_readonly_sqlite(store_path, row_factory=sqlite3.Row, allow_oversized_live_wal=True) as conn:
         conn.execute("BEGIN")
         outbox = [dict(r) for r in conn.execute(
             "SELECT * FROM outbox_messages WHERE work_item_id IN (" + placeholders + ") ORDER BY rowid", work)]
@@ -250,7 +250,8 @@ def export_selected_news():
     from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
     profile = json.loads(PROFILE_PATH.read_bytes())
     selection = json.loads(SELECTION_PATH.read_bytes())["owner_edition"]
-    with open_readonly_sqlite(profile["store_path"], row_factory=sqlite3.Row) as conn:
+    with open_readonly_sqlite(profile["store_path"], row_factory=sqlite3.Row,
+                              allow_oversized_live_wal=True) as conn:
         conn.execute("BEGIN")
         values = {table: [dict(row) for row in conn.execute("SELECT * FROM " + table + " ORDER BY rowid")]
                   for table in ("outbox_messages", "review_records", "platform_dispatches", "reconciliations", "destination_readiness")}

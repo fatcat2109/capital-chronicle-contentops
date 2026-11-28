@@ -23,7 +23,7 @@ from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite  # noqa: E40
 
 
 def retained_images(store_path, register):
-    with open_readonly_sqlite(store_path, row_factory=sqlite3.Row) as connection:
+    with open_readonly_sqlite(store_path, row_factory=sqlite3.Row, allow_oversized_live_wal=True) as connection:
         rows = connection.execute("SELECT d.*,m.payload,m.work_item_id FROM platform_dispatches d JOIN outbox_messages m "
             "ON m.message_id=d.message_id WHERE d.status IN ('DISPATCH_CONFIRMED','EXTERNAL_REMOVAL_REPORTED_NO_RETRY') "
             "AND d.public_object_id IS NOT NULL").fetchall()

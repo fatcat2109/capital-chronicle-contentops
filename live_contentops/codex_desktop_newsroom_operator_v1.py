@@ -1342,6 +1342,7 @@ def _read_only_store(path: Path) -> Iterator[sqlite3.Connection]:
         row_factory=sqlite3.Row,
         isolation_level=None,
         cached_statements=0,
+        allow_oversized_live_wal=True,
     ) as connection:
         yield connection
 

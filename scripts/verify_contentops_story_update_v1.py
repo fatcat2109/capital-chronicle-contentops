@@ -43,7 +43,7 @@ def verify(seed, root, output, memory_store, memory_output):
     pause_hash = hashlib.sha256(operator_pause_path().read_bytes()).hexdigest()
     output.mkdir(parents=True)
     path = output / "story-proof.sqlite3"
-    with open_readonly_sqlite(seed, row_factory=None) as source:
+    with open_readonly_sqlite(seed, row_factory=None, allow_oversized_live_wal=True) as source:
         target = sqlite3.connect(path)
         try:
             source.backup(target)

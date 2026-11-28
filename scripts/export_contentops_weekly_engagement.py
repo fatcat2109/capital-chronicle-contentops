@@ -24,7 +24,7 @@ def export_weekly_engagement(store, week_ending, target):
             previous = None
     except (OSError, ValueError):
         previous = None
-    with open_readonly_sqlite(store, row_factory=sqlite3.Row) as connection:
+    with open_readonly_sqlite(store, row_factory=sqlite3.Row, allow_oversized_live_wal=True) as connection:
         connection.execute("BEGIN")
         def rows(table):
             return [dict(r) for r in connection.execute("SELECT * FROM " + table)]

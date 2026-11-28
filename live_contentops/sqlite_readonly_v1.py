@@ -33,6 +33,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import shutil
 import sqlite3
+import stat
 import tempfile
 import time
 from typing import Any, Iterator, Literal
@@ -54,6 +55,7 @@ REASON_HEADER_INVALID = "SQLITE_HEADER_INVALID"
 REASON_HOT_JOURNAL_ACTIVE = "SQLITE_HOT_JOURNAL_ACTIVE"
 REASON_SNAPSHOT_CONCURRENT_MUTATION = "SQLITE_SNAPSHOT_CONCURRENT_MUTATION"
 REASON_ACTIVE_WAL_SNAPSHOT_LIMIT_EXCEEDED = "SQLITE_ACTIVE_WAL_SNAPSHOT_LIMIT_EXCEEDED"
+REASON_URI_OPEN_FAILED = "SQLITE_URI_OPEN_FAILED"
 
 
 class SqliteReadOnlyError(sqlite3.OperationalError):
@@ -161,9 +163,22 @@ def _sidecar_path(db_path: Path, suffix: str) -> Path:
     return db_path.with_name(db_path.name + suffix)
 
 
+def _is_non_regular_or_reparse(entry: Any) -> bool:
+    reparse_attr = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    return (not stat.S_ISREG(entry.st_mode)) or bool(
+        getattr(entry, "st_file_attributes", 0) & reparse_attr
+    )
+
+
 def _is_hot_rollback_journal(journal_path: Path) -> tuple[bool, int, bool]:
-    if not journal_path.is_file():
+    # lexists()/lstat() semantics: an absent (or unaddressable) entry is no journal, but any
+    # present non-regular entry (directory, junction, symlink, reparse point, device) fails closed as hot.
+    try:
+        entry = journal_path.lstat()
+    except (OSError, ValueError):
         return False, 0, False
+    if _is_non_regular_or_reparse(entry):
+        return True, 0, True
     size = journal_path.stat().st_size
     if size <= 0:
         return True, 0, False
@@ -173,6 +188,19 @@ def _is_hot_rollback_journal(journal_path: Path) -> tuple[bool, int, bool]:
     # any non-zero bytes in a non-empty -journal indicate an active/hot rollback journal.
     is_zeroed_persist = size >= 28 and len(head) == 28 and head == (b"\x00" * 28)
     return True, size, not is_zeroed_persist
+
+
+def _inspect_sidecar_file(sidecar_path: Path) -> tuple[bool, int]:
+    try:
+        entry = sidecar_path.lstat()
+    except (OSError, ValueError):
+        return False, 0
+    if _is_non_regular_or_reparse(entry):
+        raise SqliteReadOnlyError(
+            REASON_HEADER_INVALID,
+            f"non-regular sidecar entry: {sidecar_path}",
+        )
+    return True, sidecar_path.stat().st_size
 
 
 def inspect_sqlite_storage(path: Path | str) -> SqliteStorageInfo:
@@ -208,10 +236,8 @@ def inspect_sqlite_storage(path: Path | str) -> SqliteStorageInfo:
     shm_path = _sidecar_path(resolved, "-shm")
     journal_path = _sidecar_path(resolved, "-journal")
 
-    wal_exists = wal_path.is_file()
-    wal_bytes = wal_path.stat().st_size if wal_exists else 0
-    shm_exists = shm_path.is_file()
-    shm_bytes = shm_path.stat().st_size if shm_exists else 0
+    wal_exists, wal_bytes = _inspect_sidecar_file(wal_path)
+    shm_exists, shm_bytes = _inspect_sidecar_file(shm_path)
     journal_exists, journal_bytes, journal_is_hot = _is_hot_rollback_journal(journal_path)
 
     return SqliteStorageInfo(
@@ -277,14 +303,18 @@ def _open_temp_wal_snapshot(
     foreign_keys: bool,
     busy_timeout_ms: int | None,
     snapshot_retries: int,
+    snapshot_dir: Path | str | None = None,
 ) -> ManagedReadOnlyConnection:
     wal_path = _sidecar_path(resolved, "-wal")
     journal_path = _sidecar_path(resolved, "-journal")
     attempts = max(1, int(snapshot_retries))
+    # Caller-owned existing parent for the private snapshot (e.g. a guarded dry-run scratch
+    # root); None keeps the system temp directory.
+    snapshot_parent = None if snapshot_dir is None else str(snapshot_dir)
 
     for attempt in range(attempts):
         pre_sig = _capture_o1_signature(resolved, wal_path)
-        td = tempfile.TemporaryDirectory(prefix="cc_sqlite_ro_snap_")
+        td = tempfile.TemporaryDirectory(prefix="cc_sqlite_ro_snap_", dir=snapshot_parent)
         try:
             snap_db = Path(td.name) / resolved.name
             shutil.copyfile(resolved, snap_db)
@@ -353,8 +383,13 @@ def connect_readonly_sqlite(
     max_snapshot_bytes: int = DEFAULT_MAX_SNAPSHOT_BYTES,
     allow_oversized_live_wal: bool = False,
     snapshot_retries: int = DEFAULT_SNAPSHOT_RETRIES,
+    snapshot_dir: Path | str | None = None,
 ) -> ManagedReadOnlyConnection:
-    """Open a SQLite database strictly read-only without mutating live WAL/SHM sidecars."""
+    """Open a SQLite database strictly read-only without mutating live WAL/SHM sidecars.
+
+    ``snapshot_dir`` (optional, must already exist) hosts the private active-WAL temp
+    snapshot instead of the system temp directory.
+    """
     info = inspect_sqlite_storage(path)
     resolved = info.path
 
@@ -370,14 +405,17 @@ def connect_readonly_sqlite(
         wal_path = _sidecar_path(resolved, "-wal")
         pre_sig = _capture_o1_signature(resolved, wal_path)
         uri = sqlite_file_uri(resolved, immutable=True)
-        conn = sqlite3.connect(
-            uri,
-            uri=True,
-            timeout=max(0.0, float(timeout)),
-            isolation_level=isolation_level,
-            cached_statements=cached_statements,
-            factory=ManagedReadOnlyConnection,
-        )
+        try:
+            conn = sqlite3.connect(
+                uri,
+                uri=True,
+                timeout=max(0.0, float(timeout)),
+                isolation_level=isolation_level,
+                cached_statements=cached_statements,
+                factory=ManagedReadOnlyConnection,
+            )
+        except sqlite3.OperationalError as exc:
+            raise SqliteReadOnlyError(REASON_URI_OPEN_FAILED, f"{resolved} ({exc})") from exc
         try:
             _configure_readonly_pragmas(
                 conn,
@@ -417,6 +455,7 @@ def connect_readonly_sqlite(
             foreign_keys=foreign_keys,
             busy_timeout_ms=busy_timeout_ms,
             snapshot_retries=snapshot_retries,
+            snapshot_dir=snapshot_dir,
         )
 
     # Oversized active WAL (> max_snapshot_bytes): fail closed unless explicitly opted in.
@@ -436,14 +475,17 @@ def connect_readonly_sqlite(
     )
     effective_busy_ms = busy_timeout_ms if busy_timeout_ms is not None else max(1000, int(float(timeout) * 1000))
     uri = sqlite_file_uri(resolved, immutable=False)
-    conn = sqlite3.connect(
-        uri,
-        uri=True,
-        timeout=max(0.0, float(timeout)),
-        isolation_level=isolation_level,
-        cached_statements=cached_statements,
-        factory=ManagedReadOnlyConnection,
-    )
+    try:
+        conn = sqlite3.connect(
+            uri,
+            uri=True,
+            timeout=max(0.0, float(timeout)),
+            isolation_level=isolation_level,
+            cached_statements=cached_statements,
+            factory=ManagedReadOnlyConnection,
+        )
+    except sqlite3.OperationalError as exc:
+        raise SqliteReadOnlyError(REASON_URI_OPEN_FAILED, f"{resolved} ({exc})") from exc
     try:
         _configure_readonly_pragmas(
             conn,
@@ -475,6 +517,7 @@ def open_readonly_sqlite(
     max_snapshot_bytes: int = DEFAULT_MAX_SNAPSHOT_BYTES,
     allow_oversized_live_wal: bool = False,
     snapshot_retries: int = DEFAULT_SNAPSHOT_RETRIES,
+    snapshot_dir: Path | str | None = None,
 ) -> Iterator[ManagedReadOnlyConnection]:
     """Context manager guaranteeing ``conn.close()`` runs BEFORE temp snapshot cleanup."""
     conn = connect_readonly_sqlite(
@@ -488,6 +531,7 @@ def open_readonly_sqlite(
         max_snapshot_bytes=max_snapshot_bytes,
         allow_oversized_live_wal=allow_oversized_live_wal,
         snapshot_retries=snapshot_retries,
+        snapshot_dir=snapshot_dir,
     )
     try:
         yield conn

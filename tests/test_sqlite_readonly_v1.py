@@ -468,3 +468,246 @@ def test_sqlite_readonly_v1_zero_forbidden_imports():
         elif isinstance(node, ast.ImportFrom) and node.module:
             imported.add(node.module.split(".")[0])
     assert imported.isdisjoint(forbidden), f"Unexpected imports in sqlite_readonly_v1.py: {imported & forbidden}"
+
+
+def _pin_live_wal_frame(db_path: Path) -> sqlite3.Connection:
+    """Hold an open writer with one committed uncheckpointed WAL frame (a live post-15 Dec writer)."""
+    writer = sqlite3.connect(str(db_path))
+    writer.execute("PRAGMA wal_autocheckpoint=0")
+    writer.execute("CREATE TABLE IF NOT EXISTS b11c39_probe (id INTEGER PRIMARY KEY, label TEXT NOT NULL)")
+    writer.execute("INSERT INTO b11c39_probe (id, label) VALUES (1, 'live_uncheckpointed_wal_row')")
+    writer.commit()
+    return writer
+
+
+def test_b11c39_m1_durable_store_oversized_active_wal_defaults_to_explicit_live_read(tmp_path: Path):
+    """B11C39-M1: an oversized operational store with wal > 0 stays readable; wal == 0 stays immutable/0-sidecar."""
+    store_dir = tmp_path / "m1 store #1"
+    db_path = store_dir / "contentops_daily_app_v1.sqlite3"
+
+    # Literal 2-line single-process repro (max_snapshot_bytes=1024 mirrors 1.32 GiB > 256 MiB).
+    store = ContentOpsDurableStore(db_path)
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        repro_wal = sro.inspect_sqlite_storage(db_path).wal_bytes
+        with store.get_read_only_connection(max_snapshot_bytes=1024) as ro:
+            expected = sro.MODE_LIVE_WAL_EXPLICIT if repro_wal > 0 else sro.MODE_IMMUTABLE_ZERO_WAL
+            assert ro.readonly_mode == expected
+            assert ro.execute("SELECT COUNT(*) FROM sqlite_master").fetchone()[0] > 0
+
+    # Deterministic active WAL: wal_bytes > 0 and db_bytes > max_snapshot_bytes.
+    writer = _pin_live_wal_frame(db_path)
+    try:
+        info = sro.inspect_sqlite_storage(db_path)
+        assert info.journal_mode == "WAL" and info.wal_bytes > 0 and info.db_bytes > 1024
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            with store.get_read_only_connection(max_snapshot_bytes=1024) as ro:
+                assert ro.readonly_mode == sro.MODE_LIVE_WAL_EXPLICIT
+                assert ro.readonly_warning == "LIVE_ACTIVE_WAL_SHARED_MEMORY_READ"
+                assert [row["label"] for row in ro.execute("SELECT label FROM b11c39_probe").fetchall()] == [
+                    "live_uncheckpointed_wal_row"
+                ]
+                with pytest.raises(sqlite3.OperationalError):
+                    ro.execute("INSERT INTO b11c39_probe (id, label) VALUES (2, 'blocked')")
+        assert any(issubclass(w.category, RuntimeWarning) for w in caught)
+
+        # Explicit per-call override keeps the low-level fail-closed contract available.
+        with pytest.raises(sro.SqliteReadOnlyError) as exc_info:
+            store.get_read_only_connection(max_snapshot_bytes=1024, allow_oversized_live_wal=False)
+        assert exc_info.value.reason_code == sro.REASON_ACTIVE_WAL_SNAPSHOT_LIMIT_EXCEEDED
+
+        # Operational module readers carry the same opt-in (static proof in the AST test below).
+        m_conn = manual_desk.open_store_read_only(db_path)
+        try:
+            assert m_conn.readonly_mode == sro.MODE_TEMP_SNAPSHOT_WAL  # small fixture: within cap
+        finally:
+            m_conn.close()
+        # The low-level connector itself stays fail-closed by default.
+        with pytest.raises(sro.SqliteReadOnlyError):
+            sro.connect_readonly_sqlite(db_path, max_snapshot_bytes=1024)
+        writer.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    finally:
+        writer.close()
+
+    # Checkpointed to wal_bytes == 0 -> RO_IMMUTABLE_ZERO_WAL with 0 sidecars created or mutated.
+    del store
+    gc.collect()
+    with closing(sqlite3.connect(str(db_path))) as w:
+        w.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    for suffix in ("-wal", "-shm"):
+        sidecar = db_path.with_name(db_path.name + suffix)
+        if sidecar.exists():
+            sidecar.unlink()
+    store = ContentOpsDurableStore(db_path, auto_migrate=False)
+    before = _dir_snapshot(store_dir)
+    assert list(before) == ["contentops_daily_app_v1.sqlite3"]
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")  # the zero-WAL path never emits the live-WAL warning
+        with store.get_read_only_connection(max_snapshot_bytes=1024) as ro:
+            assert ro.readonly_mode == sro.MODE_IMMUTABLE_ZERO_WAL
+            assert ro.readonly_warning is None
+            assert ro.execute("SELECT COUNT(*) FROM b11c39_probe").fetchone()[0] == 1
+            assert _dir_snapshot(store_dir) == before
+    assert _dir_snapshot(store_dir) == before
+
+
+def test_b11c39_m2_snapshot_dir_hosts_private_active_wal_snapshot(tmp_path: Path):
+    """B11C39-M2: snapshot_dir places the private snapshot under the caller's root and cleans it up."""
+    db_path, writer = _create_active_wal_db(tmp_path / "src" / "live.sqlite3")
+    snap_root = tmp_path / "scratch root #1"
+    snap_root.mkdir()
+    try:
+        before = _dir_snapshot(db_path.parent)
+        with sro.open_readonly_sqlite(db_path, snapshot_dir=snap_root) as conn:
+            assert conn.readonly_mode == sro.MODE_TEMP_SNAPSHOT_WAL
+            snap_dir = Path(conn._readonly_tempdir.name)
+            assert snap_dir.parent.resolve() == snap_root.resolve()
+            assert conn.execute("SELECT COUNT(*) FROM items").fetchone()[0] == 2
+        assert not snap_dir.exists()
+        assert list(snap_root.iterdir()) == []
+        assert _dir_snapshot(db_path.parent) == before
+    finally:
+        writer.close()
+
+
+def test_b11c39_m2_digest_status_inside_dry_run_guard_with_active_wal(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    """B11C39-M2: digest_status() on an active-WAL scratch copy succeeds inside _Guard with 0 outside writes."""
+    from live_contentops import substack_daily_digest_v1 as digest_owner
+
+    scratch = tmp_path / "dry run scratch #1"
+    production = tmp_path / "production" / "contentops_daily_app_v1.sqlite3"
+    production.parent.mkdir()
+    production.write_bytes(b"")  # protected sentinel; never opened
+    copy = scratch / "contentops_daily_app_v1.sqlite3"
+    seeded = ContentOpsDurableStore(copy)
+    del seeded
+    gc.collect()
+    packet = {"digest_id": "cc143-digest-2026-12-15", "plan": {"plan_hash": "b11c39" + "0" * 58}}
+
+    snapshot_parents: list[str | None] = []
+    real_snapshot = sro._open_temp_wal_snapshot
+
+    def _spy(resolved, **kwargs):
+        snapshot_parents.append(None if kwargs.get("snapshot_dir") is None else str(kwargs["snapshot_dir"]))
+        return real_snapshot(resolved, **kwargs)
+
+    monkeypatch.setattr(sro, "_open_temp_wal_snapshot", _spy)
+    writer = _pin_live_wal_frame(copy)
+    try:
+        info = sro.inspect_sqlite_storage(copy)
+        assert info.wal_bytes > 0 and info.db_bytes <= sro.DEFAULT_MAX_SNAPSHOT_BYTES
+
+        # Control: without a scratch-bound snapshot_dir the private snapshot lands in %TEMP% and is refused.
+        unbound_guard = digest_1900._Guard(scratch, [production])
+        unbound = ContentOpsDurableStore(copy, auto_migrate=False)
+        with unbound_guard.active():
+            with pytest.raises(PermissionError, match="DRY_RUN_WRITE_OUTSIDE_SCRATCH"):
+                digest_owner.digest_status(unbound, packet)
+        assert any("cc_sqlite_ro_snap_" in path for path in unbound_guard.refused_writes)
+
+        # Fix: dry_run binds read_only_snapshot_dir=scratch -> zero writes outside scratch.
+        guard = digest_1900._Guard(scratch, [production])
+        store = ContentOpsDurableStore(copy, auto_migrate=False, read_only_snapshot_dir=scratch)
+        snapshot_parents.clear()
+        with guard.active():
+            status = digest_owner.digest_status(store, packet)
+        assert status["digest_id"] == packet["digest_id"]
+        assert status["confirmed"] is False and status["web_confirmed"] is False
+        assert guard.refused_writes == [] and guard.refused_connections == []
+        assert snapshot_parents and set(snapshot_parents) == {str(scratch)}
+        assert not any(p.name.startswith("cc_sqlite_ro_snap_") for p in scratch.iterdir())
+        assert production.read_bytes() == b""
+    finally:
+        writer.close()
+
+
+def test_b11c39_l1_non_regular_journal_entry_fails_closed(tmp_path: Path):
+    """B11C39-L1: non-regular entries (directories/junctions) at -journal or -wal fail closed."""
+    db_path = tmp_path / "rb.sqlite3"
+    with closing(sqlite3.connect(str(db_path))) as conn:
+        conn.execute("PRAGMA journal_mode=DELETE")
+        conn.execute("CREATE TABLE t (x INTEGER)")
+        conn.execute("INSERT INTO t VALUES (7)")
+        conn.commit()
+    journal = db_path.with_name(db_path.name + "-journal")
+    journal.mkdir()
+    info = sro.inspect_sqlite_storage(db_path)
+    assert info.journal_exists is True and info.journal_is_hot is True
+    with pytest.raises(sro.SqliteReadOnlyError) as exc_info:
+        sro.connect_readonly_sqlite(db_path)
+    assert exc_info.value.reason_code == sro.REASON_HOT_JOURNAL_ACTIVE
+    journal.rmdir()
+
+    wal_dir = db_path.with_name(db_path.name + "-wal")
+    wal_dir.mkdir()
+    with pytest.raises(sro.SqliteReadOnlyError) as wal_exc:
+        sro.connect_readonly_sqlite(db_path)
+    assert wal_exc.value.reason_code == sro.REASON_HEADER_INVALID
+    wal_dir.rmdir()
+
+    with sro.open_readonly_sqlite(db_path) as ro:
+        assert ro.execute("SELECT x FROM t").fetchone()["x"] == 7
+
+
+def test_b11c39_l2_exotic_win32_uri_open_failure_raises_sqlite_readonly_error(tmp_path: Path):
+    """B11C39-L2: exotic Win32 extended/UNC prefixes fail closed with SqliteReadOnlyError (0 sidecars)."""
+    clean_dir = tmp_path / "l2_clean"
+    db_path = _create_clean_wal_db(clean_dir / "clean.sqlite3", [(1, "ok")])
+    before = _dir_snapshot(clean_dir)
+
+    drive = db_path.drive
+    if drive and len(drive) >= 2 and drive[1] == ":":
+        rest = str(db_path)[2:]
+        exotic_paths = [
+            f"\\\\?\\{db_path}",
+            f"\\\\?\\UNC\\localhost\\{drive[0]}${rest}",
+            f"\\\\localhost\\{drive[0]}${rest}",
+            f"\\\\127.0.0.1\\{drive[0]}${rest}",
+        ]
+        for exotic in exotic_paths:
+            with pytest.raises(sro.SqliteReadOnlyError) as exc_info:
+                with sro.open_readonly_sqlite(exotic):
+                    pass
+            assert exc_info.value.reason_code in {
+                sro.REASON_URI_OPEN_FAILED,
+                sro.REASON_DATABASE_MISSING,
+            }
+        assert _dir_snapshot(clean_dir) == before
+
+
+def test_b11c39_m1_every_operational_reader_opts_into_oversized_live_wal():
+    """B11C39-M1 static proof: all 17 operational store readers pass allow_oversized_live_wal; the store defaults True."""
+    import inspect as _inspect
+
+    sig = _inspect.signature(ContentOpsDurableStore.get_read_only_connection)
+    assert sig.parameters["allow_oversized_live_wal"].default is True
+    assert sig.parameters["snapshot_dir"].default is None
+    for fn in (sro.connect_readonly_sqlite, sro.open_readonly_sqlite):
+        params = _inspect.signature(fn).parameters
+        assert params["allow_oversized_live_wal"].default is False  # low-level stays fail-closed
+        assert params["snapshot_dir"].default is None
+
+    readers = [m for m in WIRED_MODULES_18 if m not in {
+        "live_contentops/call_followups_v1.py",  # bars.sqlite3: allow_oversized_live_wal=not zero_write
+        "live_contentops/durable_operational_store_v1.py",  # forwards its own True default
+    }]
+    assert len(readers) == 16
+    total_calls = 0
+    for rel_path in readers:
+        source = (REPO_ROOT / rel_path).read_text(encoding="utf-8")
+        tree = ast.parse(source, filename=rel_path)
+        calls = [
+            node for node in ast.walk(tree)
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+            and node.func.id in {"open_readonly_sqlite", "connect_readonly_sqlite"}
+        ]
+        assert calls, rel_path
+        for node in calls:
+            kw = {k.arg: k.value for k in node.keywords}
+            assert "allow_oversized_live_wal" in kw, f"{rel_path}:{node.lineno}"
+            value = kw["allow_oversized_live_wal"]
+            assert (isinstance(value, ast.Constant) and value.value is True) or isinstance(value, ast.Name), (
+                f"{rel_path}:{node.lineno}")
+        total_calls += len(calls)
+    assert total_calls == 17  # retained_news_read_v1 holds two readers

@@ -169,10 +169,11 @@ def _short(pack_id):
 
 # -------------------------------------------------------------------- the store
 
-def open_store_read_only(store_path):
+def open_store_read_only(store_path, *, allow_oversized_live_wal=True):
     from live_contentops.sqlite_readonly_v1 import connect_readonly_sqlite
 
-    return connect_readonly_sqlite(store_path, timeout=5.0, row_factory=sqlite3.Row)
+    return connect_readonly_sqlite(store_path, timeout=5.0, row_factory=sqlite3.Row,
+                                   allow_oversized_live_wal=allow_oversized_live_wal)
 
 
 def _payload(row):

@@ -177,10 +177,13 @@ def _extract_scheduled_stamp(native_invocation_id: str) -> str | None:
     return None
 
 
-def _ro(path: Path) -> sqlite3.Connection:
+def _ro(path: Path, *, snapshot_dir: Path | None = None,
+        allow_oversized_live_wal: bool = True) -> sqlite3.Connection:
     from live_contentops.sqlite_readonly_v1 import connect_readonly_sqlite
 
-    return connect_readonly_sqlite(path, timeout=30.0, row_factory=None)
+    return connect_readonly_sqlite(path, timeout=30.0, row_factory=None,
+                                   allow_oversized_live_wal=allow_oversized_live_wal,
+                                   snapshot_dir=snapshot_dir)
 
 
 def _operating_mode(store_path: Path) -> str:
@@ -416,7 +419,8 @@ def dry_run(rollout_path: Path, scratch: Path, *, now: datetime | None = None,
     from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
     from live_contentops.substack_daily_digest_v1 import continue_daily_digest, digest_status, prepare_daily_digest
     with guard.active():
-        store = ContentOpsDurableStore(copy, auto_migrate=False)
+        # Any active-WAL private snapshot of the copy stays inside the guarded scratch root.
+        store = ContentOpsDurableStore(copy, auto_migrate=False, read_only_snapshot_dir=scratch)
         prepared = _call_prepare_daily_digest(prepare_daily_digest, store, DEFAULT_FEED, now=now)
         packet = prepared.get("packet")
         result["prepare"] = {k: v for k, v in prepared.items() if k != "packet"}

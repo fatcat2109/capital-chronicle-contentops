@@ -443,10 +443,12 @@ def build_event_envelope(**fields: Any) -> Dict[str, Any]:
 class ContentOpsDurableStore:
     def __init__(self, db_path: pathlib.Path, busy_timeout_ms: int = BUSY_TIMEOUT_MS, auto_migrate: bool = True,
                  now_fn: Optional[Callable[[], datetime]] = None,
-                 receipt_resolvers: Optional[Mapping[str, Callable[[Mapping[str, Any]], Any]]] = None) -> None:
+                 receipt_resolvers: Optional[Mapping[str, Callable[[Mapping[str, Any]], Any]]] = None,
+                 read_only_snapshot_dir: Optional[Union[pathlib.Path, str]] = None) -> None:
         from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
         self.db_path = resolve_workspace_path(db_path); self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.busy_timeout_ms = busy_timeout_ms; self._now_fn = now_fn
+        self.read_only_snapshot_dir = read_only_snapshot_dir
         self._write_local = threading.local(); self._receipt_resolvers = dict(receipt_resolvers or {})
         self.migration_proofs: List[Dict[str, Any]] = []
         if auto_migrate: self.run_migrations()
@@ -513,10 +515,18 @@ class ContentOpsDurableStore:
     def get_read_only_connection(
         self,
         *,
-        allow_oversized_live_wal: bool = False,
+        allow_oversized_live_wal: bool = True,
         max_snapshot_bytes: int = DEFAULT_MAX_SNAPSHOT_BYTES,
+        snapshot_dir: Optional[Union[pathlib.Path, str]] = None,
     ) -> sqlite3.Connection:
-        """Open the configured canonical store in WAL-safe zero-write read-only/query-only mode."""
+        """Open the configured canonical store in WAL-safe zero-write read-only/query-only mode.
+
+        The operational store (1.3+ GiB live) exceeds the private-snapshot cap, so an active
+        WAL defaults to the explicit warned live ``?mode=ro`` read (``RO_LIVE_WAL_EXPLICIT``);
+        pass ``allow_oversized_live_wal=False`` to fail closed instead. A clean WAL
+        (``wal_bytes == 0``) always takes ``RO_IMMUTABLE_ZERO_WAL``. ``snapshot_dir`` (or the
+        instance's ``read_only_snapshot_dir``) hosts any private snapshot.
+        """
         return connect_readonly_sqlite(
             self.db_path,
             timeout=self.busy_timeout_ms / 1000.0,
@@ -527,6 +537,8 @@ class ContentOpsDurableStore:
             busy_timeout_ms=self.busy_timeout_ms,
             max_snapshot_bytes=max_snapshot_bytes,
             allow_oversized_live_wal=allow_oversized_live_wal,
+            snapshot_dir=(snapshot_dir if snapshot_dir is not None
+                          else getattr(self, "read_only_snapshot_dir", None)),
         )
     def _ensure_runtime_write_guards(self) -> None:
         with self.get_connection() as conn:

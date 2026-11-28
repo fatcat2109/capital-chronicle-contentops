@@ -1207,7 +1207,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                                                expected_text=text, expected_title=title, page_url=page_url,
                                                decision_copy=decision_copy)}
 
-    with open_readonly_sqlite(store_path, timeout=5.0, row_factory=sqlite3.Row) as conn:
+    with open_readonly_sqlite(store_path, timeout=5.0, row_factory=sqlite3.Row,
+                              allow_oversized_live_wal=True) as conn:
         conn.execute("BEGIN")
         notes = _watched_notes(conn, end) if sweep else None
         engagement_source_exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='performance_observations'").fetchone() is not None

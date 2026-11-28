@@ -43,7 +43,7 @@ def verify(seed, root, output):
     assert previous_receipt["status"] == "PASS_REAL_IMMUTABLE_COLD_START_AND_RESTART"
     output.mkdir(parents=True)
     path = output / "desk-proof.sqlite3"
-    with open_readonly_sqlite(seed, row_factory=None) as source:
+    with open_readonly_sqlite(seed, row_factory=None, allow_oversized_live_wal=True) as source:
         target = sqlite3.connect(path)
         try:
             source.backup(target)

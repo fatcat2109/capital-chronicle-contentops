@@ -45,7 +45,7 @@ def workspace_snapshot(path):
     """Hash every table's exact logical rows, including leases and accepted model returns."""
     from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
-    with open_readonly_sqlite(path, row_factory=None) as conn:
+    with open_readonly_sqlite(path, row_factory=None, allow_oversized_live_wal=True) as conn:
         if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("WORKSPACE_INTEGRITY_FAILED")
         tables = {}

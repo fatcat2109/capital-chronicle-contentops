@@ -147,7 +147,7 @@ def main():
         copy_path = root / "copied.sqlite3"
         if not copy_path.exists():
             source = Path("A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3")
-            with open_readonly_sqlite(source, row_factory=None) as original:
+            with open_readonly_sqlite(source, row_factory=None, allow_oversized_live_wal=True) as original:
                 copied = sqlite3.connect(copy_path)
                 try:
                     original.backup(copied)

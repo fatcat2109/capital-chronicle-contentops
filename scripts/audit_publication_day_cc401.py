@@ -52,7 +52,7 @@ def audit(store_path, day, *, now=None):
     active_incidents = {}
     resolved_incidents = []
     invalid_incidents = []
-    conn = connect_readonly_sqlite(store_path, row_factory=sqlite3.Row)
+    conn = connect_readonly_sqlite(store_path, row_factory=sqlite3.Row, allow_oversized_live_wal=True)
     try:
         conn.execute("BEGIN")
         dispatches = {r["dispatch_id"]: dict(r) for r in conn.execute("SELECT * FROM platform_dispatches")}

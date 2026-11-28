@@ -63,7 +63,8 @@ def _sha256_file(path: Path) -> str:
 def _connection(path: Path) -> sqlite3.Connection:
     from live_contentops.sqlite_readonly_v1 import connect_readonly_sqlite
 
-    return connect_readonly_sqlite(path, row_factory=sqlite3.Row, isolation_level=None)
+    return connect_readonly_sqlite(path, row_factory=sqlite3.Row, isolation_level=None,
+                                   allow_oversized_live_wal=True)
 
 
 def _counts(rows: Iterable[Mapping[str, Any]], *keys: str) -> list[dict[str, Any]]:

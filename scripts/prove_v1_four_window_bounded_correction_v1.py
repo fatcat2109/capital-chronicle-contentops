@@ -61,7 +61,7 @@ def _sha(path: Path) -> str:
 def _clone_store(source: Path, target: Path) -> None:
     from live_contentops.sqlite_readonly_v1 import open_readonly_sqlite
 
-    with open_readonly_sqlite(source, row_factory=None) as source_connection:
+    with open_readonly_sqlite(source, row_factory=None, allow_oversized_live_wal=True) as source_connection:
         target_connection = sqlite3.connect(target)
         try:
             source_connection.backup(target_connection)

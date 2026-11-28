@@ -18,7 +18,7 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     target = args.output_dir.resolve()
-    with open_readonly_sqlite(args.store, row_factory=sqlite3.Row) as connection:
+    with open_readonly_sqlite(args.store, row_factory=sqlite3.Row, allow_oversized_live_wal=True) as connection:
         connection.execute("BEGIN")
         def rows(table):
             return [dict(r) for r in connection.execute("SELECT * FROM " + table)]
