@@ -30,7 +30,9 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import json
 import math
+import os
 from pathlib import Path
+import subprocess
 import sys
 from typing import Any
 
@@ -2121,9 +2123,19 @@ def test_c24_polish_url_schemes_oversized_int_private_zero_arena_null_ads_and_re
         fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, digest_driver=huge)  # type: ignore[arg-type]
     with pytest.raises(fw.FreeTierFirewallError, match="LIVE_PROVIDER_INVALID"):
         fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider=huge)  # type: ignore[arg-type]
-    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_FREE_ONLY_MODE_REQUIRED"):
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"):
         fw.verify_pause_manifest_for_dec15_unpause(
             {**_valid_dec15_pause_manifest(), "unpause_mode": huge, "cc024_clean_required": huge},
+            now_utc=DEC15_OPEN_UTC,
+        )
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_CC024_FLAG_REQUIRED"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            {**_valid_dec15_pause_manifest(), "cc024_clean_required": huge},
+            now_utc=DEC15_OPEN_UTC,
+        )
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_FREE_ONLY_MODE_REQUIRED"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            {**_valid_dec15_pause_manifest(), "unpause_mode": "UNKNOWN_MODE"},
             now_utc=DEC15_OPEN_UTC,
         )
 
@@ -2203,3 +2215,343 @@ def test_c24_polish_url_schemes_oversized_int_private_zero_arena_null_ads_and_re
     assert fw.verify_pause_manifest_for_dec15_unpause(
         mpath, now_utc=DEC15_OPEN_UTC, allow_already_restored=True
     )["status"] == "PASS"
+
+
+# ---------------------------------------------------------------------------
+# Cycle #24b Unified 7M / 3L Regressions
+# (Ops Product #100 B16C24-P1..P4 & L1..L3 + Gate-1 Batch #179 B179-B16C24-M1..M3)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("bad_payload", [
+    {"id": "consensus.investing.us_cpi_headline_yoy", "source": "consensus.investing", "label": "US CPI"},
+    {"surprise_basis": "CITED_SOURCE_INVESTING", "consensus_citation": {"source_id": "src:cite:investing:us_nfp_20261106", "label": "Consensus 113k"}},
+    {"title": "Note", "body": "Source: consensus.investing for NFP."},
+    {"title": "Note", "body": "Citation src:cite:investing:us_nfp_20261106."},
+    {"title": "Note", "body": "Provider CITED_SOURCE_INVESTING."},
+    {"title": "Note", "body": "Dataset investing_com macro feed."},
+    {"title": "Note", "body": "Clean.", "consensus_citation": {"provider": "consensus.investing", "id": "src:cite:investing:us_nfp_20261106"}},
+    {"title": "Note", "body": "Clean.", "consensus.investing": "macro"},
+])
+def test_c24b_p1_investing_structured_exporter_ids_blocked_with_zero_sec_fp(bad_payload: dict[str, Any]):
+    """B16C24-P1: live-exporter Investing.com structured IDs fail closed; SEC 'the investing public' passes."""
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_cc024_commercial_firewall(bad_payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert "CC024_INVESTING_OR_MYFXBOOK_FORBIDDEN" in codes, f"Got {codes}"
+
+    clean_sec = _clean_outbound_payload(
+        text=(
+            "The investing public rotated into T-bills as yields climbed. "
+            f"Chart: TradingView.\n\n{PUBLIC_NOTICE}\n{CONFLICTS_NOTICE}"
+        )
+    )
+    assert fw.verify_cc024_commercial_firewall(clean_sec, require_notice=True)["cc024_clean"] is True
+
+
+@pytest.mark.parametrize("field,bad_html,gate,expected_code", [
+    ("body_html", "<p>Data from Ya<!--x-->hoo Finance shows yields up.</p>", "cc024", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("body_html", "<p>Exclusive for pa<!--x-->id subscribers only.</p>", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    ("body_html", "<p>Internal key DUR<!--x-->343723.</p>", "cc024", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("body_html", "<p>Set st<!--x-->op-loss at 4100.</p>", "cc024", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("body_html", "<p>Data from Ya<wbr>hoo Finance.</p>", "cc024", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("body_html", "<p>pa<a>id subscribers only</a>.</p>", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    ("body_html", "<p>Broker Ex<font>ness</font> spread.</p>", "cc024", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("body", "For [paid](https://example.com) subscribers only.", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    ("body", "[Upgrade](https://example.com) to [paid](https://example.com) for full access.", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    ("body", "Close data from [Yahoo](https://example.com) Finance.", "cc024", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("body", "For [**pa<!--x-->id**](https://example.com) subscribers only.", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    # Preserve raw v1 so forbidden URLs inside (...) and raw paywall comments/iframes are still caught!
+    ("body", "Read [our note](https://checkout.stripe.com/pay/cs_123) now.", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    ("body", "See [our preview](https://fatcat2109.github.io/capital-chronicle-preview/).", "cc024", "PREVIEW_HOST_LINK_FORBIDDEN"),
+    ("body_html", "<!--paywall--><p>Clean text.</p>", "free", "FREE_ONLY_PAYWALL_MARKER_FORBIDDEN"),
+    ("body_html", '<iframe src="https://s3.tradingview.com/external-embedding/embed-widget.js"></iframe>', "cc024", "CC024_TRADINGVIEW_WIDGET_FORBIDDEN"),
+])
+def test_c24b_p2_and_m2_html_comments_inline_tags_and_markdown_links_blocked(
+    field: str, bad_html: str, gate: str, expected_code: str
+):
+    """B16C24-P2 + B179-B16C24-M2: HTML comments, <wbr>/<a>/<font>, and Markdown [anchor](url) splits blocked."""
+    payload = _clean_outbound_payload(**{field: bad_html})
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        if gate == "free":
+            fw.verify_free_only_mode(payload, now_utc=DEC15_OPEN_UTC)
+        else:
+            fw.verify_cc024_commercial_firewall(payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+
+
+@pytest.mark.parametrize("extra_fields", [
+    {"body": "Click java\tscript:alert(1) now."},
+    {"body": "Click java\nscript:alert(1) now."},
+    {"body": "Click java\rscript:alert(1) now."},
+    {"body": "Click java&#x09;script:alert(1) now."},
+    {"body": "Read below.\njava\tscript:alert(1)"},
+    {"body": "Click vb\tscript:msgbox(1) now."},
+    {"body": "Load da\tta:text/html,<script>alert(1)</script>."},
+    {"body_html": '<a href="java&#x09;script:alert(1)">Link</a>'},
+    {"url": "java\tscript:alert(1)"},
+    {"canonical_url": "java&#x09;script:alert(1)"},
+    {"url": "java\rscript:alert(1)"},
+    {"url": "ht\ttps://example.com/note"},
+])
+def test_c24b_p3_whatwg_tab_cr_lf_url_scheme_evasions_blocked(extra_fields: dict[str, Any]):
+    """B16C24-P3: WHATWG ASCII tab/CR/LF-split javascript:/vbscript:/data: schemes blocked in prose and URL fields."""
+    payload = _clean_outbound_payload(**extra_fields)
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_cc024_commercial_firewall(payload)
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert "CC024_UNSAFE_URL_SCHEME_FORBIDDEN" in codes, f"Got {codes}"
+
+
+def test_c24b_p4_m3_l3_windows_unc_nt_dos_nfkc_junctions_lexists_and_restored_validation(tmp_path: Path):
+    """B16C24-P4 + B179-B16C24-M3 + B16C24-L3: UNC/NT prefixes, NFKC/space DOS names, NTFS junctions, lexists, restored.json."""
+    man_dir = tmp_path / "man_real"
+    man_dir.mkdir()
+    mpath = man_dir / "manifest.json"
+    mpath.write_text(json.dumps(_valid_dec15_pause_manifest()) + "\n", encoding="utf-8")
+    cpath = _write_jsonl(man_dir / "chain.jsonl", _build_arena_chain_records(1))
+    ctrl_ok = tmp_path / "ctrl_real"
+    ctrl_ok.mkdir()
+
+    # 1. Raw UNC, forward-slash UNC, Win32 extended/device, NT native prefixes, CON .dir, NUL .txt, COM¹/LPT²
+    hostile_paths = [
+        r"\\127.0.0.1\C$\temp\manifest.json",
+        "//127.0.0.1/C$/temp/manifest.json",
+        r"\\?\UNC\127.0.0.1\C$\temp\manifest.json",
+        r"\\.\pipe\foo",
+        r"\??\UNC\srv\sh\manifest.json",
+        "/??/UNC/srv/sh/manifest.json",
+        r"C:\tmp\CON .dir\manifest.json",
+        r"C:\tmp\NUL .txt",
+        str(tmp_path / "COM\u00b9.json"),
+        str(tmp_path / "LPT\u00b2.dir" / "manifest.json"),
+    ]
+    for bad_path in hostile_paths:
+        with pytest.raises(fw.FreeTierFirewallError, match="CONTROL_DIR_INVALID"):
+            fw.verify_pause_manifest_for_dec15_unpause(mpath, now_utc=DEC15_OPEN_UTC, control_dir=bad_path)
+        with pytest.raises(fw.FreeTierFirewallError, match="CONTROL_DIR_INVALID"):
+            fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, control_dir=bad_path)
+        with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_PATH_INVALID"):
+            fw.verify_pause_manifest_for_dec15_unpause(bad_path, now_utc=DEC15_OPEN_UTC, control_dir=ctrl_ok)
+        with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_PATH_INVALID"):
+            fw.verify_day1_hash_chain(bad_path)
+
+    # 2. B16C24-L3: empty {} / missing-timestamp / invalid-timestamp restored.json under allow_already_restored=True
+    for bad_restored, expected_code in (
+        ("{}", "PAUSE_MANIFEST_RESTORED_MARKER_INVALID"),
+        ('{"dry_run": false}', "PAUSE_MANIFEST_RESTORED_MARKER_INVALID"),
+        ('{"note": "empty"}', "PAUSE_MANIFEST_RESTORED_MARKER_INVALID"),
+        ('{"started_at_utc": "not-a-clock", "dry_run": false}', "UTC_CLOCK_INVALID_FORMAT"),
+        ('{"started_at_utc": null, "dry_run": false}', "UTC_CLOCK_REQUIRED"),
+        ('{"started_at_utc": "2026-12-15T00:00:00Z", "skip_cc024": true}', "SILENT_WAIVER_FORBIDDEN_RULE_A3"),
+    ):
+        (man_dir / "restored.json").write_text(bad_restored + "\n", encoding="utf-8")
+        with pytest.raises(fw.FreeTierFirewallError, match=expected_code):
+            fw.verify_pause_manifest_for_dec15_unpause(
+                mpath, now_utc=DEC15_OPEN_UTC, control_dir=ctrl_ok, allow_already_restored=True
+            )
+    (man_dir / "restored.json").unlink()
+
+    # 3. Live Windows unprivileged NTFS directory junctions (mklink /J):
+    #    - live junction control_dir, ancestor junction manifest/chain
+    #    - broken junction KILL_SWITCH, llm_operator_pause.flag, agy_neo_routes.json, restored.json (lexists!)
+    if os.name == "nt":
+        created_junctions: list[Path] = []
+        try:
+            def _mk_junction(link_path: Path, target_path: Path) -> None:
+                res = subprocess.run(
+                    ["cmd", "/c", "mklink", "/J", str(link_path), str(target_path)],
+                    capture_output=True,
+                    text=True,
+                    check=True,
+                )
+                assert res.returncode == 0
+                created_junctions.append(link_path)
+
+            junc_ctrl = tmp_path / "junc_ctrl"
+            _mk_junction(junc_ctrl, ctrl_ok)
+            junc_man_dir = tmp_path / "junc_man_dir"
+            _mk_junction(junc_man_dir, man_dir)
+
+            with pytest.raises(fw.FreeTierFirewallError, match="CONTROL_DIR_INVALID"):
+                fw.verify_pause_manifest_for_dec15_unpause(mpath, now_utc=DEC15_OPEN_UTC, control_dir=junc_ctrl)
+            with pytest.raises(fw.FreeTierFirewallError, match="CONTROL_DIR_INVALID"):
+                fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, control_dir=junc_ctrl)
+            with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_PATH_INVALID"):
+                fw.verify_pause_manifest_for_dec15_unpause(
+                    junc_man_dir / "manifest.json", now_utc=DEC15_OPEN_UTC, control_dir=ctrl_ok
+                )
+            with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CHAIN_PATH_INVALID"):
+                fw.verify_day1_hash_chain(junc_man_dir / "chain.jsonl")
+
+            # Broken NTFS junctions for hard-stop markers (exists()==False, is_symlink()==False, lexists()==True!)
+            missing_target = tmp_path / "nonexistent_junction_target"
+            for marker_name, expected_code in (
+                ("KILL_SWITCH", "GLOBAL_KILL_SWITCH_PRESENT"),
+                ("llm_operator_pause.flag", "LLM_OPERATOR_PAUSE_FLAG_PRESENT"),
+                ("agy_neo_routes.json", "AGY_NEO_ROUTES_PRESENT_FORBIDDEN_CC801"),
+                ("restored.json", "PAUSE_MANIFEST_ALREADY_RESTORED"),
+            ):
+                ctrl_case = tmp_path / f"ctrl_broken_{marker_name}"
+                ctrl_case.mkdir()
+                marker_junc = ctrl_case / marker_name
+                _mk_junction(marker_junc, missing_target)
+                assert not marker_junc.exists()
+                assert not marker_junc.is_symlink()
+                assert os.path.lexists(marker_junc)
+                with pytest.raises(fw.FreeTierFirewallError, match=expected_code):
+                    fw.verify_pause_manifest_for_dec15_unpause(
+                        mpath, now_utc=DEC15_OPEN_UTC, control_dir=ctrl_case
+                    )
+                if marker_name == "agy_neo_routes.json":
+                    with pytest.raises(fw.FreeTierFirewallError, match="AGY_NEO_ROUTES_PRESENT_FORBIDDEN_CC801"):
+                        fw.verify_zero_claude_and_agy_dependencies(
+                            now_utc=DEC15_OPEN_UTC, control_dir=ctrl_case
+                        )
+                if marker_name == "restored.json":
+                    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_RESTORED_MARKER_INVALID"):
+                        fw.verify_pause_manifest_for_dec15_unpause(
+                            mpath, now_utc=DEC15_OPEN_UTC, control_dir=ctrl_case, allow_already_restored=True
+                        )
+
+            # Broken sibling restored.json junction beside manifest.json
+            sib_junc = man_dir / "restored.json"
+            _mk_junction(sib_junc, missing_target)
+            with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_ALREADY_RESTORED"):
+                fw.verify_pause_manifest_for_dec15_unpause(
+                    mpath, now_utc=DEC15_OPEN_UTC, control_dir=ctrl_ok, allow_already_restored=False
+                )
+            with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_RESTORED_MARKER_INVALID"):
+                fw.verify_pause_manifest_for_dec15_unpause(
+                    mpath, now_utc=DEC15_OPEN_UTC, control_dir=ctrl_ok, allow_already_restored=True
+                )
+        finally:
+            for junc in reversed(created_junctions):
+                if os.path.lexists(junc):
+                    subprocess.run(["cmd", "/c", "rmdir", str(junc)], capture_output=True, check=False)
+
+
+def test_c24b_m1_hostile_dict_keys_never_leak_through_section2_section3_or_free_only_locations():
+    """B179-B16C24-M1: redacted secret/hostile dict keys never echo verbatim in ANY violation location or detail."""
+    cc024_cases = [
+        ({"acct_DUR343723": "Source: Yahoo Finance close at 20:30 GMT+7."}, ("acct_DUR343723", "DUR343723")),
+        ({"Kelly f* = 0.042": "Watch USTEC TP1: 25,000."}, ("Kelly f* = 0.042", "Kelly")),
+        ({"gold_stop_loss": {"note": "Yahoo Finance"}}, ("gold_stop_loss",)),
+    ]
+    for extra, forbidden_tokens in cc024_cases:
+        with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+            fw.verify_cc024_commercial_firewall(_clean_outbound_payload(**extra))
+        assert len(exc_info.value.violations) >= 2
+        for v in exc_info.value.violations:
+            loc = v.get("location", "")
+            detail = v.get("detail", "")
+            assert "<REDACTED_KEY#" in loc, f"Expected redacted key in location: {v}"
+            for tok in forbidden_tokens:
+                assert tok not in loc, f"Leaked {tok!r} in location: {v}"
+                assert tok not in detail, f"Leaked {tok!r} in detail: {v}"
+
+    free_cases = [
+        ({"Upgrade to paid now": {"paywall": True}}, ("Upgrade to paid now", "Upgrade to paid")),
+        ({"acct_DUR343723": {"paywall": True}}, ("acct_DUR343723", "DUR343723")),
+        ({"tier": {"acct_DUR343723": "only_paid"}}, ("acct_DUR343723", "DUR343723")),
+    ]
+    for extra, forbidden_tokens in free_cases:
+        with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+            fw.verify_free_only_mode(_clean_outbound_payload(**extra), now_utc=DEC15_OPEN_UTC)
+        assert exc_info.value.violations
+        for v in exc_info.value.violations:
+            loc = v.get("location", "")
+            detail = v.get("detail", "")
+            assert "<REDACTED_KEY#" in loc, f"Expected redacted key in location: {v}"
+            for tok in forbidden_tokens:
+                assert tok not in loc, f"Leaked {tok!r} in location: {v}"
+                assert tok not in detail, f"Leaked {tok!r} in detail: {v}"
+
+
+def test_c24b_l1_and_l2_standalone_legacy_codex_task_and_numeric_tier_audience_fail_closed():
+    """B16C24-L1 & L2: standalone legacy-path Codex task passes while hostile basenames block; numeric tier/audience fail closed."""
+    # L1 positive: standalone legacy-dir Codex tasks (unquoted & quoted with spaces) PASS
+    res = fw.verify_zero_claude_and_agy_dependencies(
+        now_utc=DEC15_OPEN_UTC,
+        scheduled_tasks=[
+            {
+                "name": "CodexExecStandalone",
+                "enabled": True,
+                "command": r"C:\ResearchRuns\claude-ops-integrations\codex-exec\run.ps1",
+            },
+            {
+                "name": "CodexExecQuoted",
+                "enabled": True,
+                "command": r'"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\codex-exec\run.ps1" --dry-run',
+            },
+        ],
+    )
+    assert res["status"] == "PASS"
+
+    # L1 negative: hostile basenames inside legacy dirs & non-whitelisted claude dirs MUST STILL fail closed
+    for bad_cmd in (
+        r"C:\ResearchRuns\claude-ops-integrations\codex-exec\claude.exe",
+        r"C:\ResearchRuns\claude-ops-integrations\run_claude_poster.ps1",
+        r"C:\ResearchRuns\claude-ops-integrations\claude-main-research",
+        r"C:\claude-custom-dir\run.ps1",
+        "claude-main-research",
+        "--no-claude-cli-login",
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN"):
+            fw.verify_zero_claude_and_agy_dependencies(
+                now_utc=DEC15_OPEN_UTC,
+                scheduled_tasks=[{"name": "BadStandalone", "enabled": True, "command": bad_cmd}],
+            )
+
+    # L2 negative: numeric / non-string audience and tier fail closed
+    for bad_meta in (
+        {"audience": 1},
+        {"tier": 2},
+        {"tier": 0},
+        {"audience": 1.5},
+        {"substack_audience": [1]},
+        {"tier": {"level": 2}},
+        {"delivery_tier": Decimal("2")},
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"):
+            fw.verify_free_only_mode(_clean_outbound_payload(**bad_meta), now_utc=DEC15_OPEN_UTC)
+
+    # L2 positive: clean string/dict tier and audience pass cleanly
+    clean_meta = _clean_outbound_payload(
+        tier="T1",
+        audience="everyone",
+        distribution_tier={"name": "free", "is_free": True, "paid": False, "price_cents": 0},
+    )
+    assert fw.verify_free_only_mode(clean_meta, now_utc=DEC15_OPEN_UTC)["status"] == "PASS"
+
+
+def test_c24b_rule_a4_clean_journalism_zero_false_positives():
+    """Rule A4: verify zero false positives across clean macro journalism, Markdown links, HTML links, and ET clocks."""
+    clean_articles = [
+        "The investing public rotated into T-bills as yields climbed.",
+        "The federal funds target range remains 4.25%-4.50%.",
+        "The 2026 inflation target stays anchored at 2.0%.",
+        "FRED DGS10 rose 6 bps while ICE Brent settled near $74.",
+        "Tesla reported Q3 deliveries ahead of estimates.",
+        "Spot gold eased after CPI. Chart: TradingView.",
+        "The federal deficit hit $1.8 trillion in FY2026.",
+        "Read the [BLS CPI release](https://www.bls.gov/cpi/) and <a href=\"https://home.treasury.gov/\">US Treasury</a> data.",
+        "Capital Chronicle daily note.\nData: 10-year Treasury yields settled at 4.25%.",
+        "Spot gold traded near $2,650 an ounce. **Gold** and **S&P 500** stayed resilient.",
+    ]
+    for prose in clean_articles:
+        payload = _clean_outbound_payload(
+            text=f"{prose}\n\n{PUBLIC_NOTICE}\n{CONFLICTS_NOTICE}",
+            tier="T1",
+            free=True,
+            price_cents=0,
+            chart_path=r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\charts\eurusd.png",
+        )
+        res = fw.verify_outbound_free_payload(
+            payload,
+            now_utc=DEC15_OPEN_UTC,
+            destination="substack",
+            require_notice=True,
+        )
+        assert res["status"] == "PASS", f"Unexpected FP on: {prose!r}"
