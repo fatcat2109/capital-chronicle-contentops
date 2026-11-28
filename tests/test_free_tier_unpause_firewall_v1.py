@@ -1337,3 +1337,343 @@ def test_cc691_golden_confirmed_posts_pass_free_only_and_cc024_firewall():
         assert fw.verify_cc024_commercial_firewall(
             wrap["body_excerpt"], check_instruments=False, check_public_time=True
         )["cc024_clean"] is True
+
+
+# ---------------------------------------------------------------------------
+# Cycle #22 Combined Remediation Regressions (B11-M1..M4, B11-L1..L3,
+# SW2-M1..M4, SW2-L1, B11C37-H1/H2/M1..M3/L1)
+# ---------------------------------------------------------------------------
+
+
+def test_remediation_b11_m1_restored_json_beside_manifest_blocks_unpause(tmp_path: Path):
+    """B11-M1: restored.json beside manifest.json must block even if control_dir is separate or None."""
+    pause_dir = tmp_path / "pause-20261130"
+    pause_dir.mkdir()
+    manifest_path = pause_dir / "manifest.json"
+    manifest_path.write_text(json.dumps(_valid_dec15_pause_manifest(), indent=2) + "\n", encoding="utf-8")
+    (pause_dir / "restored.json").write_text('{"restored_at_utc": "2026-12-15T00:00:00Z"}\n', encoding="utf-8")
+
+    separate_ctrl = tmp_path / "control_clean"
+    separate_ctrl.mkdir()
+
+    # Blocked with separate clean control_dir
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_ALREADY_RESTORED"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            manifest_path, now_utc=DEC15_OPEN_UTC, control_dir=separate_ctrl
+        )
+    # Blocked even when control_dir=None
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_ALREADY_RESTORED"):
+        fw.verify_pause_manifest_for_dec15_unpause(
+            manifest_path, now_utc=DEC15_OPEN_UTC, control_dir=None
+        )
+    # Explicit allow_already_restored=True still permits inspection when requested
+    res = fw.verify_pause_manifest_for_dec15_unpause(
+        manifest_path, now_utc=DEC15_OPEN_UTC, control_dir=separate_ctrl, allow_already_restored=True
+    )
+    assert res["status"] == "PASS"
+
+
+@pytest.mark.parametrize("extra_field,bad_value,expected_code", [
+    ("content", "USTEC breaks higher while XAUUSD pauses.", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+    ("description", "TP1: 3,985 and price target is 165.00.", "CC024_PRICE_TARGET_FORBIDDEN"),
+    ("html", "<p>Polymarket gives 72% odds on a rate hold.</p>", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("body_html", "<p>Markets priced in at 84% ahead of FOMC.</p>", "CC024_MARKET_ODDS_NUMBER_FORBIDDEN"),
+    ("heading", "Pre-US Session Note (20:30 GMT+7)", "PUBLIC_TIMEZONE_ET_REQUIRED"),
+    ("top_lines", ["Macro update closed at 13:15 UTC."], "ATTENTION_MAP_NON_ET_CLOCK_FORBIDDEN"),
+    ("bullets", ["Trader @macro_desk_leak posted fresh flows."], "CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"),
+    ("notes", "DEMO account holds 0.5 lots and gained $1,250 on account 279805139.", "CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"),
+    ("custom_display_field", "XAUUSD rally targets TP1: 4,050.", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+    ("as_of_utc", "Published at 20:30 GMT+7", "PUBLIC_TIMEZONE_ET_REQUIRED"),
+    ("market_asset", "USTEC price target 25000", "PUBLIC_INSTRUMENT_NAME_FORBIDDEN"),
+])
+def test_remediation_b11_m2_and_b11c37_h1_recursive_prose_scan_closes_unlisted_fields(
+    extra_field: str, bad_value: Any, expected_code: str
+):
+    """B11-M2 + B11C37-H1: clean title/body_markdown MUST NOT mask violations in ANY other display field."""
+    payload = _clean_outbound_payload(**{extra_field: bad_value})
+    with pytest.raises(fw.FreeTierFirewallError) as exc_info:
+        fw.verify_outbound_free_payload(payload, now_utc=DEC15_OPEN_UTC, destination="substack")
+    codes = {v["code"] for v in exc_info.value.violations}
+    assert expected_code in codes, f"Expected {expected_code}, got {codes}"
+
+
+def test_remediation_b11_m2_verbatim_private_echo_caught_in_unlisted_field():
+    """B11-M2 + B11C37-H1: verbatim private_texts echo inside unlisted display key must fail closed."""
+    secret_wire = "Confidential internal liquidity note on Tokyo sovereign desk rebalancing."
+    payload = _clean_outbound_payload(excerpt=f"Daily summary note: {secret_wire}")
+    with pytest.raises(fw.FreeTierFirewallError, match="CC024_RAW_X_LIST_OR_WIRE_FORBIDDEN"):
+        fw.verify_outbound_free_payload(
+            payload, now_utc=DEC15_OPEN_UTC, destination="substack", private_texts=[secret_wire]
+        )
+
+
+def test_remediation_b11_m3_b11c37_m2_b11_l2_legacy_dirs_allowed_and_active_refs_blocked(tmp_path: Path):
+    """B11-M3 + B11C37-M2 + B11-L2: legacy directory names pass while active providers/script_path fail closed."""
+    ctrl = tmp_path / "control"
+    ctrl.mkdir()
+    # Permanent legacy workspace directory names MUST NOT false-positive.
+    res = fw.verify_zero_claude_and_agy_dependencies(
+        now_utc=DEC15_OPEN_UTC,
+        runtime_config={
+            "editorial_owner": "codex",
+            "model": "gpt-6.2-sol",
+            "main_research_dir": r"A:\Capital Chronicle\ResearchRuns\claude-main-research\capture.json",
+            "ops_integrations_dir": r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\codex-exec\runner-publisher.stop",
+        },
+        control_dir=ctrl,
+        scheduled_tasks=[
+            {
+                "name": "DailyDigest1900",
+                "enabled": True,
+                "driver": "python-neo",
+                "command": "python scripts/run_daily_digest_1900.py --driver python-neo",
+                "main_root": r"A:\Capital Chronicle\ResearchRuns\claude-main-research",
+                "stop_root": r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\codex-exec",
+            }
+        ],
+        editorial_agent="codex",
+        digest_driver="python-neo",
+        live_provider="openai",
+    )
+    assert res["status"] == "PASS"
+
+    # Active Claude / Anthropic / AGY live_provider variants MUST fail closed.
+    for bad_claude_provider in ("claude-code", "claude-opus", "claude-sonnet", "anthropic-api", "anthropic-messages"):
+        with pytest.raises(fw.FreeTierFirewallError, match="ANTHROPIC_PROVIDER_RETIRED_CC855"):
+            fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider=bad_claude_provider)
+
+    for bad_agy_provider in ("agy-cli", "antigravity-cli", "antigravity"):
+        with pytest.raises(fw.FreeTierFirewallError, match="AGY_BLOCKED_TERMS_OF_SERVICE_20261124"):
+            fw.verify_zero_claude_and_agy_dependencies(now_utc=DEC15_OPEN_UTC, live_provider=bad_agy_provider)
+
+    # Enabled scheduled task referencing Claude or AGY in script_path (including inside legacy dir!) MUST fail closed.
+    for bad_script in (
+        "C:/ops/run_claude_poster.ps1",
+        r"A:\Capital Chronicle\ResearchRuns\claude-ops-integrations\run_claude_poster.ps1",
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN"):
+            fw.verify_zero_claude_and_agy_dependencies(
+                now_utc=DEC15_OPEN_UTC,
+                scheduled_tasks=[
+                    {"name": "SneakyPoster", "enabled": True, "driver": "python-neo", "script_path": bad_script}
+                ],
+            )
+
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_AGY_SCHEDULED_TASK_FORBIDDEN"):
+        fw.verify_zero_claude_and_agy_dependencies(
+            now_utc=DEC15_OPEN_UTC,
+            scheduled_tasks=[
+                {"name": "SneakyAgy", "enabled": True, "driver": "python-neo", "script_path": "C:/ops/run_agy_poster.ps1"}
+            ],
+        )
+
+
+def test_remediation_b11_m4_citation_as_of_et_and_cutoff_utc_lineage_verified(tmp_path: Path):
+    """B11-M4: forged as_of_et or mismatched cutoff_utc (even re-sealed) MUST fail closed."""
+    records = _build_arena_chain_records(3)
+    chain_path = _write_jsonl(tmp_path / "arena_chain_b11m4.jsonl", records)
+    citation = fw.build_public_track_record_citation(chain_path, as_of_utc=DEC15_OPEN_UTC)
+
+    # 1. Forged as_of_et re-sealed with valid citation_sha256 -> TRACK_RECORD_CITATION_DATE_ET_MISMATCH
+    forged_et = {k: v for k, v in citation.items() if k != "citation_sha256"}
+    forged_et["as_of_et"] = "1999-01-01"
+    forged_et["citation_sha256"] = fw.sha256_canonical(forged_et)
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CITATION_DATE_ET_MISMATCH"):
+        fw.verify_track_record_citation_lineage(forged_et, now_utc=DEC15_OPEN_UTC)
+
+    # 2. Forged cutoff_utc (earlier than chain's real last_cutoff_utc) re-sealed -> TRACK_RECORD_CITATION_CHAIN_MISMATCH
+    forged_cutoff = {k: v for k, v in citation.items() if k != "citation_sha256"}
+    forged_cutoff["cutoff_utc"] = "2026-12-01T00:00:00Z"
+    forged_cutoff["citation_sha256"] = fw.sha256_canonical(forged_cutoff)
+    with pytest.raises(fw.FreeTierFirewallError, match="TRACK_RECORD_CITATION_CHAIN_MISMATCH"):
+        fw.verify_track_record_citation_lineage(
+            forged_cutoff, now_utc=DEC15_OPEN_UTC, chain_records_or_path=chain_path
+        )
+
+
+def test_remediation_sw2_m1_and_b11c37_m3_utc_overflow_normalized():
+    """SW2-M1 + B11C37-M3: out-of-range aware datetimes / ET conversions MUST raise FreeTierFirewallError."""
+    for bad_ts in (
+        "0001-01-01T00:00:00+01:00",
+        "0001-01-01T00:00:00+05:00",
+        "9999-12-31T23:59:59-01:00",
+        "9999-12-31T23:59:59-05:00",
+        datetime(1, 1, 1, 0, 0, tzinfo=timezone(timedelta(hours=1))),
+        datetime(9999, 12, 31, 23, 59, 59, tzinfo=timezone(timedelta(hours=-1))),
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="UTC_CLOCK_OUT_OF_RANGE"):
+            fw.parse_strict_utc(bad_ts, field_name="now_utc")
+
+    # Overflowing max_clock_utc also normalizes cleanly
+    with pytest.raises(fw.FreeTierFirewallError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        fw.parse_strict_utc(
+            "2026-12-15T13:00:00Z",
+            field_name="ts",
+            max_clock_utc=datetime(1, 1, 1, 0, 0, tzinfo=timezone(timedelta(hours=1))),
+        )
+
+    # build_public_track_record_citation at year-0001 UTC (ET = UTC-5 overflows datetime.min)
+    payload_1 = {"event": "genesis_boundary", "asset": "gold"}
+    p_sha = fw.sha256_canonical(payload_1)
+    env_1 = {
+        "schema": fw.GENERIC_TRACK_CHAIN_SCHEMA,
+        "schema_version": "1.0.0",
+        "sequence": 1,
+        "record_id": "tr_min_0001",
+        "record_kind": "PUBLIC_CALL_RECORD",
+        "cutoff_utc": "0001-01-01T00:00:00Z",
+        "known_at_max_utc": "0001-01-01T00:00:00Z",
+        "prev_record_sha256": fw.GENESIS_PREV_SHA256,
+        "payload_sha256": p_sha,
+        "payload": payload_1,
+    }
+    row_1 = {**env_1, "record_sha256": fw.sha256_canonical(env_1)}
+    with pytest.raises(fw.FreeTierFirewallError, match="UTC_CLOCK_OUT_OF_RANGE"):
+        fw.build_public_track_record_citation([row_1], as_of_utc="0001-01-01T00:00:00Z")
+
+
+@pytest.mark.parametrize("extra_fields,expected_code", [
+    ({"price_usd": "29.00"}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"price_usd": "$19"}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"monthly_price_usd": "USD 49.00"}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"price_usd": "free"}, "FREE_ONLY_INVALID_PRICE_TYPE"),
+    ({"price_usd": "0"}, "FREE_ONLY_INVALID_PRICE_TYPE"),
+    ({"price_usd": 10**400}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"price_usd": -(10**400)}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"price_usd": 10**5000}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"price_usd": Decimal("1e-400")}, "FREE_ONLY_NONZERO_PRICE_FORBIDDEN"),
+    ({"paywall": "true"}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"paywall": 1}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"paywall_enabled": "enabled"}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"paid_tier_enabled": "yes"}, "FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"),
+    ({"substack_audience": "only_paid"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+    ({"newsletter_tier": "vip"}, "FREE_ONLY_PAID_TIER_METADATA_FORBIDDEN"),
+])
+def test_remediation_sw2_m2_b11c37_m1_b11_l1_free_only_strict_types_and_precision(
+    extra_fields: dict[str, Any], expected_code: str
+):
+    """SW2-M2 + B11C37-M1 + B11-L1: string prices, non-bool flags, 10**400, Decimal(1e-400), suffixed audience."""
+    payload = _clean_outbound_payload(**extra_fields)
+    with pytest.raises(fw.FreeTierFirewallError, match=expected_code):
+        fw.verify_free_only_mode(payload, now_utc=DEC15_OPEN_UTC)
+
+
+@pytest.mark.parametrize("bad_text,expected_code", [
+    ("Download via https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500.", "CC024_FRED_SP500_FORBIDDEN"),
+    ("Chart link: https://fred.stlouisfed.org/graph/?id=SP500", "CC024_FRED_SP500_FORBIDDEN"),
+    ("Raw text series: https://fred.stlouisfed.org/data/SP500.txt", "CC024_FRED_SP500_FORBIDDEN"),
+    ("Source: Yahoo Finance (https://finance.yahoo.com/quote/%5EGSPC).", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Gold futures fetched from https://finance.yahoo.com/quote/GC=F.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Equity index levels pulled via yfinance this morning.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+    ("Consensus earnings calendar attributed to Yahoo Finance.", "CC024_OCC_OR_YAHOO_GEX_FORBIDDEN"),
+])
+def test_remediation_sw2_m3_and_b11c37_h2_fred_sp500_and_all_yahoo_finance_blocked(
+    bad_text: str, expected_code: str
+):
+    """SW2-M3 + B11C37-H2: ALL stlouisfed.org/...sp500 URLs and ALL commercial Yahoo Finance citations blocked."""
+    payload = _clean_outbound_payload(text=bad_text)
+    with pytest.raises(fw.FreeTierFirewallError, match=expected_code):
+        fw.verify_cc024_commercial_firewall(payload)
+
+    # Clean non-SP500 FRED Treasury series still passes cleanly.
+    clean_fred = _clean_outbound_payload(
+        sources=[{"source": "FRED", "series_id": "DGS10", "url": "https://fred.stlouisfed.org/series/DGS10"}]
+    )
+    assert fw.verify_cc024_commercial_firewall(clean_fred)["cc024_clean"] is True
+
+
+def test_remediation_sw2_m4_pause_manifest_free_only_types_and_gate2_task_scan(tmp_path: Path):
+    """SW2-M4: pause manifest enforces FREE_ONLY_MODE, strict list element types, and gate_2 task inspection."""
+    # 1. Paid flags / prices inside pause manifest fail closed
+    paid_flag_manifest = {**_valid_dec15_pause_manifest(), "paywall_enabled": True}
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_ONLY_PAYWALL_FLAG_FORBIDDEN"):
+        fw.verify_pause_manifest_for_dec15_unpause(paid_flag_manifest, now_utc=DEC15_OPEN_UTC)
+
+    paid_price_manifest = {**_valid_dec15_pause_manifest(), "price_usd": 49}
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_ONLY_NONZERO_PRICE_FORBIDDEN"):
+        fw.verify_pause_manifest_for_dec15_unpause(paid_price_manifest, now_utc=DEC15_OPEN_UTC)
+
+    # 2. Untyped list elements fail closed
+    bad_dests = {**_valid_dec15_pause_manifest(), "suspended_destinations": [123, True, None]}
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_DESTINATIONS_INVALID_ELEMENT"):
+        fw.verify_pause_manifest_for_dec15_unpause(bad_dests, now_utc=DEC15_OPEN_UTC)
+
+    bad_tasks = {**_valid_dec15_pause_manifest(), "tasks": [123, True, None]}
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_TASKS_INVALID_ELEMENT"):
+        fw.verify_pause_manifest_for_dec15_unpause(bad_tasks, now_utc=DEC15_OPEN_UTC)
+
+    bad_stops = {**_valid_dec15_pause_manifest(), "stop_files": [123, True, None]}
+    with pytest.raises(fw.FreeTierFirewallError, match="PAUSE_MANIFEST_STOP_FILES_INVALID_ELEMENT"):
+        fw.verify_pause_manifest_for_dec15_unpause(bad_stops, now_utc=DEC15_OPEN_UTC)
+
+    # Dict-shaped stop_files (matching live pause-20261123/manifest.json shape) are accepted
+    dict_stops = {
+        **_valid_dec15_pause_manifest(),
+        "stop_files": [{"path": "A:/Capital Chronicle/Runtime/ContentOps/control/pause.stop", "existed_before": False}],
+    }
+    assert fw.verify_pause_manifest_for_dec15_unpause(dict_stops, now_utc=DEC15_OPEN_UTC)["status"] == "PASS"
+
+    # 3. gate_2 inspects pause_manifest["tasks"] even when scheduled_tasks=None!
+    records = _build_arena_chain_records(2)
+    chain_path = _write_jsonl(tmp_path / "chain_sw2m4.jsonl", records)
+    citation = fw.build_public_track_record_citation(chain_path, as_of_utc=DEC15_OPEN_UTC)
+    bad_manifest_task = {
+        **_valid_dec15_pause_manifest(),
+        "tasks": [
+            {"name": "SneakyManifestClaude", "enabled": True, "driver": "claude", "command": "claude -p run"}
+        ],
+    }
+    with pytest.raises(fw.FreeTierFirewallError, match="ACTIVE_CLAUDE_SCHEDULED_TASK_FORBIDDEN"):
+        fw.run_free_tier_unpause_preflight(
+            now_utc=DEC15_OPEN_UTC,
+            pause_manifest=bad_manifest_task,
+            outbound_payloads=[_clean_outbound_payload()],
+            track_record_citation=citation,
+            track_record_chain=chain_path,
+            scheduled_tasks=None,
+        )
+
+
+def test_remediation_sw2_l1_b11_l3_b11c37_l1_canonical_json_preflight_and_private_flags(tmp_path: Path):
+    """SW2-L1 + B11-L3 + B11C37-L1: finite Decimal in canonical_json, preflight dest/notice, non-bool private flags."""
+    # SW2-L1: finite Decimal wrapped cleanly as FreeTierFirewallError
+    with pytest.raises(fw.FreeTierFirewallError, match="NON_CANONICAL_JSON_VALUE"):
+        fw.canonical_json({"value": Decimal("1.5")})
+
+    # B11C37-L1: truthy string/int private_only / public_export_forbidden fail closed
+    for bad_flag in (
+        {"private_only": "true"},
+        {"private_only": 1},
+        {"public_export_forbidden": "yes"},
+        {"public_export_forbidden": 1},
+    ):
+        with pytest.raises(fw.FreeTierFirewallError, match="CC024_PRIVATE_BOOK_OR_RESPONSE_FORBIDDEN"):
+            fw.verify_cc024_commercial_firewall(_clean_outbound_payload(**bad_flag))
+
+    # B11-L3: non-string destination fails closed AND require_notice=True is wired through preflight
+    records = _build_arena_chain_records(2)
+    chain_path = _write_jsonl(tmp_path / "chain_b11l3.jsonl", records)
+    citation = fw.build_public_track_record_citation(chain_path, as_of_utc=DEC15_OPEN_UTC)
+
+    bad_dest_payload = _clean_outbound_payload(destination=123)
+    with pytest.raises(fw.FreeTierFirewallError, match="FREE_TIER_DESTINATION_INVALID"):
+        fw.run_free_tier_unpause_preflight(
+            now_utc=DEC15_OPEN_UTC,
+            pause_manifest=_valid_dec15_pause_manifest(),
+            outbound_payloads=[bad_dest_payload],
+            track_record_citation=citation,
+            track_record_chain=chain_path,
+        )
+
+    no_notice_payload = _clean_outbound_payload(
+        text="Treasury yields eased after CPI matched expectations. Chart: TradingView."
+    )
+    with pytest.raises(fw.FreeTierFirewallError, match="PUBLIC_ANALYSIS_NOTICE_REQUIRED"):
+        fw.run_free_tier_unpause_preflight(
+            now_utc=DEC15_OPEN_UTC,
+            pause_manifest=_valid_dec15_pause_manifest(),
+            outbound_payloads=[no_notice_payload],
+            track_record_citation=citation,
+            track_record_chain=chain_path,
+            require_notice=True,
+        )
