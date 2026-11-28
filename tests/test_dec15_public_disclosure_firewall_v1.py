@@ -285,7 +285,6 @@ def test_cc691_committed_clean_fixtures_pass_and_pre_cc791_odds_wrap_blocks(tmp_
         ("chart_metadata", posts["charts"]["bitcoin"]["asset"]),
         ("post", {"text": posts["timed_plan_update"]["text"], "event_utc": posts["timed_plan_update"]["event_utc"]}),
         ("post", {"text": posts["plan_analysis_reply"]["text"], "canonical_url": posts["plan_analysis_reply"]["public_analysis_url"]}),
-        ("post", {"title": posts["wraps"]["daily"]["title"], "body": posts["wraps"]["daily"]["body_excerpt"]}),
     ):
         rec = fw.evaluate_payload(
             obj,
@@ -296,6 +295,35 @@ def test_cc691_committed_clean_fixtures_pass_and_pre_cc791_odds_wrap_blocks(tmp_
         )
         assert rec["verdict"] == fw.VERDICT_READY_FREE_UNPAUSE, rec["findings"]
         assert rec["counts"]["total_findings"] == 0
+
+    # Historical 9 Nov daily wrap predated Decision 107 and uses raw CFD table symbols (USOIL/BTCUSD/XAUUSD/US500).
+    daily_rec = fw.evaluate_payload(
+        {"title": posts["wraps"]["daily"]["title"], "body": posts["wraps"]["daily"]["body_excerpt"]},
+        payload_kind="post",
+        as_of_utc=DEC15_BOUNDARY,
+        pause_dir=pause_dir,
+        publisher_stops_dir=stops_dir,
+    )
+    assert daily_rec["verdict"] == fw.VERDICT_BLOCKED
+    assert {f["code"] for f in daily_rec["findings"]} == {"PUBLIC_RAW_CFD_SYMBOL_DECISION_107"}
+
+    # Replacing those 4 pre-Decision-107 table tickers with Decision-107 instrument names makes the wrap clean.
+    d107_body = (
+        posts["wraps"]["daily"]["body_excerpt"]
+        .replace("| USOIL |", "| WTI |")
+        .replace("| BTCUSD |", "| Bitcoin |")
+        .replace("| XAUUSD |", "| Gold |")
+        .replace("| US500 |", "| S&P 500 |")
+    )
+    daily_clean_rec = fw.evaluate_payload(
+        {"title": posts["wraps"]["daily"]["title"], "body": d107_body},
+        payload_kind="post",
+        as_of_utc=DEC15_BOUNDARY,
+        pause_dir=pause_dir,
+        publisher_stops_dir=stops_dir,
+    )
+    assert daily_clean_rec["verdict"] == fw.VERDICT_READY_FREE_UNPAUSE, daily_clean_rec["findings"]
+    assert daily_clean_rec["counts"]["total_findings"] == 0
 
     # Historical 8 Nov weekend wrap predated CC-791 and contains "odds of a December Fed rate rise to about 78-80%".
     weekend_rec = fw.evaluate_payload(
@@ -1048,3 +1076,485 @@ def test_evaluate_payload_file_missing_and_directory_fail_closed(tmp_path):
     )
     assert as_dir["verdict"] == fw.VERDICT_BLOCKED
     assert any(f["code"] == "NON_REGULAR_FILE_FORBIDDEN" for f in as_dir["findings"])
+
+
+# ---------------------------------------------------------------------------
+# 7. Cycle #23a Combined Remediation Regressions (Ops Product + Reviewer 2 #143)
+# ---------------------------------------------------------------------------
+
+
+def _publish_pause_state() -> dict:
+    return {
+        "paused_at_utc": "2026-11-23T04:56:22Z",
+        "resume_at_utc": DEC15_BOUNDARY,
+        "publisher_stops_present": [],
+        "restored_present": True,
+        "restored_at_utc": DEC15_BOUNDARY,
+    }
+
+
+@pytest.mark.parametrize(
+    ("label", "mutator", "expected_code"),
+    [
+        # B16C21-H1 + R2-H2: CC-024 commercial data-rights deny-list
+        ("b1_yahoo_finance_url", lambda p: p.update(body_markdown="S&P 500 close from Yahoo Finance (https://finance.yahoo.com/quote/%5EGSPC)."), "CC024_RAW_VENDOR_LEAK"),
+        ("b2_yfinance_query1", lambda p: p.update(body_markdown="Daily prices pulled via yfinance and query1.finance.yahoo.com."), "CC024_RAW_VENDOR_LEAK"),
+        ("b3_fred_sp500_csv", lambda p: p.update(body_markdown="Chart data: https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500"), "CC024_RAW_VENDOR_LEAK"),
+        ("b4_fred_sp500_vixcls", lambda p: p.update(body_markdown="Series FRED:SP500 and https://fred.stlouisfed.org/series/SP500 plus FRED:VIXCLS."), "CC024_RAW_VENDOR_LEAK"),
+        ("r2_c6_fredgraph_png_sp500", lambda p: p.update(body_markdown="https://fred.stlouisfed.org/graph/fredgraph.png?id=SP500"), "CC024_RAW_VENDOR_LEAK"),
+        ("r2_c6b_fred_baml", lambda p: p.update(body_markdown="High-yield spread from BAMLH0A0HYM2."), "CC024_RAW_VENDOR_LEAK"),
+        ("r2_c6b_fred_nasdaqcom", lambda p: p.update(body_markdown="Index series NASDAQCOM and FRED:DJIA plus WILL5000IND."), "CC024_RAW_VENDOR_LEAK"),
+        ("r2_c6b_series_id_sp500", lambda p: p.update(series_id="SP500"), "CC024_RAW_VENDOR_LEAK"),
+        ("r2_c5_cnbc_quote", lambda p: p.update(body_markdown="Quotes via https://quote.cnbc.com/quote-html-webservice/restQuote"), "CC024_RAW_VENDOR_LEAK"),
+        ("b5_investing_myfxbook", lambda p: p.update(body_markdown="Investing.com consensus and Myfxbook retail sentiment (https://www.myfxbook.com/community/outlook)."), "CC024_RAW_VENDOR_LEAK"),
+        ("b6_occ_gex", lambda p: p.update(body_markdown="OCC options gamma exposure from https://www.theocc.com/market-data/"), "CC024_RAW_VENDOR_LEAK"),
+        ("b7_tv_embed_widget", lambda p: p.update(body_markdown="Embed https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"), "CC024_RAW_VENDOR_LEAK"),
+        ("b7_tv_widgetembed", lambda p: p.update(body_markdown="Widget https://www.tradingview.com/widgetembed/?symbol=SPX"), "CC024_RAW_VENDOR_LEAK"),
+        ("r2_c7_rights_fred_copyrighted", lambda p: p.update(rights_class="FRED_COPYRIGHTED"), "CC024_DENIED_PUBLIC_RIGHTS"),
+        ("r2_c8_rights_list_non_string", lambda p: p.update(rights_class=["LICENSE_REQUIRED"]), "CC024_RIGHTS_CLASS_INVALID"),
+        ("r2_c8_rights_int_non_string", lambda p: p.update(rights_class=123), "CC024_RIGHTS_CLASS_INVALID"),
+        ("r2_c8_rights_none_non_string", lambda p: p.update(rights_class=None), "CC024_RIGHTS_CLASS_INVALID"),
+    ],
+)
+def test_remediation_b16c21_h1_and_r2_h2_commercial_rights_blocked(label, mutator, expected_code):
+    payload = clean_post_payload()
+    mutator(payload)
+    rec = fw.evaluate_payload(
+        payload,
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+    assert rec["publish_allowed"] is False
+    assert rec["cc024_audit"]["mode"] == fw.VERDICT_BLOCKED
+    assert rec["cc024_audit"]["raw_vendor_leak_count"] >= 1, (label, rec["cc024_audit"])
+    assert any(f["code"] == expected_code for f in rec["findings"]), (label, rec["findings"])
+    assert_receipt_hash_valid(rec)
+
+
+def test_remediation_b16c21_h1_preserves_public_fred_and_decision82_tradingview():
+    p_fred = clean_post_payload()
+    p_fred["body_markdown"] = (
+        "10-year Treasury yield via FRED:DGS10 "
+        "(https://fred.stlouisfed.org/series/DGS10 and https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10). "
+        "Capital Chronicle offers analysis only, not financial advice or recommendations."
+    )
+    r_fred = fw.evaluate_payload(
+        p_fred,
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert r_fred["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, r_fred["findings"]
+    assert r_fred["publish_allowed"] is True
+
+    r_tv = fw.evaluate_payload(
+        clean_chart_metadata_payload(),
+        payload_kind="chart_metadata",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert r_tv["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, r_tv["findings"]
+    assert r_tv["publish_allowed"] is True
+
+
+@pytest.mark.parametrize(
+    ("label", "mutator", "expected_code", "expected_bucket"),
+    [
+        # B16C21-H2 + R2-H2: Substack audience, nested paywall/tier, paid prose, roadmap rails, affiliates
+        ("b8_audience_only_paid", lambda p: p.update(audience="only_paid"), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("b9_audience_only_founding", lambda p: p.update(audience="only_founding"), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("b10_substack_audience_only_paid", lambda p: p.update(substack_audience="only_paid"), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("r2_c2_subscription_tier_sub_only", lambda p: p.update(subscription_tier="subscriber_only"), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("allowlist_unlisted_audience", lambda p: p.update(audience="inner_circle_members"), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("b11_nested_paywall_dict", lambda p: p.update(paywall={"enabled": True}), "CC024_PAYWALL_FIELD_ACTIVE", "paid_paywall_count"),
+        ("r2_c1_nested_sub_price_dict", lambda p: p.update(subscription_price={"amount": 29, "currency": "USD"}), "CC024_PAYWALL_FIELD_ACTIVE", "paid_paywall_count"),
+        ("r2_c1_nested_paid_tier_list", lambda p: p.update(paid_tier=["gold", "vip"]), "CC024_PAYWALL_FIELD_ACTIVE", "paid_paywall_count"),
+        ("b12_nested_tier_paid", lambda p: p.update(tier={"name": "PAID"}), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("r2_c2_nested_tier_vip", lambda p: p.update(tier={"name": "VIP"}), "CC024_NON_FREE_TIER_FORBIDDEN", "paid_paywall_count"),
+        ("r2_c3_paid_subscription_prose", lambda p: p.update(body_markdown="Get a paid subscription today. Paid members get early access."), "CC024_PAYWALL_UPSELL_FORBIDDEN", "paid_paywall_count"),
+        ("b13_lemonsqueezy", lambda p: p.update(body_markdown="Join at https://capitalchronicle.lemonsqueezy.com/checkout"), "CC024_PAYWALL_UPSELL_FORBIDDEN", "paid_paywall_count"),
+        ("b13_mql5_signals", lambda p: p.update(body_markdown="Subscribe at https://www.mql5.com/en/signals/12345"), "CC024_PAYWALL_UPSELL_FORBIDDEN", "paid_paywall_count"),
+        ("b13_exness_social", lambda p: p.update(body_markdown="Mirror via https://social-trading.exness.com/strategy/99"), "CC024_PAYWALL_UPSELL_FORBIDDEN", "paid_paywall_count"),
+        ("b14_affiliate_bool_key", lambda p: p.update(affiliate=True), "CC024_AFFILIATE_FIELD_ACTIVE", "affiliate_count"),
+        ("b14_referral_str_key", lambda p: p.update(referral="jim123"), "CC024_AFFILIATE_FIELD_ACTIVE", "affiliate_count"),
+        ("r2_c4b_referral_path", lambda p: p.update(body_markdown="Open via https://ibkr.com/referral/jim123"), "CC024_AFFILIATE_URL_PATH", "affiliate_count"),
+        ("r2_c4b_ref_path_and_params", lambda p: p.update(body_markdown="Visit https://broker.example/ref/abc?partner_code=cc&ib=123&via=jim"), "CC024_AFFILIATE_URL_PARAM", "affiliate_count"),
+    ],
+)
+def test_remediation_b16c21_h2_and_r2_h2_paywall_audience_and_affiliate_blocked(
+    label, mutator, expected_code, expected_bucket
+):
+    payload = clean_post_payload()
+    mutator(payload)
+    rec = fw.evaluate_payload(
+        payload,
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+    assert rec["publish_allowed"] is False
+    assert rec["cc024_audit"][expected_bucket] >= 1, (label, rec["cc024_audit"])
+    assert any(f["code"] == expected_code for f in rec["findings"]), (label, rec["findings"])
+    assert_receipt_hash_valid(rec)
+
+
+def test_remediation_b16c21_h2_allows_free_audience_and_cc107_anchor_card_tier():
+    p = clean_post_payload()
+    p["audience"] = "everyone"
+    p["substack_audience"] = "free"
+    p["paywall"] = {"enabled": False}
+    p["paid_tier"] = []
+    rec = fw.evaluate_payload(
+        p,
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert rec["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, rec["findings"]
+
+    card = clean_card_payload()
+    card["tier"]["value"] = "ANCHOR"
+    rec_card = fw.evaluate_payload(
+        card,
+        payload_kind="card",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert rec_card["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, rec_card["findings"]
+
+
+@pytest.mark.parametrize(
+    ("label", "mutator", "expected_code"),
+    [
+        # B16C21-M2: Markdown split, HTML entities, Unicode Cf (LRM/Invisible Times/Sep)
+        ("md_bold_stop_loss", lambda p: p.update(body_markdown="Use **stop**-loss at 3920."), "RULE_A3_STOP_LOSS_LEVEL_LEAK"),
+        ("md_bold_take_profit", lambda p: p.update(body_markdown="Set **take**-profit at 4210."), "RULE_A3_TAKE_PROFIT_LEVEL_LEAK"),
+        ("md_bold_dur", lambda p: p.update(body_markdown="Account **DUR**343723 active."), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("md_bold_exness", lambda p: p.update(body_markdown="Routed on **Ex**ness trial server."), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("md_bold_paid", lambda p: p.update(body_markdown="This post is for **paid** subscribers only."), "CC024_PAYWALL_UPSELL_FORBIDDEN"),
+        ("html_entity_gmt7", lambda p: p.update(body_markdown="Published 09:00 GMT&#43;7 today."), "PUBLIC_TIMEZONE_ET_REQUIRED"),
+        ("html_entity_dur", lambda p: p.update(body_markdown="Account &#68;UR343723 active."), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("cf_lrm_dur", lambda p: p.update(body_markdown="Account DU\u200eR343723 active."), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("cf_lrm_stoploss", lambda p: p.update(body_markdown="Set stop\u200eloss at 3920."), "RULE_A3_STOP_LOSS_LEVEL_LEAK"),
+        ("cf_lrm_gmt7", lambda p: p.update(body_markdown="Published 09:00 GMT\u200e+7 today."), "PUBLIC_TIMEZONE_ET_REQUIRED"),
+        ("cf_lrm_f_star", lambda p: p.update(body_markdown="Optimal f\u200e* = 0.04 on gold."), "RULE_A3_KELLY_SIZING_LOT_LEAK"),
+        ("r2_b1_cf_invisible_times_sep", lambda p: p.update(body_markdown="D\u2062U\u2063R343723"), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("r2_b2_newline_take_profit", lambda p: p.update(body_markdown="take\nprofit"), "RULE_A3_TAKE_PROFIT_LEVEL_LEAK"),
+        # R2-H1: Broker boundaries/separators & prefixed snake/camelCase keys & CC-791 odds keys
+        ("r2_a1_acct_dur_key", lambda p: p.update({"acct_DUR343723": "ok"}), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("r2_a2_underscore_broker_ids", lambda p: p.update(body_markdown="Routed via acct_DUR343723 and login_279805139 and acct_U1234567"), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("r2_a3_hyphen_space_dur", lambda p: p.update(body_markdown="Account DUR-343723 and DUR 343723"), "RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK"),
+        ("r2_a4_gold_stop_loss", lambda p: p.update(gold_stop_loss=3920.0), "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+        ("r2_a4_xauusd_take_profit", lambda p: p.update(xauusd_take_profit=4210.0), "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+        ("r2_a4_gold_entry_fill", lambda p: p.update(gold_entry_fill=4012.5), "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+        ("r2_a5_desk_lot_size", lambda p: p.update(desk_lot_size=0.05), "RULE_A3_FORBIDDEN_KELLY_SIZING_KEY"),
+        ("r2_a5_xauusd_kelly_weight", lambda p: p.update(xauusd_kelly_weight=0.12), "RULE_A3_FORBIDDEN_KELLY_SIZING_KEY"),
+        ("r2_a5_xauusd_realized_pnl", lambda p: p.update(xauusd_realized_pnl=4200.0), "RULE_A3_FORBIDDEN_ACCOUNT_PNL_KEY"),
+        ("r2_a5_xauusd_sleeve_weight", lambda p: p.update(xauusd_sleeve_weight=0.35), "RULE_A3_FORBIDDEN_L4_SLEEVE_KEY"),
+        ("r2_a6_camel_goldStopLoss", lambda p: p.update(goldStopLoss=3920.0), "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+        ("r2_a6_camel_xauusdTakeProfit", lambda p: p.update(xauusdTakeProfit=4210.0), "RULE_A3_FORBIDDEN_EXECUTION_KEY"),
+        ("r2_a6_camel_deskKellyFraction", lambda p: p.update(deskKellyFraction=0.04), "RULE_A3_FORBIDDEN_KELLY_SIZING_KEY"),
+        ("r2_a7_kalshi_odds_pct", lambda p: p.update(kalshi_odds_pct=86), "PUBLIC_ODDS_LEAK_CC791"),
+        ("r2_a7_fedwatch_cut_prob", lambda p: p.update(fedwatch_cut_probability=0.863), "PUBLIC_ODDS_LEAK_CC791"),
+        ("r2_a7_gap_pp", lambda p: p.update(gap_pp=14.2), "PUBLIC_ODDS_LEAK_CC791"),
+        ("r2_a7_polymarket_yes_price", lambda p: p.update(polymarket_yes_price=0.78), "PUBLIC_ODDS_LEAK_CC791"),
+        # B16C21-M3 + R2-H1: Decision 157 target/SL/Entry/Kelly/PnL/Study prose
+        ("c4a_gold_target_num", lambda p: p.update(body_markdown="Gold target 4,200 into Friday."), "RULE_A3_TAKE_PROFIT_LEVEL_LEAK"),
+        ("c4b_sl_space_num", lambda p: p.update(body_markdown="SL 3,920 protects the setup."), "RULE_A3_STOP_LOSS_LEVEL_LEAK"),
+        ("c4c_entry_space_num", lambda p: p.update(body_markdown="Entry 4,012.50 after CPI."), "RULE_A3_ENTRY_FILL_LEVEL_LEAK"),
+        ("c4d_our_target_zone", lambda p: p.update(body_markdown="Our target zone is 4,200-4,250."), "RULE_A3_TAKE_PROFIT_LEVEL_LEAK"),
+        ("r2_b3_kelly_variants", lambda p: p.update(body_markdown="0.5x Kelly (Kelly-optimal, Kelly = 0.04) with 0.05-lot sizing"), "RULE_A3_KELLY_SIZING_LOT_LEAK"),
+        ("r2_b4_entered_at", lambda p: p.update(body_markdown="Entered at 4,012.50 after open."), "RULE_A3_ENTRY_FILL_LEVEL_LEAK"),
+        ("r2_b4_weekly_pnl", lambda p: p.update(body_markdown="Weekly PnL: +3.2%."), "RULE_A3_ACCOUNT_BALANCE_EQUITY_PNL_LEAK"),
+        ("r2_b5_study_10_hyphen", lambda p: p.update(body_markdown="study_10 and Study-8 results."), "RULE_A3_PRIVATE_STUDY_TAG_LEAK"),
+    ],
+)
+def test_remediation_r2_h1_m2_m3_unicode_evasion_keys_and_prose_blocked(label, mutator, expected_code):
+    payload = clean_post_payload()
+    mutator(payload)
+    rec = fw.evaluate_payload(
+        payload,
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+    assert rec["publish_allowed"] is False
+    assert any(f["code"] == expected_code for f in rec["findings"]), (label, rec["findings"])
+    assert_receipt_hash_valid(rec)
+
+
+def test_remediation_m3_l2_r2_l2_chart_overlay_word_boundary_and_all_values():
+    ps = _publish_pause_state()
+    for label, entry in (
+        ("c7_name_stop_3950", {"name": "Stop 3950", "value": 3950}),
+        ("r2_c10_name_stop_loss", {"name": "stop_loss", "price": 3900}),
+        ("title_tp1", {"title": "TP1 4210"}),
+    ):
+        chart = clean_chart_metadata_payload()
+        chart["tradingview_snapshot"]["levels_drawn"] = [entry]
+        rec = fw.evaluate_payload(chart, payload_kind="chart_metadata", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+        assert any(f["code"] == "RULE_A3_CHART_EXECUTION_LEVEL_DRAWN" for f in rec["findings"]), (label, rec["findings"])
+
+    # B16C21-L2 (C8): 'Tesla support' must NOT false-positive on substring 'sl' inside 'Tesla'.
+    benign_chart = clean_chart_metadata_payload()
+    benign_chart["tradingview_snapshot"]["levels_drawn"] = [{"label": "Tesla support", "price": 240}]
+    rec_ok = fw.evaluate_payload(
+        benign_chart,
+        payload_kind="chart_metadata",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=ps,
+    )
+    assert rec_ok["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, rec_ok["findings"]
+    assert rec_ok["publish_allowed"] is True
+
+
+def test_remediation_m1_r2_m1_no_uncaught_crashes_on_overflow_surrogates_and_hostile_inputs():
+    ps = _publish_pause_state()
+    cases = [
+        ("price_usd_10_400", lambda: fw.evaluate_payload({**clean_post_payload(), "price_usd": 10**400}, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("paywall_10_400", lambda: fw.evaluate_payload({**clean_post_payload(), "paywall": 10**400}, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("monthly_price_neg_10_400", lambda: fw.evaluate_payload({**clean_post_payload(), "monthly_price": -(10**400)}, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("price_usd_nan", lambda: fw.evaluate_payload({**clean_post_payload(), "price_usd": float("nan")}, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("price_usd_inf", lambda: fw.evaluate_payload({**clean_post_payload(), "price_usd": float("inf")}, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("surrogate_dict_key", lambda: fw.evaluate_payload({"bad\ud800key": "ok"}, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("surrogate_as_of_utc", lambda: fw.evaluate_payload(clean_post_payload(), as_of_utc="2026-12-15\ud800", gate_mode="publish", pause_state=ps)),
+        ("surrogate_observed_at_utc", lambda: fw.evaluate_payload(clean_post_payload(), as_of_utc=AFTER_DEC15, observed_at_utc="2026-12-14\ud800", gate_mode="publish", pause_state=ps)),
+        ("surrogate_artifact_id", lambda: fw.evaluate_payload(clean_post_payload(), as_of_utc=AFTER_DEC15, artifact_id="art\ud800", gate_mode="publish", pause_state=ps)),
+        ("object_gate_mode", lambda: fw.evaluate_payload(clean_post_payload(), as_of_utc=AFTER_DEC15, gate_mode=object(), pause_state=ps)),
+        ("list_gate_mode", lambda: fw.evaluate_payload(clean_post_payload(), as_of_utc=AFTER_DEC15, gate_mode=[], pause_state=ps)),
+        ("surrogate_gate_mode", lambda: fw.evaluate_payload(clean_post_payload(), as_of_utc=AFTER_DEC15, gate_mode="pub\ud800", pause_state=ps)),
+        ("int_spec_path", lambda: fw.evaluate_release_batch([{"path": 123}], as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("int_payload_file", lambda: fw.evaluate_payload_file(123, as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+        ("int_raw_bytes", lambda: fw.evaluate_release_batch([{"raw_bytes": 123}], as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)),
+    ]
+    for label, fn in cases:
+        rec = fn()
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+        assert rec["publish_allowed"] is False, label
+        assert_receipt_hash_valid(rec)
+
+
+def test_remediation_m5_r2_m2_restored_json_dry_run_and_falsey_started_at_rejected(tmp_path):
+    # C9: restored.json with dry_run=true must NEVER authorize publish.
+    for label, restored_obj, expected_code in (
+        ("dry_run_true", {"started_at_utc": DEC15_BOUNDARY, "dry_run": True}, "RESTORED_MARKER_DRY_RUN_FORBIDDEN"),
+        ("dry_run_str_false", {"started_at_utc": DEC15_BOUNDARY, "dry_run": "false"}, "RESTORED_MARKER_DRY_RUN_FORBIDDEN"),
+        ("dry_run_int_1", {"started_at_utc": DEC15_BOUNDARY, "dry_run": 1}, "RESTORED_MARKER_DRY_RUN_FORBIDDEN"),
+        ("dry_run_none", {"started_at_utc": DEC15_BOUNDARY, "dry_run": None}, "RESTORED_MARKER_DRY_RUN_FORBIDDEN"),
+        # R2-M2 (D7): explicit falsey started_at_utc must NOT fall back via `or` to ended_at_utc.
+        ("started_false_fallback", {"started_at_utc": False, "ended_at_utc": DEC15_BOUNDARY}, "UTC_CLOCK_INVALID"),
+        ("started_empty_fallback", {"started_at_utc": "", "ended_at_utc": DEC15_BOUNDARY}, "UTC_CLOCK_INVALID"),
+        ("started_none_fallback", {"started_at_utc": None, "ended_at_utc": DEC15_BOUNDARY}, "UTC_CLOCK_INVALID"),
+    ):
+        p_dir, s_dir = make_pause_snapshot(tmp_path / label, resume_at=DEC15_BOUNDARY, stops=(), restored_at=None)
+        (p_dir / "restored.json").write_bytes((json.dumps(restored_obj) + "\n").encode("utf-8"))
+        rec = fw.evaluate_payload(
+            clean_post_payload(),
+            payload_kind="post",
+            as_of_utc=AFTER_DEC15,
+            gate_mode="publish",
+            pause_dir=p_dir,
+            publisher_stops_dir=s_dir,
+        )
+        assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+        assert rec["publish_allowed"] is False, label
+        assert rec["pause_gate"]["failure_code"] == expected_code, (label, rec["pause_gate"])
+
+    # Valid explicit dry_run=false passes cleanly.
+    ok_dir, ok_stops = make_pause_snapshot(tmp_path / "ok_live", resume_at=DEC15_BOUNDARY, stops=(), restored_at=None)
+    (ok_dir / "restored.json").write_bytes(
+        (json.dumps({"started_at_utc": DEC15_BOUNDARY, "dry_run": False}) + "\n").encode("utf-8")
+    )
+    rec_ok = fw.evaluate_payload(
+        clean_post_payload(),
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_dir=ok_dir,
+        publisher_stops_dir=ok_stops,
+    )
+    assert rec_ok["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH
+    assert rec_ok["publish_allowed"] is True
+
+
+def test_remediation_r2_m3_unified_key_redactor_zero_verbatim_echo():
+    ps = _publish_pause_state()
+    # D6: private-alpha & numeric-level dict keys never echoed in receipt findings/paths
+    rec_d6 = fw.evaluate_payload(
+        {"Kelly f* = 0.042": 1, "stop-loss 3920.50": 1, "Study #10 L4 weights 0.45": 1},
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=ps,
+    )
+    assert rec_d6["verdict"] == fw.VERDICT_BLOCKED
+    s_d6 = json.dumps(rec_d6)
+    for leaked in ("Kelly f*", "0.042", "stop-loss 3920.50", "3920.50", "Study #10", "L4 weights", "0.45"):
+        assert leaked not in s_d6, (leaked, s_d6)
+    assert "<REDACTED_KEY#" in s_d6
+    assert_receipt_hash_valid(rec_d6)
+
+    # D13: duplicate-key broker suffix never echoed in duplicate-key diagnostic
+    rec_d13 = fw.evaluate_payload_bytes(
+        b'{"acct_DUR343723":1,"acct_DUR343723":2}',
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=ps,
+    )
+    assert rec_d13["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "DUPLICATE_JSON_KEY_FORBIDDEN" for f in rec_d13["findings"])
+    s_d13 = json.dumps(rec_d13)
+    assert "DUR343723" not in s_d13
+    assert "acct_DUR343723" not in s_d13
+    assert "<REDACTED_KEY#" in s_d13
+    assert_receipt_hash_valid(rec_d13)
+
+
+def test_remediation_m4_r2_m4_batch_dedupe_preserves_distinct_artifact_ids():
+    ps = _publish_pause_state()
+    bad_a = clean_post_payload()
+    bad_a["body_markdown"] = "Upgrade to paid VIP signals via DUR343723."
+    bad_b = clean_post_payload()
+    bad_b["body_markdown"] = "Upgrade to paid VIP signals via DUR343723."
+    rec = fw.evaluate_release_batch(
+        [
+            {"artifact_id": "art-1", "payload_kind": "post", "payload": bad_a},
+            {"artifact_id": "art-2", "payload_kind": "post", "payload": bad_b},
+        ],
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=ps,
+    )
+    assert rec["verdict"] == fw.VERDICT_BLOCKED
+    assert [(a["artifact_id"], a["finding_count"]) for a in rec["artifacts"]] == [("art-1", 3), ("art-2", 3)]
+    assert rec["counts"]["total_findings"] == 6
+    assert rec["cc024_audit"]["paid_paywall_count"] == 4
+    assert sorted({f["artifact_id"] for f in rec["findings"]}) == ["art-1", "art-2"]
+    assert_receipt_hash_valid(rec)
+
+
+@pytest.mark.parametrize(
+    ("label", "text", "expected_code"),
+    [
+        # B16C21-M6 + R2-M5: Decision 107 raw CFD/broker symbols + Decision 109 AI labels
+        ("d107_ustec_cfd_us500_xauusd", "USTEC CFD and US500 jumped while XAUUSD steadied.", "PUBLIC_RAW_CFD_SYMBOL_DECISION_107"),
+        ("d107_broker_suffix_m", "US500m and XAUUSDm and USTECm moved overnight.", "PUBLIC_RAW_CFD_SYMBOL_DECISION_107"),
+        ("d109_sonnet", "Edited by Sonnet before release.", "PUBLIC_AI_MODEL_AUTHORSHIP_LEAK"),
+        ("d109_haiku", "Drafted by Haiku summary pass.", "PUBLIC_AI_MODEL_AUTHORSHIP_LEAK"),
+        ("d109_fable", "Reviewed by Fable model.", "PUBLIC_AI_MODEL_AUTHORSHIP_LEAK"),
+        ("d109_luna", "Prepared by Luna desk pass.", "PUBLIC_AI_MODEL_AUTHORSHIP_LEAK"),
+        ("d109_agy", "Generated with agy CLI helper.", "PUBLIC_AI_MODEL_AUTHORSHIP_LEAK"),
+        # R2-L1: dangerous / non-HTTP URL schemes
+        ("r2_l1_href_js", "Click href=javascript:alert(1) now.", "PUBLIC_WEBAPP_UNSAFE_URL_SCHEME"),
+        ("r2_l1_vbscript", "Run vbscript:msgbox(1) inline.", "PUBLIC_WEBAPP_UNSAFE_URL_SCHEME"),
+        ("r2_l1_ftp", "Download ftp://files.example/a today.", "PUBLIC_WEBAPP_UNSAFE_URL_SCHEME"),
+    ],
+)
+def test_remediation_m6_r2_m5_r2_l1_decision107_ai_labels_and_url_schemes(label, text, expected_code):
+    payload = clean_post_payload()
+    payload["body_markdown"] = text
+    rec = fw.evaluate_payload(
+        payload,
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_state=_publish_pause_state(),
+    )
+    assert rec["verdict"] == fw.VERDICT_BLOCKED, label
+    assert any(f["code"] == expected_code for f in rec["findings"]), (label, rec["findings"])
+
+
+def test_remediation_l1_l3_l4_r2_l3_macro_flows_list_utc_and_dir_scan_hardening(tmp_path, monkeypatch):
+    ps = _publish_pause_state()
+
+    # B16C21-L1 (D1 & D3): macro equity/capital flow journalism stays clean; numeric bare equity/balance still blocks
+    macro_post = clean_post_payload()
+    macro_post["body_markdown"] = (
+        "US equity outflows reached $12 billion while foreign capital inflows hit $45 billion. "
+        "Capital Chronicle offers analysis only, not financial advice or recommendations."
+    )
+    macro_post["equity"] = "US equity outflows slowed into Friday."
+    macro_post["balance"] = "US trade balance narrowed to $68.5 billion."
+    r_macro = fw.evaluate_payload(macro_post, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+    assert r_macro["verdict"] == fw.VERDICT_ALLOW_FREE_PUBLISH, r_macro["findings"]
+
+    num_equity = clean_post_payload()
+    num_equity["equity"] = 50000.0
+    r_num_eq = fw.evaluate_payload(num_equity, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+    assert r_num_eq["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "RULE_A3_FORBIDDEN_ACCOUNT_PNL_KEY" for f in r_num_eq["findings"])
+
+    # B16C21-L3 (A5): list-wrapped *_utc timestamps enforce strict UTC
+    list_utc = clean_post_payload()
+    list_utc["published_at_utc"] = ["2026-12-15T12:00:00+07:00"]
+    r_list_utc = fw.evaluate_payload(list_utc, payload_kind="post", as_of_utc=AFTER_DEC15, gate_mode="publish", pause_state=ps)
+    assert r_list_utc["verdict"] == fw.VERDICT_BLOCKED
+    assert any(f["code"] == "UTC_CLOCK_INVALID" for f in r_list_utc["findings"])
+
+    # B16C21-L4 (D7): expanded private filenames & max_files truncated flag
+    pub_dir = tmp_path / "pub_dir"
+    pub_dir.mkdir()
+    for fname in ("private-desk.json", "attention-map-summary.json", "contentops-newsroom-summary.json", "market-forces-attribution.json", "_private_texts.json"):
+        (pub_dir / fname).write_bytes(b'{"title":"clean"}\n')
+    scan_bad_names = fw.scan_public_directory_readonly(pub_dir)
+    assert scan_bad_names["failed_files"] == 5
+    assert scan_bad_names["clean_files"] == 0
+    assert scan_bad_names["truncated"] is False
+    assert all("PUBLIC_WEBAPP_FORBIDDEN_FILENAME" in f["codes"] for f in scan_bad_names["failures"])
+
+    scan_trunc = fw.scan_public_directory_readonly(pub_dir, max_files=2)
+    assert scan_trunc["files_scanned"] == 2
+    assert scan_trunc["truncated"] is True
+
+    # R2-L3: symlink mode & lstat OSError fail closed cleanly in scan_public_directory_readonly and evaluate_pause_gate
+    sym_dir = tmp_path / "sym_dir"
+    sym_dir.mkdir()
+    target_f = sym_dir / "bad_link.json"
+    target_f.write_bytes(b'{"ok":1}\n')
+    real_lstat = Path.lstat
+
+    def fake_lstat_symlink(self, *args, **kwargs):
+        if self.name == "bad_link.json":
+            class _FakeStat:
+                st_mode = fw.stat.S_IFLNK | 0o777
+                st_size = 10
+            return _FakeStat()
+        return real_lstat(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "lstat", fake_lstat_symlink)
+    scan_sym = fw.scan_public_directory_readonly(sym_dir)
+    assert scan_sym["failed_files"] == 1
+    assert scan_sym["failures"][0]["codes"] == ["NON_REGULAR_FILE_FORBIDDEN"]
+
+    p_dir, s_dir = make_pause_snapshot(tmp_path / "lstat_err", resume_at=DEC15_BOUNDARY, stops=(), restored_at=DEC15_BOUNDARY)
+
+    def fake_lstat_perm_error(self, *args, **kwargs):
+        if self.name == "restored.json":
+            raise PermissionError("access denied")
+        return real_lstat(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "lstat", fake_lstat_perm_error)
+    r_perm = fw.evaluate_payload(
+        clean_post_payload(),
+        payload_kind="post",
+        as_of_utc=AFTER_DEC15,
+        gate_mode="publish",
+        pause_dir=p_dir,
+        publisher_stops_dir=s_dir,
+    )
+    assert r_perm["verdict"] == fw.VERDICT_BLOCKED
+    assert r_perm["pause_gate"]["failure_code"] == "RESTORED_STAT_FAILED"

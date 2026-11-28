@@ -43,8 +43,10 @@ import argparse
 from collections import Counter
 from datetime import datetime, timezone
 from hashlib import sha256
+import html
 import json
 import math
+import os
 from pathlib import Path
 import re
 import stat
@@ -121,7 +123,15 @@ _ISO_OFFSET_CLOCK_RE = re.compile(
     r"(Z|[+-][0-9]{2}:[0-9]{2})$"
 )
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
-_ZERO_WIDTH_RE = re.compile(r"[\u200b\u200c\u200d\u2060\ufeff\u00ad]")
+_ZERO_WIDTH_RE = re.compile(r"[\u200b\u200c\u200d\u200e\u200f\u2060\u2062\u2063\ufeff\u00ad]")
+_WS_COLLAPSE_RE = re.compile(r"\s+")
+_MD_STAR_ONLY_RE = re.compile(r"[`*~]")
+_MD_EMPHASIS_RE = re.compile(r"[`*_~]")
+_TRAILING_INDEX_RE = re.compile(r"(?:\[\d+\])+$")
+_PURE_MONEY_OR_NUM_RE = re.compile(
+    r"^\s*(?:(?:USD|EUR|GBP)\s*)?[$€£]?\s*[+-]?\d[\d,]*(?:\.\d+)?\s*(?:USD|EUR|GBP|dollars|%)?\s*$",
+    re.IGNORECASE,
+)
 _UNICODE_DASH_TRANS = str.maketrans({
     "\u2010": "-",
     "\u2011": "-",
@@ -326,10 +336,8 @@ EXECUTION_LEVEL_FILL_KEYS = frozenset({
 })
 
 ACCOUNT_EQUITY_PNL_KEYS = frozenset({
-    "balance",
     "account_balance",
     "cash_balance",
-    "equity",
     "account_equity",
     "equity_usd",
     "equity_tiers",
@@ -354,6 +362,8 @@ ACCOUNT_EQUITY_PNL_KEYS = frozenset({
     "unrealised_pnl",
     "floating_pnl",
     "daily_pnl",
+    "weekly_pnl",
+    "monthly_pnl",
     "net_pnl",
     "net_profit",
     "net_profit_pct",
@@ -463,9 +473,14 @@ L4_SLEEVE_WEIGHT_KEYS = frozenset({
 
 CC024_PAYWALL_KEYS = frozenset({
     "paywall",
+    "paywall_config",
+    "paywall_settings",
+    "paywall_mode",
     "is_paid",
     "paid_only",
     "paid_tier",
+    "paid_plan",
+    "paid_membership",
     "subscribers_only",
     "paid_subscribers_only",
     "vip_only",
@@ -476,9 +491,12 @@ CC024_PAYWALL_KEYS = frozenset({
     "paywall_cta",
     "upsell_cta",
     "checkout_url",
+    "checkout_link",
+    "payment_link",
     "stripe_price_id",
     "patreon_url",
     "subscription_price",
+    "subscription_plan",
     "monthly_price",
     "annual_price",
     "price_usd",
@@ -486,17 +504,26 @@ CC024_PAYWALL_KEYS = frozenset({
 })
 
 CC024_AFFILIATE_KEYS = frozenset({
+    "affiliate",
     "affiliate_url",
     "affiliate_link",
     "affiliate_code",
     "affiliate_id",
+    "referral",
     "referral_url",
     "referral_link",
     "referral_code",
+    "partner_url",
+    "partner_link",
+    "partner_code",
     "partner_ref",
     "broker_referral",
     "ib_link",
+    "ib_url",
+    "ib_code",
     "promo_code",
+    "sponsor",
+    "sponsored",
     "sponsored_by",
     "sponsor_url",
 })
@@ -505,6 +532,15 @@ CC024_FORBIDDEN_TIER_VALUES = frozenset({
     "paid",
     "paid_only",
     "paid_tier",
+    "paid_plan",
+    "paid_subscription",
+    "paid_member",
+    "paid_members",
+    "paid_subscribers",
+    "paid_only_subscribers",
+    "only_paid",
+    "only_founding",
+    "subscriber_only",
     "vip",
     "vip_only",
     "pro",
@@ -512,26 +548,45 @@ CC024_FORBIDDEN_TIER_VALUES = frozenset({
     "premium",
     "premium_only",
     "founding",
+    "founding_only",
     "founding_member",
+    "founding_members",
+    "founding_members_only",
+    "members",
+    "member_only",
     "members_only",
     "subscribers_only",
     "paid_subscribers_only",
     "paywalled",
     "paywall",
     "subscriber_paid",
+    "private",
+    "private_only",
+    "restricted",
+    "tier_paid",
+    "gold_tier",
+    "silver_tier",
+    "platinum_tier",
 })
 
 TIER_SELECTOR_KEYS = frozenset({
     "mode",
     "tier",
     "access_tier",
+    "access_mode",
     "audience_tier",
     "audience",
+    "substack_audience",
+    "post_audience",
+    "email_audience",
+    "web_audience",
+    "delivery_audience",
     "monetization_mode",
     "billing_tier",
     "subscription_tier",
     "release_mode",
     "publication_tier",
+    "visibility_tier",
 })
 
 ALLOWED_FREE_TIER_VALUES = frozenset({
@@ -541,10 +596,24 @@ ALLOWED_FREE_TIER_VALUES = frozenset({
     "public_free",
     "everyone",
     "all_readers",
+    "all_subscribers",
+    "free_subscribers",
+    "open",
+    "open_access",
 })
+
+_CC107_CARD_TIER_KEYS = frozenset({
+    "rights_class",
+    "source_ids",
+    "use_label",
+    "value",
+    "visibility",
+})
+_CC107_CARD_TIER_VALUE_RE = re.compile(r"^(?:t[1-4]|anchor)$", re.IGNORECASE)
 
 RIGHTS_KEYS = frozenset({
     "rights_class",
+    "source_rights_class",
     "public_use_rights",
     "license_status",
     "licence_status",
@@ -567,12 +636,23 @@ DENIED_RIGHTS_VALUES = frozenset({
     "private_only",
     "paid_only",
     "restricted",
+    "restricted_redistribution",
     "denied",
     "none",
     "forbidden",
     "unverified",
     "personal_non_commercial",
+    "non_commercial",
+    "commercial_only",
     "no_redistribution",
+    "fred_copyrighted",
+    "copyrighted",
+    "third_party_copyrighted",
+    "copyrighted_third_party",
+    "yahoo_finance",
+    "substack_paid",
+    "subscribers_only",
+    "paid_members",
 })
 
 RAW_VENDOR_KEYS = frozenset({
@@ -590,6 +670,13 @@ RAW_VENDOR_KEYS = frozenset({
     "optionstrat_raw",
     "unusual_whales_raw",
     "barchart_raw",
+    "yahoo_finance_raw",
+    "yfinance_raw",
+    "fred_copyrighted_raw",
+    "occ_gex_raw",
+    "myfxbook_raw",
+    "investing_com_raw",
+    "cnbc_quote_raw",
 })
 
 # ---------------------------------------------------------------------------
@@ -658,9 +745,14 @@ _PREVIEW_HOST_RE = re.compile(
     re.IGNORECASE,
 )
 
-# Unsafe / private URL schemes (parity with check-public-webapp.mjs safeHttps)
+# Unsafe / private URL schemes (parity with check-public-webapp.mjs safeHttps + R2-L1)
 _UNSAFE_URL_RE = re.compile(
-    r"(?:^|\s|[\"'(<])(?:javascript:|data:text/html|file:///|https?://[^\s/@]+:[^\s/@]+@)",
+    r"(?:^|[\s\"'(<=\[,])(?:javascript:|vbscript:|data:(?:text/html|application/|image/svg)|"
+    r"file:///|ftp://|ftps://|sftp://|ws://|wss://|blob:|https?://[^\s/@]+:[^\s/@]+@)",
+    re.IGNORECASE,
+)
+_ATTR_SCHEME_RE = re.compile(
+    r"\b(?:href|src)\s*=\s*[\"']?([a-z][a-z0-9+.-]*):",
     re.IGNORECASE,
 )
 
@@ -672,13 +764,21 @@ _FORBIDDEN_PUBLIC_TIME_RE = re.compile(
     re.IGNORECASE,
 )
 
-# Decision 109 / CC-855 public AI-model & authorship leak scrubber
+# Decision 107 raw CFD / broker symbol names forbidden in public prose (parity with public_instruments_v1.py)
+_DECISION_107_RAW_CFD_SYMBOL_RE = re.compile(
+    r"\b(?:CFDs?|US500m?|USOILm?|XAUUSDm?|BTCUSDm?|USTECm?|EURUSDm|USDJPYm|GBPUSDm|XAGUSDm|"
+    r"NAS100m?|SPX500m?|US30m|GER40m?|UK100m?|WTICOUSD)\b",
+    re.IGNORECASE,
+)
+
+# Decision 109 / CC-432 / CC-801 / CC-855 public AI-model & authorship leak scrubber
 _AI_MODEL_LEAK_RE = re.compile(
     r"\b(?:AI|artificial intelligence)[ -]+(?:generated|written|powered|assisted|"
     r"produced|run|agent|disclosure|label|desk|analysts?)\b|"
     r"\b(?:generated|written|made|operated|run)\s+(?:with|by)\s+(?:an?\s+)?(?:AI|LLM)\b|"
     r"\b(?:ChatGPT|GPT[- ]?\d[\w.-]*|gpt-[\w.-]+|Gemini(?:[ -][\w.-]+)?|"
     r"Claude(?:[ -](?:Opus|Sonnet|Haiku|Code|Desktop)[\w .-]*)?|"
+    r"Sonnet|Haiku|Fable|Luna|agy|"
     r"Anthropic|OpenAI|DeepSeek[-\w]*|Grok[- ]?\d[\w.-]*|"
     r"Antigravity|Codex|Sol\s*6(?:\.\d+)?|Astra\s*\d)\b",
     re.IGNORECASE,
@@ -766,11 +866,204 @@ _NON_PROSE_ODDS_KEYS = frozenset({
     "post_id",
 })
 
+# Technical/metadata keys exempt from Decision 107 raw-CFD prose checks
+# (parity with live_contentops/public_instruments_v1.py:62-74)
+_NON_PROSE_INSTRUMENT_KEYS = _NON_PROSE_ODDS_KEYS | frozenset({
+    "market_asset",
+    "market",
+    "path",
+    "file_path",
+    "filename",
+    "media_path",
+    "image_path",
+    "public_url",
+    "public_analysis_url",
+    "caption_id",
+    "_key_name",
+    "instrument_id",
+    "series_id",
+    "rights_basis",
+    "modality",
+    "provenance_status",
+    "policy",
+})
+
+# ---------------------------------------------------------------------------
+# Rule A3 Tokenized Key-Family Registries (snake_case & camelCase prefix/suffix)
+# ---------------------------------------------------------------------------
+
+_KELLY_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("kelly",),
+    ("f", "star"),
+    ("optimal", "f"),
+    ("lot", "size"),
+    ("lot", "sizes"),
+    ("volume", "lots"),
+    ("min", "lots"),
+    ("position", "size"),
+    ("position", "sizing"),
+    ("sizing", "formula"),
+    ("desk", "size"),
+    ("risk", "per", "trade"),
+    ("risk", "allocation"),
+    ("risk", "budget"),
+    ("half", "plan", "risk"),
+    ("leverage", "ratio"),
+    ("contract", "qty"),
+    ("order", "qty"),
+    ("notional", "size"),
+)
+
+_EXECUTION_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("stop", "loss"),
+    ("stoploss",),
+    ("stop", "level"),
+    ("stop", "price"),
+    ("broker", "stop"),
+    ("trailing", "stop"),
+    ("sl", "price"),
+    ("sl", "level"),
+    ("take", "profit"),
+    ("takeprofit",),
+    ("tp", "price"),
+    ("tp", "level"),
+    ("tp1",),
+    ("tp2",),
+    ("tp3",),
+    ("profit", "target"),
+    ("target", "level"),
+    ("target", "price"),
+    ("entry", "fill"),
+    ("fill", "price"),
+    ("filled", "price"),
+    ("execution", "price"),
+    ("entry", "price"),
+    ("entry", "level"),
+    ("limit", "price"),
+    ("order", "price"),
+    ("order", "ticket"),
+    ("position", "ticket"),
+    ("position", "tickets"),
+    ("broker", "order"),
+    ("slippage", "bps"),
+    ("raw", "positions"),
+    ("client", "orders"),
+)
+
+_ACCOUNT_PNL_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("pnl",),
+    ("realized", "pnl"),
+    ("realised", "pnl"),
+    ("unrealized", "pnl"),
+    ("unrealised", "pnl"),
+    ("floating", "pnl"),
+    ("account", "balance"),
+    ("account", "equity"),
+    ("account", "nav"),
+    ("account", "value"),
+    ("cash", "balance"),
+    ("net", "liquidation"),
+    ("free", "margin"),
+    ("margin", "used"),
+    ("margin", "level"),
+    ("equity", "usd"),
+    ("drawdown", "usd"),
+    ("max", "dd", "usd"),
+    ("r", "multiple"),
+    ("r", "multiples"),
+    ("expected", "r"),
+    ("ev", "r"),
+    ("expectancy",),
+    ("starting", "capital"),
+    ("capital", "ladder"),
+    ("solvency", "equity"),
+)
+
+_BROKER_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("ibkr",),
+    ("exness",),
+    ("metatrader",),
+    ("mt4",),
+    ("mt5",),
+    ("broker", "login"),
+    ("broker", "account"),
+    ("broker", "server"),
+    ("demo", "account"),
+    ("api", "key"),
+    ("access", "token"),
+    ("private", "key"),
+    ("secret", "key"),
+)
+
+_PRIVATE_STUDY_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("private", "only"),
+    ("public", "export", "forbidden"),
+    ("private", "text"),
+    ("private", "texts"),
+    ("x", "list"),
+    ("study", "6"),
+    ("study", "7"),
+    ("study", "8"),
+    ("study", "9"),
+    ("study", "10"),
+    ("study", "11"),
+)
+_STUDY_TOKEN_RE = re.compile(r"^study(?:[6-9]|1[01])$")
+
+_L4_SLEEVE_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("l4",),
+    ("sleeve", "weight"),
+    ("sleeve", "weights"),
+    ("portfolio", "weight"),
+    ("portfolio", "weights"),
+    ("gross", "risk", "weight"),
+    ("orthogonal", "slots"),
+    ("fx", "sleeve"),
+    ("ustec", "sleeve"),
+    ("gold", "sleeve"),
+    ("oil", "sleeve"),
+    ("crypto", "sleeve"),
+    ("equity", "sleeve"),
+    ("market", "sleeve"),
+    ("keep", "amplify"),
+)
+
+_CC791_ODDS_KEY_PHRASES: tuple[tuple[str, ...], ...] = (
+    ("kalshi",),
+    ("polymarket",),
+    ("predictit",),
+    ("metaculus",),
+    ("fedwatch",),
+    ("fed", "watch"),
+    ("gap", "pp"),
+    ("prediction", "market"),
+    ("prediction", "markets"),
+    ("event", "odds"),
+    ("market", "odds"),
+    ("implied", "odds"),
+    ("implied", "probability"),
+    ("market", "probability"),
+    ("cut", "probability"),
+    ("hike", "probability"),
+    ("hold", "probability"),
+    ("rate", "odds"),
+    ("odds", "pct"),
+)
+
+_KEY_NUMERIC_LEVEL_RE = re.compile(
+    r"(?:[$€£]\s*\d|[:=@]\s*[+-]?\d|\d+\.\d+|\s+[+-]?\d[\d,]*(?:\.\d+)?%?)"
+)
+_CHART_EXECUTION_OVERLAY_RE = re.compile(
+    r"(?<![A-Za-z0-9])(?:stop(?:[-\s]?loss)?|sl|target|tp\d*|take[-\s]?profit|fill|entry(?:[-\s]?fill)?)(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+
 # ---------------------------------------------------------------------------
 # Rule A3 Text Leak Regex Patterns
 # ---------------------------------------------------------------------------
 
 _PRICE_NUM = r"(?:USD\s*)?[$€£]?\s*[+-]?\d+(?:,\d{3})*(?:\.\d+)?"
+_STANDALONE_PRICE_NUM = r"(?:(?:USD\s*)?[$€£]\s*\d+(?:,\d{3})*(?:\.\d+)?|\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+\.\d+|\d{3,})"
 
 _KELLY_SIZING_LOT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
@@ -779,8 +1072,10 @@ _KELLY_SIZING_LOT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"(?:(?<!\w)f\s*\*(?:\s*[:=]\s*[0-9.]+%?)?(?!\w))"
             r"|\bf_star\b"
             r"|\bg\s*\(\s*f\s*\)"
-            r"|\b(?:half|quarter|full|fractional|dd30|optimal)[ -]+kelly\b"
-            r"|\bkelly\s+(?:criterion|fraction|sizing|size|weight|weights|optimal|cagr|bet|formula|leverage|f\*|arm)\b"
+            r"|\b(?:half|quarter|full|fractional|dd30|optimal)[-\s]+kelly\b"
+            r"|\b\d+(?:\.\d+)?\s*[x×]\s*kelly\b"
+            r"|\bkelly[-\s]+(?:criterion|fraction|sizing|size|weight|weights|optimal|cagr|bet|formula|leverage|f\*|arm|growth|multiplier|cap)\b"
+            r"|\bkelly\s*[:=@]\s*[+-]?\d+(?:\.\d+)?%?"
             r"|\bdd30_kelly\w*",
             re.IGNORECASE,
         ),
@@ -791,8 +1086,8 @@ _KELLY_SIZING_LOT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"\b(?:lot\s+sizes?|position\s+siz(?:e|ing)|risk\s+per\s+trade|"
             r"risk\s+allocation|risk\s+budget|HALF_PLAN_RISK|"
             r"lot\s+quantization|discrete_lot_increment)\b"
-            r"|(?<![\w.])(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half\s+a|a\s+single)\s*"
-            r"(?:standard\s+|mini\s+|micro\s+)?lots?\b"
+            r"|(?<![\w.])(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half\s+a|a\s+single)[-\s]*"
+            r"(?:standard[-\s]+|mini[-\s]+|micro[-\s]+)?lots?\b"
             r"|\bpercent\s+of\s+(?:your|our|account)\s+(?:equity|capital|balance)\b"
             r"|\bsize\s*[:=@]\s*(?:\d+(?:\.\d+)?\s*(?:lots?|contracts?|units?|%)|[$€£]\s*\d)",
             re.IGNORECASE,
@@ -807,18 +1102,22 @@ _POLICY_TARGET_PREFIX_RE = re.compile(
 )
 
 _STOP_LOSS_RE = re.compile(
-    r"\b(?:stop[ -]?loss(?:es)?|broker[ -]?stop|trailing[ -]?stop)\b"
-    r"|\bSL\s*[:=@]\s*" + _PRICE_NUM
-    + r"|\bstop\s+(?:at|below|above|level\s*[:=@]?)\s*" + _PRICE_NUM,
+    r"\b(?:stop[-\s]?loss(?:es)?|broker[-\s]?stop|trailing[-\s]?stop)\b"
+    r"|\bSL\s*(?:[:=@]\s*|\s+)" + _PRICE_NUM
+    + r"|\bstop\s+(?:(?:at|below|above|near|around|level\s*[:=@]?)\s+|[:=@]\s*)" + _PRICE_NUM
+    + r"|\bstop\s+" + _STANDALONE_PRICE_NUM
+    + r"(?![\d.,%]|\s*[- ](?:year|month|day|week|hour|minute|bps?|percent|pct)\b)",
     re.IGNORECASE,
 )
 
 _TAKE_PROFIT_RE = re.compile(
-    r"\b(?:take[ -]?profits?|profit[ -]?targets?|price[ -]?targets?|model[ -]?targets?|target[ -]?level)\b"
-    r"|\bTP\d*\s*[:=@]?\s*" + _PRICE_NUM
+    r"\b(?:take[-\s]?profits?|profit[-\s]?targets?|price[-\s]?targets?|model[-\s]?targets?|target[-\s]?level|target[-\s]?zone)\b"
+    r"|\b(?:our|the\s+plan(?:'s)?|exit)\s+(?:price\s+)?target\b"
+    r"|\bTP\d*\s*(?:[:=@]\s*|\s+)" + _PRICE_NUM
     + r"|\bTP[1-9]\b"
-    r"|\btarget\s*(?:[:=@]|\b(?:is\s+)?(?:at|of|near|around|above|below)\b)\s*" + _PRICE_NUM
-    + r"|" + _PRICE_NUM + r"\s+(?:(?:profit|price|model)[ -]+)?(?:target|take[ -]+profit)\b",
+    r"|\btarget\s*(?:[:=@]\s*|\s+(?:(?:is|of|at|near|around|above|below)\s+)*)" + _PRICE_NUM
+    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|basis\s+points?\b|to\s+\d+(?:\.\d+)?\s*(?:%|percent\b)))"
+    + r"|" + _PRICE_NUM + r"\s+(?:(?:profit|price|model)[-\s]+)?(?:target|take[-\s]+profit)\b",
     re.IGNORECASE,
 )
 
@@ -827,7 +1126,10 @@ _ENTRY_FILL_RE = re.compile(
     + r"|avg(?:erage)?\s+fill\s*[:=@]?\s*" + _PRICE_NUM
     + r"|execution\s+(?:price|fill)\s*[:=@]?\s*" + _PRICE_NUM
     + r"|filled\s+at\s+" + _PRICE_NUM
+    + r"|entered\s+(?:(?:long|short|buy|sell)\s+)?(?:at|near|around)\s+" + _PRICE_NUM
     + r"|entry\s+(?:price|level)\s*[:=@]?\s*" + _PRICE_NUM
+    + r"|entry\s+(?:(?:at|near|around)\s+)?" + _PRICE_NUM
+    + r"(?![\d.,%]|\s*(?:percent\b|pct\b|bps?\b|year|month|day|week|hour|minute))"
     + r"|limit\s+order\s+(?:filled|at)\s+" + _PRICE_NUM
     + r"|(?:buy|sell|long|short|entry)\s*[:=@]\s*" + _PRICE_NUM + r")\b",
     re.IGNORECASE,
@@ -839,13 +1141,38 @@ _MACRO_BALANCE_EXEMPT_RE = re.compile(
     re.IGNORECASE,
 )
 _BALANCE_SHEET_SUFFIX_RE = re.compile(r"^\s*[- ]?sheets?\b", re.IGNORECASE)
+_MACRO_EQUITY_PREFIX_RE = re.compile(
+    r"\b(?:us|u\.s\.|global|european|asian|japanese|chinese|emerging[- ]market|em|"
+    r"developed[- ]market|dm|public|private|foreign|domestic|broad|regional|tech|bank|financial)\s+$",
+    re.IGNORECASE,
+)
+_MACRO_EQUITY_SUFFIX_RE = re.compile(
+    r"^\s+(?:inflows?|outflows?|flows?|funds?|etfs?|markets?|index(?:es)?|indices|futures|"
+    r"issuance|offerings?|valuations?|risk\s+premi(?:a|um)|strateg(?:y|ies)|rally|sell-?off|gains?|losses?|exposure)\b",
+    re.IGNORECASE,
+)
+_PRIVATE_OWNER_PREFIX_RE = re.compile(
+    r"\b(?:our|my|account|desk|client|broker|trading|solvency|starting)\s+$",
+    re.IGNORECASE,
+)
+_MACRO_CAPITAL_PREFIX_RE = re.compile(
+    r"\b(?:working|human|fixed|venture|private|foreign|domestic|cross[- ]border|global|"
+    r"bank|regulatory|tier[- ]?1|equity|debt|market|cost\s+of)\s+$",
+    re.IGNORECASE,
+)
+_MACRO_CAPITAL_SUFFIX_RE = re.compile(
+    r"^\s+(?:inflows?|outflows?|flows?|markets?|spending|expenditures?|investment|"
+    r"formation|flight|controls?|requirements?|ratios?|buffers?|gains?)\b",
+    re.IGNORECASE,
+)
 
 _ACCOUNT_EQUITY_PNL_EXPLICIT_RE = re.compile(
     r"(?<!\bcurrent\s)(?<!\bcapital\s)\baccount\s+(?:balance|equity|nav|value|pnl|capital)\b"
     r"|\b(?:net\s+liquidation|free\s+margin|margin\s+(?:used|level)|"
     r"(?:our|my)\s+(?:balance|equity|capital|nav|pnl|account|drawdown|portfolio)|"
     r"realis?ed\s+(?:profit|loss|pnl)|unrealis?ed\s+(?:profit|loss|pnl)|"
-    r"floating\s+(?:profit|loss|pnl)|p\s*&\s*l|net\s+pnl|daily\s+pnl|"
+    r"floating\s+(?:profit|loss|pnl)|p\s*&\s*l|"
+    r"(?:(?:daily|weekly|monthly|quarterly|annual|ytd|total|net|gross|open|closed|book|desk|account|trading|strategy|model)\s+)?pnl\b|"
     r"solvency\s+equity\s+floor|capital\s+ladder\s+usd|"
     r"expected[ _-]?r|expectancy|reward[ -]to[ -]risk|r[ -]?multiples?)\b",
     re.IGNORECASE,
@@ -861,11 +1188,11 @@ _BROKER_IDENTIFIER_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "IBKR_ACCOUNT_ID",
         re.compile(
-            r"\bDUR343723\b"
-            r"|\b(?:DU|DUR|DF)\d{5,9}\b"
-            r"|\bU\d{7,9}\b"
-            r"|\bIBKR[-_ ]?PAPER(?:[-_ ]?[A-Z0-9]+)?\b"
-            r"|\bibkr[-_ ]?DUR\d+\b"
+            r"(?<![A-Za-z0-9])DUR[-_\s]?343723(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])(?:DU|DUR|DF)[-_\s]?\d{5,9}(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])U[-_]?\d{6,9}(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])IBKR[-_ ]?PAPER(?:[-_ ]?[A-Z0-9]+)?(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])ibkr[-_ ]?DUR[-_\s]?\d+(?![A-Za-z0-9])"
             r"|\b(?:IBKR\s+(?:account|paper\s+account|gateway|book|live\s+allocation|micro\s+future)|"
             r"Interactive\s+Brokers\s+account|TWS\s+port\s*400[12]|IDEALPRO)\b",
             re.IGNORECASE,
@@ -874,9 +1201,10 @@ _BROKER_IDENTIFIER_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "MT5_EXNESS_BROKER_ID",
         re.compile(
-            r"(?<![\w.])(?:279805139|279779602)(?!\w)"
-            r"|\b(?:Exness[\w-]*|MT5\s*Trial\d*|MetaTrader\s*[45]?|MT[45]|"
-            r"primary-demo-state-\d+|demo\s+account|broker\s+(?:login|account|server|ticket)|"
+            r"(?<![A-Za-z0-9.])(?:279805139|279779602)(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])(?:Exness[A-Za-z0-9-]*|MT5\s*Trial\d*|MetaTrader\s*[45]?|MT[45]|"
+            r"primary-demo-state-\d+)(?![A-Za-z0-9])"
+            r"|\b(?:demo\s+account|broker\s+(?:login|account|server|ticket)|"
             r"model[\s-]+positions?|model[\s-]+calls?)\b",
             re.IGNORECASE,
         ),
@@ -884,7 +1212,7 @@ _BROKER_IDENTIFIER_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "CREDENTIAL_OR_SECRET_TOKEN",
         re.compile(
-            r"\bsk-[A-Za-z0-9]{16,}\b"
+            r"(?<![A-Za-z0-9])sk-[A-Za-z0-9]{16,}(?![A-Za-z0-9])"
             r"|\b(?:api[_ -]?key|access[_ -]?token|secret[_ -]?key|password|bearer\s+token)\s*[:=]\s*\S+",
             re.IGNORECASE,
         ),
@@ -895,10 +1223,10 @@ _PRIVATE_STUDY_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "PRIVATE_STUDY_6_TO_11_TAG",
         re.compile(
-            r"\bStudy\s*#?\s*(?:[6-9]|1[01])\b"
-            r"|\bSTUDY(?:[6-9]|1[01])_[A-Z0-9_]+"
-            r"|\bStudy(?:[6-9]|1[01])[A-Za-z0-9_]*PrivateV\d+\b"
-            r"|\b(?:study(?:[6-9]|1[01])-(?:v\d|capital-ladder|3vehicle|orthogonal|post-cc\d+|regime-stress))\b"
+            r"(?<![A-Za-z0-9])Study(?:\s*#\s*|[-_\s])(?:[6-9]|1[01])(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])STUDY(?:[6-9]|1[01])_[A-Z0-9_]+"
+            r"|(?<![A-Za-z0-9])Study(?:[6-9]|1[01])[A-Za-z0-9_]*PrivateV\d+(?![A-Za-z0-9])"
+            r"|(?<![A-Za-z0-9])study(?:[6-9]|1[01])-(?:v\d|capital-ladder|3vehicle|orthogonal|post-cc\d+|regime-stress)(?![A-Za-z0-9])"
             r"|\b(?:private_only|public_export_forbidden)\b"
             r"|\bJIM_X_LIST_PRIVATE_MAIN_RESEARCH_USE\w*\b"
             r"|\b(?:JIM_X_LIST|PRIVATE_X_LIST)\b",
@@ -922,6 +1250,14 @@ _L4_SLEEVE_WEIGHT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
 )
 
+_FRED_COPYRIGHTED_SERIES_IDS = (
+    r"(?:SP500|DJIA|NASDAQCOM|NASDAQ100|VIXCLS|WILL5000[A-Z0-9_]*|BAML[A-Z0-9_]*|ICE[A-Z0-9_]*)"
+)
+_FRED_COPYRIGHTED_SERIES_EXACT_RE = re.compile(
+    r"^(?:FRED\s*[:/]\s*)?" + _FRED_COPYRIGHTED_SERIES_IDS + r"$",
+    re.IGNORECASE,
+)
+
 _RAW_VENDOR_LEAK_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "RAW_VENDOR_REDISTRIBUTION_LEAK",
@@ -930,7 +1266,56 @@ _RAW_VENDOR_LEAK_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"Bloomberg\s+Terminal\s+(?:dump|feed|export|raw)|Refinitiv\s+raw|"
             r"FinancialJuice\s+(?:raw\s+)?wire|internal-financialjuice-wire|"
             r"OptionStrat\s+raw|Unusual\s+Whales\s+raw|Barchart\s+raw|"
-            r"CME\s+Data\s+Terms\s+redistribution|INTERNAL_RESEARCH_ONLY)\b",
+            r"CME\s+Data\s+Terms\s+redistribution|INTERNAL_RESEARCH_ONLY|FRED_COPYRIGHTED)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "YAHOO_FINANCE_COMMERCIAL_RIGHTS",
+        re.compile(
+            r"(?:[a-z0-9-]+\.)?finance\.yahoo\.com|\byahoo\s+finance\b|\byfinance\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "FRED_COPYRIGHTED_SERIES",
+        re.compile(
+            r"\bFRED\s*[:/]\s*" + _FRED_COPYRIGHTED_SERIES_IDS + r"\b"
+            + r"|\bFRED\b[^.!?;]{0,60}\b" + _FRED_COPYRIGHTED_SERIES_IDS + r"\b"
+            + r"|(?:fred\.)?stlouisfed\.org/[^\s\"'<>]*?(?<![A-Za-z0-9])" + _FRED_COPYRIGHTED_SERIES_IDS + r"(?![A-Za-z0-9])"
+            + r"|fredgraph\.(?:png|csv|svg)\?[^\s\"'<>]*?[?&]id=" + _FRED_COPYRIGHTED_SERIES_IDS + r"(?![A-Za-z0-9])"
+            + r"|\b(?:VIXCLS|NASDAQCOM|NASDAQ100|WILL5000[A-Z0-9_]*|BAML[A-Z0-9_]{3,})\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "CNBC_QUOTE_COMMERCIAL_FEED",
+        re.compile(
+            r"\b(?:quote(?:-api)?\.cnbc\.com|cnbc\.com/quotes/)",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "INVESTING_MYFXBOOK_CONSENSUS",
+        re.compile(
+            r"\binvesting\.com\b|\bmyfxbook(?:\.com)?\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "OCC_OPTIONS_GEX_COMMERCIAL",
+        re.compile(
+            r"\btheocc\.com\b|\bocc\s+gex\b"
+            r"|\bocc\b[^.!?;]{0,40}\b(?:options?|gamma|gex|oi|open\s+interest|market[- ]data)\b"
+            r"|\b(?:options?|gamma|gex)\b[^.!?;]{0,40}\bocc\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "TRADINGVIEW_EMBED_WIDGET_FORBIDDEN",
+        re.compile(
+            r"\bs3\.tradingview\.com\b|\bembed-widget\b|\bwidgetembed\b|\btradingview-widget\b|"
+            r"tradingview\.com/(?:widget|embed-widget|external-embedding)\b",
             re.IGNORECASE,
         ),
     ),
@@ -949,14 +1334,13 @@ _CC024_PAYWALL_CTA_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"|unlock\s+(?:full\s+access|this\s+post|vip|pro|premium|signals?|trades?|paid\s+content)\b"
             r"|behind\s+(?:the|our)\s+paywall\b"
             r"|paywall(?:ed)?\s+(?:only|content|tier|access|article|post)\b"
-            r"|paid\s+(?:subscribers?|members?)\s+only\b"
+            r"|paid\s+(?:subscriptions?|members(?:hips?)?|subscribers?|readers?|newsletters?|plans?|access|tiers?|content|posts?|editions?|articles?)\b"
             r"|for\s+paid\s+(?:subscribers?|members?)\b"
             r"|subscribe\s+(?:now\s+)?for\s+[$€£]?\d+"
             r"|pledge\s+(?:your\s+)?(?:paid\s+)?support\b"
             r"|(?:monthly|annual)\s+(?:paid\s+)?subscription\b"
             r"|founding\s+member(?:\s+tier|\s+access|\s+plan)?\b"
-            r"|start\s+your\s+(?:paid|premium|vip|7-day|14-day|free)\s+trial\b"
-            r"|paid\s+tier\s+(?:access|only|upgrade)\b)",
+            r"|start\s+your\s+(?:paid|premium|vip|7-day|14-day|free)\s+trial\b)",
             re.IGNORECASE,
         ),
     ),
@@ -978,8 +1362,10 @@ _CC024_PAYWALL_CTA_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
         "PAID_CHECKOUT_OR_PRICING_CTA",
         re.compile(
             r"(?:patreon\.com/|buymeacoffee\.com/|ko-fi\.com/|gumroad\.com/|whop\.com/|"
+            r"lemonsqueezy\.com|mql5\.com/[^\s\"'<>]*/signals|social-trading\.exness(?:\.[a-z]+)?|"
             r"checkout\.stripe\.com|buy\.stripe\.com|"
             r"substack\.com/subscribe\?[^\s\"']*plan=(?:paid|monthly|annual|founding))"
+            r"|\b(?:mql5\s+signals?|exness\s+social\s+trading)\b"
             r"|(?:[$€£]\s*\d+(?:\.\d{2})?\s*/\s*(?:mo|month|yr|year|wk|week)\b)"
             r"|(?:\bUSD\s*\d+(?:\.\d{2})?\s+per\s+(?:month|year|week)\b)",
             re.IGNORECASE,
@@ -1004,17 +1390,35 @@ _CC024_AFFILIATE_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 
 _AFFILIATE_QUERY_PARAMS = frozenset({
     "ref",
+    "ref_code",
+    "ref_id",
+    "refer",
+    "referrer",
     "aff",
     "aff_id",
+    "aff_code",
     "affiliate",
     "affiliate_id",
     "partner",
     "partner_id",
+    "partner_code",
     "referral",
     "referral_code",
+    "ib",
     "ib_code",
+    "via",
+    "promo",
+    "promo_code",
+    "coupon",
+    "sponsor",
+    "broker_ref",
+    "sub_id",
     "c_id",
 })
+_AFFILIATE_URL_PATH_RE = re.compile(
+    r"(?:^|/)(?:ref|referral|referrals|affiliate|affiliates|partner-ref|ib-partner)(?:/|$)",
+    re.IGNORECASE,
+)
 
 _URL_EXTRACT_RE = re.compile(r"https?://[^\s<>\"'\])]+", re.IGNORECASE)
 
@@ -1034,10 +1438,42 @@ class FirewallEvidenceError(ValueError):
 # ---------------------------------------------------------------------------
 
 
+def _is_valid_utf8_str(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    try:
+        value.encode("utf-8", errors="strict")
+    except UnicodeEncodeError:
+        return False
+    return True
+
+
+def _safe_receipt_str(value: Any, *, fallback: str | None = None) -> str | None:
+    return value if _is_valid_utf8_str(value) else fallback
+
+
 def _normalize_text(text: str) -> str:
-    cleaned = unicodedata.normalize("NFKC", text)
-    cleaned = _ZERO_WIDTH_RE.sub("", cleaned)
-    return cleaned.translate(_UNICODE_DASH_TRANS)
+    cleaned = html.unescape(text)
+    if "&" in cleaned:
+        cleaned = html.unescape(cleaned)
+    if not cleaned.isascii():
+        cleaned = unicodedata.normalize("NFKC", cleaned)
+        cleaned = "".join(ch for ch in cleaned if unicodedata.category(ch) != "Cf")
+        cleaned = cleaned.translate(_UNICODE_DASH_TRANS)
+    return cleaned
+
+
+def _scan_surfaces(norm: str) -> tuple[str, ...]:
+    """Return deduplicated scan surfaces: whitespace-collapsed raw + markdown-stripped."""
+    collapsed = _WS_COLLAPSE_RE.sub(" ", norm)
+    no_star = _WS_COLLAPSE_RE.sub(" ", _MD_STAR_ONLY_RE.sub("", norm))
+    plain_md = _WS_COLLAPSE_RE.sub(" ", _MD_EMPHASIS_RE.sub("", norm))
+    out: list[str] = [collapsed]
+    if no_star not in out:
+        out.append(no_star)
+    if plain_md not in out:
+        out.append(plain_md)
+    return tuple(out)
 
 
 def _normalize_key(key: str) -> str:
@@ -1045,6 +1481,131 @@ def _normalize_key(key: str) -> str:
     cleaned = _CAMEL_BOUNDARY_1_RE.sub(r"\1_\2", cleaned)
     cleaned = _CAMEL_BOUNDARY_2_RE.sub(r"\1_\2", cleaned)
     return _NON_SNAKE_RE.sub("_", cleaned.lower()).strip("_")
+
+
+def _has_token_phrase(tokens: tuple[str, ...], phrases: Iterable[tuple[str, ...]]) -> str | None:
+    n = len(tokens)
+    for phrase in phrases:
+        m = len(phrase)
+        if m == 0 or m > n:
+            continue
+        if m == 1:
+            if phrase[0] in tokens:
+                return phrase[0]
+        else:
+            for idx in range(n - m + 1):
+                if tokens[idx:idx + m] == phrase:
+                    return "_".join(phrase)
+    return None
+
+
+def _is_paywall_key(key_norm: str) -> bool:
+    return (
+        key_norm in CC024_PAYWALL_KEYS
+        or key_norm.startswith(("paywall_", "paid_"))
+        or key_norm.endswith(("_paywall", "_price_usd", "_subscription_price"))
+    )
+
+
+def _is_tier_selector_key(key_norm: str) -> bool:
+    return (
+        key_norm in TIER_SELECTOR_KEYS
+        or key_norm.endswith((
+            "_audience",
+            "_tier",
+            "_paywall_mode",
+            "_monetization_mode",
+            "_release_mode",
+            "_access_tier",
+            "_access_mode",
+            "_subscription_tier",
+            "_billing_tier",
+        ))
+        or key_norm.startswith(("audience_", "substack_audience", "post_audience"))
+    )
+
+
+def _is_active_metadata_value(value: Any, *, depth: int = 0) -> bool:
+    """Return True if a paywall/affiliate metadata value is active/non-zero/non-finite (never overflows)."""
+    if depth > MAX_JSON_DEPTH:
+        return True
+    if value is None:
+        return False
+    if isinstance(value, bool):
+        return value is True
+    if isinstance(value, int):
+        return value != 0
+    if isinstance(value, float):
+        return (not math.isfinite(value)) or value != 0.0
+    if isinstance(value, str):
+        return value.strip().lower() not in (
+            "",
+            "false",
+            "0",
+            "0.0",
+            "none",
+            "null",
+            "off",
+            "disabled",
+            "free",
+            "free_only",
+            "no",
+        )
+    if isinstance(value, Mapping):
+        if not value:
+            return False
+        return any(_is_active_metadata_value(v, depth=depth + 1) for v in value.values())
+    if isinstance(value, (list, tuple)):
+        if not value:
+            return False
+        return any(_is_active_metadata_value(v, depth=depth + 1) for v in value)
+    return True
+
+
+def _mapping_has_non_free_tier(value: Any, *, is_cc107_card_tier: bool = False, depth: int = 0) -> bool:
+    """Inspect nested tier/audience objects fail-closed while preserving CC-107 card descriptors."""
+    if depth > MAX_JSON_DEPTH:
+        return True
+    if isinstance(value, Mapping):
+        for k, v in value.items():
+            if not isinstance(k, str):
+                return True
+            k_norm = _normalize_key(k)
+            if is_cc107_card_tier and k_norm in ("source_ids", "rights_class", "use_label"):
+                continue
+            if is_cc107_card_tier and k_norm == "value" and isinstance(v, str):
+                v_norm = _normalize_key(v)
+                if v_norm in CC024_FORBIDDEN_TIER_VALUES:
+                    return True
+                if _CC107_CARD_TIER_VALUE_RE.fullmatch(v.strip()) or v_norm in ALLOWED_FREE_TIER_VALUES:
+                    continue
+                return True
+            if _mapping_has_non_free_tier(v, is_cc107_card_tier=False, depth=depth + 1):
+                return True
+        return False
+    if isinstance(value, (list, tuple)):
+        return any(_mapping_has_non_free_tier(item, is_cc107_card_tier=False, depth=depth + 1) for item in value)
+    if isinstance(value, bool):
+        return value is True
+    if isinstance(value, int):
+        return value != 0
+    if isinstance(value, float):
+        return (not math.isfinite(value)) or value != 0.0
+    if isinstance(value, str):
+        v_norm = _normalize_key(value)
+        if not v_norm:
+            return False
+        if v_norm in CC024_FORBIDDEN_TIER_VALUES:
+            return True
+        return v_norm not in ALLOWED_FREE_TIER_VALUES
+    if value is None:
+        return False
+    return True
+
+
+def _redact_key_segment(raw_key: str) -> str:
+    digest = sha256(raw_key.encode("utf-8", errors="replace")).hexdigest()[:8]
+    return f"<REDACTED_KEY#{digest}>"
 
 
 def _check_no_surrogates(text: str, field: str) -> None:
@@ -1151,7 +1712,9 @@ def parse_payload_timestamp_utc(value: Any, field: str) -> tuple[datetime, int]:
         )
 
     stripped = value.strip()
-    if field.endswith("_utc") or field.endswith("_utc]"):
+    base_field = _TRAILING_INDEX_RE.sub("", field)
+    leaf_field = base_field.rsplit(".", 1)[-1]
+    if base_field.endswith("_utc") or leaf_field in UTC_TIMESTAMP_KEYS:
         return _parse_utc_ns(stripped, field)
 
     match = _ISO_OFFSET_CLOCK_RE.fullmatch(stripped)
@@ -1186,15 +1749,56 @@ def parse_payload_timestamp_utc(value: Any, field: str) -> tuple[datetime, int]:
 
 
 def _safe_path_segment(raw_key: str) -> str:
-    """Return raw_key unless it carries a broker ID / secret, in which case redact deterministically."""
+    """Return raw_key unless it carries a surrogate, broker ID, private-alpha, or numeric-level pattern."""
+    if not _is_valid_utf8_str(raw_key):
+        return _redact_key_segment(raw_key)
     norm = _normalize_text(raw_key)
-    for _, pattern in _BROKER_IDENTIFIER_PATTERNS:
-        if pattern.search(norm):
-            digest = sha256(raw_key.encode("utf-8", errors="replace")).hexdigest()[:8]
-            return f"<redacted-key:{digest}>"
-    if _ACCOUNT_EQUITY_PNL_EXPLICIT_RE.search(norm) or _has_private_balance_money(norm):
-        digest = sha256(raw_key.encode("utf-8", errors="replace")).hexdigest()[:8]
-        return f"<redacted-key:{digest}>"
+    if _KEY_NUMERIC_LEVEL_RE.search(norm):
+        return _redact_key_segment(raw_key)
+    surfaces = _scan_surfaces(norm)
+    for surface in surfaces:
+        for _, pattern in _BROKER_IDENTIFIER_PATTERNS:
+            if pattern.search(surface):
+                return _redact_key_segment(raw_key)
+        for _, pattern in _KELLY_SIZING_LOT_PATTERNS:
+            if pattern.search(surface):
+                return _redact_key_segment(raw_key)
+        if _STOP_LOSS_RE.search(surface) or _has_non_policy_take_profit(surface) or _ENTRY_FILL_RE.search(surface):
+            return _redact_key_segment(raw_key)
+        if _ACCOUNT_EQUITY_PNL_EXPLICIT_RE.search(surface) or _has_private_balance_money(surface):
+            return _redact_key_segment(raw_key)
+        for _, pattern in _PRIVATE_STUDY_PATTERNS:
+            if pattern.search(surface):
+                return _redact_key_segment(raw_key)
+        for _, pattern in _L4_SLEEVE_WEIGHT_PATTERNS:
+            if pattern.search(surface):
+                return _redact_key_segment(raw_key)
+        if _WINDOW_CC_GLOBAL_RE.search(surface):
+            return _redact_key_segment(raw_key)
+        lowered = surface.lower()
+        if any(tok in lowered for tok in PUBLIC_WEBAPP_FORBIDDEN_TOKENS) or any(
+            tok in lowered for tok in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS
+        ):
+            return _redact_key_segment(raw_key)
+    key_norm = _normalize_key(raw_key)
+    tokens = tuple(t for t in key_norm.split("_") if t)
+    if (
+        key_norm in KELLY_SIZING_LOT_KEYS
+        or key_norm in EXECUTION_LEVEL_FILL_KEYS
+        or key_norm in ACCOUNT_EQUITY_PNL_KEYS
+        or key_norm in BROKER_IDENTIFIER_KEYS
+        or key_norm in PRIVATE_STUDY_TAG_KEYS
+        or key_norm in L4_SLEEVE_WEIGHT_KEYS
+        or key_norm in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS
+        or _has_token_phrase(tokens, _KELLY_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _EXECUTION_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _ACCOUNT_PNL_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _BROKER_KEY_PHRASES) is not None
+        or _has_token_phrase(tokens, _PRIVATE_STUDY_KEY_PHRASES) is not None
+        or any(_STUDY_TOKEN_RE.match(t) for t in tokens)
+        or _has_token_phrase(tokens, _L4_SLEEVE_KEY_PHRASES) is not None
+    ):
+        return _redact_key_segment(raw_key)
     return raw_key
 
 
@@ -1396,6 +2000,12 @@ def normalize_payload_kind(payload_kind: Any) -> str:
             "payload_kind",
             "payload_kind must be a non-empty string",
         )
+    if not _is_valid_utf8_str(payload_kind):
+        raise FirewallEvidenceError(
+            "UNPAIRED_UNICODE_SURROGATE",
+            "payload_kind",
+            "payload_kind: unpaired Unicode surrogate disallowed",
+        )
     normalized = _PAYLOAD_KIND_ALIASES.get(payload_kind.strip().lower())
     if normalized not in SUPPORTED_PAYLOAD_KINDS:
         raise FirewallEvidenceError(
@@ -1431,10 +2041,12 @@ def _finding(
 
 
 def _dedupe_and_sort_findings(findings: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
-    seen: set[tuple[str, str, str, str, str | None]] = set()
+    seen: set[tuple[str | None, str, str, str, str, str | None]] = set()
     unique: list[dict[str, Any]] = []
     for item in findings:
+        art_id = item.get("artifact_id")
         sig = (
+            str(art_id) if art_id is not None else None,
             str(item["code"]),
             str(item["category"]),
             str(item["path"]),
@@ -1444,7 +2056,15 @@ def _dedupe_and_sort_findings(findings: Iterable[dict[str, Any]]) -> list[dict[s
         if sig not in seen:
             seen.add(sig)
             unique.append(item)
-    unique.sort(key=lambda r: (r["category"], r["code"], r["path"], r["rule"]))
+    unique.sort(
+        key=lambda r: (
+            str(r.get("artifact_id") or ""),
+            r["category"],
+            r["code"],
+            r["path"],
+            r["rule"],
+        )
+    )
     return unique
 
 
@@ -1479,11 +2099,11 @@ def evaluate_pause_gate(
         active (and valid ``restored.json`` when ``require_restored_marker=True``) to
         return ``ALLOW_FREE_PUBLISH``.
     """
-    if gate_mode not in SUPPORTED_GATE_MODES:
+    if not isinstance(gate_mode, str) or gate_mode not in SUPPORTED_GATE_MODES:
         raise FirewallEvidenceError(
             "UNSUPPORTED_GATE_MODE",
             "gate_mode",
-            f"unsupported gate_mode: {gate_mode!r}",
+            f"unsupported gate_mode ({type(gate_mode).__name__})",
         )
 
     as_of = _parse_utc_ns(as_of_utc, "as_of_utc")
@@ -1532,8 +2152,34 @@ def evaluate_pause_gate(
                     "contentops_pause",
                     "both pause_dir and publisher_stops_dir are required",
                 )
-            p_dir = Path(pause_dir)
-            s_dir = Path(publisher_stops_dir)
+            if not isinstance(pause_dir, (str, os.PathLike)) or isinstance(pause_dir, bytes):
+                raise FirewallEvidenceError(
+                    "PAUSE_DIR_PATH_INVALID",
+                    "contentops_pause",
+                    f"pause_dir must be a filesystem path, got {type(pause_dir).__name__}",
+                )
+            if not isinstance(publisher_stops_dir, (str, os.PathLike)) or isinstance(publisher_stops_dir, bytes):
+                raise FirewallEvidenceError(
+                    "PUBLISHER_STOPS_DIR_PATH_INVALID",
+                    "contentops_pause",
+                    f"publisher_stops_dir must be a filesystem path, got {type(publisher_stops_dir).__name__}",
+                )
+            p_raw = os.fspath(pause_dir)
+            s_raw = os.fspath(publisher_stops_dir)
+            if not isinstance(p_raw, str) or not _is_valid_utf8_str(p_raw):
+                raise FirewallEvidenceError(
+                    "PAUSE_DIR_PATH_INVALID",
+                    "contentops_pause",
+                    "pause_dir path is not a valid UTF-8 string",
+                )
+            if not isinstance(s_raw, str) or not _is_valid_utf8_str(s_raw):
+                raise FirewallEvidenceError(
+                    "PUBLISHER_STOPS_DIR_PATH_INVALID",
+                    "contentops_pause",
+                    "publisher_stops_dir path is not a valid UTF-8 string",
+                )
+            p_dir = Path(p_raw)
+            s_dir = Path(s_raw)
             manifest = strict_loads_json_bytes(
                 _read_regular_file(p_dir / "manifest.json", label="pause_manifest"),
                 label="pause_manifest",
@@ -1546,6 +2192,12 @@ def evaluate_pause_gate(
                 restored_present = True
             except FileNotFoundError:
                 restored_present = False
+            except OSError as exc:
+                raise FirewallEvidenceError(
+                    "RESTORED_STAT_FAILED",
+                    "restored_json",
+                    f"cannot stat restored.json ({type(exc).__name__})",
+                ) from exc
             restored_doc: dict[str, Any] | None = None
             if restored_present and gate_mode == GATE_MODE_PUBLISH:
                 restored_doc = strict_loads_json_bytes(
@@ -1594,8 +2246,12 @@ def evaluate_pause_gate(
                 )
             restored_present = raw_restored
             restored_doc = None
-            if restored_present and "restored_at_utc" in pause_state:
-                restored_doc = {"started_at_utc": pause_state.get("restored_at_utc")}
+            if restored_present and ("restored_at_utc" in pause_state or "dry_run" in pause_state):
+                restored_doc = {}
+                if "restored_at_utc" in pause_state:
+                    restored_doc["started_at_utc"] = pause_state["restored_at_utc"]
+                if "dry_run" in pause_state:
+                    restored_doc["dry_run"] = pause_state["dry_run"]
 
         paused_raw = manifest.get("paused_at_utc")
         resume_raw = manifest.get("resume_at_utc")
@@ -1679,8 +2335,30 @@ def evaluate_pause_gate(
                     "contentops_pause",
                     "restored_at_utc / restored.json timestamp required when require_restored_marker=True",
                 )
-            started_raw = restored_doc.get("started_at_utc") or restored_doc.get("ended_at_utc")
-            started_ns = _parse_utc_ns(started_raw, "restored.started_at_utc")
+            if "dry_run" in restored_doc and restored_doc["dry_run"] is not False:
+                raise FirewallEvidenceError(
+                    "RESTORED_MARKER_DRY_RUN_FORBIDDEN",
+                    "contentops_pause",
+                    "restored.json dry_run marker must be false (dry-run output cannot authorize live publish)",
+                )
+            if "started_at_utc" in restored_doc:
+                started_ns = _parse_utc_ns(restored_doc["started_at_utc"], "restored.started_at_utc")
+                if "ended_at_utc" in restored_doc:
+                    ended_ns = _parse_utc_ns(restored_doc["ended_at_utc"], "restored.ended_at_utc")
+                    if ended_ns < started_ns or ended_ns > as_of:
+                        raise FirewallEvidenceError(
+                            "RESTORED_CLOCK_INVALID",
+                            "contentops_pause",
+                            "restored.json ended_at_utc outside [started_at_utc, as_of_utc]",
+                        )
+            elif "ended_at_utc" in restored_doc:
+                started_ns = _parse_utc_ns(restored_doc["ended_at_utc"], "restored.ended_at_utc")
+            else:
+                raise FirewallEvidenceError(
+                    "RESTORED_CLOCK_MISSING",
+                    "contentops_pause",
+                    "restored.json requires explicit started_at_utc (or ended_at_utc) timestamp",
+                )
             if started_ns < resume_ns or started_ns > as_of:
                 raise FirewallEvidenceError(
                     "RESTORED_CLOCK_INVALID",
@@ -1731,13 +2409,28 @@ def _has_private_balance_money(text: str) -> bool:
     for match in _BALANCE_MONEY_RE.finditer(text):
         word = match.group(1).lower()
         prefix = text[max(0, match.start() - 48):match.start()]
-        suffix = text[match.end(1):match.end(1) + 20]
+        suffix = text[match.end(1):match.end(1) + 28]
+        has_private_owner = bool(_PRIVATE_OWNER_PREFIX_RE.search(prefix))
         if word == "balance":
-            if _MACRO_BALANCE_EXEMPT_RE.search(prefix) or _BALANCE_SHEET_SUFFIX_RE.search(suffix):
+            if not has_private_owner and (
+                _MACRO_BALANCE_EXEMPT_RE.search(prefix) or _BALANCE_SHEET_SUFFIX_RE.search(suffix)
+            ):
                 continue
-        if word == "profit" and re.search(r"\b(?:corporate|operating|gross)\s+$", prefix, re.IGNORECASE):
-            continue
-        if word == "capital" and re.search(r"\b(?:working|human|fixed|venture|private)\s+$", prefix, re.IGNORECASE):
+        if word == "equity":
+            if not has_private_owner and (
+                _MACRO_EQUITY_PREFIX_RE.search(prefix) or _MACRO_EQUITY_SUFFIX_RE.search(suffix)
+            ):
+                continue
+        if word == "capital":
+            if not has_private_owner and (
+                _MACRO_CAPITAL_PREFIX_RE.search(prefix) or _MACRO_CAPITAL_SUFFIX_RE.search(suffix)
+            ):
+                continue
+        if word in ("profit", "loss") and not has_private_owner and re.search(
+            r"\b(?:corporate|operating|gross|quarterly|annual|bank|sector|industry|pre-?tax|net\s+operating)\s+$",
+            prefix,
+            re.IGNORECASE,
+        ):
             continue
         return True
     return False
@@ -1751,9 +2444,21 @@ def _scan_urls_in_text(text: str, path: str, findings: list[dict[str, Any]]) -> 
                 category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
                 path=path,
                 rule="UNSAFE_OR_CREDENTIALED_URL",
-                summary="unsafe, file:///, javascript:, or credentialed URL forbidden in public copy",
+                summary="unsafe, file:///, javascript:, vbscript:, ftp:, or credentialed URL forbidden in public copy",
             )
         )
+    for attr_match in _ATTR_SCHEME_RE.finditer(text):
+        scheme = attr_match.group(1).lower()
+        if scheme != "https":
+            findings.append(
+                _finding(
+                    code="PUBLIC_WEBAPP_UNSAFE_URL_SCHEME",
+                    category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                    path=path,
+                    rule="NON_HTTPS_HREF_OR_SRC_SCHEME",
+                    summary=f"non-HTTPS attribute URL scheme forbidden in public copy ({scheme}:)",
+                )
+            )
     for raw_url in _URL_EXTRACT_RE.findall(text):
         candidate = raw_url.rstrip(".,;:!?")
         try:
@@ -1787,6 +2492,17 @@ def _scan_urls_in_text(text: str, path: str, findings: list[dict[str, Any]]) -> 
                     path=path,
                     rule="HTTPS_REQUIRED",
                     summary="plain http:// URL forbidden in public copy",
+                )
+            )
+        if parsed.path and _AFFILIATE_URL_PATH_RE.search(parsed.path):
+            findings.append(
+                _finding(
+                    code="CC024_AFFILIATE_URL_PATH",
+                    category="CC024_AFFILIATE_PROMO",
+                    path=path,
+                    rule="AFFILIATE_URL_PATH",
+                    cc024_bucket="affiliate_count",
+                    summary="affiliate/referral URL path segment disallowed",
                 )
             )
         qs = parse_qs(parsed.query, keep_blank_values=True)
@@ -1828,11 +2544,12 @@ def _scan_string_value(
     norm = _normalize_text(raw_text)
     if not norm.strip():
         return
-    lowered = norm.lower()
+    surfaces = _scan_surfaces(norm)
+    lowered_surfaces = tuple(s.lower() for s in surfaces)
 
     # 1. Rule A3 — Kelly f* / sizing / lot formulas
     for rule_name, pattern in _KELLY_SIZING_LOT_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="RULE_A3_KELLY_SIZING_LOT_LEAK",
@@ -1844,7 +2561,7 @@ def _scan_string_value(
             )
 
     # 2. Rule A3 — Exact stop-loss / take-profit / entry fill levels
-    if _STOP_LOSS_RE.search(norm):
+    if any(_STOP_LOSS_RE.search(s) for s in surfaces):
         findings.append(
             _finding(
                 code="RULE_A3_STOP_LOSS_LEVEL_LEAK",
@@ -1854,7 +2571,7 @@ def _scan_string_value(
                 summary="exact stop-loss / broker-stop level blocked",
             )
         )
-    if _has_non_policy_take_profit(norm):
+    if any(_has_non_policy_take_profit(s) for s in surfaces):
         findings.append(
             _finding(
                 code="RULE_A3_TAKE_PROFIT_LEVEL_LEAK",
@@ -1864,7 +2581,7 @@ def _scan_string_value(
                 summary="take-profit / trade target level blocked (Decision 157 / Rule A3)",
             )
         )
-    if _ENTRY_FILL_RE.search(norm):
+    if any(_ENTRY_FILL_RE.search(s) for s in surfaces):
         findings.append(
             _finding(
                 code="RULE_A3_ENTRY_FILL_LEVEL_LEAK",
@@ -1876,7 +2593,7 @@ def _scan_string_value(
         )
 
     # 3. Rule A3 — Account balance / equity / PnL figures
-    if _ACCOUNT_EQUITY_PNL_EXPLICIT_RE.search(norm) or _has_private_balance_money(norm):
+    if any(_ACCOUNT_EQUITY_PNL_EXPLICIT_RE.search(s) or _has_private_balance_money(s) for s in surfaces):
         findings.append(
             _finding(
                 code="RULE_A3_ACCOUNT_BALANCE_EQUITY_PNL_LEAK",
@@ -1889,7 +2606,7 @@ def _scan_string_value(
 
     # 4. Rule A3 — Broker / MT5 / IBKR account identifiers (incl. DUR343723)
     for rule_name, pattern in _BROKER_IDENTIFIER_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="RULE_A3_BROKER_ACCOUNT_IDENTIFIER_LEAK",
@@ -1902,7 +2619,7 @@ def _scan_string_value(
 
     # 5. Rule A3 — Private Study #6..#11 tags
     for rule_name, pattern in _PRIVATE_STUDY_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="RULE_A3_PRIVATE_STUDY_TAG_LEAK",
@@ -1915,7 +2632,7 @@ def _scan_string_value(
 
     # 6. Rule A3 — Raw L4 / sleeve weights
     for rule_name, pattern in _L4_SLEEVE_WEIGHT_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="RULE_A3_L4_SLEEVE_WEIGHT_LEAK",
@@ -1928,7 +2645,7 @@ def _scan_string_value(
 
     # 7. public-webapp-preview forbidden leak classes
     for tok in PUBLIC_WEBAPP_FORBIDDEN_TOKENS:
-        if tok in lowered:
+        if any(tok in low for low in lowered_surfaces):
             findings.append(
                 _finding(
                     code="PUBLIC_WEBAPP_PRIVATE_TOKEN_LEAK",
@@ -1938,7 +2655,7 @@ def _scan_string_value(
                     summary=f"public-webapp-preview forbidden private token blocked ({tok})",
                 )
             )
-    if _WINDOW_CC_GLOBAL_RE.search(norm):
+    if any(_WINDOW_CC_GLOBAL_RE.search(s) for s in surfaces):
         findings.append(
             _finding(
                 code="PUBLIC_WEBAPP_PRIVATE_GLOBAL_LEAK",
@@ -1949,7 +2666,7 @@ def _scan_string_value(
             )
         )
     for book_tok in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS:
-        if book_tok in lowered:
+        if any(book_tok in low for low in lowered_surfaces):
             findings.append(
                 _finding(
                     code="PUBLIC_WEBAPP_BOOK_DUMP_MARKER_LEAK",
@@ -1959,7 +2676,7 @@ def _scan_string_value(
                     summary=f"internal book-dump marker blocked ({book_tok})",
                 )
             )
-    if _PREVIEW_HOST_RE.search(norm):
+    if any(_PREVIEW_HOST_RE.search(s) for s in surfaces):
         findings.append(
             _finding(
                 code="PREVIEW_HOST_LINK_FORBIDDEN",
@@ -1969,7 +2686,7 @@ def _scan_string_value(
                 summary="preview/staging host or fatcat2109 link blocked (Decision 83)",
             )
         )
-    if _FORBIDDEN_PUBLIC_TIME_RE.search(norm):
+    if any(_FORBIDDEN_PUBLIC_TIME_RE.search(s) for s in surfaces):
         findings.append(
             _finding(
                 code="PUBLIC_TIMEZONE_ET_REQUIRED",
@@ -1979,7 +2696,7 @@ def _scan_string_value(
                 summary="GMT+7 / UTC+7 / Bangkok / Vietnam clock forbidden in public copy (Decision 90)",
             )
         )
-    if _AI_MODEL_LEAK_RE.search(norm):
+    if any(_AI_MODEL_LEAK_RE.search(s) for s in surfaces):
         findings.append(
             _finding(
                 code="PUBLIC_AI_MODEL_AUTHORSHIP_LEAK",
@@ -1990,29 +2707,49 @@ def _scan_string_value(
             )
         )
 
-    # CC-791 / PublicOddsLeakCheckV1 (clause-level scan over prose fields)
-    if leaf_key_norm not in _NON_PROSE_ODDS_KEYS:
-        collapsed = " ".join(norm.split())
-        for clause in _CLAUSE_SPLIT_RE.split(collapsed):
-            segment = clause.strip()
-            if not segment:
-                continue
-            odds_rule = _match_public_odds_clause(segment)
-            if odds_rule is not None:
+    # Decision 107 raw CFD / broker symbol prose check (exempting URLs & technical metadata/ID keys)
+    if leaf_key_norm not in _NON_PROSE_INSTRUMENT_KEYS and not leaf_key_norm.endswith(("_id", "_ids")):
+        for surface in surfaces:
+            without_urls = _URL_EXTRACT_RE.sub(" ", surface)
+            if _DECISION_107_RAW_CFD_SYMBOL_RE.search(without_urls):
                 findings.append(
                     _finding(
-                        code="PUBLIC_ODDS_LEAK_CC791",
+                        code="PUBLIC_RAW_CFD_SYMBOL_DECISION_107",
                         category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
                         path=path,
-                        rule=odds_rule,
-                        cc024_bucket="raw_vendor_leak_count",
-                        summary=f"numeric market/prediction/FedWatch odds blocked ({odds_rule})",
+                        rule="DECISION_107_RAW_CFD_SYMBOL",
+                        summary="raw CFD / broker symbol name forbidden in public prose (Decision 107)",
                     )
                 )
+                break
 
-    # Raw licensed vendor redistribution leak
+    # CC-791 / PublicOddsLeakCheckV1 (clause-level scan over prose fields, preserving line boundaries)
+    if leaf_key_norm not in _NON_PROSE_ODDS_KEYS:
+        clause_texts: list[str] = [norm]
+        stripped_md_lines = _MD_EMPHASIS_RE.sub("", norm)
+        if stripped_md_lines != norm:
+            clause_texts.append(stripped_md_lines)
+        for clause_text in clause_texts:
+            for clause in _CLAUSE_SPLIT_RE.split(clause_text):
+                segment = _WS_COLLAPSE_RE.sub(" ", clause).strip()
+                if not segment:
+                    continue
+                odds_rule = _match_public_odds_clause(segment)
+                if odds_rule is not None:
+                    findings.append(
+                        _finding(
+                            code="PUBLIC_ODDS_LEAK_CC791",
+                            category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                            path=path,
+                            rule=odds_rule,
+                            cc024_bucket="raw_vendor_leak_count",
+                            summary=f"numeric market/prediction/FedWatch odds blocked ({odds_rule})",
+                        )
+                    )
+
+    # Raw licensed vendor & CC-024 commercial data-rights leak
     for rule_name, pattern in _RAW_VENDOR_LEAK_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="CC024_RAW_VENDOR_LEAK",
@@ -2020,13 +2757,13 @@ def _scan_string_value(
                     path=path,
                     rule=rule_name,
                     cc024_bucket="raw_vendor_leak_count",
-                    summary=f"raw licensed vendor redistribution marker blocked ({rule_name})",
+                    summary=f"raw licensed vendor or commercial data-rights source blocked ({rule_name})",
                 )
             )
 
     # 8. CC-024 / Decision 96 FREE-only paywall / VIP / subscription upsells
     for rule_name, pattern in _CC024_PAYWALL_CTA_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="CC024_PAYWALL_UPSELL_FORBIDDEN",
@@ -2038,9 +2775,9 @@ def _scan_string_value(
                 )
             )
 
-    # 9. CC-024 affiliate / referral promo CTAs and URL params
+    # 9. CC-024 affiliate / referral promo CTAs and URL params/paths
     for rule_name, pattern in _CC024_AFFILIATE_PATTERNS:
-        if pattern.search(norm):
+        if any(pattern.search(s) for s in surfaces):
             findings.append(
                 _finding(
                     code="CC024_AFFILIATE_PROMO_FORBIDDEN",
@@ -2054,67 +2791,118 @@ def _scan_string_value(
     _scan_urls_in_text(norm, path, findings)
 
 
-def _check_key_name(raw_key: str, key_norm: str, path: str, value: Any, findings: list[dict[str, Any]]) -> None:
-    if key_norm in KELLY_SIZING_LOT_KEYS:
+def _check_key_name(
+    raw_key: str,
+    key_norm: str,
+    safe_key: str,
+    path: str,
+    value: Any,
+    findings: list[dict[str, Any]],
+) -> None:
+    tokens = tuple(t for t in key_norm.split("_") if t)
+    is_redacted = safe_key != raw_key
+    display_key = safe_key if is_redacted else key_norm
+
+    kelly_match = key_norm if key_norm in KELLY_SIZING_LOT_KEYS else _has_token_phrase(tokens, _KELLY_KEY_PHRASES)
+    if kelly_match is not None:
         findings.append(
             _finding(
                 code="RULE_A3_FORBIDDEN_KELLY_SIZING_KEY",
                 category="RULE_A3_PRIVATE_ALPHA",
                 path=path,
-                rule=f"KEY:{key_norm}",
-                summary=f"forbidden internal Kelly/sizing/lot field blocked ({key_norm})",
+                rule=f"KEY:{kelly_match}",
+                summary=f"forbidden internal Kelly/sizing/lot field blocked ({kelly_match})",
             )
         )
-    if key_norm in EXECUTION_LEVEL_FILL_KEYS:
+
+    exec_match = key_norm if key_norm in EXECUTION_LEVEL_FILL_KEYS else _has_token_phrase(tokens, _EXECUTION_KEY_PHRASES)
+    if exec_match is not None:
         findings.append(
             _finding(
                 code="RULE_A3_FORBIDDEN_EXECUTION_KEY",
                 category="RULE_A3_PRIVATE_ALPHA",
                 path=path,
-                rule=f"KEY:{key_norm}",
-                summary=f"forbidden stop-loss/take-profit/fill execution field blocked ({key_norm})",
+                rule=f"KEY:{exec_match}",
+                summary=f"forbidden stop-loss/take-profit/fill execution field blocked ({exec_match})",
             )
         )
-    if key_norm in ACCOUNT_EQUITY_PNL_KEYS:
+
+    acct_match = key_norm if key_norm in ACCOUNT_EQUITY_PNL_KEYS else _has_token_phrase(tokens, _ACCOUNT_PNL_KEY_PHRASES)
+    if acct_match is None and key_norm in ("balance", "equity"):
+        # Allow macro narrative strings under bare 'balance'/'equity' keys (B16C21-L1)
+        # while blocking numeric/mapping/currency account values.
+        is_private_acct_val = (
+            (isinstance(value, (int, float)) and not isinstance(value, bool))
+            or isinstance(value, Mapping)
+            or (isinstance(value, str) and bool(_PURE_MONEY_OR_NUM_RE.match(value.strip())))
+        )
+        if is_private_acct_val:
+            acct_match = key_norm
+    if acct_match is not None:
         findings.append(
             _finding(
                 code="RULE_A3_FORBIDDEN_ACCOUNT_PNL_KEY",
                 category="RULE_A3_PRIVATE_ALPHA",
                 path=path,
-                rule=f"KEY:{key_norm}",
-                summary=f"forbidden account balance/equity/PnL field blocked ({key_norm})",
+                rule=f"KEY:{acct_match}",
+                summary=f"forbidden account balance/equity/PnL field blocked ({acct_match})",
             )
         )
-    if key_norm in BROKER_IDENTIFIER_KEYS:
+
+    broker_match = key_norm if key_norm in BROKER_IDENTIFIER_KEYS else _has_token_phrase(tokens, _BROKER_KEY_PHRASES)
+    if broker_match is not None:
         findings.append(
             _finding(
                 code="RULE_A3_FORBIDDEN_BROKER_KEY",
                 category="RULE_A3_PRIVATE_ALPHA",
                 path=path,
-                rule=f"KEY:{key_norm}",
-                summary=f"forbidden broker/MT5/IBKR/secret field blocked ({key_norm})",
+                rule=f"KEY:{broker_match}",
+                summary=f"forbidden broker/MT5/IBKR/secret field blocked ({broker_match})",
             )
         )
-    if key_norm in PRIVATE_STUDY_TAG_KEYS:
+
+    study_match = (
+        key_norm
+        if key_norm in PRIVATE_STUDY_TAG_KEYS
+        else _has_token_phrase(tokens, _PRIVATE_STUDY_KEY_PHRASES)
+        or next((t for t in tokens if _STUDY_TOKEN_RE.match(t)), None)
+    )
+    if study_match is not None:
         findings.append(
             _finding(
                 code="RULE_A3_FORBIDDEN_PRIVATE_STUDY_KEY",
                 category="RULE_A3_PRIVATE_ALPHA",
                 path=path,
-                rule=f"KEY:{key_norm}",
-                summary=f"forbidden private Study #6..#11 / private-only key blocked ({key_norm})",
+                rule=f"KEY:{study_match}",
+                summary=f"forbidden private Study #6..#11 / private-only key blocked ({study_match})",
             )
         )
-    if key_norm in L4_SLEEVE_WEIGHT_KEYS:
+
+    l4_match = key_norm if key_norm in L4_SLEEVE_WEIGHT_KEYS else _has_token_phrase(tokens, _L4_SLEEVE_KEY_PHRASES)
+    if l4_match is not None:
         findings.append(
             _finding(
                 code="RULE_A3_FORBIDDEN_L4_SLEEVE_KEY",
                 category="RULE_A3_PRIVATE_ALPHA",
                 path=path,
-                rule=f"KEY:{key_norm}",
-                summary=f"forbidden raw L4 / sleeve weight field blocked ({key_norm})",
+                rule=f"KEY:{l4_match}",
+                summary=f"forbidden raw L4 / sleeve weight field blocked ({l4_match})",
             )
         )
+
+    odds_key_match = _has_token_phrase(tokens, _CC791_ODDS_KEY_PHRASES)
+    if odds_key_match is not None:
+        findings.append(
+            _finding(
+                code="PUBLIC_ODDS_LEAK_CC791",
+                category="PUBLIC_WEBAPP_FORBIDDEN_LEAK",
+                path=path,
+                rule=f"ODDS_KEY:{odds_key_match}",
+                cc024_bucket="raw_vendor_leak_count",
+                summary=f"structured market/prediction/FedWatch odds field blocked ({odds_key_match})",
+            )
+        )
+
     if key_norm in RAW_VENDOR_KEYS:
         findings.append(
             _finding(
@@ -2126,6 +2914,18 @@ def _check_key_name(raw_key: str, key_norm: str, path: str, value: Any, findings
                 summary=f"forbidden raw vendor data field blocked ({key_norm})",
             )
         )
+    if key_norm in ("series_id", "fred_series", "fred_id", "fred_series_id") and isinstance(value, str):
+        if _FRED_COPYRIGHTED_SERIES_EXACT_RE.fullmatch(_normalize_text(value).strip()):
+            findings.append(
+                _finding(
+                    code="CC024_RAW_VENDOR_LEAK",
+                    category="CC024_RAW_VENDOR_LEAK",
+                    path=path,
+                    rule="FRED_COPYRIGHTED_SERIES",
+                    cc024_bucket="raw_vendor_leak_count",
+                    summary=f"copyrighted FRED series disallowed ({key_norm})",
+                )
+            )
     if key_norm in PUBLIC_WEBAPP_BOOK_DUMP_MARKERS:
         findings.append(
             _finding(
@@ -2161,58 +2961,49 @@ def _check_key_name(raw_key: str, key_norm: str, path: str, value: Any, findings
             )
         )
 
-    # CC-024 paywall / paid-tier metadata keys
-    if key_norm in CC024_PAYWALL_KEYS:
-        is_nonzero_price = (
-            isinstance(value, (int, float))
-            and not isinstance(value, bool)
-            and math.isfinite(value)
-            and value != 0
-        )
-        is_truthy_non_zero = (
-            value is True
-            or (isinstance(value, str) and value.strip().lower() not in ("", "false", "0", "none", "free", "free_only"))
-            or is_nonzero_price
-        )
-        if is_truthy_non_zero:
+    # CC-024 paywall / paid-tier metadata keys (recursive, exact int without float overflow)
+    is_paywall = _is_paywall_key(key_norm)
+    if is_paywall:
+        if _is_active_metadata_value(value):
             findings.append(
                 _finding(
                     code="CC024_PAYWALL_FIELD_ACTIVE",
                     category="CC024_PAYWALL_UPSELL",
                     path=path,
-                    rule=f"KEY:{key_norm}",
+                    rule=f"KEY:{display_key}",
                     cc024_bucket="paid_paywall_count",
-                    summary=f"active paywall / paid-pricing metadata blocked ({key_norm})",
+                    summary=f"active paywall / paid-pricing metadata blocked ({display_key})",
                 )
             )
-    if key_norm in TIER_SELECTOR_KEYS:
+    if _is_tier_selector_key(key_norm) and not is_paywall:
         if isinstance(value, str):
             val_norm = _normalize_key(value)
-            if val_norm in CC024_FORBIDDEN_TIER_VALUES or (
-                key_norm in ("mode", "release_mode", "monetization_mode")
-                and val_norm not in ALLOWED_FREE_TIER_VALUES
-            ):
+            if val_norm in CC024_FORBIDDEN_TIER_VALUES or val_norm not in ALLOWED_FREE_TIER_VALUES:
                 findings.append(
                     _finding(
                         code="CC024_NON_FREE_TIER_FORBIDDEN",
                         category="CC024_PAYWALL_UPSELL",
                         path=path,
-                        rule=f"TIER:{key_norm}",
+                        rule=f"TIER:{display_key}",
                         cc024_bucket="paid_paywall_count",
-                        summary=f"non-FREE publication tier/mode blocked ({key_norm})",
+                        summary=f"non-FREE publication tier/audience/mode blocked ({display_key})",
                     )
                 )
-        elif key_norm == "tier" and isinstance(value, Mapping):
-            nested_val = value.get("value")
-            if isinstance(nested_val, str) and _normalize_key(nested_val) in CC024_FORBIDDEN_TIER_VALUES:
+        elif isinstance(value, Mapping):
+            is_cc107 = (
+                key_norm == "tier"
+                and bool(value)
+                and all(isinstance(k, str) and _normalize_key(k) in _CC107_CARD_TIER_KEYS for k in value)
+            )
+            if _mapping_has_non_free_tier(value, is_cc107_card_tier=is_cc107):
                 findings.append(
                     _finding(
                         code="CC024_NON_FREE_TIER_FORBIDDEN",
                         category="CC024_PAYWALL_UPSELL",
-                        path=f"{path}.value",
-                        rule="TIER:tier.value",
+                        path=path,
+                        rule=f"TIER:{display_key}",
                         cc024_bucket="paid_paywall_count",
-                        summary="non-FREE publication tier descriptor blocked (tier.value)",
+                        summary=f"non-FREE publication tier/audience descriptor blocked ({display_key})",
                     )
                 )
         elif value is not None:
@@ -2221,34 +3012,46 @@ def _check_key_name(raw_key: str, key_norm: str, path: str, value: Any, findings
                     code="CC024_NON_FREE_TIER_FORBIDDEN",
                     category="CC024_PAYWALL_UPSELL",
                     path=path,
-                    rule=f"TIER_TYPE:{key_norm}",
+                    rule=f"TIER_TYPE:{display_key}",
                     cc024_bucket="paid_paywall_count",
-                    summary=f"invalid non-string tier/mode field blocked ({key_norm})",
+                    summary=f"invalid non-string tier/audience/mode field blocked ({display_key})",
                 )
             )
     if key_norm in CC024_AFFILIATE_KEYS:
-        if value not in (None, "", False, 0):
+        if _is_active_metadata_value(value):
             findings.append(
                 _finding(
                     code="CC024_AFFILIATE_FIELD_ACTIVE",
                     category="CC024_AFFILIATE_PROMO",
                     path=path,
-                    rule=f"KEY:{key_norm}",
+                    rule=f"KEY:{display_key}",
                     cc024_bucket="affiliate_count",
-                    summary=f"affiliate / referral metadata field blocked ({key_norm})",
+                    summary=f"affiliate / referral metadata field blocked ({display_key})",
                 )
             )
-    if key_norm in RIGHTS_KEYS and isinstance(value, str):
-        val_norm = _normalize_key(value)
-        if val_norm in DENIED_RIGHTS_VALUES:
+    if key_norm in RIGHTS_KEYS or key_norm.endswith("_rights_class"):
+        if isinstance(value, str):
+            val_norm = _normalize_key(value)
+            if not val_norm or val_norm in DENIED_RIGHTS_VALUES:
+                findings.append(
+                    _finding(
+                        code="CC024_DENIED_PUBLIC_RIGHTS",
+                        category="CC024_RAW_VENDOR_LEAK",
+                        path=path,
+                        rule=f"RIGHTS:{display_key}",
+                        cc024_bucket="raw_vendor_leak_count",
+                        summary=f"non-public / licensed rights classification blocked ({display_key})",
+                    )
+                )
+        else:
             findings.append(
                 _finding(
-                    code="CC024_DENIED_PUBLIC_RIGHTS",
+                    code="CC024_RIGHTS_CLASS_INVALID",
                     category="CC024_RAW_VENDOR_LEAK",
                     path=path,
-                    rule=f"RIGHTS:{key_norm}",
+                    rule=f"RIGHTS_TYPE:{display_key}",
                     cc024_bucket="raw_vendor_leak_count",
-                    summary=f"non-public / licensed rights classification blocked ({key_norm})",
+                    summary=f"non-string rights classification disallowed ({display_key})",
                 )
             )
 
@@ -2449,7 +3252,7 @@ def _walk_and_inspect(
                 safe_key = _safe_path_segment(raw_key)
                 child_path = f"{path}.{safe_key}"
                 key_norm = _normalize_key(raw_key)
-                _check_key_name(raw_key, key_norm, child_path, child, findings)
+                _check_key_name(raw_key, key_norm, safe_key, child_path, child, findings)
                 _walk_and_inspect(
                     child,
                     path=child_path,
@@ -2502,6 +3305,51 @@ def _walk_and_inspect(
     )
 
 
+def _iter_overlay_strings(obj: Any, *, depth: int = 0) -> Iterable[str]:
+    if depth > 8:
+        return
+    if isinstance(obj, str):
+        yield obj
+    elif isinstance(obj, Mapping):
+        for v in obj.values():
+            yield from _iter_overlay_strings(v, depth=depth + 1)
+    elif isinstance(obj, (list, tuple)):
+        for item in obj:
+            yield from _iter_overlay_strings(item, depth=depth + 1)
+
+
+def _check_chart_overlay_sequence(
+    entries: Any,
+    *,
+    base_path: str,
+    findings: list[dict[str, Any]],
+) -> None:
+    if not isinstance(entries, (list, tuple)):
+        return
+    for idx, entry in enumerate(entries):
+        flagged = False
+        for raw_text in _iter_overlay_strings(entry):
+            if not _is_valid_utf8_str(raw_text):
+                continue
+            norm = _normalize_text(raw_text)
+            for surface in _scan_surfaces(norm):
+                if _CHART_EXECUTION_OVERLAY_RE.search(surface):
+                    flagged = True
+                    break
+            if flagged:
+                break
+        if flagged:
+            findings.append(
+                _finding(
+                    code="RULE_A3_CHART_EXECUTION_LEVEL_DRAWN",
+                    category="RULE_A3_PRIVATE_ALPHA",
+                    path=f"{base_path}[{idx}]",
+                    rule="CHART_LEVELS_EXECUTION_LEAK",
+                    summary="execution stop/target/fill overlay forbidden on public chart",
+                )
+            )
+
+
 def _check_chart_metadata_contract(payload: Mapping[str, Any], findings: list[dict[str, Any]]) -> None:
     """Enforce extra fail-closed invariants on chart_metadata payloads."""
     snapshot = payload.get("tradingview_snapshot")
@@ -2516,21 +3364,18 @@ def _check_chart_metadata_contract(payload: Mapping[str, Any], findings: list[di
                     summary="chart snapshot target_drawn must be false (Decision 157)",
                 )
             )
-        levels = snapshot.get("levels_drawn")
-        if isinstance(levels, (list, tuple)):
-            for idx, entry in enumerate(levels):
-                if isinstance(entry, Mapping):
-                    label = _normalize_text(str(entry.get("label") or entry.get("kind") or "")).lower()
-                    if any(tok in label for tok in ("stop", "sl", "target", "tp", "take profit", "fill", "entry fill")):
-                        findings.append(
-                            _finding(
-                                code="RULE_A3_CHART_EXECUTION_LEVEL_DRAWN",
-                                category="RULE_A3_PRIVATE_ALPHA",
-                                path=f"$.tradingview_snapshot.levels_drawn[{idx}]",
-                                rule="CHART_LEVELS_EXECUTION_LEAK",
-                                summary="execution stop/target/fill overlay forbidden on public chart",
-                            )
-                        )
+        for overlay_key in ("levels_drawn", "annotations", "lines"):
+            _check_chart_overlay_sequence(
+                snapshot.get(overlay_key),
+                base_path=f"$.tradingview_snapshot.{overlay_key}",
+                findings=findings,
+            )
+    for overlay_key in ("levels_drawn", "annotations", "lines"):
+        _check_chart_overlay_sequence(
+            payload.get(overlay_key),
+            base_path=f"$.{overlay_key}",
+            findings=findings,
+        )
 
 
 def _inspect_single_artifact(
@@ -2547,7 +3392,10 @@ def _inspect_single_artifact(
     payload_hash: str
 
     if raw_bytes is not None:
-        payload_hash = sha256_hex(raw_bytes)
+        if isinstance(raw_bytes, (bytes, bytearray)):
+            payload_hash = sha256_hex(bytes(raw_bytes))
+        else:
+            payload_hash = sha256_hex(f"<non-bytes:{type(raw_bytes).__name__}>".encode("utf-8"))
         try:
             parsed_obj = strict_loads_json_bytes(raw_bytes, label=artifact_id, allow_bom=False)
         except FirewallEvidenceError as exc:
@@ -2658,58 +3506,98 @@ def evaluate_release_batch(
       - exactly one of ``payload`` (Mapping), ``raw_bytes`` (bytes), or ``path`` (Path/str)
     """
     top_findings: list[dict[str, Any]] = []
-    if gate_mode not in SUPPORTED_GATE_MODES:
+    gate_mode_valid = isinstance(gate_mode, str) and gate_mode in SUPPORTED_GATE_MODES
+    safe_gate_mode = (
+        gate_mode
+        if gate_mode_valid
+        else (gate_mode if _is_valid_utf8_str(gate_mode) else f"<invalid:{type(gate_mode).__name__}>")
+    )
+    if not gate_mode_valid:
+        if isinstance(gate_mode, str) and not _is_valid_utf8_str(gate_mode):
+            top_findings.append(
+                _finding(
+                    code="UNPAIRED_UNICODE_SURROGATE",
+                    category="STRUCTURAL_HYGIENE",
+                    path="$.gate_mode",
+                    rule="UNPAIRED_SURROGATE",
+                    summary="gate_mode: unpaired Unicode surrogate disallowed",
+                )
+            )
         top_findings.append(
             _finding(
                 code="UNSUPPORTED_GATE_MODE",
                 category="STRUCTURAL_HYGIENE",
                 path="$.gate_mode",
                 rule="UNSUPPORTED_GATE_MODE",
-                summary=f"unsupported gate_mode: {gate_mode!r}",
+                summary=f"unsupported gate_mode ({type(gate_mode).__name__})",
             )
         )
 
     as_of_valid = True
-    try:
-        as_of_ns = _parse_utc_ns(as_of_utc, "as_of_utc")
-    except FirewallEvidenceError as exc:
+    as_of_ns = None
+    if isinstance(as_of_utc, str) and not _is_valid_utf8_str(as_of_utc):
         as_of_valid = False
-        as_of_ns = None
         top_findings.append(
             _finding(
-                code=exc.code,
+                code="UNPAIRED_UNICODE_SURROGATE",
                 category="STRUCTURAL_HYGIENE",
                 path="$.as_of_utc",
-                rule=exc.code,
-                summary=exc.cause,
+                rule="UNPAIRED_SURROGATE",
+                summary="as_of_utc: unpaired Unicode surrogate disallowed",
             )
         )
-
-    obs_raw = as_of_utc if observed_at_utc is None else observed_at_utc
-    try:
-        obs_ns = _parse_utc_ns(obs_raw, "observed_at_utc")
-        if as_of_ns is not None and obs_ns > as_of_ns:
+    else:
+        try:
+            as_of_ns = _parse_utc_ns(as_of_utc, "as_of_utc")
+        except FirewallEvidenceError as exc:
+            as_of_valid = False
+            as_of_ns = None
             top_findings.append(
                 _finding(
-                    code="OBSERVED_AFTER_AS_OF_CUTOFF",
+                    code=exc.code,
                     category="STRUCTURAL_HYGIENE",
-                    path="$.observed_at_utc",
-                    rule="CAUSALITY_VIOLATION",
-                    summary="observed_at_utc cannot be after as_of_utc",
+                    path="$.as_of_utc",
+                    rule=exc.code,
+                    summary=exc.cause,
                 )
             )
-    except FirewallEvidenceError as exc:
+
+    obs_raw = as_of_utc if observed_at_utc is None else observed_at_utc
+    if isinstance(obs_raw, str) and not _is_valid_utf8_str(obs_raw):
         top_findings.append(
             _finding(
-                code=exc.code,
+                code="UNPAIRED_UNICODE_SURROGATE",
                 category="STRUCTURAL_HYGIENE",
                 path="$.observed_at_utc",
-                rule=exc.code,
-                summary=exc.cause,
+                rule="UNPAIRED_SURROGATE",
+                summary="observed_at_utc: unpaired Unicode surrogate disallowed",
             )
         )
+    else:
+        try:
+            obs_ns = _parse_utc_ns(obs_raw, "observed_at_utc")
+            if as_of_ns is not None and obs_ns > as_of_ns:
+                top_findings.append(
+                    _finding(
+                        code="OBSERVED_AFTER_AS_OF_CUTOFF",
+                        category="STRUCTURAL_HYGIENE",
+                        path="$.observed_at_utc",
+                        rule="CAUSALITY_VIOLATION",
+                        summary="observed_at_utc cannot be after as_of_utc",
+                    )
+                )
+        except FirewallEvidenceError as exc:
+            top_findings.append(
+                _finding(
+                    code=exc.code,
+                    category="STRUCTURAL_HYGIENE",
+                    path="$.observed_at_utc",
+                    rule=exc.code,
+                    summary=exc.cause,
+                )
+            )
 
-    if as_of_valid and gate_mode in SUPPORTED_GATE_MODES:
+    if as_of_valid and gate_mode_valid:
         pause_gate = evaluate_pause_gate(
             as_of_utc,
             gate_mode=gate_mode,
@@ -2720,8 +3608,8 @@ def evaluate_release_batch(
         )
     else:
         pause_gate = {
-            "gate_mode": gate_mode,
-            "as_of_utc": as_of_utc if isinstance(as_of_utc, str) else None,
+            "gate_mode": safe_gate_mode,
+            "as_of_utc": _safe_receipt_str(as_of_utc, fallback=None),
             "pause_until_utc": DEC15_PAUSE_BOUNDARY_UTC,
             "before_dec15_boundary": None,
             "paused_at_utc": None,
@@ -2764,7 +3652,18 @@ def evaluate_release_batch(
             art_id = spec.get("artifact_id")
             if art_id is None:
                 art_id = f"artifact-{idx + 1}"
-            if not isinstance(art_id, str) or not art_id.strip():
+            if isinstance(art_id, str) and not _is_valid_utf8_str(art_id):
+                art_id = f"artifact-{idx + 1}"
+                top_findings.append(
+                    _finding(
+                        code="UNPAIRED_UNICODE_SURROGATE",
+                        category="STRUCTURAL_HYGIENE",
+                        path=f"$.artifacts[{idx}].artifact_id",
+                        rule="UNPAIRED_SURROGATE",
+                        summary="artifact_id: unpaired Unicode surrogate disallowed",
+                    )
+                )
+            elif not isinstance(art_id, str) or not art_id.strip():
                 art_id = f"artifact-{idx + 1}"
                 top_findings.append(
                     _finding(
@@ -2775,16 +3674,19 @@ def evaluate_release_batch(
                         summary="artifact_id must be a non-empty string",
                     )
                 )
-            elif art_id in seen_ids:
-                top_findings.append(
-                    _finding(
-                        code="DUPLICATE_ARTIFACT_ID",
-                        category="STRUCTURAL_HYGIENE",
-                        path=f"$.artifacts[{idx}].artifact_id",
-                        rule="DUPLICATE_ARTIFACT_ID",
-                        summary=f"duplicate artifact_id disallowed ({art_id})",
+            else:
+                safe_art_id = _safe_path_segment(art_id)
+                if art_id in seen_ids:
+                    top_findings.append(
+                        _finding(
+                            code="DUPLICATE_ARTIFACT_ID",
+                            category="STRUCTURAL_HYGIENE",
+                            path=f"$.artifacts[{idx}].artifact_id",
+                            rule="DUPLICATE_ARTIFACT_ID",
+                            summary=f"duplicate artifact_id disallowed ({safe_art_id})",
+                        )
                     )
-                )
+                art_id = safe_art_id
             seen_ids.add(art_id)
 
             kind_raw = spec.get("payload_kind", "post")
@@ -2818,8 +3720,44 @@ def evaluate_release_batch(
                 continue
 
             if spec.get("path") is not None:
+                raw_path = spec["path"]
+                if not isinstance(raw_path, (str, os.PathLike)) or isinstance(raw_path, bytes):
+                    top_findings.append(
+                        _finding(
+                            code="INVALID_ARTIFACT_PATH",
+                            category="STRUCTURAL_HYGIENE",
+                            path=f"$.artifacts[{idx}].path",
+                            rule="INVALID_ARTIFACT_PATH",
+                            summary=f"artifact path must be str or PathLike, got {type(raw_path).__name__}",
+                        )
+                    )
+                    continue
                 try:
-                    file_bytes = _read_regular_file(Path(spec["path"]), label=art_id)
+                    fspath_val = os.fspath(raw_path)
+                except TypeError:
+                    top_findings.append(
+                        _finding(
+                            code="INVALID_ARTIFACT_PATH",
+                            category="STRUCTURAL_HYGIENE",
+                            path=f"$.artifacts[{idx}].path",
+                            rule="INVALID_ARTIFACT_PATH",
+                            summary=f"artifact path is not a valid PathLike ({type(raw_path).__name__})",
+                        )
+                    )
+                    continue
+                if not isinstance(fspath_val, str) or not _is_valid_utf8_str(fspath_val):
+                    top_findings.append(
+                        _finding(
+                            code="UNPAIRED_UNICODE_SURROGATE" if isinstance(fspath_val, str) else "INVALID_ARTIFACT_PATH",
+                            category="STRUCTURAL_HYGIENE",
+                            path=f"$.artifacts[{idx}].path",
+                            rule="INVALID_ARTIFACT_PATH",
+                            summary="artifact path must be a valid UTF-8 string",
+                        )
+                    )
+                    continue
+                try:
+                    file_bytes = _read_regular_file(Path(fspath_val), label=art_id)
                 except FirewallEvidenceError as exc:
                     top_findings.append(
                         _finding(
@@ -2890,7 +3828,7 @@ def evaluate_release_batch(
     cc024_mode = FREE_ONLY_MODE if (not all_findings and checked_artifact_count > 0) else VERDICT_BLOCKED
     cc024_audit = {
         "mode": cc024_mode,
-        "observed_at_utc": obs_raw if isinstance(obs_raw, str) else "",
+        "observed_at_utc": _safe_receipt_str(obs_raw, fallback=""),
         "candidate_sha256": candidate_sha256,
         "checked_artifact_count": int(checked_artifact_count),
         "paid_paywall_count": int(paid_paywall_count),
@@ -2927,8 +3865,8 @@ def evaluate_release_batch(
         "cc1011_compat_commit": CC1011_COMPAT_COMMIT,
         "verdict": verdict,
         "publish_allowed": publish_allowed,
-        "gate_mode": gate_mode,
-        "as_of_utc": as_of_utc if isinstance(as_of_utc, str) else None,
+        "gate_mode": safe_gate_mode,
+        "as_of_utc": _safe_receipt_str(as_of_utc, fallback=None),
         "pause_until_utc": DEC15_PAUSE_BOUNDARY_UTC,
         "payload_sha256": artifact_results[0]["payload_sha256"] if len(artifact_results) == 1 else None,
         "candidate_sha256": candidate_sha256,
@@ -3016,6 +3954,29 @@ def evaluate_payload_bytes(
     )
 
 
+_FORBIDDEN_PUBLIC_FILENAME_TOKENS: tuple[str, ...] = (
+    ".private.",
+    "ibkr-book",
+    "exness-book",
+    "ibkr_book",
+    "exness_book",
+    "internal-economic-calendar",
+    "internal-gamma-options",
+    "internal-price-bars",
+    "internal-financialjuice-wire",
+    "alpha-stress-phase",
+    "alpha-stress-summary",
+    "private-desk",
+    "private_desk",
+    "attention-map-summary",
+    "contentops-newsroom-summary",
+    "market-forces-attribution",
+    "_private_texts",
+    "private_only",
+    "desk-record.private",
+)
+
+
 def evaluate_payload_file(
     path: Path | str,
     *,
@@ -3030,8 +3991,20 @@ def evaluate_payload_file(
     require_restored_marker: bool = True,
 ) -> dict[str, Any]:
     """Evaluate a single regular JSON file read-only from disk."""
-    target = Path(path)
-    art_id = artifact_id or target.name
+    if isinstance(path, (str, os.PathLike)) and not isinstance(path, bytes):
+        try:
+            fs_val = os.fspath(path)
+        except TypeError:
+            fs_val = None
+        if isinstance(fs_val, str) and _is_valid_utf8_str(fs_val):
+            target: Any = Path(fs_val)
+            art_id = artifact_id or target.name or "candidate-1"
+        else:
+            target = path
+            art_id = artifact_id or "candidate-1"
+    else:
+        target = path
+        art_id = artifact_id or "candidate-1"
     return evaluate_release_batch(
         [{"artifact_id": art_id, "payload_kind": payload_kind, "path": target}],
         as_of_utc=as_of_utc,
@@ -3051,6 +4024,17 @@ def scan_public_directory_readonly(
     max_files: int = 2000,
 ) -> dict[str, Any]:
     """Read-only audit of a public directory (e.g. public-webapp-preview) for leak parity."""
+    if not isinstance(directory, (str, os.PathLike)) or isinstance(directory, bytes):
+        return {
+            "exists": False,
+            "directory": f"<invalid:{type(directory).__name__}>",
+            "files_scanned": 0,
+            "clean_files": 0,
+            "failed_files": 1,
+            "findings_count": 1,
+            "truncated": False,
+            "failures": [{"file": "<invalid>", "code": "INVALID_DIRECTORY_PATH"}],
+        }
     root = Path(directory)
     if not root.is_dir():
         return {
@@ -3060,26 +4044,56 @@ def scan_public_directory_readonly(
             "clean_files": 0,
             "failed_files": 0,
             "findings_count": 0,
+            "truncated": False,
             "failures": [{"file": str(root), "code": "DIRECTORY_MISSING"}],
         }
+    effective_max = 0 if (isinstance(max_files, bool) or not isinstance(max_files, int) or max_files < 0) else max_files
     files_scanned = 0
     clean_files = 0
     failures: list[dict[str, Any]] = []
     findings_total = 0
+    truncated = False
     for candidate in sorted(root.rglob("*")):
-        if not candidate.is_file():
+        rel = candidate.relative_to(root).as_posix()
+        try:
+            st = candidate.lstat()
+        except OSError as exc:
+            if files_scanned >= effective_max:
+                truncated = True
+                break
+            files_scanned += 1
+            findings_total += 1
+            failures.append({
+                "file": rel,
+                "finding_count": 1,
+                "codes": ["FILE_STAT_FAILED"],
+                "error": type(exc).__name__,
+            })
+            continue
+        mode = st.st_mode
+        if stat.S_ISDIR(mode):
+            continue
+        if stat.S_ISLNK(mode) or not stat.S_ISREG(mode):
+            if files_scanned >= effective_max:
+                truncated = True
+                break
+            files_scanned += 1
+            findings_total += 1
+            failures.append({
+                "file": rel,
+                "finding_count": 1,
+                "codes": ["NON_REGULAR_FILE_FORBIDDEN"],
+            })
             continue
         if candidate.suffix.lower() not in allowed_suffixes:
             continue
-        if files_scanned >= max_files:
+        if files_scanned >= effective_max:
+            truncated = True
             break
         files_scanned += 1
-        rel = candidate.relative_to(root).as_posix()
         rel_lower = rel.lower()
         file_findings: list[dict[str, Any]] = []
-        for bad_tok in (".private.", "ibkr-book", "exness-book", "internal-economic-calendar",
-                        "internal-gamma-options", "internal-price-bars", "internal-financialjuice-wire",
-                        "alpha-stress-phase", "alpha-stress-summary"):
+        for bad_tok in _FORBIDDEN_PUBLIC_FILENAME_TOKENS:
             if bad_tok in rel_lower:
                 file_findings.append(
                     _finding(
@@ -3136,6 +4150,7 @@ def scan_public_directory_readonly(
         "clean_files": clean_files,
         "failed_files": len(failures),
         "findings_count": findings_total,
+        "truncated": truncated,
         "failures": failures[:100],
     }
 
